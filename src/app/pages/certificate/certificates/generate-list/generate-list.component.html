@@ -1,0 +1,37 @@
+
+        <div class="row" *ngIf="messageError">
+            <div class="col-12">
+                <nb-alert status="danger" class="container-fluid">
+                    <strong>Oh Dios!</strong> {{messageError}}
+                </nb-alert>
+            </div>
+        </div>
+        <nb-card 
+            [nbSpinner]="loading" 
+            nbSpinnerStatus="danger" 
+            nbSpinnerSize="large" 
+            nbSpinnerMessage=""
+        >
+        <ngx-base-list
+        [messageError]="messageError"
+        [routes]="routes">
+        
+        <div content>
+ 
+                <ngx-base-table 
+                    (propagar)="GetDataSelect($event)"
+                    [title]="'Discentes'"
+                    [settings]="settings"
+                    [source]="data"
+                >
+                    <div actions>
+                        <div class="actions">
+                            <a style="margin-right: 5px;" nbButton routerLink="/pages/course/list">Volver</a>
+                            <button nbButton status="success" (click)="generateCertificate()" >Certificar</button>
+                        </div>
+                    </div>
+                </ngx-base-table>
+
+            </div>
+        </ngx-base-list>
+        </nb-card>

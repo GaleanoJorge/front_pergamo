@@ -1,0 +1,101 @@
+<div class="row" *ngIf="messageError">
+    <div class="col-12">
+        <nb-alert status="danger" class="container-fluid">
+            <strong>Oh Dios!</strong> {{messageError}}
+        </nb-alert>
+    </div>
+</div>
+<ngx-breadcrumb [routes]="routes"></ngx-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <nb-card class="nb-card-title">
+            <div class="icon-container">
+                <div class="icon status-warning">
+                    <i class="nb-person"></i>
+                </div>
+            </div>
+            <div class="details">
+                <div class="title h5">Instituciones Educativas</div>
+                <div class="status paragraph-2">Gestión</div>
+            </div>
+        </nb-card>
+    </div>
+</div>
+<nb-card>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="instForm" (ngSubmit)="saveInst()">
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="form-text text-muted">País:</small>
+                            <nb-select placeholder="País" size="medium" fullWidth
+                                (selectedChange)="onCountrySelected($event)">
+                                <nb-option *ngFor="let contry of institutionsBS.countries" [value]="contry.id">
+                                    {{contry.name}}</nb-option>
+                            </nb-select>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Departamento:</small>
+                            <nb-select placeholder="Departamento" size="medium" fullWidth
+                                (selectedChange)="onRegionSelected($event)">
+                                <nb-option *ngFor="let region of institutionsBS.regions" [value]="region.id">
+                                    {{region.name}}</nb-option>
+                            </nb-select>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Municipio:</small>
+                            <nb-select placeholder="Municipio" size="medium" fullWidth formControlName="municipality"
+                                status="{{ isSubmitted && instForm.controls.municipality.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                required municipality>
+                                <nb-option *ngFor="let municipality of institutionsBS.municipalities"
+                                    [value]="municipality.id">
+                                    {{municipality.name}}</nb-option>
+                            </nb-select>
+                            <div *ngIf="instForm.controls.municipality.errors && isSubmitted ">
+                                <small *ngIf="instForm.controls.municipality.errors.required">Seleccione un
+                                    Municipio</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Nombre:</small>
+                            <input type="text" nbInput fullWidth fieldSize="medium"
+                                status="{{ isSubmitted && instForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                placeholder="Nombre" formControlName="name" required name minlength="5">
+                            <div *ngIf="instForm.controls.name.errors && isSubmitted ">
+                                <small *ngIf="instForm.controls.name.errors.required">Ingrese el nombre del rol</small>
+                                <small *ngIf="instForm.controls.name.errors.minlength">Revise el nombre del rol</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 div-send text-right">
+                        <a nbButton status="primary" class="btn-left" *ngIf="inst" (click)="Cancel()">Cancelar</a>
+                        <a nbButton status="warning" class="btn-left" *ngIf="inst"
+                            (click)="ConfirmDelete(confirmDelete)">Eliminar</a>
+                        <button type="submit" nbButton status="danger">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<nb-card>
+    <nb-card-header>
+        <h6>Instituciones Educativas</h6>
+    </nb-card-header>
+    <nb-list>
+        <nb-list-item *ngFor="let inst of institutionsBS.educationalInstitutions">
+            <h6><a routerLink="./" (click)="EditInst(inst)">{{inst.name}}</a></h6>
+            <span>{{inst.municipality.name}}</span>
+        </nb-list-item>
+    </nb-list>
+</nb-card>
+<ng-template #confirmDelete let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>¿Desea Continuar?</nb-card-header>
+        <nb-card-footer>
+            <button nbButton status="danger" class="btn-left" (click)="ref.close()">No</button>
+            <button nbButton status="danger" class="btn-left" (click)="DeleteInst()">Si</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

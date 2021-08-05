@@ -1,0 +1,166 @@
+<button class="btn-float" (click)="showCong()" nbButton shape="round" size="large" status="danger">
+  <nb-icon icon="settings-2-outline"></nb-icon>
+</button>
+<div class="row" *ngIf="messageError">
+  <div class="col-12">
+    <nb-alert status="danger" class="container-fluid">
+      <strong>Oh Dios!</strong> {{messageError}}
+    </nb-alert>
+  </div>
+</div>
+<ngx-breadcrumb [routes]="routes" *ngIf="!onlyList"></ngx-breadcrumb>
+<div class="drag-boundary"
+     [ngClass]="{ 'top-b': !edge?.top, 'bottom-b': !edge?.bottom, 'left-b': !edge?.left, 'right-b': !edge?.right }"
+     #myBounds>
+  <nb-card accent="info">
+    <nb-card-header>Registrar</nb-card-header>
+    <nb-card-body>
+      <ngx-canvas
+        [arrayElements]="arrayElements"
+        [elementAct]="elementAct" [export]="export"
+        (exportImage)="updateUrlCanvas($event)"
+        (updateJson)="updateElementsPositions($event)"
+        [sizeCanvas]="sizeCanvas"></ngx-canvas>
+    </nb-card-body>
+  </nb-card>
+  <nb-card
+    class="modal-conf"
+    *ngIf="showConfig"
+    accent="info"
+    [nbSpinner]="loading"
+    nbSpinnerStatus="danger"
+    nbSpinnerSize="large"
+    nbSpinnerMessage=""
+    ngDraggable
+    (edge)="checkEdge($event)"
+    [bounds]="myBounds"
+    [inBounds]="inBounds"
+    [position]="positionDrag"
+    [ngDraggable]="draggable"
+    (stopped)="desactiveDrag()"
+  >
+    <nb-card-header class="move-active" (mousedown)="activeDrag()">Configuración</nb-card-header>
+    <nb-card-body>
+      <nb-stepper orientation="horizontal">
+        <nb-step [label]="signatureData">
+          <ng-template #signatureData>Datos</ng-template>
+          <div>
+            <div class="btns-options">
+              <div>
+              </div>
+              <div>
+                <button
+                  nbButton
+                  status="primary"
+                  size="small"
+                  nbStepperNext
+                  (click)="addData()"
+                >
+                  <nb-icon icon="arrow-ios-forward-outline"></nb-icon>
+                  Siguiente
+                </button>
+              </div>
+            </div>
+            <form [formGroup]="formTemplate" (submit)="addData()">
+              <div class="field-content">
+                <input type="text"
+                       nbInput
+                       fullWidth
+                       placeholder="Nombre"
+                       formControlName="name"
+                       #name
+                       status="{{ (formTemplate.controls.name.dirty || formTemplate.controls.name.touched) && formTemplate.controls.name.errors || isSubmitted && formTemplate.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                />
+                <div
+                  *ngIf="formTemplate.controls.name.invalid && (formTemplate.controls.name.dirty || formTemplate.controls.name.touched) || formTemplate.controls.name.invalid && isSubmitted ">
+                  <small *ngIf="formTemplate.controls.name.errors.required">Ingrese el nombre</small>
+                </div>
+              </div>
+              <div class="field-content">
+                <label>Formatos de papel:</label>
+                <nb-select placeholder="Seleccione un formato" fullWidth formControlName="paper" #paper>
+                  <nb-option *ngFor="let paper of papers" [value]="paper.id">{{ paper.name }}</nb-option>
+                </nb-select>
+              </div>
+              <div class="field-content">
+                <label for="">Fondo</label>
+                <nb-select placeholder="Seleccione fondo" [selected]="selectBg"
+                           (selectedChange)="selectBackground($event)" fullWidth>
+                  <nb-option [value]="0">Color</nb-option>
+                  <nb-option [value]="1">Imagen</nb-option>
+                </nb-select>
+              </div>
+              <div *ngIf="selectBg == 1">
+                <div class="field-content">
+                  <label for="">Fondo</label>
+                  <input
+                    type="file"
+                    nbInput
+                    fullWidth
+                    formControlName="background"
+                    #background
+                    status="{{ (formTemplate.controls.background.dirty || formTemplate.controls.background.touched) && formTemplate.controls.background.errors || isSubmitted && formTemplate.controls.background.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                    (change)="updateFile($event)"
+                  />
+                  <div
+                    *ngIf="formTemplate.controls.background.invalid && (formTemplate.controls.background.dirty || formTemplate.controls.background.touched) || formTemplate.controls.background.invalid && isSubmitted ">
+                    <small *ngIf="formTemplate.controls.background.errors.required">Seleccione imagen</small>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="selectBg == 0">
+                <div class="field-content">
+                  <label for="">Color</label>
+                  <color-compact [color]="colorInput" (onChangeComplete)="changeComplete($event)"></color-compact>
+                </div>
+              </div>
+              <div class="field-content">
+                <label>Firmas:</label>
+                <nb-select multiple placeholder="Seleccione firmas" fullWidth formControlName="signatures">
+                  <nb-option *ngFor="let signature of signatures"
+                             [value]="signature.id">{{ signature.name }}</nb-option>
+                </nb-select>
+              </div>
+            </form>
+          </div>
+        </nb-step>
+        <nb-step [label]="signaturePosition">
+          <ng-template #signaturePosition>Elementos</ng-template>
+          <div>
+            <div class="btns-options" *ngIf="!hiddenSelector">
+              <div>
+                <button nbButton status="primary" size="small" nbStepperPrevious>
+                  <nb-icon icon="arrow-ios-back-outline"></nb-icon>
+                  Anterior
+                </button>
+              </div>
+              <div>
+                <button
+                  nbButton
+                  status="primary"
+                  size="small"
+                  nbStepperNext
+                  (click)="submit()"
+                >
+                  <nb-icon icon="save-outline"></nb-icon>
+                  Guardar
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 list-elements">
+                <ngx-list-elements
+                  (changePositions)="arrayElements=$event"
+                  (hidden)="hiddenSelector = $event"
+                  [elementVal]="elementAct"
+                  [arrayElements]="arrayElements"
+                  (elementAct)="selectElement($event)"
+                ></ngx-list-elements>
+              </div>
+            </div>
+          </div>
+        </nb-step>
+      </nb-stepper>
+    </nb-card-body>
+  </nb-card>
+</div>

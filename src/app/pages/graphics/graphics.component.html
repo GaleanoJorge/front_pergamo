@@ -1,0 +1,28 @@
+<nb-card *ngIf="dataGraphic.type=='bar'" class="card-medium">
+    <nb-card-header>{{dataGraphic.title}}</nb-card-header>
+    <nb-card-body>
+        <chart type="bar" [data]="data" [options]="options"></chart>
+    </nb-card-body>
+    <nb-card-footer>{{dataGraphic.description}}</nb-card-footer>
+</nb-card>
+<nb-card *ngIf="dataGraphic.type=='line'" class="card-medium">
+    <nb-card-header>{{dataGraphic.title}}</nb-card-header>
+    <nb-card-body>
+        <chart type="line" [data]="data" [options]="options"></chart>
+    </nb-card-body>
+    <nb-card-footer>{{dataGraphic.description}}</nb-card-footer>
+</nb-card>
+<nb-card *ngIf="dataGraphic.type=='radar'">
+    <nb-card-header>{{dataGraphic.title}}</nb-card-header>
+    <nb-card-body>
+        <div echarts [options]="options" class="echart"></div>
+    </nb-card-body>
+    <nb-card-footer>{{dataGraphic.description}}</nb-card-footer>
+</nb-card>
+<nb-card *ngIf="dataGraphic.type=='pie'">
+    <nb-card-header>{{dataGraphic.title}}</nb-card-header>
+    <nb-card-body>
+        <div echarts [options]="options" class="echart"></div>
+    </nb-card-body>
+    <nb-card-footer>{{dataGraphic.description}}</nb-card-footer>
+</nb-card>

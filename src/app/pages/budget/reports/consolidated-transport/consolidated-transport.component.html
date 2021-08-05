@@ -1,0 +1,13 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <ngx-general></ngx-general>
+    <ngx-base-table [settings]="settings"
+                    entity="reportConsolidatedTransport"
+                    customData="categories"
+    >
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
+

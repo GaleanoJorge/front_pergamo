@@ -1,0 +1,89 @@
+.header-table {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.actions {
+  display: flex;
+  margin-left: 1em;
+  width: 100%;
+}
+
+ng-content {
+  width: 100%;
+}
+
+:host ::ng-deep ng2-smart-table tbody > tr > td {
+  padding: 0.5rem 1rem;
+}
+
+.datatable-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.datatable-footer-with-pagination {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  bottom: 35px;
+  width: 95%;
+  pointer-events: none;
+}
+
+@media (max-width: 950px) {
+  .datatable-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
+  }
+
+  .datatable-footer-with-pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
+    position: inherit;
+    bottom: 0px;
+    width: 100%;
+  }
+}
+
+.datatable-paginate-info {
+  position: absolute;
+  bottom: 35px;
+  right: 35px;
+  display: flex;
+}
+
+.datatable-results {
+  position: absolute;
+  bottom: 35px;
+  display: flex;
+}
+
+.datatable-results-no-page {
+  margin-top: 10px;
+}
+
+.datatable-paginate-info-no-page {
+  margin-top: 10px;
+}
+
+@media (max-width: 950px) {
+  .datatable-results {
+    position: inherit;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .datatable-paginate-info {
+    position: inherit;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+  }
+}

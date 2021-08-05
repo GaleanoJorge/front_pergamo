@@ -1,0 +1,12 @@
+<nb-card class="vh-100 text-center" [nbSpinner]="loading" *ngIf="loading">
+  <nb-card-body class="d-flex justify-content-center align-items-center">Cargando información</nb-card-body>
+</nb-card>
+
+<ngx-form-question
+  *ngIf="!loading"
+  [title]="title"
+  [routes]="routes"
+  [data]="data"
+>
+
+</ngx-form-question>

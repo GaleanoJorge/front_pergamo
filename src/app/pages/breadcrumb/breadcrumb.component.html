@@ -1,0 +1,7 @@
+<nb-card class="mb-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" *ngFor="let item of routes">
+            <a routerLink="{{item.route}}" [queryParams]="item.queryParams ? item.queryParams : {}">{{item.name}}</a>
+        </li>
+    </ol>
+</nb-card>

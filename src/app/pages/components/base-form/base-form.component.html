@@ -1,0 +1,53 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  >
+  <div content>
+    <div>
+      <div class="header-table">
+        <div class="row">
+          <div class="col-12 col-md-5">
+
+            <div class="title h5">{{ title }}</div>
+            <div class="status paragraph-2" *ngIf="subtitle">{{ subtitle }}</div>
+          </div>
+
+          <div class="col-7 d-flex">
+            <div class="d-flex w-100 justify-content-end align-items-center" *ngIf="showActionsHeaders">
+              <a *ngIf="routeBack" nbButton [routerLink]="routeBack">Volver</a>
+              <button *ngIf="actionSave" nbButton status="danger" class="ml-1" [nbSpinner]="loading"
+                      [disabled]="loading" (click)="Save()">{{ textButtonSave }}
+              </button>
+              <ng-content select="[actions]">
+
+              </ng-content>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <ng-content select="[content]">
+
+      </ng-content>
+
+      <div class="col-12">
+        <div class="d-flex w-100 justify-content-center align-items-center">
+          <a *ngIf="routeBack" nbButton [routerLink]="routeBack">Volver</a>
+          <button *ngIf="actionSave" nbButton status="danger" class="ml-1" [nbSpinner]="loading"
+                  [disabled]="loading" (click)="Save()"> {{ textButtonSave }}
+          </button>
+          <ng-content select="[actions]">
+
+          </ng-content>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-4">
+      <ng-content select="[end]">
+
+      </ng-content>
+    </div>
+  </div>
+</ngx-base-list>

@@ -1,0 +1,444 @@
+<ngx-base-reports
+  [messageError]="messageError"
+  [title]="title"
+  [loading]="loading"
+  [exportExcelSGA]="exportExcelSGA"
+  [validateData]="validateData"
+  [filters]="filters"
+>
+  <div filters *ngIf="!loading">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="alert alert-secondary" role="alert">
+          Rango de fechas
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="start_date">Fecha inicio:*</label>
+          <input id="start_date" nbInput type="date" [(ngModel)]="start_date" 
+            (ngModelChange)="changeDate()" fullWidth>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="finish_date">Fecha fin:*</label>
+          <input id="finish_date" nbInput type="date" [(ngModel)]="finish_date" 
+           (ngModelChange)="changeDate()" fullWidth>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="alert alert-secondary" role="alert">
+          Filtros por evento académico
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Vigencia:</label>
+          <ngx-autocomplete
+            [options]="validities"
+            value="id"
+            label="name"
+            [(inputModel)]="validity"
+            (inputModelChange)="changeValidity($event)" 
+            placeholder="Filtrar por vigencia"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Plan de formación:</label>
+          <ngx-autocomplete
+            #originsAutocomplete
+            [options]="origins"
+            value="id"
+            label="name"
+            [(inputModel)]="origin"
+            (inputModelChange)="changeOrigin($event)" 
+            placeholder="Filtrar por plan de formación"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+      
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Programa:</label>
+          <ngx-autocomplete
+            #categoriesAutocomplete
+            [options]="categories"
+            value="id"
+            label="name"
+            [(inputModel)]="category"
+            (inputModelChange)="changeCategory($event)" 
+            placeholder="Filtrar por programa"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+  
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Sede:</label>
+          <ngx-autocomplete
+            #campusAutocomplete
+            [options]="dataCampus"
+            value="id"
+            label="name"
+            [(inputModel)]="campus"
+            placeholder="Filtrar por sede"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Coordinador:</label>
+          <ngx-autocomplete
+            #coordinatorsAutocomplete
+            [options]="coordinators"
+            [(inputModel)]="coordinator"
+            placeholder="Búsqueda por coordinador"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <div class="col-sm-8">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Curso:</label>
+          <ngx-autocomplete
+            #coursesAutocomplete
+            [options]="courses"
+            [(inputModel)]="course"
+            (inputModelChange)="changeCourse($event)"
+            placeholder="Búsqueda por descripción del curso"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="codigo_grupo">Grupo:</label>
+          <ngx-autocomplete
+            #groupsAutocomplete
+            [options]="groups"
+            [(inputModel)]="group"
+            placeholder="Búsqueda por grupo"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>      
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="alert alert-secondary" role="alert">
+          Filtros por datos básicos del participante
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Tipo de documento:</label>
+          <ngx-autocomplete
+            [options]="identificationTypes"
+            value="id"
+            label="name"
+            [(inputModel)]="identificationType"
+            placeholder="Filtrar por tipo de documento"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="identification">Número de documento:</label>
+          <input id="identification" nbInput type="text" [(ngModel)]="identification" fullWidth>
+        </div>
+      </div>
+
+      <!-- <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Tipo de participante</label>
+          <ngx-autocomplete
+            [options]="tipoParticipante"
+            [(inputModel)]="tipoParticipanteActual"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div> -->
+  
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="lastname">Primer apellido:</label>
+          <input id="lastname" nbInput type="text" [(ngModel)]="lastname" fullWidth>
+        </div>
+      </div>
+  
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="middlelastname">Segundo apellido:</label>
+          <input id="middlelastname" nbInput type="text" [(ngModel)]="middlelastname" fullWidth>
+        </div>
+      </div>
+  
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="firstname">Primer nombre:</label>
+          <input id="firstname" nbInput type="text" [(ngModel)]="firstname" fullWidth>
+        </div>
+      </div>
+  
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="middlefirstname">Segundo nombre:</label>
+          <input id="middlefirstname" nbInput type="text" [(ngModel)]="middlefirstname" fullWidth>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Género:</label>
+          <ngx-autocomplete
+            [options]="genders"
+            value="id"
+            label="name"
+            [(inputModel)]="gender"
+            placeholder="Filtrar por género"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Etnia:</label>
+          <ngx-autocomplete
+            [options]="ethnicities"
+            value="id"
+            label="name"
+            [(inputModel)]="ethnicity"
+            placeholder="Filtrar por etnia"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="alert alert-secondary" role="alert">
+          Filtros por experiencia laboral
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Corporación, Juzgado o Entidad:</label>
+          <ngx-autocomplete
+            [options]="entities"
+            [(inputModel)]="entity"
+            value="id"
+            label="name"
+            placeholder="Filtrar por corporación, Juzgado o Entidad"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <!-- <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Tipo de usuario</label>
+          <ngx-autocomplete
+            [options]="tipoUsuario"
+            [(inputModel)]="tipoUsuarioActual"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div> -->
+
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Cargo:</label>
+          <ngx-autocomplete
+            [options]="positions"
+            [(inputModel)]="position"
+            value="id"
+            label="name"
+            placeholder="Filtrar por cargo"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Despacho:</label>
+          <ngx-autocomplete
+            [options]="offices"
+            [(inputModel)]="office"
+            value="id"
+            label="name"
+            placeholder="Filtrar por despacho"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Especialidad:</label>
+          <ngx-autocomplete
+            [options]="specialties"
+            value="id"
+            label="name"
+            [(inputModel)]="specialty"
+            placeholder="Filtrar por especialidad"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Consejo:</label>
+          <ngx-autocomplete
+            [options]="sectionalCouncils"
+            value="id"
+            label="name"
+            [(inputModel)]="sectionalCouncil"
+            placeholder="Filtrar por consejo seccional"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+  
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Distrito:</label>
+          <ngx-autocomplete
+            [options]="districts"
+            value="id"
+            label="name"
+            [(inputModel)]="district"
+            placeholder="Filtrar por distrito"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+  
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="circuito">Circuito:</label>
+          <ngx-autocomplete
+            [options]="circuits"
+            value="id"
+            label="name"
+            [(inputModel)]="circuit"
+            placeholder="Filtrar por circuito"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Departamento:</label>
+          <ngx-autocomplete
+            [options]="regions"
+            value="id"
+            label="name"
+            [(inputModel)]="region"
+            (inputModelChange)="changeRegion($event)"
+            placeholder="Filtrar por departamento"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+  
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">Ciudad:</label>
+          <ngx-autocomplete
+            #municipalitiesAutocomplete
+            [options]="municipalities"
+            value="id"
+            label="name"
+            [(inputModel)]="municipality"
+            placeholder="Filtrar por municipio"
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 d-flex justify-content-center">
+        <button nbButton status="danger" (click)="SearchResume()"
+                [disabled]="!start_date || !finish_date || loadingResume" [nbSpinner]="loadingResume">
+          <nb-icon icon="search-outline"></nb-icon>
+          Buscar
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-sm-12">
+        <div class="alert alert-secondary" role="alert">
+          Seleccionar campos a mostrar
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3" *ngFor="let option of columnasOptions">
+        <div class="form-group">
+          <nb-checkbox status="basic"
+                       (checkedChange)="changeCustomColumns($event, option)">{{ option.label }}</nb-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="isSearch">
+      <div class="col-sm-12">
+        <ngx-base-table
+          [settings]="settings"
+          [showSearch]="false"
+          entity="report-sga/participantsMulticriteria"
+          customData="participants"
+          [queryParams]="getQueryParams()">
+          <!-- <div actions>
+            <div class="actions">
+              <a ngxCheckPerms="create" nbButton status="danger" routerLink="/pages/survey/surveys/create">Crear</a>
+            </div>
+          </div> -->
+        </ngx-base-table>
+      </div>
+    </div>
+  </div>
+
+</ngx-base-reports>

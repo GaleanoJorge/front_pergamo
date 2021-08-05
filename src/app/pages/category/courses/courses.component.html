@@ -1,0 +1,43 @@
+<div class="row" *ngIf="messageError">
+    <div class="col-12">
+        <nb-alert status="danger" class="container-fluid">
+            <strong>Oh Dios!</strong> {{messageError}}
+        </nb-alert>
+    </div>
+</div>
+<ngx-breadcrumb [routes]="routes"></ngx-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <nb-card class="nb-card-title">
+            <div class="icon-container">
+                <div class="icon status-warning">
+                    <i class="nb-list"></i>
+                </div>
+            </div>
+            <div class="details">
+                <div class="title h5">Cursos</div>
+                <div class="status paragraph-2">DIRECTORIO</div>
+            </div>
+        </nb-card>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let course of courseBS.courses">
+        <nb-card size="medium">
+            <div class="picture picture-course"></div>
+            <div class="details">
+                <div class="h4">{{course.short_name}}</div>
+                <small>Nombre largo:</small>
+                <div class="description description-contents">
+                    {{course.long_name}}
+                </div>
+                <br>
+                <!-- <small>Institución Educativa:</small>
+                <div class="description description-contents">
+                    {{course.educational_institutions[0].name}}
+                </div> -->
+                <div class="target">
+                    <a routerLink="../../course-institutions/{{course.id}}/{{idCategory}}">Instituciones</a>
+                </div>
+            </div>
+        </nb-card>
+    </div>
+</div>

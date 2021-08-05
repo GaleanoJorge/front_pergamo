@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-12">
+        <nb-card class="nb-card-title">
+            <div class="icon-container">
+                <div class="icon status-warning">
+                    <i class="nb-list"></i>
+                </div>
+            </div>
+            <div class="details">
+                <div class="title h5">Permisos por rol</div>
+                <div class="status paragraph-2">Gestión</div>
+            </div>
+        </nb-card>
+    </div>
+</div>
+<nb-card>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="roleForm" (ngSubmit)="saveRole()">
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="form-text text-muted">Rol:</small>
+                            <nb-select placeholder="Rol" size="medium" fullWidth formControlName="role"
+                                status="{{ isSubmitted && roleForm.controls.role.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                required role (selectedChange)="onMenuItemSelected($event)">
+                                <nb-option *ngFor="let role of roleBS.roles" [value]="role.id">{{role.name}}</nb-option>
+                            </nb-select>
+                            <div *ngIf="roleForm.controls.role.errors && isSubmitted ">
+                                <small *ngIf="roleForm.controls.role.errors.required">Seleccione un rol</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Permiso:</small>
+                            <nb-select placeholder="Permiso" size="medium" fullWidth formControlName="permission"
+                                status="{{ isSubmitted && roleForm.controls.permission.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                required permission>
+                                <nb-option *ngFor="let permission of permissionBS.permissions" [value]="permission.id">
+                                    {{permission.name}}</nb-option>
+                            </nb-select>
+                            <div *ngIf="roleForm.controls.permission.errors && isSubmitted ">
+                                <small *ngIf="roleForm.controls.permission.errors.required">Seleccione un
+                                    permiso</small>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <small class="form-text text-muted">Item:</small>
+                            <nb-select placeholder="Item" size="medium" fullWidth formControlName="item"
+                                status="{{ isSubmitted && roleForm.controls.item.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                required item>
+                                <nb-option *ngFor="let item of items" [value]="item.id">
+                                    {{item.name}}</nb-option>
+                            </nb-select>
+                            <div *ngIf="roleForm.controls.item.errors && isSubmitted ">
+                                <small *ngIf="roleForm.controls.item.errors.required">Seleccione un item</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 div-send text-right">
+                        <button type="submit" nbButton status="danger">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<nb-card *ngIf="roleSelected">
+    <nb-card-header>
+        <h6>Permisos Rol {{roleSelected.name}}</h6>
+    </nb-card-header>
+    <nb-list>
+        <nb-list-item *ngFor="let irp of itemRolePermission.itemsRolePermission">
+            <h6><a routerLink="./" (click)="ConfirmDelete(confirmDelete, irp)">{{irp.item.name}}</a></h6>
+            <span>{{irp.permission.name}}</span>
+        </nb-list-item>
+        <nb-list-item *ngIf="itemRolePermission.itemsRolePermission.length==0">
+            <h6>Rol Sin Permisos</h6>
+        </nb-list-item>
+    </nb-list>
+</nb-card>
+<ng-template #confirmDelete let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>¿Desea Eliminar El Permiso?</nb-card-header>
+        <nb-card-footer>
+            <button nbButton status="danger" class="btn-left" (click)="ref.close()">No</button>
+            <button nbButton status="danger" class="btn-left" (click)="DeleteIRP()">Si</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

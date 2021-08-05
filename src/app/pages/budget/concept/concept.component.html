@@ -1,0 +1,38 @@
+<ngx-base-list
+  [messageError]="messageError"
+  *ngIf="!loading"
+>
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [settings]="settings"
+                    entity="concept"
+                    customData="concepts"
+                    [queryParams]="queryParams"
+    >
+      <div actions>
+        <div class="d-flex align-items-center" style="gap: 10px">
+          <ngx-autocomplete-remote
+            url="municipalityAutocomplete"
+            returnData="municipalitys"
+            [(ngModel)]="municipality"
+            (ngModelChange)="OnChangeCity($event)"
+            [initValue]="searchMunicipality.bind(this)"
+          >
+          </ngx-autocomplete-remote>
+          <!--<nb-select fullWidth placeholder="Filtrar por ciudad"
+                      style="width: 250px"
+                     (selectedChange)="OnChangeCity($event)"
+                     [(selected)]="municipality_id"
+                      >
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of ciudades" [value]="item.id">{{ item.name }}</nb-option>
+          </nb-select>-->
+          <button nbButton status="danger" (click)="NewConcept()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>
+

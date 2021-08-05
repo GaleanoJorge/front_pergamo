@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col">
+        <small>Categoría</small>
+        <nb-select placeholder="Categorías" (selectedChange)="changeCategory($event)" fullWidth>
+            <nb-option *ngFor="let category of categories" [value]="category.id">{{category.name}}
+            </nb-option>
+        </nb-select>
+    </div>
+    <div class="col">
+        <small>Curso</small>
+        <nb-select placeholder="Cursos" (selectedChange)="changeCourse($event)" fullWidth>
+            <nb-option *ngFor="let course of courseBS.courses" [value]="course.id">{{course.short_name}}
+            </nb-option>
+        </nb-select>
+    </div>
+    <div class="col">
+        <small>Estudiante</small>
+        <nb-select placeholder="Estudiantes" (selectedChange)="changeStudent($event)" fullWidth>
+            <nb-option *ngFor="let user of courseBS.userRoleCourse" [value]="user.user_role.user_id">
+                {{user.user_role.user.firstname+' '+user.user_role.user.lastname}}
+            </nb-option>
+        </nb-select>
+    </div>
+    <div class="col text-right">
+        <button nbButton status="danger" (click)="Search()">Buscar</button>
+    </div>
+</div>
+<br>
+<nb-alert status="warning" *ngIf="!show">Sin información</nb-alert>
+<div *ngIf="show">
+    <ngx-graphics [dataGraphic]="data"></ngx-graphics>
+</div>

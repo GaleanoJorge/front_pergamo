@@ -1,0 +1,14 @@
+.breadcrumb {
+  background-color: transparent;
+  margin-bottom: 0;
+}
+
+.breadcrumb > .breadcrumb-item > li {
+  font-size: "16px" !important;
+}
+
+.breadcrumb > .breadcrumb-item > a {
+  color: #002775 !important;
+  font-family: "Montserrat Bold" !important;
+  font-weight: bold;
+}

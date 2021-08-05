@@ -1,0 +1,188 @@
+<ngx-base-form [title]="title" [routes]="routes" [messageError]="messageError" [routeBack]="routeBack"
+               [actionSave]="Save.bind(this)"
+               [showActionsHeaders]="false">
+  <div content>
+    <form class="container" [formGroup]="form" (ngSubmit)="Save()">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="code" class="form-text text-muted font-weight-bold">
+              Código<span>*</span>:
+            </label>
+            <input id="code" type="text" nbInput formControlName="code"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="date_ini" class="form-text text-muted font-weight-bold">
+              Fecha inicio<span>*</span>:
+            </label>
+            <input id="date_ini" type="date" nbInput formControlName="date_ini"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.date_ini.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="date_fin" class="form-text text-muted font-weight-bold">
+              Fecha finalización<span>*</span>:
+            </label>
+            <input id="date_fin" type="date" nbInput formControlName="date_fin"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.date_fin.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label for="allocation_resource" class="form-text text-muted font-weight-bold">
+              Valor de afectación<span>*</span>:
+            </label>
+            <input id="allocation_resource" type="number" nbInput formControlName="allocation_resource"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.allocation_resource.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <small class="pr-2 form-text text-muted">{{ form.controls.allocation_resource.value | currency }}</small>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="contract_value" class="form-text text-muted font-weight-bold">
+              Valor total del contrato<span>*</span>:
+            </label>
+            <input id="contract_value" type="number" nbInput formControlName="contract_value"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.contract_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <small class="pr-2 form-text text-muted">{{ form.controls.contract_value.value | currency }}</small>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="form-group">
+            <label class="form-text text-muted font-weight-bold">
+              Proveedor<span>*</span>:
+            </label>
+            <ngx-autocomplete-remote
+              url="user"
+              returnData="users"
+              formControlName="user_id"
+              user_id
+              [label]="renderLabelUsers"
+              value="id"
+              [initValue]="searchUser.bind(this)"
+              status="{{ isSubmitted && form.controls.contract_state_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+            >
+            </ngx-autocomplete-remote>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="contract_state_id" class="form-text text-muted font-weight-bold">
+              Estado<span>*</span>:
+            </label>
+            <nb-select formControlName="contract_state_id" id="contract_state_id" fullWidth
+                       status="{{ isSubmitted && form.controls.contract_state_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of states" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row" *ngIf="currentProveedor">
+        <div class="col-sm-12">
+          <table class="table">
+            <tr>
+              <td>
+                Identificación:
+              </td>
+              <td>
+                {{ currentProveedor.identification }}
+              </td>
+              <td>
+                RUT:
+              </td>
+              <td>
+                {{ currentProveedor.identification }}
+              </td>
+
+              <td>
+                Dirección
+              </td>
+              <td>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>Telefono</td>
+              <td>
+                {{ currentProveedor.phone }}
+              </td>
+
+              <td>Correo electrónico</td>
+              <td>
+                {{ currentProveedor.email }}
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="object" class="form-text text-muted font-weight-bold">
+              Objeto<span>*</span>:
+            </label>
+            <nb-form-field>
+              <textarea id="object" nbInput formControlName="object"
+                        fullWidth
+                        rows="3"
+                        status="{{ isSubmitted && form.controls.object.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></textarea>
+            </nb-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="observations" class="form-text text-muted font-weight-bold">
+              Observaciones:
+            </label>
+            <nb-form-field>
+              <textarea id="observations" nbInput formControlName="observations"
+                        fullWidth
+                        rows="3"
+                        status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></textarea>
+            </nb-form-field>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div end>
+    <nb-tabset *ngIf="data?.id">
+      <nb-tab tabTitle="Pagos">
+        <ngx-payments [contract_id]="data.id"></ngx-payments>
+      </nb-tab>
+      <nb-tab tabTitle="Eventos">
+        <ngx-contracts-events [contract_id]="data.id"></ngx-contracts-events>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</ngx-base-form>

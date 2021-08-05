@@ -1,0 +1,68 @@
+<ngx-base-form [title]="title" [routes]="routes" [messageError]="messageError"
+               [routeBack]="routeBack"
+               [actionSave]="isClose ? null : Save.bind(this)"
+               [showActionsHeaders]="false">
+  <div content>
+    <ngx-resume-event-executed [event_id]="this.event_id"
+                               (setData)="setData($event)">
+    </ngx-resume-event-executed>
+    <div class="row">
+      <div class="col-sm-12">
+        <nb-card class="mt-2">
+          <nb-card-body>
+            <table class="table">
+              <thead>
+              <tr>
+                <th></th>
+                <th># Tiquete</th>
+                <th>Aerolinea</th>
+                <th>Valor</th>
+                <th>Clase</th>
+                <th>Estado del tiquete</th>
+                <th>Observaciones de cambio</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <ng-container *ngFor="let concept of concepts">
+                <tr>
+                  <td colspan="7">
+                    {{ concept.concept.concept_base.name }}
+                  </td>
+                </tr>
+                <tr *ngFor="let ticket of concept.event_tickets">
+                  <td style="white-space: normal; width: 40%">
+                    <button nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
+                      <nb-icon icon="info-outline"></nb-icon>
+                    </button>
+                    <ng-template #templateRef>
+                      <div class="p-3">
+                        <p><strong>Origen:</strong> {{ ticket.origin }}</p>
+                        <p><strong>Destino:</strong> {{ ticket.destination }}</p>
+                        <p><strong>Regreso:</strong> {{ ticket.back }}</p>
+                        <p><strong>Fecha de salida:</strong> {{ ticket.departure_date }}</p>
+                        <p><strong>Fecha de regreso:</strong> {{ ticket.return_date }}</p>
+                        <p><strong>Observaciones de salida:</strong></p>
+                        <p>{{ ticket.departure_observations }}</p>
+                        <p><strong>Observaciones de regreso:</strong></p>
+                        <p>{{ ticket.return_observations }}</p>
+                      </div>
+                    </ng-template>
+                  </td>
+                  <td><input nbInput type="text" [(ngModel)]="ticket.ticket_number"></td>
+                  <td><input nbInput type="text" [(ngModel)]="ticket.airline"></td>
+                  <td><input nbInput type="text" [(ngModel)]="ticket.total_value"></td>
+                  <td><input nbInput type="text" [(ngModel)]="ticket.grade"></td>
+                  <td><input nbInput type="text" [(ngModel)]="ticket.ticket_state"></td>
+                  <td><textarea nbInput [(ngModel)]="ticket.change_observations"></textarea></td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
+  </div>
+</ngx-base-form>

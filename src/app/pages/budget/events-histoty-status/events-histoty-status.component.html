@@ -1,0 +1,43 @@
+<div class="row mt-3">
+  <div class="col-sm-12">
+    <h3 class="h5">
+      Historial de observaciones
+    </h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <p *ngIf="!record.length">No se ha encontrado historial de observaciones</p>
+    <table *ngIf="record.length" class="table">
+      <thead>
+      <tr>
+        <th>Estado</th>
+        <th>Usuario</th>
+        <th>Fecha</th>
+        <th>Observación</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let rec of record">
+        <td>{{ rec.approved_status.name }}</td>
+        <td>{{ rec.nombre_completo }}</td>
+        <td>{{ rec.created_at | date:'MMM/dd/yyyy, HH:mm:ss' }}</td>
+        <td>{{ rec.observations }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row" *ngIf="!IsApproved">
+  <div class="col-sm-12 d-flex justify-content-end ">
+    <button nbButton status="success" class="mr-2" (click)="addObservation()">
+      Aprobar presupuesto
+    </button>
+    <button nbButton status="success" (click)="addObservation()">
+      Agregar observación
+    </button>
+  </div>
+</div>

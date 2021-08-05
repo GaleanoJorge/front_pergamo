@@ -1,0 +1,109 @@
+@import "~bootstrap/scss/mixins/breakpoints";
+@import "~@nebular/theme/styles/global/breakpoints";
+@import "../../@theme/styles/themes";
+
+::ng-deep nb-auth nb-card-header {
+  .back-link {
+    display: none !important;
+  }
+  background-color: #3295d3;
+  height: 8.5rem;
+  border-bottom: 10px solid #00974f !important;
+}
+
+.image-left {
+  position: fixed;
+  top: 2.8rem;
+  width: 220px;
+  left: 4.8rem;
+}
+
+.image-rigth {
+  position: fixed;
+  top: 2.8rem;
+  width: 320px;
+  right: 4.8rem;
+}
+
+::ng-deep nb-auth nb-card {
+  background-image: url("assets/images/Home1.jpg");
+  background-size: cover;
+  background-position: "center";
+  background-repeat: no-repeat;
+}
+
+small {
+  margin-bottom: 10px;
+  color: red;
+
+  a {
+    color: #c2302f;
+  }
+}
+
+button {
+  margin-top: 7px;
+}
+
+h5 {
+  // font-weight: 500;
+  color: #002775;
+}
+
+.space-bottom {
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.img-login {
+  width: 50%;
+}
+
+.div-img {
+  padding: 10%;
+}
+
+.text-muted {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.login-container {
+  padding: 25px;
+  box-shadow: 0 10px 10px 0 #0000004d;
+  // opacity: 0.8;
+  background-color: #f2f2f2;
+
+  .forgot-text {
+    margin-bottom: 5px;
+  }
+}
+
+.card-login {
+  margin: 1%;
+  background-color: white;
+  padding: 5%;
+  border-radius: 15px;
+}
+
+@include media-breakpoint-down(sm) {
+  .image-left {
+    position: fixed;
+    top: 0.3rem;
+    width: 300px;
+    left: 0.8rem;
+  }
+}
+
+::ng-deep nb-auth nb-auth-block {
+  max-width: 50rem !important;
+}
+
+.span-title {
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+}
+
+.input-login {
+  border-radius: 15px !important;
+}

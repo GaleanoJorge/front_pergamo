@@ -1,0 +1,9 @@
+.form-session {
+  width: 480px;
+}
+
+@media (max-width: 600px) {
+  .form-session {
+    max-width: 360px;
+  }
+}

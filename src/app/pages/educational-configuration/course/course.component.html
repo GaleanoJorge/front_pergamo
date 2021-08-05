@@ -1,0 +1,15 @@
+<ngx-base-list
+  [messageError]="messageError">
+  <div content>
+    <ngx-base-table [title]="title"
+                    [settings]="settings"
+                    entity="basecourses/courseByCategory/{{ category_id }}"
+                    customData="course">
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" (click)="NewCurse()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

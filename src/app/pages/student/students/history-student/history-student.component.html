@@ -1,0 +1,15 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <ngx-base-table 
+                    [title]="title"
+                    [subtitle]="subtitle"
+                    [settings]="settings"
+                    entity="userCurriculumByHistory"
+                    customData="user"
+                    [queryParams]="GetParams()">
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
+

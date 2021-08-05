@@ -1,0 +1,17 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <div class="row" *ngFor="let section of sections">
+      <div class="col-12">
+        <h1 class="h5">{{ section.name }}</h1>
+      </div>
+      <div class="col-12">
+        <p>{{ section.description }}</p>
+      </div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" *ngFor="let item of section.preguntas">
+        <ngx-graphics [dataGraphic]="item"></ngx-graphics>
+      </div>
+    </div>
+  </div>
+</ngx-base-list>

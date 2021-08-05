@@ -1,0 +1,34 @@
+<nb-form-field>
+  <div nbPrefix *ngIf="loading">
+    <div class="loader"></div>
+  </div>
+  <input
+    #autoInput
+    nbInput
+    type="text"
+    autocomplete="off"
+    [nbAutocomplete]="auto"
+    [placeholder]="placeholder"
+    [formControl]="searchControl"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    [fullWidth]="fullWidth"
+    [status]="status"
+  />
+  <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)">
+
+    <nb-option *ngFor="let option of options" [value]="option">
+      {{ renderLabel(option) }}
+    </nb-option>
+
+  </nb-autocomplete>
+
+  <div *ngIf="showMinSearchText">
+    <small class="text-muted">Ingrese al menos {{ minSearch }} caracteres para iniciar la busqueda.</small>
+  </div>
+
+  <div *ngIf="notFound">
+    <small class="text-muted">No se han encontrado resultados.</small>
+  </div>
+
+</nb-form-field>

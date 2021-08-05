@@ -1,0 +1,56 @@
+<form [formGroup]="form" (ngSubmit)="Save()">
+  <nb-card style="width: 450px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="municipality_id" class="form-text text-muted font-weight-bold">
+              Ciudad<span>*</span>:
+            </label>
+            <nb-select formControlName="municipality_id" id="municipality_id" fullWidth
+                       municipality_id
+                       status="{{ isSubmitted && form.controls.municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of ciudades" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="validity_id" class="form-text text-muted font-weight-bold">
+              Vigencia<span>*</span>:
+            </label>
+            <nb-select formControlName="validity_id" id="validity_id" fullWidth
+                       status="{{ isSubmitted && form.controls.validity_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of vigencias" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="unit_value" class="form-text text-muted font-weight-bold">
+              Valor<span>*</span>:
+            </label>
+            <input type="number" nbInput fullWidth id="unit_value" formControlName="unit_value" unit_value
+                   status="{{ isSubmitted && form.controls.unit_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                   onkeypress="return /[0-9]|\./.test(event.key)"/>
+            <small class="pr-2 form-text text-muted">{{ form.controls.unit_value.value | currency }}</small>
+          </div>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="Close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" [disabled]="loading">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

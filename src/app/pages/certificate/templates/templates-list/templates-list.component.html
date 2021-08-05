@@ -1,0 +1,91 @@
+<ngx-base-list
+  [messageError]="messageError"
+>
+  <div content>
+    <div class="row">
+      <div class="col-12">
+        <nb-card class="nb-card-title">
+          <div class="icon-container">
+            <div class="icon status-warning">
+              <i class="nb-compose"></i>
+            </div>
+          </div>
+          <div class="details title-btn">
+            <div>
+              <div class="title h5">Plantillas</div>
+              <div class="status paragraph-2">Lista</div>
+            </div>
+            <div>
+              <button nbButton status="success" routerLink="../../certificates/templates/register">Registrar</button>
+            </div>
+          </div>
+        </nb-card>
+      </div>
+      <div class="col-12">
+        <nb-card
+          [nbSpinner]="loading"
+          nbSpinnerStatus="danger"
+          nbSpinnerSize="large"
+          nbSpinnerMessage=""
+        >
+          <nb-card-body>
+            <div class="row">
+              <div *ngFor="let template of data" class="col col-sm-4 element-list">
+                <div class="row">
+                  <div class="col-6 element-list-img">
+                    <img src="{{template.url}}" alt="firma" width="200" height="200">
+                  </div>
+                  <div class="col-6 element-list-body">
+                    <div>
+                                            <span>
+                                                {{template.name}}
+                                            </span>
+                      <div>
+                        <button nbButton ghost status="primary"
+                                routerLink="../../certificates/templates/edit/{{template.id}}">
+                          <nb-icon icon="edit"></nb-icon>
+                        </button>
+                        <button nbButton ghost status="danger" (click)="dialogDeleteOpen(confirmDelete, template)">
+                          <nb-icon icon="trash"></nb-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <table equalColumnsWidth class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of data" >
+                        <td>{{ item.name }}</td>
+                        <td>
+                            <div>
+                                <button nbButton ghost status="primary" routerLink="../../setting/templates/edit/{{item.id}}" ><nb-icon icon="edit"></nb-icon></button>
+                                <button nbButton ghost status="danger" (click)="dialogDeleteOpen(confirmDelete, item)" ><nb-icon icon="trash"></nb-icon></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> -->
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
+    <ng-template #confirmDelete let-ref="dialogRef">
+      <nb-card>
+        <nb-card-header>¿Desea Continuar?</nb-card-header>
+        <nb-card-footer>
+          <button nbButton status="danger" (click)="dialogDeleteClose(confirmDelete)" class="btn-left">No</button>
+          <button nbButton status="success" (click)="deleteTemplates()" class="btn-left">Si</button>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
+  </div>
+</ngx-base-list>

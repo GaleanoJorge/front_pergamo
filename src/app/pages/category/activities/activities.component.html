@@ -1,0 +1,16 @@
+<nb-accordion multi>
+    <nb-accordion-item *ngFor="let activity of activities">
+        <nb-accordion-item-header>
+            <h5>{{activity.name}}</h5><br>
+            <small>{{activity.description}}</small>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+            <div *ngIf="activity.deliveries.length>0">
+                <ngx-deliveries [deliveries]="activity.deliveries"></ngx-deliveries>
+            </div>
+            <div *ngIf="activity.deliveries.length==0">
+                <h5>Sin entregas</h5>
+            </div>
+        </nb-accordion-item-body>
+    </nb-accordion-item>
+</nb-accordion>

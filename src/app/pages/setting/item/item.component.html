@@ -1,0 +1,92 @@
+<div class="row" *ngIf="messageError">
+    <div class="col-12">
+        <nb-alert status="danger" class="container-fluid">
+            <strong>Oh Dios!</strong> {{messageError}}
+        </nb-alert>
+    </div>
+</div>
+<ngx-breadcrumb [routes]="routes"></ngx-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <nb-card class="nb-card-title">
+            <div class="icon-container">
+                <div class="icon status-warning">
+                    <i class="nb-person"></i>
+                </div>
+            </div>
+            <div class="details">
+                <div class="title h5">Items</div>
+                <div class="status paragraph-2">Gestión</div>
+            </div>
+        </nb-card>
+    </div>
+</div>
+<!-- <nb-card>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="itemForm" (ngSubmit)="saveItem()">
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="form-text text-muted">Nombre del item:</small>
+                            <input type="text" nbInput fullWidth fieldSize="medium"
+                                status="{{ isSubmitted && itemForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                placeholder="Nombre" formControlName="name" required name minlength="5">
+                            <div *ngIf="itemForm.controls.name.errors && isSubmitted ">
+                                <small *ngIf="itemForm.controls.name.errors.required">Ingrese el nombre del item</small>
+                                <small *ngIf="itemForm.controls.name.errors.minlength">Revise el nombre del item</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Ruta del item:</small>
+                            <input type="text" nbInput fullWidth fieldSize="medium"
+                                status="{{ isSubmitted && itemForm.controls.route.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                placeholder="Ruta" formControlName="route" required route minlength="5">
+                            <div *ngIf="itemForm.controls.route.errors && isSubmitted ">
+                                <small *ngIf="itemForm.controls.route.errors.required">Ingrese la ruta del item</small>
+                                <small *ngIf="itemForm.controls.route.errors.minlength">Revise la ruta del item</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Icono del item:</small>
+                            <input type="text" nbInput fullWidth fieldSize="medium"
+                                status="{{ isSubmitted && itemForm.controls.icon.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                placeholder="Icono" formControlName="icon" required icon minlength="5">
+                            <div *ngIf="itemForm.controls.icon.errors && isSubmitted ">
+                                <small *ngIf="itemForm.controls.icon.errors.required">Ingrese el icono del item</small>
+                                <small *ngIf="itemForm.controls.icon.errors.minlength">Revise el icono del item</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Item padre:</small>
+                            <nb-select placeholder="Item" size="medium" fullWidth formControlName="item"
+                                status="{{ isSubmitted && itemForm.controls.item.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                item>
+                                <nb-option *ngFor="let item of itemBS.items" [value]="item.id">{{item.name}}</nb-option>
+                            </nb-select>
+                            <div *ngIf="itemForm.controls.item.errors && isSubmitted ">
+                                <small *ngIf="itemForm.controls.item.errors.required">Seleccione un item padre</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 div-send text-right">
+                        <a nbButton status="primary" class="btn-left" *ngIf="item" (click)="Cancel()">Cancelar</a>
+                        <a nbButton status="warning" class="btn-left" *ngIf="item"
+                            (click)="ConfirmDelete(confirmDelete)">Eliminar</a>
+                        <button type="submit" nbButton status="danger">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card> -->
+<ngx-dynamic-item [items]="itemBS.items"></ngx-dynamic-item>
+<ng-template #confirmDelete let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>¿Desea Continuar?</nb-card-header>
+        <nb-card-footer>
+            <button nbButton status="danger" class="btn-left" (click)="ref.close()">No</button>
+            <button nbButton status="danger" class="btn-left" (click)="DeleteItem()">Si</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

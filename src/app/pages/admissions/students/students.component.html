@@ -1,0 +1,34 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table *ngIf="!loading" [title]="title"
+                    [subtitle]="subtitle"
+                    [settings]="settings"
+                    entity="statsInscriptionsByCourse"
+                    customData="courses"
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <!--<div class="actions">
+          <a nbButton status="danger" routerLink="../../teacher/teachers/create">Crear</a>
+        </div>-->
+        <div class="actions" style="display:flex;margin-top:3em;">
+          <nb-select (selectedChange)="ChangeValidity($event)" placeholder="Filtrar por vigencia" [(selected)]="validity">
+              <nb-option value="0">Todos las vigencias</nb-option>
+              <nb-option *ngFor="let item of validities" [value]="item.id">{{item.name}}</nb-option>
+          </nb-select>
+          <nb-select (selectedChange)="ChangeOrigin($event)" placeholder="Filtrar por Plan de formación" [(selected)]="origin">
+            <nb-option value="0">Todos los planes</nb-option>
+            <nb-option *ngFor="let item of origins" [value]="item.id">{{item.name}}</nb-option>
+        </nb-select>
+        <nb-select (selectedChange)="ChangeCategory($event)" placeholder="Filtrar por programa" [(selected)]="category">
+          <nb-option value="0">Todos los programas</nb-option>
+          <nb-option *ngFor="let item of categories" [value]="item.id">{{item.name}}</nb-option>
+      </nb-select>
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

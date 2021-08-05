@@ -1,0 +1,27 @@
+<nb-card *ngIf="userBS.user">
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12">
+                <p class="h5">{{roleName}}</p>
+                <p>
+                    <b>Nombres: </b>{{userBS.user.firstname}} {{userBS.user.middlefirstname}}<br>
+                    <b>Apellidos: </b>{{userBS.user.lastname}} {{userBS.user.middlelastname}}<br>
+                    <b>Identificación: </b>{{userBS.user.identification}}<br>
+                    <b>Correo: </b>{{userBS.user.email}}
+                </p>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+            entity="userRoleCoordinator/{{id}}/{{role}}" customData="user_role" showFooter="false" showSearch="false">
+            <div actions>
+                <div class="actions" style="display: flex;">
+                    <a nbButton status="danger" (click)="New()">Crear</a>
+                </div>
+            </div>
+        </ngx-base-table>
+    </div>
+</ngx-base-list>

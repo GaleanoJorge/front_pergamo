@@ -1,0 +1,110 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="medium" style="max-width: 700px;min-width: 500px;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12" *ngIf="curseEdit">
+          <label for="category" class="form-text text-muted font-weight-bold">Programa:</label>
+          <nb-select [selected]="this.data.category_id" formControlName="category_id" id="status" fullWidth
+            status="{{ isSubmitted && form.controls.category_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.category_id }}" *ngFor="let item of categories" [value]="item.id">{{
+              item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+            <input nbInput fullWidth id="name" formControlName="name" name
+              status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="general_objective" class="form-text text-muted font-weight-bold">Objetivo general:</label>
+            <textarea nbInput rows="4" fullWidth id="general_objective" formControlName="general_objective" name
+              status="{{ isSubmitted && form.controls.general_objective.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></textarea>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="description" class="form-text text-muted font-weight-bold">Descripción:</label>
+            <textarea nbInput rows="4" fullWidth id="description" formControlName="description" name
+              status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></textarea>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="addressed_to" class="form-text text-muted font-weight-bold">Dirigido a:</label>
+            <input nbInput fullWidth id="addressed_to" formControlName="addressed_to" name
+              status="{{ isSubmitted && form.controls.addressed_to.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="duration" class="form-text text-muted font-weight-bold">Duración (Horas):</label>
+            <input type="number" nbInput fullWidth id="duration" formControlName="duration" name
+              status="{{ isSubmitted && form.controls.duration.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="form-group">
+            <label for="contact_email" class="form-text text-muted font-weight-bold">Correo de Contacto:</label>
+            <input type="email" nbInput fullWidth id="contact_email" formControlName="contact_email" name
+              status="{{ isSubmitted && form.controls.contact_email.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="url_img_int" class="form-text text-muted font-weight-bold">
+                Imagen del Portal Interna:
+              </label>
+              <div *ngIf="previewImage" class="container py-2">
+                <img class="img-fluid" [src]="previewImage" alt="">
+              </div>
+              <button nbButton type="button" status="danger" (click)="uploadImage('url_img_int')">Subir imagen
+              </button>
+              <input style="display: none" accept="image/*" type="file" id="url_img_int" nbInput fullWidth
+                (change)="changeImage($event.target.files, 1)" />
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="url_img_ext" class="form-text text-muted font-weight-bold">
+                Imagen del Portal Externa:
+              </label>
+              <div *ngIf="previewImage2" class="container py-2">
+                <img class="img-fluid" [src]="previewImage2" alt="">
+              </div>
+              <button nbButton type="button" status="danger" (click)="uploadImage('url_img_ext')">Subir imagen
+              </button>
+              <input style="display: none" accept="image/*" type="file" id="url_img_ext" nbInput fullWidth
+                (change)="changeImage($event.target.files, 2)" />
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="circular" class="form-text text-muted font-weight-bold">
+                Circular:
+              </label>
+              <div *ngIf="previewCircular" class="container py-2">
+                <a [href]="previewCircular" target="_blank">Ver circular</a>
+              </div>
+              <input accept="application/pdf" type="file" id="circular" nbInput fullWidth
+                (change)="changeImage($event.target.files, 3)" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

@@ -1,0 +1,11 @@
+<ngx-breadcrumb [routes]="routes"></ngx-breadcrumb>
+<nb-card>
+    <nb-card-header>Metas</nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" *ngFor="let item of dataGraphic">
+                <ngx-graphics [dataGraphic]="item"></ngx-graphics>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

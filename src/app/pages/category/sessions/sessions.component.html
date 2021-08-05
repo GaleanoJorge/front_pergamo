@@ -1,0 +1,16 @@
+<nb-accordion multi>
+    <nb-accordion-item *ngFor="let session of sessions">
+        <nb-accordion-item-header>
+            <h5>{{session.name}}</h5><br>
+            <small>{{session.description}}</small>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+            <div *ngIf="session.activities.length>0">
+                <ngx-activities [activities]="session.activities"></ngx-activities>
+            </div>
+            <div *ngIf="session.activities.length==0">
+                <h5>Sin actividades</h5>
+            </div>
+        </nb-accordion-item-body>
+    </nb-accordion-item>
+</nb-accordion>

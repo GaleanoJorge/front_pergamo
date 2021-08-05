@@ -1,0 +1,22 @@
+<nb-card accent="info" [nbSpinner]="loading" nbSpinnerStatus="danger">
+  <nb-card-header>
+    <div class="flex-row-spaceb">
+      <div>Competencias y actividades del curso</div>
+      <button nbButton status="primary" (click)="onBack()">
+        <nb-icon icon="arrow-back-outline"></nb-icon>
+      </button>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-card size="small">
+      <nb-card-body>
+        <div *ngIf="processData">
+          <ngx-details-table [processData]="processData"></ngx-details-table>
+        </div>
+        <div class="mt-3">
+          <ngx-table-lms-integration [settings]="settings" [source]="source"></ngx-table-lms-integration>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-body>
+</nb-card>

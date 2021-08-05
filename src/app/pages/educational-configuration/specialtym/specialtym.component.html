@@ -1,0 +1,18 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="specialtym/?pagination=true"
+                    customData="specialtym">
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" (click)="NewSpecialtym()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

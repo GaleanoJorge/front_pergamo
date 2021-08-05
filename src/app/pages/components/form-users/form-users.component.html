@@ -1,0 +1,453 @@
+<ngx-base-form [title]="title" [routes]="routes" [messageError]="messageError" [routeBack]="routeBack"
+  [actionSave]="SaveStudent.bind(this)">
+  <div content>
+    <nb-card class="vh-100 text-center" [nbSpinner]="!form" *ngIf="!form">
+      <nb-card-body class="d-flex justify-content-center align-items-center"></nb-card-body>
+    </nb-card>
+
+    <form class="container" *ngIf="form" [formGroup]="form" (ngSubmit)="SaveStudent()">
+      <div class="row">
+        <div class="col-12">
+          <p class="text-muted">Datos básicos</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="identification_type_id" class="form-text text-muted font-weight-bold">
+              Tipo de identificación:
+            </label>
+            <nb-select formControlName="identification_type_id" id="identification_type_id" fullWidth
+              status="{{ isSubmitted && form.controls.identification_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ data ? (item.id == data.identification_type_id) : false }}"
+                *ngFor="let item of identification_types" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="identification" class="form-text text-muted font-weight-bold">Número de documento:</label>
+            <input nbInput minlength="6" maxlength="15" type="text" fullWidth id="identification"
+              formControlName="identification" identification
+              status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            <ng-container *ngIf="form.controls.identification.errors && form.controls.identification.touched">
+              <p class="caption status-danger" *ngIf="form.controls.identification.errors?.minlength">
+                El número de documento debe tener un mínimo de 6 caracteres
+              </p>
+              <p class="caption status-danger" *ngIf="form.controls.identification.errors?.maxlenth">
+                El número de documento debe tener un máximo de 15 caracteres
+              </p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="firstname" class="form-text text-muted font-weight-bold">Primer nombre:</label>
+            <input nbInput fullWidth id="firstname" formControlName="firstname" firstname
+              status="{{ isSubmitted && form.controls.firstname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="middlefirstname" class="form-text text-muted font-weight-bold">Segundo nombre:</label>
+            <input nbInput fullWidth id="middlefirstname" formControlName="middlefirstname" middlefirstname
+              status="{{ isSubmitted && form.controls.middlefirstname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="lastname" class="form-text text-muted font-weight-bold">Primer apellido:</label>
+            <input nbInput fullWidth id="lastname" formControlName="lastname" lastname
+              status="{{ isSubmitted && form.controls.lastname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="middlelastname" class="form-text text-muted font-weight-bold">Segundo apellido:</label>
+            <input nbInput fullWidth id="middlelastname" formControlName="middlelastname" middlelastname
+              status="{{ isSubmitted && form.controls.middlelastname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              onkeypress="return /[a-z]/i.test(event.key)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group">
+            <label for="phone" class="form-text text-muted font-weight-bold">Celular:</label>
+            <input nbInput minlength="10" maxlength="20" fullWidth id="phone" formControlName="phone" phone
+              status="{{ isSubmitted && form.controls.phone.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            <ng-container *ngIf="form.controls.phone.errors && form.controls.phone.touched">
+              <p class="caption status-danger" *ngIf="form.controls.phone.errors?.minlength">
+                El celular debe tener un mínimo de 10 caracteres
+              </p>
+              <p class="caption status-danger" *ngIf="form.controls.phone.errors?.maxlength">
+                El celular debe tener un máximo de 20 caracteres
+              </p>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group">
+            <label for="landline" class="form-text text-muted font-weight-bold">Teléfono Fijo:</label>
+            <input nbInput minlength="10" maxlength="20" fullWidth id="landline" formControlName="landline" landline
+              status="{{ isSubmitted && form.controls.landline.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            <ng-container *ngIf="form.controls.landline.errors && form.controls.landline.touched">
+              <p class="caption status-danger" *ngIf="form.controls.landline.errors?.minlength">
+                El teléfono fijo debe tener un mínimo de 10 caracteres
+              </p>
+              <p class="caption status-danger" *ngIf="form.controls.landline.errors?.maxlength">
+                El teléfono fijo debe tener un máximo de 20 caracteres
+              </p>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group">
+            <label for="ethnicity_id" class="form-text text-muted font-weight-bold">Etnia:</label>
+            <nb-select selected="" id="ethnicity_id" fullWidth formControlName="ethnicity_id" ethnicity_id
+              status="{{ isSubmitted && form.controls.ethnicity_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of this.ethnicitys" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="gender_id" class="form-text text-muted font-weight-bold">Género:</label>
+            <nb-radio-group formControlName="gender_id" gender_id id="gender_id" class="d-flex"
+              status="{{ isSubmitted && form.controls.gender_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio *ngFor="let item of genders" [value]="item.id">{{ item.name }}</nb-radio>
+            </nb-radio-group>
+
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="form.controls.gender_id.value == 3">
+          <div class="form-group">
+            <label for="gender_type" class="form-text text-muted font-weight-bold">Cuál?:</label>
+            <input nbInput fullWidth id="gender_type" formControlName="gender_type" gender_type
+              status="{{ isSubmitted && form.controls.gender_type.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group">
+            <label for="academic_level_id" class="form-text text-muted font-weight-bold">Nivel académico:</label>
+            <nb-select formControlName="academic_level_id" id="academic_level_id" fullWidth
+              status="{{ isSubmitted && form.controls.academic_level_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of academyLevels" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="is_disability" class="form-text text-muted font-weight-bold">¿Tiene alguna discapacidad?</label>
+            <nb-toggle formControlName="is_disability" is_disability>
+            </nb-toggle>
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="form.controls.is_disability.value">
+          <div class="form-group">
+            <label for="disability" class="form-text text-muted font-weight-bold">Cuál?:</label>
+            <input nbInput fullWidth id="disability" formControlName="disability" disability
+              status="{{ isSubmitted && form.controls.disability.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <p class="text-muted">Información de nacimiento</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="birthday" class="form-text text-muted font-weight-bold">Fecha:</label>
+            <input type="date" nbInput fullWidth id="birthday" formControlName="birthday" birthday
+              status="{{ isSubmitted && form.controls.birthday.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              [max]="today" />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="country_id" class="form-text text-muted font-weight-bold">País:</label>
+            <nb-select id="country_id" fullWidth formControlName="country_id" country_id
+              status="{{ isSubmitted && form.controls.country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of countries" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="region_id" class="form-text text-muted font-weight-bold">Departamento:</label>
+            <nb-select id="region_id" fullWidth formControlName="region_id" region_id
+              status="{{ isSubmitted && form.controls.region_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of regions" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="birthplace_municipality_id" class="form-text text-muted font-weight-bold">Municipio:</label>
+            <nb-select id="birthplace_municipality_id" fullWidth formControlName="birthplace_municipality_id"
+              birthplace_municipality_id
+              status="{{ isSubmitted && form.controls.birthplace_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of municipalities" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <p class="text-muted">Datos laborales</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <nb-toggle formControlName="is_judicial_branch" is_judicial_branch>
+              ¿Pertenece a la rama judicial?
+            </nb-toggle>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="job_country_id" class="form-text text-muted font-weight-bold">País:</label>
+            <nb-select selected="" id="job_country_id" fullWidth formControlName="job_country_id" job_country_id
+              status="{{ isSubmitted && form.controls.job_country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of countries" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="job_region_id" class="form-text text-muted font-weight-bold">Departamento:</label>
+            <nb-select selected="" id="job_region_id" fullWidth formControlName="job_region_id" job_region_id
+              status="{{ isSubmitted && form.controls.job_region_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of job_regions" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="municipality_id" class="form-text text-muted font-weight-bold">Municipio:</label>
+            <nb-select selected="" id="municipality_id" fullWidth formControlName="municipality_id" municipality_id
+              status="{{ isSubmitted && form.controls.municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of job_municipalities" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="entity_id" class="form-text text-muted font-weight-bold">Entidad:</label>
+            <nb-select selected="" id="entity_id" fullWidth formControlName="entity_id" entity_id
+              status="{{ isSubmitted && form.controls.entity_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of entities" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="position_id" class="form-text text-muted font-weight-bold">Cargo:</label>
+            <nb-select selected="" id="position_id" fullWidth formControlName="position_id" position_id
+              status="{{ isSubmitted && form.controls.position_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of positions" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="curriculum" class="form-text text-muted font-weight-bold">
+              Hoja de vida:
+            </label>
+            <div *ngIf="previewCurriculum" class="container py-2">
+              <a [href]="previewCurriculum" target="_blank">Ver Hoja de Vida</a>
+            </div>
+            <input accept="application/pdf" type="file" id="curriculum_pdf" nbInput fullWidth
+              (change)="changeImage($event.target.files, 1)" />
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="form.controls.is_judicial_branch.value">
+          <div class="form-group">
+            <label for="office_id" class="form-text text-muted font-weight-bold">Despacho:</label>
+            <nb-select selected="" id="office_id" fullWidth formControlName="office_id" office_id
+              status="{{ isSubmitted && form.controls.office_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of offices" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="form.controls.is_judicial_branch.value">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="specialty_id" class="form-text text-muted font-weight-bold">Especialidad:</label>
+            <nb-select selected="" id="specialty_id" fullWidth formControlName="specialty_id" specialty_id
+              status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of specialties" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="dependence_id" class="form-text text-muted font-weight-bold">Dependencia:</label>
+            <nb-select selected="" id="dependence_id" fullWidth formControlName="dependence_id" dependence_id
+              status="{{ isSubmitted && form.controls.dependence_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of dependences" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="form.controls.is_judicial_branch.value">
+        <div class="col-md-6 col-lg-4">
+          <div class="form-group">
+            <label for="sectional_council_id" class="form-text text-muted font-weight-bold">Consejo seccional:</label>
+            <nb-select selected="" id="sectional_council_id" fullWidth formControlName="sectional_council_id"
+              sectional_council_id
+              status="{{ isSubmitted && form.controls.sectional_council_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of sectionals" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="form-group">
+            <label for="district_id" class="form-text text-muted font-weight-bold">Distrito:</label>
+            <nb-select selected="" id="district_id" fullWidth formControlName="district_id" district_id
+              status="{{ isSubmitted && form.controls.district_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of districts" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="form-group">
+            <label for="position_id" class="form-text text-muted font-weight-bold">Circuito:</label>
+            <nb-select selected="" id="circuit_id" fullWidth formControlName="circuit_id" circuit_id
+              status="{{ isSubmitted && form.controls.circuit_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of circuits" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <p class="text-muted">Información del usuario</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="email" class="form-text text-muted font-weight-bold">Correo electrónico:</label>
+            <input nbInput fullWidth id="email" formControlName="email" email
+              status="{{ isSubmitted && form.controls.email.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+        </div>
+
+        <div class="col-md-6" *ngIf="!isPublic">
+          <div class="form-group">
+            <label for="status" class="form-text text-muted font-weight-bold">Estado:</label>
+            <nb-select selected="" formControlName="status_id" id="status" fullWidth
+              status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of status" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-md-6 d-flex align-items-end" *ngIf="this.role == 4 && !isPublic">
+          <div class="form-group">
+            <button nbButton status="info" type="button" (click)="ShowDialogCategories()">
+              Inscribir programas
+            </button>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-end" *ngIf="this.role == 4 && isPublic">
+          <div class="form-group">
+            <button nbButton status="info" type="button" (click)="ShowDialogCategories()">
+              Inscribir programas
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="password" class="form-text text-muted font-weight-bold">Contraseña:</label>
+            <input type="password" nbInput fullWidth id="password" formControlName="password" password
+              status="{{ isSubmitted && form.controls.password.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="confirm_password" class="form-text text-muted font-weight-bold">Confirmar contraseña:</label>
+            <input type="password" nbInput fullWidth id="confirm_password" formControlName="confirm_password"
+              confirm_password
+              status="{{ isSubmitted && form.controls.confirm_password.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</ngx-base-form>

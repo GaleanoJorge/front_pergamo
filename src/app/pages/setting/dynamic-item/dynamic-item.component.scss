@@ -1,0 +1,7 @@
+@import "../../../@theme/styles/themes";
+
+@include nb-install-component() {
+    nb-accordion-item-body {
+        background-color: aliceblue;
+    }
+}

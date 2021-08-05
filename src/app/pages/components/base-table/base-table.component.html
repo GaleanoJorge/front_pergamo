@@ -1,0 +1,53 @@
+<div>
+  <div class="header-table">
+    <div class="row">
+      <div class="col-12 col-md-6">
+
+        <div class="title h5">{{ title }}</div>
+        <div class="status paragraph-2" *ngIf="subtitle">{{ subtitle }}</div>
+
+      </div>
+
+      <div class="col-12 col-md-6 mt-4 mt-md-0">
+        <div class="row">
+          <div [class]="'d-flex justify-content-end align-items-center col-12 ' + (showSearch==true ? 'col-md-6' : '')">
+            <ng-content select="[actions]">
+
+            </ng-content>
+          </div>
+
+          <div class="col-12 col-md-6 w-100 d-flex justify-content-end align-items-center"
+               style="border-left: 1px #edf1f7 solid" *ngIf="showSearch==true">
+            <input *ngIf="messageToltip === ''" nbInput fullWidth style="height: 40px;" placeholder="Buscar..."
+                   [ngModel]="search" (ngModelChange)="modelSearchChanged.next($event)">
+            <input *ngIf="messageToltip !== ''" nbInput fullWidth style="height: 40px;" placeholder="Buscar..."
+                   [ngModel]="search" (ngModelChange)="modelSearchChanged.next($event)" [nbTooltip]="messageToltip"
+                   nbTooltipPlacement="top">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="datatable" *ngIf="source" [nbSpinner]="loading">
+    <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)">
+    </ng2-smart-table>
+    <div *ngIf="getTotal() && showFooter==true"
+         [class]="hasPagination ? 'datatable-footer-with-pagination' : 'datatable-footer'">
+      <div>
+        <div>
+          {{ getTotal() }} {{ getTotal() > 1 ? 'registros' : 'registro' }} {{ getTotal() > 1 ? 'encontrados' :
+          'encontrado' }}
+        </div>
+      </div>
+
+      <div>
+        <div>
+          Página {{ currentPage }} de {{ totalPage }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

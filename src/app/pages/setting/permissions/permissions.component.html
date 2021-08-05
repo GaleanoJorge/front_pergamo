@@ -1,0 +1,108 @@
+<div class="row" *ngIf="messageError">
+    <div class="col-12">
+        <nb-alert status="danger" class="container-fluid">
+            <strong>Oh Dios!</strong> {{messageError}}
+        </nb-alert>
+    </div>
+</div>
+<ngx-breadcrumb [routes]="routes"></ngx-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <nb-card class="nb-card-title">
+            <div class="icon-container">
+                <div class="icon status-warning">
+                    <i class="nb-list"></i>
+                </div>
+            </div>
+            <div class="details">
+                <div class="title h5">Permisos</div>
+                <div class="status paragraph-2">Gestión</div>
+            </div>
+        </nb-card>
+    </div>
+</div>
+<nb-card *ngIf="permission">
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="permissionForm" (ngSubmit)="savePermission()">
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="form-text text-muted">Nombre del permiso:</small>
+                            <input type="text" nbInput fullWidth fieldSize="medium"
+                                status="{{ isSubmitted && permissionForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                placeholder="Nombre" formControlName="name" required name minlength="5">
+                            <div *ngIf="permissionForm.controls.name.errors && isSubmitted ">
+                                <small *ngIf="permissionForm.controls.name.errors.required">Ingrese el nombre del
+                                    permiso</small>
+                                <small *ngIf="permissionForm.controls.name.errors.minlength">Revise el nombre del
+                                    permiso</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Clase del permiso:</small>
+                            <input type="text" nbInput fullWidth fieldSize="medium"
+                                status="{{ isSubmitted && permissionForm.controls.class.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                placeholder="Clase" formControlName="class" required class minlength="5">
+                            <div *ngIf="permissionForm.controls.class.errors && isSubmitted ">
+                                <small *ngIf="permissionForm.controls.class.errors.required">Ingrese la clase del
+                                    permiso</small>
+                                <small *ngIf="permissionForm.controls.class.errors.minlength">Revise la clase del
+                                    permiso</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Icono del permiso:</small>
+                            <input type="text" nbInput fullWidth fieldSize="medium"
+                                status="{{ isSubmitted && permissionForm.controls.icon.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                placeholder="Icono" formControlName="icon" required name minlength="5">
+                            <div *ngIf="permissionForm.controls.icon.errors && isSubmitted ">
+                                <small *ngIf="permissionForm.controls.icon.errors.required">Ingrese el icono del
+                                    permiso</small>
+                                <small *ngIf="permissionForm.controls.icon.errors.minlength">Revise el icono del
+                                    permiso</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Acción del permiso:</small>
+                            <input type="text" nbInput fullWidth fieldSize="medium"
+                                status="{{ isSubmitted && permissionForm.controls.action.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                placeholder="Acción" formControlName="action" required name minlength="5">
+                            <div *ngIf="permissionForm.controls.action.errors && isSubmitted ">
+                                <small *ngIf="permissionForm.controls.action.errors.required">Ingrese la acción del
+                                    permiso</small>
+                                <small *ngIf="permissionForm.controls.action.errors.minlength">Revise la acción del
+                                    permiso</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 div-send text-right">
+                        <a nbButton status="primary" class="btn-left" (click)="Cancel()">Cancelar</a>
+                        <button type="submit" nbButton status="danger">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<nb-card>
+    <nb-card-header>
+        <h6>Permisos</h6>
+    </nb-card-header>
+    <nb-list>
+        <nb-list-item *ngFor="let permission of permissionBS.permissions">
+            <h6><a routerLink="./" (click)="EditPermission(permission)">{{permission.name}}</a></h6>
+            <span>{{permission.action}}</span>
+        </nb-list-item>
+    </nb-list>
+</nb-card>
+<ng-template #confirmDelete let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>¿Desea Continuar?</nb-card-header>
+        <nb-card-footer>
+            <button nbButton status="danger" class="btn-left" (click)="ref.close()">No</button>
+            <button nbButton status="danger" class="btn-left" (click)="DeleteRole()">Si</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
+<ngx-roles-permissions></ngx-roles-permissions>

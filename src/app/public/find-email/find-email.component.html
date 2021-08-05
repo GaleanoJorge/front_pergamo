@@ -1,0 +1,54 @@
+<ngx-base-list>
+    <div content>
+        <div class="row text-center ">
+            <div class="col-12">
+                <h3 class="text-basic-color ">Encontrar mi correo electrónico</h3>
+            </div>
+        </div>
+        <div actions>
+            <div class="actions">
+                <a nbButton routerLink="/auth">Volver</a>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-6 text-center">
+                <input type="number" fieldSize="large" nbInput fullWidth placeholder="Ingrese el número de cédula"
+                    [formControl]="inputItemFormControl">
+            </div>
+            <div class="col-6 text-right">
+                <button [nbSpinner]="loading" [disabled]="loading" nbSpinnerStatus="success" nbButton size="large"
+                    (click)="Search()">Buscar</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 30px;" *ngIf="search">
+            <div class="col-12">
+                <nb-card>
+                    <nb-card-header>
+                        <h5>Resultados</h5>
+                    </nb-card-header>
+                    <nb-list *ngIf="messageError">
+                        <nb-list-item>
+                            <h5>{{messageError}}</h5>
+                        </nb-list-item>
+                    </nb-list>
+                    <nb-list *ngFor="let user of users">
+                        <nb-list-item>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="h5">Información Personal</p>
+                                    <p>
+                                        <b>Nombres: </b>{{user.firstname}} {{user.middlefirstname}}<br>
+                                        <b>Apellidos: </b>{{user.lastname}} {{user.middlelastname}}<br>
+                                        <b>Identificación: </b>{{user.identification}}<br>
+                                        <b>Correo: </b>{{user.email}}<br>
+                                        <b>Rol: </b>{{user.name}}<br>
+                                    </p>
+                                </div>
+                            </div>
+                        </nb-list-item>
+                    </nb-list>
+                </nb-card>
+            </div>
+        </div>
+    </div>
+</ngx-base-list>

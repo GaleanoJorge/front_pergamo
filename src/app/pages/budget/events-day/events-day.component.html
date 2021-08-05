@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-sm-12" *ngIf="!IsApproved">
+    <button nbButton status="danger" (click)="addDay()">
+      Agregar día
+    </button>
+  </div>
+
+  <div class="col-sm-12" [nbSpinner]="loading">
+    <nb-card class="mt-2">
+      <nb-card-body>
+        <nb-tabset>
+          <nb-tab *ngFor="let day of events_day; let i = index"
+                  [tabTitle]="'Día ' + day.day_number + ' ' + day.date_planned">
+            <ngx-events-concepts
+              [event_id]="event_id"
+              [event_day_id]="day.id"
+              [conceptTypes]="conceptTypes"
+              [municipality_id]="municipality_id"
+              (total)="calculateTotalDays($event, i)"
+              [IsApproved]="IsApproved"
+            >
+            </ngx-events-concepts>
+          </nb-tab>
+
+          <nb-tab tabTitle="Conceptos especiales">
+            <ngx-events-concepts-special
+              [event_id]="event_id"
+              [municipality_id]="municipality_id"
+              (total)="calculateTotalSpecial($event)"
+              [IsApproved]="IsApproved"
+            ></ngx-events-concepts-special>
+          </nb-tab>
+
+          <nb-tab tabTitle="Total" active>
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th colspan="2">Total presupuesto</th>
+                  </tr>
+                  <tr>
+                    <th>Concepto</th>
+                    <th>Valor</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>Total presupuesto de días</td>
+                    <td>{{ totalDays | currency }}</td>
+                  </tr>
+                  <tr>
+                    <td>Total de conceptos especiales</td>
+                    <td>{{ total_special | currency }}</td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Total presupuesto por evento</th>
+                    <th>
+                      {{ (total_special + totalDays) | currency }}
+                    </th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <ngx-events-histoty-status
+                  [event_id]="event_id"
+                  [IsApproved]="IsApproved"
+                >
+                </ngx-events-histoty-status>
+              </div>
+            </div>
+
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+

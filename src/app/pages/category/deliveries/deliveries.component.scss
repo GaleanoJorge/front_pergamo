@@ -1,0 +1,15 @@
+@import "../../../@theme/styles/themes";
+
+@include nb-install-component() {
+    nb-accordion-item-body {
+        background-color: aliceblue;
+    }
+    small {
+        position: absolute;
+        margin-top: 40px;
+    }
+    .special-text {
+        font-size: larger;
+        font-weight: bold;
+    }
+}

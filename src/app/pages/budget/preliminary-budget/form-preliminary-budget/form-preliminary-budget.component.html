@@ -1,0 +1,226 @@
+<ngx-base-form [title]="title" [routes]="routes" [messageError]="messageError"
+               [routeBack]="routeBack"
+               [actionSave]="IsApproved ? null : Save.bind(this)"
+               [showActionsHeaders]="false">
+  <div content>
+    <form class="container" [formGroup]="form" (ngSubmit)="Save()">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="form-text text-muted font-weight-bold">
+              Curso:
+            </label>
+            <ngx-autocomplete-remote
+              placeholder="Actividad independiente"
+              url="courseAutocomplete"
+              returnData="courses"
+              formControlName="course_id"
+              [initValue]="searchCourse.bind(this)"
+              status="{{ isSubmitted && form.controls.course_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+            >
+            </ngx-autocomplete-remote>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="origin_id" class="form-text text-muted font-weight-bold">
+              Plan de estudio<span>*</span>:
+            </label>
+            <nb-select formControlName="origin_id" id="origin_id" fullWidth
+                       status="{{ isSubmitted && form.controls.origin_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of origins" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="category_id" class="form-text text-muted font-weight-bold">
+              Programa<span>*</span>:
+            </label>
+            <nb-select formControlName="category_id" id="category_id" fullWidth
+                       status="{{ isSubmitted && form.controls.origin_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of categories" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="categories_origin_id" class="form-text text-muted font-weight-bold">
+              Sub programa<span>*</span>:
+            </label>
+            <nb-select formControlName="categories_origin_id" id="categories_origin_id" fullWidth
+                       status="{{ isSubmitted && form.controls.categories_origin_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of subcategories" [value]="item.id">{{ item.category.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="form-text text-muted font-weight-bold">
+              Ciudad<span>*</span>:
+            </label>
+            <ngx-autocomplete-remote
+              url="municipalityAutocomplete"
+              returnData="municipalitys"
+              formControlName="municipality_id"
+              [initValue]="searchMunicipality.bind(this)"
+              status="{{ isSubmitted && form.controls.municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+            >
+            </ngx-autocomplete-remote>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="entity_type_id" class="form-text text-muted font-weight-bold">
+              Tipo evento<span>*</span>:
+            </label>
+            <nb-select formControlName="entity_type_id" id="entity_type_id" fullWidth
+                       status="{{ isSubmitted && form.controls.entity_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of entityTypes" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="name" class="form-text text-muted font-weight-bold">
+              Nombre del evento<span>*</span>:
+            </label>
+            <input id="name" type="text" nbInput formControlName="name"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="initial_date" class="form-text text-muted font-weight-bold">
+              Fecha inicio<span>*</span>:
+            </label>
+            <input id="initial_date" type="date" nbInput formControlName="initial_date"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.initial_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="final_date" class="form-text text-muted font-weight-bold">
+              Fecha finalización<span>*</span>:
+            </label>
+            <input id="final_date" type="date" nbInput formControlName="final_date"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.final_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label for="summoned_participants" class="form-text text-muted font-weight-bold">
+              Convocados<span>*</span>:
+            </label>
+            <input id="summoned_participants" type="number" nbInput formControlName="summoned_participants"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.summoned_participants.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label for="number_trainers" class="form-text text-muted font-weight-bold">
+              Formadores<span>*</span>:
+            </label>
+            <input id="number_trainers" type="number" nbInput formControlName="number_trainers"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.number_trainers.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="number_trainers" class="form-text text-muted font-weight-bold">
+              Monto de presupuesto disponible:
+            </label>
+            <p class="pt-2">{{ amount | currency }}</p>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="form-text text-muted font-weight-bold">
+              Coordinador<span>*</span>:
+            </label>
+            <ngx-autocomplete-remote
+              url="user/all/2"
+              returnData="users"
+              formControlName="user_coordinate_id"
+              user_coordinate_id
+              [label]="renderLabelUsers"
+              value="id"
+              [initValue]="searchUser.bind(this)"
+              status="{{ isSubmitted && form.controls.user_coordinate_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+            >
+            </ngx-autocomplete-remote>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="form-group">
+            <label for="place" class="form-text text-muted font-weight-bold">
+              Lugar:
+            </label>
+            <input id="place" type="text" nbInput formControlName="place"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.place.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+
+        <!--<div class="col-sm-4">
+          <div class="form-group">
+            <label for="approved_status_id" class="form-text text-muted font-weight-bold">
+              Estado:
+            </label>
+            <nb-select formControlName="approved_status_id" id="approved_status_id" fullWidth
+                       status="{{ isSubmitted && form.controls.approved_status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of status" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>-->
+      </div>
+
+    </form>
+  </div>
+
+  <div end>
+    <ngx-events-day *ngIf="data"
+                    [event_id]="data.id"
+                    [conceptTypes]="conceptTypes"
+                    [municipality_id]="form.controls.municipality_id.value.value"
+                    [IsApproved]="IsApproved"
+                    >
+    </ngx-events-day>
+  </div>
+
+</ngx-base-form>

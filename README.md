@@ -1,45 +1,49 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
-
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
-
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+# Pergamo
+Herramienta gestión de health and life ips.
 
 ---
 
-## Edit a file
+## Descargar e Instalar CURL
+-   sudo apt install curl
+-   sudo curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+## Validar version CURL
+-   nvm --version
+## Versiones disponibles NodeJS
+-   nvm ls-remote
+## Instalar version especifica NodeJS (Automaticamente agrega el NPM)
+-   nvm install 10.16.3
+## Validar version NodeJS y NPM
+-   node -v 
+-   npm -v
+## Cambiar version de NodeJS y NPM (Opcional)
+-   nvm use 10.16.3
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+## Ejcutar bash nvm (Opcional)
+-   source ~/.nvm/nvm.sh
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+## Dar permisos a la carpeta
+-   sudo chown -R www-data:www-data front-ensename
+-   sudo chmod -R 777 front-ensename
+
+
+## Instalar dependencias (Raiz de front-ensename)
+-   npm install
+
+## Instalar AngularCLI
+-   npm install -g @angular/cli@9.1.4
+
+## Ejecutar APP (Solo si no se tiene ejecutando en un host virtual)
+-   ng serve --host=0.0.0.0 --port=8002
+-   node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve
+
+## Publicar APP (Destino por defecto "dist/")
+-   ng build --prod
+
+## Documentación
+https://phoenixnap.com/kb/install-latest-node-js-and-nmp-on-ubuntu#:~:text=Install%20a%20Specific%20Version,-Nvm%20is%20a&text=To%20install%20a%20particular%20version,the%20number%20of%20the%20version.&text=This%20will%20list%20all%20installed,the%20default%20and%20stable%20versions.
 
 ---
 
-## Create a file
+## License
 
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
-
----
-
-## Clone a repository
-
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+Copyright Health and life ips 2021

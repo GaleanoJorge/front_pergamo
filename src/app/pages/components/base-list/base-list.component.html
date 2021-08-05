@@ -1,0 +1,26 @@
+<div class="row" *ngIf="messageError">
+  <div class="col-12">
+    <nb-alert status="danger" class="container-fluid" id="messageError">
+      <strong>Oh Dios!</strong>
+      <span *ngIf="!messageError.error">{{ messageError }}</span>
+      <span *ngIf="messageError.error">{{ messageError.error.message }}</span>
+
+      <ul class="list-errors" *ngIf="this.messageError && this.messageError.error
+        && this.messageError.error.data && this.messageError.error.data.errors">
+        <li *ngFor="let error of errors">
+          {{ error }}
+        </li>
+      </ul>
+    </nb-alert>
+  </div>
+</div>
+
+<ngx-breadcrumb *ngIf="routes && routes.length" [routes]="routes"></ngx-breadcrumb>
+
+<nb-card accent="info">
+  <nb-card-body>
+    <ng-content select="[content]">
+
+    </ng-content>
+  </nb-card-body>
+</nb-card>

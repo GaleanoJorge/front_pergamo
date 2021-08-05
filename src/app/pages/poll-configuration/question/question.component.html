@@ -1,0 +1,16 @@
+<ngx-base-list
+  [messageError]="messageError">
+  <div content>
+    <ngx-base-table [title]="title"
+                    [settings]="settings"
+                    entity="question"
+                    customData="questions"
+                    [queryParams]="{ section_id: section_id }">
+      <div actions>
+        <div class="actions">
+          <a nbButton status="danger" routerLink="/pages/pollconfiguration/sections/{{ section_id }}/questions/create">Crear</a>
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

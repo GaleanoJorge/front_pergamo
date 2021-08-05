@@ -1,0 +1,80 @@
+<ngx-base-form [title]="title"
+               [routes]="routes"
+               [messageError]="messageError"
+               [actionSave]="save.bind(this)"
+               [showActionsHeaders]="false">
+  <div content>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <form class="container" [formGroup]="form" (ngSubmit)="save()">
+            <label for="origin_id" class="form-text text-muted font-weight-bold">
+              Plan de estudio<span>*</span>:
+            </label>
+            <nb-select formControlName="origin_id"
+                       id="origin_id" fullWidth>
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option
+                *ngFor="let item of origins"
+                [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <form class="container" [formGroup]="form" (ngSubmit)="save()">
+            <label for="category_id" class="form-text text-muted font-weight-bold">
+              Programa<span>*</span>:
+            </label>
+            <nb-select formControlName="category_id"
+                       id="category_id" fullWidth>
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option
+                *ngFor="let item of categoriesList"
+                [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <nb-card class="text-center" [nbSpinner]="loadingData" *ngIf="loadingData">
+      <nb-card-body class="d-flex justify-content-center align-items-center">Cargando información</nb-card-body>
+    </nb-card>
+
+    <div class="row" *ngIf="categories.length">
+      <div class="col-sm-12">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Sub programa</th>
+            <th>Valor</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let category of categories; index as i">
+            <td>{{ category.name }}</td>
+            <td>
+              <input nbInput type="text" [(ngModel)]="category.allocated_budget">
+              <small class="pr-2 form-text text-muted">{{ category.allocated_budget | currency }}</small>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!categories.length && this.form.get('category_id').value && !loadingData">
+      <div class="col-sm-12">
+        <div class="alert alert-warning" role="alert">
+          No se han encontrado sub programas para parametrizar el presupuesto
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ngx-base-form>

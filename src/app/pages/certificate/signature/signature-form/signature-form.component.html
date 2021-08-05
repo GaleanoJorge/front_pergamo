@@ -1,0 +1,101 @@
+<div class="row" *ngIf="messageError">
+  <div class="col-12">
+    <nb-alert status="danger" class="container-fluid">
+      <strong>Oh Dios!</strong> {{messageError}}
+    </nb-alert>
+  </div>
+</div>
+<ngx-breadcrumb [routes]="routes" *ngIf="!onlyList"></ngx-breadcrumb>
+<div class="row">
+  <div class="col-sm-6">
+    <nb-card accent="info">
+      <nb-card-header>Firma</nb-card-header>
+      <nb-card-body>
+        <nb-card [nbSpinner]="loading" nbSpinnerStatus="danger" nbSpinnerSize="large" nbSpinnerMessage="">
+          <nb-card-body>
+            <nb-stepper orientation="horizontal">
+              <nb-step [label]="signatureData">
+                <ng-template #signatureData>Datos</ng-template>
+                <div>
+                  <form [formGroup]="formSignature" (submit)="addData()">
+                    <div class="field-content">
+                      <input type="text"
+                             nbInput
+                             fullWidth
+                             placeholder="Nombre"
+                             formControlName="name"
+                             #name
+                             status="{{ (formSignature.controls.name.dirty || formSignature.controls.name.touched) && formSignature.controls.name.errors || isSubmitted && formSignature.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                      />
+                      <div
+                        *ngIf="formSignature.controls.name.invalid && (formSignature.controls.name.dirty || formSignature.controls.name.touched) || formSignature.controls.name.invalid && isSubmitted ">
+                        <small *ngIf="formSignature.controls.name.errors.required">Ingrese el nombre</small>
+                      </div>
+                    </div>
+                    <div class="field-content">
+                      <input
+                        type="text"
+                        nbInput
+                        fullWidth
+                        placeholder="Cédula"
+                        formControlName="code"
+                        #code
+                      />
+                    </div>
+                    <div class="field-content">
+                      <label for="">Imagen</label>
+                      <input
+                        type="file"
+                        nbInput
+                        fullWidth
+                        formControlName="image"
+                        #image
+                        status="{{ (formSignature.controls.image.dirty || formSignature.controls.image.touched) && formSignature.controls.image.errors || isSubmitted && formSignature.controls.image.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                        (change)="updateFile($event)"
+                      />
+                      <div
+                        *ngIf="formSignature.controls.image.invalid && (formSignature.controls.image.dirty || formSignature.controls.image.touched) || formSignature.controls.image.invalid && isSubmitted ">
+                        <small *ngIf="formSignature.controls.image.errors.required">Seleccione imagen</small>
+                      </div>
+                    </div>
+                    <div>
+                      <button nbButton disabled nbStepperNext>anterior</button>
+                      <button nbButton nbStepperNext (click)="addData()">siguiente</button>
+                    </div>
+                  </form>
+                </div>
+              </nb-step>
+              <nb-step [label]="signaturePosition">
+                <ng-template #signaturePosition>Posición</ng-template>
+                <div>
+                  <div class="field-content">
+                    <ngx-list-elements (changePositions)="arrayElements=$event"
+                                       [elementVal]="elementAct"
+                                       [arrayElements]="arrayElements"
+                                       (elementAct)="selectElement($event)"></ngx-list-elements>
+                  </div>
+                  <div>
+                    <button nbButton nbStepperNext>anterior</button>
+                    <button nbButton nbStepperNext (click)="submit()">guardar</button>
+                  </div>
+                </div>
+              </nb-step>
+            </nb-stepper>
+          </nb-card-body>
+        </nb-card>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-sm-6">
+    <nb-card>
+      <nb-card-header>Preview</nb-card-header>
+      <nb-card-body>
+        <div class="flex-center">
+          <ngx-canvas [arrayElements]="arrayElements" [elementAct]="elementAct" [export]="export"
+                      (exportImage)="updateUrlCanvas($event)" (updateJson)="updateElementsPositions($event)"
+                      [sizeCanvas]="sizeCanvas"></ngx-canvas>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

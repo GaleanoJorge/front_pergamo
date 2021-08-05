@@ -1,0 +1,17 @@
+<nb-accordion multi>
+    <nb-accordion-item #item *ngFor="let item of items">
+        <nb-accordion-item-header>
+            <div class="target">
+                <a routerLink="./">{{item.name}}</a> {{item.route}}
+            </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+            <div *ngIf="item.subitems.length>0">
+                <ngx-dynamic-item [items]="item.subitems"></ngx-dynamic-item>
+            </div>
+            <div *ngIf="item.subitems.length==0">
+                <h5>Sin SubItems</h5>
+            </div>
+        </nb-accordion-item-body>
+    </nb-accordion-item>
+</nb-accordion>

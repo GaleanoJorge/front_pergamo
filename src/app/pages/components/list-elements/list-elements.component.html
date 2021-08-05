@@ -1,0 +1,138 @@
+<nb-list *ngIf="editMode === null" dragula="elements" [(dragulaModel)]="arrayElements" (dragulaModelChange)="changeObject($event)">
+  <nb-list-item style="padding: 10px 1em;" *ngFor="let element of arrayElements; index as i">
+    <div class="row container-list">
+      <div>
+        <b>
+          {{ element.element }}
+        </b>
+        <div >
+          {{ element.type }}
+        </div>
+      </div>
+      <div >
+        <button size="tiny"
+          *ngIf="(disabled && (elementVal === null || elementVal.pos !== i) &&
+          (element.type !== 'background' && element.type !== 'backgroundColor')) ||
+            (!disabled && (elementVal === null || elementVal.pos !== i)
+            && element.type !== 'signature' && (element.type !== 'background'
+            && element.type !== 'backgroundColor'))"
+          outline (click)="selectElement(element,i)" nbButton status="warning">
+          <nb-icon icon="move-outline"></nb-icon>
+        </button>
+        <button size="tiny"
+          *ngIf="elementVal !== null && elementVal.pos === i &&
+            (element.type !== 'background' && element.type !== 'backgroundColor')"
+          outline (click)="selectElement(null,0)" nbButton
+          status="danger">
+          <nb-icon icon="slash-outline"></nb-icon>
+        </button>
+        <button size="tiny" *ngIf="element.type !== 'background' && element.type !== 'backgroundColor'"
+          outline (click)="changeEdit(element)" nbButton status="info">
+          <nb-icon icon="options-outline"></nb-icon>
+        </button>
+        <button size="tiny" *ngIf="!disabled && element.type !== 'signature'
+          && element.type !== 'background' && element.type !== 'backgroundColor'"
+          outline (click)="removeElement(i)" nbButton status="danger">
+          <nb-icon icon="trash-outline"></nb-icon>
+        </button>
+      </div>
+    </div>
+  </nb-list-item>
+</nb-list>
+<!-- Start Forms edit -->
+<div *ngIf="editMode !== null">
+  <form [formGroup]="formEditMode">
+    <div class="btns-options">
+      <div>
+        <button nbButton status="primary" size="small" (click)="closeEdit()">
+          <nb-icon icon="arrow-ios-back-outline"></nb-icon>
+          Anterior
+        </button>
+      </div>
+      <div>
+        <button
+          nbButton
+          status="primary"
+          size="small"
+          (click)="saveEdit()"
+        >
+          <nb-icon icon="save-outline"></nb-icon>
+          Guardar
+        </button>
+      </div>
+    </div>
+    <div [ngSwitch]="editMode.type">
+      <div *ngSwitchCase="'image'">
+        <div class="field-content">
+          <label for="">Ancho</label>
+          <input type="number"
+            nbInput
+            placeholder="Ancho en px"
+            formControlName="width"
+            #width
+          />
+        </div>
+        <div class="field-content">
+          <label for="">Alto</label>
+          <input type="number"
+            nbInput
+            placeholder="Alto en px"
+            formControlName="height"
+            #height
+          />
+        </div>
+      </div>
+      <div *ngSwitchCase="'signature'">
+        <div class="field-content">
+          <label for="">Ancho</label>
+          <input type="number"
+            nbInput
+            placeholder="Ancho en px"
+            formControlName="width"
+            #width
+          />
+        </div>
+        <div class="field-content">
+          <label for="">Alto</label>
+          <input type="number"
+            nbInput
+            placeholder="Alto en px"
+            formControlName="height"
+            #height
+          />
+        </div>
+      </div>
+      <div *ngSwitchDefault>
+        <div class="field-content">
+          <label for="">Tamaño de la letra</label>
+          <input type="number"
+            nbInput
+            placeholder="Tamaño de la letra en px"
+            formControlName="size"
+            #size
+          />
+        </div>
+        <div class="field-content">
+          <label for="">Color</label>
+          <color-compact [color]="colorInput" (onChangeComplete)="changeComplete($event)"></color-compact>
+        </div>
+        <div class='field-content'>
+          <label for="">Fuente</label>
+          <nb-select placeholder="Seleccione Fuente" fullWidth formControlName="font">
+            <nb-option *ngFor="let fontVal of fonts" [value]="fontVal">{{ fontVal }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="field-content">
+          <nb-checkbox formControlName="bold">
+            Negrita
+          </nb-checkbox>
+        </div>
+        <div class="field-content">
+          <nb-checkbox formControlName="centerAlign">
+            Centrado Horizontal
+          </nb-checkbox>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

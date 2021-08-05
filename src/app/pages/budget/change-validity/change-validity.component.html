@@ -1,0 +1,123 @@
+<ngx-base-form [title]="title" [routes]="routes"
+               [messageError]="messageError"
+               [actionSave]="ListarConceptos.bind(this)"
+               [showActionsHeaders]="false"
+               textButtonSave="Listar conceptos">
+  <div content>
+    <form class="container" [formGroup]="form" (ngSubmit)="ListarConceptos()">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="validity_id" class="form-text text-muted font-weight-bold">
+              Vigencia origen<span>*</span>:
+            </label>
+            <nb-select formControlName="validity_id"
+                       id="validity_id" fullWidth
+                       status="{{ isSubmitted && form.controls.validity_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of validities" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="new_validity_id" class="form-text text-muted font-weight-bold">
+              Vigencia destino<span>*</span>:
+            </label>
+            <nb-select formControlName="new_validity_id"
+                       id="new_validity_id" fullWidth
+                       status="{{ isSubmitted && form.controls.new_validity_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of validities" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="concept_type_id" class="form-text text-muted font-weight-bold">
+              Tipo de concepto:
+            </label>
+            <nb-select formControlName="concept_type_id"
+                       id="concept_type_id" fullWidth
+                       status="{{ isSubmitted && form.controls.concept_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of conceptTypes" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="form-text text-muted font-weight-bold">
+              Ciudad:
+            </label>
+            <ngx-autocomplete-remote
+              url="municipalityAutocomplete"
+              returnData="municipalitys"
+              formControlName="municipality_id"
+              status="{{ isSubmitted && form.controls.municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+            >
+            </ngx-autocomplete-remote>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="increase_percentage" class="form-text text-muted font-weight-bold">
+              Porcentaje de aumento<span>*</span>:
+            </label>
+            <input id="increase_percentage" type="number" nbInput formControlName="increase_percentage"
+
+                   status="{{ isSubmitted && form.controls.increase_percentage.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div end>
+    <div *ngIf="this.isSubmitted && !concepts.length && isSearch && !loadingConcept">
+      <h1 class="h6">No se han encontrado conceptos</h1>
+    </div>
+    <div class="row" [nbSpinner]="loadingConcept" *ngIf="concepts.length">
+      <div class="col-sm-12">
+        <table class="table">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Tipo de concepto</th>
+            <th>Concepto</th>
+            <th>Ciudad</th>
+            <th>Vigencia actual</th>
+            <th>Vigencia destino</th>
+            <th>Valor anterior</th>
+            <th>Valor</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let concept of concepts">
+            <td>
+              <nb-checkbox [(ngModel)]="concept.changeValidity"></nb-checkbox>
+            </td>
+            <td>{{ concept.tipo }}</td>
+            <td>{{ concept.concepto }}</td>
+            <td>{{ concept.ciudad }}</td>
+            <td>{{ currentValidityName }}</td>
+            <td>{{ currentNewValidityName }}</td>
+            <td>{{ concept.unit_value | currency }}</td>
+            <td>{{ concept.new_validity_unit_value | currency }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-12 d-flex justify-content-center">
+        <button nbButton status="danger" (click)="Save()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</ngx-base-form>

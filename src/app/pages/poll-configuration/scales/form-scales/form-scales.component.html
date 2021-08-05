@@ -1,0 +1,25 @@
+<ngx-base-form [title]="title" [routes]="routes" [messageError]="messageError" [routeBack]="routeBack"
+               [actionSave]="save.bind(this)"
+               [showActionsHeaders]="false">
+
+  <div content>
+    <form class="container" [formGroup]="form" (ngSubmit)="save()">
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <div class="form-group">
+            <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+            <input nbInput fullWidth id="name" formControlName="name" name
+                   status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div end>
+    <ngx-scales-items *ngIf="data" [scale_id]="data.id">
+
+    </ngx-scales-items>
+  </div>
+</ngx-base-form>
+

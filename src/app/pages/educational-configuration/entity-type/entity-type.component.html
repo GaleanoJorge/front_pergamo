@@ -1,0 +1,17 @@
+<ngx-base-list
+    [messageError]="messageError">
+    <div content>
+        <ngx-base-table [title]="title"
+                                        [subtitle]="subtitle" [settings]="settings"
+                                        entity="entityType/?pagination=true"
+                                        customData='entities'
+                                        >
+            <div actions>
+                <div class="actions">
+                    <!-- <button><a routerLink="../../newprogram/{{value.data.id}}">Crear</a></button> -->
+                    <button nbButton status="danger" (click)="NewEntity()">Crear</button>
+                </div>
+            </div>
+        </ngx-base-table>      
+    </div>
+</ngx-base-list>

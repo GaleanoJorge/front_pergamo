@@ -1,0 +1,130 @@
+<ngx-base-list>
+    <div content>
+        <div class="row text-center ">
+            <div class="col-12">
+                <h3 class="text-basic-color ">Descargar Certificado</h3>
+            </div>
+        </div>
+        <div actions>
+            <div class="actions">
+                <a nbButton routerLink="/auth">Volver</a>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-6 text-center">
+                <input type="number" fieldSize="large" nbInput fullWidth placeholder="Ingrese el número de cédula"
+                    [formControl]="inputItemFormControl">
+            </div>
+            <div class="col-6 text-right">
+                <button [nbSpinner]="loading" [disabled]="loading" nbSpinnerStatus="success" nbButton size="large"
+                    (click)="Search()">Buscar</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 30px;" *ngIf="search">
+            <div class="col-12">
+                <nb-card>
+                    <nb-card-header>
+                        <h5>Resultados</h5>
+                    </nb-card-header>
+                    <nb-list *ngIf="messageError">
+                        <nb-list-item>
+                            <h5>{{messageError}}</h5>
+                        </nb-list-item>
+                    </nb-list>
+                    <nb-list *ngFor="let user of users">
+                        <nb-list-item>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="h5">Información Personal</p>
+                                    <p>
+                                        <b>Nombres: </b>{{user.firstname}} {{user.middlefirstname}}<br>
+                                        <b>Apellidos: </b>{{user.lastname}} {{user.middlelastname}}<br>
+                                        <b>Identificación: </b>{{user.identification}}<br>
+                                        <b>Correo: </b>{{user.email}}
+                                    </p>
+                                </div>
+                                <div class="col-12" style="padding:2%">
+                                    <p class="h5">Información Académica</p>
+                                    <!--Cargos-->
+                                    <nb-accordion>
+                                        <nb-accordion-item [disabled]="!user.user_role.length>0">
+                                            <nb-accordion-item-header>Cargo</nb-accordion-item-header>
+                                            <nb-accordion-item-body>
+                                                <!--Cursos-->
+                                                <nb-accordion>
+                                                    <nb-accordion-item *ngFor="let role of user.user_role"
+                                                        [disabled]="!role.user_role_course.length>0">
+                                                        <nb-accordion-item-header>{{role.role.name}}
+                                                        </nb-accordion-item-header>
+                                                        <nb-accordion-item-body>
+                                                            <!--Certificados-->
+                                                            <nb-accordion>
+                                                                <nb-accordion-item
+                                                                    *ngFor="let certificate of role.user_role_course">
+                                                                    <nb-accordion-item-header
+                                                                        [disabled]="!certificate.user_certificates.length>0">
+                                                                        <p>
+                                                                            <b>Curso:
+                                                                            </b>{{certificate.course.coursebase.name}}<br>
+                                                                            <b>Sede:
+                                                                            </b>{{certificate.course.campus.name}}<br>
+                                                                            <b>Tipo:
+                                                                            </b>{{certificate.course.entity_type.name}}<br>
+                                                                            <b>Programa:
+                                                                            </b>{{certificate.course.category.name}}<br>
+                                                                            <b>Fecha de inscripción:
+                                                                            </b>{{datePipe.transform(certificate.created_at)}}<br>
+                                                                            <b>Último ajuste del estado:
+                                                                            </b>{{datePipe.transform(certificate.updated_at)}}<br>
+                                                                            <b *ngIf="certificate.inscription_status?.name!=null;else elseBlock">Estado:
+                                                                            </b>{{certificate.inscription_status ? certificate.inscription_status.name : '' }}<br>
+                                                                            <ng-template #elseBlock>                                                                         
+                                                                                <b>Estado:
+                                                                                </b>Pendiente<br>
+                                                                            </ng-template>
+
+                                                                        </p>
+                                                                    </nb-accordion-item-header>
+                                                                    <nb-accordion-item-body>
+                                                                        <!--Descargar Certificado-->
+                                                                        <nb-accordion>
+                                                                            <nb-accordion-item
+                                                                                *ngFor="let download of certificate.user_certificates">
+                                                                                <nb-accordion-item-header>
+                                                                                    <p>
+                                                                                        <a href="{{PathDownload(download.url_certificate)}}"
+                                                                                            target="_blank">Descargar
+                                                                                            Certificado
+                                                                                            #{{download.id}}
+                                                                                        </a><br>
+                                                                                        <b>Fecha de emisión:
+                                                                                        </b>{{datePipe.transform(download.created_at)}}<br>
+                                                                                        <b>Emitido por:
+                                                                                        </b>{{download.user_employee.firstname}}
+                                                                                        {{download.user_employee.lastname}}<br>
+                                                                                    </p>
+                                                                                </nb-accordion-item-header>
+                                                                            </nb-accordion-item>
+                                                                        </nb-accordion>
+                                                                        <!--Descargar Certificado-->
+                                                                    </nb-accordion-item-body>
+                                                                </nb-accordion-item>
+                                                            </nb-accordion>
+                                                            <!--Certificados-->
+                                                        </nb-accordion-item-body>
+                                                    </nb-accordion-item>
+                                                </nb-accordion>
+                                                <!--Cursos-->
+                                            </nb-accordion-item-body>
+                                        </nb-accordion-item>
+                                    </nb-accordion>
+                                    <!--/Cargos-->
+                                </div>
+                            </div>
+                        </nb-list-item>
+                    </nb-list>
+                </nb-card>
+            </div>
+        </div>
+    </div>
+</ngx-base-list>

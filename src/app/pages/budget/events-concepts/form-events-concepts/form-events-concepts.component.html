@@ -1,0 +1,82 @@
+<ngx-base-form [messageError]="messageError"
+               [actionSave]="Save.bind(this)"
+               [showActionsHeaders]="false">
+  <div content>
+    <form class="container" [formGroup]="form" (ngSubmit)="Save()">
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="concept_type_id" class="form-text text-muted font-weight-bold">
+              Tipo de concepto:
+            </label>
+            <nb-select formControlName="concept_type_id" id="concept_type_id" fullWidth
+                       status="{{ isSubmitted && form.controls.concept_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of conceptTypes" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="form-text text-muted font-weight-bold">
+              Concepto:
+            </label>
+            <ngx-autocomplete-remote
+              url="conceptAutocomplete"
+              returnData="concepts"
+              formControlName="concept_id"
+              [params]="paramsConceptAutocomplete.bind(this)"
+              [initValue]="initConcept.bind(this)"
+              status="{{ isSubmitted && form.controls.concept_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+            >
+            </ngx-autocomplete-remote>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label for="planned_quantity" class="form-text text-muted font-weight-bold">
+              Cantidad:
+            </label>
+            <input id="planned_quantity" type="number"
+                   nbInput formControlName="planned_quantity"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.planned_quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="planned_unit_value" class="form-text text-muted font-weight-bold">
+              Valor unitario:
+            </label>
+
+            <input id="planned_unit_value" type="number"
+                   nbInput formControlName="planned_unit_value"
+                   fullWidth
+                   status="{{ isSubmitted && form.controls.planned_unit_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <small class="pr-2 form-text text-muted">{{ form.controls.planned_unit_value.value | currency }}</small>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="form-text text-muted font-weight-bold">
+              Valor total:
+            </label>
+            <p
+              class="mt-3">{{ form.controls.planned_unit_value.value * form.controls.planned_quantity.value | currency }}</p>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div actions>
+    <button nbButton (click)="resetForm()">Limpiar</button>
+    <button nbButton status="warning" (click)="eliminarDia()">
+      Eliminar este día
+    </button>
+  </div>
+</ngx-base-form>

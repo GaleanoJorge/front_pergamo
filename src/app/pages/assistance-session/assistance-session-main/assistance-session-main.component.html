@@ -1,0 +1,88 @@
+<div class="row" *ngIf="messageError">
+    <div class="col-12">
+        <nb-alert status="danger" class="container-fluid">
+            <strong>Oh Dios!</strong> {{messageError}}
+        </nb-alert>
+    </div>
+</div>
+<nb-card accent="info" *ngIf="session">
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12">
+                <h5>Llamado a lista</h5>
+            </div>
+            <div class="col-12">
+                <small>Grupo: </small>{{session.group_id}}, {{session.group.name}}
+                <br><small>Día: </small>{{datepipe.transform3(session.session_date)}}
+                <br><small>Hora de inicio: </small>{{session.start_time}}
+                <br><small>Hora de cierre: </small>{{session.closing_time}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th [attr.colspan]="session.group.course.entity_type_id == 4 ? 3 : 2"></th>
+                            <th colspan="2">Mañana</th>
+                            <th colspan="2">Tarde</th>
+                        </tr>
+                        <tr>
+                            <th scope="col" *ngIf="session.group.course.entity_type_id == 4">
+                                <nb-checkbox (checkedChange)="AllQR($event)">Escarapela</nb-checkbox>
+                            </th>
+                            <th scope="col">Nombres</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Ingreso</th>
+                            <th scope="col">Salida</th>
+                            <th scope="col">Ingreso</th>
+                            <th scope="col">Salida</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users; index as i" [class]="!user.Status ? 'alert-danger' : ''">
+                            <td *ngIf="session.group.course.entity_type_id == 4" class="text-center">
+                                <nb-checkbox [checked]="user.Qr" (checkedChange)="SingleQR($event, user)"></nb-checkbox>
+                                <button nbButton class="btnQR" *ngIf="user.QrLink" (click)="open(dialog, user)">
+                                    <nb-icon icon="external-link-outline"></nb-icon>
+                                </button>
+                            </td>
+                            <th scope="col">{{user.Nombres}}</th>
+                            <td>{{user.Correo}}</td>
+                            <td><input nbInput fieldSize="small" type="time" value="{{users[i].Ingreso}}"
+                                    [(ngModel)]="users[i].Ingreso" #ctrl="ngModel"></td>
+                            <td><input nbInput fieldSize="small" type="time" value="{{users[i].Salida}}"
+                                    [(ngModel)]="users[i].Salida" #ctrl="ngModel"></td>
+                            <td><input nbInput fieldSize="small" type="time" value="{{users[i].IngresoN}}"
+                                    [(ngModel)]="users[i].IngresoN" #ctrl="ngModel"></td>
+                            <td><input nbInput fieldSize="small" type="time" value="{{users[i].SalidaN}}"
+                                    [(ngModel)]="users[i].SalidaN" #ctrl="ngModel"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-right col-12">
+                <button nbButton (click)="SaveQR()" style="margin-right: 5px;" [nbSpinner]="loading"
+                    nbSpinnerStatus="success" [disabled]="loading"
+                    *ngIf="session.group.course.entity_type_id == 4">Generar
+                    Escarapelas</button>
+                <a style="margin-right: 5px;" nbButton
+                    routerLink="/pages/course/{{session.group.course_id}}/groups">Volver</a>
+                <button nbButton status="danger" (click)="Save()">Guardar</button>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<ng-template #dialog let-data let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>{{ data.Nombres }}</nb-card-header>
+        <nb-card-body class="text-center">
+            <img [src]="data.QrLink" />
+        </nb-card-body>
+        <nb-card-footer>
+            <button nbButton (click)="ref.close()">Cerrar</button>
+            <a style="margin-left: 10px;" nbButton [href]="data.QrURL" status="danger" target="_blank">Registrar
+                Asistencia</a>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

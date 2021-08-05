@@ -1,0 +1,32 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="user/all/0"
+            customData="users" [messageToltip]="messageToltip">
+            <div actions>
+                <div class="actions" style="display: flex;">
+                    <nb-select (selectedChange)="ChangeRole($event)" placeholder="Filtrar por rol" [(selected)]="role">
+                        <nb-option value="0">Todos los roles</nb-option>
+                        <nb-option *ngFor="let item of roles" [value]="item.id">{{item.name}}</nb-option>
+                    </nb-select>
+                    <a style="margin-left: 5px;" ngxCheckPerms="create" nbButton status="danger"
+                        (click)="open(dialog)">Crear</a>
+                </div>
+            </div>
+        </ngx-base-table>
+    </div>
+</ngx-base-list>
+<ng-template #dialog let-data let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>Crear usuario</nb-card-header>
+        <nb-card-body>
+            <nb-select fullWidth placeholder="Seleccione un rol" [(selected)]="roleCreate">
+                <nb-option *ngFor="let item of roles" [value]="item.id">{{item.name}}</nb-option>
+            </nb-select>
+        </nb-card-body>
+        <nb-card-footer class="text-right">
+            <button nbButton (click)="ref.close()" style="margin-right: 5px;">Cancelar</button>
+            <button nbButton (click)="ref.close()" status="danger"
+                routerLink="../../setting/users/create/{{roleCreate}}" [disabled]="roleCreate<1">Siguiente</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Concepto</th>
+        <th>Cantidad</th>
+        <th>Valor unitario</th>
+        <th>Cantidad real</th>
+        <th>Valor real</th>
+        <th>Soporte</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let concept of concepts; let i = index">
+        <td>{{ concept.concept.concept_base.name }}</td>
+        <td>{{ concept.planned_quantity }}</td>
+        <td>{{ concept.planned_unit_value | currency }}</td>
+        <td>
+          <input nbInput type="number" [(ngModel)]="concept.real_quantity">
+        </td>
+        <td>
+          <input nbInput type="number" [(ngModel)]="concept.real_unit_value">
+          <small class="pr-2 form-text text-muted">{{ concept.real_unit_value | currency }}</small>
+        </td>
+        <td>
+          <div class="d-flex" style="gap: 2px">
+            <button *ngIf="!isClose" size="small" nbButton [status]="concept.evidence_path ? 'danger' : 'basic'" (click)="clickFile(i)">
+              <nb-icon icon="attach-2-outline"></nb-icon>
+            </button>
+            <input type="file" style="display: none" [id]="'file_' + i + '_' + event_day_id"
+                   (change)="onChangeFile($event.target.files, i)">
+            <a size="small" nbButton *ngIf="concept.evidence_path && isUrlFile(concept.evidence_path)" status="danger"
+               title="Ver documento adjunto"
+               [href]="concept.evidence_path" target="_blank">
+              <nb-icon icon="eye-outline"></nb-icon>
+            </a>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th colspan="2">Resumen del día</th>
+      </tr>
+      <tr>
+        <th>Total presupuestado</th>
+        <th>Total ejecutado</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{ totalPresupuestado | currency }}</td>
+        <td>{{ totalEjecutado | currency }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

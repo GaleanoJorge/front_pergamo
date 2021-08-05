@@ -1,0 +1,56 @@
+<ngx-form-events-concepts
+  [event_day_id]="event_day_id"
+  [event_id]="event_id"
+  [conceptTypes]="conceptTypes"
+  [municipality_id]="municipality_id"
+  [data]="data"
+  [refreshData]="refreshData.bind(this)"
+  *ngIf="!IsApproved"
+>
+
+</ngx-form-events-concepts>
+
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th ></th>
+        <th>Tipo de concepto</th>
+        <th>Concepto</th>
+        <th>Cantidad</th>
+        <th>Valor unitario</th>
+        <th>Valor total</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let concept of concepts">
+        <td >
+          <button *ngIf="!IsApproved" nbButton ghost (click)="edit(concept)">
+            <nb-icon icon="edit-outline"></nb-icon>
+          </button>
+          <button *ngIf="!IsApproved" nbButton ghost (click)="delete(concept)">
+            <nb-icon icon="trash-2-outline"></nb-icon>
+          </button>
+        </td>
+        <td>{{ concept.concept.concept_base.concept_type.name }}</td>
+        <td>{{ concept.concept.concept_base.name }}</td>
+        <td>{{ concept.planned_quantity }}</td>
+        <td>{{ concept.planned_unit_value | currency }}</td>
+        <td>{{ (concept.planned_quantity * concept.planned_unit_value) | currency }}</td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th colspan="5">
+          Total del día
+        </th>
+        <th>
+          {{ totalConcepts | currency }}
+        </th>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

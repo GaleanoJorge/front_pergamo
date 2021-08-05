@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+    <nb-card size="medium" style="max-width: 400px">
+      <nb-card-header>{{ title }}</nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-12">
+            <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+            <input nbInput fullWidth id="name" formControlName="name" name
+                   status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
+          </div>
+          <div class="col-12">
+            <label for="sectional" class="form-text text-muted font-weight-bold">Departamento:</label>
+            <nb-select [selected]="this.data.region_id" formControlName="region_id" id="region" fullWidth
+                       status="{{ isSubmitted && form.controls.region_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == data.region_id }}" *ngFor="let item of region"
+                         [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col-12">
+            <label for="circuit" class="form-text text-muted font-weight-bold">Circuito:</label>
+            <nb-select [selected]="this.data.circuit_id" formControlName="circuit_id" id="circuit" fullWidth
+                       status="{{ isSubmitted && form.controls.circuit_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == data.circuit_id }}" *ngFor="let item of circuit"
+                         [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>          
+          
+        </div>
+  
+      </nb-card-body>
+      <nb-card-footer class="d-flex justify-content-end">
+        <button nbButton (click)="close()" type="button">Cancelar</button>
+        <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+

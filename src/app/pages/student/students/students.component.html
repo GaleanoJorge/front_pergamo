@@ -1,0 +1,18 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="user/byRole/5"
+                    customData="users" 
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <div class="actions">
+          <a ngxCheckPerms="create" nbButton status="danger" routerLink="../../student/students/create">Crear</a>
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

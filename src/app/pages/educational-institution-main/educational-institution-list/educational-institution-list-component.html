@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-12">
+        <nb-card class="nb-card-title">
+            <div class="icon-container">
+                <div class="icon status-warning" (click)="SeeAll(contentTemplate)">
+                    <i class="nb-person"></i>
+                </div>
+            </div>
+            <div class="details">
+                <div class="title h5">Instituciones Educativas</div>
+                <div class="status paragraph-2">Directorio</div>
+            </div>
+        </nb-card>
+    </div>
+    <div class="col-12">
+        <nb-card>
+            <div class="table-responsive" *ngIf="settings">
+                <ng2-smart-table [settings]="settings" [source]="source"
+                    (userRowSelect)="onSelect($event, contentTemplate)">
+                </ng2-smart-table>
+            </div>
+        </nb-card>
+    </div>
+</div>
+<ng-template #contentTemplate let-data>
+    <div class="row">
+        <div class="col-12">
+            <ngx-map [data]="data"></ngx-map>
+        </div>
+    </div>
+</ng-template>

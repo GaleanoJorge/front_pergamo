@@ -1,0 +1,14 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <ngx-general></ngx-general>
+    <ngx-base-table [settings]="settings"
+                    entity="reportLogisticSummary"
+                    customData="events"
+                    [queryParams]="getParams()"
+    >
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

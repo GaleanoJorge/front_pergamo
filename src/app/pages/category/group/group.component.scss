@@ -1,0 +1,17 @@
+@import "../../../@theme/styles/themes";
+
+.nb-card-padding {
+    padding: 15px;
+}
+
+.table,
+tbody {
+    background: white;
+}
+
+.table th,
+.table td {
+    padding: 0.3rem;
+    text-align: center;
+    vertical-align: middle;
+}

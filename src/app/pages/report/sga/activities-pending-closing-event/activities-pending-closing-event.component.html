@@ -1,0 +1,129 @@
+<ngx-base-reports
+  [messageError]="messageError"
+  [title]="title"
+  [loading]="loading"
+  [exportExcelSGA]="exportExcelSGA"
+  [validateData]="validateData"
+  [filters]="filters"
+>
+<div filters *ngIf="!loading">
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-secondary" role="alert">
+        Información académica
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Vigencia:</label>
+        <ngx-autocomplete
+          [options]="validities"
+          value="id"
+          label="name"
+          [(inputModel)]="validity"
+          (inputModelChange)="changeValidity($event)" 
+          placeholder="Filtrar por vigencia"
+        >
+        </ngx-autocomplete>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Plan de formación:</label>
+        <ngx-autocomplete
+          #originsAutocomplete
+          [options]="origins"
+          value="id"
+          label="name"
+          [(inputModel)]="origin"
+          (inputModelChange)="changeOrigin($event)" 
+          placeholder="Filtrar por plan de formación"
+        >
+        </ngx-autocomplete>
+      </div>
+    </div>
+  
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Programa:</label>
+        <ngx-autocomplete
+          #categoriesAutocomplete
+          [options]="categories"
+          value="id"
+          label="name"
+          [(inputModel)]="category"
+          (inputModelChange)="changeCategory($event)" 
+          placeholder="Filtrar por programa"
+        >
+        </ngx-autocomplete>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Sub Programa:</label>
+        <ngx-autocomplete
+          #subcategoriesAutocomplete
+          [options]="subcategories"
+          value="id"
+          label="name"
+          [(inputModel)]="subCategory"
+          placeholder="Filtrar por sub programa"
+        >
+        </ngx-autocomplete>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Sede:</label>
+        <ngx-autocomplete
+          #campusAutocomplete
+          [options]="dataCampus"
+          value="id"
+          label="name"
+          [(inputModel)]="campus"
+          placeholder="Filtrar por sede"
+        >
+        </ngx-autocomplete>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Coordinador:</label>
+        <ngx-autocomplete
+          #coordinatorsAutocomplete
+          [options]="coordinators"
+          [(inputModel)]="coordinator"
+          placeholder="Búsqueda por coordinador"
+        >
+        </ngx-autocomplete>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold" for="start_date">Fecha inicio:*</label>
+        <input id="start_date" nbInput type="date" [(ngModel)]="start_date" 
+          (ngModelChange)="changeDate()" fullWidth>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold" for="finish_date">Fecha fin:*</label>
+        <input id="finish_date" nbInput type="date" [(ngModel)]="finish_date" 
+         (ngModelChange)="changeDate()" fullWidth>
+      </div>
+    </div>
+  </div>
+
+</div>
+</ngx-base-reports>

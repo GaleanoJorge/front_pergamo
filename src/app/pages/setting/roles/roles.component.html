@@ -1,0 +1,83 @@
+<div class="row" *ngIf="messageError">
+    <div class="col-12">
+        <nb-alert status="danger" class="container-fluid">
+            <strong>Oh Dios!</strong> {{messageError}}
+        </nb-alert>
+    </div>
+</div>
+<ngx-breadcrumb [routes]="routes"></ngx-breadcrumb>
+<div class="row">
+    <div class="col-12">
+        <nb-card class="nb-card-title">
+            <div class="icon-container">
+                <div class="icon status-warning">
+                    <i class="nb-person"></i>
+                </div>
+            </div>
+            <div class="details">
+                <div class="title h5">Roles</div>
+                <div class="status paragraph-2">Gestión</div>
+            </div>
+        </nb-card>
+    </div>
+</div>
+<nb-card>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="roleForm" (ngSubmit)="saveRole()">
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="form-text text-muted">Nombre del rol:</small>
+                            <input type="text" nbInput fullWidth fieldSize="medium"
+                                status="{{ isSubmitted && roleForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                placeholder="Nombre" formControlName="name" required name minlength="5">
+                            <div *ngIf="roleForm.controls.name.errors && isSubmitted ">
+                                <small *ngIf="roleForm.controls.name.errors.required">Ingrese el nombre del rol</small>
+                                <small *ngIf="roleForm.controls.name.errors.minlength">Revise el nombre del rol</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Estado del rol:</small>
+                            <nb-select placeholder="Estado" size="medium" fullWidth formControlName="status"
+                                status="{{ isSubmitted && roleForm.controls.status.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                required status>
+                                <nb-option *ngFor="let status of statusBS.status" [value]="status.id">{{status.name}}
+                                </nb-option>
+                            </nb-select>
+                            <div *ngIf="roleForm.controls.status.errors && isSubmitted ">
+                                <small *ngIf="roleForm.controls.status.errors.required">Seleccione un estado</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 div-send text-right">
+                        <a nbButton status="primary" class="btn-left" *ngIf="role" (click)="Cancel()">Cancelar</a>
+                        <a nbButton status="warning" class="btn-left" *ngIf="role"
+                            (click)="ConfirmDelete(confirmDelete)">Eliminar</a>
+                        <button type="submit" nbButton status="danger">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<nb-card>
+    <nb-card-header>
+        <h6>Roles</h6>
+    </nb-card-header>
+    <nb-list>
+        <nb-list-item *ngFor="let role of roleBS.roles">
+            <h6><a routerLink="./" (click)="EditRole(role)">{{role.name}}</a></h6>
+            <span>{{role.status.name}}</span>
+        </nb-list-item>
+    </nb-list>
+</nb-card>
+<ng-template #confirmDelete let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>¿Desea Continuar?</nb-card-header>
+        <nb-card-footer>
+            <button nbButton status="danger" class="btn-left" (click)="ref.close()">No</button>
+            <button nbButton status="danger" class="btn-left" (click)="DeleteRole()">Si</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

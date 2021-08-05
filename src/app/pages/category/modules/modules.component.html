@@ -1,0 +1,23 @@
+<div class="row" *ngIf="messageError">
+    <div class="col-12">
+        <nb-alert status="danger" class="container-fluid">
+            <strong>Oh Dios!</strong> {{messageError}}
+        </nb-alert>
+    </div>
+</div>
+<nb-accordion multi>
+    <nb-accordion-item *ngFor="let module of moduleBS.modules">
+        <nb-accordion-item-header>
+            <h5>{{module.name}}</h5><br>
+            <small>{{module.description}}</small>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+            <div *ngIf="module.sessions.length>0">
+                <ngx-sessions [sessions]="module.sessions"></ngx-sessions>
+            </div>
+            <div *ngIf="module.sessions.length==0">
+                <h5>Sin sesiones</h5>
+            </div>
+        </nb-accordion-item-body>
+    </nb-accordion-item>
+</nb-accordion>

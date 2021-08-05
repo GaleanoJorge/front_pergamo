@@ -1,0 +1,111 @@
+<nb-card>
+    <nb-card-header>
+      <img [src]="surveyInstance !== null && surveyInstance.survey !== undefined
+        && surveyInstance.survey !==null ? surveyInstance.survey.url_image  : ''" width="100%" height="100px">
+    </nb-card-header>
+    <nb-card-body>
+      <div class="title-sections" *ngIf="surveyInstance !== null">
+        <p>
+            Encuesta {{ surveyInstance !== undefined && surveyInstance.survey !== undefined
+              && surveyInstance.survey !==null ? surveyInstance.survey.name : '' }}
+        </p >
+        <span>
+          {{
+            surveyInstance !== undefined &&
+            surveyInstance.description !== null &&
+            surveyInstance.description !== '' ?
+              surveyInstance.description :
+              surveyInstance.survey.description
+          }}
+        </span>
+      </div>
+       <div class="course-information" *ngIf="surveyInstance !== null">
+        <p *ngIf="surveyInstance.origin !== null && surveyInstance.origin !== undefined">
+          Programa: {{ surveyInstance.origin.name }}
+        </p>
+        <p *ngIf="surveyInstance.category !== null && surveyInstance.category !== undefined">
+          Sub-programa: {{ surveyInstance.category.name }}
+        </p>
+        <p *ngIf="surveyInstance.course !== null && surveyInstance.course !== undefined 
+                && surveyInstance.course.coursebase !== null && surveyInstance.course.coursebase !== undefined">
+          Nombre del acto académico: {{ surveyInstance.course.coursebase.name }}
+        </p>
+       </div>
+       <div *ngFor="let item of sections">
+          <p class="accordion-title" style="margin-bottom: 0px;">
+            {{ item.name }}
+          </p>
+          <span style="margin-bottom: 5px;" *ngFor="let roles of item.user_role">
+            <span *ngIf="roles.id === item.pivot.user_role_id">
+              Formador: {{ roles.user.firstname }} {{ roles.user.middlefirstname }} 
+              {{ roles.user.lastname }} {{ roles.user.middlelastname }}
+            </span>
+          </span>
+          <span style="margin-bottom: 5px;" *ngIf="!(item.user_role[0] !== null && item.user_role[0] !== undefined 
+                                  && item.user_role[0].user !== null && item.user_role[0].user !== undefined)">
+            Formador: No asignado
+          </span>
+          <table *ngIf="item.is_matriz" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th class="th-first"  >
+                    {{ item.pivot.name }}
+                  </th>
+                  <th *ngFor="let qs of item.answer_type.answers" class="th-seconds" >
+                    {{ qs.name }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let qs of item.questions" >
+                  <td class="th-first" >
+                    {{ qs.name }}
+                  </td>
+                  <td *ngFor="let ans of item.answer_type.answers" class="th-seconds">
+                    <nb-radio [value]="ans.id"
+                      disabled
+                      class="radio-center"
+                      [checked]="ids[item.pivot.id+'_'+qs.id] !== undefined
+                        && ids[item.pivot.id+'_'+qs.id].answers[0] === ans.id"
+                      [name]="item.pivot.id+'_'+qs.id"></nb-radio>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+          <div *ngIf="item.is_matriz === false">
+              <div *ngFor="let qs of item.questions" class="border-survey">
+                <p>
+                  {{ qs.name }}
+                </p >
+                <span>
+                  {{ qs.description }}
+                </span>
+                <div [ngSwitch]="qs.question_type_id">
+                  <div *ngSwitchCase="1">
+                    <nb-radio-group disabled [name]="qs.id"
+                      [value]="ids[item.pivot.id+'_'+qs.id].answers[0]">
+                      <nb-radio [value]="ans.id" *ngFor="let ans of qs.answers">
+                        {{ ans.name }}
+                      </nb-radio>
+                    </nb-radio-group>
+                  </div>
+                  <div *ngSwitchCase="2">
+                    <nb-checkbox disabled
+                      style="display: block;"
+                      [checked]="ids[item.pivot.id+'_'+qs.id].answers.indexOf(ans.id) !== -1"
+                      *ngFor="let ans of qs.answers">
+                      {{ ans.name }}
+                    </nb-checkbox>
+                  </div>
+                  <div *ngSwitchCase="3">
+                    <textarea disabled nbInput [value]="ids[item.pivot.id+'_'+qs.id].detail" fullWidth placeholder="Type here"></textarea>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      <button *ngIf="logged" nbButton status="primary" size="small" (click)="back()" style="margin-right: 10px;">
+        Volver
+      </button>
+    </nb-card-body>
+</nb-card>

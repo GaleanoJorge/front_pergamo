@@ -1,0 +1,114 @@
+@import "../../../../@theme/styles/themes";
+
+@include nb-install-component() {
+    nb-card {
+        overflow: hidden;
+    }
+
+    nb-tabset {
+        display: flex;
+        flex-direction: column;
+
+        ::ng-deep ul {
+            // make same size as card header
+            padding-bottom: 1px;
+            ::ng-deep .tab-link {
+                padding: 1.25rem 2rem;
+            }
+        }
+    }
+
+    nb-tab {
+        padding: 0;
+    }
+
+    .contact {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &:first-child {
+            border-top: none;
+        }
+    }
+    .title-btn {
+        display: flex;
+        flex:1;
+        flex-direction:row;
+        justify-content:space-between;
+    }
+}
+
+
+::ng-deep nb-auth nb-card-header {
+  display: none !important;
+}
+
+small {
+  margin-bottom: 10px;
+  color: red;
+}
+
+.text-muted {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.div-send {
+  margin-top: 20px;
+}
+
+h6 {
+  margin: 0;
+}
+
+nb-list-item {
+  display: block;
+}
+
+.btn-left {
+  margin-right: 5px;
+}
+
+.element-list {
+    border: 1px solid #e3e3e3;
+    // margin: 5px;
+    border-radius: 4px;
+}
+
+.element-list-img {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.element-list-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > div {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  & > div > span {
+    font-size: 18px;
+    padding: 5px;
+  }
+  & > div > div {
+    margin-top: 15px;
+  }
+
+  & > div > span > a {
+    text-decoration: none;
+  }
+
+  &::only-child {
+    font-weight: bold;
+  }
+}

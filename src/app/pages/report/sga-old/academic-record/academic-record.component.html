@@ -1,0 +1,108 @@
+<ngx-base-reports
+  [messageError]="messageError"
+  [title]="title"
+  [loading]="loading"
+>
+  <div filters *ngIf="!loading">
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">
+            Curso:
+          </label>
+          <ngx-autocomplete
+            [options]="cursos"
+            [(inputModel)]="cursoActual"
+            placeholder="Búsqueda por código o descripción del curso, o sede."
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">
+            Grupo:
+          </label>
+          <ngx-autocomplete
+            #gruposAutocomplete
+            [options]="grupos"
+            [(inputModel)]="grupoActual"
+            label="strNombre"
+            value="intIdGrupoDeFormacion"
+            [disabled]="!grupos.length || loadingGroups"
+          >
+          </ngx-autocomplete>
+          <small class="form-text text-muted" *ngIf="loadingGroups">Cargando grupos.</small>
+          <small class="form-text text-muted" *ngIf="cursoActual && !grupos.length && !loadingGroups">No se han
+            encontrado grupos.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 d-flex justify-content-center">
+        <button nbButton status="danger" (click)="SearchResume()"
+                [disabled]="!cursoActual || !grupoActual || loadingResume" [nbSpinner]="loadingResume">
+          <nb-icon icon="search-outline"></nb-icon>
+          Buscar
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-2" *ngIf="curso">
+      <div class="col-sm-12">
+        <table class="table">
+          <tr>
+            <td><b>Curso:</b></td>
+            <td>{{ curso.nomCurso }}</td>
+            <td><b>Sitio de realización:</b></td>
+            <td>{{ curso.nomSede }}</td>
+            <td><b>No. de asistentes:</b></td>
+            <td>{{ asistentes.length ? asistentes[0].totalAsistentesEvento : 0 }}</td>
+          </tr>
+          <tr>
+            <td><b>Coordinador de zona:</b></td>
+            <td>{{ curso.Coordinador }}</td>
+            <td><b>Fecha inicial:</b></td>
+            <td>{{ curso.fechaInicio }}</td>
+            <td><b>Fecha final:</b></td>
+            <td>{{ curso.fechaFinal }}</td>
+          </tr>
+        </table>
+        <table class="table">
+          <tr>
+            <td><b>Área:</b></td>
+            <td>{{ curso.Area }}</td>
+            <td><b>Sub-área:</b></td>
+            <td>{{ curso.nomSubArea }}</td>
+            <td><b>Programa:</b></td>
+            <td>{{ curso.Programa }}</td>
+            <td><b>Estado del curso:</b></td>
+            <td>{{ curso.EstadoCurso }}</td>
+          </tr>
+          <tr>
+            <td colspan="8">
+              <b>Módulos:</b>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="8">
+              1. {{ curso.Modulo }}
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-sm-12 d-flex justify-content-center">
+        <button nbButton status="danger" (click)="DownloadCertificate()" [disabled]="loadingDownload"
+                [nbSpinner]="loadingDownload">
+          Descargar
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</ngx-base-reports>

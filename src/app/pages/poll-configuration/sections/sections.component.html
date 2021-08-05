@@ -1,0 +1,19 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes"
+  >
+  <div content>
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="section/?pagination=true"
+                    customData='sections'
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <div class="actions">
+          <a nbButton status="danger" routerLink="/pages/pollconfiguration/sections/create">Crear</a>
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

@@ -1,0 +1,19 @@
+<ngx-base-list
+  [messageError]="messageError"
+  >
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="sessionsByTeacher"
+                    customData="sessions">
+      <div actions>
+        <div class="actions">
+          <!-- <button nbButton status="danger" (click)="NewSubarea()">Crear</button> -->
+          <!-- <button nbButton type="button"><a routerLink="../../mycourses">Volver</a> </button> -->
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

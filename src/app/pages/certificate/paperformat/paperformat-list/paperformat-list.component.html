@@ -1,0 +1,31 @@
+
+<ngx-base-list
+[messageError]="messageError"
+[routes]="routes"
+>
+    <div content>
+        <ngx-base-table [title]="title"
+            [subtitle]="subtitle" [settings]="settings"
+            entity="papers"
+            customData='papers_formats'
+            [messageToltip]="messageToltip"
+        >
+            <div actions>
+                <div class="actions">
+                    <button nbButton status="success" routerLink="../../certificates/paperformat/register" >Crear</button>
+                </div>
+            </div>
+        </ngx-base-table>
+
+    </div>
+</ngx-base-list>
+
+<ng-template #confirmDelete let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>¿Desea Continuar?</nb-card-header>
+        <nb-card-footer>
+        <button nbButton status="danger" (click)="dialogDeleteClose(confirmDelete)" class="btn-left" >No</button>
+        <button nbButton status="success" (click)="deletePaperFormats()" class="btn-left" >Si</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

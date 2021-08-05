@@ -1,0 +1,46 @@
+<div class="row" *ngIf="!isClose">
+  <div class="col-sm-12 d-flex justify-content-center">
+    <button nbButton status="danger" (click)="addConceptExtra()">
+      Agregar concepto extra
+    </button>
+  </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col-sm-12">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Pasajero</th>
+        <th>Origen</th>
+        <th>Destino</th>
+        <th>Regreso</th>
+        <th>Fecha de salida</th>
+        <th>Fecha de regreso</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let concept of concepts; let i = index">
+        <td>
+          <button *ngIf="!isClose" nbButton ghost class="ml-2" title="Editar concepto extra" (click)="editConceptExtra(concept)">
+            <nb-icon icon="edit-outline"></nb-icon>
+          </button>
+
+          <button *ngIf="!isClose" nbButton ghost class="ml-2" title="Eliminar concepto extra" (click)="DeleteConfirmConcept(concept)">
+            <nb-icon icon="trash-2-outline"></nb-icon>
+          </button>
+        </td>
+        <td>{{ concept.concept.concept_base.concept_type.name }}</td>
+        <td>{{ concept.event_tickets[0].origin }}</td>
+        <td>{{ concept.event_tickets[0].destination }}</td>
+        <td>{{ concept.event_tickets[0]['back'] }}</td>
+        <td>{{ concept.event_tickets[0].departure_date }}</td>
+        <td>{{ concept.event_tickets[0].return_date }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

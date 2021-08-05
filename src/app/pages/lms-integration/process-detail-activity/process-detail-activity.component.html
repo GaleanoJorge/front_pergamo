@@ -1,0 +1,20 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <ngx-details-table [processData]="processData"></ngx-details-table>
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="process-details-activity"
+                    customData="process_detail_activity"
+                    [showSearch]="false"
+                    [queryParams]="queryParams"
+    >
+      <div actions>
+        <button nbButton status="primary" (click)="onBack()">
+          <nb-icon icon="arrow-back-outline"></nb-icon>
+        </button>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

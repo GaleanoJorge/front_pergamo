@@ -1,0 +1,48 @@
+<ngx-base-reports
+  [messageError]="messageError"
+  [title]="title"
+  [loading]="loading"
+  [exportExcel]="exportExcel"
+  [filters]="filters"
+  [filtersRequired]="filtersRequired"
+>
+  <div filters *ngIf="!loading">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold">
+            Curso:
+          </label>
+          <ngx-autocomplete
+            [options]="cursos"
+            [(inputModel)]="cursoActual"
+            placeholder="Búsqueda por código o descripción del curso, o sede."
+          >
+          </ngx-autocomplete>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="fecha_inicio">
+            Fecha inicio:
+          </label>
+          <input id="fecha_inicio" nbInput type="date" [(ngModel)]="fecha_inicio">
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="form-text text-muted font-weight-bold" for="fecha_fin">
+            Fecha fin:
+          </label>
+          <input id="fecha_fin" nbInput type="date" [(ngModel)]="fecha_fin">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ngx-base-reports>

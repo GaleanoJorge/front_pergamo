@@ -1,0 +1,42 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <ngx-details-table [processData]="processData"></ngx-details-table>
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="process-details"
+                    customData="process_detail"
+                    [showSearch]="false"
+                    [queryParams]="queryParams"
+    >
+      <div actions>
+        <button nbButton status="primary" (click)="onBack()">
+          <nb-icon icon="arrow-back-outline"></nb-icon>
+        </button>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
+<!--<nb-card accent="info" [nbSpinner]="loading" nbSpinnerStatus="danger">
+    <nb-card-header>
+        <div class="flex-row-spaceb">
+            <div>Integración LMS - Detalle del proceso</div>
+            <button nbButton status="primary" (click)="onBack()">
+                <nb-icon icon="arrow-back-outline"></nb-icon>
+            </button>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <nb-card size="small">
+            <nb-card-body>
+                <div *ngIf="processData">
+                    <ngx-details-table [processData]="processData"></ngx-details-table>
+                </div>
+                <div class="mt-3">
+                    <ngx-table-lms-integration [settings]="settings" [source]="source"></ngx-table-lms-integration>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </nb-card-body>
+</nb-card>-->
