@@ -46,7 +46,7 @@ export class ItemRolePermissionBusinessService {
             });
           }
         });
-
+        console.log(mainMenu);
         mainMenu.forEach(element => {
           if (element.children && element.children.length === 0) delete element.children;
         });

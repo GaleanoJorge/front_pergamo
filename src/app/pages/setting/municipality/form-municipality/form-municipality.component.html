@@ -16,17 +16,7 @@
               <nb-option selected="{{ item.id == data.region_id }}" *ngFor="let item of region"
                          [value]="item.id">{{ item.name }}</nb-option>
             </nb-select>
-          </div>
-          <div class="col-12">
-            <label for="circuit" class="form-text text-muted font-weight-bold">Circuito:</label>
-            <nb-select [selected]="this.data.circuit_id" formControlName="circuit_id" id="circuit" fullWidth
-                       status="{{ isSubmitted && form.controls.circuit_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option selected="{{ item.id == data.circuit_id }}" *ngFor="let item of circuit"
-                         [value]="item.id">{{ item.name }}</nb-option>
-            </nb-select>
-          </div>          
-          
+          </div>    
         </div>
   
       </nb-card-body>

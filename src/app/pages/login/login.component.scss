@@ -6,11 +6,18 @@
   .back-link {
     display: none !important;
   }
-  background-color: #3295d3;
+  display: none;
+  background-color: #54bcc1;
   height: 8.5rem;
-  border-bottom: 10px solid #00974f !important;
+  border-bottom: 10px solid #1d70b7 !important;
 }
 
+::ng-deep nb-layout .layout .layout-container .content .columns nb-layout-column{
+  padding: 0 !important;
+}
+::ng-deep nb-card{
+  height: calc(100vh - 2 * 0rem) !important;
+}
 .image-left {
   position: fixed;
   top: 2.8rem;
@@ -26,7 +33,7 @@
 }
 
 ::ng-deep nb-auth nb-card {
-  background-image: url("assets/images/Home1.jpg");
+  background-image: url("assets/images/fondo_pergamo.png");
   background-size: cover;
   background-position: "center";
   background-repeat: no-repeat;
@@ -64,19 +71,32 @@ h5 {
 }
 
 .text-muted {
-  margin-top: 10px;
-  margin-bottom: 0;
+    font-size: 15px;
+    margin: auto;
+    background-color: #1d70b7;
+    color: #ffff !important;
+    padding: 0.6rem 1.5rem;
+    font-weight: 700;
 }
 
 .login-container {
   padding: 25px;
-  box-shadow: 0 10px 10px 0 #0000004d;
-  // opacity: 0.8;
-  background-color: #f2f2f2;
 
   .forgot-text {
     margin-bottom: 5px;
   }
+}
+::ng-deep small a{
+  color: #fff !important;
+}
+.color-title{
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 2em;
+}
+.div-form-login{
+  display: flex;
+  margin-bottom: 1em;
 }
 
 .card-login {
@@ -105,5 +125,5 @@ h5 {
 }
 
 .input-login {
-  border-radius: 15px !important;
+  border-radius: 0px !important;
 }

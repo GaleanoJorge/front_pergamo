@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserOriginService } from '../../business-controller/user-origin.service';
 import { UserBusinessService } from '../../business-controller/user-business.service';
 import { UserCampusBusinessService } from '../../business-controller/user-campus.service';
-import { NbToastrService } from '@nebular/theme';
+import { NbToastrService, NbWindowService } from '@nebular/theme';
 import { ItemRolePermissionBusinessService } from '../../business-controller/item-role-permission-business.service';
 import { environment } from '../../../environments/environment';
 import { NbLoginComponent } from '@nebular/auth';
@@ -141,9 +141,13 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/pages/personal-information');
       } else {
       this.router.navigateByUrl('/pages');
+      setTimeout('window.location.reload()',200);
     }
   }
 
+  ChangeCampus(value){
+    localStorage.setItem('campus', value.toString());
+  }
   resetPassword() {
     this.isSubmitted2 = true;
     if (!this.resetForm.invalid) {

@@ -36,4 +36,20 @@ export class UserCampusBusinessService {
         throw x.status == 401 ? x.error.msg : x.message;
       });
   }
+
+  Save(campus: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('usercampus');
+    servObj.data = campus;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 }

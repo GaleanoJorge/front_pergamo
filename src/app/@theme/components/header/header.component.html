@@ -21,6 +21,15 @@
 </div>
 
 <div class="header-container">
+<div *ngFor="let item of campus" class="region">
+  <div *ngIf="item.campus.id == currentCampus">
+    Regional: {{ item.campus.region.name }}
+  </div>
+</div>
+  <nb-select *ngIf="campus.length" [selected]="currentCampus" (selectedChange)="changeCampus($event)" status="primary"
+  class="nb-select-origin" style="width: 155px;" >
+  <nb-option *ngFor="let item of campus" [value]="item.campus.id"> {{ item.campus.name }}</nb-option>
+</nb-select>
   <nb-actions size="small" *ngIf="userMain">
     <!-- <nb-action class="control-item">
        <nb-search type="rotate-layout"></nb-search>

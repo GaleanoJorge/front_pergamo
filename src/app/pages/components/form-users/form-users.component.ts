@@ -128,11 +128,6 @@ export class FormUsersComponent implements OnInit {
       this.countries = x.countries;
       this.genders = x.genders;
       this.ethnicitys = x.ethnicitys;
-      x.entities.forEach(element => {
-        if (element.is_judicial == 0) {
-          this.entities.push(element);
-        }
-      });
       x.positions.forEach(element => {
         if (element.is_judicial == 0) {
           this.positions.push(element);
@@ -144,8 +139,6 @@ export class FormUsersComponent implements OnInit {
       this.specialties = x.specialties;
       this.dependences = x.dependences;
       this.sectionals = x.sectionalCouncils;
-      this.categories = x.categories;
-
       return Promise.resolve(true);
     });
   }
@@ -158,16 +151,6 @@ export class FormUsersComponent implements OnInit {
         this.GetRegions(this.data.country_id),
         this.GetMunicipalities(this.data.region_id),
       ];
-
-      if (this.data.curriculum) {
-        promises.push(this.GetRegions(this.data.curriculum.country_id, true));
-        promises.push(this.GetMunicipalities(this.data.curriculum.region_id, true));
-
-        if (this.data.is_judicial_branch) {
-          promises.push(this.GetDistrictBySectional(this.data.curriculum.sectional_council_id));
-          promises.push(this.GetCircuitByDistrict(this.data.curriculum.district_id));
-        }
-      }
 
       await Promise.all(promises);
     }
@@ -254,29 +237,6 @@ export class FormUsersComponent implements OnInit {
         this.GetData('status_id') === '' ? 1 : this.GetData('status_id'),
         Validators.compose([Validators.required]),
       ],
-      job_country_id: [
-        this.GetData('curriculum.country_id'),
-        Validators.compose([Validators.required]),
-      ],
-      job_region_id: [
-        this.GetData('curriculum.region_id'),
-        Validators.compose([Validators.required]),
-      ],
-      municipality_id: [
-        this.GetData('curriculum.municipality_id'),
-        Validators.compose([Validators.required]),
-      ],
-      entity_id: [
-        this.GetData('curriculum.entity_id'),
-        Validators.compose([Validators.required]),
-      ],
-      position_id: [
-        this.GetData('curriculum.position_id'),
-        Validators.compose([Validators.required]),
-      ],
-      curriculum_pdf: [
-        this.previewCurriculum,
-      ],
       academic_level_id: [
         this.GetData('academic_level_id'),
         Validators.compose([Validators.required]),
@@ -323,28 +283,7 @@ export class FormUsersComponent implements OnInit {
 
     configForm = {
       ...configForm,
-      office_id: [
-        this.GetData('curriculum.office_id'),
-      ],
-      specialty_id: [
-        this.GetData('curriculum.specialty_id'),
-      ],
-      dependence_id: [
-        this.GetData('curriculum.dependence_id'),
-      ],
-      sectional_council_id: [
-        this.GetData('curriculum.sectional_council_id'),
-      ],
-      district_id: [
-        this.GetData('curriculum.district_id'),
-      ],
-      circuit_id: [
-        this.GetData('curriculum.circuit_id'),
-      ],
-      is_judicial_branch: [
-        ((this.GetData('is_judicial_branch') === '' || this.GetData('is_judicial_branch') === null || !this.GetData('is_judicial_branch')) ? false : true),
-        Validators.compose([Validators.required]),
-      ],
+     
     };
     // }
 
@@ -382,8 +321,6 @@ export class FormUsersComponent implements OnInit {
 
   public async LoadStudent(data) {
     this.data = data;
-
-    if (!this.data.curriculum) this.data.curriculum = {};
     /*Obteniendo los departamentos y municipios de nacimiento*/
     this.LoadForm().then();
   }
@@ -417,35 +354,13 @@ export class FormUsersComponent implements OnInit {
       formData.append('id', this.data ? this.data.id : null);
       formData.append('role_id', this.role);
       formData.append('username', data.email.value);
-      formData.append('municipality_id', data.municipality_id.value);
-      formData.append('is_judicial_branch', data.is_judicial_branch.value === true ? "1" : null);
       formData.append('password', data.password.value);
-      formData.append('region_id', data.job_region_id.value);
-      formData.append('entity_id', data.entity_id.value);
-      formData.append('position_id', data.position_id.value);
-      formData.append('curriculum_pdf', this.form.value.curriculum_pdf);
 
 
       if (this.course_id) {
         formData.append('course_id', this.course_id);
       }
 
-      if (data.is_judicial_branch) {
-        formData.append('sectional_council_id', data.sectional_council_id.value);
-        formData.append('district_id', data.district_id.value);
-        formData.append('circuit_id', data.circuit_id.value);
-        formData.append('specialty_id', data.specialty_id.value);
-        formData.append('office_id', data.office_id.value);
-        formData.append('dependence_id', data.dependence_id.value);
-        formData.append('position_id', data.position_id.value);
-        formData.append('curriculum_pdf', this.form.value.curriculum_pdf);
-      }
-      if (this.categoriesSelect.length > 0) {
-        for (let category of this.categoriesSelect) {
-          formData.append('categories[]', category);
-        }
-        //formData.append('categories', JSON.stringify(this.categoriesSelect));
-      }
 
       try {
         let x;
@@ -495,7 +410,6 @@ export class FormUsersComponent implements OnInit {
         this.form.get('identification').disable();
       } else {
         this.form.get('identification').enable();
-        this.form.get('office_id').setValidators(Validators.required);
       }
     });
 
@@ -522,51 +436,7 @@ export class FormUsersComponent implements OnInit {
       });
     });
 
-    this.form.get('job_country_id').valueChanges.subscribe(val => {
-      if (val === '') {
-        this.job_regions = [];
-      } else {
-        this.GetRegions(val, true).then();
-      }
-      this.form.patchValue({
-        job_region_id: '',
-        municipality_id: '',
-      });
-    });
 
-    this.form.get('job_region_id').valueChanges.subscribe(val => {
-      if (val === '') {
-        this.job_municipalities = [];
-      } else {
-        this.GetMunicipalities(val, true).then();
-      }
-      this.form.patchValue({
-        municipality_id: '',
-      });
-    });
-
-    this.form.get('sectional_council_id').valueChanges.subscribe(val => {
-      if (val === '') {
-        this.districts = [];
-      } else {
-        this.GetDistrictBySectional(val).then();
-      }
-      this.form.patchValue({
-        district_id: '',
-        circuit_id: '',
-      });
-    });
-
-    this.form.get('district_id').valueChanges.subscribe(val => {
-      if (val === '') {
-        this.circuits = [];
-      } else {
-        this.GetCircuitByDistrict(val).then();
-      }
-      this.form.patchValue({
-        circuit_id: '',
-      });
-    });
 
     this.form.get('is_disability').valueChanges.subscribe(val => {
       if (val) {
@@ -575,64 +445,6 @@ export class FormUsersComponent implements OnInit {
       }else{
         this.form.get('disability').clearValidators();
         this.form.get('disability').updateValueAndValidity();
-      }
-    });
-        
-    this.form.get('is_judicial_branch').valueChanges.subscribe(val => {
-      if (val) {
-        this.form.get('office_id').setValidators(Validators.required);
-        this.form.get('office_id').updateValueAndValidity();
-        this.form.get('specialty_id').setValidators(Validators.required);
-        this.form.get('specialty_id').updateValueAndValidity();
-        this.form.get('dependence_id').setValidators(Validators.required);
-        this.form.get('dependence_id').updateValueAndValidity();
-        this.form.get('sectional_council_id').setValidators(Validators.required);
-        this.form.get('sectional_council_id').updateValueAndValidity();
-        this.form.get('district_id').setValidators(Validators.required);
-        this.form.get('district_id').updateValueAndValidity();
-        this.form.get('circuit_id').setValidators(Validators.required);
-        this.form.get('circuit_id').updateValueAndValidity();
-        this.entities = [];
-        this.positions = [];
-        this.userBS.GetFormAuxData(this.data ? false : true).then(x => {
-          x.entities.forEach(element => {
-            if (element.is_judicial == 1) {
-              this.entities.push(element);
-            }
-          });
-          x.positions.forEach(element => {
-            if (element.is_judicial == 1) {
-              this.positions.push(element);
-            }
-          });
-        })
-      } else {
-        this.form.get('office_id').clearValidators();
-        this.form.get('office_id').updateValueAndValidity();
-        this.form.get('specialty_id').clearValidators();
-        this.form.get('specialty_id').updateValueAndValidity();
-        this.form.get('dependence_id').clearValidators();
-        this.form.get('dependence_id').updateValueAndValidity();
-        this.form.get('sectional_council_id').clearValidators();
-        this.form.get('sectional_council_id').updateValueAndValidity();
-        this.form.get('district_id').clearValidators();
-        this.form.get('district_id').updateValueAndValidity();
-        this.form.get('circuit_id').clearValidators();
-        this.form.get('circuit_id').updateValueAndValidity();
-        this.userBS.GetFormAuxData(this.data ? false : true).then(x => {
-          this.entities = [];
-          this.positions = [];
-          x.entities.forEach(element => {
-            if (element.is_judicial == 0) {
-              this.entities.push(element);
-            }
-          });
-          x.positions.forEach(element => {
-            if (element.is_judicial == 0) {
-              this.positions.push(element);
-            }
-          });
-        })
       }
     });
 

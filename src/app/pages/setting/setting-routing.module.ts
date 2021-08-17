@@ -6,7 +6,7 @@ import { UsersComponent } from './users/users.component';
 import { PermissionsComponent } from './permissions/permissions.component';
 import { ItemComponent } from './item/item.component';
 import { RolesComponent } from './roles/roles.component';
-import { EducationalInstitutionComponent } from './educational-institution/educational-institution.component';
+import { CampusComponent } from './campus/campus.component';
 import { CategoryComponent } from './category/category.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { DistrictComponent } from './district/district.component';
@@ -77,8 +77,8 @@ const routes: Routes = [{
       data: { permission: 'items.read' },
     },
     {
-      path: 'institutions',
-      component: EducationalInstitutionComponent,
+      path: 'campus',
+      component: CampusComponent,
     },
     {
       path: 'categories',

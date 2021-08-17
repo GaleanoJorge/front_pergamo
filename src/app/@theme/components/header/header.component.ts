@@ -9,6 +9,8 @@ import {AuthService} from '../../../services/auth.service';
 import {Origin} from '../../../models/origin';
 import {Router} from '@angular/router';
 import {Role} from '../../../models/role';
+import {Campus} from '../../../models/campus';
+import { UserCampusBusinessService } from '../../../business-controller/user-campus.service';
 import {User} from '../../../models/user';
 import {ItemRolePermissionBusinessService} from '../../../business-controller/item-role-permission-business.service';
 
@@ -25,8 +27,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userMain: User;
   currentOrigin: number;
   currentRole: number;
+  currentCampus: number;
   origins: Origin[] = [];
   roles: Role[] = [];
+  campus: any[]=[];
 
   themes = [
     {
@@ -59,12 +63,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private breakpointService: NbMediaBreakpointsService,
               private authService: AuthService,
               private router: Router,
+              private userCampusBS: UserCampusBusinessService,
               private itemsBS: ItemRolePermissionBusinessService,) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
-
+   
     this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))
       .subscribe((users: any) => {
@@ -93,8 +98,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.userMain) {
       this.currentOrigin = this.authService.GetUserOrigin().origin_id;
       this.currentRole = this.authService.GetRole();
+      this.currentCampus= this.GetCampus();
       this.origins = this.authService.GetOrigins();
       this.roles = this.authService.GetUser().roles;
+      this.campus= await this.userCampusBS.GetCollection(this.userMain.id);
     }
   }
 
@@ -102,7 +109,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
+  GetCampus(): number {
+    var campus = +localStorage.getItem('campus');
+    return campus;
+  }
   changeOrigin(origin: string) {
     this.authService.ChangeOrigin(origin);
     this.router.navigateByUrl('/pages');
@@ -111,6 +121,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   async changeRole(role: string) {
     this.authService.ChangeRole(role);
     await this.itemsBS.GetCollection(this.authService.GetRole());
+    window.location.reload();
+  }
+  async changeCampus(campus: number) {
+    localStorage.setItem('campus', campus.toString());
     window.location.reload();
   }
 

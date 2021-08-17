@@ -32,4 +32,51 @@ export class CampusService {
         throw x.message;
       });
   }
+
+  Save(campus: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('campus');
+    servObj.data = campus;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  Update(campus: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('campus', campus.id);
+    servObj.data = campus;
+    return this.webAPI.PutAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  Delete(id): Promise<ServiceObject> {
+    let servObj = new ServiceObject('campus', id);
+    return this.webAPI.DeleteAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 }

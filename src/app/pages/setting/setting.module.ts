@@ -21,7 +21,7 @@ import { RolesPermissionsComponent } from './roles-permissions/roles-permissions
 import { ItemComponent } from './item/item.component';
 import { PagesModule } from '../pages.module';
 import { DynamicItemComponent } from './dynamic-item/dynamic-item.component';
-import { EducationalInstitutionComponent } from './educational-institution/educational-institution.component';
+import { CampusComponent } from './campus/campus.component';
 import { CategoryComponent } from './category/category.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { StatusFieldComponent } from './sectional-council/status-field.component';
@@ -42,6 +42,7 @@ import { FormEntityComponent } from './entity/form-entity/form-entity.component'
 import { CircuitComponent } from './circuit/circuit.component';
 import { FormCircuitComponent } from './circuit/form-circuit/form-circuit.component';
 import { FormRegionComponent } from './region/form-region/form-region.component';
+import { FormCampusComponent } from './campus/form-campus/form-campus.component';
 import { RegionComponent } from './region/region.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
 import { FormMunicipalityComponent } from './municipality/form-municipality/form-municipality.component';
@@ -101,7 +102,8 @@ import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action
     RolesPermissionsComponent,
     ItemComponent,
     DynamicItemComponent,
-    EducationalInstitutionComponent,
+    FormCampusComponent,
+    CampusComponent,
     CategoryComponent,
     SectionalCouncilComponent,
     StatusFieldComponent,
