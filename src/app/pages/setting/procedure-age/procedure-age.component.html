@@ -5,13 +5,13 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    entity="campus/?pagination=true"
-                    customData='campus'
+                    entity="procedure_age/?pagination=true"
+                    customData='procedure_age'
                     [messageToltip]="messageToltip"
                     >
       <div actions>
         <div class="actions">
-          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewCampus()">Crear</button>
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewProcedureAge()">Crear</button>
         </div>
       </div>
     </ngx-base-table>

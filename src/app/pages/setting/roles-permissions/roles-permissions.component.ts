@@ -79,11 +79,11 @@ export class RolesPermissionsComponent implements OnInit {
       if (element.id == event)
         this.roleSelected = element;
     });
-    /*this.itemRolePermission.GetCollection(this.roleSelected.id).then(x => {
+    this.itemRolePermission.GetCollection(this.roleSelected.id).then(x => {
       this.messageError = null;
     }).catch(x => {
       this.messageError = x;
-    });*/
+    });
   }
 
   RecursiveItems(items: Item[], name?: string) {
