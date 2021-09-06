@@ -1,0 +1,24 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="small" style="max-width: 600px;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="prp_code" class="form-text text-muted font-weight-bold">Codigo del procedimiento:</label>
+          <input nbInput fullWidth id="prp_code" formControlName="prp_code" prp_code
+            status="{{ isSubmitted && form.controls.prp_code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="prp_name" class="form-text text-muted font-weight-bold">Nombre del procedimiento:</label>
+          <input nbInput fullWidth id="prp_name" formControlName="prp_name" prp_name
+            status="{{ isSubmitted && form.controls.prp_name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

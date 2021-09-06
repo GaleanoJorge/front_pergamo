@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { ProcedureAge } from '../models/procedure-age';
+import { ProcedurePurpose } from '../models/procedure-purpose';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProcedureAgeService {
-  public procedure_age: ProcedureAge[] = [];
+export class ProcedurePurposeService {
+  public procedure_purpose: ProcedurePurpose[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<ProcedureAge[]> {
-    let servObj = new ServiceObject(params ? 'procedure_age?pagination=false' : 'procedure_age');
+  GetCollection(params = {}): Promise<ProcedurePurpose[]> {
+    let servObj = new ServiceObject(params ? 'procedure_purpose?pagination=false' : 'procedure_purpose');
 
     return this.webAPI.GetAction(servObj)
       .then(x => {
@@ -22,18 +22,18 @@ export class ProcedureAgeService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.procedure_age = <ProcedureAge[]>servObj.data.procedure_age;
+        this.procedure_purpose = <ProcedurePurpose[]>servObj.data.procedure_purpose;
 
-        return Promise.resolve(this.procedure_age);
+        return Promise.resolve(this.procedure_purpose);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(procedure_age: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('procedure_age');
-    servObj.data = procedure_age;
+  Save(procedure_purpose: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('procedure_purpose');
+    servObj.data = procedure_purpose;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class ProcedureAgeService {
       });
   }
 
-  Update(procedure_age: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('procedure_age', procedure_age.id);
-    servObj.data = procedure_age;
+  Update(procedure_purpose: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('procedure_purpose', procedure_purpose.id);
+    servObj.data = procedure_purpose;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +64,7 @@ export class ProcedureAgeService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('procedure_age', id);
+    let servObj = new ServiceObject('procedure_purpose', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

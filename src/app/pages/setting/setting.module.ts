@@ -22,6 +22,10 @@ import { ItemComponent } from './item/item.component';
 import { PagesModule } from '../pages.module';
 import { DynamicItemComponent } from './dynamic-item/dynamic-item.component';
 import { CampusComponent } from './campus/campus.component';
+import { ProcedureAgeComponent } from './procedure-age/procedure-age.component';
+import { ProcedureCategoryComponent } from './procedure-category/procedure-category.component';
+import { ProcedurePurposeComponent } from './procedure-purpose/procedure-purpose.component';
+import { ProcedureComponent } from './procedure/procedure.component';
 import { CategoryComponent } from './category/category.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { StatusFieldComponent } from './sectional-council/status-field.component';
@@ -43,6 +47,10 @@ import { CircuitComponent } from './circuit/circuit.component';
 import { FormCircuitComponent } from './circuit/form-circuit/form-circuit.component';
 import { FormRegionComponent } from './region/form-region/form-region.component';
 import { FormCampusComponent } from './campus/form-campus/form-campus.component';
+import { FormProcedureAgeComponent } from './procedure-age/form-procedure-age/form-procedure-age.component';
+import { FormProcedureCategoryComponent } from './procedure-category/form-procedure-category/form-procedure-category.component';
+import { FormProcedureComponent } from './procedure/form-procedure/form-procedure.component';
+import { FormProcedurePurposeComponent } from './procedure-purpose/form-procedure-purpose/form-procedure-purpose.component';
 import { RegionComponent } from './region/region.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
 import { FormMunicipalityComponent } from './municipality/form-municipality/form-municipality.component';
@@ -65,6 +73,7 @@ import { ExtraordinaryActionCoordinatorComponent } from './users/extraordinary-a
 import { FormExtraordinaryActionCoordinatorComponent } from './users/form-extraordinary-action-coordinator/form-extraordinary-action-coordinator.component';
 import { FormExtraordinaryActionFormerComponent } from './users/form-extraordinary-action-former/form-extraordinary-action-former.component';
 import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action-former/extraordinary-action-former.component';
+
 
 
 @NgModule({
@@ -104,6 +113,10 @@ import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action
     DynamicItemComponent,
     FormCampusComponent,
     CampusComponent,
+    ProcedureAgeComponent,
+    ProcedureCategoryComponent,
+    ProcedurePurposeComponent,
+    ProcedureComponent,
     CategoryComponent,
     SectionalCouncilComponent,
     StatusFieldComponent,
@@ -127,6 +140,10 @@ import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action
     RegionComponent,
     MunicipalityComponent,
     FormMunicipalityComponent,
+    FormProcedureCategoryComponent,
+    FormProcedureAgeComponent,
+    FormProcedureComponent,
+    FormProcedurePurposeComponent,
     FormAreaComponent,
     AreaComponent,
     SubareaComponent,
@@ -145,6 +162,9 @@ import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action
     FormExtraordinaryActionCoordinatorComponent,
     FormExtraordinaryActionFormerComponent,
     ExtraordinaryActionFormerComponent
+    
+    
+
   ],
   providers: [
     DateFormatPipe

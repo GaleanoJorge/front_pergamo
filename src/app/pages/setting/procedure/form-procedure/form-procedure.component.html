@@ -1,0 +1,92 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="max-width: 400px; max-height:700px;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="prd_code" class="form-text text-muted font-weight-bold">Codigo:</label>
+          <input nbInput fullWidth id="prd_code" formControlName="prd_code" prd_code
+            status="{{ isSubmitted && form.controls.prd_code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="prd_equivalent" class="form-text text-muted font-weight-bold">Cups:</label>
+          <input nbInput fullWidth id="prd_equivalent" formControlName="prd_equivalent" prd_equivalent
+            status="{{ isSubmitted && form.controls.prd_equivalent.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="prd_name" class="form-text text-muted font-weight-bold">Nombre del procedimiento:</label>
+          <input nbInput fullWidth id="prd_name" formControlName="prd_name" prd_name
+            status="{{ isSubmitted && form.controls.prd_name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+            <label for="category" class="form-text text-muted font-weight-bold">Categoria del procedimiento:</label>
+            <nb-select [selected]="this.data.prd_category" formControlName="prd_category" id="category" fullWidth
+              status="{{ isSubmitted && form.controls.prd_category.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == data.prd_category }}" *ngFor="let item of category" [value]="item.id">
+                {{ item.prc_name }}</nb-option>
+            </nb-select>
+        </div>
+        <div class="col-md-12">
+            <label for="prd_nopos" class="form-text text-muted font-weight-bold">Procedimiento Pos o no pos:</label>
+            <nb-select  formControlName="prd_nopos" id="prd_nopos" fullWidth
+              status="{{ isSubmitted && form.controls.prd_nopos.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option  value="0">
+                POS</nb-option>
+                <nb-option   value="1">
+                  NO POS</nb-option>
+            </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="age" class="form-text text-muted font-weight-bold">Edades en la que se puede prestar el servicio:</label>
+          <nb-select [selected]="this.data.prd_age" formControlName="prd_age" id="age" fullWidth
+            status="{{ isSubmitted && form.controls.prd_age.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.prd_age }}" *ngFor="let item of age" [value]="item.id">
+              {{ item.pra_name }}</nb-option>
+          </nb-select>
+            
+
+        </div>
+        <div class="col-md-12">
+          <label for="prd_gender" class="form-text text-muted font-weight-bold">Genero:</label>
+          <nb-select  formControlName="prd_gender" id="prd_gender" fullWidth
+              status="{{ isSubmitted && form.controls.prd_gender.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == data.prd_gender }}" *ngFor="let item of gender" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="status" class="form-text text-muted font-weight-bold">Estado del procedimiento:</label>
+          <nb-select [selected]="this.data.prd_state" formControlName="prd_state" id="prd_state" fullWidth
+          status="{{ isSubmitted && form.controls.prd_state.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.prd_state }}" *ngFor="let item of status" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="prd_purpose" class="form-text text-muted font-weight-bold">Id de finalidad:</label>
+          <nb-select [selected]="this.data.prd_purpose" formControlName="prd_purpose" id="prd_purpose" fullWidth
+            status="{{ isSubmitted && form.controls.prd_purpose.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.prd_purpose }}" *ngFor="let item of purpose" [value]="item.id">
+              {{ item.prp_name }}</nb-option>
+          </nb-select>
+          </div>
+        <div class="col-md-12">
+          <label for="prd_time" class="form-text text-muted font-weight-bold">Tiempo del procedimiento (Minutos):</label>
+          <input nbInput fullWidth id="prd_time" formControlName="prd_time" prd_time
+            status="{{ isSubmitted && form.controls.prd_time.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

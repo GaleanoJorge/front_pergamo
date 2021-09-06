@@ -8,6 +8,9 @@ import { ItemComponent } from './item/item.component';
 import { RolesComponent } from './roles/roles.component';
 import { CampusComponent } from './campus/campus.component';
 import { ProcedureAgeComponent } from './procedure-age/procedure-age.component';
+import { ProcedureCategoryComponent } from './procedure-category/procedure-category.component';
+import { ProcedurePurposeComponent } from './procedure-purpose/procedure-purpose.component';
+import { ProcedureComponent } from './procedure/procedure.component';
 import { CategoryComponent } from './category/category.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { DistrictComponent } from './district/district.component';
@@ -85,6 +88,21 @@ const routes: Routes = [{
     {
       path: 'procedure-age',
       component: ProcedureAgeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'procedure-category',
+      component: ProcedureCategoryComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'procedure',
+      component: ProcedureComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'procedure-purpose',
+      component: ProcedurePurposeComponent,
       data: { permission: 'roles.read' },
     },
     {
