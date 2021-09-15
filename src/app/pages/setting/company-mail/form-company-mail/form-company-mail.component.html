@@ -4,35 +4,35 @@
     <nb-card-body>
       <div class="row">
         <!--<div class="col-md-12">
-          <label for="cma_company" class="form-text text-muted font-weight-bold">Empresa:</label>
-          <nb-select [selected]="this.data.cma_company" formControlName="cma_company" id="cma_company" fullWidth
-            status="{{ isSubmitted && form.controls.cma_company.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="company_id" class="form-text text-muted font-weight-bold">Empresa:</label>
+          <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.cma_company }}" *ngFor="let item of cma_company" [value]="item.id">
-              {{ item.com_name }}</nb-option>
+            <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
+              {{ item.name }}</nb-option>
           </nb-select>
         </div>-->
         <div class="col-md-12">
-          <label for="cma_mail" class="form-text text-muted font-weight-bold">Correo:</label>
-          <input nbInput fullWidth id="cma_mail" formControlName="cma_mail" cma_mail
-            status="{{ isSubmitted && form.controls.cma_mail.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="mail" class="form-text text-muted font-weight-bold">Correo:</label>
+          <input nbInput fullWidth id="mail" formControlName="mail" mail
+            status="{{ isSubmitted && form.controls.mail.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-          <label for="cma_city" class="form-text text-muted font-weight-bold">Ciudad:</label>
-          <nb-select [selected]="this.data.cma_city" formControlName="cma_city" id="cma_city" fullWidth
-            status="{{ isSubmitted && form.controls.cma_city.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="city_id" class="form-text text-muted font-weight-bold">Ciudad:</label>
+          <nb-select [selected]="this.data.city_id" formControlName="city_id" id="city_id" fullWidth
+            status="{{ isSubmitted && form.controls.city_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.cma_city }}" *ngFor="let item of cma_city" [value]="item.id">
+            <nb-option selected="{{ item.id == data.city_id }}" *ngFor="let item of city" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="cma_document" class="form-text text-muted font-weight-bold">Documentos contables:</label>
-          <nb-select [selected]="this.data.cma_document" formControlName="cma_document" id="cma_document" fullWidth
-            status="{{ isSubmitted && form.controls.cma_document.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="document_id" class="form-text text-muted font-weight-bold">Documentos contables:</label>
+          <nb-select [selected]="this.data.document_id" formControlName="document_id" id="document_id" fullWidth
+            status="{{ isSubmitted && form.controls.document_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.cma_document }}" *ngFor="let item of cma_document" [value]="item.id">
-              {{ item.dac_name }}</nb-option>
+            <nb-option selected="{{ item.id == data.document_id }}" *ngFor="let item of document" [value]="item.id">
+              {{ item.name }}</nb-option>
           </nb-select>
         </div>
       </div>

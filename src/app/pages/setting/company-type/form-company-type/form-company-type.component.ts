@@ -34,7 +34,7 @@ export class FormCompanyTypeComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        cot_name: '',
+        name: '',
       };
     }
 
@@ -44,7 +44,7 @@ export class FormCompanyTypeComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      cot_name: [this.data.cot_name, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
     });
   }
   
@@ -63,7 +63,7 @@ export class FormCompanyTypeComponent implements OnInit {
       if (this.data.id) {
         this.CompanyTypeS.Update({
           id: this.data.id,
-          cot_name: this.form.controls.cot_name.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -77,7 +77,7 @@ export class FormCompanyTypeComponent implements OnInit {
       } else {
         
         this.CompanyTypeS.Save({
-          cot_name: this.form.controls.cot_name.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

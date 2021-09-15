@@ -47,7 +47,7 @@ export class ProcedureCategoryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      prc_name: {
+      name: {
         title: this.headerFields[1],
         type: 'string',
       },

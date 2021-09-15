@@ -47,7 +47,7 @@ export class FiscalClasificationComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      fst_name: {
+      name: {
         title: this.headerFields[1],
         type: 'string',
       },

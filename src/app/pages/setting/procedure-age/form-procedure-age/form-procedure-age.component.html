@@ -4,19 +4,19 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
-          <label for="pra_name" class="form-text text-muted font-weight-bold">Nombre:</label>
-          <input nbInput fullWidth id="pra_name" formControlName="pra_name" pra_name
-            status="{{ isSubmitted && form.controls.pra_name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+          <input nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-          <label for="pra_begin" class="form-text text-muted font-weight-bold">Edad inicial:</label>
-          <input nbInput fullWidth id="pra_begin" formControlName="pra_begin" pra_begin
-            status="{{ isSubmitted && form.controls.pra_begin.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="begin" class="form-text text-muted font-weight-bold">Edad inicial:</label>
+          <input nbInput fullWidth id="begin" formControlName="begin" begin
+            status="{{ isSubmitted && form.controls.begin.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-          <label for="pra_end" class="form-text text-muted font-weight-bold">Edad final:</label>
-          <input nbInput fullWidth id="pra_end" formControlName="pra_end" pra_end
-            status="{{ isSubmitted && form.controls.pra_name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="end" class="form-text text-muted font-weight-bold">Edad final:</label>
+          <input nbInput fullWidth id="end" formControlName="end" end
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
       </div>
 

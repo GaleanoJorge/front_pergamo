@@ -34,7 +34,7 @@ export class FormFiscalClasificationComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        fst_name: '',
+        name: '',
       };
     }
 
@@ -44,7 +44,7 @@ export class FormFiscalClasificationComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      fst_name: [this.data.fst_name, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
     });
   }
   
@@ -63,7 +63,7 @@ export class FormFiscalClasificationComponent implements OnInit {
       if (this.data.id) {
         this.FiscalClasificationS.Update({
           id: this.data.id,
-          fst_name: this.form.controls.fst_name.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -77,7 +77,7 @@ export class FormFiscalClasificationComponent implements OnInit {
       } else {
         
         this.FiscalClasificationS.Save({
-          fst_name: this.form.controls.fst_name.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

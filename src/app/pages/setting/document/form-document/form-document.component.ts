@@ -35,8 +35,8 @@ export class FormDocumentComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        doc_name: '',
-        doc_state:''
+        name: '',
+        status_id:''
       };
     }
 
@@ -46,8 +46,8 @@ export class FormDocumentComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      doc_name: [this.data.doc_name, Validators.compose([Validators.required])],
-      doc_state: [this.data.doc_state, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
+      status_id: [this.data.status_id, Validators.compose([Validators.required])],
     });
 
     this.statusBS.GetCollection().then(x => {
@@ -70,8 +70,8 @@ export class FormDocumentComponent implements OnInit {
       if (this.data.id) {
         this.DocumentS.Update({
           id: this.data.id,
-          doc_name: this.form.controls.dac_name.value,
-          doc_state:this.form.controls.dac_state.value,
+          name: this.form.controls.name.value,
+          status_id:this.form.controls.status_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -85,8 +85,8 @@ export class FormDocumentComponent implements OnInit {
       } else {
         
         this.DocumentS.Save({
-          doc_name: this.form.controls.dac_name.value,
-          doc_state:this.form.controls.dac_state.value,
+          name: this.form.controls.name.value,
+          status_id:this.form.controls.status_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

@@ -47,7 +47,7 @@ export class CompanyCategoryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      coc_name: {
+      name: {
         title: this.headerFields[1],
         type: 'string',
       },

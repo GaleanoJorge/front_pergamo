@@ -34,7 +34,7 @@ export class FormCompanyKindpersonComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        cok_name: '',
+        name: '',
       };
     }
 
@@ -44,7 +44,7 @@ export class FormCompanyKindpersonComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      cok_name: [this.data.cok_name, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
     });
   }
   
@@ -63,7 +63,7 @@ export class FormCompanyKindpersonComponent implements OnInit {
       if (this.data.id) {
         this.CompanyKindpersonS.Update({
           id: this.data.id,
-          cok_name: this.form.controls.cok_name.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -77,7 +77,7 @@ export class FormCompanyKindpersonComponent implements OnInit {
       } else {
         
         this.CompanyKindpersonS.Save({
-          cok_name: this.form.controls.cok_name.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

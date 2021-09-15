@@ -48,11 +48,11 @@ export class DocumentAccountComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      dac_name: {
+      name: {
         title: this.headerFields[1],
         type: 'string',
       },
-      dac_state: {
+      status_id: {
         title: this.headerFields[4],
         type: 'custom',
         width: '10%',

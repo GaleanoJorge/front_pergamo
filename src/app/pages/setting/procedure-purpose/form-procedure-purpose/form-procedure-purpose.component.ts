@@ -33,8 +33,8 @@ export class FormProcedurePurposeComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        prp_name: '',
-        prp_code: '',
+        name: '',
+        code: '',
         
       };
     }
@@ -45,8 +45,8 @@ export class FormProcedurePurposeComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      prp_name: [this.data.prp_name, Validators.compose([Validators.required])],
-      prp_code: [this.data.prp_code, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
+      code: [this.data.code, Validators.compose([Validators.required])],
 
     });
   }
@@ -66,8 +66,8 @@ export class FormProcedurePurposeComponent implements OnInit {
       if (this.data.id) {
         this.ProcedurePurposeS.Update({
           id: this.data.id,
-          prp_name: this.form.controls.prp_name.value,
-          prp_code: this.form.controls.prp_code.value,
+          name: this.form.controls.name.value,
+          code: this.form.controls.code.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -81,8 +81,8 @@ export class FormProcedurePurposeComponent implements OnInit {
       } else {
         
         this.ProcedurePurposeS.Save({
-          prp_name: this.form.controls.prp_name.value,
-          prp_code: this.form.controls.prp_code.value,
+          name: this.form.controls.name.value,
+          code: this.form.controls.code.value,
 
         }).then(x => {
           this.toastService.success('', x.message);

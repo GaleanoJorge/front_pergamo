@@ -22,7 +22,7 @@ export class FormCiiuGroupComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public cig_division:any[];
+  public division:any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -37,9 +37,9 @@ export class FormCiiuGroupComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        cig_code: '',
-        cig_name:'',
-        cig_division:'',
+        code: '',
+        name:'',
+        division_id:'',
       };
     }
 
@@ -49,13 +49,13 @@ export class FormCiiuGroupComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      cig_code: [this.data.cig_code, Validators.compose([Validators.required])],
-      cig_name: [this.data.cig_name, Validators.compose([Validators.required])],
-      cig_division: [this.data.cig_division, Validators.compose([Validators.required])],
+      code: [this.data.code, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
+      division_id: [this.data.division_id, Validators.compose([Validators.required])],
     });
 
     this.CiiuDivisionS.GetCollection().then(x => {
-      this.cig_division=x;
+      this.division=x;
     });
   }
   
@@ -74,9 +74,9 @@ export class FormCiiuGroupComponent implements OnInit {
       if (this.data.id) {
         this.CiiuGroupS.Update({
           id: this.data.id,
-          cig_code: this.form.controls.cig_code.value,
-          cig_name: this.form.controls.cig_name.value,
-          cig_division:this.form.controls.cig_division.value,
+          code: this.form.controls.code.value,
+          name: this.form.controls.name.value,
+          division_id:this.form.controls.division.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -90,9 +90,9 @@ export class FormCiiuGroupComponent implements OnInit {
       } else {
         
         this.CiiuGroupS.Save({
-          cig_code: this.form.controls.cig_code.value,
-          cig_name: this.form.controls.cig_name.value,
-          cig_division:this.form.controls.cig_division.value,
+          code: this.form.controls.code.value,
+          name: this.form.controls.name.value,
+          division_id:this.form.controls.division.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

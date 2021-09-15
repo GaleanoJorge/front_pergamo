@@ -33,7 +33,7 @@ export class FormProcedureCategoryComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        prc_name: '',
+        name: '',
         
       };
     }
@@ -44,7 +44,7 @@ export class FormProcedureCategoryComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      prc_name: [this.data.prc_name, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
       
     });
   }
@@ -64,7 +64,7 @@ export class FormProcedureCategoryComponent implements OnInit {
       if (this.data.id) {
         this.ProcedureCategoryS.Update({
           id: this.data.id,
-          prc_name: this.form.controls.prc_name.value,
+          name: this.form.controls.name.value,
           
         }).then(x => {
           this.toastService.success('', x.message);
@@ -79,7 +79,7 @@ export class FormProcedureCategoryComponent implements OnInit {
       } else {
         
         this.ProcedureCategoryS.Save({
-          prc_name: this.form.controls.prc_name.value,
+          name: this.form.controls.name.value,
           
 
         }).then(x => {

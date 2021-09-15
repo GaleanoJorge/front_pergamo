@@ -4,22 +4,22 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
-          <label for="cig_code" class="form-text text-muted font-weight-bold">Código:</label>
-          <input nbInput fullWidth id="cig_code" formControlName="cig_code" cig_code
-            status="{{ isSubmitted && form.controls.cig_code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
+          <input nbInput fullWidth id="code" formControlName="code" code
+            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-          <label for="cig_name" class="form-text text-muted font-weight-bold">Nombre:</label>
-          <input nbInput fullWidth id="cig_name" formControlName="cig_name" cig_name
-            status="{{ isSubmitted && form.controls.cig_name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+          <input nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-          <label for="cig_division" class="form-text text-muted font-weight-bold">División:</label>
-          <nb-select [selected]="this.data.cig_division" formControlName="cig_division" id="cig_division" fullWidth
-          status="{{ isSubmitted && form.controls.cig_division.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="division" class="form-text text-muted font-weight-bold">División:</label>
+          <nb-select [selected]="this.data.division_id" formControlName="division_id" id="division_id" fullWidth
+          status="{{ isSubmitted && form.controls.division_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == data.cig_division }}" *ngFor="let item of cig_division" [value]="item.id">
-            {{ item.cid_name }}</nb-option>
+          <nb-option selected="{{ item.id == data.division_id }}" *ngFor="let item of division" [value]="item.id">
+            {{ item.name }}</nb-option>
         </nb-select>
         </div>
       </div>

@@ -47,11 +47,11 @@ export class FiscalCharacteristicComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      fsc_code: {
+      code: {
         title: this.headerFields[1],
         type: 'string',
       },
-      fsc_name: {
+      name: {
         title: this.headerFields[2],
         type: 'string',
       },

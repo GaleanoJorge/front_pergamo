@@ -47,11 +47,11 @@ export class TaxesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      tax_code: {
+      code: {
         title: this.headerFields[1],
         type: 'string',
       },
-      tax_name: {
+      name: {
         title: this.headerFields[2],
         type: 'string',
       },

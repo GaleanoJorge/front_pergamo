@@ -34,8 +34,8 @@ export class FormCiiuDivisionComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        cid_code: '',
-        cid_name:'',
+        code: '',
+        name:'',
       };
     }
 
@@ -45,8 +45,8 @@ export class FormCiiuDivisionComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      cid_code: [this.data.cid_code, Validators.compose([Validators.required])],
-      cid_name: [this.data.cid_name, Validators.compose([Validators.required])],
+      code: [this.data.code, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
     });
   }
   
@@ -65,8 +65,8 @@ export class FormCiiuDivisionComponent implements OnInit {
       if (this.data.id) {
         this.CiiuDivisionS.Update({
           id: this.data.id,
-          cid_code: this.form.controls.cid_code.value,
-          cid_name: this.form.controls.cid_name.value,
+          code: this.form.controls.code.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -80,8 +80,8 @@ export class FormCiiuDivisionComponent implements OnInit {
       } else {
         
         this.CiiuDivisionS.Save({
-          cid_code: this.form.controls.cid_code.value,
-          cid_name: this.form.controls.cid_name.value,
+          code: this.form.controls.code.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

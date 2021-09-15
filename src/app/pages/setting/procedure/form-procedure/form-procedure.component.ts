@@ -51,16 +51,16 @@ export class FormProcedureComponent implements OnInit {
   async ngOnInit() {
     if (!this.data) {
       this.data = {
-        prd_code: '',
-        prd_equivalent: '',
-        prd_name: '',
-        prd_category: '',
-        prd_nopos: '',
-        prd_age: '',
-        prd_gender: '',
-        prd_state: '',
-        prd_purpose: '',
-        prd_time: ''
+        code: '',
+        equivalent: '',
+        name: '',
+        category_id: '',
+        nopos: '',
+        age_id: '',
+        gender_id: '',
+        status_id: '',
+        purpose_id: '',
+        time: ''
 
       };   
     }
@@ -71,16 +71,16 @@ export class FormProcedureComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      prd_code: [this.data.prd_code, Validators.compose([Validators.required])],
-      prd_equivalent: [this.data.prd_equivalent, Validators.compose([Validators.required])],
-      prd_name: [this.data.prd_name, Validators.compose([Validators.required])],
-      prd_category: [this.data.prd_category, Validators.compose([Validators.required])],
-      prd_nopos: [this.data.prd_nopos, Validators.compose([Validators.required])],
-      prd_age: [this.data.prd_age, Validators.compose([Validators.required])],
-      prd_gender: [this.data.prd_gender, Validators.compose([Validators.required])],
-      prd_state: [this.data.prd_state, Validators.compose([Validators.required])],
-      prd_purpose: [this.data.prd_purpose, Validators.compose([Validators.required])],
-      prd_time: [this.data.prd_time, Validators.compose([Validators.required])],
+      code: [this.data.code, Validators.compose([Validators.required])],
+      equivalent: [this.data.equivalent, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
+      category_id: [this.data.category_id, Validators.compose([Validators.required])],
+      nopos: [this.data.nopos, Validators.compose([Validators.required])],
+      age_id: [this.data.age, Validators.compose([Validators.required])],
+      gender_id: [this.data.gender_id, Validators.compose([Validators.required])],
+      status_id: [this.data.status_id, Validators.compose([Validators.required])],
+      purpose_id: [this.data.purpose_id, Validators.compose([Validators.required])],
+      time: [this.data.time, Validators.compose([Validators.required])],
     });
 
     await this.ProcedureCategoryS.GetCollection().then(x => {
@@ -118,16 +118,16 @@ export class FormProcedureComponent implements OnInit {
       if (this.data.id) {
         this.ProcedureS.Update({
           id: this.data.id,
-          prd_code: this.form.controls.prd_code.value,
-          prd_equivalent: this.form.controls.prd_equivalent.value,
-          prd_name: this.form.controls.prd_name.value,
-          prd_category: this.form.controls.prd_category.value,
-          prd_nopos: this.form.controls.prd_nopos.value,
-          prd_age: this.form.controls.prd_age.value,
-          prd_gender: this.form.controls.prd_gender.value,
-          prd_state: this.form.controls.prd_state.value,
-          prd_purpose: this.form.controls.prd_purpose.value,
-          prd_time: this.form.controls.prd_time.value,
+          code: this.form.controls.code.value,
+          equivalent: this.form.controls.equivalent.value,
+          name: this.form.controls.name.value,
+          category_id: this.form.controls.category_id.value,
+          nopos: this.form.controls.nopos.value,
+          age_id: this.form.controls.age_id.value,
+          gender_id: this.form.controls.gender_id.value,
+          status_id: this.form.controls.status_id.value,
+          purpose_id: this.form.controls.purpose_id.value,
+          time: this.form.controls.time.value,
 
         }).then(x => {
           this.toastService.success('', x.message);
@@ -142,16 +142,16 @@ export class FormProcedureComponent implements OnInit {
       } else {
         
         this.ProcedureS.Save({
-          prd_code: this.form.controls.prd_code.value,
-          prd_equivalent: this.form.controls.prd_equivalent.value,
-          prd_name: this.form.controls.prd_name.value,
-          prd_category: this.form.controls.prd_category.value,
-          prd_nopos: this.form.controls.prd_nopos.value,
-          prd_age: this.form.controls.prd_age.value,
-          prd_gender: this.form.controls.prd_gender.value,
-          prd_state: this.form.controls.prd_state.value,
-          prd_purpose: this.form.controls.prd_purpose.value,
-          prd_time: this.form.controls.prd_time.value,
+          code: this.form.controls.code.value,
+          equivalent: this.form.controls.equivalent.value,
+          name: this.form.controls.name.value,
+          category_id: this.form.controls.category_id.value,
+          nopos: this.form.controls.nopos.value,
+          age_id: this.form.controls.age_id.value,
+          gender_id: this.form.controls.gender_id.value,
+          status_id: this.form.controls.status_id.value,
+          purpose_id: this.form.controls.purpose_id.value,
+          time: this.form.controls.time.value,
           
         }).then(x => {
           this.toastService.success('', x.message);

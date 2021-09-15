@@ -47,19 +47,19 @@ export class CompanyMailComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      cma_company: {
+      company_id: {
         title: this.headerFields[1],
         type: 'string',
       },
-      cma_Mail: {
+      mail: {
         title: this.headerFields[2],
         type: 'string',
       },
-      cma_city: {
+      city_id: {
         title: this.headerFields[3],
         type: 'string',
       },
-      cma_document: {
+      document_id: {
         title: this.headerFields[4],
         type: 'string',
       },

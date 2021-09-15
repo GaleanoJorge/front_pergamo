@@ -47,11 +47,11 @@ export class CiiuClassComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      cic_code: {
+      code: {
         title: this.headerFields[1],
         type: 'string',
       },
-      cic_name: {
+      name: {
         title: this.headerFields[2],
         type: 'string',
       },

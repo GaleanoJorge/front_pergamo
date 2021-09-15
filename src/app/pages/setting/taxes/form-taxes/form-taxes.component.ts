@@ -34,8 +34,8 @@ export class FormTaxesComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        tax_code: '',
-        tax_name: '',
+        code: '',
+        name: '',
       };
     }
 
@@ -45,8 +45,8 @@ export class FormTaxesComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      tax_code: [this.data.tax_code, Validators.compose([Validators.required])],
-      tax_name: [this.data.tax_name, Validators.compose([Validators.required])],
+      code: [this.data.code, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
     });
   }
   
@@ -65,8 +65,8 @@ export class FormTaxesComponent implements OnInit {
       if (this.data.id) {
         this.TaxesS.Update({
           id: this.data.id,
-          tax_code: this.form.controls.tax_code.value,
-          tax_name: this.form.controls.tax_name.value,
+          code: this.form.controls.code.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -80,8 +80,8 @@ export class FormTaxesComponent implements OnInit {
       } else {
         
         this.TaxesS.Save({
-          tax_code: this.form.controls.tax_code.value,
-          tax_name: this.form.controls.tax_name.value,
+          code: this.form.controls.code.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

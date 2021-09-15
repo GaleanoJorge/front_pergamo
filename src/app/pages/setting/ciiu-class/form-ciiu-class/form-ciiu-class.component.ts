@@ -22,7 +22,7 @@ export class FormCiiuClassComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public cic_group:any[];
+  public group:any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -37,9 +37,9 @@ export class FormCiiuClassComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        cic_code: '',
-        cic_name:'',
-        cic_group:'',
+        code: '',
+        name:'',
+        group_id:'',
       };
     }
 
@@ -49,13 +49,13 @@ export class FormCiiuClassComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      cic_code: [this.data.cic_code, Validators.compose([Validators.required])],
-      cic_name: [this.data.cic_name, Validators.compose([Validators.required])],
-      cic_group: [this.data.cic_group, Validators.compose([Validators.required])],
+      code: [this.data.code, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
+      group_id: [this.data.group_id, Validators.compose([Validators.required])],
     });
 
     this.CiiuGroupS.GetCollection().then(x => {
-      this.cic_group=x;
+      this.group=x;
     });
   }
   
@@ -74,9 +74,9 @@ export class FormCiiuClassComponent implements OnInit {
       if (this.data.id) {
         this.CiiuClassS.Update({
           id: this.data.id,
-          cic_code: this.form.controls.cic_code.value,
-          cic_name: this.form.controls.cic_name.value,
-          cic_group:this.form.controls.cic_group.value,
+          code: this.form.controls.code.value,
+          name: this.form.controls.name.value,
+          group_id:this.form.controls.group_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -90,9 +90,9 @@ export class FormCiiuClassComponent implements OnInit {
       } else {
         
         this.CiiuClassS.Save({
-          cic_code: this.form.controls.cic_code.value,
-          cic_name: this.form.controls.cic_name.value,
-          cic_group:this.form.controls.cic_group.value,
+          code: this.form.controls.code.value,
+          name: this.form.controls.name.value,
+          group_id:this.form.controls.group_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

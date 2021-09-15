@@ -4,22 +4,22 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
-          <label for="cic_code" class="form-text text-muted font-weight-bold">Código:</label>
-          <input nbInput fullWidth id="cic_code" formControlName="cic_code" cic_code
-            status="{{ isSubmitted && form.controls.cic_code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
+          <input nbInput fullWidth id="code" formControlName="code" code
+            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-          <label for="cic_name" class="form-text text-muted font-weight-bold">Nombre:</label>
-          <input nbInput fullWidth id="cic_name" formControlName="cic_name" cic_name
-            status="{{ isSubmitted && form.controls.cic_name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+          <input nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-          <label for="cic_group" class="form-text text-muted font-weight-bold">Grupo:</label>
-          <nb-select [selected]="this.data.cic_group" formControlName="cic_group" id="cic_group" fullWidth
-          status="{{ isSubmitted && form.controls.cic_group.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="group" class="form-text text-muted font-weight-bold">Grupo:</label>
+          <nb-select [selected]="this.data.group_id" formControlName="group_id" id="group_id" fullWidth
+          status="{{ isSubmitted && form.controls.group_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == data.cic_group }}" *ngFor="let item of cic_group" [value]="item.id">
-            {{ item.cig_name }}</nb-option>
+          <nb-option selected="{{ item.id == data.group_id }}" *ngFor="let item of group" [value]="item.id">
+            {{ item.name }}</nb-option>
         </nb-select>
         </div>
       </div>

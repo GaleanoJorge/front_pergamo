@@ -4,14 +4,14 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
-          <label for="cid_code" class="form-text text-muted font-weight-bold">Código:</label>
-          <input nbInput fullWidth id="cid_code" formControlName="cid_code" cid_code
-            status="{{ isSubmitted && form.controls.cid_code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
+          <input nbInput fullWidth id="code" formControlName="code" code
+            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-          <label for="cid_name" class="form-text text-muted font-weight-bold">Nombre:</label>
-          <input nbInput fullWidth id="cid_name" formControlName="cid_name" cid_name
-            status="{{ isSubmitted && form.controls.cid_name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+          <input nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
       </div>
 

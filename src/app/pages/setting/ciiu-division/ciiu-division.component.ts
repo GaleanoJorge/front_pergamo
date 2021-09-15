@@ -47,11 +47,11 @@ export class CiiuDivisionComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      cid_codigo: {
+      codigo: {
         title: this.headerFields[1],
         type: 'string',
       },
-      cid_name: {
+      name: {
         title: this.headerFields[2],
         type: 'string',
       },

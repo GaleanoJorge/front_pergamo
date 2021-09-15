@@ -4,33 +4,33 @@
     <nb-card-body>
       <div class="row">
         <!--<div class="col-md-12">
-          <label for="cdc_company" class="form-text text-muted font-weight-bold">Empresas:</label>
-          <nb-select [selected]="this.data.cdc_company" formControlName="cdc_company" id="cdc_company" fullWidth
-            status="{{ isSubmitted && form.controls.cdc_company.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="company_id" class="form-text text-muted font-weight-bold">Empresas:</label>
+          <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.cdc_company }}" *ngFor="let item of cdc_company" [value]="item.id">
-              {{ item.com_name }}</nb-option>
+            <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
+              {{ item.name }}</nb-option>
           </nb-select>
         </div>-->
         <div class="col-md-12">
-          <label for="cdc_document" class="form-text text-muted font-weight-bold">Documentos:</label>
-          <nb-select [selected]="this.data.cdc_document" formControlName="cdc_document" id="cdc_document" fullWidth
-            status="{{ isSubmitted && form.controls.cdc_document.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="document_id" class="form-text text-muted font-weight-bold">Documentos:</label>
+          <nb-select [selected]="this.data.document_id" formControlName="document_id" id="document_id" fullWidth
+            status="{{ isSubmitted && form.controls.document_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.cdc_document }}" *ngFor="let item of cdc_document" [value]="item.id">
-              {{ item.doc_name }}</nb-option>
+            <nb-option selected="{{ item.id == data.document_id }}" *ngFor="let item of document" [value]="item.id">
+              {{ item.name }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-12">
           <div class="form-group">
             <div class="form-group">
-              <label for="cdc_file" class="form-text text-muted font-weight-bold">
+              <label for="file" class="form-text text-muted font-weight-bold">
                 Subir documentos:
               </label>
               <div *ngIf="previewFile" class="container py-2">
                 <a [href]="previewFile" target="_blank">Ver documentos</a>
               </div>
-              <input accept="application/pdf" type="file" id="cdc_file" nbInput fullWidth
+              <input accept="application/pdf" type="file" id="file" nbInput fullWidth
                 (change)="changeImage($event.target.files, 1)" />
             </div>
           </div>

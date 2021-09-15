@@ -47,15 +47,15 @@ export class ProcedureAgeComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      pra_name: {
+      name: {
         title: this.headerFields[1],
         type: 'string',
       },
-      pra_begin: {
+      begin: {
         title: this.headerFields[2],
         type: 'string',
       },
-      pra_end: {
+      end: {
         title: this.headerFields[3],
         type: 'string',
       },

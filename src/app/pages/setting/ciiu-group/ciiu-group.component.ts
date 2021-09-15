@@ -47,11 +47,11 @@ export class CiiuGroupComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      cig_code: {
+      code: {
         title: this.headerFields[1],
         type: 'string',
       },
-      cig_name: {
+      name: {
         title: this.headerFields[2],
         type: 'string',
       },

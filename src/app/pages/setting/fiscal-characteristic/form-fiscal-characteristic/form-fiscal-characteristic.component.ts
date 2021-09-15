@@ -34,8 +34,8 @@ export class FormFiscalCharacteristicComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        fsc_code: '',
-        fsc_name: '',
+        code: '',
+        name: '',
       };
     }
 
@@ -45,8 +45,8 @@ export class FormFiscalCharacteristicComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      fsc_code: [this.data.fsc_code, Validators.compose([Validators.required])],
-      fsc_name: [this.data.fsc_name, Validators.compose([Validators.required])],
+      code: [this.data.code, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
     });
   }
   
@@ -65,8 +65,8 @@ export class FormFiscalCharacteristicComponent implements OnInit {
       if (this.data.id) {
         this.FiscalCharacteristicS.Update({
           id: this.data.id,
-          fsc_code: this.form.controls.fsc_code.value,
-          fsc_name: this.form.controls.fsc_name.value,
+          code: this.form.controls.code.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -80,8 +80,8 @@ export class FormFiscalCharacteristicComponent implements OnInit {
       } else {
         
         this.FiscalCharacteristicS.Save({
-          fsc_code: this.form.controls.fsc_code.value,
-          fsc_name: this.form.controls.fsc_name.value,
+          code: this.form.controls.code.value,
+          name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

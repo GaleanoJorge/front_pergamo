@@ -23,9 +23,9 @@ export class FormCompanyMailComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public cma_city: any [];
-  public cma_company: any [];
-  public cma_document: any [];
+  public city: any [];
+  public company: any [];
+  public document: any [];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -41,10 +41,10 @@ export class FormCompanyMailComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        cma_company: '',
-        cma_mail: '',
-        cma_city: '',
-        cma_document: '',
+        company_id: '',
+        mail: '',
+        city_id: '',
+        document_id: '',
       };
     }
 
@@ -54,20 +54,20 @@ export class FormCompanyMailComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      cma_company: [this.data.cma_company, Validators.compose([Validators.required])],
-      cma_mail: [this.data.cma_mail, Validators.compose([Validators.required])],
-      cma_city: [this.data.cma_city, Validators.compose([Validators.required])],
-      cma_document: [this.data.cma_document, Validators.compose([Validators.required])],
+      company_id: [this.data.company_id, Validators.compose([Validators.required])],
+      mail: [this.data.mail, Validators.compose([Validators.required])],
+      city_id: [this.data.city_id, Validators.compose([Validators.required])],
+      document_id: [this.data.document_id, Validators.compose([Validators.required])],
     });
 
      this.RegionS.GetCollection().then(x => {
-      this.cma_city=x;
+      this.city=x;
     });
    /*  this.DocumentS.GetCollection().then(x => {
-      this.cma_company=x;
+      this.company=x;
     });*/
      this.DocumentS.GetCollection().then(x => {
-      this.cma_document=x;
+      this.document=x;
     });
   }
   
@@ -86,10 +86,10 @@ export class FormCompanyMailComponent implements OnInit {
       if (this.data.id) {
         this.CompanyMailS.Update({
           id: this.data.id,
-          cma_company: this.form.controls.cma_company.value,
-          cma_mail: this.form.controls.cma_mail.value,
-          cma_city: this.form.controls.cma_city.value,
-          cma_document: this.form.controls.cma_document.value,
+          company_id: this.form.controls.company_id.value,
+          mail: this.form.controls.mail.value,
+          city_id: this.form.controls.city_id.value,
+          document_id: this.form.controls.document_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -103,10 +103,10 @@ export class FormCompanyMailComponent implements OnInit {
       } else {
         
         this.CompanyMailS.Save({
-          cma_company: this.form.controls.cma_company.value,
-          cma_mail: this.form.controls.cma_mail.value,
-          cma_city: this.form.controls.cma_city.value,
-          cma_document: this.form.controls.cma_document.value,
+          company_id: this.form.controls.company_id.value,
+          mail: this.form.controls.mail.value,
+          city_id: this.form.controls.city_id.value,
+          document_id: this.form.controls.document_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

@@ -47,11 +47,11 @@ export class CompanyDocumentComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      cdc_company: {
+      company_id: {
         title: this.headerFields[1],
         type: 'string',
       },
-      cdc_document: {
+      document_id: {
         title: this.headerFields[2],
         type: 'string',
       },

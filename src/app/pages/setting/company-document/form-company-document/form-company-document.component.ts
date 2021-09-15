@@ -23,8 +23,8 @@ export class FormCompanyDocumentComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public cma_mail: any [];
-  public cma_company: any [];
-  public cdc_document: any [];
+  public company: any [];
+  public document: any [];
   public previewFile = null;
 
   constructor(
@@ -40,9 +40,9 @@ export class FormCompanyDocumentComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        cdc_company: '',
-        cdc_document: '',
-        cdc_file: '',
+        company_id: '',
+        document_id: '',
+        file: '',
       };
     }else{
       this.previewFile = environment.storage + this.data.approval_file;
@@ -54,13 +54,13 @@ export class FormCompanyDocumentComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      cdc_company: [this.data.cdc_company, Validators.compose([Validators.required])],
-      cdc_document: [this.data.cdc_document, Validators.compose([Validators.required])],
-      cdc_file: [this.data.cdc_file, Validators.compose([Validators.required])],
+      company_id: [this.data.company, Validators.compose([Validators.required])],
+      document_id: [this.data.document_id, Validators.compose([Validators.required])],
+      file: [this.data.file, Validators.compose([Validators.required])],
     });
 
     this.DocumentS.GetCollection().then(x => {
-      this.cdc_document=x;
+      this.document=x;
     });
   }
   
@@ -78,9 +78,9 @@ export class FormCompanyDocumentComponent implements OnInit {
 
     var formData = new FormData();
     var data = this.form.controls;
-    formData.append('cdc_file', this.form.value.cdc_file);
-    formData.append('cdc_company', data.cdc_company.value);
-    formData.append('cdc_document', data.cdc_document.value);
+    formData.append('file', this.form.value.file);
+    formData.append('company_id', data.company_id.value);
+    formData.append('document_id', data.document_id.value);
 
 
     try {
@@ -110,7 +110,7 @@ export class FormCompanyDocumentComponent implements OnInit {
     switch (option) {
       case 1:
         this.form.patchValue({
-          cdc_file: files[0],
+          file: files[0],
         });
         break;
     }

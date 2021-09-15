@@ -47,23 +47,18 @@ export class ProcedureComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      prd_code: {
+      code: {
         title: this.headerFields[1],
         type: 'string',
       },
-      prd_equivalent: {
+      equivalent: {
         title: this.headerFields[2],
         type: 'string',
       },
-      prd_name: {
+      name: {
         title: this.headerFields[3],
         type: 'string',
       },
-      prd_state: {
-        title: this.headerFields[8],
-        type: 'string',
-      },
-
     },
   };
 

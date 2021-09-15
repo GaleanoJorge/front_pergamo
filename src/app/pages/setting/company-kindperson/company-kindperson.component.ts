@@ -47,7 +47,7 @@ export class CompanyKindpersonComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      cok_name: {
+      name: {
         title: this.headerFields[1],
         type: 'string',
       },

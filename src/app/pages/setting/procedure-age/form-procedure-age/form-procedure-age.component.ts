@@ -34,9 +34,9 @@ export class FormProcedureAgeComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        pra_name: '',
-        pra_begin: '',
-        pra_end: '',
+        name: '',
+        begin: '',
+        end: '',
       };
     }
 
@@ -46,9 +46,9 @@ export class FormProcedureAgeComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      pra_name: [this.data.pra_name, Validators.compose([Validators.required])],
-      pra_begin: [this.data.pra_begin, Validators.compose([Validators.required])],
-      pra_end: [this.data.pra_end, Validators.compose([Validators.required])],
+      name: [this.data.name, Validators.compose([Validators.required])],
+      begin: [this.data.begin, Validators.compose([Validators.required])],
+      end: [this.data.end, Validators.compose([Validators.required])],
     });
   }
   
@@ -67,9 +67,9 @@ export class FormProcedureAgeComponent implements OnInit {
       if (this.data.id) {
         this.ProcedureAgeS.Update({
           id: this.data.id,
-          pra_name: this.form.controls.pra_name.value,
-          pra_begin: this.form.controls.pra_begin.value,
-          pra_end: this.form.controls.pra_end.value,
+          name: this.form.controls.name.value,
+          begin: this.form.controls.begin.value,
+          end: this.form.controls.end.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -83,9 +83,9 @@ export class FormProcedureAgeComponent implements OnInit {
       } else {
         
         this.ProcedureAgeS.Save({
-          pra_name: this.form.controls.pra_name.value,
-          pra_begin: this.form.controls.pra_begin.value,
-          pra_end: this.form.controls.pra_end.value,
+          name: this.form.controls.name.value,
+          begin: this.form.controls.begin.value,
+          end: this.form.controls.end.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
