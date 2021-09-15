@@ -8,9 +8,9 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 
 
 @Component({
-  selector: 'ngx-ciiu-division',
-  templateUrl: './ciiu-division.component.html',
-  styleUrls: ['./ciiu-division.component.scss']
+  selector: 'ngx-ciiu-group',
+  templateUrl: './ciiu-group.component.html',
+  styleUrls: ['./ciiu-group.component.scss']
 })
 export class CiiuGroupComponent implements OnInit {
 
