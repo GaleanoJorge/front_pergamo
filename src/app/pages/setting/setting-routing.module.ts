@@ -16,6 +16,12 @@ import { CompanyMailComponent } from './company-mail/company-mail.component';
 import { CompanyDocumentComponent } from './company-document/company-document.component';
 import { DocumentAccountComponent } from './document-account/document-account.component';
 import { DocumentComponent } from './document/document.component';
+import { TaxesComponent } from './taxes/taxes.component';
+import { CiiuClassComponent } from './ciiu-class/ciiu-class.component';
+import { CiiuGroupComponent } from './ciiu-group/ciiu-group.component';
+import { CiiuDivisionComponent } from './ciiu-division/ciiu-division.component';
+import { FiscalClasificationComponent } from './fiscal-clasification/fiscal-clasification.component';
+import { FiscalCharacteristicComponent } from './fiscal-characteristic/fiscal-characteristic.component';
 import { ProcedurePurposeComponent } from './procedure-purpose/procedure-purpose.component';
 import { ProcedureComponent } from './procedure/procedure.component';
 import { CategoryComponent } from './category/category.component';
@@ -98,6 +104,26 @@ const routes: Routes = [{
       data: { permission: 'roles.read' },
     },
     {
+      path: 'taxes',
+      component: TaxesComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'ciiu-group',
+      component: CiiuGroupComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'ciiu-division',
+      component: CiiuDivisionComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'ciiu-class',
+      component: CiiuClassComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
       path: 'procedure-category',
       component: ProcedureCategoryComponent,
       data: { permission: 'roles.read' },
@@ -145,6 +171,16 @@ const routes: Routes = [{
     {
       path: 'procedure-purpose',
       component: ProcedurePurposeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'fiscal-clasification',
+      component: FiscalClasificationComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'fiscal-characteristic',
+      component:  FiscalCharacteristicComponent,
       data: { permission: 'roles.read' },
     },
     {

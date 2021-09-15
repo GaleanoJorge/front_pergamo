@@ -22,6 +22,16 @@ import { ItemComponent } from './item/item.component';
 import { PagesModule } from '../pages.module';
 import { DynamicItemComponent } from './dynamic-item/dynamic-item.component';
 import { CampusComponent } from './campus/campus.component';
+import { FiscalClasificationComponent } from './fiscal-clasification/fiscal-clasification.component';
+import { FormFiscalClasificationComponent } from './fiscal-clasification/form-fiscal-clasification/form-fiscal-clasification.component';
+import { FiscalCharacteristicComponent } from './fiscal-characteristic/fiscal-characteristic.component';
+import { FormFiscalCharacteristicComponent } from './fiscal-characteristic/form-fiscal-characteristic/form-fiscal-characteristic.component';
+import { CiiuGroupComponent } from './ciiu-group/ciiu-group.component';
+import { FormCiiuGroupComponent } from './ciiu-group/form-ciiu-group/form-ciiu-group.component';
+import { CiiuDivisionComponent } from './ciiu-division/ciiu-division.component';
+import { FormCiiuClassComponent } from './ciiu-class/form-ciiu-class/form-ciiu-class.component';
+import { CiiuClassComponent } from './ciiu-class/ciiu-class.component';
+import { FormCiiuDivisionComponent } from './ciiu-division/form-ciiu-division/form-ciiu-division.component';
 import { CompanyKindpersonComponent } from './company-kindperson/company-kindperson.component';
 import { ProcedureAgeComponent } from './procedure-age/procedure-age.component';
 import { ProcedureCategoryComponent } from './procedure-category/procedure-category.component';
@@ -32,6 +42,7 @@ import { FormCompanyTypeComponent } from './company-type/form-company-type/form-
 import { ProcedurePurposeComponent } from './procedure-purpose/procedure-purpose.component';
 import { ProcedureComponent } from './procedure/procedure.component';
 import { CategoryComponent } from './category/category.component';
+import { TaxesComponent } from './taxes/taxes.component';
 import { CompanyMailComponent } from './company-mail/company-mail.component';
 import { CompanyDocumentComponent } from './company-document/company-document.component';
 import { DocumentAccountComponent } from './document-account/document-account.component';
@@ -40,6 +51,7 @@ import { FormCompanyMailComponent } from './company-mail/form-company-mail/form-
 import { FormCompanyDocumentComponent } from './company-document/form-company-document/form-company-document.component';
 import { FormDocumentAccountComponent } from './document-account/form-document-account/form-document-account.component';
 import { FormDocumentComponent } from './document/form-document/form-document.component';
+import { FormTaxesComponent } from './taxes/form-taxes/form-taxes.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { StatusFieldComponent } from './sectional-council/status-field.component';
 import { FormSectionalCouncilComponent } from './sectional-council/form-sectional-council/form-sectional-council.component';
@@ -119,6 +131,10 @@ import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action
   ],
   declarations: [
     SettingComponent,
+    FormFiscalClasificationComponent,
+    FiscalClasificationComponent,
+    FormFiscalCharacteristicComponent,
+    FiscalCharacteristicComponent,
     CompanyMailComponent,
     CompanyDocumentComponent,
     DocumentAccountComponent,
@@ -126,11 +142,19 @@ import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action
     FormCompanyDocumentComponent,
     FormCompanyMailComponent,
     FormDocumentAccountComponent,
+    FormCiiuClassComponent,
+    CiiuClassComponent,
     FormDocumentComponent,
     CompanyTypeComponent,
     FormCompanyTypeComponent,
     UsersComponent,
     RolesComponent,
+    FormTaxesComponent,
+    FormCiiuGroupComponent,
+    CiiuGroupComponent,
+    FormCiiuDivisionComponent,
+    CiiuDivisionComponent,
+    TaxesComponent,
     PermissionsComponent,
     RolesPermissionsComponent,
     ItemComponent,
