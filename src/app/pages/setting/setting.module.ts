@@ -22,14 +22,28 @@ import { ItemComponent } from './item/item.component';
 import { PagesModule } from '../pages.module';
 import { DynamicItemComponent } from './dynamic-item/dynamic-item.component';
 import { CampusComponent } from './campus/campus.component';
+import { CompanyKindpersonComponent } from './company-kindperson/company-kindperson.component';
 import { ProcedureAgeComponent } from './procedure-age/procedure-age.component';
 import { ProcedureCategoryComponent } from './procedure-category/procedure-category.component';
+import { CompanyCategoryComponent } from './company-category/company-category.component';
+import { CompanyTypeComponent } from './company-type/company-type.component';
+import { FormCompanyCategoryComponent } from './company-category/form-company-category/form-company-category.component';
+import { FormCompanyTypeComponent } from './company-type/form-company-type/form-company-type.component';
 import { ProcedurePurposeComponent } from './procedure-purpose/procedure-purpose.component';
 import { ProcedureComponent } from './procedure/procedure.component';
 import { CategoryComponent } from './category/category.component';
+import { CompanyMailComponent } from './company-mail/company-mail.component';
+import { CompanyDocumentComponent } from './company-document/company-document.component';
+import { DocumentAccountComponent } from './document-account/document-account.component';
+import { DocumentComponent } from './document/document.component';
+import { FormCompanyMailComponent } from './company-mail/form-company-mail/form-company-mail.component';
+import { FormCompanyDocumentComponent } from './company-document/form-company-document/form-company-document.component';
+import { FormDocumentAccountComponent } from './document-account/form-document-account/form-document-account.component';
+import { FormDocumentComponent } from './document/form-document/form-document.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { StatusFieldComponent } from './sectional-council/status-field.component';
 import { FormSectionalCouncilComponent } from './sectional-council/form-sectional-council/form-sectional-council.component';
+import { FormCompanyKindpersonComponent } from './company-kindperson/form-company-kindperson/form-company-kindperson.component';
 import { ActionsComponent } from './sectional-council/actions.component';
 import { DistrictComponent } from './district/district.component';
 import { FormDistrictComponent } from './district/form-district/form-district.component';
@@ -105,6 +119,16 @@ import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action
   ],
   declarations: [
     SettingComponent,
+    CompanyMailComponent,
+    CompanyDocumentComponent,
+    DocumentAccountComponent,
+    DocumentComponent,
+    FormCompanyDocumentComponent,
+    FormCompanyMailComponent,
+    FormDocumentAccountComponent,
+    FormDocumentComponent,
+    CompanyTypeComponent,
+    FormCompanyTypeComponent,
     UsersComponent,
     RolesComponent,
     PermissionsComponent,
@@ -119,11 +143,15 @@ import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action
     ProcedureComponent,
     CategoryComponent,
     SectionalCouncilComponent,
+    FormCompanyCategoryComponent,
+    CompanyCategoryComponent,
     StatusFieldComponent,
     FormSectionalCouncilComponent,
     ActionsComponent,
     DistrictComponent,
     FormDistrictComponent,
+    CompanyKindpersonComponent,
+    FormCompanyKindpersonComponent,
     OfficeComponent,
     FormOfficeComponent,
     DependenceComponent,

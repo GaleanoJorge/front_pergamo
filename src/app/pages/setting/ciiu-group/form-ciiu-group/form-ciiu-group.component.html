@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="small" style="max-width: 400px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="cig_code" class="form-text text-muted font-weight-bold">Código:</label>
+          <input nbInput fullWidth id="cig_code" formControlName="cig_code" cig_code
+            status="{{ isSubmitted && form.controls.cig_code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="cig_name" class="form-text text-muted font-weight-bold">Nombre:</label>
+          <input nbInput fullWidth id="cig_name" formControlName="cig_name" cig_name
+            status="{{ isSubmitted && form.controls.cig_name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="cig_division" class="form-text text-muted font-weight-bold">División:</label>
+          <nb-select [selected]="this.data.cig_division" formControlName="cig_division" id="cig_division" fullWidth
+          status="{{ isSubmitted && form.controls.cig_division.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.cig_division }}" *ngFor="let item of cig_division" [value]="item.id">
+            {{ item.cid_name }}</nb-option>
+        </nb-select>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

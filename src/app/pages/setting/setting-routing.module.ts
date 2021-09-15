@@ -9,6 +9,13 @@ import { RolesComponent } from './roles/roles.component';
 import { CampusComponent } from './campus/campus.component';
 import { ProcedureAgeComponent } from './procedure-age/procedure-age.component';
 import { ProcedureCategoryComponent } from './procedure-category/procedure-category.component';
+import { CompanyKindpersonComponent } from './company-kindperson/company-kindperson.component';
+import { CompanyTypeComponent } from './company-type/company-type.component';
+import { CompanyCategoryComponent } from './company-category/company-category.component';
+import { CompanyMailComponent } from './company-mail/company-mail.component';
+import { CompanyDocumentComponent } from './company-document/company-document.component';
+import { DocumentAccountComponent } from './document-account/document-account.component';
+import { DocumentComponent } from './document/document.component';
 import { ProcedurePurposeComponent } from './procedure-purpose/procedure-purpose.component';
 import { ProcedureComponent } from './procedure/procedure.component';
 import { CategoryComponent } from './category/category.component';
@@ -93,6 +100,41 @@ const routes: Routes = [{
     {
       path: 'procedure-category',
       component: ProcedureCategoryComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'company-kindperson',
+      component: CompanyKindpersonComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'company-category',
+      component: CompanyCategoryComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'company-mail',
+      component: CompanyMailComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'company-document',
+      component: CompanyDocumentComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'document-account',
+      component: DocumentAccountComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'document',
+      component: DocumentComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'company-type',
+      component: CompanyTypeComponent,
       data: { permission: 'roles.read' },
     },
     {

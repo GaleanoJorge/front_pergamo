@@ -36,19 +36,86 @@ export class ItemRolePermissionBusinessService {
             });
           } else {
             mainMenu.forEach(elementB => {
-              if (elementB.id === element.item.item_parent_id && element.permission_id === 1 && element.item.show_menu)
+              if (elementB.id === element.item.item_parent_id && element.permission_id === 1 && element.item.show_menu) {
+                if( elementB.children.findIndex(x => x.id === element.item.id) === -1){
                 elementB.children.push({
                   id: element.item.id,
                   title: element.item.name,
                   icon: element.item.icon,
                   link: element.item.route,
+                  children:[],
                 });
+              }
+            }
             });
-          }
+          }    
         });
+        mainMenu.forEach(elementC => {
+          if(elementC.children.length!=0){
+              elementC.children.forEach(elementD => {
+                servObj.data.itemRolePermission.forEach(element => {
+                  if (elementD.id === element.item.item_parent_id && element.permission_id === 1 && element.item.show_menu) {
+                  if( elementD.children.findIndex(x => x.id === element.item.id) === -1){
+                    elementD.children.push({
+                      id: element.item.id,
+                      title: element.item.name,
+                      icon: element.item.icon,
+                      link: element.item.route,
+                      children:[],
+                    });
+                  }
+              }
+            });
+          });
+        }
+       });
+      
+
+      mainMenu.forEach(elementE => {
+        if(elementE.children.length!=0){
+          elementE.children.forEach(elementF => {
+            if(elementF.children){
+              elementF.children.forEach(elementG => {
+                if(elementG.children){
+                servObj.data.itemRolePermission.forEach(elementH => {
+            if (elementG.id === elementH.item.item_parent_id && elementH.permission_id === 1 && elementH.item.show_menu) {
+              if( elementG.children.findIndex(x => x.id === elementH.item.id) === -1){
+              elementG.children.push({
+                id: elementH.item.id,
+                title: elementH.item.name,
+                icon: elementH.item.icon,
+                link: elementH.item.route,
+              });
+            }
+            }
+          });
+        }
+          });
+          }
+          });
+
+      }
+      
+    });
         console.log(mainMenu);
         mainMenu.forEach(element => {
-          if (element.children && element.children.length === 0) delete element.children;
+          if (element.children && element.children.length === 0){ 
+            delete element.children;
+          }else{
+            element.children.forEach(elementB => {
+              if (elementB.children && elementB.children.length === 0){ 
+                delete elementB.children;
+              }else{
+                elementB.children.forEach(elementC => {
+                  if (elementC.children && elementC.children.length === 0){ 
+                    delete elementC.children;
+                  }
+                });
+              }
+
+            });
+          }
+     
         });
 
         localStorage.setItem('mainMenu', JSON.stringify(mainMenu));
