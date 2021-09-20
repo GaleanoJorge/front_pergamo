@@ -2,33 +2,31 @@ import { Component, OnInit, Input } from '@angular/core';
 import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import {ProcedureCategoryService} from '../../../../business-controller/procedure-category.service';
-import {RipsTypeService} from '../../../../business-controller/rips-type.service';
+import {PbsTypeService} from '../../../../business-controller/pbs-type.service';
 
 
 @Component({
-  selector: 'ngx-form-procedure-category',
-  templateUrl: './form-procedure-category.component.html',
-  styleUrls: ['./form-procedure-category.component.scss']
+  selector: 'ngx-form-pbs-type',
+  templateUrl: './form-pbs-type.component.html',
+  styleUrls: ['./form-pbs-type.component.scss']
 })
-export class FormProcedureCategoryComponent implements OnInit {
+export class FormPbsTypeComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
 
   public form: FormGroup;
+  public rips_typefile: any[];
   // public status: Status[];
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public rips_type:any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     // private statusBS: StatusBusinessService,
-    private ProcedureCategoryS: ProcedureCategoryService,
-    private RipsTypeS: RipsTypeService,
+    private PbsTypeS: PbsTypeService,
     private toastService: NbToastrService,
   ) {
   }
@@ -37,8 +35,6 @@ export class FormProcedureCategoryComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
-        rips_type_id:'',
-        
       };
     }
 
@@ -49,12 +45,6 @@ export class FormProcedureCategoryComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
-      rips_type_id: [this.data.rips_type_id, Validators.compose([Validators.required])],
-      
-    });
-
-    this.RipsTypeS.GetCollection().then(x => {
-      this.rips_type=x;
     });
   }
   
@@ -71,10 +61,9 @@ export class FormProcedureCategoryComponent implements OnInit {
       this.loading = true;
 
       if (this.data.id) {
-        this.ProcedureCategoryS.Update({
+        this.PbsTypeS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
-          rips_type_id:this.form.controls.rips_type_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -86,11 +75,8 @@ export class FormProcedureCategoryComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        
-        this.ProcedureCategoryS.Save({
+        this.PbsTypeS.Save({
           name: this.form.controls.name.value,
-          rips_type_id:this.form.controls.rips_type_id.value,
-
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

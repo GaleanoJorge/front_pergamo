@@ -8,6 +8,11 @@ import { ItemComponent } from './item/item.component';
 import { RolesComponent } from './roles/roles.component';
 import { CampusComponent } from './campus/campus.component';
 import { ProcedureAgeComponent } from './procedure-age/procedure-age.component';
+import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
+import { RipsTypeComponent } from './rips-type/rips-type.component';
+import { PbsTypeComponent } from './pbs-type/pbs-type.component';
+import { PurposeServiceComponent } from './purpose-service/purpose-service.component';
+import { ProcedureTypeComponent } from './procedure-type/procedure-type.component';
 import { ProcedureCategoryComponent } from './procedure-category/procedure-category.component';
 import { CompanyKindpersonComponent } from './company-kindperson/company-kindperson.component';
 import { CompanyTypeComponent } from './company-type/company-type.component';
@@ -126,6 +131,31 @@ const routes: Routes = [{
     {
       path: 'procedure-category',
       component: ProcedureCategoryComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'rips-typefile',
+      component: RipsTypeFileComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'rips-type',
+      component: RipsTypeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'pbs-type',
+      component: PbsTypeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'purpose-service',
+      component: PurposeServiceComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'procedure-type',
+      component: ProcedureTypeComponent,
       data: { permission: 'roles.read' },
     },
     {

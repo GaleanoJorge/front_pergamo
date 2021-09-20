@@ -10,7 +10,16 @@ import {
   NbStepperModule,
   NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule,
 } from '@nebular/theme';
-
+import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
+import { RipsTypeComponent } from './rips-type/rips-type.component';
+import { PbsTypeComponent } from './pbs-type/pbs-type.component';
+import { PurposeServiceComponent } from './purpose-service/purpose-service.component';
+import { ProcedureTypeComponent } from './procedure-type/procedure-type.component';
+import { FormRipsTypeFileComponent } from './rips-typefile/form-rips-typefile/form-rips-typefile.component';
+import { FormRipsTypeComponent } from './rips-type/form-rips-type/form-rips-type.component';
+import { FormPbsTypeComponent } from './pbs-type/form-pbs-type/form-pbs-type.component';
+import { FormPurposeServiceComponent } from './purpose-service/form-purpose-service/form-purpose-service.component';
+import { FormProcedureTypeComponent } from './procedure-type/form-procedure-type/form-procedure-type.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { SettingRoutingModule } from './setting-routing.module';
 import { SettingComponent } from './setting.component';
@@ -130,6 +139,16 @@ import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action
     NbIconModule
   ],
   declarations: [
+    RipsTypeFileComponent,
+    RipsTypeComponent,
+    PbsTypeComponent,
+    PurposeServiceComponent,
+    ProcedureTypeComponent,
+    FormRipsTypeFileComponent,
+    FormRipsTypeComponent,
+    FormPbsTypeComponent,
+    FormPurposeServiceComponent,
+    FormProcedureTypeComponent,
     SettingComponent,
     FormFiscalClasificationComponent,
     FiscalClasificationComponent,

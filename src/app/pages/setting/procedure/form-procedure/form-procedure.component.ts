@@ -8,7 +8,9 @@ import { GenderBusinessService} from '../../../../business-controller/gender-bus
 import {ProcedureAgeService} from '../../../../business-controller/procedure-age.service';
 import {ProcedurePurposeService} from '../../../../business-controller/procedure-purpose.service';
 import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-
+import {PbsTypeService} from '../../../../business-controller/pbs-type.service';
+import {PurposeServiceService} from '../../../../business-controller/purpose-service.service';
+import {ProcedureTypeService} from '../../../../business-controller/procedure-type.service';
 
 
 @Component({
@@ -27,11 +29,16 @@ export class FormProcedureComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public category: any [];
+  public procedure_category: any [];
   public gender: any [];
-  public age: any [];
-  public purpose: any [];
+  public procedure_age: any [];
+  public procedure_purpose: any [];
+  public purpose_service: any [];
+  public procedure_type: any [];
+  public pbs_type: any [];
   public status: any [];
+  public procedure_cups: any[];
+  public showSelect: Boolean = false;
 
 
   constructor(
@@ -44,7 +51,10 @@ export class FormProcedureComponent implements OnInit {
     private GenderS: GenderBusinessService,
     private ProcedureAgeS: ProcedureAgeService,
     private ProcedurePurposeS: ProcedurePurposeService,
-    private statusS: StatusBusinessService
+    private statusS: StatusBusinessService,
+    private PbsTypeS: PbsTypeService,
+    private PurposeServiceS: PurposeServiceService,
+    private ProcedureTypeS: ProcedureTypeService,
   ) {
   }
 
@@ -54,12 +64,14 @@ export class FormProcedureComponent implements OnInit {
         code: '',
         equivalent: '',
         name: '',
-        category_id: '',
-        nopos: '',
-        age_id: '',
+        procedure_category_id: '',
+        pbs_type_id: '',
+        procedure_age_id: '',
         gender_id: '',
         status_id: '',
-        purpose_id: '',
+        procedure_purpose_id: '',
+        purpose_service_id:'',
+        procedure_type_id:'',
         time: ''
 
       };   
@@ -74,35 +86,63 @@ export class FormProcedureComponent implements OnInit {
       code: [this.data.code, Validators.compose([Validators.required])],
       equivalent: [this.data.equivalent, Validators.compose([Validators.required])],
       name: [this.data.name, Validators.compose([Validators.required])],
-      category_id: [this.data.category_id, Validators.compose([Validators.required])],
-      nopos: [this.data.nopos, Validators.compose([Validators.required])],
-      age_id: [this.data.age, Validators.compose([Validators.required])],
+      procedure_category_id: [this.data.procedure_category_id, Validators.compose([Validators.required])],
+      pbs_type_id: [this.data.pbs_type_id, Validators.compose([Validators.required])],
+      procedure_age_id: [this.data.procedure_age_id, Validators.compose([Validators.required])],
       gender_id: [this.data.gender_id, Validators.compose([Validators.required])],
       status_id: [this.data.status_id, Validators.compose([Validators.required])],
-      purpose_id: [this.data.purpose_id, Validators.compose([Validators.required])],
+      procedure_purpose_id: [this.data.procedure_purpose_id, Validators.compose([Validators.required])],
+      purpose_service_id: [this.data.purpose_service_id, Validators.compose([Validators.required])],
+      procedure_type_id: [this.data.procedure_type_id, Validators.compose([Validators.required])],
       time: [this.data.time, Validators.compose([Validators.required])],
     });
 
     await this.ProcedureCategoryS.GetCollection().then(x => {
-      this.category=x;
+      this.procedure_category=x;
     });
     await this.GenderS.GetCollection().then(x => {
       this.gender=x;
     });
     await this.ProcedureAgeS.GetCollection().then(x => {
-      this.age=x;
+      this.procedure_age=x;
     });
     await this.ProcedurePurposeS.GetCollection().then(x => {
-      this.purpose=x;
+      this.procedure_purpose=x;
     });
 
     await this.statusS.GetCollection().then(x => {
       this.status=x;
     });
-    console.log (this.age);
+    await this.PbsTypeS.GetCollection().then(x => {
+      this.pbs_type=x;
+    });
+    await this.PurposeServiceS.GetCollection().then(x => {
+      this.purpose_service=x;
+    });
+    await this.ProcedureTypeS.GetCollection().then(x => {
+      this.procedure_type=x;
+    });
+    await this.ProcedureS.GetCollection().then(x => {
+      this.procedure_cups=x;
+    });
   }
+  onChange(tipoId) {
+    if(tipoId==1){
+      this.form.controls.equivalent.disable();
+      this.showSelect=false;
+    }else{
+      this.showSelect=true;
+      this.form.controls.equivalent.disable();
+    }
+}
 
-  
+public saveCode(e): void {
+  this.form.controls.equivalent.setValue(e.target.value);
+
+}
+  cups() {
+    this.form.controls.equivalent.setValue(this.form.controls.code.value);
+}
 
   close() {
     this.dialogRef.close();
@@ -121,12 +161,14 @@ export class FormProcedureComponent implements OnInit {
           code: this.form.controls.code.value,
           equivalent: this.form.controls.equivalent.value,
           name: this.form.controls.name.value,
-          category_id: this.form.controls.category_id.value,
-          nopos: this.form.controls.nopos.value,
-          age_id: this.form.controls.age_id.value,
+          procedure_category_id: this.form.controls.procedure_category_id.value,
+          pbs_type_id: this.form.controls.pbs_type_id.value,
+          procedure_age_id: this.form.controls.procedure_age_id.value,
           gender_id: this.form.controls.gender_id.value,
           status_id: this.form.controls.status_id.value,
-          purpose_id: this.form.controls.purpose_id.value,
+          procedure_purpose_id: this.form.controls.procedure_purpose_id.value,
+          purpose_service_id: this.form.controls.purpose_service_id.value,
+          procedure_type_id: this.form.controls.procedure_type_id.value,
           time: this.form.controls.time.value,
 
         }).then(x => {
@@ -145,12 +187,14 @@ export class FormProcedureComponent implements OnInit {
           code: this.form.controls.code.value,
           equivalent: this.form.controls.equivalent.value,
           name: this.form.controls.name.value,
-          category_id: this.form.controls.category_id.value,
-          nopos: this.form.controls.nopos.value,
-          age_id: this.form.controls.age_id.value,
+          procedure_category_id: this.form.controls.procedure_category_id.value,
+          pbs_type_id: this.form.controls.pbs_type_id.value,
+          procedure_age_id: this.form.controls.procedure_age_id.value,
           gender_id: this.form.controls.gender_id.value,
           status_id: this.form.controls.status_id.value,
-          purpose_id: this.form.controls.purpose_id.value,
+          procedure_purpose_id: this.form.controls.procedure_purpose_id.value,
+          purpose_service_id: this.form.controls.purpose_service_id.value,
+          procedure_type_id: this.form.controls.procedure_type_id.value,
           time: this.form.controls.time.value,
           
         }).then(x => {

@@ -30,6 +30,8 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.menu = JSON.parse(localStorage.getItem('mainMenu'));
+    console.log(this.menu);
   }
+  
 
 }

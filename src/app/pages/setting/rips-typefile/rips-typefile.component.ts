@@ -1,25 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProcedureCategoryService } from '../../../business-controller/procedure-category.service';
+import { RipsTypeFileService } from '../../../business-controller/rips-typefile.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormProcedureCategoryComponent } from './form-procedure-category/form-procedure-category.component';
+import { FormRipsTypeFileComponent } from './form-rips-typefile/form-rips-typefile.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 
 
 @Component({
-  selector: 'ngx-procedure-category',
-  templateUrl: './procedure-category.component.html',
-  styleUrls: ['./procedure-category.component.scss']
+  selector: 'ngx-rips-typefile',
+  templateUrl: './rips-typefile.component.html',
+  styleUrls: ['./rips-typefile.component.scss']
 })
-export class ProcedureCategoryComponent implements OnInit {
+export class RipsTypeFileComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Categoria del procedimiento';
+  public title: string = 'Tipo de archivos Rips';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre','Tipo de Rips'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
+  public headerFields: any[] = ['ID','Código' ,'Nombre'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -37,8 +37,8 @@ export class ProcedureCategoryComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditProcedureCategory.bind(this),
-            'delete': this.DeleteConfirmProcedureCategory.bind(this),
+            'edit': this.EditRipsTypeFile.bind(this),
+            'delete': this.DeleteConfirmRipsTypeFile.bind(this),
           };
         },
         renderComponent: ActionsComponent,
@@ -47,28 +47,26 @@ export class ProcedureCategoryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      name: {
+      code: {
         title: this.headerFields[1],
         type: 'string',
       },
-      rips_type_id: {
+      name: {
         title: this.headerFields[2],
         type: 'string',
       },
-    
-
     },
   };
 
   public routes = [
     {
-      name: 'Categoria del procedimiento',
-      route: '../../setting/procedure-category',
+      name: 'Tipo de archivos Rips',
+      route: '../../setting/rips-typefile',
     },
   ];
 
   constructor(
-    private procedureCategoryS: ProcedureCategoryService,
+    private RipsTypeFileS: RipsTypeFileService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -83,19 +81,19 @@ export class ProcedureCategoryComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewProcedureCategory() {
-    this.dialogFormService.open(FormProcedureCategoryComponent, {
+  NewRipsTypeFile() {
+    this.dialogFormService.open(FormRipsTypeFileComponent, {
       context: {
-        title: 'Crear nueva categoria para el procedimiento',
+        title: 'Crear nuevo tipo de archivos rips',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditProcedureCategory(data) {
-    this.dialogFormService.open(FormProcedureCategoryComponent, {
+  EditRipsTypeFile(data) {
+    this.dialogFormService.open(FormRipsTypeFileComponent, {
       context: {
-        title: 'Editar categoria del procedimiento',
+        title: 'Editar tipo de archivos rips',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -115,18 +113,18 @@ export class ProcedureCategoryComponent implements OnInit {
   //   });
   // }
 
-  DeleteConfirmProcedureCategory(data) {
+  DeleteConfirmRipsTypeFile(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteProcedureCategory.bind(this),
+        delete: this.DeleteRipsTypeFile.bind(this),
       },
     });
   }
 
-  DeleteProcedureCategory(data) {
-    return this.procedureCategoryS.Delete(data.id).then(x => {
+  DeleteRipsTypeFile(data) {
+    return this.RipsTypeFileS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {

@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card size="small" style="max-width: 600px; max-height: 280px;">
+  <nb-card size="small" style="max-width: 400px">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
@@ -7,15 +7,6 @@
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div>
-        <div class="col-md-12">
-          <label for="rips_type" class="form-text text-muted font-weight-bold">Tipo de Rips:</label>
-          <nb-select [selected]="this.data.rips_type_id" formControlName="rips_type_id" id="rips_type_id" fullWidth
-          status="{{ isSubmitted && form.controls.rips_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.rips_type_id }}" *ngFor="let item of rips_type" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
         </div>
       </div>
 

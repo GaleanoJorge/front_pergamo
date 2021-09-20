@@ -4,12 +4,28 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
-          <label for="code" class="form-text text-muted font-weight-bold">Codigo:</label>
-          <input nbInput fullWidth id="code" formControlName="code" code
-            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="procedure_type" class="form-text text-muted font-weight-bold">Tipo de procedimiento:</label>
+          <nb-select [selected]="this.data.procedure_type_id" (selectedChange)="onChange($event)" formControlName="procedure_type_id" id="procedure_type_id" fullWidth
+            status="{{ isSubmitted && form.controls.procedure_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.procedure_type_id }}" *ngFor="let item of procedure_type" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="equivalent" class="form-text text-muted font-weight-bold">Cups:</label>
+          <label for="code" class="form-text text-muted font-weight-bold">Codigo:</label>
+          <input (change)="cups()" nbInput fullWidth id="code" formControlName="code" code
+            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div *ngIf="showSelect" class="col-md-12">
+          <label class="form-text text-muted font-weight-bold">Seleccione cups:</label>
+          <input type="text" list="codes" class="data-list" (change)="saveCode($event)">
+            <datalist id="codes">
+              <option *ngFor="let item of procedure_cups" [value]="item.code" >{{item.name}}</option>
+            </datalist>
+        </div>
+        <div class="col-md-12">
+          <label for="equivalent"  class="form-text text-muted font-weight-bold">Equivalente:</label>
           <input nbInput fullWidth id="equivalent" formControlName="equivalent" equivalent
             status="{{ isSubmitted && form.controls.equivalent.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
@@ -19,35 +35,31 @@
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-            <label for="category" class="form-text text-muted font-weight-bold">Categoria del procedimiento:</label>
-            <nb-select [selected]="this.data.category_id" formControlName="category_id" id="category_id" fullWidth
-              status="{{ isSubmitted && form.controls.category_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <label for="procedure_category" class="form-text text-muted font-weight-bold">Categoria del procedimiento:</label>
+            <nb-select [selected]="this.data.procedure_category_id" formControlName="procedure_category_id" id="procedure_category_id" fullWidth
+              status="{{ isSubmitted && form.controls.procedure_category_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
-              <nb-option selected="{{ item.id == data.category_id }}" *ngFor="let item of category" [value]="item.id">
+              <nb-option selected="{{ item.id == data.procedure_category_id }}" *ngFor="let item of procedure_category" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
         </div>
         <div class="col-md-12">
-            <label for="nopos" class="form-text text-muted font-weight-bold">Procedimiento Pos o no pos:</label>
-            <nb-select  formControlName="nopos" id="nopos" fullWidth
-              status="{{ isSubmitted && form.controls.nopos.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <label for="pbs_type" class="form-text text-muted font-weight-bold">Procedimiento Pbs o no Pbs:</label>
+            <nb-select  formControlName="pbs_type_id" id="pbs_type_id" fullWidth
+              status="{{ isSubmitted && form.controls.pbs_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
-              <nb-option  value="0">
-                POS</nb-option>
-                <nb-option   value="1">
-                  NO POS</nb-option>
+              <nb-option selected="{{ item.id == data.pbs_type_id }}" *ngFor="let item of pbs_type" [value]="item.id">
+                {{ item.name }}</nb-option>
             </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="age" class="form-text text-muted font-weight-bold">Edades en la que se puede prestar el servicio:</label>
-          <nb-select [selected]="this.data.age_id" formControlName="age_id" id="age_id" fullWidth
-            status="{{ isSubmitted && form.controls.age_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="procedure_age" class="form-text text-muted font-weight-bold">Edades en la que se puede prestar el servicio:</label>
+          <nb-select [selected]="this.data.procedure_age_id" formControlName="procedure_age_id" id="procedure_age_id" fullWidth
+            status="{{ isSubmitted && form.controls.procedure_age_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.age_id }}" *ngFor="let item of age" [value]="item.id">
+            <nb-option selected="{{ item.id == data.procedure_age_id }}" *ngFor="let item of procedure_age" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
-            
-
         </div>
         <div class="col-md-12">
           <label for="gender" class="form-text text-muted font-weight-bold">Genero:</label>
@@ -68,14 +80,23 @@
         </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="purpose" class="form-text text-muted font-weight-bold">Id de finalidad:</label>
-          <nb-select [selected]="this.data.purpose_id" formControlName="purpose_id" id="purpose_id" fullWidth
-            status="{{ isSubmitted && form.controls.purpose_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="procedure_purpose" class="form-text text-muted font-weight-bold">Id de finalidad:</label>
+          <nb-select [selected]="this.data.procedure_purpose_id" formControlName="procedure_purpose_id" id="procedure_purpose_id" fullWidth
+            status="{{ isSubmitted && form.controls.procedure_purpose_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.purpose_id }}" *ngFor="let item of purpose" [value]="item.id">
+            <nb-option selected="{{ item.id == data.procedure_purpose_id }}" *ngFor="let item of procedure_purpose" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
-          </div>
+        </div>
+        <div class="col-md-12">
+          <label for="purpose_service" class="form-text text-muted font-weight-bold">Proposito del servicio:</label>
+          <nb-select [selected]="this.data.purpose_service_id" formControlName="purpose_service_id" id="purpose_service_id" fullWidth
+            status="{{ isSubmitted && form.controls.purpose_service_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.purpose_service_id }}" *ngFor="let item of purpose_service" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
         <div class="col-md-12">
           <label for="time" class="form-text text-muted font-weight-bold">Tiempo del procedimiento (Minutos):</label>
           <input nbInput fullWidth id="time" formControlName="time" time

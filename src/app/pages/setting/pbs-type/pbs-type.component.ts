@@ -1,24 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProcedureCategoryService } from '../../../business-controller/procedure-category.service';
+import { PbsTypeService } from '../../../business-controller/pbs-type.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormProcedureCategoryComponent } from './form-procedure-category/form-procedure-category.component';
+import { FormPbsTypeComponent } from './form-pbs-type/form-pbs-type.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 
 
 @Component({
-  selector: 'ngx-procedure-category',
-  templateUrl: './procedure-category.component.html',
-  styleUrls: ['./procedure-category.component.scss']
+  selector: 'ngx-pbs-type',
+  templateUrl: './pbs-type.component.html',
+  styleUrls: ['./pbs-type.component.scss']
 })
-export class ProcedureCategoryComponent implements OnInit {
+export class PbsTypeComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Categoria del procedimiento';
+  public title: string = 'Tipo de Pbs';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre','Tipo de Rips'];
+  public headerFields: any[] = ['ID','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -37,8 +37,8 @@ export class ProcedureCategoryComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditProcedureCategory.bind(this),
-            'delete': this.DeleteConfirmProcedureCategory.bind(this),
+            'edit': this.EditPbsType.bind(this),
+            'delete': this.DeleteConfirmPbsType.bind(this),
           };
         },
         renderComponent: ActionsComponent,
@@ -51,24 +51,18 @@ export class ProcedureCategoryComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      rips_type_id: {
-        title: this.headerFields[2],
-        type: 'string',
-      },
-    
-
     },
   };
 
   public routes = [
     {
-      name: 'Categoria del procedimiento',
-      route: '../../setting/procedure-category',
+      name: 'Tipo de Pbs',
+      route: '../../setting/pbs-type',
     },
   ];
 
   constructor(
-    private procedureCategoryS: ProcedureCategoryService,
+    private PbsTypeS: PbsTypeService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -83,19 +77,19 @@ export class ProcedureCategoryComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewProcedureCategory() {
-    this.dialogFormService.open(FormProcedureCategoryComponent, {
+  NewPbsType() {
+    this.dialogFormService.open(FormPbsTypeComponent, {
       context: {
-        title: 'Crear nueva categoria para el procedimiento',
+        title: 'Crear nuevo tipo de pbs',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditProcedureCategory(data) {
-    this.dialogFormService.open(FormProcedureCategoryComponent, {
+  EditPbsType(data) {
+    this.dialogFormService.open(FormPbsTypeComponent, {
       context: {
-        title: 'Editar categoria del procedimiento',
+        title: 'Editar tipo de pbs',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -115,18 +109,18 @@ export class ProcedureCategoryComponent implements OnInit {
   //   });
   // }
 
-  DeleteConfirmProcedureCategory(data) {
+  DeleteConfirmPbsType(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteProcedureCategory.bind(this),
+        delete: this.DeletePbsType.bind(this),
       },
     });
   }
 
-  DeleteProcedureCategory(data) {
-    return this.procedureCategoryS.Delete(data.id).then(x => {
+  DeletePbsType(data) {
+    return this.PbsTypeS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {
