@@ -2,40 +2,40 @@ import { Component, OnInit, Input } from '@angular/core';
 import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import {CompanyMailService} from '../../../../business-controller/company-mail.service';
-import {RegionService} from '../../../../business-controller/region.service';
-import {DocumentService} from '../../../../business-controller/document.service';
+import {CompanyCiiuService} from '../../../../business-controller/company-ciiu.service';
 import {CompanyService} from '../../../../business-controller/company.service';
-
+import {CiiuClassService} from '../../../../business-controller/ciiu-class.service';
+import {FiscalClasificationService} from '../../../../business-controller/fiscal-clasification.service';
 
 
 @Component({
-  selector: 'ngx-form-company-mail',
-  templateUrl: './form-company-mail.component.html',
-  styleUrls: ['./form-company-mail.component.scss']
+  selector: 'ngx-form-company-ciiu',
+  templateUrl: './form-company-ciiu.component.html',
+  styleUrls: ['./form-company-ciiu.component.scss']
 })
-export class FormCompanyMailComponent implements OnInit {
+export class FormCompanyCiiuComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
 
   public form: FormGroup;
+  public region_id: number;
   // public status: Status[];
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public city: any [];
   public company: any [];
-  public document: any [];
+  public ciiu_class: any [];
+  public fiscal_clasification: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     // private statusBS: StatusBusinessService,
-    private RegionS: RegionService,
-    private DocumentS: DocumentService,
-    private CompanyMailS: CompanyMailService,
+    private CompanyCiiuS: CompanyCiiuService,
     private CompanyS: CompanyService,
+    private CiiuClassS: CiiuClassService,
+    private fiscalClasificationS: FiscalClasificationService,
     private toastService: NbToastrService,
   ) {
   }
@@ -44,9 +44,8 @@ export class FormCompanyMailComponent implements OnInit {
     if (!this.data) {
       this.data = {
         company_id: '',
-        mail: '',
-        city_id: '',
-        document_id: '',
+        ciiu_class_id: '',
+        fiscal_clasification_id: '',
       };
     }
 
@@ -57,22 +56,18 @@ export class FormCompanyMailComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       company_id: [this.data.company_id, Validators.compose([Validators.required])],
-      mail: [this.data.mail, Validators.compose([Validators.required])],
-      city_id: [this.data.city_id, Validators.compose([Validators.required])],
-      document_id: [this.data.document_id, Validators.compose([Validators.required])],
+      ciiu_class_id: [this.data.ciiu_class_id, Validators.compose([Validators.required])],
+      fiscal_clasification_id: [this.data.fiscal_clasification_id, Validators.compose([Validators.required])],
     });
 
-     this.RegionS.GetCollection().then(x => {
-      this.city=x;
-    });
-   /*  this.DocumentS.GetCollection().then(x => {
-      this.company=x;
-    });*/
-     this.DocumentS.GetCollection().then(x => {
-      this.document=x;
-    });
     this.CompanyS.GetCollection().then(x => {
       this.company=x;
+    });
+    this.CiiuClassS.GetCollection().then(x => {
+      this.ciiu_class=x;
+    });
+    this.fiscalClasificationS.GetCollection().then(x => {
+      this.fiscal_clasification=x;
     });
   }
   
@@ -89,12 +84,11 @@ export class FormCompanyMailComponent implements OnInit {
       this.loading = true;
 
       if (this.data.id) {
-        this.CompanyMailS.Update({
+        this.CompanyCiiuS.Update({
           id: this.data.id,
           company_id: this.form.controls.company_id.value,
-          mail: this.form.controls.mail.value,
-          city_id: this.form.controls.city_id.value,
-          document_id: this.form.controls.document_id.value,
+          ciiu_class_id: this.form.controls.ciiu_class_id.value,
+          fiscal_clasification_id: this.form.controls.fiscal_clasification_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -107,11 +101,10 @@ export class FormCompanyMailComponent implements OnInit {
         });
       } else {
         
-        this.CompanyMailS.Save({
+        this.CompanyCiiuS.Save({
           company_id: this.form.controls.company_id.value,
-          mail: this.form.controls.mail.value,
-          city_id: this.form.controls.city_id.value,
-          document_id: this.form.controls.document_id.value,
+          ciiu_class_id: this.form.controls.ciiu_class_id.value,
+          fiscal_clasification_id: this.form.controls.fiscal_clasification_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

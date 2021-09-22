@@ -27,7 +27,7 @@
   </div>
 </div>
   <nb-select *ngIf="campus.length" [selected]="currentCampus" (selectedChange)="changeCampus($event)" status="primary"
-  class="nb-select-origin" style="width: 155px;" >
+  class="nb-select-origin" style="width: 190px;" >
   <nb-option *ngFor="let item of campus" [value]="item.campus.id"> {{ item.campus.name }}</nb-option>
 </nb-select>
   <nb-actions size="small" *ngIf="userMain">

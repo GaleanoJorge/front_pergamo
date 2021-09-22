@@ -83,11 +83,11 @@ export class LoginComponent implements OnInit {
     this.app_version = environment.app_version;
     this.authService.LogOut();
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.email, Validators.minLength(5)])],
+      username: ['', Validators.compose([Validators.required,Validators.minLength(5)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
     });
     this.resetForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.email, Validators.minLength(5)])],
+      username: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
     });
 
     this.register = this.route.snapshot.queryParams.register;
@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.isSubmitted = true;
     if (!this.loginForm.invalid) {
-      this.authService.Login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).then(x => {
+      this.authService.Login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).then(x => {
         this.userBS.GetUser().then(async x => {
           if (x && x.roles.length > 0) {
 
@@ -152,7 +152,7 @@ export class LoginComponent implements OnInit {
     this.isSubmitted2 = true;
     if (!this.resetForm.invalid) {
       this.toastrService.success('', 'Restableciendo contraseña...');
-      this.authService.ResetPassword(this.resetForm.controls.email.value).then().catch(x => {
+      this.authService.ResetPassword(this.resetForm.controls.username.value).then().catch(x => {
         if (x == 'Se ha enviado un correo electrónico para que pueda restablecer la contraseña')
           this.toastrService.success('', x);
         this.resetPasswordForm = false;

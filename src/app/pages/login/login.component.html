@@ -18,13 +18,12 @@
         <form [formGroup]="loginForm" *ngIf="!resetPasswordForm">
           <div class="div-form-login">
           <small class="col-md-4 form-text text-muted">USUARIO</small>
-          <input class="input-login input-login-style" type="email" nbInput fullWidth
-            status="{{ isSubmitted && loginForm.controls.email.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-             formControlName="email" required email minlength="5" autocomplete="on">
+          <input class="input-login input-login-style" type="username" nbInput fullWidth
+            status="{{ isSubmitted && loginForm.controls.username.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+             formControlName="username" required username minlength="5" autocomplete="on">
             </div>
-          <div *ngIf="loginForm.controls.email.errors && isSubmitted ">
-            <small *ngIf="loginForm.controls.email.errors.required">Ingrese su correo</small>
-            <small *ngIf="loginForm.controls.email.errors.email">Revise su correo</small>
+          <div *ngIf="loginForm.controls.username.errors && isSubmitted ">
+            <small *ngIf="loginForm.controls.username.errors.required">Ingrese su correo</small>
           </div>
         <div class="div-form-login">
           <small class="col-md-4 form-text text-muted">CONTRASEÑA</small>
@@ -35,7 +34,6 @@
           </div>
           <div *ngIf="loginForm.controls.password.errors && isSubmitted ">
             <small *ngIf="loginForm.controls.password.errors.required">Ingrese la contraseña</small>
-            <small *ngIf="loginForm.controls.password.errors.minlength">Revise su contraseña</small>
           </div>
           <div class="actions" style="display:flex;margin-top:2em;margin-bottom: 2em;justify-content: center;">
               <select (change)="ChangeCampus($event.target.value)" placeholder="Seleccione una sede" [(selected)]="campus">
@@ -53,7 +51,7 @@
           <div class="row text-center">
             <div class="col-12">
               <small>
-                <a routerLink="/public/find-email">¿Olvidaste tu correo?</a>
+                <a routerLink="/public/find-username">¿Olvidaste tu correo?</a>
               </small>
             </div>
           </div>
@@ -88,12 +86,12 @@
         </form>
         <form [formGroup]="resetForm" (ngSubmit)="resetPassword()" *ngIf="resetPasswordForm">
           <small class="form-text text-muted">Dirección de correo electrónico:</small>
-          <input class="input-login" type="email" nbInput fullWidth
-            status="{{ isSubmitted2 && resetForm.controls.email.errors ? 'danger' : isSubmitted2 ? 'success' : '' }}"
-            placeholder="Correo" formControlName="email" required email minlength="5" autocomplete="on">
-          <div *ngIf="resetForm.controls.email.errors && isSubmitted2 ">
-            <small *ngIf="resetForm.controls.email.errors.required">Ingrese su correo</small>
-            <small *ngIf="resetForm.controls.email.errors.email">Revise su correo</small>
+          <input class="input-login" type="username" nbInput fullWidth
+            status="{{ isSubmitted2 && resetForm.controls.username.errors ? 'danger' : isSubmitted2 ? 'success' : '' }}"
+            placeholder="Correo" formControlName="username" required username minlength="5" autocomplete="on">
+          <div *ngIf="resetForm.controls.username.errors && isSubmitted2 ">
+            <small *ngIf="resetForm.controls.username.errors.required">Ingrese su correo</small>
+            <small *ngIf="resetForm.controls.username.errors.username">Revise su correo</small>
           </div>
           <div class="row text-center">
             <div class="col-12">

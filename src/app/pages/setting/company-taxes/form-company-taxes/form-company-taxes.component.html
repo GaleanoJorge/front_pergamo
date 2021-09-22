@@ -4,7 +4,7 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
-          <label for="company_id" class="form-text text-muted font-weight-bold">Empresa:</label>
+          <label for="company" class="form-text text-muted font-weight-bold">Compañia:</label>
           <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
             status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
@@ -13,30 +13,24 @@
           </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="mail" class="form-text text-muted font-weight-bold">Correo:</label>
-          <input nbInput fullWidth id="mail" formControlName="mail" mail
-            status="{{ isSubmitted && form.controls.mail.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div>
-        <div class="col-md-12">
-          <label for="city_id" class="form-text text-muted font-weight-bold">Ciudad:</label>
-          <nb-select [selected]="this.data.city_id" formControlName="city_id" id="city_id" fullWidth
-            status="{{ isSubmitted && form.controls.city_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="taxes" class="form-text text-muted font-weight-bold">Impuestos:</label>
+          <nb-select [selected]="this.data.taxes_id" formControlName="taxes_id" id="taxes_id" fullWidth
+            status="{{ isSubmitted && form.controls.taxes_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.city_id }}" *ngFor="let item of city" [value]="item.id">
+            <nb-option selected="{{ item.id == data.taxes_id }}" *ngFor="let item of taxes" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="document_id" class="form-text text-muted font-weight-bold">Documentos contables:</label>
-          <nb-select [selected]="this.data.document_id" formControlName="document_id" id="document_id" fullWidth
-            status="{{ isSubmitted && form.controls.document_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="fiscal_clasification" class="form-text text-muted font-weight-bold">Atributos fiscales:</label>
+          <nb-select [selected]="this.data.fiscal_clasification_id" formControlName="fiscal_clasification_id" id="fiscal_clasification_id" fullWidth
+            status="{{ isSubmitted && form.controls.fiscal_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.document_id }}" *ngFor="let item of document" [value]="item.id">
+            <nb-option selected="{{ item.id == data.fiscal_clasification_id }}" *ngFor="let item of fiscal_clasification" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
       </div>
-
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
       <button nbButton (click)="close()" type="button">Cancelar</button>

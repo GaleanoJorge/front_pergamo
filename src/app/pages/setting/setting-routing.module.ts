@@ -16,8 +16,15 @@ import { ProcedureTypeComponent } from './procedure-type/procedure-type.componen
 import { ProcedureCategoryComponent } from './procedure-category/procedure-category.component';
 import { CompanyKindpersonComponent } from './company-kindperson/company-kindperson.component';
 import { CompanyTypeComponent } from './company-type/company-type.component';
+import { RetinerComponent } from './retiner/retiner.component';
+import { IvaComponent } from './iva/iva.component';
 import { CompanyCategoryComponent } from './company-category/company-category.component';
 import { CompanyMailComponent } from './company-mail/company-mail.component';
+import { CompanyComponent } from './company/company.component';
+import { CompanyCiiuComponent } from './company-ciiu/company-ciiu.component';
+import { CompanyFiscalComponent } from './company-fiscal/company-fiscal.component';
+import { CompanyTaxesComponent } from './company-taxes/company-taxes.component';
+import { PaymentTermsComponent } from './payment-terms/payment-terms.component';
 import { CompanyDocumentComponent } from './company-document/company-document.component';
 import { DocumentAccountComponent } from './document-account/document-account.component';
 import { DocumentComponent } from './document/document.component';
@@ -186,6 +193,41 @@ const routes: Routes = [{
     {
       path: 'document',
       component: DocumentComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'iva',
+      component: IvaComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'retiner',
+      component: RetinerComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'company-ciiu',
+      component: CompanyCiiuComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'company-fiscal',
+      component: CompanyFiscalComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'payment-terms',
+      component: PaymentTermsComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'company',
+      component: CompanyComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'company-taxes',
+      component: CompanyTaxesComponent,
       data: { permission: 'roles.read' },
     },
     {

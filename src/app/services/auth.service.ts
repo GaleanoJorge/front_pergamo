@@ -17,11 +17,11 @@ export class AuthService {
   constructor(private webAPI: WebAPIService) {
   }
 
-  // Login(email, password): Promise<ServiceObject> {
+  // Login(username, password): Promise<ServiceObject> {
   //   var token = null;
 
   //  var servObj = new ServiceObject("oauth2.0/token");
-  //  servObj.data = { grant_type: 'password', client_id: encodeURI('oaut2_service-1604361345670'), client_secret: 'MThlZTQ1YTNmNjEzNzQ0OTYwMzAzMmIw', username: email, password: encodeURI(password) };
+  //  servObj.data = { grant_type: 'password', client_id: encodeURI('oaut2_service-1604361345670'), client_secret: 'MThlZTQ1YTNmNjEzNzQ0OTYwMzAzMmIw', username: username, password: encodeURI(password) };
   //     return this.webAPI.tokenCAS(servObj)
   //     .then(x => {
   //       servObj = <ServiceObject>x;
@@ -37,9 +37,9 @@ export class AuthService {
   //     });
   // }
 
-  Login(email, password): Promise<ServiceObject> {
+  Login(username, password): Promise<ServiceObject> {
     var servObj = new ServiceObject('login');
-    servObj.data = {email: email, password: password};
+    servObj.data = {username: username, password: password};
     return this.webAPI.Login(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -54,7 +54,7 @@ export class AuthService {
       });
   }
 
-  Profile(email, password): Promise<ServiceObject> {
+  Profile(username, password): Promise<ServiceObject> {
     var servObjPRO = new ServiceObject('oauth2.0/profile');
     return this.webAPI.profileCAS(servObjPRO)
       .then(x => {
@@ -69,9 +69,9 @@ export class AuthService {
 
   }
 
-  APIToken(email, password, id): Promise<ServiceObject> {
+  APIToken(username, password, id): Promise<ServiceObject> {
     var servObjAPI = new ServiceObject('loginJWH');
-    servObjAPI.data = {id: id, email: email, password: password};
+    servObjAPI.data = {id: id, username: username, password: password};
     console.log(servObjAPI);
     return this.webAPI.LoginAPI(servObjAPI).then(x => {
       servObjAPI = <ServiceObject>x;
@@ -84,9 +84,9 @@ export class AuthService {
 
   }
 
-  ResetPassword(email: string): Promise<ServiceObject> {
+  ResetPassword(username: string): Promise<ServiceObject> {
     var servObj = new ServiceObject('forgot');
-    servObj.data = {email: email};
+    servObj.data = {username: username};
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

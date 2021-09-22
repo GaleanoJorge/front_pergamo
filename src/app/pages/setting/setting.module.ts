@@ -108,7 +108,20 @@ import { ExtraordinaryActionCoordinatorComponent } from './users/extraordinary-a
 import { FormExtraordinaryActionCoordinatorComponent } from './users/form-extraordinary-action-coordinator/form-extraordinary-action-coordinator.component';
 import { FormExtraordinaryActionFormerComponent } from './users/form-extraordinary-action-former/form-extraordinary-action-former.component';
 import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action-former/extraordinary-action-former.component';
-
+import { IvaComponent } from './iva/iva.component';
+import { FormIvaComponent } from './iva/form-iva/form-iva.component';
+import { RetinerComponent } from './retiner/retiner.component';
+import { FormRetinerComponent } from './retiner/form-retiner/form-retiner.component';
+import { CompanyComponent } from './company/company.component';
+import { FormCompanyComponent } from './company/form-company/form-company.component';
+import { CompanyCiiuComponent } from './company-ciiu/company-ciiu.component';
+import { FormCompanyCiiuComponent } from './company-ciiu/form-company-ciiu/form-company-ciiu.component';
+import { CompanyFiscalComponent } from './company-fiscal/company-fiscal.component';
+import { FormCompanyFiscalComponent } from './company-fiscal/form-company-fiscal/form-company-fiscal.component';
+import { CompanyTaxesComponent } from './company-taxes/company-taxes.component';
+import { FormCompanyTaxesComponent } from './company-taxes/form-company-taxes/form-company-taxes.component';
+import { PaymentTermsComponent } from './payment-terms/payment-terms.component';
+import { FormPaymentTermsComponent } from './payment-terms/form-payment-terms/form-payment-terms.component';
 
 
 @NgModule({
@@ -139,6 +152,20 @@ import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action
     NbIconModule
   ],
   declarations: [
+    IvaComponent,
+    FormIvaComponent,
+    RetinerComponent,
+    FormRetinerComponent,
+    CompanyComponent,
+    FormCompanyComponent,
+    CompanyCiiuComponent,
+    FormCompanyCiiuComponent,
+    CompanyFiscalComponent,
+    FormCompanyFiscalComponent,
+    CompanyTaxesComponent,
+    FormCompanyTaxesComponent,
+    PaymentTermsComponent,
+    FormPaymentTermsComponent,
     RipsTypeFileComponent,
     RipsTypeComponent,
     PbsTypeComponent,

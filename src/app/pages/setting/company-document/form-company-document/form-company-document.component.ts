@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CompanyDocumentService} from '../../../../business-controller/company-document.service';
 import { environment } from '../../../../../environments/environment.prod';
 import {DocumentService} from '../../../../business-controller/document.service';
+import {CompanyService} from '../../../../business-controller/company.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class FormCompanyDocumentComponent implements OnInit {
     // private statusBS: StatusBusinessService,
     private CompanyDocumentS: CompanyDocumentService,
     private DocumentS: DocumentService,
+    private CompanyS: CompanyService,
     private toastService: NbToastrService,
   ) {
   }
@@ -61,6 +63,9 @@ export class FormCompanyDocumentComponent implements OnInit {
 
     this.DocumentS.GetCollection().then(x => {
       this.document=x;
+    });
+    this.CompanyS.GetCollection().then(x => {
+      this.company=x;
     });
   }
   

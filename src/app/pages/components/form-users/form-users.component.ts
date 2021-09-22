@@ -353,7 +353,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('identification', data.identification.value);
       formData.append('id', this.data ? this.data.id : null);
       formData.append('role_id', this.role);
-      formData.append('username', data.email.value);
+      formData.append('username', data.identification.value);
       formData.append('password', data.password.value);
 
 
