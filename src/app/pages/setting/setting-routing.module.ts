@@ -15,14 +15,17 @@ import { PurposeServiceComponent } from './purpose-service/purpose-service.compo
 import { ProcedureTypeComponent } from './procedure-type/procedure-type.component';
 import { ProcedureCategoryComponent } from './procedure-category/procedure-category.component';
 import { CompanyKindpersonComponent } from './company-kindperson/company-kindperson.component';
+import { ProcedureMassiveComponent } from './manual/procedure-massive/procedure-massive.component';
 import { CompanyTypeComponent } from './company-type/company-type.component';
 import { RetinerComponent } from './retiner/retiner.component';
 import { IvaComponent } from './iva/iva.component';
+import { ManualPriceComponent } from './manual/manual-price/manual-price.component';
 import { CompanyCategoryComponent } from './company-category/company-category.component';
 import { CompanyMailComponent } from './company-mail/company-mail.component';
 import { CompanyComponent } from './company/company.component';
 import { CompanyCiiuComponent } from './company-ciiu/company-ciiu.component';
 import { CompanyFiscalComponent } from './company-fiscal/company-fiscal.component';
+import { ManualComponent } from './manual/manual.component';
 import { CompanyTaxesComponent } from './company-taxes/company-taxes.component';
 import { PaymentTermsComponent } from './payment-terms/payment-terms.component';
 import { CompanyDocumentComponent } from './company-document/company-document.component';
@@ -109,6 +112,14 @@ const routes: Routes = [{
       path: 'campus',
       component: CampusComponent,
       data: { permission: 'roles.read' },
+    },
+    {
+      path: 'procedure-massive/:id',
+      component: ProcedureMassiveComponent,
+    },
+    {
+      path: 'manual-price/:id',
+      component: ManualPriceComponent,
     },
     {
       path: 'procedure-age',
@@ -213,6 +224,11 @@ const routes: Routes = [{
     {
       path: 'company-fiscal',
       component: CompanyFiscalComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'manual',
+      component: ManualComponent,
       data: { permission: 'roles.read' },
     },
     {

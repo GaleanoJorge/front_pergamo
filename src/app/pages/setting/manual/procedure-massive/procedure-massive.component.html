@@ -1,0 +1,47 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <ngx-base-table 
+                    [title]="title"
+                    [subtitle]="subtitle"
+                    [settings]="settings"
+                    entity="procedure"
+                    customData="procedure"
+                    [queryParams]="GetParams()">
+      <div actions>
+        <div class="actions">
+          <a nbButton routerLink="/pages/setting/manual">Volver</a>
+        </div>
+      </div>
+    </ngx-base-table>
+    <button nbButton status="danger" class="btn-studen-admissions" (click)="ConfirmAction(confirmAction)"> Guardar </button>
+  </div>
+</ngx-base-list>
+<ng-template #confirmAction>
+  <div class="container-fluid">
+      <nb-card>
+          <nb-card-header>¿Con que Valor y que tipo de precio desea asociar el manual?</nb-card-header>
+          <nb-card-body>
+                      <form  [formGroup]="InscriptionForm" (ngSubmit)="saveGroup()">
+                        <div>
+                          <div class="col-md-12">
+                            <label for="value" class="form-text text-muted font-weight-bold">Precio:</label>
+                            <input nbInput fullWidth id="value" formControlName="value" value
+                              status="{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                          </div>
+                      <div class="col-md-12">
+                       <small class="form-text text-muted">Tipo de precio:</small>
+                       <nb-select placeholder="Asignar un tipo de precio" formControlName="price_type_id">
+              <nb-option *ngFor="let item of price_type" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+          </div>    
+                              <div class="div-send">
+                                  <button type="submit" nbButton status="success">Agregar</button>
+                              </div>
+                      </form>
+          </nb-card-body>
+      </nb-card>
+  </div>
+</ng-template>

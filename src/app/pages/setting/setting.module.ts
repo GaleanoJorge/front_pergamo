@@ -8,9 +8,12 @@ import {
   NbListModule,
   NbRouteTabsetModule,
   NbStepperModule,
+  NbRadioModule,
   NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
+import { ManualComponent } from './manual/manual.component';
+import { FormManualComponent } from './manual/form-manual/form-manual.component';
 import { RipsTypeComponent } from './rips-type/rips-type.component';
 import { PbsTypeComponent } from './pbs-type/pbs-type.component';
 import { PurposeServiceComponent } from './purpose-service/purpose-service.component';
@@ -66,6 +69,8 @@ import { StatusFieldComponent } from './sectional-council/status-field.component
 import { FormSectionalCouncilComponent } from './sectional-council/form-sectional-council/form-sectional-council.component';
 import { FormCompanyKindpersonComponent } from './company-kindperson/form-company-kindperson/form-company-kindperson.component';
 import { ActionsComponent } from './sectional-council/actions.component';
+import { ActionsComponent2 } from './manual/manual-price/actions.component';
+import { ActionsManualComponent } from './manual/actions.component';
 import { DistrictComponent } from './district/district.component';
 import { FormDistrictComponent } from './district/form-district/form-district.component';
 import { OfficeComponent } from './office/office.component';
@@ -122,6 +127,9 @@ import { CompanyTaxesComponent } from './company-taxes/company-taxes.component';
 import { FormCompanyTaxesComponent } from './company-taxes/form-company-taxes/form-company-taxes.component';
 import { PaymentTermsComponent } from './payment-terms/payment-terms.component';
 import { FormPaymentTermsComponent } from './payment-terms/form-payment-terms/form-payment-terms.component';
+import { ProcedureMassiveComponent } from './manual/procedure-massive/procedure-massive.component';
+import { ManualPriceComponent } from './manual/manual-price/manual-price.component';
+import { SelectComponent } from './manual/procedure-massive/select.component';
 
 
 @NgModule({
@@ -133,6 +141,7 @@ import { FormPaymentTermsComponent } from './payment-terms/form-payment-terms/fo
     NbRouteTabsetModule,
     NbStepperModule,
     NbCardModule,
+    NbRadioModule,
     NbButtonModule,
     NbDialogModule.forRoot(),
     NbListModule,
@@ -162,8 +171,14 @@ import { FormPaymentTermsComponent } from './payment-terms/form-payment-terms/fo
     FormCompanyCiiuComponent,
     CompanyFiscalComponent,
     FormCompanyFiscalComponent,
+    ActionsComponent2,
+    ManualComponent,
+    ProcedureMassiveComponent,
+    ManualPriceComponent,
+    FormManualComponent,
     CompanyTaxesComponent,
     FormCompanyTaxesComponent,
+    SelectComponent,
     PaymentTermsComponent,
     FormPaymentTermsComponent,
     RipsTypeFileComponent,
@@ -172,6 +187,7 @@ import { FormPaymentTermsComponent } from './payment-terms/form-payment-terms/fo
     PurposeServiceComponent,
     ProcedureTypeComponent,
     FormRipsTypeFileComponent,
+    ActionsManualComponent,
     FormRipsTypeComponent,
     FormPbsTypeComponent,
     FormPurposeServiceComponent,
