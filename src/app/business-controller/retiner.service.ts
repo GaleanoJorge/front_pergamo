@@ -22,7 +22,7 @@ export class RetinerService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.retiner = <Retiner[]>servObj.data.Retiner;
+        this.retiner = <Retiner[]>servObj.data.retiner;
 
         return Promise.resolve(this.retiner);
       })

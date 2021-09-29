@@ -47,7 +47,7 @@ export class CiiuDivisionComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      codigo: {
+      code: {
         title: this.headerFields[1],
         type: 'string',
       },

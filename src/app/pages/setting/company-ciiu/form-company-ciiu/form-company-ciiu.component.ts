@@ -25,8 +25,8 @@ export class FormCompanyCiiuComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public company: any [];
-  public ciiu_class: any [];
-  public fiscal_clasification: any[];
+  public class: any [];
+  public clasification: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -44,8 +44,8 @@ export class FormCompanyCiiuComponent implements OnInit {
     if (!this.data) {
       this.data = {
         company_id: '',
-        ciiu_class_id: '',
-        fiscal_clasification_id: '',
+        class_id: '',
+        clasification_id: '',
       };
     }
 
@@ -56,18 +56,18 @@ export class FormCompanyCiiuComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       company_id: [this.data.company_id, Validators.compose([Validators.required])],
-      ciiu_class_id: [this.data.ciiu_class_id, Validators.compose([Validators.required])],
-      fiscal_clasification_id: [this.data.fiscal_clasification_id, Validators.compose([Validators.required])],
+      class_id: [this.data.class_id, Validators.compose([Validators.required])],
+      clasification_id: [this.data.clasification_id, Validators.compose([Validators.required])],
     });
 
     this.CompanyS.GetCollection().then(x => {
       this.company=x;
     });
     this.CiiuClassS.GetCollection().then(x => {
-      this.ciiu_class=x;
+      this.class=x;
     });
     this.fiscalClasificationS.GetCollection().then(x => {
-      this.fiscal_clasification=x;
+      this.clasification=x;
     });
   }
   
@@ -87,8 +87,8 @@ export class FormCompanyCiiuComponent implements OnInit {
         this.CompanyCiiuS.Update({
           id: this.data.id,
           company_id: this.form.controls.company_id.value,
-          ciiu_class_id: this.form.controls.ciiu_class_id.value,
-          fiscal_clasification_id: this.form.controls.fiscal_clasification_id.value,
+          class_id: this.form.controls.class_id.value,
+          clasification_id: this.form.controls.clasification_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -103,8 +103,8 @@ export class FormCompanyCiiuComponent implements OnInit {
         
         this.CompanyCiiuS.Save({
           company_id: this.form.controls.company_id.value,
-          ciiu_class_id: this.form.controls.ciiu_class_id.value,
-          fiscal_clasification_id: this.form.controls.fiscal_clasification_id.value,
+          class_id: this.form.controls.class_id.value,
+          clasification_id: this.form.controls.clasification_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

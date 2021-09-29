@@ -22,7 +22,7 @@ export class PaymentTermsService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.payment_terms = <PaymentTerms[]>servObj.data.PaymentTerms;
+        this.payment_terms = <PaymentTerms[]>servObj.data.payment_terms;
 
         return Promise.resolve(this.payment_terms);
       })
@@ -49,7 +49,7 @@ export class PaymentTermsService {
 
   Update(payment_terms: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('payment_terms', payment_terms.id);
-    servObj.data = PaymentTerms;
+    servObj.data = payment_terms;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

@@ -47,7 +47,7 @@ export class FormCompanyDocumentComponent implements OnInit {
         file: '',
       };
     }else{
-      this.previewFile = environment.storage + this.data.approval_file;
+      this.previewFile = environment.storage + this.data.file;
     }
 
     // this.statusBS.GetCollection().then(x => {
@@ -56,7 +56,7 @@ export class FormCompanyDocumentComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      company_id: [this.data.company, Validators.compose([Validators.required])],
+      company_id: [this.data.company_id, Validators.compose([Validators.required])],
       document_id: [this.data.document_id, Validators.compose([Validators.required])],
       file: [this.data.file, Validators.compose([Validators.required])],
     });

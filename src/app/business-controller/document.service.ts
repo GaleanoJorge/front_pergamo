@@ -22,7 +22,7 @@ export class DocumentService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.document = <Document[]>servObj.data.document_account;
+        this.document = <Document[]>servObj.data.document;
 
         return Promise.resolve(this.document);
       })

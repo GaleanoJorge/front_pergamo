@@ -8,7 +8,7 @@ export class Company extends MainClass {
   identification: string;
   verification: number;
   name: string;
-  company_categoty_id: number;
+  company_category_id: number;
   company_type_id: number;
   administrator: string;
   country_id: number;

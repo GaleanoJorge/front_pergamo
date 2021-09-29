@@ -4,7 +4,7 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
-          <label for="company_id" class="form-text text-muted font-weight-bold">Empresas:</label>
+          <label for="company" class="form-text text-muted font-weight-bold">Empresas:</label>
           <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
             status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
@@ -13,7 +13,7 @@
           </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="document_id" class="form-text text-muted font-weight-bold">Documentos:</label>
+          <label for="document" class="form-text text-muted font-weight-bold">Documentos:</label>
           <nb-select [selected]="this.data.document_id" formControlName="document_id" id="document_id" fullWidth
             status="{{ isSubmitted && form.controls.document_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>

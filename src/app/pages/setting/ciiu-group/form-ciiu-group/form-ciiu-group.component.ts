@@ -76,7 +76,7 @@ export class FormCiiuGroupComponent implements OnInit {
           id: this.data.id,
           code: this.form.controls.code.value,
           name: this.form.controls.name.value,
-          division_id:this.form.controls.division.value,
+          division_id:this.form.controls.division_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -92,7 +92,7 @@ export class FormCiiuGroupComponent implements OnInit {
         this.CiiuGroupS.Save({
           code: this.form.controls.code.value,
           name: this.form.controls.name.value,
-          division_id:this.form.controls.division.value,
+          division_id:this.form.controls.division_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
