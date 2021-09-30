@@ -97,6 +97,7 @@ export class LoginComponent implements OnInit {
           (response: any) => {
             if (!response.status) {
               this.toastrService.danger('', response.message);
+              setTimeout('window.location.reload()',0);
             } else {
               this.toastrService.success('', response.message);
             }
@@ -137,12 +138,16 @@ export class LoginComponent implements OnInit {
 
   chargeCampus(){
       // @ts-ignore
+      if(!localStorage.getItem('campus')){
+        this.toastrService.danger('','Debe seleccionar una sede.');
+      }else{
       if (this.authService.GetRole() === 4) {
       this.router.navigateByUrl('/pages/personal-information');
       } else {
       this.router.navigateByUrl('/pages');
-      setTimeout('window.location.reload()',200);
+      setTimeout('window.location.reload()',400);
     }
+  }
   }
 
   ChangeCampus(value){

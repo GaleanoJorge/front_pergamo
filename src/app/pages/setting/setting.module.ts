@@ -44,6 +44,8 @@ import { CiiuDivisionComponent } from './ciiu-division/ciiu-division.component';
 import { FormCiiuClassComponent } from './ciiu-class/form-ciiu-class/form-ciiu-class.component';
 import { CiiuClassComponent } from './ciiu-class/ciiu-class.component';
 import { FormCiiuDivisionComponent } from './ciiu-division/form-ciiu-division/form-ciiu-division.component';
+import { FactoryComponent } from './factory/factory.component';
+import { FormFactoryComponent } from './factory/form-factory/form-factory.component';
 import { CompanyKindpersonComponent } from './company-kindperson/company-kindperson.component';
 import { ProcedureAgeComponent } from './procedure-age/procedure-age.component';
 import { ProcedureCategoryComponent } from './procedure-category/procedure-category.component';
@@ -161,6 +163,8 @@ import { SelectComponent } from './manual/procedure-massive/select.component';
     NbIconModule
   ],
   declarations: [
+    FactoryComponent,
+    FormFactoryComponent,
     IvaComponent,
     FormIvaComponent,
     RetinerComponent,

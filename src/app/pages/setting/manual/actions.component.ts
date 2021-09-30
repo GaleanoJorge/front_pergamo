@@ -8,7 +8,7 @@ import {ViewCell} from 'ng2-smart-table';
         <nb-icon icon="file-outline"></nb-icon>
       </button>
       <button nbButton ghost (click)="value.procedurelist(value.data)" title="Ver detalle de procedimientos asociados">
-        <nb-icon icon="file-outline"></nb-icon>
+        <nb-icon icon="list-outline"></nb-icon>
       </button>
       <button  ngxCheckPerms="update" nbButton ghost (click)="value.edit(value.data)">
         <nb-icon icon="edit-outline"></nb-icon>

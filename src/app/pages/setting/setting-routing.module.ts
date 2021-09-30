@@ -20,6 +20,7 @@ import { CompanyTypeComponent } from './company-type/company-type.component';
 import { RetinerComponent } from './retiner/retiner.component';
 import { IvaComponent } from './iva/iva.component';
 import { ManualPriceComponent } from './manual/manual-price/manual-price.component';
+import { FactoryComponent } from './factory/factory.component';
 import { CompanyCategoryComponent } from './company-category/company-category.component';
 import { CompanyMailComponent } from './company-mail/company-mail.component';
 import { CompanyComponent } from './company/company.component';
@@ -124,6 +125,11 @@ const routes: Routes = [{
     {
       path: 'procedure-age',
       component: ProcedureAgeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'factory',
+      component: FactoryComponent,
       data: { permission: 'roles.read' },
     },
     {
