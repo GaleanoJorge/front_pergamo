@@ -40,6 +40,15 @@ import { FiscalClasificationComponent } from './fiscal-clasification/fiscal-clas
 import { FiscalCharacteristicComponent } from './fiscal-characteristic/fiscal-characteristic.component';
 import { ProcedurePurposeComponent } from './procedure-purpose/procedure-purpose.component';
 import { ProcedureComponent } from './procedure/procedure.component';
+import { AdministrationRouteComponent } from './administration-route/administration-route.component';
+import { MeasurementUnitsComponent } from './measurement-units/measurement-units.component';
+import { ProductConcentrationComponent } from './product-concentration/product-concentration.component';
+import { ConsumptionUnitComponent } from './consumption-unit/consumption-unit.component';
+import { ProductPresentationComponent } from './product-presentation/product-presentation.component';
+import { ProductGroupComponent } from './product-group/product-group.component';
+import { ProductCategoryComponent } from './product-category/product-category.component';
+import { ProductSubcategoryComponent } from './product-subcategory/product-subcategory.component';
+import { ProductGenericComponent } from './product-generic/product-generic.component';
 import { CategoryComponent } from './category/category.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { DistrictComponent } from './district/district.component';
@@ -66,6 +75,51 @@ const routes: Routes = [{
   path: '',
   component: SettingComponent,
   children: [
+    {
+      path: 'administration-route',
+      component: AdministrationRouteComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'measurement-units',
+      component: MeasurementUnitsComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'product-concentration',
+      component: ProductConcentrationComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'consumption-unit',
+      component: ConsumptionUnitComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'product-presentation',
+      component: ProductPresentationComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'product-group',
+      component: ProductGroupComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'product-category',
+      component: ProductCategoryComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'product-subcategory',
+      component: ProductSubcategoryComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'product-generic',
+      component: ProductGenericComponent,
+      data: { permission: 'roles.read' },
+    },
     {
       path: 'users',
       component: UsersComponent,

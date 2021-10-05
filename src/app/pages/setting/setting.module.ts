@@ -132,6 +132,24 @@ import { FormPaymentTermsComponent } from './payment-terms/form-payment-terms/fo
 import { ProcedureMassiveComponent } from './manual/procedure-massive/procedure-massive.component';
 import { ManualPriceComponent } from './manual/manual-price/manual-price.component';
 import { SelectComponent } from './manual/procedure-massive/select.component';
+import { AdministrationRouteComponent } from './administration-route/administration-route.component';
+import { MeasurementUnitsComponent } from './measurement-units/measurement-units.component';
+import { ProductConcentrationComponent } from './product-concentration/product-concentration.component';
+import { ConsumptionUnitComponent } from './consumption-unit/consumption-unit.component';
+import { ProductPresentationComponent } from './product-presentation/product-presentation.component';
+import { ProductGroupComponent } from './product-group/product-group.component';
+import { ProductCategoryComponent } from './product-category/product-category.component';
+import { ProductSubcategoryComponent } from './product-subcategory/product-subcategory.component';
+import { ProductGenericComponent } from './product-generic/product-generic.component';
+import { FormAdministrationRouteComponent } from './administration-route/form-administration-route/form-administration-route.component';
+import { FormMeasurementUnitsComponent } from './measurement-units/form-measurement-units/form-measurement-units.component';
+import { FormProductConcentrationComponent } from './product-concentration/form-product-concentration/form-product-concentration.component';
+import { FormConsumptionUnitComponent } from './consumption-unit/form-consumption-unit/form-consumption-unit.component';
+import { FormProductPresentationComponent } from './product-presentation/form-product-presentation/form-product-presentation.component';
+import { FormProductGroupComponent } from './product-group/form-product-group/form-product-group.component';
+import { FormProductCategoryComponent } from './product-category/form-product-category/form-product-category.component';
+import { FormProductSubcategoryComponent } from './product-subcategory/form-product-subcategory/form-product-subcategory.component';
+import { FormProductGenericComponent } from './product-generic/form-product-generic/form-product-generic.component';
 
 
 @NgModule({
@@ -163,6 +181,24 @@ import { SelectComponent } from './manual/procedure-massive/select.component';
     NbIconModule
   ],
   declarations: [
+    AdministrationRouteComponent,
+    MeasurementUnitsComponent,
+    ProductConcentrationComponent,
+    ConsumptionUnitComponent,
+    ProductPresentationComponent,
+    ProductGroupComponent,
+    ProductCategoryComponent,
+    ProductSubcategoryComponent,
+    ProductGenericComponent,
+    FormAdministrationRouteComponent,
+    FormMeasurementUnitsComponent,
+    FormProductConcentrationComponent,
+    FormConsumptionUnitComponent,
+    FormProductPresentationComponent,
+    FormProductGroupComponent,
+    FormProductCategoryComponent,
+    FormProductSubcategoryComponent,
+    FormProductGenericComponent,
     FactoryComponent,
     FormFactoryComponent,
     IvaComponent,
