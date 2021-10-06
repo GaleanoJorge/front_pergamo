@@ -8,9 +8,8 @@
           <input nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-      </div>
       <div class="col-md-12">
-        <label for="product_group" class="form-text text-muted font-weight-bold">Tipo de procedimiento:</label>
+        <label for="product_group" class="form-text text-muted font-weight-bold">Seleccione Grupo del producto:</label>
         <nb-select [selected]="this.data.product_group_id" formControlName="product_group_id" id="product_group_id" fullWidth
           status="{{ isSubmitted && form.controls.product_group_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -18,6 +17,7 @@
             {{ item.name }}</nb-option>
         </nb-select>
       </div>
+    </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
       <button nbButton (click)="close()" type="button">Cancelar</button>

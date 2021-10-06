@@ -8,15 +8,15 @@
           <input nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-      </div>
-      <div class="col-md-12">
-        <label for="product_category" class="form-text text-muted font-weight-bold">Tipo de procedimiento:</label>
-        <nb-select [selected]="this.data.product_category_id" formControlName="product_category_id" id="product_category_id" fullWidth
-          status="{{ isSubmitted && form.controls.product_category_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == data.product_category_id }}" *ngFor="let item of product_category" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
+        <div class="col-md-12">
+          <label for="product_category" class="form-text text-muted font-weight-bold">Seleccione Categoría del producto:</label>
+          <nb-select [selected]="this.data.product_category_id" formControlName="product_category_id" id="product_category_id" fullWidth
+            status="{{ isSubmitted && form.controls.product_category_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.product_category_id }}" *ngFor="let item of product_category" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">

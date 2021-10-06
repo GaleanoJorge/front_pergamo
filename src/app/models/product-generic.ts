@@ -14,5 +14,10 @@ export class ProductGeneric extends MainClass {
   product_subcategory_id: number;
   consumption_unit_id: number;
   administration_route_id: number;
- 
+  special_controller_medicene:number;
+  code_atc: string;
+  implantable: number;
+  reuse_id: number;
+  invasive: number;
+  consignment: number;
 }

@@ -41,11 +41,6 @@
             status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-          <label for="product_genericcol" class="form-text text-muted font-weight-bold">Producto Génerico:</label>
-          <input nbInput fullWidth id="product_genericcol" formControlName="product_genericcol" product_genericcol
-            status="{{ isSubmitted && form.controls.product_genericcol.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div>
-        <div class="col-md-12">
             <label for="pbs_type" class="form-text text-muted font-weight-bold">PBS:</label>
             <nb-select [selected]="this.data.pbs_type_id" formControlName="pbs_type_id" id="pbs_type_id" fullWidth
               status="{{ isSubmitted && form.controls.pbs_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -98,6 +93,51 @@
             <nb-option selected="{{ item.id == data.administration_route_id }}" *ngFor="let item of administration_route" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="gender_id" class="form-text text-muted font-weight-bold">¿Es un medicamento de control especial?:</label>
+          <nb-radio-group formControlName="special_controller_medicine" special_controller_medicine id="special_controller_medicine" name="special_controller_medicine" class="d-flex"
+            status="{{ isSubmitted && form.controls.special_controller_medicine.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio [value]="0">No es de control</nb-radio>
+            <nb-radio [value]="1">Si es de control</nb-radio>
+          </nb-radio-group>
+        </div>
+        <div class="col-md-12">
+          <label for="code_atc"  class="form-text text-muted font-weight-bold">Código de clasificación internacional del medicamento:</label>
+          <input nbInput fullWidth id="code_atc" formControlName="code_atc" code_atc
+            status="{{ isSubmitted && form.controls.code_atc.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="implantable" class="form-text text-muted font-weight-bold">¿Es un medicamento implantable?:</label>
+          <nb-radio-group formControlName="implantable" implantable id="implantable" name="implantable" class="d-flex"
+            status="{{ isSubmitted && form.controls.implantable.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio [value]="0">No es de implantable</nb-radio>
+            <nb-radio [value]="1">Si es de implantable</nb-radio>
+          </nb-radio-group>
+        </div>
+        <div class="col-md-12">
+          <label for="reuse" class="form-text text-muted font-weight-bold">¿Es un medicamento reutilizable?:</label>
+          <nb-radio-group formControlName="reuse" reuse id="reuse" name="reuse" class="d-flex"
+            status="{{ isSubmitted && form.controls.reuse.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio [value]="0">No es de reutilizable</nb-radio>
+            <nb-radio [value]="1">Si es de reutilizable</nb-radio>
+          </nb-radio-group>
+        </div>
+        <div class="col-md-12">
+          <label for="invasive" class="form-text text-muted font-weight-bold">¿Es un medicamento invasivo?:</label>
+          <nb-radio-group formControlName="invasive" invasive id="invasive" name="invasive" class="d-flex"
+            status="{{ isSubmitted && form.controls.invasive.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio [value]="0">No es de invasivo</nb-radio>
+            <nb-radio [value]="1">Si es de invasivo</nb-radio>
+          </nb-radio-group>
+        </div>
+        <div class="col-md-12">
+          <label for="consignment" class="form-text text-muted font-weight-bold">¿Este producto esta en consignación?:</label>
+          <nb-radio-group formControlName="consignment" consignment id="consignment" name="consignment" class="d-flex"
+            status="{{ isSubmitted && form.controls.consignment.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio [value]="0">No esta en consignación</nb-radio>
+            <nb-radio [value]="1">Si esta en consignación</nb-radio>
+          </nb-radio-group>
         </div>
       </div>
 

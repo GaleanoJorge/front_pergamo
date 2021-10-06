@@ -69,11 +69,16 @@ export class FormProductGenericComponent implements OnInit {
         measurement_units_id: '',
         product_presentation_id: '',
         description: '',
-        product_genericcol: '',
         pbs_type_id: '',
         product_subcategory_id: '',
         consumption_unit_id: '',
         administration_route_id:'',
+        special_controller_medicine:'',
+        code_atc:'',
+        implantable:'',
+        reuse:'',
+        invasive:'',
+        consignment:'',
       };   
     }
 
@@ -88,11 +93,16 @@ export class FormProductGenericComponent implements OnInit {
       measurement_units_id: [this.data.measurement_units_id, Validators.compose([Validators.required])],
       product_presentation_id: [this.data.product_presentation_id, Validators.compose([Validators.required])],
       description: [this.data.description, Validators.compose([Validators.required])],
-      product_genericcol: [this.data.product_genericcol, Validators.compose([Validators.required])],
       pbs_type_id: [this.data.pbs_type_id, Validators.compose([Validators.required])],
       product_subcategory_id: [this.data.product_subcategory_id, Validators.compose([Validators.required])],
       consumption_unit_id: [this.data.consumption_unit_id, Validators.compose([Validators.required])],
       administration_route_id: [this.data.administration_route_id, Validators.compose([Validators.required])],
+      special_controller_medicine: [this.data.special_controller_medicine, Validators.compose([Validators.required])],
+      code_atc: [this.data.code_atc, Validators.compose([Validators.required])],
+      implantable: [this.data.implantable, Validators.compose([Validators.required])],
+      reuse: [this.data.reuse, Validators.compose([Validators.required])],
+      invasive: [this.data.invasive, Validators.compose([Validators.required])],
+      consignment: [this.data.consignment, Validators.compose([Validators.required])],
       product_group_id:[],
       product_category_id:[],
     });
@@ -141,11 +151,16 @@ export class FormProductGenericComponent implements OnInit {
           measurement_units_id: this.form.controls.measurement_units_id.value,
           product_presentation_id: this.form.controls.product_presentation_id.value,
           description: this.form.controls.description.value,
-          product_genericcol: this.form.controls.product_genericcol.value,
           pbs_type_id: this.form.controls.pbs_type_id.value,
           product_subcategory_id: this.form.controls.product_subcategory_id.value,
           consumption_unit_id: this.form.controls.consumption_unit_id.value,
           administration_route_id: this.form.controls.administration_route_id.value,
+          special_controller_medicine: this.form.controls.special_controller_medicine.value,
+          code_atc: this.form.controls.code_atc.value,
+          implantable: this.form.controls.implantable.value,
+          reuse: this.form.controls.reuse.value,
+          invasive: this.form.controls.invasive.value,
+          consignment: this.form.controls.consignment.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -164,11 +179,16 @@ export class FormProductGenericComponent implements OnInit {
           measurement_units_id: this.form.controls.measurement_units_id.value,
           product_presentation_id: this.form.controls.product_presentation_id.value,
           description: this.form.controls.description.value,
-          product_genericcol: this.form.controls.product_genericcol.value,
           pbs_type_id: this.form.controls.pbs_type_id.value,
           product_subcategory_id: this.form.controls.product_subcategory_id.value,
           consumption_unit_id: this.form.controls.consumption_unit_id.value,
-          administration_route_id: this.form.controls.administration_route_id.value,          
+          administration_route_id: this.form.controls.administration_route_id.value,    
+          special_controller_medicine: this.form.controls.special_controller_medicine.value,
+          code_atc: this.form.controls.code_atc.value,
+          implantable: this.form.controls.implantable.value,
+          reuse: this.form.controls.reuse.value,
+          invasive: this.form.controls.invasive.value,
+          consignment: this.form.controls.consignment.value,      
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
