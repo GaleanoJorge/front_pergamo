@@ -150,7 +150,10 @@ import { FormProductGroupComponent } from './product-group/form-product-group/fo
 import { FormProductCategoryComponent } from './product-category/form-product-category/form-product-category.component';
 import { FormProductSubcategoryComponent } from './product-subcategory/form-product-subcategory/form-product-subcategory.component';
 import { FormProductGenericComponent } from './product-generic/form-product-generic/form-product-generic.component';
-
+import { TypeAssetsComponent } from './type-assets/type-assets.component';
+import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
+import { FormTypeAssetsComponent } from './type-assets/form-type-assets/form-type-assets.component';
+import { FormFixedAssetsComponent } from './fixed-assets/form-fixed-assets/form-fixed-assets.component';
 
 @NgModule({
   imports: [
@@ -181,6 +184,10 @@ import { FormProductGenericComponent } from './product-generic/form-product-gene
     NbIconModule
   ],
   declarations: [
+    TypeAssetsComponent,
+    FixedAssetsComponent,
+    FormTypeAssetsComponent,
+    FormFixedAssetsComponent,
     AdministrationRouteComponent,
     MeasurementUnitsComponent,
     ProductConcentrationComponent,

@@ -49,6 +49,8 @@ import { ProductGroupComponent } from './product-group/product-group.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { ProductSubcategoryComponent } from './product-subcategory/product-subcategory.component';
 import { ProductGenericComponent } from './product-generic/product-generic.component';
+import { TypeAssetsComponent } from './type-assets/type-assets.component';
+import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
 import { CategoryComponent } from './category/category.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { DistrictComponent } from './district/district.component';
@@ -78,6 +80,16 @@ const routes: Routes = [{
     {
       path: 'administration-route',
       component: AdministrationRouteComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'type-assets',
+      component: TypeAssetsComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'fixed-assets',
+      component: FixedAssetsComponent,
       data: { permission: 'roles.read' },
     },
     {

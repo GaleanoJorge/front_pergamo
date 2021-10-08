@@ -10,9 +10,7 @@ import {PriceType} from '../../../../models/price-type';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SelectComponent } from './select.component';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
-import { Course } from '../../../../models/course';
-import { numeric } from '@rxweb/reactive-form-validators';
-import { multicast } from 'rxjs/operators';
+import { FormProcedureComponent } from '../../procedure/form-procedure/form-procedure.component';
 
 @Component({
   selector: 'ngx-procedure-massive',
@@ -82,6 +80,7 @@ export class ProcedureMassiveComponent implements OnInit {
     private dialogService: NbDialogService,
     private ManualPriceS: ManualPriceService,
     private toastService: NbToastrService,
+    private dialogFormService: NbDialogService,
   ) {
   }
 
@@ -117,6 +116,15 @@ export class ProcedureMassiveComponent implements OnInit {
     }
   }
 
+  NewProcedure() {
+    this.dialogFormService.open(FormProcedureComponent, {
+      context: {
+        title: 'Crear procedimiento o servicios que se van a prestar',
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+  
   ChangeInscriptionStat(inscriptionstatus) {
     this.inscriptionstatus = inscriptionstatus;
     this.table.changeEntity(`inscriptionsByCourse/${this.inscriptionstatus}`);

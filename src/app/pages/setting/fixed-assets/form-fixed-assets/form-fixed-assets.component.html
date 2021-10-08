@@ -1,0 +1,87 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="max-width: 400px; max-height:700px;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="name" class="form-text text-muted font-weight-bold">Nombre del activo fijo:</label>
+          <input nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="product_presentation" class="form-text text-muted font-weight-bold">Presentación del producto:</label>
+          <nb-select [selected]="this.data.product_presentation_id" formControlName="product_presentation_id" id="product_presentation_id" fullWidth
+            status="{{ isSubmitted && form.controls.product_presentation_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.product_presentation_id }}" *ngFor="let item of product_presentation" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-12">
+            <label for="product_group" class="form-text text-muted font-weight-bold">Grupo del producto:</label>
+            <nb-select  formControlName="product_group_id" id="product_group_id" fullWidth
+              status="{{ isSubmitted && form.controls.product_group_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == data.product_group_id }}" *ngFor="let item of product_group" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="product_category" class="form-text text-muted font-weight-bold">Categoria del producto:</label>
+          <nb-select [selected]="this.data.product_category_id" formControlName="product_category_id" id="product_category_id" fullWidth
+            status="{{ isSubmitted && form.controls.product_category_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.product_category_id }}" *ngFor="let item of product_category" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="product_subcategory" class="form-text text-muted font-weight-bold">Subcategoria del producto:</label>
+          <nb-select  formControlName="product_subcategory_id" id="product_subcategory_id" fullWidth
+              status="{{ isSubmitted && form.controls.product_subcategory_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == data.product_subcategory_id }}" *ngFor="let item of product_subcategory" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="consumption_unit" class="form-text text-muted font-weight-bold">Unidad de consumo:</label>
+          <nb-select [selected]="this.data.consumption_unit_id" formControlName="consumption_unit_id" id="consumption_unit_id" fullWidth
+          status="{{ isSubmitted && form.controls.consumption_unit_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.consumption_unit_id }}" *ngFor="let item of consumption_unit" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="factory" class="form-text text-muted font-weight-bold">Fabricante:</label>
+          <nb-select [selected]="this.data.factory_id" formControlName="factory_id" id="factory_id" fullWidth
+            status="{{ isSubmitted && form.controls.factory_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.factory_id }}" *ngFor="let item of factory" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="type_assets" class="form-text text-muted font-weight-bold">Tipo de activo fijo:</label>
+          <nb-select [selected]="this.data.type_assets_id" formControlName="type_assets_id" id="type_assets_id" fullWidth
+            status="{{ isSubmitted && form.controls.type_assets_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.type_assets_id }}" *ngFor="let item of type_assets" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="plate_number" class="form-text text-muted font-weight-bold">Número de placa:</label>
+          <input nbInput fullWidth id="plate_number" formControlName="plate_number" plate_number
+            status="{{ isSubmitted && form.controls.plate_number.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
