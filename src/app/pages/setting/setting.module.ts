@@ -154,6 +154,14 @@ import { TypeAssetsComponent } from './type-assets/type-assets.component';
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
 import { FormTypeAssetsComponent } from './type-assets/form-type-assets/form-type-assets.component';
 import { FormFixedAssetsComponent } from './fixed-assets/form-fixed-assets/form-fixed-assets.component';
+import { ProductComponent } from './product/product.component';
+import { InvimaStatusComponent } from './invima-status/invima-status.component';
+import { StorageConditionsComponent } from './storage-conditions/storage-conditions.component';
+import { RiskComponent } from './risk/risk.component';
+import { FormProductComponent } from './product/form-product/form-product.component';
+import { FormInvimaStatusComponent } from './invima-status/form-invima-status/form-invima-status.component';
+import { FormStorageConditionsComponent } from './storage-conditions/form-storage-conditions/form-storage-conditions.component';
+import { FormRiskComponent } from './risk/form-risk/form-risk.component';
 
 @NgModule({
   imports: [
@@ -197,6 +205,14 @@ import { FormFixedAssetsComponent } from './fixed-assets/form-fixed-assets/form-
     ProductCategoryComponent,
     ProductSubcategoryComponent,
     ProductGenericComponent,
+    ProductComponent,
+    InvimaStatusComponent,
+    StorageConditionsComponent,
+    RiskComponent,
+    FormProductComponent,
+    FormInvimaStatusComponent,
+    FormStorageConditionsComponent,
+    FormRiskComponent,
     FormAdministrationRouteComponent,
     FormMeasurementUnitsComponent,
     FormProductConcentrationComponent,

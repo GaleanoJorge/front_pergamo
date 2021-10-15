@@ -48,6 +48,10 @@ import { ProductPresentationComponent } from './product-presentation/product-pre
 import { ProductGroupComponent } from './product-group/product-group.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { ProductSubcategoryComponent } from './product-subcategory/product-subcategory.component';
+import { ProductComponent } from './product/product.component';
+import { InvimaStatusComponent } from './invima-status/invima-status.component';
+import { StorageConditionsComponent } from './storage-conditions/storage-conditions.component';
+import { RiskComponent } from './risk/risk.component';
 import { ProductGenericComponent } from './product-generic/product-generic.component';
 import { TypeAssetsComponent } from './type-assets/type-assets.component';
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
@@ -72,6 +76,7 @@ import { ExtraordinaryActionComponent } from './users/extraordinary-action/extra
 import { ThemesComponent } from './themes/themes.component';
 import { ExtraordinaryActionCoordinatorComponent } from './users/extraordinary-action-coordinator/extraordinary-action-coordinator.component';
 import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action-former/extraordinary-action-former.component';
+import { Product } from '../../models/product';
 
 const routes: Routes = [{
   path: '',
@@ -115,6 +120,26 @@ const routes: Routes = [{
     {
       path: 'product-group',
       component: ProductGroupComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'product',
+      component: ProductComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'invima-status',
+      component: InvimaStatusComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'storage-conditions',
+      component: StorageConditionsComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'risk',
+      component: RiskComponent,
       data: { permission: 'roles.read' },
     },
     {

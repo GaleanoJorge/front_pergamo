@@ -2,17 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import {ManualService} from '../../../../business-controller/manual.service';
-import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-
+import {RiskService} from '../../../../business-controller/risk.service';
 
 
 @Component({
-  selector: 'ngx-form-manual',
-  templateUrl: './form-manual.component.html',
-  styleUrls: ['./form-manual.component.scss']
+  selector: 'ngx-form-risk',
+  templateUrl: './form-risk.component.html',
+  styleUrls: ['./form-risk.component.scss']
 })
-export class FormManualComponent implements OnInit {
+export class FormRiskComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -23,16 +21,12 @@ export class FormManualComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public status: any [];
-  public typemanual:"0";
-
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     // private statusBS: StatusBusinessService,
-    private ManualS: ManualService,
-    private StatusS: StatusBusinessService,
+    private RiskS: RiskService,
     private toastService: NbToastrService,
   ) {
   }
@@ -41,9 +35,6 @@ export class FormManualComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
-        year: '',
-        type_manual: '',
-        status_id: '',
       };
     }
 
@@ -54,13 +45,6 @@ export class FormManualComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
-      year: [this.data.year, Validators.compose([Validators.required])],
-      type_manual: [this.data.type_manual, Validators.compose([Validators.required])],
-      status_id: [this.data.status_id, Validators.compose([Validators.required])],
-    });
-
-    this.StatusS.GetCollection().then(x => {
-      this.status=x;
     });
   }
   
@@ -77,12 +61,9 @@ export class FormManualComponent implements OnInit {
       this.loading = true;
 
       if (this.data.id) {
-        this.ManualS.Update({
+        this.RiskS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
-          year: this.form.controls.year.value,
-          type_manual: this.form.controls.type_manual.value,
-          status_id: this.form.controls.status_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -95,11 +76,8 @@ export class FormManualComponent implements OnInit {
         });
       } else {
         
-        this.ManualS.Save({
+        this.RiskS.Save({
           name: this.form.controls.name.value,
-          year: this.form.controls.year.value,
-          type_manual: this.form.controls.type_manual.value,
-          status_id: this.form.controls.status_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

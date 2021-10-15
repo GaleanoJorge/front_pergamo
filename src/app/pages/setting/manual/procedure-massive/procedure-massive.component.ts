@@ -11,6 +11,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SelectComponent } from './select.component';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { FormProcedureComponent } from '../../procedure/form-procedure/form-procedure.component';
+import { FormProductComponent } from '../../product/form-product/form-product.component';
 
 @Component({
   selector: 'ngx-procedure-massive',
@@ -38,6 +39,12 @@ export class ProcedureMassiveComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
+  public entity:string;
+  public customData:string;
+  public select="0";
+  public manual;
+  public result;
+  public btntype;
 
   public inscriptionStatus: InscriptionStatus[] = [];
   public price_type: PriceType[] = [];
@@ -90,7 +97,7 @@ export class ProcedureMassiveComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.InscriptionForm = this.formBuilder.group({
       value: ['', Validators.compose([Validators.required])],
       price_type_id: ['', Validators.compose([Validators.required])],
@@ -107,8 +114,20 @@ export class ProcedureMassiveComponent implements OnInit {
     this.PriceTypeS.GetCollection().then(x => {
       this.price_type=x;
     });
-    
+    await this.ManualS.GetCollection().then(x => {
+      this.manual=x;
+    });
+    this.result=this.manual.find(manual => manual.id == this.route.snapshot.params.id);
+    if(this.result.type_manual==0){
+      this.table.changeEntity(`procedure`,`procedure`);
+      this.btntype=0;
+    }else if(this.result.type_manual==1){
+      this.table.changeEntity(`product`,`product`);
+      this.btntype=1;
+    }
+     
   }
+
 
   onItemChange(event) {
     if (event) {
@@ -124,12 +143,16 @@ export class ProcedureMassiveComponent implements OnInit {
       },
     });
   }
+
+  NewProduct() {
+    this.dialogFormService.open(FormProductComponent, {
+      context: {
+        title: 'Crear Medicamentos o insumos',
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
   
-  ChangeInscriptionStat(inscriptionstatus) {
-    this.inscriptionstatus = inscriptionstatus;
-    this.table.changeEntity(`inscriptionsByCourse/${this.inscriptionstatus}`);
-    // this.RefreshData();
-}
   RefreshData() {
     this.table.refresh();
     this.selections=[];

@@ -109,8 +109,9 @@ export class BaseTableComponent implements OnInit, OnDestroy {
     this.source.refresh();
   }
 
-  changeEntity(entity) {
+  changeEntity(entity,data?) {
     this.entity = entity;
+    this.customData=data;
     this.initSource();
   }
 

@@ -3,12 +3,7 @@
   [routes]="routes">
   <div content>
 
-    <ngx-base-table [title]="title"
-                    [subtitle]="subtitle" [settings]="settings"
-                    entity="ManualPrice/ProcedureByManual/{{ manual_id }}"
-                    customData='manual_price'
-                    [messageToltip]="messageToltip"
-                    >
+    <ngx-base-table [title]="title" [subtitle]="subtitle" customData="manual_price" [settings]="settings" entity="" [messageToltip]="messageToltip">
       <div actions>
         <div class="actions">
           <a nbButton routerLink="/pages/setting/manual">Volver</a>

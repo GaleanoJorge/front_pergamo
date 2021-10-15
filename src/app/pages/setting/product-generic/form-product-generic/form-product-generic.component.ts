@@ -39,6 +39,12 @@ export class FormProductGenericComponent implements OnInit {
   public administration_route: any [];
   public product_group: any [];
   public product_category: any [];
+  public showMedicine:boolean=false;
+  public showInsumo:boolean=false;
+  public subcategory:string;
+  public drugconcentration:string;
+  public measurementunits:string;
+  public productpresentation:string;
 
 
 
@@ -81,7 +87,7 @@ export class FormProductGenericComponent implements OnInit {
         consignment:'',
       };   
     }
-
+    
     // this.statusBS.GetCollection().then(x => {
     //   this.status = x;
     // });
@@ -92,20 +98,22 @@ export class FormProductGenericComponent implements OnInit {
       drug_concentration_id: [this.data.drug_concentration_id, Validators.compose([Validators.required])],
       measurement_units_id: [this.data.measurement_units_id, Validators.compose([Validators.required])],
       product_presentation_id: [this.data.product_presentation_id, Validators.compose([Validators.required])],
-      description: [this.data.description, Validators.compose([Validators.required])],
+      description: [this.data.description],
       pbs_type_id: [this.data.pbs_type_id, Validators.compose([Validators.required])],
       product_subcategory_id: [this.data.product_subcategory_id, Validators.compose([Validators.required])],
       consumption_unit_id: [this.data.consumption_unit_id, Validators.compose([Validators.required])],
-      administration_route_id: [this.data.administration_route_id, Validators.compose([Validators.required])],
-      special_controller_medicine: [this.data.special_controller_medicine, Validators.compose([Validators.required])],
-      code_atc: [this.data.code_atc, Validators.compose([Validators.required])],
-      implantable: [this.data.implantable, Validators.compose([Validators.required])],
-      reuse: [this.data.reuse, Validators.compose([Validators.required])],
-      invasive: [this.data.invasive, Validators.compose([Validators.required])],
-      consignment: [this.data.consignment, Validators.compose([Validators.required])],
+      administration_route_id: [this.data.administration_route_id],
+      special_controller_medicine: [this.data.special_controller_medicine],
+      code_atc: [this.data.code_atc],
+      implantable: [this.data.implantable],
+      reuse: [this.data.reuse],
+      invasive: [this.data.invasive],
+      consignment: [this.data.consignment],
       product_group_id:[],
       product_category_id:[],
     });
+
+    this.form.controls.description.disable();
 
     await this.MeasurementUnitS.GetCollection().then(x => {
       this.measurement_units=x;
@@ -132,9 +140,40 @@ export class FormProductGenericComponent implements OnInit {
     this.onChanges();
   }
 
+  selectsubcategory(event: Event){
+    let Subcat=this.product_subcategory.find(x => x.id == event);
+   this.subcategory=Subcat.name;
+   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory);
+  }
+  selectdrug(event: Event){
+    let drug=this.drug_concentration.find(x => x.id == event);
+   this.drugconcentration=drug.value;
+   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration);
+  }
+  selectmeasurement(event: Event){
+    let measurement=this.measurement_units.find(x => x.id == event);
+   this.measurementunits=measurement.name;
+   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits);
+  }
+  selectpresentation(event: Event){
+    let presentation=this.product_presentation.find(x => x.id == event);
+   this.productpresentation=presentation.name;
+   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation);
+  }
+  
   close() {
     this.dialogRef.close();
   }
+
+  onChange(tipoId) {
+    if(tipoId==1){
+      this.showMedicine=true;
+      this.showInsumo=false;
+    }else{
+      this.showInsumo=true;
+      this.showMedicine=false;
+    }
+}
 
   save() {
 
@@ -150,7 +189,7 @@ export class FormProductGenericComponent implements OnInit {
           drug_concentration_id: this.form.controls.drug_concentration_id.value,
           measurement_units_id: this.form.controls.measurement_units_id.value,
           product_presentation_id: this.form.controls.product_presentation_id.value,
-          description: this.form.controls.description.value,
+          description: this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation,
           pbs_type_id: this.form.controls.pbs_type_id.value,
           product_subcategory_id: this.form.controls.product_subcategory_id.value,
           consumption_unit_id: this.form.controls.consumption_unit_id.value,
@@ -178,7 +217,7 @@ export class FormProductGenericComponent implements OnInit {
           drug_concentration_id: this.form.controls.drug_concentration_id.value,
           measurement_units_id: this.form.controls.measurement_units_id.value,
           product_presentation_id: this.form.controls.product_presentation_id.value,
-          description: this.form.controls.description.value,
+          description: this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation,
           pbs_type_id: this.form.controls.pbs_type_id.value,
           product_subcategory_id: this.form.controls.product_subcategory_id.value,
           consumption_unit_id: this.form.controls.consumption_unit_id.value,

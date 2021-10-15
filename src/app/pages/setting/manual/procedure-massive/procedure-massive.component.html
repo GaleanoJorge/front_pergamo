@@ -11,8 +11,9 @@
                     [queryParams]="GetParams()">
       <div actions>
         <div class="actions">
-          <a nbButton routerLink="/pages/setting/manual">Volver</a>
-          <button nbButton status="danger" style="margin-left: 5px;" (click)="NewProcedure()">Crear Procedimiento</button>
+          <a style="margin-right: 5px;" nbButton routerLink="/pages/setting/manual">Volver</a>
+          <button *ngIf="btntype==0" nbButton status="danger" style="margin-left: 5px;" (click)="NewProcedure()">Crear Procedimiento</button>
+          <button *ngIf="btntype==1" nbButton status="danger" style="margin-left: 5px;" (click)="NewProduct()">Crear Medicamento</button>
         </div>
       </div>
     </ngx-base-table>

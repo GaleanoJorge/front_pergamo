@@ -1,11 +1,12 @@
-import { Component,Input, OnInit, ViewChild } from '@angular/core';
+import { Component,Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ManualPriceService } from '../../../../business-controller/manual-price.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionsComponent2 } from '../manual-price/actions.component';
 import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
-
+import { ManualService } from '../../../../business-controller/manual.service';
+import { ProcedureMassiveComponent } from '../procedure-massive/procedure-massive.component';
 
 @Component({
   selector: 'ngx-manual-price',
@@ -17,19 +18,23 @@ export class ManualPriceComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Detalle de Procedimientos asociados a manual tarifario';
+  public title: string;
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Procedimiento','Valor','Tipo de Valor'];
+  public headerFields: any[] = ['ID', 'Procedimiento','Valor','Tipo de Valor','Medicamento'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public manual;
+  public result;
+  public settings;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-  public settings = {
+  public conf = {
     pager: {
       display: true,
       perPage: 10,
     },
+    actions: false,
     columns: {
       actions: {
         title: '',
@@ -68,6 +73,50 @@ export class ManualPriceComponent implements OnInit {
     },
   };
 
+  public conf2 = {
+    pager: {
+      display: true,
+      perPage: 10,
+    },
+    actions: false,
+    columns: {
+      actions: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'delete': this.DeleteConfirmManualPrice.bind(this),
+          };
+        },
+        renderComponent: ActionsComponent2,
+      },
+      id: {
+        title: this.headerFields[0],
+        type: 'string',
+      },
+      product: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      value: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
+      price_type: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+    },
+  };
+
   public routes = [
     {
       name: 'Manual Tarifario',
@@ -78,14 +127,32 @@ export class ManualPriceComponent implements OnInit {
   constructor(
     private ManualPriceS: ManualPriceService,
     private toastrService: NbToastrService,
-    private dialogFormService: NbDialogService,
+    private ManualS: ManualService,
     private deleteConfirmService: NbDialogService,
     private route: ActivatedRoute,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this.ManualS.GetCollection().then(x => {
+      this.manual=x;
+    });
     this.manual_id = this.route.snapshot.params.id;
+    this.result=this.manual.find(manual => manual.id == this.route.snapshot.params.id);
+    if(this.result.type_manual==0){
+      this.table.changeEntity(`ManualPrice/ProcedureByManual/`+this.manual_id,`manual_price`);
+      this.title = 'Detalle de Procedimientos asociados a manual tarifario';
+      this.settings=this.conf;
+    }else if(this.result.type_manual==1){
+      this.table.changeEntity(`ManualPrice/ProcedureByManual2/`+this.manual_id,`manual_price`);
+      this.title = 'Detalle de Medicamentos asociados a manual tarifario';
+      this.settings=this.conf2;
+    }
+
+  }
+
+  async findmanual(){
+    
   }
 
   RefreshData() {
