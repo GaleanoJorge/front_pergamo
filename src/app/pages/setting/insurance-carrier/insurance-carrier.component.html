@@ -1,0 +1,20 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="insurance_carrier/?pagination=true"
+                    customData='insurance_carrier'
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewInsuranceCarrier()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

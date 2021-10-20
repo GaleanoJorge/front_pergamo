@@ -162,6 +162,19 @@ import { FormProductComponent } from './product/form-product/form-product.compon
 import { FormInvimaStatusComponent } from './invima-status/form-invima-status/form-invima-status.component';
 import { FormStorageConditionsComponent } from './storage-conditions/form-storage-conditions/form-storage-conditions.component';
 import { FormRiskComponent } from './risk/form-risk/form-risk.component';
+import { CoverageComponent } from './coverage/coverage.component';
+import { FirmsComponent } from './firms/firms.component';
+import { InsuranceCarrierComponent } from './insurance-carrier/insurance-carrier.component';
+import { ModalityComponent } from './modality/modality.component';
+import { TypeBriefcaseComponent } from './type-briefcase/type-briefcase.component';
+import { TypeContractComponent } from './type-contract/type-contract.component';
+import { FormCoverageComponent } from './coverage/form-coverage/form-coverage.component';
+import { FormFirmsComponent } from './firms/form-firms/form-firms.component';
+import { FormInsuranceCarrierComponent } from './insurance-carrier/form-insurance-carrier/form-insurance-carrier.component';
+import { FormModalityComponent } from './modality/form-modality/form-modality.component';
+import { FormTypeBriefcaseComponent } from './type-briefcase/form-type-briefcase/form-type-briefcase.component';
+import { FormTypeContractComponent } from './type-contract/form-type-contract/form-type-contract.component';
+
 
 @NgModule({
   imports: [
@@ -192,6 +205,18 @@ import { FormRiskComponent } from './risk/form-risk/form-risk.component';
     NbIconModule
   ],
   declarations: [
+    CoverageComponent,
+    FirmsComponent,
+    InsuranceCarrierComponent,
+    ModalityComponent,
+    TypeBriefcaseComponent,
+    TypeContractComponent,
+    FormCoverageComponent,
+    FormFirmsComponent,
+    FormInsuranceCarrierComponent,
+    FormModalityComponent,
+    FormTypeBriefcaseComponent,
+    FormTypeContractComponent,
     TypeAssetsComponent,
     FixedAssetsComponent,
     FormTypeAssetsComponent,

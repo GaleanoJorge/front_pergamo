@@ -76,12 +76,47 @@ import { ExtraordinaryActionComponent } from './users/extraordinary-action/extra
 import { ThemesComponent } from './themes/themes.component';
 import { ExtraordinaryActionCoordinatorComponent } from './users/extraordinary-action-coordinator/extraordinary-action-coordinator.component';
 import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action-former/extraordinary-action-former.component';
-import { Product } from '../../models/product';
+import { CoverageComponent } from './coverage/coverage.component';
+import { FirmsComponent } from './firms/firms.component';
+import { InsuranceCarrierComponent } from './insurance-carrier/insurance-carrier.component';
+import { ModalityComponent } from './modality/modality.component';
+import { TypeBriefcaseComponent } from './type-briefcase/type-briefcase.component';
+import { TypeContractComponent } from './type-contract/type-contract.component';
 
 const routes: Routes = [{
   path: '',
   component: SettingComponent,
   children: [
+    {
+      path: 'coverage',
+      component: CoverageComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'firms',
+      component: FirmsComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'insurance-carrier',
+      component: InsuranceCarrierComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'modality',
+      component: ModalityComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'type-briefcase',
+      component: TypeBriefcaseComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'type-contract',
+      component: TypeContractComponent,
+      data: { permission: 'roles.read' },
+    },
     {
       path: 'administration-route',
       component: AdministrationRouteComponent,
