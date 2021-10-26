@@ -58,21 +58,31 @@
             status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="status" class="form-text text-muted font-weight-bold">Estado:</label>
-          <nb-select [selected]="this.data.status_id" formControlName="status_id" id="status_id" fullWidth
-            status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="contract_status" class="form-text text-muted font-weight-bold">Estado:</label>
+          <nb-select [selected]="this.data.contract_status_id" formControlName="contract_status_id" id="contract_status_id" fullWidth
+            status="{{ isSubmitted && form.controls.contract_status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.status_id }}" *ngFor="let item of status"
+            <nb-option selected="{{ item.id == data.status_id }}" *ngFor="let item of contract_status"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="firms" class="form-text text-muted font-weight-bold">Firmas:</label>
-          <nb-select [selected]="this.data.firms_id" formControlName="firms_id" id="firms_id" fullWidth
-            status="{{ isSubmitted && form.controls.firms_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="firms" class="form-text text-muted font-weight-bold">Firma Contratante:</label>
+          <nb-select [selected]="this.data.firms_contractor_id" formControlName="firms_contractor_id" id="firms_contractor_id" fullWidth
+            status="{{ isSubmitted && form.controls.firms_contractor_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.firms_id }}" *ngFor="let item of firms"
+            <nb-option selected="{{ item.id == data.firms_contractor_id }}" *ngFor="let item of firms"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="firms" class="form-text text-muted font-weight-bold">Firma Contratista:</label>
+          <nb-select [selected]="this.data.firms_contracting_id" formControlName="firms_contracting_id" id="firms_contracting_id" fullWidth
+            status="{{ isSubmitted && form.controls.firms_contracting_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.firms_contracting_id }}" *ngFor="let item of firms"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
@@ -129,8 +139,16 @@
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="date_of_delivery_of_invoices" class="form-text text-muted font-weight-bold">Fecha de entrega de facturas:</label>
-          <input type="date" nbInput fullWidth id="date_of_delivery_of_invoices" formControlName="date_of_delivery_of_invoices" date_of_delivery_of_invoices
-            status="{{ isSubmitted && form.controls.date_of_delivery_of_invoices.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        <div style="display: flex;">Desde:
+          <input style="width: 20%;margin-left: 10px;" nbInput fullWidth id="start_date_invoice" formControlName="start_date_invoice" start_date_invoice
+            status="{{ isSubmitted && form.controls.start_date_invoice.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          Hasta:
+          <input style="width: 20%;margin-left: 10px;" nbInput fullWidth id="finish_date_invoice" formControlName="finish_date_invoice" finish_date_invoice
+          status="{{ isSubmitted && form.controls.finish_date_invoice.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          a las:
+          <input style="width: 20%;margin-left: 10px;" nbInput fullWidth id="time_delivery_invoice" formControlName="time_delivery_invoice" time_delivery_invoice
+          status="{{ isSubmitted && form.controls.time_delivery_invoice.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="expiration_days_portafolio" class="form-text text-muted font-weight-bold">Días de vencimiento cartera:</label>

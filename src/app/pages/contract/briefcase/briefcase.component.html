@@ -1,0 +1,21 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    [entity]="entity"
+                    customData='briefcase'
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <div class="actions">
+          <a nbButton routerLink="/pages/contract/list">Volver</a>
+          <button nbButton status="danger" (click)="NewBriefcase()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

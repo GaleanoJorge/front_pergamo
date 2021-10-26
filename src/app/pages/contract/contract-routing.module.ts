@@ -5,6 +5,8 @@ import {ContractComponent} from './contract.component';
 import {ContractListComponent} from './contract-list/contract-list.component';
 import {FileContractComponent} from './file-contract/file-contract.component';
 import {ServicesBriefcaseComponent} from './services-briefcase/services-briefcase.component';
+import {BriefcaseComponent} from './briefcase/briefcase.component';
+import {DetailServicesComponent} from './detail-services/detail-services.component';
 import {PermissionsGuard} from '../../guards/permissions.guard';
 
 
@@ -25,6 +27,14 @@ const routes: Routes = [{
     {
       path: 'services-briefcase/:id',
       component: ServicesBriefcaseComponent,
+    },
+    {
+      path: 'briefcase/:id',
+      component: BriefcaseComponent,
+    },
+    {
+      path: 'detail-services/:id',
+      component: DetailServicesComponent,
     },
   ],
 }];

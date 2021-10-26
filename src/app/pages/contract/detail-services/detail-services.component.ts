@@ -13,19 +13,19 @@ import {TypeBriefcaseService} from '../../../business-controller/type-briefcase.
 import {ManualPrice} from '../../../models/manual-price';
 
 @Component({
-  selector: 'ngx-services-briefcase',
-  templateUrl: './services-briefcase.component.html',
-  styleUrls: ['./services-briefcase.component.scss'],
+  selector: 'ngx-detail-services',
+  templateUrl: './detail-services.component.html',
+  styleUrls: ['./detail-services.component.scss'],
 })
-export class ServicesBriefcaseComponent implements OnInit {
+export class DetailServicesComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public messageError = null;
   
 
   public InscriptionForm: FormGroup;
   public title = 'Contrato: ';
-  public subtitle = 'Asignación catalogo de servicios: ';
-  public headerFields: any[] =  ['Código','Manual','Procedimiento', 'Producto',  'Valor','Tipo de Valor'];
+  public subtitle = 'Detalle del Portafolio de servicios: ';
+  public headerFields: any[] =  ['Código','Categoría','Servicio','Valor','Factor'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -34,6 +34,7 @@ export class ServicesBriefcaseComponent implements OnInit {
   public inscriptionstatus = 0;
   public selectedRows: any;
   public inscriptionId;
+  public entity:string;
   public campus;
 
   public manual_price: any[] = [];
@@ -44,7 +45,6 @@ export class ServicesBriefcaseComponent implements OnInit {
   
 
   public settings = {  
-    selectMode: 'multi',
     columns: {
      /* check :{
         sort: false,
@@ -57,41 +57,28 @@ export class ServicesBriefcaseComponent implements OnInit {
         },
         renderComponent: CheckboxUser,
       },     */
-      id: {
+      code: {
         title: this.headerFields[0],
-        width: '5%',
+        type: 'string',
       },
-      manual: {
+      manual_price: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return value.procedure.procedure_category.name;
         },
       },
-      procedure: {
+      name: {
         title: this.headerFields[2],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value?.name;
-        },
-      },
-      product: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value?.name;
-        },
       },
       value: {
-        title: this.headerFields[4],
+        title: this.headerFields[3],
         type: 'string',
       },
-      price_type: {
-        title: this.headerFields[5],
+      factor: {
+        title: this.headerFields[4],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.name;
-        },
       },
     },
   };
@@ -112,7 +99,13 @@ export class ServicesBriefcaseComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.briefcase_id = this.route.snapshot.params.id;
+    if(this.route.snapshot.params.id){
+      this.briefcase_id = this.route.snapshot.params.id;
+      this.entity = this.briefcase_id ? 'ServiceBriefcase/ServicesByBriefcase/' + this.briefcase_id : 'services_briefcase';
+    }else{
+      this.entity='services_briefcase';
+    }
+    
     this.InscriptionForm = this.formBuilder.group({
       factor: ['', Validators.compose([Validators.required])],
   });
@@ -129,7 +122,7 @@ export class ServicesBriefcaseComponent implements OnInit {
         },
         {
           name: 'Asignación de servicios',
-          route: '../../contract/services-briefcase',
+          route: '../../contract/detail-services',
         },
       ];
   }

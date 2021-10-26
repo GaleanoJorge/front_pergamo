@@ -1,0 +1,24 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <ngx-base-table 
+                    (propagar)="GetDataSelect($event)"
+                    [title]="title"
+                    [subtitle]="subtitle"
+                    [settings]="settings"
+                    [entity]="entity"
+                    customData="services_briefcase">
+      <div actions>
+        <div class="actions">
+          <a nbButton routerLink="/pages/contract/briefcase">Volver</a>
+          <nb-select style="margin-left: 5px;" (selectedChange)="ChangeManual($event)" placeholder="Filtrar por Categoria" [(selected)]="manual">
+            <nb-option value="0">Todos los registros</nb-option>
+            <nb-option *ngFor="let item of manual" [value]="item.id">{{item.name}}</nb-option>
+        </nb-select>
+        </div>
+      </div>
+    </ngx-base-table>
+    <button nbButton status="danger" class="btn-studen-admissions" (click)="ConfirmAction(confirmAction)"> Guardar </button>
+  </div>
+</ngx-base-list>

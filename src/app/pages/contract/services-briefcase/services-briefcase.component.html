@@ -8,11 +8,10 @@
                     [subtitle]="subtitle"
                     [settings]="settings"
                     entity="manual_price"
-                    customData="manual_price"
-                    [queryParams]="GetParams()">
+                    customData="manual_price">
       <div actions>
         <div class="actions">
-          <a nbButton routerLink="/pages/contract/list">Volver</a>
+          <a nbButton routerLink="/pages/contract/briefcase">Volver</a>
           <nb-select style="margin-left: 5px;" (selectedChange)="ChangeManual($event)" placeholder="Filtrar por Manual" [(selected)]="manual">
             <nb-option value="0">Todos los registros</nb-option>
             <nb-option *ngFor="let item of manual" [value]="item.id">{{item.name}}</nb-option>
@@ -26,28 +25,16 @@
 <ng-template #confirmAction>
   <div class="container-fluid">
       <nb-card>
-          <nb-card-header>¿Con que grupo y estado desea agregar a los usuarios?</nb-card-header>
+          <nb-card-header>Catalogo de servicios</nb-card-header>
           <nb-card-body>
                       <form  [formGroup]="InscriptionForm" (ngSubmit)="saveGroup()">
-                        <div style="display: flex;">
-                        <div>
-                                  <small class="form-text text-muted">Grupo:</small>
-                                  <nb-select placeholder="Asignar a un grupo" formControlName="group">
-                         <nb-option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</nb-option>
-                       </nb-select>
-                      </div>
-                      <div style="margin-left: 10px;">
-                       <small class="form-text text-muted">Estado:</small>
-                       <nb-select *ngIf="this.inscriptionId!=1 && this.inscriptionId!=2; else elseBlock" placeholder="Asignar un estado" formControlName="inscriptionStat">
-              <nb-option *ngFor="let inscriptionStat of inscriptionStatus" [style]="inscriptionStat.id===3 ? 'display:none;' : 'display:block'" [value]="inscriptionStat.id">{{ inscriptionStat.name }}</nb-option>
-            </nb-select>
-            <ng-template #elseBlock>
-            <nb-select disabled placeholder="Asignar un estado" formControlName="inscriptionStat">
-              <nb-option *ngFor="let inscriptionStat of inscriptionStatus" [value]="inscriptionStat.id">{{ inscriptionStat.name }}</nb-option>
-            </nb-select>
-          </ng-template>
-          </div>
-          </div>    
+                        <div class="row">
+                          <div class="col-md-12">
+                            <label for="factor" class="form-text text-muted font-weight-bold">Factor:</label>
+                            <input nbInput fullWidth id="factor" formControlName="factor" factor
+                              status="{{ isSubmitted && form.controls.factor.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                          </div>
+                        </div>
                               <div class="div-send">
                                   <button type="submit" nbButton status="success">Agregar</button>
                               </div>

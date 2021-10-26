@@ -2,16 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import {ModalityService} from '../../../../business-controller/modality.service';
-import {CoverageService} from '../../../../business-controller/coverage.service';
+import {ContractStatusService} from '../../../../business-controller/contract-status.service';
 
 
 @Component({
-  selector: 'ngx-form-modality',
-  templateUrl: './form-modality.component.html',
-  styleUrls: ['./form-modality.component.scss']
+  selector: 'ngx-form-contract-status',
+  templateUrl: './form-contract-status.component.html',
+  styleUrls: ['./form-contract-status.component.scss']
 })
-export class FormModalityComponent implements OnInit {
+export class FormContractStatusComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -22,15 +21,12 @@ export class FormModalityComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public coverage:any[];
-
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     // private statusBS: StatusBusinessService,
-    private ModalityS: ModalityService,
-    private CoverageS: CoverageService,
+    private ContractStatusS: ContractStatusService,
     private toastService: NbToastrService,
   ) {
   }
@@ -65,7 +61,7 @@ export class FormModalityComponent implements OnInit {
       this.loading = true;
 
       if (this.data.id) {
-        this.ModalityS.Update({
+        this.ContractStatusS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
         }).then(x => {
@@ -79,7 +75,7 @@ export class FormModalityComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        this.ModalityS.Save({
+        this.ContractStatusS.Save({
           name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);

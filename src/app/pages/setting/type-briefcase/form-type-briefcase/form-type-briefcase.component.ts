@@ -3,6 +3,8 @@ import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
 import {TypeBriefcaseService} from '../../../../business-controller/type-briefcase.service';
+import {CoverageService} from '../../../../business-controller/coverage.service';
+
 
 
 @Component({
@@ -20,6 +22,7 @@ export class FormTypeBriefcaseComponent implements OnInit {
   // public status: Status[];
   public isSubmitted: boolean = false;
   public saved: any = null;
+  public coverage: any[];
   public loading: boolean = false;
 
   constructor(
@@ -27,6 +30,7 @@ export class FormTypeBriefcaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     // private statusBS: StatusBusinessService,
     private TypeBriefcaseS: TypeBriefcaseService,
+    private CoverageS: CoverageService,
     private toastService: NbToastrService,
   ) {
   }
@@ -35,6 +39,7 @@ export class FormTypeBriefcaseComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
+        coverage_id:''
       };
     }
 
@@ -45,6 +50,10 @@ export class FormTypeBriefcaseComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
+      coverage_id: [this.data.coverage_id, Validators.compose([Validators.required])],
+    });
+    this.CoverageS.GetCollection().then(x => {
+      this.coverage=x;
     });
   }
   
@@ -64,6 +73,7 @@ export class FormTypeBriefcaseComponent implements OnInit {
         this.TypeBriefcaseS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
+          coverage_id: this.form.controls.coverage_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -77,6 +87,7 @@ export class FormTypeBriefcaseComponent implements OnInit {
       } else {
         this.TypeBriefcaseS.Save({
           name: this.form.controls.name.value,
+          coverage_id: this.form.controls.coverage_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

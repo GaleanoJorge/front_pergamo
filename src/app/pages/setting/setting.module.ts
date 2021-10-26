@@ -174,6 +174,8 @@ import { FormInsuranceCarrierComponent } from './insurance-carrier/form-insuranc
 import { FormModalityComponent } from './modality/form-modality/form-modality.component';
 import { FormTypeBriefcaseComponent } from './type-briefcase/form-type-briefcase/form-type-briefcase.component';
 import { FormTypeContractComponent } from './type-contract/form-type-contract/form-type-contract.component';
+import { ContractStatusComponent } from './contract-status/contract-status.component';
+import { FormContractStatusComponent } from './contract-status/form-contract-status/form-contract-status.component';
 
 
 @NgModule({
@@ -205,6 +207,8 @@ import { FormTypeContractComponent } from './type-contract/form-type-contract/fo
     NbIconModule
   ],
   declarations: [
+    ContractStatusComponent,
+    FormContractStatusComponent,
     CoverageComponent,
     FirmsComponent,
     InsuranceCarrierComponent,

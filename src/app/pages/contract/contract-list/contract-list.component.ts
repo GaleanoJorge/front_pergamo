@@ -24,7 +24,7 @@ export class ContractListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Contratos';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID','# contrato', 'Nombre', 'Valor'];
+  public headerFields: any[] = ['ID','# contrato','Estado', 'Nombre','Fecha inicio','Fecha fin', 'Valor'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -55,13 +55,35 @@ export class ContractListComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      name: {
+      contract_status: {
         title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      name: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      start_date: {
+        title: this.headerFields[4],
+        type: 'string',
+      },
+      finish_date: {
+        title: this.headerFields[5],
         type: 'string',
       },
       amount: {
-        title: this.headerFields[3],
+        title: this.headerFields[6],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(value==0){
+            return 'Indefinido';
+            }else{
+              return value;
+            }
+        },
       },
     },
   };

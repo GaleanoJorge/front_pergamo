@@ -3,7 +3,7 @@ import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
 import {CoverageService} from '../../../../business-controller/coverage.service';
-import {TypeBriefcaseService} from '../../../../business-controller/type-briefcase.service';
+import {ModalityService} from '../../../../business-controller/modality.service';
 
 
 @Component({
@@ -22,14 +22,14 @@ export class FormCoverageComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public type_briefcase:any[];
+  public modality:any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     // private statusBS: StatusBusinessService,
     private CoverageS: CoverageService,
-    private TypeBriefcaseS: TypeBriefcaseService,
+    private ModalityS: ModalityService,
     private toastService: NbToastrService,
   ) {
   }
@@ -38,7 +38,7 @@ export class FormCoverageComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
-        type_briefcase_id: '',
+        modality_id: '',
       };
     }
 
@@ -49,11 +49,11 @@ export class FormCoverageComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
-      type_briefcase_id: [this.data.type_briefcase_id, Validators.compose([Validators.required])],
+      modality_id: [this.data.modality_id, Validators.compose([Validators.required])],
     });
 
-    this.TypeBriefcaseS.GetCollection().then(x => {
-      this.type_briefcase=x;
+    this.ModalityS.GetCollection().then(x => {
+      this.modality=x;
     });
   }
   
@@ -73,7 +73,7 @@ export class FormCoverageComponent implements OnInit {
         this.CoverageS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
-          type_briefcase_id: this.form.controls.type_briefcase_id.value,
+          modality_id: this.form.controls.modality_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -87,7 +87,7 @@ export class FormCoverageComponent implements OnInit {
       } else {
         this.CoverageS.Save({
           name: this.form.controls.name.value,
-          type_briefcase_id: this.form.controls.type_briefcase_id.value,
+          modality_id: this.form.controls.modality_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

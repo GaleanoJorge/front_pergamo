@@ -13,7 +13,8 @@ export class Contract extends MainClass {
   start_date: Date;
   finish_date:Date;
   status_id: number;
-  firms_id: number;
+  firms_contractor_id:number;
+  firms_contracting_id:number;
   civil_liability_policy:string;
   value_civil_policy: number;
   start_date_civil_policy:Date;
@@ -24,7 +25,9 @@ export class Contract extends MainClass {
   start_date_contractual_policy: Date;
   finish_date_contractual_policy:Date;
   contractual_policy_insurance_id: number;
-  date_of_delivery_of_invoices: Date;
+  start_date_invoice:number;
+  finish_date_invoice:number;
+  time_delivery_invoice:number;
   expiration_days_portfolio: number;
   observations: string;
   objective: string;

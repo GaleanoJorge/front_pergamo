@@ -3,7 +3,7 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '../../../../business-controller/company.service';
 import { TypeContractService } from '../../../../business-controller/type-contract.service';
-import { StatusBusinessService } from '../../../../business-controller/status-business.service';
+import { ContractStatusService } from '../../../../business-controller/contract-status.service';
 import { FirmsService } from '../../../../business-controller/firms.service';
 import { InsuranceCarrierService } from '../../../../business-controller/insurance-carrier.service';
 import { ContractService } from '../../../../business-controller/contract.service';
@@ -21,7 +21,7 @@ export class FormContractComponent implements OnInit {
   public form: FormGroup;
   public company: any[] = [];
   public type_contract: any[] = [];
-  public status: any[] = [];
+  public contract_status: any[] = [];
   public firms: any[] = [];
   public insurance_carrier: any[] = [];
   public saved: any = null;
@@ -34,7 +34,7 @@ export class FormContractComponent implements OnInit {
     private companyS: CompanyService,
     private toastService: NbToastrService,
     private TypeContractS: TypeContractService,
-    private statusS: StatusBusinessService,
+    private statusS: ContractStatusService,
     private firmsS: FirmsService,
     private InsuranceCarrierS: InsuranceCarrierService,
     private contractS: ContractService,
@@ -53,8 +53,9 @@ export class FormContractComponent implements OnInit {
         amount: '',
         start_date: '',
         finish_date: '',
-        status_id: '',
-        firms_id: '',
+        contract_status_id: '',
+        firms_contractor_id: '',
+        firms_contracting_id: '',
         value_civil_policy: '',
         start_date_civil_policy:'',
         finish_date_civil_policy: '',
@@ -63,7 +64,9 @@ export class FormContractComponent implements OnInit {
         start_date_contractual_policy: '',
         finish_date_contractual_policy:'',
         contractual_policy_insurance_id: '',
-        date_of_delivery_of_invoices: '',
+        start_date_invoice: '',
+        finish_date_invoice: '',
+        time_delivery_invoice: '',
         expiration_days_portafolio: '',
         discount:'',
         observations: '',
@@ -78,7 +81,7 @@ export class FormContractComponent implements OnInit {
       this.type_contract = x;
     });
     this.statusS.GetCollection().then(x => {
-      this.status = x;
+      this.contract_status = x;
     });
     this.firmsS.GetCollection().then(x => {
       this.firms = x;
@@ -97,8 +100,9 @@ export class FormContractComponent implements OnInit {
       amount: [this.data.amount, Validators.compose([Validators.required])],
       start_date: [this.data.start_date],
       finish_date: [this.data.finish_date],
-      status_id: [this.data.status_id],
-      firms_id: [this.data.firms_id],
+      contract_status_id: [this.data.contract_status_id],
+      firms_contractor_id: [this.data.firms_contractor_id],
+      firms_contracting_id: [this.data.firms_contracting_id],
       value_civil_policy: [this.data.value_civil_policy, Validators.compose([Validators.required])],
       start_date_civil_policy: [this.data.start_date_civil_policy, Validators.compose([Validators.required])],
       finish_date_civil_policy: [this.data.finish_date_civil_policy],
@@ -107,7 +111,9 @@ export class FormContractComponent implements OnInit {
       start_date_contractual_policy: [this.data.start_date_contractual_policy, Validators.compose([Validators.required])],
       finish_date_contractual_policy: [this.data.finish_date_contractual_policy, Validators.compose([Validators.required])],
       contractual_policy_insurance_id: [this.data.contractual_policy_insurance_id, Validators.compose([Validators.required])],
-      date_of_delivery_of_invoices: [this.data.date_of_delivery_of_invoices],
+      start_date_invoice: [this.data.start_date_invoice],
+      finish_date_invoice: [this.data.finish_date_invoice],
+      time_delivery_invoice: [this.data.time_delivery_invoice],
       expiration_days_portafolio: [this.data.expiration_days_portafolio],
       discount: [this.data.discount],
       observations: [this.data.observations],
@@ -138,19 +144,20 @@ export class FormContractComponent implements OnInit {
             amount: this.form.controls.amount.value,
             start_date:this.form.controls.start_date.value,
             finish_date: this.form.controls.finish_date.value,
-            status_id: this.form.controls.status_id.value,
-            firms_id: this.form.controls.firms_id.value,
-            civil_liability_policy: this.form.controls.civil_liability_policy.value,
+            contract_status_id: this.form.controls.contract_status_id.value,
+            firms_contractor_id: this.form.controls.firms_contractor_id.value,
+            firms_contracting_id: this.form.controls.firms_contracting_id.value,
             value_civil_policy: this.form.controls.value_civil_policy.value,
             start_date_civil_policy: this.form.controls.start_date_civil_policy.value,
             finish_date_civil_policy:this.form.controls.finish_date_civil_policy.value,
             civil_policy_insurance_id: this.form.controls.civil_policy_insurance_id.value,
-            contractual_liability_policy: this.form.controls.contractual_liability_policy.value,
             value_contractual_policy: this.form.controls.value_contractual_policy.value,
             start_date_contractual_policy: this.form.controls.start_date_contractual_policy.value,
             finish_date_contractual_policy: this.form.controls.finish_date_contractual_policy.value,
             contractual_policy_insurance_id: this.form.controls.contractual_policy_insurance_id.value,
-            date_of_delivery_of_invoices: this.form.controls.value_contractual_policy.value,
+            start_date_invoice: this.form.controls.start_date_invoice.value,
+            finish_date_invoice: this.form.controls.finish_date_invoice.value,
+            time_delivery_invoice: this.form.controls.time_delivery_invoice.value,
             expiration_days_portafolio: this.form.controls.expiration_days_portafolio.value,
             discount: this.form.controls.discount.value,
             observations: this.form.controls.observations.value,
@@ -175,8 +182,9 @@ export class FormContractComponent implements OnInit {
             amount: this.form.controls.amount.value,
             start_date:this.form.controls.start_date.value,
             finish_date: this.form.controls.finish_date.value,
-            status_id: this.form.controls.status_id.value,
-            firms_id: this.form.controls.firms_id.value,
+            contract_status_id: this.form.controls.contract_status_id.value,
+            firms_contractor_id: this.form.controls.firms_contractor_id.value,
+            firms_contracting_id: this.form.controls.firms_contracting_id.value,
             value_civil_policy: this.form.controls.value_civil_policy.value,
             start_date_civil_policy: this.form.controls.start_date_civil_policy.value,
             finish_date_civil_policy:this.form.controls.finish_date_civil_policy.value,
@@ -185,7 +193,9 @@ export class FormContractComponent implements OnInit {
             start_date_contractual_policy: this.form.controls.start_date_contractual_policy.value,
             finish_date_contractual_policy: this.form.controls.finish_date_contractual_policy.value,
             contractual_policy_insurance_id: this.form.controls.contractual_policy_insurance_id.value,
-            date_of_delivery_of_invoices: this.form.controls.value_contractual_policy.value,
+            start_date_invoice: this.form.controls.start_date_invoice.value,
+            finish_date_invoice: this.form.controls.finish_date_invoice.value,
+            time_delivery_invoice: this.form.controls.time_delivery_invoice.value,
             expiration_days_portafolio: this.form.controls.expiration_days_portafolio.value,
             discount: this.form.controls.discount.value,
             observations: this.form.controls.observations.value,

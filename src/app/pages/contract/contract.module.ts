@@ -29,7 +29,11 @@ import {ContractListComponent} from './contract-list/contract-list.component';
 import {FormContractComponent} from './contract-list/form-contract/form-contract.component';
 import {FileContractComponent} from './file-contract/file-contract.component';
 import {FormFileContractComponent} from './file-contract/form-file-contract/form-file-contract.component';
+import {BriefcaseComponent} from './briefcase/briefcase.component';
+import {FormBriefcaseComponent} from './briefcase/form-briefcase/form-briefcase.component';
 import {Actions2Component} from './contract-list/actions.component';
+import {ActionsComponent} from './briefcase/actions.component';
+import {DetailServicesComponent} from './detail-services/detail-services.component';
 
 
 @NgModule({
@@ -60,6 +64,10 @@ import {Actions2Component} from './contract-list/actions.component';
     NbSpinnerModule,
   ],
   declarations: [
+    BriefcaseComponent,
+    ActionsComponent,
+    DetailServicesComponent,
+    FormBriefcaseComponent,
     ServicesBriefcaseComponent,
     FileContractComponent,
     FormFileContractComponent,

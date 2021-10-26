@@ -78,6 +78,7 @@ import { ExtraordinaryActionCoordinatorComponent } from './users/extraordinary-a
 import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action-former/extraordinary-action-former.component';
 import { CoverageComponent } from './coverage/coverage.component';
 import { FirmsComponent } from './firms/firms.component';
+import { ContractStatusComponent } from './contract-status/contract-status.component';
 import { InsuranceCarrierComponent } from './insurance-carrier/insurance-carrier.component';
 import { ModalityComponent } from './modality/modality.component';
 import { TypeBriefcaseComponent } from './type-briefcase/type-briefcase.component';
@@ -95,6 +96,11 @@ const routes: Routes = [{
     {
       path: 'firms',
       component: FirmsComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'contract-status',
+      component: ContractStatusComponent,
       data: { permission: 'roles.read' },
     },
     {

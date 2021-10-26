@@ -8,8 +8,16 @@
           <input nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-      </div>
-
+        <div class="col-md-12">
+          <label for="coverage" class="form-text text-muted font-weight-bold">Covertura del contrato:</label>
+          <nb-select [selected]="this.data.coverage_id" formControlName="coverage_id" id="coverage_id" fullWidth
+            status="{{ isSubmitted && form.controls.coverage_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.coverage_id }}" *ngFor="let item of coverage" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+    </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
       <button nbButton (click)="close()" type="button">Cancelar</button>
