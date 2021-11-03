@@ -51,9 +51,12 @@ export class RipsTypeComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      rips_typefile_id: {
+      rips_typefile: {
         title: this.headerFields[2],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+      },
       },
     },
   };

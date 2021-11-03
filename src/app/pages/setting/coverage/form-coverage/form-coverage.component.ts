@@ -38,7 +38,7 @@ export class FormCoverageComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
-        modality_id: '',
+        code: '',
       };
     }
 
@@ -49,7 +49,7 @@ export class FormCoverageComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
-      modality_id: [this.data.modality_id, Validators.compose([Validators.required])],
+      code: [this.data.code, Validators.compose([Validators.required])],
     });
 
     this.ModalityS.GetCollection().then(x => {
@@ -73,7 +73,7 @@ export class FormCoverageComponent implements OnInit {
         this.CoverageS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
-          modality_id: this.form.controls.modality_id.value,
+          code: this.form.controls.code.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -87,7 +87,7 @@ export class FormCoverageComponent implements OnInit {
       } else {
         this.CoverageS.Save({
           name: this.form.controls.name.value,
-          modality_id: this.form.controls.modality_id.value,
+          code: this.form.controls.code.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

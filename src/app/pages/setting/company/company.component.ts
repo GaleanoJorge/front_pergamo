@@ -18,7 +18,7 @@ export class CompanyComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Compañia';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Identificación', 'Verificatión', 'Nombre', 'Administrador'];
+  public headerFields: any[] = ['ID', 'Identificación', 'Verificación', 'Nombre', 'Administrador'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];

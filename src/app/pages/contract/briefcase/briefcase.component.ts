@@ -3,9 +3,11 @@ import { BriefcaseService } from '../../../business-controller/briefcase.service
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { FormBriefcaseComponent } from './form-briefcase/form-briefcase.component';
 import { ActionsComponent } from './actions.component';
+import { Actions3Component } from './actions3.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import {CampusBriefcaseService} from '../../../business-controller/campus-briefcase.service';
 
 
 @Component({
@@ -24,6 +26,9 @@ export class BriefcaseComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public id;
+  public campus_briefcase:any[];
+  public campus:string;
   public contract_id:number;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -38,11 +43,12 @@ export class BriefcaseComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
-          return {
-            'data': row,
-            'edit': this.EditBriefcase.bind(this),
-            'delete': this.DeleteConfirmBriefcase.bind(this),
-          };
+            return {
+              'data': row,
+              'edit': this.EditBriefcase.bind(this),
+              'delete': this.DeleteConfirmBriefcase.bind(this),
+            };
+
         },
         renderComponent: ActionsComponent,
       },
@@ -56,10 +62,14 @@ export class BriefcaseComponent implements OnInit {
       },
       campus: {
         title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.name;
+        type: 'custom',
+        valuePrepareFunction: (value,row) => {
+          return {
+            'campus':this.campus_briefcase,
+            'data': row,
+          };
         },
+        renderComponent: Actions3Component,
       },
       type_briefcase: {
         title: this.headerFields[3],
@@ -109,6 +119,7 @@ export class BriefcaseComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private route: ActivatedRoute,
+    private CampusBriefcaseS: CampusBriefcaseService,
   ) {
   }
 
@@ -120,8 +131,20 @@ export class BriefcaseComponent implements OnInit {
     }else{
       this.entity='briefcase';
     }
+    this.CampusBriefcaseS.GetCollection().then(x => {
+      this.campus_briefcase = x;
+    });
   }
-
+  async GetAmount(id){
+    await this.CampusBriefcaseS.GetByBriefcase(id).then(x => {
+      var arrdta = [];
+      this.campus_briefcase = x.data;
+      this.campus_briefcase.forEach(element => {
+        arrdta.push(element.campus.name);
+      });
+       this.campus = arrdta.join();
+    });
+  }
   RefreshData() {
 
     this.table.refresh();
@@ -138,13 +161,14 @@ export class BriefcaseComponent implements OnInit {
   }
 
   EditBriefcase(data) {
-    this.dialogFormService.open(FormBriefcaseComponent, {
-      context: {
-        title: 'Editar portafolio',
-        data,
-        saved: this.RefreshData.bind(this),
-      },
-    });
+      this.dialogFormService.open(FormBriefcaseComponent, {
+        context: {
+          title: 'Editar portafolio',
+          data,
+          saved: this.RefreshData.bind(this),
+        },
+      });
+
   }
 
   // ChangeState(data) {

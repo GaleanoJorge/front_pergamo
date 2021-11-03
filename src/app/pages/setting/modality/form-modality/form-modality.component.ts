@@ -39,6 +39,7 @@ export class FormModalityComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
+        code: ''
       };
     }
 
@@ -49,6 +50,7 @@ export class FormModalityComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
+      code: [this.data.code, Validators.compose([Validators.required])],
     });
   }
   
@@ -67,6 +69,7 @@ export class FormModalityComponent implements OnInit {
       if (this.data.id) {
         this.ModalityS.Update({
           id: this.data.id,
+          code: this.form.controls.code.value,
           name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -80,6 +83,7 @@ export class FormModalityComponent implements OnInit {
         });
       } else {
         this.ModalityS.Save({
+          code: this.form.controls.code.value,
           name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);

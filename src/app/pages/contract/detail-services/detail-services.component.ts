@@ -11,6 +11,7 @@ import { multicast } from 'rxjs/operators';
 import {CampusService} from '../../../business-controller/campus.service';
 import {TypeBriefcaseService} from '../../../business-controller/type-briefcase.service';
 import {ManualPrice} from '../../../models/manual-price';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'ngx-detail-services',
@@ -57,24 +58,46 @@ export class DetailServicesComponent implements OnInit {
         },
         renderComponent: CheckboxUser,
       },     */
-      code: {
+      'manual_price.procedure.code': {
         title: this.headerFields[0],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.manual_price.procedure==null){
+            return row.manual_price.product.code;
+          }else{
+            return row.manual_price.procedure.code;
+          }
+        },
       },
       manual_price: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
+          if(value.procedure==null){
+            return 'Medicamentos'
+          }else{
           return value.procedure.procedure_category.name;
+          }
         },
       },
-      name: {
-        title: this.headerFields[2],
+      'manual_price.procedure.name': {
+        title: this.headerFields[0],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.manual_price.procedure==null){
+            return row.manual_price.product.name;
+          }else{
+            return row.manual_price.procedure.name;
+          }
+        },
       },
+   
       value: {
         title: this.headerFields[3],
         type: 'string',
+        valuePrepareFunction: (value, data) => {
+          return this.currency.transform(value);
+        },
       },
       factor: {
         title: this.headerFields[4],
@@ -94,6 +117,8 @@ export class DetailServicesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
+    private currency: CurrencyPipe,
+
   ) {
   }
 

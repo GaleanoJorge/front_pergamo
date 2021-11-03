@@ -39,7 +39,7 @@ export class FormTypeBriefcaseComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
-        coverage_id:''
+        code:''
       };
     }
 
@@ -50,7 +50,7 @@ export class FormTypeBriefcaseComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
-      coverage_id: [this.data.coverage_id, Validators.compose([Validators.required])],
+      code: [this.data.code, Validators.compose([Validators.required])],
     });
     this.CoverageS.GetCollection().then(x => {
       this.coverage=x;
@@ -73,7 +73,7 @@ export class FormTypeBriefcaseComponent implements OnInit {
         this.TypeBriefcaseS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
-          coverage_id: this.form.controls.coverage_id.value,
+          code: this.form.controls.code.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -87,7 +87,7 @@ export class FormTypeBriefcaseComponent implements OnInit {
       } else {
         this.TypeBriefcaseS.Save({
           name: this.form.controls.name.value,
-          coverage_id: this.form.controls.coverage_id.value,
+          code: this.form.controls.code.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

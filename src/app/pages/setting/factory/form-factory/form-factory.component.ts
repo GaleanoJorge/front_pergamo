@@ -40,9 +40,6 @@ export class FormFactoryComponent implements OnInit {
   async ngOnInit() {
     if (!this.data) {
       this.data = {
-        identification_type_id: '',
-        identification: '',
-        verification: '',
         name: '',
         status_id:'',
 
@@ -55,9 +52,6 @@ export class FormFactoryComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      identification_type_id: [this.data.identification_type_id, Validators.compose([Validators.required])],
-      identification: [this.data.identification, Validators.compose([Validators.required])],
-      verification: [this.data.verification, Validators.compose([Validators.required])],
       name: [this.data.name, Validators.compose([Validators.required])],
       status_id: [this.data.status_id, Validators.compose([Validators.required])],
     });
@@ -84,9 +78,6 @@ export class FormFactoryComponent implements OnInit {
       if (this.data.id) {
         this.FactoryS.Update({
           id: this.data.id,
-          identification_type_id: this.form.controls.identification_type_id.value,
-          identification: this.form.controls.identification.value,
-          verification: this.form.controls.verification.value,
           name: this.form.controls.name.value,
           status_id: this.form.controls.status_id.value,
         }).then(x => {
@@ -102,9 +93,6 @@ export class FormFactoryComponent implements OnInit {
       } else {
         
         this.FactoryS.Save({
-          identification_type_id: this.form.controls.identification_type_id.value,
-          identification: this.form.controls.identification.value,
-          verification: this.form.controls.verification.value,
           name: this.form.controls.name.value,
           status_id: this.form.controls.status_id.value,
         }).then(x => {

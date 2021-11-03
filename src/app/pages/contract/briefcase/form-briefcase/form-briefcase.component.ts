@@ -9,6 +9,7 @@ import {TypeBriefcaseService} from '../../../../business-controller/type-briefca
 import {CoverageService} from '../../../../business-controller/coverage.service';
 import {ModalityService} from '../../../../business-controller/modality.service';
 import {CampusService} from '../../../../business-controller/campus.service';
+import {CampusBriefcaseService} from '../../../../business-controller/campus-briefcase.service';
 
 @Component({
   selector: 'ngx-form-briefcase',
@@ -20,6 +21,7 @@ export class FormBriefcaseComponent implements OnInit {
   @Input() title: string;
   @Input() contract_id: any;
   @Input() data: any = null;
+  @Input() campus_id: any = null;
 
   public form: FormGroup;
    public status: any[];
@@ -30,7 +32,9 @@ export class FormBriefcaseComponent implements OnInit {
   public type_briefcase:any[];
   public coverage: any[];
   public modality: any[];
+  public campus_briefcase:any[];
   public campus:any[];
+
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -41,12 +45,13 @@ export class FormBriefcaseComponent implements OnInit {
     private CoverageS: CoverageService,
     private ModalityS: ModalityService,
     private CampusS: CampusService,
+    private CampusBriefcaseS: CampusBriefcaseService,
     private toastService: NbToastrService,
     private route: ActivatedRoute,
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     if (!this.data) {
       this.data = {
         name: '',
@@ -57,22 +62,16 @@ export class FormBriefcaseComponent implements OnInit {
         campus_id:'',
         status_id: '',
       };
-    }
+ 
+    } 
+
+   
 
     // this.statusBS.GetCollection().then(x => {
     //   this.status = x;
     // });
     
-    
-    this.form = this.formBuilder.group({      
-      name: [this.data.name, Validators.compose([Validators.required])],
-      type_briefcase_id: [this.data.type_briefcase_id, Validators.compose([Validators.required])],
-      coverage_id: [this.data.coverage_id, Validators.compose([Validators.required])],
-      modality_id: [this.data.modality_id, Validators.compose([Validators.required])],
-      campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
-      status_id: [this.data.status_id, Validators.compose([Validators.required])],
-      contract_id: [this.data.contract_id],
-    });
+
 
     this.TypeBriefcaseS.GetCollection().then(x => {
       this.type_briefcase = x;
@@ -90,8 +89,30 @@ export class FormBriefcaseComponent implements OnInit {
       this.campus = x;
     });
 
+    this.form = this.formBuilder.group({      
+      name: [this.data.name, Validators.compose([Validators.required])],
+      type_briefcase_id: [this.data.type_briefcase_id, Validators.compose([Validators.required])],
+      coverage_id: [this.data.coverage_id, Validators.compose([Validators.required])],
+      modality_id: [this.data.modality_id, Validators.compose([Validators.required])],
+      campus_id: [this.getcampus(),Validators.compose([Validators.required])],
+      status_id: [this.data.status_id, Validators.compose([Validators.required])],
+      contract_id: [this.data.contract_id],
+    });
+
   }
   
+  async getcampus(){
+  await this.CampusBriefcaseS.GetByBriefcase(this.data.id).then(x => {
+    var arrdta = [];
+    this.campus_briefcase = x.data;
+    this.campus_briefcase.forEach(element => {
+      arrdta.push(element.campus_id);
+    });
+    this.form = this.formBuilder.group({      
+      campus_id: [arrdta], 
+    });
+  });
+}
 
   close() {
     this.dialogRef.close();

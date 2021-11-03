@@ -20,6 +20,7 @@ export class Contract extends MainClass {
   start_date_civil_policy:Date;
   finish_date_civil_policy: Date;
   civil_policy_insurance_id:number;
+  regime_id:number;
   contractual_liability_policy: string;
   value_contractual_policy:number;
   start_date_contractual_policy: Date;

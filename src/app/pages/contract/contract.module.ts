@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CurrencyPipe} from '@angular/common';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {
   NbAccordionModule,
@@ -32,6 +33,7 @@ import {FormFileContractComponent} from './file-contract/form-file-contract/form
 import {BriefcaseComponent} from './briefcase/briefcase.component';
 import {FormBriefcaseComponent} from './briefcase/form-briefcase/form-briefcase.component';
 import {Actions2Component} from './contract-list/actions.component';
+import {Actions3Component} from './briefcase/actions3.component';
 import {ActionsComponent} from './briefcase/actions.component';
 import {DetailServicesComponent} from './detail-services/detail-services.component';
 
@@ -75,9 +77,11 @@ import {DetailServicesComponent} from './detail-services/detail-services.compone
     ContractListComponent,
     FormContractComponent,
     Actions2Component,
+    Actions3Component
   ],
   providers: [
     DateFormatPipe,
+    CurrencyPipe
   ],
 })
 export class ContractModule {

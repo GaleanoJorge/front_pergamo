@@ -4,25 +4,6 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
-          <label for="identification_type" class="form-text text-muted font-weight-bold">Tipo de identificación:</label>
-          <nb-select [selected]="this.data.identification_type_id" formControlName="identification_type_id" id="identification_type_id" fullWidth
-            status="{{ isSubmitted && form.controls.identification_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.identification_type_id }}" *ngFor="let item of identification_type" [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
-        <div class="col-md-12">
-          <label for="identification" class="form-text text-muted font-weight-bold">Identificación o nit:</label>
-          <input nbInput fullWidth id="identification" formControlName="identification" identification
-            status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div>
-        <div class="col-md-12">
-          <label for="verification"  class="form-text text-muted font-weight-bold">Código de verificación:</label>
-          <input nbInput fullWidth id="verification" formControlName="verification" verification
-            status="{{ isSubmitted && form.controls.verification.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div>
-        <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre de la empresa:</label>
           <input nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />

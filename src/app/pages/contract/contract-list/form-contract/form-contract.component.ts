@@ -7,6 +7,7 @@ import { ContractStatusService } from '../../../../business-controller/contract-
 import { FirmsService } from '../../../../business-controller/firms.service';
 import { InsuranceCarrierService } from '../../../../business-controller/insurance-carrier.service';
 import { ContractService } from '../../../../business-controller/contract.service';
+import { TypeBriefcaseService } from '../../../../business-controller/type-briefcase.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class FormContractComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public isSubmitted: boolean = false;
+  public regime: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -38,6 +40,7 @@ export class FormContractComponent implements OnInit {
     private firmsS: FirmsService,
     private InsuranceCarrierS: InsuranceCarrierService,
     private contractS: ContractService,
+    private regimeS: TypeBriefcaseService,
   ) {
   }
 
@@ -56,6 +59,7 @@ export class FormContractComponent implements OnInit {
         contract_status_id: '',
         firms_contractor_id: '',
         firms_contracting_id: '',
+        regime_id:'',
         value_civil_policy: '',
         start_date_civil_policy:'',
         finish_date_civil_policy: '',
@@ -89,6 +93,9 @@ export class FormContractComponent implements OnInit {
     this.InsuranceCarrierS.GetCollection().then(x => {
       this.insurance_carrier = x;
     });
+    this.regimeS.GetCollection().then(x => {
+      this.regime = x;
+    });
 
 
     this.form = this.formBuilder.group({
@@ -106,6 +113,7 @@ export class FormContractComponent implements OnInit {
       value_civil_policy: [this.data.value_civil_policy, Validators.compose([Validators.required])],
       start_date_civil_policy: [this.data.start_date_civil_policy, Validators.compose([Validators.required])],
       finish_date_civil_policy: [this.data.finish_date_civil_policy],
+      regime_id: [this.data.regime_id],
       civil_policy_insurance_id: [this.data.civil_policy_insurance_id],
       value_contractual_policy: [this.data.value_contractual_policy],
       start_date_contractual_policy: [this.data.start_date_contractual_policy, Validators.compose([Validators.required])],
@@ -150,6 +158,7 @@ export class FormContractComponent implements OnInit {
             value_civil_policy: this.form.controls.value_civil_policy.value,
             start_date_civil_policy: this.form.controls.start_date_civil_policy.value,
             finish_date_civil_policy:this.form.controls.finish_date_civil_policy.value,
+            regime_id:this.form.controls.regime_id.value,
             civil_policy_insurance_id: this.form.controls.civil_policy_insurance_id.value,
             value_contractual_policy: this.form.controls.value_contractual_policy.value,
             start_date_contractual_policy: this.form.controls.start_date_contractual_policy.value,
@@ -185,6 +194,7 @@ export class FormContractComponent implements OnInit {
             contract_status_id: this.form.controls.contract_status_id.value,
             firms_contractor_id: this.form.controls.firms_contractor_id.value,
             firms_contracting_id: this.form.controls.firms_contracting_id.value,
+            regime_id:this.form.controls.regime_id.value,
             value_civil_policy: this.form.controls.value_civil_policy.value,
             start_date_civil_policy: this.form.controls.start_date_civil_policy.value,
             finish_date_civil_policy:this.form.controls.finish_date_civil_policy.value,

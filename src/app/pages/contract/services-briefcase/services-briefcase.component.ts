@@ -114,6 +114,7 @@ export class ServicesBriefcaseComponent implements OnInit {
   ngOnInit(): void {
     this.briefcase_id = this.route.snapshot.params.id;
     this.InscriptionForm = this.formBuilder.group({
+      factor_sign: ['', Validators.compose([Validators.required])],
       factor: ['', Validators.compose([Validators.required])],
   });
 
@@ -181,6 +182,7 @@ export class ServicesBriefcaseComponent implements OnInit {
     else{
       this.dialog = this.dialog.close();
       var dta = {
+        sign:null,
         factor: null,
         briefcase_id:null,
         manual_price_id:null,
@@ -188,6 +190,7 @@ export class ServicesBriefcaseComponent implements OnInit {
         value:null
     };
       this.selectedOptions.forEach(element => {
+      dta.sign=this.InscriptionForm.controls.factor_sign.value;
       dta.factor = this.InscriptionForm.controls.factor.value;
       dta.briefcase_id = this.briefcase_id;
       dta.manual_price_id = element.id;

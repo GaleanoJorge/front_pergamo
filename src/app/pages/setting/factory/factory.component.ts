@@ -47,14 +47,6 @@ export class FactoryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      identification: {
-        title: this.headerFields[1],
-        type: 'string',
-      },
-      verification: {
-        title: this.headerFields[2],
-        type: 'string',
-      },
       name: {
         title: this.headerFields[3],
         type: 'string',

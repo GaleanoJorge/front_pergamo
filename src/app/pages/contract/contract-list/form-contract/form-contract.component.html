@@ -88,6 +88,16 @@
           </nb-select>
         </div>
         <div class="col-12 col-sm-12 col-md-4">
+          <label for="regime" class="form-text text-muted font-weight-bold">Régimen:</label>
+          <nb-select [selected]="this.data.regime_id" formControlName="regime_id" id="regime_id" fullWidth
+            status="{{ isSubmitted && form.controls.regime_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.regime_id }}" *ngFor="let item of regime"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="value_civil_policy" class="form-text text-muted font-weight-bold">Valor de Poliza de responsabilidad civil:</label>
           <input nbInput fullWidth id="value_civil_policy" formControlName="value_civil_policy" value_civil_policy
             status="{{ isSubmitted && form.controls.value_civil_policy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />

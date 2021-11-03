@@ -51,9 +51,12 @@ export class ProcedureCategoryComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      rips_type_id: {
+      rips_type: {
         title: this.headerFields[2],
         type: 'string',
+        valuePrepareFunction(value, row) {
+            return value.name;
+        },
       },
     
 

@@ -72,7 +72,7 @@ export class FormProcedureComponent implements OnInit {
         procedure_purpose_id: '',
         purpose_service_id:'',
         procedure_type_id:'',
-        time: ''
+        //time: ''
 
       };   
     }
@@ -94,7 +94,7 @@ export class FormProcedureComponent implements OnInit {
       procedure_purpose_id: [this.data.procedure_purpose_id, Validators.compose([Validators.required])],
       purpose_service_id: [this.data.purpose_service_id, Validators.compose([Validators.required])],
       procedure_type_id: [this.data.procedure_type_id, Validators.compose([Validators.required])],
-      time: [this.data.time, Validators.compose([Validators.required])],
+      //time: [this.data.time, Validators.compose([Validators.required])],
     });
 
     await this.ProcedureCategoryS.GetCollection().then(x => {
@@ -169,7 +169,7 @@ public saveCode(e): void {
           procedure_purpose_id: this.form.controls.procedure_purpose_id.value,
           purpose_service_id: this.form.controls.purpose_service_id.value,
           procedure_type_id: this.form.controls.procedure_type_id.value,
-          time: this.form.controls.time.value,
+         // time: this.form.controls.time.value,
 
         }).then(x => {
           this.toastService.success('', x.message);
@@ -195,7 +195,7 @@ public saveCode(e): void {
           procedure_purpose_id: this.form.controls.procedure_purpose_id.value,
           purpose_service_id: this.form.controls.purpose_service_id.value,
           procedure_type_id: this.form.controls.procedure_type_id.value,
-          time: this.form.controls.time.value,
+         // time: this.form.controls.time.value,
           
         }).then(x => {
           this.toastService.success('', x.message);
