@@ -43,6 +43,7 @@ export class ProcedureMassiveComponent implements OnInit {
   public customData:string;
   public select="0";
   public manual;
+  public manual_id;
   public result;
   public btntype;
 
@@ -91,13 +92,8 @@ export class ProcedureMassiveComponent implements OnInit {
   ) {
   }
 
-  GetParams() {
-    return {
-      manual_id: this.route.snapshot.params.id,
-    };
-  }
-
   async ngOnInit() {
+    this.manual_id= this.route.snapshot.params.id,
     this.InscriptionForm = this.formBuilder.group({
       value: ['', Validators.compose([Validators.required])],
       price_type_id: ['', Validators.compose([Validators.required])],
@@ -119,7 +115,7 @@ export class ProcedureMassiveComponent implements OnInit {
     });
     this.result=this.manual.find(manual => manual.id == this.route.snapshot.params.id);
     if(this.result.type_manual==0){
-      this.table.changeEntity(`procedure`,`procedure`);
+      this.table.changeEntity(`procedure_bymanual/${this.manual_id}`,`procedure`);
       this.btntype=0;
     }else if(this.result.type_manual==1){
       this.table.changeEntity(`product`,`product`);

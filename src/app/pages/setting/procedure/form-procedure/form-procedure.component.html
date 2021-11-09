@@ -80,7 +80,7 @@
         </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="procedure_purpose" class="form-text text-muted font-weight-bold">Seleccione finalidad:</label>
+          <label for="procedure_purpose" class="form-text text-muted font-weight-bold">Seleccione finalidad del procedimiento:</label>
           <nb-select [selected]="this.data.procedure_purpose_id" formControlName="procedure_purpose_id" id="procedure_purpose_id" fullWidth
             status="{{ isSubmitted && form.controls.procedure_purpose_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
@@ -89,7 +89,7 @@
           </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="purpose_service" class="form-text text-muted font-weight-bold">Proposito del servicio:</label>
+          <label for="purpose_service" class="form-text text-muted font-weight-bold">Finalidad del servicio:</label>
           <nb-select [selected]="this.data.purpose_service_id" formControlName="purpose_service_id" id="purpose_service_id" fullWidth
             status="{{ isSubmitted && form.controls.purpose_service_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>

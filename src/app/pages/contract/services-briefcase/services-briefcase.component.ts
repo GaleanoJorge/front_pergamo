@@ -11,6 +11,8 @@ import { multicast } from 'rxjs/operators';
 import {CampusService} from '../../../business-controller/campus.service';
 import {TypeBriefcaseService} from '../../../business-controller/type-briefcase.service';
 import {ManualPrice} from '../../../models/manual-price';
+import { ConsolidatedEventsComponent } from '../../report/sga/consolidated-events/consolidated-events.component';
+import { Console } from 'console';
 
 @Component({
   selector: 'ngx-services-briefcase',
@@ -38,6 +40,7 @@ export class ServicesBriefcaseComponent implements OnInit {
 
   public manual_price: any[] = [];
   public manual: any[] = [];
+  public manual2;
   public type_briefcase: any[] = [];
   public briefcase_id:number;
 
@@ -133,6 +136,11 @@ export class ServicesBriefcaseComponent implements OnInit {
           route: '../../contract/services-briefcase',
         },
       ];
+      
+      this.ManualS.GetCollection().then(x => {
+        this.manual=x;
+      });
+
   }
 
 
@@ -145,9 +153,10 @@ export class ServicesBriefcaseComponent implements OnInit {
     });
   }
 
-  ChangeManual(inscriptionstatus) {
-    this.inscriptionstatus = inscriptionstatus;
-    this.table.changeEntity(`inscriptionsByCourse/${this.inscriptionstatus}`);
+  ChangeManual(manual) {
+    this.manual2 = manual;
+    console.log(this.manual2);
+    this.table.changeEntity(`manual_price/${this.briefcase_id}/${this.manual2}`,'manual_price');
     // this.RefreshData();
 }
   RefreshData() {

@@ -143,22 +143,22 @@ export class FormProductGenericComponent implements OnInit {
   selectsubcategory(event: Event){
     let Subcat=this.product_subcategory.find(x => x.id == event);
    this.subcategory=Subcat.name;
-   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory);
+   this.form.controls.description.setValue(this.subcategory);
   }
   selectdrug(event: Event){
     let drug=this.drug_concentration.find(x => x.id == event);
    this.drugconcentration=drug.value;
-   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration);
+   this.form.controls.description.setValue(this.subcategory + " " +  this.drugconcentration);
   }
   selectmeasurement(event: Event){
     let measurement=this.measurement_units.find(x => x.id == event);
    this.measurementunits=measurement.name;
-   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits);
+   this.form.controls.description.setValue(this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits);
   }
   selectpresentation(event: Event){
     let presentation=this.product_presentation.find(x => x.id == event);
    this.productpresentation=presentation.name;
-   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation);
+   this.form.controls.description.setValue(this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation);
   }
   
   close() {

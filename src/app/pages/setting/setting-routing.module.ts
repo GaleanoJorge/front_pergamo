@@ -20,6 +20,7 @@ import { CompanyTypeComponent } from './company-type/company-type.component';
 import { RetinerComponent } from './retiner/retiner.component';
 import { IvaComponent } from './iva/iva.component';
 import { ManualPriceComponent } from './manual/manual-price/manual-price.component';
+import { ProcedurePackageComponent } from './procedure/procedure-package/procedure-package.component';
 import { FactoryComponent } from './factory/factory.component';
 import { CompanyCategoryComponent } from './company-category/company-category.component';
 import { CompanyMailComponent } from './company-mail/company-mail.component';
@@ -253,6 +254,10 @@ const routes: Routes = [{
     {
       path: 'manual-price/:id',
       component: ManualPriceComponent,
+    },
+    {
+      path: 'procedure-package/:id',
+      component: ProcedurePackageComponent,
     },
     {
       path: 'procedure-age',

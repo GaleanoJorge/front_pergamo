@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { ServicesBriefcase } from '../models/services-briefcase';
+import { ProcedurePackage } from '../models/procedure-package';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ServicesBriefcaseService {
-  public services_briefcase: ServicesBriefcase[] = [];
+export class ProcedurePackageService {
+  public procedure_package: ProcedurePackage[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<ServicesBriefcase[]> {
-    let servObj = new ServiceObject(params ? 'services_briefcase?pagination=false' : 'services_briefcase');
+  GetCollection(params = {}): Promise<ProcedurePackage[]> {
+    let servObj = new ServiceObject(params ? 'procedure_package?pagination=false' : 'procedure_package');
 
     return this.webAPI.GetAction(servObj)
       .then(x => {
@@ -22,18 +22,34 @@ export class ServicesBriefcaseService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.services_briefcase = <ServicesBriefcase[]>servObj.data.services_briefcase;
+        this.procedure_package = <ProcedurePackage[]>servObj.data.procedure_package;
 
-        return Promise.resolve(this.services_briefcase);
+        return Promise.resolve(this.procedure_package);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(services_briefcase: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('services_briefcase');
-    servObj.data = services_briefcase;
+  GetByPackage(id: number): Promise<ProcedurePackage[]> {
+    var servObj = new ServiceObject("bypackage_procedure", id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.procedure_package = <ProcedurePackage[]>servObj.data.procedure_package;
+        return Promise.resolve(this.procedure_package);
+      })
+      .catch(x => {
+        throw x.status == 401 ? x.error.msg : x.message;
+      });
+  }
+
+  Save(procedure_package: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('procedure_package');
+    servObj.data = procedure_package;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +63,9 @@ export class ServicesBriefcaseService {
       });
   }
 
-  Update(services_briefcase: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('services_updatebriefcase', services_briefcase.id);
-    servObj.data = services_briefcase;
+  Update(procedure_package: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('procedure_package', procedure_package.id);
+    servObj.data = procedure_package;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +80,7 @@ export class ServicesBriefcaseService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('services_briefcase', id);
+    let servObj = new ServiceObject('procedure_package', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

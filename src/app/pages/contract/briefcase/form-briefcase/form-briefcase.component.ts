@@ -102,6 +102,7 @@ export class FormBriefcaseComponent implements OnInit {
   }
   
   async getcampus(){
+    if(this.data.id){
   await this.CampusBriefcaseS.GetByBriefcase(this.data.id).then(x => {
     var arrdta = [];
     this.campus_briefcase = x.data;
@@ -112,6 +113,7 @@ export class FormBriefcaseComponent implements OnInit {
       campus_id: [arrdta], 
     });
   });
+}
 }
 
   close() {

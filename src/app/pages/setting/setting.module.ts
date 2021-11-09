@@ -15,6 +15,7 @@ import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
 import { ManualComponent } from './manual/manual.component';
 import { FormManualComponent } from './manual/form-manual/form-manual.component';
 import { RipsTypeComponent } from './rips-type/rips-type.component';
+import { ProcedurePackageComponent } from './procedure/procedure-package/procedure-package.component';
 import { PbsTypeComponent } from './pbs-type/pbs-type.component';
 import { PurposeServiceComponent } from './purpose-service/purpose-service.component';
 import { ProcedureTypeComponent } from './procedure-type/procedure-type.component';
@@ -71,6 +72,7 @@ import { StatusFieldComponent } from './sectional-council/status-field.component
 import { FormSectionalCouncilComponent } from './sectional-council/form-sectional-council/form-sectional-council.component';
 import { FormCompanyKindpersonComponent } from './company-kindperson/form-company-kindperson/form-company-kindperson.component';
 import { ActionsComponent } from './sectional-council/actions.component';
+import { ActionsProcedureComponent } from './procedure/actions.component';
 import { ActionsComponent2 } from './manual/manual-price/actions.component';
 import { ActionsManualComponent } from './manual/actions.component';
 import { DistrictComponent } from './district/district.component';
@@ -215,8 +217,10 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     ModalityComponent,
     TypeBriefcaseComponent,
     TypeContractComponent,
+    ActionsProcedureComponent,
     FormCoverageComponent,
     FormFirmsComponent,
+    ProcedurePackageComponent,
     FormInsuranceCarrierComponent,
     FormModalityComponent,
     FormTypeBriefcaseComponent,
