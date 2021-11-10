@@ -11,7 +11,6 @@ import { multicast } from 'rxjs/operators';
 import {CampusService} from '../../../business-controller/campus.service';
 import {TypeBriefcaseService} from '../../../business-controller/type-briefcase.service';
 import {ManualPrice} from '../../../models/manual-price';
-import { ConsolidatedEventsComponent } from '../../report/sga/consolidated-events/consolidated-events.component';
 import { Console } from 'console';
 
 @Component({

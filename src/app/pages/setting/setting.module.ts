@@ -56,7 +56,6 @@ import { FormCompanyCategoryComponent } from './company-category/form-company-ca
 import { FormCompanyTypeComponent } from './company-type/form-company-type/form-company-type.component';
 import { ProcedurePurposeComponent } from './procedure-purpose/procedure-purpose.component';
 import { ProcedureComponent } from './procedure/procedure.component';
-import { CategoryComponent } from './category/category.component';
 import { TaxesComponent } from './taxes/taxes.component';
 import { CompanyMailComponent } from './company-mail/company-mail.component';
 import { CompanyDocumentComponent } from './company-document/company-document.component';
@@ -87,8 +86,6 @@ import { SpecialtyComponent } from './specialty/specialty.component';
 import { FormSpecialtyComponent } from './specialty/form-specialty/form-specialty.component';
 import { EntityComponent } from './entity/entity.component';
 import { FormEntityComponent } from './entity/form-entity/form-entity.component';
-import { CircuitComponent } from './circuit/circuit.component';
-import { FormCircuitComponent } from './circuit/form-circuit/form-circuit.component';
 import { FormRegionComponent } from './region/form-region/form-region.component';
 import { FormCampusComponent } from './campus/form-campus/form-campus.component';
 import { FormProcedureAgeComponent } from './procedure-age/form-procedure-age/form-procedure-age.component';
@@ -98,25 +95,13 @@ import { FormProcedurePurposeComponent } from './procedure-purpose/form-procedur
 import { RegionComponent } from './region/region.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
 import { FormMunicipalityComponent } from './municipality/form-municipality/form-municipality.component';
-import { FormAreaComponent } from './area/form-area/form-area.component';
-import { AreaComponent } from './area/area.component';
-import { SubareaComponent } from './subarea/subarea.component';
-import { FormSubareaComponent } from './subarea/form-subarea/form-subarea.component';
 import { ThemesComponent } from './themes/themes.component';
 import { FormThemesComponent } from './themes/form-themes/form-themes.component';
-import { ValidityComponent } from './validity/validity.component';
-import { FormValidityComponent } from './validity/form-validity/form-validity.component';
 import { DateFormatPipe } from '../../pipe/date-format.pipe';
 import { ActionsUsersComponent } from './users/actions-users.component';
 import { FormUserComponent } from './users/form-user/form-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
-import { ExtraordinaryActionComponent } from './users/extraordinary-action/extraordinary-action.component';
 import { ActionsExtraordinaryComponent } from './users/actions-extraordinary.component';
-import { FormExtraordinaryActionComponent } from './users/form-extraordinary-action/form-extraordinary-action.component';
-import { ExtraordinaryActionCoordinatorComponent } from './users/extraordinary-action-coordinator/extraordinary-action-coordinator.component';
-import { FormExtraordinaryActionCoordinatorComponent } from './users/form-extraordinary-action-coordinator/form-extraordinary-action-coordinator.component';
-import { FormExtraordinaryActionFormerComponent } from './users/form-extraordinary-action-former/form-extraordinary-action-former.component';
-import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action-former/extraordinary-action-former.component';
 import { IvaComponent } from './iva/iva.component';
 import { FormIvaComponent } from './iva/form-iva/form-iva.component';
 import { RetinerComponent } from './retiner/retiner.component';
@@ -323,7 +308,6 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     ProcedureCategoryComponent,
     ProcedurePurposeComponent,
     ProcedureComponent,
-    CategoryComponent,
     SectionalCouncilComponent,
     FormCompanyCategoryComponent,
     CompanyCategoryComponent,
@@ -344,8 +328,6 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     FormSpecialtyComponent,
     EntityComponent,
     FormEntityComponent,
-    CircuitComponent,
-    FormCircuitComponent,
     FormRegionComponent,
     RegionComponent,
     MunicipalityComponent,
@@ -354,25 +336,13 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     FormProcedureAgeComponent,
     FormProcedureComponent,
     FormProcedurePurposeComponent,
-    FormAreaComponent,
-    AreaComponent,
-    SubareaComponent,
-    FormSubareaComponent,
     ThemesComponent,
     FormThemesComponent,
-    ValidityComponent,
-    FormValidityComponent,
     ActionsUsersComponent,
     FormUserComponent,
     EditUserComponent,
-    ExtraordinaryActionComponent,
     ActionsExtraordinaryComponent,
-    FormExtraordinaryActionComponent,
-    ExtraordinaryActionCoordinatorComponent,
-    FormExtraordinaryActionCoordinatorComponent,
-    FormExtraordinaryActionFormerComponent,
-    ExtraordinaryActionFormerComponent
-    
+
     
 
   ],

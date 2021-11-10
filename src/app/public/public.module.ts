@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { PublicRoutingModule } from './public-routing.module';
 import { PublicComponent } from './public.component';
 import { ThemeModule } from '../@theme/theme.module';
-import { CardProgramComponent } from './inscriptions/card-program.component';
 import {
   NbAccordionModule,
   NbAlertModule,
@@ -22,20 +21,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FindEmailComponent } from './find-email/find-email.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { DownloadCertificateComponent } from './download-certificate/download-certificate.component';
-import { RegisterAssistanceComponent } from './register-assistance/register-assistance.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
     PublicComponent,
-    CardProgramComponent,
     RegisterComponent,
     SuccessRegisterComponent,
     ResetPasswordComponent,
     FindEmailComponent,
     DownloadCertificateComponent,
-    RegisterAssistanceComponent,
     ConfirmationComponent,
     RecoveryPasswordComponent
   ],

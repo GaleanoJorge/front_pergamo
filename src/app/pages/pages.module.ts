@@ -38,11 +38,6 @@ import { CategoriesDialogComponent } from './components/form-users/categories-di
 import {CheckPermsDirective} from '../directives/check-perms.directive';
 import {PermissionsGuard} from '../guards/permissions.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ActionsReportSurveysComponent } from './components/actions-report-surveys/actions-report-surveys.component';
-import {AutocompleteComponent} from './components/autocomplete/autocomplete.component';
-import { BaseReportsComponent } from './components/base-reports/base-reports.component';
-import { AutocompleteRemoteComponent } from './components/autocomplete-remote/autocomplete-remote.component';
-import { FilterReportsComponent } from './components/filter-reports/filter-reports.component';
 
 
 @NgModule({
@@ -89,11 +84,6 @@ import { FilterReportsComponent } from './components/filter-reports/filter-repor
     CategoriesDialogComponent,
     CheckPermsDirective,
     ResetPasswordComponent,
-    ActionsReportSurveysComponent,
-    AutocompleteComponent,
-    BaseReportsComponent,
-    AutocompleteRemoteComponent,
-    FilterReportsComponent,
   ],
   exports: [
     BreadcrumbComponent,
@@ -104,11 +94,6 @@ import { FilterReportsComponent } from './components/filter-reports/filter-repor
     BaseFormComponent,
     FormUsersComponent,
     CheckPermsDirective,
-    ActionsReportSurveysComponent,
-    AutocompleteComponent,
-    BaseReportsComponent,
-    AutocompleteRemoteComponent,
-    FilterReportsComponent,
   ],
   providers: [PermissionsGuard],
 })

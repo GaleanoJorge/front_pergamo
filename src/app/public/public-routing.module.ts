@@ -7,7 +7,6 @@ import { SuccessRegisterComponent } from './register/success-register.component'
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FindEmailComponent } from './find-email/find-email.component';
 import { DownloadCertificateComponent } from './download-certificate/download-certificate.component';
-import { RegisterAssistanceComponent } from './register-assistance/register-assistance.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
@@ -17,11 +16,6 @@ const routes: Routes = [
     path: '',
     component: PublicComponent,
     children: [
-      {
-        path: 'inscriptions',
-        loadChildren: () => import('./inscriptions/inscriptions.module')
-          .then(m => m.InscriptionsModule),
-      },
       {
         path: 'register/:role',
         component: RegisterComponent,
@@ -41,11 +35,6 @@ const routes: Routes = [
       {
         path: 'download-certificate',
         component: DownloadCertificateComponent
-      },
-      {
-        path: 'register-assistance/:session_id/:urg_id',
-        component: RegisterAssistanceComponent
-      
       },
       {
         path: 'validate-login',

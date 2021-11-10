@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {ManualService} from '../../../../business-controller/manual.service';
 import {InscriptionStatus} from '../../../../models/inscription-status';
-import {InscriptionStatusBusinessService} from '../../../../business-controller/inscription-status-business.service';
 import {PriceTypeService} from '../../../../business-controller/price-type.service';
 import {ManualPriceService} from '../../../../business-controller/manual-price.service';
 import {PriceType} from '../../../../models/price-type';
@@ -82,7 +81,6 @@ export class ProcedureMassiveComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private ManualS: ManualService,
-    private inscriptionStatusBs: InscriptionStatusBusinessService,
     private PriceTypeS: PriceTypeService,
     private formBuilder: FormBuilder,
     private dialogService: NbDialogService,

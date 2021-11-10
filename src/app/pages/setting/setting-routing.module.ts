@@ -56,7 +56,6 @@ import { RiskComponent } from './risk/risk.component';
 import { ProductGenericComponent } from './product-generic/product-generic.component';
 import { TypeAssetsComponent } from './type-assets/type-assets.component';
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
-import { CategoryComponent } from './category/category.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { DistrictComponent } from './district/district.component';
 import { OfficeComponent } from './office/office.component';
@@ -64,19 +63,12 @@ import { DependenceComponent } from './dependence/dependence.component';
 import { PositionComponent } from './position/position.component';
 import { SpecialtyComponent } from './specialty/specialty.component';
 import { EntityComponent } from './entity/entity.component';
-import { CircuitComponent } from './circuit/circuit.component';
 import { RegionComponent } from './region/region.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
-import { AreaComponent } from './area/area.component';
-import { SubareaComponent } from './subarea/subarea.component';
-import { ValidityComponent } from './validity/validity.component';
 import { PermissionsGuard } from "../../guards/permissions.guard";
 import { FormUserComponent } from './users/form-user/form-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
-import { ExtraordinaryActionComponent } from './users/extraordinary-action/extraordinary-action.component';
 import { ThemesComponent } from './themes/themes.component';
-import { ExtraordinaryActionCoordinatorComponent } from './users/extraordinary-action-coordinator/extraordinary-action-coordinator.component';
-import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action-former/extraordinary-action-former.component';
 import { CoverageComponent } from './coverage/coverage.component';
 import { FirmsComponent } from './firms/firms.component';
 import { ContractStatusComponent } from './contract-status/contract-status.component';
@@ -211,18 +203,6 @@ const routes: Routes = [{
     {
       path: 'users/edit/:id/:roleId',
       component: EditUserComponent,
-    },
-    {
-      path: 'users/extraordinary-action/:id/:roleId',
-      component: ExtraordinaryActionComponent,
-    },
-    {
-      path: 'users/extraordinary-action-coordinator/:id/:roleId',
-      component: ExtraordinaryActionCoordinatorComponent,
-    },
-    {
-      path: 'users/extraordinary-action-former/:id/:roleId',
-      component: ExtraordinaryActionFormerComponent,
     },
     {
       path: 'roles',
@@ -415,10 +395,6 @@ const routes: Routes = [{
       data: { permission: 'roles.read' },
     },
     {
-      path: 'categories',
-      component: CategoryComponent,
-    },
-    {
       path: 'sectional-council',
       component: SectionalCouncilComponent,
       canActivate: [PermissionsGuard],
@@ -461,12 +437,6 @@ const routes: Routes = [{
       data: { permission: 'entidad.read' },
     },
     {
-      path: 'circuit',
-      component: CircuitComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'circuitos.read' },
-    },
-    {
       path: 'region',
       component: RegionComponent,
       canActivate: [PermissionsGuard],
@@ -479,21 +449,10 @@ const routes: Routes = [{
       data: { permission: 'ciudad.read' },
     },
     {
-      path: 'area',
-      component: AreaComponent,
-    },
-    {
-      path: 'subarea',
-      component: SubareaComponent,
-    },
-    {
       path: 'themes',
       component: ThemesComponent,
     },
-    {
-      path: 'validity',
-      component: ValidityComponent,
-    }
+
   ],
 }];
 
