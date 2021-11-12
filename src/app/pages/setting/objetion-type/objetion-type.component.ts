@@ -1,26 +1,26 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-// import { ObjetionCodeService } from '../../../business-controller/type-briefcase.service';
+// import { ObjetionTypeService } from '../../../business-controller/type-briefcase.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormObjetionCodeComponent } from './form-objetion-code/form-objetion-code.component';
+import { FormObjetionTypeComponent } from './form-objetion-type/form-objetion-type.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { ObjetionCodeService } from '../../../business-controller/objetion-code.service';
+import { ObjetionTypeService } from '../../../business-controller/objetion-type.service';
 
 
 @Component({
-  selector: 'ngx-objetion-code',
-  templateUrl: './objetion-code.component.html',
-  styleUrls: ['./objetion-code.component.scss']
+  selector: 'ngx-objetion-type',
+  templateUrl: './objetion-type.component.html',
+  styleUrls: ['./objetion-type.component.scss']
 })
-export class ObjetionCodeComponent implements OnInit {
+export class ObjetionTypeComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'objeciones de glosas';
+  public title: string = 'Tipo de objeciones de glosas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID','Código','Nombre'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
+  public headerFields: any[] = ['ID', 'Nombre'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -38,8 +38,8 @@ export class ObjetionCodeComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditObjetionCode.bind(this),
-            'delete': this.DeleteConfirmObjetionCode.bind(this),
+            'edit': this.EditObjetionType.bind(this),
+            'delete': this.DeleteConfirmObjetionType.bind(this),
           };
         },
         renderComponent: ActionsComponent,
@@ -57,13 +57,13 @@ export class ObjetionCodeComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Código de Objeción',
-      route: '../../setting/objetion-code',
+      name: 'Tipo de Objeción',
+      route: '../../setting/objetion-type',
     },
   ];
 
   constructor(
-    private ObjetionCodeS: ObjetionCodeService,
+    private ObjetionTypeS: ObjetionTypeService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -78,8 +78,8 @@ export class ObjetionCodeComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewObjetionCode() {
-    this.dialogFormService.open(FormObjetionCodeComponent, {
+  NewObjetionType() {
+    this.dialogFormService.open(FormObjetionTypeComponent, {
       context: {
         title: 'Crear nuevo tipo de Objeción',
         saved: this.RefreshData.bind(this),
@@ -87,8 +87,8 @@ export class ObjetionCodeComponent implements OnInit {
     });
   }
 
-  EditObjetionCode(data) {
-    this.dialogFormService.open(FormObjetionCodeComponent, {
+  EditObjetionType(data) {
+    this.dialogFormService.open(FormObjetionTypeComponent, {
       context: {
         title: 'Editar tipo de Portafolio',
         data,
@@ -110,18 +110,18 @@ export class ObjetionCodeComponent implements OnInit {
   //   });
   // }
 
-  DeleteConfirmObjetionCode(data) {
+  DeleteConfirmObjetionType(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteObjetionCode.bind(this),
+        delete: this.DeleteObjetionType.bind(this),
       },
     });
   }
 
-  DeleteObjetionCode(data) {
-    return this.ObjetionCodeS.Delete(data.id).then(x => {
+  DeleteObjetionType(data) {
+    return this.ObjetionTypeS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {

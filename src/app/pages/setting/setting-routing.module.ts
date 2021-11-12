@@ -77,6 +77,7 @@ import { ModalityComponent } from './modality/modality.component';
 import { TypeBriefcaseComponent } from './type-briefcase/type-briefcase.component';
 import { TypeContractComponent } from './type-contract/type-contract.component';
 import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
+import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
 
 const routes: Routes = [{
   path: '',
@@ -90,6 +91,11 @@ const routes: Routes = [{
     {
       path: 'firms',
       component: FirmsComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'objetion-type',
+      component: ObjetionTypeComponent,
       data: { permission: 'roles.read' },
     },
     {
@@ -397,7 +403,7 @@ const routes: Routes = [{
     },
     {
       path: 'fiscal-characteristic',
-      component:  FiscalCharacteristicComponent,
+      component: FiscalCharacteristicComponent,
       data: { permission: 'roles.read' },
     },
     {

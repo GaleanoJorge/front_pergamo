@@ -165,6 +165,8 @@ import { ContractStatusComponent } from './contract-status/contract-status.compo
 import { FormContractStatusComponent } from './contract-status/form-contract-status/form-contract-status.component';
 import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
 import { FormObjetionCodeComponent } from './objetion-code/form-objetion-code/form-objetion-code.component';
+import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
+import { FormObjetionTypeComponent } from './objetion-type/form-objetion-type/form-objetion-type.component';
 
 
 @NgModule({
@@ -346,6 +348,8 @@ import { FormObjetionCodeComponent } from './objetion-code/form-objetion-code/fo
     ActionsExtraordinaryComponent,
     ObjetionCodeComponent,
     FormObjetionCodeComponent,
+    ObjetionTypeComponent,
+    FormObjetionTypeComponent,
 
 
 
