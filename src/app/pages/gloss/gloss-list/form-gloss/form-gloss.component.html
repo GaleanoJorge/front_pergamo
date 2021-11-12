@@ -1,0 +1,190 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="number_contract" class="form-text text-muted font-weight-bold">Número de contrato:</label>
+          <input nbInput fullWidth id="number_contract" formControlName="number_contract" number_contract
+            status="{{ isSubmitted && form.controls.number_contract.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="name" class="form-text text-muted font-weight-bold">Nombre del contrato:</label>
+          <input nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <!-- <div class="col-12 col-sm-12 col-md-4">
+          <label for="company" class="form-text text-muted font-weight-bold">Compañia:</label>
+          <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div> -->
+        <!-- <div class="col-12 col-sm-12 col-md-4">
+          <label for="type_contract" class="form-text text-muted font-weight-bold">Tipo de contrato:</label>
+          <nb-select [selected]="this.data.type_contract_id" formControlName="type_contract_id" id="type_contract_id" fullWidth
+            status="{{ isSubmitted && form.controls.type_contract_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.type_contract_id }}" *ngFor="let item of type_contract"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div> -->
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="occasional" class="form-text text-muted font-weight-bold">¿Es un contrato ocasional?:</label>
+          <nb-radio-group formControlName="occasional" occasional id="occasional" name="occasional" class="d-flex"
+            status="{{ isSubmitted && form.controls.occasional.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio [value]="0">No</nb-radio>
+            <nb-radio [value]="1">Si</nb-radio>
+          </nb-radio-group>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="amount" class="form-text text-muted font-weight-bold">Monto del contrato:</label>
+          <input nbInput fullWidth id="amount" formControlName="amount" amount
+            status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+            <label for="start_date" class="form-text text-muted font-weight-bold">Fecha de inicio:</label>
+            <input type="date" nbInput fullWidth id="start_date" formControlName="start_date" start_date
+              status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+               />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha de fin:</label>
+          <input type="date" nbInput fullWidth id="finish_date" formControlName="finish_date" finish_date
+            status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <!-- <div class="col-12 col-sm-12 col-md-4">
+          <label for="contract_status" class="form-text text-muted font-weight-bold">Estado:</label>
+          <nb-select [selected]="this.data.contract_status_id" formControlName="contract_status_id" id="contract_status_id" fullWidth
+            status="{{ isSubmitted && form.controls.contract_status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.status_id }}" *ngFor="let item of contract_status"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div> -->
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="firms" class="form-text text-muted font-weight-bold">Firma Contratante:</label>
+          <nb-select [selected]="this.data.firms_contractor_id" formControlName="firms_contractor_id" id="firms_contractor_id" fullWidth
+            status="{{ isSubmitted && form.controls.firms_contractor_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.firms_contractor_id }}" *ngFor="let item of firms"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="firms" class="form-text text-muted font-weight-bold">Firma Contratista:</label>
+          <nb-select [selected]="this.data.firms_contracting_id" formControlName="firms_contracting_id" id="firms_contracting_id" fullWidth
+            status="{{ isSubmitted && form.controls.firms_contracting_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.firms_contracting_id }}" *ngFor="let item of firms"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="regime" class="form-text text-muted font-weight-bold">Régimen:</label>
+          <nb-select [selected]="this.data.regime_id" formControlName="regime_id" id="regime_id" fullWidth
+            status="{{ isSubmitted && form.controls.regime_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.regime_id }}" *ngFor="let item of regime"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="value_civil_policy" class="form-text text-muted font-weight-bold">Valor de Poliza de responsabilidad civil:</label>
+          <input nbInput fullWidth id="value_civil_policy" formControlName="value_civil_policy" value_civil_policy
+            status="{{ isSubmitted && form.controls.value_civil_policy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="start_date_civil_policy" class="form-text text-muted font-weight-bold">Fecha de inicio Poliza de responsabilidad civil:</label>
+          <input type="date" nbInput fullWidth id="start_date_civil_policy" formControlName="start_date_civil_policy" start_date_civil_policy
+            status="{{ isSubmitted && form.controls.start_date_civil_policy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="finish_date_civil_policy" class="form-text text-muted font-weight-bold">Fecha de fin Poliza de responsabilidad civil:</label>
+          <input type="date" nbInput fullWidth id="finish_date_civil_policy" formControlName="finish_date_civil_policy" finish_date_civil_policy
+            status="{{ isSubmitted && form.controls.finish_date_civil_policy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="insurance_carrier" class="form-text text-muted font-weight-bold">Aseguradora Poliza de responsabilidad civil:</label>
+          <nb-select [selected]="this.data.civil_policy_insurance_id" formControlName="civil_policy_insurance_id" id="civil_policy_insurance_id" fullWidth
+            status="{{ isSubmitted && form.controls.civil_policy_insurance_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.civil_policy_insurance_id }}" *ngFor="let item of insurance_carrier"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="value_contractual_policy" class="form-text text-muted font-weight-bold">Valor de Poliza de responsabilidad contractual:</label>
+          <input nbInput fullWidth id="value_contractual_policy" formControlName="value_contractual_policy" value_contractual_policy
+            status="{{ isSubmitted && form.controls.value_contractual_policy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="start_date_contractual_policy" class="form-text text-muted font-weight-bold">Fecha de inicio Poliza de responsabilidad contractual:</label>
+          <input type="date" nbInput fullWidth id="start_date_contractual_policy" formControlName="start_date_contractual_policy" start_date_contractual_policy
+            status="{{ isSubmitted && form.controls.start_date_contractual_policy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="finish_date_contractual_policy" class="form-text text-muted font-weight-bold">Fecha de fin Poliza de responsabilidad contractual:</label>
+          <input type="date" nbInput fullWidth id="finish_date_contractual_policy" formControlName="finish_date_contractual_policy" finish_date_contractual_policy
+            status="{{ isSubmitted && form.controls.finish_date_contractual_policy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="insurance_carrier" class="form-text text-muted font-weight-bold">Aseguradora Poliza de responsabilidad contractual:</label>
+          <nb-select [selected]="this.data.contractual_policy_insurance_id" formControlName="contractual_policy_insurance_id" id="contractual_policy_insurance_id" fullWidth
+            status="{{ isSubmitted && form.controls.contractual_policy_insurance_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.contractual_policy_insurance_id }}" *ngFor="let item of insurance_carrier"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="date_of_delivery_of_invoices" class="form-text text-muted font-weight-bold">Fecha de entrega de facturas:</label>
+        <div style="display: flex;">Desde:
+          <input style="width: 20%;margin-left: 10px;" nbInput fullWidth id="start_date_invoice" formControlName="start_date_invoice" start_date_invoice
+            status="{{ isSubmitted && form.controls.start_date_invoice.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          Hasta:
+          <input style="width: 20%;margin-left: 10px;" nbInput fullWidth id="finish_date_invoice" formControlName="finish_date_invoice" finish_date_invoice
+          status="{{ isSubmitted && form.controls.finish_date_invoice.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          a las:
+          <input style="width: 20%;margin-left: 10px;" nbInput fullWidth id="time_delivery_invoice" formControlName="time_delivery_invoice" time_delivery_invoice
+          status="{{ isSubmitted && form.controls.time_delivery_invoice.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="expiration_days_portafolio" class="form-text text-muted font-weight-bold">Días de vencimiento cartera:</label>
+          <input nbInput fullWidth id="expiration_days_portafolio" formControlName="expiration_days_portafolio" expiration_days_portfolio
+            status="{{ isSubmitted && form.controls.expiration_days_portafolio.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="discount" class="form-text text-muted font-weight-bold">Descuento:</label>
+          <input nbInput fullWidth id="discount" formControlName="discount" discount
+            status="{{ isSubmitted && form.controls.discount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="observations" class="form-text text-muted font-weight-bold">Observaciones:</label>
+          <input nbInput fullWidth id="observations" formControlName="observations" observations
+            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="objective" class="form-text text-muted font-weight-bold">Objeto del contrato:</label>
+          <input nbInput fullWidth id="objective" formControlName="objective" discount
+            status="{{ isSubmitted && form.controls.objective.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

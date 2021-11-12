@@ -24,6 +24,11 @@ const routes: Routes = [{
         .then(m => m.ContractModule),
     },
     {
+      path: 'gloss',
+      loadChildren: () => import('./gloss/gloss.module')
+        .then(m => m.GlossModule),
+    },
+    {
       path: 'setting',
       loadChildren: () => import('./setting/setting.module')
         .then(m => m.SettingModule),

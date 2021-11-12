@@ -163,6 +163,8 @@ import { FormTypeBriefcaseComponent } from './type-briefcase/form-type-briefcase
 import { FormTypeContractComponent } from './type-contract/form-type-contract/form-type-contract.component';
 import { ContractStatusComponent } from './contract-status/contract-status.component';
 import { FormContractStatusComponent } from './contract-status/form-contract-status/form-contract-status.component';
+import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
+import { FormObjetionCodeComponent } from './objetion-code/form-objetion-code/form-objetion-code.component';
 
 
 @NgModule({
@@ -342,8 +344,10 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     FormUserComponent,
     EditUserComponent,
     ActionsExtraordinaryComponent,
+    ObjetionCodeComponent,
+    FormObjetionCodeComponent,
 
-    
+
 
   ],
   providers: [

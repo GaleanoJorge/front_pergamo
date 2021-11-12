@@ -76,6 +76,7 @@ import { InsuranceCarrierComponent } from './insurance-carrier/insurance-carrier
 import { ModalityComponent } from './modality/modality.component';
 import { TypeBriefcaseComponent } from './type-briefcase/type-briefcase.component';
 import { TypeContractComponent } from './type-contract/type-contract.component';
+import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
 
 const routes: Routes = [{
   path: '',
@@ -94,6 +95,11 @@ const routes: Routes = [{
     {
       path: 'contract-status',
       component: ContractStatusComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'objetion-code',
+      component: ObjetionCodeComponent,
       data: { permission: 'roles.read' },
     },
     {
