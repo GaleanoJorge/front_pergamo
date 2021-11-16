@@ -169,6 +169,8 @@ import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
 import { FormObjetionTypeComponent } from './objetion-type/form-objetion-type/form-objetion-type.component';
 import { ReceivedByComponent } from './received_by/received-by.component';
 import { FormReceivedByComponent } from './received_by/form-received-by/form-received-by.component';
+import { RepeatedInitialComponent } from './repeated-initial/repeated-initial.component';
+import { FormRepeatedInitialComponent } from './repeated-initial/form-repeated-initial/form-repeated-initial.component';
 
 
 @NgModule({
@@ -354,9 +356,8 @@ import { FormReceivedByComponent } from './received_by/form-received-by/form-rec
     FormObjetionTypeComponent,
     ReceivedByComponent,
     FormReceivedByComponent,
-
-
-
+    RepeatedInitialComponent,
+    FormRepeatedInitialComponent,
   ],
   providers: [
     DateFormatPipe
