@@ -80,6 +80,7 @@ import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
 import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
 import { ReceivedByComponent } from './received_by/received-by.component';
 import { RepeatedInitialComponent } from './repeated-initial/repeated-initial.component';
+import { GlossModalityComponent } from './document copy/gloss-modality.component';
 
 const routes: Routes = [{
   path: '',
@@ -98,6 +99,11 @@ const routes: Routes = [{
     {
       path: 'objetion-type',
       component: ObjetionTypeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'gloss-modality',
+      component: GlossModalityComponent,
       data: { permission: 'roles.read' },
     },
     {
