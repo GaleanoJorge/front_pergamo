@@ -167,6 +167,8 @@ import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
 import { FormObjetionCodeComponent } from './objetion-code/form-objetion-code/form-objetion-code.component';
 import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
 import { FormObjetionTypeComponent } from './objetion-type/form-objetion-type/form-objetion-type.component';
+import { ReceivedByComponent } from './received_by/received-by.component';
+import { FormReceivedByComponent } from './received_by/form-received-by/form-received-by.component';
 
 
 @NgModule({
@@ -350,6 +352,8 @@ import { FormObjetionTypeComponent } from './objetion-type/form-objetion-type/fo
     FormObjetionCodeComponent,
     ObjetionTypeComponent,
     FormObjetionTypeComponent,
+    ReceivedByComponent,
+    FormReceivedByComponent,
 
 
 
