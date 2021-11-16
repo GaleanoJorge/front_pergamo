@@ -78,6 +78,7 @@ import { TypeBriefcaseComponent } from './type-briefcase/type-briefcase.componen
 import { TypeContractComponent } from './type-contract/type-contract.component';
 import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
 import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
+import { RepeatedInitialComponent } from './repeated-initial/repeated-initial.component';
 
 const routes: Routes = [{
   path: '',
@@ -96,6 +97,11 @@ const routes: Routes = [{
     {
       path: 'objetion-type',
       component: ObjetionTypeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'repeated-initial',
+      component: RepeatedInitialComponent,
       data: { permission: 'roles.read' },
     },
     {
