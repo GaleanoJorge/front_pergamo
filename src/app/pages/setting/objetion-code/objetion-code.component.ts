@@ -17,7 +17,7 @@ export class ObjetionCodeComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'objeciones de glosas';
+  public title: string = 'Codigo de objeción de glosas';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Código','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;

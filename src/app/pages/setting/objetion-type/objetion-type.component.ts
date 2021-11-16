@@ -17,7 +17,7 @@ export class ObjetionTypeComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Tipo de objeciones de glosas';
+  public title: string = 'Tipo de objeción de glosas';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
