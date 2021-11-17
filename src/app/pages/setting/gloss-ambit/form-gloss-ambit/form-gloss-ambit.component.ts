@@ -58,7 +58,9 @@ export class FormGlossAmbitComponent implements OnInit {
     this.statusBS.GetCollection().then(x => {
       this.status = x;
     });
-    this.GlossModalityS.GetCollection().then(x => {
+    this.GlossModalityS.GetCollection({
+      'status_id': 1,
+    }).then(x => {
       this.gloss_modality = x;
     });
   }
