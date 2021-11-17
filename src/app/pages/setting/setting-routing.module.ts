@@ -82,6 +82,7 @@ import { ReceivedByComponent } from './received_by/received-by.component';
 import { RepeatedInitialComponent } from './repeated-initial/repeated-initial.component';
 import { GlossModalityComponent } from './gloss-modality/gloss-modality.component';
 import { GlossAmbitComponent } from './gloss-ambit/gloss-ambit.component';
+import { GlossServiceComponent } from './gloss-service/gloss-service.component';
 
 const routes: Routes = [{
   path: '',
@@ -110,6 +111,11 @@ const routes: Routes = [{
     {
       path: 'gloss-ambit',
       component: GlossAmbitComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'gloss-service',
+      component: GlossServiceComponent,
       data: { permission: 'roles.read' },
     },
     {

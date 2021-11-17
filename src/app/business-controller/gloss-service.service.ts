@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { GlossAmbit } from '../models/gloss-ambit';
+import { GlossService } from '../models/gloss-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GlossAmbitService {
-  public gloss_ambit: GlossAmbit[] = [];
+export class GlossServiceService {
+  public gloss_service: GlossService[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<GlossAmbit[]> {
-    let servObj = new ServiceObject(params ? 'gloss_ambit?pagination=false' : 'gloss_ambit');
+  GetCollection(params = {}): Promise<GlossService[]> {
+    let servObj = new ServiceObject(params ? 'gloss_service?pagination=false' : 'gloss_service');
 
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
@@ -22,18 +22,18 @@ export class GlossAmbitService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.gloss_ambit = <GlossAmbit[]>servObj.data.gloss_ambit;
+        this.gloss_service = <GlossService[]>servObj.data.gloss_service;
 
-        return Promise.resolve(this.gloss_ambit);
+        return Promise.resolve(this.gloss_service);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(gloss_ambit: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('gloss_ambit');
-    servObj.data = gloss_ambit;
+  Save(gloss_service: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('gloss_service');
+    servObj.data = gloss_service;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -48,9 +48,9 @@ export class GlossAmbitService {
   }
 
 
-  Update(gloss_ambit: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('gloss_ambit', gloss_ambit.id);
-    servObj.data = gloss_ambit;
+  Update(gloss_service: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('gloss_service', gloss_service.id);
+    servObj.data = gloss_service;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -81,7 +81,7 @@ export class GlossAmbitService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('gloss_ambit', id);
+    let servObj = new ServiceObject('gloss_service', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

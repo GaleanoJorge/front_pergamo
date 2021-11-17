@@ -175,6 +175,8 @@ import { GlossModalityComponent } from './gloss-modality/gloss-modality.componen
 import { FormGlossModalityComponent } from './gloss-modality/form-gloss-modality/form-gloss-modality.component';
 import { GlossAmbitComponent } from './gloss-ambit/gloss-ambit.component';
 import { FormGlossAmbitComponent } from './gloss-ambit/form-gloss-ambit/form-gloss-ambit.component';
+import { GlossServiceComponent } from './gloss-service/gloss-service.component';
+import { FormGlossServiceComponent } from './gloss-service/form-gloss-service/form-gloss-service.component';
 
 
 @NgModule({
@@ -366,6 +368,8 @@ import { FormGlossAmbitComponent } from './gloss-ambit/form-gloss-ambit/form-glo
     FormGlossModalityComponent,
     GlossAmbitComponent,
     FormGlossAmbitComponent,
+    GlossServiceComponent,
+    FormGlossServiceComponent,
   ],
   providers: [
     DateFormatPipe
