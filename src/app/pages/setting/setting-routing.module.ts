@@ -81,6 +81,7 @@ import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
 import { ReceivedByComponent } from './received_by/received-by.component';
 import { RepeatedInitialComponent } from './repeated-initial/repeated-initial.component';
 import { GlossModalityComponent } from './gloss-modality/gloss-modality.component';
+import { GlossAmbitComponent } from './gloss-ambit/gloss-ambit.component';
 
 const routes: Routes = [{
   path: '',
@@ -104,6 +105,11 @@ const routes: Routes = [{
     {
       path: 'gloss-modality',
       component: GlossModalityComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'gloss-ambit',
+      component: GlossAmbitComponent,
       data: { permission: 'roles.read' },
     },
     {

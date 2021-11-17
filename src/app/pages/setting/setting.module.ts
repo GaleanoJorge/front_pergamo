@@ -173,6 +173,8 @@ import { RepeatedInitialComponent } from './repeated-initial/repeated-initial.co
 import { FormRepeatedInitialComponent } from './repeated-initial/form-repeated-initial/form-repeated-initial.component';
 import { GlossModalityComponent } from './gloss-modality/gloss-modality.component';
 import { FormGlossModalityComponent } from './gloss-modality/form-gloss-modality/form-gloss-modality.component';
+import { GlossAmbitComponent } from './gloss-ambit/gloss-ambit.component';
+import { FormGlossAmbitComponent } from './gloss-ambit/form-gloss-ambit/form-gloss-ambit.component';
 
 
 @NgModule({
@@ -362,6 +364,8 @@ import { FormGlossModalityComponent } from './gloss-modality/form-gloss-modality
     FormRepeatedInitialComponent,
     GlossModalityComponent,
     FormGlossModalityComponent,
+    GlossAmbitComponent,
+    FormGlossAmbitComponent,
   ],
   providers: [
     DateFormatPipe
