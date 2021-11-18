@@ -7,8 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGlossComponent } from './form-gloss/form-gloss.component';
-import { DateFormatPipe } from '../../../pipe/date-format.pipe';
-import { Router } from '@angular/router';
+import { GlossService } from '../../../business-controller/gloss.service';
 
 @Component({
   selector: 'ngx-gloss-list',
@@ -18,13 +17,13 @@ import { Router } from '@angular/router';
 export class GlossListComponent implements OnInit {
 
   public isSubmitted = false;
-  public entity:string;
-  public category_id:number=null;
+  public entity: string;
+  public category_id: number = null;
   public messageError: string = null;
   public title: string = 'Glosas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID','# contrato','Estado', 'Nombre','Fecha inicio','Fecha fin', 'Valor'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}`;
+  public headerFields: any[] = ['Prefijo factura', 'Consecutivo factra', 'Tipo de objeción', 'Inicial reiterada', 'Fecha recibido', 'Fecha emisión', 'Fecha radicación', 'EAPB', 'Sede', 'Modalidad de Glosa', 'Ambito de Glosa', 'Sevicio de Glosa', 'Código de objeción', 'Detalle de objeción', 'Valor de factura', 'Valor objetado', 'Medio de recibido', 'Analista asignado'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}, ${this.headerFields[5]}, ${this.headerFields[6]}, ${this.headerFields[7]}, ${this.headerFields[8]}, ${this.headerFields[9]}, ${this.headerFields[10]}, ${this.headerFields[11]}, ${this.headerFields[12]}, ${this.headerFields[13]}, ${this.headerFields[14]}, ${this.headerFields[15]}, ${this.headerFields[16]}, ${this.headerFields[17]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -46,42 +45,106 @@ export class GlossListComponent implements OnInit {
         },
         renderComponent: Actions2Component,
       },
-      id: {
+      invoice_prefix: {
         title: this.headerFields[0],
         type: 'string',
       },
-      number_gloss: {
+      invoice_consecutive: {
         title: this.headerFields[1],
         type: 'string',
       },
-      gloss_status: {
+      objetion_type: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      name: {
+      repeated_initial: {
         title: this.headerFields[3],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
       },
-      start_date: {
+      received_date: {
         title: this.headerFields[4],
         type: 'string',
       },
-      finish_date: {
+      emission_date: {
         title: this.headerFields[5],
         type: 'string',
       },
-      amount: {
+      radication_date: {
         title: this.headerFields[6],
         type: 'string',
+      },
+      company: {
+        title: this.headerFields[7],
+        type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(value==0){
-            return 'Indefinido';
-            }else{
-              return value;
-            }
+          return value.name;
+        },
+      },
+      campus: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      gloss_modality: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      gloss_ambit: {
+        title: this.headerFields[10],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      gloss_service: {
+        title: this.headerFields[11],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      objetion_code: {
+        title: this.headerFields[12],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      objetion_detail: {
+        title: this.headerFields[13],
+        type: 'string',
+      },
+      invoice_value: {
+        title: this.headerFields[14],
+        type: 'string',
+      },
+      objeted_value: {
+        title: this.headerFields[15],
+        type: 'string',
+      },
+      received_by: {
+        title: this.headerFields[16],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      user: {
+        title: this.headerFields[17],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.firstname + ' ' + value.lastname;
         },
       },
     },
@@ -89,18 +152,16 @@ export class GlossListComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Contratos',
+      name: 'Glosas',
       route: '../gloss/list',
     },
   ];
 
   constructor(
+    private glossS: GlossService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
-    private datepipe: DateFormatPipe,
-    private router: Router,
-    private route: ActivatedRoute
   ) {
   }
 
@@ -123,14 +184,13 @@ export class GlossListComponent implements OnInit {
   EditGloss(data) {
     this.dialogFormService.open(FormGlossComponent, {
       context: {
-        title: 'Editar contrato',
+        title: 'Editar glosa',
         data,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  
 
   DeleteConfirmGloss(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
@@ -143,11 +203,11 @@ export class GlossListComponent implements OnInit {
   }
 
   DeleteGloss(data) {
-    // return this.glossS.Delete(data.id).then(x => {
-    //   this.table.refresh();
-    //   return Promise.resolve(x.message);
-    // }).catch(x => {
-    //   throw x;
-    // });
+    return this.glossS.Delete(data.id).then(x => {
+      this.table.refresh();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
   }
 }

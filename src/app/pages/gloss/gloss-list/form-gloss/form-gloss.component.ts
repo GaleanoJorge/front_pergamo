@@ -2,9 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '../../../../business-controller/company.service';
-import { FirmsService } from '../../../../business-controller/firms.service';
-import { InsuranceCarrierService } from '../../../../business-controller/insurance-carrier.service';
-import { TypeBriefcaseService } from '../../../../business-controller/type-briefcase.service';
+import { ObjetionTypeService } from '../../../../business-controller/objetion-type.service';
+import { RepeatedInitialService } from '../../../../business-controller/repeated-initial.service';
+import { CampusService } from '../../../../business-controller/campus.service';
+import { GlossModalityService } from '../../../../business-controller/gloss-modality.service';
+import { GlossAmbitService } from '../../../../business-controller/gloss-ambit.service';
+import { GlossServiceService } from '../../../../business-controller/gloss-service.service';
+import { ObjetionCodeService } from '../../../../business-controller/objetion-code.service';
+import { ReceivedByService } from '../../../../business-controller/received-by.service';
+import { GlossService } from '../../../../business-controller/gloss.service';
 
 
 @Component({
@@ -17,24 +23,33 @@ export class FormGlossComponent implements OnInit {
   @Input() data: any = null;
 
   public form: FormGroup;
-  public company: any[] = [];
-  public type_gloss: any[] = [];
-  public gloss_status: any[] = [];
-  public firms: any[] = [];
-  public insurance_carrier: any[] = [];
-  public saved: any = null;
   public loading: boolean = false;
   public isSubmitted: boolean = false;
-  public regime: any[];
+  public saved: any = null;
+  public objetion_type: any[];
+  public repeated_initial: any[];
+  public company: any[];
+  public campus: any[];
+  public gloss_modality: any[];
+  public gloss_ambit: any[];
+  public gloss_service: any[];
+  public objetion_code: any[];
+  public received_by: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
-    private companyS: CompanyService,
     private toastService: NbToastrService,
-    private firmsS: FirmsService,
-    private InsuranceCarrierS: InsuranceCarrierService,
-    private regimeS: TypeBriefcaseService,
+    private glossS: GlossService,
+    private objetionTypeS: ObjetionTypeService,
+    private repeatedInitialS: RepeatedInitialService,
+    private companyS: CompanyService,
+    private campusS: CampusService,
+    private glossModalityS: GlossModalityService,
+    private glossAmbitS: GlossAmbitService,
+    private glossServiceS: GlossServiceService,
+    private objetionCodeS: ObjetionCodeService,
+    private receivedByS: ReceivedByService,
   ) {
   }
 
@@ -42,78 +57,72 @@ export class FormGlossComponent implements OnInit {
 
     if (!this.data) {
       this.data = {
-        number_gloss: '',
-        name:'',
+        id: '',
+        invoice_prefix: '',
+        invoice_consecutive: '',
+        objedion_detail: '',
+        received_date: '',
+        emission_date: '',
+        radication_date: '',
+        objetion_type_id: '',
+        repeated_initial_id: '',
         company_id: '',
-        type_gloss_id: '',
-        occasional: '',
-        amount: '',
-        start_date: '',
-        finish_date: '',
-        gloss_status_id: '',
-        firms_glossor_id: '',
-        firms_glossing_id: '',
-        regime_id:'',
-        value_civil_policy: '',
-        start_date_civil_policy:'',
-        finish_date_civil_policy: '',
-        civil_policy_insurance_id:'',
-        value_glossual_policy:'',
-        start_date_glossual_policy: '',
-        finish_date_glossual_policy:'',
-        glossual_policy_insurance_id: '',
-        start_date_invoice: '',
-        finish_date_invoice: '',
-        time_delivery_invoice: '',
-        expiration_days_portafolio: '',
-        discount:'',
-        observations: '',
-        objective: '',
+        campus_id: '',
+        gloss_modality_id: '',
+        gloss_ambit_id: '',
+        gloss_service_id: '',
+        objetion_code_id: '',
+        received_by_id: '',
       };
-    } 
+    }
 
+    this.objetionTypeS.GetCollection().then(x => {
+      this.objetion_type = x;
+    });
+    this.repeatedInitialS.GetCollection().then(x => {
+      this.repeated_initial = x;
+    });
     this.companyS.GetCollection().then(x => {
       this.company = x;
     });
-    this.firmsS.GetCollection().then(x => {
-      this.firms = x;
+    this.campusS.GetCollection().then(x => {
+      this.campus = x;
     });
-    this.InsuranceCarrierS.GetCollection().then(x => {
-      this.insurance_carrier = x;
+    this.glossModalityS.GetCollection({ status_id: 1 }).then(x => {
+      this.gloss_modality = x;
     });
-    this.regimeS.GetCollection().then(x => {
-      this.regime = x;
+    this.glossAmbitS.GetCollection({ status_id: 1 }).then(x => {
+      this.gloss_ambit = x;
+    });
+    this.glossServiceS.GetCollection({ status_id: 1 }).then(x => {
+      this.gloss_service = x;
+    });
+    this.objetionCodeS.GetCollection().then(x => {
+      this.objetion_code = x;
+    });
+    this.receivedByS.GetCollection().then(x => {
+      this.received_by = x;
     });
 
 
     this.form = this.formBuilder.group({
-      number_gloss: [this.data.number_gloss, Validators.compose([Validators.required])],
-      name: [this.data.name, Validators.compose([Validators.required])],
+      invoice_prefix: [this.data.invoice_prefix, Validators.compose([Validators.required])],
+      objetion_detail: [this.data.objetion_detail, Validators.compose([Validators.required])],
+      objeted_value: [this.data.objeted_value, Validators.compose([Validators.required])],
+      invoice_value: [this.data.invoice_value, Validators.compose([Validators.required])],
+      invoice_consecutive: [this.data.invoice_consecutive, Validators.compose([Validators.required])],
+      received_date: [this.data.received_date],
+      emission_date: [this.data.emission_date],
+      radication_date: [this.data.radication_date],
+      objetion_type_id: [this.data.objetion_type_id, Validators.compose([Validators.required])],
+      repeated_initial_id: [this.data.repeated_initial_id, Validators.compose([Validators.required])],
       company_id: [this.data.company_id, Validators.compose([Validators.required])],
-      type_gloss_id: [this.data.type_gloss_id, Validators.compose([Validators.required])],
-      occasional: [this.data.occasional, Validators.compose([Validators.required])],
-      amount: [this.data.amount, Validators.compose([Validators.required])],
-      start_date: [this.data.start_date],
-      finish_date: [this.data.finish_date],
-      gloss_status_id: [this.data.gloss_status_id],
-      firms_glossor_id: [this.data.firms_glossor_id],
-      firms_glossing_id: [this.data.firms_glossing_id],
-      value_civil_policy: [this.data.value_civil_policy, Validators.compose([Validators.required])],
-      start_date_civil_policy: [this.data.start_date_civil_policy, Validators.compose([Validators.required])],
-      finish_date_civil_policy: [this.data.finish_date_civil_policy],
-      regime_id: [this.data.regime_id],
-      civil_policy_insurance_id: [this.data.civil_policy_insurance_id],
-      value_glossual_policy: [this.data.value_glossual_policy],
-      start_date_glossual_policy: [this.data.start_date_glossual_policy, Validators.compose([Validators.required])],
-      finish_date_glossual_policy: [this.data.finish_date_glossual_policy, Validators.compose([Validators.required])],
-      glossual_policy_insurance_id: [this.data.glossual_policy_insurance_id, Validators.compose([Validators.required])],
-      start_date_invoice: [this.data.start_date_invoice],
-      finish_date_invoice: [this.data.finish_date_invoice],
-      time_delivery_invoice: [this.data.time_delivery_invoice],
-      expiration_days_portafolio: [this.data.expiration_days_portafolio],
-      discount: [this.data.discount],
-      observations: [this.data.observations],
-      objective: [this.data.objective],
+      campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
+      gloss_modality_id: [this.data.gloss_modality_id, Validators.compose([Validators.required])],
+      gloss_ambit_id: [this.data.gloss_ambit_id, Validators.compose([Validators.required])],
+      gloss_service_id: [this.data.gloss_service_id, Validators.compose([Validators.required])],
+      objetion_code_id: [this.data.objetion_code_id, Validators.compose([Validators.required])],
+      received_by_id: [this.data.received_by_id, Validators.compose([Validators.required])],
     });
   }
 
@@ -125,90 +134,65 @@ export class FormGlossComponent implements OnInit {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
-      if (Date.parse(this.form.controls.finish_date.value) < Date.parse(this.form.controls.start_date.value)) {
-        this.toastService.danger(null, 'Revise las fechas');
-        this.loading = false;
+      if (this.data.id) {
+        this.glossS.Update({
+          id: this.data.id,
+          invoice_prefix: this.form.controls.invoice_prefix.value,
+          objetion_detail: this.form.controls.objetion_detail.value,
+          objeted_value: this.form.controls.objeted_value.value,
+          invoice_value: this.form.controls.invoice_value.value,
+          invoice_consecutive: this.form.controls.invoice_consecutive.value,
+          received_date: this.form.controls.received_date.value,
+          emission_date: this.form.controls.emission_date.value,
+          radication_date: this.form.controls.radication_date.value,
+          objetion_type_id: this.form.controls.objetion_type_id.value,
+          repeated_initial_id: this.form.controls.repeated_initial_id.value,
+          company_id: this.form.controls.company_id.value,
+          campus_id: this.form.controls.campus_id.value,
+          gloss_modality_id: this.form.controls.gloss_modality_id.value,
+          gloss_ambit_id: this.form.controls.gloss_ambit_id.value,
+          gloss_service_id: this.form.controls.gloss_service_id.value,
+          objetion_code_id: this.form.controls.objetion_code_id.value,
+          received_by_id: this.form.controls.received_by_id.value,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.close();
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
       } else {
-        if (this.data.id) {
-        //   this.glossS.Update({
-        //     id: this.data.id,
-        //     number_gloss: this.form.controls.number_gloss.value,
-        //     name: this.form.controls.name.value,
-        //     company_id: this.form.controls.company_id.value,
-        //     type_gloss_id: this.form.controls.type_gloss_id.value,
-        //     occasional: this.form.controls.occasional.value,
-        //     amount: this.form.controls.amount.value,
-        //     start_date:this.form.controls.start_date.value,
-        //     finish_date: this.form.controls.finish_date.value,
-        //     gloss_status_id: this.form.controls.gloss_status_id.value,
-        //     firms_glossor_id: this.form.controls.firms_glossor_id.value,
-        //     firms_glossing_id: this.form.controls.firms_glossing_id.value,
-        //     value_civil_policy: this.form.controls.value_civil_policy.value,
-        //     start_date_civil_policy: this.form.controls.start_date_civil_policy.value,
-        //     finish_date_civil_policy:this.form.controls.finish_date_civil_policy.value,
-        //     regime_id:this.form.controls.regime_id.value,
-        //     civil_policy_insurance_id: this.form.controls.civil_policy_insurance_id.value,
-        //     value_glossual_policy: this.form.controls.value_glossual_policy.value,
-        //     start_date_glossual_policy: this.form.controls.start_date_glossual_policy.value,
-        //     finish_date_glossual_policy: this.form.controls.finish_date_glossual_policy.value,
-        //     glossual_policy_insurance_id: this.form.controls.glossual_policy_insurance_id.value,
-        //     start_date_invoice: this.form.controls.start_date_invoice.value,
-        //     finish_date_invoice: this.form.controls.finish_date_invoice.value,
-        //     time_delivery_invoice: this.form.controls.time_delivery_invoice.value,
-        //     expiration_days_portafolio: this.form.controls.expiration_days_portafolio.value,
-        //     discount: this.form.controls.discount.value,
-        //     observations: this.form.controls.observations.value,
-        //     objective: this.form.controls.objective.value,
-        //   }).then(x => {
-        //     this.toastService.success('', x.message);
-        //     this.close();
-        //     if (this.saved) {
-        //       this.saved();
-        //     }
-        //   }).catch(x => {
-        //     this.isSubmitted = false;
-        //     this.loading = false;
-        //   });
-        // } else {
-        //   this.glossS.Save({
-        //     number_gloss: this.form.controls.number_gloss.value,
-        //     name: this.form.controls.name.value,
-        //     company_id: this.form.controls.company_id.value,
-        //     type_gloss_id: this.form.controls.type_gloss_id.value,
-        //     occasional: this.form.controls.occasional.value,
-        //     amount: this.form.controls.amount.value,
-        //     start_date:this.form.controls.start_date.value,
-        //     finish_date: this.form.controls.finish_date.value,
-        //     gloss_status_id: this.form.controls.gloss_status_id.value,
-        //     firms_glossor_id: this.form.controls.firms_glossor_id.value,
-        //     firms_glossing_id: this.form.controls.firms_glossing_id.value,
-        //     regime_id:this.form.controls.regime_id.value,
-        //     value_civil_policy: this.form.controls.value_civil_policy.value,
-        //     start_date_civil_policy: this.form.controls.start_date_civil_policy.value,
-        //     finish_date_civil_policy:this.form.controls.finish_date_civil_policy.value,
-        //     civil_policy_insurance_id: this.form.controls.civil_policy_insurance_id.value,
-        //     value_glossual_policy: this.form.controls.value_glossual_policy.value,
-        //     start_date_glossual_policy: this.form.controls.start_date_glossual_policy.value,
-        //     finish_date_glossual_policy: this.form.controls.finish_date_glossual_policy.value,
-        //     glossual_policy_insurance_id: this.form.controls.glossual_policy_insurance_id.value,
-        //     start_date_invoice: this.form.controls.start_date_invoice.value,
-        //     finish_date_invoice: this.form.controls.finish_date_invoice.value,
-        //     time_delivery_invoice: this.form.controls.time_delivery_invoice.value,
-        //     expiration_days_portafolio: this.form.controls.expiration_days_portafolio.value,
-        //     discount: this.form.controls.discount.value,
-        //     observations: this.form.controls.observations.value,
-        //     objective: this.form.controls.objective.value,
-        //   }).then(x => {
-        //     this.toastService.success('', x.message);
-        //     this.close();
-        //     if (this.saved) {
-        //       this.saved();
-        //     }
-        //   }).catch(x => {
-        //     this.isSubmitted = false;
-        //     this.loading = false;
-        //   });
-        }
+        this.glossS.Save({
+          invoice_prefix: this.form.controls.invoice_prefix.value,
+          objetion_detail: this.form.controls.objetion_detail.value,
+          objeted_value: this.form.controls.objeted_value.value,
+          invoice_value: this.form.controls.invoice_value.value,
+          invoice_consecutive: this.form.controls.invoice_consecutive.value,
+          received_date: this.form.controls.received_date.value,
+          emission_date: this.form.controls.emission_date.value,
+          radication_date: this.form.controls.radication_date.value,
+          objetion_type_id: this.form.controls.objetion_type_id.value,
+          repeated_initial_id: this.form.controls.repeated_initial_id.value,
+          company_id: this.form.controls.company_id.value,
+          campus_id: this.form.controls.campus_id.value,
+          gloss_modality_id: this.form.controls.gloss_modality_id.value,
+          gloss_ambit_id: this.form.controls.gloss_ambit_id.value,
+          gloss_service_id: this.form.controls.gloss_service_id.value,
+          objetion_code_id: this.form.controls.objetion_code_id.value,
+          received_by_id: this.form.controls.received_by_id.value,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.close();
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
       }
     }
   }

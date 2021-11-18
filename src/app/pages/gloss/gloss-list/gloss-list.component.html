@@ -1,7 +1,12 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table [title]="title" [subtitle]="subtitle" customData="contract" [settings]="settings" entity="contract" [messageToltip]="messageToltip">
+    <ngx-base-table [title]="title"
+     [subtitle]="subtitle"
+     [settings]="settings"
+     entity="gloss/?pagination=true" 
+     customData="gloss"
+     [messageToltip]="messageToltip">
       <div actions>
         <div class="actions">
           <button nbButton status="danger" (click)="NewGloss()">Crear</button>
