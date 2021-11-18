@@ -22,8 +22,8 @@ export class GlossListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Glosas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Prefijo factura', 'Consecutivo factra', 'Tipo de objeción', 'Inicial reiterada', 'Fecha recibido', 'Fecha emisión', 'Fecha radicación', 'EAPB', 'Sede', 'Modalidad de Glosa', 'Ambito de Glosa', 'Sevicio de Glosa', 'Código de objeción', 'Detalle de objeción', 'Valor de factura', 'Valor objetado', 'Medio de recibido', 'Analista asignado'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}, ${this.headerFields[5]}, ${this.headerFields[6]}, ${this.headerFields[7]}, ${this.headerFields[8]}, ${this.headerFields[9]}, ${this.headerFields[10]}, ${this.headerFields[11]}, ${this.headerFields[12]}, ${this.headerFields[13]}, ${this.headerFields[14]}, ${this.headerFields[15]}, ${this.headerFields[16]}, ${this.headerFields[17]}`;
+  public headerFields: any[] = ['Prefijo factura', 'Consecutivo factra', 'Tipo de objeción', 'Inicial reiterada', 'Fecha recibido', 'Fecha emisión', 'Fecha radicación', 'EAPB', 'Sede', 'Modalidad de Glosa', 'Ambito de Glosa', 'Sevicio de Glosa', 'Código de objeción', 'Detalle de objeción', 'Valor de factura', 'Valor objetado', 'Medio de recibido', 'Estado', 'Analista asignado'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}, ${this.headerFields[5]}, ${this.headerFields[6]}, ${this.headerFields[7]}, ${this.headerFields[8]}, ${this.headerFields[9]}, ${this.headerFields[10]}, ${this.headerFields[11]}, ${this.headerFields[12]}, ${this.headerFields[13]}, ${this.headerFields[14]}, ${this.headerFields[15]}, ${this.headerFields[16]}, ${this.headerFields[17]}, ${this.headerFields[18]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -140,8 +140,15 @@ export class GlossListComponent implements OnInit {
           return value.name;
         },
       },
-      user: {
+      gloss_status: {
         title: this.headerFields[17],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      user: {
+        title: this.headerFields[18],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.firstname + ' ' + value.lastname;
