@@ -10,6 +10,7 @@ export class Gloss extends MainClass {
   gloss_ambit_id: number;
   gloss_service_id: number;
   objetion_code_id: number;
+  gloss_status_id: number;
   user_id: number;
   received_by_id: number;
   invoice_prefix: string;

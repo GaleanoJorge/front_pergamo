@@ -41,6 +41,7 @@ export class GlossListComponent implements OnInit {
             'data': row,
             'edit': this.EditGloss.bind(this),
             'delete': this.DeleteConfirmGloss.bind(this),
+            'refresh': this.RefreshData.bind(this),
           };
         },
         renderComponent: Actions2Component,
