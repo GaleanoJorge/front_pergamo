@@ -48,8 +48,12 @@ export class ObjetionCodeComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      name: {
+      code: {
         title: this.headerFields[1],
+        type: 'string',
+      },
+      name: {
+        title: this.headerFields[2],
         type: 'string',
       },
     },

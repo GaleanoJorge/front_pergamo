@@ -48,6 +48,10 @@ export class ObjetionCodeResponseComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
+      code: {
+        title: this.headerFields[1],
+        type: 'string',
+      },
       name: {
         title: this.headerFields[1],
         type: 'string',
