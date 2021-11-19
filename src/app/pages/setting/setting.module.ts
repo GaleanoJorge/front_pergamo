@@ -177,6 +177,10 @@ import { GlossAmbitComponent } from './gloss-ambit/gloss-ambit.component';
 import { FormGlossAmbitComponent } from './gloss-ambit/form-gloss-ambit/form-gloss-ambit.component';
 import { GlossServiceComponent } from './gloss-service/gloss-service.component';
 import { FormGlossServiceComponent } from './gloss-service/form-gloss-service/form-gloss-service.component';
+import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion-code-response.component';
+import { FormObjetionCodeResponseComponent } from './objetion-code-response/form-objetion-code-response/form-objetion-code-response.component';
+import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
+import { FormObjetionResponseComponent } from './objetion-response/form-objetion-response/form-objetion-response.component';
 
 
 @NgModule({
@@ -370,6 +374,10 @@ import { FormGlossServiceComponent } from './gloss-service/form-gloss-service/fo
     FormGlossAmbitComponent,
     GlossServiceComponent,
     FormGlossServiceComponent,
+    ObjetionCodeResponseComponent,
+    FormObjetionCodeResponseComponent,
+    ObjetionResponseComponent,
+    FormObjetionResponseComponent,
   ],
   providers: [
     DateFormatPipe
