@@ -16,7 +16,7 @@ export class GlossResponseService {
   GetCollection(params = {}): Promise<GlossResponse[]> {
     let servObj = new ServiceObject(params ? 'gloss_response?pagination=false' : 'gloss_response');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj,params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
