@@ -47,6 +47,22 @@ export class GlossService {
       });
   }
 
+  SaveFile(gloss: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('fileUpload');
+    servObj.data = gloss;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
 
   Update(gloss: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('gloss', gloss.id);

@@ -8,6 +8,9 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGlossComponent } from './form-gloss/form-gloss.component';
 import { GlossService } from '../../../business-controller/gloss.service';
+import * as XLSX from 'ts-xlsx';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GlossResponseService } from '../../../business-controller/gloss-response.service';
 
 @Component({
   selector: 'ngx-gloss-list',
@@ -18,14 +21,17 @@ export class GlossListComponent implements OnInit {
 
   public isSubmitted = false;
   public entity: string;
+  public loading: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
   public title: string = 'Glosas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Prefijo factura', 'Consecutivo factra', 'Tipo de objeción', 'Inicial reiterada', 'Fecha recibido', 'Fecha emisión', 'Fecha radicación', 'EAPB', 'Sede', 'Modalidad de Glosa', 'Ambito de Glosa', 'Sevicio de Glosa', 'Código de objeción', 'Detalle de objeción', 'Valor de factura', 'Valor objetado', 'Medio de recibido', 'Estado', 'Analista asignado'];
+  public headerFields: any[] = ['Prefijo factura', 'Consecutivo factura', 'Tipo de objeción', 'Inicial reiterada', 'Fecha recibido', 'Fecha emisión', 'Fecha radicación', 'EAPB', 'Sede', 'Modalidad de Glosa', 'Ambito de Glosa', 'Sevicio de Glosa', 'Código de objeción', 'Detalle de objeción', 'Valor de factura', 'Valor objetado', 'Medio de recibido', 'Estado', 'Analista asignado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}, ${this.headerFields[5]}, ${this.headerFields[6]}, ${this.headerFields[7]}, ${this.headerFields[8]}, ${this.headerFields[9]}, ${this.headerFields[10]}, ${this.headerFields[11]}, ${this.headerFields[12]}, ${this.headerFields[13]}, ${this.headerFields[14]}, ${this.headerFields[15]}, ${this.headerFields[16]}, ${this.headerFields[17]}, ${this.headerFields[18]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public arrayBuffer: any;
+  public file: File;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -167,13 +173,21 @@ export class GlossListComponent implements OnInit {
 
   constructor(
     private glossS: GlossService,
-    private toastrService: NbToastrService,
+    private formBuilder: FormBuilder,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private toastService: NbToastrService,
+    private GlossResponseS: GlossResponseService,
   ) {
   }
+  public form: FormGroup;
+
+
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      file: [Validators.compose([Validators.required])],
+    });
   }
 
   RefreshData() {
@@ -217,5 +231,41 @@ export class GlossListComponent implements OnInit {
     }).catch(x => {
       throw x;
     });
+  }
+
+  async saveFile(event) {
+    if (event.target.files[0]) {
+      this.loading = true;
+      this.file = event.target.files[0];
+      let lectura;
+      let fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        this.arrayBuffer = fileReader.result;
+        var data = new Uint8Array(this.arrayBuffer);
+        var arr = new Array();
+        for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+        var bstr = arr.join("");
+        var workbook = XLSX.read(bstr, { type: "binary" });
+        var first_sheet_name = workbook.SheetNames[0];
+        var worksheet = workbook.Sheets[first_sheet_name];
+        lectura = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+        console.log(lectura);
+        this.uploadDocumentInfo(lectura);
+      }
+      fileReader.readAsArrayBuffer(this.file);
+    }
+  }
+
+  async uploadDocumentInfo(lectura) {
+    try {
+      let response;
+      response = await this.glossS.SaveFile(lectura);
+      this.loading = false;
+      this.toastService.success('', response.message);
+      this.RefreshData();
+    } catch (e) {
+      this.loading = false;
+      throw new Error(e);
+    }
   }
 }
