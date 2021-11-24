@@ -9,4 +9,5 @@ export class GlossResponse extends MainClass {
   response_date: string;
   accepted_value: string;
   value_not_accepted: string;
+  file: string;
 }

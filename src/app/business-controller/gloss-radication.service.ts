@@ -16,7 +16,7 @@ export class GlossRadicationService {
   GetCollection(params = {}): Promise<GlossRadication[]> {
     let servObj = new ServiceObject(params ? 'gloss_radication?pagination=false' : 'gloss_radication');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj,params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

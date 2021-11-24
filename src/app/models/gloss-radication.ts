@@ -6,4 +6,5 @@ export class GlossRadication extends MainClass {
   gloss_response_id: number;
   radication_date: string;
   observation: string;
+  file: string;
 }
