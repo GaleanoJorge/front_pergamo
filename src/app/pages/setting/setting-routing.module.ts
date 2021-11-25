@@ -84,6 +84,15 @@ import { FlatComponent } from './flat/flat.component';
 import { BedComponent } from './bed/bed.component';
 import { AffiliateTypeComponent } from './affiliate-type/affiliate-type.component';
 import { AdmissionRouteComponent } from './admission-route/admission-route.component';
+import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
+import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
+import { ReceivedByComponent } from './received_by/received-by.component';
+import { RepeatedInitialComponent } from './repeated-initial/repeated-initial.component';
+import { GlossModalityComponent } from './gloss-modality/gloss-modality.component';
+import { GlossAmbitComponent } from './gloss-ambit/gloss-ambit.component';
+import { GlossServiceComponent } from './gloss-service/gloss-service.component';
+import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion-code-response.component';
+import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
 
 const routes: Routes = [{
   path: '',
@@ -100,8 +109,53 @@ const routes: Routes = [{
       data: { permission: 'roles.read' },
     },
     {
+      path: 'objetion-type',
+      component: ObjetionTypeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'objetion-response',
+      component: ObjetionResponseComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'objetion-code-response',
+      component: ObjetionCodeResponseComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'gloss-modality',
+      component: GlossModalityComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'gloss-ambit',
+      component: GlossAmbitComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'gloss-service',
+      component: GlossServiceComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'received-by',
+      component: ReceivedByComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'repeated-initial',
+      component: RepeatedInitialComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
       path: 'contract-status',
       component: ContractStatusComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'objetion-code',
+      component: ObjetionCodeComponent,
       data: { permission: 'roles.read' },
     },
     {
@@ -439,7 +493,7 @@ const routes: Routes = [{
     },
     {
       path: 'fiscal-characteristic',
-      component:  FiscalCharacteristicComponent,
+      component: FiscalCharacteristicComponent,
       data: { permission: 'roles.read' },
     },
     {

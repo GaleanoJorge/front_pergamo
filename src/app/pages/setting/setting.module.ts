@@ -179,6 +179,24 @@ import { AffiliateTypeComponent } from './affiliate-type/affiliate-type.componen
 import { FormAffiliateTypeComponent } from './affiliate-type/form-affiliate-type/form-affiliate-type.component';
 import { AdmissionRouteComponent } from './admission-route/admission-route.component';
 import { FormAdmissionRouteComponent } from './admission-route/form-admission-route/form-admission-route.component';
+import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
+import { FormObjetionCodeComponent } from './objetion-code/form-objetion-code/form-objetion-code.component';
+import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
+import { FormObjetionTypeComponent } from './objetion-type/form-objetion-type/form-objetion-type.component';
+import { ReceivedByComponent } from './received_by/received-by.component';
+import { FormReceivedByComponent } from './received_by/form-received-by/form-received-by.component';
+import { RepeatedInitialComponent } from './repeated-initial/repeated-initial.component';
+import { FormRepeatedInitialComponent } from './repeated-initial/form-repeated-initial/form-repeated-initial.component';
+import { GlossModalityComponent } from './gloss-modality/gloss-modality.component';
+import { FormGlossModalityComponent } from './gloss-modality/form-gloss-modality/form-gloss-modality.component';
+import { GlossAmbitComponent } from './gloss-ambit/gloss-ambit.component';
+import { FormGlossAmbitComponent } from './gloss-ambit/form-gloss-ambit/form-gloss-ambit.component';
+import { GlossServiceComponent } from './gloss-service/gloss-service.component';
+import { FormGlossServiceComponent } from './gloss-service/form-gloss-service/form-gloss-service.component';
+import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion-code-response.component';
+import { FormObjetionCodeResponseComponent } from './objetion-code-response/form-objetion-code-response/form-objetion-code-response.component';
+import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
+import { FormObjetionResponseComponent } from './objetion-response/form-objetion-response/form-objetion-response.component';
 
 
 @NgModule({
@@ -374,9 +392,24 @@ import { FormAdmissionRouteComponent } from './admission-route/form-admission-ro
     FormUserComponent,
     EditUserComponent,
     ActionsExtraordinaryComponent,
-
-    
-
+    ObjetionCodeComponent,
+    FormObjetionCodeComponent,
+    ObjetionTypeComponent,
+    FormObjetionTypeComponent,
+    ReceivedByComponent,
+    FormReceivedByComponent,
+    RepeatedInitialComponent,
+    FormRepeatedInitialComponent,
+    GlossModalityComponent,
+    FormGlossModalityComponent,
+    GlossAmbitComponent,
+    FormGlossAmbitComponent,
+    GlossServiceComponent,
+    FormGlossServiceComponent,
+    ObjetionCodeResponseComponent,
+    FormObjetionCodeResponseComponent,
+    ObjetionResponseComponent,
+    FormObjetionResponseComponent,
   ],
   providers: [
     DateFormatPipe
