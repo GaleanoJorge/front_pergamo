@@ -163,6 +163,22 @@ import { FormTypeBriefcaseComponent } from './type-briefcase/form-type-briefcase
 import { FormTypeContractComponent } from './type-contract/form-type-contract/form-type-contract.component';
 import { ContractStatusComponent } from './contract-status/contract-status.component';
 import { FormContractStatusComponent } from './contract-status/form-contract-status/form-contract-status.component';
+import { SpecialAttentionComponent } from './special-attention/special-attention.component';
+import { FormScopeOfAttentionComponent } from './scope-of-attention/form-scope-of-attention/form-scope-of-attention.component';
+import { FormSpecialAttentionComponent } from './special-attention/form-special-attention/form-special-attention.component';
+import { ScopeOfAttentionComponent } from './scope-of-attention/scope-of-attention.component';
+import { ProgramComponent } from './program/program.component';
+import { FormProgramComponent } from './program/form-program/form-program.component';
+import { PavilionComponent } from './pavilion/pavilion.component';
+import { FormPavilionComponent } from './pavilion/form-pavilion/form-pavilion.component';
+import { FlatComponent } from './flat/flat.component';
+import { FormFlatComponent } from './flat/form-flat/form-flat.component';
+import { BedComponent } from './bed/bed.component';
+import { FormBedComponent } from './bed/form-bed/form-bed.component';
+import { AffiliateTypeComponent } from './affiliate-type/affiliate-type.component';
+import { FormAffiliateTypeComponent } from './affiliate-type/form-affiliate-type/form-affiliate-type.component';
+import { AdmissionRouteComponent } from './admission-route/admission-route.component';
+import { FormAdmissionRouteComponent } from './admission-route/form-admission-route/form-admission-route.component';
 
 
 @NgModule({
@@ -194,6 +210,22 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     NbIconModule
   ],
   declarations: [
+    SpecialAttentionComponent,
+    FormScopeOfAttentionComponent,
+    FormSpecialAttentionComponent,
+    ScopeOfAttentionComponent,
+    ProgramComponent,
+    FormProgramComponent,
+    PavilionComponent,
+    FormPavilionComponent,
+    FlatComponent,
+    FormFlatComponent,
+    BedComponent,
+    FormBedComponent,
+    AffiliateTypeComponent,
+    FormAffiliateTypeComponent,
+    AdmissionRouteComponent,
+    FormAdmissionRouteComponent,
     ContractStatusComponent,
     FormContractStatusComponent,
     CoverageComponent,

@@ -1,0 +1,52 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="small" style="max-width: 400px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
+          <input nbInput fullWidth id="code" formControlName="code" code
+            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+          <input nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
+          <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
+          status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.pavilion_id }}" *ngFor="let item of pavilion" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="status_bed" class="form-text text-muted font-weight-bold">Estado de la Cama:</label>
+          <nb-select [selected]="this.data.status_bed_id" formControlName="status_bed_id" id="status_bed_id" fullWidth
+          status="{{ isSubmitted && form.controls.status_bed_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.status_bed_id }}" *ngFor="let item of status_bed" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="bed_or_office" class="form-text text-muted font-weight-bold">Consultorio o Cama:</label>
+          <nb-select [selected]="this.data.bed_or_office" formControlName="bed_or_office" id="bed_or_office" fullWidth
+          status="{{ isSubmitted && form.controls.bed_or_office.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="0">
+            Consultorio</nb-option>
+          <nb-option  value="1">
+            Cama</nb-option>
+        </nb-select>
+        </div>
+    </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

@@ -1,0 +1,20 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <ngx-base-table 
+                    [title]="title"
+                    [subtitle]="subtitle"
+                    [settings]="settings"
+                    entity="admissions/ByPacient/{{user_id}}"
+                    customData="admissions"
+                    [queryParams]="GetParams()">
+      <div actions>
+        <div class="actions">
+          <button *ngIf="!this.date_end" nbButton status="danger" (click)="NewAdmissions()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
+

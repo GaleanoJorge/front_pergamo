@@ -76,6 +76,14 @@ import { InsuranceCarrierComponent } from './insurance-carrier/insurance-carrier
 import { ModalityComponent } from './modality/modality.component';
 import { TypeBriefcaseComponent } from './type-briefcase/type-briefcase.component';
 import { TypeContractComponent } from './type-contract/type-contract.component';
+import { SpecialAttentionComponent } from './special-attention/special-attention.component';
+import { ScopeOfAttentionComponent } from './scope-of-attention/scope-of-attention.component';
+import { ProgramComponent } from './program/program.component';
+import { PavilionComponent } from './pavilion/pavilion.component';
+import { FlatComponent } from './flat/flat.component';
+import { BedComponent } from './bed/bed.component';
+import { AffiliateTypeComponent } from './affiliate-type/affiliate-type.component';
+import { AdmissionRouteComponent } from './admission-route/admission-route.component';
 
 const routes: Routes = [{
   path: '',
@@ -104,6 +112,46 @@ const routes: Routes = [{
     {
       path: 'modality',
       component: ModalityComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'special-attention',
+      component: SpecialAttentionComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'scope-of-attention',
+      component: ScopeOfAttentionComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'program',
+      component: ProgramComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'pavilion',
+      component: PavilionComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'flat',
+      component: FlatComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'bed',
+      component: BedComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'affiliate-type',
+      component: AffiliateTypeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'admission-route',
+      component: AdmissionRouteComponent,
       data: { permission: 'roles.read' },
     },
     {

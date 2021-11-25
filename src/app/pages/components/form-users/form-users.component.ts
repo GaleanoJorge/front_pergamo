@@ -1,40 +1,40 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IdentificationTypeBusinessService } from '../../../business-controller/identification-type-business.service';
-import { IdentificationType } from '../../../models/identification-type';
-import { GenderBusinessService } from '../../../business-controller/gender-business.service';
-import { Gender } from '../../../models/gender';
-import { Ethnicity } from '../../../models/ethnicity';
-import { Municipality } from '../../../models/municipality';
-import { LocationBusinessService } from '../../../business-controller/location-business.service';
-import { Country } from '../../../models/country';
-import { Region } from '../../../models/region';
-import { StatusBusinessService } from '../../../business-controller/status-business.service';
-import { Status } from '../../../models/status';
-import { EntityBusinessService } from '../../../business-controller/entity-business.service';
-import { Entity } from '../../../models/entity';
-import { Position } from '../../../models/position';
-import { PositionService } from '../../../business-controller/position.service';
-import { UserBusinessService } from '../../../business-controller/user-business.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { AcademicLevelBusinessService } from '../../../business-controller/academic-level-business.service';
-import { AcademicLevel } from '../../../models/academic_level';
-import { Office } from '../../../models/office';
-import { OfficeService } from '../../../business-controller/office.service';
-import { SpecialtyService } from '../../../business-controller/specialty.service';
-import { Specialty } from '../../../models/specialty';
-import { DependenceService } from '../../../business-controller/dependence.service';
-import { Dependence } from '../../../models/dependence';
-import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
-import { SectionalCouncil } from '../../../models/sectional-council';
-import { District } from '../../../models/district';
-import { Circuit } from '../../../models/circuit';
-import { DistrictService } from '../../../business-controller/district.service';
-import { CircuitBusinessService } from '../../../business-controller/circuit-business.service';
-import { Category } from '../../../models/category';
-import { CategoriesDialogComponent } from './categories-dialog.component';
-import { environment } from '../../../../environments/environment.prod';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {IdentificationTypeBusinessService} from '../../../business-controller/identification-type-business.service';
+import {IdentificationType} from '../../../models/identification-type';
+import {GenderBusinessService} from '../../../business-controller/gender-business.service';
+import {Gender} from '../../../models/gender';
+import {Ethnicity} from '../../../models/ethnicity';
+import {Municipality} from '../../../models/municipality';
+import {LocationBusinessService} from '../../../business-controller/location-business.service';
+import {Country} from '../../../models/country';
+import {Region} from '../../../models/region';
+import {StatusBusinessService} from '../../../business-controller/status-business.service';
+import {Status} from '../../../models/status';
+import {EntityBusinessService} from '../../../business-controller/entity-business.service';
+import {Entity} from '../../../models/entity';
+import {Position} from '../../../models/position';
+import {PositionService} from '../../../business-controller/position.service';
+import {UserBusinessService} from '../../../business-controller/user-business.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
+import {AcademicLevelBusinessService} from '../../../business-controller/academic-level-business.service';
+import {AcademicLevel} from '../../../models/academic_level';
+import {Office} from '../../../models/office';
+import {OfficeService} from '../../../business-controller/office.service';
+import {SpecialtyService} from '../../../business-controller/specialty.service';
+import {Specialty} from '../../../models/specialty';
+import {DependenceService} from '../../../business-controller/dependence.service';
+import {Dependence} from '../../../models/dependence';
+import {SectionalCouncilService} from '../../../business-controller/sectional-council.service';
+import {SectionalCouncil} from '../../../models/sectional-council';
+import {District} from '../../../models/district';
+import {Circuit} from '../../../models/circuit';
+import {DistrictService} from '../../../business-controller/district.service';
+import {CircuitBusinessService} from '../../../business-controller/circuit-business.service';
+import {Category} from '../../../models/category';
+import {CategoriesDialogComponent} from './categories-dialog.component';
+import {environment} from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'ngx-form-users',
@@ -50,6 +50,8 @@ export class FormUsersComponent implements OnInit {
   @Input() isPublic = false;
   @Input() loadingData = false;
   @Input() redirectTo = null;
+  @Input() isTeacher = null;
+  @Input() isStudent = null;
 
   public messageError = null;
   public form: FormGroup;
@@ -62,15 +64,20 @@ export class FormUsersComponent implements OnInit {
   public regions: Region[] = [];
   public municipalities: Municipality[] = [];
   public status: Status[] = [];
-  public job_regions: Region[] = [];
-  public job_municipalities: Municipality[] = [];
+  public residence_countries: Country[] = [];
+  public residence_regions: Region[] = [];
+  public residence_municipalities: Municipality[] = [];
   public entities: Entity[] = [];
   public positions: Position[] = [];
   public academyLevels: AcademicLevel[] = [];
-  public offices: Office[] = [];
-  public specialties: Specialty[] = [];
-  public dependences: Dependence[] = [];
-  public sectionals: SectionalCouncil[] = [];
+  public study_level_status: any[] = [];
+  public activities: any[] = [];
+  public select_RH: any[] = [];
+  public population_group: any[] = [];
+  public marital_status: any[] = [];
+  public neighborhood_or_residence: any[] = [];
+
+    public sectionals: SectionalCouncil[] = [];
   public districts: District[] = [];
   public circuits: Circuit[] = [];
   public categories: Category[] = [];
@@ -80,6 +87,10 @@ export class FormUsersComponent implements OnInit {
   public categoriesSelect = [];
   public today = null;
   public previewCurriculum = null;
+  public currentRoleId = null;
+  public showPassword = false;
+  public showConfirmPassword = false;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -104,7 +115,8 @@ export class FormUsersComponent implements OnInit {
   ) {
   }
 
-  async ngOnInit() {
+  async ngOnInit() {  
+    this.currentRoleId = localStorage.getItem('role_id');
     if (this.GetData('curriculum.curriculum_pdf')) {
       this.previewCurriculum = environment.storage + this.data.curriculum.curriculum_pdf;
     }
@@ -128,17 +140,16 @@ export class FormUsersComponent implements OnInit {
       this.countries = x.countries;
       this.genders = x.genders;
       this.ethnicitys = x.ethnicitys;
-      x.positions.forEach(element => {
-        if (element.is_judicial == 0) {
-          this.positions.push(element);
-        }
-      });
       this.status = x.status;
       this.academyLevels = x.academicLevels;
-      this.offices = x.offices;
-      this.specialties = x.specialties;
-      this.dependences = x.dependences;
-      this.sectionals = x.sectionalCouncils;
+      this.study_level_status = x.study_level_status;
+      this.activities = x.activities;
+      this.select_RH = x.select_RH;
+      this.population_group = x.population_group;
+      this.marital_status = x.marital_status;
+
+ 
+
       return Promise.resolve(true);
     });
   }
@@ -151,6 +162,12 @@ export class FormUsersComponent implements OnInit {
         this.GetRegions(this.data.country_id),
         this.GetMunicipalities(this.data.region_id),
       ];
+
+      if (this.data.curriculum) {
+        promises.push(this.GetRegions(this.data.curriculum.country_id, true));
+        promises.push(this.GetMunicipalities(this.data.curriculum.region_id, true));
+
+      }
 
       await Promise.all(promises);
     }
@@ -215,11 +232,11 @@ export class FormUsersComponent implements OnInit {
       ],
       password: [
         '',
-        Validators.compose([Validators.required]),
+        Validators.compose([]),
       ],
       confirm_password: [
         '',
-        Validators.compose([Validators.required]),
+        Validators.compose([]),
       ],
       country_id: [
         this.GetData('country_id'),
@@ -237,55 +254,63 @@ export class FormUsersComponent implements OnInit {
         this.GetData('status_id') === '' ? 1 : this.GetData('status_id'),
         Validators.compose([Validators.required]),
       ],
+
       academic_level_id: [
         this.GetData('academic_level_id'),
         Validators.compose([Validators.required]),
       ],
-      host: [
-        window.location.origin,
+
+      residence_country_id: [
+        this.GetData('residence_country_id'),
+        Validators.compose([Validators.required]),
+      ],
+
+      residence_region_id: [
+        this.GetData('residence_region_id'),
+        Validators.compose([Validators.required]),
+      ],
+
+      residence_municipality_id: [
+        this.GetData('recidence_municipality_id'),
+        Validators.compose([Validators.required]),
+      ],
+
+      study_level_status_id: [
+        this.GetData('study_level_status_id'),
+        Validators.compose([Validators.required]),
+      ],
+
+      activities_id: [
+        this.GetData('activities_id'),
+        Validators.compose([Validators.required]),
+      ],
+
+      select_RH_id: [
+        this.GetData('recidence_municipality_id'),
+        Validators.compose([Validators.required]),
+      ],
+
+      population_group_id: [
+        this.GetData('population_group_id'),
+        Validators.compose([Validators.required]),
+      ],
+
+      marital_status_id: [
+        this.GetData('marital_status_id'),
+        Validators.compose([Validators.required]),
+      ],
+
+      residence_address: [
+        this.GetData('residence_address'),
+        Validators.compose([Validators.required]),
+      ],
+
+      neighborhood_or_residence_id: [
+        this.GetData('neighborhood_or_residence_id'),
         Validators.compose([Validators.required]),
       ],
     };
 
-    // if (this.role === 4) {
-    //   configForm = {
-    //     ...configForm,
-    //     office_id: [
-    //       this.GetData('curriculum.office_id'),
-    //       Validators.compose([Validators.required]),
-    //     ],
-    //     specialty_id: [
-    //       this.GetData('curriculum.specialty_id'),
-    //       Validators.compose([Validators.required]),
-    //     ],
-    //     dependence_id: [
-    //       this.GetData('curriculum.dependence_id'),
-    //       Validators.compose([Validators.required]),
-    //     ],
-    //     sectional_council_id: [
-    //       this.GetData('curriculum.sectional_council_id'),
-    //       Validators.compose([Validators.required]),
-    //     ],
-    //     district_id: [
-    //       this.GetData('curriculum.district_id'),
-    //       Validators.compose([Validators.required]),
-    //     ],
-    //     circuit_id: [
-    //       this.GetData('curriculum.circuit_id'),
-    //       Validators.compose([Validators.required]),
-    //     ],
-    //     is_judicial_branch: [
-    //       ((this.GetData('is_judicial_branch') === '' || this.GetData('is_judicial_branch') === null || !this.GetData('is_judicial_branch')) ? false : true),
-    //       Validators.compose([Validators.required]),
-    //     ],
-    //   };
-    // } else {
-
-    configForm = {
-      ...configForm,
-     
-    };
-    // }
 
     if (this.data && this.data.id) {
       configForm.password = [
@@ -295,7 +320,12 @@ export class FormUsersComponent implements OnInit {
       configForm.confirm_password = [
         '',
       ];
+
+      
     }
+    
+
+
     this.form = this.formBuilder.group(configForm);
 
     this.onChanges();
@@ -315,19 +345,21 @@ export class FormUsersComponent implements OnInit {
 
   private getDescendantProp(obj, desc) {
     const arr = desc.split('.');
-    while (arr.length && (obj = obj[arr.shift()]));
+    while (arr.length && (obj = obj[arr.shift()])) ;
     return obj;
   }
 
   public async LoadStudent(data) {
     this.data = data;
+
+    if (!this.data.curriculum) this.data.curriculum = {};
     /*Obteniendo los departamentos y municipios de nacimiento*/
     this.LoadForm().then();
   }
 
   async SaveStudent() {
     this.isSubmitted = true;
-
+ 
     if (!this.form.invalid) {
       this.loading = true;
 
@@ -336,11 +368,13 @@ export class FormUsersComponent implements OnInit {
 
       formData.append('status_id', data.status_id.value);
       formData.append('gender_id', data.gender_id.value);
-      formData.append('is_disability', data.is_disability.value === true ? "1" : null);
-      formData.append('disability', data.is_disability.value === false ? '':data.disability.value);
-      formData.append('gender_type', data.gender_id.value === 3 ? data.gender_type.value:'');
+      formData.append('is_disability', data.is_disability.value === true ? '1' : null);
+      formData.append('disability', data.is_disability.value === false ? '' : data.disability.value);
+      formData.append('gender_type', data.gender_id.value === 3 ? data.gender_type.value : '');
       formData.append('academic_level_id', data.academic_level_id.value);
       formData.append('identification_type_id', data.identification_type_id.value);
+      formData.append('birthplace_country_id', data.country_id.value);
+      formData.append('birthplace_region_id', data.region_id.value);
       formData.append('birthplace_municipality_id', data.birthplace_municipality_id.value);
       formData.append('email', data.email.value);
       formData.append('firstname', data.firstname.value);
@@ -354,35 +388,69 @@ export class FormUsersComponent implements OnInit {
       formData.append('id', this.data ? this.data.id : null);
       formData.append('role_id', this.role);
       formData.append('username', data.identification.value);
-      formData.append('password', data.password.value);
+      if(this.isStudent==true){
+      formData.append('password', 'Hyl'+data.identification.value+'*');
+      }else{
+        formData.append('password', data.identification.value);
+      }
+      formData.append('landline', data.landline.value);
+
+      formData.append('residence_country_id', data.residence_country_id.value);
+      formData.append('residence_region_id', data.residence_region_id.value);
+      formData.append('residence_municipality_id', data.residence_municipality_id.value);
+      formData.append('study_level_status_id', data.study_level_status_id.value);
+      formData.append('activities_id', data.activities_id.value);
+      formData.append('select_RH_id', this.form.value.select_RH_id);
+      formData.append('population_group_id', data.population_group_id.value);
+      formData.append('marital_status_id', data.marital_status_id.value);
+      formData.append('residence_address', data.residence_address.value);
+      formData.append('neighborhood_or_residence_id', data.neighborhood_or_residence_id.value);
 
 
       if (this.course_id) {
         formData.append('course_id', this.course_id);
       }
 
+      if (data.is_judicial_branch) {
+        formData.append('sectional_council_id', data.sectional_council_id.value);
+        formData.append('district_id', data.district_id.value);
+        formData.append('circuit_id', data.circuit_id.value);
+        formData.append('specialty_id', data.specialty_id.value);
+        formData.append('office_id', data.office_id.value);
+        formData.append('dependence_id', data.dependence_id.value);
+        formData.append('position_id', data.position_id.value);
+        formData.append('curriculum_pdf', this.form.value.curriculum_pdf);
+      }
 
+         
       try {
         let x;
-
+     
         if (!this.data?.id) {
           x = await this.userBS.SavePublic(formData);
-        } else {
+        } else {      
           x = await this.userBS.UpdatePublic(formData, this.data.id);
         }
 
         this.toastService.success('', x.message);
         this.messageError = null;
+        if (!this.isTeacher) {
         if (this.isPublic) {
           if (this.redirectTo)
             await this.router.navigateByUrl(this.redirectTo);
           else if (this.routeBack)
             await this.router.navigateByUrl(this.routeBack);
           else
-            await this.router.navigateByUrl('/auth');
+            this.redirectTo = '/public/register/' + this.route.snapshot.params.role + '/success';
+            // await this.router.navigateByUrl('/auth');
         } else {
           if (this.routeBack)
             await this.router.navigateByUrl(this.routeBack);
+        }
+        } else {
+          await this.router.navigateByUrl(this.routeBack);
+          //await this.router.navigateByUrl('/public/register/' + this.route.snapshot.params.role + '/success');
+         // console.log('/public/register/' + this.route.snapshot.params.role + '/success');
         }
 
       } catch (x) {
@@ -412,7 +480,6 @@ export class FormUsersComponent implements OnInit {
         this.form.get('identification').enable();
       }
     });
-
     this.form.get('country_id').valueChanges.subscribe(val => {
       if (val === '') {
         this.regions = [];
@@ -436,13 +503,46 @@ export class FormUsersComponent implements OnInit {
       });
     });
 
+    this.form.get('residence_country_id').valueChanges.subscribe(val => {
+      if (val === '') {
+        this.residence_regions = [];
+      } else {
+        this.GetRegions(val, true).then();
+      }
+      this.form.patchValue({
+        residence_region_id: '',
+        resicence_municipality_id: '',
+      });
+    });
+
+    this.form.get('residence_region_id').valueChanges.subscribe(val => {
+      if (val === '') {
+        this.residence_municipalities = [];
+      } else {
+        this.GetMunicipalities(val, true).then();
+      }
+      this.form.patchValue({
+        resicence_municipality_id: '',
+      });
+    });
+
+    this.form.get('residence_municipality_id').valueChanges.subscribe(val => {
+      if (val === '') {
+        this.neighborhood_or_residence = [];
+      } else {
+        this.GetNeighborhoodResidence(val).then();
+      }
+    });
+
+
+  
 
 
     this.form.get('is_disability').valueChanges.subscribe(val => {
       if (val) {
         this.form.get('disability').setValidators(Validators.required);
         this.form.get('disability').updateValueAndValidity();
-      }else{
+      } else {
         this.form.get('disability').clearValidators();
         this.form.get('disability').updateValueAndValidity();
       }
@@ -455,7 +555,7 @@ export class FormUsersComponent implements OnInit {
 
     return this.locationBS.GetPublicRegionByCountry(country_id).then(x => {
       if (job)
-        this.job_regions = x;
+        this.residence_regions = x;
       else
         this.regions = x;
 
@@ -467,7 +567,7 @@ export class FormUsersComponent implements OnInit {
     if (!region_id || region_id === '') return Promise.resolve(false);
     return this.locationBS.GetPublicMunicipalitiesByRegion(region_id).then(x => {
       if (job)
-        this.job_municipalities = x;
+        this.residence_municipalities = x;
       else
         this.municipalities = x;
 
@@ -475,29 +575,17 @@ export class FormUsersComponent implements OnInit {
     });
   }
 
-  GetDistrictBySectional(sectional_council_id) {
-    if (!sectional_council_id || sectional_council_id === '') return Promise.resolve(false);
-    return this.districtBS.GetPublicCollection({
-      status_id: 1,
-      sectional_council_id,
-      pagination: false,
-    }).then(x => {
-      this.districts = x;
+  GetNeighborhoodResidence(municipality_id) {
+    if (!municipality_id || municipality_id === '') return Promise.resolve(false);
+    return this.locationBS.GetNeighborhoodResidenceByMunicipality(municipality_id).then(x => {
+        this.neighborhood_or_residence = x;
+
+
       return Promise.resolve(true);
     });
   }
 
-  GetCircuitByDistrict(district_id) {
-    if (!district_id || district_id === '') return Promise.resolve(false);
-    return this.circuitBS.GetPublicCollection({
-      status_id: 1,
-      district_id,
-      pagination: false,
-    }).then(x => {
-      this.circuits = x;
-      return Promise.resolve(true);
-    });
-  }
+
 
   ShowDialogCategories() {
     this.dialog.open(CategoriesDialogComponent, {
@@ -522,25 +610,26 @@ export class FormUsersComponent implements OnInit {
     }
   }
 
-  async changeImage(files, option) {
-    if (!files.length) return false;
 
-    const file = await this.toBase64(files[0]);
-
-    switch (option) {
-      case 1:
-        this.form.patchValue({
-          curriculum_pdf: files[0],
-        });
-        // this.previewCurriculum = file;
-        break;
+  getInputTypePassword() {
+    if(this.showPassword){
+      return 'text';
     }
+    return 'password';
   }
 
-  toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  })
+  getInputTypeConfirmPassword() {
+    if(this.showConfirmPassword){
+      return 'text';
+    }
+    return 'password';
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleShowConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
 }

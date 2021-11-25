@@ -1,0 +1,16 @@
+<nb-card class="vh-100 text-center" [nbSpinner]="loading" *ngIf="loading">
+  <nb-card-body class="d-flex justify-content-center align-items-center">Cargando información</nb-card-body>
+</nb-card>
+
+<ngx-form-users
+  [routes]="routes"
+  [role]="role"
+  [title]="title"
+  routeBack="/pages/admissions/list"
+  #form
+  *ngIf="!loading"
+  [data]="data"
+  [isStudent]="true"
+>
+
+</ngx-form-users>
