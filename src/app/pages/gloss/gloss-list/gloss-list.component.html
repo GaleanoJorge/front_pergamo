@@ -5,10 +5,15 @@
       customData="gloss" [messageToltip]="messageToltip">
       <div actions>
         <div class="actions">
+          <div *ngIf="glossStatus" class="actions">
+            <nb-select (selectedChange)="ChangeGlossStatus($event)" placeholder="Filtrar por estado" [(selected)]="glossStatus">
+              <nb-option value="0">Todos los estados</nb-option>
+              <nb-option *ngFor="let item of glossStatus" [value]="item.id">{{item.name}}</nb-option>
+            </nb-select>
+          </div>
           <form [formGroup]="form">
             <div class="file-select" id="src-file1" [nbSpinner]="loading">
-              <input class="file" accept=".xlsm" type="file" id="file" file fullWidth
-                (change)="saveFile($event)" />
+              <input class="file" accept=".xlsm" type="file" id="file" file fullWidth (change)="saveFile($event)" />
             </div>
           </form>
           <button nbButton status="danger" (click)="NewGloss()">Crear</button>

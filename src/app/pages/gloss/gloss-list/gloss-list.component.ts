@@ -11,6 +11,7 @@ import { GlossService } from '../../../business-controller/gloss.service';
 import * as XLSX from 'ts-xlsx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlossResponseService } from '../../../business-controller/gloss-response.service';
+import { GlossStatusService } from '../../../business-controller/gloss-status.service';
 
 @Component({
   selector: 'ngx-gloss-list',
@@ -32,6 +33,7 @@ export class GlossListComponent implements OnInit {
   public data = [];
   public arrayBuffer: any;
   public file: File;
+  public glossStatus: any[] = null;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -178,13 +180,18 @@ export class GlossListComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
     private GlossResponseS: GlossResponseService,
+    private GlossStatusS: GlossStatusService,
   ) {
   }
   public form: FormGroup;
+  public status;
 
 
 
   ngOnInit(): void {
+    this.GlossStatusS.GetCollection().then((x) => {
+      this.glossStatus = x;
+    });
     this.form = this.formBuilder.group({
       file: [Validators.compose([Validators.required])],
     });
@@ -268,4 +275,11 @@ export class GlossListComponent implements OnInit {
       throw new Error(e);
     }
   }
+
+  ChangeGlossStatus(status) {
+    console.log(status);
+    this.status=status;
+    this.table.changeEntity(`gloss`,'gloss');
+    // this.RefreshData();
+   }
 }
