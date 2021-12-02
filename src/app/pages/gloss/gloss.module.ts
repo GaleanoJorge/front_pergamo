@@ -20,7 +20,6 @@ import {
   NbRadioModule,
   NbDatepickerModule, NbSpinnerModule,
 } from '@nebular/theme';
-import {ServicesBriefcaseComponent} from './services-briefcase/services-briefcase.component';
 import {ThemeModule} from '../../@theme/theme.module';
 import {GlossRoutingModule} from './gloss-routing.module';
 import {GlossComponent} from './gloss.component';
@@ -28,13 +27,9 @@ import {PagesModule} from '../pages.module';
 import {DateFormatPipe} from '../../pipe/date-format.pipe';
 import {GlossListComponent} from './gloss-list/gloss-list.component';
 import {FormGlossComponent} from './gloss-list/form-gloss/form-gloss.component';
-import {BriefcaseComponent} from './briefcase/briefcase.component';
-import {FormBriefcaseComponent} from './briefcase/form-briefcase/form-briefcase.component';
 import {Actions2Component} from './gloss-list/actions.component';
-import {Actions3Component} from './briefcase/actions3.component';
-import {Actions4Component} from './detail-services/actions.component';
-import {ActionsComponent} from './briefcase/actions.component';
-import {DetailServicesComponent} from './detail-services/detail-services.component';
+
+
 
 
 @NgModule({
@@ -65,17 +60,10 @@ import {DetailServicesComponent} from './detail-services/detail-services.compone
     NbSpinnerModule,
   ],
   declarations: [
-    BriefcaseComponent,
-    ActionsComponent,
-    DetailServicesComponent,
-    FormBriefcaseComponent,
-    ServicesBriefcaseComponent,
     GlossComponent,
     GlossListComponent,
     FormGlossComponent,
     Actions2Component,
-    Actions3Component,
-    Actions4Component
   ],
   providers: [
     DateFormatPipe,

@@ -117,9 +117,6 @@ export class FormUsersComponent implements OnInit {
 
   async ngOnInit() {  
     this.currentRoleId = localStorage.getItem('role_id');
-    if (this.GetData('curriculum.curriculum_pdf')) {
-      this.previewCurriculum = environment.storage + this.data.curriculum.curriculum_pdf;
-    }
     this.LoadForm(false).then();
     await Promise.all([
       this.GetAuxData(),
@@ -155,19 +152,15 @@ export class FormUsersComponent implements OnInit {
   }
 
   async LoadForm(force = true) {
-
     if (this.loadAuxData && force) return false;
     if (this.data) {
       const promises = [
         this.GetRegions(this.data.country_id),
         this.GetMunicipalities(this.data.region_id),
+        this.GetRegions(this.data.country_id, true),
+        this.GetMunicipalities(this.data.residence_region_id, true),
+        this.GetNeighborhoodResidence(this.data.residence_municipality_id)
       ];
-
-      if (this.data.curriculum) {
-        promises.push(this.GetRegions(this.data.curriculum.country_id, true));
-        promises.push(this.GetMunicipalities(this.data.curriculum.region_id, true));
-
-      }
 
       await Promise.all(promises);
     }
@@ -271,7 +264,7 @@ export class FormUsersComponent implements OnInit {
       ],
 
       residence_municipality_id: [
-        this.GetData('recidence_municipality_id'),
+        this.GetData('residence_municipality_id'),
         Validators.compose([Validators.required]),
       ],
 
@@ -320,13 +313,16 @@ export class FormUsersComponent implements OnInit {
       configForm.confirm_password = [
         '',
       ];
-
       
     }
     
 
 
     this.form = this.formBuilder.group(configForm);
+
+    if (this.data) {
+      this.form.controls['identification'].disable();
+    }
 
     this.onChanges();
 
@@ -351,7 +347,6 @@ export class FormUsersComponent implements OnInit {
 
   public async LoadStudent(data) {
     this.data = data;
-
     if (!this.data.curriculum) this.data.curriculum = {};
     /*Obteniendo los departamentos y municipios de nacimiento*/
     this.LoadForm().then();
@@ -460,6 +455,10 @@ export class FormUsersComponent implements OnInit {
       }
 
     }
+  }
+
+  mayus(e) {
+    e.value = e.value.toUpperCase();
   }
 
   onChanges() {

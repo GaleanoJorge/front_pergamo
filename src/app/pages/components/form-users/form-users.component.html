@@ -48,7 +48,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="firstname" class="form-text text-muted font-weight-bold">Primer nombre:</label>
-            <input nbInput fullWidth id="firstname" formControlName="firstname" firstname
+            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="firstname" formControlName="firstname" firstname
                    status="{{ isSubmitted && form.controls.firstname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
           </div>
@@ -57,7 +57,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="middlefirstname" class="form-text text-muted font-weight-bold">Segundo nombre:</label>
-            <input nbInput fullWidth id="middlefirstname" formControlName="middlefirstname" middlefirstname
+            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="middlefirstname" formControlName="middlefirstname" middlefirstname
                    status="{{ isSubmitted && form.controls.middlefirstname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
           </div>
@@ -68,7 +68,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="lastname" class="form-text text-muted font-weight-bold">Primer apellido:</label>
-            <input nbInput fullWidth id="lastname" formControlName="lastname" lastname
+            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="lastname" formControlName="lastname" lastname
                    status="{{ isSubmitted && form.controls.lastname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
           </div>
@@ -77,7 +77,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="middlelastname" class="form-text text-muted font-weight-bold">Segundo apellido:</label>
-            <input nbInput fullWidth id="middlelastname" formControlName="middlelastname" middlelastname
+            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="middlelastname" formControlName="middlelastname" middlelastname
                    status="{{ isSubmitted && form.controls.middlelastname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
           </div>
@@ -200,7 +200,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="activities_id" class="form-text text-muted font-weight-bold">Profeción:</label>
+          <label for="activities_id" class="form-text text-muted font-weight-bold">Profesión:</label>
           <nb-select id="activities_id" fullWidth formControlName="activities_id" activities_id
                      status="{{ isSubmitted && form.controls.activities_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
@@ -310,9 +310,9 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="residence_country_id" class="form-text text-muted font-weight-bold">País:</label>
-          <nb-select id="residence_country_id" fullWidth formControlName="residence_country_id" residence_country_id
-                     status="{{ isSubmitted && form.controls.residence_country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="country_id" class="form-text text-muted font-weight-bold">País:</label>
+          <nb-select id="country_id" fullWidth formControlName="country_id" residence_country_id
+                     status="{{ isSubmitted && form.controls.country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option *ngFor="let item of countries" [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>

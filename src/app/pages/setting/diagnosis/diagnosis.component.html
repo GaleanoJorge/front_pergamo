@@ -5,14 +5,13 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    [entity]="entity"
-                    customData='briefcase'
+                    entity="diagnosis/?pagination=true"
+                    customData='diagnosis'
                     [messageToltip]="messageToltip"
                     >
       <div actions>
         <div class="actions">
-          <a nbButton routerLink="/pages/contract/list">Volver</a>
-          <button nbButton status="danger" (click)="NewBriefcase()">Crear</button>
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewDiagnosis()">Crear</button>
         </div>
       </div>
     </ngx-base-table>

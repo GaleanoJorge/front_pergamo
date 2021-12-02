@@ -4,6 +4,15 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
+          <label for="diagnosis" class="form-text text-muted font-weight-bold">Diagnóstico:</label>
+          <nb-select [selected]="this.data.diagnosis_id" formControlName="diagnosis_id" id="diagnosis_id" fullWidth
+          status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == this.data.diagnosis_id }}" *ngFor="let item of diagnosis" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
           <label for="admission_route" class="form-text text-muted font-weight-bold">Ruta de admisión:</label>
           <nb-select [selected]="this.data.admission_route_id" formControlName="admission_route_id" id="admission_route_id" fullWidth
           status="{{ isSubmitted && form.controls.admission_route_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -49,7 +58,7 @@
         </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="bed" class="form-text text-muted font-weight-bold">Cama:</label>
+          <label for="bed" class="form-text text-muted font-weight-bold">Cama / Consultorio:</label>
           <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
           status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-option value="">Seleccione...</nb-option>

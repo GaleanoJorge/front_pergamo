@@ -1,7 +1,8 @@
 import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { UserBusinessService } from '../../../business-controller/user-business.service';
 import {Component, OnInit,Input,TemplateRef,ViewChild} from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from '../../setting/sectional-council/actions.component';
+import { Actions2Component } from './actions.component';
 import { FormAdmissionsPatientComponent } from './form-admissions-patient/form-admissions-patient.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -16,15 +17,24 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 export class AdmissionsPatientComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public messageError = null;
-  public title = 'Admisiones';
+  public title;
   public subtitle = 'por usuario';
-  public headerFields: any[] =  ['Código', 'Ruta','Ambito','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Fecha Ingreso','Fecha Egreso','Salida Medica'];
+  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ruta','Ambito','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Fecha Ingreso','Fecha Egreso','Salida Medica'];
   public routes = [];
   public course;
   public data= [];
   public user_id;
-  public date_end;
+  public date_end:boolean=true;
   public cont=0;
+  public ambit;
+  public program;
+  public flat;
+  public bed;
+  public bed_id;
+  public pavilion;
+
+
+
 
   public settings = {
     columns: {
@@ -37,33 +47,40 @@ export class AdmissionsPatientComponent implements OnInit {
             'data': row,
             'edit': this.EditAdmissions.bind(this),
             'delete': this.DeleteConfirmAdmissions.bind(this),
+            'refresh': this.RefreshData.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: Actions2Component,
       },
-      id: {
+      consecutive: {
         title: this.headerFields[0],
         width: '5%',
       },
-      admission_route: {
+      location: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          this.ambit=value[value.length - 1].scope_of_attention.name;
+          this.program=value[value.length - 1].program.name;
+          this.flat=value[value.length - 1].flat.name;
+          this.pavilion=value[value.length - 1].pavilion.name;
+          this.bed=value[value.length - 1].bed.name;
+          this.bed_id=value[value.length - 1].bed.id;
+          return value[value.length - 1].admission_route.name;
         },
       },
       scope_of_attention: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return this.ambit;
         },
       },
       program: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return this.program;
         },
       },
       campus: {
@@ -77,21 +94,21 @@ export class AdmissionsPatientComponent implements OnInit {
         title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return this.flat;
         },
       },
       pavilion: {
         title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return this.pavilion;
         },
       },
       bed: {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return this.bed;
         },
       },
       contract: {
@@ -110,10 +127,10 @@ export class AdmissionsPatientComponent implements OnInit {
         type: 'date',
         valuePrepareFunction: (value, row) => {
           if(value=='0000-00-00 00:00:00' && this.cont!=1){
-            this.date_end=true;
+            this.date_end=false;
             this.cont=+1;
           }else if(this.cont==0){
-            this.date_end=false;
+            this.date_end=true;
           }
           return value;
         },
@@ -121,8 +138,7 @@ export class AdmissionsPatientComponent implements OnInit {
       medical_date: {
         title: this.headerFields[11],
         type: 'date',
-      },
-      
+      },     
     },
   };
 
@@ -131,6 +147,7 @@ export class AdmissionsPatientComponent implements OnInit {
     private admissionsS: AdmissionsService,
     private router: Router,
     private dialogFormService: NbDialogService,
+    private UserBS: UserBusinessService,
     private deleteConfirmService: NbDialogService,
   ) {
     this.routes = [
@@ -154,6 +171,12 @@ export class AdmissionsPatientComponent implements OnInit {
 
   ngOnInit(): void {
     this.user_id= this.route.snapshot.params.user_id;
+
+
+    this.UserBS.GetUserById(this.user_id).then(x => {
+      var user = x;
+      this.title= 'Admisiones de paciente: '+ user.firstname  + ' ' + user.lastname ;
+    });
   }
 
   RefreshData() {

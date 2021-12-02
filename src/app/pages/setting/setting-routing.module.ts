@@ -93,6 +93,7 @@ import { GlossAmbitComponent } from './gloss-ambit/gloss-ambit.component';
 import { GlossServiceComponent } from './gloss-service/gloss-service.component';
 import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion-code-response.component';
 import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
+import { DiagnosisComponent } from './diagnosis/diagnosis.component';
 
 const routes: Routes = [{
   path: '',
@@ -196,6 +197,11 @@ const routes: Routes = [{
     {
       path: 'bed',
       component: BedComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'diagnosis',
+      component: DiagnosisComponent,
       data: { permission: 'roles.read' },
     },
     {

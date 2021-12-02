@@ -7,6 +7,7 @@ import {PermissionsGuard} from '../../guards/permissions.guard';
 import { FormPatientComponent } from './form-patient/form-patient.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { AdmissionsPatientComponent } from './admissions-patient/admissions-patient.component';
+import { BedManagementComponent } from './bed-management/bed-management.component';
 
 
 const routes: Routes = [{
@@ -34,6 +35,10 @@ const routes: Routes = [{
     {
       path: 'admissions-patient/:user_id',
       component: AdmissionsPatientComponent,
+    },
+    {
+      path: 'bed-management',
+      component: BedManagementComponent,
     },
   ],
 }];

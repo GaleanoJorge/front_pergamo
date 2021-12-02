@@ -197,6 +197,8 @@ import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion
 import { FormObjetionCodeResponseComponent } from './objetion-code-response/form-objetion-code-response/form-objetion-code-response.component';
 import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
 import { FormObjetionResponseComponent } from './objetion-response/form-objetion-response/form-objetion-response.component';
+import { FormDiagnosisComponent } from './diagnosis/form-diagnosis/form-diagnosis.component';
+import { DiagnosisComponent } from './diagnosis/diagnosis.component';
 
 
 @NgModule({
@@ -410,6 +412,8 @@ import { FormObjetionResponseComponent } from './objetion-response/form-objetion
     FormObjetionCodeResponseComponent,
     ObjetionResponseComponent,
     FormObjetionResponseComponent,
+    FormDiagnosisComponent,
+    DiagnosisComponent
   ],
   providers: [
     DateFormatPipe

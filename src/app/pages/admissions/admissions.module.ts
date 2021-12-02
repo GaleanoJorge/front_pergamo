@@ -20,10 +20,13 @@ import {AdmissionsListComponent} from './admissions-list/admissions-list.compone
 import {PagesModule} from '../pages.module';
 import {FormPatientComponent} from './form-patient/form-patient.component';
 import {ActionsComponent} from './admissions-list/actions.component';
+import {Actions2Component} from './admissions-patient/actions.component';
 import {EditPatientComponent} from './edit-patient/edit-patient.component';
 import {DateFormatPipe} from '../../pipe/date-format.pipe';
 import { AdmissionsPatientComponent } from './admissions-patient/admissions-patient.component';
 import { FormAdmissionsPatientComponent } from './admissions-patient/form-admissions-patient/form-admissions-patient.component';
+import { BedManagementComponent } from './bed-management/bed-management.component';
+import { Actions3Component } from './bed-management/actions.component';
 
 @NgModule({
     imports: [
@@ -51,10 +54,13 @@ import { FormAdmissionsPatientComponent } from './admissions-patient/form-admiss
     ],
   declarations: [
     AdmissionsPatientComponent,
+    BedManagementComponent,
     FormAdmissionsPatientComponent,
     AdmissionsComponent,
     AdmissionsListComponent,
     FormPatientComponent,
+    Actions2Component,
+    Actions3Component,
     ActionsComponent,
     EditPatientComponent,
   ],

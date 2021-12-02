@@ -10,6 +10,7 @@ import {PavilionService} from '../../../../business-controller/pavilion.service'
 import {FlatService} from '../../../../business-controller/flat.service';
 import {BedService} from '../../../../business-controller/bed.service';
 import {ContractService} from '../../../../business-controller/contract.service';
+import {DiagnosisService} from '../../../../business-controller/diagnosis.service';
 
 
 
@@ -38,6 +39,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public flat:any[];
   public bed:any[];
   public contract:any[];
+  public diagnosis:any[];
   public campus_id;
   public ambit;
 
@@ -53,6 +55,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     private PavilionS: PavilionService,
     private FlatS: FlatService,
     private BedS: BedService,
+    private DiagnosisS: DiagnosisService,
     private ContractS: ContractService,
     private toastService: NbToastrService,
   ) {
@@ -81,9 +84,15 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.ContractS.GetCollection().then(x => {
       this.contract = x;
     });
+    this.DiagnosisS.GetCollection().then(x => {
+      this.diagnosis = x;
+    });
+
+
     
     
     this.form = this.formBuilder.group({      
+      diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
       admission_route_id: [this.data.admission_route_id, Validators.compose([Validators.required])],
       scope_of_attention_id: [this.data.scope_of_attention_id, Validators.compose([Validators.required])],
       program_id: [this.data.program_id, Validators.compose([Validators.required])],
@@ -110,6 +119,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
       if (this.data.id) {
         this.AdmissionsS.Update({
+          diagnosis_id: this.form.controls.diagnosis_id.value,
           id: this.data.id,
           admission_route_id: this.form.controls.admission_route_id.value,
           scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
@@ -132,6 +142,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         });
       } else {
         this.AdmissionsS.Save({
+          diagnosis_id: this.form.controls.diagnosis_id.value,
           admission_route_id: this.form.controls.admission_route_id.value,
           scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
           program_id: this.form.controls.program_id.value,

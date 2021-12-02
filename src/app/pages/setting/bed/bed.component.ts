@@ -18,10 +18,12 @@ export class BedComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Camas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID','Código','Nombre'];
+  public headerFields: any[] = ['ID','Código','Nombre','Pabellón','Piso','Sede','Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public flat;
+  public sede;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -54,6 +56,36 @@ export class BedComponent implements OnInit {
       name: {
         title: this.headerFields[2],
         type: 'string',
+      },
+      pavilion: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          this.flat=value.flat.name;
+          this.sede=value.flat.campus.name;
+          return value.name;
+        },
+      },
+      flat: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.flat;
+        },
+      },
+      campus: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.sede;
+        },
+      },
+      status_bed: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
       },
     },
   };

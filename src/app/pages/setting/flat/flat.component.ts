@@ -18,7 +18,7 @@ export class FlatComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Pisos';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID','Código','Nombre'];
+  public headerFields: any[] = ['ID','Código','Nombre','Sede'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -54,6 +54,13 @@ export class FlatComponent implements OnInit {
       name: {
         title: this.headerFields[2],
         type: 'string',
+      },
+      campus: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
       },
     },
   };

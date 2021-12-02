@@ -1,27 +1,28 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PavilionService } from '../../../business-controller/pavilion.service';
+import { DiagnosisService } from '../../../business-controller/diagnosis.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormPavilionComponent } from './form-pavilion/form-pavilion.component';
+import { FormDiagnosisComponent } from './form-diagnosis/form-diagnosis.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 
 
 @Component({
-  selector: 'ngx-pavilion',
-  templateUrl: './pavilion.component.html',
-  styleUrls: ['./pavilion.component.scss']
+  selector: 'ngx-diagnosis',
+  templateUrl: './diagnosis.component.html',
+  styleUrls: ['./diagnosis.component.scss']
 })
-export class PavilionComponent implements OnInit {
+export class DiagnosisComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Pabellón';
+  public title: string = 'Diagnósticos';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID','Código','Nombre','Pabellón','Sede'];
+  public headerFields: any[] = ['ID','Código','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public flat;
   public sede;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -38,8 +39,8 @@ export class PavilionComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditPavilion.bind(this),
-            'delete': this.DeleteConfirmPavilion.bind(this),
+            'edit': this.EditDiagnosis.bind(this),
+            'delete': this.DeleteConfirmDiagnosis.bind(this),
           };
         },
         renderComponent: ActionsComponent,
@@ -56,33 +57,18 @@ export class PavilionComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
-      flat: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          this.sede=value.campus.name;
-          return value.name;
-        },
-      },
-      campus: {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.sede;
-        },
-      },
     },
   };
 
   public routes = [
     {
-      name: 'Pabellón',
-      route: '../../setting/pavilion',
+      name: 'Diagnósticos',
+      route: '../../setting/bed',
     },
   ];
 
   constructor(
-    private PavilionS: PavilionService,
+    private DiagnosisS: DiagnosisService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -97,19 +83,19 @@ export class PavilionComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewPavilion() {
-    this.dialogFormService.open(FormPavilionComponent, {
+  NewDiagnosis() {
+    this.dialogFormService.open(FormDiagnosisComponent, {
       context: {
-        title: 'Crear nuevo pabellón',
+        title: 'Crear nuevo diagnóstico',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditPavilion(data) {
-    this.dialogFormService.open(FormPavilionComponent, {
+  EditDiagnosis(data) {
+    this.dialogFormService.open(FormDiagnosisComponent, {
       context: {
-        title: 'Editar pabellón',
+        title: 'Editar diagnóstico',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -129,18 +115,18 @@ export class PavilionComponent implements OnInit {
   //   });
   // }
 
-  DeleteConfirmPavilion(data) {
+  DeleteConfirmDiagnosis(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeletePavilion.bind(this),
+        delete: this.DeleteDiagnosis.bind(this),
       },
     });
   }
 
-  DeletePavilion(data) {
-    return this.PavilionS.Delete(data.id).then(x => {
+  DeleteDiagnosis(data) {
+    return this.DiagnosisS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {
