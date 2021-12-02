@@ -7,12 +7,12 @@
                     [title]="title"
                     [subtitle]="subtitle"
                     [settings]="settings"
-                    entity="manual_price"
+                    entity="manual_pricebybriefcase/{{briefcase_id}}"
                     customData="manual_price">
       <div actions>
         <div class="actions">
           <a nbButton routerLink="/pages/contract/briefcase">Volver</a>
-          <nb-select style="margin-left: 5px;" (selectedChange)="ChangeManual($event)" placeholder="Filtrar por Manual" [(selected)]="manual">
+          <nb-select style="margin-left: 5px;" (selectedChange)="ChangeManual($event)" placeholder="Filtrar por Manual">
             <nb-option value="0">Todos los registros</nb-option>
             <nb-option *ngFor="let item of manual" [value]="item.id">{{item.name}}</nb-option>
         </nb-select>

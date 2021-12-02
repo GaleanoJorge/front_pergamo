@@ -130,9 +130,12 @@ export class FormProcedureComponent implements OnInit {
     if(tipoId==1){
       this.form.controls.equivalent.disable();
       this.showSelect=false;
-    }else{
+    }else if(tipoId==2){
       this.showSelect=true;
       this.form.controls.equivalent.disable();
+    }else{
+      this.form.controls.equivalent.disable();
+      this.showSelect=false;
     }
 }
 

@@ -1,35 +1,44 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+
 import {AdmissionsComponent} from './admissions.component';
-import {TeachersComponent} from './teachers/teachers.component';
-import {StudentsComponent} from './students/students.component';
-import {CourseComponent} from './students/course/course.component';
-import {CourseMassiveComponent} from './students-massive/course-massive/course-massive.component';
-import {StudentsMassiveComponent} from './students-massive/students-massive.component';
+import {AdmissionsListComponent} from './admissions-list/admissions-list.component';
+import {PermissionsGuard} from '../../guards/permissions.guard';
+import { FormPatientComponent } from './form-patient/form-patient.component';
+import { EditPatientComponent } from './edit-patient/edit-patient.component';
+import { AdmissionsPatientComponent } from './admissions-patient/admissions-patient.component';
+import { BedManagementComponent } from './bed-management/bed-management.component';
+
 
 const routes: Routes = [{
   path: '',
   component: AdmissionsComponent,
   children: [
     {
-      path: 'teachers',
-      component: TeachersComponent,
+      path: 'list',
+      component: AdmissionsListComponent,
+      canActivate: [PermissionsGuard],
+      data: {permission: 'roles.read'},
     },
     {
-      path: 'students',
-      component: StudentsComponent,
+      path: 'patient/create',
+      component: FormPatientComponent,
+      canActivate: [PermissionsGuard],
+      data: {permission: 'roles.create'},
     },
     {
-      path: 'students/course/:course_id',
-      component: CourseComponent,
+      path: 'patient/:id/edit',
+      component: EditPatientComponent,
+      canActivate: [PermissionsGuard],
+      data: {permission: 'roles.update'},
     },
     {
-      path: 'students-massive',
-      component: StudentsMassiveComponent,
+      path: 'admissions-patient/:user_id',
+      component: AdmissionsPatientComponent,
     },
     {
-      path: 'students-massive/course-massive/:course_id',
-      component: CourseMassiveComponent,
+      path: 'bed-management',
+      component: BedManagementComponent,
     },
   ],
 }];

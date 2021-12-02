@@ -20,6 +20,7 @@ import { CompanyTypeComponent } from './company-type/company-type.component';
 import { RetinerComponent } from './retiner/retiner.component';
 import { IvaComponent } from './iva/iva.component';
 import { ManualPriceComponent } from './manual/manual-price/manual-price.component';
+import { ProcedurePackageComponent } from './procedure/procedure-package/procedure-package.component';
 import { FactoryComponent } from './factory/factory.component';
 import { CompanyCategoryComponent } from './company-category/company-category.component';
 import { CompanyMailComponent } from './company-mail/company-mail.component';
@@ -55,7 +56,6 @@ import { RiskComponent } from './risk/risk.component';
 import { ProductGenericComponent } from './product-generic/product-generic.component';
 import { TypeAssetsComponent } from './type-assets/type-assets.component';
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
-import { CategoryComponent } from './category/category.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { DistrictComponent } from './district/district.component';
 import { OfficeComponent } from './office/office.component';
@@ -63,19 +63,12 @@ import { DependenceComponent } from './dependence/dependence.component';
 import { PositionComponent } from './position/position.component';
 import { SpecialtyComponent } from './specialty/specialty.component';
 import { EntityComponent } from './entity/entity.component';
-import { CircuitComponent } from './circuit/circuit.component';
 import { RegionComponent } from './region/region.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
-import { AreaComponent } from './area/area.component';
-import { SubareaComponent } from './subarea/subarea.component';
-import { ValidityComponent } from './validity/validity.component';
 import { PermissionsGuard } from "../../guards/permissions.guard";
 import { FormUserComponent } from './users/form-user/form-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
-import { ExtraordinaryActionComponent } from './users/extraordinary-action/extraordinary-action.component';
 import { ThemesComponent } from './themes/themes.component';
-import { ExtraordinaryActionCoordinatorComponent } from './users/extraordinary-action-coordinator/extraordinary-action-coordinator.component';
-import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action-former/extraordinary-action-former.component';
 import { CoverageComponent } from './coverage/coverage.component';
 import { FirmsComponent } from './firms/firms.component';
 import { ContractStatusComponent } from './contract-status/contract-status.component';
@@ -83,6 +76,24 @@ import { InsuranceCarrierComponent } from './insurance-carrier/insurance-carrier
 import { ModalityComponent } from './modality/modality.component';
 import { TypeBriefcaseComponent } from './type-briefcase/type-briefcase.component';
 import { TypeContractComponent } from './type-contract/type-contract.component';
+import { SpecialAttentionComponent } from './special-attention/special-attention.component';
+import { ScopeOfAttentionComponent } from './scope-of-attention/scope-of-attention.component';
+import { ProgramComponent } from './program/program.component';
+import { PavilionComponent } from './pavilion/pavilion.component';
+import { FlatComponent } from './flat/flat.component';
+import { BedComponent } from './bed/bed.component';
+import { AffiliateTypeComponent } from './affiliate-type/affiliate-type.component';
+import { AdmissionRouteComponent } from './admission-route/admission-route.component';
+import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
+import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
+import { ReceivedByComponent } from './received_by/received-by.component';
+import { RepeatedInitialComponent } from './repeated-initial/repeated-initial.component';
+import { GlossModalityComponent } from './gloss-modality/gloss-modality.component';
+import { GlossAmbitComponent } from './gloss-ambit/gloss-ambit.component';
+import { GlossServiceComponent } from './gloss-service/gloss-service.component';
+import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion-code-response.component';
+import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
+import { DiagnosisComponent } from './diagnosis/diagnosis.component';
 
 const routes: Routes = [{
   path: '',
@@ -99,8 +110,53 @@ const routes: Routes = [{
       data: { permission: 'roles.read' },
     },
     {
+      path: 'objetion-type',
+      component: ObjetionTypeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'objetion-response',
+      component: ObjetionResponseComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'objetion-code-response',
+      component: ObjetionCodeResponseComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'gloss-modality',
+      component: GlossModalityComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'gloss-ambit',
+      component: GlossAmbitComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'gloss-service',
+      component: GlossServiceComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'received-by',
+      component: ReceivedByComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'repeated-initial',
+      component: RepeatedInitialComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
       path: 'contract-status',
       component: ContractStatusComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'objetion-code',
+      component: ObjetionCodeComponent,
       data: { permission: 'roles.read' },
     },
     {
@@ -111,6 +167,51 @@ const routes: Routes = [{
     {
       path: 'modality',
       component: ModalityComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'special-attention',
+      component: SpecialAttentionComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'scope-of-attention',
+      component: ScopeOfAttentionComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'program',
+      component: ProgramComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'pavilion',
+      component: PavilionComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'flat',
+      component: FlatComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'bed',
+      component: BedComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'diagnosis',
+      component: DiagnosisComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'affiliate-type',
+      component: AffiliateTypeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'admission-route',
+      component: AdmissionRouteComponent,
       data: { permission: 'roles.read' },
     },
     {
@@ -212,18 +313,6 @@ const routes: Routes = [{
       component: EditUserComponent,
     },
     {
-      path: 'users/extraordinary-action/:id/:roleId',
-      component: ExtraordinaryActionComponent,
-    },
-    {
-      path: 'users/extraordinary-action-coordinator/:id/:roleId',
-      component: ExtraordinaryActionCoordinatorComponent,
-    },
-    {
-      path: 'users/extraordinary-action-former/:id/:roleId',
-      component: ExtraordinaryActionFormerComponent,
-    },
-    {
       path: 'roles',
       component: RolesComponent,
       canActivate: [PermissionsGuard],
@@ -253,6 +342,10 @@ const routes: Routes = [{
     {
       path: 'manual-price/:id',
       component: ManualPriceComponent,
+    },
+    {
+      path: 'procedure-package/:id',
+      component: ProcedurePackageComponent,
     },
     {
       path: 'procedure-age',
@@ -406,12 +499,8 @@ const routes: Routes = [{
     },
     {
       path: 'fiscal-characteristic',
-      component:  FiscalCharacteristicComponent,
+      component: FiscalCharacteristicComponent,
       data: { permission: 'roles.read' },
-    },
-    {
-      path: 'categories',
-      component: CategoryComponent,
     },
     {
       path: 'sectional-council',
@@ -456,12 +545,6 @@ const routes: Routes = [{
       data: { permission: 'entidad.read' },
     },
     {
-      path: 'circuit',
-      component: CircuitComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'circuitos.read' },
-    },
-    {
       path: 'region',
       component: RegionComponent,
       canActivate: [PermissionsGuard],
@@ -474,21 +557,10 @@ const routes: Routes = [{
       data: { permission: 'ciudad.read' },
     },
     {
-      path: 'area',
-      component: AreaComponent,
-    },
-    {
-      path: 'subarea',
-      component: SubareaComponent,
-    },
-    {
       path: 'themes',
       component: ThemesComponent,
     },
-    {
-      path: 'validity',
-      component: ValidityComponent,
-    }
+
   ],
 }];
 

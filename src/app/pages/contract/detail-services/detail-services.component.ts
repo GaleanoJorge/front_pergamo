@@ -6,12 +6,14 @@ import {ManualService} from '../../../business-controller/manual.service';
 import {ManualPriceService} from '../../../business-controller/manual-price.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { Actions4Component } from '../detail-services/actions.component';
 import { numeric } from '@rxweb/reactive-form-validators';
 import { multicast } from 'rxjs/operators';
 import {CampusService} from '../../../business-controller/campus.service';
 import {TypeBriefcaseService} from '../../../business-controller/type-briefcase.service';
 import {ManualPrice} from '../../../models/manual-price';
 import {CurrencyPipe} from '@angular/common';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'ngx-detail-services',
@@ -47,17 +49,19 @@ export class DetailServicesComponent implements OnInit {
 
   public settings = {  
     columns: {
-     /* check :{
-        sort: false,
+      actions: {
+        title: '',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'dataUserRole': this.dataUserRole.bind(this),
+            'delete': this.DeleteServiceBriefcase.bind(this),
+            'refreshData': this.RefreshData.bind(this),
           };
         },
-        renderComponent: CheckboxUser,
-      },     */
+        renderComponent: Actions4Component,
+      },
       'manual_price.procedure.code': {
         title: this.headerFields[0],
         type: 'string',
@@ -118,7 +122,8 @@ export class DetailServicesComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     private currency: CurrencyPipe,
-
+    private deleteConfirmService: NbDialogService,
+    private dialogFormService: NbDialogService,
   ) {
   }
 
@@ -187,6 +192,26 @@ export class DetailServicesComponent implements OnInit {
       this.selectedOptions.splice( i, 1 );
     }
   }*/
+
+  DeleteServiceBriefcase(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        name: data.name,
+        data: data,
+        delete: this.DeleteProduct.bind(this),
+      },
+    });
+  }
+
+  DeleteProduct(data) {
+    return this.serviceBriefcaseS.Delete(data.id).then(x => {
+      this.table.refresh();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
+  }
+
   saveGroup() {
     var contador=0;
     var err=0;

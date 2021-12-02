@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProcedureService } from '../../../business-controller/procedure.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { FormProcedureComponent } from './form-procedure/form-procedure.component';
-import { ActionsComponent } from '../sectional-council/actions.component';
+import { ActionsProcedureComponent } from './actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 
@@ -41,7 +41,7 @@ export class ProcedureComponent implements OnInit {
             'delete': this.DeleteConfirmProcedure.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionsProcedureComponent,
       },
       id: {
         title: this.headerFields[0],

@@ -143,22 +143,22 @@ export class FormProductGenericComponent implements OnInit {
   selectsubcategory(event: Event){
     let Subcat=this.product_subcategory.find(x => x.id == event);
    this.subcategory=Subcat.name;
-   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory);
+   this.form.controls.description.setValue(this.subcategory);
   }
   selectdrug(event: Event){
     let drug=this.drug_concentration.find(x => x.id == event);
    this.drugconcentration=drug.value;
-   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration);
+   this.form.controls.description.setValue(this.subcategory + " " +  this.drugconcentration);
   }
   selectmeasurement(event: Event){
     let measurement=this.measurement_units.find(x => x.id == event);
    this.measurementunits=measurement.name;
-   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits);
+   this.form.controls.description.setValue(this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits);
   }
   selectpresentation(event: Event){
     let presentation=this.product_presentation.find(x => x.id == event);
    this.productpresentation=presentation.name;
-   this.form.controls.description.setValue(this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation);
+   this.form.controls.description.setValue(this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation);
   }
   
   close() {
@@ -189,7 +189,7 @@ export class FormProductGenericComponent implements OnInit {
           drug_concentration_id: this.form.controls.drug_concentration_id.value,
           measurement_units_id: this.form.controls.measurement_units_id.value,
           product_presentation_id: this.form.controls.product_presentation_id.value,
-          description: this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation,
+          description: this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation,
           pbs_type_id: this.form.controls.pbs_type_id.value,
           product_subcategory_id: this.form.controls.product_subcategory_id.value,
           consumption_unit_id: this.form.controls.consumption_unit_id.value,
@@ -217,7 +217,7 @@ export class FormProductGenericComponent implements OnInit {
           drug_concentration_id: this.form.controls.drug_concentration_id.value,
           measurement_units_id: this.form.controls.measurement_units_id.value,
           product_presentation_id: this.form.controls.product_presentation_id.value,
-          description: this.form.controls.name.value + " " + this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation,
+          description: this.subcategory + " " +  this.drugconcentration + " " + this.measurementunits + " " +  this.productpresentation,
           pbs_type_id: this.form.controls.pbs_type_id.value,
           product_subcategory_id: this.form.controls.product_subcategory_id.value,
           consumption_unit_id: this.form.controls.consumption_unit_id.value,

@@ -15,6 +15,7 @@ import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
 import { ManualComponent } from './manual/manual.component';
 import { FormManualComponent } from './manual/form-manual/form-manual.component';
 import { RipsTypeComponent } from './rips-type/rips-type.component';
+import { ProcedurePackageComponent } from './procedure/procedure-package/procedure-package.component';
 import { PbsTypeComponent } from './pbs-type/pbs-type.component';
 import { PurposeServiceComponent } from './purpose-service/purpose-service.component';
 import { ProcedureTypeComponent } from './procedure-type/procedure-type.component';
@@ -55,7 +56,6 @@ import { FormCompanyCategoryComponent } from './company-category/form-company-ca
 import { FormCompanyTypeComponent } from './company-type/form-company-type/form-company-type.component';
 import { ProcedurePurposeComponent } from './procedure-purpose/procedure-purpose.component';
 import { ProcedureComponent } from './procedure/procedure.component';
-import { CategoryComponent } from './category/category.component';
 import { TaxesComponent } from './taxes/taxes.component';
 import { CompanyMailComponent } from './company-mail/company-mail.component';
 import { CompanyDocumentComponent } from './company-document/company-document.component';
@@ -71,6 +71,7 @@ import { StatusFieldComponent } from './sectional-council/status-field.component
 import { FormSectionalCouncilComponent } from './sectional-council/form-sectional-council/form-sectional-council.component';
 import { FormCompanyKindpersonComponent } from './company-kindperson/form-company-kindperson/form-company-kindperson.component';
 import { ActionsComponent } from './sectional-council/actions.component';
+import { ActionsProcedureComponent } from './procedure/actions.component';
 import { ActionsComponent2 } from './manual/manual-price/actions.component';
 import { ActionsManualComponent } from './manual/actions.component';
 import { DistrictComponent } from './district/district.component';
@@ -85,8 +86,6 @@ import { SpecialtyComponent } from './specialty/specialty.component';
 import { FormSpecialtyComponent } from './specialty/form-specialty/form-specialty.component';
 import { EntityComponent } from './entity/entity.component';
 import { FormEntityComponent } from './entity/form-entity/form-entity.component';
-import { CircuitComponent } from './circuit/circuit.component';
-import { FormCircuitComponent } from './circuit/form-circuit/form-circuit.component';
 import { FormRegionComponent } from './region/form-region/form-region.component';
 import { FormCampusComponent } from './campus/form-campus/form-campus.component';
 import { FormProcedureAgeComponent } from './procedure-age/form-procedure-age/form-procedure-age.component';
@@ -96,25 +95,13 @@ import { FormProcedurePurposeComponent } from './procedure-purpose/form-procedur
 import { RegionComponent } from './region/region.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
 import { FormMunicipalityComponent } from './municipality/form-municipality/form-municipality.component';
-import { FormAreaComponent } from './area/form-area/form-area.component';
-import { AreaComponent } from './area/area.component';
-import { SubareaComponent } from './subarea/subarea.component';
-import { FormSubareaComponent } from './subarea/form-subarea/form-subarea.component';
 import { ThemesComponent } from './themes/themes.component';
 import { FormThemesComponent } from './themes/form-themes/form-themes.component';
-import { ValidityComponent } from './validity/validity.component';
-import { FormValidityComponent } from './validity/form-validity/form-validity.component';
 import { DateFormatPipe } from '../../pipe/date-format.pipe';
 import { ActionsUsersComponent } from './users/actions-users.component';
 import { FormUserComponent } from './users/form-user/form-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
-import { ExtraordinaryActionComponent } from './users/extraordinary-action/extraordinary-action.component';
 import { ActionsExtraordinaryComponent } from './users/actions-extraordinary.component';
-import { FormExtraordinaryActionComponent } from './users/form-extraordinary-action/form-extraordinary-action.component';
-import { ExtraordinaryActionCoordinatorComponent } from './users/extraordinary-action-coordinator/extraordinary-action-coordinator.component';
-import { FormExtraordinaryActionCoordinatorComponent } from './users/form-extraordinary-action-coordinator/form-extraordinary-action-coordinator.component';
-import { FormExtraordinaryActionFormerComponent } from './users/form-extraordinary-action-former/form-extraordinary-action-former.component';
-import { ExtraordinaryActionFormerComponent } from './users/extraordinary-action-former/extraordinary-action-former.component';
 import { IvaComponent } from './iva/iva.component';
 import { FormIvaComponent } from './iva/form-iva/form-iva.component';
 import { RetinerComponent } from './retiner/retiner.component';
@@ -176,6 +163,42 @@ import { FormTypeBriefcaseComponent } from './type-briefcase/form-type-briefcase
 import { FormTypeContractComponent } from './type-contract/form-type-contract/form-type-contract.component';
 import { ContractStatusComponent } from './contract-status/contract-status.component';
 import { FormContractStatusComponent } from './contract-status/form-contract-status/form-contract-status.component';
+import { SpecialAttentionComponent } from './special-attention/special-attention.component';
+import { FormScopeOfAttentionComponent } from './scope-of-attention/form-scope-of-attention/form-scope-of-attention.component';
+import { FormSpecialAttentionComponent } from './special-attention/form-special-attention/form-special-attention.component';
+import { ScopeOfAttentionComponent } from './scope-of-attention/scope-of-attention.component';
+import { ProgramComponent } from './program/program.component';
+import { FormProgramComponent } from './program/form-program/form-program.component';
+import { PavilionComponent } from './pavilion/pavilion.component';
+import { FormPavilionComponent } from './pavilion/form-pavilion/form-pavilion.component';
+import { FlatComponent } from './flat/flat.component';
+import { FormFlatComponent } from './flat/form-flat/form-flat.component';
+import { BedComponent } from './bed/bed.component';
+import { FormBedComponent } from './bed/form-bed/form-bed.component';
+import { AffiliateTypeComponent } from './affiliate-type/affiliate-type.component';
+import { FormAffiliateTypeComponent } from './affiliate-type/form-affiliate-type/form-affiliate-type.component';
+import { AdmissionRouteComponent } from './admission-route/admission-route.component';
+import { FormAdmissionRouteComponent } from './admission-route/form-admission-route/form-admission-route.component';
+import { ObjetionCodeComponent } from './objetion-code/objetion-code.component';
+import { FormObjetionCodeComponent } from './objetion-code/form-objetion-code/form-objetion-code.component';
+import { ObjetionTypeComponent } from './objetion-type/objetion-type.component';
+import { FormObjetionTypeComponent } from './objetion-type/form-objetion-type/form-objetion-type.component';
+import { ReceivedByComponent } from './received_by/received-by.component';
+import { FormReceivedByComponent } from './received_by/form-received-by/form-received-by.component';
+import { RepeatedInitialComponent } from './repeated-initial/repeated-initial.component';
+import { FormRepeatedInitialComponent } from './repeated-initial/form-repeated-initial/form-repeated-initial.component';
+import { GlossModalityComponent } from './gloss-modality/gloss-modality.component';
+import { FormGlossModalityComponent } from './gloss-modality/form-gloss-modality/form-gloss-modality.component';
+import { GlossAmbitComponent } from './gloss-ambit/gloss-ambit.component';
+import { FormGlossAmbitComponent } from './gloss-ambit/form-gloss-ambit/form-gloss-ambit.component';
+import { GlossServiceComponent } from './gloss-service/gloss-service.component';
+import { FormGlossServiceComponent } from './gloss-service/form-gloss-service/form-gloss-service.component';
+import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion-code-response.component';
+import { FormObjetionCodeResponseComponent } from './objetion-code-response/form-objetion-code-response/form-objetion-code-response.component';
+import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
+import { FormObjetionResponseComponent } from './objetion-response/form-objetion-response/form-objetion-response.component';
+import { FormDiagnosisComponent } from './diagnosis/form-diagnosis/form-diagnosis.component';
+import { DiagnosisComponent } from './diagnosis/diagnosis.component';
 
 
 @NgModule({
@@ -207,6 +230,22 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     NbIconModule
   ],
   declarations: [
+    SpecialAttentionComponent,
+    FormScopeOfAttentionComponent,
+    FormSpecialAttentionComponent,
+    ScopeOfAttentionComponent,
+    ProgramComponent,
+    FormProgramComponent,
+    PavilionComponent,
+    FormPavilionComponent,
+    FlatComponent,
+    FormFlatComponent,
+    BedComponent,
+    FormBedComponent,
+    AffiliateTypeComponent,
+    FormAffiliateTypeComponent,
+    AdmissionRouteComponent,
+    FormAdmissionRouteComponent,
     ContractStatusComponent,
     FormContractStatusComponent,
     CoverageComponent,
@@ -215,8 +254,10 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     ModalityComponent,
     TypeBriefcaseComponent,
     TypeContractComponent,
+    ActionsProcedureComponent,
     FormCoverageComponent,
     FormFirmsComponent,
+    ProcedurePackageComponent,
     FormInsuranceCarrierComponent,
     FormModalityComponent,
     FormTypeBriefcaseComponent,
@@ -319,7 +360,6 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     ProcedureCategoryComponent,
     ProcedurePurposeComponent,
     ProcedureComponent,
-    CategoryComponent,
     SectionalCouncilComponent,
     FormCompanyCategoryComponent,
     CompanyCategoryComponent,
@@ -340,8 +380,6 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     FormSpecialtyComponent,
     EntityComponent,
     FormEntityComponent,
-    CircuitComponent,
-    FormCircuitComponent,
     FormRegionComponent,
     RegionComponent,
     MunicipalityComponent,
@@ -350,27 +388,32 @@ import { FormContractStatusComponent } from './contract-status/form-contract-sta
     FormProcedureAgeComponent,
     FormProcedureComponent,
     FormProcedurePurposeComponent,
-    FormAreaComponent,
-    AreaComponent,
-    SubareaComponent,
-    FormSubareaComponent,
     ThemesComponent,
     FormThemesComponent,
-    ValidityComponent,
-    FormValidityComponent,
     ActionsUsersComponent,
     FormUserComponent,
     EditUserComponent,
-    ExtraordinaryActionComponent,
     ActionsExtraordinaryComponent,
-    FormExtraordinaryActionComponent,
-    ExtraordinaryActionCoordinatorComponent,
-    FormExtraordinaryActionCoordinatorComponent,
-    FormExtraordinaryActionFormerComponent,
-    ExtraordinaryActionFormerComponent
-    
-    
-
+    ObjetionCodeComponent,
+    FormObjetionCodeComponent,
+    ObjetionTypeComponent,
+    FormObjetionTypeComponent,
+    ReceivedByComponent,
+    FormReceivedByComponent,
+    RepeatedInitialComponent,
+    FormRepeatedInitialComponent,
+    GlossModalityComponent,
+    FormGlossModalityComponent,
+    GlossAmbitComponent,
+    FormGlossAmbitComponent,
+    GlossServiceComponent,
+    FormGlossServiceComponent,
+    ObjetionCodeResponseComponent,
+    FormObjetionCodeResponseComponent,
+    ObjetionResponseComponent,
+    FormObjetionResponseComponent,
+    FormDiagnosisComponent,
+    DiagnosisComponent
   ],
   providers: [
     DateFormatPipe

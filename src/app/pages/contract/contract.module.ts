@@ -34,6 +34,7 @@ import {BriefcaseComponent} from './briefcase/briefcase.component';
 import {FormBriefcaseComponent} from './briefcase/form-briefcase/form-briefcase.component';
 import {Actions2Component} from './contract-list/actions.component';
 import {Actions3Component} from './briefcase/actions3.component';
+import {Actions4Component} from './detail-services/actions.component';
 import {ActionsComponent} from './briefcase/actions.component';
 import {DetailServicesComponent} from './detail-services/detail-services.component';
 
@@ -77,7 +78,8 @@ import {DetailServicesComponent} from './detail-services/detail-services.compone
     ContractListComponent,
     FormContractComponent,
     Actions2Component,
-    Actions3Component
+    Actions3Component,
+    Actions4Component
   ],
   providers: [
     DateFormatPipe,

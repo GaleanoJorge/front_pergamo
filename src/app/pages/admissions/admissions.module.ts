@@ -1,65 +1,73 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TeachersComponent } from './teachers/teachers.component';
-import { AdmissionsComponent } from './admissions.component';
-import { RouterModule } from '@angular/router';
-import { AdmissionsRoutingModule } from './admissions-routing.module';
-import { PagesModule } from '../pages.module';
-import { CardAdmissionsComponent } from './teachers/card-admissions.component';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {
-  NbAutocompleteModule,
-  NbBadgeModule,
-  NbButtonModule,
-  NbCardModule,
-  NbInputModule, NbSelectModule,
-  NbSpinnerModule,
-  NbCheckboxModule,
+    NbAccordionModule,
+    NbButtonModule,
+    NbCardModule,
+    NbListModule,
+    NbRouteTabsetModule,
+    NbStepperModule,
+    NbTabsetModule,
+    NbUserModule,
+    NbInputModule, NbSelectModule, NbRadioModule, NbIconModule, NbSpinnerModule, NbPopoverModule, NbToggleModule,
 } from '@nebular/theme';
-import { ObservationsComponent } from './observations-component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { StudentsComponent } from './students/students.component';
-import { StudentsMassiveComponent } from './students-massive/students-massive.component';
-import { CourseComponent } from './students/course/course.component';
-import { CourseMassiveComponent } from './students-massive/course-massive/course-massive.component';
-import { CardStudentsAdmissionsComponent } from './students/course/card-students-admissions.component';
-import { StatsComponent } from './students/stats.component';
-import { StatsMassiveComponent } from './students-massive/stats-massive.component';
-import { CheckboxUser } from './students-massive/course-massive/checkbox-user';
-import { InscriptionStatusAdmissionsComponent } from './students-massive/course-massive/inscription-status-admissions.component';
 
+import {ThemeModule} from '../../@theme/theme.module';
+import {AdmissionsRoutingModule} from './admissions-routing.module';
+import {AdmissionsComponent} from './admissions.component';
+import {AdmissionsListComponent} from './admissions-list/admissions-list.component';
+import {PagesModule} from '../pages.module';
+import {FormPatientComponent} from './form-patient/form-patient.component';
+import {ActionsComponent} from './admissions-list/actions.component';
+import {Actions2Component} from './admissions-patient/actions.component';
+import {EditPatientComponent} from './edit-patient/edit-patient.component';
+import {DateFormatPipe} from '../../pipe/date-format.pipe';
+import { AdmissionsPatientComponent } from './admissions-patient/admissions-patient.component';
+import { FormAdmissionsPatientComponent } from './admissions-patient/form-admissions-patient/form-admissions-patient.component';
+import { BedManagementComponent } from './bed-management/bed-management.component';
+import { Actions3Component } from './bed-management/actions.component';
 
 @NgModule({
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ThemeModule,
+        NbTabsetModule,
+        NbRouteTabsetModule,
+        NbStepperModule,
+        NbCardModule,
+        NbButtonModule,
+        NbListModule,
+        NbAccordionModule,
+        NbUserModule,
+        AdmissionsRoutingModule,
+        NbInputModule,
+        PagesModule,
+        Ng2SmartTableModule,
+        NbPopoverModule,
+        NbSelectModule,
+        NbRadioModule,
+        NbIconModule,
+        NbSpinnerModule,
+        NbToggleModule,
+    ],
   declarations: [
-    TeachersComponent,
+    AdmissionsPatientComponent,
+    BedManagementComponent,
+    FormAdmissionsPatientComponent,
     AdmissionsComponent,
-    CardAdmissionsComponent,
-    ObservationsComponent,
-    StudentsComponent,
-    StudentsMassiveComponent,
-    CourseComponent,
-    CourseMassiveComponent,
-    CardStudentsAdmissionsComponent,
-    StatsComponent,
-    StatsMassiveComponent,
-    CheckboxUser,
-    InscriptionStatusAdmissionsComponent
+    AdmissionsListComponent,
+    FormPatientComponent,
+    Actions2Component,
+    Actions3Component,
+    ActionsComponent,
+    EditPatientComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    AdmissionsRoutingModule,
-    PagesModule,
-    NbCardModule,
-    NbButtonModule,
-    NbBadgeModule,
-    NbInputModule,
-    NbCheckboxModule,
-    FormsModule,
-    NbSpinnerModule,
-    NbAutocompleteModule,
-    NbSelectModule,
-    ReactiveFormsModule
+  providers: [
+    DateFormatPipe,
   ],
+  exports: [],
 })
 export class AdmissionsModule {
 }

@@ -18,11 +18,14 @@ export class LocationBusinessService {
   public municipalities: Municipality[] = [];
   public institutions: EducationalInstitution[] = [];
   public courses: CourseEducationalInstitution[] = [];
+  public neighborhood_or_residence: any[] = [];
+
 
   constructor(private webAPI: WebAPIService) {
     this.countries = [];
     this.regions = [];
     this.municipalities = [];
+    this.neighborhood_or_residence = [];
     this.institutions = [];
     this.courses = [];
   }
@@ -110,6 +113,23 @@ export class LocationBusinessService {
         throw x.message;
       });
   }
+
+  GetNeighborhoodResidenceByMunicipality(municipality_id): Promise<Municipality[]> {
+    let servObj = new ServiceObject('residence/byMunicipality',municipality_id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.neighborhood_or_residence = <Municipality[]>servObj.data.neighborhood_or_residence;
+        return Promise.resolve(this.neighborhood_or_residence);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
 
   GetInstitutionsByMunicipality($munId): Promise<EducationalInstitution[]> {
     var servObj = new ServiceObject("institution/byMunicipality", $munId);

@@ -48,7 +48,7 @@ export class ServicesBriefcaseService {
   }
 
   Update(services_briefcase: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('services_briefcase', services_briefcase.id);
+    let servObj = new ServiceObject('services_updatebriefcase', services_briefcase.id);
     servObj.data = services_briefcase;
     return this.webAPI.PutAction(servObj)
       .then(x => {
