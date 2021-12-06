@@ -32,6 +32,8 @@ const routes: Routes = [{
       path: 'gloss',
       loadChildren: () => import('./gloss/gloss.module')
         .then(m => m.GlossModule),
+        canActivate: [PermissionsGuard],
+      data: { permission: 'gloss.read' }
     },
     {
       path: 'setting',

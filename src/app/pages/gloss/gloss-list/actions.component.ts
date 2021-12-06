@@ -13,19 +13,19 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.edit(value.data)">
+    <button ngxCheckPerms="update" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.edit(value.data)">
         <nb-icon icon="edit-outline"></nb-icon>
     </button>
-    <button *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.delete(value.data)">
+    <button ngxCheckPerms="delete" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
     </button>
-    <a *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="ConfirmAction(confirmAction,1)" title="Respuesta">
+    <a ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="ConfirmAction(confirmAction,1)" title="Respuesta">
         <nb-icon icon="checkmark-square-outline"></nb-icon>
     </a>
-    <a *ngIf="value.data.gloss_status_id==2" nbButton ghost (click)="ConfirmAction(radicationAction,2, value.data.id)" title="Radicación">
+    <a ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==2" nbButton ghost (click)="ConfirmAction(radicationAction,2, value.data.id)" title="Radicación">
         <nb-icon icon="paper-plane-outline"></nb-icon>
     </a>
-    <a *ngIf="value.data.gloss_status_id==3" nbButton ghost (click)="ConfirmAction(detailAction,3)" title="Ver Respuesta">
+    <a ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==3" nbButton ghost (click)="ConfirmAction(detailAction,3)" title="Ver Respuesta">
         <nb-icon icon="eye-outline"></nb-icon>
     </a>
   </div>
@@ -69,7 +69,7 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
                             <label for="observation" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
                         </div>
                         <div class="file-select-evicencias" id="src-file1">
-                          <input class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
+                          <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
                             (change)="changeFile($event,2)" />
                         </div>
                     </div>
@@ -97,7 +97,7 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
                             <label for="observation" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
                         </div>
                         <div class="file-select-evicencias" id="src-file2">
-                          <input class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
+                          <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
                             (change)="changeFile($event,3)" />
                         </div>
                     </div>
@@ -331,6 +331,7 @@ export class Actions2Component implements ViewCell {
           this.GlossRadicationS.Save(formData).then(x => {
             this.toastService.success('', x.message);
             this.dialog.close();
+            this.value.refresh();
             if (this.saved) {
               this.saved();
             }
@@ -347,6 +348,7 @@ export class Actions2Component implements ViewCell {
           }).then(x => {
             this.toastService.success('', x.message);
             this.dialog.close();
+            this.value.refresh();
             if (this.saved) {
               this.saved();
             }
@@ -357,12 +359,11 @@ export class Actions2Component implements ViewCell {
         }
       }
     }
-    this.value.refresh();
   }
 
   async changeFile(files, option) {
+    this.loading=true;
     if (!files) return false;
-
     const file = await this.toBase64(files.target.files[0]);
     
     switch (option) {
@@ -370,6 +371,7 @@ export class Actions2Component implements ViewCell {
         this.ResponseGlossForm.patchValue({
           file: files.target.files[0],
         });
+        this.loading=false;
         break;
         case 3:
           this.RadicationGlossForm.patchValue({

@@ -13,8 +13,6 @@ const routes: Routes = [{
     {
       path: 'list',
       component: GlossListComponent,
-      canActivate: [PermissionsGuard],
-      data: {permission: 'roles.read'},
     },
   ],
 }];

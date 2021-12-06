@@ -277,9 +277,12 @@ export class GlossListComponent implements OnInit {
   }
 
   ChangeGlossStatus(status) {
-    console.log(status);
     this.status=status;
-    this.table.changeEntity(`gloss`,'gloss');
+    if(status!=0){
+    this.table.changeEntity(`gloss/byStatus/${this.status}`,'gloss');
     // this.RefreshData();
+    }else{
+      this.table.changeEntity(`gloss`,'gloss');
+    }
    }
 }

@@ -141,7 +141,7 @@ export class LoginComponent implements OnInit {
       if(!localStorage.getItem('campus')){
         this.toastrService.danger('','Debe seleccionar una sede.');
       }else{
-      if (this.authService.GetRole() === 4) {
+      if (this.authService.GetRole() === 20) {
       this.router.navigateByUrl('/pages/personal-information');
       } else {
       this.router.navigateByUrl('/pages');
