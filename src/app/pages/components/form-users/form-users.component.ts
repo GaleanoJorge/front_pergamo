@@ -254,7 +254,7 @@ export class FormUsersComponent implements OnInit {
       ],
 
       residence_country_id: [
-        this.GetData('residence_country_id'),
+        this.GetData('country_id'),
         Validators.compose([Validators.required]),
       ],
 

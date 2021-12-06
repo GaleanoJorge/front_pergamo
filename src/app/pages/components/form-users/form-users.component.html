@@ -310,9 +310,9 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="country_id" class="form-text text-muted font-weight-bold">País:</label>
-          <nb-select id="country_id" fullWidth formControlName="country_id" residence_country_id
-                     status="{{ isSubmitted && form.controls.country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="residence_country_id" class="form-text text-muted font-weight-bold">País:</label>
+          <nb-select id="residence_country_id" fullWidth formControlName="residence_country_id" residence_country_id
+                     status="{{ isSubmitted && form.controls.residence_country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option *ngFor="let item of countries" [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>
