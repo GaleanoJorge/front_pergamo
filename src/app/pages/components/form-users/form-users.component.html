@@ -121,7 +121,7 @@
         <div class="col-md-6 col-lg-3">
           <div class="form-group">
             <label for="ethnicity_id" class="form-text text-muted font-weight-bold">Etnia:</label>
-            <nb-select selected="" id="ethnicity_id" fullWidth formControlName="ethnicity_id" ethnicity_id
+            <nb-select formControlName="ethnicity_id" id="ethnicity_id" fullWidth
                        status="{{ isSubmitted && form.controls.ethnicity_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of this.ethnicitys" [value]="item.id">{{ item.name }}</nb-option>
@@ -140,7 +140,9 @@
 
           </div>
         </div>
-        <div class="col-md-3" *ngIf="form.controls.gender_id.value == 3">
+
+        <div class="row">
+        <div class="col-md-6" *ngIf="form.controls.gender_id.value == 6">
           <div class="form-group">
             <label for="gender_type" class="form-text text-muted font-weight-bold">Cuál?:</label>
             <input nbInput fullWidth id="gender_type" formControlName="gender_type" gender_type
@@ -149,8 +151,8 @@
           </div>
         </div>
 
-      </div>
-      <div class="row">
+      
+      
         <div class="col-md-3">
           <div class="form-group">
             <label for="is_disability" class="form-text text-muted font-weight-bold">¿Tiene alguna discapacidad?</label>
@@ -164,8 +166,11 @@
             <input nbInput fullWidth id="disability" formControlName="disability" disability
                    status="{{ isSubmitted && form.controls.disability.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
+
+
           </div>
         </div>
+       </div>
       </div>
 
       <div class="row mt-3">
@@ -200,7 +205,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="activities_id" class="form-text text-muted font-weight-bold">Profeción:</label>
+          <label for="activities_id" class="form-text text-muted font-weight-bold">Profesión:</label>
           <nb-select id="activities_id" fullWidth formControlName="activities_id" activities_id
                      status="{{ isSubmitted && form.controls.activities_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
@@ -211,7 +216,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
           <label for="select_RH_id" class="form-text text-muted font-weight-bold">Seleccione RH:</label>
           <nb-select id="select_RH_id" fullWidth formControlName="select_RH_id"
@@ -223,7 +228,7 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
           <label for="population_group_id" class="form-text text-muted font-weight-bold">Grupo poblacional:</label>
           <nb-select id="population_group_id" fullWidth formControlName="population_group_id"
@@ -235,7 +240,7 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
           <label for="marital_status_id" class="form-text text-muted font-weight-bold">Estado civil:</label>
           <nb-select id="marital_status_id" fullWidth formControlName="marital_status_id"
@@ -440,6 +445,7 @@
             </div>
           </div>
         </div>
+        
 
         <div class="col-md-6">
           <div class="form-group">
