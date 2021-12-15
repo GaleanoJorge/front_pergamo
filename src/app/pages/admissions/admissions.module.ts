@@ -10,7 +10,7 @@ import {
     NbStepperModule,
     NbTabsetModule,
     NbUserModule,
-    NbInputModule, NbSelectModule, NbRadioModule, NbIconModule, NbSpinnerModule, NbPopoverModule, NbToggleModule,
+    NbInputModule, NbSelectModule, NbRadioModule, NbIconModule, NbSpinnerModule, NbPopoverModule, NbToggleModule,NbTooltipModule
 } from '@nebular/theme';
 
 import {ThemeModule} from '../../@theme/theme.module';
@@ -36,6 +36,7 @@ import { FormAdmissionsPatientComponent } from './admissions-patient/form-admiss
         NbCardModule,
         NbButtonModule,
         NbListModule,
+        NbTooltipModule,
         NbAccordionModule,
         NbUserModule,
         AdmissionsRoutingModule,

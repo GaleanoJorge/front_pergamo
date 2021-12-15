@@ -4,16 +4,10 @@ import {ViewCell} from 'ng2-smart-table';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <a ngxCheckPerms="update" nbButton ghost [routerLink]="'../../admissions/patient/' + value.data.id+ '/edit'">
+      <a nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost [routerLink]="'../../admissions/patient/' + value.data.id+ '/edit'">
         <nb-icon icon="edit-outline"></nb-icon>
       </a>
-      <button ngxCheckPerms="delete" nbButton ghost (click)="value.delete(value.data)">
-        <nb-icon icon="trash-2-outline"></nb-icon>
-      </button>
-      <button ngxCheckPerms="update" nbButton ghost (click)="value.reset_password(value.data)" title="Forzar cambio de contraseña">
-        <nb-icon [icon]="(value.data.force_reset_password ? 'shield-outline' : 'shield-off-outline')"></nb-icon>
-      </button>
-      <a nbButton nbButton ghost [routerLink]="'../../admissions/admissions-patient/' + value.data.id" title="Admisiones">
+      <a nbTooltip="Ingresos del paciente" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton nbButton ghost [routerLink]="'../../admissions/admissions-patient/' + value.data.id">
       <nb-icon icon="list-outline"></nb-icon>
     </a>
     </div>

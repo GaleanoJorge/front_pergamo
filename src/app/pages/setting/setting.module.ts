@@ -9,6 +9,7 @@ import {
   NbRouteTabsetModule,
   NbStepperModule,
   NbRadioModule,
+  NbTooltipModule,
   NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
@@ -197,6 +198,8 @@ import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion
 import { FormObjetionCodeResponseComponent } from './objetion-code-response/form-objetion-code-response/form-objetion-code-response.component';
 import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
 import { FormObjetionResponseComponent } from './objetion-response/form-objetion-response/form-objetion-response.component';
+import { InabilityComponent } from './inability/inability.component';
+import { FormInabilityComponent } from './inability/form-inability/form-inability.component';
 
 
 @NgModule({
@@ -215,6 +218,7 @@ import { FormObjetionResponseComponent } from './objetion-response/form-objetion
     NbInputModule,
     NbToggleModule,
     NbSelectModule,
+    NbTooltipModule,
     NbAccordionModule,
     NbUserModule,
     NbAlertModule,
@@ -410,6 +414,8 @@ import { FormObjetionResponseComponent } from './objetion-response/form-objetion
     FormObjetionCodeResponseComponent,
     ObjetionResponseComponent,
     FormObjetionResponseComponent,
+    InabilityComponent,
+    FormInabilityComponent,
   ],
   providers: [
     DateFormatPipe
