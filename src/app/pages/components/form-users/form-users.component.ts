@@ -35,6 +35,7 @@ import {CircuitBusinessService} from '../../../business-controller/circuit-busin
 import {Category} from '../../../models/category';
 import {CategoriesDialogComponent} from './categories-dialog.component';
 import {environment} from '../../../../environments/environment.prod';
+import { InabilityService } from '../../../business-controller/inability.service';
 
 @Component({
   selector: 'ngx-form-users',
@@ -90,6 +91,9 @@ export class FormUsersComponent implements OnInit {
   public currentRoleId = null;
   public showPassword = false;
   public showConfirmPassword = false;
+  public inabilitys:any[];
+  public referencia;
+  public residence;
 
 
   constructor(
@@ -110,6 +114,7 @@ export class FormUsersComponent implements OnInit {
     private sectionalCBS: SectionalCouncilService,
     private districtBS: DistrictService,
     private circuitBS: CircuitBusinessService,
+    private inabilitysS: InabilityService,
     private route: ActivatedRoute,
     private dialog: NbDialogService,
   ) {
@@ -144,9 +149,7 @@ export class FormUsersComponent implements OnInit {
       this.select_RH = x.select_RH;
       this.population_group = x.population_group;
       this.marital_status = x.marital_status;
-
- 
-
+      this.inabilitys= x.inability;
       return Promise.resolve(true);
     });
   }
@@ -302,6 +305,9 @@ export class FormUsersComponent implements OnInit {
         this.GetData('neighborhood_or_residence_id'),
         Validators.compose([Validators.required]),
       ],
+      inability_id: [
+        this.GetData('inability_id'),
+      ],
     };
 
 
@@ -353,6 +359,8 @@ export class FormUsersComponent implements OnInit {
   }
 
   async SaveStudent() {
+    this.residence = this.form.controls.residence_address.value + ' ' + (document.getElementById("calle") as HTMLInputElement).value + ' # ' + (document.getElementById("num1") as HTMLInputElement).value + ' - ' +  (document.getElementById("num2") as HTMLInputElement).value + ' ( ' + (document.getElementById("reference") as HTMLInputElement).value + ' ) '  ;
+    console.log(this.residence);
     this.isSubmitted = true;
  
     if (!this.form.invalid) {
@@ -364,7 +372,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('status_id', data.status_id.value);
       formData.append('gender_id', data.gender_id.value);
       formData.append('is_disability', data.is_disability.value === true ? '1' : null);
-      formData.append('disability', data.is_disability.value === false ? '' : data.disability.value);
+      formData.append('inability_id', data.inability_id.value);
       formData.append('gender_type', data.gender_id.value === 3 ? data.gender_type.value : '');
       formData.append('academic_level_id', data.academic_level_id.value);
       formData.append('identification_type_id', data.identification_type_id.value);
@@ -398,7 +406,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('select_RH_id', this.form.value.select_RH_id);
       formData.append('population_group_id', data.population_group_id.value);
       formData.append('marital_status_id', data.marital_status_id.value);
-      formData.append('residence_address', data.residence_address.value);
+      formData.append('residence_address', this.residence);
       formData.append('neighborhood_or_residence_id', data.neighborhood_or_residence_id.value);
 
 
@@ -454,6 +462,8 @@ export class FormUsersComponent implements OnInit {
         this.loading = false;
       }
 
+    }else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 

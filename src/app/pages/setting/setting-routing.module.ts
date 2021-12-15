@@ -94,6 +94,7 @@ import { GlossServiceComponent } from './gloss-service/gloss-service.component';
 import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion-code-response.component';
 import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
+import { InabilityComponent } from './inability/inability.component';
 
 const routes: Routes = [{
   path: '',
@@ -122,6 +123,11 @@ const routes: Routes = [{
     {
       path: 'objetion-code-response',
       component: ObjetionCodeResponseComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'inability',
+      component: InabilityComponent,
       data: { permission: 'roles.read' },
     },
     {

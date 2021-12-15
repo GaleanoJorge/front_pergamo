@@ -9,6 +9,7 @@ import {
   NbRouteTabsetModule,
   NbStepperModule,
   NbRadioModule,
+  NbTooltipModule,
   NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
@@ -199,6 +200,8 @@ import { ObjetionResponseComponent } from './objetion-response/objetion-response
 import { FormObjetionResponseComponent } from './objetion-response/form-objetion-response/form-objetion-response.component';
 import { FormDiagnosisComponent } from './diagnosis/form-diagnosis/form-diagnosis.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
+import { InabilityComponent } from './inability/inability.component';
+import { FormInabilityComponent } from './inability/form-inability/form-inability.component';
 
 
 @NgModule({
@@ -217,6 +220,7 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     NbInputModule,
     NbToggleModule,
     NbSelectModule,
+    NbTooltipModule,
     NbAccordionModule,
     NbUserModule,
     NbAlertModule,
@@ -413,7 +417,9 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     ObjetionResponseComponent,
     FormObjetionResponseComponent,
     FormDiagnosisComponent,
-    DiagnosisComponent
+    DiagnosisComponent,
+    InabilityComponent,
+    FormInabilityComponent,
   ],
   providers: [
     DateFormatPipe

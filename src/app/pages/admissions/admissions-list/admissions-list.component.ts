@@ -17,7 +17,7 @@ export class AdmissionsListComponent {
   public data: any[] = [];
   public messageError: string = null;
   public dialog;
-  public title = 'Paciente';
+  public title = 'Tablero de Pacientes';
   public headerFields: any[] = ['Tipo identificación', 'Identificación', 'Nombres', 'Correo', 'Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public subtitle = 'Admisiones';
