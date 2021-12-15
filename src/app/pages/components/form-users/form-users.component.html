@@ -310,9 +310,9 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="country_id" class="form-text text-muted font-weight-bold">País:</label>
-          <nb-select id="country_id" fullWidth formControlName="country_id" residence_country_id
-                     status="{{ isSubmitted && form.controls.country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="residence_country_id" class="form-text text-muted font-weight-bold">País:</label>
+          <nb-select id="residence_country_id" fullWidth formControlName="residence_country_id" residence_country_id
+                     status="{{ isSubmitted && form.controls.residence_country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option *ngFor="let item of countries" [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>
@@ -459,6 +459,95 @@
               </nb-form-field>
             </div>            
           </div>
+        </div>
+      </div>
+      <div class="row mt-3"  *ngIf="role==3">
+        <div class="col-12">
+          <p class="text-muted">Información personal asistencial</p>
+        </div>
+      </div>
+
+      <div class="row mt-3" *ngIf="role==3">
+        
+        <div class="col-md-4">
+          <div class="form-group">
+            <button nbButton status="info" type="button" (click)="ShowDialogSpecialities()">
+              Seleccionar especialización :
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3"  *ngIf="role==3">
+        <div class="col-12">
+          <p class="text-muted">Información personal asistencial</p>
+        </div>
+      </div>
+      <div class="row" *ngIf="role==3">
+        
+        <div class="col-md-4">
+          <div class="form-group">
+          <label for="medical_record" class="form-text text-muted font-weight-bold">Registro medico:</label>
+          <input nbInput fullWidth id="medical_record" formControlName="medical_record" medical_record
+            status="{{ isSubmitted && form.controls.medical_record.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+          <label for="contract_type" class="form-text text-muted font-weight-bold">Tipo de contrato:</label>
+          <nb-select  formControlName="contract_type_id" id="contract_type_id" fullWidth
+          status="{{ isSubmitted && form.controls.contract_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of contract_type" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+                <label for="cost_center" class="form-text text-muted font-weight-bold">Centro de costos:</label>
+                <nb-select formControlName="cost_center_id" id="cost_center_id" fullWidth
+                status="{{ isSubmitted && form.controls.cost_center_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                <nb-option value="">Seleccione...</nb-option>
+                <nb-option *ngFor="let item of cost_center" [value]="item.id">
+                {{ item.name }}
+                </nb-option>
+          </nb-select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+            <label for="type_professional" class="form-text text-muted font-weight-bold">Tipo de profesional:</label>
+            <nb-select formControlName="type_professional_id" id="type_professional_id" fullWidth
+            status="{{ isSubmitted && form.controls.type_professional_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option  *ngFor="let item of type_professional" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+            </div>
+          </div>
+            <div class="col-md-4">
+              <div class="form-group">
+            <nb-card-body>
+                <nb-checkbox formControlName="attends_external_consultation" name>Consulta externa:</nb-checkbox>
+              </nb-card-body>
+              </div>
+            </div>
+        <div class="col-md-4">
+          <div class="form-group">
+          <nb-card-body>
+            <nb-checkbox formControlName="serve_multiple_patients" name>Atención a multiples pacientes:</nb-checkbox>
+          </nb-card-body>
+        </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="file_firm" class="form-text text-muted font-weight-bold">Archivo de firma:</label>
+            <div class="file-select-evicencias" id="src-file2">
+              <input class="file" accept="image/*,.pdf" type="file" id="file_firm" file_firm fullWidth
+                (change)="changeFile($event,1)" />
+          </div>
+        </div>
         </div>
       </div>
     </form>

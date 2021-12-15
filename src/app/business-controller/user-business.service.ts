@@ -306,10 +306,12 @@ export class UserBusinessService {
       });
   }
 
-  GetFormAuxData(activo) {
+  GetFormAuxData(activo,type_professional_id, search) {
     let servObj = new ServiceObject('public/getUserAuxiliaryData');
     return this.webAPI.GetAction(servObj, {
       activo,
+      type_professional_id,
+      search
     })
       .then(x => {
         servObj = <ServiceObject>x;

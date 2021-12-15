@@ -1,40 +1,45 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {IdentificationTypeBusinessService} from '../../../business-controller/identification-type-business.service';
-import {IdentificationType} from '../../../models/identification-type';
-import {GenderBusinessService} from '../../../business-controller/gender-business.service';
-import {Gender} from '../../../models/gender';
-import {Ethnicity} from '../../../models/ethnicity';
-import {Municipality} from '../../../models/municipality';
-import {LocationBusinessService} from '../../../business-controller/location-business.service';
-import {Country} from '../../../models/country';
-import {Region} from '../../../models/region';
-import {StatusBusinessService} from '../../../business-controller/status-business.service';
-import {Status} from '../../../models/status';
-import {EntityBusinessService} from '../../../business-controller/entity-business.service';
-import {Entity} from '../../../models/entity';
-import {Position} from '../../../models/position';
-import {PositionService} from '../../../business-controller/position.service';
-import {UserBusinessService} from '../../../business-controller/user-business.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NbDialogService, NbToastrService} from '@nebular/theme';
-import {AcademicLevelBusinessService} from '../../../business-controller/academic-level-business.service';
-import {AcademicLevel} from '../../../models/academic_level';
-import {Office} from '../../../models/office';
-import {OfficeService} from '../../../business-controller/office.service';
-import {SpecialtyService} from '../../../business-controller/specialty.service';
-import {Specialty} from '../../../models/specialty';
-import {DependenceService} from '../../../business-controller/dependence.service';
-import {Dependence} from '../../../models/dependence';
-import {SectionalCouncilService} from '../../../business-controller/sectional-council.service';
-import {SectionalCouncil} from '../../../models/sectional-council';
-import {District} from '../../../models/district';
-import {Circuit} from '../../../models/circuit';
-import {DistrictService} from '../../../business-controller/district.service';
-import {CircuitBusinessService} from '../../../business-controller/circuit-business.service';
-import {Category} from '../../../models/category';
-import {CategoriesDialogComponent} from './categories-dialog.component';
-import {environment} from '../../../../environments/environment.prod';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IdentificationTypeBusinessService } from '../../../business-controller/identification-type-business.service';
+import { IdentificationType } from '../../../models/identification-type';
+import { GenderBusinessService } from '../../../business-controller/gender-business.service';
+import { Gender } from '../../../models/gender';
+import { Ethnicity } from '../../../models/ethnicity';
+import { Municipality } from '../../../models/municipality';
+import { LocationBusinessService } from '../../../business-controller/location-business.service';
+import { Country } from '../../../models/country';
+import { Region } from '../../../models/region';
+import { StatusBusinessService } from '../../../business-controller/status-business.service';
+import { Status } from '../../../models/status';
+import { EntityBusinessService } from '../../../business-controller/entity-business.service';
+import { Entity } from '../../../models/entity';
+import { Position } from '../../../models/position';
+import { PositionService } from '../../../business-controller/position.service';
+import { UserBusinessService } from '../../../business-controller/user-business.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { AcademicLevelBusinessService } from '../../../business-controller/academic-level-business.service';
+import { AcademicLevel } from '../../../models/academic_level';
+import { Office } from '../../../models/office';
+import { OfficeService } from '../../../business-controller/office.service';
+import { SpecialtyService } from '../../../business-controller/specialty.service';
+import { Specialty } from '../../../models/specialty';
+import { DependenceService } from '../../../business-controller/dependence.service';
+import { Dependence } from '../../../models/dependence';
+import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
+import { SectionalCouncil } from '../../../models/sectional-council';
+import { District } from '../../../models/district';
+import { Circuit } from '../../../models/circuit';
+import { DistrictService } from '../../../business-controller/district.service';
+import { CircuitBusinessService } from '../../../business-controller/circuit-business.service';
+import { Category } from '../../../models/category';
+import { CategoriesDialogComponent } from './categories-dialog.component';
+import { environment } from '../../../../environments/environment.prod';
+import { AssistanceSpecialService } from '../../../business-controller/assistance-special.service';
+import { AssistanceSpecial } from '../../../models/assistance-special';
+import { SpecialitiesDialogComponent } from './especialities-dialog.component';
+import { search } from '@syncfusion/ej2-angular-filemanager';
+import { Item } from '../../../models/item';
 
 @Component({
   selector: 'ngx-form-users',
@@ -77,7 +82,7 @@ export class FormUsersComponent implements OnInit {
   public marital_status: any[] = [];
   public neighborhood_or_residence: any[] = [];
 
-    public sectionals: SectionalCouncil[] = [];
+  public sectionals: SectionalCouncil[] = [];
   public districts: District[] = [];
   public circuits: Circuit[] = [];
   public categories: Category[] = [];
@@ -90,6 +95,13 @@ export class FormUsersComponent implements OnInit {
   public currentRoleId = null;
   public showPassword = false;
   public showConfirmPassword = false;
+  public contract_type: any[];
+  public cost_center: any[];
+  public type_professional: any[];
+  public specialities: AssistanceSpecial[];
+  public specialitiesSelect = [];
+  public selected: any[];
+
 
 
   constructor(
@@ -115,7 +127,7 @@ export class FormUsersComponent implements OnInit {
   ) {
   }
 
-  async ngOnInit() {  
+  async ngOnInit() {
     this.currentRoleId = localStorage.getItem('role_id');
     this.LoadForm(false).then();
     await Promise.all([
@@ -131,21 +143,28 @@ export class FormUsersComponent implements OnInit {
     this.today = this.today.toISOString().split('T')[0];
   }
 
-  GetAuxData() {
-    return this.userBS.GetFormAuxData(this.data ? false : true).then(x => {
-      this.identification_types = x.identificationTypes;
-      this.countries = x.countries;
-      this.genders = x.genders;
-      this.ethnicitys = x.ethnicitys;
-      this.status = x.status;
-      this.academyLevels = x.academicLevels;
-      this.study_level_status = x.study_level_status;
-      this.activities = x.activities;
-      this.select_RH = x.select_RH;
-      this.population_group = x.population_group;
-      this.marital_status = x.marital_status;
+  GetAuxData($type_professional_id?, $search?) {
+    return this.userBS.GetFormAuxData(this.data ? false : true, $type_professional_id == null ? this.data.assistance[0].type_professional_id : $type_professional_id, $search).then(x => {
+      if (!$type_professional_id) {
+        this.identification_types = x.identificationTypes;
+        this.countries = x.countries;
+        this.genders = x.genders;
+        this.ethnicitys = x.ethnicitys;
+        this.status = x.status;
+        this.academyLevels = x.academicLevels;
+        this.study_level_status = x.study_level_status;
+        this.activities = x.activities;
+        this.select_RH = x.select_RH;
+        this.population_group = x.population_group;
+        this.marital_status = x.marital_status;
+        this.cost_center = x.cost_center;
+        this.type_professional = x.type_professional;
+        this.contract_type = x.contract_type;
+        this.specialities = x.special_field;
+      } else {
+        this.specialities = x.special_field;
+      }
 
- 
 
       return Promise.resolve(true);
     });
@@ -254,7 +273,7 @@ export class FormUsersComponent implements OnInit {
       ],
 
       residence_country_id: [
-        this.GetData('residence_country_id'),
+        this.GetData('country_id'),
         Validators.compose([Validators.required]),
       ],
 
@@ -279,7 +298,7 @@ export class FormUsersComponent implements OnInit {
       ],
 
       select_RH_id: [
-        this.GetData('recidence_municipality_id'),
+        this.GetData('select_rh_id'),
         Validators.compose([Validators.required]),
       ],
 
@@ -304,6 +323,41 @@ export class FormUsersComponent implements OnInit {
       ],
     };
 
+    if (this.role == 3) {
+      configForm = {
+        ...configForm,
+        medical_record: [
+          this.data == null ? '' : this.data.assistance[0].medical_record,
+          Validators.compose([Validators.required])
+        ],
+        contract_type_id: [
+          this.data == null ? '' : this.data.assistance[0].contract_type_id,
+          Validators.compose([Validators.required])
+        ],
+        cost_center_id: [
+          this.data == null ? '' : this.data.assistance[0].cost_center_id,
+          Validators.compose([Validators.required])
+        ],
+        type_professional_id: [
+          this.data == null ? '' : this.data.assistance[0].type_professional_id,
+          Validators.compose([Validators.required])
+        ],
+        attends_external_consultation: [
+          this.data == null ? '' : this.data.assistance[0].attends_external_consultation,
+          Validators.compose([Validators.required])
+        ],
+        serve_multiple_patients: [
+          this.data == null ? '' : this.data.assistance[0].serve_multiple_patients,
+          Validators.compose([Validators.required])
+        ],
+        file_firm: [
+          this.data == null ? '' : this.data.assistance[0].file_firm,
+          Validators.compose([Validators.required])
+        ],
+      }
+
+    }
+
 
     if (this.data && this.data.id) {
       configForm.password = [
@@ -313,9 +367,9 @@ export class FormUsersComponent implements OnInit {
       configForm.confirm_password = [
         '',
       ];
-      
+
     }
-    
+
 
 
     this.form = this.formBuilder.group(configForm);
@@ -341,7 +395,7 @@ export class FormUsersComponent implements OnInit {
 
   private getDescendantProp(obj, desc) {
     const arr = desc.split('.');
-    while (arr.length && (obj = obj[arr.shift()])) ;
+    while (arr.length && (obj = obj[arr.shift()]));
     return obj;
   }
 
@@ -354,7 +408,7 @@ export class FormUsersComponent implements OnInit {
 
   async SaveStudent() {
     this.isSubmitted = true;
- 
+
     if (!this.form.invalid) {
       this.loading = true;
 
@@ -383,10 +437,10 @@ export class FormUsersComponent implements OnInit {
       formData.append('id', this.data ? this.data.id : null);
       formData.append('role_id', this.role);
       formData.append('username', data.identification.value);
-      if(this.isStudent==true){
-      formData.append('password', 'Hyl'+data.identification.value+'*');
-      }else{
-        formData.append('password', data.identification.value);
+      if (this.isStudent == true) {
+        formData.append('password', 'Hyl' + data.identification.value + '*');
+      } else {
+        formData.append('password', data.password.value);
       }
       formData.append('landline', data.landline.value);
 
@@ -402,8 +456,15 @@ export class FormUsersComponent implements OnInit {
       formData.append('neighborhood_or_residence_id', data.neighborhood_or_residence_id.value);
 
 
-      if (this.course_id) {
-        formData.append('course_id', this.course_id);
+      if (this.role == 3) {
+        formData.append('assistance_id', this.data.assistance[0].id ? this.data.assistance[0].id : null);
+        formData.append('medical_record', data.medical_record.value);
+        formData.append('contract_type_id', data.contract_type_id.value);
+        formData.append('cost_center_id', data.cost_center_id.value);
+        formData.append('type_professional_id', data.type_professional_id.value);
+        formData.append('attends_external_consultation', data.attends_external_consultation.value === true ? '1' : '0');
+        formData.append('serve_multiple_patients', data.serve_multiple_patients.value === true ? '1' : '0');
+        formData.append('file_firm', this.form.value.file_firm);
       }
 
       if (data.is_judicial_branch) {
@@ -417,35 +478,42 @@ export class FormUsersComponent implements OnInit {
         formData.append('curriculum_pdf', this.form.value.curriculum_pdf);
       }
 
-         
+      if (this.specialitiesSelect.length > 0) {
+        for (let assistanceSpecial of this.specialitiesSelect) {
+          formData.append('special_field[]', assistanceSpecial);
+        }
+      } else {
+        formData.append('special_field', null);
+      }
+
       try {
         let x;
-     
+
         if (!this.data?.id) {
           x = await this.userBS.SavePublic(formData);
-        } else {      
+        } else {
           x = await this.userBS.UpdatePublic(formData, this.data.id);
         }
 
         this.toastService.success('', x.message);
         this.messageError = null;
         if (!this.isTeacher) {
-        if (this.isPublic) {
-          if (this.redirectTo)
-            await this.router.navigateByUrl(this.redirectTo);
-          else if (this.routeBack)
-            await this.router.navigateByUrl(this.routeBack);
-          else
-            this.redirectTo = '/public/register/' + this.route.snapshot.params.role + '/success';
+          if (this.isPublic) {
+            if (this.redirectTo)
+              await this.router.navigateByUrl(this.redirectTo);
+            else if (this.routeBack)
+              await this.router.navigateByUrl(this.routeBack);
+            else
+              this.redirectTo = '/public/register/' + this.route.snapshot.params.role + '/success';
             // await this.router.navigateByUrl('/auth');
-        } else {
-          if (this.routeBack)
-            await this.router.navigateByUrl(this.routeBack);
-        }
+          } else {
+            if (this.routeBack)
+              await this.router.navigateByUrl(this.routeBack);
+          }
         } else {
           await this.router.navigateByUrl(this.routeBack);
           //await this.router.navigateByUrl('/public/register/' + this.route.snapshot.params.role + '/success');
-         // console.log('/public/register/' + this.route.snapshot.params.role + '/success');
+          // console.log('/public/register/' + this.route.snapshot.params.role + '/success');
         }
 
       } catch (x) {
@@ -510,7 +578,7 @@ export class FormUsersComponent implements OnInit {
       }
       this.form.patchValue({
         residence_region_id: '',
-        resicence_municipality_id: '',
+        residence_municipality_id: '',
       });
     });
 
@@ -521,7 +589,7 @@ export class FormUsersComponent implements OnInit {
         this.GetMunicipalities(val, true).then();
       }
       this.form.patchValue({
-        resicence_municipality_id: '',
+        residence_municipality_id: '',
       });
     });
 
@@ -534,9 +602,6 @@ export class FormUsersComponent implements OnInit {
     });
 
 
-  
-
-
     this.form.get('is_disability').valueChanges.subscribe(val => {
       if (val) {
         this.form.get('disability').setValidators(Validators.required);
@@ -544,6 +609,12 @@ export class FormUsersComponent implements OnInit {
       } else {
         this.form.get('disability').clearValidators();
         this.form.get('disability').updateValueAndValidity();
+      }
+    });
+    this.form.get('type_professional_id').valueChanges.subscribe(val => {
+      if (val) {
+        console.log(val);
+        this.GetAuxData(val);
       }
     });
 
@@ -562,6 +633,7 @@ export class FormUsersComponent implements OnInit {
     });
   }
 
+
   GetMunicipalities(region_id, job = false) {
     if (!region_id || region_id === '') return Promise.resolve(false);
     return this.locationBS.GetPublicMunicipalitiesByRegion(region_id).then(x => {
@@ -577,48 +649,70 @@ export class FormUsersComponent implements OnInit {
   GetNeighborhoodResidence(municipality_id) {
     if (!municipality_id || municipality_id === '') return Promise.resolve(false);
     return this.locationBS.GetNeighborhoodResidenceByMunicipality(municipality_id).then(x => {
-        this.neighborhood_or_residence = x;
+      this.neighborhood_or_residence = x;
 
 
       return Promise.resolve(true);
     });
   }
 
-
-
-  ShowDialogCategories() {
-    this.dialog.open(CategoriesDialogComponent, {
-      context: {
-        categories: this.categories,
-        SelectedCategory: this.SelectedCategory.bind(this),
-        categoriesSelect: this.categoriesSelect,
-        initCategories: this.data?.categories ?? [],
-      },
+  ShowDialogSpecialities() {
+    console.log(this.data);
+    this.selected = [];
+    this.data?.assistance[0]?.special_field.forEach(element => {
+      this.selected.push(element.special_field_id);
     });
+    console.log(this.selected);
+
+    this.dialog.open(SpecialitiesDialogComponent, {
+      context: {
+        specialities: this.specialities,
+        SelectedAssistanceSpecial: this.SelectedAssistanceSpecial.bind(this),
+        specialitiesSelect: this.specialitiesSelect,
+        initSpecialities: this.selected ?? [],
+        searchSpecialities: this.searchSpecialities.bind(this),
+      },
+
+    });
+
+
   }
 
-  SelectedCategory(value, category) {
+  async searchSpecialities($value) {
+    console.log($value.target.value);
+
+    if ($value.target.value != undefined || $value.target.value != "") {
+
+      await this.GetAuxData(this.form.controls.type_professional_id.value, $value.target.value);
+       this.ShowDialogSpecialities();
+       $value.target.value = undefined;
+    }
+
+  }
+
+  SelectedAssistanceSpecial(value, assistanceSpecial) {
     if (value) {
-      if (!this.categoriesSelect.includes(category.id)) {
-        this.categoriesSelect.push(category.id);
+      if (!this.specialitiesSelect.includes(assistanceSpecial.id)) {
+        this.specialitiesSelect.push(assistanceSpecial.id);
       }
     } else {
-      if (this.categoriesSelect.includes(category.id)) {
-        this.categoriesSelect.splice(this.categoriesSelect.indexOf(category.id), 1);
+      if (this.specialitiesSelect.includes(assistanceSpecial.id)) {
+        this.specialitiesSelect.splice(this.specialitiesSelect.indexOf(assistanceSpecial.id), 1);
       }
     }
   }
 
 
+
   getInputTypePassword() {
-    if(this.showPassword){
+    if (this.showPassword) {
       return 'text';
     }
     return 'password';
   }
 
   getInputTypeConfirmPassword() {
-    if(this.showConfirmPassword){
+    if (this.showConfirmPassword) {
       return 'text';
     }
     return 'password';
@@ -631,4 +725,25 @@ export class FormUsersComponent implements OnInit {
   toggleShowConfirmPassword() {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
+
+  async changeFile(files, option) {
+    if (!files) return false;
+
+    const file = await this.toBase64(files.target.files[0]);
+
+    switch (option) {
+      case 1:
+        this.form.patchValue({
+          file_firm: files.target.files[0],
+        });
+        break;
+    }
+  }
+  toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+  public check: boolean = false;
 }

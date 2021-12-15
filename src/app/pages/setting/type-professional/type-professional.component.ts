@@ -1,25 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CompanyDocumentService } from '../../../business-controller/company-document.service';
+import { TypeProfessionalService } from '../../../business-controller/type-professional.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormCompanyDocumentComponent } from './form-company-document/form-company-document.component';
+import { FormTypeProfessionalComponent } from './form-type-professional/form-type-professional.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 
 
 @Component({
-  selector: 'ngx-company-document',
-  templateUrl: './company-document.component.html',
-  styleUrls: ['./company-document.component.scss']
+  selector: 'ngx-type-professional',
+  templateUrl: './type-professional.component.html',
+  styleUrls: ['./type-professional.component.scss']
 })
-export class CompanyDocumentComponent implements OnInit {
+export class TypeProfessionalComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Documentos de Empresa';
+  public title: string = 'Tipo de profesional';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Empresa','Documento'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
+  public headerFields: any[] = ['ID','Nombre'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -37,8 +37,8 @@ export class CompanyDocumentComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditCompanyDocument.bind(this),
-            'delete': this.DeleteConfirmCompanyDocument.bind(this),
+            'edit': this.EditTypeProfessional.bind(this),
+            'delete': this.DeleteConfirmTypeProfessional.bind(this),
           };
         },
         renderComponent: ActionsComponent,
@@ -47,12 +47,8 @@ export class CompanyDocumentComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      company_id: {
+      name: {
         title: this.headerFields[1],
-        type: 'string',
-      },
-      document_id: {
-        title: this.headerFields[2],
         type: 'string',
       },
     },
@@ -60,13 +56,13 @@ export class CompanyDocumentComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Documentos de empresa',
-      route: '../../setting/company-document',
+      name: 'Tipo de profesional',
+      route: '../../setting/type-professional',
     },
   ];
 
   constructor(
-    private companyDocumentS: CompanyDocumentService,
+    private TypeProfessionalS: TypeProfessionalService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -81,19 +77,19 @@ export class CompanyDocumentComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewCompanyDocument() {
-    this.dialogFormService.open(FormCompanyDocumentComponent, {
+  NewTypeProfessional() {
+    this.dialogFormService.open(FormTypeProfessionalComponent, {
       context: {
-        title: 'Crear nuevo documento de empresa',
+        title: 'Crear nueva ruta de admisión',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditCompanyDocument(data) {
-    this.dialogFormService.open(FormCompanyDocumentComponent, {
+  EditTypeProfessional(data) {
+    this.dialogFormService.open(FormTypeProfessionalComponent, {
       context: {
-        title: 'Editar documento de empresa',
+        title: 'Editar ruta de admisión',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -113,18 +109,18 @@ export class CompanyDocumentComponent implements OnInit {
   //   });
   // }
 
-  DeleteConfirmCompanyDocument(data) {
+  DeleteConfirmTypeProfessional(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteCompanyDocument.bind(this),
+        delete: this.DeleteTypeProfessional.bind(this),
       },
     });
   }
 
-  DeleteCompanyDocument(data) {
-    return this.companyDocumentS.Delete(data.id).then(x => {
+  DeleteTypeProfessional(data) {
+    return this.TypeProfessionalS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {

@@ -1,25 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CompanyDocumentService } from '../../../business-controller/company-document.service';
+import { CostCenterService } from '../../../business-controller/cost-center.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormCompanyDocumentComponent } from './form-company-document/form-company-document.component';
+import { FormCostCenterComponent } from './form-cost-center/form-cost-center.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 
 
 @Component({
-  selector: 'ngx-company-document',
-  templateUrl: './company-document.component.html',
-  styleUrls: ['./company-document.component.scss']
+  selector: 'ngx-cost-center',
+  templateUrl: './cost-center.component.html',
+  styleUrls: ['./cost-center.component.scss']
 })
-export class CompanyDocumentComponent implements OnInit {
+export class CostCenterComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Documentos de Empresa';
+  public title: string = 'Centro de costos';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Empresa','Documento'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
+  public headerFields: any[] = ['ID','Nombre','Codigo'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -37,8 +37,8 @@ export class CompanyDocumentComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditCompanyDocument.bind(this),
-            'delete': this.DeleteConfirmCompanyDocument.bind(this),
+            'edit': this.EditCostCenter.bind(this),
+            'delete': this.DeleteConfirmCostCenter.bind(this),
           };
         },
         renderComponent: ActionsComponent,
@@ -47,11 +47,11 @@ export class CompanyDocumentComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      company_id: {
+      name: {
         title: this.headerFields[1],
         type: 'string',
       },
-      document_id: {
+      code: {
         title: this.headerFields[2],
         type: 'string',
       },
@@ -60,13 +60,13 @@ export class CompanyDocumentComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Documentos de empresa',
-      route: '../../setting/company-document',
+      name: 'Centro de costos',
+      route: '../../setting/cost-center',
     },
   ];
 
   constructor(
-    private companyDocumentS: CompanyDocumentService,
+    private CostCenterS: CostCenterService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -81,19 +81,19 @@ export class CompanyDocumentComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewCompanyDocument() {
-    this.dialogFormService.open(FormCompanyDocumentComponent, {
+  NewCostCenter() {
+    this.dialogFormService.open(FormCostCenterComponent, {
       context: {
-        title: 'Crear nuevo documento de empresa',
+        title: 'Crear nueva ruta de admisión',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditCompanyDocument(data) {
-    this.dialogFormService.open(FormCompanyDocumentComponent, {
+  EditCostCenter(data) {
+    this.dialogFormService.open(FormCostCenterComponent, {
       context: {
-        title: 'Editar documento de empresa',
+        title: 'Editar centro de costos',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -113,18 +113,18 @@ export class CompanyDocumentComponent implements OnInit {
   //   });
   // }
 
-  DeleteConfirmCompanyDocument(data) {
+  DeleteConfirmCostCenter(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteCompanyDocument.bind(this),
+        delete: this.DeleteCostCenter.bind(this),
       },
     });
   }
 
-  DeleteCompanyDocument(data) {
-    return this.companyDocumentS.Delete(data.id).then(x => {
+  DeleteCostCenter(data) {
+    return this.CostCenterS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {
