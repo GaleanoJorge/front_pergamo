@@ -21,21 +21,7 @@ export class UserBusinessService {
   ) {
   }
 
-  GetCollection(): Promise<User[]> {
-    var servObj = new ServiceObject("user");
-    return this.webAPI.GetAction(servObj)
-      .then(x => {
-        servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
-
-        this.users = <User[]>servObj.data.users.data;
-        return Promise.resolve(this.users);
-      })
-      .catch(x => {
-        throw x.message;
-      });
-  }
+v
 
   GetCollectionByPage(page: number, search: any): Promise<User[]> {
     var paramsMain = new HttpParams().set("identification", search.identification).set("firstname", search.firstname).set("middlefirstname", search.middlefirstname).set("lastname", search.lastname).set("middlelastname", search.middlelastname);
@@ -112,6 +98,22 @@ export class UserBusinessService {
           throw new Error(servObj.message);
 
         return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  UserByRole(id:any): Promise<User[]> {
+    var servObj = new ServiceObject("user/byRole", id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
       })
       .catch(x => {
         throw x.message;

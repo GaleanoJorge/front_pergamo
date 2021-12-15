@@ -12,6 +12,7 @@ import * as XLSX from 'ts-xlsx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlossResponseService } from '../../../business-controller/gloss-response.service';
 import { GlossStatusService } from '../../../business-controller/gloss-status.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'ngx-gloss-list',
@@ -27,13 +28,17 @@ export class GlossListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Glosas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Prefijo factura', 'Consecutivo factura', 'Tipo de objeción', 'Inicial reiterada', 'Fecha recibido', 'Fecha emisión', 'Fecha radicación', 'EAPB', 'Sede', 'Modalidad de Glosa', 'Ambito de Glosa', 'Sevicio de Glosa', 'Código de objeción', 'Detalle de objeción', 'Valor de factura', 'Valor objetado', 'Medio de recibido', 'Estado', 'Analista asignado'];
+  public headerFields: any[] = ['Prefijo factura', 'Consecutivo factura', 'Tipo de objeción', 'Inicial reiterada', 'Fecha recibido', 'Fecha emisión', 'Fecha radicación', 'EAPB', 'Sede', 'Modalidad de Glosa', 'Ambito de Glosa', 'Sevicio de Glosa', 'Código de objeción', 'Detalle de objeción', 'Valor de factura', 'Valor objetado', 'Medio de recibido', 'Estado', 'Creado Por','Analista asignado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}, ${this.headerFields[5]}, ${this.headerFields[6]}, ${this.headerFields[7]}, ${this.headerFields[8]}, ${this.headerFields[9]}, ${this.headerFields[10]}, ${this.headerFields[11]}, ${this.headerFields[12]}, ${this.headerFields[13]}, ${this.headerFields[14]}, ${this.headerFields[15]}, ${this.headerFields[16]}, ${this.headerFields[17]}, ${this.headerFields[18]}`;
   public icon: string = 'nb-star';
   public data = [];
   public arrayBuffer: any;
   public file: File;
   public glossStatus: any[] = null;
+  public user_id;
+  public user;
+  public currentRole;
+
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -163,6 +168,13 @@ export class GlossListComponent implements OnInit {
           return value.firstname + ' ' + value.lastname;
         },
       },
+      assing_user: {
+        title: this.headerFields[19],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.firstname + ' ' + value.lastname;
+        },
+      },
     },
   };
 
@@ -181,6 +193,7 @@ export class GlossListComponent implements OnInit {
     private toastService: NbToastrService,
     private GlossResponseS: GlossResponseService,
     private GlossStatusS: GlossStatusService,
+    private authService: AuthService,
   ) {
   }
   public form: FormGroup;
@@ -189,6 +202,14 @@ export class GlossListComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.user=this.authService.GetUser();
+    this.user_id=this.user.id;
+    this.currentRole = this.authService.GetRole();
+    if(this.user_id && this.currentRole==5){
+      this.entity= 'gloss/byStatus/0/' + this.user_id ;
+    }else{
+      this.entity="gloss/?pagination=true";
+    }
     this.GlossStatusS.GetCollection().then((x) => {
       this.glossStatus = x;
     });
@@ -278,11 +299,13 @@ export class GlossListComponent implements OnInit {
 
   ChangeGlossStatus(status) {
     this.status=status;
-    if(status!=0){
-    this.table.changeEntity(`gloss/byStatus/${this.status}`,'gloss');
+    if(status!=0 && this.currentRole==5){
+    this.table.changeEntity(`gloss/byStatus/${this.status}/${this.user_id}`,'gloss');
     // this.RefreshData();
+    }else if(this.currentRole==4 || this.currentRole==1){ 
+      this.table.changeEntity(`gloss/byStatus/${this.status}/0`,'gloss');
     }else{
-      this.table.changeEntity(`gloss`,'gloss');
+      this.table.changeEntity(`gloss/byStatus/0/${this.user_id}`,'gloss');
     }
    }
 }

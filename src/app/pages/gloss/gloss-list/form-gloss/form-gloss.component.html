@@ -29,18 +29,6 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="repeated_initial" class="form-text text-muted font-weight-bold">Inicial o Reiterado:</label>
-          <nb-select [selected]="this.data.repeated_initial_id" formControlName="repeated_initial_id"
-            id="repeated_initial_id" fullWidth
-            status="{{ isSubmitted && form.controls.repeated_initial_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.repeated_initial_id }}" *ngFor="let item of repeated_initial"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
-
-        <div class="col-12 col-sm-12 col-md-4">
           <label for="received_date" class="form-text text-muted font-weight-bold">Fecha de recibido:</label>
           <input type="date" nbInput fullWidth id="received_date" formControlName="received_date" received_date
             status="{{ isSubmitted && form.controls.received_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
@@ -115,15 +103,11 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="objetion_code" class="form-text text-muted font-weight-bold">Código de objeción:</label>
-          <nb-select [selected]="this.data.objetion_code_id" formControlName="objetion_code_id" id="objetion_code_id"
-            fullWidth
-            status="{{ isSubmitted && form.controls.objetion_code_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.objetion_code_id }}" *ngFor="let item of objetion_code"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
+          <label class="form-text text-muted font-weight-bold">Código de objeción:</label>
+          <input id="data-list" type="text" list="codes" class="data-list" (change)="saveCode($event)" required>
+            <datalist id="codes">
+              <option *ngFor="let item of objetion_code" [value]="item.name" >{{item.code}} {{item.name}}</option>
+            </datalist>
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
@@ -131,6 +115,7 @@
           <input nbInput fullWidth id="objetion_detail" formControlName="objetion_detail" objetion_detail
             status="{{ isSubmitted && form.controls.objetion_detail.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
+
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="invoice_value" class="form-text text-muted font-weight-bold">Valor de factura:</label>
@@ -153,6 +138,18 @@
             <nb-option selected="{{ item.id == data.received_by_id }}" *ngFor="let item of received_by"
               [value]="item.id">
               {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="assing_user" class="form-text text-muted font-weight-bold">Usuario asignado:</label>
+          <nb-select [selected]="this.data.assing_user_id" formControlName="assing_user_id" id="assing_user_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.assing_user_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.assing_user_id }}" *ngFor="let item of assing_user"
+              [value]="item.id">
+              {{ item.nombre_completo }}</nb-option>
           </nb-select>
         </div>
 

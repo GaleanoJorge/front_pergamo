@@ -3,7 +3,12 @@ import {ViewCell} from 'ng2-smart-table';
 
 @Component({
   template: `
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center" style="align-items: center;">
+      <div class="cuadro" [style]="this.value.data.admissions.length == 0  ? 'background-color: #54bcc1;' :
+      this.value.data.admissions[this.value.data.admissions.length - 1].medical_date != '0000-00-00 00:00:00' && this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date == '0000-00-00 00:00:00' ? 'background-color: yellow;'
+      : this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date == '0000-00-00 00:00:00' ? 'background-color: red;' : 'background-color: #54bcc1;'">
+        
+      </div>
       <a ngxCheckPerms="update" nbButton ghost [routerLink]="'../../admissions/patient/' + value.data.id+ '/edit'">
         <nb-icon icon="edit-outline"></nb-icon>
       </a>
@@ -30,6 +35,7 @@ import {ViewCell} from 'ng2-smart-table';
     </div>
   </ng-template>
   `,
+  styleUrls: ['admissions-list.component.scss'],
 })
 export class ActionsComponent implements ViewCell {
   @Input() value: any;    // This hold the cell value

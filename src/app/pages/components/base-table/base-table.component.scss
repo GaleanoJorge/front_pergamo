@@ -23,6 +23,10 @@ ng-content {
   margin-top: 10px;
 }
 
+.nb-theme-corporate ng2-smart-table table tr th a{
+  font-weight: 700 !important;
+}
+
 .datatable-footer-with-pagination {
   position: absolute;
   display: flex;

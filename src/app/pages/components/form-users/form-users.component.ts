@@ -386,7 +386,7 @@ export class FormUsersComponent implements OnInit {
       if(this.isStudent==true){
       formData.append('password', 'Hyl'+data.identification.value+'*');
       }else{
-        formData.append('password', data.identification.value);
+        formData.append('password', data.password.value);
       }
       formData.append('landline', data.landline.value);
 

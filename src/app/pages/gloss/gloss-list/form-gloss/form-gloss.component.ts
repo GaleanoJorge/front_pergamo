@@ -11,6 +11,7 @@ import { GlossServiceService } from '../../../../business-controller/gloss-servi
 import { ObjetionCodeService } from '../../../../business-controller/objetion-code.service';
 import { ReceivedByService } from '../../../../business-controller/received-by.service';
 import { GlossService } from '../../../../business-controller/gloss.service';
+import { UserBusinessService } from '../../../../business-controller/user-business.service';
 
 
 @Component({
@@ -35,6 +36,8 @@ export class FormGlossComponent implements OnInit {
   public gloss_service: any[];
   public objetion_code: any[];
   public received_by: any[];
+  public assing_user: any[];
+  public code_id;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -50,6 +53,7 @@ export class FormGlossComponent implements OnInit {
     private glossServiceS: GlossServiceService,
     private objetionCodeS: ObjetionCodeService,
     private receivedByS: ReceivedByService,
+    private userS:UserBusinessService,
   ) {
   }
 
@@ -73,6 +77,7 @@ export class FormGlossComponent implements OnInit {
         gloss_service_id: '',
         objetion_code_id: '',
         received_by_id: '',
+        assing_user_id:''
       };
     }
 
@@ -103,6 +108,9 @@ export class FormGlossComponent implements OnInit {
     this.receivedByS.GetCollection().then(x => {
       this.received_by = x;
     });
+    this.userS.UserByRole(5).then(x => {
+      this.assing_user = x;
+    });
 
 
     this.form = this.formBuilder.group({
@@ -115,19 +123,28 @@ export class FormGlossComponent implements OnInit {
       emission_date: [this.data.emission_date],
       radication_date: [this.data.radication_date],
       objetion_type_id: [this.data.objetion_type_id, Validators.compose([Validators.required])],
-      repeated_initial_id: [this.data.repeated_initial_id, Validators.compose([Validators.required])],
       company_id: [this.data.company_id, Validators.compose([Validators.required])],
       campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
       gloss_modality_id: [this.data.gloss_modality_id, Validators.compose([Validators.required])],
       gloss_ambit_id: [this.data.gloss_ambit_id, Validators.compose([Validators.required])],
       gloss_service_id: [this.data.gloss_service_id, Validators.compose([Validators.required])],
-      objetion_code_id: [this.data.objetion_code_id, Validators.compose([Validators.required])],
+      objetion_code_id: [this.data.objetion_code_id],
       received_by_id: [this.data.received_by_id, Validators.compose([Validators.required])],
+      assing_user_id: [this.data.assing_user_id, Validators.compose([Validators.required])],
     });
   }
 
   close() {
     this.dialogRef.close();
+  }
+
+  public saveCode(e): void {
+    var name=this.objetion_code.find(item => item.name == e.target.value);
+    if(name){
+    this.code_id=name.id; 
+    }else{
+      this.code_id=null;
+    }
   }
 
   save() {
@@ -146,14 +163,14 @@ export class FormGlossComponent implements OnInit {
           emission_date: this.form.controls.emission_date.value,
           radication_date: this.form.controls.radication_date.value,
           objetion_type_id: this.form.controls.objetion_type_id.value,
-          repeated_initial_id: this.form.controls.repeated_initial_id.value,
           company_id: this.form.controls.company_id.value,
           campus_id: this.form.controls.campus_id.value,
           gloss_modality_id: this.form.controls.gloss_modality_id.value,
           gloss_ambit_id: this.form.controls.gloss_ambit_id.value,
           gloss_service_id: this.form.controls.gloss_service_id.value,
-          objetion_code_id: this.form.controls.objetion_code_id.value,
+          objetion_code_id: this.code_id,
           received_by_id: this.form.controls.received_by_id.value,
+          assing_user_id: this.form.controls.assing_user_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -175,13 +192,13 @@ export class FormGlossComponent implements OnInit {
           emission_date: this.form.controls.emission_date.value,
           radication_date: this.form.controls.radication_date.value,
           objetion_type_id: this.form.controls.objetion_type_id.value,
-          repeated_initial_id: this.form.controls.repeated_initial_id.value,
           company_id: this.form.controls.company_id.value,
           campus_id: this.form.controls.campus_id.value,
           gloss_modality_id: this.form.controls.gloss_modality_id.value,
           gloss_ambit_id: this.form.controls.gloss_ambit_id.value,
           gloss_service_id: this.form.controls.gloss_service_id.value,
-          objetion_code_id: this.form.controls.objetion_code_id.value,
+          objetion_code_id: this.code_id,
+          assing_user_id: this.form.controls.assing_user_id.value,
           received_by_id: this.form.controls.received_by_id.value,
         }).then(x => {
           this.toastService.success('', x.message);

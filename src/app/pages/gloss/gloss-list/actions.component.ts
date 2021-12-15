@@ -36,6 +36,11 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
             <nb-card-body>
                 <form [formGroup]="ResponseGlossForm" (ngSubmit)="saveGroup()">
                     <div>
+                      <div class="col-md-12">
+                        <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
+                        <input nbInput fullWidth id="response" formControlName="response" response
+                        status="{{ isSubmitted && ResponseGlossForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                      </div>
                         <div class="col-md-12">
                             <label for="accepted_value" class="form-text text-muted font-weight-bold">Valor aceptado:</label>
                             <input nbInput fullWidth id="accepted_value" formControlName="accepted_value" accepted_value
@@ -199,6 +204,7 @@ export class Actions2Component implements ViewCell {
   async ngOnInit() {
     if (!this.rowData) {
       this.rowData = {
+        response:'',
         accepted_value: '',
         value_not_accepted: '',
         objetion_code_response_id: '',
@@ -211,6 +217,7 @@ export class Actions2Component implements ViewCell {
 
     if (this.value.data.gloss_status_id == 1) {
       this.ResponseGlossForm = this.formBuilder.group({
+        response: [this.rowData.response, Validators.compose([Validators.required])],
         accepted_value: [this.rowData.accepted_value, Validators.compose([Validators.required])],
         value_not_accepted: [this.rowData.value_not_accepted, Validators.compose([Validators.required])],
         objetion_code_response_id: [this.rowData.objetion_code_response_id, Validators.compose([Validators.required])],
@@ -273,6 +280,7 @@ export class Actions2Component implements ViewCell {
       if (this.rowData.id) {
         if (this.ResponseGlossForm.value.file) {
           var formData = new FormData();
+          formData.append('response', this.ResponseGlossForm.value.response);
           formData.append('file', this.ResponseGlossForm.value.file);
           formData.append('id', this.rowData.id);
           formData.append('gloss_id', this.value.data.id);
@@ -282,6 +290,7 @@ export class Actions2Component implements ViewCell {
           formData.append('value_not_accepted', this.ResponseGlossForm.controls.value_not_accepted.value);
           this.dialog = this.dialog.close();
           this.GlossResponseS.Save(formData).then(x => {
+            this.value.refresh();
             this.toastService.success('', x.message);
             this.dialog.close();
             if (this.saved) {
@@ -302,7 +311,9 @@ export class Actions2Component implements ViewCell {
             value_not_accepted: this.ResponseGlossForm.controls.value_not_accepted.value,
           }).then(x => {
             this.toastService.success('', x.message);
+            this.value.refresh();
             this.dialog.close();
+   
             if (this.saved) {
               this.saved();
             }
@@ -311,9 +322,10 @@ export class Actions2Component implements ViewCell {
             this.loading = false;
           });
         }
+        //this.value.refresh();
       }
     }
-    this.value.refresh();
+    //this.value.refresh();
   }
 
   saveRadication() {
@@ -357,7 +369,9 @@ export class Actions2Component implements ViewCell {
             this.loading = false;
           });
         }
+        this.value.refresh();
       }
+    
     }
   }
 
