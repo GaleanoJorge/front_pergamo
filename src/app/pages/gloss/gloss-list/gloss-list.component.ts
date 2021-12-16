@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlossResponseService } from '../../../business-controller/gloss-response.service';
 import { GlossStatusService } from '../../../business-controller/gloss-status.service';
 import { AuthService } from '../../../services/auth.service';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'ngx-gloss-list',
@@ -142,10 +143,16 @@ export class GlossListComponent implements OnInit {
       invoice_value: {
         title: this.headerFields[14],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.currency.transform(value);
+        },
       },
       objeted_value: {
         title: this.headerFields[15],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.currency.transform(value);
+        },
       },
       received_by: {
         title: this.headerFields[16],
@@ -192,6 +199,7 @@ export class GlossListComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
     private GlossResponseS: GlossResponseService,
+    private currency: CurrencyPipe,
     private GlossStatusS: GlossStatusService,
     private authService: AuthService,
   ) {

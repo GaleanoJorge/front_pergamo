@@ -38,6 +38,7 @@ export class FormGlossComponent implements OnInit {
   public received_by: any[];
   public assing_user: any[];
   public code_id;
+  public objetion_name;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -57,8 +58,7 @@ export class FormGlossComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void  {
     if (!this.data) {
       this.data = {
         id: '',
@@ -111,8 +111,7 @@ export class FormGlossComponent implements OnInit {
     this.userS.UserByRole(5).then(x => {
       this.assing_user = x;
     });
-
-
+    
     this.form = this.formBuilder.group({
       invoice_prefix: [this.data.invoice_prefix, Validators.compose([Validators.required])],
       objetion_detail: [this.data.objetion_detail, Validators.compose([Validators.required])],
@@ -128,15 +127,18 @@ export class FormGlossComponent implements OnInit {
       gloss_modality_id: [this.data.gloss_modality_id, Validators.compose([Validators.required])],
       gloss_ambit_id: [this.data.gloss_ambit_id, Validators.compose([Validators.required])],
       gloss_service_id: [this.data.gloss_service_id, Validators.compose([Validators.required])],
-      objetion_code_id: [this.data.objetion_code_id],
+      objetion_code_id: [this.data.objetion_code ? this.data.objetion_code.name : '' ],
       received_by_id: [this.data.received_by_id, Validators.compose([Validators.required])],
       assing_user_id: [this.data.assing_user_id, Validators.compose([Validators.required])],
     });
+
+
   }
 
   close() {
     this.dialogRef.close();
   }
+
 
   public saveCode(e): void {
     var name=this.objetion_code.find(item => item.name == e.target.value);

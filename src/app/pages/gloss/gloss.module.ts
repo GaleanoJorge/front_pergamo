@@ -18,6 +18,7 @@ import {
   NbIconModule,
   NbCheckboxModule,
   NbRadioModule,
+  NbTooltipModule,
   NbDatepickerModule, NbSpinnerModule,
 } from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
@@ -44,6 +45,7 @@ import {Actions2Component} from './gloss-list/actions.component';
     NbStepperModule,
     NbCardModule,
     NbButtonModule,
+    NbTooltipModule,
     NbListModule,
     NbListModule,
     NbAccordionModule,
