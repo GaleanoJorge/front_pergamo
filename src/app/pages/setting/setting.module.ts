@@ -199,6 +199,15 @@ import { ObjetionResponseComponent } from './objetion-response/objetion-response
 import { FormObjetionResponseComponent } from './objetion-response/form-objetion-response/form-objetion-response.component';
 import { FormDiagnosisComponent } from './diagnosis/form-diagnosis/form-diagnosis.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
+import { FormSpecialFieldComponent } from './special-field/form-special-field/form-special-field.component';
+import { SpecialFieldComponent } from './special-field/special-field.component';
+import { ContractTypeComponent } from './contract-type/contract-type.component';
+import { FormContractTypeComponent } from './contract-type/form-contract-type/form-contract-type.component';
+import { FormTypeProfessionalComponent } from './type-professional/form-type-professional/form-type-professional.component';
+import { TypeProfessionalComponent } from './type-professional/type-professional.component';
+import { CostCenterComponent } from './cost-center/cost-center.component';
+import { FormCostCenterComponent } from './cost-center/form-cost-center/form-cost-center.component';
+
 
 
 @NgModule({
@@ -230,13 +239,21 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     NbIconModule
   ],
   declarations: [
+    FormSpecialFieldComponent,
+    SpecialFieldComponent,
+    ContractTypeComponent,
+    FormContractTypeComponent,
+    FormTypeProfessionalComponent,
+    TypeProfessionalComponent,
     SpecialAttentionComponent,
     FormScopeOfAttentionComponent,
     FormSpecialAttentionComponent,
     ScopeOfAttentionComponent,
+    CostCenterComponent,
+    FormCostCenterComponent,
     ProgramComponent,
     FormProgramComponent,
-    PavilionComponent,
+    PavilionComponent, 
     FormPavilionComponent,
     FlatComponent,
     FormFlatComponent,

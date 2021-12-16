@@ -94,6 +94,10 @@ import { GlossServiceComponent } from './gloss-service/gloss-service.component';
 import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion-code-response.component';
 import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
+import { ContractTypeComponent } from './contract-type/contract-type.component';
+import { TypeProfessionalComponent } from './type-professional/type-professional.component';
+import { SpecialFieldComponent } from './special-field/special-field.component';
+import { CostCenterComponent } from './cost-center/cost-center.component';
 
 const routes: Routes = [{
   path: '',
@@ -133,6 +137,26 @@ const routes: Routes = [{
       path: 'gloss-ambit',
       component: GlossAmbitComponent,
       data: { permission: 'roles.read' },
+    },
+    {
+      path: 'contract-type',
+      component: ContractTypeComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'type-professional',
+      component: TypeProfessionalComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'special-field',
+      component: SpecialFieldComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'cost-center',
+      component: CostCenterComponent,
+      data: {Permission: 'roles.read'},
     },
     {
       path: 'gloss-service',

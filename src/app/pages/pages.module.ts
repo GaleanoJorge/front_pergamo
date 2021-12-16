@@ -38,6 +38,8 @@ import { CategoriesDialogComponent } from './components/form-users/categories-di
 import {CheckPermsDirective} from '../directives/check-perms.directive';
 import {PermissionsGuard} from '../guards/permissions.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SpecialitiesDialogComponent } from './components/form-users/especialities-dialog.component';
+import { SpecialFieldComponent } from './setting/special-field/special-field.component';
 
 
 @NgModule({
@@ -82,6 +84,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     FormUsersComponent,
     PersonalInformationComponent,
     CategoriesDialogComponent,
+    SpecialitiesDialogComponent,
     CheckPermsDirective,
     ResetPasswordComponent,
   ],
