@@ -16,7 +16,7 @@ export class CoverageComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Covertura del contrato';
+  public title: string = 'Cobertura del contrato';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -56,7 +56,7 @@ export class CoverageComponent implements OnInit {
 
   public routes = [
     {
-      name: 'covertura del contrato',
+      name: 'Cobertura del contrato',
       route: '../../setting/coverage',
     },
   ];
@@ -80,7 +80,7 @@ export class CoverageComponent implements OnInit {
   NewCoverage() {
     this.dialogFormService.open(FormCoverageComponent, {
       context: {
-        title: 'Crear nueva covertura',
+        title: 'Crear nueva Cobertura',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -89,7 +89,7 @@ export class CoverageComponent implements OnInit {
   EditCoverage(data) {
     this.dialogFormService.open(FormCoverageComponent, {
       context: {
-        title: 'Editar covertura',
+        title: 'Editar Cobertura',
         data,
         saved: this.RefreshData.bind(this),
       },
