@@ -393,21 +393,6 @@
             </nb-select>
           </div>
         </div>
-
-        <div class="col-md-6 d-flex align-items-end" *ngIf="this.role == 4 && !isPublic">
-          <div class="form-group">
-            <button nbButton status="info" type="button" (click)="ShowDialogCategories()">
-              Inscribir programas
-            </button>
-          </div>
-        </div>
-        <div class="col-md-6 d-flex align-items-end" *ngIf="this.role == 4 && isPublic">
-          <div class="form-group">
-            <button nbButton status="info" type="button" (click)="ShowDialogCategories()">
-              Inscribir programas
-            </button>
-          </div>
-        </div>
       </div>
       <!--<div class="row">
         <div class="col-md-6">
@@ -458,22 +443,6 @@
               </button>
               </nb-form-field>
             </div>            
-          </div>
-        </div>
-      </div>
-      <div class="row mt-3"  *ngIf="role==3">
-        <div class="col-12">
-          <p class="text-muted">Información personal asistencial</p>
-        </div>
-      </div>
-
-      <div class="row mt-3" *ngIf="role==3">
-        
-        <div class="col-md-4">
-          <div class="form-group">
-            <button nbButton status="info" type="button" (click)="ShowDialogSpecialities()">
-              Seleccionar especialización :
-            </button>
           </div>
         </div>
       </div>
@@ -548,6 +517,16 @@
                 (change)="changeFile($event,1)" />
           </div>
         </div>
+        </div>       
+      </div>
+      <div class="row mt-3" *ngIf="role==3">
+        
+        <div class="col-md-12">
+          <div class="form-group">
+            <button nbButton status="info" type="button" (click)="ShowDialogSpecialities()">
+              Seleccionar especialidad:
+            </button>
+          </div>
         </div>
       </div>
     </form>

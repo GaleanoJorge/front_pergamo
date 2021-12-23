@@ -17,8 +17,6 @@ const routes: Routes = [{
     {
       path: 'list',
       component: AdmissionsListComponent,
-      canActivate: [PermissionsGuard],
-      data: {permission: 'roles.read'},
     },
     {
       path: 'patient/create',

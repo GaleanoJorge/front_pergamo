@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { AssistanceSpecial } from '../../../models/assistance-special';
 import { NbDialogRef } from '@nebular/theme';
 
@@ -11,7 +11,7 @@ import { NbDialogRef } from '@nebular/theme';
             Especialidades :  
           </div> 
           <div class="col-md-7">    
-          <input (change)='searchSpecialities($event)' (change)="close()" class="form-control" type="text" nbInput fullWidth required minlength="4" id= "name" name placeholder="Buscar..."> 
+          <input (change)='search($event)' class="form-control" type="text" nbInput fullWidth required minlength="4" id= "name" name placeholder="Buscar..."> 
             </div>         
         </div>     
       </nb-card-header>
@@ -37,11 +37,12 @@ import { NbDialogRef } from '@nebular/theme';
   `,
 })
 export class SpecialitiesDialogComponent implements OnInit {
-  @Input() specialities: AssistanceSpecial[] = [];
+  @Input() specialities: any[] = [];
   @Input() SelectedAssistanceSpecial = null;
   @Input() specialitiesSelect = [];
   @Input() initSpecialities = [];
   @Input() searchSpecialities = null;
+  public specialitiesall;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -54,7 +55,22 @@ export class SpecialitiesDialogComponent implements OnInit {
     } else {
       this.specialitiesSelect = [...this.specialitiesSelect, ...this.initSpecialities];
     }
+    this.specialitiesall= this.specialities;
   }
+
+  filterItems(query) {
+    return this.specialitiesall.filter(function(el) {
+        return el.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+    })
+  }
+  
+
+  search(value){
+    this.specialities=this.filterItems(value.target.value);
+
+  }
+
+
   close() {
     this.dialogRef.close();
   }

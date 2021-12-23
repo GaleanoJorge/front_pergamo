@@ -61,6 +61,7 @@ export class FormUsersComponent implements OnInit {
   public messageError = null;
   public form: FormGroup;
   public isSubmitted: boolean = false;
+  public loading2: boolean = false;
 
   public identification_types: IdentificationType[] = [];
   public genders: Gender[] = [];
@@ -144,7 +145,8 @@ export class FormUsersComponent implements OnInit {
   }
 
   GetAuxData($type_professional_id?, $search?) {
-    return this.userBS.GetFormAuxData(this.data ? false : true, $type_professional_id == null ? this.data.assistance[0].type_professional_id : $type_professional_id, $search).then(x => {
+    return this.userBS.GetFormAuxData(this.data ? false : true,
+      this.data == null && !$type_professional_id  ? null : !$type_professional_id ? this.data.assistance[0].type_professional_id : $type_professional_id  , $search).then(x => {
       if (!$type_professional_id) {
         this.identification_types = x.identificationTypes;
         this.countries = x.countries;
@@ -327,31 +329,31 @@ export class FormUsersComponent implements OnInit {
       configForm = {
         ...configForm,
         medical_record: [
-          this.data == null ? '' : this.data.assistance[0].medical_record,
+          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].medical_record : '',
           Validators.compose([Validators.required])
         ],
         contract_type_id: [
-          this.data == null ? '' : this.data.assistance[0].contract_type_id,
+          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].contract_type_id : '',
           Validators.compose([Validators.required])
         ],
         cost_center_id: [
-          this.data == null ? '' : this.data.assistance[0].cost_center_id,
+          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].cost_center_id : '',
           Validators.compose([Validators.required])
         ],
         type_professional_id: [
-          this.data == null ? '' : this.data.assistance[0].type_professional_id,
+          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].type_professional_id: '',
           Validators.compose([Validators.required])
         ],
         attends_external_consultation: [
-          this.data == null ? '' : this.data.assistance[0].attends_external_consultation,
+          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].attends_external_consultation : '',
           Validators.compose([Validators.required])
         ],
         serve_multiple_patients: [
-          this.data == null ? '' : this.data.assistance[0].serve_multiple_patients,
+          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].serve_multiple_patients : '',
           Validators.compose([Validators.required])
         ],
         file_firm: [
-          this.data == null ? '' : this.data.assistance[0].file_firm,
+          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].file_firm : '',
           Validators.compose([Validators.required])
         ],
       }
@@ -457,7 +459,7 @@ export class FormUsersComponent implements OnInit {
 
 
       if (this.role == 3) {
-        formData.append('assistance_id', this.data.assistance[0].id ? this.data.assistance[0].id : null);
+        formData.append('assistance_id', this.data==null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
         formData.append('contract_type_id', data.contract_type_id.value);
         formData.append('cost_center_id', data.cost_center_id.value);
@@ -611,12 +613,14 @@ export class FormUsersComponent implements OnInit {
         this.form.get('disability').updateValueAndValidity();
       }
     });
+    if (this.role == 3) {
     this.form.get('type_professional_id').valueChanges.subscribe(val => {
       if (val) {
         console.log(val);
         this.GetAuxData(val);
       }
     });
+  }
 
   }
 
@@ -657,12 +661,11 @@ export class FormUsersComponent implements OnInit {
   }
 
   ShowDialogSpecialities() {
-    console.log(this.data);
     this.selected = [];
     this.data?.assistance[0]?.special_field.forEach(element => {
       this.selected.push(element.special_field_id);
     });
-    console.log(this.selected);
+
 
     this.dialog.open(SpecialitiesDialogComponent, {
       context: {
@@ -670,7 +673,6 @@ export class FormUsersComponent implements OnInit {
         SelectedAssistanceSpecial: this.SelectedAssistanceSpecial.bind(this),
         specialitiesSelect: this.specialitiesSelect,
         initSpecialities: this.selected ?? [],
-        searchSpecialities: this.searchSpecialities.bind(this),
       },
 
     });
@@ -678,17 +680,6 @@ export class FormUsersComponent implements OnInit {
 
   }
 
-  async searchSpecialities($value) {
-    console.log($value.target.value);
-
-    if ($value.target.value != undefined || $value.target.value != "") {
-
-      await this.GetAuxData(this.form.controls.type_professional_id.value, $value.target.value);
-       this.ShowDialogSpecialities();
-       $value.target.value = undefined;
-    }
-
-  }
 
   SelectedAssistanceSpecial(value, assistanceSpecial) {
     if (value) {
