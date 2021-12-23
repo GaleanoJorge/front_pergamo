@@ -132,7 +132,7 @@ export class FormUsersComponent implements OnInit {
     this.currentRoleId = localStorage.getItem('role_id');
     this.LoadForm(false).then();
     await Promise.all([
-      this.GetAuxData(),
+      this.GetAuxData(null),
     ]);
     this.course_id = this.route.snapshot.queryParams.course_id;
     this.loadAuxData = false;
@@ -146,7 +146,7 @@ export class FormUsersComponent implements OnInit {
 
   GetAuxData($type_professional_id?, $search?) {
     return this.userBS.GetFormAuxData(this.data ? false : true,
-      this.data == null && !$type_professional_id  ? null : !$type_professional_id ? this.data.assistance[0].type_professional_id : $type_professional_id  , $search).then(x => {
+      this.data == null && !$type_professional_id  ? null : $type_professional_id == null && this.data.assistance.length > 0 ? this.data.assistance[0].type_professional_id : $type_professional_id  , $search).then(x => {
       if (!$type_professional_id) {
         this.identification_types = x.identificationTypes;
         this.countries = x.countries;
