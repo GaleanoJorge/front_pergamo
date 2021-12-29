@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,TemplateRef } from '@angular/core';
 import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
@@ -13,6 +13,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlossResponseService } from '../../../business-controller/gloss-response.service';
 import { GlossStatusService } from '../../../business-controller/gloss-status.service';
 import { AuthService } from '../../../services/auth.service';
+import { ObjetionCodeResponseService } from '../../../business-controller/objetion-code-response.service';
+import { ObjetionResponseService } from '../../../business-controller/objetion-response.service';
 
 @Component({
   selector: 'ngx-gloss-list',
@@ -24,6 +26,7 @@ export class GlossListComponent implements OnInit {
   public isSubmitted = false;
   public entity: string;
   public loading: boolean = false;
+  public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
   public title: string = 'Glosas';
@@ -37,13 +40,17 @@ export class GlossListComponent implements OnInit {
   public glossStatus: any[] = null;
   public user_id;
   public user;
+  public dialog; 
   public currentRole;
+  public selectedOptions: any[] = [];
+
 
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   public settings = {
+    selectMode: 'multi',
     columns: {
       actions: {
         title: '',
@@ -194,10 +201,19 @@ export class GlossListComponent implements OnInit {
     private GlossResponseS: GlossResponseService,
     private GlossStatusS: GlossStatusService,
     private authService: AuthService,
+    private dialogService: NbDialogService,
+    private objetionCodeResponseS: ObjetionCodeResponseService,
+    private objetionResponseS: ObjetionResponseService,
+    private toastS: NbToastrService,
   ) {
   }
   public form: FormGroup;
+  public ResponseGlossForm: FormGroup;
   public status;
+  public objetion_code_response: any[] = null;
+  public objetion_response: any[] = null;
+  public saved: any = null;
+
 
 
 
@@ -215,6 +231,29 @@ export class GlossListComponent implements OnInit {
     });
     this.form = this.formBuilder.group({
       file: [Validators.compose([Validators.required])],
+    });
+
+    this.ResponseGlossForm = this.formBuilder.group({
+      response: ['', Validators.compose([Validators.required])],
+      accepted_value: [ '',Validators.compose([Validators.required])],
+      value_not_accepted: ['', Validators.compose([Validators.required])],
+      objetion_code_response_id: ['', Validators.compose([Validators.required])],
+      objetion_response_id: [ '',Validators.compose([Validators.required])],
+      file: [Validators.compose([Validators.required])],
+    });
+  }
+
+  ConfirmAction(dialog: TemplateRef<any>) {
+    this.dialog = this.dialogService.open(dialog);
+    this.GetResponseParam();
+  }
+
+  GetDataSelect(select: any[]) {
+    console.log(select);
+    this.selectedOptions=[];
+    select.forEach(element => {
+      var manual_price=element;
+      this.selectedOptions.push(manual_price.id);
     });
   }
 
@@ -261,9 +300,54 @@ export class GlossListComponent implements OnInit {
     });
   }
 
+  async saveGroup() {
+    this.isSubmitted = true;
+    if (!this.ResponseGlossForm.invalid) {
+      if (!this.selectedOptions.length) {
+        this.dialog = this.dialog.close();
+        this.toastS.danger(null, 'Debe seleccionar un registro');
+      }else{
+      this.loading = true;
+      this.dialog.close();
+   
+          var formData = new FormData();
+          formData.append('response', this.ResponseGlossForm.value.response);
+          formData.append('file', this.ResponseGlossForm.value.file);
+          formData.append('gloss_id',JSON.stringify(this.selectedOptions));
+          formData.append('objetion_response_id', this.ResponseGlossForm.controls.objetion_response_id.value);
+          formData.append('objetion_code_response_id', this.ResponseGlossForm.controls.objetion_code_response_id.value);
+          formData.append('accepted_value', this.ResponseGlossForm.controls.accepted_value.value);
+          formData.append('value_not_accepted', this.ResponseGlossForm.controls.value_not_accepted.value);
+
+          await this.GlossResponseS.Save(formData).then(x => {
+            this.toastService.success('', x.data);
+            this.RefreshData();
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          }); 
+    }
+  }
+  }
+
+
+  GetResponseParam() {
+    if (!this.objetion_code_response || !this.objetion_response) {
+      this.objetionCodeResponseS.GetCollection().then(x => {
+        this.objetion_code_response = x;
+      });
+      this.objetionResponseS.GetCollection().then(x => {
+        this.objetion_response = x;
+      });
+    }
+  }
+
   async saveFile(event) {
     if (event.target.files[0]) {
-      this.loading = true;
+      this.loading2 = true;
       this.file = event.target.files[0];
       let lectura;
       let fileReader = new FileReader();
@@ -288,11 +372,11 @@ export class GlossListComponent implements OnInit {
     try {
       let response;
       response = await this.glossS.SaveFile(lectura);
-      this.loading = false;
+      this.loading2 = false;
       this.toastService.success('', response.message);
       this.RefreshData();
     } catch (e) {
-      this.loading = false;
+      this.loading2 = false;
       throw new Error(e);
     }
   }
@@ -308,4 +392,26 @@ export class GlossListComponent implements OnInit {
       this.table.changeEntity(`gloss/byStatus/0/${this.user_id}`,'gloss');
     }
    }
+
+   async changeFile(files, option) {
+    this.loading=true;
+    if (!files) return false;
+    const file = await this.toBase64(files.target.files[0]);
+    
+    switch (option) {
+      case 2:
+        this.ResponseGlossForm.patchValue({
+          file: files.target.files[0],
+        });
+        this.loading=false;
+        break;
+        }
+  }
+
+  toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 }

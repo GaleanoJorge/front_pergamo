@@ -257,8 +257,8 @@ export class Actions2Component implements ViewCell {
         });
       });
     }
-    if (id != null) {
-      this.getColectionResponse(id);
+    if (this.value.data.id != null) {
+      this.getColectionResponse(this.value.data.id);
     }
   }
 
@@ -277,7 +277,7 @@ export class Actions2Component implements ViewCell {
     this.isSubmitted = true;
     if (!this.ResponseGlossForm.invalid) {
       this.loading = true;
-      if (this.rowData.id) {
+      if (this.value.data.id) {
         if (this.ResponseGlossForm.value.file) {
           var formData = new FormData();
           formData.append('response', this.ResponseGlossForm.value.response);
@@ -303,7 +303,7 @@ export class Actions2Component implements ViewCell {
         } else {
           this.dialog = this.dialog.close();
           this.GlossResponseS.Save({
-            id: this.rowData.id,
+            id: this.value.data.id,
             gloss_id: this.value.data.id,
             objetion_response_id: this.ResponseGlossForm.controls.objetion_response_id.value,
             objetion_code_response_id: this.ResponseGlossForm.controls.objetion_code_response_id.value,
@@ -332,7 +332,7 @@ export class Actions2Component implements ViewCell {
     this.isSubmitted = true;
     if (!this.RadicationGlossForm.invalid) {
       this.loading = true;
-      if (this.rowData.id) {
+      if (this.value.data.id) {
         if (this.RadicationGlossForm.value.file) {
           var formData = new FormData();
           formData.append('file', this.RadicationGlossForm.value.file);
