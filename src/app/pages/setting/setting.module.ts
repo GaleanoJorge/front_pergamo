@@ -9,6 +9,7 @@ import {
   NbRouteTabsetModule,
   NbStepperModule,
   NbRadioModule,
+  NbTooltipModule,
   NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
@@ -209,6 +210,9 @@ import { CostCenterComponent } from './cost-center/cost-center.component';
 import { FormCostCenterComponent } from './cost-center/form-cost-center/form-cost-center.component';
 import { FormObservationNoveltyComponent } from './observation-novelty/form-observation-novelty/form-observation-novelty.component';
 import { ObservationNoveltyComponent } from './observation-novelty/observation-novelty.component';
+import { InabilityComponent } from './inability/inability.component';
+import { FormInabilityComponent } from './inability/form-inability/form-inability.component';
+
 
 @NgModule({
   imports: [
@@ -226,6 +230,7 @@ import { ObservationNoveltyComponent } from './observation-novelty/observation-n
     NbInputModule,
     NbToggleModule,
     NbSelectModule,
+    NbTooltipModule,
     NbAccordionModule,
     NbUserModule,
     NbAlertModule,
@@ -432,7 +437,9 @@ import { ObservationNoveltyComponent } from './observation-novelty/observation-n
     ObjetionResponseComponent,
     FormObjetionResponseComponent,
     FormDiagnosisComponent,
-    DiagnosisComponent
+    DiagnosisComponent,
+    InabilityComponent,
+    FormInabilityComponent,
   ],
   providers: [
     DateFormatPipe

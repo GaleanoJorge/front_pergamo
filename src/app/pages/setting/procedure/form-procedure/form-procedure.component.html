@@ -1,9 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="max-width: 400px; max-height:700px;">
+  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="procedure_type" class="form-text text-muted font-weight-bold">Tipo de procedimiento:</label>
           <nb-select [selected]="this.data.procedure_type_id" (selectedChange)="onChange($event)" formControlName="procedure_type_id" id="procedure_type_id" fullWidth
             status="{{ isSubmitted && form.controls.procedure_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -12,30 +12,30 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="code" class="form-text text-muted font-weight-bold">Codigo:</label>
           <input (change)="cups()" nbInput fullWidth id="code" formControlName="code" code
             status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div *ngIf="showSelect" class="col-md-12">
+        <div *ngIf="showSelect" class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold">Seleccione cups:</label>
           <input type="text" list="codes" class="data-list" (change)="saveCode($event)">
             <datalist id="codes">
               <option *ngFor="let item of procedure_cups" [value]="item.code" >{{item.name}}</option>
             </datalist>
         </div>
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="equivalent"  class="form-text text-muted font-weight-bold">Equivalente:</label>
           <input nbInput fullWidth id="equivalent" formControlName="equivalent" equivalent
             status="{{ isSubmitted && form.controls.equivalent.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre del procedimiento:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
             onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
         </div>
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
             <label for="procedure_category" class="form-text text-muted font-weight-bold">Categoria del procedimiento:</label>
             <nb-select [selected]="this.data.procedure_category_id" formControlName="procedure_category_id" id="procedure_category_id" fullWidth
               status="{{ isSubmitted && form.controls.procedure_category_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -44,7 +44,7 @@
                 {{ item.name }}</nb-option>
             </nb-select>
         </div>
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
             <label for="pbs_type" class="form-text text-muted font-weight-bold">Procedimiento Pbs o no Pbs:</label>
             <nb-select  formControlName="pbs_type_id" id="pbs_type_id" fullWidth
               status="{{ isSubmitted && form.controls.pbs_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -53,7 +53,7 @@
                 {{ item.name }}</nb-option>
             </nb-select>
         </div>
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="procedure_age" class="form-text text-muted font-weight-bold">Edades en la que se puede prestar el servicio:</label>
           <nb-select [selected]="this.data.procedure_age_id" formControlName="procedure_age_id" id="procedure_age_id" fullWidth
             status="{{ isSubmitted && form.controls.procedure_age_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -62,7 +62,7 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="gender" class="form-text text-muted font-weight-bold">Genero:</label>
           <nb-select  formControlName="gender_id" id="gender_id" fullWidth
               status="{{ isSubmitted && form.controls.gender_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -71,7 +71,7 @@
                 {{ item.name }}</nb-option>
             </nb-select>
         </div>
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="status" class="form-text text-muted font-weight-bold">Estado del procedimiento:</label>
           <nb-select [selected]="this.data.status_id" formControlName="status_id" id="status_id" fullWidth
           status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -80,7 +80,7 @@
             {{ item.name }}</nb-option>
         </nb-select>
         </div>
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="procedure_purpose" class="form-text text-muted font-weight-bold">Seleccione finalidad del procedimiento:</label>
           <nb-select [selected]="this.data.procedure_purpose_id" formControlName="procedure_purpose_id" id="procedure_purpose_id" fullWidth
             status="{{ isSubmitted && form.controls.procedure_purpose_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -89,7 +89,7 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-md-12">
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="purpose_service" class="form-text text-muted font-weight-bold">Finalidad del servicio:</label>
           <nb-select [selected]="this.data.purpose_service_id" formControlName="purpose_service_id" id="purpose_service_id" fullWidth
             status="{{ isSubmitted && form.controls.purpose_service_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -98,7 +98,7 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-        <!--<div class="col-md-12">
+        <!--<div class="col-12 col-sm-12 col-md-4">
           <label for="time" class="form-text text-muted font-weight-bold">Tiempo del procedimiento (Minutos):</label>
           <input nbInput fullWidth id="time" formControlName="time" time
             status="{{ isSubmitted && form.controls.time.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />

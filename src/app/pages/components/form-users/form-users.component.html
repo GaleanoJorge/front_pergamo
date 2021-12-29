@@ -8,7 +8,7 @@
     <form class="container" *ngIf="form" [formGroup]="form" (ngSubmit)="SaveStudent()">
       <div class="row">
         <div class="col-12">
-          <p class="text-muted">Datos básicos</p>
+          <p class="text-muted title-users">Datos básicos</p>
         </div>
       </div>
 
@@ -121,11 +121,13 @@
         <div class="col-md-6 col-lg-3">
           <div class="form-group">
             <label for="ethnicity_id" class="form-text text-muted font-weight-bold">Etnia:</label>
-            <nb-select selected="" id="ethnicity_id" fullWidth formControlName="ethnicity_id" ethnicity_id
+            <nb-select formControlName="ethnicity_id" id="ethnicity_id" fullWidth
                        status="{{ isSubmitted && form.controls.ethnicity_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of this.ethnicitys" [value]="item.id">{{ item.name }}</nb-option>
             </nb-select>
+
+            
           </div>
         </div>
       </div>
@@ -140,7 +142,8 @@
 
           </div>
         </div>
-        <div class="col-md-3" *ngIf="form.controls.gender_id.value == 3">
+
+        <div class="col-md-2" *ngIf="form.controls.gender_id.value == 3">
           <div class="form-group">
             <label for="gender_type" class="form-text text-muted font-weight-bold">Cuál?:</label>
             <input nbInput fullWidth id="gender_type" formControlName="gender_type" gender_type
@@ -149,28 +152,34 @@
           </div>
         </div>
 
-      </div>
-      <div class="row">
-        <div class="col-md-3">
+      
+      
+        <div class="col-md-2">
           <div class="form-group">
-            <label for="is_disability" class="form-text text-muted font-weight-bold">¿Tiene alguna discapacidad?</label>
+            <label for="is_disability" class="form-text text-muted font-weight-bold">¿Tiene alguna discapacidad?
+
+            </label>
             <nb-toggle formControlName="is_disability" is_disability>
             </nb-toggle>
           </div>
         </div>
         <div class="col-md-3" *ngIf="form.controls.is_disability.value">
           <div class="form-group">
-            <label for="disability" class="form-text text-muted font-weight-bold">Cuál?:</label>
-            <input nbInput fullWidth id="disability" formControlName="disability" disability
-                   status="{{ isSubmitted && form.controls.disability.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-                   onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
+            <label for="inability" class="form-text text-muted font-weight-bold">Cuál?: </label>
+            <nb-select formControlName="inability_id" id="inability_id" fullWidth
+                     status="{{ isSubmitted && form.controls.inability_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                     
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of inabilitys" [value]="item.id">{{ item.name }}</nb-option>
+            
+          </nb-select>
           </div>
         </div>
       </div>
 
       <div class="row mt-3">
         <div class="col-12">
-          <p class="text-muted">Datos Personales</p>
+          <p class="text-muted title-users">Datos Personales</p>
         </div>
       </div>
 
@@ -249,7 +258,7 @@
 
       <div class="row mt-3">
         <div class="col-12">
-          <p class="text-muted">Información de nacimiento</p>
+          <p class="text-muted title-users">Información de nacimiento</p>
         </div>
       </div>
 
@@ -302,7 +311,7 @@
 
       <div class="row mt-3">
         <div class="col-12">
-          <p class="text-muted">Información de residencia</p>
+          <p class="text-muted title-users">Información de residencia</p>
         </div>
       </div>
 
@@ -344,6 +353,8 @@
         </div>
       </div>
 
+
+      
       <div class="col-md-6">
         <div class="form-group">
           <label for="neighborhood_or_residence_id" class="form-text text-muted font-weight-bold">Barrio:</label>
@@ -355,21 +366,61 @@
           </nb-select>
         </div>
       </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="residence_address" class="form-text text-muted font-weight-bold">Dirección:</label>
-          <input nbInput fullWidth id="residence_address" formControlName="residence_address" residence_address
-                 status="{{ isSubmitted && form.controls.residence_address.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
-        </div>
-      </div>
     </div>
 
-      
+      <div class="row">
+      <div class="col-md-2">
+          <div class="form-group">
+          <label for="residence_address"  class="form-text text-muted font-weight-bold">Tipo de Calle</label>
+                 <nb-select class="" id="residence_address" formControlName="residence_address"
+                 residence_address fullWidth>
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option value="Avenida">Avenida</nb-option>
+                  <nb-option value="Avenida Calle">Avenida Calle </nb-option>
+                  <nb-option value="Avenida Carrera">Avenida Carrera</nb-option>
+                  <nb-option value="Calle">Calle</nb-option>
+                  <nb-option value="Carrera">Carrera</nb-option>
+                  <nb-option value="Circular">Circular</nb-option>
+                  <nb-option value="Circunvalar">Circunvalar</nb-option>
+                  <nb-option value="Diagonal">Diagonal</nb-option>
+                  <nb-option value="Manzana">Manzana</nb-option>
+                  <nb-option value="Transversal">Transversal</nb-option>
+                  <nb-option value="Vía">Vía</nb-option>
+                </nb-select>
+        </div>
+      </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="residence_address" style="font-size: 0.8rem !important;" class="form-text text-muted font-weight-bold">Calle (Completa solo con nombre y prefijo. Ej:22 Sur)</label>
+        <input nbInput fullWidth id="calle" required/>
+      </div>
+    </div>
+   
+    <div class="col-md-1">
+      <div class="form-group">
+        <label for="residence_address" class="form-text text-muted font-weight-bold">Número</label>
+        <input nbInput fullWidth id="num1" required/>
+      </div>
+    </div>
+    <label for="residence_address" style="margin-top: 35px;" class="form-text text-muted font-weight-bold">-</label>
+    <div class="col-md-1">
+      <div class="form-group">
+        <label for="residence_address" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">       </label>
+        <input nbInput fullWidth id="num2" required/>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="residence_address" style="font-size: 0.8rem !important;" class="form-text text-muted font-weight-bold">Referencias Adicionales (Apartamento, Torre, Multifamiliar)</label>
+        <input nbInput fullWidth id="reference"  required/>
+      </div>
+    </div>
+    </div>
+
 
       <div class="row mt-3">
         <div class="col-12">
-          <p class="text-muted">Información del usuario</p>
+          <p class="text-muted title-users">Información del usuario</p>
         </div>
       </div>
 
@@ -382,7 +433,7 @@
           </div>
         </div>
 
-        <div class="col-md-6" *ngIf="!isPublic">
+        <div class="col-md-6" *ngIf="this.role!=2">
           <div class="form-group">
             <label for="status" class="form-text text-muted font-weight-bold">Estado:</label>
             <nb-select selected="" formControlName="status_id" id="status" fullWidth
@@ -424,6 +475,7 @@
             </div>
           </div>
         </div>
+        
 
         <div class="col-md-6">
           <div class="form-group">

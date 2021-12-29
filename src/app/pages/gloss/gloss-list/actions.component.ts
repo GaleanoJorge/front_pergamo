@@ -13,19 +13,19 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button ngxCheckPerms="update" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.edit(value.data)">
+    <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.edit(value.data)">
         <nb-icon icon="edit-outline"></nb-icon>
     </button>
-    <button ngxCheckPerms="delete" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.delete(value.data)">
+    <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="delete" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
     </button>
-    <a ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="ConfirmAction(confirmAction,1)" title="Respuesta">
+    <a nbTooltip="Responder" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="ConfirmAction(confirmAction,1)">
         <nb-icon icon="checkmark-square-outline"></nb-icon>
     </a>
-    <a ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==2" nbButton ghost (click)="ConfirmAction(radicationAction,2, value.data.id)" title="Radicación">
+    <a nbTooltip="Redicar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==2" nbButton ghost (click)="ConfirmAction(radicationAction,2, value.data.id)">
         <nb-icon icon="paper-plane-outline"></nb-icon>
     </a>
-    <a ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==3" nbButton ghost (click)="ConfirmAction(detailAction,3)" title="Ver Respuesta">
+    <a nbTooltip="Ver respuesta" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==3" nbButton ghost (click)="ConfirmAction(detailAction,3)">
         <nb-icon icon="eye-outline"></nb-icon>
     </a>
   </div>
@@ -125,6 +125,12 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
                   </div>
                   <div class="col-md-12">
                       <label></label> {{gloss_response[0].response_date}}
+                  </div>
+                  <div class="col-md-12">
+                      <label for="observation" class="form-text text-muted font-weight-bold">Respuesta:</label>
+                  </div>
+                  <div class="col-md-12">
+                      <label></label> {{gloss_response[0].response}}
                   </div>
                   <div class="col-md-12">
                       <label for="observation" class="form-text text-muted font-weight-bold">Valor aceptado: </label>
