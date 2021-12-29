@@ -4,10 +4,10 @@ import {ViewCell} from 'ng2-smart-table';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <button nbButton ghost (click)="value.edit(value.data)">
+      <button nbButton  nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" ghost (click)="value.edit(value.data)">
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
-      <button nbButton ghost (click)="value.delete(value.data)">
+      <button nbButton nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary"ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
       <a nbButton ghost [routerLink]="'/pages/contract/services-briefcase/' + value.data.id" title="Asignación de servicios">

@@ -89,7 +89,8 @@
           <div class="form-group">
             <label for="phone" class="form-text text-muted font-weight-bold">Celular:</label>
             <input nbInput minlength="10" maxlength="20" type="number" fullWidth id="phone" formControlName="phone" phone
-                   status="{{ isSubmitted && form.controls.phone.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
+                   status="{{ isSubmitted && form.controls.phone.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                   onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" /> 
             <ng-container *ngIf="form.controls.phone.errors && form.controls.phone.touched">
               <p class="caption status-danger" *ngIf="form.controls.phone.errors?.minlength">
                 El celular debe tener un mínimo de 10 caracteres
@@ -106,7 +107,8 @@
             <label for="landline" class="form-text text-muted font-weight-bold">Teléfono Fijo:</label>
             <input nbInput type="number" minlength="10" maxlength="20" fullWidth id="landline"
                    formControlName="landline" landline
-                   status="{{ isSubmitted && form.controls.landline.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
+                   status="{{ isSubmitted && form.controls.landline.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                   onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" /> 
             <ng-container *ngIf="form.controls.landline.errors && form.controls.landline.touched">
               <p class="caption status-danger" *ngIf="form.controls.landline.errors?.minlength">
                 El teléfono fijo debe tener un mínimo de 10 caracteres
@@ -117,6 +119,19 @@
             </ng-container>
           </div>
         </div>
+
+        <div class="col-md-6 col-lg-5">
+          <div class="form-group">
+            <label for="email" class="form-text text-muted font-weight-bold">Correo electrónico:</label>
+            <input nbInput fullWidth id="email" formControlName="email" email
+                   status="{{ isSubmitted && form.controls.email.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
+
+            
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
 
         <div class="col-md-6 col-lg-3">
           <div class="form-group">
@@ -130,8 +145,6 @@
             
           </div>
         </div>
-      </div>
-      <div class="row">
         <div class="col-md-4">
           <div class="form-group">
             <label for="gender_id" class="form-text text-muted font-weight-bold">Género:</label>
@@ -263,7 +276,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
           <div class="form-group">
             <label for="birthday" class="form-text text-muted font-weight-bold">Fecha:</label>
             <input type="date" nbInput fullWidth id="birthday" formControlName="birthday" birthday
@@ -353,8 +366,6 @@
         </div>
       </div>
 
-
-      
       <div class="col-md-6">
         <div class="form-group">
           <label for="neighborhood_or_residence_id" class="form-text text-muted font-weight-bold">Barrio:</label>
@@ -409,6 +420,20 @@
         <input nbInput fullWidth id="num2" required/>
       </div>
     </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+      <label for="residence_address"  class="form-text text-muted font-weight-bold">Puntos Cardinales</label>
+             <nb-select class="" id="residence_address" formControlName="residence_address"
+             residence_address fullWidth>
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="Noreste">Noreste</nb-option>
+              <nb-option value="Noroeste">Noroeste</nb-option>
+              <nb-option value="Sureste">Sureste</nb-option>
+              <nb-option value="Suroeste">Suroeste</nb-option>
+            </nb-select>
+          </div>
+        </div>
     <div class="col-md-4">
       <div class="form-group">
         <label for="residence_address" style="font-size: 0.8rem !important;" class="form-text text-muted font-weight-bold">Referencias Adicionales (Apartamento, Torre, Multifamiliar)</label>
@@ -418,21 +443,7 @@
     </div>
 
 
-      <div class="row mt-3">
-        <div class="col-12">
-          <p class="text-muted title-users">Información del usuario</p>
-        </div>
-      </div>
-
       <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="email" class="form-text text-muted font-weight-bold">Correo electrónico:</label>
-            <input nbInput fullWidth id="email" formControlName="email" email
-                   status="{{ isSubmitted && form.controls.email.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
-          </div>
-        </div>
-
         <div class="col-md-6" *ngIf="this.role!=2">
           <div class="form-group">
             <label for="status" class="form-text text-muted font-weight-bold">Estado:</label>
