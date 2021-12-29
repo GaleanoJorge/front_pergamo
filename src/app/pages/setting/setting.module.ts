@@ -207,8 +207,8 @@ import { FormTypeProfessionalComponent } from './type-professional/form-type-pro
 import { TypeProfessionalComponent } from './type-professional/type-professional.component';
 import { CostCenterComponent } from './cost-center/cost-center.component';
 import { FormCostCenterComponent } from './cost-center/form-cost-center/form-cost-center.component';
-
-
+import { FormObservationNoveltyComponent } from './observation-novelty/form-observation-novelty/form-observation-novelty.component';
+import { ObservationNoveltyComponent } from './observation-novelty/observation-novelty.component';
 
 @NgModule({
   imports: [
@@ -239,6 +239,8 @@ import { FormCostCenterComponent } from './cost-center/form-cost-center/form-cos
     NbIconModule
   ],
   declarations: [
+    FormObservationNoveltyComponent,
+    ObservationNoveltyComponent,
     FormSpecialFieldComponent,
     SpecialFieldComponent,
     ContractTypeComponent,
@@ -435,6 +437,7 @@ import { FormCostCenterComponent } from './cost-center/form-cost-center/form-cos
   providers: [
     DateFormatPipe
   ],
+  bootstrap: [],
 })
 export class SettingModule {
 }

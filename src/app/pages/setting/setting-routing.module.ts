@@ -98,6 +98,7 @@ import { ContractTypeComponent } from './contract-type/contract-type.component';
 import { TypeProfessionalComponent } from './type-professional/type-professional.component';
 import { SpecialFieldComponent } from './special-field/special-field.component';
 import { CostCenterComponent } from './cost-center/cost-center.component';
+import { ObservationNoveltyComponent } from './observation-novelty/observation-novelty.component';
 
 const routes: Routes = [{
   path: '',
@@ -147,6 +148,11 @@ const routes: Routes = [{
       path: 'type-professional',
       component: TypeProfessionalComponent,
       data: { permission: 'roles.read' },
+    },
+    {
+      path: 'observation-novelty',
+      component: ObservationNoveltyComponent,
+      data: { permission: 'roles.read'},
     },
     {
       path: 'special-field',

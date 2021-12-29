@@ -5,6 +5,7 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ActionsComponent } from './actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { UserChangeService } from '../../../business-controller/user-change.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class AdmissionsListComponent {
   public datain;
   public admissions:any[];
   public status;
+  public all_changes:any[];
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -38,13 +40,14 @@ export class AdmissionsListComponent {
 
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           this.datain=row;
           return {
             'data': row,
+            'all_changes': this.all_changes,
             // 'edit': this.EditPatient.bind(this),
             'delete': this.DeleteConfirmPatient.bind(this),
             'reset_password': this.UpdateResetPassword.bind(this),
@@ -94,11 +97,15 @@ export class AdmissionsListComponent {
     private toastrService: NbToastrService,
     private deleteConfirmService: NbDialogService,
     public AdmissionsS: AdmissionsService,
+    public userChangeS: UserChangeService,
+    
   ) {
 
   }
   async ngOnInit() {
-
+    await this.userChangeS.GetCollection().then(x =>{
+      this.all_changes = x;
+    });
   
   }
 

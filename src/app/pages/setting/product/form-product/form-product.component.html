@@ -10,8 +10,9 @@
         </div>
         <div class="col-12 col-sm-12 col-md-6">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre producto:</label>
-          <input nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="factory" class="form-text text-muted font-weight-bold">Fabricante:</label>
@@ -105,7 +106,7 @@
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="indications"  class="form-text text-muted font-weight-bold">Indicaciones:</label>
-          <input nbInput fullWidth id="indications" formControlName="indications" indications
+          <input  nbInput fullWidth id="indications" formControlName="indications" indications
             status="{{ isSubmitted && form.controls.indications.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
@@ -115,8 +116,9 @@
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="applications"  class="form-text text-muted font-weight-bold">Usos:</label>
-          <input nbInput fullWidth id="applications" formControlName="applications" applications
-            status="{{ isSubmitted && form.controls.applications.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="applications" formControlName="applications" applications
+            status="{{ isSubmitted && form.controls.applications.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="minimum_stock"  class="form-text text-muted font-weight-bold">Stock minimo:</label>

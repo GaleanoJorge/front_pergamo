@@ -24,8 +24,9 @@
         </div>
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre de la empresa:</label>
-          <input nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
         </div>
         <div class="col-md-12">
             <label for="company_category" class="form-text text-muted font-weight-bold">Categoria de la empresa:</label>
@@ -75,7 +76,7 @@
         </div>
         <div class="col-md-12">
           <label for="phone" class="form-text text-muted font-weight-bold">Telefono:</label>
-          <input nbInput fullWidth id="phone" formControlName="phone" phone
+          <input nbInput fullWidth id="phone" type="number" formControlName="phone" phone
             status="{{ isSubmitted && form.controls.phone.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">

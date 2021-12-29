@@ -45,6 +45,7 @@ export class ProcedurePackageComponent implements OnInit {
     columns: {
       check :{
         sort: false,
+        title:'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           row.isSelected = true;

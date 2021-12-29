@@ -5,13 +5,15 @@
         <div class="row">
           <div class="col-12">
             <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
-            <input nbInput fullWidth id="name" formControlName="name" name
-                   status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
+            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+                   status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                   onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
           </div>
           <div class="col-12">
             <label for="description" class="form-text text-muted font-weight-bold">Descripción:</label>
-            <input nbInput fullWidth id="description" formControlName="description" name
-                   status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
+            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="description" formControlName="description" name
+                   status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                   onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
           </div>
           <div class="col-12">
             <label for="status" class="form-text text-muted font-weight-bold">Estado:</label>

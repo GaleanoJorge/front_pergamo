@@ -53,7 +53,7 @@ export class GlossListComponent implements OnInit {
     selectMode: 'multi',
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent

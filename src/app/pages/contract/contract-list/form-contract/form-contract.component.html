@@ -10,8 +10,9 @@
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre del contrato:</label>
-          <input nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="company" class="form-text text-muted font-weight-bold">Compañia:</label>
@@ -43,7 +44,7 @@
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="amount" class="form-text text-muted font-weight-bold">Monto del contrato:</label>
-          <input nbInput fullWidth id="amount" formControlName="amount" amount
+          <input nbInput type="number" fullWidth id="amount" formControlName="amount" amount
             status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
