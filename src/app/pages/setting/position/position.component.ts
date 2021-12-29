@@ -28,7 +28,7 @@ export class PositionComponent implements OnInit {
   public settings = {
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent

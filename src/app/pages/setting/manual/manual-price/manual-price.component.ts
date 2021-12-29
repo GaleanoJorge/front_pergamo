@@ -37,7 +37,7 @@ export class ManualPriceComponent implements OnInit {
     actions: false,
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent

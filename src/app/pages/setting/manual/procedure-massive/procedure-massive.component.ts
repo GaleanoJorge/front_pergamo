@@ -52,7 +52,7 @@ export class ProcedureMassiveComponent implements OnInit {
   public settings = {  
     columns: {
       select: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           return {

@@ -101,6 +101,7 @@ export class FormUsersComponent implements OnInit {
   public specialities: AssistanceSpecial[];
   public specialitiesSelect = [];
   public selected: any[];
+  public activities_id;
 
 
 
@@ -144,7 +145,7 @@ export class FormUsersComponent implements OnInit {
   }
 
   GetAuxData($type_professional_id?, $search?) {
-    return this.userBS.GetFormAuxData(this.data ? false : true, $type_professional_id == null ? this.data.assistance[0].type_professional_id : $type_professional_id, $search).then(x => {
+    return this.userBS.GetFormAuxData(this.data ? false : true, null, null).then(x => {
       if (!$type_professional_id) {
         this.identification_types = x.identificationTypes;
         this.countries = x.countries;
@@ -169,7 +170,15 @@ export class FormUsersComponent implements OnInit {
       return Promise.resolve(true);
     });
   }
+  saveCode(e): void{
+    var localidentify=this.activities.find(item => item.name == e);
 
+    if(localidentify){
+      this.activities_id=localidentify.id;
+    }else{
+      this.activities_id=null;
+    }
+  }
   async LoadForm(force = true) {
     if (this.loadAuxData && force) return false;
     if (this.data) {
@@ -448,7 +457,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('residence_region_id', data.residence_region_id.value);
       formData.append('residence_municipality_id', data.residence_municipality_id.value);
       formData.append('study_level_status_id', data.study_level_status_id.value);
-      formData.append('activities_id', data.activities_id.value);
+      formData.append('activities_id', this.activities_id);
       formData.append('select_RH_id', this.form.value.select_RH_id);
       formData.append('population_group_id', data.population_group_id.value);
       formData.append('marital_status_id', data.marital_status_id.value);

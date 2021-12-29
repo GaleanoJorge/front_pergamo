@@ -5,8 +5,9 @@
       <div class="row">
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre del activo fijo:</label>
-          <input nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
         </div>
         <div class="col-md-12">
           <label for="product_presentation" class="form-text text-muted font-weight-bold">Presentación del producto:</label>
@@ -73,7 +74,7 @@
         </div>
         <div class="col-md-12">
           <label for="plate_number" class="form-text text-muted font-weight-bold">Número de placa:</label>
-          <input nbInput fullWidth id="plate_number" formControlName="plate_number" plate_number
+          <input nbInput fullWidth id="plate_number" type="number" formControlName="plate_number" plate_number
             status="{{ isSubmitted && form.controls.plate_number.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
       </div>

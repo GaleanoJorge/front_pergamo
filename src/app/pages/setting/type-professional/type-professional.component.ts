@@ -31,7 +31,7 @@ export class TypeProfessionalComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -80,7 +80,7 @@ export class TypeProfessionalComponent implements OnInit {
   NewTypeProfessional() {
     this.dialogFormService.open(FormTypeProfessionalComponent, {
       context: {
-        title: 'Crear nueva ruta de admisión',
+        title: 'Crear nuevo tipo de profesional',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -89,7 +89,7 @@ export class TypeProfessionalComponent implements OnInit {
   EditTypeProfessional(data) {
     this.dialogFormService.open(FormTypeProfessionalComponent, {
       context: {
-        title: 'Editar ruta de admisión',
+        title: 'Editar tipo de profesional',
         data,
         saved: this.RefreshData.bind(this),
       },
