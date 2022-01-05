@@ -9,6 +9,7 @@ import { ObjetionCodeResponseService } from '../../../business-controller/objeti
 import { ObjetionResponseService } from '../../../business-controller/objetion-response.service';
 import {CurrencyPipe} from '@angular/common';
 import { GlossRadicationService } from '../../../business-controller/gloss-radication.service';
+import { GlossService } from '../../../business-controller/gloss.service';
 
 @Component({
   template: `
@@ -25,8 +26,11 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
     <a nbTooltip="Redicar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==2" nbButton ghost (click)="ConfirmAction(radicationAction,2, value.data.id)">
         <nb-icon icon="paper-plane-outline"></nb-icon>
     </a>
-    <a nbTooltip="Ver respuesta" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==3" nbButton ghost (click)="ConfirmAction(detailAction,3)">
+    <a nbTooltip="Ver respuesta" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==3 || value.data.gloss_status_id==5" nbButton ghost (click)="ConfirmAction(detailAction,3)">
         <nb-icon icon="eye-outline"></nb-icon>
+    </a>
+    <a nbTooltip="Cambiar estado" *ngIf="this.value.currentRole==6 && value.data.gloss_status_id==5 || this.value.currentRole==6 && value.data.gloss_status_id==3" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read"  nbButton ghost (click)="ConfirmAction(stateCartera)">
+      <nb-icon icon="checkmark-square-outline"></nb-icon>
     </a>
   </div>
   <ng-template #confirmAction>
@@ -57,7 +61,7 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
                             <nb-select fullWidth placeholder="Seleccione..."
                                 formControlName="objetion_code_response_id">
                                 <nb-option value="">Seleccione...</nb-option>
-                                <nb-option *ngFor="let item of objetion_code_response" [value]="item.id">{{ item.name }}
+                                <nb-option *ngFor="let item of objetion_code_response" [value]="item.id">{{ item.code }} - {{ item.name }}
                                 </nb-option>
                             </nb-select>
                         </div>
@@ -86,25 +90,21 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
         </nb-card>
     </div>
   </ng-template>
-  <ng-template #radicationAction>
+  <ng-template #stateCartera>
     <div class="container-fluid">
         <nb-card style="width: 430px;">
-            <nb-card-header>Radicar Glosa</nb-card-header>
+            <nb-card-header>Cambiar estado de glosa</nb-card-header>
             <nb-card-body>
-                <form [formGroup]="RadicationGlossForm" (ngSubmit)="saveRadication()">
+                <form [formGroup]="carteraGlossForm" (ngSubmit)="saveCartera()">
                     <div>
                         <div class="col-md-12">
-                            <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
-                            <input nbInput fullWidth id="observation" formControlName="observation" observation
-                                status="{{ isSubmitted && RadicationGlossForm.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                          <nb-select formControlName="state_gloss" id="state_gloss" fullWidth>
+                            <nb-option value="">Seleccione...</nb-option>
+                            <nb-option value="5">Cartera</nb-option>
+                            <nb-option value="6">En conciliación</nb-option>
+                          </nb-select>
                         </div>
-                        <div class="col-md-12">
-                            <label for="observation" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
-                        </div>
-                        <div class="file-select-evicencias" id="src-file2">
-                          <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
-                            (change)="changeFile($event,3)" />
-                        </div>
+             
                     </div>
                     <div class="div-send">
                         <button type="submit" nbButton status="success">Agregar</button>
@@ -114,6 +114,34 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
         </nb-card>
     </div>
   </ng-template>
+  <ng-template #radicationAction>
+  <div class="container-fluid">
+      <nb-card style="width: 430px;">
+          <nb-card-header>Radicar Glosa</nb-card-header>
+          <nb-card-body>
+              <form [formGroup]="RadicationGlossForm" (ngSubmit)="saveRadication()">
+                  <div>
+                      <div class="col-md-12">
+                          <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
+                          <input nbInput fullWidth id="observation" formControlName="observation" observation
+                              status="{{ isSubmitted && RadicationGlossForm.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                      </div>
+                      <div class="col-md-12">
+                          <label for="observation" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
+                      </div>
+                      <div class="file-select-evicencias" id="src-file2">
+                        <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
+                          (change)="changeFile($event,3)" />
+                      </div>
+                  </div>
+                  <div class="div-send">
+                      <button type="submit" nbButton status="success">Agregar</button>
+                  </div>
+              </form>
+          </nb-card-body>
+      </nb-card>
+  </div>
+</ng-template>
   <ng-template #detailAction>
     <div class="container-fluid">
       <nb-card style="width: 430px;">
@@ -182,6 +210,7 @@ export class Actions2Component implements ViewCell {
 
   public ResponseGlossForm: FormGroup;
   public RadicationGlossForm: FormGroup;
+  public carteraGlossForm: FormGroup;
   public dialog;
   public gloss_response_id;
   public loading: boolean = true;
@@ -201,6 +230,7 @@ export class Actions2Component implements ViewCell {
     private dialogService: NbDialogService,
     private GlossResponseS: GlossResponseService,
     private GlossRadicationS: GlossRadicationService,
+    private GlossS: GlossService,
     private currency: CurrencyPipe,
     private objetionCodeResponseS: ObjetionCodeResponseService,
     private objetionResponseS: ObjetionResponseService,
@@ -238,6 +268,12 @@ export class Actions2Component implements ViewCell {
         file: [this.rowData.file, Validators.compose([Validators.required])],
       });
     }
+
+    if (this.value.data.gloss_status_id == 3) {
+      this.carteraGlossForm = this.formBuilder.group({
+        state_gloss: [Validators.compose([Validators.required])],
+      });
+    }
   }
 
   async getColectionResponse(id) {
@@ -246,7 +282,7 @@ export class Actions2Component implements ViewCell {
     });
   }
 
-  ConfirmAction(dialog: TemplateRef<any>, status, id?) {
+  ConfirmAction(dialog: TemplateRef<any>, status?, id?) {
 
     this.dialog = this.dialogService.open(dialog);
     if (status == 1) {
@@ -347,9 +383,9 @@ export class Actions2Component implements ViewCell {
           formData.append('gloss_id', this.value.data.id);
           this.dialog = this.dialog.close();
           this.GlossRadicationS.Save(formData).then(x => {
+            this.value.refresh();
             this.toastService.success('', x.message);
             this.dialog.close();
-            this.value.refresh();
             if (this.saved) {
               this.saved();
             }
@@ -364,9 +400,9 @@ export class Actions2Component implements ViewCell {
             observation: this.RadicationGlossForm.controls.observation.value,
             gloss_id: this.value.data.id
           }).then(x => {
+            this.value.refresh();
             this.toastService.success('', x.message);
             this.dialog.close();
-            this.value.refresh();
             if (this.saved) {
               this.saved();
             }
@@ -375,11 +411,35 @@ export class Actions2Component implements ViewCell {
             this.loading = false;
           });
         }
-        this.value.refresh();
+    //    this.value.refresh();
       }
     
     }
   }
+
+  saveCartera() {
+    this.isSubmitted = true;
+    if (!this.carteraGlossForm.invalid) {
+      this.loading = true;
+          var formData = new FormData();
+          formData.append('gloss_id', this.value.data.id);
+          formData.append('gloss_cartera', "1");
+          formData.append('state_gloss', this.carteraGlossForm.controls.state_gloss.value);
+          this.dialog = this.dialog.close();
+          this.GlossS.ChangeStatusBriefcase(formData).then(x => {
+            this.value.refresh();
+            this.toastService.success('', x.message);
+            this.dialog.close();
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });    
+    }
+  }
+
 
   async changeFile(files, option) {
     this.loading=true;

@@ -39,6 +39,7 @@ export class GlossListComponent implements OnInit {
   public arrayBuffer: any;
   public file: File;
   public glossStatus: any[] = null;
+  public glossStatusF: any[]=[] ;
   public user_id;
   public user;
   public dialog; 
@@ -52,6 +53,10 @@ export class GlossListComponent implements OnInit {
 
   public settings = {
     selectMode: 'multi',
+    pager: {
+      display: true,
+      perPage: 30,
+    },
     columns: {
       actions: {
         title: 'Acciones',
@@ -63,6 +68,7 @@ export class GlossListComponent implements OnInit {
             'edit': this.EditGloss.bind(this),
             'delete': this.DeleteConfirmGloss.bind(this),
             'refresh': this.RefreshData.bind(this),
+            'currentRole':this.currentRole,
           };
         },
         renderComponent: Actions2Component,
@@ -225,18 +231,36 @@ export class GlossListComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    console.log('prueba');
     this.user=this.authService.GetUser();
     this.user_id=this.user.id;
     this.currentRole = this.authService.GetRole();
     if(this.user_id && this.currentRole==5){
       this.entity= 'gloss/byStatus/0/' + this.user_id ;
-    }else{
+    }else if(this.user_id && this.currentRole==6){
+      this.entity= 'gloss/byStatus/3/0';
+    }
+    else{
       this.entity="gloss/?pagination=true";
     }
-    this.GlossStatusS.GetCollection().then((x) => {
-      this.glossStatus = x;
+    await this.GlossStatusS.GetCollection().then((x) => {
+        this.glossStatus = x;
     });
+      this.glossStatus.forEach(element => {
+        if(this.currentRole==5){
+          if(element.id!=4 && element.id!=5 && element.id!=6){
+            this.glossStatusF.push(element);
+          }
+        }else if(this.currentRole==6){
+          if(element.id!=1 && element.id!=2 && element.id!=3 && element.id!=4){
+            this.glossStatusF.push(element);
+          }
+        }else{
+          this.glossStatusF=this.glossStatus;
+        }
+      });
+    
     this.form = this.formBuilder.group({
       file: [Validators.compose([Validators.required])],
     });
@@ -396,7 +420,10 @@ export class GlossListComponent implements OnInit {
     // this.RefreshData();
     }else if(this.currentRole==4 || this.currentRole==1){ 
       this.table.changeEntity(`gloss/byStatus/${this.status}/0`,'gloss');
-    }else{
+    }else if(status){
+      this.table.changeEntity(`gloss/byStatus/${this.status}/0`,'gloss');
+    }
+    else{
       this.table.changeEntity(`gloss/byStatus/0/${this.user_id}`,'gloss');
     }
    }

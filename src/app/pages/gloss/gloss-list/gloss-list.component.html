@@ -7,9 +7,9 @@
         <div class="actions">
           <nb-select style="margin-right: 5px;" (selectedChange)="ChangeGlossStatus($event)" placeholder="Filtrar por estado">
             <nb-option value="0">Todos los registros</nb-option>
-            <nb-option *ngFor="let item of glossStatus" [value]="item.id">{{item.name}}</nb-option>
+            <nb-option *ngFor="let item of glossStatusF" [value]="item.id">{{item.name}}</nb-option>
         </nb-select>
-          <form [formGroup]="form" ngxCheckPerms="update">
+          <form ngxCheckPerms="update">
             <div class="file-select" id="src-file1" [nbSpinner]="loading2">
               <input class="file" accept=".xlsm" type="file" id="file" file fullWidth (change)="saveFile($event)" />
             </div>
@@ -51,7 +51,7 @@
                           <nb-select fullWidth placeholder="Seleccione..."
                               formControlName="objetion_code_response_id">
                               <nb-option value="">Seleccione...</nb-option>
-                              <nb-option *ngFor="let item of objetion_code_response" [value]="item.id">{{ item.name }}
+                              <nb-option *ngFor="let item of objetion_code_response" [value]="item.id">{{ item.code }} - {{ item.name }}
                               </nb-option>
                           </nb-select>
                       </div>
