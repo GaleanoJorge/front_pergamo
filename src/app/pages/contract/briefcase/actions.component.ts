@@ -10,10 +10,10 @@ import {ViewCell} from 'ng2-smart-table';
       <button nbButton nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary"ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
-      <a nbButton ghost [routerLink]="'/pages/contract/services-briefcase/' + value.data.id" title="Asignación de servicios">
+      <a nbTooltip="Asignación de servicios" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/contract/services-briefcase/' + value.data.id" >
         <nb-icon icon="list-outline"></nb-icon>
       </a>
-      <a nbButton ghost [routerLink]="'/pages/contract/detail-services/' + value.data.id" title="Detalle del portafolio">
+      <a nbButton nbTooltip="Detalle de portafolio" nbTooltipPlacement="top" nbTooltipStatus="primary" ghost [routerLink]="'/pages/contract/detail-services/' + value.data.id" >
       <nb-icon icon="archive-outline"></nb-icon>
     </a>
     </div>

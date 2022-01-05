@@ -10,10 +10,10 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <button nbButton  ghost (click)="ConfirmAction(confirmAction)">
+      <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton  ghost (click)="ConfirmAction(confirmAction)">
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
-      <button nbButton ghost (click)="value.delete(value.data)">
+      <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
     </div>

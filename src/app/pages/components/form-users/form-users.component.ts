@@ -41,6 +41,8 @@ import { SpecialitiesDialogComponent } from './especialities-dialog.component';
 import { search } from '@syncfusion/ej2-angular-filemanager';
 import { Item } from '../../../models/item';
 import { InabilityService } from '../../../business-controller/inability.service';
+import { date } from '@rxweb/reactive-form-validators';
+
 
 @Component({
   selector: 'ngx-form-users',
@@ -48,7 +50,7 @@ import { InabilityService } from '../../../business-controller/inability.service
   styleUrls: ['./form-users.component.scss'],
 })
 export class FormUsersComponent implements OnInit {
-  @Input() data: any = null;
+  @Input() data: any ;
   @Input() routes = null;
   @Input() role = null;
   @Input() title = null;
@@ -108,6 +110,7 @@ export class FormUsersComponent implements OnInit {
   public inabilitys:any[];
   public referencia;
   public residence;
+  public age:any=null;
 
 
   constructor(
@@ -180,11 +183,24 @@ export class FormUsersComponent implements OnInit {
     var localidentify=this.activities.find(item => item.name == e);
 
     if(localidentify){
-      this.activities_id=localidentify.id;
+      this.activities_id = localidentify.id;
     }else{
-      this.activities_id=null;
+      this.activities_id = null;
     }
   }
+  returnProfession(n): string{
+    var localidentify = this.activities.find(item => item.id == n);
+    var activities_name;
+
+    if(localidentify){
+      activities_name = localidentify.name;
+      this.activities_id = localidentify.id;
+    }else{
+      activities_name = null;
+    }
+    return activities_name;
+  }
+
   async LoadForm(force = true) {
     if (this.loadAuxData && force) return false;
     if (this.data) {
@@ -244,7 +260,7 @@ export class FormUsersComponent implements OnInit {
       ],
       email: [
         this.GetData('email'),
-        Validators.compose([Validators.required, Validators.email]),
+        Validators.compose([Validators.required, Validators.email, Validators.minLength(10), Validators.maxLength(25)]),
       ],
       phone: [
         this.GetData('phone'),
@@ -308,7 +324,7 @@ export class FormUsersComponent implements OnInit {
       ],
 
       activities_id: [
-        this.GetData('activities_id'),
+        this.returnProfession(this.GetData('activities_id')),
         Validators.compose([Validators.required]),
       ],
 
@@ -340,7 +356,9 @@ export class FormUsersComponent implements OnInit {
         this.GetData('inability_id'),
       ],
     };
-
+    if(this.data){
+      this.age=this.data.age;
+    }
     if (this.role == 3) {
       configForm = {
         ...configForm,
@@ -428,7 +446,7 @@ export class FormUsersComponent implements OnInit {
     this.residence = this.form.controls.residence_address.value + ' ' + (document.getElementById("calle") as HTMLInputElement).value + ' # ' + (document.getElementById("num1") as HTMLInputElement).value + ' - ' +  (document.getElementById("num2") as HTMLInputElement).value + ' ( ' + (document.getElementById("reference") as HTMLInputElement).value + ' ) '  ;
     console.log(this.residence);
     this.isSubmitted = true;
-
+    // this.UpdateResetPassword(data);
     if (!this.form.invalid) {
       this.loading = true;
 
@@ -456,6 +474,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('identification', data.identification.value);
       formData.append('id', this.data ? this.data.id : null);
       formData.append('role_id', this.role);
+      formData.append('age', this.age);
       formData.append('username', data.identification.value);
       if (this.isStudent == true) {
         formData.append('password', 'Hyl' + data.identification.value + '*');
@@ -541,7 +560,7 @@ export class FormUsersComponent implements OnInit {
         this.isSubmitted = false;
         this.loading = false;
       }
-
+      
     }else{
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
@@ -757,4 +776,23 @@ export class FormUsersComponent implements OnInit {
     reader.onerror = error => reject(error);
   });
   public check: boolean = false;
+  
+  ageCalculator(birthday: Date){
+    var today = new Date;
+    var age= new Date(birthday)
+    this.age= today.getFullYear()-age.getFullYear();
+    var m = (today.getMonth()+1) - (age.getMonth()+1);
+    var day = today.getDate() - (age.getDate()+1);
+    if(m<0)
+    { 
+      this.age--;
+    }else if(m==0){
+      this.age--;
+      if(day>0){
+        this.age++;
+      }else if(day==0){
+        this.age++;
+      }
+    }
+  }
 }

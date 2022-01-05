@@ -32,9 +32,9 @@
                         </div>
                         <div class="col-6">
                             <small class="form-text text-muted">Permiso:</small>
-                            <nb-select placeholder="Permiso" size="medium" fullWidth formControlName="permission"
-                                status="{{ isSubmitted && roleForm.controls.permission.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-                                required permission>
+                            <nb-select  size="medium" fullWidth formControlName="permission" multiple
+                            status="{{ isSubmitted && roleForm.controls.permission.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                            required permission>
                                 <nb-option *ngFor="let permission of permissionBS.permissions" [value]="permission.id">
                                     {{permission.name}}</nb-option>
                             </nb-select>
@@ -45,15 +45,20 @@
                         </div>
                         <div class="col-12">
                             <small class="form-text text-muted">Item:</small>
-                            <nb-select placeholder="Item" size="medium" fullWidth formControlName="item"
-                                status="{{ isSubmitted && roleForm.controls.item.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-                                required item>
+                            <nb-select  size="medium" fullWidth formControlName="item" multiple
+                            status="{{ isSubmitted && roleForm.controls.item.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                            required item>
                                 <nb-option *ngFor="let item of items" [value]="item.id">
                                     {{item.name}}</nb-option>
                             </nb-select>
                             <div *ngIf="roleForm.controls.item.errors && isSubmitted ">
                                 <small *ngIf="roleForm.controls.item.errors.required">Seleccione un item</small>
                             </div>
+                            <!-- <select class="form-control" id="select2-state" name="state">
+                                <option value=""></option>
+                                <option value="AL">Alabama</option>
+                                <option value="WY">Wyoming</option>
+                              </select> -->
                         </div>
                     </div>
                     <div class="col-12 div-send text-right">

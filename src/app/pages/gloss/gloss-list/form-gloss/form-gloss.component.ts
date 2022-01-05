@@ -64,7 +64,7 @@ export class FormGlossComponent implements OnInit {
         id: '',
         invoice_prefix: '',
         invoice_consecutive: '',
-        objedion_detail: '',
+        objetion_detail: '',
         received_date: '',
         emission_date: '',
         radication_date: '',

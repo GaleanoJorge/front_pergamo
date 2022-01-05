@@ -22,7 +22,7 @@ import { GlossRadicationService } from '../../../business-controller/gloss-radic
     <a nbTooltip="Responder" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="ConfirmAction(confirmAction,1)">
         <nb-icon icon="checkmark-square-outline"></nb-icon>
     </a>
-    <a nbTooltip="Redicar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==2" nbButton ghost (click)="ConfirmAction(radicationAction,2, value.data.id)">
+    <a nbTooltip="Radicar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==2" nbButton ghost (click)="ConfirmAction(radicationAction,2, value.data.id)">
         <nb-icon icon="paper-plane-outline"></nb-icon>
     </a>
     <a nbTooltip="Ver respuesta" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==3" nbButton ghost (click)="ConfirmAction(detailAction,3)">

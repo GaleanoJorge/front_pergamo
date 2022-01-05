@@ -29,9 +29,9 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="identification" class="form-text text-muted font-weight-bold">Número de documento:</label>
-            <input nbInput minlength="6" maxlength="15" type="number" fullWidth id="identification"
-                   formControlName="identification" identification
-                   status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
+            <input nbInput minlength="6" maxlength="15" type="text" fullWidth id="identification" 
+                  formControlName="identification" identification
+                  status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>   
             <ng-container *ngIf="form.controls.identification.errors && form.controls.identification.touched">
               <p class="caption status-danger" *ngIf="form.controls.identification.errors?.minlength">
                 El número de documento debe tener un mínimo de 6 caracteres
@@ -48,7 +48,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="firstname" class="form-text text-muted font-weight-bold">Primer nombre:</label>
-            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="firstname" formControlName="firstname" firstname
+            <input oninput="this.value = this.value.toUpperCase().trim()" minlength="3" maxlength="20" nbInput fullWidth id="firstname" formControlName="firstname" firstname
                    status="{{ isSubmitted && form.controls.firstname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
           </div>
@@ -57,7 +57,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="middlefirstname" class="form-text text-muted font-weight-bold">Segundo nombre:</label>
-            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="middlefirstname" formControlName="middlefirstname" middlefirstname
+            <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="20" nbInput fullWidth id="middlefirstname" formControlName="middlefirstname" middlefirstname
                    status="{{ isSubmitted && form.controls.middlefirstname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
           </div>
@@ -68,7 +68,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="lastname" class="form-text text-muted font-weight-bold">Primer apellido:</label>
-            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="lastname" formControlName="lastname" lastname
+            <input oninput="this.value = this.value.toUpperCase().trim()" minlength="3" maxlength="20" nbInput fullWidth id="lastname" formControlName="lastname" lastname
                    status="{{ isSubmitted && form.controls.lastname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
           </div>
@@ -77,7 +77,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="middlelastname" class="form-text text-muted font-weight-bold">Segundo apellido:</label>
-            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="middlelastname" formControlName="middlelastname" middlelastname
+            <input oninput="this.value = this.value.toUpperCase().trim()" minlength="3" maxlength="20" nbInput fullWidth id="middlelastname" formControlName="middlelastname" middlelastname
                    status="{{ isSubmitted && form.controls.middlelastname.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
           </div>
@@ -88,7 +88,7 @@
         <div class="col-md-6 col-lg-3">
           <div class="form-group">
             <label for="phone" class="form-text text-muted font-weight-bold">Celular:</label>
-            <input nbInput minlength="10" maxlength="20" type="number" fullWidth id="phone" formControlName="phone" phone
+            <input oninput="this.value = this.value.slice(0,15)" nbInput min="10" max="15" type="number" fullWidth id="phone" formControlName="phone" phone
                    status="{{ isSubmitted && form.controls.phone.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" /> 
             <ng-container *ngIf="form.controls.phone.errors && form.controls.phone.touched">
@@ -105,7 +105,7 @@
         <div class="col-md-6 col-lg-3">
           <div class="form-group">
             <label for="landline" class="form-text text-muted font-weight-bold">Teléfono Fijo:</label>
-            <input nbInput type="number" minlength="10" maxlength="20" fullWidth id="landline"
+            <input oninput="this.value = this.value.slice(0,15)" nbInput type="number" min="8" max="15" fullWidth id="landline"
                    formControlName="landline" landline
                    status="{{ isSubmitted && form.controls.landline.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" /> 
@@ -123,7 +123,7 @@
         <div class="col-md-6 col-lg-5">
           <div class="form-group">
             <label for="email" class="form-text text-muted font-weight-bold">Correo electrónico:</label>
-            <input nbInput fullWidth id="email" formControlName="email" email
+            <input oninput="this.value = this.value.slice(0,35)" nbInput minlength="10" maxlength="25" fullWidth id="email" formControlName="email" email
                    status="{{ isSubmitted && form.controls.email.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
 
             
@@ -166,8 +166,8 @@
         </div>
 
       
-      
-        <div class="col-md-2">
+
+        <div class="col-md-12">
           <div class="form-group">
             <label for="is_disability" class="form-text text-muted font-weight-bold">¿Tiene alguna discapacidad?
 
@@ -223,7 +223,9 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="activities_id" class="form-text text-muted font-weight-bold">Profesión:</label>
-          <input id="activities_id" type="text" fullWidth nbInput list="codes" class="activities_id" (change)="saveCode($event.target.value)" required>
+          <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value) " id="activities_id" 
+                formControlName="activities_id" activities_id type="text" required
+                status="{{ isSubmitted && form.controls.activities_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <datalist id="codes">
                       <option *ngFor="let item of activities" [value]="item.name" >{{item.code}} - {{item.name}}</option>
               </datalist>
@@ -279,12 +281,18 @@
         <div class="col-md-3">
           <div class="form-group">
             <label for="birthday" class="form-text text-muted font-weight-bold">Fecha:</label>
-            <input type="date" nbInput fullWidth id="birthday" formControlName="birthday" birthday
+            <input type="date" nbInput fullWidth id="birthday" formControlName="birthday" birthday (change)="ageCalculator($event.target.value)"
                    status="{{ isSubmitted && form.controls.birthday.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                    [max]="today"/>
           </div>
         </div>
-
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="form-text text-muted font-weight-bold">Edad:</label>
+              <input type="number" nbInput [value]="age" fullWidth  disabled
+              />
+            </div>
+          </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="country_id" class="form-text text-muted font-weight-bold">País:</label>
@@ -380,12 +388,13 @@
     </div>
 
       <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
           <div class="form-group">
           <label for="residence_address"  class="form-text text-muted font-weight-bold">Tipo de Calle</label>
                  <nb-select class="" id="residence_address" formControlName="residence_address"
-                 residence_address fullWidth>
-                  <nb-option value="">Seleccione...</nb-option>
+                 residence_address fullWidth title="Tipo de Via (Ej.Calle)"
+                 status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-option value="">Tipo de Via (Ej.Calle)</nb-option>
                   <nb-option value="Avenida">Avenida</nb-option>
                   <nb-option value="Avenida Calle">Avenida Calle </nb-option>
                   <nb-option value="Avenida Carrera">Avenida Carrera</nb-option>
@@ -402,26 +411,27 @@
       </div>
     <div class="col-md-3">
       <div class="form-group">
-        <label for="residence_address" style="font-size: 0.8rem !important;" class="form-text text-muted font-weight-bold">Calle (Completa solo con nombre y prefijo. Ej:22 Sur)</label>
-        <input nbInput fullWidth id="calle" required/>
+        <label for="residence_address" class="form-text text-muted font-weight-bold">
+          Calle: </label>
+        <input nbInput fullWidth id="calle" placeholder="Ej: 22 Sur" maxlength="10" required/>
       </div>
     </div>
-   
-    <div class="col-md-1">
+    <label for="residence_address" style="margin-top: 40px;" class="form-text text-muted font-weight-bold">#</label>
+    <div class="col-md-2">
       <div class="form-group">
         <label for="residence_address" class="form-text text-muted font-weight-bold">Número</label>
-        <input nbInput fullWidth id="num1" required/>
+        <input nbInput fullWidth id="num1" placeholder="Ej: 45 B" maxlength="10" required/>
       </div>
     </div>
-    <label for="residence_address" style="margin-top: 35px;" class="form-text text-muted font-weight-bold">-</label>
-    <div class="col-md-1">
+    <label for="residence_address" style="margin-top: 40px;" class="form-text text-muted font-weight-bold">-</label>
+    <div class="col-md-2">
       <div class="form-group">
         <label for="residence_address" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">       </label>
-        <input nbInput fullWidth id="num2" required/>
+        <input nbInput fullWidth id="num2" placeholder="Ej: 45 B" maxlength="10" required/>
       </div>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="form-group">
       <label for="residence_address"  class="form-text text-muted font-weight-bold">Puntos Cardinales</label>
              <nb-select class="" id="residence_address" formControlName="residence_address"
@@ -431,13 +441,17 @@
               <nb-option value="Noroeste">Noroeste</nb-option>
               <nb-option value="Sureste">Sureste</nb-option>
               <nb-option value="Suroeste">Suroeste</nb-option>
+              <nb-option value="Norte">Norte</nb-option>
+              <nb-option value="Este">Este</nb-option>
+              <nb-option value="Sur">Sur</nb-option>
+              <nb-option value="Oeste">Oeste</nb-option>
             </nb-select>
           </div>
         </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div class="form-group">
         <label for="residence_address" style="font-size: 0.8rem !important;" class="form-text text-muted font-weight-bold">Referencias Adicionales (Apartamento, Torre, Multifamiliar)</label>
-        <input nbInput fullWidth id="reference"  required/>
+        <input nbInput fullWidth id="reference"  placeholder="Ej: Torre 4 Apto 302" required/>
       </div>
     </div>
     </div>

@@ -23,7 +23,7 @@ export class RolesPermissionsComponent implements OnInit {
   public items: Item[] = [];
   public irp: ItemRolePermission;
   public dialog;
-
+  
   constructor(
     private formBuilder: FormBuilder,
     public roleBS: RoleBusinessService,
@@ -36,9 +36,9 @@ export class RolesPermissionsComponent implements OnInit {
 
   ngOnInit() {
     this.roleForm = this.formBuilder.group({
-      item: ['', Validators.compose([Validators.required])],
+      item: [[], Validators.compose([Validators.required])],
       role: ['', Validators.compose([Validators.required])],
-      permission: ['', Validators.compose([Validators.required])]
+      permission: [[], Validators.compose([Validators.required])]
     });
     this.roleBS.GetCollection({
       status_id: 1,
@@ -57,6 +57,19 @@ export class RolesPermissionsComponent implements OnInit {
     }).catch(x => {
       this.messageError = x;
     });
+    
+    // if (!this.selectPermissions.length) {
+    //   this.selectPermissions = [...this.initPermissions];
+    // } else {
+    //   this.selectPermissions = [...this.selectPermissions, ...this.initPermissions];
+    // }
+    // $("#select2-state").select2({
+    //   theme: "bootstrap4",
+    //   placeholder: "Select an option"
+    // });
+    // $("#select2-state").on("change", function () {
+    //   console.log($(this).val());
+    // });
   }
 
   saveRole() {
@@ -65,7 +78,7 @@ export class RolesPermissionsComponent implements OnInit {
       this.itemRolePermission.Save({
         item: this.roleForm.controls.item.value,
         rol: this.roleForm.controls.role.value,
-        permiso: this.roleForm.controls.permission.value
+        permission: this.roleForm.controls.permission.value,
       }).then(x => {
         this.toastrService.success("", x.message);
         this.onMenuItemSelected(this.roleSelected.id);
@@ -79,7 +92,7 @@ export class RolesPermissionsComponent implements OnInit {
       if (element.id == event)
         this.roleSelected = element;
     });
-    this.itemRolePermission.GetCollection(this.roleSelected.id).then(x => {
+    this.itemRolePermission.GetCollectionSavingRole(this.roleSelected.id).then(x => {
       this.messageError = null;
     }).catch(x => {
       this.messageError = x;

@@ -4,7 +4,7 @@ import {ViewCell} from 'ng2-smart-table';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <button nbButton ghost (click)="value.delete(value.data)">
+      <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
     </div>
