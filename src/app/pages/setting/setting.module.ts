@@ -212,6 +212,8 @@ import { FormObservationNoveltyComponent } from './observation-novelty/form-obse
 import { ObservationNoveltyComponent } from './observation-novelty/observation-novelty.component';
 import { InabilityComponent } from './inability/inability.component';
 import { FormInabilityComponent } from './inability/form-inability/form-inability.component';
+import { FormAdmissionsPatientComponent } from '../admissions/admissions-patient/form-admissions-patient/form-admissions-patient.component';
+import { AdmissionsPatientComponent } from '../admissions/admissions-patient/admissions-patient.component';
 
 
 @NgModule({
@@ -244,6 +246,9 @@ import { FormInabilityComponent } from './inability/form-inability/form-inabilit
     NbIconModule
   ],
   declarations: [
+    FormBedComponent,
+    BedComponent,
+    RolesPermissionsComponent,
     FormObservationNoveltyComponent,
     ObservationNoveltyComponent,
     FormSpecialFieldComponent,

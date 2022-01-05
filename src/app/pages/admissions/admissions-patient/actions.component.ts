@@ -14,13 +14,13 @@ import { LocationService } from '../../../business-controller/location.service';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="status" nbButton ghost (click)="ConfirmAction(templateRef)">
+    <a *ngIf="status" nbTooltip="Estado" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef)">
         <nb-icon icon="clock-outline"></nb-icon>
     </a>
-    <button *ngIf="medical" nbButton ghost (click)="ConfirmAction(templateRef2)">
+    <button *ngIf="medical" nbTooltip="Medico" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef2)">
         <nb-icon icon="log-out-outline"></nb-icon>
     </button>
-    <button *ngIf="service" nbButton ghost (click)="ConfirmAction(templateRef3)">
+    <button *ngIf="service" nbTooltip="Servicio" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef3)">
       <nb-icon icon="repeat-outline"></nb-icon>
     </button>
   </div>

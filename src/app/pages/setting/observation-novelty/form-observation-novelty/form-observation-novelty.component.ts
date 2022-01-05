@@ -54,7 +54,7 @@ export class FormObservationNoveltyComponent implements OnInit {
 
 
   }
-  
+
 
   close() {
     this.dialogRef.close();

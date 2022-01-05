@@ -28,7 +28,7 @@ import { Item } from '../../../models/item';
         [routerLink]="'../../admissions/patient/' + value.data.id+ '/edit'">
         <nb-icon icon="edit-outline"></nb-icon>
       </a>
-      <button ngxCheckPerms="delete" *ngIf="block_interact" nbButton ghost (click)="value.delete(value.data)">
+      <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="delete" *ngIf="block_interact" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
     </button>
     <button *ngIf="status" nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
@@ -38,7 +38,7 @@ import { Item } from '../../../models/item';
         [routerLink]="'../../admissions/admissions-patient/' + value.data.id">
         <nb-icon icon="list-outline"></nb-icon>
     </a>
-    <a *ngIf="Botton_user_change" nbButton ghost (click)="ShowUserChange(userChangeAction)" title="Asociar usuarios">
+    <a nbTooltip="Asociar a usuario" nbTooltipPlacement="top" nbTooltipStatus="primary" *ngIf="Botton_user_change" nbButton ghost (click)="ShowUserChange(userChangeAction)" >
       <nb-icon icon="file-text-outline"></nb-icon>
     </a>
   </div>

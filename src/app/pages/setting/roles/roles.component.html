@@ -29,8 +29,9 @@
                     <div class="row">
                         <div class="col-6">
                             <small class="form-text text-muted">Nombre del rol:</small>
-                            <input type="text" nbInput fullWidth fieldSize="medium"
+                            <input type="text" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth fieldSize="medium"
                                 status="{{ isSubmitted && roleForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"
                                 placeholder="Nombre" formControlName="name" required name minlength="5">
                             <div *ngIf="roleForm.controls.name.errors && isSubmitted ">
                                 <small *ngIf="roleForm.controls.name.errors.required">Ingrese el nombre del rol</small>

@@ -129,6 +129,20 @@ export class ItemRolePermissionBusinessService {
       });
   }
 
+  GetCollectionSavingRole(idRole: number): Promise<ItemRolePermission[]> {
+    var servObj = new ServiceObject("item/role/permission/byRole", idRole);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        this.itemsRolePermission = <ItemRolePermission[]>servObj.data.itemRolePermission;
+        return Promise.resolve(this.itemsRolePermission);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+
+  }
+
   Save(itemRolePermission: any): Promise<ServiceObject> {
     var servObj = new ServiceObject("item/role/permission");
     servObj.data = itemRolePermission;

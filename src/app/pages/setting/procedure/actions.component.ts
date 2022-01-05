@@ -10,7 +10,7 @@ import {ViewCell} from 'ng2-smart-table';
       <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ngxCheckPerms="delete" ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
-      <a nbButton *ngIf="value.data.procedure_type_id==3" ghost [routerLink]="'/pages/setting/procedure-package/' + value.data.id" title="Portafolios">
+      <a nbTooltip="Portafolios" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton *ngIf="value.data.procedure_type_id==3" ghost [routerLink]="'/pages/setting/procedure-package/' + value.data.id" >
         <nb-icon icon="list-outline"></nb-icon>
       </a>
     </div>
