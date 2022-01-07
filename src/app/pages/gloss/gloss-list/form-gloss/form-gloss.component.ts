@@ -12,6 +12,7 @@ import { ObjetionCodeService } from '../../../../business-controller/objetion-co
 import { ReceivedByService } from '../../../../business-controller/received-by.service';
 import { GlossService } from '../../../../business-controller/gloss.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
+import { TypeBriefcaseService } from '../../../../business-controller/type-briefcase.service';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class FormGlossComponent implements OnInit {
   public assing_user: any[];
   public code_id;
   public objetion_name;
+  public regime: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -55,6 +57,7 @@ export class FormGlossComponent implements OnInit {
     private objetionCodeS: ObjetionCodeService,
     private receivedByS: ReceivedByService,
     private userS:UserBusinessService,
+    private regimeS: TypeBriefcaseService,
   ) {
   }
 
@@ -65,6 +68,7 @@ export class FormGlossComponent implements OnInit {
         invoice_prefix: '',
         invoice_consecutive: '',
         objetion_detail: '',
+        regime_id: '',
         received_date: '',
         emission_date: '',
         radication_date: '',
@@ -111,6 +115,9 @@ export class FormGlossComponent implements OnInit {
     this.userS.UserByRole(5).then(x => {
       this.assing_user = x;
     });
+    this.regimeS.GetCollection().then(x => {
+      this.regime = x;
+    });
     
     this.form = this.formBuilder.group({
       invoice_prefix: [this.data.invoice_prefix, Validators.compose([Validators.required])],
@@ -121,6 +128,7 @@ export class FormGlossComponent implements OnInit {
       received_date: [this.data.received_date],
       emission_date: [this.data.emission_date],
       radication_date: [this.data.radication_date],
+      regime_id: [this.data.regimen_id],
       objetion_type_id: [this.data.objetion_type_id, Validators.compose([Validators.required])],
       company_id: [this.data.company_id, Validators.compose([Validators.required])],
       campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
@@ -166,6 +174,7 @@ export class FormGlossComponent implements OnInit {
           radication_date: this.form.controls.radication_date.value,
           objetion_type_id: this.form.controls.objetion_type_id.value,
           company_id: this.form.controls.company_id.value,
+          regime_id:this.form.controls.regime_id.value,
           campus_id: this.form.controls.campus_id.value,
           gloss_modality_id: this.form.controls.gloss_modality_id.value,
           gloss_ambit_id: this.form.controls.gloss_ambit_id.value,
@@ -191,6 +200,7 @@ export class FormGlossComponent implements OnInit {
           invoice_value: this.form.controls.invoice_value.value,
           invoice_consecutive: this.form.controls.invoice_consecutive.value,
           received_date: this.form.controls.received_date.value,
+          regime_id:this.form.controls.regime_id.value,
           emission_date: this.form.controls.emission_date.value,
           radication_date: this.form.controls.radication_date.value,
           objetion_type_id: this.form.controls.objetion_type_id.value,

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
@@ -15,7 +15,7 @@ import { GlossStatusService } from '../../../business-controller/gloss-status.se
 import { AuthService } from '../../../services/auth.service';
 import { ObjetionCodeResponseService } from '../../../business-controller/objetion-code-response.service';
 import { ObjetionResponseService } from '../../../business-controller/objetion-response.service';
-import {CurrencyPipe} from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'ngx-gloss-list',
@@ -32,17 +32,17 @@ export class GlossListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Glosas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Prefijo factura', 'Consecutivo factura', 'Tipo de objeción', 'Inicial reiterada', 'Fecha recibido', 'Fecha emisión', 'Fecha radicación', 'EAPB', 'Sede', 'Modalidad de Glosa', 'Ambito de Glosa', 'Sevicio de Glosa', 'Código de objeción', 'Detalle de objeción', 'Valor de factura', 'Valor objetado', 'Medio de recibido', 'Estado', 'Creado Por','Analista asignado'];
+  public headerFields: any[] = ['Prefijo factura', 'Consecutivo factura', 'Tipo de objeción', 'Inicial reiterada', 'Fecha recibido', 'Fecha emisión', 'Fecha radicación', 'EAPB', 'Sede', 'Modalidad de Glosa', 'Ambito de Glosa', 'Sevicio de Glosa', 'Código de objeción', 'Detalle de objeción', 'Valor de factura', 'Valor objetado', 'Medio de recibido', 'Estado', 'Creado Por', 'Analista asignado', 'Regimen'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}, ${this.headerFields[5]}, ${this.headerFields[6]}, ${this.headerFields[7]}, ${this.headerFields[8]}, ${this.headerFields[9]}, ${this.headerFields[10]}, ${this.headerFields[11]}, ${this.headerFields[12]}, ${this.headerFields[13]}, ${this.headerFields[14]}, ${this.headerFields[15]}, ${this.headerFields[16]}, ${this.headerFields[17]}, ${this.headerFields[18]}`;
   public icon: string = 'nb-star';
   public data = [];
   public arrayBuffer: any;
   public file: File;
   public glossStatus: any[] = null;
-  public glossStatusF: any[]=[] ;
+  public glossStatusF: any[] = [];
   public user_id;
   public user;
-  public dialog; 
+  public dialog;
   public currentRole;
   public selectedOptions: any[] = [];
 
@@ -68,7 +68,7 @@ export class GlossListComponent implements OnInit {
             'edit': this.EditGloss.bind(this),
             'delete': this.DeleteConfirmGloss.bind(this),
             'refresh': this.RefreshData.bind(this),
-            'currentRole':this.currentRole,
+            'currentRole': this.currentRole,
           };
         },
         renderComponent: Actions2Component,
@@ -80,6 +80,13 @@ export class GlossListComponent implements OnInit {
       invoice_consecutive: {
         title: this.headerFields[1],
         type: 'string',
+      },
+      regimen: {
+        title: this.headerFields[20],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
       },
       objetion_type: {
         title: this.headerFields[2],
@@ -95,14 +102,17 @@ export class GlossListComponent implements OnInit {
           return value.name;
         },
       },
-      received_date: {
-        title: this.headerFields[4],
-        type: 'string',
-      },
+
       emission_date: {
         title: this.headerFields[5],
         type: 'string',
       },
+
+      received_date: {
+        title: this.headerFields[4],
+        type: 'string',
+      },
+
       radication_date: {
         title: this.headerFields[6],
         type: 'string',
@@ -146,7 +156,7 @@ export class GlossListComponent implements OnInit {
         title: this.headerFields[12],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return value.code + ' - ' + value.name;
         },
       },
       objetion_detail: {
@@ -233,44 +243,44 @@ export class GlossListComponent implements OnInit {
 
   async ngOnInit() {
     console.log('prueba');
-    this.user=this.authService.GetUser();
-    this.user_id=this.user.id;
+    this.user = this.authService.GetUser();
+    this.user_id = this.user.id;
     this.currentRole = this.authService.GetRole();
-    if(this.user_id && this.currentRole==5){
-      this.entity= 'gloss/byStatus/0/' + this.user_id ;
-    }else if(this.user_id && this.currentRole==6){
-      this.entity= 'gloss/byStatus/3/0';
+    if (this.user_id && this.currentRole == 5) {
+      this.entity = 'gloss/byStatus/0/' + this.user_id;
+    } else if (this.user_id && this.currentRole == 6) {
+      this.entity = 'gloss/byStatus/3/0';
     }
-    else{
-      this.entity="gloss/?pagination=true";
+    else {
+      this.entity = "gloss/?pagination=true";
     }
     await this.GlossStatusS.GetCollection().then((x) => {
-        this.glossStatus = x;
+      this.glossStatus = x;
     });
-      this.glossStatus.forEach(element => {
-        if(this.currentRole==5){
-          if(element.id!=4 && element.id!=5 && element.id!=6){
-            this.glossStatusF.push(element);
-          }
-        }else if(this.currentRole==6){
-          if(element.id!=1 && element.id!=2 && element.id!=3 && element.id!=4){
-            this.glossStatusF.push(element);
-          }
-        }else{
-          this.glossStatusF=this.glossStatus;
+    this.glossStatus.forEach(element => {
+      if (this.currentRole == 5) {
+        if (element.id != 4 && element.id != 5 && element.id != 6) {
+          this.glossStatusF.push(element);
         }
-      });
-    
+      } else if (this.currentRole == 6) {
+        if (element.id != 1 && element.id != 2 && element.id != 3 && element.id != 4) {
+          this.glossStatusF.push(element);
+        }
+      } else {
+        this.glossStatusF = this.glossStatus;
+      }
+    });
+
     this.form = this.formBuilder.group({
       file: [Validators.compose([Validators.required])],
     });
 
     this.ResponseGlossForm = this.formBuilder.group({
       response: ['', Validators.compose([Validators.required])],
-      accepted_value: [ '',Validators.compose([Validators.required])],
+      accepted_value: ['', Validators.compose([Validators.required])],
       value_not_accepted: ['', Validators.compose([Validators.required])],
       objetion_code_response_id: ['', Validators.compose([Validators.required])],
-      objetion_response_id: [ '',Validators.compose([Validators.required])],
+      objetion_response_id: ['', Validators.compose([Validators.required])],
       file: [Validators.compose([Validators.required])],
     });
   }
@@ -282,9 +292,9 @@ export class GlossListComponent implements OnInit {
 
   GetDataSelect(select: any[]) {
     console.log(select);
-    this.selectedOptions=[];
+    this.selectedOptions = [];
     select.forEach(element => {
-      var manual_price=element;
+      var manual_price = element;
       this.selectedOptions.push(manual_price.id);
     });
   }
@@ -338,31 +348,32 @@ export class GlossListComponent implements OnInit {
       if (!this.selectedOptions.length) {
         this.dialog = this.dialog.close();
         this.toastS.danger(null, 'Debe seleccionar un registro');
-      }else{
-      this.loading = true;
-      this.dialog.close();
-   
-          var formData = new FormData();
-          formData.append('response', this.ResponseGlossForm.value.response);
-          formData.append('file', this.ResponseGlossForm.value.file);
-          formData.append('gloss_id',JSON.stringify(this.selectedOptions));
-          formData.append('objetion_response_id', this.ResponseGlossForm.controls.objetion_response_id.value);
-          formData.append('objetion_code_response_id', this.ResponseGlossForm.controls.objetion_code_response_id.value);
-          formData.append('accepted_value', this.ResponseGlossForm.controls.accepted_value.value);
-          formData.append('value_not_accepted', this.ResponseGlossForm.controls.value_not_accepted.value);
+      } else {
+        this.loading = true;
+        this.dialog.close();
 
-          await this.GlossResponseS.Save(formData).then(x => {
-            this.toastService.success('', x.data);
-            this.RefreshData();
-            if (this.saved) {
-              this.saved();
-            }
-          }).catch(x => {
-            this.isSubmitted = false;
-            this.loading = false;
-          }); 
+        var formData = new FormData();
+        formData.append('single', "0");
+        formData.append('response', this.ResponseGlossForm.value.response);
+        formData.append('file', this.ResponseGlossForm.value.file);
+        formData.append('gloss_id', JSON.stringify(this.selectedOptions));
+        formData.append('objetion_response_id', this.ResponseGlossForm.controls.objetion_response_id.value);
+        formData.append('objetion_code_response_id', this.ResponseGlossForm.controls.objetion_code_response_id.value);
+        formData.append('accepted_value', this.ResponseGlossForm.controls.accepted_value.value);
+        formData.append('value_not_accepted', this.ResponseGlossForm.controls.value_not_accepted.value);
+
+        await this.GlossResponseS.Save(formData).then(x => {
+          this.toastService.success('', x.data);
+          this.RefreshData();
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      }
     }
-  }
   }
 
 
@@ -414,33 +425,33 @@ export class GlossListComponent implements OnInit {
   }
 
   ChangeGlossStatus(status) {
-    this.status=status;
-    if(status!=0 && this.currentRole==5){
-    this.table.changeEntity(`gloss/byStatus/${this.status}/${this.user_id}`,'gloss');
-    // this.RefreshData();
-    }else if(this.currentRole==4 || this.currentRole==1){ 
-      this.table.changeEntity(`gloss/byStatus/${this.status}/0`,'gloss');
-    }else if(status){
-      this.table.changeEntity(`gloss/byStatus/${this.status}/0`,'gloss');
+    this.status = status;
+    if (status != 0 && this.currentRole == 5) {
+      this.table.changeEntity(`gloss/byStatus/${this.status}/${this.user_id}`, 'gloss');
+      // this.RefreshData();
+    } else if (this.currentRole == 4 || this.currentRole == 1) {
+      this.table.changeEntity(`gloss/byStatus/${this.status}/0`, 'gloss');
+    } else if (status) {
+      this.table.changeEntity(`gloss/byStatus/${this.status}/0`, 'gloss');
     }
-    else{
-      this.table.changeEntity(`gloss/byStatus/0/${this.user_id}`,'gloss');
+    else {
+      this.table.changeEntity(`gloss/byStatus/0/${this.user_id}`, 'gloss');
     }
-   }
+  }
 
-   async changeFile(files, option) {
-    this.loading=true;
+  async changeFile(files, option) {
+    this.loading = true;
     if (!files) return false;
     const file = await this.toBase64(files.target.files[0]);
-    
+
     switch (option) {
       case 2:
         this.ResponseGlossForm.patchValue({
           file: files.target.files[0],
         });
-        this.loading=false;
+        this.loading = false;
         break;
-        }
+    }
   }
 
   toBase64 = file => new Promise((resolve, reject) => {

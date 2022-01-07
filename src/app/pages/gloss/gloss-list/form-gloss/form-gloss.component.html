@@ -29,9 +29,14 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="received_date" class="form-text text-muted font-weight-bold">Fecha de recibido:</label>
-          <input type="date" nbInput fullWidth id="received_date" formControlName="received_date" received_date
-            status="{{ isSubmitted && form.controls.received_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="regime" class="form-text text-muted font-weight-bold">Régimen:</label>
+          <nb-select [selected]="this.data.regime_id" formControlName="regime_id" id="regime_id" fullWidth
+            status="{{ isSubmitted && form.controls.regime_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.regime_id }}" *ngFor="let item of regime"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
@@ -39,6 +44,14 @@
           <input type="date" nbInput fullWidth id="emission_date" formControlName="emission_date" emission_date
             status="{{ isSubmitted && form.controls.emission_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="received_date" class="form-text text-muted font-weight-bold">Fecha de recibido:</label>
+          <input type="date" nbInput fullWidth id="received_date" formControlName="received_date" received_date
+            status="{{ isSubmitted && form.controls.received_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="radication_date" class="form-text text-muted font-weight-bold">Fecha de redicación:</label>

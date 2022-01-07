@@ -29,8 +29,8 @@ import { GlossService } from '../../../business-controller/gloss.service';
     <a nbTooltip="Ver respuesta" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==3 || value.data.gloss_status_id==5" nbButton ghost (click)="ConfirmAction(detailAction,3)">
         <nb-icon icon="eye-outline"></nb-icon>
     </a>
-    <a nbTooltip="Cambiar estado" *ngIf="this.value.currentRole==6 && value.data.gloss_status_id==5 || this.value.currentRole==6 && value.data.gloss_status_id==3" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read"  nbButton ghost (click)="ConfirmAction(stateCartera)">
-      <nb-icon icon="checkmark-square-outline"></nb-icon>
+    <a nbTooltip="Cambiar estado" *ngIf=" this.value.currentRole==4 && value.data.gloss_status_id==3" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read"  nbButton ghost (click)="ConfirmAction(stateCartera)">
+      <nb-icon icon="plus-outline"></nb-icon>
     </a>
   </div>
   <ng-template #confirmAction>
@@ -100,7 +100,7 @@ import { GlossService } from '../../../business-controller/gloss.service';
                         <div class="col-md-12">
                           <nb-select formControlName="state_gloss" id="state_gloss" fullWidth>
                             <nb-option value="">Seleccione...</nb-option>
-                            <nb-option value="5">Cartera</nb-option>
+                            <nb-option value="5">Conciliado</nb-option>
                             <nb-option value="6">En conciliación</nb-option>
                           </nb-select>
                         </div>
@@ -322,6 +322,7 @@ export class Actions2Component implements ViewCell {
       if (this.value.data.id) {
         if (this.ResponseGlossForm.value.file) {
           var formData = new FormData();
+          formData.append('single', "1");
           formData.append('response', this.ResponseGlossForm.value.response);
           formData.append('file', this.ResponseGlossForm.value.file);
           formData.append('id', this.rowData.id);
