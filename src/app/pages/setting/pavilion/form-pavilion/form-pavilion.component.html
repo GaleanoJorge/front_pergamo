@@ -1,18 +1,18 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card size="small" style="max-width: 400px">
+  <nb-card size="medium" style="max-width: 600px">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
           <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
-          <input nbInput fullWidth id="code" formControlName="code" code
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="code" formControlName="code" code
             status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
-            onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+            />
         </div>
         <div class="col-md-12">
           <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>

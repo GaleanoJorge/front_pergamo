@@ -25,7 +25,7 @@
             </datalist>
         </div>
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="equivalent"  class="form-text text-muted font-weight-bold">Equivalente:</label>
+          <label for="equivalent"  class="form-text text-muted font-weight-bold">Homologo:</label>
           <input nbInput fullWidth id="equivalent" formControlName="equivalent" equivalent
             status="{{ isSubmitted && form.controls.equivalent.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
@@ -33,7 +33,7 @@
           <label for="name" class="form-text text-muted font-weight-bold">Nombre del procedimiento:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
-            onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+            />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
             <label for="procedure_category" class="form-text text-muted font-weight-bold">Categoria del procedimiento:</label>

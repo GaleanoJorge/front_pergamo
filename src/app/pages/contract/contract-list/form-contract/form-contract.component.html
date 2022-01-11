@@ -5,14 +5,14 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-4">
           <label for="number_contract" class="form-text text-muted font-weight-bold">Número de contrato:</label>
-          <input nbInput fullWidth id="number_contract" formControlName="number_contract" number_contract
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="number_contract" formControlName="number_contract" number_contract
             status="{{ isSubmitted && form.controls.number_contract.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre del contrato:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
-            onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
+            >
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="company" class="form-text text-muted font-weight-bold">Compañia:</label>
@@ -100,7 +100,7 @@
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="value_civil_policy" class="form-text text-muted font-weight-bold">Valor de Poliza de responsabilidad civil:</label>
-          <input nbInput fullWidth id="value_civil_policy" formControlName="value_civil_policy" value_civil_policy
+          <input type="number" nbInput fullWidth id="value_civil_policy" formControlName="value_civil_policy" value_civil_policy
             status="{{ isSubmitted && form.controls.value_civil_policy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
@@ -125,7 +125,7 @@
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="value_contractual_policy" class="form-text text-muted font-weight-bold">Valor de Poliza de responsabilidad contractual:</label>
-          <input nbInput fullWidth id="value_contractual_policy" formControlName="value_contractual_policy" value_contractual_policy
+          <input type="number" nbInput fullWidth id="value_contractual_policy" formControlName="value_contractual_policy" value_contractual_policy
             status="{{ isSubmitted && form.controls.value_contractual_policy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">

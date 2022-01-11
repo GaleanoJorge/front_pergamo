@@ -169,7 +169,7 @@ export class AdmissionsPatientComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.user_id= this.route.snapshot.params.user_id;
 
 
