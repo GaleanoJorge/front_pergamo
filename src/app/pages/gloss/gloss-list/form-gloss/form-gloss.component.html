@@ -119,7 +119,7 @@
           <label class="form-text text-muted font-weight-bold">Código de objeción:</label>
           <input id="data-list" formControlName="objetion_code_id" objetion_code_id type="text" list="codes" class="data-list" (change)="saveCode($event)" required>
             <datalist id="codes">
-              <option *ngFor="let item of objetion_code" [value]="item.name" >{{item.code}} {{item.name}}</option>
+              <option *ngFor="let item of objetion_code" [value]="item.name" >{{item.code}} - {{item.name}}</option>
             </datalist>
         </div>
 

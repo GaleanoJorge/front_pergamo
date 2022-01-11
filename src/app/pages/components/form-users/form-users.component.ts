@@ -110,7 +110,14 @@ export class FormUsersComponent implements OnInit {
   public inabilitys:any[];
   public referencia;
   public residence;
-  public age:any=null;
+  public age: any = null;
+  // public mesagge="Av.Calle 68 b # 186 c - 18a, Norte  ( apt 203 familia corredor, panaderia azul )";
+  
+  public street: any = null;
+  public num1: any = null;
+  public num2: any = null;
+  public cardinality: any = null;
+  public reference: any = null;
 
 
   constructor(
@@ -146,7 +153,6 @@ export class FormUsersComponent implements OnInit {
     this.course_id = this.route.snapshot.queryParams.course_id;
     this.loadAuxData = false;
     this.LoadForm().then();
-    // this.today = new Date().toISOString().split("T")[0];
     this.today = new Date();
 
     this.today.setDate(this.today.getDate() - 2);
@@ -344,10 +350,29 @@ export class FormUsersComponent implements OnInit {
       ],
 
       residence_address: [
-        this.GetData('residence_address'),
+        this.ReturnResidence(this.GetData('residence_address')),
         Validators.compose([Validators.required]),
       ],
-
+      street:[
+        this.street == null ? '' : this.street,
+        Validators.compose([Validators.required]),
+      ],
+      num1:[
+        this.num1 == null ? '' : this.num1,
+        Validators.compose([Validators.required]),
+      ],
+      num2:[
+        this.num2 == null ? '' : this.num2,
+        Validators.compose([Validators.required]),
+      ],
+      residence_address_cardinality: [
+        this.cardinality == null ? '' : this.cardinality,
+        Validators.compose([Validators.required]),
+      ],
+      reference:[
+        this.reference == null ? '' : this.reference,
+        Validators.compose([Validators.required]),
+      ],
       neighborhood_or_residence_id: [
         this.GetData('neighborhood_or_residence_id'),
         Validators.compose([Validators.required]),
@@ -442,9 +467,47 @@ export class FormUsersComponent implements OnInit {
     this.LoadForm().then();
   }
 
+  ReturnResidence(e){
+    var complete_address=e;
+    
+    //tipo de calle
+    var residence_address=complete_address.split(' ', 1).toString();
+
+    var num= complete_address.split('#', 1).toString();
+    var firts_num = num.split(' ');
+    firts_num.shift();
+    firts_num.pop();
+    this.street = firts_num.join().replace(',', ' ');
+
+    //num1 de dirección
+    var num = complete_address.split('-',1).toString();
+    var second_num = num.split('#');
+    second_num.shift();
+    this.num1 = second_num.join().replace(',', ' ').trimStart();
+    //num2 de la dirección
+    var num = complete_address.split(',',1).toString();
+    var second_num = num.split('-');
+    second_num.shift();
+    this.num2 = second_num.join().replace(',', ' ').trimStart();
+  
+    //cardinalidad
+    var num = complete_address.split('(',1).toString();
+    var second_num = num.split(',');
+    second_num.shift();
+    this.cardinality = second_num.join().replace(',', ' ').trim();
+    
+    //adicional
+    var num = complete_address.split(')',1).toString();
+    var second_num = num.split('(');
+    second_num.shift();
+    this.reference = second_num.join().replace(',', ' ').trimStart();
+    
+    return residence_address 
+  }
+
   async SaveStudent() {
-    this.residence = this.form.controls.residence_address.value + ' ' + (document.getElementById("calle") as HTMLInputElement).value + ' # ' + (document.getElementById("num1") as HTMLInputElement).value + ' - ' +  (document.getElementById("num2") as HTMLInputElement).value + ' ( ' + (document.getElementById("reference") as HTMLInputElement).value + ' ) '  ;
-    console.log(this.residence);
+    this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' +  this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) '  ;
+  
     this.isSubmitted = true;
     // this.UpdateResetPassword(data);
     if (!this.form.invalid) {
