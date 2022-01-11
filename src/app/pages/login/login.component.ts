@@ -136,7 +136,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  chargeCampus(){
+  async chargeCampus(){
       // @ts-ignore
       if(!localStorage.getItem('campus')){
         this.toastrService.danger('','Debe seleccionar una sede.');
@@ -144,8 +144,8 @@ export class LoginComponent implements OnInit {
       if (this.authService.GetRole() === 20) {
       this.router.navigateByUrl('/pages/personal-information');
       } else {
-      this.router.navigateByUrl('/pages');
-      setTimeout('window.location.reload()',400);
+      await this.router.navigateByUrl('/pages');
+      setTimeout('window.location.reload()',1000);
     }
   }
   }

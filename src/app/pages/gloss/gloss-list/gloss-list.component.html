@@ -20,7 +20,7 @@
         </div>
       </div>
     </ngx-base-table>
-    <button nbButton status="danger" class="btn-studen-admissions" (click)="ConfirmAction(confirmAction)"> Respuesta masiva </button>
+    <button ngxCheckPerms="create" nbButton status="danger" class="btn-studen-admissions" (click)="ConfirmAction(confirmAction)"> Respuesta masiva </button>
   </div>
 </ngx-base-list>
 <ng-template #confirmAction>
