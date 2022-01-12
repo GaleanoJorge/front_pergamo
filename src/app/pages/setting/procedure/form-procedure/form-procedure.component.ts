@@ -71,7 +71,7 @@ export class FormProcedureComponent implements OnInit {
         status_id: '',
         procedure_purpose_id: '',
         purpose_service_id:'',
-        procedure_type_id:'',
+        procedure_type_id: 1 ,
         //time: ''
 
       };   
