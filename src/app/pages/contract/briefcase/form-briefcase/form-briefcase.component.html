@@ -5,10 +5,11 @@
       <div class="row">
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
-          <input nbInput fullWidth id="name" formControlName="name" name
+          <input  oninput="this.value = this.value.toUpperCase()"  minlength="3" maxlength="25"
+            nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <label for="type_briefcase" class="form-text text-muted font-weight-bold">Tipo de catalogo:</label>
           <nb-select [selected]="this.data.type_briefcase_id" formControlName="type_briefcase_id" id="type_briefcase_id" fullWidth
             status="{{ isSubmitted && form.controls.type_briefcase_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -17,7 +18,7 @@
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
         <div class="col-md-12">
           <label for="coverage" class="form-text text-muted font-weight-bold">Cobertura:</label>
           <nb-select [selected]="this.data.coverage_id" formControlName="coverage_id" id="coverage_id" fullWidth
@@ -41,9 +42,8 @@
         <div class="col-md-12">
           <label for="campus" class="form-text text-muted font-weight-bold">Sede:</label>
           <nb-select multiple [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
-            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus"
+          status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option  *ngFor="let item of campus"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>

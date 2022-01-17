@@ -1,30 +1,37 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FileContractService } from '../../../business-controller/file-contract.service';
+import { PolicyService } from '../../../business-controller/policy.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormFileContractComponent } from './form-file-contract/form-file-contract.component';
-import { ActionsFileComponent } from './actions.component';
+import { FormPolicyComponent } from './form-policy/form-policy.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ContractService } from '../../../business-controller/contract.service';
+import { environment } from '../../../../environments/environment.prod';
 import { Actions2Component } from './actions2.component';
+import { ActionsEDComponent } from './actions.component';
+
+
 
 @Component({
-  selector: 'ngx-file-contract',
-  templateUrl: './file-contract.component.html',
-  styleUrls: ['./file-contract.component.scss']
+  selector: 'ngx-policy',
+  templateUrl: './policy.component.html',
+  styleUrls: ['./policy.component.scss']
 })
-export class FileContractComponent implements OnInit {
+export class PolicyComponent implements OnInit {
 
   public isSubmitted = false;
   public entity:string;
   public messageError: string = null;
-  public title: string = 'Documentos del contrato';
+  public title: string = 'Documentos de pólizas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Documento'];
+  public headerFields: any[] = ['ID','Tipo de póliza', 'Aseguradora de la póliza','Valor de la póliza','Fecha de inicio', 'Fecha de finalización', 'Documento'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
-  public data = [];
+  public data: any [] = [];
+  public datain;
+  public contract = [];
   public contract_id:number;
+  public previewFile:string;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -38,24 +45,46 @@ export class FileContractComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
+          this.datain=row;
           return {
             'data': row,
-            'edit': this.EditFileContract.bind(this),
-            'delete': this.DeleteConfirmFileContract.bind(this),
+            'delete': this.DeleteConfirmPolicy.bind(this),
           };
         },
-        renderComponent: ActionsFileComponent,
+        renderComponent: ActionsEDComponent,
       },
       id: {
         title: this.headerFields[0],
         type: 'string',
       },
-      name: {
+      policy_type: {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
       },
-      file: {
+      insurance_carrier: {
         title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.insurance_carrier?.name;
+        }
+      },
+      policy_value: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      start_date: {
+        title: this.headerFields[4],
+        type: 'string',
+      },
+      finish_date: {
+        title: this.headerFields[5],
+        type: 'string',
+      },
+      policy_file: {
+        title: this.headerFields[6],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -64,38 +93,44 @@ export class FileContractComponent implements OnInit {
           };
         },
         renderComponent: Actions2Component,
-
-      }
+      },
     },
   };
 
   public routes = [
     {
-      name: 'Contratos',
+      name: 'Pólizas',
       route: '../../list',
     },
     {
-      name: 'Documentos del contrato',
-      route: '../../contract/file-contract',
+      name: 'Pólizas',
+      route: '../../contract/policy',
     },
   ];
 
   constructor(
-    private FileContractS: FileContractService,
+    private PolicyS: PolicyService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private route: ActivatedRoute,
+    private ContractS: ContractService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     if(this.route.snapshot.params.id){
       this.contract_id = this.route.snapshot.params.id;
-      this.entity = this.contract_id ? 'FileContract/FileByContract/' + this.contract_id : 'file_contract';
+      this.entity = this.contract_id ? 'Policy/FileByContract/' + this.contract_id : 'policy';
     }else{
-      this.entity='file_contract';
+      this.entity='policy';
     }
+    
+    await this.ContractS.GetCollection().then(x=> {
+      this.contract = x;
+    });
+    var element = this.contract.find(item => item.id == this.contract_id)
+    this.title = 'Pólizas del contracto: ' + element.name;
     
   }
 
@@ -104,20 +139,20 @@ export class FileContractComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewFileContract() {
-    this.dialogFormService.open(FormFileContractComponent, {
+  NewPolicy() {
+    this.dialogFormService.open(FormPolicyComponent, {
       context: {
-        title: 'Crear nuevo documento del contrato',
+        title: 'Crear nueva póliza',
         saved: this.RefreshData.bind(this),
         contract_id:this.contract_id,
       },
     });
   }
 
-  EditFileContract(data) {
-    this.dialogFormService.open(FormFileContractComponent, {
+  EditPolicy(data) {
+    this.dialogFormService.open(FormPolicyComponent, {
       context: {
-        title: 'Editar documento del contrato',
+        title: 'Editar póliza',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -137,18 +172,18 @@ export class FileContractComponent implements OnInit {
   //   });
   // }
 
-  DeleteConfirmFileContract(data) {
+  DeleteConfirmPolicy(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteFileContract.bind(this),
+        delete: this.DeletePolicy.bind(this),
       },
     });
   }
 
-  DeleteFileContract(data) {
-    return this.FileContractS.Delete(data.id).then(x => {
+  DeletePolicy(data) {
+    return this.PolicyS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {

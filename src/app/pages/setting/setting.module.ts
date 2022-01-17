@@ -214,6 +214,8 @@ import { InabilityComponent } from './inability/inability.component';
 import { FormInabilityComponent } from './inability/form-inability/form-inability.component';
 import { FormAdmissionsPatientComponent } from '../admissions/admissions-patient/form-admissions-patient/form-admissions-patient.component';
 import { AdmissionsPatientComponent } from '../admissions/admissions-patient/admissions-patient.component';
+import { FormPolicyTypeComponent } from './policy-type/form-policy-type/form-policy-type.component';
+import { PolicyTypeComponent } from './policy-type/policy-type.component';
 
 
 @NgModule({
@@ -246,6 +248,8 @@ import { AdmissionsPatientComponent } from '../admissions/admissions-patient/adm
     NbIconModule
   ],
   declarations: [
+    FormPolicyTypeComponent,
+    PolicyTypeComponent,
     FormBedComponent,
     BedComponent,
     RolesPermissionsComponent,

@@ -56,10 +56,10 @@ export class FormBriefcaseComponent implements OnInit {
       this.data = {
         name: '',
         contract_id: '',
-        type_briefcase_id: '',
+        // type_briefcase_id: '',
         coverage_id: '',
         modality_id: '',
-        campus_id:'',
+        campus_id:[],
         status_id: '',
       };
  
@@ -73,9 +73,9 @@ export class FormBriefcaseComponent implements OnInit {
     
 
 
-    this.TypeBriefcaseS.GetCollection().then(x => {
-      this.type_briefcase = x;
-    });
+    // this.TypeBriefcaseS.GetCollection().then(x => {
+    //   this.type_briefcase = x;
+    // });
     this.CoverageS.GetCollection().then(x => {
       this.coverage = x;
     });
@@ -91,10 +91,10 @@ export class FormBriefcaseComponent implements OnInit {
 
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
-      type_briefcase_id: [this.data.type_briefcase_id, Validators.compose([Validators.required])],
+      // type_briefcase_id: [this.data.type_briefcase_id, Validators.compose([Validators.required])],
       coverage_id: [this.data.coverage_id, Validators.compose([Validators.required])],
       modality_id: [this.data.modality_id, Validators.compose([Validators.required])],
-      campus_id: [this.getcampus(),Validators.compose([Validators.required])],
+      campus_id: [[this.getcampus()],Validators.compose([Validators.required])],
       status_id: [this.data.status_id, Validators.compose([Validators.required])],
       contract_id: [this.data.contract_id],
     });
@@ -129,7 +129,7 @@ export class FormBriefcaseComponent implements OnInit {
             id: this.data.id,
             contract_id: this.contract_id,
             name: this.form.controls.name.value,
-            type_briefcase_id: this.form.controls.type_briefcase_id.value,
+            // type_briefcase_id: this.form.controls.type_briefcase_id.value,
             coverage_id: this.form.controls.coverage_id.value,
             modality_id: this.form.controls.modality_id.value,
             campus_id: this.form.controls.campus_id.value,
@@ -148,7 +148,7 @@ export class FormBriefcaseComponent implements OnInit {
           this.BriefcaseS.Save({
             contract_id: this.contract_id,
             name: this.form.controls.name.value,
-            type_briefcase_id: this.form.controls.type_briefcase_id.value,
+            // type_briefcase_id: this.form.controls.type_briefcase_id.value,
             coverage_id: this.form.controls.coverage_id.value,
             modality_id: this.form.controls.modality_id.value,
             campus_id: this.form.controls.campus_id.value,

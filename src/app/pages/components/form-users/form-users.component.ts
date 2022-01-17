@@ -367,7 +367,6 @@ export class FormUsersComponent implements OnInit {
       ],
       residence_address_cardinality: [
         this.cardinality == null ? '' : this.cardinality,
-        Validators.compose([Validators.required]),
       ],
       reference:[
         this.reference == null ? '' : this.reference,
