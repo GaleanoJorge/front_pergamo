@@ -23,7 +23,7 @@ export class BriefcaseComponent implements OnInit {
   public messageError: string = null;
   public title: string;
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre','Sede','Tipo','Cobertura','Modalidad','Estado'];
+  public headerFields: any[] = ['ID', 'Nombre','Sede','Cobertura','Modalidad','Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -74,29 +74,22 @@ export class BriefcaseComponent implements OnInit {
         },
         renderComponent: Actions3Component,
       },
-      type_briefcase: {
+      coverage: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      coverage: {
+      modality: {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      modality: {
-        title: this.headerFields[5],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.name;
-        },
-      },
       status: {
-        title: this.headerFields[6],
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;

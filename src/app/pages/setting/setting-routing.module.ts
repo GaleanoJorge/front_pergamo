@@ -101,6 +101,7 @@ import { CostCenterComponent } from './cost-center/cost-center.component';
 import { ObservationNoveltyComponent } from './observation-novelty/observation-novelty.component';
 import { InabilityComponent } from './inability/inability.component';
 import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
+import { PolicyTypeComponent } from './policy-type/policy-type.component';
 
 const routes: Routes = [{
   path: '',
@@ -159,7 +160,12 @@ const routes: Routes = [{
     {
       path: 'observation-novelty',
       component: ObservationNoveltyComponent,
-      data: { permission: 'roles.read'},
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'policy-type',
+      component: PolicyTypeComponent,
+      data: { permission: 'roles.read' }
     },
     {
       path: 'special-field',

@@ -1,22 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TypeBriefcaseService } from '../../../business-controller/type-briefcase.service';
+import { PolicyTypeService } from '../../../business-controller/policy-type.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormTypeBriefcaseComponent } from './form-type-briefcase/form-type-briefcase.component';
+import { FormPolicyTypeComponent } from './form-policy-type/form-policy-type.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 
 
 @Component({
-  selector: 'ngx-type-briefcase',
-  templateUrl: './type-briefcase.component.html',
-  styleUrls: ['./type-briefcase.component.scss']
+  selector: 'ngx-policy-type',
+  templateUrl: './policy-type.component.html',
+  styleUrls: ['./policy-type.component.scss']
 })
-export class TypeBriefcaseComponent implements OnInit {
+export class PolicyTypeComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Régimen';
+  public title: string = 'Tipos de póliza';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -37,8 +37,8 @@ export class TypeBriefcaseComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditTypeBriefcase.bind(this),
-            'delete': this.DeleteConfirmTypeBriefcase.bind(this),
+            'edit': this.EditPolicyType.bind(this),
+            'delete': this.DeleteConfirmPolicyType.bind(this),
           };
         },
         renderComponent: ActionsComponent,
@@ -56,13 +56,13 @@ export class TypeBriefcaseComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Régimen',
-      route: '../../setting/type-briefcase',
+      name: 'Tipos de póliza',
+      route: '../../setting/policy-type',
     },
   ];
 
   constructor(
-    private TypeBriefcaseS: TypeBriefcaseService,
+    private PolicyTypeS: PolicyTypeService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -77,50 +77,38 @@ export class TypeBriefcaseComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewTypeBriefcase() {
-    this.dialogFormService.open(FormTypeBriefcaseComponent, {
+  NewPolicyType() {
+    this.dialogFormService.open(FormPolicyTypeComponent, {
       context: {
-        title: 'Crear nuevo tipo de Portafolio',
+        title: 'Crear nuevo tipo de póliza',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditTypeBriefcase(data) {
-    this.dialogFormService.open(FormTypeBriefcaseComponent, {
+  EditPolicyType(data) {
+    this.dialogFormService.open(FormPolicyTypeComponent, {
       context: {
-        title: 'Editar tipo de Portafolio',
+        title: 'Editar tipo de póliza',
         data,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  // ChangeState(data) {
-  //   // data.status_id = data.status_id === 1 ? 2 : 1;
 
-  //   this.toastrService.info('', 'Cambiando estado');
-
-  //   this.regionS.Update(data).then((x) => {
-  //     this.toastrService.success('', x.message);
-  //     this.table.refresh();
-  //   }).catch((x) => {
-  //     this.toastrService.danger(x.message);
-  //   });
-  // }
-
-  DeleteConfirmTypeBriefcase(data) {
+  DeleteConfirmPolicyType(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteTypeBriefcase.bind(this),
+        delete: this.DeletePolicyType.bind(this),
       },
     });
   }
 
-  DeleteTypeBriefcase(data) {
-    return this.TypeBriefcaseS.Delete(data.id).then(x => {
+  DeletePolicyType(data) {
+    return this.PolicyTypeS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {

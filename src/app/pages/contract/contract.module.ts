@@ -38,6 +38,10 @@ import {Actions3Component} from './briefcase/actions3.component';
 import {Actions4Component} from './detail-services/actions.component';
 import {ActionsComponent} from './briefcase/actions.component';
 import {DetailServicesComponent} from './detail-services/detail-services.component';
+import { PolicyComponent } from './policy/policy.component'; 
+import { FormPolicyComponent } from './policy/form-policy/form-policy.component';
+import { ActionsEDComponent } from './policy/actions.component';
+import { ActionsFileComponent } from './file-contract/actions.component';
 
 
 @NgModule({
@@ -69,6 +73,8 @@ import {DetailServicesComponent} from './detail-services/detail-services.compone
     NbSpinnerModule,
   ],
   declarations: [
+    PolicyComponent,
+    FormPolicyComponent,
     BriefcaseComponent,
     ActionsComponent,
     DetailServicesComponent,
@@ -81,7 +87,9 @@ import {DetailServicesComponent} from './detail-services/detail-services.compone
     FormContractComponent,
     Actions2Component,
     Actions3Component,
-    Actions4Component
+    Actions4Component,
+    ActionsEDComponent,
+    ActionsFileComponent
   ],
   providers: [
     DateFormatPipe,

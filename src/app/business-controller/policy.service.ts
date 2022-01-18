@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { Contract } from '../models/contract';
+import { Policy } from '../models/policy';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContractService {
-  public contract: Contract[] = [];
+export class PolicyService {
+  public policy: Policy[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<Contract[]> {
-    let servObj = new ServiceObject(params ? 'contract?pagination=false' : 'contract');
+  GetCollection(params = {}): Promise<Policy[]> {
+    let servObj = new ServiceObject(params ? 'policy?pagination=false' : 'policy');
 
     return this.webAPI.GetAction(servObj)
       .then(x => {
@@ -22,36 +22,18 @@ export class ContractService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.contract = <Contract[]>servObj.data.contract;
+        this.policy = <Policy[]>servObj.data.policy;
 
-        return Promise.resolve(this.contract);
+        return Promise.resolve(this.policy);
       })
       .catch(x => {
         throw x.message;
       });
   }
-  
-  // GetContractById(id): Promise<Contract[]> {
-  //   let servObj = new ServiceObject('Policy/FileByContract', id);
 
-  //   return this.webAPI.GetAction(servObj)
-  //     .then(x => {
-  //       servObj = <ServiceObject>x;
-  //       if (!servObj.status)
-  //         throw new Error(servObj.message);
-
-  //       this.contract = <Contract[]>servObj.data.contract;
-
-  //       return Promise.resolve(this.contract);
-  //     })
-  //     .catch(x => {
-  //       throw x.message;
-  //     });
-  // }
-
-  Save(contract: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('contract');
-    servObj.data = contract;
+  Save(policy: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('policy');
+    servObj.data = policy;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -65,24 +47,25 @@ export class ContractService {
       });
   }
 
-  Update(contract: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('contract', contract.id);
-    servObj.data = contract;
-    return this.webAPI.PutAction(servObj)
+
+  Update(sect: any, id = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('policy', (sect.id ? sect.id : id));
+    servObj.data = sect;
+    return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
-          throw new Error(servObj.message);
-
+          throw new Error(servObj.message)
         return Promise.resolve(servObj);
       })
       .catch(x => {
         throw x.message;
-      });
+      })
   }
 
+
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('contract', id);
+    let servObj = new ServiceObject('policy', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

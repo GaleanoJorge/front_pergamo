@@ -219,6 +219,8 @@ import { FormManualProductComponent } from './manual/form-manual-product/form-ma
 import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
 import { ActionsComponentProcedure } from './manual/procedure-massive/actions.component';
 import { ActionsComponentProduct } from './manual/product-massive/actions.component';
+import { FormPolicyTypeComponent } from './policy-type/form-policy-type/form-policy-type.component';
+import { PolicyTypeComponent } from './policy-type/policy-type.component';
 
 
 @NgModule({
@@ -256,6 +258,8 @@ import { ActionsComponentProduct } from './manual/product-massive/actions.compon
     ProductMassiveComponent,
     FormManualProcedureComponent,
     FormManualProductComponent,
+    FormPolicyTypeComponent,
+    PolicyTypeComponent,
     FormBedComponent,
     BedComponent,
     RolesPermissionsComponent,
