@@ -41,6 +41,7 @@ export class ManualComponent implements OnInit {
             'edit': this.EditManual.bind(this),
             'delete': this.DeleteConfirmManual.bind(this),
             'procedure': (row) => this.router.navigate([`/pages/setting/procedure-massive/${row.id}`]),
+            'product': (row) => this.router.navigate([`/pages/setting/product-massive/${row.id}`]),
             'procedurelist': (row) => this.router.navigate([`/pages/setting/manual-price/${row.id}`])
           };
         },

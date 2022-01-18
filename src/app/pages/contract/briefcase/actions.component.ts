@@ -14,7 +14,7 @@ import {ViewCell} from 'ng2-smart-table';
         <nb-icon icon="list-outline"></nb-icon>
       </a>
       <a nbButton nbTooltip="Detalle de portafolio" nbTooltipPlacement="top" nbTooltipStatus="primary" ghost [routerLink]="'/pages/contract/detail-services/' + value.data.id" >
-      <nb-icon icon="archive-outline"></nb-icon>
+      <nb-icon icon="grid-outline"></nb-icon>
     </a>
     </div>
   `,

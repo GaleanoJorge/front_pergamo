@@ -1,4 +1,4 @@
-import {Component, OnInit,Input,TemplateRef,ViewChild,ElementRef} from '@angular/core';
+import {Component, OnInit,Input,TemplateRef,ViewChild,ElementRef,Output, EventEmitter} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {ProcedurePackageService} from '../../../../business-controller/procedure-package.Service';
@@ -16,11 +16,13 @@ import { multicast } from 'rxjs/operators';
 })
 export class ProcedurePackageComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+
+  @Output() messageEvent = new EventEmitter<any>();
   public messageError = null;
   
 
   public InscriptionForm: FormGroup;
-  public title = 'Paquetes: ';
+  public title = 'Asignación procedimientos para paquete:: ';
   public subtitle = 'Asignación procedimientos para paquete: ';
   public headerFields: any[] =  ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Categoria del procedimiento', 'Pos', 'Rango de Edad ', 'Genero', 'Estado del procedimiento', 'Id de finalidad ', 'Tiempo'];
   public routes = [];
@@ -42,24 +44,9 @@ export class ProcedurePackageComponent implements OnInit {
 
   public settings = {  
     selectMode: 'multi',
-    columns: {
-      check :{
-        sort: false,
-        title:'Acciones',
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          row.isSelected = true;
-          return {
-            
-          };
-        },
-      },     
+    columns: {  
       id: {
         title: this.headerFields[0],
-        type: 'string',
-      },
-      code: {
-        title: this.headerFields[1],
         type: 'string',
       },
       equivalent: {
@@ -88,11 +75,11 @@ export class ProcedurePackageComponent implements OnInit {
   ngOnInit(): void {
     this.procedure_package_id = this.route.snapshot.params.id;
  
-    this.procedurePackageS.GetByPackage(this.procedure_package_id).then(x => {
+    /*this.procedurePackageS.GetByPackage(this.procedure_package_id).then(x => {
       this.package=x;
       var checkbox = this.e.nativeElement.querySelectorAll('input[type=checkbox]')
       console.log(checkbox);
-    });
+    });*/
 
       this.routes = [
         {
@@ -114,6 +101,7 @@ export class ProcedurePackageComponent implements OnInit {
       var manual_price=element;
       this.selectedOptions.push(manual_price);
     });
+    this.messageEvent.emit(this.selectedOptions);
   }
 
   ChangeManual(inscriptionstatus) {

@@ -214,6 +214,11 @@ import { InabilityComponent } from './inability/inability.component';
 import { FormInabilityComponent } from './inability/form-inability/form-inability.component';
 import { FormAdmissionsPatientComponent } from '../admissions/admissions-patient/form-admissions-patient/form-admissions-patient.component';
 import { AdmissionsPatientComponent } from '../admissions/admissions-patient/admissions-patient.component';
+import { FormManualProcedureComponent } from './manual/form-manual-procedure/form-manual-procedure.component';
+import { FormManualProductComponent } from './manual/form-manual-product/form-manual-product.component';
+import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
+import { ActionsComponentProcedure } from './manual/procedure-massive/actions.component';
+import { ActionsComponentProduct } from './manual/product-massive/actions.component';
 
 
 @NgModule({
@@ -246,6 +251,11 @@ import { AdmissionsPatientComponent } from '../admissions/admissions-patient/adm
     NbIconModule
   ],
   declarations: [
+    ActionsComponentProcedure,
+    ActionsComponentProduct,
+    ProductMassiveComponent,
+    FormManualProcedureComponent,
+    FormManualProductComponent,
     FormBedComponent,
     BedComponent,
     RolesPermissionsComponent,

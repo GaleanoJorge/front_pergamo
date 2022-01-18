@@ -100,6 +100,7 @@ import { SpecialFieldComponent } from './special-field/special-field.component';
 import { CostCenterComponent } from './cost-center/cost-center.component';
 import { ObservationNoveltyComponent } from './observation-novelty/observation-novelty.component';
 import { InabilityComponent } from './inability/inability.component';
+import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
 
 const routes: Routes = [{
   path: '',
@@ -373,6 +374,10 @@ const routes: Routes = [{
     },
     {
       path: 'procedure-massive/:id',
+      component: ProductMassiveComponent,
+    },
+    {
+      path: 'product-massive/:id',
       component: ProcedureMassiveComponent,
     },
     {

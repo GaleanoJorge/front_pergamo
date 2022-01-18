@@ -17,6 +17,7 @@ import {
   NbDialogModule,
   NbIconModule,
   NbCheckboxModule,
+  NbTooltipModule,
   NbRadioModule,
   NbDatepickerModule, NbSpinnerModule,
 } from '@nebular/theme';
@@ -51,6 +52,7 @@ import {DetailServicesComponent} from './detail-services/detail-services.compone
     NbStepperModule,
     NbCardModule,
     NbButtonModule,
+    NbTooltipModule,
     NbListModule,
     NbListModule,
     NbAccordionModule,

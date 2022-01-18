@@ -59,7 +59,7 @@ export class FormBriefcaseComponent implements OnInit {
         type_briefcase_id: '',
         coverage_id: '',
         modality_id: '',
-        campus_id:'',
+        campus_id:[],
         status_id: '',
       };
  
@@ -94,7 +94,7 @@ export class FormBriefcaseComponent implements OnInit {
       type_briefcase_id: [this.data.type_briefcase_id, Validators.compose([Validators.required])],
       coverage_id: [this.data.coverage_id, Validators.compose([Validators.required])],
       modality_id: [this.data.modality_id, Validators.compose([Validators.required])],
-      campus_id: [this.getcampus(),Validators.compose([Validators.required])],
+      campus_id: [[this.getcampus()],Validators.compose([Validators.required])],
       status_id: [this.data.status_id, Validators.compose([Validators.required])],
       contract_id: [this.data.contract_id],
     });

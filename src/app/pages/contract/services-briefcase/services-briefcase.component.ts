@@ -12,6 +12,7 @@ import {CampusService} from '../../../business-controller/campus.service';
 import {TypeBriefcaseService} from '../../../business-controller/type-briefcase.service';
 import {ManualPrice} from '../../../models/manual-price';
 import { Console } from 'console';
+import { BriefcaseService } from '../../../business-controller/briefcase.service';
 
 @Component({
   selector: 'ngx-services-briefcase',
@@ -24,9 +25,9 @@ export class ServicesBriefcaseComponent implements OnInit {
   
 
   public InscriptionForm: FormGroup;
-  public title = 'Contrato: ';
+  public title;
   public subtitle = 'Asignación catalogo de servicios: ';
-  public headerFields: any[] =  ['Código','Manual','Procedimiento', 'Producto',  'Valor','Tipo de Valor'];
+  public headerFields: any[] =  ['Código','Manual','Código propio', 'Código homologo','Nombre Procedimiento o medicamento', 'Valor','Tipo de Valor'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -42,6 +43,8 @@ export class ServicesBriefcaseComponent implements OnInit {
   public manual2;
   public type_briefcase: any[] = [];
   public briefcase_id:number;
+  public briefcase:any[];
+  public result;
 
   
 
@@ -70,26 +73,24 @@ export class ServicesBriefcaseComponent implements OnInit {
           return value.name;
         },
       },
-      procedure: {
+      own_code: {
         title: this.headerFields[2],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value?.name;
-        },
       },
-      product: {
+      homologous_id: {
         title: this.headerFields[3],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value?.name;
-        },
       },
-      value: {
+      name: {
         title: this.headerFields[4],
         type: 'string',
       },
-      price_type: {
+      value: {
         title: this.headerFields[5],
+        type: 'string',
+      },
+      price_type: {
+        title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
@@ -109,11 +110,12 @@ export class ServicesBriefcaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
+    private BriefcaseS: BriefcaseService,
   ) {
   }
 
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.briefcase_id = this.route.snapshot.params.id;
     this.InscriptionForm = this.formBuilder.group({
       factor_sign: ['', Validators.compose([Validators.required])],
@@ -128,17 +130,23 @@ export class ServicesBriefcaseComponent implements OnInit {
         },
         {
           name: 'Portafolios',
-          route: '../../contract/briefcase',
+          route: '../../briefcase/'+this.briefcase_id,
         },
         {
-          name: 'Asignación de servicios',
-          route: '../../contract/services-briefcase',
+          name: 'Asignación de procedimientos',
+          route: '../../services-briefcase/'+this.briefcase_id,
         },
       ];
       
       this.ManualS.GetCollection().then(x => {
         this.manual=x;
       });
+
+      await this.BriefcaseS.GetCollection().then(x => {
+        this.briefcase = x;
+      });
+      this.result=this.briefcase.find(briefcase => briefcase.id == this.route.snapshot.params.id);
+      this.title='Asociación de procedimientos a portafolio : '+ this.result.name;
 
   }
 
