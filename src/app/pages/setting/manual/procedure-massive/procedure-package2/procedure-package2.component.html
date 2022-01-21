@@ -2,10 +2,9 @@
   [messageError]="messageError">
   <div content>
     <ngx-base-table 
-                    (propagar)="GetDataSelect($event)"
                     [title]="title"
                     [settings]="settings"
-                    entity="procedure_bypackage"
+                    entity="bypackage_procedure/{{procedure_package_id}}"
                     customData="procedure_package">
       <div actions>
         <div class="actions">      

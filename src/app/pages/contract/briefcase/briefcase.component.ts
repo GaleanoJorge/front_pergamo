@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import {CampusBriefcaseService} from '../../../business-controller/campus-briefcase.service';
+import { ContractService } from '../../../business-controller/contract.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class BriefcaseComponent implements OnInit {
   public isSubmitted = false;
   public entity:string;
   public messageError: string = null;
-  public title: string = 'Portafolios';
+  public title: string;
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre','Sede','Cobertura','Modalidad','Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -30,6 +31,8 @@ export class BriefcaseComponent implements OnInit {
   public campus_briefcase:any[];
   public campus:string;
   public contract_id:number;
+  public contract:any[]=[];
+  public result;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -113,10 +116,11 @@ export class BriefcaseComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private route: ActivatedRoute,
     private CampusBriefcaseS: CampusBriefcaseService,
+    private ContractS: ContractService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.contract_id = this.route.snapshot.params.id;
     if(this.route.snapshot.params.id){
       this.contract_id = this.route.snapshot.params.id;
@@ -127,6 +131,11 @@ export class BriefcaseComponent implements OnInit {
     this.CampusBriefcaseS.GetCollection().then(x => {
       this.campus_briefcase = x;
     });
+    await this.ContractS.GetCollection().then(x => {
+      this.contract = x;
+    });
+    this.result=this.contract.find(contract => contract.id == this.route.snapshot.params.id);
+    this.title= 'Portafolios de '+this.result.name;
   }
   async GetAmount(id){
     await this.CampusBriefcaseS.GetByBriefcase(id).then(x => {

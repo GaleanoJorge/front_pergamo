@@ -31,7 +31,7 @@ export class ProcedurePackageService {
       });
   }
 
-  GetByPackage(id: number): Promise<ProcedurePackage[]> {
+  GetByPackage(params = {},id: number): Promise<ProcedurePackage[]> {
     var servObj = new ServiceObject("bypackage_procedure", id);
     return this.webAPI.GetAction(servObj)
       .then(x => {

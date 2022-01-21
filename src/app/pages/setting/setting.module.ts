@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {CurrencyPipe} from '@angular/common';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {
   NbAccordionModule,
@@ -10,6 +11,7 @@ import {
   NbStepperModule,
   NbRadioModule,
   NbTooltipModule,
+  NbPopoverModule,
   NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
@@ -214,8 +216,14 @@ import { InabilityComponent } from './inability/inability.component';
 import { FormInabilityComponent } from './inability/form-inability/form-inability.component';
 import { FormAdmissionsPatientComponent } from '../admissions/admissions-patient/form-admissions-patient/form-admissions-patient.component';
 import { AdmissionsPatientComponent } from '../admissions/admissions-patient/admissions-patient.component';
+import { FormManualProcedureComponent } from './manual/form-manual-procedure/form-manual-procedure.component';
+import { FormManualProductComponent } from './manual/form-manual-product/form-manual-product.component';
+import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
+import { ActionsComponentProcedure } from './manual/procedure-massive/actions.component';
+import { ActionsComponentProduct } from './manual/product-massive/actions.component';
 import { FormPolicyTypeComponent } from './policy-type/form-policy-type/form-policy-type.component';
 import { PolicyTypeComponent } from './policy-type/policy-type.component';
+import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
 
 
 @NgModule({
@@ -234,6 +242,7 @@ import { PolicyTypeComponent } from './policy-type/policy-type.component';
     NbInputModule,
     NbToggleModule,
     NbSelectModule,
+    NbPopoverModule,
     NbTooltipModule,
     NbAccordionModule,
     NbUserModule,
@@ -248,6 +257,11 @@ import { PolicyTypeComponent } from './policy-type/policy-type.component';
     NbIconModule
   ],
   declarations: [
+    ActionsComponentProcedure,
+    ActionsComponentProduct,
+    ProductMassiveComponent,
+    FormManualProcedureComponent,
+    FormManualProductComponent,
     FormPolicyTypeComponent,
     PolicyTypeComponent,
     FormBedComponent,
@@ -291,6 +305,7 @@ import { PolicyTypeComponent } from './policy-type/policy-type.component';
     FormCoverageComponent,
     FormFirmsComponent,
     ProcedurePackageComponent,
+    ProcedurePackage2Component,
     FormInsuranceCarrierComponent,
     FormModalityComponent,
     FormTypeBriefcaseComponent,
@@ -451,7 +466,8 @@ import { PolicyTypeComponent } from './policy-type/policy-type.component';
     FormInabilityComponent,
   ],
   providers: [
-    DateFormatPipe
+    DateFormatPipe,
+    CurrencyPipe
   ],
   bootstrap: [],
 })

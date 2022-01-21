@@ -139,13 +139,14 @@ export class ManualPriceComponent implements OnInit {
     });
     this.manual_id = this.route.snapshot.params.id;
     this.result=this.manual.find(manual => manual.id == this.route.snapshot.params.id);
+
     if(this.result.type_manual==0){
       this.table.changeEntity(`ManualPrice/ProcedureByManual/`+this.manual_id,`manual_price`);
-      this.title = 'Detalle de Procedimientos asociados a manual tarifario';
+      this.title = 'Detalle de Procedimientos asociados a '+ this.result.name;
       this.settings=this.conf;
     }else if(this.result.type_manual==1){
       this.table.changeEntity(`ManualPrice/ProcedureByManual2/`+this.manual_id,`manual_price`);
-      this.title = 'Detalle de Medicamentos asociados a manual tarifario';
+      this.title = 'Detalle de Medicamentos asociados a '+ this.result.name;
       this.settings=this.conf2;
     }
 

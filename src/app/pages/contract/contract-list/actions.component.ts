@@ -26,7 +26,4 @@ export class Actions2Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
 
-  GoGroup(course_id) {
-
-  }
 }

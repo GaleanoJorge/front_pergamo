@@ -17,6 +17,7 @@ import {
   NbDialogModule,
   NbIconModule,
   NbCheckboxModule,
+  NbTooltipModule,
   NbRadioModule,
   NbDatepickerModule, NbSpinnerModule,
 } from '@nebular/theme';
@@ -55,6 +56,7 @@ import { ActionsFileComponent } from './file-contract/actions.component';
     NbStepperModule,
     NbCardModule,
     NbButtonModule,
+    NbTooltipModule,
     NbListModule,
     NbListModule,
     NbAccordionModule,

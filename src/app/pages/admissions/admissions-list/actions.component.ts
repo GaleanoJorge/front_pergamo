@@ -20,8 +20,8 @@ import { Item } from '../../../models/item';
   <div class="d-flex justify-content-center" style="align-items: center;">
     <div class="cuadro"
         [style]="this.value.data.admissions.length == 0  ? 'background-color: #54bcc1;' :
-      this.value.data.admissions[this.value.data.admissions.length - 1].medical_date != '0000-00-00 00:00:00' && this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date == '0000-00-00 00:00:00' ? 'background-color: yellow;'
-      : this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date == '0000-00-00 00:00:00' ? 'background-color: red;' : 'background-color: #54bcc1;'">
+      this.value.data.admissions[this.value.data.admissions.length - 1].medical_date != '0000-00-00 00:00:00' && this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date == '0000-00-00 00:00:00' ? 'background-color: red;'
+      : this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date == '0000-00-00 00:00:00' ? 'background-color: yellow;' : 'background-color: #54bcc1;'">
 
     </div>
     <a nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost
