@@ -123,10 +123,8 @@
         <div class="col-md-6 col-lg-5">
           <div class="form-group">
             <label for="email" class="form-text text-muted font-weight-bold">Correo electrónico:</label>
-            <input  nbInput fullWidth id="email" formControlName="email" email
+            <input nbInput fullWidth id="email" formControlName="email" email
                    status="{{ isSubmitted && form.controls.email.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
-
-            
           </div>
         </div>
       </div>
@@ -434,9 +432,9 @@
       <div class="form-group">
       <label for="residence_address"  class="form-text text-muted font-weight-bold">Puntos Cardinales</label>
              <nb-select id="residence_address_cardinality" formControlName="residence_address_cardinality"
-             residence_address_cardinality fullWidth
+             residence_address_cardinality fullWidth title="Seleccione..."
              status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value=" ">Seleccione...</nb-option>
               <nb-option value="Noreste">Noreste</nb-option>
               <nb-option value="Noroeste">Noroeste</nb-option>
               <nb-option value="Sureste">Sureste</nb-option>
@@ -451,7 +449,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="residence_address" style="font-size: 0.8rem !important;" class="form-text text-muted font-weight-bold">Referencias Adicionales (Apartamento, Torre, Multifamiliar)</label>
-        <input nbInput fullWidth id="reference" formControlName="reference" reference placeholder="Ej: Torre 4 Apto 302" required/>
+        <input nbInput fullWidth id="reference" formControlName="reference" reference placeholder="Ej: Torre 4 Apto 302" />
       </div>
     </div>
     </div>

@@ -266,7 +266,7 @@ export class FormUsersComponent implements OnInit {
       ],
       email: [
         this.GetData('email'),
-        Validators.compose([Validators.required, Validators.email, Validators.minLength(10), Validators.maxLength(25)]),
+        Validators.compose([Validators.required, Validators.email]),
       ],
       phone: [
         this.GetData('phone'),
@@ -370,7 +370,6 @@ export class FormUsersComponent implements OnInit {
       ],
       reference:[
         this.reference == null ? '' : this.reference,
-        Validators.compose([Validators.required]),
       ],
       neighborhood_or_residence_id: [
         this.GetData('neighborhood_or_residence_id'),
