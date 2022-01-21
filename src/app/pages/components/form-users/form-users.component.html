@@ -123,7 +123,7 @@
         <div class="col-md-6 col-lg-5">
           <div class="form-group">
             <label for="email" class="form-text text-muted font-weight-bold">Correo electrónico:</label>
-            <input oninput="this.value = this.value.slice(0,35)" nbInput minlength="10" maxlength="25" fullWidth id="email" formControlName="email" email
+            <input  nbInput fullWidth id="email" formControlName="email" email
                    status="{{ isSubmitted && form.controls.email.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
 
             
