@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {CurrencyPipe} from '@angular/common';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {
   NbAccordionModule,
@@ -10,6 +11,7 @@ import {
   NbStepperModule,
   NbRadioModule,
   NbTooltipModule,
+  NbPopoverModule,
   NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
@@ -221,6 +223,7 @@ import { ActionsComponentProcedure } from './manual/procedure-massive/actions.co
 import { ActionsComponentProduct } from './manual/product-massive/actions.component';
 import { FormPolicyTypeComponent } from './policy-type/form-policy-type/form-policy-type.component';
 import { PolicyTypeComponent } from './policy-type/policy-type.component';
+import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
 
 
 @NgModule({
@@ -239,6 +242,7 @@ import { PolicyTypeComponent } from './policy-type/policy-type.component';
     NbInputModule,
     NbToggleModule,
     NbSelectModule,
+    NbPopoverModule,
     NbTooltipModule,
     NbAccordionModule,
     NbUserModule,
@@ -301,6 +305,7 @@ import { PolicyTypeComponent } from './policy-type/policy-type.component';
     FormCoverageComponent,
     FormFirmsComponent,
     ProcedurePackageComponent,
+    ProcedurePackage2Component,
     FormInsuranceCarrierComponent,
     FormModalityComponent,
     FormTypeBriefcaseComponent,
@@ -461,7 +466,8 @@ import { PolicyTypeComponent } from './policy-type/policy-type.component';
     FormInabilityComponent,
   ],
   providers: [
-    DateFormatPipe
+    DateFormatPipe,
+    CurrencyPipe
   ],
   bootstrap: [],
 })

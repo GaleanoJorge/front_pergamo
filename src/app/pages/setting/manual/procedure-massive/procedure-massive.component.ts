@@ -6,6 +6,7 @@ import {InscriptionStatus} from '../../../../models/inscription-status';
 import {PriceTypeService} from '../../../../business-controller/price-type.service';
 import {ManualPriceService} from '../../../../business-controller/manual-price.service';
 import {PriceType} from '../../../../models/price-type';
+import {CurrencyPipe} from '@angular/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SelectComponent } from './select.component';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
@@ -14,6 +15,7 @@ import { FormProductComponent } from '../../product/form-product/form-product.co
 import { FormManualProcedureComponent } from '../form-manual-procedure/form-manual-procedure.component';
 import { ActionsComponentProcedure } from './actions.component';
 import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
+import { ProcedurePackageService } from '../../../../business-controller/procedure-package.Service';
 
 
 @Component({
@@ -49,6 +51,7 @@ export class ProcedureMassiveComponent implements OnInit {
   public manual_id;
   public result;
   public btntype;
+  public ProcedurePackage:any[];
 
   public inscriptionStatus: InscriptionStatus[] = [];
   public price_type: PriceType[] = [];
@@ -60,11 +63,14 @@ export class ProcedureMassiveComponent implements OnInit {
         title: '',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          // DATA FROM HERE GOES TO renderComponent
+          // DATA FROM HERE GOES TO renderComponent       
+          this.row=row;
           return {
+            'package':this.ProcedurePackage,
             'data': row,
             'delete': this.DeleteConfirmManualPrice.bind(this),
           };
+        
         },
         renderComponent: ActionsComponentProcedure,
       },
@@ -87,6 +93,9 @@ export class ProcedureMassiveComponent implements OnInit {
       value: {
         title: this.headerFields[4],
         type: 'string',
+        valuePrepareFunction: (value, data) => {
+          return this.currency.transform(value);
+        },
       },
       price_type: {
         title: this.headerFields[5],
@@ -109,6 +118,8 @@ export class ProcedureMassiveComponent implements OnInit {
     private toastService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private currency: CurrencyPipe,
+    private ProcedurePackageS: ProcedurePackageService,
   ) {
   }
 
@@ -134,8 +145,7 @@ export class ProcedureMassiveComponent implements OnInit {
       this.manual=x;
     });
     this.result=this.manual.find(manual => manual.id == this.route.snapshot.params.id);
-    this.title='Asocie procedimientos al '+this.result.name;
-     
+    this.title='Asocie procedimientos al '+this.result.name;   
   }
 
 

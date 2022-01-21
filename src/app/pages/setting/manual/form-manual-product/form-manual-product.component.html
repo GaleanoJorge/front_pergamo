@@ -4,18 +4,6 @@
     <nb-card-body>
       <div class="row">
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="manual_procedure_type_id" class="form-text text-muted font-weight-bold">Tipo de
-            medicamento:</label>
-          <nb-select [selected]="this.data.manual_procedure_type_id" (selectedChange)="onChange($event)"
-            formControlName="manual_procedure_type_id" id="manual_procedure_type_id" fullWidth
-            status="{{ isSubmitted && form.controls.manual_procedure_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.manual_procedure_type_id }}" *ngFor="let item of procedure_type"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
-        <div *ngIf="showSelect" class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
           <input type="text" list="codes" class="data-list" (change)="saveCode($event)">
           <datalist id="codes">

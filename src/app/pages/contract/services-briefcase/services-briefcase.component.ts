@@ -8,6 +8,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { numeric } from '@rxweb/reactive-form-validators';
 import { multicast } from 'rxjs/operators';
+import {CurrencyPipe} from '@angular/common';
 import {CampusService} from '../../../business-controller/campus.service';
 import {TypeBriefcaseService} from '../../../business-controller/type-briefcase.service';
 import {ManualPrice} from '../../../models/manual-price';
@@ -27,7 +28,7 @@ export class ServicesBriefcaseComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title;
   public subtitle = 'Asignación catalogo de servicios: ';
-  public headerFields: any[] =  ['Código','Manual','Código propio', 'Código homologo','Nombre Procedimiento o medicamento', 'Valor','Tipo de Valor'];
+  public headerFields: any[] =  ['Código','Manual','Código propio', 'Código homologo','Nombre Procedimiento o medicamento', 'Valor','Tipo de Valor','Tipo de manual','Tipo de procedimiento'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -73,13 +74,55 @@ export class ServicesBriefcaseComponent implements OnInit {
           return value.name;
         },
       },
+      manual_type: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(row.manual.type_manual==0){
+          return 'Procedimientos';
+          }else{
+            return 'Medicamentos'
+          }
+        },
+      },
+      procedure_type: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(row.manual_procedure_type_id==3){
+          return 'Paquetes';
+          }else if(row.manual_procedure_type_id==2 && row.manual.type_manual==1){
+            return 'Medicamentos'
+          }else{
+            return 'Código propio'
+          }
+        },
+      },
       own_code: {
         title: this.headerFields[2],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.manual_procedure_type_id==3 && row.manual.type_manual==0){
+            return row.own_code;
+          }else if(row.manual_procedure_type_id==2 && row.manual.type_manual==1){
+            return row.product.code_atc;
+          }else{
+            return row.own_code;
+          }
+        },
       },
       homologous_id: {
         title: this.headerFields[3],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.manual_procedure_type_id==3 && row.manual.type_manual==0){
+            return row.homologous_id;
+          }else if(row.manual_procedure_type_id==2 && row.manual.type_manual==1){
+            return row.product.code_atc;
+          }else{
+            return row.homologous_id;
+          }
+        },
       },
       name: {
         title: this.headerFields[4],
@@ -88,6 +131,9 @@ export class ServicesBriefcaseComponent implements OnInit {
       value: {
         title: this.headerFields[5],
         type: 'string',
+        valuePrepareFunction: (value, data) => {
+          return this.currency.transform(value);
+        },
       },
       price_type: {
         title: this.headerFields[6],
@@ -111,6 +157,7 @@ export class ServicesBriefcaseComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     private BriefcaseS: BriefcaseService,
+    private currency: CurrencyPipe,
   ) {
   }
 

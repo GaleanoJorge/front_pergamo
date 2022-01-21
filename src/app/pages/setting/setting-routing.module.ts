@@ -102,6 +102,7 @@ import { ObservationNoveltyComponent } from './observation-novelty/observation-n
 import { InabilityComponent } from './inability/inability.component';
 import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
 import { PolicyTypeComponent } from './policy-type/policy-type.component';
+import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
 
 const routes: Routes = [{
   path: '',
@@ -366,6 +367,10 @@ const routes: Routes = [{
       component: PermissionsComponent,
       canActivate: [PermissionsGuard],
       data: { permission: 'permisos.read' },
+    },
+    {
+      path: 'manual/procedure-massive/procedure-package/:id',
+      component: ProcedurePackage2Component,
     },
     {
       path: 'items',

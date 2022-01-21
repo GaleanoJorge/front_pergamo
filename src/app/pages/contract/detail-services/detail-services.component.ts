@@ -69,7 +69,9 @@ export class DetailServicesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if(row.manual_price.procedure==null){
+          if(row.manual_price.manual_procedure_type_id==3){
+            return row.manual_price.own_code;          
+          }else if(row.manual_price.procedure==null){
             return row.manual_price.product.code_atc;
           }else{
             return row.manual_price.own_code;
@@ -80,7 +82,9 @@ export class DetailServicesComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if(row.manual_price.procedure==null){
+          if(row.manual_price.manual_procedure_type_id==3){
+            return row.manual_price.own_code;
+          }else if(row.manual_price.procedure==null){
             return row.manual_price.product.code_atc;
           }else{
             return row.manual_price.homologous_id;
@@ -91,10 +95,13 @@ export class DetailServicesComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(value.procedure==null){
-            return 'Medicamentos'
-          }else{
-          return value.procedure.procedure_category.name;
+          if(value.manual_procedure_type_id==3){
+            return 'Procedimiento-paquete'
+          }else if(value.procedure==null){
+            return 'Medicamento'
+          }
+          else{
+            return value.procedure.procedure_category.name;
           }
         },
       },

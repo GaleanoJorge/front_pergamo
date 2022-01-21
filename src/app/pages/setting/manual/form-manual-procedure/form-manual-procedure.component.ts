@@ -92,7 +92,6 @@ export class FormManualProcedureComponent implements OnInit {
 
 
     await this.ProcedureTypeS.GetCollection().then(x => {
-      x.shift();
       this.procedure_type=x;
     });
     await this.ProcedureS.GetCollection().then(x => {
@@ -111,9 +110,24 @@ export class FormManualProcedureComponent implements OnInit {
     if(tipoId==2){
       this.showSelect=true;
       this.form.controls.homologous_id.disable();
+      this.form.controls.own_code.enable();
+      this.form.controls.name.enable();
+      this.form.controls.own_code.setValue('');
+      this.form.controls.name.setValue('');
     }else if (tipoId==3){
       this.showTable=true;
-    }else{
+      this.form.controls.own_code.enable();
+      this.form.controls.name.enable();
+      this.form.controls.own_code.setValue('');
+      this.form.controls.name.setValue('');
+    }else if(tipoId==1){
+      this.showSelect=true;
+      this.form.controls.homologous_id.disable();
+      this.form.controls.own_code.disable();
+      this.form.controls.name.disable();
+    }
+    
+    else{
       this.form.controls.homologous_id.disable();
       this.showSelect=false;
     }
@@ -123,8 +137,13 @@ public saveCode(e): void {
   var filter = this.procedure_cups.filter(procedure => procedure.code==e.target.value);
  this.procedure_id= filter[0].id;
   this.form.controls.homologous_id.setValue(e.target.value);
-
+if(this.form.controls.manual_procedure_type_id.value==1){
+  this.form.controls.homologous_id.setValue(filter[0].code);
+  this.form.controls.own_code.setValue(filter[0].code);
+  this.form.controls.name.setValue(filter[0].name);
 }
+}
+
   cups() {
     this.form.controls.homologous_id.setValue(this.form.controls.homologous_id.value);
 }
@@ -174,6 +193,33 @@ public saveCode(e): void {
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
+          var id=x.data.manual_price.id;
+          var contador=0;
+          var err=0;
+          if (!this.selectedOptions.length) {
+            this.toastS.danger(null, 'Debe seleccionar al menos un Procedimiento');
+          }
+          else{
+            var dta = {
+              procedure_package_id:null,
+              procedure_id: null,
+          };
+            this.selectedOptions.forEach(element => {
+            dta.procedure_package_id=id;
+            dta.procedure_id = element.id;
+            this.procedurePackageS.Save(dta).then(x => {
+            }).catch(x => {
+              err++;
+            });
+            contador++;
+          });
+          if(contador > 0){
+            this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos'); 
+          }else if(err > 0){
+            this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
+          }
+          this.selectedOptions=[];
+        } 
           if (this.saved) {
             this.saved();
           }
@@ -184,33 +230,6 @@ public saveCode(e): void {
       }
 
     }
-
-      var contador=0;
-      var err=0;
-      if (!this.selectedOptions.length) {
-        this.toastS.danger(null, 'Debe seleccionar al menos un Procedimiento');
-      }
-      else{
-        var dta = {
-          procedure_package_id:null,
-          procedure_id: null,
-      };
-        this.selectedOptions.forEach(element => {
-        dta.procedure_package_id=null;
-        dta.procedure_id = element.id;
-        this.procedurePackageS.Save(dta).then(x => {
-        }).catch(x => {
-          err++;
-        });
-        contador++;
-      });
-      if(contador > 0){
-        this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos'); 
-      }else if(err > 0){
-        this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
-      }
-      this.selectedOptions=[];
-    } 
   }
 
 }

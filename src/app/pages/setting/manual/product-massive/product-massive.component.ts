@@ -7,6 +7,7 @@ import {PriceTypeService} from '../../../../business-controller/price-type.servi
 import {ManualPriceService} from '../../../../business-controller/manual-price.service';
 import {PriceType} from '../../../../models/price-type';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import {CurrencyPipe} from '@angular/common';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { FormProcedureComponent } from '../../procedure/form-procedure/form-procedure.component';
 import { FormProductComponent } from '../../product/form-product/form-product.component';
@@ -78,6 +79,9 @@ export class ProductMassiveComponent implements OnInit {
       value: {
         title: this.headerFields[2],
         type: 'string',
+        valuePrepareFunction: (value, data) => {
+          return this.currency.transform(value);
+        },
       },
       price_type: {
         title: this.headerFields[3],
@@ -100,6 +104,7 @@ export class ProductMassiveComponent implements OnInit {
     private toastService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private currency: CurrencyPipe,
   ) {
   }
 

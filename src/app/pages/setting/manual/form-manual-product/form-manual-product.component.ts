@@ -63,7 +63,6 @@ export class FormManualProductComponent implements OnInit {
         value:'',
         price_type_id:'',
         product_id:'',
-        manual_procedure_type_id:'',
       };   
     }
 
@@ -78,7 +77,6 @@ export class FormManualProductComponent implements OnInit {
       value: [this.data.value, Validators.compose([Validators.required])],
       price_type_id: [this.data.price_type_id, Validators.compose([Validators.required])],
       product_id: [this.data.procedure_id],
-      manual_procedure_type_id: [this.data.manual_procedure_type_id, Validators.compose([Validators.required])],
     });
 
 
@@ -128,7 +126,7 @@ public saveCode(e): void {
           value: this.form.controls.value.value,
           price_type_id: this.form.controls.price_type_id.value,
           product_id: this.product_id,
-          manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
+          manual_procedure_type_id: 2,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -146,7 +144,7 @@ public saveCode(e): void {
           value: this.form.controls.value.value,
           price_type_id: this.form.controls.price_type_id.value,
           product_id: this.product_id,
-          manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
+          manual_procedure_type_id: 2,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
