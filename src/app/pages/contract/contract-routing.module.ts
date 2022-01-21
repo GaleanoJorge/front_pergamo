@@ -18,8 +18,6 @@ const routes: Routes = [{
     {
       path: 'list',
       component: ContractListComponent,
-      canActivate: [PermissionsGuard],
-      data: {permission: 'roles.read'},
     },
     {
       path: 'file-contract/:id',
