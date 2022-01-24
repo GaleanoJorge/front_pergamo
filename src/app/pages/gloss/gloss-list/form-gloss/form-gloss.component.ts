@@ -13,6 +13,7 @@ import { ReceivedByService } from '../../../../business-controller/received-by.s
 import { GlossService } from '../../../../business-controller/gloss.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 import { TypeBriefcaseService } from '../../../../business-controller/type-briefcase.service';
+import { compare } from '@rxweb/reactive-form-validators';
 
 
 @Component({
@@ -41,6 +42,8 @@ export class FormGlossComponent implements OnInit {
   public code_id;
   public objetion_name;
   public regime: any[];
+  public factureValue: any = null;
+  public objeted_value: any = null;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -56,12 +59,12 @@ export class FormGlossComponent implements OnInit {
     private glossServiceS: GlossServiceService,
     private objetionCodeS: ObjetionCodeService,
     private receivedByS: ReceivedByService,
-    private userS:UserBusinessService,
+    private userS: UserBusinessService,
     private regimeS: TypeBriefcaseService,
   ) {
   }
 
-  ngOnInit(): void  {
+  ngOnInit(): void {
     if (!this.data) {
       this.data = {
         id: '',
@@ -81,7 +84,7 @@ export class FormGlossComponent implements OnInit {
         gloss_service_id: '',
         objetion_code_id: '',
         received_by_id: '',
-        assing_user_id:''
+        assing_user_id: ''
       };
     }
 
@@ -118,7 +121,7 @@ export class FormGlossComponent implements OnInit {
     this.regimeS.GetCollection().then(x => {
       this.regime = x;
     });
-    
+
     this.form = this.formBuilder.group({
       invoice_prefix: [this.data.invoice_prefix, Validators.compose([Validators.required])],
       objetion_detail: [this.data.objetion_detail, Validators.compose([Validators.required])],
@@ -135,7 +138,7 @@ export class FormGlossComponent implements OnInit {
       gloss_modality_id: [this.data.gloss_modality_id, Validators.compose([Validators.required])],
       gloss_ambit_id: [this.data.gloss_ambit_id, Validators.compose([Validators.required])],
       gloss_service_id: [this.data.gloss_service_id, Validators.compose([Validators.required])],
-      objetion_code_id: [this.data.objetion_code ? this.data.objetion_code.name : '' ],
+      objetion_code_id: [this.data.objetion_code ? this.data.objetion_code.name : ''],
       received_by_id: [this.data.received_by_id, Validators.compose([Validators.required])],
       assing_user_id: [this.data.assing_user_id, Validators.compose([Validators.required])],
     });
@@ -146,14 +149,39 @@ export class FormGlossComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
+  saveValue(e) {
 
-
+    this.factureValue= +e.target.value;
+    if(this.factureValue<=0){
+      this.factureValue=null;
+    }
+    if(this.objeted_value){
+      this.ValueCompare(this.objeted_value);
+    }
+  }
+  ValueCompare(n) {
+    if(typeof(n) == 'number'){
+      
+    } else {
+      this.objeted_value = +n.target.value;
+    }
+    if(this.factureValue){
+      if (this.factureValue >= this.objeted_value) {
+        // this.toastService.success('', "Excelente");
+      } else {
+        this.toastService.warning('', "El valor objetado no puede ser mayor al valor de la factura");
+        this.form.controls.objeted_value.setErrors({'incorrect':true})
+        ;
+        this.objeted_value=null;
+      }
+    }
+  }
   public saveCode(e): void {
-    var name=this.objetion_code.find(item => item.name == e.target.value);
-    if(name){
-    this.code_id=name.id; 
-    }else{
-      this.code_id=null;
+    var name = this.objetion_code.find(item => item.name == e.target.value);
+    if (name) {
+      this.code_id = name.id;
+    } else {
+      this.code_id = null;
     }
   }
 
@@ -174,7 +202,7 @@ export class FormGlossComponent implements OnInit {
           radication_date: this.form.controls.radication_date.value,
           objetion_type_id: this.form.controls.objetion_type_id.value,
           company_id: this.form.controls.company_id.value,
-          regime_id:this.form.controls.regime_id.value,
+          regime_id: this.form.controls.regime_id.value,
           campus_id: this.form.controls.campus_id.value,
           gloss_modality_id: this.form.controls.gloss_modality_id.value,
           gloss_ambit_id: this.form.controls.gloss_ambit_id.value,
@@ -200,7 +228,7 @@ export class FormGlossComponent implements OnInit {
           invoice_value: this.form.controls.invoice_value.value,
           invoice_consecutive: this.form.controls.invoice_consecutive.value,
           received_date: this.form.controls.received_date.value,
-          regime_id:this.form.controls.regime_id.value,
+          regime_id: this.form.controls.regime_id.value,
           emission_date: this.form.controls.emission_date.value,
           radication_date: this.form.controls.radication_date.value,
           objetion_type_id: this.form.controls.objetion_type_id.value,

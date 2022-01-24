@@ -1,13 +1,15 @@
-<form [formGroup]="form" (ngSubmit)="save()">
+<form [formGroup]='form' (ngSubmit)="save()">
   <nb-card size="small" style="max-width: 500px;height: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
-          <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
-          <input  oninput="this.value = this.value.toUpperCase()"  minlength="3" maxlength="25"
-            nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <div class="form-group">
+            <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+            <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="25" nbInput fullWidth
+              id="name" formControlName="name" name type="text" required
+              status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
         </div>
         <!-- <div class="col-md-12">
           <label for="type_briefcase" class="form-text text-muted font-weight-bold">Tipo de catalogo:</label>
@@ -20,43 +22,47 @@
           </nb-select>
         </div> -->
         <div class="col-md-12">
-          <label for="coverage" class="form-text text-muted font-weight-bold">Cobertura:</label>
-          <nb-select [selected]="this.data.coverage_id" formControlName="coverage_id" id="coverage_id" fullWidth
-            status="{{ isSubmitted && form.controls.coverage_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.coverage_id }}" *ngFor="let item of coverage"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
+          <div class="form-group">
+            <label for="coverage" class="form-text text-muted font-weight-bold">Cobertura:</label>
+            <nb-select [selected]="this.data.coverage_id" formControlName="coverage_id" id="coverage_id" fullWidth
+              status="{{ isSubmitted && form.controls.coverage_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == data.coverage_id }}" *ngFor="let item of coverage" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
         </div>
         <div class="col-md-12">
-          <label for="modality" class="form-text text-muted font-weight-bold">Modalidad:</label>
-          <nb-select [selected]="this.data.modality_id" formControlName="modality_id" id="modality_id" fullWidth
-            status="{{ isSubmitted && form.controls.modality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.modality_id }}" *ngFor="let item of modality"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
+          <div class="form-group">
+            <label for="modality" class="form-text text-muted font-weight-bold">Modalidad:</label>
+            <nb-select [selected]="this.data.modality_id" formControlName="modality_id" id="modality_id" fullWidth
+              status="{{ isSubmitted && form.controls.modality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == data.modality_id }}" *ngFor="let item of modality" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
         </div>
         <div class="col-md-12">
-          <label for="campus" class="form-text text-muted font-weight-bold">Sede:</label>
-          <nb-select multiple [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
-          status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option  *ngFor="let item of campus"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
+          <div class="form-group">
+            <label for="campus" class="form-text text-muted font-weight-bold">Sede:</label>
+            <nb-select multiple [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
+              status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option *ngFor="let item of campus" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
         </div>
         <div class="col-md-12">
-          <label for="status" class="form-text text-muted font-weight-bold">Estado:</label>
-          <nb-select [selected]="this.data.status_id" formControlName="status_id" id="status_id" fullWidth
-            status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.status_id }}" *ngFor="let item of status"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
+          <div class="form-group">
+            <label for="status" class="form-text text-muted font-weight-bold">Estado:</label>
+            <nb-select [selected]="this.data.status_id" formControlName="status_id" id="status_id" fullWidth
+              status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == data.status_id }}" *ngFor="let item of status" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
         </div>
       </div>
 
