@@ -55,7 +55,6 @@ export class BriefcaseService {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
-
         return Promise.resolve(servObj);
       })
       .catch(x => {

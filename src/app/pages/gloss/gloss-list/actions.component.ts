@@ -7,9 +7,10 @@ import { environment } from '../../../../environments/environment';
 import { GlossResponseService } from '../../../business-controller/gloss-response.service';
 import { ObjetionCodeResponseService } from '../../../business-controller/objetion-code-response.service';
 import { ObjetionResponseService } from '../../../business-controller/objetion-response.service';
-import {CurrencyPipe} from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { GlossRadicationService } from '../../../business-controller/gloss-radication.service';
 import { GlossService } from '../../../business-controller/gloss.service';
+import { date } from '@rxweb/reactive-form-validators';
 
 @Component({
   template: `
@@ -40,19 +41,28 @@ import { GlossService } from '../../../business-controller/gloss.service';
             <nb-card-body>
                 <form [formGroup]="ResponseGlossForm" (ngSubmit)="saveGroup()">
                     <div>
+                        <div class="col-md-12">
+                          <label for="justification_status" class="form-text text-muted font-weight-bold">Motivo de la glosa:</label>
+                              <nb-select fullWidth placeholder="Seleccione..."
+                                formControlName="justification_status">
+                                <nb-option value="">Seleccione...</nb-option>
+                                <nb-option value="0">JUSTIFICADA </nb-option>
+                                <nb-option value="1">INJUSTIFICADA </nb-option>
+                              </nb-select>
+                        </div>
                       <div class="col-md-12">
                         <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
-                        <input nbInput fullWidth id="response" formControlName="response" response
+                        <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="20" nbInput fullWidth id="response" formControlName="response" response
                         status="{{ isSubmitted && ResponseGlossForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                       </div>
                         <div class="col-md-12">
                             <label for="accepted_value" class="form-text text-muted font-weight-bold">Valor aceptado:</label>
-                            <input nbInput fullWidth id="accepted_value" formControlName="accepted_value" accepted_value
+                            <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth id="accepted_value" formControlName="accepted_value" accepted_value 
                                 status="{{ isSubmitted && ResponseGlossForm.controls.accepted_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                         </div>
                         <div class="col-md-12">
                             <label for="value_not_accepted" class="form-text text-muted font-weight-bold">Valor No aceptado:</label>
-                            <input nbInput fullWidth id="value_not_accepted" formControlName="value_not_accepted"
+                            <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth id="value_not_accepted" formControlName="value_not_accepted"
                                 value_not_accepted
                                 status="{{ isSubmitted && ResponseGlossForm.controls.value_not_accepted.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                         </div>
@@ -66,7 +76,7 @@ import { GlossService } from '../../../business-controller/gloss.service';
                             </nb-select>
                         </div>
                         <div class="col-md-12">
-                        <label for="objetion_response" class="form-text text-muted font-weight-bold">Tipo de objeción:</label>
+                          <label for="objetion_response" class="form-text text-muted font-weight-bold">Tipo de objeción:</label>
                             <nb-select fullWidth placeholder="Seleccione..."
                                 formControlName="objetion_response_id">
                                 <nb-option value="">Seleccione...</nb-option>
@@ -123,7 +133,7 @@ import { GlossService } from '../../../business-controller/gloss.service';
                   <div>
                       <div class="col-md-12">
                           <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
-                          <input nbInput fullWidth id="observation" formControlName="observation" observation
+                          <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="25" nbInput fullWidth id="observation" formControlName="observation" observation
                               status="{{ isSubmitted && RadicationGlossForm.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                       </div>
                       <div class="col-md-12">
@@ -222,6 +232,7 @@ export class Actions2Component implements ViewCell {
   public gloss_radication: any[] = null;
   public previewFileResponse = null;
   public previewFileRadication = null;
+  public semaphore: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -240,19 +251,21 @@ export class Actions2Component implements ViewCell {
   async ngOnInit() {
     if (!this.rowData) {
       this.rowData = {
-        response:'',
+        response: '',
         accepted_value: '',
         value_not_accepted: '',
         objetion_code_response_id: '',
         objetion_response_id: '',
+        justification_status: '',
         observation: '',
         file: '',
       }
     }
-    
+
 
     if (this.value.data.gloss_status_id == 1) {
       this.ResponseGlossForm = this.formBuilder.group({
+        justification_status: [this.rowData.justification_status, Validators.compose([Validators.required])],        
         response: [this.rowData.response, Validators.compose([Validators.required])],
         accepted_value: [this.rowData.accepted_value, Validators.compose([Validators.required])],
         value_not_accepted: [this.rowData.value_not_accepted, Validators.compose([Validators.required])],
@@ -278,7 +291,9 @@ export class Actions2Component implements ViewCell {
 
   async getColectionResponse(id) {
     await this.GlossResponseS.GetCollection({ gloss_id: id }).then(x => {
-      this.gloss_response_id = x[0].id;
+      if (x.length != 0) {
+        this.gloss_response_id = x[0].id;
+      }
     });
   }
 
@@ -315,7 +330,26 @@ export class Actions2Component implements ViewCell {
     }
   }
 
+  compareFacture() {
+    var accepted = +this.ResponseGlossForm.controls.accepted_value.value;
+    var not_accepted = +this.ResponseGlossForm.controls.value_not_accepted.value
+    var result = accepted + not_accepted;
+    var compare = this.value.data.objeted_value;
+    if (compare == result) {
+      // this.toastService.success('', "Excelente");
+
+    } else {
+      this.toastService.warning('', 'El valor objetado no coincide con los valores de la factura')
+      this.ResponseGlossForm.controls.accepted_value.setErrors({ 'incorrect': true });
+      this.ResponseGlossForm.controls.value_not_accepted.setErrors({ 'incorrect': true });
+    }
+  }
+
+
   saveGroup() {
+    this.compareFacture();
+
+    // 
     this.isSubmitted = true;
     if (!this.ResponseGlossForm.invalid) {
       this.loading = true;
@@ -327,6 +361,7 @@ export class Actions2Component implements ViewCell {
           formData.append('file', this.ResponseGlossForm.value.file);
           formData.append('id', this.rowData.id);
           formData.append('gloss_id', this.value.data.id);
+          formData.append('justification_status', this.ResponseGlossForm.value.justification_status);
           formData.append('objetion_response_id', this.ResponseGlossForm.controls.objetion_response_id.value);
           formData.append('objetion_code_response_id', this.ResponseGlossForm.controls.objetion_code_response_id.value);
           formData.append('accepted_value', this.ResponseGlossForm.controls.accepted_value.value);
@@ -356,7 +391,7 @@ export class Actions2Component implements ViewCell {
             this.toastService.success('', x.message);
             this.value.refresh();
             this.dialog.close();
-   
+
             if (this.saved) {
               this.saved();
             }
@@ -378,6 +413,7 @@ export class Actions2Component implements ViewCell {
       if (this.value.data.id) {
         if (this.RadicationGlossForm.value.file) {
           var formData = new FormData();
+          formData.append('single', "1");
           formData.append('file', this.RadicationGlossForm.value.file);
           formData.append('gloss_response_id', this.gloss_response_id);
           formData.append('observation', this.RadicationGlossForm.controls.observation.value);
@@ -412,9 +448,9 @@ export class Actions2Component implements ViewCell {
             this.loading = false;
           });
         }
-    //    this.value.refresh();
+        //    this.value.refresh();
       }
-    
+
     }
   }
 
@@ -422,44 +458,44 @@ export class Actions2Component implements ViewCell {
     this.isSubmitted = true;
     if (!this.carteraGlossForm.invalid) {
       this.loading = true;
-          var formData = new FormData();
-          formData.append('gloss_id', this.value.data.id);
-          formData.append('gloss_cartera', "1");
-          formData.append('state_gloss', this.carteraGlossForm.controls.state_gloss.value);
-          this.dialog = this.dialog.close();
-          this.GlossS.ChangeStatusBriefcase(formData).then(x => {
-            this.value.refresh();
-            this.toastService.success('', x.message);
-            this.dialog.close();
-            if (this.saved) {
-              this.saved();
-            }
-          }).catch(x => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });    
+      var formData = new FormData();
+      formData.append('gloss_id', this.value.data.id);
+      formData.append('gloss_cartera', "1");
+      formData.append('state_gloss', this.carteraGlossForm.controls.state_gloss.value);
+      this.dialog = this.dialog.close();
+      this.GlossS.ChangeStatusBriefcase(formData).then(x => {
+        this.value.refresh();
+        this.toastService.success('', x.message);
+        this.dialog.close();
+        if (this.saved) {
+          this.saved();
+        }
+      }).catch(x => {
+        this.isSubmitted = false;
+        this.loading = false;
+      });
     }
   }
 
 
   async changeFile(files, option) {
-    this.loading=true;
+    this.loading = true;
     if (!files) return false;
     const file = await this.toBase64(files.target.files[0]);
-    
+
     switch (option) {
       case 2:
         this.ResponseGlossForm.patchValue({
           file: files.target.files[0],
         });
-        this.loading=false;
+        this.loading = false;
         break;
-        case 3:
-          this.RadicationGlossForm.patchValue({
-            file: files.target.files[0],
-          });
-          break;
-        }
+      case 3:
+        this.RadicationGlossForm.patchValue({
+          file: files.target.files[0],
+        });
+        break;
+    }
   }
 
   toBase64 = file => new Promise((resolve, reject) => {
