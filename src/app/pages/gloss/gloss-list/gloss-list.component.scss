@@ -1,3 +1,9 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] { -moz-appearance:textfield; }
 .actions {
   display: flex;
   justify-content: flex-end;
@@ -110,4 +116,15 @@
 .btn-studen-admissions {
   margin-top: 30px;
   float: right;
+}
+
+.cuadro{
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px #000;
+  height: 22px;
+  width: 22px;
+  align-items: center;
+  justify-content: 0.6875rem 0.5625rem;
+  border: 1px solid black;
+  justify-content: center;
 }
