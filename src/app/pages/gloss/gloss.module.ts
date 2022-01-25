@@ -29,6 +29,7 @@ import {DateFormatPipe} from '../../pipe/date-format.pipe';
 import {GlossListComponent} from './gloss-list/gloss-list.component';
 import {FormGlossComponent} from './gloss-list/form-gloss/form-gloss.component';
 import {Actions2Component} from './gloss-list/actions.component';
+import { ActionsSemaphoreComponent } from './gloss-list/actions-semaphore.component';
 
 
 
@@ -66,6 +67,7 @@ import {Actions2Component} from './gloss-list/actions.component';
     GlossListComponent,
     FormGlossComponent,
     Actions2Component,
+    ActionsSemaphoreComponent
   ],
   providers: [
     DateFormatPipe,

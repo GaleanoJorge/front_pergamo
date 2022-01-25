@@ -1,21 +1,12 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ViewCell } from 'ng2-smart-table';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../../../environments/environment';
-import { GlossResponseService } from '../../../business-controller/gloss-response.service';
-import { ObjetionCodeResponseService } from '../../../business-controller/objetion-code-response.service';
-import { ObjetionResponseService } from '../../../business-controller/objetion-response.service';
-import { CurrencyPipe } from '@angular/common';
-import { GlossRadicationService } from '../../../business-controller/gloss-radication.service';
-import { GlossService } from '../../../business-controller/gloss.service';
-import { date } from '@rxweb/reactive-form-validators';
+
 
 @Component({
   template: `
-  <div class="d-flex justify-content-center">
-    <div class = "cuadro"
+  <div class="d-flex justify-content-center" *ngIf="this.value.data.gloss_status_id==1" >
+    <div class = "cuadro" 
      [style]="this.semaphore == 0 ? 'background-color: #581845;' : 
      this.semaphore == 1 ? 'background-color: #44E431;' : 
      this.semaphore == 2 ? 'background-color: #FFC300;' : 
