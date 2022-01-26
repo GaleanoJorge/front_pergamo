@@ -8,6 +8,7 @@ import {ServicesBriefcaseComponent} from './services-briefcase/services-briefcas
 import {BriefcaseComponent} from './briefcase/briefcase.component';
 import {DetailServicesComponent} from './detail-services/detail-services.component';
 import {PermissionsGuard} from '../../guards/permissions.guard';
+import { PolicyComponent } from './policy/policy.component';
 
 
 const routes: Routes = [{
@@ -17,8 +18,6 @@ const routes: Routes = [{
     {
       path: 'list',
       component: ContractListComponent,
-      canActivate: [PermissionsGuard],
-      data: {permission: 'roles.read'},
     },
     {
       path: 'file-contract/:id',
@@ -35,6 +34,10 @@ const routes: Routes = [{
     {
       path: 'detail-services/:id',
       component: DetailServicesComponent,
+    },
+    {
+      path: 'policy/:id',
+      component: PolicyComponent,
     },
   ],
 }];

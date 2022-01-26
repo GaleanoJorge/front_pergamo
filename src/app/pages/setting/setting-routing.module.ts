@@ -100,6 +100,9 @@ import { SpecialFieldComponent } from './special-field/special-field.component';
 import { CostCenterComponent } from './cost-center/cost-center.component';
 import { ObservationNoveltyComponent } from './observation-novelty/observation-novelty.component';
 import { InabilityComponent } from './inability/inability.component';
+import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
+import { PolicyTypeComponent } from './policy-type/policy-type.component';
+import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
 
 const routes: Routes = [{
   path: '',
@@ -158,7 +161,12 @@ const routes: Routes = [{
     {
       path: 'observation-novelty',
       component: ObservationNoveltyComponent,
-      data: { permission: 'roles.read'},
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'policy-type',
+      component: PolicyTypeComponent,
+      data: { permission: 'roles.read' }
     },
     {
       path: 'special-field',
@@ -361,6 +369,10 @@ const routes: Routes = [{
       data: { permission: 'permisos.read' },
     },
     {
+      path: 'manual/procedure-massive/procedure-package/:id',
+      component: ProcedurePackage2Component,
+    },
+    {
       path: 'items',
       component: ItemComponent,
       canActivate: [PermissionsGuard],
@@ -373,6 +385,10 @@ const routes: Routes = [{
     },
     {
       path: 'procedure-massive/:id',
+      component: ProductMassiveComponent,
+    },
+    {
+      path: 'product-massive/:id',
       component: ProcedureMassiveComponent,
     },
     {

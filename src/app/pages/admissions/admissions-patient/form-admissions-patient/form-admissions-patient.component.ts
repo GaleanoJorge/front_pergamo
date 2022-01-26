@@ -39,9 +39,11 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public flat:any[];
   public bed:any[];
   public contract:any[];
-  public diagnosis:any[];
+  public diagnosis:any[] = [];
   public campus_id;
   public ambit;
+  public show_diagnostic: boolean= false;
+  public diagnosis_id;
 
 
   constructor(
@@ -87,9 +89,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.DiagnosisS.GetCollection().then(x => {
       this.diagnosis = x;
     });
-
-
     
+
+
     
     this.form = this.formBuilder.group({      
       diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
@@ -119,7 +121,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
       if (this.data.id) {
         this.AdmissionsS.Update({
-          diagnosis_id: this.form.controls.diagnosis_id.value,
+          diagnosis_id: this.diagnosis_id,
           id: this.data.id,
           admission_route_id: this.form.controls.admission_route_id.value,
           scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
@@ -142,7 +144,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         });
       } else {
         this.AdmissionsS.Save({
-          diagnosis_id: this.form.controls.diagnosis_id.value,
+          diagnosis_id: this.diagnosis_id,
           admission_route_id: this.form.controls.admission_route_id.value,
           scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
           program_id: this.form.controls.program_id.value,
@@ -166,7 +168,13 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
     }
   }
-
+  async ShowDiagnostic(e){
+    console.log(e);
+    if(e==1){
+      this.show_diagnostic = true;
+       
+    }
+  }
   onChanges() {
     this.form.get('admission_route_id').valueChanges.subscribe(val => {
       console.log(val);
@@ -216,12 +224,27 @@ export class FormAdmissionsPatientComponent implements OnInit {
     });
   }
 
-  GetScope(admission_route_id, job = false) {
+  saveCode(e): void{
+    var localidentify=this.diagnosis.find(item => item.name == e);
+
+    if(localidentify){
+      this.diagnosis_id = localidentify.id;
+    }else{
+      this.diagnosis_id = null;
+    }
+  }
+
+  async GetScope(admission_route_id, job = false) {
     if (!admission_route_id || admission_route_id === '') return Promise.resolve(false);
 
-    return this.ScopeOfAttentionS.GetScopeByAdmission(admission_route_id).then(x => {
-
-        this.scope_of_attention = x;
+    return await this.ScopeOfAttentionS.GetScopeByAdmission(admission_route_id).then(x => {
+        
+      if(admission_route_id==1){
+          this.scope_of_attention = x;
+          this.scope_of_attention.shift();
+        }else{
+          this.scope_of_attention = x;
+        }
 
       return Promise.resolve(true);
     });

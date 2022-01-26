@@ -6,11 +6,17 @@ import {InscriptionStatus} from '../../../../models/inscription-status';
 import {PriceTypeService} from '../../../../business-controller/price-type.service';
 import {ManualPriceService} from '../../../../business-controller/manual-price.service';
 import {PriceType} from '../../../../models/price-type';
+import {CurrencyPipe} from '@angular/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SelectComponent } from './select.component';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { FormProcedureComponent } from '../../procedure/form-procedure/form-procedure.component';
 import { FormProductComponent } from '../../product/form-product/form-product.component';
+import { FormManualProcedureComponent } from '../form-manual-procedure/form-manual-procedure.component';
+import { ActionsComponentProcedure } from './actions.component';
+import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
+import { ProcedurePackageService } from '../../../../business-controller/procedure-package.Service';
+
 
 @Component({
   selector: 'ngx-procedure-massive',
@@ -23,9 +29,9 @@ export class ProcedureMassiveComponent implements OnInit {
   
 
   public InscriptionForm: FormGroup;
-  public title = 'Asocie procedimientos al Manual tarifario ';
+  public title ;
   public subtitle = '';
-  public headerFields: any[] =  ['id','Código','Nombre'];
+  public headerFields: any[] =  ['id','Código propio','Código Homologo','Nombre','Valor','Tipo de valor'];
   public routes = [];
   public row;
   public course;
@@ -45,34 +51,58 @@ export class ProcedureMassiveComponent implements OnInit {
   public manual_id;
   public result;
   public btntype;
+  public ProcedurePackage:any[];
 
   public inscriptionStatus: InscriptionStatus[] = [];
   public price_type: PriceType[] = [];
 
+  
   public settings = {  
     columns: {
-      select: {
-        title: 'Acciones',
+      actions: {
+        title: '',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent       
+          this.row=row;
           return {
+            'package':this.ProcedurePackage,
             'data': row,
-            'selection': (event) => this.onItemChange(event),
+            'delete': this.DeleteConfirmManualPrice.bind(this),
           };
+        
         },
-        renderComponent: SelectComponent,
+        renderComponent: ActionsComponentProcedure,
       },
       id: {
         title: this.headerFields[0],
         width: '5%',
       },
-      code: {
+      own_code: {
         title: this.headerFields[1],
         type: 'string',
       },
-      name: {
+      homologous_id: {
         title: this.headerFields[2],
         type: 'string',
+      },
+      name: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      value: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, data) => {
+          return this.currency.transform(value);
+        },
+      },
+      price_type: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
       },
     },
   };
@@ -87,6 +117,9 @@ export class ProcedureMassiveComponent implements OnInit {
     private ManualPriceS: ManualPriceService,
     private toastService: NbToastrService,
     private dialogFormService: NbDialogService,
+    private deleteConfirmService: NbDialogService,
+    private currency: CurrencyPipe,
+    private ProcedurePackageS: ProcedurePackageService,
   ) {
   }
 
@@ -112,14 +145,7 @@ export class ProcedureMassiveComponent implements OnInit {
       this.manual=x;
     });
     this.result=this.manual.find(manual => manual.id == this.route.snapshot.params.id);
-    if(this.result.type_manual==0){
-      this.table.changeEntity(`procedure_bymanual/${this.manual_id}`,`procedure`);
-      this.btntype=0;
-    }else if(this.result.type_manual==1){
-      this.table.changeEntity(`product`,`product`);
-      this.btntype=1;
-    }
-     
+    this.title='Asocie procedimientos al '+this.result.name;   
   }
 
 
@@ -130,9 +156,10 @@ export class ProcedureMassiveComponent implements OnInit {
   }
 
   NewProcedure() {
-    this.dialogFormService.open(FormProcedureComponent, {
+    this.dialogFormService.open(FormManualProcedureComponent, {
       context: {
         title: 'Crear procedimiento o servicios que se van a prestar',
+        manual_id:this.manual_id,
         saved: this.RefreshData.bind(this),
       },
     });
@@ -196,5 +223,24 @@ export class ProcedureMassiveComponent implements OnInit {
     this.RefreshData();
     this.selections=[];
   } 
+  }
+
+  DeleteConfirmManualPrice(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        name: data.name,
+        data: data,
+        delete: this.DeleteManualPrice.bind(this),
+      },
+    });
+  }
+
+  DeleteManualPrice(data) {
+    return this.ManualPriceS.Delete(data.id).then(x => {
+      this.table.refresh();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
   }
 }

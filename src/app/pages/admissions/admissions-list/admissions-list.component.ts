@@ -98,7 +98,7 @@ export class AdmissionsListComponent {
     private deleteConfirmService: NbDialogService,
     public AdmissionsS: AdmissionsService,
     public userChangeS: UserChangeService,
-    
+        
   ) {
 
   }
@@ -106,8 +106,8 @@ export class AdmissionsListComponent {
     await this.userChangeS.GetCollection().then(x =>{
       this.all_changes = x;
     });
-  
-  }
+    
+    }
 
   RefreshData() {
     this.table.refresh();

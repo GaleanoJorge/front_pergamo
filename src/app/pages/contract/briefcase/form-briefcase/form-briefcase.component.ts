@@ -24,7 +24,8 @@ export class FormBriefcaseComponent implements OnInit {
   @Input() campus_id: any = null;
 
   public form: FormGroup;
-   public status: any[];
+  public status: any[];
+  public messageError = null;
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
@@ -56,10 +57,10 @@ export class FormBriefcaseComponent implements OnInit {
       this.data = {
         name: '',
         contract_id: '',
-        type_briefcase_id: '',
+        // type_briefcase_id: '',
         coverage_id: '',
         modality_id: '',
-        campus_id:'',
+        campus_id:[],
         status_id: '',
       };
  
@@ -73,9 +74,9 @@ export class FormBriefcaseComponent implements OnInit {
     
 
 
-    this.TypeBriefcaseS.GetCollection().then(x => {
-      this.type_briefcase = x;
-    });
+    // this.TypeBriefcaseS.GetCollection().then(x => {
+    //   this.type_briefcase = x;
+    // });
     this.CoverageS.GetCollection().then(x => {
       this.coverage = x;
     });
@@ -91,10 +92,10 @@ export class FormBriefcaseComponent implements OnInit {
 
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
-      type_briefcase_id: [this.data.type_briefcase_id, Validators.compose([Validators.required])],
+      // type_briefcase_id: [this.data.type_briefcase_id, Validators.compose([Validators.required])],
       coverage_id: [this.data.coverage_id, Validators.compose([Validators.required])],
       modality_id: [this.data.modality_id, Validators.compose([Validators.required])],
-      campus_id: [this.getcampus(),Validators.compose([Validators.required])],
+      campus_id: [[this.getcampus()],Validators.compose([Validators.required])],
       status_id: [this.data.status_id, Validators.compose([Validators.required])],
       contract_id: [this.data.contract_id],
     });
@@ -129,7 +130,7 @@ export class FormBriefcaseComponent implements OnInit {
             id: this.data.id,
             contract_id: this.contract_id,
             name: this.form.controls.name.value,
-            type_briefcase_id: this.form.controls.type_briefcase_id.value,
+            // type_briefcase_id: this.form.controls.type_briefcase_id.value,
             coverage_id: this.form.controls.coverage_id.value,
             modality_id: this.form.controls.modality_id.value,
             campus_id: this.form.controls.campus_id.value,
@@ -148,7 +149,7 @@ export class FormBriefcaseComponent implements OnInit {
           this.BriefcaseS.Save({
             contract_id: this.contract_id,
             name: this.form.controls.name.value,
-            type_briefcase_id: this.form.controls.type_briefcase_id.value,
+            // type_briefcase_id: this.form.controls.type_briefcase_id.value,
             coverage_id: this.form.controls.coverage_id.value,
             modality_id: this.form.controls.modality_id.value,
             campus_id: this.form.controls.campus_id.value,
@@ -166,5 +167,53 @@ export class FormBriefcaseComponent implements OnInit {
         }
     }
   }
+
+  // async save() {
+  //   this.isSubmitted = true;
+  //   if (!this.form.invalid) {
+  //     this.loading = true;
+
+  //   var formData = new FormData();
+  //   var data = this.form.controls;
+  //   // id: this.data.id,
+  // //           contract_id: this.contract_id,
+  // //           name: this.form.controls.name.value,
+  // //           // type_briefcase_id: this.form.controls.type_briefcase_id.value,
+  // //           coverage_id: this.form.controls.coverage_id.value,
+  // //           modality_id: this.form.controls.modality_id.value,
+  // //           campus_id: this.form.controls.campus_id.value,
+  // //           status_id: this.form.controls.status_id.value,
+  //   formData.append('contract_id', this.contract_id);
+  //   formData.append('name',data.name.value);
+  //   formData.append('coverage_id', data.coverage_id.value);
+  //   formData.append('modality_id', data.modality_id.value);
+  //   formData.append('campus_id', data.campus_id.value);
+  //   formData.append('status_id', data.status_id.value);
+  //   // formData.append('policy_file', this.form.value.policy_file);
+
+
+  //   try {
+  //     let response;
+  //     if (this.data?.id) {
+  //       response = await this.BriefcaseS.Update(formData, this.data.id);
+  //     } else {
+  //       response = await this.BriefcaseS.Save(formData);
+  //     }
+  //     this.toastService.success('', response.message);
+  //     this.messageError = null;
+  //     this.close();
+  //     if (this.saved) {
+  //       this.saved();
+  //     }
+  //   } catch (response) {
+  //     this.messageError = response;
+  //     this.isSubmitted = false;
+  //     this.loading = false;
+  //     throw new Error(response);
+  //   }
+  // }else{
+  //   this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+  // }
+  // }
 
 }

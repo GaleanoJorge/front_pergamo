@@ -54,7 +54,7 @@
 
 
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="radication_date" class="form-text text-muted font-weight-bold">Fecha de redicación:</label>
+          <label for="radication_date" class="form-text text-muted font-weight-bold">Fecha de radicación:</label>
           <input type="date" nbInput fullWidth id="radication_date" formControlName="radication_date" radication_date
             status="{{ isSubmitted && form.controls.radication_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
@@ -119,7 +119,7 @@
           <label class="form-text text-muted font-weight-bold">Código de objeción:</label>
           <input id="data-list" formControlName="objetion_code_id" objetion_code_id type="text" list="codes" class="data-list" (change)="saveCode($event)" required>
             <datalist id="codes">
-              <option *ngFor="let item of objetion_code" [value]="item.name" >{{item.code}} {{item.name}}</option>
+              <option *ngFor="let item of objetion_code" [value]="item.name" >{{item.code}} - {{item.name}}</option>
             </datalist>
         </div>
 
@@ -132,13 +132,13 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="invoice_value" class="form-text text-muted font-weight-bold">Valor de factura:</label>
-          <input nbInput fullWidth id="invoice_value" formControlName="invoice_value" invoice_value
+          <input type="number" nbInput fullWidth id="invoice_value" formControlName="invoice_value" invoice_value (change)="saveValue($event)"
             status="{{ isSubmitted && form.controls.invoice_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="objeted_value" class="form-text text-muted font-weight-bold">Valor de objetado:</label>
-          <input nbInput fullWidth id="objeted_value" formControlName="objeted_value" objeted_value
+          <input type="number" nbInput fullWidth id="objeted_value" formControlName="objeted_value" objeted_value (change)="ValueCompare($event)"
             status="{{ isSubmitted && form.controls.objeted_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 

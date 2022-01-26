@@ -16,7 +16,7 @@ export class TypeBriefcaseComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Tipo de Portafolio';
+  public title: string = 'Régimen';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -56,7 +56,7 @@ export class TypeBriefcaseComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Tipo de Portafolio',
+      name: 'Régimen',
       route: '../../setting/type-briefcase',
     },
   ];

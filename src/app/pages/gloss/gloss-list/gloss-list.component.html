@@ -20,7 +20,8 @@
         </div>
       </div>
     </ngx-base-table>
-    <button nbButton status="danger" class="btn-studen-admissions" (click)="ConfirmAction(confirmAction)"> Respuesta masiva </button>
+    <button  nbButton status="danger" class="btn-studen-admissions" (click)="ConfirmAction(confirmAction)"> Respuesta masiva </button>
+    <button style="margin-right: 5px;"  nbButton status="danger" class="btn-studen-admissions" (click)="ConfirmAction(radicationAction)"> Radicación masiva </button>
   </div>
 </ngx-base-list>
 <ng-template #confirmAction>
@@ -31,18 +32,27 @@
               <form [formGroup]="ResponseGlossForm" (ngSubmit)="saveGroup()">
                   <div>
                     <div class="col-md-12">
+                      <label for="justification_status" class="form-text text-muted font-weight-bold">Motivo de la glosa:</label>
+                          <nb-select fullWidth placeholder="Seleccione..."
+                            formControlName="justification_status">
+                            <nb-option value="">Seleccione...</nb-option>
+                            <nb-option value="0">JUSTIFICADA</nb-option>
+                            <nb-option value="1">INJUSTIFICADA</nb-option>
+                          </nb-select>
+                    </div>
+                    <div class="col-md-12">
                       <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
-                      <input nbInput fullWidth id="response" formControlName="response" response
+                      <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="25" nbInput fullWidth id="response" formControlName="response" response
                       status="{{ isSubmitted && ResponseGlossForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                     </div>
                       <div class="col-md-12">
                           <label for="accepted_value" class="form-text text-muted font-weight-bold">Valor aceptado:</label>
-                          <input nbInput fullWidth id="accepted_value" formControlName="accepted_value" accepted_value
+                          <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth id="accepted_value" formControlName="accepted_value" accepted_value
                               status="{{ isSubmitted && ResponseGlossForm.controls.accepted_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                       </div>
                       <div class="col-md-12">
                           <label for="value_not_accepted" class="form-text text-muted font-weight-bold">Valor No aceptado:</label>
-                          <input nbInput fullWidth id="value_not_accepted" formControlName="value_not_accepted"
+                          <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth id="value_not_accepted" formControlName="value_not_accepted"
                               value_not_accepted
                               status="{{ isSubmitted && ResponseGlossForm.controls.value_not_accepted.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                       </div>
@@ -70,6 +80,34 @@
                       <div class="file-select-evicencias" id="src-file1">
                         <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
                           (change)="changeFile($event,2)" />
+                      </div>
+                  </div>
+                  <div class="div-send">
+                      <button type="submit" nbButton status="success">Agregar</button>
+                  </div>
+              </form>
+          </nb-card-body>
+      </nb-card>
+  </div>
+</ng-template>
+<ng-template #radicationAction>
+  <div class="container-fluid">
+      <nb-card style="width: 430px;">
+          <nb-card-header>Radicar Glosa</nb-card-header>
+          <nb-card-body>
+              <form [formGroup]="RadicationGlossForm" (ngSubmit)="saveRadication()">
+                  <div>
+                      <div class="col-md-12">
+                          <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
+                          <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="25" nbInput fullWidth id="observation" formControlName="observation" observation
+                              status="{{ isSubmitted && RadicationGlossForm.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                      </div>
+                      <div class="col-md-12">
+                          <label for="observation" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
+                      </div>
+                      <div class="file-select-evicencias" id="src-file2">
+                        <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
+                          (change)="changeFile($event,3)" />
                       </div>
                   </div>
                   <div class="div-send">
