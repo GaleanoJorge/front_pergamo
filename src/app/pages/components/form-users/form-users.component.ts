@@ -34,7 +34,7 @@ import { DistrictService } from '../../../business-controller/district.service';
 import { CircuitBusinessService } from '../../../business-controller/circuit-business.service';
 import { Category } from '../../../models/category';
 import { CategoriesDialogComponent } from './categories-dialog.component';
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
 import { AssistanceSpecialService } from '../../../business-controller/assistance-special.service';
 import { AssistanceSpecial } from '../../../models/assistance-special';
 import { SpecialitiesDialogComponent } from './especialities-dialog.component';
@@ -42,6 +42,7 @@ import { search } from '@syncfusion/ej2-angular-filemanager';
 import { Item } from '../../../models/item';
 import { InabilityService } from '../../../business-controller/inability.service';
 import { date } from '@rxweb/reactive-form-validators';
+
 
 
 @Component({
@@ -118,6 +119,7 @@ export class FormUsersComponent implements OnInit {
   public num2: any = null;
   public cardinality: any = null;
   public reference: any = null;
+  public image;
 
 
   constructor(
@@ -144,7 +146,21 @@ export class FormUsersComponent implements OnInit {
   ) {
   }
 
+  ChangeImage(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => 
+      this.image = reader.result as string;
+    
+    reader.readAsDataURL(file)
+  }  
   async ngOnInit() {
+    if(this.data && this.data.file){
+      this.image = environment.storage + this.data.file;
+    } else {
+    this.image = "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg";
+    }
     this.currentRoleId = localStorage.getItem('role_id');
     this.LoadForm(false).then();
     await Promise.all([
@@ -378,6 +394,9 @@ export class FormUsersComponent implements OnInit {
       inability_id: [
         this.GetData('inability_id'),
       ],
+      file: [
+        this.image,
+      ],
     };
     if(this.data){
       this.age=this.data.age;
@@ -537,6 +556,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('role_id', this.role);
       formData.append('age', this.age);
       formData.append('username', data.identification.value);
+      formData.append('file', this.form.value.file);
       if (this.isStudent == true) {
         formData.append('password', 'Hyl' + data.identification.value + '*');
       } else {
@@ -828,6 +848,11 @@ export class FormUsersComponent implements OnInit {
           file_firm: files.target.files[0],
         });
         break;
+      case 2:
+        this.form.patchValue({
+          file: files.target.files[0],
+        });
+        break;
     }
   }
   toBase64 = file => new Promise((resolve, reject) => {
@@ -836,7 +861,6 @@ export class FormUsersComponent implements OnInit {
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
   });
-  public check: boolean = false;
   
   ageCalculator(birthday: Date){
     var today = new Date;

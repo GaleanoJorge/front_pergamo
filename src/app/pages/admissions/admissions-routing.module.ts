@@ -21,14 +21,10 @@ const routes: Routes = [{
     {
       path: 'patient/create',
       component: FormPatientComponent,
-      canActivate: [PermissionsGuard],
-      data: {permission: 'roles.create'},
     },
     {
       path: 'patient/:id/edit',
       component: EditPatientComponent,
-      canActivate: [PermissionsGuard],
-      data: {permission: 'roles.update'},
     },
     {
       path: 'admissions-patient/:user_id',

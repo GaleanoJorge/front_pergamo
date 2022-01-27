@@ -38,7 +38,7 @@ import { Item } from '../../../models/item';
         [routerLink]="'../../admissions/admissions-patient/' + value.data.id">
         <nb-icon icon="list-outline"></nb-icon>
     </a>
-    <a nbTooltip="Asociar a usuario" nbTooltipPlacement="top" nbTooltipStatus="primary" *ngIf="Botton_user_change" nbButton ghost (click)="ShowUserChange(userChangeAction)" >
+    <a nbTooltip="Asociar a usuario" nbTooltipPlacement="top" ngxCheckPerms="create" nbTooltipStatus="primary" *ngIf="Botton_user_change" nbButton ghost (click)="ShowUserChange(userChangeAction)" >
       <nb-icon icon="file-text-outline"></nb-icon>
     </a>
   </div>

@@ -402,15 +402,6 @@ export class GlossListComponent implements OnInit {
     var accepted = +this.ResponseGlossForm.controls.accepted_value.value;
     var not_accepted = +this.ResponseGlossForm.controls.value_not_accepted.value
     this.result = accepted + not_accepted;
-    console.log(this.result);
-    // if (compare == result) {
-    //   // this.toastService.success('', "Excelente");
-
-    // } else {
-    //   this.toastService.warning('', 'El valor objetado no coincide con los valores de la factura')
-    //   this.ResponseGlossForm.controls.accepted_value.setErrors({ 'incorrect': true });
-    //   this.ResponseGlossForm.controls.value_not_accepted.setErrors({ 'incorrect': true });
-    // }
     var localidentify = this.all_glosses.find(item => item.objeted_value != this.result);
     if(localidentify) { 
       this.toastService.warning('', "Dentro de la selección hay glosas que no se pueden responder por valores no aceptados");

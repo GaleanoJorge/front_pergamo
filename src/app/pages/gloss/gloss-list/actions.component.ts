@@ -52,7 +52,7 @@ import { date } from '@rxweb/reactive-form-validators';
                         </div>
                       <div class="col-md-12">
                         <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
-                        <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="20" nbInput fullWidth id="response" formControlName="response" response
+                        <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth id="response" formControlName="response" response
                         status="{{ isSubmitted && ResponseGlossForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                       </div>
                         <div class="col-md-12">
@@ -133,7 +133,7 @@ import { date } from '@rxweb/reactive-form-validators';
                   <div>
                       <div class="col-md-12">
                           <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
-                          <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="25" nbInput fullWidth id="observation" formControlName="observation" observation
+                          <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth id="observation" formControlName="observation" observation
                               status="{{ isSubmitted && RadicationGlossForm.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                       </div>
                       <div class="col-md-12">
@@ -336,8 +336,8 @@ export class Actions2Component implements ViewCell {
     var result = accepted + not_accepted;
     var compare = this.value.data.objeted_value;
     if (compare == result) {
-      // this.toastService.success('', "Excelente");
-
+      this.ResponseGlossForm.controls.accepted_value.setErrors( null );
+      this.ResponseGlossForm.controls.value_not_accepted.setErrors( null );
     } else {
       this.toastService.warning('', 'El valor objetado no coincide con los valores de la factura')
       this.ResponseGlossForm.controls.accepted_value.setErrors({ 'incorrect': true });
