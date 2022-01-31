@@ -196,6 +196,9 @@ if(this.form.controls.manual_procedure_type_id.value==1){
           var id=x.data.manual_price.id;
           var contador=0;
           var err=0;
+          if (this.saved) {
+            this.saved();
+          }
           if (!this.selectedOptions.length) {
             this.toastS.danger(null, 'Debe seleccionar al menos un Procedimiento');
           }
