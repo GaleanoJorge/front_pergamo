@@ -470,7 +470,7 @@ const routes: Routes = [{
       data: { permission: 'roles.read' },
     },
     {
-      path: 'company-mail',
+      path: 'company-mail/:id',
       component: CompanyMailComponent,
       data: { permission: 'roles.read' },
     },

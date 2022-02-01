@@ -44,6 +44,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public ambit;
   public show_diagnostic: boolean= false;
   public diagnosis_id;
+  public showTable;
 
 
   constructor(
@@ -72,7 +73,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
         flat_id: '',
         pavilion_id: '',
         bed_id: '',
-        contract_id: ''
+        contract_id: '',
+        has_caregiver: false,
       };
     }
 
@@ -102,6 +104,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       pavilion_id: [this.data.pavilion_id, Validators.compose([Validators.required])],
       bed_id: [this.data.bed_id, Validators.compose([Validators.required])],
       contract_id: [this.data.contract_id, Validators.compose([Validators.required])],
+      has_caregiver: [this.data.has_caregiver, Validators.compose([Validators.required])],
     });
 
     this.onChanges();
@@ -169,15 +172,20 @@ export class FormAdmissionsPatientComponent implements OnInit {
     }
   }
   async ShowDiagnostic(e){
-    console.log(e);
+    // console.log(e);
     if(e==1){
       this.show_diagnostic = true;
        
     }
   }
+  
+  showCaregiver(e){
+    this.showTable = e.target.checked;
+  }
+
   onChanges() {
     this.form.get('admission_route_id').valueChanges.subscribe(val => {
-      console.log(val);
+      // console.log(val);
       if (val === '') {
         this.scope_of_attention = [];
       } else {
@@ -201,7 +209,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     });
 
     this.form.get('flat_id').valueChanges.subscribe(val => {
-      console.log(val);
+      // console.log(val);
       if (val === '') {
         this.pavilion = [];
       } else {
