@@ -75,6 +75,15 @@
             {{ item.name }}</nb-option>
         </nb-select>
         </div>
+        <div class="col-md-6">
+          <label for="has_caregiver" class="form-text text-muted font-weight-bold">¿Tiene algún acompañante/responsable?
+          </label>
+          <nb-toggle formControlName="has_caregiver" has_caregiver (change)="showCaregiver($event)">
+          </nb-toggle>
+        </div>
+    </div>
+    <div *ngIf="this.showTable" style="margin-top: 10px;">
+      <ngx-patient-data > en el paciente </ngx-patient-data>
     </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">

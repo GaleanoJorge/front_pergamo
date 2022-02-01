@@ -22,7 +22,7 @@ export class ProcedurePackageComponent implements OnInit {
   
 
   public InscriptionForm: FormGroup;
-  public title = 'Asignación procedimientos para paquete:: ';
+  public title = 'Asignación procedimientos para paquete: ';
   public subtitle = 'Asignación procedimientos para paquete: ';
   public headerFields: any[] =  ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Categoria del procedimiento', 'Pos', 'Rango de Edad ', 'Genero', 'Estado del procedimiento', 'Id de finalidad ', 'Tiempo'];
   public routes = [];

@@ -318,9 +318,9 @@ export class GlossListComponent implements OnInit {
 
     var diff = (today - gloss_received_date) / (1000 * 60 * 60 * 24);
     if(diff >9){
-      this.semaphore = 3; //para vencerce
+      this.semaphore = 3; // rojo
     } else if(diff <= 9 && diff>5){
-      this.semaphore = 2; //casi vencido 
+      this.semaphore = 2; // amarillo
     }else if(diff<=5 && diff>=0){
       this.semaphore = 1; // verde
     }else if(diff<0){
