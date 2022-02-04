@@ -224,6 +224,7 @@ import { ActionsComponentProduct } from './manual/product-massive/actions.compon
 import { FormPolicyTypeComponent } from './policy-type/form-policy-type/form-policy-type.component';
 import { PolicyTypeComponent } from './policy-type/policy-type.component';
 import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
+import { SelectProcedureComponent } from './procedure/procedure-package/select-procedure.component';
 
 
 @NgModule({
@@ -259,6 +260,7 @@ import { ProcedurePackage2Component } from './manual/procedure-massive/procedure
   declarations: [
     ActionsComponentProcedure,
     ActionsComponentProduct,
+    SelectProcedureComponent,
     ProductMassiveComponent,
     FormManualProcedureComponent,
     FormManualProductComponent,

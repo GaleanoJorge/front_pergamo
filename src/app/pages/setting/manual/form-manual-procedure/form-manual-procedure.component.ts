@@ -209,7 +209,7 @@ if(this.form.controls.manual_procedure_type_id.value==1){
           };
             this.selectedOptions.forEach(element => {
             dta.procedure_package_id=id;
-            dta.procedure_id = element.id;
+            dta.procedure_id = element;
             this.procedurePackageS.Save(dta).then(x => {
             }).catch(x => {
               err++;
