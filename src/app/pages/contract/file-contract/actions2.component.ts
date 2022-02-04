@@ -16,7 +16,7 @@ export class Actions2Component implements ViewCell {
   public previewFile;
 
   ngOnInit():void {
-    this.previewFile = environment.api + this.value.data.file;
+    this.previewFile = environment.storage + this.value.data.file;
   }
 
   }
