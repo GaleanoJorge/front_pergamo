@@ -17,6 +17,7 @@ export class FileContractComponent implements OnInit {
 
   public isSubmitted = false;
   public entity:string;
+  public routes = [];
   public messageError: string = null;
   public title: string = 'Documentos del contrato';
   public subtitle: string = 'Gestión';
@@ -69,17 +70,6 @@ export class FileContractComponent implements OnInit {
     },
   };
 
-  public routes = [
-    {
-      name: 'Contratos',
-      route: '../../list',
-    },
-    {
-      name: 'Documentos del contrato',
-      route: '../../contract/file-contract',
-    },
-  ];
-
   constructor(
     private FileContractS: FileContractService,
     private toastrService: NbToastrService,
@@ -96,6 +86,17 @@ export class FileContractComponent implements OnInit {
     }else{
       this.entity='file_contract';
     }
+
+    this.routes = [
+      {
+        name: 'Contratos',
+        route: '../../list',
+      },
+      {
+        name: 'Documentos del contrato',
+        route: '../../file-contract/' + this.contract_id,
+      },
+    ];
     
   }
 

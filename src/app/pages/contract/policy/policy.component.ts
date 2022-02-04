@@ -28,6 +28,7 @@ export class PolicyComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data: any [] = [];
+  public routes = [];
   public datain;
   public contract = [];
   public contract_id:number;
@@ -97,16 +98,7 @@ export class PolicyComponent implements OnInit {
     },
   };
 
-  public routes = [
-    {
-      name: 'Pólizas',
-      route: '../../list',
-    },
-    {
-      name: 'Pólizas',
-      route: '../../contract/policy',
-    },
-  ];
+  
 
   constructor(
     private PolicyS: PolicyService,
@@ -126,6 +118,17 @@ export class PolicyComponent implements OnInit {
       this.entity='policy';
     }
     
+    this.routes = [
+      {
+        name: 'Contrato',
+        route: '../../list',
+      },
+      {
+        name: 'Pólizas',
+        route: '../../policy/' + this.contract_id,
+      },
+    ];
+
     await this.ContractS.GetCollection().then(x=> {
       this.contract = x;
     });
