@@ -227,6 +227,11 @@ import { ProcedurePackage2Component } from './manual/procedure-massive/procedure
 import { SelectProcedureComponent } from './procedure/procedure-package/select-procedure.component';
 
 
+import { RelationshipComponent } from './relationship/relationship.component';
+import { FormRelationshipComponent } from './relationship/form-relationship/form-relationship.component';
+import { ActionsCompanyComponent } from './company/actions.component';
+import { ActionsComponentEditDelete } from './company-mail/actions.component';
+import { ActionsCDComponent } from './company-document/actionsCD.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -258,6 +263,11 @@ import { SelectProcedureComponent } from './procedure/procedure-package/select-p
     NbIconModule
   ],
   declarations: [
+    ActionsCDComponent,
+    ActionsComponentEditDelete,
+    RelationshipComponent,
+    FormRelationshipComponent,
+    ActionsCompanyComponent,
     ActionsComponentProcedure,
     ActionsComponentProduct,
     SelectProcedureComponent,

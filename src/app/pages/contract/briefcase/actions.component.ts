@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {ViewCell} from 'ng2-smart-table';
+import { Component, Input } from '@angular/core';
+import { ViewCell } from 'ng2-smart-table';
 
 @Component({
   template: `
@@ -15,7 +15,7 @@ import {ViewCell} from 'ng2-smart-table';
       </a>
       <a nbButton nbTooltip="Detalle de portafolio" nbTooltipPlacement="top" nbTooltipStatus="primary" ghost [routerLink]="'/pages/contract/detail-services/' + value.data.id" >
       <nb-icon icon="grid-outline"></nb-icon>
-    </a>
+      </a>
     </div>
   `,
 })

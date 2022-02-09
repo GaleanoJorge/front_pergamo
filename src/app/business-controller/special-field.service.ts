@@ -14,7 +14,7 @@ export class SpecialFieldService {
   }
 
   GetCollection(params = {}): Promise<SpecialField[]> {
-    let servObj = new ServiceObject(params ? 'special-field?pagination=false' : 'special-field');
+    let servObj = new ServiceObject(params ? 'special_field?pagination=false' : 'special-field');
 
     return this.webAPI.GetAction(servObj)
       .then(x => {

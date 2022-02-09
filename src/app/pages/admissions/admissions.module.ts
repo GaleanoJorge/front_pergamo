@@ -29,6 +29,7 @@ import { BedManagementComponent } from './bed-management/bed-management.componen
 import { Actions3Component } from './bed-management/actions.component';
 import { FormPatientDataComponent } from './patient-data/form-admissions-patient/form-patient-data.component';
 import { PatientDataComponent } from './patient-data/patient-data.component';
+import { ActionsComponentED } from './patient-data/actionsED.component';
 
 @NgModule({
     imports: [
@@ -56,6 +57,7 @@ import { PatientDataComponent } from './patient-data/patient-data.component';
         NbToggleModule,
     ],
   declarations: [
+    ActionsComponentED,
     FormPatientDataComponent,
     PatientDataComponent,
     AdmissionsPatientComponent,

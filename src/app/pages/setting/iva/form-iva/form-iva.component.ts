@@ -37,10 +37,6 @@ export class FormIvaComponent implements OnInit {
         name: '',
       };
     }
-
-    // this.statusBS.GetCollection().then(x => {
-    //   this.status = x;
-    // });
     
     
     this.form = this.formBuilder.group({      
