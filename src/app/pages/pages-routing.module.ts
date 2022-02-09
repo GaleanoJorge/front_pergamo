@@ -36,6 +36,13 @@ const routes: Routes = [{
       data: { permission: 'gloss.read' }
     },
     {
+      path: 'pad',
+      loadChildren: () => import('./pad/pad.module')
+        .then(m => m.PadModule),
+        canActivate: [PermissionsGuard],
+      data: { permission: 'gloss.read' }
+    },
+    {
       path: 'setting',
       loadChildren: () => import('./setting/setting.module')
         .then(m => m.SettingModule),

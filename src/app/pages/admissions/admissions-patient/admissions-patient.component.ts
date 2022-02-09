@@ -62,10 +62,12 @@ export class AdmissionsPatientComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.ambit=value[value.length - 1].scope_of_attention.name;
           this.program=value[value.length - 1].program.name;
+          if(value[value.length - 1].pavilion){
           this.flat=value[value.length - 1].flat.name;
           this.pavilion=value[value.length - 1].pavilion.name;
           this.bed=value[value.length - 1].bed.name;
           this.bed_id=value[value.length - 1].bed.id;
+          }
           return value[value.length - 1].admission_route.name;
         },
       },
@@ -187,7 +189,7 @@ export class AdmissionsPatientComponent implements OnInit {
   NewAdmissions() {
     this.dialogFormService.open(FormAdmissionsPatientComponent, {
       context: {
-        title: 'Crear nuevo tipo de afiliado',
+        title: 'Crear nuevo ingreso',
         user_id:this.user_id,
         saved: this.RefreshData.bind(this),
       },
@@ -197,7 +199,7 @@ export class AdmissionsPatientComponent implements OnInit {
   EditAdmissions(data) {
     this.dialogFormService.open(FormAdmissionsPatientComponent, {
       context: {
-        title: 'Editar tipo de afiliado',
+        title: 'Editar tipo de ingreso',
         data,
         saved: this.RefreshData.bind(this),
       },

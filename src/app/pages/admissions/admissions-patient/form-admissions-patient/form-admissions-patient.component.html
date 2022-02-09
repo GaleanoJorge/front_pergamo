@@ -21,7 +21,7 @@
             {{ item.name }}</nb-option>
         </nb-select>
         </div>
-        <div *ngIf="this.show_diagnostic" class="col-md-6">
+        <div class="col-md-6">
           <label  for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico:</label>
           <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="diagnosis_id" 
           formControlName="diagnosis_id" diagnosis_id type="text" required
@@ -39,7 +39,7 @@
             {{ item.name }}</nb-option>
         </nb-select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="this.show_inputs">
           <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
           <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
           status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -48,7 +48,7 @@
             {{ item.name }}</nb-option>
         </nb-select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="this.show_inputs">
           <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
           <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
           status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -57,7 +57,7 @@
             {{ item.name }}</nb-option>
         </nb-select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="this.show_inputs">
           <label for="bed" class="form-text text-muted font-weight-bold">Cama / Consultorio:</label>
           <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
           status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">

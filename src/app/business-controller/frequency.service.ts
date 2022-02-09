@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { SpecialField } from '../models/special-field';
+import { Frequency } from '../models/frequency';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SpecialFieldService {
-  public special_field: SpecialField[] = [];
+export class FrequencyService {
+  public frequency: Frequency[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<SpecialField[]> {
-    let servObj = new ServiceObject(params ? 'special_field?pagination=false' : 'special-field');
+  GetCollection(params = {}): Promise<Frequency[]> {
+    let servObj = new ServiceObject(params ? 'frequency?pagination=false' : 'frequency');
 
     return this.webAPI.GetAction(servObj)
       .then(x => {
@@ -22,18 +22,18 @@ export class SpecialFieldService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.special_field = <SpecialField[]>servObj.data.special_field;
+        this.frequency = <Frequency[]>servObj.data.frequency;
 
-        return Promise.resolve(this.special_field);
+        return Promise.resolve(this.frequency);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(cost_center: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('special_field');
-    servObj.data = cost_center;
+  Save(frequency: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('frequency');
+    servObj.data = frequency;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class SpecialFieldService {
       });
   }
 
-  Update(special_field: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('special_field', special_field.id);
-    servObj.data = special_field;
+  Update(frequency: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('frequency', frequency.id);
+    servObj.data = frequency;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +64,7 @@ export class SpecialFieldService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('special_field', id);
+    let servObj = new ServiceObject('frequency', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

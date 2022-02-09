@@ -43,6 +43,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public campus_id;
   public ambit;
   public show_diagnostic: boolean= false;
+  public show_inputs: boolean= false;
   public diagnosis_id;
 
 
@@ -98,9 +99,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
       admission_route_id: [this.data.admission_route_id, Validators.compose([Validators.required])],
       scope_of_attention_id: [this.data.scope_of_attention_id, Validators.compose([Validators.required])],
       program_id: [this.data.program_id, Validators.compose([Validators.required])],
-      flat_id: [this.data.flat_id, Validators.compose([Validators.required])],
-      pavilion_id: [this.data.pavilion_id, Validators.compose([Validators.required])],
-      bed_id: [this.data.bed_id, Validators.compose([Validators.required])],
+      flat_id: [this.data.flat_id,],
+      pavilion_id: [this.data.pavilion_id,],
+      bed_id: [this.data.bed_id,],
       contract_id: [this.data.contract_id, Validators.compose([Validators.required])],
     });
 
@@ -172,7 +173,10 @@ export class FormAdmissionsPatientComponent implements OnInit {
     console.log(e);
     if(e==1){
       this.show_diagnostic = true;
-       
+      this.show_inputs=true;
+    }else{
+      this.show_inputs=false;
+      this.show_diagnostic = false;
     }
   }
   onChanges() {

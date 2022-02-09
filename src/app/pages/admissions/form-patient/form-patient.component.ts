@@ -18,7 +18,6 @@ export class FormPatientComponent implements OnInit {
     },
   ];
 
-  public role = 2;
   public title = 'Crear Paciente';
 
   constructor() {
