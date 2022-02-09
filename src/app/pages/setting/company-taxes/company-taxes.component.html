@@ -5,13 +5,13 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    entity="company_taxes/?pagination=true"
+                    [entity]="entity"
                     customData='company_taxes'
                     [messageToltip]="messageToltip"
                     >
       <div actions>
         <div class="actions">
-          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewCompanyTaxes()">Crear</button>
+          <button nbButton status="danger" (click)="NewCompanyTaxes()">Crear</button>
         </div>
       </div>
     </ngx-base-table>

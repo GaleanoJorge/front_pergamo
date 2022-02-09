@@ -24,7 +24,7 @@ export class AdmissionsPatientComponent implements OnInit {
   public course;
   public data= [];
   public user_id;
-  public date_end:boolean=true;
+  public date_end:boolean = true;
   public cont=0;
   public ambit;
   public program;
@@ -127,10 +127,10 @@ export class AdmissionsPatientComponent implements OnInit {
         type: 'date',
         valuePrepareFunction: (value, row) => {
           if(value=='0000-00-00 00:00:00' && this.cont!=1){
-            this.date_end=false;
-            this.cont=+1;
+            this.date_end = false;
+            this.cont = + 1;
           }else if(this.cont==0){
-            this.date_end=true;
+            this.date_end = true;
           }
           return value;
         },
@@ -153,11 +153,11 @@ export class AdmissionsPatientComponent implements OnInit {
     this.routes = [
       {
         name: 'Pacientes',
-        route: '../../../../admissions/list',
+        route: '../../list',
       },
       {
         name: 'Admisiones del paciente',
-        route: '../../../../admissions/admissions-patient/' + this.route.snapshot.params.user_id,
+        route: '../../admissions-patient/' + this.route.snapshot.params.user_id,
       },
     ];
     

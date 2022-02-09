@@ -3,7 +3,7 @@
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <label for="company" class="form-text text-muted font-weight-bold">Compañia:</label>
           <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
             status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -11,7 +11,7 @@
             <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
         <div class="col-md-12">
           <label for="taxes" class="form-text text-muted font-weight-bold">Impuestos:</label>
           <nb-select [selected]="this.data.taxes_id" formControlName="taxes_id" id="taxes_id" fullWidth

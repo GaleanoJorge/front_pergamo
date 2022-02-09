@@ -224,8 +224,11 @@ import { ActionsComponentProduct } from './manual/product-massive/actions.compon
 import { FormPolicyTypeComponent } from './policy-type/form-policy-type/form-policy-type.component';
 import { PolicyTypeComponent } from './policy-type/policy-type.component';
 import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
-
-
+import { RelationshipComponent } from './relationship/relationship.component';
+import { FormRelationshipComponent } from './relationship/form-relationship/form-relationship.component';
+import { ActionsCompanyComponent } from './company/actions.component';
+import { ActionsComponentEditDelete } from './company-mail/actions.component';
+import { ActionsCDComponent } from './company-document/actionsCD.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -257,6 +260,11 @@ import { ProcedurePackage2Component } from './manual/procedure-massive/procedure
     NbIconModule
   ],
   declarations: [
+    ActionsCDComponent,
+    ActionsComponentEditDelete,
+    RelationshipComponent,
+    FormRelationshipComponent,
+    ActionsCompanyComponent,
     ActionsComponentProcedure,
     ActionsComponentProduct,
     ProductMassiveComponent,

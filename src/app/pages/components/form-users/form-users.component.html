@@ -16,7 +16,7 @@
               <img [src]="image" class="rounded avatar-pic" [alt]="image">
             </div>
             <div class="d-flex justify-content-center">
-              <div class="file-select-evicencias" id="src-file2">
+              <div class="file-select-evicencias" id="src-file">
                 <input [nbSpinner]="loading" class="file" accept="image/*" type="file" id="file" file fullWidth
                   (change)="ChangeImage($event);changeFile($event,2)" />
               </div>
@@ -588,7 +588,7 @@
             </nb-select>
           </div>
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <div class="form-group">
             <label for="type_professional" class="form-text text-muted font-weight-bold">Tipo de profesional:</label>
             <nb-select formControlName="type_professional_id" id="type_professional_id" fullWidth
@@ -598,37 +598,52 @@
                 {{ item.name }}</nb-option>
             </nb-select>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-4">
           <div class="form-group">
             <nb-card-body>
-              <nb-checkbox formControlName="attends_external_consultation" name>Consulta externa:</nb-checkbox>
+              <nb-toggle formControlName="attends_external_consultation" name>Atención a multiples pacientes</nb-toggle>
             </nb-card-body>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <nb-card-body>
-              <nb-checkbox formControlName="serve_multiple_patients" name>Atención a multiples pacientes:</nb-checkbox>
+              <nb-toggle formControlName="serve_multiple_patients" name>Atención a multiples pacientes</nb-toggle>
             </nb-card-body>
           </div>
         </div>
+        <!-- pad -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <nb-toggle formControlName="PAD_service" PAD_service >Servicio de PAD</nb-toggle>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="form.controls.PAD_service.value">
+          <div class="form-group">
+            <label for="PAD_patient_quantity" class="form-text text-muted font-weight-bold">Inserte la cantidad de pacientes para la atención: </label>
+            <input nbInput type="number" fullWidth id="PAD_patient_quantity"
+              formControlName="PAD_patient_quantity" PAD_patient_quantity
+              status="{{ isSubmitted && form.controls.PAD_patient_quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="role==3">
+        
         <div class="col-md-6">
           <div class="form-group">
             <label for="file_firm" class="form-text text-muted font-weight-bold">Archivo de firma:</label>
-            <div class="file-select-evicencias" id="src-file2">
-              <input class="file" accept="image/*,.pdf" type="file" id="file_firm" file_firm fullWidth
+            <div class="file-select-evidencias2" id="src-file2">
+              <input class="file_firm" accept="image/*,.pdf" type="file" id="file_firm" file_firm fullWidth
                 (change)="changeFile($event,1)" />
             </div>
           </div>
         </div>
-      </div>
-      <div class="row mt-3" *ngIf="role==3">
-
-        <div class="col-md-12">
+        <div class="col-md-6">
           <div class="form-group">
+            <label class="form-text text-muted font-weight-bold">Especialidad:</label>
             <button nbButton status="info" type="button" (click)="ShowDialogSpecialities()">
-              Seleccionar especialidad:
+              Seleccionar especialidad
             </button>
           </div>
         </div>

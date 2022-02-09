@@ -72,6 +72,34 @@ input[type=number] { -moz-appearance:textfield; }
   display: inline-block;
 }
 
+.file-select-evidencias2 {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.file-select-evidencias2::before {
+  background-color: #54bcc1;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  content: 'AGREGAR FIRMA'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select-evidencias2 input[type="file"] {
+  opacity: 0;
+  height: 40px;
+  display: inline-block;
+}
+
 .avatar-pic {
   width: 150px;
   }

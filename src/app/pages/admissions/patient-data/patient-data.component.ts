@@ -1,12 +1,16 @@
 import { PatientDataService } from '../../../business-controller/patient-data.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
-import {Component, OnInit,Input,TemplateRef,ViewChild} from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { Actions2Component } from './actions.component';
 import { FormPatientDataComponent } from './form-admissions-patient/form-patient-data.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { AffiliateTypeService } from '../../../business-controller/affiliate-type.service';
+import { SpecialAttentionService } from '../../../business-controller/special-attention.service';
+import { type } from 'os';
+import { ActionsComponentED } from './actionsED.component';
 
 
 @Component({
@@ -16,22 +20,19 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 })
 export class PatientDataComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() admission_id: number;
   public messageError = null;
-  public title;
-  public headerFields: any[] =  ['Tipo de acompañante', 'Tipo identificación', 'Identificación', 'Nombres', 'Correo', 'Dirección', 'Numero'];
+  public title: string = 'Acompañantes / responsables por paciente';
+  public headerFields: any[] = ['Tipo de acompañante', 'Tipo identificación', 'Identificación', 'Nombre', 'Correo', 'Dirección', 'Numero'];
   public routes = [];
-  public data= [];
-  public user_id;
-  public date_end:boolean=true;
-  public cont=0;
-  public identification_caregiver_id;
-  public program;
-  public flat;
-  public bed;
-  public bed_id;
-  public patient_data_identification;
-  public entity:string;
-  public showDiv:boolean;
+  public data = [];
+  public date_end: boolean = true;
+  public cont = 0;
+  public identification;
+  public entity: string;
+  public showDiv: boolean;
+  public afiliatte_type: any[] = [];
+  public special_attention: any[] = [];
 
 
 
@@ -44,31 +45,40 @@ export class PatientDataComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditAdmissions.bind(this),
-            'delete': this.DeleteConfirmAdmissions.bind(this),
+            'edit': this.EditPatientData.bind(this),
+            'delete': this.DeleteConfirmPatientData.bind(this),
             'refresh': this.RefreshData.bind(this),
           };
         },
-        renderComponent: Actions2Component,
+        renderComponent: ActionsComponentED,
       },
       patient_data_type: {
         title: this.headerFields[0],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
-        }
       },
-      identification_caregiver_id: {
+      identification_type_id: {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction(value,row) {
+          return row?.identification_type.name;
+        }
       },
-      patient_data_identification: {
+      identification: {
         title: this.headerFields[2],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.patient_data_identification;
-        },
       },
+      nombre_completo: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      email: {
+        title: this.headerFields[4],
+        type: 'string',
+      },
+      phone: {
+        title: this.headerFields[5],
+        type: 'string',
+      }
     },
   };
 
@@ -77,43 +87,28 @@ export class PatientDataComponent implements OnInit {
     private PatienDataS: PatientDataService,
     private router: Router,
     private dialogFormService: NbDialogService,
-    private UserBS: UserBusinessService,
     private deleteConfirmService: NbDialogService,
+    private userBS: UserBusinessService,
   ) {
-    this.routes = [
-      {
-        name: 'Pacientes',
-        route: '../../../../admissions/list',
-      },
-      {
-        name: 'Admisiones del paciente',
-        route: '../../../../admissions/admissions-patient/' + this.route.snapshot.params.user_id,
-      },
-    ];
-    
+
   }
 
   GetParams() {
     return {
-      user_id: this.route.snapshot.params.user_id,
+      admissions_id: this.route.snapshot.params.admissions_id,
     };
   }
 
-   ngOnInit(): void {
-    this.user_id= this.route.snapshot.params.user_id;
-
-    if (this.user_id){
-      this.showDiv=true;
-      this.entity="admissions/ByPacient/{{user_id}}";
-    }else{
-      this.showDiv=false;
+  async ngOnInit() {
+    if(this.route.snapshot.params.admissions_id){
+      this.admission_id= this.route.snapshot.params.admissions_id;
+      this.entity = "PatientData/PatientDatabyAdmission/" + this.route.snapshot.params.admissions_id;
+    } else if (this.admission_id!=0) {
+      this.entity = "PatientData/PatientDatabyAdmission/" + this.admission_id; 
+    } else {
+      this.entity = "patient_data"
     }
 
-
-    this.UserBS.GetUserById(this.user_id).then(x => {
-      var user = x;
-      this.title= 'Admisiones de paciente: '+ user.firstname  + ' ' + user.lastname ;
-    });
   }
 
   RefreshData() {
@@ -121,37 +116,37 @@ export class PatientDataComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewAdmissions() {
+  NewPatientData() {
     this.dialogFormService.open(FormPatientDataComponent, {
       context: {
-        title: 'Crear nuevo tipo de afiliado',
-        user_id:this.user_id,
+        title: 'Crear nuevo acompañante',
         saved: this.RefreshData.bind(this),
+        admission_id: this.admission_id,
       },
     });
   }
 
-  EditAdmissions(data) {
+  EditPatientData(data) {
     this.dialogFormService.open(FormPatientDataComponent, {
       context: {
-        title: 'Editar tipo de afiliado',
+        title: 'Editar acompañante',
         data,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  DeleteConfirmAdmissions(data) {
+  DeleteConfirmPatientData(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteAdmissions.bind(this),
+        delete: this.DeletePatientData.bind(this),
       },
     });
   }
 
-  DeleteAdmissions(data) {
+  DeletePatientData(data) {
     return this.PatienDataS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);

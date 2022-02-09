@@ -51,7 +51,7 @@ import { date } from '@rxweb/reactive-form-validators';
   styleUrls: ['./form-users.component.scss'],
 })
 export class FormUsersComponent implements OnInit {
-  @Input() data: any ;
+  @Input() data: any;
   @Input() routes = null;
   @Input() role = null;
   @Input() title = null;
@@ -108,12 +108,12 @@ export class FormUsersComponent implements OnInit {
   public selected: any[];
   public activities_id;
 
-  public inabilitys:any[];
+  public inabilitys: any[];
   public referencia;
   public residence;
   public age: any = null;
   // public mesagge="Av.Calle 68 b # 186 c - 18a, Norte  ( apt 203 familia corredor, panaderia azul )";
-  
+
   public street: any = null;
   public num1: any = null;
   public num2: any = null;
@@ -150,16 +150,16 @@ export class FormUsersComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
 
     const reader = new FileReader();
-    reader.onload = () => 
+    reader.onload = () =>
       this.image = reader.result as string;
-    
+
     reader.readAsDataURL(file)
-  }  
+  }
   async ngOnInit() {
-    if(this.data && this.data.file){
+    if (this.data && this.data.file) {
       this.image = environment.storage + this.data.file;
     } else {
-    this.image = "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg";
+      this.image = "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg";
     }
     this.currentRoleId = localStorage.getItem('role_id');
     this.LoadForm(false).then();
@@ -177,47 +177,47 @@ export class FormUsersComponent implements OnInit {
 
   GetAuxData($type_professional_id?, $search?) {
     return this.userBS.GetFormAuxData(this.data ? false : true,
-      this.data == null && !$type_professional_id  ? null : $type_professional_id == null && this.data.assistance.length > 0 ? this.data.assistance[0].type_professional_id : $type_professional_id  , $search).then(x => {
-      if (!$type_professional_id) {
-        this.identification_types = x.identificationTypes;
-        this.countries = x.countries;
-        this.genders = x.genders;
-        this.ethnicitys = x.ethnicitys;
-        this.status = x.status;
-        this.academyLevels = x.academicLevels;
-        this.study_level_status = x.study_level_status;
-        this.activities = x.activities;
-        this.select_RH = x.select_RH;
-        this.population_group = x.population_group;
-        this.marital_status = x.marital_status;
-        this.cost_center = x.cost_center;
-        this.type_professional = x.type_professional;
-        this.contract_type = x.contract_type;
-        this.specialities = x.special_field;
-        this.inabilitys= x.inability;
-      } else {
-        this.specialities = x.special_field;
-      }
-      return Promise.resolve(true);
-    });
+      this.data == null && !$type_professional_id ? null : $type_professional_id == null && this.data.assistance.length > 0 ? this.data.assistance[0].type_professional_id : $type_professional_id, $search).then(x => {
+        if (!$type_professional_id) {
+          this.identification_types = x.identificationTypes;
+          this.countries = x.countries;
+          this.genders = x.genders;
+          this.ethnicitys = x.ethnicitys;
+          this.status = x.status;
+          this.academyLevels = x.academicLevels;
+          this.study_level_status = x.study_level_status;
+          this.activities = x.activities;
+          this.select_RH = x.select_RH;
+          this.population_group = x.population_group;
+          this.marital_status = x.marital_status;
+          this.cost_center = x.cost_center;
+          this.type_professional = x.type_professional;
+          this.contract_type = x.contract_type;
+          this.specialities = x.special_field;
+          this.inabilitys = x.inability;
+        } else {
+          this.specialities = x.special_field;
+        }
+        return Promise.resolve(true);
+      });
   }
-  saveCode(e): void{
-    var localidentify=this.activities.find(item => item.name == e);
+  saveCode(e): void {
+    var localidentify = this.activities.find(item => item.name == e);
 
-    if(localidentify){
+    if (localidentify) {
       this.activities_id = localidentify.id;
-    }else{
+    } else {
       this.activities_id = null;
     }
   }
-  returnProfession(n): string{
+  returnProfession(n): string {
     var localidentify = this.activities.find(item => item.id == n);
     var activities_name;
 
-    if(localidentify){
+    if (localidentify) {
       activities_name = localidentify.name;
       this.activities_id = localidentify.id;
-    }else{
+    } else {
       activities_name = null;
     }
     return activities_name;
@@ -369,22 +369,22 @@ export class FormUsersComponent implements OnInit {
         this.ReturnResidence(this.GetData('residence_address')),
         Validators.compose([Validators.required]),
       ],
-      street:[
+      street: [
         this.street == null ? '' : this.street,
         Validators.compose([Validators.required]),
       ],
-      num1:[
+      num1: [
         this.num1 == null ? '' : this.num1,
         Validators.compose([Validators.required]),
       ],
-      num2:[
+      num2: [
         this.num2 == null ? '' : this.num2,
         Validators.compose([Validators.required]),
       ],
       residence_address_cardinality: [
         this.cardinality == null ? '' : this.cardinality,
       ],
-      reference:[
+      reference: [
         this.reference == null ? '' : this.reference,
       ],
       neighborhood_or_residence_id: [
@@ -398,8 +398,8 @@ export class FormUsersComponent implements OnInit {
         this.image,
       ],
     };
-    if(this.data){
-      this.age=this.data.age;
+    if (this.data) {
+      this.age = this.data.age;
     }
     if (this.role == 3) {
       configForm = {
@@ -416,24 +416,38 @@ export class FormUsersComponent implements OnInit {
           this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].cost_center_id : '',
           Validators.compose([Validators.required])
         ],
-        type_professional_id: [
-          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].type_professional_id: '',
-          Validators.compose([Validators.required])
-        ],
+        // type_professional_id: [
+        //   this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].type_professional_id: '',
+        //   Validators.compose([Validators.required])
+        // ],
         attends_external_consultation: [
-          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].attends_external_consultation : '',
-          Validators.compose([Validators.required])
+          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].attends_external_consultation : false,
+          // Validators.compose([Validators.required])
         ],
         serve_multiple_patients: [
-          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].serve_multiple_patients : '',
-          Validators.compose([Validators.required])
+          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].serve_multiple_patients : false,
+          // Validators.compose([Validators.required])
+        ],
+        PAD_service: [
+          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_service : false,
+        ],
+        PAD_patient_quantity: [
+          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_patient_quantity : false,
         ],
         file_firm: [
           this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].file_firm : '',
           Validators.compose([Validators.required])
         ],
       }
-
+      // if (configForm.PAD_service != false) {
+      //   configForm = {
+      //     ...configForm,
+      //     PAD_patient_quantity: [
+      //       this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_patient_quantity : false,
+      //       Validators.compose([Validators.required])
+      //     ],
+      //   }
+      // }
     }
 
 
@@ -470,6 +484,14 @@ export class FormUsersComponent implements OnInit {
     }
     return '';
   }
+  
+  private patient_quantity(){
+    // console.log(this.form.controls.PAD_service.value);
+    if(this.form.controls.PAD_service.value == true && this.form.controls.PAD_patient_quantity.value == false || this.form.controls.PAD_patient_quantity.value == null ) {
+      this.form.controls.PAD_patient_quantity.setErrors({'incorrect': true});
+      // console.log('invalido hpta');
+    }
+  }
 
   private getDescendantProp(obj, desc) {
     const arr = desc.split('.');
@@ -484,47 +506,47 @@ export class FormUsersComponent implements OnInit {
     this.LoadForm().then();
   }
 
-  ReturnResidence(e){
-    var complete_address=e;
-    
-    //tipo de calle
-    var residence_address=complete_address.split(' ', 1).toString();
+  ReturnResidence(e) {
+    var complete_address = e;
 
-    var num= complete_address.split('#', 1).toString();
+    //tipo de calle
+    var residence_address = complete_address.split(' ', 1).toString();
+
+    var num = complete_address.split('#', 1).toString();
     var firts_num = num.split(' ');
     firts_num.shift();
     firts_num.pop();
     this.street = firts_num.join().replace(',', ' ');
 
     //num1 de dirección
-    var num = complete_address.split('-',1).toString();
+    var num = complete_address.split('-', 1).toString();
     var second_num = num.split('#');
     second_num.shift();
     this.num1 = second_num.join().replace(',', ' ').trimStart();
     //num2 de la dirección
-    var num = complete_address.split(',',1).toString();
+    var num = complete_address.split(',', 1).toString();
     var second_num = num.split('-');
     second_num.shift();
     this.num2 = second_num.join().replace(',', ' ').trimStart();
-  
+
     //cardinalidad
-    var num = complete_address.split('(',1).toString();
+    var num = complete_address.split('(', 1).toString();
     var second_num = num.split(',');
     second_num.shift();
     this.cardinality = second_num.join().replace(',', ' ').trim();
-    
+
     //adicional
-    var num = complete_address.split(')',1).toString();
+    var num = complete_address.split(')', 1).toString();
     var second_num = num.split('(');
     second_num.shift();
     this.reference = second_num.join().replace(',', ' ').trimStart();
-    
-    return residence_address 
+
+    return residence_address
   }
 
   async SaveStudent() {
-    this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' +  this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) '  ;
-  
+    this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' + this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) ';
+    this.patient_quantity();
     this.isSubmitted = true;
     // this.UpdateResetPassword(data);
     if (!this.form.invalid) {
@@ -575,16 +597,18 @@ export class FormUsersComponent implements OnInit {
       formData.append('residence_address', this.residence);
       formData.append('neighborhood_or_residence_id', data.neighborhood_or_residence_id.value);
 
-
-      if (this.role == 3) {
-        formData.append('assistance_id', this.data==null ? null : this.data.assistance[0].id);
+      var role = Number(this.role);
+      if (role == 3) {
+        formData.append('assistance_id', this.data == null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
         formData.append('contract_type_id', data.contract_type_id.value);
         formData.append('cost_center_id', data.cost_center_id.value);
-        formData.append('type_professional_id', data.type_professional_id.value);
+        // formData.append('type_professional_id', data.type_professional_id.value);
         formData.append('attends_external_consultation', data.attends_external_consultation.value === true ? '1' : '0');
         formData.append('serve_multiple_patients', data.serve_multiple_patients.value === true ? '1' : '0');
         formData.append('file_firm', this.form.value.file_firm);
+        formData.append('PAD_service', data.PAD_service.value === true ? '1' : '0');
+        formData.append('PAD_patient_quantity', data.PAD_patient_quantity.value === false ? null : data.PAD_patient_quantity.value);
       }
 
       if (data.is_judicial_branch) {
@@ -641,8 +665,8 @@ export class FormUsersComponent implements OnInit {
         this.isSubmitted = false;
         this.loading = false;
       }
-      
-    }else{
+
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
@@ -733,14 +757,14 @@ export class FormUsersComponent implements OnInit {
         this.form.get('disability').updateValueAndValidity();
       }
     });
-    if (this.role == 3) {
-    this.form.get('type_professional_id').valueChanges.subscribe(val => {
-      if (val) {
-        console.log(val);
-        this.GetAuxData(val);
-      }
-    });
-  }
+    // if (this.role == 3) {
+    //   this.form.get('type_professional_id').valueChanges.subscribe(val => {
+    //     if (val) {
+    //       console.log(val);
+    //       this.GetAuxData(val);
+    //     }
+    //   });
+    // }
 
   }
 
@@ -861,21 +885,20 @@ export class FormUsersComponent implements OnInit {
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
   });
-  
-  ageCalculator(birthday: Date){
+
+  ageCalculator(birthday: Date) {
     var today = new Date;
-    var age= new Date(birthday)
-    this.age= today.getFullYear()-age.getFullYear();
-    var m = (today.getMonth()+1) - (age.getMonth()+1);
-    var day = today.getDate() - (age.getDate()+1);
-    if(m<0)
-    { 
+    var age = new Date(birthday)
+    this.age = today.getFullYear() - age.getFullYear();
+    var m = (today.getMonth() + 1) - (age.getMonth() + 1);
+    var day = today.getDate() - (age.getDate() + 1);
+    if (m < 0) {
       this.age--;
-    }else if(m==0){
+    } else if (m == 0) {
       this.age--;
-      if(day>0){
+      if (day > 0) {
         this.age++;
-      }else if(day==0){
+      } else if (day == 0) {
         this.age++;
       }
     }
