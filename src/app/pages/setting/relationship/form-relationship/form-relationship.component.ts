@@ -2,15 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import {IvaService} from '../../../../business-controller/iva.service';
+import { RelationshipService } from '../../../../business-controller/relationship.service';
 
 
 @Component({
-  selector: 'ngx-form-iva',
-  templateUrl: './form-iva.component.html',
-  styleUrls: ['./form-iva.component.scss']
+  selector: 'ngx-form-relationship',
+  templateUrl: './form-relationship.component.html',
+  styleUrls: ['./form-relationship.component.scss']
 })
-export class FormIvaComponent implements OnInit {
+export class FormRelationshipComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -25,8 +25,7 @@ export class FormIvaComponent implements OnInit {
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
-    // private statusBS: StatusBusinessService,
-    private IvaS: IvaService,
+    private RelationshipS: RelationshipService,
     private toastService: NbToastrService,
   ) {
   }
@@ -37,7 +36,6 @@ export class FormIvaComponent implements OnInit {
         name: '',
       };
     }
-    
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
@@ -57,7 +55,7 @@ export class FormIvaComponent implements OnInit {
       this.loading = true;
 
       if (this.data.id) {
-        this.IvaS.Update({
+        this.RelationshipS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
         }).then(x => {
@@ -72,7 +70,7 @@ export class FormIvaComponent implements OnInit {
         });
       } else {
         
-        this.IvaS.Save({
+        this.RelationshipS.Save({
           name: this.form.controls.name.value,
         }).then(x => {
           this.toastService.success('', x.message);

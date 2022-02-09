@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ViewCell} from 'ng2-smart-table';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   template: `
@@ -16,7 +17,7 @@ export class Actions2Component implements ViewCell {
   public previewFile;
 
   ngOnInit():void {
-    this.previewFile = 'http://localhost:8000/storage/' + this.value.data.policy_file;
+    this.previewFile = environment.api + this.value.data.policy_file;
   }
 
   }

@@ -8,6 +8,7 @@ import { FormPatientComponent } from './form-patient/form-patient.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { AdmissionsPatientComponent } from './admissions-patient/admissions-patient.component';
 import { BedManagementComponent } from './bed-management/bed-management.component';
+import { PatientDataComponent } from './patient-data/patient-data.component';
 
 
 const routes: Routes = [{
@@ -33,6 +34,10 @@ const routes: Routes = [{
     {
       path: 'bed-management',
       component: BedManagementComponent,
+    },
+    {
+      path: 'patient-data/:admissions_id',
+      component: PatientDataComponent,
     },
   ],
 }];

@@ -5,13 +5,13 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    [entity]="entity"
-                    customData='company_mail'
+                    entity="relationship/?pagination=true"
+                    customData='relationship'
                     [messageToltip]="messageToltip"
                     >
       <div actions>
         <div class="actions">
-          <button nbButton status="danger" (click)="NewCompanyMail()">Crear</button>
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewRelationship()">Crear</button>
         </div>
       </div>
     </ngx-base-table>

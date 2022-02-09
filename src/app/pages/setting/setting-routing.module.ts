@@ -103,6 +103,7 @@ import { InabilityComponent } from './inability/inability.component';
 import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
 import { PolicyTypeComponent } from './policy-type/policy-type.component';
 import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
+import { RelationshipComponent } from './relationship/relationship.component';
 
 const routes: Routes = [{
   path: '',
@@ -470,14 +471,13 @@ const routes: Routes = [{
       data: { permission: 'roles.read' },
     },
     {
-      path: 'company-mail',
+      path: 'company-mail/:id',
       component: CompanyMailComponent,
       data: { permission: 'roles.read' },
     },
     {
-      path: 'company-document',
+      path: 'company-document/:id',
       component: CompanyDocumentComponent,
-      data: { permission: 'roles.read' },
     },
     {
       path: 'document-account',
@@ -492,6 +492,11 @@ const routes: Routes = [{
     {
       path: 'iva',
       component: IvaComponent,
+      data: { permission: 'roles.read' },
+    },
+    {
+      path: 'relationship',
+      component: RelationshipComponent,
       data: { permission: 'roles.read' },
     },
     {
@@ -525,9 +530,8 @@ const routes: Routes = [{
       data: { permission: 'roles.read' },
     },
     {
-      path: 'company-taxes',
+      path: 'company-taxes/:id',
       component: CompanyTaxesComponent,
-      data: { permission: 'roles.read' },
     },
     {
       path: 'company-type',

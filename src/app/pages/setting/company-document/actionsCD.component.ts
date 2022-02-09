@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ViewCell} from 'ng2-smart-table';
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
+
 @Component({
   template: `
     <div class="d-flex justify-content-center">
@@ -10,13 +11,13 @@ import { environment } from '../../../../environments/environment.prod';
   `,
 })
 
-export class Actions2Component implements ViewCell {
+export class ActionsCDComponent implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
   public previewFile;
 
   ngOnInit():void {
-    this.previewFile = environment.api + this.value.data.file;
+    this.previewFile = environment.storage + this.value.data.file;
   }
 
   }

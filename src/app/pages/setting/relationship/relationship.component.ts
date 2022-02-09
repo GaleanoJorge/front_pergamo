@@ -1,27 +1,27 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CompanyService } from '../../../business-controller/company.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormCompanyComponent } from './form-company/form-company.component';
-import { ActionsCompanyComponent } from './actions.component';
+import { FormRelationshipComponent } from './form-relationship/form-relationship.component';
+import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { RelationshipService } from '../../../business-controller/relationship.service';
 
 
 @Component({
-  selector: 'ngx-company',
-  templateUrl: './company.component.html',
-  styleUrls: ['./company.component.scss']
+  selector: 'ngx-relationship',
+  templateUrl: './relationship.component.html',
+  styleUrls: ['./relationship.component.scss']
 })
-export class CompanyComponent implements OnInit {
+export class RelationshipComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Compañia';
+  public title: string = 'Parentesco';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Identificación', 'Verificación', 'Nombre', 'Administrador'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]}, ${this.headerFields[4]}`;
+  public headerFields: any[] = ['ID', 'Nombre'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
-  public data = [];
+  public data: any[] = [];
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -37,30 +37,18 @@ export class CompanyComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditCompany.bind(this),
-            'delete': this.DeleteConfirmCompany.bind(this),
+            'edit': this.EditRelationship.bind(this),
+            'delete': this.DeleteConfirmRelationship.bind(this),
           };
         },
-        renderComponent: ActionsCompanyComponent,
+        renderComponent: ActionsComponent,
       },
       id: {
         title: this.headerFields[0],
         type: 'string',
       },
-      identification: {
-        title: this.headerFields[1],
-        type: 'string',
-      },
-      verification: {
-        title: this.headerFields[2],
-        type: 'string',
-      },
       name: {
-        title: this.headerFields[3],
-        type: 'string',
-      },
-      administrator: {
-        title: this.headerFields[4],
+        title: this.headerFields[1],
         type: 'string',
       },
     },
@@ -68,20 +56,20 @@ export class CompanyComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Compañias',
-      route: '../../setting/company',
+      name: 'Parentesco',
+      route: '../../setting/relationship',
     },
   ];
 
   constructor(
-    private companyS: CompanyService,
+    private RelationshipS: RelationshipService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
   }
 
   RefreshData() {
@@ -89,37 +77,37 @@ export class CompanyComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewCompany() {
-    this.dialogFormService.open(FormCompanyComponent, {
+  NewRelationship() {
+    this.dialogFormService.open(FormRelationshipComponent, {
       context: {
-        title: 'Crear compañias',
+        title: 'Crear nuevo parentesco',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditCompany(data) {
-    this.dialogFormService.open(FormCompanyComponent, {
+  EditRelationship(data) {
+    this.dialogFormService.open(FormRelationshipComponent, {
       context: {
-        title: 'Editar compañias',
+        title: 'Editar parentesco',
         data,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  DeleteConfirmCompany(data) {
+  DeleteConfirmRelationship(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteCompany.bind(this),
+        delete: this.DeleteRelationship.bind(this),
       },
     });
   }
 
-  DeleteCompany(data) {
-    return this.companyS.Delete(data.id).then(x => {
+  DeleteRelationship(data) {
+    return this.RelationshipS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {
