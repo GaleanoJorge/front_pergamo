@@ -7,6 +7,7 @@ import {Municipality} from '../models/municipality';
 import {EducationalInstitution} from '../models/educational-institution';
 import {Course} from '../models/course';
 import {CourseEducationalInstitution} from '../models/course-educational-institution';
+import { Locality } from '../models/locality';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class LocationBusinessService {
   public countries: Country[] = [];
   public regions: Region[] = [];
   public municipalities: Municipality[] = [];
+  public locality: Locality[] = [];
   public institutions: EducationalInstitution[] = [];
   public courses: CourseEducationalInstitution[] = [];
   public neighborhood_or_residence: any[] = [];
@@ -25,6 +27,7 @@ export class LocationBusinessService {
     this.countries = [];
     this.regions = [];
     this.municipalities = [];
+    this.locality = [];
     this.neighborhood_or_residence = [];
     this.institutions = [];
     this.courses = [];
@@ -114,6 +117,38 @@ export class LocationBusinessService {
       });
   }
 
+  GetLocalityByMunicipality(municipality_id): Promise<Locality[]> {
+    let servObj = new ServiceObject('residence/locationbyMunicipality',municipality_id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.locality = <Locality[]>servObj.data.locality;
+        return Promise.resolve(this.locality);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetNeighborhoodResidenceByLocality(locality_id): Promise<Locality[]> {
+    let servObj = new ServiceObject('residence/byLocality',locality_id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.neighborhood_or_residence = <Municipality[]>servObj.data.neighborhood_or_residence;
+        return Promise.resolve(this.neighborhood_or_residence);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+  
   GetNeighborhoodResidenceByMunicipality(municipality_id): Promise<Municipality[]> {
     let servObj = new ServiceObject('residence/byMunicipality',municipality_id);
     return this.webAPI.GetAction(servObj)

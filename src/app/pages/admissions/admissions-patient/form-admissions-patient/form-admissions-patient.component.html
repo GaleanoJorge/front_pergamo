@@ -84,16 +84,16 @@
         <div class="col-md-6">
           <label for="has_caregiver" class="form-text text-muted font-weight-bold">¿Tiene algún acompañante/responsable?
           </label>
-          <nb-toggle formControlName="has_caregiver" has_caregiver >
+          <nb-toggle formControlName="has_caregiver" has_caregiver (change)="showCaregiver()" >
           </nb-toggle>
         </div>
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" (click)="saveFromAdmission = '1';showCaregiver()">Guardar admisión</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" (click)="saveFromAdmission = '1'">Guardar admisión</button>
 
     </nb-card-footer>
-    <nb-card-footer class="d-flex justify-content-end">
+    <nb-card-footer *ngIf="showTable" class="d-flex justify-content-end">
       <nb-card-body>
         <div *ngIf="showTable" style="margin-top: 10px;">
           <ngx-patient-data [admission_id]="admission_id"> </ngx-patient-data>

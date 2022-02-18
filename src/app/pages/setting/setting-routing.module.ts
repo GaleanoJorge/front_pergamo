@@ -312,7 +312,7 @@ const routes: Routes = [{
     {
       path: 'product',
       component: ProductComponent,
-
+      
     },
     {
       path: 'invima-status',
@@ -361,6 +361,7 @@ const routes: Routes = [{
       path: 'roles',
       component: RolesComponent,
       canActivate: [PermissionsGuard],
+      // data: { permission: 'roles.read'},
 
     },
     {

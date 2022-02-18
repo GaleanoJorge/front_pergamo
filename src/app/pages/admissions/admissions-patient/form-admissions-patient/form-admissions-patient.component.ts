@@ -42,8 +42,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public diagnosis: any[] = [];
   public campus_id;
   public ambit;
-  public show_diagnostic: boolean= false;
-  public show_inputs: boolean= false;
+  public show_diagnostic: boolean = false;
+  public show_inputs: boolean = false;
   public diagnosis_id;
   public showTable;
   public admission_id: number = 0;
@@ -120,9 +120,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
   async save() {
 
     this.isSubmitted = true;
-
-    if (!this.form.invalid) {
+    if (!this.form.invalid && this.saveFromAdmission) {
       this.loading = true;
+      this.showTable = false;
 
       if (this.data.id) {
         await this.AdmissionsS.Update({
@@ -163,7 +163,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
           contract_id: this.form.controls.contract_id.value,
           campus_id: this.campus_id,
           user_id: this.user_id,
-          saveFromAdmission: Number(this.saveFromAdmission),
         }).then(x => {
           this.toastService.success('', x.message);
           this.admission_id = x.data.admissions ? x.data.admissions.id : 0;
@@ -185,7 +184,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           }
 
         });
-        this.saveFromAdmission = 0;
+        this.saveFromAdmission = null;
       }
 
     }
@@ -194,22 +193,22 @@ export class FormAdmissionsPatientComponent implements OnInit {
     // console.log(e);
     if (e == 1) {
       this.show_diagnostic = true;
-      this.show_inputs=true;
-    }else{
-      this.show_inputs=false;
+      this.show_inputs = true;
+    } else {
+      this.show_inputs = false;
       this.show_diagnostic = false;
     }
   }
 
   showCaregiver() {
-    if (!this.form.invalid && this.form.controls.has_caregiver.value == true) {
 
-      // this.save();
-    } else if (!this.form.invalid && this.form.controls.has_caregiver.value != true) {
+    if (this.form.controls.has_caregiver.value == true) {
       this.toastService.warning('', "Recuerde que antes de agregar acompañantes y/o responsable debe guardar la información de admisión");
-      this.form.patchValue({
-        has_caregiver: false,
-      });
+      this.showTable = true;
+      // this.save();
+    } else {
+      this.showTable = false;
+
     }
 
   }

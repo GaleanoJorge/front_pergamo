@@ -86,6 +86,7 @@ export class FormUsersComponent implements OnInit {
   public population_group: any[] = [];
   public marital_status: any[] = [];
   public neighborhood_or_residence: any[] = [];
+  public localities: any[] = [];
 
   public sectionals: SectionalCouncil[] = [];
   public districts: District[] = [];
@@ -109,6 +110,8 @@ export class FormUsersComponent implements OnInit {
   public activities_id;
 
   public inabilitys: any[];
+  public residences: any[];
+
   public referencia;
   public residence;
   public age: any = null;
@@ -195,6 +198,7 @@ export class FormUsersComponent implements OnInit {
           this.contract_type = x.contract_type;
           this.specialities = x.special_field;
           this.inabilitys = x.inability;
+          this.residences = x.residence;
         } else {
           this.specialities = x.special_field;
         }
@@ -231,7 +235,7 @@ export class FormUsersComponent implements OnInit {
         this.GetMunicipalities(this.data.region_id),
         this.GetRegions(this.data.country_id, true),
         this.GetMunicipalities(this.data.residence_region_id, true),
-        this.GetNeighborhoodResidence(this.data.residence_municipality_id)
+        this.data.locality_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null ,this.data.locality_id) : this.GetNeighborhoodResidence(this.data.residence_municipality_id)
       ];
 
       await Promise.all(promises);
@@ -340,6 +344,9 @@ export class FormUsersComponent implements OnInit {
         Validators.compose([Validators.required]),
       ],
 
+      locality_id: [
+        this.GetData('locality_id'),
+      ],
       study_level_status_id: [
         this.GetData('study_level_status_id'),
         Validators.compose([Validators.required]),
@@ -364,7 +371,9 @@ export class FormUsersComponent implements OnInit {
         this.GetData('marital_status_id'),
         Validators.compose([Validators.required]),
       ],
-
+      residence_id: [
+        this.GetData('residence_id'),
+      ],
       residence_address: [
         this.ReturnResidence(this.GetData('residence_address')),
         Validators.compose([Validators.required]),
@@ -412,24 +421,18 @@ export class FormUsersComponent implements OnInit {
           this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].contract_type_id : '',
           Validators.compose([Validators.required])
         ],
-        cost_center_id: [
-          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].cost_center_id : '',
-          Validators.compose([Validators.required])
-        ],
-        // type_professional_id: [
-        //   this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].type_professional_id: '',
+        // cost_center_id: [
+        //   this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].cost_center_id : '',
         //   Validators.compose([Validators.required])
         // ],
         attends_external_consultation: [
-          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].attends_external_consultation : false,
-          // Validators.compose([Validators.required])
+          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].attends_external_consultation == 1 ? true : false : false,
         ],
         serve_multiple_patients: [
-          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].serve_multiple_patients : false,
-          // Validators.compose([Validators.required])
+          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].serve_multiple_patients == 1 ? true : false : false,
         ],
         PAD_service: [
-          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_service : false,
+          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_service == 1 ? true : false : false,
         ],
         PAD_patient_quantity: [
           this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_patient_quantity : false,
@@ -439,15 +442,7 @@ export class FormUsersComponent implements OnInit {
           Validators.compose([Validators.required])
         ],
       }
-      // if (configForm.PAD_service != false) {
-      //   configForm = {
-      //     ...configForm,
-      //     PAD_patient_quantity: [
-      //       this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_patient_quantity : false,
-      //       Validators.compose([Validators.required])
-      //     ],
-      //   }
-      // }
+
     }
 
 
@@ -522,7 +517,7 @@ export class FormUsersComponent implements OnInit {
     var num = complete_address.split('-', 1).toString();
     var second_num = num.split('#');
     second_num.shift();
-    this.num1 = second_num.join().replace(',', ' ').trimStart();
+    this.num1 = second_num.join().replace(',', ' ').trim();
     //num2 de la dirección
     var num = complete_address.split(',', 1).toString();
     var second_num = num.split('-');
@@ -546,7 +541,9 @@ export class FormUsersComponent implements OnInit {
 
   async SaveStudent() {
     this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' + this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) ';
-    this.patient_quantity();
+    if(this.role == 3){
+      this.patient_quantity();
+    }
     this.isSubmitted = true;
     // this.UpdateResetPassword(data);
     if (!this.form.invalid) {
@@ -585,10 +582,11 @@ export class FormUsersComponent implements OnInit {
         formData.append('password', data.password.value);
       }
       formData.append('landline', data.landline.value);
-
+      formData.append('residence_id', data.residence_id.value);
       formData.append('residence_country_id', data.residence_country_id.value);
       formData.append('residence_region_id', data.residence_region_id.value);
-      formData.append('residence_municipality_id', data.residence_municipality_id.value);
+      formData.append('residence_municipality_id', data.residence_municipality_id.value);  
+      formData.append('locality_id', data.locality_id.value);
       formData.append('study_level_status_id', data.study_level_status_id.value);
       formData.append('activities_id', this.activities_id);
       formData.append('select_RH_id', this.form.value.select_RH_id);
@@ -602,7 +600,7 @@ export class FormUsersComponent implements OnInit {
         formData.append('assistance_id', this.data == null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
         formData.append('contract_type_id', data.contract_type_id.value);
-        formData.append('cost_center_id', data.cost_center_id.value);
+        // formData.append('cost_center_id', data.cost_center_id.value);
         // formData.append('type_professional_id', data.type_professional_id.value);
         formData.append('attends_external_consultation', data.attends_external_consultation.value === true ? '1' : '0');
         formData.append('serve_multiple_patients', data.serve_multiple_patients.value === true ? '1' : '0');
@@ -725,6 +723,8 @@ export class FormUsersComponent implements OnInit {
       this.form.patchValue({
         residence_region_id: '',
         residence_municipality_id: '',
+        locality_id: '',
+        neighborhood_or_residence_id: '',
       });
     });
 
@@ -736,17 +736,39 @@ export class FormUsersComponent implements OnInit {
       }
       this.form.patchValue({
         residence_municipality_id: '',
+        locality_id: '',
+        neighborhood_or_residence_id: '',
       });
     });
 
     this.form.get('residence_municipality_id').valueChanges.subscribe(val => {
       if (val === '') {
         this.neighborhood_or_residence = [];
+        this.localities = [];
+      } else if(val == 11001) { 
+        this.neighborhood_or_residence = [];
+        this.GetLocality(val).then();
       } else {
         this.GetNeighborhoodResidence(val).then();
       }
+      this.form.patchValue({
+        locality_id: '',
+        neighborhood_or_residence_id: '',
+      });
     });
 
+    this.form.get('locality_id').valueChanges.subscribe(val => {
+      if (val === '') {
+        this.neighborhood_or_residence = [];
+      } else {
+        this.GetNeighborhoodResidence(null,val).then();
+      }
+      this.form.patchValue({
+        neighborhood_or_residence_id: '',
+      });
+    });
+
+    this.form.get('ne')
 
     this.form.get('is_disability').valueChanges.subscribe(val => {
       if (val) {
@@ -794,14 +816,28 @@ export class FormUsersComponent implements OnInit {
     });
   }
 
-  GetNeighborhoodResidence(municipality_id) {
+  GetLocality(municipality_id) {
     if (!municipality_id || municipality_id === '') return Promise.resolve(false);
-    return this.locationBS.GetNeighborhoodResidenceByMunicipality(municipality_id).then(x => {
-      this.neighborhood_or_residence = x;
-
-
+    return this.locationBS.GetLocalityByMunicipality(municipality_id).then(x => {
+      this.localities = x;
       return Promise.resolve(true);
     });
+  }
+  
+  GetNeighborhoodResidence(municipality_id? , locality_id?) {
+    if(municipality_id){
+      if (!municipality_id || municipality_id === '') return Promise.resolve(false);
+      return this.locationBS.GetNeighborhoodResidenceByMunicipality(municipality_id).then(x => {
+        this.neighborhood_or_residence = x;
+        return Promise.resolve(true);
+      });
+    } else if(locality_id){
+      if (!locality_id || locality_id === '') return Promise.resolve(false);
+      return this.locationBS.GetNeighborhoodResidenceByLocality(locality_id).then(x => {
+        this.neighborhood_or_residence = x;
+        return Promise.resolve(true);
+      });
+    }
   }
 
   ShowDialogSpecialities() {
