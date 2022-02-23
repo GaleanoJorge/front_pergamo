@@ -161,8 +161,10 @@
                 <label for="residence_address" class="form-text text-muted font-weight-bold">Tipo de Via</label>
                 <nb-select id="residence_address" formControlName="residence_address" residence_address fullWidth
                   title="Tipo de Via (Ej.Calle)"
+                  status="{{ isSubmitted && form.controls.residence_address.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+
                   >
-                  <nb-option value="">Tipo de Via (Ej.Calle)</nb-option>
+                  <nb-option value="">Seleccione...</nb-option>
                   <nb-option value="Avenida">Avenida</nb-option>
                   <nb-option value="Av.Calle">Avenida Calle </nb-option>
                   <nb-option value="Av.Carrera">Avenida Carrera</nb-option>
@@ -210,6 +212,7 @@
                 <label for="residence_address" class="form-text text-muted font-weight-bold">Puntos Cardinales</label>
                 <nb-select id="residence_address_cardinality" formControlName="residence_address_cardinality"
                   residence_address_cardinality fullWidth title="Seleccione..."
+                  status="{{ isSubmitted && form.controls.residence_address_cardinality.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                   >
                   <!-- status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" -->
                   <nb-option value=" ">Seleccione...</nb-option>
@@ -233,7 +236,7 @@
                   placeholder="Ej: Torre 4 Apto 302" />
               </div>
             </div>
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
               <div class="form-group">
                 <label for="affiliate_type_id" class="form-text text-muted font-weight-bold">
                   Tipo de afiliación:
@@ -244,8 +247,8 @@
                   <nb-option *ngFor="let item of affiliate_type" [value]="item.id">{{ item.name }}</nb-option>
                 </nb-select>
               </div>
-            </div>
-            <div class="col-md-4">
+            </div> -->
+            <!-- <div class="col-md-4">
               <div class="form-group">
                 <label for="special_attention_id" class="form-text text-muted font-weight-bold">
                   Tipo de atención:
@@ -256,7 +259,7 @@
                   <nb-option *ngFor="let item of special_attention" [value]="item.id">{{ item.name }}</nb-option>
                 </nb-select>
               </div>
-            </div>
+            </div> -->
             <div class="col-md-4">
               <div class="form-group">
                 <label for="relationship_id" class="form-text text-muted font-weight-bold">
