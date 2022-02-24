@@ -36,6 +36,11 @@ const routes: Routes = [{
       data: { permission: 'gloss.read' }
     },
     {
+      path: 'diets',
+      loadChildren: () => import('./diets/diets.module')
+        .then(m => m.DietsModule),
+    },
+    {
       path: 'setting',
       loadChildren: () => import('./setting/setting.module')
         .then(m => m.SettingModule),

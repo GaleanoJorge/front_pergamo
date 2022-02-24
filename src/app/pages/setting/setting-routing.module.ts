@@ -103,6 +103,18 @@ import { InabilityComponent } from './inability/inability.component';
 import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
 import { PolicyTypeComponent } from './policy-type/policy-type.component';
 import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
+import { DietConsistencyComponent } from './diet-consistency/diet-consistency.component';
+import { DietComponentComponent } from './diet-componet/diet-componet.component';
+import { DietDayComponent } from './diet-day/diet-day.component';
+import { DietWeekComponent } from './diet-week/diet-week.component';
+import { DietDishComponent } from './diet-dish/diet-dish.component';
+import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component';
+import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
+import { DietTherapeuticComponent } from './diet-therapeutic/diet-therapeutic.component';
+import { DietStockComponent } from './diet-stock/diet-stock.component';
+import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
+import { DietSuppliesInputComponent } from './diet-supplies-input/diet-supplies-input.component';
+import { DietMenuComponent } from './diet-menu/diet-menu.component';
 
 const routes: Routes = [{
   path: '',
@@ -111,57 +123,122 @@ const routes: Routes = [{
     {
       path: 'coverage',
       component: CoverageComponent,
-      
+
     },
     {
       path: 'firms',
       component: FirmsComponent,
-      
+
     },
     {
       path: 'objetion-type',
       component: ObjetionTypeComponent,
-      
+
     },
     {
       path: 'objetion-response',
       component: ObjetionResponseComponent,
-      
+
     },
     {
       path: 'objetion-code-response',
       component: ObjetionCodeResponseComponent,
-      
+
     },
     {
       path: 'inability',
       component: InabilityComponent,
-      
+
+    },
+    {
+      path: 'diet-componet',
+      component: DietComponentComponent,
+
+    },
+    {
+      path: 'diet-consistency',
+      component: DietConsistencyComponent,
+
+    },
+    {
+      path: 'diet-day',
+      component: DietDayComponent,
+
+    },
+    {
+      path: 'diet-day',
+      component: DietDayComponent,
+
+    },
+    {
+      path: 'diet-dish',
+      component: DietDishComponent,
+
+    },
+    {
+      path: 'diet-menu-type',
+      component: DietMenuTypeComponent,
+
+    },
+    {
+      path: 'diet-stock',
+      component: DietStockComponent,
+
+    },
+    {
+      path: 'diet-supplies',
+      component: DietSuppliesComponent,
+
+    },
+    {
+      path: 'diet-supplies-input',
+      component: DietSuppliesInputComponent,
+
+    },
+    {
+      path: 'diet-supply-type',
+      component: DietSupplyTypeComponent,
+
+    },
+    {
+      path: 'diet-therapeutic',
+      component: DietTherapeuticComponent,
+
+    },
+    {
+      path: 'diet-week',
+      component: DietWeekComponent,
+
+    },
+    {
+      path: 'diet-menu',
+      component: DietMenuComponent,
+
     },
     {
       path: 'gloss-modality',
       component: GlossModalityComponent,
-      
+
     },
     {
       path: 'gloss-ambit',
       component: GlossAmbitComponent,
-      
+
     },
     {
       path: 'contract-type',
       component: ContractTypeComponent,
-      
+
     },
     {
       path: 'type-professional',
       component: TypeProfessionalComponent,
-      
+
     },
     {
       path: 'observation-novelty',
       component: ObservationNoveltyComponent,
-      
+
     },
     {
       path: 'policy-type',
@@ -171,182 +248,182 @@ const routes: Routes = [{
     {
       path: 'special-field',
       component: SpecialFieldComponent,
-      
+
     },
     {
       path: 'cost-center',
       component: CostCenterComponent,
-      data: {Permission: 'roles.read'},
+      data: { Permission: 'roles.read' },
     },
     {
       path: 'gloss-service',
       component: GlossServiceComponent,
-      
+
     },
     {
       path: 'received-by',
       component: ReceivedByComponent,
-      
+
     },
     {
       path: 'repeated-initial',
       component: RepeatedInitialComponent,
-      
+
     },
     {
       path: 'contract-status',
       component: ContractStatusComponent,
-      
+
     },
     {
       path: 'objetion-code',
       component: ObjetionCodeComponent,
-      
+
     },
     {
       path: 'insurance-carrier',
       component: InsuranceCarrierComponent,
-      
+
     },
     {
       path: 'modality',
       component: ModalityComponent,
-      
+
     },
     {
       path: 'special-attention',
       component: SpecialAttentionComponent,
-      
+
     },
     {
       path: 'scope-of-attention',
       component: ScopeOfAttentionComponent,
-      
+
     },
     {
       path: 'program',
       component: ProgramComponent,
-      
+
     },
     {
       path: 'pavilion',
       component: PavilionComponent,
-      
+
     },
     {
       path: 'flat',
       component: FlatComponent,
-      
+
     },
     {
       path: 'bed',
       component: BedComponent,
-      
+
     },
     {
       path: 'diagnosis',
       component: DiagnosisComponent,
-      
+
     },
     {
       path: 'affiliate-type',
       component: AffiliateTypeComponent,
-      
+
     },
     {
       path: 'admission-route',
       component: AdmissionRouteComponent,
-      
+
     },
     {
       path: 'type-briefcase',
       component: TypeBriefcaseComponent,
-      
+
     },
     {
       path: 'type-contract',
       component: TypeContractComponent,
-      
+
     },
     {
       path: 'administration-route',
       component: AdministrationRouteComponent,
-      
+
     },
     {
       path: 'type-assets',
       component: TypeAssetsComponent,
-      
+
     },
     {
       path: 'fixed-assets',
       component: FixedAssetsComponent,
-      
+
     },
     {
       path: 'measurement-units',
       component: MeasurementUnitsComponent,
-      
+
     },
     {
       path: 'product-concentration',
       component: ProductConcentrationComponent,
-      
+
     },
     {
       path: 'consumption-unit',
       component: ConsumptionUnitComponent,
-      
+
     },
     {
       path: 'product-presentation',
       component: ProductPresentationComponent,
-      
+
     },
     {
       path: 'product-group',
       component: ProductGroupComponent,
-      
+
     },
     {
       path: 'product',
       component: ProductComponent,
-      
+
     },
     {
       path: 'invima-status',
       component: InvimaStatusComponent,
-      
+
     },
     {
       path: 'storage-conditions',
       component: StorageConditionsComponent,
-      
+
     },
     {
       path: 'risk',
       component: RiskComponent,
-      
+
     },
     {
       path: 'product-category',
       component: ProductCategoryComponent,
-      
+
     },
     {
       path: 'product-subcategory',
       component: ProductSubcategoryComponent,
-      
+
     },
     {
       path: 'product-generic',
       component: ProductGenericComponent,
-      
+
     },
     {
       path: 'users',
       component: UsersComponent,
-      
+
     },
     {
       path: 'users/create/:id',
@@ -360,7 +437,7 @@ const routes: Routes = [{
       path: 'roles',
       component: RolesComponent,
       canActivate: [PermissionsGuard],
-      
+
     },
     {
       path: 'permissions',
@@ -381,7 +458,7 @@ const routes: Routes = [{
     {
       path: 'campus',
       component: CampusComponent,
-      
+
     },
     {
       path: 'procedure-massive/:id',
@@ -402,157 +479,157 @@ const routes: Routes = [{
     {
       path: 'procedure-age',
       component: ProcedureAgeComponent,
-      
+
     },
     {
       path: 'factory',
       component: FactoryComponent,
-      
+
     },
     {
       path: 'taxes',
       component: TaxesComponent,
-      
+
     },
     {
       path: 'ciiu-group',
       component: CiiuGroupComponent,
-      
+
     },
     {
       path: 'ciiu-division',
       component: CiiuDivisionComponent,
-      
+
     },
     {
       path: 'ciiu-class',
       component: CiiuClassComponent,
-      
+
     },
     {
       path: 'procedure-category',
       component: ProcedureCategoryComponent,
-      
+
     },
     {
       path: 'rips-typefile',
       component: RipsTypeFileComponent,
-      
+
     },
     {
       path: 'rips-type',
       component: RipsTypeComponent,
-      
+
     },
     {
       path: 'pbs-type',
       component: PbsTypeComponent,
-      
+
     },
     {
       path: 'purpose-service',
       component: PurposeServiceComponent,
-      
+
     },
     {
       path: 'procedure-type',
       component: ProcedureTypeComponent,
-      
+
     },
     {
       path: 'company-kindperson',
       component: CompanyKindpersonComponent,
-      
+
     },
     {
       path: 'company-category',
       component: CompanyCategoryComponent,
-      
+
     },
     {
       path: 'company-mail/:id',
       component: CompanyMailComponent,
-      
+
     },
     {
       path: 'company-document',
       component: CompanyDocumentComponent,
-      
+
     },
     {
       path: 'document-account',
       component: DocumentAccountComponent,
-      
+
     },
     {
       path: 'document',
       component: DocumentComponent,
-      
+
     },
     {
       path: 'iva',
       component: IvaComponent,
-      
+
     },
     {
       path: 'retiner',
       component: RetinerComponent,
-      
+
     },
     {
       path: 'company-ciiu',
       component: CompanyCiiuComponent,
-      
+
     },
     {
       path: 'company-fiscal',
       component: CompanyFiscalComponent,
-      
+
     },
     {
       path: 'manual',
       component: ManualComponent,
-      
+
     },
     {
       path: 'payment-terms',
       component: PaymentTermsComponent,
-      
+
     },
     {
       path: 'company',
       component: CompanyComponent,
-      
+
     },
     {
       path: 'company-taxes',
       component: CompanyTaxesComponent,
-      
+
     },
     {
       path: 'company-type',
       component: CompanyTypeComponent,
-      
+
     },
     {
       path: 'procedure',
       component: ProcedureComponent,
-      
+
     },
     {
       path: 'procedure-purpose',
       component: ProcedurePurposeComponent,
-      
+
     },
     {
       path: 'fiscal-clasification',
       component: FiscalClasificationComponent,
-      
+
     },
     {
       path: 'fiscal-characteristic',
       component: FiscalCharacteristicComponent,
-      
+
     },
     {
       path: 'sectional-council',
