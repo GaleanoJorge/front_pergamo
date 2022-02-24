@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-12">
           <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="code" formControlName="code" code
+          <input oninput="this.value = this.value" nbInput fullWidth id="code" formControlName="code" code
             status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
