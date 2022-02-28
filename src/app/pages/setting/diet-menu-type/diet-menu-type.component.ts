@@ -18,7 +18,7 @@ export class DietMenuTypeComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'TIPOS DE MENÚ';
   public subtitle: string = 'TIPOS DE MENÚ';
-  public headerFields: any[] = ['ID', 'Nombre','Estado'];
+  public headerFields: any[] = ['ID', 'NOMBRE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -51,13 +51,6 @@ export class DietMenuTypeComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      status: {
-        title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-            return value.name;
-        },
-    },
     },
   };
 
