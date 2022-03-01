@@ -115,7 +115,6 @@ export class FormUsersComponent implements OnInit {
   public referencia;
   public residence;
   public age: any = null;
-  // public mesagge="Av.Calle 68 b # 186 c - 18a, Norte  ( apt 203 familia corredor, panaderia azul )";
 
   public street: any = null;
   public num1: any = null;
@@ -484,7 +483,6 @@ export class FormUsersComponent implements OnInit {
     // console.log(this.form.controls.PAD_service.value);
     if(this.form.controls.PAD_service.value == true && this.form.controls.PAD_patient_quantity.value == false || this.form.controls.PAD_patient_quantity.value == null ) {
       this.form.controls.PAD_patient_quantity.setErrors({'incorrect': true});
-      // console.log('invalido hpta');
     }
   }
 
@@ -925,18 +923,22 @@ export class FormUsersComponent implements OnInit {
   ageCalculator(birthday: Date) {
     var today = new Date;
     var age = new Date(birthday)
-    this.age = today.getFullYear() - age.getFullYear();
+    var year = today.getFullYear() - age.getFullYear();
     var m = (today.getMonth() + 1) - (age.getMonth() + 1);
     var day = today.getDate() - (age.getDate() + 1);
     if (m < 0) {
-      this.age--;
+      year--; 
+      m = 12 + m;
     } else if (m == 0) {
-      this.age--;
+       year--;
       if (day > 0) {
-        this.age++;
+        year++;
+        m--;
+        day = 30 - m;
       } else if (day == 0) {
-        this.age++;
+        year++;
       }
     }
+    this.age = year + " años " + m + " meses y " + day + " dia(s) ";
   }
 }
