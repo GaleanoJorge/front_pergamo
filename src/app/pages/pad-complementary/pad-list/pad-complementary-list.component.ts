@@ -14,11 +14,11 @@ import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 
 @Component({
-  selector: 'ngx-pad-list',
-  templateUrl: './pad-list.component.html',
-  styleUrls: ['./pad-list.component.scss'],
+  selector: 'ngx-pad-complementary-list',
+  templateUrl: './pad-complementary-list.component.html',
+  styleUrls: ['./pad-complementary-list.component.scss'],
 })
-export class PadListComponent implements OnInit {
+export class PadComplementaryListComponent implements OnInit {
 
   public isSubmitted = false;
   public entity: string;
@@ -26,7 +26,7 @@ export class PadListComponent implements OnInit {
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Plan de atención domiciliaria';
+  public title: string = 'PLAN DE ATENCIÓN COMPLEMENTARIA';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email','Ciudad','Barrio','Dirección'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
@@ -107,8 +107,8 @@ residence_address: {
 
   public routes = [
     {
-      name: 'Pad',
-      route: '../list',
+      name: 'Plan complemantario',
+      route: './list',
     },
   ];
 
@@ -152,25 +152,6 @@ residence_address: {
       this.entity = "gloss/?pagination=true";
     }
 
-
-    this.form = this.formBuilder.group({
-      file: [Validators.compose([Validators.required])],
-    });
-
-    this.ResponseGlossForm = this.formBuilder.group({
-      response: ['', Validators.compose([Validators.required])],
-      accepted_value: ['', Validators.compose([Validators.required])],
-      value_not_accepted: ['', Validators.compose([Validators.required])],
-      objetion_code_response_id: ['', Validators.compose([Validators.required])],
-      justification_status: ['', Validators.compose([Validators.required])],
-      objetion_response_id: ['', Validators.compose([Validators.required])],
-      file: [Validators.compose([Validators.required])],
-    });
-
-    this.RadicationGlossForm = this.formBuilder.group({
-      observation: ['', Validators.compose([Validators.required])],
-      file: ['', Validators.compose([Validators.required])],
-    });
 
   }
 

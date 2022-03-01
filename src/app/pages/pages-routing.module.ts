@@ -56,6 +56,20 @@ const routes: Routes = [{
       path: 'personal-information',
       component: PersonalInformationComponent,
     },
+    // {
+    //   path: 'mipres',
+    //   loadChildren: () => import('./mipres/mipres.module')
+    //     .then(m => m.MipresModule),
+    //     canActivate: [PermissionsGuard],
+    //   data: { permission: 'mipres.read' }
+    // },
+    {
+      path: 'pad-complementary',
+      loadChildren: () => import('./pad-complementary/pad-complementary.module')
+        .then(m => m.PadComplementaryModule),
+        canActivate: [PermissionsGuard],
+      data: { permission: 'gloss.read' }
+    },
     {
       path: '',
       redirectTo: 'dashboard',
