@@ -10,6 +10,9 @@
                     customData="manual_price">
       <div actions>
         <div class="actions">
+          <div class="file-select" id="src-file1" [nbSpinner]="loading2">
+            <input class="file" accept=".xlsx" type="file" id="file" file fullWidth (change)="saveFile($event)" />
+          </div>
           <a style="margin-right: 5px;" nbButton routerLink="/pages/setting/manual">Volver</a>
           <button nbButton status="danger" style="margin-left: 5px;" (click)="NewProcedure()">Asociar Procedimiento</button>
         </div>
