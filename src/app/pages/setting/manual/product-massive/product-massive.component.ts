@@ -30,6 +30,7 @@ export class ProductMassiveComponent implements OnInit {
   public title ;
   public subtitle = '';
   public headerFields: any[] =  ['id','Producto generico','Valor','Tipo de valor'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}`;
   public routes = [];
   public row;
   public course;
