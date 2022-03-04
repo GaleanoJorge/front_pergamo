@@ -63,6 +63,22 @@ export class ManualService {
       });
   }
 
+  Clone(manual: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('manual_clone', manual.id);
+    servObj.data = manual;
+    return this.webAPI.PutAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('manual', id);
     return this.webAPI.DeleteAction(servObj)
