@@ -74,6 +74,7 @@ export class ProcedureMassiveComponent implements OnInit {
           return {
             'package': this.ProcedurePackage,
             'data': row,
+            'edit': this.EditManualPrice.bind(this),
             'delete': this.DeleteConfirmManualPrice.bind(this),
           };
 
@@ -212,6 +213,17 @@ export class ProcedureMassiveComponent implements OnInit {
       context: {
         title: 'Crear procedimiento o servicios que se van a prestar',
         manual_id: this.manual_id,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
+  EditManualPrice(data) {
+    this.dialogFormService.open(FormManualProcedureComponent, {
+      context: {
+        title: 'Editar Medicamentos o insumos',
+        data: data,
+        manual_id:this.manual_id,
         saved: this.RefreshData.bind(this),
       },
     });

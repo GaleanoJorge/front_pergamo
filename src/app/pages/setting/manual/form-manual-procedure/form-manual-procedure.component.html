@@ -50,7 +50,7 @@
           </div>
     </div>
     <div *ngIf="showTable" style="margin-top: 10px;">
-      <ngx-procedure-package (messageEvent)="receiveMessage($event)"></ngx-procedure-package>
+      <ngx-procedure-package (messageEvent)="receiveMessage($event)" [parentData]="manual_procedure_type"></ngx-procedure-package>
     </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">

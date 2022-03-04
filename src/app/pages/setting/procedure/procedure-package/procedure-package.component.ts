@@ -20,6 +20,7 @@ export class ProcedurePackageComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() parentData: any = [];
   public messageError = null;
 
 
@@ -45,6 +46,7 @@ export class ProcedurePackageComponent implements OnInit {
   public procedure_package_id: number;
   public filter: any[] = [];
   public filter2;
+  public done = false;
 
 
 
@@ -93,6 +95,7 @@ export class ProcedurePackageComponent implements OnInit {
 
   ngOnInit(): void {
     this.procedure_package_id = this.route.snapshot.params.id;
+    this.selectedOptions = this.parentData;
 
     /*this.procedurePackageS.GetByPackage(this.procedure_package_id).then(x => {
       this.package=x;
@@ -244,33 +247,33 @@ export class ProcedurePackageComponent implements OnInit {
         this.selectedOptions.splice( i, 1 );
       }
     }*/
-  saveGroup() {
-    var contador = 0;
-    var err = 0;
-    if (!this.selectedOptions.length) {
-      this.toastS.danger(null, 'Debe seleccionar al menos un Procedimiento');
-    }
-    else {
-      var dta = {
-        procedure_package_id: null,
-        procedure_id: null,
-      };
-      this.selectedOptions.forEach(element => {
-        dta.procedure_package_id = this.procedure_package_id;
-        dta.procedure_id = element.id;
-        this.procedurePackageS.Save(dta).then(x => {
-        }).catch(x => {
-          err++;
-        });
-        contador++;
-      });
-      if (contador > 0) {
-        this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
-      } else if (err > 0) {
-        this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
-      }
-      this.RefreshData();
-      this.selectedOptions = [];
-    }
-  }
+  // saveGroup() {
+  //   var contador = 0;
+  //   var err = 0;
+  //   if (!this.selectedOptions.length) {
+  //     this.toastS.danger(null, 'Debe seleccionar al menos un Procedimiento');
+  //   }
+  //   else {
+  //     var dta = {
+  //       procedure_package_id: null,
+  //       procedure_id: null,
+  //     };
+  //     this.selectedOptions.forEach(element => {
+  //       dta.procedure_package_id = this.procedure_package_id;
+  //       dta.procedure_id = element.id;
+  //       this.procedurePackageS.Save(dta).then(x => {
+  //       }).catch(x => {
+  //         err++;
+  //       });
+  //       contador++;
+  //     });
+  //     if (contador > 0) {
+  //       this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
+  //     } else if (err > 0) {
+  //       this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
+  //     }
+  //     this.RefreshData();
+  //     this.selectedOptions = [];
+  //   }
+  // }
 }
