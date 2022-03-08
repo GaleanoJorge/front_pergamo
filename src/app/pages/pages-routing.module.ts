@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
 import { PermissionsGuard } from '../guards/permissions.guard';
-import {ChangePasswordGuard} from '../guards/change-password.guard';
+import { ChangePasswordGuard } from '../guards/change-password.guard';
 
 const routes: Routes = [{
   path: '',
@@ -32,15 +32,20 @@ const routes: Routes = [{
       path: 'gloss',
       loadChildren: () => import('./gloss/gloss.module')
         .then(m => m.GlossModule),
-        canActivate: [PermissionsGuard],
+      canActivate: [PermissionsGuard],
       data: { permission: 'gloss.read' }
     },
     {
       path: 'pad',
       loadChildren: () => import('./pad/pad.module')
         .then(m => m.PadModule),
-        canActivate: [PermissionsGuard],
+      canActivate: [PermissionsGuard],
       data: { permission: 'gloss.read' }
+    },
+    {
+      path: 'diets',
+      loadChildren: () => import('./diets/diets.module')
+        .then(m => m.DietsModule),
     },
     {
       path: 'setting',
