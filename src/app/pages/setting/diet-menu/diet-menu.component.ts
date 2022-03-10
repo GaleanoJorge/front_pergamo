@@ -25,7 +25,7 @@ export class DietMenuComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'MENÚS DE DIETAS';
   public subtitle: string = 'MENÚS';
-  public headerFields: any[] = ['NOMBRE', 'DITA TERAPEUTICA', 'TIPO MENÚ', 'SEMANA', 'DÍA'];
+  public headerFields: any[] = ['NOMBRE', 'CONSISTENCIA', 'COMPONENTE', 'TIPO MENÚ', 'SEMANA', 'DÍA'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -59,22 +59,29 @@ export class DietMenuComponent implements OnInit {
           return value.name;
         },
       },
-      diet_menu_type: {
+      diet_component: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      diet_week: {
+      diet_menu_type: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      diet_day: {
+      diet_week: {
         title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      diet_day: {
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;

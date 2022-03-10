@@ -111,11 +111,11 @@ import { DietWeekComponent } from './diet-week/diet-week.component';
 import { DietDishComponent } from './diet-dish/diet-dish.component';
 import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component';
 import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
-import { DietTherapeuticComponent } from './diet-therapeutic/diet-therapeutic.component';
 import { DietStockComponent } from './diet-stock/diet-stock.component';
 import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
 import { DietSuppliesInputComponent } from './diet-supplies-input/diet-supplies-input.component';
 import { DietMenuComponent } from './diet-menu/diet-menu.component';
+import { DietSuppliesOutputComponent } from './diet-supplies-output/diet-supplies-output.component';
 
 const routes: Routes = [{
   path: '',
@@ -202,8 +202,8 @@ const routes: Routes = [{
 
     },
     {
-      path: 'diet-therapeutic',
-      component: DietTherapeuticComponent,
+      path: 'diet-supplies-output',
+      component: DietSuppliesOutputComponent,
 
     },
     {

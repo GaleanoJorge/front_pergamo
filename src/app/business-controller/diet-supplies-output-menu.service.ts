@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { DietTherapeuticComponent } from '../models/diet-therapeutic-component';
+import { DietSuppliesOutputMenu } from '../models/diet-supplies-output-menu';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DietTherapeuticComponentService {
-  public diet_therapeutic_component: DietTherapeuticComponent[] = [];
+export class DietSuppliesOutputMenuService {
+  public diet_supplies_output_menu: DietSuppliesOutputMenu[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<DietTherapeuticComponent[]> {
-    let servObj = new ServiceObject(params ? 'diet_therapeutic_component?pagination=false' : 'diet_therapeutic_component');
+  GetCollection(params = {}): Promise<DietSuppliesOutputMenu[]> {
+    let servObj = new ServiceObject(params ? 'diet_supplies_output_menu?pagination=false' : 'diet_supplies_output_menu');
 
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
@@ -22,18 +22,18 @@ export class DietTherapeuticComponentService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.diet_therapeutic_component = <DietTherapeuticComponent[]>servObj.data.diet_therapeutic_component;
+        this.diet_supplies_output_menu = <DietSuppliesOutputMenu[]>servObj.data.diet_supplies_output_menu;
 
-        return Promise.resolve(this.diet_therapeutic_component);
+        return Promise.resolve(this.diet_supplies_output_menu);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(diet_therapeutic_component: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('diet_therapeutic_component');
-    servObj.data = diet_therapeutic_component;
+  Save(diet_supplies_output_menu: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('diet_supplies_output_menu');
+    servObj.data = diet_supplies_output_menu;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class DietTherapeuticComponentService {
       });
   }
 
-  Update(diet_therapeutic_component: any, id=null): Promise<ServiceObject> {
-    let servObj = new ServiceObject('diet_therapeutic_component', diet_therapeutic_component.id? diet_therapeutic_component.id : id);
-    servObj.data = diet_therapeutic_component;
+  Update(diet_supplies_output_menu: any, id=null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('diet_supplies_output_menu', diet_supplies_output_menu.id? diet_supplies_output_menu.id : id);
+    servObj.data = diet_supplies_output_menu;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +64,7 @@ export class DietTherapeuticComponentService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('diet_therapeutic_component', id);
+    let servObj = new ServiceObject('diet_supplies_output_menu', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

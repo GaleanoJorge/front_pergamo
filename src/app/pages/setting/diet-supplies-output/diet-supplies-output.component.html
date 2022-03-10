@@ -5,13 +5,13 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    entity="diet_therapeutic/?pagination=true"
-                    customData='diet_therapeutic'
+                    entity="diet_supplies_output/?pagination=true"
+                    customData='diet_supplies_output'
                     [messageToltip]="messageToltip"
                     >
       <div actions>
         <div class="actions">
-          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewDietTherapeutic()">Crear</button>
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewDietSuppliesOutput()">Crear</button>
         </div>
       </div>
     </ngx-base-table>

@@ -4,11 +4,11 @@ import {ViewCell} from 'ng2-smart-table';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-        <nb-checkbox [checked]="value.valid" (checkedChange)="value.selection($event, value.data)" ></nb-checkbox>
+        <nb-checkbox [checked]="value.valid" (checkedChange)="value.selection($event, value.data)" *ngIf="!value.show" disabled="value.show"></nb-checkbox>
     </div>
   `,
 })
-export class SelectComponentComponent implements ViewCell {
+export class SelectDietSuppliesOutputComponent implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
 }

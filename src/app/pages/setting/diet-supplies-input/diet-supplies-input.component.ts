@@ -20,7 +20,7 @@ export class DietSuppliesInputComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'ENTRADAS DE INSUMOS';
   public subtitle: string = 'ENTRADAS';
-  public headerFields: any[] = ['ID', 'INSUMO', 'CANTIDAD', 'PRECIO', 'PROVEEDOR', 'SEDE', 'NÚMERO FACTURA'];
+  public headerFields: any[] = ['ID', 'INSUMO', 'CANTIDAD', 'PRECIO', 'PROVEEDOR', 'SEDE', 'FECHA', 'NÚMERO FACTURA'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -84,8 +84,12 @@ export class DietSuppliesInputComponent implements OnInit {
         title: this.headerFields[5],
         type: 'string',
       },
-      invoice_number: {
+      updated_at: {
         title: this.headerFields[6],
+        type: 'string',
+      },
+      invoice_number: {
+        title: this.headerFields[7],
         type: 'string',
       },
     },

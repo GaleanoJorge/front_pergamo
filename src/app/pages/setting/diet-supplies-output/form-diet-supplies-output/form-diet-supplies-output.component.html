@@ -1,0 +1,35 @@
+<form  (ngSubmit)="save()">
+  <nb-card size="margin: 10px;max-width: 1400px;max-height: 400px;overflow: auto;" style="max-width: 600px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <!-- <div class="col-md-12">
+          <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div> -->
+
+        <!-- <div class="col-md-12">
+          <label for="diet_week" class="form-text text-muted font-weight-bold">SEMANA DE DIETA:</label>
+          <nb-select [selected]="this.data.diet_week_id" formControlName="diet_week_id"
+            id="diet_week_id" fullWidth
+            status="{{ isSubmitted && form.controls.diet_week_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.diet_week_id }}" *ngFor="let item of diet_week"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div> -->
+        <div style="margin-top: 10px;">
+          <ngx-diet-supplies-output-package (messageEvent)="receiveMessage($event)" [show]="showMenus" [parentData]="diet_supplies_output_menu"></ngx-diet-supplies-output-package>
+        </div>
+      </div>
+
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
