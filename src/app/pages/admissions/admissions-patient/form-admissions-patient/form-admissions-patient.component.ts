@@ -11,6 +11,7 @@ import { FlatService } from '../../../../business-controller/flat.service';
 import { BedService } from '../../../../business-controller/bed.service';
 import { ContractService } from '../../../../business-controller/contract.service';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
+import { BriefcaseService } from '../../../../business-controller/briefcase.service';
 
 
 
@@ -30,7 +31,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   // public status: Status[];
   public isSubmitted: boolean = false;
   public saved: any = null;
-  public loading: boolean = false;
+  public loading: boolean = true;
   public coverage: any[];
   public admission_route: any[];
   public scope_of_attention: any[];
@@ -40,14 +41,15 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public bed: any[];
   public contract: any[];
   public diagnosis: any[] = [];
+  public briefcase: any[] = [];
   public campus_id;
   public ambit;
-  public show_diagnostic: boolean= false;
-  public show_inputs: boolean= false;
+  public show_diagnostic: boolean = false;
+  public show_inputs: boolean = false;
   public diagnosis_id;
   public showTable;
   public admission_id: number = 0;
-  public saveFromAdmission: any = 0;
+  public saveFromAdmission = null;
 
 
   constructor(
@@ -64,10 +66,11 @@ export class FormAdmissionsPatientComponent implements OnInit {
     private DiagnosisS: DiagnosisService,
     private ContractS: ContractService,
     private toastService: NbToastrService,
+    private BriefcaseS: BriefcaseService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     if (!this.data) {
       this.data = {
         admission_route_id: '',
@@ -77,23 +80,12 @@ export class FormAdmissionsPatientComponent implements OnInit {
         pavilion_id: '',
         bed_id: '',
         contract_id: '',
+        briefcase_id: '',
         has_caregiver: false,
       };
     }
 
-    this.campus_id = localStorage.getItem('campus');
-    this.AdmissionRouteS.GetCollection().then(x => {
-      this.admission_route = x;
-    });
-    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
-      this.flat = x;
-    });
-    this.ContractS.GetCollection().then(x => {
-      this.contract = x;
-    });
-    this.DiagnosisS.GetCollection().then(x => {
-      this.diagnosis = x;
-    });
+
 
 
 
@@ -107,7 +99,23 @@ export class FormAdmissionsPatientComponent implements OnInit {
       pavilion_id: [this.data.pavilion_id,],
       bed_id: [this.data.bed_id,],
       contract_id: [this.data.contract_id, Validators.compose([Validators.required])],
+      briefcase_id: [this.data.contract_id, Validators.compose([Validators.required])],
       has_caregiver: [this.data.has_caregiver, Validators.compose([Validators.required])],
+    });
+
+    this.campus_id = localStorage.getItem('campus');
+    this.AdmissionRouteS.GetCollection().then(x => {
+      this.admission_route = x;
+    });
+    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
+      this.flat = x;
+    });
+    this.ContractS.GetCollection().then(x => {
+      this.contract = x;
+    });
+    await this.DiagnosisS.GetCollection().then(x => {
+      this.diagnosis = x;
+      this.loading = false;
     });
 
     this.onChanges();
@@ -120,8 +128,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
   async save() {
 
     this.isSubmitted = true;
-
-    if (!this.form.invalid) {
+    this.showTable = false;
+    if (!this.form.invalid && this.saveFromAdmission) {
       this.loading = true;
 
       if (this.data.id) {
@@ -153,6 +161,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         });
       } else {
         await this.AdmissionsS.Save({
+          briefcase_id: this.form.controls.briefcase_id.value,
           diagnosis_id: this.diagnosis_id,
           admission_route_id: this.form.controls.admission_route_id.value,
           scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
@@ -163,7 +172,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
           contract_id: this.form.controls.contract_id.value,
           campus_id: this.campus_id,
           user_id: this.user_id,
-          saveFromAdmission: Number(this.saveFromAdmission),
         }).then(x => {
           this.toastService.success('', x.message);
           this.admission_id = x.data.admissions ? x.data.admissions.id : 0;
@@ -171,19 +179,22 @@ export class FormAdmissionsPatientComponent implements OnInit {
             this.close();
           } else {
             this.showTable = true
+            this.isSubmitted = true;
+            this.loading = false;
           }
           if (this.saved) {
             this.saved();
           }
         }).catch(x => {
-          if (this.form.controls.has_caregiver.value == true) {
-            this.isSubmitted = true;
-            this.loading = true;
-          } else {
-            this.isSubmitted = false;
-            this.loading = false;
-          }
-
+          // if (this.form.controls.has_caregiver.value == true) {
+          //   this.isSubmitted = true;
+          //   this.loading = true;
+          // } else {
+          //   this.isSubmitted = false;
+          //   this.loading = false;
+          // }
+          this.isSubmitted = true;
+          this.loading = false;
         });
         this.saveFromAdmission = 0;
       }
@@ -194,19 +205,27 @@ export class FormAdmissionsPatientComponent implements OnInit {
     // console.log(e);
     if (e == 1) {
       this.show_diagnostic = true;
-      this.show_inputs=true;
-    }else{
-      this.show_inputs=false;
+      this.show_inputs = true;
+    } else {
+      this.show_inputs = false;
       this.show_diagnostic = false;
     }
   }
 
-  showCaregiver() {
-    if (!this.form.invalid && this.form.controls.has_caregiver.value == true) {
+  showCaregiver(e?) {
+    var value;
+    if(e){
+      value = e.target.checked;
+    } else {
+      value = this.form.controls.has_caregiver.value
+    }
 
+    if (!this.form.invalid && value == true) {
+      this.toastService.warning('', "Recuerde que antes de agregar acompañantes y/o responsable debe guardar la información de admisión");
+      this.showTable = true;
       // this.save();
     } else if (!this.form.invalid && this.form.controls.has_caregiver.value != true) {
-      this.toastService.warning('', "Recuerde que antes de agregar acompañantes y/o responsable debe guardar la información de admisión");
+      this.showTable = false;
       this.form.patchValue({
         has_caregiver: false,
       });
@@ -215,6 +234,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
 
   onChanges() {
+
+
     this.form.get('admission_route_id').valueChanges.subscribe(val => {
       // console.log(val);
       if (val === '') {
@@ -259,6 +280,17 @@ export class FormAdmissionsPatientComponent implements OnInit {
       }
       this.form.patchValue({
         bed_id: '',
+      });
+    });
+
+    this.form.get('contract_id').valueChanges.subscribe(val => {
+      if (val === '') {
+        this.briefcase = [];
+      } else {
+        this.GetBriefcase(val).then();
+      }
+      this.form.patchValue({
+        briefcase_id: '',
       });
     });
   }
@@ -313,6 +345,15 @@ export class FormAdmissionsPatientComponent implements OnInit {
     if (!pavilion_id || pavilion_id === '') return Promise.resolve(false);
     return this.BedS.GetBedByPavilion(pavilion_id, ambit).then(x => {
       this.bed = x;
+
+      return Promise.resolve(true);
+    });
+  }
+
+  GetBriefcase(briefcase_id) {
+    if (!briefcase_id || briefcase_id === '') return Promise.resolve(false);
+    return this.BriefcaseS.GetBriefcaseByContract(briefcase_id).then(x => {
+      this.briefcase = x;
 
       return Promise.resolve(true);
     });

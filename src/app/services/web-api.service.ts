@@ -99,6 +99,18 @@ export class WebAPIService {
       });
   }
 
+  // async PutActionPAC(serviceObject: ServiceObject): Promise<ServiceObject> {
+  //   return this.httpClient
+  //     .put(`${this.endPoint}${serviceObject.entity}${(serviceObject.data.id_pac ? ('/' + serviceObject.id) : '')}${(serviceObject.data.id_reason ? ('/' + serviceObject.id) : '')}`, serviceObject.data)
+  //     .toPromise()
+  //     .then(x => {
+  //       return Promise.resolve(<ServiceObject>x);
+  //     })
+  //     .catch(x => {
+  //       throw x;
+  //     });
+  // }
+
   async PatchAction(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
       .patch(`${this.endPoint}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`, serviceObject.data)

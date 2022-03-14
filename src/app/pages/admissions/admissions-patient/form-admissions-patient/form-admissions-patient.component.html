@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card size="small" style="max-width: 1000px; height: auto;overflow: auto;">
+  <nb-card size="small" style="max-width: 1000px; height: auto;overflow: auto;" [nbSpinner]="loading">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
@@ -82,9 +82,19 @@
           </nb-select>
         </div>
         <div class="col-md-6">
+          <label for="Portafolios de atención" class="form-text text-muted font-weight-bold">Contrato:</label>
+          <nb-select [selected]="this.data.briefcase_id" formControlName="briefcase_id" id="briefcase_id" fullWidth
+            status="{{ isSubmitted && form.controls.briefcase_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.briefcase_id }}" *ngFor="let item of briefcase"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6">
           <label for="has_caregiver" class="form-text text-muted font-weight-bold">¿Tiene algún acompañante/responsable?
           </label>
-          <nb-toggle formControlName="has_caregiver" has_caregiver >
+          <nb-toggle formControlName="has_caregiver" has_caregiver (change)="showCaregiver($event)" >
           </nb-toggle>
         </div>
       </div>

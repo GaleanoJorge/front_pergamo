@@ -3,15 +3,17 @@ import { SectionalCouncilService } from '../../../business-controller/sectional-
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { Actions2Component } from './actions.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { FormPadComponent } from './form-pad/form-pad.component';
+import { FormPadComplementaryComponent } from './form-pad/form-pad-complementary.component';
 import * as XLSX from 'ts-xlsx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
+import { DiagnosisService } from '../../../business-controller/diagnosis.service';
+import { UserBusinessService } from '../../../business-controller/user-business.service';
 
 @Component({
   selector: 'ngx-pad-complementary-list',
@@ -19,16 +21,16 @@ import { date } from '@rxweb/reactive-form-validators';
   styleUrls: ['./pad-complementary-list.component.scss'],
 })
 export class PadComplementaryListComponent implements OnInit {
-
   public isSubmitted = false;
-  public entity: string;
+  public entity: string = "admission/byPAC/2";
   public loading: boolean = false;
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'PLAN DE ATENCIÓN COMPLEMENTARIA';
+  public title_D: string = 'DILIGENCIAMIENTO PLAN DE ATENCIÓN COMPLEMENTARIA';
+  public title_H: string = 'HISTORICO PLAN DE ATENCIÓN COMPLEMENTARIA';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email','Ciudad','Barrio','Dirección'];
+  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'ambito', 'Programa', 'Sede'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -38,13 +40,18 @@ export class PadComplementaryListComponent implements OnInit {
   public user;
   public dialog;
   public currentRole;
+  public ambit;
+
   public selectedOptions: any[] = [];
   public result: any = null;
+  public diagnosis: any[] = [];
+  public profesionals: any[] = [];
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
-  public settings = {
+
+  public settings_D = {
     pager: {
       display: true,
       perPage: 30,
@@ -57,8 +64,9 @@ export class PadComplementaryListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditGloss.bind(this),
-            'delete': this.DeleteConfirmGloss.bind(this),
+            'edit': this.EditPadComplementary.bind(this),
+            'delete': this.DeleteConfirmPadComplementary.bind(this),
+            'confirm': this.ConfirmAction.bind(this),
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
           };
@@ -69,46 +77,125 @@ export class PadComplementaryListComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction(value) {
-            return value?.name;
+          return value?.name;
         },
-    },
-    identification: {
+      },
+      identification: {
         title: this.headerFields[1],
         type: 'string',
-    },
-    nombre_completo: {
+      },
+      nombre_completo: {
         title: this.headerFields[2],
         type: 'string',
-    },
-    email: {
+      },
+      email: {
         title: this.headerFields[3],
         type: 'string',
-    },
-    residence_municipality: {
-      title: this.headerFields[4],
-      type: 'string',
-      valuePrepareFunction(value) {
-          return value?.name;
       },
-  },
-  residence: {
-    title: this.headerFields[5],
-    type: 'string',
-    valuePrepareFunction(value) {
-        return value?.name;
+      residence_municipality: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.name;
+        },
+      },
+      residence: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.name;
+        },
+      },
+      residence_address: {
+        title: this.headerFields[6],
+        type: 'string',
+      },
     },
-},
-residence_address: {
-  title: this.headerFields[6],
-  type: 'string',
-},
+  };
+
+  @ViewChild(BaseTableComponent) table2: BaseTableComponent;
+
+  public settings_H = {
+    pager: {
+      display: true,
+      perPage: 30,
+    },
+    columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'edit': this.EditPadComplementary.bind(this),
+            'delete': this.DeleteConfirmPadComplementary.bind(this),
+            'confirm': this.ConfirmAction.bind(this),
+            'refresh': this.RefreshData.bind(this),
+            'currentRole': this.currentRole,
+          };
+        },
+        renderComponent: Actions2Component,
+      },
+      consecutive: {
+        title: this.headerFields[7],
+        width: '5%',
+      },
+      identification_type: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.name;
+        },
+      },
+      identification: {
+        title: this.headerFields[1],
+        type: 'string',
+      },
+      nombre_completo: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
+      email: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      residence_municipality: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.name;
+        },
+      },
+      residence_address: {
+        title: this.headerFields[6],
+        type: 'string',
+      },
+      contract: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      entry_date: {
+        title: this.headerFields[9],
+        type: 'date',
+      },
+      discharge_date: {
+        title: this.headerFields[10],
+        type: 'date',
+        valuePrepareFunction: (value, row) => {
+          return value;
+        },
+      },
     },
   };
 
   public routes = [
     {
       name: 'Plan complemantario',
-      route: './list',
+      route: './',
     },
   ];
 
@@ -118,9 +205,10 @@ residence_address: {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
-
+    private DiagnosisS: DiagnosisService,
+    private UserBS: UserBusinessService,
     private currency: CurrencyPipe,
-
+    private router: Router,
     private authService: AuthService,
     private dialogService: NbDialogService,
 
@@ -139,56 +227,75 @@ residence_address: {
 
 
   async ngOnInit() {
-    console.log('prueba');
-    this.user = this.authService.GetUser();
-    this.user_id = this.user.id;
-    this.currentRole = this.authService.GetRole();
-    if (this.user_id && this.currentRole == 5) {
-      this.entity = 'gloss/byStatus/0/' + this.user_id;
-    } else if (this.user_id && this.currentRole == 6) {
-      this.entity = 'gloss/byStatus/3/0';
-    }
-    else {
-      this.entity = "gloss/?pagination=true";
-    }
-
+    // console.log('prueba');
+    // this.user = this.authService.GetUser();
+    // this.user_id = this.user.id;
+    // this.currentRole = this.authService.GetRole();
+    // if (this.user_id && this.currentRole == 5) {
+    //   this.entity = 'gloss/byStatus/0/' + this.user_id;
+    // } else if (this.user_id && this.currentRole == 6) {
+    //   this.entity = 'gloss/byStatus/3/0';
+    // }
+    // else {
+    //   this.entity = "gloss/?pagination=true";
+    // }
+    // await this.DiagnosisS.GetCollection().then(x => {
+    //   this.diagnosis = x;
+    // });
+    // await this.UserBS.UserByRole(1).then(x => {
+    //   this.profesionals = x;
+    //   this.loading = false;
+    // });
 
   }
-
- 
-
-  ConfirmAction(dialog: TemplateRef<any>) {
-    this.dialog = this.dialogService.open(dialog);
-    this.GetResponseParam();
-  }
-
 
 
   RefreshData() {
     this.table.refresh();
+    this.table2.refresh();
+    // window.location.reload();
+    // this.router.navigate([this.router.url]);
   }
+  reloadForm(tab) {
+    this.table.refresh();
 
-  NewGloss() {
-    this.dialogFormService.open(FormPadComponent, {
+    if(tab.tabTitle == 'Para diligenciar'){
+      this.table.changeEntity('user/byPAC/2','users');
+    } else {
+      this.table.changeEntity(this.entity,'admissions');
+    }
+  }
+  ConfirmAction(data) {
+
+    this.dialogFormService.open(FormPadComplementaryComponent, {
       context: {
-        title: 'Crear nueva glosa',
+        title: 'FORMATO DE RECEPCION, SEGUIMIENTO Y CONTROL PLAN COMPLEMENTARIO',
+        admissions_id: data.admissions[data.admissions.length - 1].id,
+        // data,
+        // diagnosis: this.diagnosis,
+        // profesionals: this.profesionals,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditGloss(data) {
-    this.dialogFormService.open(FormPadComponent, {
+  async EditPadComplementary(data) {
+    // this.loading = true
+
+
+    this.dialogFormService.open(FormPadComplementaryComponent, {
       context: {
-        title: 'Editar glosa',
+        title: 'EDITAR FORMATO DE RECEPCION, SEGUIMIENTO Y CONTROL PLAN COMPLEMENTARIO',
         data,
+        // diagnosis: this.diagnosis,
+        // profesionals: this.profesionals,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
 
-  DeleteConfirmGloss(data) {
+  DeleteConfirmPadComplementary(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
@@ -199,76 +306,20 @@ residence_address: {
   }
 
   DeleteGloss(data) {
-  /*  return this.glossS.Delete(data.id).then(x => {
-      this.table.refresh();
-      return Promise.resolve(x.message);
-    }).catch(x => {
-      throw x;
-    });*/
+    /*  return this.glossS.Delete(data.id).then(x => {
+        this.table.refresh();
+        return Promise.resolve(x.message);
+      }).catch(x => {
+        throw x;
+      });*/
   }
 
 
-
-  async saveGroup() {
-    this.isSubmitted = true;
-    if (!this.ResponseGlossForm.invalid) {
-      if (!this.selectedOptions.length) {
-        this.dialog = this.dialog.close();
-        this.toastS.danger(null, 'Debe seleccionar un registro');
-      } else {
-        this.loading = true;
-        this.dialog.close();
-        var formData = new FormData();
-        formData.append('single', "0");
-        formData.append('response', this.ResponseGlossForm.value.response);
-        formData.append('file', this.ResponseGlossForm.value.file);
-        formData.append('result',this.result);
-        formData.append('gloss_id', JSON.stringify(this.selectedOptions));
-        formData.append('justification_status', this.ResponseGlossForm.controls.justification_status.value);
-        formData.append('objetion_response_id', this.ResponseGlossForm.controls.objetion_response_id.value);
-        formData.append('objetion_code_response_id', this.ResponseGlossForm.controls.objetion_code_response_id.value);
-        formData.append('accepted_value', this.ResponseGlossForm.controls.accepted_value.value);
-        formData.append('value_not_accepted', this.ResponseGlossForm.controls.value_not_accepted.value);
-
-      }
-    }
+  refresh() {
+    this.table.refresh();
+    this.entity = "user/byPAC/2"
+    this.router.navigate([this.router.url])
   }
-
-  async saveRadication() {
-    /*this.isSubmitted = true;
-    if (!this.RadicationGlossForm.invalid) {
-      if (!this.selectedOptions.length) {
-        this.dialog = this.dialog.close();
-        this.toastS.danger(null, 'Debe seleccionar un registro');
-      } else {
-        this.loading = true;
-        this.dialog.close();
-
-        var formData = new FormData();
-        formData.append('single', "0");
-        formData.append('file', this.RadicationGlossForm.value.file);
-        formData.append('gloss_response_id', JSON.stringify(this.gloss_response_id));
-        formData.append('observation', this.RadicationGlossForm.value.observation);
-        formData.append('gloss_id', JSON.stringify(this.gloss_id));
-        formData.append('total_selected', JSON.stringify(this.selectedOptions));
-
-        await this.GlossRadicationS.Save(formData).then(x => {
-          this.toastService.success('', x.data);
-          this.RefreshData();
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
-      }
-    }
-
-*/
-
-  }
-
 
   GetResponseParam() {
     /*
@@ -282,81 +333,7 @@ residence_address: {
     }*/
   }
 
-  async saveFile(event) {
-    if (event.target.files[0]) {
-      this.loading2 = true;
-      this.file = event.target.files[0];
-      let lectura;
-      let fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        this.arrayBuffer = fileReader.result;
-        var data = new Uint8Array(this.arrayBuffer);
-        var arr = new Array();
-        for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-        var bstr = arr.join("");
-        var workbook = XLSX.read(bstr, { type: "binary" });
-        var first_sheet_name = workbook.SheetNames[0];
-        var worksheet = workbook.Sheets[first_sheet_name];
-        lectura = XLSX.utils.sheet_to_json(worksheet, { raw: true });
-        console.log(lectura);
-        this.uploadDocumentInfo(lectura);
-      }
-      fileReader.readAsArrayBuffer(this.file);
-    }
-  }
 
-  async uploadDocumentInfo(lectura) {
-    /*try {
-      let response;
-      response = await this.glossS.SaveFile(lectura);
-      this.loading2 = false;
-      this.toastService.success('', response.message);
-      this.RefreshData();
-    } catch (e) {
-      this.loading2 = false;
-      throw new Error(e);
-    }*/
-  }
 
-  ChangeGlossStatus(status) {
-    this.status = status;
-    if (status != 0 && this.currentRole == 5) {
-      this.table.changeEntity(`gloss/byStatus/${this.status}/${this.user_id}`, 'gloss');
-      // this.RefreshData();
-    } else if (this.currentRole == 4 || this.currentRole == 1) {
-      this.table.changeEntity(`gloss/byStatus/${this.status}/0`, 'gloss');
-    } else if (status) {
-      this.table.changeEntity(`gloss/byStatus/${this.status}/0`, 'gloss');
-    }
-    else {
-      this.table.changeEntity(`gloss/byStatus/0/${this.user_id}`, 'gloss');
-    }
-  }
 
-  async changeFile(files, option) {
-    this.loading = true;
-    if (!files) return false;
-    const file = await this.toBase64(files.target.files[0]);
-
-    switch (option) {
-      case 2:
-        this.ResponseGlossForm.patchValue({
-          file: files.target.files[0],
-        });
-        this.loading = false;
-        break;
-      case 3:
-        this.RadicationGlossForm.patchValue({
-          file: files.target.files[0],
-        });
-        break;
-    }
-  }
-
-  toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
 }

@@ -90,7 +90,20 @@ export class PatientDataComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private userBS: UserBusinessService,
   ) {
-
+    this.routes = [
+      {
+        name: 'Pacientes',
+        route: '../../list',
+      },
+      {
+        name: 'Admisiones del paciente',
+        route: '../../admissions-patient/' + this.route.snapshot.params.user_id,
+      },
+      {
+        name: 'acompañantes',
+        route: '../../patient-data/' + this.route.snapshot.params.admissions_id,
+      }
+    ];
   }
 
   GetParams() {

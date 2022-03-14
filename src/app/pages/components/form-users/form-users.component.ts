@@ -155,7 +155,9 @@ export class FormUsersComponent implements OnInit {
 
     reader.readAsDataURL(file)
   }
-  async ngOnInit() {
+
+  async ngOnInit() 
+  {
     if (this.data && this.data.file) {
       this.image = environment.storage + this.data.file;
     } else {
@@ -166,9 +168,11 @@ export class FormUsersComponent implements OnInit {
     await Promise.all([
       this.GetAuxData(null),
     ]);
+    
     this.course_id = this.route.snapshot.queryParams.course_id;
     this.loadAuxData = false;
     this.LoadForm().then();
+
     this.today = new Date();
 
     this.today.setDate(this.today.getDate() - 2);
@@ -201,6 +205,7 @@ export class FormUsersComponent implements OnInit {
         return Promise.resolve(true);
       });
   }
+  
   saveCode(e): void {
     var localidentify = this.activities.find(item => item.name == e);
 
@@ -546,7 +551,9 @@ export class FormUsersComponent implements OnInit {
 
   async SaveStudent() {
     this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' + this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) ';
-    this.patient_quantity();
+    if(this.role == 3){
+      this.patient_quantity();
+    }
     this.isSubmitted = true;
     // this.UpdateResetPassword(data);
     if (!this.form.invalid) {

@@ -1,15 +1,41 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="user/byPAD/3"
-      customData="users" [messageToltip]="messageToltip">
+    <nb-tabset fullWidth (changeTab)="reloadForm($event)" >
+      <nb-tab tabTitle="Para diligenciar"  >
+        <ngx-base-table [title]="title_D" [subtitle]="subtitle" [settings]="settings_D" entity="user/byPAC/2"
+          customData="users" [messageToltip]="messageToltip">
+          <div actions>
+            <div class="actions">
+
+            </div>
+            <div class="actions" style="margin-top:1em;">
+            </div>
+          </div>
+        </ngx-base-table>
+      </nb-tab>
+      <nb-tab  tabTitle="Historico" id="Historico" Historico >
+        <ngx-base-table #table2=""[title]="title_H" [subtitle]="subtitle" [settings]="settings_H" [entity]="entity"
+          customData="admissions" [messageToltip]="messageToltip">
+          <div actions>
+            <div class="actions">
+            </div>
+            <div class="actions" style="margin-top:1em;">
+            </div>
+          </div>
+        </ngx-base-table>
+      </nb-tab>
+    </nb-tabset>
+
+    <!-- <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="user/byPAC/2" customData="users"
+      [messageToltip]="messageToltip">
       <div actions>
         <div class="actions">
-          
+
         </div>
         <div class="actions" style="margin-top:1em;">
         </div>
       </div>
-    </ngx-base-table>
+    </ngx-base-table> -->
   </div>
 </ngx-base-list>
