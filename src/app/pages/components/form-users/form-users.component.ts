@@ -158,7 +158,9 @@ export class FormUsersComponent implements OnInit {
 
     reader.readAsDataURL(file)
   }
-  async ngOnInit() {
+
+  async ngOnInit() 
+  {
     if (this.data && this.data.file) {
       this.image = environment.storage + this.data.file;
     } else {
@@ -169,9 +171,11 @@ export class FormUsersComponent implements OnInit {
     await Promise.all([
       this.GetAuxData(null),
     ]);
+    
     this.course_id = this.route.snapshot.queryParams.course_id;
     this.loadAuxData = false;
     this.LoadForm().then();
+
     this.today = new Date();
 
     this.today.setDate(this.today.getDate() - 2);
@@ -205,6 +209,7 @@ export class FormUsersComponent implements OnInit {
         return Promise.resolve(true);
       });
   }
+  
   saveCode(e): void {
     var localidentify = this.activities.find(item => item.name == e);
 
@@ -479,11 +484,11 @@ export class FormUsersComponent implements OnInit {
     }
     return '';
   }
-  
-  private patient_quantity(){
+
+  private patient_quantity() {
     // console.log(this.form.controls.PAD_service.value);
-    if(this.form.controls.PAD_service.value == true && this.form.controls.PAD_patient_quantity.value == false || this.form.controls.PAD_patient_quantity.value == null ) {
-      this.form.controls.PAD_patient_quantity.setErrors({'incorrect': true});
+    if (this.form.controls.PAD_service.value == true && this.form.controls.PAD_patient_quantity.value == false || this.form.controls.PAD_patient_quantity.value == null) {
+      this.form.controls.PAD_patient_quantity.setErrors({ 'incorrect': true });
       // console.log('invalido hpta');
     }
   }
@@ -925,18 +930,33 @@ export class FormUsersComponent implements OnInit {
   ageCalculator(birthday: Date) {
     var today = new Date;
     var age = new Date(birthday)
-    this.age = today.getFullYear() - age.getFullYear();
+    var year = today.getFullYear() - age.getFullYear();
     var m = (today.getMonth() + 1) - (age.getMonth() + 1);
-    var day = today.getDate() - (age.getDate() + 1);
-    if (m < 0) {
-      this.age--;
-    } else if (m == 0) {
-      this.age--;
-      if (day > 0) {
-        this.age++;
-      } else if (day == 0) {
-        this.age++;
+    var Month = age.getMonth();
+    var day = today.getDate() - (age.getDate()+1);
+    if( m < 0)
+    {
+      year--;
+      m = m + 12;
+    }
+    if(day < 0)
+    { 
+      m--;
+      if(Month==1)
+      {
+        day=day+28
+      }
+      else if( Month==0 || Month==2 || Month==4 || Month==6 || Month==7 || Month==9 || Month==11 ) 
+      { 
+        day=day+31;
+      } 
+      else 
+      {
+        day=day+30;
       }
     }
+
+    this.age = year + " años " + m + " meses y " + day + " dia(s) ";
+
   }
 }

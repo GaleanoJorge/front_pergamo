@@ -40,6 +40,8 @@ import {PermissionsGuard} from '../guards/permissions.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SpecialitiesDialogComponent } from './components/form-users/especialities-dialog.component';
 import { SpecialFieldComponent } from './setting/special-field/special-field.component';
+// import { MipresComponent } from './mipres/mipres.component';
+// import { MipresModule } from './mipres/mipres.module';
 
 
 

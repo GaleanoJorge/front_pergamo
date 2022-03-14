@@ -1,4 +1,5 @@
 import { NbMenuItem } from '@nebular/theme';
+import { icon } from 'leaflet';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -176,9 +177,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
             title: 'Vigencia',
             link: '/pages/setting/validity',
             icon: 'map-outline',
-          },               
+          },
         ],
-      
+
       },
       {
         title: 'Configuracion asistencial',
@@ -295,10 +296,30 @@ export const MENU_ITEMS: NbMenuItem[] = [
             title: 'Vigencia',
             link: '/pages/setting/validity',
             icon: 'map-outline',
-          },               
-    ],
-  },
+          },
+        ],
+      },
 
     ],
   },
+  {
+    title: "Mipres",
+    group: true,
+  },
+  {
+    title: "Mipres",
+    icon: 'arrow-right-outline',
+    children: [
+      {
+        title: 'Suministros',
+        icon: 'npm-outline',
+        link: 'nn'
+      },
+      {
+        title: 'Facturación',
+        icon: 'clipboard-outline',
+        link: 'nn' 
+      }
+    ]
+  }
 ]

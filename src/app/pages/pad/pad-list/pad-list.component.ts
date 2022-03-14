@@ -108,7 +108,7 @@ residence_address: {
   public routes = [
     {
       name: 'Pad',
-      route: '../pad/list',
+      route: '../list',
     },
   ];
 
