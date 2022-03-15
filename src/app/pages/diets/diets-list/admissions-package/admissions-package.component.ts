@@ -5,6 +5,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { DietComponentService } from '../../../../business-controller/diet-componet.service';
 import { SelectAdmissionsComponent } from './select-admissions.component';
+import { UserBusinessService } from '../../../../business-controller/user-business.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class AdmissionsPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Pacientes admitidos: ';
   public subtitle = 'Admitidos: ';
-  public headerFields: any[] = ['Nombre'];
+  public headerFields: any[] = ['NOMBRE', 'SEDE', 'PISO', 'PABELLÓN', 'CAMA'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -44,6 +45,7 @@ export class AdmissionsPackageComponent implements OnInit {
   public filter: any[] = [];
   public filter2;
 
+  public position = 0;
   public entity;
   public customData;
 
@@ -65,11 +67,36 @@ export class AdmissionsPackageComponent implements OnInit {
         },
         renderComponent: SelectAdmissionsComponent,
       },
-      users: {
+      nombre_completo: {
         title: this.headerFields[0],
         type: 'string',
+      },
+      campus: {
+        title: this.headerFields[1],
+        type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.firstname + ' ' + value.lastname;
+          return row.admissions[0].campus.name;
+        },
+      },
+      flat: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.admissions[0].location[0].flat.name;
+        },
+      },
+      pavilion: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.admissions[0].location[0].pavilion.name;
+        },
+      },
+      bed: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.admissions[0].location[0].bed.name;
         },
       },
     },
@@ -82,17 +109,22 @@ export class AdmissionsPackageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
+    private userBusinessS: UserBusinessService,
     private e: ElementRef
   ) {
   }
 
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.component_package_id = this.route.snapshot.params.id;
     this.selectedOptions = this.parentData;
 
     this.entity = 'admissions';
     this.customData = 'admissions';
+
+    await this.userBusinessS.GetByAdmission({ admission_route_id: 1 }).then(x => {
+      this.customData = x;
+    });
 
     this.routes = [
       {
@@ -108,9 +140,9 @@ export class AdmissionsPackageComponent implements OnInit {
 
   eventSelections(event, row) {
     if (event) {
-      this.selectedOptions.push(row.id);
+      this.selectedOptions.push(row.admissions[0].id);
     } else {
-      let i = this.selectedOptions.indexOf(row.id);
+      let i = this.selectedOptions.indexOf(row.admissions[0].id);
       i !== -1 && this.selectedOptions.splice(i, 1);
     }
     this.messageEvent.emit(this.selectedOptions);
