@@ -4,29 +4,27 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { DietComponentService } from '../../../../business-controller/diet-componet.service';
-import { SelectAdmissionsComponent } from './select-admissions.component';
-import { UserBusinessService } from '../../../../business-controller/user-business.service';
+import { SelectComponentComponent } from './select-component.component';
+import { DietAdmissionComponentService } from '../../../../business-controller/diet-admission-component.service';
 
 
 @Component({
-  selector: 'ngx-admissions-package',
-  templateUrl: './admissions-package.component.html',
-  styleUrls: ['./admissions-package.component.scss'],
+  selector: 'ngx-component-package',
+  templateUrl: './component-package.component.html',
+  styleUrls: ['./component-package.component.scss'],
 })
-export class AdmissionsPackageComponent implements OnInit {
+export class ComponentPackageComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   @Output() messageEvent = new EventEmitter<any>();
   @Input() parentData: any;
-  @Input() dishByMenu: any;
-  @Input() menuId: any;
   public messageError = null;
 
 
   public InscriptionForm: FormGroup;
-  public title = 'Pacientes admitidos: ';
-  public subtitle = 'Admitidos: ';
-  public headerFields: any[] = ['NOMBRE', 'SEDE', 'PISO', 'PABELLÓN', 'CAMA'];
+  public title = 'Asignación de Componentes: ';
+  public subtitle = 'Platos: ';
+  public headerFields: any[] = ['Nombre'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -45,9 +43,6 @@ export class AdmissionsPackageComponent implements OnInit {
   public filter: any[] = [];
   public filter2;
 
-  public position = 0;
-  public customData;
-
 
 
   public settings = {
@@ -64,39 +59,11 @@ export class AdmissionsPackageComponent implements OnInit {
             'selection': (event, row: any) => this.eventSelections(event, row),
           };
         },
-        renderComponent: SelectAdmissionsComponent,
+        renderComponent: SelectComponentComponent,
       },
-      nombre_completo: {
+      name: {
         title: this.headerFields[0],
         type: 'string',
-      },
-      campus: {
-        title: this.headerFields[1],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.admissions[0].campus.name;
-        },
-      },
-      flat: {
-        title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.admissions[0].location[0].flat.name;
-        },
-      },
-      pavilion: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.admissions[0].location[0].pavilion.name;
-        },
-      },
-      bed: {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.admissions[0].location[0].bed.name;
-        },
       },
     },
   };
@@ -106,9 +73,9 @@ export class AdmissionsPackageComponent implements OnInit {
     private router: Router,
     private dietComponentS: DietComponentService,
     private formBuilder: FormBuilder,
+    private dietAdmissionComponentS: DietAdmissionComponentService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
-    private userBusinessS: UserBusinessService,
     private e: ElementRef
   ) {
   }
@@ -116,13 +83,9 @@ export class AdmissionsPackageComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.component_package_id = this.route.snapshot.params.id;
-    this.selectedOptions = this.parentData;
+    this.parentData;
 
-    this.customData = 'admissions';
-
-    // await this.userBusinessS.GetByAdmission({ admission_route_id: 1 }).then(x => {
-    //   this.customData = x;
-    // });
+    this.getData(this.parentData);
 
     this.routes = [
       {
@@ -134,13 +97,29 @@ export class AdmissionsPackageComponent implements OnInit {
         route: '../../contract/briefcase',
       },
     ];
+
+  }
+
+  getData(id) {
+    this.dietAdmissionComponentS.GetCollection({ diet_admission_id: id }).then(x => {
+      x.forEach(element => {
+        this.selectedOptions.push(element.diet_component_id);
+      });
+      
+      if (!(this.selectedOptions.length > 0) && this.parentData) {
+        this.getData(this.parentData);
+      } else {
+        this.RefreshData();
+        this.messageEvent.emit(this.selectedOptions);
+      }
+    });
   }
 
   eventSelections(event, row) {
     if (event) {
-      this.selectedOptions.push(row.admissions[0].id);
+      this.selectedOptions.push(row.id);
     } else {
-      let i = this.selectedOptions.indexOf(row.admissions[0].id);
+      let i = this.selectedOptions.indexOf(row.id);
       i !== -1 && this.selectedOptions.splice(i, 1);
     }
     this.messageEvent.emit(this.selectedOptions);
@@ -161,7 +140,7 @@ export class AdmissionsPackageComponent implements OnInit {
     var contador = 0;
     var err = 0;
     if (!this.selectedOptions.length) {
-      this.toastS.danger(null, 'Debe seleccionar al menos un Plato');
+      this.toastS.danger(null, 'Debe seleccionar al menos un Componente');
     }
     else {
       var dta = {

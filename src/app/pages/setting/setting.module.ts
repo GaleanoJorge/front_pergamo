@@ -265,6 +265,11 @@ import { AmountDietSuppliesOutputComponent } from './diet-supplies-output/diet-s
 import { SelectDietSuppliesOutputComponent } from './diet-supplies-output/diet-supplies-output-package/select-diet-supplies-output.component';
 import { FormDietSuppliesOutputComponent } from './diet-supplies-output/form-diet-supplies-output/form-diet-supplies-output.component';
 import { ActionsDietSuppliesOutputComponent } from './diet-supplies-output/actions.component';
+import { DietAdmissionComponent } from './diet-admission/diet-admission.component';
+import { ActionsDietAdmissionComponent } from './diet-admission/actions-diet-admission.component';
+import { FormDietAdmissionComponent } from './diet-admission/form-diet-admission/form-diet-admission.component';
+import { SelectComponentComponent } from './diet-admission/admission-package/select-component.component';
+import { ComponentPackageComponent } from './diet-admission/admission-package/component-package.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -544,6 +549,12 @@ import { ActionsDietSuppliesOutputComponent } from './diet-supplies-output/actio
     DishPackageComponent,
     SelectDishComponent,
     ActionsDietSuppliesOutputComponent,
+    DietAdmissionComponent,
+    ActionsDietAdmissionComponent,
+    FormDietAdmissionComponent,
+    SelectComponentComponent,
+    ComponentPackageComponent,
+
 
   ],
   providers: [

@@ -116,6 +116,7 @@ import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
 import { DietSuppliesInputComponent } from './diet-supplies-input/diet-supplies-input.component';
 import { DietMenuComponent } from './diet-menu/diet-menu.component';
 import { DietSuppliesOutputComponent } from './diet-supplies-output/diet-supplies-output.component';
+import { DietAdmissionComponent } from './diet-admission/diet-admission.component';
 
 const routes: Routes = [{
   path: '',
@@ -214,6 +215,11 @@ const routes: Routes = [{
     {
       path: 'diet-menu',
       component: DietMenuComponent,
+
+    },
+    {
+      path: 'diet-admission',
+      component: DietAdmissionComponent,
 
     },
     {
