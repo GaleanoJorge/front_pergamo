@@ -18,7 +18,7 @@ export class DietStockComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'INVENTARIO';
   public subtitle: string = 'INVENTARIO';
-  public headerFields: any[] = ['ID', 'INSUMO', 'CANTIDAD', 'PROVEEDOR'];
+  public headerFields: any[] = ['ID', 'INSUMO', 'CANTIDAD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -43,10 +43,10 @@ export class DietStockComponent implements OnInit {
       //   },
       //   renderComponent: ActionsComponent,
       // },
-      id: {
-        title: this.headerFields[0],
-        type: 'string',
-      },
+      // id: {
+      //   title: this.headerFields[0],
+      //   type: 'string',
+      // },
       diet_supplies: {
         title: this.headerFields[1],
         type: 'string',
@@ -57,13 +57,6 @@ export class DietStockComponent implements OnInit {
       amount: {
         title: this.headerFields[2],
         type: 'string',
-      },
-      company: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.name;
-        },
       },
     },
   };
