@@ -7,13 +7,13 @@ import { ChTypeReviewSystem } from '../models/ch-type-review-system';
   providedIn: 'root'
 })
 export class ChTypeReviewSystemService {
-  public ch_entry_review_system: ChTypeReviewSystem[] = [];
+  public type_review_system: ChTypeReviewSystem[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
   GetCollection(params = {}): Promise<ChTypeReviewSystem[]> {
-    let servObj = new ServiceObject(params ? 'ch_entry_review_system?pagination=false' : 'ch_entry_review_system');
+    let servObj = new ServiceObject(params ? 'type_review_system?pagination=false' : 'type_review_system');
 
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
@@ -21,18 +21,18 @@ export class ChTypeReviewSystemService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.ch_entry_review_system = <ChTypeReviewSystem[]>servObj.data.ch_entry_review_system;
+        this.type_review_system = <ChTypeReviewSystem[]>servObj.data.type_review_system;
 
-        return Promise.resolve(this.ch_entry_review_system);
+        return Promise.resolve(this.type_review_system);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(ch_entry_review_system: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_entry_review_system');
-    servObj.data = ch_entry_review_system;
+  Save(type_review_system: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('type_review_system');
+    servObj.data = type_review_system;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -46,9 +46,9 @@ export class ChTypeReviewSystemService {
       });
   }
 
-  Update(ch_entry_review_system: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_entry_review_system', ch_entry_review_system.id);
-    servObj.data = ch_entry_review_system;
+  Update(type_review_system: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('type_review_system', type_review_system.id);
+    servObj.data = type_review_system;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -63,7 +63,7 @@ export class ChTypeReviewSystemService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_entry_review_system', id);
+    let servObj = new ServiceObject('type_review_system', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
