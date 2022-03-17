@@ -117,7 +117,7 @@ export class FormPadComplementaryComponent implements OnInit {
       this.diagnosis = x;
     });
 
-    await this.UserBS.UserByRole(1).then(x => {
+    await this.UserBS.ProfesionalsByCampus().then(x => {
       this.profesionals = x;
       this.loading = false;
     });

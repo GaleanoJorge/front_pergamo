@@ -1,15 +1,12 @@
-<ngx-base-list [messageError]="messageError" [routes]="routes">
-  <div content>
+<div content>
 
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="management_plan_by_admissions/{{admissions_id}}"
-      customData="management_plan" [messageToltip]="messageToltip">
-      <div actions>
-        <div class="actions">
-          <button nbButton status="danger" (click)="NewManagementPlan()">Crear</button>
-        </div>
-        <div class="actions" style="margin-top:1em;">
-        </div>
-      </div>
-    </ngx-base-table>
-  </div>
-</ngx-base-list>
+  <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+          customData="admissions" [messageToltip]="messageToltip">
+          <div actions>
+            <div class="actions">
+            </div>
+            <div class="actions" style="margin-top:1em;">
+            </div>
+          </div>
+        </ngx-base-table>
+</div>

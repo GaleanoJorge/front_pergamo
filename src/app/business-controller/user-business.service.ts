@@ -137,6 +137,22 @@ v
       });
   }
 
+  ProfesionalsByCampus(): Promise<User[]> {
+    var servObj = new ServiceObject("users/Profesionals");
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   UserByRole(id:any): Promise<User[]> {
     var servObj = new ServiceObject("user/byRole", id);
     return this.webAPI.GetAction(servObj)

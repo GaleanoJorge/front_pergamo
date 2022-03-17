@@ -29,11 +29,7 @@ import {DateFormatPipe} from '../../pipe/date-format.pipe';
 import {PadComplementaryListComponent} from './pad-list/pad-complementary-list.component';
 import {FormPadComplementaryComponent} from './pad-list/form-pad/form-pad-complementary.component';
 import {Actions2Component} from './pad-list/actions.component';
-import { ActionsComponent } from './management-plan/actions.component';
 import { ManagementPlanComponent } from './management-plan/management-plan.component';
-import { FormManagementPlanComponent } from './management-plan/form-management-plan/form-management-plan.component';
-import { PatientData } from '../../models/patient-data';
-import { PatientDataComponent } from '../admissions/patient-data/patient-data.component';
 
 
 
@@ -71,9 +67,7 @@ import { PatientDataComponent } from '../admissions/patient-data/patient-data.co
     PadComplementaryListComponent,
     FormPadComplementaryComponent,
     ManagementPlanComponent,
-    FormManagementPlanComponent,
     Actions2Component,
-    ActionsComponent
   ],
   providers: [
     DateFormatPipe,

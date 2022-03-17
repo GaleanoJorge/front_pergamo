@@ -1,49 +1,41 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
-import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
-import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from './actions.component';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, TemplateRef, Output, Input, EventEmitter } from '@angular/core';
+import { NbDialogService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { FormManagementPlanComponent } from './form-management-plan/form-management-plan.component';
-import * as XLSX from 'ts-xlsx';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
-import { CurrencyPipe } from '@angular/common';
-import { date } from '@rxweb/reactive-form-validators';
-import { ManagementPlanService } from '../../../business-controller/management-plan.service';
+import { FormGroup } from '@angular/forms';
+import { Actions2Component } from '../pad-list/actions.component';
+import { FormPadComplementaryComponent } from '../pad-list/form-pad/form-pad-complementary.component';
 
 @Component({
   selector: 'ngx-pad-list',
   templateUrl: './management-plan.component.html',
   styleUrls: ['./management-plan.component.scss'],
 })
+
 export class ManagementPlanComponent implements OnInit {
+  @ViewChild(BaseTableComponent) table: BaseTableComponent;
+
+  @Output() messageEvent = new EventEmitter<any>();
+  @Input() parentData: any = [];
+  
 
   public isSubmitted = false;
-  public entity: string;
+  public entity: string = "admission/byPAC/2";
   public loading: boolean = false;
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Plan de manejo';
+  public title: string = 'HISTORICO PLAN DE ATENCIÓN COMPLEMENTARIA';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial'];
+  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'Contrato', 'Fecha ingreso', 'Fecha egreso'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
   public arrayBuffer: any;
   public file: File;
-  public admissions_id;
   public user;
   public dialog;
   public currentRole;
-  public selectedOptions: any[] = [];
-  public result: any = null;
-
-
-  @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   public settings = {
     pager: {
@@ -58,37 +50,65 @@ export class ManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditManagementPlan.bind(this),
-            'delete': this.DeleteConfirmManagementPlan.bind(this),
+            'edit': this.EditPadComplementary.bind(this),
+            'delete': this.DeleteConfirmPadComplementary.bind(this),
+            'confirm': this.ConfirmAction.bind(this),
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: Actions2Component,
       },
-      type_of_attention: {
+      consecutive: {
+        title: this.headerFields[7],
+        width: '5%',
+      },
+      identification_type: {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction(value) {
           return value?.name;
         },
       },
-      frequency: {
+      identification: {
         title: this.headerFields[1],
+        type: 'string',
+      },
+      nombre_completo: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
+      email: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      residence_municipality: {
+        title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction(value) {
           return value?.name;
         },
       },
-      quantity: {
-        title: this.headerFields[2],
+      residence_address: {
+        title: this.headerFields[6],
         type: 'string',
       },
-      assigned_user: {
-        title: this.headerFields[3],
+      contract: {
+        title: this.headerFields[8],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.firstname+' '+value.lastname;
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      entry_date: {
+        title: this.headerFields[9],
+        type: 'date',
+      },
+      discharge_date: {
+        title: this.headerFields[10],
+        type: 'date',
+        valuePrepareFunction: (value, row) => {
+          return value;
         },
       },
     },
@@ -96,34 +116,19 @@ export class ManagementPlanComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Pad',
-      route: '../pad/list',
-    },
-    {
-      name: 'Plan de manejo',
+      name: 'Plan complemantario',
+      route: './',
     },
   ];
 
   constructor(
 
-    private formBuilder: FormBuilder,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
-    private toastService: NbToastrService,
-
-    private currency: CurrencyPipe,
-
-    private authService: AuthService,
-    private dialogService: NbDialogService,
-    private managementPlanS: ManagementPlanService,
-    private toastS: NbToastrService,
-    private route: ActivatedRoute,
-
   ) {
   }
+
   public form: FormGroup;
-  public ResponseManagementPlanForm: FormGroup;
-  public RadicationManagementPlanForm: FormGroup;
   public status;
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
@@ -133,60 +138,55 @@ export class ManagementPlanComponent implements OnInit {
 
 
   async ngOnInit() {
- 
-    this.admissions_id = this.route.snapshot.params.id;
+
   }
-
-
-
-  ConfirmAction(dialog: TemplateRef<any>) {
-    this.dialog = this.dialogService.open(dialog);
-  }
-
 
 
   RefreshData() {
     this.table.refresh();
   }
 
-  NewManagementPlan() {
-    this.dialogFormService.open(FormManagementPlanComponent, {
+  ConfirmAction(data) {
+
+    this.dialogFormService.open(FormPadComplementaryComponent, {
       context: {
-        title: 'Crear plan de manejo',
-        admissions_id:this.admissions_id,
+        title: 'FORMATO DE RECEPCION, SEGUIMIENTO Y CONTROL PLAN COMPLEMENTARIO',
+        admissions_id: data.admissions[data.admissions.length - 1].id,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditManagementPlan(data) {
-    this.dialogFormService.open(FormManagementPlanComponent, {
+  async EditPadComplementary(data) {
+
+    this.dialogFormService.open(FormPadComplementaryComponent, {
       context: {
-        title: 'Editar plan de manejo',
+        title: 'EDITAR FORMATO DE RECEPCION, SEGUIMIENTO Y CONTROL PLAN COMPLEMENTARIO',
         data,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-
-  DeleteConfirmManagementPlan(data) {
+  DeleteConfirmPadComplementary(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteManagementPlan.bind(this),
+        delete: this.DeleteGloss.bind(this),
       },
     });
   }
 
-  DeleteManagementPlan(data) {
-      return this.managementPlanS.Delete(data.id).then(x => {
-        this.table.refresh();
-        return Promise.resolve(x.message);
-      }).catch(x => {
-        throw x;
-      });
+  DeleteGloss(data) {
+    
   }
+
+  GetResponseParam() {
+
+  }
+
+
+
 
 }
