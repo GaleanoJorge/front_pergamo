@@ -57,7 +57,17 @@ export class DietStockComponent implements OnInit {
       amount: {
         title: this.headerFields[2],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value + ' ' + row.diet_supplies.measurement_units.code;
+        },
       },
+      // measurement_units:{
+      //   title: this.headerFields[3],
+      //   type: 'string',
+      //   valuePrepareFunction: (value, row) => {
+      //     return row.diet_supplies.measurement_units.code;
+      //   },
+      // }
     },
   };
 
