@@ -2,7 +2,6 @@ import { MainClass } from './main-class';
 
 export class ChVitalSigns extends MainClass {
     id: number;
-    status: string;
     cardiac_frequency: number;
     respiratory_frequency: number;
     temperature: string;
