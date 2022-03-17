@@ -129,9 +129,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
     this.isSubmitted = true;
     this.showTable = false;
-    if (!this.form.invalid && this.saveFromAdmission) {
+    if (!this.form.invalid) {
       this.loading = true;
-      this.showTable = false;
 
       if (this.data.id) {
         await this.AdmissionsS.Update({

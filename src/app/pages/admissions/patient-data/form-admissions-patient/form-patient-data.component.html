@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card size="big" style="width: 1000px;height: auto;overflow: auto;">
+  <nb-card style="margin: 30px; max-width: 1400px; max-height: 1300px; overflow: auto;" >
     <nb-card-header>{{ title }}</nb-card-header>
-    <nb-card-body>
+    <nb-card-body style="border: 20px;">
 
       <div class="row">
         <div class="col-md-12" >
@@ -16,17 +16,17 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="form.controls.patient_data_type.value === '0'">
+      <div class="row" *ngIf="form.controls.patient_data_type.value === 'ACOMPAÑANTE'" >
         <div class="col-12">
-          <p class="text-muted title">Información de acompañante</p>
+          <p class="text-muted">Información de acompañante</p>
         </div>
       </div>
-      <div class="row" *ngIf="form.controls.patient_data_type.value === '1'">
+      <div class="row" *ngIf="form.controls.patient_data_type.value === 'RESPONSABLE'">
         <div class="col-12">
           <p class="text-muted">Información de responsable</p>
         </div>
       </div>
-      <div class="row">
+      <div style="margin: 0px;" class="row">
         <div *ngIf="form.controls.patient_data_type.value">
           <div class="row">
             <div class="col-md-6">
@@ -208,7 +208,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label for="residence_address" class="form-text text-muted font-weight-bold">Puntos Cardinales</label>
-                <nb-select id="residence_address_cardinality" formControlName="residence_address_cardinality"
+                <nb-select select="option, optgroup" id="residence_address_cardinality" formControlName="residence_address_cardinality"
                   residence_address_cardinality fullWidth title="Seleccione..."
                   >
                   <!-- status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" -->
@@ -235,30 +235,6 @@
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="affiliate_type_id" class="form-text text-muted font-weight-bold">
-                  Tipo de afiliación:
-                </label>
-                <nb-select formControlName="affiliate_type_id" id="affiliate_type_id" fullWidth
-                  status="{{ isSubmitted && form.controls.affiliate_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-option value="">Seleccione...</nb-option>
-                  <nb-option *ngFor="let item of affiliate_type" [value]="item.id">{{ item.name }}</nb-option>
-                </nb-select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="special_attention_id" class="form-text text-muted font-weight-bold">
-                  Tipo de atención:
-                </label>
-                <nb-select formControlName="special_attention_id" id="special_attention_id" fullWidth
-                  status="{{ isSubmitted && form.controls.special_attention_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-option value="">Seleccione...</nb-option>
-                  <nb-option *ngFor="let item of special_attention" [value]="item.id">{{ item.name }}</nb-option>
-                </nb-select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
                 <label for="relationship_id" class="form-text text-muted font-weight-bold">
                   Parentesco:
                 </label>
@@ -273,7 +249,7 @@
         </div>
       </div>
     </nb-card-body>
-    <nb-card-footer class="d-flex justify-content-end">
+    <nb-card-footer class="d-flex justify-content-end" style=" max-height: 300px; overflow: auto;">
       <button nbButton (click)="close()" type="button">Cancelar</button>
       <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
     </nb-card-footer>
