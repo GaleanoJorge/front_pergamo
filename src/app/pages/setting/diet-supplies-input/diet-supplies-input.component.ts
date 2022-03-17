@@ -80,9 +80,12 @@ export class DietSuppliesInputComponent implements OnInit {
           return value.name;
         },
       },
-      campus_id: {
+      campus: {
         title: this.headerFields[5],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
       },
       updated_at: {
         title: this.headerFields[6],
