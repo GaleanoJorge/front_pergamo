@@ -30,32 +30,38 @@ import { Actions3Component } from './bed-management/actions.component';
 import { FormPatientDataComponent } from './patient-data/form-admissions-patient/form-patient-data.component';
 import { PatientDataComponent } from './patient-data/patient-data.component';
 import { ActionsComponentED } from './patient-data/actionsED.component';
+import { Actions5Component } from './clinic-history/actions.component';
+import { FormClinicHistoryComponent } from './clinic-history/form-clinic-history/form-clinic-history.component';
+import { ClinicHistoryComponent } from './clinic-history/clinic-history.component';
+import { FormEntryClinicHistoryComponent } from './entry-clinic-history/form-entry-clinic-history/form-entry-clinic-history.component';
+import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
+import { Actions6Component } from './entry-clinic-history/actions.component';
 
 @NgModule({
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        ThemeModule,
-        NbTabsetModule,
-        NbRouteTabsetModule,
-        NbStepperModule,
-        NbCardModule,
-        NbButtonModule,
-        NbListModule,
-        NbTooltipModule,
-        NbAccordionModule,
-        NbUserModule,
-        AdmissionsRoutingModule,
-        NbInputModule,
-        PagesModule,
-        Ng2SmartTableModule,
-        NbPopoverModule,
-        NbSelectModule,
-        NbRadioModule,
-        NbIconModule,
-        NbSpinnerModule,
-        NbToggleModule,
-    ],
+  imports: [
+      FormsModule,
+      ReactiveFormsModule,
+      ThemeModule,
+      NbTabsetModule,
+      NbRouteTabsetModule,
+      NbStepperModule,
+      NbCardModule,
+      NbButtonModule,
+      NbListModule,
+      NbTooltipModule,
+      NbAccordionModule,
+      NbUserModule,
+      AdmissionsRoutingModule,
+      NbInputModule,
+      PagesModule,
+      Ng2SmartTableModule,
+      NbPopoverModule,
+      NbSelectModule,
+      NbRadioModule,
+      NbIconModule,
+      NbSpinnerModule,
+      NbToggleModule, 
+  ],
   declarations: [
     ActionsComponentED,
     FormPatientDataComponent,
@@ -70,6 +76,12 @@ import { ActionsComponentED } from './patient-data/actionsED.component';
     Actions3Component,
     ActionsComponent,
     EditPatientComponent,
+    Actions5Component,
+    FormClinicHistoryComponent,
+    ClinicHistoryComponent,
+    Actions6Component,
+    FormEntryClinicHistoryComponent,
+    EntryClinicHistoryComponent,
   ],
   providers: [
     DateFormatPipe,

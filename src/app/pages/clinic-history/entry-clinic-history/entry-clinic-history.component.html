@@ -1,0 +1,74 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+          <nb-step [stepControl]="nameForm" label="Valoración">
+
+            <ngx-form-reason-consultation *ngIf="chreasonconsultation" [record_id]="record_id"
+              [data]="chreasonconsultation"></ngx-form-reason-consultation>
+
+          </nb-step>
+          <nb-step [stepControl]="nameForm" label="Rx Sistemas">
+            <form #nameForm="ngForm" class="step-container">
+              <div class="input-group">
+                <input type="text" placeholder="texto" class="space" name="name" required nbInput ngModel
+                  #name="ngModel" [status]="name.invalid ? 'danger' : 'basic'">
+              </div>
+              <button nbButton nbStepperGUARDAR>guardar</button>
+            </form>
+          </nb-step>
+
+          <nb-step [stepControl]="movieForm" label="Ex Físico">
+            <form #movieForm="ngForm" class="step-container">
+              <div class="input-group">
+                <input type="text" placeholder="texto" class="space" name="movie" required nbInput ngModel
+                  #movie="ngModel" [status]="movie.invalid ? 'danger' : 'basic'">
+              </div>
+              <button nbButton nbStepperGUARDAR>guardar</button>
+            </form>
+          </nb-step>
+
+          <nb-step [stepControl]="somethingForm" label="Signos Vitales">
+
+            <ngx-form-signs *ngIf="chvitsigns" [record_id]="record_id"
+            [data]="chvitsigns"></ngx-form-signs>
+
+          </nb-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <nb-step [stepControl]="somethingForm" label="Diagnóstico">
+            <form #somethingForm="ngForm" class="step-container">
+              <div class="input-group">
+                <input type="text" placeholder="texto" class="space" name="something" required nbInput ngModel>
+              </div>
+              <button nbButton nbStepperGUARDAR>guardar</button>
+            </form>
+          </nb-step>
+
+          <nb-step [hidden]="true">
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>

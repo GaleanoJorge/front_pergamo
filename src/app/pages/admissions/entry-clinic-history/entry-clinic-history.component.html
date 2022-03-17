@@ -1,0 +1,156 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+          <nb-step [stepControl]="nameForm" label="Rx Sistemas">
+            <form #nameForm="ngForm" class="step-container">
+              <div class="input-group">
+                <input type="text" placeholder="texto" class="space" name="name" required nbInput ngModel
+                  #name="ngModel" [status]="name.invalid ? 'danger' : 'basic'">
+              </div>
+              <button nbButton nbStepperGUARDAR>guardar</button>
+            </form>
+          </nb-step>
+
+          <nb-step [stepControl]="movieForm" label="Ex Físico">
+            <form #movieForm="ngForm" class="step-container">
+              <div class="input-group">
+                <input type="text" placeholder="texto" class="space" name="movie" required nbInput ngModel
+                  #movie="ngModel" [status]="movie.invalid ? 'danger' : 'basic'">
+              </div>
+              <button nbButton nbStepperGUARDAR>guardar</button>
+            </form>
+          </nb-step>
+
+          <nb-step [stepControl]="somethingForm" label="Signos Vitales">
+            <form #somethingForm="ngForm" class="step-container">
+              <div class="form-group">
+                <input type="datetime-local" class="space1  form-text text-muted" name="datetime" id="datetime">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="center">
+                      <fieldset class="field_set">
+                        <legend class="prue1">SIGNOS VITALES</legend>
+                        <table width="100%">
+                          <input type="text" placeholder="FC" class="ImpPeq" name="something" required nbInput ngModel>
+                          <input type="text" placeholder="FR" class="ImpPeq" name="something" required nbInput ngModel>
+                          <input type="text" placeholder="SAT. O2" class="ImpPeq" name="something" required nbInput
+                            ngModel>
+                          <input type="text" placeholder="PIC" class="ImpPeq" name="something" required nbInput ngModel>
+                          <input type="text" placeholder="PPC" class="ImpPeq" name="something" required nbInput ngModel>
+                          <input type="text" placeholder="PIA" class="ImpPeq" name="something" required nbInput ngModel>
+                        </table>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="center">
+                      <fieldset class="field_set">
+                        <legend class="prue1">PRESIÓN</legend>
+                        <table width="100%">
+                          <input type="text" placeholder="SISTÓLICA" class="space" name="something" required nbInput
+                            ngModel>
+                          <input type="text" placeholder="DIASTÓLICA" class="space" name="something" required nbInput
+                            ngModel>
+                          <input type="text" placeholder="MEDIA" class="space" name="something" required nbInput
+                            ngModel>
+                        </table>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="field_set">
+                      <legend class="prue1">NEUROLOGICO</legend>
+                      <table width="100%">
+                        <div class="list">
+                          <nb-select [selected]="this.data.ch_vital_neurological_id"
+                            formControlName="ch_vital_neurological_id" id="ch_vital_neurological_id"
+                            status="{{ isSubmitted && form.controls.ch_vital_neurological_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+
+                            <nb-option value="">Seleccione...</nb-option>
+                            <nb-option selected="{{ item.id == this.data.ch_vital_neurological_id }}"
+                              *ngFor="let item of ch_vital_neurological" [value]="item.id">
+                              {{ item.name }}</nb-option>
+                          </nb-select>
+                        </div>
+                      </table>
+                    </fieldset>
+                  </div>
+                </div>
+                <label for="right_user" class="form-text text-muted font-weight-bold"> </label>
+                <fieldset class="field_set">
+                  <legend class="prue1">OTRO</legend>
+                  <table width="100%">
+                    <input type="text" placeholder="PULSO" class="ImpPeq" name="something" required nbInput ngModel>
+                    <input type="text" placeholder="PVC" class="ImpPeq" name="something" required nbInput ngModel>
+                    <input type="text" placeholder="TALLA(cm)" class="space" name="something" required nbInput ngModel>
+                    <input type="text" placeholder="texto" class="space" name="something" required nbInput ngModel>
+                    <input type="text" placeholder="PESO(Kg)" class="ImpPeq" name="something" required nbInput ngModel>
+                    <input type="text" placeholder="GLUCOMETRIA" class="space" name="something" required nbInput
+                      ngModel>
+                    <input type="text" placeholder="IMC" class="ImpPeq" name="something" required nbInput ngModel>
+                  </table>
+                </fieldset>
+                <fieldset class="field_set">
+                  <legend class="prue1">PRESIÓN ART PULMONAR</legend>
+                  <table width="100%">
+                    <input type="text" placeholder="SISTÓLICA" class="space" name="something" required nbInput ngModel>
+                    <input type="text" placeholder="DIASTÓLICA" class="space" name="something" required nbInput ngModel>
+                    <input type="text" placeholder="MEDIA" class="space" name="something" required nbInput ngModel>
+                  </table>
+                </fieldset>
+                <fieldset class="field_set">
+                  <legend class="prue1">INFANTE</legend>
+                  <table width="100%">
+                    <div class="row">
+                      <input type="text" placeholder="PERIMETRO CEFALICO" class="space" name="something" required
+                        nbInput ngModel>
+                      <input type="text" placeholder="PERIMETRO ABDOMINAL" class="space" name="something" required
+                        nbInput ngModel>
+                      <input type="text" placeholder="PERIMETRO TORACICO" class="space" name="something" required
+                        nbInput ngModel>
+                    </div>
+                  </table>
+                </fieldset>
+                <button nbButton nbStepperGUARDAR>GUARDAR</button>
+              </div>
+            </form>
+          </nb-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <nb-step [stepControl]="somethingForm" label="Diagnóstico">
+            <form #somethingForm="ngForm" class="step-container">
+              <div class="input-group">
+                <input type="text" placeholder="texto" class="space" name="something" required nbInput ngModel>
+              </div>
+              <button nbButton nbStepperGUARDAR>guardar</button>
+            </form>
+          </nb-step>
+
+          <nb-step [hidden]="true">
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>

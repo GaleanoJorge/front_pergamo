@@ -26,9 +26,6 @@ import { LocationService } from '../../../business-controller/location.service';
     <button nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
         <nb-icon icon="info-outline"></nb-icon>
     </button>
-    <a  nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + value.data.id">
-      <nb-icon icon="folder-add-outline"></nb-icon>
-    </a>
   </div>
   <ng-template #templateRef>
     <nb-card size="tiny">
@@ -131,7 +128,7 @@ import { LocationService } from '../../../business-controller/location.service';
 </ng-template>
   `,
 })
-export class Actions2Component implements ViewCell {
+export class Actions5Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
   public dialog;
   public status: boolean;

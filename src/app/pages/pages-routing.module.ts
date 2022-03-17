@@ -29,6 +29,11 @@ const routes: Routes = [{
         .then(m => m.AdmissionsModule),
     },
     {
+      path: 'clinic-history',
+      loadChildren: () => import('./clinic-history/clinic-history.module')
+        .then(m => m.ClinicHistoryModule),
+    },
+    {
       path: 'gloss',
       loadChildren: () => import('./gloss/gloss.module')
         .then(m => m.GlossModule),
