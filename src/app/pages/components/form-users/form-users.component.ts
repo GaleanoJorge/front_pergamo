@@ -42,6 +42,8 @@ import { search } from '@syncfusion/ej2-angular-filemanager';
 import { Item } from '../../../models/item';
 import { InabilityService } from '../../../business-controller/inability.service';
 import { date } from '@rxweb/reactive-form-validators';
+import {LocationCapacityService} from '../../../business-controller/location-capacity.service';
+
 
 
 
@@ -111,6 +113,7 @@ export class FormUsersComponent implements OnInit {
 
   public inabilitys: any[];
   public residences: any[];
+  public location_capacity: any[];
 
   public referencia;
   public residence;
@@ -123,6 +126,9 @@ export class FormUsersComponent implements OnInit {
   public cardinality: any = null;
   public reference: any = null;
   public image;
+  public signatureImage;
+  public currentImg;
+
 
 
   constructor(
@@ -146,6 +152,7 @@ export class FormUsersComponent implements OnInit {
     private inabilitysS: InabilityService,
     private route: ActivatedRoute,
     private dialog: NbDialogService,
+    private locationCapacityS: LocationCapacityService,
   ) {
   }
 
@@ -161,8 +168,14 @@ export class FormUsersComponent implements OnInit {
   async ngOnInit() {
     if (this.data && this.data.file) {
       this.image = environment.storage + this.data.file;
+       
     } else {
       this.image = "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg";
+    }
+    if(this.data && this.data.assistance.length>0){
+    this.currentImg = environment.storage + this.data.assistance[0].firm;  
+    }else{
+      this.currentImg=null;
     }
     this.currentRoleId = localStorage.getItem('role_id');
     this.LoadForm(false).then();
@@ -176,6 +189,12 @@ export class FormUsersComponent implements OnInit {
 
     this.today.setDate(this.today.getDate() - 2);
     this.today = this.today.toISOString().split('T')[0];
+
+    if(this.role==7){
+      this.GetAuxData(1)
+    } else if(this.role==14){
+      this.GetAuxData(2)
+    }
   }
 
   GetAuxData($type_professional_id?, $search?) {
@@ -205,6 +224,11 @@ export class FormUsersComponent implements OnInit {
         return Promise.resolve(true);
       });
   }
+
+  showImage(data) {
+    this.signatureImage = data;
+  }
+
   saveCode(e): void {
     var localidentify = this.activities.find(item => item.name == e);
 
@@ -235,7 +259,8 @@ export class FormUsersComponent implements OnInit {
         this.GetMunicipalities(this.data.region_id),
         this.GetRegions(this.data.country_id, true),
         this.GetMunicipalities(this.data.residence_region_id, true),
-        this.data.locality_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null ,this.data.locality_id) : this.GetNeighborhoodResidence(this.data.residence_municipality_id)
+        this.data.locality_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null ,this.data.locality_id) : this.GetNeighborhoodResidence(this.data.residence_municipality_id),
+        this.data.localities_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null ,this.data.localities_id) : this.GetNeighborhoodResidence(this.data.residence_municipality_id)
       ];
 
       await Promise.all(promises);
@@ -254,6 +279,7 @@ export class FormUsersComponent implements OnInit {
         this.GetData('firstname'),
         Validators.compose([Validators.required]),
       ],
+
       middlefirstname: [
         this.GetData('middlefirstname'),
         Validators.compose([]),
@@ -347,6 +373,7 @@ export class FormUsersComponent implements OnInit {
       locality_id: [
         this.GetData('locality_id'),
       ],
+
       study_level_status_id: [
         this.GetData('study_level_status_id'),
         Validators.compose([Validators.required]),
@@ -410,7 +437,7 @@ export class FormUsersComponent implements OnInit {
     if (this.data) {
       this.age = this.data.age;
     }
-    if (this.role == 3) {
+    if (this.role == 3 || this.role ==7) {
       configForm = {
         ...configForm,
         medical_record: [
@@ -420,6 +447,9 @@ export class FormUsersComponent implements OnInit {
         contract_type_id: [
           this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].contract_type_id : '',
           Validators.compose([Validators.required])
+        ],
+        localities_id: [
+          [this.getlocalities()],
         ],
         // cost_center_id: [
         //   this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].cost_center_id : '',
@@ -436,10 +466,6 @@ export class FormUsersComponent implements OnInit {
         ],
         PAD_patient_quantity: [
           this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_patient_quantity : false,
-        ],
-        file_firm: [
-          this.data == null ? '' : this.data.assistance.length > 0 ? this.data.assistance[0].file_firm : '',
-          Validators.compose([Validators.required])
         ],
       }
 
@@ -501,6 +527,22 @@ export class FormUsersComponent implements OnInit {
     this.LoadForm().then();
   }
 
+  async getlocalities(){
+    if(this.data != null && this.data.assistance.length>0){
+  await this.locationCapacityS.GetByAssistance(this.data.assistance[0].id).then(x => {
+    var arrdta = [];
+    this.location_capacity = x.data;
+    this.location_capacity.forEach(element => {
+      arrdta.push(element.locality_id);
+    });
+
+    this.form.controls.localities_id.setValue([arrdta]);
+    this.data.localities_id=[arrdta];
+
+  });
+}
+}
+
   ReturnResidence(e) {
     var complete_address = e;
 
@@ -541,7 +583,7 @@ export class FormUsersComponent implements OnInit {
 
   async SaveStudent() {
     this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' + this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) ';
-    if(this.role == 3){
+    if(this.role == 3 || this.role ==7){
       this.patient_quantity();
     }
     this.isSubmitted = true;
@@ -587,6 +629,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('residence_region_id', data.residence_region_id.value);
       formData.append('residence_municipality_id', data.residence_municipality_id.value);  
       formData.append('locality_id', data.locality_id.value);
+    
       formData.append('study_level_status_id', data.study_level_status_id.value);
       formData.append('activities_id', this.activities_id);
       formData.append('select_RH_id', this.form.value.select_RH_id);
@@ -596,15 +639,16 @@ export class FormUsersComponent implements OnInit {
       formData.append('neighborhood_or_residence_id', data.neighborhood_or_residence_id.value);
 
       var role = Number(this.role);
-      if (role == 3) {
-        formData.append('assistance_id', this.data == null ? null : this.data.assistance[0].id);
+      if (role == 3 || role == 7) {
+        formData.append('assistance_id', this.data==null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
+        formData.append('localities_id', data.localities_id.value);
         formData.append('contract_type_id', data.contract_type_id.value);
         // formData.append('cost_center_id', data.cost_center_id.value);
         // formData.append('type_professional_id', data.type_professional_id.value);
         formData.append('attends_external_consultation', data.attends_external_consultation.value === true ? '1' : '0');
         formData.append('serve_multiple_patients', data.serve_multiple_patients.value === true ? '1' : '0');
-        formData.append('file_firm', this.form.value.file_firm);
+        formData.append('firm', this.signatureImage);
         formData.append('PAD_service', data.PAD_service.value === true ? '1' : '0');
         formData.append('PAD_patient_quantity', data.PAD_patient_quantity.value === false ? null : data.PAD_patient_quantity.value);
       }
@@ -724,6 +768,7 @@ export class FormUsersComponent implements OnInit {
         residence_region_id: '',
         residence_municipality_id: '',
         locality_id: '',
+        localities_id: [],
         neighborhood_or_residence_id: '',
       });
     });
@@ -737,6 +782,7 @@ export class FormUsersComponent implements OnInit {
       this.form.patchValue({
         residence_municipality_id: '',
         locality_id: '',
+        localities_id: [],
         neighborhood_or_residence_id: '',
       });
     });
@@ -753,6 +799,7 @@ export class FormUsersComponent implements OnInit {
       }
       this.form.patchValue({
         locality_id: '',
+        localities_id: [],
         neighborhood_or_residence_id: '',
       });
     });
@@ -779,7 +826,7 @@ export class FormUsersComponent implements OnInit {
         this.form.get('disability').updateValueAndValidity();
       }
     });
-    // if (this.role == 3) {
+    // if (this.role == 3 || this.role==7) {
     //   this.form.get('type_professional_id').valueChanges.subscribe(val => {
     //     if (val) {
     //       console.log(val);

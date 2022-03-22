@@ -360,8 +360,6 @@ const routes: Routes = [{
     {
       path: 'roles',
       component: RolesComponent,
-      canActivate: [PermissionsGuard],
-      // data: { permission: 'roles.read'},
 
     },
     {
@@ -593,8 +591,6 @@ const routes: Routes = [{
     {
       path: 'specialty',
       component: SpecialtyComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'especialidad.read' },
     },
     {
       path: 'entity',

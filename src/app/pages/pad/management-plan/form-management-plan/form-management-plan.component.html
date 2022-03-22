@@ -16,7 +16,7 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4">
+        <div *ngIf="this.form.controls.type_of_attention_id.value==2" class="col-12 col-sm-12 col-md-4">
           <label for="special_field" class="form-text text-muted font-weight-bold">Especialidad:</label>
           <nb-select [selected]="this.data.special_field_id" formControlName="special_field_id" id="special_field_id"
             fullWidth

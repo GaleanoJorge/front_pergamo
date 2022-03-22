@@ -57,13 +57,16 @@ import { Item } from '../../../models/item';
         <p><strong>Programa:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
             1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length -
             1].program.name }}</p>
-        <p><strong>Piso:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
+        <p *ngIf="this.value.data.admissions[this.value.data.admissions.length -
+          1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].flat!=null"><strong>Piso:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
             1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].flat.name
             }}</p>
-        <p><strong>Pabellón:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
+        <p *ngIf="this.value.data.admissions[this.value.data.admissions.length -
+          1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].pavilion!=null"><strong>Pabellón:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
             1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length -
             1].pavilion.name }}</p>
-        <p><strong>Cama:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
+        <p *ngIf="this.value.data.admissions[this.value.data.admissions.length -
+          1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].bed!=null"><strong>Cama:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
             1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].bed.name
             }}</p>
     </div>
@@ -155,6 +158,7 @@ export class ActionsComponent implements ViewCell, OnInit {
   ) {
   }
    async ngOnInit(){
+     console.log(this.value);
     if(this.value.data.admissions.length==0){
       this.status=false;
     }else if (this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date=='0000-00-00 00:00:00'){

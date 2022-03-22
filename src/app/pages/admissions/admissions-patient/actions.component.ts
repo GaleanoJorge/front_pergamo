@@ -14,17 +14,14 @@ import { LocationService } from '../../../business-controller/location.service';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="status" nbTooltip="Estado" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef)">
+    <a *ngIf="status" nbTooltip="Salida del paciente" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef)">
         <nb-icon icon="clock-outline"></nb-icon>
     </a>
-    <button *ngIf="medical" nbTooltip="Medico" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef2)">
+    <button *ngIf="medical" nbTooltip="Reversión de salida medica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef2)">
         <nb-icon icon="log-out-outline"></nb-icon>
     </button>
     <button nbTooltip="Agregar o modificar acompañantes" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/admissions/patient-data/' + value.data.id" >
       <nb-icon icon="person-add-outline"></nb-icon>
-    </button>
-    <button nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
-        <nb-icon icon="info-outline"></nb-icon>
     </button>
   </div>
   <ng-template #templateRef>
@@ -37,7 +34,6 @@ import { LocationService } from '../../../business-controller/location.service';
       </nb-card-body>
 
       <nb-card-footer class="d-flex justify-content-end">
-          <button nbButton ghost type="button" (click)="close()">Cancelar</button>
           <button nbButton status="danger" class="ml-1" type="button" (click)="DeleteAction()" [disabled]="loading">Confirmar</button>
       </nb-card-footer>
     </nb-card>

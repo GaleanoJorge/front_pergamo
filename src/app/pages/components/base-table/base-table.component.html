@@ -5,7 +5,9 @@
 
         <div class="title h5">{{ title }}</div>
         <div class="status paragraph-2" *ngIf="subtitle">{{ subtitle }}</div>
+        <ng-content select="[title]">
 
+        </ng-content>
       </div>
 
       <div class="col-12 col-md-6 mt-4 mt-md-0">

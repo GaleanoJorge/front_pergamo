@@ -1,18 +1,19 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="management_plan_by_admissions/{{admissions_id}}"
-      customData="management_plan" [messageToltip]="messageToltip">
+    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="assigned_management_plan/{{management_id}}"
+      customData="assigned_management_plan" [messageToltip]="messageToltip">
       <div title *ngIf="user">
         <p class="parrafo" >CÉDULA: {{user.identification}} </p>
         <p class="parrafo">NOMBRE:  {{user.nombre_completo}}</p>
         <p class="parrafo" >FECHA DE NACIMIENTO: {{user.birthday}} </p>
         <p class="parrafo" >EDAD: {{user.age}} </p>
         <p class="parrafo" >GÉNERO: {{user.gender.name}} </p>
+        <p class="parrafo" >GÉNERO: {{user.gender.name}} </p>
+        <p class="parrafo" >GÉNERO: {{user.gender.name}} </p>
       </div>
       <div actions>
         <div class="actions">
-          <button nbButton status="danger" (click)="NewManagementPlan()">Crear</button>
         </div>
         <div class="actions" style="margin-top:1em;">
         </div>

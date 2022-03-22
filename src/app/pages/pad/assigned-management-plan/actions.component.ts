@@ -15,35 +15,35 @@ import { date } from '@rxweb/reactive-form-validators';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="value.currentRole!=3 && value.currentRole!=7" nbTooltip="Plan de manejo" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/management-plan/' + value.data.admissions[0].id+'/'+value.data.id">
-      <nb-icon icon="menu-outline"></nb-icon>
-    </a>
-    <a *ngIf="value.currentRole==3 || value.currentRole==7" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/assigned-management-plan/' + this.value.management.management[0].management_id+'/'+value.data.id ">
-    <nb-icon icon="menu-outline"></nb-icon>
-  </a>
+    <button nbTooltip="Historia Clinica" *ngIf="today >= value.data.start_date && today <= value.data.finish_date" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost >
+        <nb-icon icon="menu-outline"></nb-icon>
+    </button>
   </div>
-  
-
   `,
-  styleUrls: ['./pad-list.component.scss'],
+  styleUrls: ['./assigned-management-plan.component.scss'],
 })
-export class Actions2Component implements ViewCell {
+export class Actions4Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
+public today;
 
-  public management_id;
-
- 
 
   constructor(
-   
+
   ) {
   }
 
   async ngOnInit() {
-console.log(this.value);
-    }
 
-  
+    this.today = new Date;
+
+    let day = this.today.getDate();
+let month = this.today.getMonth() + 1;
+let year = this.today.getFullYear();
+
+this.today=year+'-0'+month+'-'+day;
+
+
+  }
 
 }

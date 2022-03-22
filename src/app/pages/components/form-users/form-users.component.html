@@ -397,7 +397,7 @@
           </div>
         </div>
 
-        <div *ngIf="this.form.controls.residence_municipality_id.value == 11001" class="col-md-6">
+        <div class="col-md-6">
           <div class="form-group">
             <label for="locality_id" class="form-text text-muted font-weight-bold">Localidad:</label>
             <nb-select id="locality_id" fullWidth formControlName="locality_id"
@@ -524,14 +524,14 @@
         </div>
       </div>-->
 
-      <div class="row mt-3" *ngIf="role==3">
+      <div class="row mt-3" *ngIf="role==3 || role==7">
         <div class="col-12">
           <p class="text-muted title-users">Información personal asistencial</p>
         </div>
 
         <div class="col-md-6 col-lg-4">
           <div class="form-group">
-            <label for="medical_record" class="form-text text-muted font-weight-bold">Registro medico:</label>
+            <label for="medical_record" class="form-text text-muted font-weight-bold">Número de registro:</label>
             <input nbInput fullWidth id="medical_record" formControlName="medical_record" medical_record
               status="{{ isSubmitted && form.controls.medical_record.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
@@ -548,7 +548,7 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="role==3">
+      <div class="row" *ngIf="role==3 || role ==7">
 
         <!-- <div class="col-md-4">
           <div class="form-group">
@@ -559,17 +559,6 @@
               <nb-option *ngFor="let item of cost_center" [value]="item.id">
                 {{ item.name }}
               </nb-option>
-            </nb-select>
-          </div>
-        </div> -->
-        <!-- <div class="col-md-4">
-          <div class="form-group">
-            <label for="type_professional" class="form-text text-muted font-weight-bold">Tipo de profesional:</label>
-            <nb-select formControlName="type_professional_id" id="type_professional_id" fullWidth
-              status="{{ isSubmitted && form.controls.type_professional_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option *ngFor="let item of type_professional" [value]="item.id">
-                {{ item.name }}</nb-option>
             </nb-select>
           </div>
         </div> -->
@@ -601,19 +590,39 @@
               status="{{ isSubmitted && form.controls.PAD_patient_quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
         </div>
-      </div>
-      <div class="row" *ngIf="role!=2">
-        
-        <div class="col-md-6">
+        <div class="col-md-12 col-lg-6" *ngIf="form.controls.PAD_service.value">
           <div class="form-group">
-            <label for="file_firm" class="form-text text-muted font-weight-bold">Archivo de firma:</label>
-            <div class="file-select-evidencias2" id="src-file2">
-              <input class="file_firm" accept="image/*,.pdf" type="file" id="file_firm" file_firm fullWidth
-                (change)="changeFile($event,1)" />
-            </div>
+            <label for="localities_id" class="form-text text-muted font-weight-bold">Localidades:</label>
+            <nb-select multiple formControlName="localities_id" id="localities_id" name="localities_id" fullWidth
+              status="{{ isSubmitted && form.controls.localities_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option *ngFor="let item of localities" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
           </div>
         </div>
-        <div *ngIf="role!=2" class="col-md-6">
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="firm" class="form-text text-muted font-weight-bold">Firma:</label>
+          <label for="firm" *ngIf="currentImg==null" class="form-text text-muted font-weight-bold"> Manifiesto que conforme a lo dispuesto en la ley 527 de 1999, reglamentada por el Decreto 2364 de 2012, hemos acordado que mi firma será captada de manera electrónica, entendiendo que se da cumplimiento a los dispuesto en el numeral 3 de la normativa mencionada: Artículo 3°. Cumplimiento del requisito de firma. Cuando se exija la firma de una persona, ese requisito quedará cumplido en relación con un mensaje de datos si se utiliza una firma electrónica que, a la luz de todas las circunstancias del caso, incluido cualquier acuerdo aplicable, sea tan confiable como apropiada para los fines con los cuales se generó o comunicó ese mensaje.</label>
+          <ng-signature-pad *ngIf="currentImg==null" [emitOnDragEnd]="true" [showDoneButton]="false" clearButtonText="Borrar" format="base64"
+            (done)="showImage($event)">
+          </ng-signature-pad>
+
+
+          <img [src]="currentImg" *ngIf="currentImg" />
+        </div>
+        <!-- <div class="col-md-4" *ngIf="role ==7 || role==14">
+          <div class="form-group">
+            <label for="type_professional" class="form-text text-muted font-weight-bold">Tipo de profesional:</label>
+            <nb-select formControlName="type_professional_id" id="type_professional_id" fullWidth
+              status="{{ isSubmitted && form.controls.type_professional_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of type_professional" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div> -->
+        <div class="col-md-6" *ngIf="role ==7 || role==14">
           <div class="form-group">
             <label class="form-text text-muted font-weight-bold">Especialidad:</label>
             <button nbButton status="info" type="button" (click)="ShowDialogSpecialities()">
@@ -623,7 +632,9 @@
         </div>
       </div>
 
-      <div class="row" *ngIf="isStudent!=true">
+
+
+      <div class="row" *ngIf="this.role!=2">
         <div class="col-md-6">
           <div class="form-group">
             <label for="password" class="form-text text-muted font-weight-bold">Contraseña:</label>
