@@ -115,7 +115,6 @@ export class FormUsersComponent implements OnInit {
   public referencia;
   public residence;
   public age: any = null;
-  // public mesagge="Av.Calle 68 b # 186 c - 18a, Norte  ( apt 203 familia corredor, panaderia azul )";
 
   public street: any = null;
   public num1: any = null;
@@ -487,9 +486,8 @@ export class FormUsersComponent implements OnInit {
 
   private patient_quantity() {
     // console.log(this.form.controls.PAD_service.value);
-    if (this.form.controls.PAD_service.value == true && this.form.controls.PAD_patient_quantity.value == false || this.form.controls.PAD_patient_quantity.value == null) {
-      this.form.controls.PAD_patient_quantity.setErrors({ 'incorrect': true });
-      // console.log('invalido hpta');
+    if(this.form.controls.PAD_service.value == true && this.form.controls.PAD_patient_quantity.value == false || this.form.controls.PAD_patient_quantity.value == null ) {
+      this.form.controls.PAD_patient_quantity.setErrors({'incorrect': true});
     }
   }
 

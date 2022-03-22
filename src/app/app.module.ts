@@ -30,6 +30,7 @@ import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
 import { DateFormatPipe } from './pipe/date-format.pipe';
 import { PagesModule } from './pages/pages.module';
 
+
 @NgModule({
   declarations: [AppComponent, LoginComponent, DateFormatPipe],
   imports: [

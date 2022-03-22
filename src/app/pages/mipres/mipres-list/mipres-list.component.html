@@ -1,0 +1,17 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title" 
+                    [subtitle]="subtitle" [settings]="settings" 
+                    [entity]="entity" 
+                    customData="mipres"
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+          <div class="actions">
+            <button nbButton status="danger" ngxCheckPerms="create" (click)="NewMipres()">Crear</button>
+          </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

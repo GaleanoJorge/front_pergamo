@@ -1,23 +1,20 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { ServiceObject } from '../models/service-object';
-import { environment } from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {ServiceObject} from '../models/service-object';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class WebAPIService {
+export class mipressAPIService {
 
   constructor(private httpClient: HttpClient) {
   }
 
-  private endPoint = environment.api;
-  private filePath = environment.api;
-  private endPointCAS = environment.cas;
+  private endPointSum = environment.api_mipress_sum;
+  private endPointFac = environment.api_mipress_fac;
+  private filePath = environment.api_mipress_sum;
   private paramsMain = new HttpParams().set('role_id', localStorage.getItem('role_id'));
-
-  private endPointMipresSum = environment.api_mipress_sum;
-  private endPointMipresFac = environment.api_mipress_fac;
 
   async GetAction(serviceObject: ServiceObject, params = {}): Promise<ServiceObject> {
     /*let httpParams = new HttpParams();
@@ -27,7 +24,7 @@ export class WebAPIService {
     });*/
 
     return this.httpClient
-      .get(`${this.endPoint}${serviceObject.entity}${serviceObject.id ? '/' + serviceObject.id : ''}`,
+      .get(`${this.endPointSum}${serviceObject.entity}${ serviceObject.id ? '/' + serviceObject.id : ''}`,
         {
           params,
         })
@@ -42,7 +39,7 @@ export class WebAPIService {
 
   GetActionLogin(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
-      .get(`${this.endPoint}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`)
+      .get(`${this.endPointSum}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`)
       .toPromise()
       .then(x => {
         return Promise.resolve(<ServiceObject>x);
@@ -55,7 +52,7 @@ export class WebAPIService {
   async GetActionParams(serviceObject: ServiceObject, paramsInt?: HttpParams): Promise<ServiceObject> {
     var params = paramsInt ? paramsInt : this.paramsMain;
     return this.httpClient
-      .get(`${this.endPoint}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`, { params })
+      .get(`${this.endPointSum}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`, {params})
       .toPromise()
       .then(x => {
         return Promise.resolve(<ServiceObject>x);
@@ -67,7 +64,7 @@ export class WebAPIService {
 
   async PostAction(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
-      .post(`${this.endPoint}${serviceObject.entity}${serviceObject.id
+      .post(`${this.endPointSum}${serviceObject.entity}${serviceObject.id
         ? '/' + serviceObject.id : ''}`, serviceObject.data, {})
       .toPromise()
       .then(x => {
@@ -80,7 +77,7 @@ export class WebAPIService {
 
   async DeleteAction(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
-      .delete(`${this.endPoint}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`)
+      .delete(`${this.endPointSum}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`)
       .toPromise()
       .then(x => {
         return Promise.resolve(<ServiceObject>x);
@@ -92,7 +89,7 @@ export class WebAPIService {
 
   async PutAction(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
-      .put(`${this.endPoint}${serviceObject.entity}${(serviceObject.id ? ('/' + serviceObject.id) : '')}`, serviceObject.data)
+      .put(`${this.endPointSum}${serviceObject.entity}${(serviceObject.id ? ('/' + serviceObject.id) : '')}`, serviceObject.data)
       .toPromise()
       .then(x => {
         return Promise.resolve(<ServiceObject>x);
@@ -102,21 +99,9 @@ export class WebAPIService {
       });
   }
 
-  // async PutActionPAC(serviceObject: ServiceObject): Promise<ServiceObject> {
-  //   return this.httpClient
-  //     .put(`${this.endPoint}${serviceObject.entity}${(serviceObject.data.id_pac ? ('/' + serviceObject.id) : '')}${(serviceObject.data.id_reason ? ('/' + serviceObject.id) : '')}`, serviceObject.data)
-  //     .toPromise()
-  //     .then(x => {
-  //       return Promise.resolve(<ServiceObject>x);
-  //     })
-  //     .catch(x => {
-  //       throw x;
-  //     });
-  // }
-
   async PatchAction(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
-      .patch(`${this.endPoint}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`, serviceObject.data)
+      .patch(`${this.endPointSum}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`, serviceObject.data)
       .toPromise()
       .then(x => {
         return Promise.resolve(<ServiceObject>x);
@@ -128,7 +113,7 @@ export class WebAPIService {
 
   async Login(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
-      .post(`${this.endPoint}${serviceObject.entity}?email=${serviceObject.data.email}&password=${serviceObject.data.password}`, serviceObject.data)
+      .get(`${this.endPointSum}/${serviceObject.entity}?email=${serviceObject.data.email}&password=${serviceObject.data.password}`, serviceObject.data)
       .toPromise()
       .then(x => {
         var servObj = new ServiceObject();
@@ -141,9 +126,9 @@ export class WebAPIService {
       });
   }
 
-  async LoginAPI(serviceObject: ServiceObject): Promise<ServiceObject> {
+  async LoginMipressAPISum(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
-      .post(`${this.endPoint}${serviceObject.entity}?id=${serviceObject.data.id}&email=${serviceObject.data.email}&password=${serviceObject.data.password}`, serviceObject.data)
+      .get(`${this.endPointSum}/${serviceObject.entity}/${serviceObject.data.nit}/${serviceObject.data.token}`, serviceObject.data)
       .toPromise()
       .then(x => {
         var servObj = new ServiceObject();
@@ -156,15 +141,11 @@ export class WebAPIService {
       });
   }
 
-  async LoginAPIMipres(serviceObject: ServiceObject, mipres_token_type?): Promise<ServiceObject> {
-    if (mipres_token_type == 0) {
-      var URL = this.endPointMipresSum;
-    } else {
-      var URL = this.endPointMipresFac;
-    }
+  async BilledData(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
-      .get(`${URL}${serviceObject.entity}/${environment.nit_mipress}/${environment.token}`)
+      .post(`${this.endPointSum}/${serviceObject.entity}/${serviceObject.data.nit}/${serviceObject.data.token}`, serviceObject.data)
       .toPromise()
+      
       .then(x => {
         var servObj = new ServiceObject();
         servObj.status = true;
@@ -176,33 +157,15 @@ export class WebAPIService {
       });
   }
 
-//Sumunistros 
-  
-  
-   
- 
-  async tokenCAS(serviceObject: ServiceObject): Promise<ServiceObject> {
-
+  async LoginMipressAPIFac(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
-      .post(`${this.endPointCAS}${serviceObject.entity}?grant_type=${serviceObject.data.grant_type}&client_id=${serviceObject.data.client_id}&client_secret=${serviceObject.data.client_secret}&username=${serviceObject.data.username}&password=${serviceObject.data.password}`, serviceObject.data)
+      .get(`${this.endPointFac}/${serviceObject.entity}/${serviceObject.data.nit}/${serviceObject.data.token}`, serviceObject.data)
       .toPromise()
       .then(x => {
         var servObj = new ServiceObject();
         servObj.status = true;
         servObj.data = x;
         return Promise.resolve(<ServiceObject>servObj);
-      })
-      .catch(x => {
-        throw x;
-      });
-  }
-
-  async profileCAS(serviceObject: ServiceObject): Promise<ServiceObject> {
-    return this.httpClient
-      .post(`${this.endPointCAS}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`, serviceObject.data)
-      .toPromise()
-      .then(x => {
-        return Promise.resolve(<ServiceObject>x);
       })
       .catch(x => {
         throw x;
