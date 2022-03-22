@@ -2,5 +2,5 @@ import { MainClass } from './main-class';
 
 export class DietSuppliesOutput extends MainClass {
   id: number;
-  // diet_week_id: number;
+  campus_id: number;
 }

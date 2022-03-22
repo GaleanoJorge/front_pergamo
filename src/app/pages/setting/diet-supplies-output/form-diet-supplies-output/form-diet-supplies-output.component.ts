@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DietSuppliesOutputService } from '../../../../business-controller/diet-supplies-output.service';
 import { DietSuppliesOutputMenuService } from '../../../../business-controller/diet-supplies-output-menu.service';
 import { elementAt } from 'rxjs-compat/operator/elementAt';
+import { CampusService } from '../../../../business-controller/campus.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class FormDietSuppliesOutputComponent implements OnInit {
   @Input() data: any = null;
   @Input() show: any = null;
 
-  // public form: FormGroup;
+  public form: FormGroup;
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
@@ -25,6 +26,7 @@ export class FormDietSuppliesOutputComponent implements OnInit {
   public diet_supplies_output_menu: any[];
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
+  public campus: any[];
 
   public showMenus = false;
 
@@ -35,15 +37,17 @@ export class FormDietSuppliesOutputComponent implements OnInit {
     private toastService: NbToastrService,
     private dietSuppliesOutputMenuS: DietSuppliesOutputMenuService,
     private toastS: NbToastrService,
+    private campusS: CampusService,
   ) {
   }
 
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
+        company_id: '',
       };
     }
-    if(this.show) {
+    if (this.show) {
       this.showMenus = true;
     }
 
@@ -52,6 +56,14 @@ export class FormDietSuppliesOutputComponent implements OnInit {
       x.forEach(element => {
         this.selectedOptions2.push(element.diet_menu_id);
       });
+    });
+
+    this.campusS.GetCollection().then(x => {
+      this.campus = x;
+    });
+
+    this.form = this.formBuilder.group({
+      campus_id: [this.data.company_id, Validators.compose([Validators.required])],
     });
   }
 
@@ -67,7 +79,7 @@ export class FormDietSuppliesOutputComponent implements OnInit {
 
     this.isSubmitted = true;
 
-    // if (!this.form.invalid) {
+    if (!this.form.invalid) {
       this.loading = true;
 
       if (this.data.id) {
@@ -112,7 +124,7 @@ export class FormDietSuppliesOutputComponent implements OnInit {
       } else {
 
         this.DietSuppliesOutput.Save({
-          // name: this.form.controls.name.value,
+          campus_id: this.form.controls.campus_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -128,7 +140,7 @@ export class FormDietSuppliesOutputComponent implements OnInit {
           else {
             this.dietSuppliesOutputMenuS.Save({
               diet_supplies_output_id: id,
-              amount: 5,
+              amount: this.form.controls.campus_id.value,
               diet_menu_id: JSON.stringify(this.selectedOptions),
             }).then(x => {
             }).catch(x => {
@@ -152,7 +164,7 @@ export class FormDietSuppliesOutputComponent implements OnInit {
         });
       }
 
-    // }
+    }
   }
 
 }

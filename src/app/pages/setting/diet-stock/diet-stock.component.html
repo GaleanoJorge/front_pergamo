@@ -5,7 +5,7 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    entity="diet_stock/?pagination=true"
+                    [entity]="this.entity"
                     customData='diet_stock'
                     [messageToltip]="messageToltip"
                     >

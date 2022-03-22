@@ -6,6 +6,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { DietSuppliesOutputMenuService } from '../../../business-controller/diet-supplies-output-menu.service';
 import { FormDietSuppliesOutputComponent } from './form-diet-supplies-output/form-diet-supplies-output.component';
 import { ActionsDietSuppliesOutputComponent } from './actions.component';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
 
@@ -52,9 +53,9 @@ export class DietSuppliesOutputComponent implements OnInit {
       created_at: {
         title: this.headerFields[1],
         type: 'string',
-        // valuePrepareFunction: (value, row) => {
-        //   return value.name;
-        // },
+        valuePrepareFunction: (value, row) => {
+          return this.datePipe.transform(value);
+        },
       },
     },
   };
@@ -72,6 +73,7 @@ export class DietSuppliesOutputComponent implements OnInit {
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    public datePipe: DateFormatPipe,
   ) {
   }
 

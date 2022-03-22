@@ -7,6 +7,7 @@ import { DietSuppliesInputService } from '../../../business-controller/diet-supp
 import { CurrencyPipe } from '@angular/common';
 import { environment } from '../../../../environments/environment.prod';
 import { ActionsInputComponent } from './actions-input.component';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -90,6 +91,9 @@ export class DietSuppliesInputComponent implements OnInit {
       updated_at: {
         title: this.headerFields[6],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.datePipe.transform(value);
+        },
       },
       invoice_number: {
         title: this.headerFields[7],
@@ -111,6 +115,7 @@ export class DietSuppliesInputComponent implements OnInit {
     private currency: CurrencyPipe,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    public datePipe: DateFormatPipe,
   ) {
   }
 

@@ -18,10 +18,11 @@ export class DietStockComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'INVENTARIO';
   public subtitle: string = 'INVENTARIO';
-  public headerFields: any[] = ['ID', 'INSUMO', 'CANTIDAD'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
+  public headerFields: any[] = ['INSUMO', 'CANTIDAD', 'SEDE'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public entity: string;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -61,6 +62,13 @@ export class DietStockComponent implements OnInit {
           return value + ' ' + row.diet_supplies.measurement_units.code;
         },
       },
+      campus: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
       // measurement_units:{
       //   title: this.headerFields[3],
       //   type: 'string',
@@ -87,6 +95,8 @@ export class DietStockComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var campus =+ localStorage.getItem('campus');
+    this.entity = `diet_stock/?pagination=true&campus_id=${campus}`
   }
 
   RefreshData() {
