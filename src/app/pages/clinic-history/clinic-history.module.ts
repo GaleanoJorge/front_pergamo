@@ -31,7 +31,7 @@ import { FormsignsComponent } from './signs/form-signs/form-signs.component';
 import { Actions1Component } from './signs/actions.component';
 import { SignsListComponent } from './signs/signs.component';
 import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
-import { FormdiagnosticComponent } from './diagnostic/form-diagnostic/form-diagnostic.component';
+import { FormDiagnosticComponent } from './diagnostic/form-diagnostic/form-diagnostic.component';
 import { Actions2Component } from './diagnostic/actions.component';
 import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
 
@@ -75,9 +75,9 @@ import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
     Actions5Component,
     Actions6Component,
 
-    FormdiagnosticComponent,
-    Actions2Component,
+    FormDiagnosticComponent,
     DiagnosticListComponent,
+    Actions2Component,
   ],
   providers: [
     DateFormatPipe,

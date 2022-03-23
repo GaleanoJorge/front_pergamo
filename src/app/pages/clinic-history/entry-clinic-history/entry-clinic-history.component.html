@@ -10,23 +10,11 @@
 
           </nb-step>
           <nb-step [stepControl]="nameForm" label="Rx Sistemas">
-            <form #nameForm="ngForm" class="step-container">
-              <div class="input-group">
-                <input type="text" placeholder="texto" class="space" name="name" required nbInput ngModel
-                  #name="ngModel" [status]="name.invalid ? 'danger' : 'basic'">
-              </div>
-              <button nbButton status="success">guardar</button>
-            </form>
+          
           </nb-step>
 
           <nb-step [stepControl]="movieForm" label="Ex Físico">
-            <form #movieForm="ngForm" class="step-container">
-              <div class="input-group">
-                <input type="text" placeholder="texto" class="space" name="movie" required nbInput ngModel
-                  #movie="ngModel" [status]="movie.invalid ? 'danger' : 'basic'">
-              </div>
-              <button nbButton status="success">guardar</button>
-            </form>
+           
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
@@ -34,8 +22,9 @@
           </nb-step>
           
           <nb-step [stepControl]="nameForm" label="Diagnóstico">
-            
-            <ngx-form-diagnostic [record_id]="record_id"></ngx-form-diagnostic>
+            <ngx-form-diagnostic></ngx-form-diagnostic>
+
+           <!-- <ngx-form-diagnostic [record_id]="record_id"></ngx-form-diagnostic>-->
 
           </nb-step>
 

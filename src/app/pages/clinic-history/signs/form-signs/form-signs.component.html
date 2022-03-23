@@ -39,13 +39,13 @@
       <div class="col-md-4">
         <div class="center">
           <fieldset class="field_set">
-            <legend class="prue1">PRESIÓN</legend>
+            <legend class="prue1">PRESIÓN ARTERIAL</legend>
             <table width="100%">
-              <input type="number" placeholder="SISTÓLICA" class="space3" id="pressure_systolic"
+              <input type="number" placeholder="SISTÓLICA" class="space" id="pressure_systolic"
                 formControlName="pressure_systolic" required nbInput ngModel>
-              <input type="number" placeholder="DIASTÓLICA" class="space3" id="pressure_diastolic"
+              <input type="number" placeholder="DIASTÓLICA" class="space" id="pressure_diastolic"
                 formControlName="pressure_diastolic" required nbInput ngModel>
-              <input type="number" placeholder="MEDIA" class="space3" id="pressure_half" formControlName="pressure_half"
+              <input type="number" placeholder="MEDIA" class="space" id="pressure_half" formControlName="pressure_half"
                 required nbInput ngModel>
             </table>
           </fieldset>
@@ -55,7 +55,7 @@
       <div class="col-md-3">
         <div class="center">
           <fieldset class="field_set">
-            <legend class="prue1">NEUROLOGICO</legend>
+            <legend class="prue1">ESTADO NEUROLÓGICO</legend>
             <nb-select [selected]="this.data.ch_vital_neurological_id" formControlName="ch_vital_neurological_id"
               id="ch_vital_neurological_id"
               status="{{ isSubmitted && form.controls.ch_vital_neurological_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -76,8 +76,8 @@
           <fieldset class="field_set">
             <legend class="prue1">OTRO</legend>
             <table width="100%">
-              <input type="number" placeholder="PULSO" class="ImpPeq" id="pulse" formControlName="pulse" required
-                nbInput ngModel>
+              <input type="number" placeholder="PULSO" class="space" id="pulse" formControlName="pulse" required nbInput
+                ngModel>
               <input type="number" placeholder="PVC" class="ImpPeq" id="venous_pressure"
                 formControlName="venous_pressure" required nbInput ngModel>
               <input type="text" placeholder="TALLA(cm)" class="space" id="size" formControlName="size" required nbInput
@@ -86,8 +86,8 @@
                 id="ch_vital_hydration_id"
                 status="{{ isSubmitted && form.controls.ch_vital_hydration_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                 <nb-option value="">SELECCIONE...</nb-option>
-                <nb-option selected="{{ item.id == this.data.ch_vital_hydration_id }}" *ngFor="let item of vital_hydration"
-                  [value]="item.id">
+                <nb-option selected="{{ item.id == this.data.ch_vital_hydration_id }}"
+                  *ngFor="let item of vital_hydration" [value]="item.id">
                   {{ item.name }}</nb-option>
               </nb-select>
               <input type="text" placeholder="PESO(Kg)" class="space" id="weight" formControlName="weight" required
@@ -109,11 +109,11 @@
           <fieldset class="field_set">
             <legend class="prue1">PRESIÓN ART PULMONAR</legend>
             <table width="100%">
-              <input type="number" placeholder="SISTÓLICA" class="space" id="pulmonary_systolic"
+              <input type="number" placeholder="SISTÓLICA" class="space3" id="pulmonary_systolic"
                 formControlName="pulmonary_systolic" required nbInput ngModel>
-              <input type="number" placeholder="DIASTÓLICA" class="space" id="pulmonary_diastolic"
+              <input type="number" placeholder="DIASTÓLICA" class="space3" id="pulmonary_diastolic"
                 formControlName="pulmonary_diastolic" required nbInput ngModel>
-              <input type="number" placeholder="MEDIA" class="space" id="pulmonary_half"
+              <input type="number" placeholder="MEDIA" class="space3" id="pulmonary_half"
                 formControlName="pulmonary_half" required nbInput ngModel>
             </table>
           </fieldset>
@@ -123,9 +123,9 @@
         <div class="center">
 
           <fieldset class="field_set">
-            <legend class="prue1">PEDIATRÍA - PERIMETRO</legend>
+            <legend class="prue1">PEDIATRÍA - PERÍMETRO</legend>
             <table width="100%">
-              <input type="text" placeholder="CEFALICO" class="space3" id="head_circunference"
+              <input type="text" placeholder="CEFÁLICO" class="space3" id="head_circunference"
                 formControlName="head_circunference" required nbInput ngModel>
               <input type="text" placeholder="ABDOMINAL" class="space3" id="abdominal_perimeter"
                 formControlName="abdominal_perimeter" required nbInput ngModel>
@@ -138,28 +138,36 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-9">
         <div class="center">
           <fieldset class="field_set">
-            <legend class="prue1">OJOS</legend>
+            <legend class="prue1">PUPILAS</legend>
             <table width="100%">
-              <input type="text" placeholder="R LUZ DERECHO" class="space3" id="right_reaction"
+              <input type="text" placeholder="R. LUZ DERECHO" class="space2" id="right_reaction"
                 formControlName="right_reaction" required nbInput ngModel>
-              <input type="number" placeholder="T PUPILAR" class="space3" id="pupil_size_right"
+              <input type="number" placeholder="T. PUPILAR" class="space2" id="pupil_size_right"
                 formControlName="pupil_size_right" required nbInput ngModel>
-              <input type="text" placeholder="R LUZ IZQUIERDO" class="space3" id="left_reaction"
+              <input type="text" placeholder="R. LUZ IZQUIERDO" class="space2" id="left_reaction"
                 formControlName="left_reaction" required nbInput ngModel>
-              <input type="number" placeholder="T PUPILAR" class="space3" id="pupil_size_left"
+              <input type="number" placeholder="T. PUPILAR" class="space2" id="pupil_size_left"
                 formControlName="pupil_size_left" required nbInput ngModel>
-              <nb-select [selected]="this.data.ch_vital_ventilated_id" formControlName="ch_vital_ventilated_id"
-                id="ch_vital_ventilated_id"
-                status="{{ isSubmitted && form.controls.ch_vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                <nb-option value="">SELECCIONE...</nb-option>
-                <nb-option selected="{{ item.id == this.data.ch_vital_ventilated_id }}"
-                  *ngFor="let item of vital_ventilated" [value]="item.id">
-                  {{ item.name }}</nb-option>
-              </nb-select>
             </table>
+          </fieldset>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="center">
+          <fieldset class="field_set">
+            <legend class="prue1">MODO VENTILATORIO</legend>
+            <nb-select [selected]="this.data.ch_vital_ventilated_id" formControlName="ch_vital_ventilated_id"
+              id="ch_vital_ventilated_id"
+              status="{{ isSubmitted && form.controls.ch_vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.ch_vital_ventilated_id }}"
+                *ngFor="let item of vital_ventilated" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
           </fieldset>
         </div>
       </div>

@@ -22,7 +22,9 @@ export class EntryClinicHistoryComponent implements OnInit {
   public routes = [];
   public user_id;
   public chreasonconsultation: any[];
-  public chvitsigns: any[]; 
+  public chvitsigns: any[];
+  public nameForm: String;
+  public movieForm: String;
 
 
   public record_id;
@@ -50,7 +52,7 @@ export class EntryClinicHistoryComponent implements OnInit {
       this.data = {
         ch_diagnosis_id: '',
       };
-    }  
+    }
 
     await this.chreasonconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chreasonconsultation = x;
@@ -58,7 +60,7 @@ export class EntryClinicHistoryComponent implements OnInit {
     await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chvitsigns = x;
     });
-   
+
     this.form = this.formBuilder.group({
       ch_entry_review_system_id: [this.data.ch_entry_review_system_id, Validators.compose([Validators.required])],//el que es ciclico
       diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
