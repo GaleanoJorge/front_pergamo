@@ -2,25 +2,23 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from './actions.component';
+import { Actions4Component } from './actions.component';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { FormManagementPlanComponent } from './form-management-plan/form-management-plan.component';
 import * as XLSX from 'ts-xlsx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
-import { ManagementPlanService } from '../../../business-controller/management-plan.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 
 @Component({
-  selector: 'ngx-pad-list',
-  templateUrl: './management-plan.component.html',
-  styleUrls: ['./management-plan.component.scss'],
+  selector: 'ngx-assigned-management-plan',
+  templateUrl: './assigned-management-plan.component.html',
+  styleUrls: ['./assigned-management-plan.component.scss'],
 })
-export class ManagementPlanComponent implements OnInit {
+export class AssignedManagementPlanComponent implements OnInit {
 
   public isSubmitted = false;
   public entity: string;
@@ -28,15 +26,15 @@ export class ManagementPlanComponent implements OnInit {
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Plan de manejo';
+  public title: string = 'Ejecución Plan de manejo';
   public subtitle: string = '';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial'];
+  public headerFields: any[] = ['Fecha de inicio', 'Fecha Final','Fecha de ejecución'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
   public arrayBuffer: any;
   public file: File;
-  public admissions_id;
+  public management_id;
   public user_id;
   public user;
   public dialog;
@@ -61,39 +59,23 @@ export class ManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'user':this.user,
-            'edit': this.EditManagementPlan.bind(this),
-            'delete': this.DeleteConfirmManagementPlan.bind(this),
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: Actions4Component,
       },
-      type_of_attention: {
+      start_date: {
         title: this.headerFields[0],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
-        },
       },
-      frequency: {
+      finish_date: {
         title: this.headerFields[1],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
-        },
       },
-      quantity: {
+      execution_date: {
         title: this.headerFields[2],
         type: 'string',
-      },
-      assigned_user: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction(value) {
-          return value?.firstname+' '+value.lastname;
-        },
       },
     },
   };
@@ -120,7 +102,6 @@ export class ManagementPlanComponent implements OnInit {
 
     private authService: AuthService,
     private dialogService: NbDialogService,
-    private managementPlanS: ManagementPlanService,
     private toastS: NbToastrService,
     private route: ActivatedRoute,
 
@@ -140,7 +121,7 @@ export class ManagementPlanComponent implements OnInit {
 
   async ngOnInit() {
  
-    this.admissions_id = this.route.snapshot.params.id;
+    this.management_id = this.route.snapshot.params.management_id;
     this.user_id = this.route.snapshot.params.user;
 
     await this.userBS.GetUserById(this.user_id).then(x => {
@@ -158,47 +139,6 @@ export class ManagementPlanComponent implements OnInit {
 
   RefreshData() {
     this.table.refresh();
-  }
-
-  NewManagementPlan() {
-    this.dialogFormService.open(FormManagementPlanComponent, {
-      context: {
-        title: 'Crear plan de manejo',
-        user:this.user,
-        admissions_id:this.admissions_id,
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
-
-  EditManagementPlan(data) {
-    this.dialogFormService.open(FormManagementPlanComponent, {
-      context: {
-        title: 'Editar plan de manejo',
-        data,
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
-
-
-  DeleteConfirmManagementPlan(data) {
-    this.deleteConfirmService.open(ConfirmDialogComponent, {
-      context: {
-        name: data.name,
-        data: data,
-        delete: this.DeleteManagementPlan.bind(this),
-      },
-    });
-  }
-
-  DeleteManagementPlan(data) {
-      return this.managementPlanS.Delete(data.id).then(x => {
-        this.table.refresh();
-        return Promise.resolve(x.message);
-      }).catch(x => {
-        throw x;
-      });
   }
 
 }

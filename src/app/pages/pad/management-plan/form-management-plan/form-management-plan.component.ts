@@ -6,7 +6,7 @@ import { UserBusinessService } from '../../../../business-controller/user-busine
 import { ManagementPlanService } from '../../../../business-controller/management-plan.service';
 import { TypeOfAttentionService } from '../../../../business-controller/type-of-attention.service';
 import { FrequencyService } from '../../../../business-controller/frequency.service';
-import { SpecialFieldService } from '../../../../business-controller/special-field.service';
+import { SpecialtyService } from '../../../../business-controller/specialty.service';
 
 
 @Component({
@@ -17,6 +17,7 @@ import { SpecialFieldService } from '../../../../business-controller/special-fie
 export class FormManagementPlanComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() user: any = null;
   @Input() admissions_id: any = null;
 
   public form: FormGroup;
@@ -36,13 +37,13 @@ export class FormManagementPlanComponent implements OnInit {
     private managementPlanS: ManagementPlanService,
     private typeOfAttentionS: TypeOfAttentionService,
     private frequencyS: FrequencyService,
-    private specialField: SpecialFieldService,
+    private specialField: SpecialtyService,
     private userAssigned: UserBusinessService,
   ) {
   }
 
   ngOnInit(): void {
-    console.log(this.admissions_id);
+    console.log(this.user);
     if (!this.data) {
       this.data = {
         id: '',
@@ -60,12 +61,12 @@ export class FormManagementPlanComponent implements OnInit {
     this.frequencyS.GetCollection().then(x => {
       this.frequency = x;
     });
-    this.specialField.GetCollection().then(x => {
+    this.specialField.GetCollection({
+      type_professional: 1
+    }).then(x => {
       this.special_field = x;
     });
-    this.userAssigned.UserByRole(3).then(x => {
-      this.assigned_user = x;
-    });
+
    
 
     this.form = this.formBuilder.group({
@@ -75,10 +76,40 @@ export class FormManagementPlanComponent implements OnInit {
       special_field_id: [this.data.special_field_id],
       assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
     });
-
+this.onChanges();
 
   }
 
+  onChanges() {
+    this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
+      // console.log(val);
+      if (val === '') {
+        this.assigned_user = [];
+      } else if(val==1){
+        this.GetMedical(val,this.user.locality_id).then();
+      } else if(val==2){
+        this.GetSpeciality(val,this.user.locality_id).then();
+      }
+    });
+
+  }
+
+  async GetMedical(type_professional, locality_id) {
+    if (!type_professional || type_professional === '') return Promise.resolve(false);
+
+    return await this.userAssigned.UserByRoleLocation(locality_id,3).then(x => {
+      this.assigned_user = x;    
+        return Promise.resolve(true);
+    });
+  }
+  async GetSpeciality(type_professional, locality_id) {
+    if (!type_professional || type_professional === '') return Promise.resolve(false);
+
+    return await this.userAssigned.UserByRoleLocation(locality_id,7).then(x => {
+      this.assigned_user = x;    
+        return Promise.resolve(true);
+    });
+  }
   close() {
     this.dialogRef.close();
   }

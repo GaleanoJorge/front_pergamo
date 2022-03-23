@@ -186,6 +186,38 @@ v
       });
   }
 
+  UserByPad(id:any): Promise<User[]> {
+    var servObj = new ServiceObject("user/byPAD/2", id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  UserByRoleLocation(location_id:any,id:any): Promise<User[]> {
+    var servObj = new ServiceObject("user/byRoleLocation/"+location_id, id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Delete(id: any): Promise<ServiceObject> {
     var servObj = new ServiceObject("user", id);
     return this.webAPI.DeleteAction(servObj)
