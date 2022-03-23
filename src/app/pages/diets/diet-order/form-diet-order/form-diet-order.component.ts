@@ -5,11 +5,11 @@ import { DietMenuDishService } from '../../../../business-controller/diet-menu-d
 
 
 @Component({
-  selector: 'ngx-form-diets',
-  templateUrl: './form-diets.component.html',
-  styleUrls: ['./form-diets.component.scss'],
+  selector: 'ngx-form-diet-order',
+  templateUrl: './form-diet-order.component.html',
+  styleUrls: ['./form-diet-order.component.scss'],
 })
-export class FormDietsComponent implements OnInit {
+export class FormDietOrderComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
 

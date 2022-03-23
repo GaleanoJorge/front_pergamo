@@ -1,16 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
-import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { Actions2Component } from './actions.component';
-import { ActivatedRoute } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { FormDietsComponent } from './form-diets/form-diets.component';
-import { DietMenuService } from '../../../business-controller/diet-menu.service';
-import { DateFormatPipe } from '../../../pipe/date-format.pipe';
-import { Router } from '@angular/router';
-import { FormAdmissionsComponent } from './form-admissions/form-admissions.component';
+
 
 @Component({
   selector: 'ngx-diets-list',
@@ -20,141 +12,92 @@ import { FormAdmissionsComponent } from './form-admissions/form-admissions.compo
 export class DietsListComponent implements OnInit {
 
   public isSubmitted = false;
-  public entity: string;
-  public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'DIETAS';
-  public subtitle: string = 'MENÚS DE DIETAS';
-  public headerFields: any[] = ['NOMBRE', 'DIETA TERAPEUTICA', 'TIPO MENÚ', 'DÍA', 'SEMANA'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
+  public title: string = 'INVENTARIO';
+  public subtitle: string = 'INVENTARIO';
+  public headerFields: any[] = ['INSUMO', 'CANTIDAD', 'SEDE'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
-
+  public entity: string;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-
   public settings = {
+    pager: {
+      display: true,
+      perPage: 10,
+    },
     columns: {
-      actions: {
-        title: 'ACCIONES',
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          // DATA FROM HERE GOES TO renderComponent
-          return {
-            'data': row,
-            'edit': this.EditDiet.bind(this),
-            'delete': this.EditAdmissions.bind(this),
-          };
-        },
-        renderComponent: Actions2Component,
-      },
-      name: {
-        title: this.headerFields[0],
-        type: 'string',
-      },
-      diet_consistency: {
+      // actions: {
+      //   title: 'ACCIONES',
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     // DATA FROM HERE GOES TO renderComponent
+      //     return {
+      //       'data': row,
+      //       'edit': this.EditDietsList.bind(this),
+      //       'delete': this.DeleteConfirmDietsList.bind(this),
+      //     };
+      //   },
+      //   renderComponent: ActionsComponent,
+      // },
+      // id: {
+      //   title: this.headerFields[0],
+      //   type: 'string',
+      // },
+      diet_supplies: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      diet_menu_type: {
+      amount: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return value + ' ' + row.diet_supplies.measurement_units.code;
         },
       },
-      diet_week: {
+      campus: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      diet_day: {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.name;
-        },
-      },
+      // measurement_units:{
+      //   title: this.headerFields[3],
+      //   type: 'string',
+      //   valuePrepareFunction: (value, row) => {
+      //     return row.diet_supplies.measurement_units.code;
+      //   },
+      // }
     },
   };
 
   public routes = [
     {
-      name: 'Contratos',
-      route: '../diet/list',
+      name: 'Inventario',
+      route: '../../setting/diet-stock',
     },
   ];
 
   constructor(
-    private dietS: DietMenuService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
-    private datepipe: DateFormatPipe,
-    private router: Router,
-    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
+    var campus =+ localStorage.getItem('campus');
+    this.entity = `diet_stock/?pagination=true&campus_id=${campus}`
   }
 
   RefreshData() {
+
     this.table.refresh();
   }
 
-  NewDiet() {
-    this.dialogFormService.open(FormDietsComponent, {
-      context: {
-        title: 'CREAR NUEVO MENÚ',
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
-
-  EditDiet(data) {
-    this.dialogFormService.open(FormDietsComponent, {
-      context: {
-        title: 'PLATOS ASOCIADOS',
-        data,
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
-
-  EditAdmissions(data) {
-    this.dialogFormService.open(FormAdmissionsComponent, {
-      context: {
-        title: 'PACIENTES ASOCIADOS',
-        data,
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
-
-
-
-  DeleteConfirmDiet(data) {
-    this.deleteConfirmService.open(ConfirmDialogComponent, {
-      context: {
-        name: data.name,
-        data: data,
-        delete: this.DeleteDiet.bind(this),
-      },
-    });
-  }
-
-  DeleteDiet(data) {
-    return this.dietS.Delete(data.id).then(x => {
-      this.table.refresh();
-      return Promise.resolve(x.message);
-    }).catch(x => {
-      throw x;
-    });
-  }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DietStockService } from '../../../business-controller/diet-stock.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { FormDietStockComponent } from './form-diet-stock/form-diet-stock.component';
-import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 

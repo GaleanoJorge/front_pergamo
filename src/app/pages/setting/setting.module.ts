@@ -239,15 +239,10 @@ import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component
 import { FormDietMenuTypeComponent } from './diet-menu-type/form-diet-menu-type/form-diet-menu-type.component';
 import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
 import { FormDietSupplyTypeComponent } from './diet-supply-type/form-diet-supply-type/form-diet-supply-type.component';
-import { DietStockComponent } from './diet-stock/diet-stock.component';
-import { FormDietStockComponent } from './diet-stock/form-diet-stock/form-diet-stock.component';
 import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
 import { FormDietSuppliesComponent } from './diet-supplies/form-diet-supplies/form-diet-supplies.component';
-import { DietSuppliesInputComponent } from './diet-supplies-input/diet-supplies-input.component';
-import { FormDietSuppliesInputComponent } from './diet-supplies-input/form-diet-supplies-input/form-diet-supplies-input.component';
 import { DishStockPackageComponent } from './diet-dish/dish-stock-package/dish-stock-package.component';
 import { SelectDishStockComponent } from './diet-dish/dish-stock-package/select-dish-stock.component';
-import { ActionsInputComponent } from './diet-supplies-input/actions-input.component';
 import { AmountDishStockComponent } from './diet-dish/dish-stock-package/amount-dish-stock.component';
 import { DietMenuComponent } from './diet-menu/diet-menu.component';
 import { Actions2Component } from './diet-menu/actions.component';
@@ -259,17 +254,6 @@ import { FormRelationshipComponent } from './relationship/form-relationship/form
 import { ActionsCompanyComponent } from './company/actions.component';
 import { ActionsComponentEditDelete } from './company-mail/actions.component';
 import { ActionsCDComponent } from './company-document/actionsCD.component';
-import { DietSuppliesOutputComponent } from './diet-supplies-output/diet-supplies-output.component';
-import { DietSuppliesOutputPackageComponent } from './diet-supplies-output/diet-supplies-output-package/diet-supplies-output-package.component';
-import { AmountDietSuppliesOutputComponent } from './diet-supplies-output/diet-supplies-output-package/amount-diet-supplies-output.component';
-import { SelectDietSuppliesOutputComponent } from './diet-supplies-output/diet-supplies-output-package/select-diet-supplies-output.component';
-import { FormDietSuppliesOutputComponent } from './diet-supplies-output/form-diet-supplies-output/form-diet-supplies-output.component';
-import { ActionsDietSuppliesOutputComponent } from './diet-supplies-output/actions.component';
-import { DietAdmissionComponent } from './diet-admission/diet-admission.component';
-import { ActionsDietAdmissionComponent } from './diet-admission/actions-diet-admission.component';
-import { FormDietAdmissionComponent } from './diet-admission/form-diet-admission/form-diet-admission.component';
-import { SelectComponentComponent } from './diet-admission/admission-package/select-component.component';
-import { ComponentPackageComponent } from './diet-admission/admission-package/component-package.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -527,20 +511,10 @@ import { ComponentPackageComponent } from './diet-admission/admission-package/co
     AmountDishStockComponent,
     DietMenuTypeComponent,
     FormDietMenuTypeComponent,
-    DietStockComponent,
-    FormDietStockComponent,
     DietSuppliesComponent,
     FormDietSuppliesComponent,
-    DietSuppliesInputComponent,
-    FormDietSuppliesInputComponent,
-    ActionsInputComponent,
     DietSupplyTypeComponent,
     FormDietSupplyTypeComponent,
-    DietSuppliesOutputComponent,
-    FormDietSuppliesOutputComponent,
-    DietSuppliesOutputPackageComponent,
-    AmountDietSuppliesOutputComponent,
-    SelectDietSuppliesOutputComponent,
     DietWeekComponent,
     FormDietWeekComponent,
     DietMenuComponent,
@@ -548,12 +522,6 @@ import { ComponentPackageComponent } from './diet-admission/admission-package/co
     FormDietMenuComponent,
     DishPackageComponent,
     SelectDishComponent,
-    ActionsDietSuppliesOutputComponent,
-    DietAdmissionComponent,
-    ActionsDietAdmissionComponent,
-    FormDietAdmissionComponent,
-    SelectComponentComponent,
-    ComponentPackageComponent,
 
 
   ],

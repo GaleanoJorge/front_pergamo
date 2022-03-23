@@ -1,15 +1,26 @@
-<ngx-base-list [messageError]="messageError" [routes]="routes">
+<ngx-base-list [messageError]="messageError">
   <div content>
-
-    <ngx-base-table [title]="title" [subtitle]="subtitle" customData="diet_menu" [settings]="settings" entity="diet_menu" [messageToltip]="messageToltip">
-      <div actions>
-        <!-- <div class="actions">
-          <button nbButton status="danger" (click)="NewDiet()">Crear</button>
-        </div> -->
-        <div class="actions" style="margin-top:1em;">
-          </div>
-      </div>
-    </ngx-base-table>
-
+    <nb-tabset class="tabset">
+      <nb-tab tabTitle="INVENTARIO">
+        <ngx-diet-stock>
+        </ngx-diet-stock>
+      </nb-tab>
+      <nb-tab tabTitle="INGRESO DE INSUMOS">
+        <ngx-diet-supplies-input>
+        </ngx-diet-supplies-input>
+      </nb-tab>
+      <nb-tab tabTitle="SALIDA DE INSUMOS">
+        <ngx-diet-supplies-output>
+        </ngx-diet-supplies-output>
+      </nb-tab>
+      <nb-tab tabTitle="DIETAS ADMISIONES">
+        <ngx-diet-admission>
+        </ngx-diet-admission>
+      </nb-tab>
+      <nb-tab tabTitle="DESPACHOS ADMISIONES">
+        <ngx-diet-order>
+        </ngx-diet-order>
+      </nb-tab>
+    </nb-tabset>
   </div>
 </ngx-base-list>
