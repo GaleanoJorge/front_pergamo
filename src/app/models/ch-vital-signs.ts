@@ -2,6 +2,7 @@ import { MainClass } from './main-class';
 
 export class ChVitalSigns extends MainClass {
     id: number;
+    clock: string;
     cardiac_frequency: number;
     respiratory_frequency: number;
     temperature: string;
@@ -24,17 +25,14 @@ export class ChVitalSigns extends MainClass {
     head_circunference: number;
     abdominal_perimeter: number;
     chest_perimeter: number;
-    fetal_heart_rate: string;
     right_reaction: string;
     pupil_size_right: string;
     left_reaction: string;
     pupil_size_left: string;
-    glomerular_filtration_rate: string;
-    cardiovascular_risk: string;
-    vital_hydration_id: number;
-    vital_ventilated_id: number;
-    vital_temperature_id: number;
-    vital_neurological_id: number;
+    ch_vital_hydration_id: number;
+    ch_vital_ventilated_id: number;
+    ch_vital_temperature_id: number;
+    ch_vital_neurological_id: number;
     type_record_id: number;
     ch_record_id: number;
 }

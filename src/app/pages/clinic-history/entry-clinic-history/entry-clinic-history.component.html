@@ -15,7 +15,7 @@
                 <input type="text" placeholder="texto" class="space" name="name" required nbInput ngModel
                   #name="ngModel" [status]="name.invalid ? 'danger' : 'basic'">
               </div>
-              <button nbButton nbStepperGUARDAR>guardar</button>
+              <button nbButton status="success">guardar</button>
             </form>
           </nb-step>
 
@@ -25,40 +25,18 @@
                 <input type="text" placeholder="texto" class="space" name="movie" required nbInput ngModel
                   #movie="ngModel" [status]="movie.invalid ? 'danger' : 'basic'">
               </div>
-              <button nbButton nbStepperGUARDAR>guardar</button>
+              <button nbButton status="success">guardar</button>
             </form>
           </nb-step>
 
-          <nb-step [stepControl]="somethingForm" label="Signos Vitales">
-
-            <ngx-form-signs *ngIf="chvitsigns" [record_id]="record_id"
-            [data]="chvitsigns"></ngx-form-signs>
-
+          <nb-step [stepControl]="nameForm" label="Signos Vitales">
+            <ngx-form-signs [record_id]="record_id"></ngx-form-signs>
           </nb-step>
+          
+          <nb-step [stepControl]="nameForm" label="Diagnóstico">
+            
+            <ngx-form-diagnostic [record_id]="record_id"></ngx-form-diagnostic>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <nb-step [stepControl]="somethingForm" label="Diagnóstico">
-            <form #somethingForm="ngForm" class="step-container">
-              <div class="input-group">
-                <input type="text" placeholder="texto" class="space" name="something" required nbInput ngModel>
-              </div>
-              <button nbButton nbStepperGUARDAR>guardar</button>
-            </form>
           </nb-step>
 
           <nb-step [hidden]="true">

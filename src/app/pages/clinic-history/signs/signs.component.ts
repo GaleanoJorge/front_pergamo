@@ -20,11 +20,10 @@ export class SignsListComponent implements OnInit {
   public headerFields: any[] = ['ID', '# contrato', 'Estado', 'Nombre'];
   public routes = [];
   public data = [];
-  public admissions_id;
+  public record_id;
   public loading: boolean = false;
   public saved: any = null;
   public isSubmitted = false;
-  //public ch_vital_signs_id;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -64,6 +63,7 @@ export class SignsListComponent implements OnInit {
     private chvitalSignsS: ChVitalSignsService,
     private route: ActivatedRoute,
     private toastService: NbToastrService,
+
   ) {
 
     this.routes = [
@@ -78,12 +78,12 @@ export class SignsListComponent implements OnInit {
   }
   GetParams() {
     return {
-      admissions_id: this.route.snapshot.params.id,
+      record_id: this.route.snapshot.params.id,
     };
   }
 
   ngOnInit(): void {
-    this.admissions_id = this.route.snapshot.params.id;
+    this.record_id = this.route.snapshot.params.id;
   }
 
   RefreshData() {
@@ -93,7 +93,7 @@ export class SignsListComponent implements OnInit {
   NewChVitalSigns() {
     this.chvitalSignsS.Save({
 
-      admissions_id: this.admissions_id,
+      record_id: this.record_id,
     }).then(x => {
       this.toastService.success('', x.message);
       if (this.saved) {

@@ -1,4 +1,3 @@
-import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
@@ -62,7 +61,6 @@ export class ChRecordListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private admissionsS: AdmissionsService,
     private chRecordS: ChRecordService,
     private toastService: NbToastrService,
   ) {
@@ -110,13 +108,5 @@ export class ChRecordListComponent implements OnInit {
       this.loading = false;
     });
   }
-
-  DeleteAdmissions(data) {
-    return this.admissionsS.Delete(data.id).then(x => {
-      this.table.refresh();
-      return Promise.resolve(x.message);
-    }).catch(x => {
-      throw x;
-    });
-  }
+ 
 }

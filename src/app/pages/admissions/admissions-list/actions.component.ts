@@ -8,10 +8,6 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { ActivatedRoute } from '@angular/router';
 import { ObservationNoveltyService } from '../../../business-controller/observation-novelty.service';
-import { even } from '@rxweb/reactive-form-validators';
-import { Item } from '../../../models/item';
-import { ChExternalCauseService } from '../../../business-controller/ch-external-cause.service';
-import { ChReasonConsultationService } from '../../../business-controller/ch-reason-consultation.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -127,9 +123,6 @@ export class ActionsComponent implements ViewCell, OnInit {
   public selected: string[];
   public observations: any[] = null;
   public asd: any[] = null;
-  public ch_entry: any[];
-  public ch_external_cause: any[];
-  public data;
   public user_id;
   public all_users: any[];
   public wrong_user_id;
@@ -144,11 +137,7 @@ export class ActionsComponent implements ViewCell, OnInit {
     private formBuilder: FormBuilder,
     private UserChangeS: UserChangeService,
     private userBS: UserBusinessService,
-    private userChangeS: UserChangeService,
-    private route: ActivatedRoute,
     private ObservationNoveltyS: ObservationNoveltyService,
-    private chreasonconsultS: ChReasonConsultationService,
-    private chexternalcauseS: ChExternalCauseService,
 
   ) {
   }
@@ -172,34 +161,11 @@ export class ActionsComponent implements ViewCell, OnInit {
       this.block_interact = true;
     }
 
-    // var compareR=this.all_changes.find(item => item.righ_user_id == this.value.data.id );
     if (compare || compare2) {
       this.Botton_user_change = false;
     } else {
       this.Botton_user_change = true;
     }
-
-    if (!this.data) {
-      this.data = {
-        // id: '',
-        reason_consultation: '',
-        current_illness: '',
-        ch_external_cause_id: ''
-
-      }; 
-    }
-    // this.chreasonconsultS.GetCollection({ status_id: 1 }).then(x => {
-    //   this.ch_entry = x;
-    // });
-    // this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
-    //   this.ch_external_cause = x;
-    // });
-    this.UserChangeForm = this.formBuilder.group({
-      received_date: [this.rowData.received_date],
-      reason_consultation: [this.rowData.reason_consultation, Validators.compose([Validators.required])],
-      current_illness: [this.rowData.current_illness, Validators.compose([Validators.required])],
-      ch_external_cause_id: [this.rowData.ch_external_cause_id, Validators.compose([Validators.required])],
-    });
   }
 
   async ShowUserChange(dialog: TemplateRef<any>) {
@@ -210,9 +176,7 @@ export class ActionsComponent implements ViewCell, OnInit {
     this.ObservationNoveltyS.GetCollection().then(x => {
       this.observations = x;
     });
-    this.chreasonconsultS.GetCollection().then(x => {
-      this.asd = x;
-    });
+
     this.dialog = this.dialogService.open(dialog);
   }
 

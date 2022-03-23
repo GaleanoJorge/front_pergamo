@@ -30,12 +30,6 @@ import { Actions3Component } from './bed-management/actions.component';
 import { FormPatientDataComponent } from './patient-data/form-admissions-patient/form-patient-data.component';
 import { PatientDataComponent } from './patient-data/patient-data.component';
 import { ActionsComponentED } from './patient-data/actionsED.component';
-import { Actions5Component } from './clinic-history/actions.component';
-import { FormClinicHistoryComponent } from './clinic-history/form-clinic-history/form-clinic-history.component';
-import { ClinicHistoryComponent } from './clinic-history/clinic-history.component';
-import { FormEntryClinicHistoryComponent } from './entry-clinic-history/form-entry-clinic-history/form-entry-clinic-history.component';
-import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
-import { Actions6Component } from './entry-clinic-history/actions.component';
 
 @NgModule({
   imports: [
@@ -76,12 +70,6 @@ import { Actions6Component } from './entry-clinic-history/actions.component';
     Actions3Component,
     ActionsComponent,
     EditPatientComponent,
-    Actions5Component,
-    FormClinicHistoryComponent,
-    ClinicHistoryComponent,
-    Actions6Component,
-    FormEntryClinicHistoryComponent,
-    EntryClinicHistoryComponent,
   ],
   providers: [
     DateFormatPipe,

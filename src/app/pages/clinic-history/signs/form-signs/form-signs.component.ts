@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChVitalSignsService } from '../../../../business-controller/ch-vital-signs.service';
 import { ChVitalHydrationService } from '../../../../business-controller/ch-vital-hydration.service';
 import { ChVitalNeurologicalService } from '../../../../business-controller/ch-vital-neurological.service';
-import { ChVitalTemperatureService } from '../../../../business-controller/ch-vital-temperature.service';
 import { ChVitalVentilatedService } from '../../../../business-controller/ch-vital-ventilated.service';
+import { ChVitalTemperatureService } from '../../../../business-controller/ch-vital-temperature.service';
 
 
 @Component({
@@ -18,17 +18,17 @@ export class FormsignsComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any = null;
 
-
   public form: FormGroup;
+  public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public isSubmitted: boolean = false;
-  public ch_vital_hydration: any[];
-  public ch_vital_neurological: any[];
-  public ch_vital_temperature: any[];
-  public ch_vital_ventilated: any[];
+  public disabled: boolean = false;
   public showTable;
-  public chsigns: any[];
+  public vital_hydration: any[];
+  public vital_neurological: any[];
+  public vital_temperature: any[];
+  public vital_ventilated: any[];
+  public chvitsigns: any[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,9 +42,9 @@ export class FormsignsComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-
-    if (!this.data) {
+    if (!this.data || this.data.length == 0) {
       this.data = {
+        clock: '',
         cardiac_frequency: '',
         respiratory_frequency: '',
         temperature: '',
@@ -64,88 +64,147 @@ export class FormsignsComponent implements OnInit {
         pulmonary_systolic: '',
         pulmonary_diastolic: '',
         pulmonary_half: '',
-        head_circunference: '',
-        abdominal_perimeter: '',
-        chest_perimeter: '',
-        fetal_heart_rate: '',
         right_reaction: '',
         pupil_size_right: '',
         left_reaction: '',
         pupil_size_left: '',
-        glomerular_filtration_rate: '',
-        cardiovascular_risk: '',
-        vital_hydration_id: '',
-        vital_ventilated_id: '',
-        vital_temperature_id: '',
-        vital_neurological_id: '',
-
+        head_circunference: '',
+        abdominal_perimeter: '',
+        chest_perimeter: '',
+        ch_vital_hydration_id: '',
+        ch_vital_ventilated_id: '',
+        ch_vital_temperature_id: '',
+        ch_vital_neurological_id: '',
       };
     }
 
-    await this.chVitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chsigns = x;
-    });
-
-
     this.chvitalHydrationS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_vital_hydration = x;
+      this.vital_hydration = x;
     });
     this.chvitalNeurologicalS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_vital_neurological = x;
+      this.vital_neurological = x;
     });
     this.chvitalTemperatureS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_vital_temperature = x;
+      this.vital_temperature = x;
     });
     this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_vital_ventilated = x;
+      this.vital_ventilated = x;
     });
 
     this.form = this.formBuilder.group({
-      cardiac_frequency: [this.data.cardiac_frequency],
-      respiratory_frequency: [this.data.respiratory_frequency],
-      temperature: [this.data.temperature],
-      oxigen_saturation: [this.data.oxigen_saturation],
-      intracranial_pressure: [this.data.intracranial_pressure],
-      cerebral_perfusion_pressure: [this.data.cerebral_perfusion_pressure],
-      intra_abdominal: [this.data.intra_abdominal],
-      pressure_systolic: [this.data.pressure_systolic],
-      pressure_diastolic: [this.data.pressure_diastolic],
-      pressure_half: [this.data.pressure_half],
-      pulse: [this.data.pulse],
-      venous_pressure: [this.data.venous_pressure],
-      size: [this.data.size],
-      weight: [this.data.weight],
-      glucometry: [this.data.glucometry],
-      body_mass_index: [this.data.body_mass_index],
-      pulmonary_systolic: [this.data.pulmonary_systolic],
-      pulmonary_diastolic: [this.data.pulmonary_diastolic],
-      pulmonary_half: [this.data.pulmonary_half],
-      head_circunference: [this.data.head_circunference],
-      abdominal_perimeter: [this.data.abdominal_perimeter],
-      chest_perimeter: [this.data.chest_perimeter],
-      fetal_heart_rate: [this.data.fetal_heart_rate],
-      right_reaction: [this.data.right_reaction],
-      pupil_size_right: [this.data.pupil_size_right],
-      left_reaction: [this.data.left_reaction],
-      pupil_size_left: [this.data.pupil_size_left],
-      glomerular_filtration_rate: [this.data.glomerular_filtration_rate],
-      cardiovascular_risk: [this.data.cardiovascular_risk],
-      vital_hydration_id: [this.data.vital_hydration_id],
-      vital_ventilated_id: [this.data.vital_ventilated_id],
-      vital_temperature_id: [this.data.vital_temperature_id],
-      vital_neurological_id: [this.data.vital_neurological_id],
+      clock: [this.data[0] ? this.data[0].clock : this.data.clock],
+      cardiac_frequency: [this.data[0] ? this.data[0].cardiac_frequency : this.data.cardiac_frequency, Validators.compose([Validators.required])],
+      respiratory_frequency: [this.data[0] ? this.data[0].respiratory_frequency : this.data.respiratory_frequency, Validators.compose([Validators.required])],
+      temperature: [this.data[0] ? this.data[0].temperature : this.data.temperature],
+      oxigen_saturation: [this.data[0] ? this.data[0].oxigen_saturation : this.data.oxigen_saturation],
+      intracranial_pressure: [this.data[0] ? this.data[0].intracranial_pressure : this.data.intracranial_pressure],
+      cerebral_perfusion_pressure: [this.data[0] ? this.data[0].cerebral_perfusion_pressure : this.data.cerebral_perfusion_pressure],
+      intra_abdominal: [this.data[0] ? this.data[0].intra_abdominal : this.data.intra_abdominal],
+      pressure_systolic: [this.data[0] ? this.data[0].pressure_systolic : this.data.pressure_systolic, Validators.compose([Validators.required])],
+      pressure_diastolic: [this.data[0] ? this.data[0].pressure_diastolic : this.data.pressure_diastolic, Validators.compose([Validators.required])],
+      pressure_half: [this.data[0] ? this.data[0].pressure_half : this.data.pressure_half, Validators.compose([Validators.required])],
+      pulse: [this.data[0] ? this.data[0].pulse : this.data.pulse],
+      venous_pressure: [this.data[0] ? this.data[0].venous_pressure : this.data.venous_pressure],
+      size: [this.data[0] ? this.data[0].size : this.data.size],
+      weight: [this.data[0] ? this.data[0].weight : this.data.weight],
+      glucometry: [this.data[0] ? this.data[0].glucometry : this.data.glucometry],
+      body_mass_index: [this.data[0] ? this.data[0].body_mass_index : this.data.body_mass_index],
+      pulmonary_systolic: [this.data[0] ? this.data[0].pulmonary_systolic : this.data.pulmonary_systolic],
+      pulmonary_diastolic: [this.data[0] ? this.data[0].pulmonary_diastolic : this.data.pulmonary_diastolic],
+      pulmonary_half: [this.data[0] ? this.data[0].pulmonary_half : this.data.pulmonary_half],
+      head_circunference: [this.data[0] ? this.data[0].head_circunference : this.data.head_circunference],
+      abdominal_perimeter: [this.data[0] ? this.data[0].abdominal_perimeter : this.data.abdominal_perimeter],
+      chest_perimeter: [this.data[0] ? this.data[0].chest_perimeter : this.data.chest_perimeter],
+      right_reaction: [this.data[0] ? this.data[0].right_reaction : this.data.right_reaction],
+      pupil_size_right: [this.data[0] ? this.data[0].pupil_size_right : this.data.pupil_size_right],
+      left_reaction: [this.data[0] ? this.data[0].left_reaction : this.data.left_reaction],
+      pupil_size_left: [this.data[0] ? this.data[0].pupil_size_left : this.data.pupil_size_left],
+      ch_vital_hydration_id: [this.data[0] ? this.data[0].ch_vital_hydration_id : this.data.ch_vital_hydration_id],
+      ch_vital_ventilated_id: [this.data[0] ? this.data[0].ch_vital_ventilated_id : this.data.ch_vital_ventilated_id],
+      ch_vital_temperature_id: [this.data[0] ? this.data[0].ch_vital_temperature_id : this.data.ch_vital_temperature_id],
+      ch_vital_neurological_id: [this.data[0] ? this.data[0].ch_vital_neurological_id : this.data.ch_vital_neurological_id],
     });
+
+
+    if (this.data || this.data.length != 0) {
+      this.form.controls.clock.disable();
+      this.form.controls.cardiac_frequency.disable();
+      this.form.controls.respiratory_frequency.disable();
+      this.form.controls.temperature.disable();
+      this.form.controls.oxigen_saturation.disable();
+      this.form.controls.intracranial_pressure.disable();
+      this.form.controls.cerebral_perfusion_pressure.disable();
+      this.form.controls.intra_abdominal.disable();
+      this.form.controls.pressure_systolic.disable();
+      this.form.controls.pressure_diastolic.disable();
+      this.form.controls.pressure_half.disable();
+      this.form.controls.pulse.disable();
+      this.form.controls.venous_pressure.disable();
+      this.form.controls.size.disable();
+      this.form.controls.weight.disable();
+      this.form.controls.glucometry.disable();
+      this.form.controls.body_mass_index.disable();
+      this.form.controls.pulmonary_systolic.disable();
+      this.form.controls.pulmonary_diastolic.disable();
+      this.form.controls.pulmonary_half.disable();
+      this.form.controls.head_circunference.disable();
+      this.form.controls.abdominal_perimeter.disable();
+      this.form.controls.chest_perimeter.disable();
+      this.form.controls.right_reaction.disable();
+      this.form.controls.pupil_size_right.disable();
+      this.form.controls.left_reaction.disable();
+      this.form.controls.pupil_size_left.disable();
+      this.form.controls.ch_vital_hydration_id.disable();
+      this.form.controls.ch_vital_ventilated_id.disable();
+      this.form.controls.ch_vital_temperature_id.disable();
+      this.form.controls.ch_vital_neurological_id.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.clock.enable();
+      this.form.controls.cardiac_frequency.enable();
+      this.form.controls.respiratory_frequency.enable();
+      this.form.controls.temperature.enable();
+      this.form.controls.oxigen_saturation.enable();
+      this.form.controls.intracranial_pressure.enable();
+      this.form.controls.cerebral_perfusion_pressure.enable();
+      this.form.controls.intra_abdominal.enable();
+      this.form.controls.pressure_systolic.enable();
+      this.form.controls.pressure_diastolic.enable();
+      this.form.controls.pressure_half.enable();
+      this.form.controls.pulse.enable();
+      this.form.controls.venous_pressure.enable();
+      this.form.controls.size.enable();
+      this.form.controls.weight.enable();
+      this.form.controls.glucometry.enable();
+      this.form.controls.body_mass_index.enable();
+      this.form.controls.pulmonary_systolic.enable();
+      this.form.controls.pulmonary_diastolic.enable();
+      this.form.controls.pulmonary_half.enable();
+      this.form.controls.head_circunference.enable();
+      this.form.controls.abdominal_perimeter.enable();
+      this.form.controls.chest_perimeter.enable();
+      this.form.controls.right_reaction.enable();
+      this.form.controls.pupil_size_right.enable();
+      this.form.controls.left_reaction.enable();
+      this.form.controls.pupil_size_left.enable();
+      this.form.controls.ch_vital_hydration_id.enable();
+      this.form.controls.ch_vital_ventilated_id.enable();
+      this.form.controls.ch_vital_temperature_id.enable();
+      this.form.controls.ch_vital_neurological_id.enable();
+      this.disabled = false;
+    }
   }
 
-  save() {
+  async save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
 
       if (this.data.id) {
-        this.chVitalSignsS.Update({
+        await this.chVitalSignsS.Update({
           id: this.data.id,
+          clock: this.form.controls.clock.value,
           cardiac_frequency: this.form.controls.cardiac_frequency.value,
           respiratory_frequency: this.form.controls.respiratory_frequency.value,
           temperature: this.form.controls.temperature.value,
@@ -168,20 +227,16 @@ export class FormsignsComponent implements OnInit {
           head_circunference: this.form.controls.head_circunference.value,
           abdominal_perimeter: this.form.controls.abdominal_perimeter.value,
           chest_perimeter: this.form.controls.chest_perimeter.value,
-          fetal_heart_rate: this.form.controls.fetal_heart_rate.value,
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
           left_reaction: this.form.controls.left_reaction.value,
           pupil_size_left: this.form.controls.pupil_size_left.value,
-          glomerular_filtration_rate: this.form.controls.glomerular_filtration_rate.value,
-          cardiovascular_risk: this.form.controls.cardiovascular_risk.value,
-          vital_hydration_id: this.form.controls.vital_hydration_id.value,
-          vital_ventilated_id: this.form.controls.vital_ventilated_id.value,
-          vital_temperature_id: this.form.controls.vital_temperature_id.value,
-          vital_neurological_id: this.form.controls.vital_neurological_id.value,
+          ch_vital_hydration_id: this.form.controls.ch_vital_hydration_id.value,
+          ch_vital_ventilated_id: this.form.controls.ch_vital_ventilated_id.value,
+          ch_vital_temperature_id: this.form.controls.ch_vital_temperature_id.value,
+          ch_vital_neurological_id: this.form.controls.ch_vital_neurological_id.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
-
         }).then(x => {
           this.toastService.success('', x.message);
           if (this.saved) {
@@ -192,7 +247,8 @@ export class FormsignsComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        this.chVitalSignsS.Save({
+        await this.chVitalSignsS.Save({
+          clock: this.form.controls.clock.value,
           cardiac_frequency: this.form.controls.cardiac_frequency.value,
           respiratory_frequency: this.form.controls.respiratory_frequency.value,
           temperature: this.form.controls.temperature.value,
@@ -215,17 +271,14 @@ export class FormsignsComponent implements OnInit {
           head_circunference: this.form.controls.head_circunference.value,
           abdominal_perimeter: this.form.controls.abdominal_perimeter.value,
           chest_perimeter: this.form.controls.chest_perimeter.value,
-          fetal_heart_rate: this.form.controls.fetal_heart_rate.value,
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
           left_reaction: this.form.controls.left_reaction.value,
           pupil_size_left: this.form.controls.pupil_size_left.value,
-          glomerular_filtration_rate: this.form.controls.glomerular_filtration_rate.value,
-          cardiovascular_risk: this.form.controls.cardiovascular_risk.value,
-          vital_hydration_id: this.form.controls.vital_hydration_id.value,
-          vital_ventilated_id: this.form.controls.vital_ventilated_id.value,
-          vital_temperature_id: this.form.controls.vital_temperature_id.value,
-          vital_neurological_id: this.form.controls.vital_neurological_id.value,
+          ch_vital_hydration_id: this.form.controls.ch_vital_hydration_id.value,
+          ch_vital_ventilated_id: this.form.controls.ch_vital_ventilated_id.value,
+          ch_vital_temperature_id: this.form.controls.ch_vital_temperature_id.value,
+          ch_vital_neurological_id: this.form.controls.ch_vital_neurological_id.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -234,10 +287,18 @@ export class FormsignsComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
         });
       }
+
     }
   }
+
 }

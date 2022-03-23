@@ -15,13 +15,14 @@ import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs
 export class EntryClinicHistoryComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  //@Input() vital: any;
   linearMode = false;
   public messageError = null;
   public title;
   public routes = [];
   public user_id;
   public chreasonconsultation: any[];
-  public chvitsigns: any[];
+  public chvitsigns: any[]; 
 
 
   public record_id;
@@ -44,19 +45,20 @@ export class EntryClinicHistoryComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.record_id= this.route.snapshot.params.id;
+    this.record_id = this.route.snapshot.params.id;
     if (!this.data) {
       this.data = {
         ch_diagnosis_id: '',
       };
-    }
+    }  
 
     await this.chreasonconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chreasonconsultation = x;
     });
+    await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.chvitsigns = x;
+    });
    
-
-
     this.form = this.formBuilder.group({
       ch_entry_review_system_id: [this.data.ch_entry_review_system_id, Validators.compose([Validators.required])],//el que es ciclico
       diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
@@ -78,6 +80,7 @@ export class EntryClinicHistoryComponent implements OnInit {
       this.loading = true;
       if (this.data.id) { }
       await this.chreasonconsultS.Update({});
+      await this.chvitalSignsS.Update({});
     }
   }
 

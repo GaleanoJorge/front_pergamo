@@ -1,16 +1,14 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {AdmissionsComponent} from './admissions.component';
-import {AdmissionsListComponent} from './admissions-list/admissions-list.component';
-import {PermissionsGuard} from '../../guards/permissions.guard';
+import { AdmissionsComponent } from './admissions.component';
+import { AdmissionsListComponent } from './admissions-list/admissions-list.component';
+import { PermissionsGuard } from '../../guards/permissions.guard';
 import { FormPatientComponent } from './form-patient/form-patient.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { AdmissionsPatientComponent } from './admissions-patient/admissions-patient.component';
 import { BedManagementComponent } from './bed-management/bed-management.component';
 import { PatientDataComponent } from './patient-data/patient-data.component';
-import { ClinicHistoryComponent } from './clinic-history/clinic-history.component';
-import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
 
 
 const routes: Routes = [{
@@ -40,17 +38,6 @@ const routes: Routes = [{
     {
       path: 'patient-data/:admissions_id',
       component: PatientDataComponent,
-    },
-    {
-      path: 'clinic-history/:user_id',
-      component: ClinicHistoryComponent,
-
-    }
-    ,
-    {
-      path: 'entry-clinic-history/:user_id',
-      component: EntryClinicHistoryComponent,
-
     }
   ],
 }];

@@ -7,7 +7,7 @@ import { ChVitalSigns } from '../models/ch-vital-signs';
   providedIn: 'root'
 })
 export class ChVitalSignsService {
-  public ChVitalSigns: ChVitalSigns[] = [];
+  public ch_vital_signs: ChVitalSigns[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
@@ -21,9 +21,9 @@ export class ChVitalSignsService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.ChVitalSigns = <ChVitalSigns[]>servObj.data.ChVitalSigns;
+        this.ch_vital_signs = <ChVitalSigns[]>servObj.data.ChVitalSigns;
 
-        return Promise.resolve(this.ChVitalSigns);
+        return Promise.resolve(this.ch_vital_signs);
       })
       .catch(x => {
         throw x.message;
@@ -61,6 +61,7 @@ export class ChVitalSignsService {
         throw x.message;
       });
   }
+  
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_vital_signs', id);
     return this.webAPI.DeleteAction(servObj)
