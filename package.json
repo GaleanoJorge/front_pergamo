@@ -50,6 +50,7 @@
     "@syncfusion/ej2": "^18.2.47",
     "@syncfusion/ej2-angular-filemanager": "^18.2.47",
     "@types/xlsx": "0.0.36",
+    "@ng-plus/signature-pad": "0.0.4",
     "angular2-chartjs": "0.4.1",
     "angular2-draggable": "^2.3.2",
     "axios": "^0.21.0",
