@@ -14,123 +14,15 @@ import { LocationService } from '../../../business-controller/location.service';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="status" nbTooltip="Salida del paciente" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef)">
-        <nb-icon icon="clock-outline"></nb-icon>
-    </a>
-    <button *ngIf="medical" nbTooltip="Reversión de salida medica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef2)">
-        <nb-icon icon="log-out-outline"></nb-icon>
+
+    <button nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id" >
+      <nb-icon icon="file-add-outline"></nb-icon>
     </button>
-    <button nbTooltip="Agregar o modificar acompañantes" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/admissions/patient-data/' + value.data.id" >
-      <nb-icon icon="person-add-outline"></nb-icon>
-    </button>
-    <button nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
-        <nb-icon icon="info-outline"></nb-icon>
-    </button>
-    <a  nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + value.data.id">
-      <nb-icon icon="folder-add-outline"></nb-icon>
-    </a>
+
   </div>
-  <ng-template #templateRef>
-    <nb-card size="tiny">
-      <nb-card-header>
-          <span class="h5">Salida de Paciente</span>
-      </nb-card-header>
-      <nb-card-body>
-      Desea dar salida al paciente.
-      </nb-card-body>
-
-      <nb-card-footer class="d-flex justify-content-end">
-          <button nbButton status="danger" class="ml-1" type="button" (click)="DeleteAction()" [disabled]="loading">Confirmar</button>
-      </nb-card-footer>
-    </nb-card>
-  </ng-template>
-  <ng-template #templateRef2>
-  <nb-card size="tiny">
-    <nb-card-header>
-        <span class="h5">Reversión de salida</span>
-    </nb-card-header>
-    <nb-card-body>
-        Esta seguro que desea revertir la salida?
-    </nb-card-body>
-
-    <nb-card-footer class="d-flex justify-content-end">
-        <button nbButton ghost type="button" (click)="close()">Cancelar</button>
-        <button nbButton status="danger" class="ml-1" type="button" (click)="DeleteAction2()" [disabled]="loading">Confirmar</button>
-    </nb-card-footer>
-  </nb-card>
-</ng-template>
-<ng-template #templateRef3>
-<form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card size="small" style="max-width: 500px;height: auto;">
-    <nb-card-header>{{ title }}</nb-card-header>
-    <nb-card-body>
-      <div class="row">
-        <div class="col-md-12">
-          <label for="admission_route" class="form-text text-muted font-weight-bold">Ruta de admisión:</label>
-          <nb-select [selected]="this.data.admission_route_id" formControlName="admission_route_id" id="admission_route_id" fullWidth
-          status="{{ isSubmitted && form.controls.admission_route_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.admission_route_id }}" *ngFor="let item of admission_route" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
-        </div>
-        <div class="col-md-12">
-          <label for="scope_of_attention" class="form-text text-muted font-weight-bold">Ambito de atención:</label>
-          <nb-select [selected]="this.data.scope_of_attention_id" formControlName="scope_of_attention_id" id="scope_of_attention_id" fullWidth
-          status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.scope_of_attention_id }}" *ngFor="let item of scope_of_attention" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
-        </div>
-        <div class="col-md-12">
-          <label for="program" class="form-text text-muted font-weight-bold">Programa:</label>
-          <nb-select [selected]="this.data.program_id" formControlName="program_id" id="program_id" fullWidth
-          status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.program_id }}" *ngFor="let item of program" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
-        </div>
-        <div class="col-md-12">
-          <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
-          <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
-          status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
-        </div>
-        <div class="col-md-12">
-          <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
-          <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
-          status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.pavilion_id }}" *ngFor="let item of pavilion" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
-        </div>
-        <div class="col-md-12">
-          <label for="bed" class="form-text text-muted font-weight-bold">Cama / Consultorio:</label>
-          <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
-          status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.bed_id }}" *ngFor="let item of bed" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
-        </div>
-    </div>
-    </nb-card-body>
-    <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton (click)="close()" type="button">Cancelar</button>
-      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
-    </nb-card-footer>
-  </nb-card>
-</form>
-</ng-template>
   `,
 })
-export class Actions2Component implements ViewCell {
+export class Actions1Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
   public dialog;
   public status: boolean;

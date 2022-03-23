@@ -1,0 +1,15 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title" [subtitle]="subtitle" customData="ch_record" [settings]="settings" entity="ch_record/byadmission/{{admissions_id}}">
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" (click)="NewChRecord()">Crear</button>
+        </div>
+        <div class="actions" style="margin-top:1em;">
+          </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>
