@@ -1,13 +1,12 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {ContractComponent} from './contract.component';
-import {ContractListComponent} from './contract-list/contract-list.component';
-import {FileContractComponent} from './file-contract/file-contract.component';
-import {ServicesBriefcaseComponent} from './services-briefcase/services-briefcase.component';
-import {BriefcaseComponent} from './briefcase/briefcase.component';
-import {DetailServicesComponent} from './detail-services/detail-services.component';
-import {PermissionsGuard} from '../../guards/permissions.guard';
+import { ContractComponent } from './contract.component';
+import { ContractListComponent } from './contract-list/contract-list.component';
+import { FileContractComponent } from './file-contract/file-contract.component';
+import { ServicesBriefcaseComponent } from './services-briefcase/services-briefcase.component';
+import { BriefcaseComponent } from './briefcase/briefcase.component';
+import { DetailServicesComponent } from './detail-services/detail-services.component';
 import { PolicyComponent } from './policy/policy.component';
 
 

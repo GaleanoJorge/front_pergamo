@@ -47,8 +47,7 @@ export class DetailServicesComponent implements OnInit {
   public briefcase_id:number;
   public briefcase:any[]=[];
   public result;
-
-  
+  public role_permisos = [];
 
   public settings = {  
     columns: {
@@ -59,6 +58,7 @@ export class DetailServicesComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'role_permisos': this.role_permisos,
             'delete': this.DeleteServiceBriefcase.bind(this),
             'refreshData': this.RefreshData.bind(this),
           };
@@ -151,6 +151,12 @@ export class DetailServicesComponent implements OnInit {
 
 
   async ngOnInit() {
+    var permisos = JSON.parse(localStorage.getItem('permissions'));
+    permisos.forEach(x => {
+      if (x.item_id == 116) {
+        this.role_permisos.push(x.permission_id);
+      }
+    });
     if(this.route.snapshot.params.id){
       this.briefcase_id = this.route.snapshot.params.id;
       this.entity = this.briefcase_id ? 'ServiceBriefcase/ServicesByBriefcase/' + this.briefcase_id : 'services_briefcase';

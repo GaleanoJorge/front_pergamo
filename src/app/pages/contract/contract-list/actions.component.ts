@@ -4,19 +4,19 @@ import {ViewCell} from 'ng2-smart-table';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
+      <button nbTooltip="Editar" ngxCheckPerms="create" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
-      <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
+      <button nbTooltip="Eliminar" ngxCheckPerms="delete" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
       <a nbTooltip="Portafolios" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/contract/briefcase/' + value.data.id" title="Portafolios">
         <nb-icon icon="list-outline"></nb-icon>
       </a>
-      <a  nbTooltip="Poliza" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/contract/policy/' + value.data.id" title="Póliza">
+      <a  nbTooltip="Poliza" ngxCheckPerms="create" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/contract/policy/' + value.data.id" title="Póliza">
         <nb-icon icon="book-open-outline"></nb-icon>
       </a>
-      <a nbTooltip="Archivos del contrato" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/contract/file-contract/' + value.data.id" title="Archivos del contrato">
+      <a nbTooltip="Archivos del contrato" ngxCheckPerms="create" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/contract/file-contract/' + value.data.id" title="Archivos del contrato">
         <nb-icon icon="archive-outline"></nb-icon>
       </a>
     </div>

@@ -10,12 +10,15 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton  ghost (click)="ConfirmAction(confirmAction)">
+      <button nbTooltip="Editar" *ngIf="value.role_permisos.includes(2)" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton  ghost (click)="ConfirmAction(confirmAction)">
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
-      <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
+      <button nbTooltip="Eliminar" *ngIf="value.role_permisos.includes(4)" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
+      <a *ngIf="value.data.manual_price.manual_procedure_type_id==3 && value.role_permisos.includes(1)"  nbTooltip="Información del paquete" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/setting/manual/procedure-massive/procedure-package/' + value.data.manual_price.id">
+        <nb-icon icon="info-outline"></nb-icon>
+      </a>
     </div>
     <ng-template #confirmAction>
   <div class="container-fluid">
