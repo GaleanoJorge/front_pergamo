@@ -225,8 +225,30 @@ import { FormPolicyTypeComponent } from './policy-type/form-policy-type/form-pol
 import { PolicyTypeComponent } from './policy-type/policy-type.component';
 import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
 import { SelectProcedureComponent } from './procedure/procedure-package/select-procedure.component';
-
-
+import { DietConsistencyComponent } from './diet-consistency/diet-consistency.component';
+import { FormDietConsistencyComponent } from './diet-consistency/form-diet-consistency/form-diet-consistency.component';
+import { DietComponentComponent } from './diet-componet/diet-componet.component';
+import { FormDietComponentComponent } from './diet-componet/form-diet-componet/form-diet-componet.component';
+import { DietDayComponent } from './diet-day/diet-day.component';
+import { FormDietDayComponent } from './diet-day/form-diet-day/form-diet-day.component';
+import { DietWeekComponent } from './diet-week/diet-week.component';
+import { FormDietWeekComponent } from './diet-week/form-diet-week/form-diet-week.component';
+import { DietDishComponent } from './diet-dish/diet-dish.component';
+import { FormDietDishComponent } from './diet-dish/form-diet-dish/form-diet-dish.component';
+import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component';
+import { FormDietMenuTypeComponent } from './diet-menu-type/form-diet-menu-type/form-diet-menu-type.component';
+import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
+import { FormDietSupplyTypeComponent } from './diet-supply-type/form-diet-supply-type/form-diet-supply-type.component';
+import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
+import { FormDietSuppliesComponent } from './diet-supplies/form-diet-supplies/form-diet-supplies.component';
+import { DishStockPackageComponent } from './diet-dish/dish-stock-package/dish-stock-package.component';
+import { SelectDishStockComponent } from './diet-dish/dish-stock-package/select-dish-stock.component';
+import { AmountDishStockComponent } from './diet-dish/dish-stock-package/amount-dish-stock.component';
+import { DietMenuComponent } from './diet-menu/diet-menu.component';
+import { Actions2Component } from './diet-menu/actions.component';
+import { FormDietMenuComponent } from './diet-menu/form-diet-menu/form-diet-menu.component';
+import { DishPackageComponent } from './diet-menu/dish-package/dish-package.component';
+import { SelectDishComponent } from './diet-menu/dish-package/select-dish.component';
 import { RelationshipComponent } from './relationship/relationship.component';
 import { FormRelationshipComponent } from './relationship/form-relationship/form-relationship.component';
 import { ActionsCompanyComponent } from './company/actions.component';
@@ -476,6 +498,32 @@ import { ActionsCDComponent } from './company-document/actionsCD.component';
     DiagnosisComponent,
     InabilityComponent,
     FormInabilityComponent,
+    DietComponentComponent,
+    FormDietComponentComponent,
+    DietConsistencyComponent,
+    FormDietConsistencyComponent,
+    DietDayComponent,
+    FormDietDayComponent,
+    DietDishComponent,
+    FormDietDishComponent,
+    DishStockPackageComponent,
+    SelectDishStockComponent,
+    AmountDishStockComponent,
+    DietMenuTypeComponent,
+    FormDietMenuTypeComponent,
+    DietSuppliesComponent,
+    FormDietSuppliesComponent,
+    DietSupplyTypeComponent,
+    FormDietSupplyTypeComponent,
+    DietWeekComponent,
+    FormDietWeekComponent,
+    DietMenuComponent,
+    Actions2Component,
+    FormDietMenuComponent,
+    DishPackageComponent,
+    SelectDishComponent,
+
+
   ],
   providers: [
     DateFormatPipe,

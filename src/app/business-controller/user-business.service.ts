@@ -56,6 +56,23 @@ v
       });
   }
 
+  GetByAdmission(identification:{}): Promise<User[]> {
+    console.log(identification);
+    var servObj = new ServiceObject("user/byAdmission/2");
+    return this.webAPI.GetAction(servObj, identification)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   GetCollectionByPage(page: number, search: any): Promise<User[]> {
     var paramsMain = new HttpParams().set("identification", search.identification).set("firstname", search.firstname).set("middlefirstname", search.middlefirstname).set("lastname", search.lastname).set("middlelastname", search.middlelastname);
     var servObj = new ServiceObject("user?page=" + page);

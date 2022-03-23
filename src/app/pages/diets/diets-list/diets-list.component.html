@@ -1,0 +1,26 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+    <nb-tabset class="tabset">
+      <nb-tab tabTitle="INVENTARIO">
+        <ngx-diet-stock>
+        </ngx-diet-stock>
+      </nb-tab>
+      <nb-tab tabTitle="INGRESO DE INSUMOS">
+        <ngx-diet-supplies-input>
+        </ngx-diet-supplies-input>
+      </nb-tab>
+      <nb-tab tabTitle="SALIDA DE INSUMOS">
+        <ngx-diet-supplies-output>
+        </ngx-diet-supplies-output>
+      </nb-tab>
+      <nb-tab tabTitle="DIETAS ADMISIONES">
+        <ngx-diet-admission>
+        </ngx-diet-admission>
+      </nb-tab>
+      <nb-tab tabTitle="DESPACHOS ADMISIONES">
+        <ngx-diet-order>
+        </ngx-diet-order>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</ngx-base-list>

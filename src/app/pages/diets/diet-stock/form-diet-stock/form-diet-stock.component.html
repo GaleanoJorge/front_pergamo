@@ -1,0 +1,43 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="medium" style="max-width: 600px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="amount" class="form-text text-muted font-weight-bold">CANTIDAD:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount" formControlName="amount"
+            amount
+            status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-md-12">
+          <label for="diet_supplies" class="form-text text-muted font-weight-bold">INSUMO:</label>
+          <nb-select [selected]="this.data.diet_supplies_id" formControlName="diet_supplies_id" id="diet_supplies_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.diet_supplies_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.diet_supplies_id }}" *ngFor="let item of diet_supplies"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-12">
+          <label for="company" class="form-text text-muted font-weight-bold">PROVEEDOR:</label>
+          <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
