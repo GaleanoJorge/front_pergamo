@@ -55,13 +55,15 @@ export class FormReasonConsultationComponent implements OnInit {
       ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id,],
     });
 
-    if (this.data || this.data.length != 0) {
+  
+
+    if (this.data.reason_consultation != '') {
       this.form.controls.reason_consultation.disable();
       this.form.controls.current_illness.disable();
       this.form.controls.ch_external_cause_id.disable();
       this.disabled = true;
-    }else{
-          this.form.controls.reason_consultation.enable();
+    } else {
+      this.form.controls.reason_consultation.enable();
       this.form.controls.current_illness.enable();
       this.form.controls.ch_external_cause_id.enable();
       this.disabled = false;

@@ -126,7 +126,7 @@ export class FormsignsComponent implements OnInit {
     });
 
 
-    if (this.data || this.data.length != 0) {
+    if (this.data.cardiac_frequency!='') {
       this.form.controls.clock.disable();
       this.form.controls.cardiac_frequency.disable();
       this.form.controls.respiratory_frequency.disable();
