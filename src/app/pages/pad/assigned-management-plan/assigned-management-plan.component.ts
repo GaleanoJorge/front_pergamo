@@ -59,6 +59,7 @@ export class AssignedManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'user':this.user,
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
           };

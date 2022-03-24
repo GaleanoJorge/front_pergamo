@@ -26,9 +26,6 @@ import { LocationService } from '../../../business-controller/location.service';
     <button nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
         <nb-icon icon="info-outline"></nb-icon>
     </button>
-    <a  nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + value.data.id">
-      <nb-icon icon="folder-add-outline"></nb-icon>
-    </a>
   </div>
   <ng-template #templateRef>
     <nb-card size="tiny">

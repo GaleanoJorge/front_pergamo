@@ -15,9 +15,9 @@ import { date } from '@rxweb/reactive-form-validators';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button nbTooltip="Historia Clinica" *ngIf="today >= value.data.start_date && today <= value.data.finish_date" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost >
-        <nb-icon icon="menu-outline"></nb-icon>
-    </button>
+    <a *ngIf="today >= value.data.start_date && today <= value.data.finish_date" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + value.user.admissions[0].id">
+    <nb-icon icon="folder-add-outline"></nb-icon>
+  </a>
   </div>
   `,
   styleUrls: ['./assigned-management-plan.component.scss'],
