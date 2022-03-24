@@ -8,6 +8,9 @@ import { ProcedurePackageService } from '../../../../business-controller/procedu
       <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
+      <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
+        <nb-icon icon="edit-outline"></nb-icon>
+      </button>
       <button *ngIf="value.data.manual_procedure_type_id==3 && ProcedurePackage" nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
         <nb-icon icon="info-outline"></nb-icon>
       </button>

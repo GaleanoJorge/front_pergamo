@@ -239,27 +239,16 @@ import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component
 import { FormDietMenuTypeComponent } from './diet-menu-type/form-diet-menu-type/form-diet-menu-type.component';
 import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
 import { FormDietSupplyTypeComponent } from './diet-supply-type/form-diet-supply-type/form-diet-supply-type.component';
-import { DietTherapeuticComponent } from './diet-therapeutic/diet-therapeutic.component';
-import { FormDietTherapeuticComponent } from './diet-therapeutic/form-diet-therapeutic/form-diet-therapeutic.component';
-import { DietStockComponent } from './diet-stock/diet-stock.component';
-import { FormDietStockComponent } from './diet-stock/form-diet-stock/form-diet-stock.component';
 import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
 import { FormDietSuppliesComponent } from './diet-supplies/form-diet-supplies/form-diet-supplies.component';
-import { DietSuppliesInputComponent } from './diet-supplies-input/diet-supplies-input.component';
-import { FormDietSuppliesInputComponent } from './diet-supplies-input/form-diet-supplies-input/form-diet-supplies-input.component';
-import { ComponentPackageComponent } from './diet-therapeutic/component-package/component-package.component';
-import { SelectComponentComponent } from './diet-therapeutic/component-package/select-component.component';
 import { DishStockPackageComponent } from './diet-dish/dish-stock-package/dish-stock-package.component';
 import { SelectDishStockComponent } from './diet-dish/dish-stock-package/select-dish-stock.component';
-import { ActionsInputComponent } from './diet-supplies-input/actions-input.component';
 import { AmountDishStockComponent } from './diet-dish/dish-stock-package/amount-dish-stock.component';
 import { DietMenuComponent } from './diet-menu/diet-menu.component';
 import { Actions2Component } from './diet-menu/actions.component';
 import { FormDietMenuComponent } from './diet-menu/form-diet-menu/form-diet-menu.component';
 import { DishPackageComponent } from './diet-menu/dish-package/dish-package.component';
 import { SelectDishComponent } from './diet-menu/dish-package/select-dish.component';
-
-
 import { RelationshipComponent } from './relationship/relationship.component';
 import { FormRelationshipComponent } from './relationship/form-relationship/form-relationship.component';
 import { ActionsCompanyComponent } from './company/actions.component';
@@ -522,19 +511,10 @@ import { ActionsCDComponent } from './company-document/actionsCD.component';
     AmountDishStockComponent,
     DietMenuTypeComponent,
     FormDietMenuTypeComponent,
-    DietStockComponent,
-    FormDietStockComponent,
     DietSuppliesComponent,
     FormDietSuppliesComponent,
-    DietSuppliesInputComponent,
-    FormDietSuppliesInputComponent,
-    ActionsInputComponent,
     DietSupplyTypeComponent,
     FormDietSupplyTypeComponent,
-    DietTherapeuticComponent,
-    FormDietTherapeuticComponent,
-    ComponentPackageComponent,
-    SelectComponentComponent,
     DietWeekComponent,
     FormDietWeekComponent,
     DietMenuComponent,
@@ -542,6 +522,7 @@ import { ActionsCDComponent } from './company-document/actionsCD.component';
     FormDietMenuComponent,
     DishPackageComponent,
     SelectDishComponent,
+
 
   ],
   providers: [

@@ -65,21 +65,57 @@ import { ObservationNoveltyService } from '../../../business-controller/observat
           1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].bed.name
           }}</p>
   </div>
-</ng-template>
-<ng-template #userChangeAction>
-  <div class="container-fluid">
-      <nb-card style="width: 430px;">
-          <nb-card-header>
-              Asociar cuentas de usuario
-          </nb-card-header>
-          <nb-card-body>
-              <form [formGroup]="UserChangeForm" (ngSubmit)="SaveChange()">
-                  <div>
+  <ng-template #templateRef>
+    <div class="p-3">
+        <p><strong>Contrato:</strong> {{ this.value.data.admissions[this.value.data.admissions.length - 1].contract.name
+            }}</p>
+        <p><strong>Piso:</strong> {{ this.value.data.admissions[this.value.data.admissions.length - 1].campus.name }}
+        </p>
+        <p><strong>Ruta de admisión:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
+            1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length -
+            1].admission_route.name }}</p>
+        <p><strong>Ambito de atención:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
+            1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length -
+            1].scope_of_attention.name }}</p>
+        <p><strong>Programa:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
+            1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length -
+            1].program.name }}</p>
+        <p *ngIf="this.value.data.admissions[this.value.data.admissions.length -
+          1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].flat!=null"><strong>Piso:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
+            1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].flat.name
+            }}</p>
+        <p *ngIf="this.value.data.admissions[this.value.data.admissions.length -
+          1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].pavilion!=null"><strong>Pabellón:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
+            1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length -
+            1].pavilion.name }}</p>
+        <p *ngIf="this.value.data.admissions[this.value.data.admissions.length -
+          1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].bed!=null"><strong>Cama:</strong> {{ this.value.data.admissions[this.value.data.admissions.length -
+            1].location[this.value.data.admissions[this.value.data.admissions.length - 1].location.length - 1].bed.name
+            }}</p>
+    </div>
+  </ng-template>
+  <ng-template #userChangeAction>
+    <div class="container-fluid">
+        <nb-card style="width: 430px;">
+            <nb-card-header>
+                Asociar cuentas de usuario
+            </nb-card-header>
+            <nb-card-body>
+                <form [formGroup]="UserChangeForm" (ngSubmit)="SaveChange()">
+                    <div>
+                        <!-- <div class="col-md-12">
+                           <label for="right_user" class="form-text text-muted font-weight-bold">Usuario correcto:</label>
+                           <input id="data-list" fullWidth type="text" list="codes" class="data-list"
+                           (change)="idFilter($event)" placeholder="Ingrese ID del paciente" required />
+                                <datalist id="codes">
+                                 <nb-option *ngFor="let item of right_user" [value]="item.identification">{{item.identification}} - {{item.firstname}} {{item.lastname}}
+                                 </nb-option>
+                               </datalist>
+                         </div>-->
 
-                      <div class="col-12">
-                          <label class="form-text text-muted font-weight-bold">Usuario correcto:</label>
-                          <input id="data-list" type="text" fullWidth nbInput list="codes" class="data-list"
-                              (change)="saveCode($event)" required>
+                        <div class="col-12">
+                        <label class="form-text text-muted font-weight-bold">Usuario correcto:</label>
+                        <input id="data-list" type="text" fullWidth nbInput list="codes" class="data-list" (change)="saveCode($event)" required>
                           <datalist id="codes">
                               <option *ngFor="let item of right_user" [value]="item.identification">
                                   {{item.identification}} - {{ item.firstname}} </option>

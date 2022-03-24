@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DietTherapeuticService } from '../../../../business-controller/diet-therapeutic.service';
 import { DietMenuTypeService } from '../../../../business-controller/diet-menu-type.service';
 import { DietWeekService } from '../../../../business-controller/diet-week.service';
 import { DietDayService } from '../../../../business-controller/diet-day.service';
 import { DietMenuService } from '../../../../business-controller/diet-menu.service';
 import { DietMenuDishService } from '../../../../business-controller/diet-menu-dish.service';
 import { DietConsistencyService } from '../../../../business-controller/diet-consistency.service';
+import { DietComponentService } from '../../../../business-controller/diet-componet.service';
 
 
 @Component({
@@ -23,11 +23,12 @@ export class FormDietMenuComponent implements OnInit {
   public loading: boolean = false;
   public isSubmitted: boolean = false;
   public saved: any = null;
-  public geteratedName: string = '---';
+  public geteratedName: string = '----';
 
   public diet_consistency: any[];
   public diet_menu_type: any[];
   public diet_week: any[];
+  public diet_component: any[];
   public diet_day: any[];
   public selectedOptions: any[] = [];
   public diet_menu_dish: any[];
@@ -40,6 +41,7 @@ export class FormDietMenuComponent implements OnInit {
     private dietMenuDishS: DietMenuDishService,
     private dietConsistencyS: DietConsistencyService,
     private dietMenuTypeS: DietMenuTypeService,
+    private dietComponentS: DietComponentService,
     private dietWeekS: DietWeekService,
     private dietDayS: DietDayService,
     private dietMenuS: DietMenuService,
@@ -53,6 +55,7 @@ export class FormDietMenuComponent implements OnInit {
         name: '',
         diet_consistency_id: '',
         diet_menu_type_id: '',
+        diet_component_id: '',
         diet_week_id: '',
         diet_day_id: '',
       };
@@ -70,6 +73,9 @@ export class FormDietMenuComponent implements OnInit {
     this.dietConsistencyS.GetCollection().then(x => {
       this.diet_consistency = x;
     });
+    this.dietComponentS.GetCollection().then(x => {
+      this.diet_component = x;
+    });
     this.dietMenuTypeS.GetCollection().then(x => {
       this.diet_menu_type = x;
     });
@@ -83,6 +89,7 @@ export class FormDietMenuComponent implements OnInit {
     this.form = this.formBuilder.group({
       diet_consistency_id: [this.data.diet_consistency_id, Validators.compose([Validators.required])],
       diet_menu_type_id: [this.data.diet_menu_type_id, Validators.compose([Validators.required])],
+      diet_component_id: [this.data.diet_component_id, Validators.compose([Validators.required])],
       diet_week_id: [this.data.diet_week_id, Validators.compose([Validators.required])],
       diet_day_id: [this.data.diet_day_id, Validators.compose([Validators.required])],
     });
@@ -93,11 +100,13 @@ export class FormDietMenuComponent implements OnInit {
   ChangeName($event) {
     this.geteratedName =
       (this.diet_consistency[this.form.controls.diet_consistency_id.value - 1].name ?? '')
-       + '-' +
+      + '-' +
+      (this.diet_component[this.form.controls.diet_component_id.value - 1].name ?? '')
+      + '-' +
       (this.diet_menu_type[this.form.controls.diet_menu_type_id.value - 1].name ?? '')
-       + '-' +
+      + '-' +
       (this.diet_week[this.form.controls.diet_week_id.value - 1].name ?? '')
-       + '-' +
+      + '-' +
       (this.diet_day[this.form.controls.diet_day_id.value - 1].name ?? '');
   }
 
@@ -119,6 +128,7 @@ export class FormDietMenuComponent implements OnInit {
           name: this.geteratedName,
           diet_consistency_id: this.form.controls.diet_consistency_id.value,
           diet_menu_type_id: this.form.controls.diet_menu_type_id.value,
+          diet_component_id: this.form.controls.diet_component_id.value,
           diet_week_id: this.form.controls.diet_week_id.value,
           diet_day_id: this.form.controls.diet_day_id.value,
         }).then(x => {
@@ -162,6 +172,7 @@ export class FormDietMenuComponent implements OnInit {
           name: this.geteratedName,
           diet_consistency_id: this.form.controls.diet_consistency_id.value,
           diet_menu_type_id: this.form.controls.diet_menu_type_id.value,
+          diet_component_id: this.form.controls.diet_component_id.value,
           diet_week_id: this.form.controls.diet_week_id.value,
           diet_day_id: this.form.controls.diet_day_id.value,
         }).then(x => {
@@ -180,11 +191,11 @@ export class FormDietMenuComponent implements OnInit {
             this.dietMenuDishS.Save({
               diet_menu_id: id,
               diet_dish_id: JSON.stringify(this.selectedOptions),
-              }).then(x => {
-              }).catch(x => {
-                err++;
-              });
-              contador++;
+            }).then(x => {
+            }).catch(x => {
+              err++;
+            });
+            contador++;
             if (contador > 0) {
               this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
             } else if (err > 0) {

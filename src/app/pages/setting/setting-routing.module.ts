@@ -111,10 +111,7 @@ import { DietWeekComponent } from './diet-week/diet-week.component';
 import { DietDishComponent } from './diet-dish/diet-dish.component';
 import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component';
 import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
-import { DietTherapeuticComponent } from './diet-therapeutic/diet-therapeutic.component';
-import { DietStockComponent } from './diet-stock/diet-stock.component';
 import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
-import { DietSuppliesInputComponent } from './diet-supplies-input/diet-supplies-input.component';
 import { DietMenuComponent } from './diet-menu/diet-menu.component';
 
 const routes: Routes = [{
@@ -182,28 +179,13 @@ const routes: Routes = [{
 
     },
     {
-      path: 'diet-stock',
-      component: DietStockComponent,
-
-    },
-    {
       path: 'diet-supplies',
       component: DietSuppliesComponent,
 
     },
     {
-      path: 'diet-supplies-input',
-      component: DietSuppliesInputComponent,
-
-    },
-    {
       path: 'diet-supply-type',
       component: DietSupplyTypeComponent,
-
-    },
-    {
-      path: 'diet-therapeutic',
-      component: DietTherapeuticComponent,
 
     },
     {
@@ -437,8 +419,6 @@ const routes: Routes = [{
     {
       path: 'roles',
       component: RolesComponent,
-      canActivate: [PermissionsGuard],
-      // data: { permission: 'roles.read'},
 
     },
     {
@@ -670,8 +650,6 @@ const routes: Routes = [{
     {
       path: 'specialty',
       component: SpecialtyComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'especialidad.read' },
     },
     {
       path: 'entity',

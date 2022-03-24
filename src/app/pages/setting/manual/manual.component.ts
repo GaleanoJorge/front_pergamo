@@ -40,6 +40,7 @@ export class ManualComponent implements OnInit {
             'data': row,
             'edit': this.EditManual.bind(this),
             'delete': this.DeleteConfirmManual.bind(this),
+            'clone': this.CloneManual.bind(this),
             'procedure': (row) => this.router.navigate([`/pages/setting/procedure-massive/${row.id}`]),
             'product': (row) => this.router.navigate([`/pages/setting/product-massive/${row.id}`]),
             'procedurelist': (row) => this.router.navigate([`/pages/setting/manual-price/${row.id}`])
@@ -95,11 +96,22 @@ export class ManualComponent implements OnInit {
     });
   }
 
+  CloneManual(data) {
+    this.dialogFormService.open(FormManualComponent, {
+      context: {
+        title: 'Clonar manual tarifario',
+        data: data,
+        dataClon: data,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
   EditManual(data) {
     this.dialogFormService.open(FormManualComponent, {
       context: {
         title: 'Editar manual tarifario',
-        data,
+        data: data,
         saved: this.RefreshData.bind(this),
       },
     });

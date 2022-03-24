@@ -7,8 +7,9 @@ import { Actions3Component } from './actions3.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import {CampusBriefcaseService} from '../../../business-controller/campus-briefcase.service';
+import { CampusBriefcaseService } from '../../../business-controller/campus-briefcase.service';
 import { ContractService } from '../../../business-controller/contract.service';
+import { ItemRolePermissionBusinessService } from '../../../business-controller/item-role-permission-business.service';
 
 
 @Component({
@@ -19,19 +20,20 @@ import { ContractService } from '../../../business-controller/contract.service';
 export class BriefcaseComponent implements OnInit {
 
   public isSubmitted = false;
-  public entity:string;
+  public entity: string;
   public messageError: string = null;
   public title: string;
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre','Sede','Cobertura','Modalidad','Estado'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Sede', 'Cobertura', 'Modalidad', 'Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
   public id;
-  public campus_briefcase:any[];
-  public campus:string;
-  public contract_id:number;
-  public contract:any[]=[];
+  public campus_briefcase: any[];
+  public campus: string;
+  public contract_id: number;
+  public contract: any[] = [];
+  public role_permisos = [];
   public result;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -46,11 +48,12 @@ export class BriefcaseComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
-            return {
-              'data': row,
-              'edit': this.EditBriefcase.bind(this),
-              'delete': this.DeleteConfirmBriefcase.bind(this),
-            };
+          return {
+            'data': row,
+            'role_permisos': this.role_permisos,
+            'edit': this.EditBriefcase.bind(this),
+            'delete': this.DeleteConfirmBriefcase.bind(this),
+          };
 
         },
         renderComponent: ActionsComponent,
@@ -66,9 +69,9 @@ export class BriefcaseComponent implements OnInit {
       campus: {
         title: this.headerFields[2],
         type: 'custom',
-        valuePrepareFunction: (value,row) => {
+        valuePrepareFunction: (value, row) => {
           return {
-            'campus':this.campus_briefcase,
+            'campus': this.campus_briefcase,
             'data': row,
           };
         },
@@ -121,12 +124,18 @@ export class BriefcaseComponent implements OnInit {
   }
 
   async ngOnInit() {
+    var permisos = JSON.parse(localStorage.getItem('permissions'));
+    permisos.forEach(x => {
+      if (x.item_id == 116) {
+        this.role_permisos.push(x.permission_id);
+      }
+    });
     this.contract_id = this.route.snapshot.params.id;
-    if(this.route.snapshot.params.id){
+    if (this.route.snapshot.params.id) {
       this.contract_id = this.route.snapshot.params.id;
       this.entity = this.contract_id ? 'briefcasecontract/briefcaseByContract/' + this.contract_id : 'briefcase';
-    }else{
-      this.entity='briefcase';
+    } else {
+      this.entity = 'briefcase';
     }
     this.CampusBriefcaseS.GetCollection().then(x => {
       this.campus_briefcase = x;
@@ -134,17 +143,17 @@ export class BriefcaseComponent implements OnInit {
     await this.ContractS.GetCollection().then(x => {
       this.contract = x;
     });
-    this.result=this.contract.find(contract => contract.id == this.route.snapshot.params.id);
-    this.title= 'Portafolios de '+this.result.name;
+    this.result = this.contract.find(contract => contract.id == this.route.snapshot.params.id);
+    this.title = 'Portafolios de ' + this.result.name;
   }
-  async GetAmount(id){
+  async GetAmount(id) {
     await this.CampusBriefcaseS.GetByBriefcase(id).then(x => {
       var arrdta = [];
       this.campus_briefcase = x.data;
       this.campus_briefcase.forEach(element => {
         arrdta.push(element.campus.name);
       });
-       this.campus = arrdta.join();
+      this.campus = arrdta.join();
     });
   }
   RefreshData() {
@@ -157,19 +166,19 @@ export class BriefcaseComponent implements OnInit {
       context: {
         title: 'Crear nuevo portafolio',
         saved: this.RefreshData.bind(this),
-        contract_id:this.contract_id,
+        contract_id: this.contract_id,
       },
     });
   }
 
   EditBriefcase(data) {
-      this.dialogFormService.open(FormBriefcaseComponent, {
-        context: {
-          title: 'Editar portafolio',
-          data,
-          saved: this.RefreshData.bind(this),
-        },
-      });
+    this.dialogFormService.open(FormBriefcaseComponent, {
+      context: {
+        title: 'Editar portafolio',
+        data,
+        saved: this.RefreshData.bind(this),
+      },
+    });
 
   }
 

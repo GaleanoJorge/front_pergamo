@@ -10,12 +10,24 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="diet_consistency" class="form-text text-muted font-weight-bold">DIETA TERAPÉUTICA:</label>
+          <label for="diet_consistency" class="form-text text-muted font-weight-bold">CONSISTENCIA DE DIETA:</label>
           <nb-select [selected]="this.data.diet_consistency_id" formControlName="diet_consistency_id"
             id="diet_consistency_id" fullWidth (selectedChange)="ChangeName($event)"
             status="{{ isSubmitted && form.controls.diet_consistency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.diet_consistency_id }}" *ngFor="let item of diet_consistency"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="diet_component" class="form-text text-muted font-weight-bold">COMPONENTE DE DIETA:</label>
+          <nb-select [selected]="this.data.diet_component_id" formControlName="diet_component_id"
+            id="diet_component_id" fullWidth (selectedChange)="ChangeName($event)"
+            status="{{ isSubmitted && form.controls.diet_component_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.diet_component_id }}" *ngFor="let item of diet_component"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>

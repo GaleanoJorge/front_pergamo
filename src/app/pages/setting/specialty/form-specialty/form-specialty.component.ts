@@ -3,7 +3,9 @@ import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StatusBusinessService} from '../../../../business-controller/status-business.service';
 import {Status} from '../../../../models/status';
-import {SpecialtyService} from '../../../../business-controller/specialty.service'
+import {SpecialtyService} from '../../../../business-controller/specialty.service';
+import {TypeProfessionalService} from '../../../../business-controller/type-professional.service';
+  
 
 
 @Component({
@@ -23,11 +25,13 @@ export class FormSpecialtyComponent implements OnInit {
   public loading: boolean = false;
   public status_label='Activo';
   public temp=1;
+  public type_professional: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private statusBS: StatusBusinessService,
+    private TypeProfessionalS: TypeProfessionalService,
     private specialtyService: SpecialtyService,
     private toastService: NbToastrService,
   ) { }
@@ -36,7 +40,8 @@ export class FormSpecialtyComponent implements OnInit {
     if(!this.data){
       this.data = {
         name: '',
-        status_id: ''
+        status_id: '',
+        type_professional_id:''
       };
     }
     this.statusBS.GetCollection().then(x => {
@@ -45,7 +50,12 @@ export class FormSpecialtyComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
-      status_id: [this.data.status_id]
+      status_id: [this.data.status_id],
+      type_professional_id: [this.data.type_professional_id]
+    });
+
+    this.TypeProfessionalS.GetCollection().then(x => {
+      this.type_professional=x;
     });
   }
 
@@ -75,6 +85,7 @@ export class FormSpecialtyComponent implements OnInit {
           id: this.data.id,
           name: this.form.controls.name.value,
           status_id: this.temp,
+          type_professional_id: this.form.controls.type_professional_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -89,6 +100,7 @@ export class FormSpecialtyComponent implements OnInit {
         this.specialtyService.Save({
           name: this.form.controls.name.value,
           status_id: this.temp,
+          type_professional_id: this.form.controls.type_professional_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

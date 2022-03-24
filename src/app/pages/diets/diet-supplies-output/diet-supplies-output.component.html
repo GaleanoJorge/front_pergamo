@@ -1,0 +1,19 @@
+<ngx-base-list
+  [messageError]="messageError">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="diet_supplies_output/?pagination=true"
+                    customData='diet_supplies_output'
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewDietSuppliesOutput()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

@@ -90,7 +90,20 @@ export class PatientDataComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private userBS: UserBusinessService,
   ) {
-
+    this.routes = [
+      {
+        name: 'Pacientes',
+        route: '../../list',
+      },
+      {
+        name: 'Admisiones del paciente',
+        route: '../../admissions-patient/' + this.route.snapshot.params.user_id,
+      },
+      {
+        name: 'acompañantes',
+        route: '../../patient-data/' + this.route.snapshot.params.admissions_id,
+      }
+    ];
   }
 
   GetParams() {
@@ -103,10 +116,12 @@ export class PatientDataComponent implements OnInit {
     if(this.route.snapshot.params.admissions_id){
       this.admission_id= this.route.snapshot.params.admissions_id;
       this.entity = "PatientData/PatientDatabyAdmission/" + this.route.snapshot.params.admissions_id;
+      this.routes = [];
     } else if (this.admission_id!=0) {
       this.entity = "PatientData/PatientDatabyAdmission/" + this.admission_id; 
+      this.routes = [];
     } else {
-      this.entity = "patient_data"
+      this.entity = "patient_data";
     }
 
   }

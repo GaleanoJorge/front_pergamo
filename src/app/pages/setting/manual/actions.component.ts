@@ -16,6 +16,9 @@ import {ViewCell} from 'ng2-smart-table';
       <button nbButton nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="delete" ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
+      <button nbButton nbTooltip="Clonar" nbTooltipPlacement="top" nbTooltipStatus="primary"  ghost (click)="value.clone(value.data)">
+        <nb-icon icon="copy-outline"></nb-icon>
+      </button>
     </div>
   `,
 })

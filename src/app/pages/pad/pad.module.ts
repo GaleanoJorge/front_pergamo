@@ -32,6 +32,8 @@ import {Actions2Component} from './pad-list/actions.component';
 import { ActionsComponent } from './management-plan/actions.component';
 import { ManagementPlanComponent } from './management-plan/management-plan.component';
 import { FormManagementPlanComponent } from './management-plan/form-management-plan/form-management-plan.component';
+import { AssignedManagementPlanComponent } from './assigned-management-plan/assigned-management-plan.component';
+import { Actions4Component } from './assigned-management-plan/actions.component';
 
 
 
@@ -71,7 +73,9 @@ import { FormManagementPlanComponent } from './management-plan/form-management-p
     ManagementPlanComponent,
     FormManagementPlanComponent,
     Actions2Component,
-    ActionsComponent
+    Actions4Component,
+    ActionsComponent,
+    AssignedManagementPlanComponent
   ],
   providers: [
     DateFormatPipe,
