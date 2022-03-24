@@ -1,5 +1,6 @@
+<div style="max-width: 600px">
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card size="margin: 10px;max-width: 1400px;max-height: 400px;overflow: auto;" style="max-width: 600px">
+  <nb-card size="margin: 10px;max-width: 1400px;max-height: 400px;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
@@ -10,7 +11,7 @@
         </div> -->
 
         <div class="col-md-12">
-          <label for="campus" class="form-text text-muted font-weight-bold">SEMANA DE DIETA:</label>
+          <label for="campus" class="form-text text-muted font-weight-bold">SEDE:</label>
           <nb-select [selected]="this.data.campus_id" formControlName="campus_id"
             id="campus_id" fullWidth
             status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -33,3 +34,4 @@
     </nb-card-footer>
   </nb-card>
 </form>
+</div>

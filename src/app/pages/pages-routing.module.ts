@@ -44,8 +44,6 @@ const routes: Routes = [{
       path: 'pad',
       loadChildren: () => import('./pad/pad.module')
         .then(m => m.PadModule),
-      canActivate: [PermissionsGuard],
-      data: { permission: 'gloss.read' }
     },
     {
       path: 'diets',

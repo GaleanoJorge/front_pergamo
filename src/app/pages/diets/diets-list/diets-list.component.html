@@ -1,6 +1,6 @@
 <ngx-base-list [messageError]="messageError">
   <div content>
-    <nb-tabset class="tabset">
+    <nb-tabset class="tabset" (changeTab)="RefreshData">
       <nb-tab tabTitle="INVENTARIO">
         <ngx-diet-stock>
         </ngx-diet-stock>
