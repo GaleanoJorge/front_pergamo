@@ -17,7 +17,7 @@ export class GlossAmbitComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Ambito de glosas';
+  public title: string = 'Ambito de Glosas';
   public subtitle: string = 'Ambito';
   public headerFields: any[] = ['ID', 'Nombre', 'Estado', 'Modalidad'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;

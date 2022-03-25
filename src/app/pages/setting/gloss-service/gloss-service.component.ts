@@ -17,7 +17,7 @@ export class GlossServiceComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Servicio de glosas';
+  public title: string = 'Servicio de Glosas';
   public subtitle: string = 'Servicio';
   public headerFields: any[] = ['ID', 'Nombre', 'Estado', 'Ambito'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[3]}`;
@@ -71,7 +71,7 @@ export class GlossServiceComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Servicio de glosas',
+      name: 'Servicio de Glosas',
       route: '../../setting/gloss-service',
     },
   ];

@@ -16,7 +16,7 @@ export class IvaComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Iva';
+  public title: string = 'IVA';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -56,7 +56,7 @@ export class IvaComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Tipo de Iva',
+      name: 'Tipo de IVA',
       route: '../../setting/iva',
     },
   ];
@@ -80,7 +80,7 @@ export class IvaComponent implements OnInit {
   NewIva() {
     this.dialogFormService.open(FormIvaComponent, {
       context: {
-        title: 'Crear nuevo Iva',
+        title: 'Crear nuevo IVA',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -89,7 +89,7 @@ export class IvaComponent implements OnInit {
   EditIva(data) {
     this.dialogFormService.open(FormIvaComponent, {
       context: {
-        title: 'Editar Iva',
+        title: 'Editar IVA',
         data,
         saved: this.RefreshData.bind(this),
       },

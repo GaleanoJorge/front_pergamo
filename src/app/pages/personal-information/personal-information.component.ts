@@ -12,12 +12,12 @@ export class PersonalInformationComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Información personal',
+      name: 'Información Personal',
       route: '/pages/persona-information',
     },
   ];
   public role = 5;
-  public title = 'Actualizar información personal';
+  public title = 'Actualizar Información Personal';
   public isPublic = false;
   public loading = true;
   public data = null;
