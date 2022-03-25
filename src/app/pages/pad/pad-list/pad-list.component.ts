@@ -10,6 +10,7 @@ import { FormPadComponent } from './form-pad/form-pad.component';
 import * as XLSX from 'ts-xlsx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 
@@ -28,7 +29,7 @@ export class PadListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Plan de atención domiciliaria';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email','Ciudad','Barrio','Dirección'];
+  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -36,6 +37,7 @@ export class PadListComponent implements OnInit {
   public file: File;
   public user_id;
   public user;
+  public users:any;
   public dialog;
   public currentRole;
   public selectedOptions: any[] = [];
@@ -57,6 +59,7 @@ export class PadListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'management':this.users,
             'edit': this.EditGloss.bind(this),
             'delete': this.DeleteConfirmGloss.bind(this),
             'refresh': this.RefreshData.bind(this),
@@ -69,46 +72,46 @@ export class PadListComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction(value) {
-            return value?.name;
+          return value?.name;
         },
-    },
-    identification: {
+      },
+      identification: {
         title: this.headerFields[1],
         type: 'string',
-    },
-    nombre_completo: {
+      },
+      nombre_completo: {
         title: this.headerFields[2],
         type: 'string',
-    },
-    email: {
+      },
+      email: {
         title: this.headerFields[3],
         type: 'string',
-    },
-    residence_municipality: {
-      title: this.headerFields[4],
-      type: 'string',
-      valuePrepareFunction(value) {
-          return value?.name;
       },
-  },
-  residence: {
-    title: this.headerFields[5],
-    type: 'string',
-    valuePrepareFunction(value) {
-        return value?.name;
-    },
-},
-residence_address: {
-  title: this.headerFields[6],
-  type: 'string',
-},
+      residence_municipality: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.name;
+        },
+      },
+      residence: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.name;
+        },
+      },
+      residence_address: {
+        title: this.headerFields[6],
+        type: 'string',
+      },
     },
   };
 
   public routes = [
     {
       name: 'Pad',
-      route: '../pad/list',
+      route: '../list',
     },
   ];
 
@@ -118,12 +121,10 @@ residence_address: {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
-
+    private userBS: UserBusinessService,
     private currency: CurrencyPipe,
-
     private authService: AuthService,
     private dialogService: NbDialogService,
-
     private toastS: NbToastrService,
   ) {
   }
@@ -139,17 +140,14 @@ residence_address: {
 
 
   async ngOnInit() {
-    console.log('prueba');
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
     this.currentRole = this.authService.GetRole();
-    if (this.user_id && this.currentRole == 5) {
-      this.entity = 'gloss/byStatus/0/' + this.user_id;
-    } else if (this.user_id && this.currentRole == 6) {
-      this.entity = 'gloss/byStatus/3/0';
+    if (this.user_id && this.currentRole == 3 || this.currentRole == 7 ) {
+      this.entity = 'user/byPAD/2/' + this.user_id;
     }
     else {
-      this.entity = "gloss/?pagination=true";
+      this.entity = "user/byPAD/2/0";
     }
 
 
@@ -172,9 +170,12 @@ residence_address: {
       file: ['', Validators.compose([Validators.required])],
     });
 
+    this.userBS.UserByPad(this.user_id).then(x => {
+      this.users=x;
+    });
   }
 
- 
+
 
   ConfirmAction(dialog: TemplateRef<any>) {
     this.dialog = this.dialogService.open(dialog);
@@ -218,12 +219,12 @@ residence_address: {
   }
 
   DeleteGloss(data) {
-  /*  return this.glossS.Delete(data.id).then(x => {
-      this.table.refresh();
-      return Promise.resolve(x.message);
-    }).catch(x => {
-      throw x;
-    });*/
+    /*  return this.glossS.Delete(data.id).then(x => {
+        this.table.refresh();
+        return Promise.resolve(x.message);
+      }).catch(x => {
+        throw x;
+      });*/
   }
 
 
@@ -241,7 +242,7 @@ residence_address: {
         formData.append('single', "0");
         formData.append('response', this.ResponseGlossForm.value.response);
         formData.append('file', this.ResponseGlossForm.value.file);
-        formData.append('result',this.result);
+        formData.append('result', this.result);
         formData.append('gloss_id', JSON.stringify(this.selectedOptions));
         formData.append('justification_status', this.ResponseGlossForm.controls.justification_status.value);
         formData.append('objetion_response_id', this.ResponseGlossForm.controls.objetion_response_id.value);

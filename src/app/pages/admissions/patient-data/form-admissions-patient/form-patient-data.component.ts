@@ -20,7 +20,7 @@ export class FormPatientDataComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() admission_id: any = null;
+  @Input() admission_id: any ;
 
   public form: FormGroup;
   // public status: Status[];
@@ -29,10 +29,17 @@ export class FormPatientDataComponent implements OnInit {
   public loading: boolean = false;
   public diagnosis: any[] = [];
   public residence;
-  public affiliate_type: any [] = [];
-  public special_attention: any [] = [];
-  public identification_types: any [] = [];
-  public realtionships: any [] = [];
+  public affiliate_type: any[] = [];
+  public special_attention: any[] = [];
+  public identification_types: any[] = [];
+  public realtionships: any[] = [];
+
+  public street: any = null;
+  public num1: any = null;
+  public num2: any = null;
+  public cardinality: any = null;
+  public reference: any = null;
+  public image;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -90,80 +97,79 @@ export class FormPatientDataComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       patient_data_type: [
-        this.data.patient_data_type, 
-        // Validators.compose([Validators.required])
+        this.data.patient_data_type,
+        Validators.compose([Validators.required])
       ],
       identification_type_id: [
-        this.data.identification_type_id, 
-        // Validators.compose([Validators.required])
+        this.data.identification_type_id,
+        Validators.compose([Validators.required])
       ],
       identification: [
         this.data.identification,
-        //  Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
       ],
       firstname: [
-        this.data.firstname, 
-        // Validators.compose([Validators.required])
+        this.data.firstname,
+        Validators.compose([Validators.required])
       ],
       middlefirstname: [
-        this.data.middlefirstname, 
+        this.data.middlefirstname,
         // Validators.compose([Validators.required])
       ],
       lastname: [
-        this.data.lastname, 
+        this.data.lastname,
         Validators.compose([Validators.required])
       ],
       middlelastname: [
-        this.data.middlelastname, 
+        this.data.middlelastname,
         // Validators.compose([Validators.required])
       ],
       phone: [
         this.data.phone,
-         Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
       ],
       landline: [
-        this.data.landline, 
+        this.data.landline,
         // Validators.compose([Validators.required])
       ],
       email: [
         this.data.email,
-        //  Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
       ],
-    residence_address: [
-        this.data.residence_address, 
-        // Validators.compose([Validators.required])
+      residence_address: [
+        this.ReturnResidence(this.data.residence_address),
+        Validators.compose([Validators.required])
       ],
-    street: [
-        this.data.street, 
-        // Validators.compose([Validators.required])
+      street: [
+        this.street == null ? '' : this.street,
+        Validators.compose([Validators.required])
       ],
       num1: [
-        this.data.num1, 
-        // Validators.compose([Validators.required])
+        this.num1 == null ? '' : this.num1,
+        Validators.compose([Validators.required])
       ],
       num2: [
-        this.data.num2, 
-        // Validators.compose([Validators.required])
+        this.num2 == null ? '' : this.num2,
+        Validators.compose([Validators.required])
       ],
       residence_address_cardinality: [
-        this.data.residence_address_cardinality,
-        // Validators.compose([Validators.required])
+        this.cardinality == null ? '' : this.cardinality,
       ],
-      reference: 
-      [this.data.reference, 
-        // Validators.compose([Validators.required])
-      ],
-      affiliate_type_id: [
-        this.data.affiliate_type_id,
-        //  Validators.compose([Validators.required])
-      ],
-      special_attention_id: [
-        this.data.special_attention_id,
-        //  Validators.compose([Validators.required])
-      ],
+      reference:
+        [
+        this.reference == null ? '' : this.reference,
+        ],
+      // affiliate_type_id: [
+      //   this.data.affiliate_type_id,
+      //   //  Validators.compose([Validators.required])
+      // ],
+      // special_attention_id: [
+      //   this.data.special_attention_id,
+      //   //  Validators.compose([Validators.required])
+      // ],
       relationship_id: [
-        this.data.special_attention_id,
-        //  Validators.compose([Validators.required])
+        this.data.relationship_id,
+        Validators.compose([Validators.required])
       ],
     });
   }
@@ -173,8 +179,46 @@ export class FormPatientDataComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  ReturnResidence(e) {
+    var complete_address = e;
+
+    //tipo de calle
+    var residence_address = complete_address.split(' ', 1).toString();
+
+    var num = complete_address.split('#', 1).toString();
+    var firts_num = num.split(' ');
+    firts_num.shift();
+    firts_num.pop();
+    this.street = firts_num.join().replace(',', ' ');
+
+    //num1 de dirección
+    var num = complete_address.split('-', 1).toString();
+    var second_num = num.split('#');
+    second_num.shift();
+    this.num1 = second_num.join().replace(',', ' ').trim();
+    //num2 de la dirección
+    var num = complete_address.split(',', 1).toString();
+    var second_num = num.split('-');
+    second_num.shift();
+    this.num2 = second_num.join().replace(',', ' ').trimStart();
+
+    //cardinalidad
+    var num = complete_address.split('(', 1).toString();
+    var second_num = num.split(',');
+    second_num.shift();
+    this.cardinality = second_num.join().replace(',', ' ').trim();
+
+    //adicional
+    var num = complete_address.split(')', 1).toString();
+    var second_num = num.split('(');
+    second_num.shift();
+    this.reference = second_num.join().replace(',', ' ').trimStart();
+
+    return residence_address
+  }
+
   save() {
-    this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' +  this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) '  ;
+    this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' + this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) ';
     this.isSubmitted = true;
 
     if (!this.form.invalid) {
@@ -182,21 +226,21 @@ export class FormPatientDataComponent implements OnInit {
 
       if (this.data.id) {
         this.PatientDataS.Update({
-          admission_id: this.admission_id,
+          admissions_id: this.data.admissions_id,
           patient_data_type: this.form.controls.patient_data_type.value,
-          identification_type_id: this.form.controls.identification_type_id.value, 
-          identification: this.form.controls.identification.value, 
-          firstname: this.form.controls.firstname.value, 
-          middlefirstname: this.form.controls.middlefirstname.value, 
-          lastname: this.form.controls.lastname.value, 
-          middlelastname: this.form.controls.middlelastname.value, 
-          phone: this.form.controls.phone.value, 
-          landline: this.form.controls.landline.value, 
-          email: this.form.controls.email.value, 
+          identification_type_id: this.form.controls.identification_type_id.value,
+          identification: this.form.controls.identification.value,
+          firstname: this.form.controls.firstname.value,
+          middlefirstname: this.form.controls.middlefirstname.value,
+          lastname: this.form.controls.lastname.value,
+          middlelastname: this.form.controls.middlelastname.value,
+          phone: this.form.controls.phone.value,
+          landline: this.form.controls.landline.value,
+          email: this.form.controls.email.value,
           residence_address: this.residence,
-          affiliate_type_id: this.form.controls.affiliate_type_id.value, 
-          special_attention_id: this.form.controls.special_attention_id.value,
-          relationship_id: this.form.controls.relationship_id.value, 
+          // affiliate_type_id: this.form.controls.affiliate_type_id.value,
+          // special_attention_id: this.form.controls.special_attention_id.value,
+          relationship_id: this.form.controls.relationship_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -211,25 +255,25 @@ export class FormPatientDataComponent implements OnInit {
         this.PatientDataS.Save({
           admissions_id: this.admission_id,
           patient_data_type: this.form.controls.patient_data_type.value,
-          identification_type_id: this.form.controls.identification_type_id.value, 
-          identification: this.form.controls.identification.value, 
-          firstname: this.form.controls.firstname.value, 
-          middlefirstname: this.form.controls.middlefirstname.value, 
-          lastname: this.form.controls.lastname.value, 
-          middlelastname: this.form.controls.middlelastname.value, 
-          phone: this.form.controls.phone.value, 
-          landline: this.form.controls.landline.value, 
-          email: this.form.controls.email.value, 
+          identification_type_id: this.form.controls.identification_type_id.value,
+          identification: this.form.controls.identification.value,
+          firstname: this.form.controls.firstname.value,
+          middlefirstname: this.form.controls.middlefirstname.value,
+          lastname: this.form.controls.lastname.value,
+          middlelastname: this.form.controls.middlelastname.value,
+          phone: this.form.controls.phone.value,
+          landline: this.form.controls.landline.value,
+          email: this.form.controls.email.value,
           residence_address: this.residence,
-          affiliate_type_id: this.form.controls.affiliate_type_id.value, 
-          special_attention_id: this.form.controls.special_attention_id.value, 
-          relationship_id: this.form.controls.relationship_id.value, 
+          // affiliate_type_id: this.form.controls.affiliate_type_id.value,
+          // special_attention_id: this.form.controls.special_attention_id.value,
+          relationship_id: this.form.controls.relationship_id.value,
         }).then(x => {
-          if(!x.data){
+          if (!x.data) {
             this.toastService.warning('', x.message)
             this.isSubmitted = false;
             this.loading = false;
-          }else {
+          } else {
             this.toastService.success('', x.message);
             this.close();
             if (this.saved) {

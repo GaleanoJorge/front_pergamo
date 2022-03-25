@@ -104,6 +104,15 @@ import { ProductMassiveComponent } from './manual/product-massive/product-massiv
 import { PolicyTypeComponent } from './policy-type/policy-type.component';
 import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
 import { RelationshipComponent } from './relationship/relationship.component';
+import { DietConsistencyComponent } from './diet-consistency/diet-consistency.component';
+import { DietComponentComponent } from './diet-componet/diet-componet.component';
+import { DietDayComponent } from './diet-day/diet-day.component';
+import { DietWeekComponent } from './diet-week/diet-week.component';
+import { DietDishComponent } from './diet-dish/diet-dish.component';
+import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component';
+import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
+import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
+import { DietMenuComponent } from './diet-menu/diet-menu.component';
 
 const routes: Routes = [{
   path: '',
@@ -137,6 +146,56 @@ const routes: Routes = [{
     {
       path: 'inability',
       component: InabilityComponent,
+
+    },
+    {
+      path: 'diet-componet',
+      component: DietComponentComponent,
+
+    },
+    {
+      path: 'diet-consistency',
+      component: DietConsistencyComponent,
+
+    },
+    {
+      path: 'diet-day',
+      component: DietDayComponent,
+
+    },
+    {
+      path: 'diet-day',
+      component: DietDayComponent,
+
+    },
+    {
+      path: 'diet-dish',
+      component: DietDishComponent,
+
+    },
+    {
+      path: 'diet-menu-type',
+      component: DietMenuTypeComponent,
+
+    },
+    {
+      path: 'diet-supplies',
+      component: DietSuppliesComponent,
+
+    },
+    {
+      path: 'diet-supply-type',
+      component: DietSupplyTypeComponent,
+
+    },
+    {
+      path: 'diet-week',
+      component: DietWeekComponent,
+
+    },
+    {
+      path: 'diet-menu',
+      component: DietMenuComponent,
 
     },
     {
@@ -312,7 +371,7 @@ const routes: Routes = [{
     {
       path: 'product',
       component: ProductComponent,
-      
+
     },
     {
       path: 'invima-status',
@@ -360,8 +419,6 @@ const routes: Routes = [{
     {
       path: 'roles',
       component: RolesComponent,
-      canActivate: [PermissionsGuard],
-      // data: { permission: 'roles.read'},
 
     },
     {
@@ -593,8 +650,6 @@ const routes: Routes = [{
     {
       path: 'specialty',
       component: SpecialtyComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'especialidad.read' },
     },
     {
       path: 'entity',

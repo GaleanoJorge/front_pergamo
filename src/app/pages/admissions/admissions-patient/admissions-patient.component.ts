@@ -67,6 +67,10 @@ export class AdmissionsPatientComponent implements OnInit {
           this.pavilion=value[value.length - 1].pavilion.name;
           this.bed=value[value.length - 1].bed.name;
           this.bed_id=value[value.length - 1].bed.id;
+          }else{
+            this.flat='';
+            this.pavilion='';
+            this.bed='';
           }
           return value[value.length - 1].admission_route.name;
         },

@@ -1,0 +1,84 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
+          <input nbInput fullWidth id="name" name disabled="false" [value] = "this.geteratedName" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="diet_consistency" class="form-text text-muted font-weight-bold">CONSISTENCIA DE DIETA:</label>
+          <nb-select [selected]="this.data.diet_consistency_id" formControlName="diet_consistency_id"
+            id="diet_consistency_id" fullWidth (selectedChange)="ChangeName($event)"
+            status="{{ isSubmitted && form.controls.diet_consistency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.diet_consistency_id }}" *ngFor="let item of diet_consistency"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="diet_component" class="form-text text-muted font-weight-bold">COMPONENTE DE DIETA:</label>
+          <nb-select [selected]="this.data.diet_component_id" formControlName="diet_component_id"
+            id="diet_component_id" fullWidth (selectedChange)="ChangeName($event)"
+            status="{{ isSubmitted && form.controls.diet_component_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.diet_component_id }}" *ngFor="let item of diet_component"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="diet_menu_type" class="form-text text-muted font-weight-bold">TIPO DE MENÚ:</label>
+          <nb-select [selected]="this.data.diet_menu_type_id" formControlName="diet_menu_type_id" id="diet_menu_type_id"
+            fullWidth (selectedChange)="ChangeName($event)"
+            status="{{ isSubmitted && form.controls.diet_menu_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.diet_menu_type_id }}" *ngFor="let item of diet_menu_type"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="diet_week" class="form-text text-muted font-weight-bold">SEMANA:</label>
+          <nb-select [selected]="this.data.diet_week_id" formControlName="diet_week_id" id="diet_week_id" fullWidth (selectedChange)="ChangeName($event)"
+            status="{{ isSubmitted && form.controls.diet_week_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.diet_week_id }}" *ngFor="let item of diet_week" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="diet_day" class="form-text text-muted font-weight-bold">DÍA:</label>
+          <nb-select [selected]="this.data.diet_day_id" formControlName="diet_day_id" id="diet_day_id" fullWidth (selectedChange)="ChangeName($event)"
+            status="{{ isSubmitted && form.controls.diet_day_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.diet_day_id }}" *ngFor="let item of diet_day" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+
+
+      </div>
+
+      <div style="margin-top: 10px;">
+        <ngx-dish-package (messageEvent)="receiveMessage($event)" [parentData]="selectedOptions"></ngx-dish-package>
+      </div>
+
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

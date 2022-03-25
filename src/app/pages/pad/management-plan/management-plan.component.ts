@@ -13,6 +13,7 @@ import { AuthService } from '../../../services/auth.service';
 import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 import { ManagementPlanService } from '../../../business-controller/management-plan.service';
+import { UserBusinessService } from '../../../business-controller/user-business.service';
 
 @Component({
   selector: 'ngx-pad-list',
@@ -28,7 +29,7 @@ export class ManagementPlanComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public title: string = 'Plan de manejo';
-  public subtitle: string = 'Gestión';
+  public subtitle: string = '';
   public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
@@ -36,11 +37,13 @@ export class ManagementPlanComponent implements OnInit {
   public arrayBuffer: any;
   public file: File;
   public admissions_id;
+  public user_id;
   public user;
   public dialog;
   public currentRole;
   public selectedOptions: any[] = [];
   public result: any = null;
+  
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -58,6 +61,7 @@ export class ManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'user':this.user,
             'edit': this.EditManagementPlan.bind(this),
             'delete': this.DeleteConfirmManagementPlan.bind(this),
             'refresh': this.RefreshData.bind(this),
@@ -112,6 +116,7 @@ export class ManagementPlanComponent implements OnInit {
     private toastService: NbToastrService,
 
     private currency: CurrencyPipe,
+    private userBS: UserBusinessService,
 
     private authService: AuthService,
     private dialogService: NbDialogService,
@@ -128,6 +133,7 @@ export class ManagementPlanComponent implements OnInit {
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
   public saved: any = null;
+  
 
 
 
@@ -135,6 +141,11 @@ export class ManagementPlanComponent implements OnInit {
   async ngOnInit() {
  
     this.admissions_id = this.route.snapshot.params.id;
+    this.user_id = this.route.snapshot.params.user;
+
+    await this.userBS.GetUserById(this.user_id).then(x => {
+      this.user=x;
+    });
   }
 
 
@@ -153,6 +164,7 @@ export class ManagementPlanComponent implements OnInit {
     this.dialogFormService.open(FormManagementPlanComponent, {
       context: {
         title: 'Crear plan de manejo',
+        user:this.user,
         admissions_id:this.admissions_id,
         saved: this.RefreshData.bind(this),
       },

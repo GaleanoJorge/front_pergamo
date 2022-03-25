@@ -1,0 +1,41 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+          <nb-step [stepControl]="nameForm" label="Valoración">
+
+            <ngx-form-reason-consultation *ngIf="chreasonconsultation" [record_id]="record_id"
+              [data]="chreasonconsultation"></ngx-form-reason-consultation>
+
+          </nb-step>
+          <nb-step [stepControl]="nameForm" label="Rx Sistemas">
+          
+          </nb-step>
+
+          <nb-step [stepControl]="movieForm" label="Ex Físico">
+           
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Signos Vitales">
+            <ngx-form-signs [record_id]="record_id"></ngx-form-signs>
+          </nb-step>
+          
+          <nb-step [stepControl]="nameForm" label="Diagnóstico">
+            <ngx-form-diagnostic></ngx-form-diagnostic>
+
+           <!-- <ngx-form-diagnostic [record_id]="record_id"></ngx-form-diagnostic>-->
+
+          </nb-step>
+
+          <nb-step [hidden]="true">
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>
