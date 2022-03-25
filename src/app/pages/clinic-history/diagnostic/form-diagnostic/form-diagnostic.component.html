@@ -2,33 +2,20 @@
   <div>
     <div class="row">
       <div class="col-md-12">
-        <div class="center">
-          <fieldset class="field_set">
-            <legend class="prue1">DIAGNOSTICO</legend>
-            <div class="row">
-              <div class="col-md-4">
-                <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
-                <input type="number" class="form-text text-muted font-weight-bold" nbInput fullWidth
-                  id="cardiac_frequency" formControlName="cardiac_frequency" required nbInput ngModel something>
-              </div>
-              <div class="col-md-8">
-                <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
-                <input type="number" id="respiratory_frequency" class="form-text text-muted font-weight-bold" nbInput
-                  fullWidth formControlName="respiratory_frequency" required nbInput ngModel>
-              </div>
-            </div>
-          </fieldset>
-        </div>
+        <label for="diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNÓSTICO:</label>
+        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+          id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" required
+          status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        </datalist>
       </div>
     </div>
-    <fieldset class="field_set">
-      <legend class="prue1">DIAGNOSTICO</legend>
-      <div>
-        <ngx-diagnostic></ngx-diagnostic>
-       <!-- <ngx-diagnostic [dietTherapeuticComponents]="selectedOptions2"></ngx-diagnostic>-->
-      </div>
-    </fieldset>
 
+    <div style="margin-top: 10px;">
+      <ngx-diagnostic (messageEvent)="receiveMessage($event)" [parentData]="this.data.diet_admission_id">
+      </ngx-diagnostic>
+    </div>
 
     <div class="div-send">
       <label></label>

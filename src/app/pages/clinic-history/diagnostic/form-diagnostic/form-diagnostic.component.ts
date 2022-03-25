@@ -24,7 +24,8 @@ export class FormDiagnosticComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public selectedOptions2: any[] = [];
-
+  public diagnosis_id;
+  public selectedOptions: any[] = [];
   public diagnosis: any[];
   public diagnosis_type: any[];
   public diagnosis_class: any[];
@@ -61,31 +62,30 @@ export class FormDiagnosticComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
+      diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id],
       ch_vital_temperature_id: [this.data[0] ? this.data[0].ch_vital_temperature_id : this.data.ch_vital_temperature_id],
       ch_diagnosis_class_id: [this.data[0] ? this.data[0].ch_diagnosis_class_id : this.data.ch_diagnosis_class_id],
-      diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id],
       diagnosis_observation: [this.data[0] ? this.data[0].diagnosis_observation : this.data.diagnosis_observation],
     });
 
     if (this.data || this.data.length != 0) {
-      this.form.controls.ch_diagnosis_type_id.disable();
-      this.disabled = true;
+      this.form.controls.ch_diagnosiss_type_id.disable();
       this.form.controls.ch_diagnosis_class_id.disable();
-      this.disabled = true;
       this.form.controls.diagnosis_id.disable();
-      this.disabled = true;
       this.form.controls.diagnosis_observation.disable();
       this.disabled = true;
     } else {
       this.form.controls.ch_diagnosis_type_id.enable();
-      this.disabled = false;
       this.form.controls.ch_diagnosis_class_id.enable();
-      this.disabled = false;
       this.form.controls.diagnosis_id.enable();
-      this.disabled = false;
       this.form.controls.diagnosis_observation.enable();
       this.disabled = false;
     }
+  }
+
+
+  receiveMessage($event) {
+    this.selectedOptions = $event;
   }
 
   async save() {
@@ -96,10 +96,10 @@ export class FormDiagnosticComponent implements OnInit {
 
       if (this.data.id) {
         await this.chDiagnosisS.Update({
+          diagnosis_id: this.diagnosis_id,
           id: this.data.id,
           ch_diagnosis_type_id: this.form.controls.ch_diagnosis_type_id.value,
           ch_diagnosis_class_id: this.form.controls.ch_diagnosis_class_id.value,
-          diagnosis_id: this.form.controls.diagnosis_id.value,
           diagnosis_observation: this.form.controls.diagnosis_observation.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
@@ -114,9 +114,9 @@ export class FormDiagnosticComponent implements OnInit {
         });
       } else {
         await this.chDiagnosisS.Save({
+          diagnosis_id: this.diagnosis_id,
           ch_diagnosis_type_id: this.form.controls.ch_diagnosis_type_id.value,
           ch_diagnosis_class_id: this.form.controls.ch_diagnosis_class_id.value,
-          diagnosis_id: this.form.controls.diagnosis_id.value,
           diagnosis_observation: this.form.controls.diagnosis_observation.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
@@ -136,8 +136,14 @@ export class FormDiagnosticComponent implements OnInit {
 
         });
       }
-
     }
   }
-
+  saveCode(e): void {
+    var localidentify = this.diagnosis.find(item => item.name == e);
+    if (localidentify) {
+      this.diagnosis_id = localidentify.id;
+    } else {
+      this.diagnosis_id = null;
+    }
+  }
 }
