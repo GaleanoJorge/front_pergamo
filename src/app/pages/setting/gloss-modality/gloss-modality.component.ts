@@ -17,7 +17,7 @@ export class GlossModalityComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Modalidad de glosas';
+  public title: string = 'Modalidad de Glosas';
   public subtitle: string = 'Modalidad';
   public headerFields: any[] = ['ID', 'Nombre','Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
