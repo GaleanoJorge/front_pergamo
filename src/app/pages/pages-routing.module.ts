@@ -36,6 +36,11 @@ const routes: Routes = [{
       data: { permission: 'gloss.read' }
     },
     {
+      path: 'account-receivable',
+      loadChildren: () => import('./account-receivable/account-receivable.module')
+        .then(m => m.AccountReceivableModule),
+    },
+    {
       path: 'pad',
       loadChildren: () => import('./pad/pad.module')
         .then(m => m.PadModule),
