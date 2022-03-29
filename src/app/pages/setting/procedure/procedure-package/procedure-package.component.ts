@@ -1,7 +1,7 @@
 import {Component, OnInit,Input,TemplateRef,ViewChild,ElementRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NbDialogService, NbToastrService} from '@nebular/theme';
-import {ProcedurePackageService} from '../../../../business-controller/procedure-package.Service';
+import {ProcedurePackageService} from '../../../../business-controller/procedure-package.service';
 import {ProcedureService} from '../../../../business-controller/procedure.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';

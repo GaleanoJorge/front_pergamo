@@ -6,8 +6,8 @@
  export const environment = {
   production: false,
   cas: 'https://sso-test.eduredejrlb.co/cas/',
-  api: 'http://192.168.0.204:8000/api/',
-  storage: 'http://192.168.0.204:8000/storage/',
+  api: 'http://200.118.190.101/api/',
+  storage: 'http://200.118.190.101/storage/',
   api_absolute: 'http://192.168.0.204/api-ensename-ejrlb/public/',
   app_version: 'v1.0.7',
   url_lms: 'https://ejrlb.territorio.la/integraciones/Login/LoginGotoCourses/?assertion_data=',
