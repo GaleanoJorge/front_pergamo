@@ -1,0 +1,19 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content >
+    <ngx-base-table  
+                    [title]="title"
+                    [settings]="settings"
+                    [entity]="entity"
+                    customData="patient_data"
+                    [queryParams]="GetParams()">
+      <div actions>
+        <div class="actions">
+          <button *ngIf="this.admission_id" nbButton status="danger" (click)="NewPatientData()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
+

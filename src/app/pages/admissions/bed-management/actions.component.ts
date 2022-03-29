@@ -13,10 +13,10 @@ import {LocationService} from '../../../business-controller/location.service';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <a *ngIf="state" nbButton ghost (click)="ConfirmAction(templateRef)">
+      <a *ngIf="state" nbTooltip="Estado" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef)">
         <nb-icon icon="more-vertical-outline"></nb-icon>
       </a>
-      <button *ngIf="traslate" nbButton ghost (click)="ConfirmAction(templateRef2)">
+      <button *ngIf="traslate" nbTooltip="Traslado" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef2)">
         <nb-icon icon="corner-down-left-outline"></nb-icon>
       </button>
     </div>

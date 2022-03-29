@@ -17,6 +17,7 @@ export class FormCompanyTaxesComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() company_id: any;
 
   public form: FormGroup;
   public region_id: number;
@@ -63,9 +64,11 @@ export class FormCompanyTaxesComponent implements OnInit {
     this.CompanyS.GetCollection().then(x => {
       this.company=x;
     });
+    
     this.FiscalClasificationS.GetCollection().then(x => {
       this.fiscal_clasification=x;
     });
+    
     this.taxesS.GetCollection().then(x => {
       this.taxes=x;
     });
@@ -86,7 +89,7 @@ export class FormCompanyTaxesComponent implements OnInit {
       if (this.data.id) {
         this.CompanyTaxesS.Update({
           id: this.data.id,
-          company_id: this.form.controls.company_id.value,
+          company_id: Number(this.company_id),
           taxes_id: this.form.controls.taxes_id.value,
           fiscal_clasification_id: this.form.controls.fiscal_clasification_id.value,
         }).then(x => {

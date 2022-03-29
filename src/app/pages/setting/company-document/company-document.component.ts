@@ -2,10 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CompanyDocumentService } from '../../../business-controller/company-document.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { FormCompanyDocumentComponent } from './form-company-document/form-company-document.component';
-import { ActionsComponent } from '../sectional-council/actions.component';
+import { ActionsComponentEditDelete } from '../company-mail/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-
+import { ActivatedRoute } from '@angular/router';
+import { CompanyService } from '../../../business-controller/company.service';
+import { ActionsCDComponent } from './actionsCD.component';
 
 @Component({
   selector: 'ngx-company-document',
@@ -15,13 +17,19 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 export class CompanyDocumentComponent implements OnInit {
 
   public isSubmitted = false;
+  public entity: string;
+
   public messageError: string = null;
   public title: string = 'Documentos de Empresa';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Empresa','Docuemnto'];
+  public headerFields: any[] = ['ID', 'Empresa','Documento', 'Archivo'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public routes = [];
+
+  public company_id: number;
+  public companies;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -31,7 +39,7 @@ export class CompanyDocumentComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -41,39 +49,66 @@ export class CompanyDocumentComponent implements OnInit {
             'delete': this.DeleteConfirmCompanyDocument.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionsComponentEditDelete,
       },
       id: {
         title: this.headerFields[0],
         type: 'string',
       },
-      company_id: {
-        title: this.headerFields[1],
-        type: 'string',
-      },
       document_id: {
         title: this.headerFields[2],
         type: 'string',
+        
       },
+      file: {
+        title: this.headerFields[3],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsCDComponent,
+      }
     },
   };
 
-  public routes = [
-    {
-      name: 'Documentos de empresa',
-      route: '../../setting/company-document',
-    },
-  ];
 
   constructor(
+    private route: ActivatedRoute,
     private companyDocumentS: CompanyDocumentService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private companyS: CompanyService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    if(this.route.snapshot.params.id){
+      this.company_id = this.route.snapshot.params.id;
+      this.entity = this.company_id ? 'company_document/DocumentByCompany/' + this.company_id : 'company_document';
+    } else {
+      this.entity = 'company_document';
+    }
+
+    this.routes = [
+      {
+        name: 'Compañia',
+        route: '../../company'
+      },
+      {
+        name: 'Documentos de empresa',
+        route: '../../company-document/' + this.company_id,
+      },
+    ];
+
+    await this.companyS.GetCollection().then(x =>{
+      this.companies = x;
+    });
+    var element = this.companies.find(item => item.id == this.company_id);
+    this.title = 'Documentos de la empresa: ' + element.name;
   }
 
   RefreshData() {
@@ -86,6 +121,7 @@ export class CompanyDocumentComponent implements OnInit {
       context: {
         title: 'Crear nuevo documento de empresa',
         saved: this.RefreshData.bind(this),
+        company_id: this.company_id,
       },
     });
   }

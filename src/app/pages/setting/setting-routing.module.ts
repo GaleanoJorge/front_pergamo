@@ -94,6 +94,25 @@ import { GlossServiceComponent } from './gloss-service/gloss-service.component';
 import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion-code-response.component';
 import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
+import { ContractTypeComponent } from './contract-type/contract-type.component';
+import { TypeProfessionalComponent } from './type-professional/type-professional.component';
+import { SpecialFieldComponent } from './special-field/special-field.component';
+import { CostCenterComponent } from './cost-center/cost-center.component';
+import { ObservationNoveltyComponent } from './observation-novelty/observation-novelty.component';
+import { InabilityComponent } from './inability/inability.component';
+import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
+import { PolicyTypeComponent } from './policy-type/policy-type.component';
+import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
+import { RelationshipComponent } from './relationship/relationship.component';
+import { DietConsistencyComponent } from './diet-consistency/diet-consistency.component';
+import { DietComponentComponent } from './diet-componet/diet-componet.component';
+import { DietDayComponent } from './diet-day/diet-day.component';
+import { DietWeekComponent } from './diet-week/diet-week.component';
+import { DietDishComponent } from './diet-dish/diet-dish.component';
+import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component';
+import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
+import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
+import { DietMenuComponent } from './diet-menu/diet-menu.component';
 
 const routes: Routes = [{
   path: '',
@@ -102,207 +121,292 @@ const routes: Routes = [{
     {
       path: 'coverage',
       component: CoverageComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'firms',
       component: FirmsComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'objetion-type',
       component: ObjetionTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'objetion-response',
       component: ObjetionResponseComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'objetion-code-response',
       component: ObjetionCodeResponseComponent,
-      data: { permission: 'roles.read' },
+
+    },
+    {
+      path: 'inability',
+      component: InabilityComponent,
+
+    },
+    {
+      path: 'diet-componet',
+      component: DietComponentComponent,
+
+    },
+    {
+      path: 'diet-consistency',
+      component: DietConsistencyComponent,
+
+    },
+    {
+      path: 'diet-day',
+      component: DietDayComponent,
+
+    },
+    {
+      path: 'diet-day',
+      component: DietDayComponent,
+
+    },
+    {
+      path: 'diet-dish',
+      component: DietDishComponent,
+
+    },
+    {
+      path: 'diet-menu-type',
+      component: DietMenuTypeComponent,
+
+    },
+    {
+      path: 'diet-supplies',
+      component: DietSuppliesComponent,
+
+    },
+    {
+      path: 'diet-supply-type',
+      component: DietSupplyTypeComponent,
+
+    },
+    {
+      path: 'diet-week',
+      component: DietWeekComponent,
+
+    },
+    {
+      path: 'diet-menu',
+      component: DietMenuComponent,
+
     },
     {
       path: 'gloss-modality',
       component: GlossModalityComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'gloss-ambit',
       component: GlossAmbitComponent,
-      data: { permission: 'roles.read' },
+
+    },
+    {
+      path: 'contract-type',
+      component: ContractTypeComponent,
+
+    },
+    {
+      path: 'type-professional',
+      component: TypeProfessionalComponent,
+
+    },
+    {
+      path: 'observation-novelty',
+      component: ObservationNoveltyComponent,
+
+    },
+    {
+      path: 'policy-type',
+      component: PolicyTypeComponent,
+      data: { permission: 'roles.read' }
+    },
+    {
+      path: 'special-field',
+      component: SpecialFieldComponent,
+
+    },
+    {
+      path: 'cost-center',
+      component: CostCenterComponent,
+      data: { Permission: 'roles.read' },
     },
     {
       path: 'gloss-service',
       component: GlossServiceComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'received-by',
       component: ReceivedByComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'repeated-initial',
       component: RepeatedInitialComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'contract-status',
       component: ContractStatusComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'objetion-code',
       component: ObjetionCodeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'insurance-carrier',
       component: InsuranceCarrierComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'modality',
       component: ModalityComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'special-attention',
       component: SpecialAttentionComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'scope-of-attention',
       component: ScopeOfAttentionComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'program',
       component: ProgramComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'pavilion',
       component: PavilionComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'flat',
       component: FlatComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'bed',
       component: BedComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'diagnosis',
       component: DiagnosisComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'affiliate-type',
       component: AffiliateTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'admission-route',
       component: AdmissionRouteComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'type-briefcase',
       component: TypeBriefcaseComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'type-contract',
       component: TypeContractComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'administration-route',
       component: AdministrationRouteComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'type-assets',
       component: TypeAssetsComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'fixed-assets',
       component: FixedAssetsComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'measurement-units',
       component: MeasurementUnitsComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-concentration',
       component: ProductConcentrationComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'consumption-unit',
       component: ConsumptionUnitComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-presentation',
       component: ProductPresentationComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-group',
       component: ProductGroupComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product',
       component: ProductComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'invima-status',
       component: InvimaStatusComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'storage-conditions',
       component: StorageConditionsComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'risk',
       component: RiskComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-category',
       component: ProductCategoryComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-subcategory',
       component: ProductSubcategoryComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-generic',
       component: ProductGenericComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'users',
       component: UsersComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'users/create/:id',
@@ -315,14 +419,17 @@ const routes: Routes = [{
     {
       path: 'roles',
       component: RolesComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'permissions',
       component: PermissionsComponent,
       canActivate: [PermissionsGuard],
       data: { permission: 'permisos.read' },
+    },
+    {
+      path: 'manual/procedure-massive/procedure-package/:id',
+      component: ProcedurePackage2Component,
     },
     {
       path: 'items',
@@ -333,10 +440,14 @@ const routes: Routes = [{
     {
       path: 'campus',
       component: CampusComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'procedure-massive/:id',
+      component: ProductMassiveComponent,
+    },
+    {
+      path: 'product-massive/:id',
       component: ProcedureMassiveComponent,
     },
     {
@@ -350,157 +461,161 @@ const routes: Routes = [{
     {
       path: 'procedure-age',
       component: ProcedureAgeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'factory',
       component: FactoryComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'taxes',
       component: TaxesComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'ciiu-group',
       component: CiiuGroupComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'ciiu-division',
       component: CiiuDivisionComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'ciiu-class',
       component: CiiuClassComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'procedure-category',
       component: ProcedureCategoryComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'rips-typefile',
       component: RipsTypeFileComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'rips-type',
       component: RipsTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'pbs-type',
       component: PbsTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'purpose-service',
       component: PurposeServiceComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'procedure-type',
       component: ProcedureTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'company-kindperson',
       component: CompanyKindpersonComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'company-category',
       component: CompanyCategoryComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
-      path: 'company-mail',
+      path: 'company-mail/:id',
       component: CompanyMailComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
-      path: 'company-document',
+      path: 'company-document/:id',
       component: CompanyDocumentComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'document-account',
       component: DocumentAccountComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'document',
       component: DocumentComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'iva',
       component: IvaComponent,
+
+    },
+    {
+      path: 'relationship',
+      component: RelationshipComponent,
       data: { permission: 'roles.read' },
     },
     {
       path: 'retiner',
       component: RetinerComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'company-ciiu',
       component: CompanyCiiuComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'company-fiscal',
       component: CompanyFiscalComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'manual',
       component: ManualComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'payment-terms',
       component: PaymentTermsComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'company',
       component: CompanyComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
-      path: 'company-taxes',
+      path: 'company-taxes/:id',
       component: CompanyTaxesComponent,
-      data: { permission: 'roles.read' },
     },
     {
       path: 'company-type',
       component: CompanyTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'procedure',
       component: ProcedureComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'procedure-purpose',
       component: ProcedurePurposeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'fiscal-clasification',
       component: FiscalClasificationComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'fiscal-characteristic',
       component: FiscalCharacteristicComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'sectional-council',
@@ -535,8 +650,6 @@ const routes: Routes = [{
     {
       path: 'specialty',
       component: SpecialtyComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'especialidad.read' },
     },
     {
       path: 'entity',

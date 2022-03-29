@@ -16,7 +16,7 @@ export class ProcedurePackageService {
   GetCollection(params = {}): Promise<ProcedurePackage[]> {
     let servObj = new ServiceObject(params ? 'procedure_package?pagination=false' : 'procedure_package');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
@@ -31,7 +31,7 @@ export class ProcedurePackageService {
       });
   }
 
-  GetByPackage(id: number): Promise<ProcedurePackage[]> {
+  GetByPackage(params = {},id: number): Promise<ProcedurePackage[]> {
     var servObj = new ServiceObject("bypackage_procedure", id);
     return this.webAPI.GetAction(servObj)
       .then(x => {

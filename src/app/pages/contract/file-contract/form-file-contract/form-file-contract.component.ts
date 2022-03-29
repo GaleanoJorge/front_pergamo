@@ -22,6 +22,7 @@ export class FormFileContractComponent implements OnInit {
 
   public form: FormGroup;
   // public status: Status[];
+  public messageError = null;
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
@@ -69,7 +70,7 @@ export class FormFileContractComponent implements OnInit {
   async save() {
     this.isSubmitted = true;
 
-    if (this.form.invalid) return false;
+    if (!this.form.invalid){
 
     this.loading = true;
 
@@ -88,15 +89,20 @@ export class FormFileContractComponent implements OnInit {
         response = await this.FileContractS.Save(formData);
       }
       this.toastService.success('', response.message);
+      this.messageError = null;
       this.close();
       if (this.saved) {
         this.saved();
       }
-    } catch (e) {
+    } catch (response) {
+      this.messageError = response;
       this.isSubmitted = false;
       this.loading = false;
-      throw new Error(e);
+      throw new Error(response);
     }
+  }else{
+    this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+  }
   }
 
   async changeImage(files, option) {

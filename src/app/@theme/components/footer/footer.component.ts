@@ -6,7 +6,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./footer.component.scss'],
   template: `
     <span class="created-by">
-      <b><a href="https://escuelajudicial.ramajudicial.gov.co" target="_blank">EJRLB</a></b>
+      <b><a href="https://healthlifeips.com/" target="_blank">HEALTH & LIFE IPS</a></b>
     </span>
     <div *ngIf="!environmentInt" class="socials">
       <a>{{app_version}}</a>

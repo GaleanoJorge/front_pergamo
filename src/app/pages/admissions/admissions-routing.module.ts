@@ -1,13 +1,14 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {AdmissionsComponent} from './admissions.component';
-import {AdmissionsListComponent} from './admissions-list/admissions-list.component';
-import {PermissionsGuard} from '../../guards/permissions.guard';
+import { AdmissionsComponent } from './admissions.component';
+import { AdmissionsListComponent } from './admissions-list/admissions-list.component';
+import { PermissionsGuard } from '../../guards/permissions.guard';
 import { FormPatientComponent } from './form-patient/form-patient.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { AdmissionsPatientComponent } from './admissions-patient/admissions-patient.component';
 import { BedManagementComponent } from './bed-management/bed-management.component';
+import { PatientDataComponent } from './patient-data/patient-data.component';
 
 
 const routes: Routes = [{
@@ -17,20 +18,14 @@ const routes: Routes = [{
     {
       path: 'list',
       component: AdmissionsListComponent,
-      canActivate: [PermissionsGuard],
-      data: {permission: 'roles.read'},
     },
     {
       path: 'patient/create',
       component: FormPatientComponent,
-      canActivate: [PermissionsGuard],
-      data: {permission: 'roles.create'},
     },
     {
       path: 'patient/:id/edit',
       component: EditPatientComponent,
-      canActivate: [PermissionsGuard],
-      data: {permission: 'roles.update'},
     },
     {
       path: 'admissions-patient/:user_id',
@@ -40,6 +35,10 @@ const routes: Routes = [{
       path: 'bed-management',
       component: BedManagementComponent,
     },
+    {
+      path: 'patient-data/:admissions_id',
+      component: PatientDataComponent,
+    }
   ],
 }];
 

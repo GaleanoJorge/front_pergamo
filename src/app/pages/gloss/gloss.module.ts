@@ -18,6 +18,7 @@ import {
   NbIconModule,
   NbCheckboxModule,
   NbRadioModule,
+  NbTooltipModule,
   NbDatepickerModule, NbSpinnerModule,
 } from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
@@ -28,6 +29,7 @@ import {DateFormatPipe} from '../../pipe/date-format.pipe';
 import {GlossListComponent} from './gloss-list/gloss-list.component';
 import {FormGlossComponent} from './gloss-list/form-gloss/form-gloss.component';
 import {Actions2Component} from './gloss-list/actions.component';
+import { ActionsSemaphoreComponent } from './gloss-list/actions-semaphore.component';
 
 
 
@@ -44,6 +46,7 @@ import {Actions2Component} from './gloss-list/actions.component';
     NbStepperModule,
     NbCardModule,
     NbButtonModule,
+    NbTooltipModule,
     NbListModule,
     NbListModule,
     NbAccordionModule,
@@ -64,6 +67,7 @@ import {Actions2Component} from './gloss-list/actions.component';
     GlossListComponent,
     FormGlossComponent,
     Actions2Component,
+    ActionsSemaphoreComponent
   ],
   providers: [
     DateFormatPipe,

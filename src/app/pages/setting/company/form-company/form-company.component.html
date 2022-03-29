@@ -24,8 +24,9 @@
         </div>
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre de la empresa:</label>
-          <input nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            />
         </div>
         <div class="col-md-12">
             <label for="company_category" class="form-text text-muted font-weight-bold">Categoria de la empresa:</label>
@@ -75,7 +76,7 @@
         </div>
         <div class="col-md-12">
           <label for="phone" class="form-text text-muted font-weight-bold">Telefono:</label>
-          <input nbInput fullWidth id="phone" formControlName="phone" phone
+          <input nbInput fullWidth id="phone" type="number" formControlName="phone" phone
             status="{{ isSubmitted && form.controls.phone.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
@@ -151,7 +152,7 @@
             status="{{ isSubmitted && form.controls.discount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">
-          <label for="payment_terms" class="form-text text-muted font-weight-bold">Terminos del pago:</label>
+          <label for="payment_terms" class="form-text text-muted font-weight-bold">Términos del pago:</label>
           <nb-select [selected]="this.data.payment_terms_id" formControlName="payment_terms_id" id="payment_terms_id" fullWidth
             status="{{ isSubmitted && form.controls.payment_terms_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>

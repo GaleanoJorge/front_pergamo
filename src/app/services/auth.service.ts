@@ -12,6 +12,7 @@ import {User} from '../models/user';
 export class AuthService {
 
   private token: Auth;
+  // private tokenMipres: AuthMiPres;
   private userOrigin: UserOrigin;
 
   constructor(private webAPI: WebAPIService) {
@@ -84,6 +85,21 @@ export class AuthService {
 
   }
 
+  // APITokenMipress(token_type?): Promise<ServiceObject> {
+  //   var servObjAPI = new ServiceObject('GenerarToken');
+  //   servObjAPI.data = {token_type: token_type};
+  //   console.log(servObjAPI);
+  //   return this.webAPI.LoginAPIMipres(servObjAPI).then(x => {
+  //     servObjAPI = <ServiceObject>x;
+  //     this.SaveMipresToken(servObjAPI.data);
+
+  //     return Promise.resolve(servObjAPI);
+  //   }).catch(x => {
+  //     throw x.status == 401 ? x.error.msg : 'Error en el servidor';
+  //   });
+
+  // }
+
   ResetPassword(username: string): Promise<ServiceObject> {
     var servObj = new ServiceObject('forgot');
     servObj.data = {username: username};
@@ -110,6 +126,13 @@ export class AuthService {
     localStorage.setItem('expires_in', data.expires_in);
   }
 
+  // private SaveMipresToken(data: any): void {
+  //   localStorage.setItem('access_token_sum', data.access_token_sum);
+  //   localStorage.setItem('access_token_fac', data.access_token_fac);
+  //   localStorage.setItem('token_type', data.token_type);
+  //   localStorage.setItem('expires_in', data.expires_in);
+  // }
+
   GetToken(): Auth {
 
     this.token = {
@@ -120,6 +143,16 @@ export class AuthService {
 
     return this.token;
   }
+
+  // GetMipresToken(): AuthMiPres {
+  //   this.tokenMipres = {
+  //     access_token_sum: localStorage.getItem('access_token_sum'),
+  //     access_token_fac: localStorage.getItem('access_token_fac'),
+  //     token_type: localStorage.getItem('token_type'),
+  //     expires_in: localStorage.getItem('expires_in'),
+  //   }
+  //   return this.tokenMipres
+  // }
 
   SaveUserOrigin(origins: Origin[]): void {
     localStorage.setItem('origins', JSON.stringify(origins));

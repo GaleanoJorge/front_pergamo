@@ -1,0 +1,68 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="type_of_attention" class="form-text text-muted font-weight-bold">Tipo de Atención:</label>
+          <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id" id="type_of_attention_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.type_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.type_of_attention_id }}" *ngFor="let item of type_of_attention"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div *ngIf="this.form.controls.type_of_attention_id.value==2" class="col-12 col-sm-12 col-md-4">
+          <label for="special_field" class="form-text text-muted font-weight-bold">Especialidad:</label>
+          <nb-select [selected]="this.data.special_field_id" formControlName="special_field_id" id="special_field_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.special_field_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.special_field_id }}" *ngFor="let item of special_field"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="frequency" class="form-text text-muted font-weight-bold">Frecuencia:</label>
+          <nb-select [selected]="this.data.frequency_id" formControlName="frequency_id" id="frequency_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.frequency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.frequency_id }}" *ngFor="let item of frequency"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="quantity" class="form-text text-muted font-weight-bold">Cantidad proyectada:</label>
+          <input nbInput fullWidth id="quantity" formControlName="quantity" quantity
+            status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="assigned_user_id" class="form-text text-muted font-weight-bold">Personal asistencial:</label>
+          <nb-select [selected]="this.data.assigned_user_id" formControlName="assigned_user_id" id="assigned_user_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.assigned_user_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.assigned_user_id }}" *ngFor="let item of assigned_user"
+              [value]="item.id">
+              {{ item.firstname }} {{item.lastname}}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

@@ -16,6 +16,7 @@ export class FormManualComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() dataClon: any = null;
 
   public form: FormGroup;
   public region_id: number;
@@ -51,6 +52,9 @@ export class FormManualComponent implements OnInit {
     //   this.status = x;
     // });
     
+    this.StatusS.GetCollection().then(x => {
+      this.status=x;
+    });
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
@@ -59,14 +63,38 @@ export class FormManualComponent implements OnInit {
       status_id: [this.data.status_id, Validators.compose([Validators.required])],
     });
 
-    this.StatusS.GetCollection().then(x => {
-      this.status=x;
-    });
   }
   
 
   close() {
     this.dialogRef.close();
+  }
+
+  clone() {
+    this.isSubmitted = true;
+    if (!this.form.invalid) {
+      this.loading = true;
+
+      if (this.dataClon.id) {
+        this.ManualS.Clone({
+          id: this.data.id,
+          name: this.form.controls.name.value,
+          year: this.form.controls.year.value,
+          type_manual: this.form.controls.type_manual.value,
+          status_id: this.form.controls.status_id.value,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.close();
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      }
+
+    }
   }
 
   save() {

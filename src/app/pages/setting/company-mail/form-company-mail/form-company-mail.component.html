@@ -1,9 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card size="small" style="max-width: 400px">
+  <nb-card size="medium" style="max-width: 600px">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <label for="company_id" class="form-text text-muted font-weight-bold">Empresa:</label>
           <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
             status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -11,10 +11,10 @@
             <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
         <div class="col-md-12">
           <label for="mail" class="form-text text-muted font-weight-bold">Correo:</label>
-          <input nbInput fullWidth id="mail" formControlName="mail" mail
+          <input type="email" nbInput fullWidth id="mail" formControlName="mail" mail
             status="{{ isSubmitted && form.controls.mail.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-12">

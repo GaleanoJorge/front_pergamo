@@ -12,10 +12,13 @@ export class UserService extends UserData {
     eva: { name: 'Eva Moor', picture: 'assets/images/eva.png' },
     jack: { name: 'Jack Williams', picture: 'assets/images/jack.png' },
     lee: { name: 'Lee Wong', picture: 'assets/images/lee.png' },
-    alan: { name: 'Alan Thompson', picture: 'assets/images/alan.png' },
+    alan: { name: 'Alan Thompson', picture: 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg' },
     kate: { name: 'Kate Martinez', picture: 'assets/images/kate.png' },
     etraining: { name: 'Etraining', picture: 'assets/images/etraining.jpg' },
   };
+  // private profile_picture = {
+  //   profile: {name: 'Profile', picture: ''},
+  // }
   private types = {
     mobile: 'mobile',
     home: 'home',

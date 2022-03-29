@@ -1,0 +1,20 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+    <ngx-base-table 
+                    [title]="title"
+                    [subtitle]="subtitle"
+                    [settings]="settings"
+                    [messageToltip]="messageToltip"
+                    entity="ManualPrice/ProcedureByManual2/{{manual_id}}"
+                    customData="manual_price">
+      <div actions>
+        <div class="actions">
+          <a style="margin-right: 5px;" nbButton routerLink="/pages/setting/manual">Volver</a>
+          <button nbButton status="danger" style="margin-left: 5px;" (click)="NewProduct()">Asociar Medicamento</button>
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

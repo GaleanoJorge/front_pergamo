@@ -5,6 +5,9 @@ import { FormCompanyMailComponent } from './form-company-mail/form-company-mail.
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { ActivatedRoute } from '@angular/router';
+import { CompanyService } from '../../../business-controller/company.service';
+import { ActionsComponentEditDelete } from './actions.component';
 
 
 @Component({
@@ -15,13 +18,19 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 export class CompanyMailComponent implements OnInit {
 
   public isSubmitted = false;
+  public entity: string;
+  
   public messageError: string = null;
   public title: string = 'Correos de Empresa';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Empresa','Correo','Ciudad','Documentos contables'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
+  public routes = [];
   public data = [];
+
+  public company_id: number;
+  public companies;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -31,7 +40,7 @@ export class CompanyMailComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -41,47 +50,68 @@ export class CompanyMailComponent implements OnInit {
             'delete': this.DeleteConfirmCompanyMail.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionsComponentEditDelete,
       },
       id: {
         title: this.headerFields[0],
-        type: 'string',
-      },
-      company_id: {
-        title: this.headerFields[1],
         type: 'string',
       },
       mail: {
         title: this.headerFields[2],
         type: 'string',
       },
-      city_id: {
+      city: {
         title: this.headerFields[3],
         type: 'string',
+        valuePrepareFunction(value, row) {
+         return row.region?.name;
+        }
       },
-      document_id: {
+      document: {
         title: this.headerFields[4],
         type: 'string',
+        valuePrepareFunction(value, row) {
+        return row.document?.name;
+        }
       },
     },
   };
 
-  public routes = [
-    {
-      name: 'Correos de empresa',
-      route: '../../setting/company-mail',
-    },
-  ];
-
   constructor(
+    private route: ActivatedRoute,
     private companyMailS: CompanyMailService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private companyS: CompanyService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    if(this.route.snapshot.params.id){
+      this.company_id = this.route.snapshot.params.id;
+      this.entity = this.company_id ? 'company_mail/MailByCompany/' + this.company_id : 'company_mail';
+    } else {
+      this.entity = 'company_mail';
+    }
+
+    this.routes = [
+      {
+        name: 'Compañia',
+        route: '../../company'
+      },
+      {
+        name: 'Correos de empresa',
+        route: '../../company-mail/' + this.company_id,
+      },
+    ];
+    
+    await this.companyS.GetCollection().then(x =>{
+      this.companies = x;
+    });
+    var element = this.companies.find(item => item.id == this.company_id);
+    this.title = 'Correos electronicos de la empresa: ' + element.name;
+
   }
 
   RefreshData() {
@@ -94,6 +124,7 @@ export class CompanyMailComponent implements OnInit {
       context: {
         title: 'Crear nuevo correo de empresa',
         saved: this.RefreshData.bind(this),
+        company_id: this.company_id,
       },
     });
   }
@@ -107,19 +138,6 @@ export class CompanyMailComponent implements OnInit {
       },
     });
   }
-
-  // ChangeState(data) {
-  //   // data.status_id = data.status_id === 1 ? 2 : 1;
-
-  //   this.toastrService.info('', 'Cambiando estado');
-
-  //   this.regionS.Update(data).then((x) => {
-  //     this.toastrService.success('', x.message);
-  //     this.table.refresh();
-  //   }).catch((x) => {
-  //     this.toastrService.danger(x.message);
-  //   });
-  // }
 
   DeleteConfirmCompanyMail(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {

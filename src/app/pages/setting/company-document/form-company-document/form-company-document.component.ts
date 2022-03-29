@@ -17,6 +17,7 @@ export class FormCompanyDocumentComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() company_id;
 
   public form: FormGroup;
   // public status: Status[];
@@ -56,16 +57,13 @@ export class FormCompanyDocumentComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      company_id: [this.data.company_id, Validators.compose([Validators.required])],
+      company_id: [this.company_id, Validators.compose([Validators.required])],
       document_id: [this.data.document_id, Validators.compose([Validators.required])],
       file: [this.data.file, Validators.compose([Validators.required])],
     });
 
     this.DocumentS.GetCollection().then(x => {
       this.document=x;
-    });
-    this.CompanyS.GetCollection().then(x => {
-      this.company=x;
     });
   }
   
@@ -84,7 +82,7 @@ export class FormCompanyDocumentComponent implements OnInit {
     var formData = new FormData();
     var data = this.form.controls;
     formData.append('file', this.form.value.file);
-    formData.append('company_id', data.company_id.value);
+    formData.append('company_id', this.company_id);
     formData.append('document_id', data.document_id.value);
 
 

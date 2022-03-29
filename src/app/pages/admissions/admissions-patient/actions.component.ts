@@ -1,4 +1,4 @@
-import { Component, Input,TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { ViewCell } from 'ng2-smart-table';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -14,14 +14,17 @@ import { LocationService } from '../../../business-controller/location.service';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="status" nbButton ghost (click)="ConfirmAction(templateRef)">
+    <a *ngIf="status" nbTooltip="Salida del paciente" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef)">
         <nb-icon icon="clock-outline"></nb-icon>
     </a>
-    <button *ngIf="medical" nbButton ghost (click)="ConfirmAction(templateRef2)">
+    <button *ngIf="medical" nbTooltip="Reversión de salida medica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef2)">
         <nb-icon icon="log-out-outline"></nb-icon>
     </button>
-    <button *ngIf="service" nbButton ghost (click)="ConfirmAction(templateRef3)">
-      <nb-icon icon="repeat-outline"></nb-icon>
+    <button nbTooltip="Agregar o modificar acompañantes" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/admissions/patient-data/' + value.data.id" >
+      <nb-icon icon="person-add-outline"></nb-icon>
+    </button>
+    <button nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
+        <nb-icon icon="info-outline"></nb-icon>
     </button>
   </div>
   <ng-template #templateRef>
@@ -34,7 +37,6 @@ import { LocationService } from '../../../business-controller/location.service';
       </nb-card-body>
 
       <nb-card-footer class="d-flex justify-content-end">
-          <button nbButton ghost type="button" (click)="close()">Cancelar</button>
           <button nbButton status="danger" class="ml-1" type="button" (click)="DeleteAction()" [disabled]="loading">Confirmar</button>
       </nb-card-footer>
     </nb-card>
@@ -137,25 +139,25 @@ export class Actions2Component implements ViewCell {
   // public status: Status[];
   public isSubmitted: boolean = false;
   public saved: any = null;
-  public coverage:any[];
-  public admission_route:any[];
-  public scope_of_attention:any[];
-  public program:any[];
-  public pavilion:any[];
-  public flat:any[];
-  public bed:any[];
+  public coverage: any[];
+  public admission_route: any[];
+  public scope_of_attention: any[];
+  public program: any[];
+  public pavilion: any[];
+  public flat: any[];
+  public bed: any[];
   public campus_id;
   public ambit;
   public data;
   public service;
 
-  
+
   constructor(
     private toastService: NbToastrService,
     private formBuilder: FormBuilder,
     private dialogService: NbDialogService,
     private AdmissionsS: AdmissionsService,
-    private LocationS:LocationService,
+    private LocationS: LocationService,
     private ScopeOfAttentionS: ScopeOfAttentionService,
     private ProgramS: ProgramService,
     private PavilionS: PavilionService,
@@ -165,17 +167,18 @@ export class Actions2Component implements ViewCell {
   ) {
   }
   ngOnInit() {
-    if(this.value.data.medical_date == '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00'){
-      this.medical=false;
-      this.status=false;
-      this.service=true
-    }else if(this.value.data.medical_date != '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00'){
-      this.status=true;
-      this.medical=true;
-    }else if(this.value.data.medical_date != '0000-00-00 00:00:00' && this.value.data.discharge_date != '0000-00-00 00:00:00'){
-      this.medical=false;
-      this.status=false;
-      this.service=false;
+    if (this.value.data.medical_date == '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {
+      this.medical = false;
+      this.status = false;
+      this.service = true
+      console.log(this.rowData.id);
+    } else if (this.value.data.medical_date != '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {
+      this.status = true;
+      this.medical = true;
+    } else if (this.value.data.medical_date != '0000-00-00 00:00:00' && this.value.data.discharge_date != '0000-00-00 00:00:00') {
+      this.medical = false;
+      this.status = false;
+      this.service = false;
     }
 
     if (!this.data) {
@@ -190,15 +193,15 @@ export class Actions2Component implements ViewCell {
     }
 
     this.campus_id = localStorage.getItem('campus');
-     this.AdmissionRouteS.GetCollection().then(x => {
-       this.admission_route = x;
-     });
+    this.AdmissionRouteS.GetCollection().then(x => {
+      this.admission_route = x;
+    });
     this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
       this.flat = x;
     });
-    
-    
-    this.form = this.formBuilder.group({      
+
+
+    this.form = this.formBuilder.group({
       admission_route_id: [this.data.admission_route_id, Validators.compose([Validators.required])],
       scope_of_attention_id: [this.data.scope_of_attention_id, Validators.compose([Validators.required])],
       program_id: [this.data.program_id, Validators.compose([Validators.required])],
@@ -219,28 +222,28 @@ export class Actions2Component implements ViewCell {
     this.dialog.close();
   }
 
-  DeleteAction(){
-    if(this.value.data.medical_date=='0000-00-00 00:00:00'){
-      this.toastService.success('','Debe tener una salida asistencial');
-    }else
-    if (this.value.data.id) {
-      this.loading = true;
+  DeleteAction() {
+    if (this.value.data.medical_date == '0000-00-00 00:00:00') {
+      this.toastService.success('', 'Debe tener una salida asistencial');
+    } else
+      if (this.value.data.id) {
+        this.loading = true;
 
-      this.AdmissionsS.Update({
-        id: this.value.data.id,
-        medical_date: true,
-        bed_id:this.value.data.location[this.value.data.location.length - 1].bed_id
-      }).then(x => {
-        this.toastService.success('', x.message);
-        this.close();
-        this.value.refresh();
-      }).catch(x => {
-        this.loading = false;
-      });
-    }
+        this.AdmissionsS.Update({
+          id: this.value.data.id,
+          medical_date: true,
+          bed_id: this.value.data.location[this.value.data.location.length - 1].bed_id
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.close();
+          this.value.refresh();
+        }).catch(x => {
+          this.loading = false;
+        });
+      }
   }
-  DeleteAction2(){
-    if(this.value.data.discharge_date=='0000-00-00 00:00:00'){
+  DeleteAction2() {
+    if (this.value.data.discharge_date == '0000-00-00 00:00:00') {
       if (this.value.data.id) {
         this.loading = true;
         this.AdmissionsS.Update({
@@ -254,9 +257,9 @@ export class Actions2Component implements ViewCell {
           this.loading = false;
         });
       }
-      
-    }else
-    this.toastService.success('','Debe tener una salida asistencial');
+
+    } else
+      this.toastService.success('', 'Debe tener una salida asistencial');
   }
 
   save() {
@@ -307,7 +310,7 @@ export class Actions2Component implements ViewCell {
       if (val === '') {
         this.program = [];
       } else {
-        this.ambit=val;
+        this.ambit = val;
         this.GetProgram(val).then();
       }
       this.form.patchValue({
@@ -331,7 +334,7 @@ export class Actions2Component implements ViewCell {
       if (val === '') {
         this.bed = [];
       } else {
-        this.GetBed(val,this.ambit).then();
+        this.GetBed(val, this.ambit).then();
       }
       this.form.patchValue({
         bed_id: '',
@@ -344,7 +347,7 @@ export class Actions2Component implements ViewCell {
 
     return this.ScopeOfAttentionS.GetScopeByAdmission(admission_route_id).then(x => {
 
-        this.scope_of_attention = x;
+      this.scope_of_attention = x;
 
       return Promise.resolve(true);
     });
@@ -353,7 +356,7 @@ export class Actions2Component implements ViewCell {
   GetProgram(scope_of_attention_id, job = false) {
     if (!scope_of_attention_id || scope_of_attention_id === '') return Promise.resolve(false);
     return this.ProgramS.GetProgramByScope(scope_of_attention_id).then(x => {
-        this.program = x;
+      this.program = x;
 
       return Promise.resolve(true);
     });
@@ -364,7 +367,7 @@ export class Actions2Component implements ViewCell {
 
     return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
 
-        this.pavilion = x;
+      this.pavilion = x;
 
       return Promise.resolve(true);
     });
@@ -372,8 +375,8 @@ export class Actions2Component implements ViewCell {
 
   GetBed(pavilion_id, ambit) {
     if (!pavilion_id || pavilion_id === '') return Promise.resolve(false);
-    return this.BedS.GetBedByPavilion(pavilion_id,ambit).then(x => {
-        this.bed = x;
+    return this.BedS.GetBedByPavilion(pavilion_id, ambit).then(x => {
+      this.bed = x;
 
       return Promise.resolve(true);
     });

@@ -10,6 +10,7 @@ import { FormContractComponent } from './form-contract/form-contract.component';
 import { ContractService } from '../../../business-controller/contract.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { Router } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'ngx-contract-list',
@@ -35,7 +36,7 @@ export class ContractListComponent implements OnInit {
   public settings = {
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -81,7 +82,7 @@ export class ContractListComponent implements OnInit {
           if(value==0){
             return 'Indefinido';
             }else{
-              return value;
+              return this.currency.transform(value);;
             }
         },
       },
@@ -100,6 +101,7 @@ export class ContractListComponent implements OnInit {
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private currency: CurrencyPipe,
     private datepipe: DateFormatPipe,
     private router: Router,
     private route: ActivatedRoute

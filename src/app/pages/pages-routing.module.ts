@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
 import { PermissionsGuard } from '../guards/permissions.guard';
-import {ChangePasswordGuard} from '../guards/change-password.guard';
+import { ChangePasswordGuard } from '../guards/change-password.guard';
 
 const routes: Routes = [{
   path: '',
@@ -29,11 +29,26 @@ const routes: Routes = [{
         .then(m => m.AdmissionsModule),
     },
     {
+      path: 'clinic-history',
+      loadChildren: () => import('./clinic-history/clinic-history.module')
+        .then(m => m.ClinicHistoryModule),
+    },
+    {
       path: 'gloss',
       loadChildren: () => import('./gloss/gloss.module')
         .then(m => m.GlossModule),
-        canActivate: [PermissionsGuard],
+      canActivate: [PermissionsGuard],
       data: { permission: 'gloss.read' }
+    },
+    {
+      path: 'pad',
+      loadChildren: () => import('./pad/pad.module')
+        .then(m => m.PadModule),
+    },
+    {
+      path: 'diets',
+      loadChildren: () => import('./diets/diets.module')
+        .then(m => m.DietsModule),
     },
     {
       path: 'setting',
@@ -48,6 +63,20 @@ const routes: Routes = [{
     {
       path: 'personal-information',
       component: PersonalInformationComponent,
+    },
+    // {
+    //   path: 'mipres',
+    //   loadChildren: () => import('./mipres/mipres.module')
+    //     .then(m => m.MipresModule),
+    //     canActivate: [PermissionsGuard],
+    //   data: { permission: 'mipres.read' }
+    // },
+    {
+      path: 'pad-complementary',
+      loadChildren: () => import('./pad-complementary/pad-complementary.module')
+        .then(m => m.PadComplementaryModule),
+        canActivate: [PermissionsGuard],
+      data: { permission: 'gloss.read' }
     },
     {
       path: '',

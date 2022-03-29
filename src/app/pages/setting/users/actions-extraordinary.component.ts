@@ -4,10 +4,10 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <button nbButton ghost (click)="value.edit(rowData)">  
+      <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(rowData)">  
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
-      <button nbButton ghost (click)="value.delete(rowData)">
+      <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(rowData)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
     </div>

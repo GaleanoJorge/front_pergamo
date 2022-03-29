@@ -16,9 +16,9 @@ export class ProcedureComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Procedimiento';
+  public title: string = 'Procedimiento C.U.P.S.';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Categoria del procedimiento', 'Pos', 'Rango de Edad ', 'Genero', 'Estado del procedimiento', 'Id de finalidad ', 'Tiempo'];
+  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento CUPS', 'Categoria del procedimiento CUPS', 'Pos', 'Rango de Edad ', 'Genero', 'Estado del procedimiento CUPS', 'Id de finalidad ', 'Tiempo'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]}, ${this.headerFields[8]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -31,7 +31,7 @@ export class ProcedureComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -64,7 +64,7 @@ export class ProcedureComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Procedimiento o servicios que se van a prestar',
+      name: 'Procedimientos C.U.P.S. que se van a prestar',
       route: '../../setting/procedure',
     },
   ];
@@ -88,7 +88,7 @@ export class ProcedureComponent implements OnInit {
   NewProcedure() {
     this.dialogFormService.open(FormProcedureComponent, {
       context: {
-        title: 'Crear procedimiento o servicios que se van a prestar',
+        title: 'Crear procedimiento C.U.P.S.',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -97,7 +97,7 @@ export class ProcedureComponent implements OnInit {
   EditProcedure(data) {
     this.dialogFormService.open(FormProcedureComponent, {
       context: {
-        title: 'Editar Crear procedimiento o servicios que se van a prestar',
+        title: 'Editar Crear procedimiento C.U.P.S.',
         data,
         saved: this.RefreshData.bind(this),
       },

@@ -4,7 +4,7 @@ import {ViewCell} from 'ng2-smart-table';
 @Component({
   template: `
     <div>
-      <button nbButton size="tiny" status="{{ value.data.status_id == 1 ? 'info' : 'danger' }}"
+      <button nbTooltip="Cambiar estado" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton size="tiny" status="{{ value.data.status_id == 1 ? 'info' : 'danger' }}"
               (click)="value.changeState(value.data)">
         {{ value.data.status.name }}
       </button>

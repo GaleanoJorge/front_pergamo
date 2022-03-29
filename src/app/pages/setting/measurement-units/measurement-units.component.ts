@@ -18,8 +18,8 @@ export class MeasurementUnitsComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Unidades de medida';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID','Nombre'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
+  public headerFields: any[] = ['ID', 'Código', 'Nombre'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -31,7 +31,7 @@ export class MeasurementUnitsComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -47,8 +47,12 @@ export class MeasurementUnitsComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      name: {
+      code: {
         title: this.headerFields[1],
+        type: 'string',
+      },
+      name: {
+        title: this.headerFields[2],
         type: 'string',
       },
     },
