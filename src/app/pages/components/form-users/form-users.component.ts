@@ -89,6 +89,7 @@ export class FormUsersComponent implements OnInit {
   public marital_status: any[] = [];
   public neighborhood_or_residence: any[] = [];
   public localities: any[] = [];
+  public parentData;
 
   public sectionals: SectionalCouncil[] = [];
   public districts: District[] = [];
@@ -167,6 +168,11 @@ export class FormUsersComponent implements OnInit {
 
   async ngOnInit() 
   {
+    this.parentData = {
+      selectedOptions: [],
+      entity: 'residence/locationbyMunicipality',
+      customData: 'locality'
+      };
     if (this.data && this.data.file) {
       this.image = environment.storage + this.data.file;
        
@@ -1002,5 +1008,10 @@ export class FormUsersComponent implements OnInit {
 
     this.age = year + " años " + m + " meses y " + day + " dia(s) ";
 
+  }
+
+  receiveMessage($event) {
+    this.parentData.selectedOptions = $event;
+    
   }
 }
