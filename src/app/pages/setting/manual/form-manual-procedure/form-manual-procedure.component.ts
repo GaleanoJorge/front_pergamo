@@ -7,7 +7,7 @@ import { ProcedureTypeService } from '../../../../business-controller/procedure-
 import { PriceTypeService } from '../../../../business-controller/price-type.service';
 import { ManualPriceService } from '../../../../business-controller/manual-price.service';
 import { ProcedurePackageComponent } from '../../procedure/procedure-package/procedure-package.component';
-import { ProcedurePackageService } from '../../../../business-controller/procedure-package.Service';
+import { ProcedurePackageService } from '../../../../business-controller/procedure-package.service';
 
 
 

@@ -16,6 +16,9 @@
   login_sso: 'false',  // sso -> Login por cas,ensename -> login directo
   url_lms_ratings: ' https://lms-test.eduredejrlb.co/blocks/sga_integrations/controller.php?method=extractGradesAndCompetences',
   url_lms_enrollment: 'https://lms-test.eduredejrlb.co/blocks/sga_integrations/controller.php?method=processSgaIntegration&debug=false',
-
+  api_mipress_sum: 'WSSUMMIPRESNOPBS/api/',
+ api_mipress_fac: 'WSFACMIPRESNOPBS/api/',
+  nit_mipress: 900900122,
+token: '0FE2D27C-7989-41D5-9C08-91A80DD81B67',
 };
 
