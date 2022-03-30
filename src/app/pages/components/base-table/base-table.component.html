@@ -35,7 +35,7 @@
   <div class="datatable" *ngIf="source" [nbSpinner]="loading">
     <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)">
     </ng2-smart-table>
-    <div *ngIf="getTotal() && showFooter==true"
+    <div *ngIf="getTotal() && showFooter==true && pager==true"
          [class]="hasPagination ? 'datatable-footer-with-pagination' : 'datatable-footer'">
       <div>
         <div>

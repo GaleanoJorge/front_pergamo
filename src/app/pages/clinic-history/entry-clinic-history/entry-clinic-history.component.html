@@ -10,10 +10,22 @@
 
           </nb-step>
           <nb-step [stepControl]="nameForm" label="Rx Sistemas">
+            
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-system-exam [record_id]="record_id"></ngx-system-exam>
+              </div>
+            </div>
+
 
           </nb-step>
 
-          <nb-step [stepControl]="movieForm" label="Ex Físico">
+          <nb-step [stepControl]="nameForm" label="Ex Físico">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-physical-exam [record_id]="record_id"></ngx-physical-exam>
+              </div>
+            </div>
 
           </nb-step>
 

@@ -17,6 +17,7 @@ export class BaseTableComponent implements OnInit, OnDestroy {
   @Input() title: string;
   @Input() subtitle: string;
   @Input() pagination: any = null;
+  @Input() pager: any = true;
   @Input() entity: string = null;
   @Input() debounceSearch: number = 600;
   @Input() customData: string = null;

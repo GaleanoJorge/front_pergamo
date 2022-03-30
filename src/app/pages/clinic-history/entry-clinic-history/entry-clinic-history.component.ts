@@ -6,6 +6,7 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 import { ChReasonConsultationService } from '../../../business-controller/ch-reason-consultation.service';
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
 import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.service';
+import { ChPhysicalExamService } from '../../../business-controller/ch_physical_exam.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class EntryClinicHistoryComponent implements OnInit {
   public routes = [];
   public user_id;
   public chreasonconsultation: any[];
+  public physical: any[];
   public chvitsigns: any[];
   public chdiagnosis: any[];
   public nameForm: String;
@@ -43,6 +45,7 @@ export class EntryClinicHistoryComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private chreasonconsultS: ChReasonConsultationService,
+    private chphysicalS: ChPhysicalExamService,
     private chvitalSignsS: ChVitalSignsService,
     private chdiagnosisS: ChDiagnosisService,
     public userChangeS: UserChangeService,
@@ -68,6 +71,9 @@ export class EntryClinicHistoryComponent implements OnInit {
     });
     await this.chdiagnosisS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chdiagnosis = x;
+    });
+    await this.chphysicalS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.physical = x;
     });
 
     this.form = this.formBuilder.group({
@@ -105,8 +111,9 @@ export class EntryClinicHistoryComponent implements OnInit {
   }
   saveDiagnostic() {
   }
+
   receiveMessage($event) {
-    if($event==true){
+    if ($event == true) {
       this.messageEvent.emit($event);
     }
   }

@@ -34,7 +34,12 @@ import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic
 import { FormDiagnosticComponent } from './diagnostic/form-diagnostic/form-diagnostic.component';
 import { Actions2Component } from './diagnostic/actions.component';
 import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
-
+import { FormPhysicalExamComponent } from './physical-exam/form-physical-exam/form-physical-exam.component';
+import { PhysicalExamComponent } from './physical-exam/physical-exam.component';
+import { Actions3Component } from './physical-exam/actions.component';
+import { FormSystemExamComponent } from './system-exam/form-system-exam/form-system-exam.component';
+import { SystemExamComponent } from './system-exam/system-exam.component';
+import { Actions7Component } from './system-exam/actions.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -79,6 +84,17 @@ import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
     FormDiagnosticComponent,
     DiagnosticListComponent,
     Actions2Component,
+
+    FormPhysicalExamComponent,
+    PhysicalExamComponent,
+    Actions3Component,
+
+    FormSystemExamComponent,
+    SystemExamComponent,
+    Actions7Component,
+
+
+
   ],
   providers: [
     DateFormatPipe,
