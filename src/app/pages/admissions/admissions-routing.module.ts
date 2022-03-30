@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {AdmissionsComponent} from './admissions.component';
-import {AdmissionsListComponent} from './admissions-list/admissions-list.component';
-import {PermissionsGuard} from '../../guards/permissions.guard';
+import { AdmissionsComponent } from './admissions.component';
+import { AdmissionsListComponent } from './admissions-list/admissions-list.component';
+import { PermissionsGuard } from '../../guards/permissions.guard';
 import { FormPatientComponent } from './form-patient/form-patient.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { AdmissionsPatientComponent } from './admissions-patient/admissions-patient.component';
@@ -38,7 +38,7 @@ const routes: Routes = [{
     {
       path: 'patient-data/:admissions_id',
       component: PatientDataComponent,
-    },
+    }
   ],
 }];
 

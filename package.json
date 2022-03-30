@@ -12,7 +12,7 @@
   "scripts": {
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "build:prod": "npm run build -- --prod --aot",
     "test": "ng test",
@@ -45,6 +45,7 @@
     "@nebular/eva-icons": "5.0.0",
     "@nebular/security": "5.0.0",
     "@nebular/theme": "5.0.0",
+    "@ng-plus/signature-pad": "0.0.4",
     "@rxweb/reactive-form-validators": "^2.1.2",
     "@swimlane/ngx-charts": "^13.0.2",
     "@syncfusion/ej2": "^18.2.47",

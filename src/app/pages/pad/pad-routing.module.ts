@@ -5,6 +5,7 @@ import {PadComponent} from './pad.component';
 import {PadListComponent} from './pad-list/pad-list.component';
 import {PermissionsGuard} from '../../guards/permissions.guard';
 import { ManagementPlanComponent } from './management-plan/management-plan.component';
+import { AssignedManagementPlanComponent } from './assigned-management-plan/assigned-management-plan.component';
 
 
 const routes: Routes = [{
@@ -16,8 +17,12 @@ const routes: Routes = [{
       component: PadListComponent,
     },
     {
-      path: 'management-plan/:id',
+      path: 'management-plan/:id/:user',
       component: ManagementPlanComponent,
+    },
+    {
+      path: 'assigned-management-plan/:management_id/:user',
+      component: AssignedManagementPlanComponent,
     },
   ],
 }];

@@ -1,0 +1,27 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class="row">
+      <div class="col-md-12">
+        <label for="diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNÓSTICO:</label>
+        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+          id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" required
+          status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        </datalist>
+      </div>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <ngx-diagnostic (messageEvent)="receiveMessage($event)" [parentData]="this.data.diet_admission_id">
+      </ngx-diagnostic>
+    </div>
+
+    <div class="div-send">
+      <label></label>
+      <button [disabled]="disabled" type="submit" nbButton status="success">GUARDAR</button>
+    </div>
+  </div>
+
+
+</form>

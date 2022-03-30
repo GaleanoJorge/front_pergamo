@@ -19,6 +19,7 @@ import { ObjetionResponseService } from '../../../business-controller/objetion-r
 import { CurrencyPipe } from '@angular/common';
 import { GlossRadicationService } from '../../../business-controller/gloss-radication.service';
 import { date } from '@rxweb/reactive-form-validators';
+import { Gloss } from '../../../models/gloss';
 
 @Component({
   selector: 'ngx-gloss-list',
@@ -228,7 +229,7 @@ export class GlossListComponent implements OnInit {
   public routes = [
     {
       name: 'Glosas',
-      route: '../gloss/list',
+      route: '../list',
     },
   ];
 
@@ -240,6 +241,7 @@ export class GlossListComponent implements OnInit {
     private toastService: NbToastrService,
     private GlossResponseS: GlossResponseService,
     private GlossRadicationS: GlossRadicationService,
+    private GlossS: GlossService,
     private currency: CurrencyPipe,
     private GlossStatusS: GlossStatusService,
     private authService: AuthService,
@@ -251,7 +253,7 @@ export class GlossListComponent implements OnInit {
   }
   public form: FormGroup;
   public ResponseGlossForm: FormGroup;
-  public RadicationGlossForm: FormGroup;
+  public carteraGlossForm: FormGroup;
   public status;
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
@@ -261,7 +263,8 @@ export class GlossListComponent implements OnInit {
 
 
   async ngOnInit() {
-    console.log('prueba');
+    // console.log('prueba');
+
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
     this.currentRole = this.authService.GetRole();
@@ -278,7 +281,7 @@ export class GlossListComponent implements OnInit {
     });
     this.glossStatus.forEach(element => {
       if (this.currentRole == 5) {
-        if (element.id != 4 && element.id != 5 && element.id != 6) {
+        if (element.id != 4 && element.id != 5 && element.id != 6 && element.id != 7) {
           this.glossStatusF.push(element);
         }
       } else if (this.currentRole == 6) {
@@ -301,12 +304,11 @@ export class GlossListComponent implements OnInit {
       objetion_code_response_id: ['', Validators.compose([Validators.required])],
       justification_status: ['', Validators.compose([Validators.required])],
       objetion_response_id: ['', Validators.compose([Validators.required])],
-      file: [Validators.compose([Validators.required])],
+      file: ['', Validators.compose([Validators.required])],
     });
 
-    this.RadicationGlossForm = this.formBuilder.group({
-      observation: ['', Validators.compose([Validators.required])],
-      file: ['', Validators.compose([Validators.required])],
+    this.carteraGlossForm = this.formBuilder.group({
+      state_gloss: ['', Validators.compose([Validators.required])],
     });
 
   }
@@ -317,14 +319,14 @@ export class GlossListComponent implements OnInit {
     var today = new Date(format).getTime();
 
     var diff = (today - gloss_received_date) / (1000 * 60 * 60 * 24);
-    if(diff >9){
+    if (diff > 9) {
       this.semaphore = 3; // rojo
-    } else if(diff <= 9 && diff>5){
+    } else if (diff <= 9 && diff > 5) {
       this.semaphore = 2; // amarillo
-    }else if(diff<=5 && diff>=0){
+    } else if (diff <= 5 && diff >= 0) {
       this.semaphore = 1; // verde
-    }else if(diff<0){
-      this.semaphore=0; //invalida
+    } else if (diff < 0) {
+      this.semaphore = 0; //invalida
     }
     return this.semaphore
   }
@@ -343,7 +345,7 @@ export class GlossListComponent implements OnInit {
       var gloss = element;
       this.selectedOptions.push(gloss.id);
       this.all_glosses.push(gloss);
-      if(gloss.response_id!=null){
+      if (gloss.response_id != null) {
         // this.gloss_response_id['idglosa']=gloss.id;
         // this.gloss_response_id['idresponse']=gloss.response_id;
         this.gloss_id.push(gloss.id);
@@ -403,7 +405,7 @@ export class GlossListComponent implements OnInit {
     var not_accepted = +this.ResponseGlossForm.controls.value_not_accepted.value
     this.result = accepted + not_accepted;
     var localidentify = this.all_glosses.find(item => item.objeted_value != this.result);
-    if(localidentify) { 
+    if (localidentify) {
       this.toastService.warning('', "Dentro de la selección hay glosas que no se pueden responder por valores no aceptados");
     }
   }
@@ -421,8 +423,8 @@ export class GlossListComponent implements OnInit {
         var formData = new FormData();
         formData.append('single', "0");
         formData.append('response', this.ResponseGlossForm.value.response);
-        formData.append('file', this.ResponseGlossForm.value.file);
-        formData.append('result',this.result);
+        formData.append('file', this.ResponseGlossForm.controls.file.value);
+        formData.append('result', this.result);
         formData.append('gloss_id', JSON.stringify(this.selectedOptions));
         formData.append('justification_status', this.ResponseGlossForm.controls.justification_status.value);
         formData.append('objetion_response_id', this.ResponseGlossForm.controls.objetion_response_id.value);
@@ -444,9 +446,9 @@ export class GlossListComponent implements OnInit {
     }
   }
 
-  async saveRadication() {
+  async saveCartera() {
     this.isSubmitted = true;
-    if (!this.RadicationGlossForm.invalid) {
+    if (!this.carteraGlossForm.invalid) {
       if (!this.selectedOptions.length) {
         this.dialog = this.dialog.close();
         this.toastS.danger(null, 'Debe seleccionar un registro');
@@ -456,13 +458,11 @@ export class GlossListComponent implements OnInit {
 
         var formData = new FormData();
         formData.append('single', "0");
-        formData.append('file', this.RadicationGlossForm.value.file);
-        formData.append('gloss_response_id', JSON.stringify(this.gloss_response_id));
-        formData.append('observation', this.RadicationGlossForm.value.observation);
+        formData.append('state_gloss', this.carteraGlossForm.controls.state_gloss.value);
         formData.append('gloss_id', JSON.stringify(this.gloss_id));
         formData.append('total_selected', JSON.stringify(this.selectedOptions));
 
-        await this.GlossRadicationS.Save(formData).then(x => {
+        await this.GlossS.ChangeStatusBriefcase(formData).then(x => {
           this.toastService.success('', x.data);
           this.RefreshData();
           if (this.saved) {
@@ -541,30 +541,30 @@ export class GlossListComponent implements OnInit {
     }
   }
 
-  async changeFile(files, option) {
-    this.loading = true;
-    if (!files) return false;
-    const file = await this.toBase64(files.target.files[0]);
+  // async changeFile(files, option) {
+  //   this.loading = true;
+  //   if (!files) return false;
+  //   const file = await this.toBase64(files.target.files[0]);
 
-    switch (option) {
-      case 2:
-        this.ResponseGlossForm.patchValue({
-          file: files.target.files[0],
-        });
-        this.loading = false;
-        break;
-      case 3:
-        this.RadicationGlossForm.patchValue({
-          file: files.target.files[0],
-        });
-        break;
-    }
-  }
+  //   switch (option) {
+  //     case 2:
+  //       this.ResponseGlossForm.patchValue({
+  //         file: files.target.files[0],
+  //       });
+  //       this.loading = false;
+  //       break;
+  //     case 3:
+  //       this.carteraGlossForm.patchValue({
+  //         file: files.target.files[0],
+  //       });
+  //       break;
+  //   }
+  // }
 
-  toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
+  // toBase64 = file => new Promise((resolve, reject) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => resolve(reader.result);
+  //   reader.onerror = error => reject(error);
+  // });
 }

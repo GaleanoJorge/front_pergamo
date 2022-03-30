@@ -31,6 +31,22 @@ export class BriefcaseService {
       });
   }
 
+  GetBriefcaseByContract(briefcase_id): Promise<Briefcase[]> {
+    let servObj = new ServiceObject('briefcasecontract/briefcaseByContract',briefcase_id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.briefcase = <Briefcase[]>servObj.data.briefcase;
+        return Promise.resolve(this.briefcase);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(briefcase: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('briefcase');
     servObj.data = briefcase;

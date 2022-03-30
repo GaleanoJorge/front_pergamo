@@ -15,9 +15,12 @@ import { date } from '@rxweb/reactive-form-validators';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a nbTooltip="Plan de manejo" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/management-plan/' + value.data.admissions[0].location[0].id">
+    <a *ngIf="value.currentRole!=3 && value.currentRole!=7" nbTooltip="Plan de manejo" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/management-plan/' + value.data.admissions[0].id+'/'+value.data.id">
       <nb-icon icon="menu-outline"></nb-icon>
     </a>
+    <a *ngIf="value.currentRole==3 || value.currentRole==7" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/assigned-management-plan/' + this.value.management.management[0].management_id+'/'+value.data.id ">
+    <nb-icon icon="menu-outline"></nb-icon>
+  </a>
   </div>
   
 
@@ -28,6 +31,8 @@ export class Actions2Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
 
+  public management_id;
+
  
 
   constructor(
@@ -36,7 +41,7 @@ export class Actions2Component implements ViewCell {
   }
 
   async ngOnInit() {
-  
+console.log(this.value);
     }
 
   

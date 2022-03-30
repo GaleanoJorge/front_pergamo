@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {ServiceObject} from '../models/service-object';
-import {environment} from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ServiceObject } from '../models/service-object';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +16,9 @@ export class WebAPIService {
   private endPointCAS = environment.cas;
   private paramsMain = new HttpParams().set('role_id', localStorage.getItem('role_id'));
 
+  private endPointMipresSum = environment.api_mipress_sum;
+  private endPointMipresFac = environment.api_mipress_fac;
+
   async GetAction(serviceObject: ServiceObject, params = {}): Promise<ServiceObject> {
     /*let httpParams = new HttpParams();
 
@@ -24,7 +27,7 @@ export class WebAPIService {
     });*/
 
     return this.httpClient
-      .get(`${this.endPoint}${serviceObject.entity}${ serviceObject.id ? '/' + serviceObject.id : ''}`,
+      .get(`${this.endPoint}${serviceObject.entity}${serviceObject.id ? '/' + serviceObject.id : ''}`,
         {
           params,
         })
@@ -52,7 +55,7 @@ export class WebAPIService {
   async GetActionParams(serviceObject: ServiceObject, paramsInt?: HttpParams): Promise<ServiceObject> {
     var params = paramsInt ? paramsInt : this.paramsMain;
     return this.httpClient
-      .get(`${this.endPoint}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`, {params})
+      .get(`${this.endPoint}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`, { params })
       .toPromise()
       .then(x => {
         return Promise.resolve(<ServiceObject>x);
@@ -99,6 +102,18 @@ export class WebAPIService {
       });
   }
 
+  // async PutActionPAC(serviceObject: ServiceObject): Promise<ServiceObject> {
+  //   return this.httpClient
+  //     .put(`${this.endPoint}${serviceObject.entity}${(serviceObject.data.id_pac ? ('/' + serviceObject.id) : '')}${(serviceObject.data.id_reason ? ('/' + serviceObject.id) : '')}`, serviceObject.data)
+  //     .toPromise()
+  //     .then(x => {
+  //       return Promise.resolve(<ServiceObject>x);
+  //     })
+  //     .catch(x => {
+  //       throw x;
+  //     });
+  // }
+
   async PatchAction(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
       .patch(`${this.endPoint}${serviceObject.entity}/${serviceObject.id ? serviceObject.id : ''}`, serviceObject.data)
@@ -141,6 +156,31 @@ export class WebAPIService {
       });
   }
 
+  async LoginAPIMipres(serviceObject: ServiceObject, mipres_token_type?): Promise<ServiceObject> {
+    if (mipres_token_type == 0) {
+      var URL = this.endPointMipresSum;
+    } else {
+      var URL = this.endPointMipresFac;
+    }
+    return this.httpClient
+      .get(`${URL}${serviceObject.entity}/${environment.nit_mipress}/${environment.token}`)
+      .toPromise()
+      .then(x => {
+        var servObj = new ServiceObject();
+        servObj.status = true;
+        servObj.data = x;
+        return Promise.resolve(<ServiceObject>servObj);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
+//Sumunistros 
+  
+  
+   
+ 
   async tokenCAS(serviceObject: ServiceObject): Promise<ServiceObject> {
 
     return this.httpClient

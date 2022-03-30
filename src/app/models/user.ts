@@ -30,4 +30,5 @@ export class User {
     roles: Role[];
     deliveries?: Delivery[];
     file: string;
+    firm:string;
 }
