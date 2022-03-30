@@ -1,20 +1,20 @@
-<ngx-base-list
-  [messageError]="messageError"
-  [routes]="routes">
+<ngx-form-diagnostic (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+</ngx-form-diagnostic>
+<div class="row">
+  <div class="col-md-12">
+    <label class="font-weight-bold ImpPeq"> </label>
+  </div>
+</div>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
-
-    <ngx-base-table [title]="title"
-                    [subtitle]="subtitle" [settings]="settings"
-                    entity="diagnosis/?pagination=true"
-                    customData='diagnosis'
-                    [messageToltip]="messageToltip"
-                    >
+    <ngx-base-table [title]="title" customData="ch_diagnosis" [settings]="settings"
+      entity="ch_diagnosis/by_record/{{record_id}}/1">
       <div actions>
         <div class="actions">
-          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewDiagnosis()">Crear</button>
+        </div>
+        <div class="actions" style="margin-top:1em;">
         </div>
       </div>
     </ngx-base-table>
-
   </div>
 </ngx-base-list>

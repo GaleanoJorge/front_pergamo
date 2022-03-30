@@ -10,7 +10,7 @@ import {
   NbStepperModule,
   NbTabsetModule,
   NbUserModule,
-  NbInputModule, NbSelectModule, NbRadioModule, NbIconModule, NbSpinnerModule, NbPopoverModule, NbToggleModule, NbTooltipModule, NbDialogModule
+  NbInputModule, NbSelectModule, NbRadioModule, NbIconModule, NbSpinnerModule, NbPopoverModule, NbToggleModule, NbTooltipModule, NbDialogModule, NbCheckboxModule
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -60,6 +60,7 @@ import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
     NbIconModule,
     NbSpinnerModule,
     NbToggleModule,
+    NbCheckboxModule,
   ],
   declarations: [
     ClinicHistoryComponent,
