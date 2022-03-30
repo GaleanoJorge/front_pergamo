@@ -13,7 +13,7 @@ import { DietDishStockService } from '../../../../business-controller/diet-dish-
 export class FormDietDishComponent implements OnInit {
 
   @Input() title: string;
-  @Input() data: any = null;
+  @Input() data:any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;

@@ -91,8 +91,8 @@ export class DishPackageComponent implements OnInit {
     this.component_package_id = this.route.snapshot.params.id;
     this.selectedOptions = this.parentData;
 
-    if(this.dishByMenu) {
-      this.entity = 'diet_menu_dish/byMenu/'+ this.menuId;
+    if (this.dishByMenu) {
+      this.entity = 'diet_menu_dish/byMenu/' + this.menuId;
       this.customData = 'diet_menu_dish';
     } else {
       this.entity = 'diet_dish';

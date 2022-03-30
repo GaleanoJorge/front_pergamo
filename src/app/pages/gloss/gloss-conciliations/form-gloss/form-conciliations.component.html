@@ -7,7 +7,7 @@
         <div class="col-12 col-sm-12 col-md-4">
           <label for="invoice_prefix" class="form-text text-muted font-weight-bold">Prefijo de factura:</label>
           <input nbInput fullWidth id="invoice_prefix" formControlName="invoice_prefix" invoice_prefix
-            status="{{ isSubmitted && form.controls.invoice_prefix.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status = "{{ isSubmitted && form.controls.invoice_prefix.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
@@ -33,8 +33,7 @@
           <nb-select [selected]="this.data.regime_id" formControlName="regime_id" id="regime_id" fullWidth
             status="{{ isSubmitted && form.controls.regime_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.regime_id }}" *ngFor="let item of regime"
-              [value]="item.id">
+            <nb-option selected="{{ item.id == data.regime_id }}" *ngFor="let item of regime" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
@@ -117,10 +116,11 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold">Código de objeción:</label>
-          <input id="data-list" formControlName="objetion_code_id" objetion_code_id type="text" list="codes" class="data-list" (change)="saveCode($event)" required>
-            <datalist id="codes">
-              <option *ngFor="let item of objetion_code" [value]="item.name" >{{item.code}} - {{item.name}}</option>
-            </datalist>
+          <input id="data-list" formControlName="objetion_code_id" objetion_code_id type="text" list="codes"
+            class="data-list" (change)="saveCode($event)" required>
+          <datalist id="codes">
+            <option *ngFor="let item of objetion_code" [value]="item.name">{{item.code}} - {{item.name}}</option>
+          </datalist>
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
@@ -132,13 +132,15 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="invoice_value" class="form-text text-muted font-weight-bold">Valor de factura:</label>
-          <input type="number" nbInput fullWidth id="invoice_value" formControlName="invoice_value" invoice_value (change)="saveValue($event)"
+          <input type="number" nbInput fullWidth id="invoice_value" formControlName="invoice_value" invoice_value
+            (change)="saveValue($event)"
             status="{{ isSubmitted && form.controls.invoice_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="objeted_value" class="form-text text-muted font-weight-bold">Valor de objetado:</label>
-          <input type="number" nbInput fullWidth id="objeted_value" formControlName="objeted_value" objeted_value (change)="ValueCompare($event)"
+          <input type="number" nbInput fullWidth id="objeted_value" formControlName="objeted_value" objeted_value
+            (change)="ValueCompare($event)"
             status="{{ isSubmitted && form.controls.objeted_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 

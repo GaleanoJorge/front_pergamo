@@ -11,7 +11,7 @@ import {DietComponentService} from '../../../../business-controller/diet-compone
 export class FormDietComponentComponent implements OnInit {
 
   @Input() title: string;
-  @Input() data: any = null;
+  @Input() data:any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;

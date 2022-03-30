@@ -151,28 +151,28 @@ export class FormConciliationsComponent implements OnInit {
   }
   saveValue(e) {
 
-    this.factureValue= +e.target.value;
-    if(this.factureValue<=0){
-      this.factureValue=null;
+    this.factureValue = +e.target.value;
+    if (this.factureValue <= 0) {
+      this.factureValue = null;
     }
-    if(this.objeted_value){
+    if (this.objeted_value) {
       this.ValueCompare(this.objeted_value);
     }
   }
   ValueCompare(n) {
-    if(typeof(n) == 'number'){
-      
+    if (typeof (n) == 'number') {
+
     } else {
       this.objeted_value = +n.target.value;
     }
-    if(this.factureValue){
+    if (this.factureValue) {
       if (this.factureValue >= this.objeted_value) {
         // this.toastService.success('', "Excelente");
       } else {
         this.toastService.warning('', "El valor objetado no puede ser mayor al valor de la factura");
-        this.form.controls.objeted_value.setErrors({'incorrect':true})
-        ;
-        this.objeted_value=null;
+        this.form.controls.objeted_value.setErrors({ 'incorrect': true })
+          ;
+        this.objeted_value = null;
       }
     }
   }

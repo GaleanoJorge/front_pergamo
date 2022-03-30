@@ -20,7 +20,7 @@ export class DietSuppliesOutputPackageComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<any>();
   @Input() parentData: any = [];
-  @Input() show: any = [];
+  @Input() show: any= [];
   public messageError = null;
 
 
@@ -92,7 +92,7 @@ export class DietSuppliesOutputPackageComponent implements OnInit {
           });
           return {
             'data': row,
-            'enabled': (!this.show)? !this.selectedOptions2.includes(row.id) : true,
+            'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
             'amount': amo ? amo : '',
             'onchange': (input, row: any) => this.onAmountChange(input, row),
           };
@@ -115,7 +115,7 @@ export class DietSuppliesOutputPackageComponent implements OnInit {
 
   ngOnInit(): void {
     this.component_package_id = this.route.snapshot.params.id;
-    
+
     this.selectedOptions = this.parentData;
     //   this.selectedOptions = this.parentData.id;
     //  this.selectedOptions2 = this.parentData.amount;

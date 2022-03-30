@@ -8,7 +8,7 @@
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-md-12">
+        <div class= "col-md-12">
           <label for="description" class="form-text text-muted font-weight-bold">DESCRIPCIÓN:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="description" formControlName="description" description
             status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
