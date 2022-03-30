@@ -11,7 +11,7 @@
         <div class="col-md-12">
           <label for="symptoms" class="form-text text-muted font-weight-bold">Sintomas:</label>
           <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth size="auto"
-            id="symptoms" formControlName="symptoms" symptoms
+            id= "symptoms" formControlName="symptoms" symptoms
             status="{{ isSubmitted && form.controls.symptoms.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-md-6" style="margin-top: 10px;">

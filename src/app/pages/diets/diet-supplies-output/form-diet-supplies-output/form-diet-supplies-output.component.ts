@@ -16,7 +16,7 @@ export class FormDietSuppliesOutputComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() show: any = null;
+  @Input() show:any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;

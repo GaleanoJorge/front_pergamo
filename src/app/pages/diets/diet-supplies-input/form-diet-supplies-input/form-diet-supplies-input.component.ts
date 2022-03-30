@@ -15,7 +15,7 @@ import { CampusService } from '../../../../business-controller/campus.service';
 export class FormDietSuppliesInputComponent implements OnInit {
 
   @Input() title: string;
-  @Input() data: any = null;
+  @Input() data: any= null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;

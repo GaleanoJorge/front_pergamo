@@ -25,7 +25,7 @@ export class FormAdmissionsComponent implements OnInit {
   public selectedOptions2: any[] = [];
   public diet_order: any[];
 
-  public dishByMenu: boolean = true;
+  public dishByMenu: boolean =true;
 
 
   constructor(

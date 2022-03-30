@@ -18,12 +18,10 @@
         </div>
         <div class="col-md-12">
           <label for="campus" class="form-text text-muted font-weight-bold">SEDE:</label>
-          <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id"
-            fullWidth
+          <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
             status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus"
-              [value]="item.id">
+            <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
@@ -52,7 +50,8 @@
 
         <div class="col-md-12">
           <label for="invoice_number" class="form-text text-muted font-weight-bold">NÚMERO DE FACTURA:</label>
-          <input type="text" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="invoice_number" formControlName="invoice_number" invoice_number
+          <input type="text" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="invoice_number"
+            formControlName="invoice_number" invoice_number
             status="{{ isSubmitted && form.controls.invoice_number.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 

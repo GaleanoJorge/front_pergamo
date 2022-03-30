@@ -15,7 +15,7 @@ import { ObjetionResponseService } from '../../../../business-controller/objetio
 })
 export class FormPadComplementaryComponent implements OnInit {
   @Input() title: string;
-  @Input() data: any;
+  @Input() data:any;
   @Input() admissions_id: any;
 
   // @Input() diagnosis: any;

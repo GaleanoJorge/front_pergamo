@@ -16,7 +16,7 @@ export class DishPackageComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   @Output() messageEvent = new EventEmitter<any>();
-  @Input() parentData: any;
+  @Input() parentData:any;
   public messageError = null;
 
 

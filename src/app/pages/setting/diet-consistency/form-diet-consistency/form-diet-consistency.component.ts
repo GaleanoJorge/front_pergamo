@@ -14,7 +14,7 @@ import {StatusBusinessService} from '../../../../business-controller/status-busi
 export class FormDietConsistencyComponent implements OnInit {
 
   @Input() title: string;
-  @Input() data: any = null;
+  @Input() data:any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;

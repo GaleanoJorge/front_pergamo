@@ -8,7 +8,7 @@
           <label for="amount" class="form-text text-muted font-weight-bold">CANTIDAD:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount" formControlName="amount"
             amount
-            status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status= "{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
         <div class="col-md-12">
