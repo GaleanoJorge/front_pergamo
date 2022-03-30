@@ -4,6 +4,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {GlossComponent} from './gloss.component';
 import {GlossListComponent} from './gloss-list/gloss-list.component';
 import {PermissionsGuard} from '../../guards/permissions.guard';
+import { ConciliationsListComponent } from './gloss-conciliations/conciliations-list.component';
 
 
 const routes: Routes = [{
@@ -14,6 +15,10 @@ const routes: Routes = [{
       path: 'list',
       component: GlossListComponent,
     },
+    {
+      path: 'conciliations',
+      component: ConciliationsListComponent,
+    }
   ],
 }];
 
