@@ -167,7 +167,6 @@ const routes: Routes = [{
     {
       path: 'policy-type',
       component: PolicyTypeComponent,
-      data: { permission: 'roles.read' }
     },
     {
       path: 'special-field',
@@ -177,7 +176,6 @@ const routes: Routes = [{
     {
       path: 'cost-center',
       component: CostCenterComponent,
-      data: { Permission: 'roles.read' },
     },
     {
       path: 'gloss-service',
@@ -360,15 +358,12 @@ const routes: Routes = [{
     {
       path: 'roles',
       component: RolesComponent,
-      canActivate: [PermissionsGuard],
       // data: { permission: 'roles.read'},
 
     },
     {
       path: 'permissions',
       component: PermissionsComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'permisos.read' },
     },
     {
       path: 'manual/procedure-massive/procedure-package/:id',
@@ -377,8 +372,6 @@ const routes: Routes = [{
     {
       path: 'items',
       component: ItemComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'items.read' },
     },
     {
       path: 'campus',
@@ -563,56 +556,45 @@ const routes: Routes = [{
     {
       path: 'sectional-council',
       component: SectionalCouncilComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'concejo-seccional.read' },
     },
     {
       path: 'district',
       component: DistrictComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'distritos.read' },
+
     },
     {
       path: 'office',
       component: OfficeComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'despacho.read' },
     },
     {
       path: 'dependence',
       component: DependenceComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'dependencia.read' },
+
     },
     {
       path: 'position',
       component: PositionComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'cargos.read' },
+
     },
     {
       path: 'specialty',
       component: SpecialtyComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'especialidad.read' },
+
     },
     {
       path: 'entity',
       component: EntityComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'entidad.read' },
+
     },
     {
       path: 'region',
       component: RegionComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'region.read' },
+
     },
     {
       path: 'municipality',
       component: MunicipalityComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'ciudad.read' },
+
     },
     {
       path: 'themes',
