@@ -2,12 +2,10 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { Actions2Component } from './actions.component';
-import { ActionsSemaphoreComponent } from './actions-semaphore.component';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { FormGlossComponent } from './form-gloss/form-gloss.component';
+import { FormConciliationsComponent } from './form-gloss/form-conciliations.component';
 import { GlossService } from '../../../business-controller/gloss.service';
 import * as XLSX from 'ts-xlsx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,14 +17,16 @@ import { ObjetionResponseService } from '../../../business-controller/objetion-r
 import { CurrencyPipe } from '@angular/common';
 import { GlossRadicationService } from '../../../business-controller/gloss-radication.service';
 import { date } from '@rxweb/reactive-form-validators';
-import { Gloss } from '../../../models/gloss';
+import { Actions3Component } from './actions.component';
+import { ConciliationResponseService } from '../../../business-controller/conciliation-response.service';
+import { GlossConciliationService } from '../../../business-controller/gloss-conciliation.service';
 
 @Component({
-  selector: 'ngx-gloss-list',
-  templateUrl: './gloss-list.component.html',
-  styleUrls: ['./gloss-list.component.scss'],
+  selector: 'ngx-conciliations-list',
+  templateUrl: './conciliations-list.component.html',
+  styleUrls: ['./conciliations-list.component.scss'],
 })
-export class GlossListComponent implements OnInit {
+export class ConciliationsListComponent implements OnInit {
 
   public isSubmitted = false;
   public entity: string;
@@ -34,7 +34,7 @@ export class GlossListComponent implements OnInit {
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Glosas';
+  public title: string = 'Conciliaciones';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['Prefijo factura', 'Consecutivo factura', 'Tipo de objeción', 'Inicial reiterada', 'Fecha recibido', 'Fecha emisión', 'Fecha radicación', 'EAPB', 'Sede', 'Modalidad de Glosa', 'Ambito de Glosa', 'Sevicio de Glosa', 'Código de objeción', 'Detalle de objeción', 'Valor de factura', 'Valor objetado', 'Medio de recibido', 'Estado', 'Creado Por', 'Analista asignado', 'Regimen'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}, ${this.headerFields[5]}, ${this.headerFields[6]}, ${this.headerFields[7]}, ${this.headerFields[8]}, ${this.headerFields[9]}, ${this.headerFields[10]}, ${this.headerFields[11]}, ${this.headerFields[12]}, ${this.headerFields[13]}, ${this.headerFields[14]}, ${this.headerFields[15]}, ${this.headerFields[16]}, ${this.headerFields[17]}, ${this.headerFields[18]}`;
@@ -65,17 +65,6 @@ export class GlossListComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      semaphore: {
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          // DATA FROM HERE GOES TO renderComponent
-          return {
-            'data': row,
-            'getDate': this.statusSemaphor.bind(this),
-          };
-        },
-        renderComponent: ActionsSemaphoreComponent,
-      },
       actions: {
         title: 'Acciones',
         type: 'custom',
@@ -89,7 +78,7 @@ export class GlossListComponent implements OnInit {
             'currentRole': this.currentRole,
           };
         },
-        renderComponent: Actions2Component,
+        renderComponent: Actions3Component,
       },
       invoice_prefix: {
         title: this.headerFields[0],
@@ -188,7 +177,7 @@ export class GlossListComponent implements OnInit {
           return this.currency.transform(value);
         },
       },
-      objeted_value: {
+      objeted_cons_value: {
         title: this.headerFields[15],
         type: 'string',
         valuePrepareFunction: (value, row) => {
@@ -241,9 +230,10 @@ export class GlossListComponent implements OnInit {
     private toastService: NbToastrService,
     private GlossResponseS: GlossResponseService,
     private GlossRadicationS: GlossRadicationService,
-    private GlossS: GlossService,
+    private ConciliationResponseS: ConciliationResponseService,
     private currency: CurrencyPipe,
     private GlossStatusS: GlossStatusService,
+    private GlossConciliationS: GlossConciliationService,
     private authService: AuthService,
     private dialogService: NbDialogService,
     private objetionCodeResponseS: ObjetionCodeResponseService,
@@ -252,8 +242,8 @@ export class GlossListComponent implements OnInit {
   ) {
   }
   public form: FormGroup;
-  public ResponseGlossForm: FormGroup;
-  public carteraGlossForm: FormGroup;
+  public ResponseConciliationsForm: FormGroup;
+  public SustainGlossForm: FormGroup;
   public status;
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
@@ -264,18 +254,6 @@ export class GlossListComponent implements OnInit {
 
   async ngOnInit() {
     // console.log('prueba');
-
-    this.user = this.authService.GetUser();
-    this.user_id = this.user.id;
-    this.currentRole = this.authService.GetRole();
-    if (this.user_id && this.currentRole == 5) {
-      this.entity = 'gloss/byStatus/0/' + this.user_id;
-    } else if (this.user_id && this.currentRole == 6) {
-      this.entity = 'gloss/byStatus/3/0';
-    }
-    else {
-      this.entity = "gloss/?pagination=true";
-    }
     await this.GlossStatusS.GetCollection().then((x) => {
       this.glossStatus = x;
     });
@@ -293,11 +271,11 @@ export class GlossListComponent implements OnInit {
       }
     });
 
-    this.form = this.formBuilder.group({
-      file: [Validators.compose([Validators.required])],
-    });
+    // this.form = this.formBuilder.group({
+    //   file: [Validators.compose([Validators.required])],
+    // });
 
-    this.ResponseGlossForm = this.formBuilder.group({
+    this.ResponseConciliationsForm = this.formBuilder.group({
       response: ['', Validators.compose([Validators.required])],
       accepted_value: ['', Validators.compose([Validators.required])],
       value_not_accepted: ['', Validators.compose([Validators.required])],
@@ -307,29 +285,30 @@ export class GlossListComponent implements OnInit {
       file: ['', Validators.compose([Validators.required])],
     });
 
-    this.carteraGlossForm = this.formBuilder.group({
-      state_gloss: ['', Validators.compose([Validators.required])],
+    this.SustainGlossForm = this.formBuilder.group({
+      response: ['', Validators.compose([Validators.required])],
+      file: ['', Validators.compose([Validators.required])],
     });
 
   }
 
-  statusSemaphor(data: Date) {
-    var gloss_received_date = new Date(data).getTime();
-    var format = new Date().toLocaleDateString().split('/').reverse().join('-');
-    var today = new Date(format).getTime();
+  // statusSemaphor(data: Date) {
+  //   var gloss_received_date = new Date(data).getTime();
+  //   var format = new Date().toLocaleDateString().split('/').reverse().join('-');
+  //   var today = new Date(format).getTime();
 
-    var diff = (today - gloss_received_date) / (1000 * 60 * 60 * 24);
-    if (diff > 9) {
-      this.semaphore = 3; // rojo
-    } else if (diff <= 9 && diff > 5) {
-      this.semaphore = 2; // amarillo
-    } else if (diff <= 5 && diff >= 0) {
-      this.semaphore = 1; // verde
-    } else if (diff < 0) {
-      this.semaphore = 0; //invalida
-    }
-    return this.semaphore
-  }
+  //   var diff = (today - gloss_received_date) / (1000 * 60 * 60 * 24);
+  //   if(diff >9){
+  //     this.semaphore = 3; // rojo
+  //   } else if(diff <= 9 && diff>5){
+  //     this.semaphore = 2; // amarillo
+  //   }else if(diff<=5 && diff>=0){
+  //     this.semaphore = 1; // verde
+  //   }else if(diff<0){
+  //     this.semaphore=0; //invalida
+  //   }
+  //   return this.semaphore
+  // }
 
   ConfirmAction(dialog: TemplateRef<any>) {
     this.dialog = this.dialogService.open(dialog);
@@ -342,18 +321,10 @@ export class GlossListComponent implements OnInit {
     this.gloss_id = [];
     this.all_glosses = [];
     select.forEach(element => {
-      var gloss = element;
-      this.selectedOptions.push(gloss.id);
-      this.all_glosses.push(gloss);
-      if (gloss.response_id != null) {
-        // this.gloss_response_id['idglosa']=gloss.id;
-        // this.gloss_response_id['idresponse']=gloss.response_id;
-        this.gloss_id.push(gloss.id);
-        this.gloss_response_id.push(gloss.response_id);
-      }
+      var conciliations = element;
+      this.selectedOptions.push(conciliations.id_conciliation);
+      this.gloss_id.push(conciliations.id);
     });
-    console.log(this.gloss_response_id);
-    console.log(this.gloss_id);
   }
 
   RefreshData() {
@@ -361,7 +332,7 @@ export class GlossListComponent implements OnInit {
   }
 
   NewGloss() {
-    this.dialogFormService.open(FormGlossComponent, {
+    this.dialogFormService.open(FormConciliationsComponent, {
       context: {
         title: 'Crear nueva glosa',
         saved: this.RefreshData.bind(this),
@@ -370,7 +341,7 @@ export class GlossListComponent implements OnInit {
   }
 
   EditGloss(data) {
-    this.dialogFormService.open(FormGlossComponent, {
+    this.dialogFormService.open(FormConciliationsComponent, {
       context: {
         title: 'Editar glosa',
         data,
@@ -401,8 +372,8 @@ export class GlossListComponent implements OnInit {
 
   compareMasiveFactures() {
     this.result = null;
-    var accepted = +this.ResponseGlossForm.controls.accepted_value.value;
-    var not_accepted = +this.ResponseGlossForm.controls.value_not_accepted.value
+    var accepted = +this.ResponseConciliationsForm.controls.accepted_value.value;
+    var not_accepted = +this.ResponseConciliationsForm.controls.value_not_accepted.value
     this.result = accepted + not_accepted;
     var localidentify = this.all_glosses.find(item => item.objeted_value != this.result);
     if (localidentify) {
@@ -413,7 +384,7 @@ export class GlossListComponent implements OnInit {
   async saveGroup() {
     this.compareMasiveFactures();
     this.isSubmitted = true;
-    if (!this.ResponseGlossForm.invalid) {
+    if (!this.ResponseConciliationsForm.invalid) {
       if (!this.selectedOptions.length) {
         this.dialog = this.dialog.close();
         this.toastS.danger(null, 'Debe seleccionar un registro');
@@ -422,17 +393,19 @@ export class GlossListComponent implements OnInit {
         this.dialog.close();
         var formData = new FormData();
         formData.append('single', "0");
-        formData.append('response', this.ResponseGlossForm.value.response);
-        formData.append('file', this.ResponseGlossForm.controls.file.value);
+        formData.append('type_response', "0");
+        formData.append('response', this.ResponseConciliationsForm.value.response);
+        formData.append('file', this.ResponseConciliationsForm.controls.file.value);
+        formData.append('gloss_conciliations_id', JSON.stringify(this.selectedOptions));
+        formData.append('gloss_id', JSON.stringify(this.gloss_id));
         formData.append('result', this.result);
-        formData.append('gloss_id', JSON.stringify(this.selectedOptions));
-        formData.append('justification_status', this.ResponseGlossForm.controls.justification_status.value);
-        formData.append('objetion_response_id', this.ResponseGlossForm.controls.objetion_response_id.value);
-        formData.append('objetion_code_response_id', this.ResponseGlossForm.controls.objetion_code_response_id.value);
-        formData.append('accepted_value', this.ResponseGlossForm.controls.accepted_value.value);
-        formData.append('value_not_accepted', this.ResponseGlossForm.controls.value_not_accepted.value);
+        formData.append('justification_status', this.ResponseConciliationsForm.value.justification_status);
+        formData.append('objetion_response_id', this.ResponseConciliationsForm.controls.objetion_response_id.value);
+        formData.append('objetion_code_response_id', this.ResponseConciliationsForm.controls.objetion_code_response_id.value);
+        formData.append('accepted_value', this.ResponseConciliationsForm.controls.accepted_value.value);
+        formData.append('value_not_accepted', this.ResponseConciliationsForm.controls.value_not_accepted.value);
 
-        await this.GlossResponseS.Save(formData).then(x => {
+        await this.ConciliationResponseS.Save(formData).then(x => {
           this.toastService.success('', x.data);
           this.RefreshData();
           if (this.saved) {
@@ -445,38 +418,33 @@ export class GlossListComponent implements OnInit {
       }
     }
   }
+
 
   async saveCartera() {
     this.isSubmitted = true;
-    if (!this.carteraGlossForm.invalid) {
-      if (!this.selectedOptions.length) {
-        this.dialog = this.dialog.close();
-        this.toastS.danger(null, 'Debe seleccionar un registro');
-      } else {
-        this.loading = true;
+    if (!this.SustainGlossForm.invalid) {
+      this.loading = true;
+      var formData = new FormData();
+      formData.append('single', "0");
+      formData.append('type_response', "1");
+      formData.append('response', this.SustainGlossForm.value.response);
+      formData.append('gloss_conciliations_id', JSON.stringify(this.selectedOptions));
+      formData.append('gloss_id', JSON.stringify(this.gloss_id));
+      formData.append('file', this.SustainGlossForm.controls.file.value);
+      await this.ConciliationResponseS.Save(formData).then(x => {
+        this.toastService.success('', x.data);
         this.dialog.close();
-
-        var formData = new FormData();
-        formData.append('single', "0");
-        formData.append('state_gloss', this.carteraGlossForm.controls.state_gloss.value);
-        formData.append('gloss_id', JSON.stringify(this.gloss_id));
-        formData.append('total_selected', JSON.stringify(this.selectedOptions));
-
-        await this.GlossS.ChangeStatusBriefcase(formData).then(x => {
-          this.toastService.success('', x.data);
-          this.RefreshData();
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
-      }
+        this.RefreshData();
+        if (this.saved) {
+          this.saved();
+        }
+      }).catch(x => {
+        this.isSubmitted = false;
+        this.loading = false;
+      });
     }
-
-
   }
+
 
 
   GetResponseParam() {
@@ -541,30 +509,30 @@ export class GlossListComponent implements OnInit {
     }
   }
 
-  // async changeFile(files, option) {
-  //   this.loading = true;
-  //   if (!files) return false;
-  //   const file = await this.toBase64(files.target.files[0]);
+  async changeFile(files, option) {
+    this.loading = true;
+    if (!files) return false;
+    const file = await this.toBase64(files.target.files[0]);
 
-  //   switch (option) {
-  //     case 2:
-  //       this.ResponseGlossForm.patchValue({
-  //         file: files.target.files[0],
-  //       });
-  //       this.loading = false;
-  //       break;
-  //     case 3:
-  //       this.carteraGlossForm.patchValue({
-  //         file: files.target.files[0],
-  //       });
-  //       break;
-  //   }
-  // }
+    switch (option) {
+      case 2:
+        this.ResponseConciliationsForm.patchValue({
+          file: files.target.files[0],
+        });
+        this.loading = false;
+        break;
+      case 3:
+        this.SustainGlossForm.patchValue({
+          file: files.target.files[0],
+        });
+        break;
+    }
+  }
 
-  // toBase64 = file => new Promise((resolve, reject) => {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onload = () => resolve(reader.result);
-  //   reader.onerror = error => reject(error);
-  // });
+  toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 }

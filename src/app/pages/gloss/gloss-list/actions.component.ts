@@ -15,133 +15,100 @@ import { date } from '@rxweb/reactive-form-validators';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.edit(value.data)">
-        <nb-icon icon="edit-outline"></nb-icon>
-    </button>
-    <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="delete" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.delete(value.data)">
-        <nb-icon icon="trash-2-outline"></nb-icon>
-    </button>
-    <a nbTooltip="Responder" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="ConfirmAction(confirmAction,1)">
-        <nb-icon icon="checkmark-square-outline"></nb-icon>
-    </a>
-    <a nbTooltip="Radicar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==2" nbButton ghost (click)="ConfirmAction(radicationAction,2, value.data.id)">
-        <nb-icon icon="paper-plane-outline"></nb-icon>
-    </a>
-    <a nbTooltip="Ver respuesta" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" *ngIf="value.data.gloss_status_id==3 || value.data.gloss_status_id==5" nbButton ghost (click)="ConfirmAction(detailAction,3)">
-        <nb-icon icon="eye-outline"></nb-icon>
-    </a>
-    <a nbTooltip="Cambiar estado" *ngIf=" this.value.currentRole==4 && value.data.gloss_status_id==3" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read"  nbButton ghost (click)="ConfirmAction(stateCartera)">
+  <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update"
+      *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.edit(value.data)">
+      <nb-icon icon="edit-outline"></nb-icon>
+  </button>
+  <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="delete"
+      *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="value.delete(value.data)">
+      <nb-icon icon="trash-2-outline"></nb-icon>
+  </button>
+  <a nbTooltip="Responder" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read"
+      *ngIf="value.data.gloss_status_id==1" nbButton ghost (click)="ConfirmAction(confirmAction,1)">
+      <nb-icon icon="checkmark-square-outline"></nb-icon>
+  </a>
+  <!-- <a nbTooltip="Radicar" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read"
+      *ngIf="value.data.gloss_status_id==2" nbButton ghost (click)="ConfirmAction(radicationAction,2, value.data.id)">
+      <nb-icon icon="paper-plane-outline"></nb-icon>
+  </a> -->
+  <a nbTooltip="Ver respuesta" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read"
+      *ngIf="value.data.gloss_status_id > 1 " nbButton ghost
+      (click)="ConfirmAction(detailAction,2)">
+      <nb-icon icon="eye-outline"></nb-icon>
+  </a>
+  <a nbTooltip="Cambiar estado" *ngIf="ShowEye"
+      nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="read" nbButton ghost
+      (click)="ConfirmAction(stateCartera)">
       <nb-icon icon="plus-outline"></nb-icon>
-    </a>
-  </div>
-  <ng-template #confirmAction>
-    <div class="container-fluid">
-        <nb-card style="width: 430px;">
-            <nb-card-header>Responder Glosa</nb-card-header>
-            <nb-card-body>
-                <form [formGroup]="ResponseGlossForm" (ngSubmit)="saveGroup()">
-                    <div>
-                        <div class="col-md-12">
-                          <label for="justification_status" class="form-text text-muted font-weight-bold">Motivo de la glosa:</label>
-                              <nb-select fullWidth placeholder="Seleccione..."
-                                formControlName="justification_status">
-                                <nb-option value="">Seleccione...</nb-option>
-                                <nb-option value="0">JUSTIFICADA </nb-option>
-                                <nb-option value="1">INJUSTIFICADA </nb-option>
-                              </nb-select>
-                        </div>
-                      <div class="col-md-12">
-                        <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
-                        <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth id="response" formControlName="response" response
-                        status="{{ isSubmitted && ResponseGlossForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-                      </div>
-                        <div class="col-md-12">
-                            <label for="accepted_value" class="form-text text-muted font-weight-bold">Valor aceptado:</label>
-                            <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth id="accepted_value" formControlName="accepted_value" accepted_value 
-                                status="{{ isSubmitted && ResponseGlossForm.controls.accepted_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-                        </div>
-                        <div class="col-md-12">
-                            <label for="value_not_accepted" class="form-text text-muted font-weight-bold">Valor No aceptado:</label>
-                            <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth id="value_not_accepted" formControlName="value_not_accepted"
-                                value_not_accepted
-                                status="{{ isSubmitted && ResponseGlossForm.controls.value_not_accepted.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-                        </div>
-                        <div class="col-md-12">
-                            <label for="objetion_code_response" class="form-text text-muted font-weight-bold">Descripción Respuesta:</label>
-                            <nb-select fullWidth placeholder="Seleccione..."
-                                formControlName="objetion_code_response_id">
-                                <nb-option value="">Seleccione...</nb-option>
-                                <nb-option *ngFor="let item of objetion_code_response" [value]="item.id">{{ item.code }} - {{ item.name }}
-                                </nb-option>
-                            </nb-select>
-                        </div>
-                        <div class="col-md-12">
-                          <label for="objetion_response" class="form-text text-muted font-weight-bold">Tipo de objeción:</label>
-                            <nb-select fullWidth placeholder="Seleccione..."
-                                formControlName="objetion_response_id">
-                                <nb-option value="">Seleccione...</nb-option>
-                                <nb-option *ngFor="let item of objetion_response" [value]="item.id">{{ item.name }}
-                                </nb-option>
-                            </nb-select>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="observation" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
-                        </div>
-                        <div class="file-select-evicencias" id="src-file1">
-                          <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
-                            (change)="changeFile($event,2)" />
-                        </div>
-                    </div>
-                    <div class="div-send">
-                        <button type="submit" nbButton status="success">Agregar</button>
-                    </div>
-                </form>
-            </nb-card-body>
-        </nb-card>
-    </div>
-  </ng-template>
-  <ng-template #stateCartera>
-    <div class="container-fluid">
-        <nb-card style="width: 430px;">
-            <nb-card-header>Cambiar estado de glosa</nb-card-header>
-            <nb-card-body>
-                <form [formGroup]="carteraGlossForm" (ngSubmit)="saveCartera()">
-                    <div>
-                        <div class="col-md-12">
-                          <nb-select formControlName="state_gloss" id="state_gloss" fullWidth>
-                            <nb-option value="">Seleccione...</nb-option>
-                            <nb-option value="5">Conciliado</nb-option>
-                            <nb-option value="6">En conciliación</nb-option>
-                          </nb-select>
-                        </div>
-             
-                    </div>
-                    <div class="div-send">
-                        <button type="submit" nbButton status="success">Agregar</button>
-                    </div>
-                </form>
-            </nb-card-body>
-        </nb-card>
-    </div>
-  </ng-template>
-  <ng-template #radicationAction>
+  </a>
+</div>
+<ng-template #confirmAction>
   <div class="container-fluid">
       <nb-card style="width: 430px;">
-          <nb-card-header>Radicar Glosa</nb-card-header>
+          <nb-card-header>Responder Glosa</nb-card-header>
           <nb-card-body>
-              <form [formGroup]="RadicationGlossForm" (ngSubmit)="saveRadication()">
+              <form [formGroup]="ResponseGlossForm" (ngSubmit)="saveGroup()">
                   <div>
                       <div class="col-md-12">
-                          <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
-                          <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth id="observation" formControlName="observation" observation
-                              status="{{ isSubmitted && RadicationGlossForm.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                          <label for="justification_status" class="form-text text-muted font-weight-bold">Motivo de la
+                              glosa:</label>
+                          <nb-select fullWidth placeholder="Seleccione..." formControlName="justification_status">
+                              <nb-option value="">Seleccione...</nb-option>
+                              <nb-option value="0">JUSTIFICADA </nb-option>
+                              <nb-option value="1">INJUSTIFICADA </nb-option>
+                          </nb-select>
                       </div>
                       <div class="col-md-12">
-                          <label for="observation" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
+                          <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
+                          <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth
+                              id="response" formControlName="response" response
+                              status="{{ isSubmitted && ResponseGlossForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                       </div>
-                      <div class="file-select-evicencias" id="src-file2">
-                        <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
-                          (change)="changeFile($event,3)" />
+                      <div class="col-md-12">
+                          <label for="accepted_value" class="form-text text-muted font-weight-bold">Valor
+                              aceptado:</label>
+                          <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth
+                              id="accepted_value" formControlName="accepted_value" accepted_value
+                              status="{{ isSubmitted && ResponseGlossForm.controls.accepted_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                      </div>
+                      <div class="col-md-12">
+                          <label for="value_not_accepted" class="form-text text-muted font-weight-bold">Valor No
+                              aceptado:</label>
+                          <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth
+                              id="value_not_accepted" formControlName="value_not_accepted" value_not_accepted
+                              status="{{ isSubmitted && ResponseGlossForm.controls.value_not_accepted.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                      </div>
+                      <div class="col-md-12">
+                          <label for="objetion_code_response"
+                              class="form-text text-muted font-weight-bold">Descripción Respuesta:</label>
+                          <nb-select fullWidth placeholder="Seleccione..."
+                              formControlName="objetion_code_response_id">
+                              <nb-option value="">Seleccione...</nb-option>
+                              <nb-option *ngFor="let item of objetion_code_response" [value]="item.id">{{ item.code }}
+                                  - {{ item.name }}
+                              </nb-option>
+                          </nb-select>
+                      </div>
+                      <div class="col-md-12">
+                          <label for="objetion_response" class="form-text text-muted font-weight-bold">Tipo de
+                              objeción:</label>
+                          <nb-select fullWidth placeholder="Seleccione..." formControlName="objetion_response_id">
+                              <nb-option value="">Seleccione...</nb-option>
+                              <nb-option *ngFor="let item of objetion_response" [value]="item.id">{{ item.name }}
+                              </nb-option>
+                          </nb-select>
+                      </div>
+                      <div class="col-md-12">
+                          <label for="observation" class="form-text text-muted font-weight-bold">Agregar
+                              Evicencias:</label>
+                      </div>
+                      <!-- <div class="file-select-evicencias" id="src-file1">
+                          <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file
+                              fullWidth (change)="changeFile($event,2)" />
+                      </div> -->
+                      <div class="col-md-12">
+                          <input type="text" nbInput fullWidth id="file" formControlName="file" file
+                              status="{{ isSubmitted && ResponseGlossForm.controls.file.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
                       </div>
                   </div>
                   <div class="div-send">
@@ -152,14 +119,67 @@ import { date } from '@rxweb/reactive-form-validators';
       </nb-card>
   </div>
 </ng-template>
-  <ng-template #detailAction>
-    <div class="container-fluid">
+<ng-template #stateCartera>
+  <div class="container-fluid">
+      <nb-card style="width: 430px;" [nbSpinner]="loading">
+          <nb-card-header>Cambiar estado de glosa</nb-card-header>
+          <nb-card-body>
+              <form [formGroup]="carteraGlossForm" (ngSubmit)="saveCartera()">
+                  <div>
+                      <div class="col-md-12">
+                          <nb-select formControlName="state_gloss" id="state_gloss" fullWidth>
+                              <nb-option value="">Seleccione...</nb-option>
+                              <nb-option value="5">Levantada</nb-option>
+                              <nb-option value="6">En conciliación</nb-option>
+                          </nb-select>
+                      </div>
+                  </div>
+                  <div class="div-send">
+                      <button type="submit" nbButton status="success">Agregar</button>
+                  </div>
+              </form>
+          </nb-card-body>
+      </nb-card>
+  </div>
+</ng-template>
+
+<!-- <ng-template #radicationAction>
+<div class="container-fluid">
+    <nb-card style="width: 430px;">
+        <nb-card-header>Radicar Glosa</nb-card-header>
+        <nb-card-body>
+            <form [formGroup]="RadicationGlossForm" (ngSubmit)="saveRadication()">
+                <div>
+                    <div class="col-md-12">
+                        <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
+                        <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth id="observation" formControlName="observation" observation
+                            status="{{ isSubmitted && RadicationGlossForm.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                    </div>
+                    <div class="col-md-12">
+                        <label for="observation" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
+                    </div>
+                    <div class="file-select-evicencias" id="src-file2">
+                      <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
+                        (change)="changeFile($event,3)" />
+                    </div>
+                </div>
+                <div class="div-send">
+                    <button type="submit" nbButton status="success">Agregar</button>
+                </div>
+            </form>
+        </nb-card-body>
+    </nb-card>
+</div>
+</ng-template> -->
+<ng-template #detailAction>
+  <div class="container-fluid">
       <nb-card style="width: 430px;">
           <nb-card-header>Detalles Respuesta Glosa</nb-card-header>
           <nb-card-body>
               <div class="row" *ngIf="gloss_response">
                   <div class="col-md-12">
-                      <label for="observation" class="form-text text-muted font-weight-bold">Fecha de respuesta:</label>
+                      <label for="observation" class="form-text text-muted font-weight-bold">Fecha de
+                          respuesta:</label>
                   </div>
                   <div class="col-md-12">
                       <label></label> {{gloss_response[0].response_date}}
@@ -177,7 +197,8 @@ import { date } from '@rxweb/reactive-form-validators';
                       <label></label> {{currency.transform(gloss_response[0].accepted_value)}}
                   </div>
                   <div class="col-md-12">
-                      <label for="observation" class="form-text text-muted font-weight-bold">Valor no aceptado:</label>
+                      <label for="observation" class="form-text text-muted font-weight-bold">Valor no
+                          aceptado:</label>
                   </div>
                   <div class="col-md-12">
                       <label></label> {{currency.transform(gloss_response[0].value_not_accepted)}}
@@ -195,16 +216,18 @@ import { date } from '@rxweb/reactive-form-validators';
                       <label></label> {{gloss_response[0].objetion_response.name}}
                   </div>
                   <div class="col-md-12" *ngIf="previewFileResponse">
-                      <label for="observation" class="form-text text-muted font-weight-bold">Evidencia de respuesta:</label>
+                      <label for="observation" class="form-text text-muted font-weight-bold">Evidencia de
+                          respuesta:</label>
                   </div>
                   <div *ngIf="previewFileResponse" class="container py-2">
-                    <a [href]="previewFileResponse" target="_blank">Ver documento respuesta</a>
+                      <label></label> {{previewFileResponse}}
                   </div>
                   <div class="col-md-12" *ngIf="previewFileRadication">
-                      <label for="observation" class="form-text text-muted font-weight-bold">Evidencia de radicación:</label>
+                      <label for="observation" class="form-text text-muted font-weight-bold">Evidencia de
+                          radicación:</label>
                   </div>
                   <div *ngIf="previewFileRadication" class="container py-2">
-                    <a [href]="previewFileRadication" target="_blank">Ver documento radicación</a>
+                      <a [href]="previewFileRadication" target="_blank">Ver documento radicación</a>
                   </div>
               </div>
           </nb-card-body>
@@ -232,7 +255,7 @@ export class Actions2Component implements ViewCell {
   public gloss_radication: any[] = null;
   public previewFileResponse = null;
   public previewFileRadication = null;
-  public semaphore: any;
+  public ShowEye: boolean = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -249,6 +272,15 @@ export class Actions2Component implements ViewCell {
   }
 
   async ngOnInit() {
+    if(this.value.currentRole == 4 || this.value.currentRole == 5){
+      if (this.value.data.gloss_status_id == 3 || this.value.data.gloss_status_id==2) {
+        this.carteraGlossForm = this.formBuilder.group({
+          state_gloss: [Validators.compose([Validators.required])],
+        });
+        this.ShowEye = true;
+      }
+    }
+
     if (!this.rowData) {
       this.rowData = {
         response: '',
@@ -275,18 +307,14 @@ export class Actions2Component implements ViewCell {
       });
     }
 
-    if (this.value.data.gloss_status_id == 2) {
-      this.RadicationGlossForm = this.formBuilder.group({
-        observation: [this.rowData.observation, Validators.compose([Validators.required])],
-        file: [this.rowData.file, Validators.compose([Validators.required])],
-      });
-    }
+    // if (this.value.data.gloss_status_id == 2) {
+    //   this.RadicationGlossForm = this.formBuilder.group({
+    //     observation: [this.rowData.observation, Validators.compose([Validators.required])],
+    //     file: [this.rowData.file, Validators.compose([Validators.required])],
+    //   });
+    // }
 
-    if (this.value.data.gloss_status_id == 3) {
-      this.carteraGlossForm = this.formBuilder.group({
-        state_gloss: [Validators.compose([Validators.required])],
-      });
-    }
+    
   }
 
   async getColectionResponse(id) {
@@ -302,21 +330,22 @@ export class Actions2Component implements ViewCell {
     this.dialog = this.dialogService.open(dialog);
     if (status == 1) {
       this.GetResponseParam()
-    } else if (status == 3 && !this.gloss_response) {
+    } else if (status == 2 && !this.gloss_response) {
       this.GlossResponseS.GetCollection({ gloss_id: this.value.data.id }).then(x => {
         this.gloss_response = x;
-        var resId = this.gloss_response[0].id;
-        this.previewFileResponse = environment.storage + this.gloss_response[0].file;
-        this.GlossRadicationS.GetCollection({ gloss_response_id: resId }).then(x => {
-          this.gloss_radication = x;
-          this.previewFileRadication = environment.storage + this.gloss_radication[0].file;
-          this.loading = false;
-        });
+        // var resId = this.gloss_response[0].id;
+        this.previewFileResponse = this.gloss_response[0].file;
+        // this.GlossRadicationS.GetCollection({ gloss_response_id: resId }).then(x => {
+        //   this.gloss_radication = x;
+        //   this.previewFileRadication = environment.storage + this.gloss_radication[0].file;
+        //   this.loading = false;
+        // });
       });
     }
     if (this.value.data.id != null) {
       this.getColectionResponse(this.value.data.id);
     }
+    this.loading = false;
   }
 
   GetResponseParam() {
@@ -358,7 +387,7 @@ export class Actions2Component implements ViewCell {
           var formData = new FormData();
           formData.append('single', "1");
           formData.append('response', this.ResponseGlossForm.value.response);
-          formData.append('file', this.ResponseGlossForm.value.file);
+          formData.append('file', this.ResponseGlossForm.controls.file.value);
           formData.append('id', this.rowData.id);
           formData.append('gloss_id', this.value.data.id);
           formData.append('justification_status', this.ResponseGlossForm.value.justification_status);
@@ -387,6 +416,7 @@ export class Actions2Component implements ViewCell {
             objetion_code_response_id: this.ResponseGlossForm.controls.objetion_code_response_id.value,
             accepted_value: this.ResponseGlossForm.controls.accepted_value.value,
             value_not_accepted: this.ResponseGlossForm.controls.value_not_accepted.value,
+            file: this.ResponseGlossForm.controls.file.value,
           }).then(x => {
             this.toastService.success('', x.message);
             this.value.refresh();
@@ -459,10 +489,10 @@ export class Actions2Component implements ViewCell {
     if (!this.carteraGlossForm.invalid) {
       this.loading = true;
       var formData = new FormData();
+      formData.append('single', "1");
       formData.append('gloss_id', this.value.data.id);
       formData.append('gloss_cartera', "1");
       formData.append('state_gloss', this.carteraGlossForm.controls.state_gloss.value);
-      this.dialog = this.dialog.close();
       this.GlossS.ChangeStatusBriefcase(formData).then(x => {
         this.value.refresh();
         this.toastService.success('', x.message);

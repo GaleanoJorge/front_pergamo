@@ -360,8 +360,8 @@ const routes: Routes = [{
     {
       path: 'roles',
       component: RolesComponent,
-      canActivate: [PermissionsGuard],
-      // data: { permission: 'roles.read'},
+      // canActivate: [PermissionsGuard],
+      // // data: { permission: 'roles.read'},
 
     },
     {
