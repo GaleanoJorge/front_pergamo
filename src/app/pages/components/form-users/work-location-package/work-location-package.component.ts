@@ -86,13 +86,6 @@ export class WorkLocationPackageComponent implements OnInit {
         },
         renderComponent: AmountWorkLocationComponent,
       },
-      measurement_units: {
-        title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.code;
-        },
-      }
     },
   };
 

@@ -473,9 +473,9 @@ export class FormUsersComponent implements OnInit {
         PAD_service: [
           this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_service == 1 ? true : false : false,
         ],
-        PAD_patient_quantity: [
-          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_patient_quantity : false,
-        ],
+        // PAD_patient_quantity: [
+        //   this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_patient_quantity : false,
+        // ],
       }
 
     }
@@ -515,12 +515,12 @@ export class FormUsersComponent implements OnInit {
     return '';
   }
 
-  private patient_quantity() {
-    // console.log(this.form.controls.PAD_service.value);
-    if(this.form.controls.PAD_service.value == true && this.form.controls.PAD_patient_quantity.value == false || this.form.controls.PAD_patient_quantity.value == null ) {
-      this.form.controls.PAD_patient_quantity.setErrors({'incorrect': true});
-    }
-  }
+  // private patient_quantity() {
+  //   // console.log(this.form.controls.PAD_service.value);
+  //   if(this.form.controls.PAD_service.value == true && this.form.controls.PAD_patient_quantity.value == false || this.form.controls.PAD_patient_quantity.value == null ) {
+  //     this.form.controls.PAD_patient_quantity.setErrors({'incorrect': true});
+  //   }
+  // }
 
   private getDescendantProp(obj, desc) {
     const arr = desc.split('.');
@@ -592,7 +592,7 @@ export class FormUsersComponent implements OnInit {
   async SaveStudent() {
     this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' + this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) ';
     if(this.role == 3 || this.role ==7){
-      this.patient_quantity();
+      // this.patient_quantity();
     }
     this.isSubmitted = true;
     // this.UpdateResetPassword(data);
@@ -650,7 +650,7 @@ export class FormUsersComponent implements OnInit {
       if (role == 3 || role == 7) {
         formData.append('assistance_id', this.data==null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
-        formData.append('localities_id', data.localities_id.value);
+        formData.append('localities_id', JSON.stringify(this.parentData.selectedOptions));
         formData.append('contract_type_id', data.contract_type_id.value);
         // formData.append('cost_center_id', data.cost_center_id.value);
         // formData.append('type_professional_id', data.type_professional_id.value);
@@ -658,7 +658,7 @@ export class FormUsersComponent implements OnInit {
         formData.append('serve_multiple_patients', data.serve_multiple_patients.value === true ? '1' : '0');
         formData.append('firm', this.signatureImage);
         formData.append('PAD_service', data.PAD_service.value === true ? '1' : '0');
-        formData.append('PAD_patient_quantity', data.PAD_patient_quantity.value === false ? null : data.PAD_patient_quantity.value);
+        // formData.append('PAD_patient_quantity', data.PAD_patient_quantity.value === false ? null : data.PAD_patient_quantity.value);
       }
 
       if (data.is_judicial_branch) {
