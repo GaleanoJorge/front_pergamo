@@ -8,7 +8,7 @@
         <div class="col-md-12">
           <label for="diet_supplies" class="form-text text-muted font-weight-bold">INSUMO:</label>
           <nb-select [selected]="this.data.diet_supplies_id" formControlName="diet_supplies_id" id="diet_supplies_id"
-            fullWidth
+            fullWidth (selectedChange)="ChangeSupply($event)"
             status="{{ isSubmitted && form.controls.diet_supplies_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.diet_supplies_id }}" *ngFor="let item of diet_supplies"
@@ -29,13 +29,13 @@
         </div>
 
         <div class="col-md-12">
-          <label for="amount" class="form-text text-muted font-weight-bold">CANTIDAD:</label>
-          <input type="number" nbInput fullWidth id="amount" formControlName="amount" amount
+          <label for="amount" class="form-text text-muted font-weight-bold">CANTIDAD DE INSUMO:</label>
+          <input type="number" nbInput fullWidth id="amount" formControlName="amount" amount [placeholder]="unidad_de_medida"
             status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
         <div class="col-md-12">
-          <label for="price" class="form-text text-muted font-weight-bold">PRECIO:</label>
+          <label for="price" class="form-text text-muted font-weight-bold">COSTO TOTAL:</label>
           <input type="number" nbInput fullWidth id="price" formControlName="price" price
             status="{{ isSubmitted && form.controls.price.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>

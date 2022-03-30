@@ -25,6 +25,7 @@ export class FormDietSuppliesInputComponent implements OnInit {
   public diet_supplies: any[];
   public company: any[];
   public campus: any[];
+  public unidad_de_medida = '';
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -114,6 +115,18 @@ export class FormDietSuppliesInputComponent implements OnInit {
         });
       }
 
+    }
+  }
+
+  ChangeSupply(supply) {
+    if (supply != '') {
+      this.diet_supplies.forEach(x => {
+        if (x.id == supply) {
+          this.unidad_de_medida = x.measurement_units.name;
+        }
+      });
+    } else {
+      this.unidad_de_medida = '';
     }
   }
 
