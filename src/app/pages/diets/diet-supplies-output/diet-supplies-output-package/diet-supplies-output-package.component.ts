@@ -135,7 +135,6 @@ export class DietSuppliesOutputPackageComponent implements OnInit {
 
     this.entity = this.parentData.entity;
     this.customData = this.parentData.customData;
-    this.RefreshData();
 
     this.routes = [
       {
