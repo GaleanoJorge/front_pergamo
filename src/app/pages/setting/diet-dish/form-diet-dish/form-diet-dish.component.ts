@@ -107,24 +107,22 @@ export class FormDietDishComponent implements OnInit {
             if (this.saved) {
               this.saved();
             }
-            else {
-              this.dietDishStockS.Update({
-                diet_dish_id: id,
-                diet_supplies_id: JSON.stringify(this.selectedOptions),
-                amount: 10,
-              }, id).then(x => {
-              }).catch(x => {
-                err++;
-              });
-              contador++;
+            this.dietDishStockS.Update({
+              diet_dish_id: id,
+              diet_supplies_id: JSON.stringify(this.selectedOptions),
+              amount: 10,
+            }, id).then(x => {
+            }).catch(x => {
+              err++;
+            });
+            contador++;
 
-              if (contador > 0) {
-                this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
-              } else if (err > 0) {
-                this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
-              }
-              this.selectedOptions = [];
+            if (contador > 0) {
+              this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
+            } else if (err > 0) {
+              this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
             }
+            this.selectedOptions = [];
             if (this.saved) {
               this.saved();
             }
