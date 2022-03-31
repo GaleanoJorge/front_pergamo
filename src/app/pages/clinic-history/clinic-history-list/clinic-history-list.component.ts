@@ -33,6 +33,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public bed;
   public bed_id;
   public pavilion; 
+  public record_id;
   
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -179,7 +180,7 @@ export class ClinicHistoryListComponent implements OnInit {
 
   ngOnInit(): void {
     this.user_id = this.route.snapshot.params.user_id;
-
+    this.record_id = this.route.snapshot.params.id;
 
     this.UserBS.GetUserById(this.user_id).then(x => {
       var user = x;
