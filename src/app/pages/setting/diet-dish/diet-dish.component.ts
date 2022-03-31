@@ -5,7 +5,7 @@ import { FormDietDishComponent } from './form-diet-dish/form-diet-dish.component
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { DietDishStockService } from '../../../business-controller/diet-dish-stock.service';
-import { ActionsDishComponent } from './actions.component';
+import { ActionsDishComponent } from './actions-dish.component';
 
 @Component({
   selector: 'ngx-diet-dish',
