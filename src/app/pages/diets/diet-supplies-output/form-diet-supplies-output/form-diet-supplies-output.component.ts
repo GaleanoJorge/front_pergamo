@@ -114,26 +114,21 @@ export class FormDietSuppliesOutputComponent implements OnInit {
             var id = x.data.diet_supplies_output.id;
             var contador = 0;
             var err = 0;
-            if (this.saved) {
-              this.saved();
+            this.dietSuppliesOutputMenuS.Update({
+              diet_supplies_output_id: id,
+              amount: 5,
+              diet_menu_id: JSON.stringify(this.selectedOptions),
+            }, id).then(x => {
+            }).catch(x => {
+              err++;
+            });
+            contador++;
+            if (contador > 0) {
+              this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
+            } else if (err > 0) {
+              this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
             }
-            else {
-              this.dietSuppliesOutputMenuS.Update({
-                diet_supplies_output_id: id,
-                amount: 5,
-                diet_menu_id: JSON.stringify(this.selectedOptions),
-              }, id).then(x => {
-              }).catch(x => {
-                err++;
-              });
-              contador++;
-              if (contador > 0) {
-                this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
-              } else if (err > 0) {
-                this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
-              }
-              this.selectedOptions = [];
-            }
+            this.selectedOptions = [];
             if (this.saved) {
               this.saved();
             }
