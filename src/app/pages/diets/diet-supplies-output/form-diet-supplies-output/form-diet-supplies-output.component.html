@@ -19,11 +19,11 @@
                 {{ item.name }}</nb-option>
             </nb-select>
           </div>
-          <div style="margin-top: 10px;">
-            <ngx-diet-supplies-output-package (messageEvent)="receiveMessage($event)" [show]="showMenus"
-              [parentData]="diet_supplies_output_menu"></ngx-diet-supplies-output-package>
-          </div>
+          
+        <div style="margin-top: 10px;">
+          <ngx-diet-supplies-output-package (messageEvent)="receiveMessage($event)" [show]="showMenus" [parentData]="parentData"></ngx-diet-supplies-output-package>
         </div>
+      </div>
 
 
       </nb-card-body>

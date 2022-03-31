@@ -27,6 +27,7 @@ export class FormDietSuppliesOutputComponent implements OnInit {
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
   public campus: any[];
+  public parentData;
 
   public showMenus = false;
 
@@ -42,20 +43,28 @@ export class FormDietSuppliesOutputComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.parentData = {
+      selectedOptions: [],
+      entity: '',
+      customData: '',
+      };
     if (!this.data) {
       this.data = {
-        company_id: '',
+        id: '',
+        campus_id: '',
       };
+      this.parentData.entity = 'diet_menu';
+      this.parentData.customData = 'diet_menu';
+    } else {
+      this.parentData.entity = 'diet_supplies_output_menu?diet_supplies_output_id=' + this.data.id;
+      this.parentData.customData = 'diet_supplies_output_menu';
     }
     if (this.show) {
       this.showMenus = true;
     }
 
     this.dietSuppliesOutputMenuS.GetCollection({ diet_supplies_output_id: this.data.id }).then(x => {
-      this.diet_supplies_output_menu = x;
-      x.forEach(element => {
-        this.selectedOptions2.push(element.diet_menu_id);
-      });
+      this.parentData.selectedOptions = x;
     });
 
     this.campusS.GetCollection().then(x => {
@@ -63,7 +72,7 @@ export class FormDietSuppliesOutputComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      campus_id: [this.data.company_id, Validators.compose([Validators.required])],
+      campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
     });
   }
 
@@ -80,90 +89,98 @@ export class FormDietSuppliesOutputComponent implements OnInit {
     this.isSubmitted = true;
 
     if (!this.form.invalid) {
-      this.loading = true;
-
-      if (this.data.id) {
-        this.DietSuppliesOutput.Update({
-          id: this.data.id,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          var id = x.data.diet_supplies_output.id;
-          var contador = 0;
-          var err = 0;
-          if (this.saved) {
-            this.saved();
-          }
-          if (!this.selectedOptions.length) {
-            this.toastS.danger(null, 'Debe seleccionar al menos un menú');
-          }
-          else {
-            this.dietSuppliesOutputMenuS.Update({
-              diet_supplies_output_id: id,
-              amount: 5,
-              diet_menu_id: JSON.stringify(this.selectedOptions),
-            }, id).then(x => {
-            }).catch(x => {
-              err++;
-            });
-            contador++;
-            if (contador > 0) {
-              this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
-            } else if (err > 0) {
-              this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
-            }
-            this.selectedOptions = [];
-          }
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
+      var valid_values = true;
+      if (!this.selectedOptions || this.selectedOptions.length == 0) {
+        valid_values = false;
+        this.toastS.danger('Debe seleccionar al menos un menú', 'Error');
       } else {
-
-        this.DietSuppliesOutput.Save({
-          campus_id: this.form.controls.campus_id.value,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          var id = x.data.diet_supplies_output.id;
-          var contador = 0;
-          var err = 0;
-          if (this.saved) {
-            this.saved();
+        this.selectedOptions.forEach(element => {
+          if (element.amount == null || element.amount <= 0) {
+            valid_values = false;
           }
-          if (!this.selectedOptions.length) {
-            this.toastS.danger(null, 'Debe seleccionar al menos un menú');
-          }
-          else {
-            this.dietSuppliesOutputMenuS.Save({
-              diet_supplies_output_id: id,
-              amount: this.form.controls.campus_id.value,
-              diet_menu_id: JSON.stringify(this.selectedOptions),
-            }).then(x => {
-            }).catch(x => {
-              err++;
-            });
-            contador++;
-
-            if (contador > 0) {
-              this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
-            } else if (err > 0) {
-              this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
-            }
-            this.selectedOptions = [];
-          }
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
         });
+        if (!valid_values) {
+          this.toastS.danger('Debe ingresar una cantidad valida', 'Error');
+        }
       }
+      if (valid_values) {
+        this.loading = true;
+        if (this.data.id) {
+          this.DietSuppliesOutput.Update({
+            id: this.data.id,
+          }).then(x => {
+            this.toastService.success('', x.message);
+            this.close();
+            var id = x.data.diet_supplies_output.id;
+            var contador = 0;
+            var err = 0;
+            if (this.saved) {
+              this.saved();
+            }
+            else {
+              this.dietSuppliesOutputMenuS.Update({
+                diet_supplies_output_id: id,
+                amount: 5,
+                diet_menu_id: JSON.stringify(this.selectedOptions),
+              }, id).then(x => {
+              }).catch(x => {
+                err++;
+              });
+              contador++;
+              if (contador > 0) {
+                this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
+              } else if (err > 0) {
+                this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
+              }
+              this.selectedOptions = [];
+            }
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        } else {
 
+          this.DietSuppliesOutput.Save({
+            campus_id: this.form.controls.campus_id.value,
+          }).then(x => {
+            this.toastService.success('', x.message);
+            this.close();
+            var id = x.data.diet_supplies_output.id;
+            var contador = 0;
+            var err = 0;
+            if (this.saved) {
+              this.saved();
+            }
+            else {
+              this.dietSuppliesOutputMenuS.Save({
+                diet_supplies_output_id: id,
+                amount: this.form.controls.campus_id.value,
+                diet_menu_id: JSON.stringify(this.selectedOptions),
+              }).then(x => {
+              }).catch(x => {
+                err++;
+              });
+              contador++;
+
+              if (contador > 0) {
+                this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
+              } else if (err > 0) {
+                this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
+              }
+              this.selectedOptions = [];
+            }
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        }
+      }
     }
   }
 
