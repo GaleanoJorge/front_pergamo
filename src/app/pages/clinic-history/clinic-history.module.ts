@@ -45,6 +45,9 @@ import { Actions3Component } from './physical-exam/actions.component';
 import { FormSystemExamComponent } from './system-exam/form-system-exam/form-system-exam.component';
 import { Actions7Component } from './system-exam/actions.component';
 import { PadModule } from '../pad/pad.module';
+import { FormBackgroundComponent } from './background/form-background/form-background.component';
+import { BackgroundComponent } from './background/background.component';
+import { Actions8Component } from './background/actions.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -99,8 +102,12 @@ import { PadModule } from '../pad/pad.module';
     Actions7Component,
 
 
+    FormBackgroundComponent,
+    BackgroundComponent,
+    Actions8Component,
 
   ],
+
   providers: [
     DateFormatPipe,
   ],
