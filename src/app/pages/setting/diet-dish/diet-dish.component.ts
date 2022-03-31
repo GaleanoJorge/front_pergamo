@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DietDishService } from '../../../business-controller/diet-dish.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { FormDietDishComponent } from './form-diet-dish/form-diet-dish.component';
-import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { DietDishStockService } from '../../../business-controller/diet-dish-stock.service';
+import { ActionsDishComponent } from './actions.component';
 
 @Component({
   selector: 'ngx-diet-dish',
@@ -38,10 +38,11 @@ export class DietDishComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditDietDish.bind(this),
+            'view': this.ViewDietDish.bind(this),
             'delete': this.DeleteConfirmDietDish.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionsDishComponent,
       },
       id: {
         title: this.headerFields[0],
@@ -88,9 +89,21 @@ export class DietDishComponent implements OnInit {
   }
 
   EditDietDish(data) {
+    data.view = false;
     this.dialogFormService.open(FormDietDishComponent, {
       context: {
         title: 'Editar plato',
+        data,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
+  ViewDietDish(data) {
+    data.view = true;
+    this.dialogFormService.open(FormDietDishComponent, {
+      context: {
+        title: 'Ver Insumos',
         data,
         saved: this.RefreshData.bind(this),
       },
