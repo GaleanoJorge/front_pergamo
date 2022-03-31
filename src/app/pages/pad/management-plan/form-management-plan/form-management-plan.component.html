@@ -4,7 +4,7 @@
     <nb-card-body>
       <div class="row">
 
-        <div class="col-12 col-sm-12 col-md-4">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false">
           <label for="type_of_attention" class="form-text text-muted font-weight-bold">Tipo de Atención:</label>
           <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id" id="type_of_attention_id"
             fullWidth
@@ -28,7 +28,7 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false">
           <label for="frequency" class="form-text text-muted font-weight-bold">Frecuencia:</label>
           <nb-select [selected]="this.data.frequency_id" formControlName="frequency_id" id="frequency_id"
             fullWidth
@@ -40,13 +40,13 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false">
           <label for="quantity" class="form-text text-muted font-weight-bold">Cantidad proyectada:</label>
           <input nbInput fullWidth id="quantity" formControlName="quantity" quantity
             status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4">
+        <div class="assigned ? col-12 col-sm-12 col-md-4: col-12 col-sm-12 col-md-12" *ngIf="medical==false">
           <label for="assigned_user_id" class="form-text text-muted font-weight-bold">Personal asistencial:</label>
           <nb-select [selected]="this.data.assigned_user_id" formControlName="assigned_user_id" id="assigned_user_id"
             fullWidth

@@ -7,8 +7,8 @@
 </div>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
-    <ngx-base-table [title]="title" customData="ch_diagnosis" [settings]="settings"
-      entity="ch_diagnosis/by_record/{{record_id}}/1">
+    <ngx-base-table pager="false" [title]="title" customData="ch_diagnosis" [settings]="settings"
+      entity="ch_diagnosis/by_record/{{record_id}}/1?pagination=false">
       <div actions>
         <div class="actions">
         </div>

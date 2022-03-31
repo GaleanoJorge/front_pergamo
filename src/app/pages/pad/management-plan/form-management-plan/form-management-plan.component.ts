@@ -18,6 +18,8 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user: any = null;
+  @Input() medical: boolean;
+  @Input() assigned: boolean;
   @Input() admissions_id: any = null;
 
   public form: FormGroup;
@@ -66,21 +68,45 @@ export class FormManagementPlanComponent implements OnInit {
     }).then(x => {
       this.special_field = x;
     });
-
+if(this.medical==false){
+  this.form = this.formBuilder.group({
+    type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
+    frequency_id: [this.data.frequency_id, Validators.compose([Validators.required])],
+    quantity: [this.data.quantity, Validators.compose([Validators.required])],
+    special_field_id: [this.data.special_field_id],
+    assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
+  });
+}else{
+  this.form = this.formBuilder.group({
+    type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
+    frequency_id: [this.data.frequency_id, Validators.compose([Validators.required])],
+    quantity: [this.data.quantity, Validators.compose([Validators.required])],
+    special_field_id: [this.data.special_field_id],
+    assigned_user_id: [this.data.assigned_user_id],
+    
+  });
+  this.onChanges();
+}
    
+ if(this.assigned==true){
+  this.onChanges();
+ }
+else{
+if (this.data.type_of_attention_id === '') {
+  this.assigned_user = [];
+} else if(this.data.type_of_attention_id==1){
+  this.GetMedical(this.data.type_of_attention_id,this.user.locality_id).then();
+} else if(this.data.type_of_attention_id==2){
+  this.GetSpeciality(this.data.type_of_attention_id,this.user.locality_id).then();
+}
+}
+  
 
-    this.form = this.formBuilder.group({
-      type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
-      frequency_id: [this.data.frequency_id, Validators.compose([Validators.required])],
-      quantity: [this.data.quantity, Validators.compose([Validators.required])],
-      special_field_id: [this.data.special_field_id],
-      assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
-    });
-this.onChanges();
 
   }
 
   onChanges() {
+
     this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
       // console.log(val);
       if (val === '') {
@@ -91,6 +117,7 @@ this.onChanges();
         this.GetSpeciality(val,this.user.locality_id).then();
       }
     });
+
 
   }
 

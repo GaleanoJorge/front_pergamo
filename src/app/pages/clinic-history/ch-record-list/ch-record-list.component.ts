@@ -29,7 +29,7 @@ export class ChRecordListComponent implements OnInit {
   public admissions_id;
   public saved: any = null;
   public user;
-  public user_id;
+  public assigned_management_plan;
   public disabled: boolean = false;
 
   
@@ -104,11 +104,11 @@ export class ChRecordListComponent implements OnInit {
   async ngOnInit() {
  
     this.admissions_id = this.route.snapshot.params.id;
-    this.user_id = this.route.snapshot.params.user;
+    this.assigned_management_plan = this.route.snapshot.params.id2;
 
-    await this.userBS.GetUserById(this.user_id).then(x => {
-      this.user=x;
-    });
+    // await this.userBS.GetUserById(this.user_id).then(x => {
+    //   this.user=x;
+    // });
  
 
   }
@@ -121,6 +121,7 @@ export class ChRecordListComponent implements OnInit {
     this.chRecordS.Save({
       status: 'ACTIVO',
       admissions_id: this.admissions_id,
+      assigned_management_plan: this.assigned_management_plan,
     }).then(x => {
       this.toastService.success('', x.message);
       this.RefreshData();

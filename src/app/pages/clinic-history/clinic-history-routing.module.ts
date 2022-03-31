@@ -16,7 +16,7 @@ const routes: Routes = [{
       component: ClinicHistoryListComponent,
     },
     {
-      path: 'ch-record-list/:id',
+      path: 'ch-record-list/:id/:id2',
       component: ChRecordListComponent,
     },
     {

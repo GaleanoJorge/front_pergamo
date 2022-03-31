@@ -34,17 +34,23 @@ import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic
 import { FormDiagnosticComponent } from './diagnostic/form-diagnostic/form-diagnostic.component';
 import { Actions2Component } from './diagnostic/actions.component';
 import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
+
+import { SystemExamComponent } from './system-exam/system-exam.component';
+
+import { OrdersMedicalComponent } from './medical-orders/orders-medical.component';
+import { FormOrdersMedicalComponent } from './medical-orders/form-orders-medical/form-orders-medical.component';
 import { FormPhysicalExamComponent } from './physical-exam/form-physical-exam/form-physical-exam.component';
 import { PhysicalExamComponent } from './physical-exam/physical-exam.component';
 import { Actions3Component } from './physical-exam/actions.component';
 import { FormSystemExamComponent } from './system-exam/form-system-exam/form-system-exam.component';
-import { SystemExamComponent } from './system-exam/system-exam.component';
 import { Actions7Component } from './system-exam/actions.component';
+import { PadModule } from '../pad/pad.module';
 @NgModule({
   imports: [
     FormsModule,
     ReactiveFormsModule,
     ThemeModule,
+    PadModule,
     NbTabsetModule,
     NbRouteTabsetModule,
     NbStepperModule,
@@ -80,15 +86,14 @@ import { Actions7Component } from './system-exam/actions.component';
     Actions4Component,
     Actions5Component,
     Actions6Component,
-
+    OrdersMedicalComponent,
     FormDiagnosticComponent,
     DiagnosticListComponent,
     Actions2Component,
-
     FormPhysicalExamComponent,
     PhysicalExamComponent,
     Actions3Component,
-
+    FormOrdersMedicalComponent,
     FormSystemExamComponent,
     SystemExamComponent,
     Actions7Component,

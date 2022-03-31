@@ -2,7 +2,7 @@
   <div content>
 
     <ngx-base-table [title]="title" [subtitle]="subtitle" customData="ch_record" [settings]="settings"
-      entity="ch_record/byadmission/{{admissions_id}}" [messageToltip]="messageToltip">
+      entity="ch_record/byadmission/{{admissions_id}}/{{assigned_management_plan}}" [messageToltip]="messageToltip">
       <div title *ngIf="user">
         <p class="parrafo" >CÉDULA: {{user.identification}} </p>
         <p class="parrafo">NOMBRE:  {{user.nombre_completo}}</p>

@@ -24,9 +24,7 @@ export class FormDiagnosticComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public selectedOptions2: any[] = [];
   public diagnosis_id;
-  public selectedOptions: any[] = [];
   public diagnosis: any[];
   public diagnosis_type: any[];
   public diagnosis_class: any[];
@@ -34,9 +32,9 @@ export class FormDiagnosticComponent implements OnInit {
 
   constructor(
     private toastService: NbToastrService,
+    private formBuilder: FormBuilder,
     private chDiagnosisS: ChDiagnosisService,
     private diagnosisS: DiagnosisService,
-    private formBuilder: FormBuilder,
     private diagnosisTypeS: ChDiagnosisTypeService,
     private diagnosisClassS: ChDiagnosisClassService,
   ) {

@@ -21,7 +21,7 @@ export class DiagnosticListComponent implements OnInit {
   public chreasonconsultation: any[];
   public chvitsigns: any[];
   public nameForm: String;
-  public headerFields: any[] = ['Código', 'Nombre', 'Clase', 'Tipo', 'Observación'];
+  public headerFields: any[] = ['Diagnostico', 'Clase', 'Tipo', 'Observación'];
   public movieForm: String;
 
   public isSubmitted: boolean = false;
@@ -36,23 +36,32 @@ export class DiagnosticListComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-        diagnosis_id: {
-          title: this.headerFields[0],
-          width: 'string',
+      diagnosis: {
+        title: this.headerFields[0],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
         },
-        ch_diagnosis_class_id: {
-          title: this.headerFields[1],
-          width: 'string',
+      },
+      ch_diagnosis_class: {
+        title: this.headerFields[1],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
         },
-        ch_diagnosis_type_id: {
-          title: this.headerFields[2],
-          width: 'string',
+      },
+      ch_diagnosis_type: {
+        title: this.headerFields[2],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
         },
-        diagnosis_observation: {
-          title: this.headerFields[3],
-          width: 'string',
-        }
-     },
+      },
+      diagnosis_observation: {
+        title: this.headerFields[3],
+        width: 'string',
+      }
+    },
   };
 
 
