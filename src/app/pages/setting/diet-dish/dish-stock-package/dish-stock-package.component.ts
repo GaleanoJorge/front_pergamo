@@ -62,7 +62,7 @@ export class DishStockPackageComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           if (!this.done) {
-            this.selectedOptions = this.parentData.parentData;
+            this.selectedOptions = this.parentData.selectedOptions;
             this.emit = this.parentData;
             this.parentData.selectedOptions.forEach(x => {
               this.selectedOptions2.push(x.diet_supplies_id);
@@ -161,7 +161,6 @@ export class DishStockPackageComponent implements OnInit {
 
     this.entity = this.parentData.entity;
     this.customData = this.parentData.customData;
-    this.RefreshData();
 
     this.routes = [
       {
