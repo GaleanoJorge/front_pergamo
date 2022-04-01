@@ -126,10 +126,11 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.dialogRef.close();
   }
   async save() {
-
-    this.isSubmitted = true;
+    
     this.showTable = false;
+
     if (!this.form.invalid) {
+      this.isSubmitted = true;
       this.loading = true;
 
       if (this.data.id) {
@@ -199,6 +200,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
         this.saveFromAdmission = null;
       }
 
+    } else {
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
   async ShowDiagnostic(e) {
@@ -342,9 +345,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
     });
   }
 
-  GetBriefcase(briefcase_id) {
-    if (!briefcase_id || briefcase_id === '') return Promise.resolve(false);
-    return this.BriefcaseS.GetBriefcaseByContract(briefcase_id).then(x => {
+  GetBriefcase(contract_id) {
+    if (!contract_id || contract_id === '') return Promise.resolve(false);
+    return this.BriefcaseS.GetBriefcaseByContract(contract_id).then(x => {
       this.briefcase = x;
 
       return Promise.resolve(true);

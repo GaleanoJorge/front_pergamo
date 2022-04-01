@@ -15,7 +15,7 @@ import { ObjetionResponseService } from '../../../../business-controller/objetio
 })
 export class FormPadComplementaryComponent implements OnInit {
   @Input() title: string;
-  @Input() data:any;
+  @Input() data: any;
   @Input() admissions_id: any;
 
   // @Input() diagnosis: any;
@@ -253,9 +253,10 @@ export class FormPadComplementaryComponent implements OnInit {
   }
 
   save() {
-    this.isSubmitted = true;
+
     if (!this.form.invalid) {
       this.loading = true;
+      this.isSubmitted = true;
       if (!this.data.id) {
         this.pacMonitoringService.Save({
           admissions_id: this.admissions_id,
@@ -319,6 +320,8 @@ export class FormPadComplementaryComponent implements OnInit {
           this.loading = false;
         });
       }
+    } else {
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 
