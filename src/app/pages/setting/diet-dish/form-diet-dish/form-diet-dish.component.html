@@ -11,7 +11,8 @@
       </div>
 
       <div style="margin-top: 10px;">
-        <ngx-dish-stock-package (messageEvent)="receiveMessage($event)" [parentData]="selectedOptions"></ngx-dish-stock-package>
+        <ngx-dish-stock-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
+        </ngx-dish-stock-package>
       </div>
 
     </nb-card-body>

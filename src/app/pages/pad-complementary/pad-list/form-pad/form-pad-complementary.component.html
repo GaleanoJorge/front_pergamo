@@ -34,6 +34,18 @@
           <p class="text-muted subtitle" style="text-align: center;">Gestión y seguimiento del
             servicio</p>
         </div>
+        <div class="col-4">
+          <label for="type_plan" class="form-text text-muted font-weight-bold">Tipo de plan:</label>
+          <nb-select [selected]="this.data.type_plan" formControlName="type_plan" id="type_plan"
+            fullWidth
+            status="{{ isSubmitted && form.controls.type_plan.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option hidden selected>Seleccione...</nb-option>
+            <nb-option value="PREMIUM">PREMIUM</nb-option>
+            <nb-option value="COLSANITAS">COLSANITAS</nb-option>
+            <nb-option value="PAC/S.TOTAL ">PAC/S.TOTAL</nb-option>
+            <nb-option value="OTROS">OTROS</nb-option>
+          </nb-select>
+        </div>
       </div>
       <div class="row" style="margin-top: 12px;">
         <div class="col-md-3">

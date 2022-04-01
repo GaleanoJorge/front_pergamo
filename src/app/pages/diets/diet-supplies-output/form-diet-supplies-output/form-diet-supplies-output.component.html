@@ -1,36 +1,29 @@
-<div style="max-width: 600px">
-  <form [formGroup]="form" (ngSubmit)="save()">
-    <nb-card size="margin: 10px;max-width: 1400px;max-height: 400px;">
-      <nb-card-header>{{ title }}</nb-card-header>
-      <nb-card-body>
-        <div class="row">
-          <!-- <div class="col-md-12">
-          <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div> -->
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="medium" style="max-width: 600px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
 
-          <div class="col-md-12">
-            <label for="campus" class="form-text text-muted font-weight-bold">SEDE:</label>
-            <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
-              status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus" [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
-          </div>
-          <div style="margin-top: 10px;">
-            <ngx-diet-supplies-output-package (messageEvent)="receiveMessage($event)" [show]="showMenus"
-              [parentData]="diet_supplies_output_menu"></ngx-diet-supplies-output-package>
-          </div>
+        <div class="col-md-12">
+          <label for="campus" class="form-text text-muted font-weight-bold">SEDE:</label>
+          <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
         </div>
+        <div style="margin-top: 10px;">
+          <ngx-diet-supplies-output-package (messageEvent)="receiveMessage($event)" [show]="showMenus"
+            [parentData]="parentData"></ngx-diet-supplies-output-package>
+        </div>
+      </div>
 
 
-      </nb-card-body>
-      <nb-card-footer class="d-flex justify-content-end">
-        <button nbButton (click)="close()" type="button">Cancelar</button>
-        <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
-      </nb-card-footer>
-    </nb-card>
-  </form>
-</div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

@@ -39,6 +39,8 @@ export class DishStockPackageComponent implements OnInit {
   public selectedRows: any;
   public inscriptionId;
   public campus;
+  public entity;
+  public customData;
 
   public manual_price: any[] = [];
   public package: any[] = [];
@@ -48,10 +50,10 @@ export class DishStockPackageComponent implements OnInit {
   public units: any[] = [];
   public filter2;
   public done = false;
+  public settings;
 
 
-
-  public settings = {
+  public settings_supplies = {
     //selectMode: 'multi',
 
     columns: {
@@ -60,9 +62,9 @@ export class DishStockPackageComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           if (!this.done) {
-            this.selectedOptions = this.parentData;
+            this.selectedOptions = this.parentData.selectedOptions;
             this.emit = this.parentData;
-            this.selectedOptions.forEach(x => {
+            this.parentData.selectedOptions.forEach(x => {
               this.selectedOptions2.push(x.diet_supplies_id);
             });
             this.done = true;
@@ -84,7 +86,7 @@ export class DishStockPackageComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
-          this.selectedOptions.forEach(x => {
+          this.parentData.selectedOptions.forEach(x => {
             if (x.diet_supplies_id == row.id) {
               amo = x.amount;
             }
@@ -108,6 +110,32 @@ export class DishStockPackageComponent implements OnInit {
     },
   };
 
+  public settings_stock = {
+    columns: {
+      name: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.diet_supplies.name;
+        },
+      },
+      amount: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.amount;
+        },
+      },
+      units: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.diet_supplies.measurement_units.code;
+        },
+      },
+    },
+  };
+
   constructor(
     private route: ActivatedRoute,
     private dietComponentS: DietComponentService,
@@ -122,9 +150,17 @@ export class DishStockPackageComponent implements OnInit {
   ngOnInit(): void {
     this.component_package_id = this.route.snapshot.params.id;
     
-    this.selectedOptions = this.parentData;
+    this.selectedOptions = this.parentData.parentData;
     //   this.selectedOptions = this.parentData.id;
     //  this.selectedOptions2 = this.parentData.amount;
+    if (this.parentData.customData == 'diet_dish_stock') {
+      this.settings = this.settings_stock;
+    } else {
+      this.settings = this.settings_supplies;
+    }
+
+    this.entity = this.parentData.entity;
+    this.customData = this.parentData.customData;
 
     this.routes = [
       {
