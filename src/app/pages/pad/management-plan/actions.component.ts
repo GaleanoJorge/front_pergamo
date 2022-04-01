@@ -18,7 +18,7 @@ import { date } from '@rxweb/reactive-form-validators';
   <a nbTooltip="Ejecución plan de manejo"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/assigned-management-plan/' + value.data.id+'/'+value.user.id">
   <nb-icon icon="menu-outline"></nb-icon>
 </a>
-<a nbTooltip="Asignación de personal"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.assignedUser(value.data)">
+<a *ngIf="value.data.assigned_user_id==null" nbTooltip="Asignación de personal"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.assignedUser(value.data)">
 <nb-icon icon="person-add-outline"></nb-icon>
 </a>
   </div>

@@ -115,6 +115,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
   public saved: any = null;
+  public user_logged;
   
 
 
@@ -123,6 +124,12 @@ export class AssignedManagementPlanComponent implements OnInit {
   async ngOnInit() {
  
     this.management_id = this.route.snapshot.params.management_id;
+    if(this.authService.GetRole()==3){
+      this.user_logged= this.authService.GetUser().id;
+    }else{
+      this.user_logged=0;
+    }
+    
     this.user_id = this.route.snapshot.params.user;
 
     await this.userBS.GetUserById(this.user_id).then(x => {

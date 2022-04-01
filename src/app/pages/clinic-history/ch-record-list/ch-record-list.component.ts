@@ -22,7 +22,7 @@ export class ChRecordListComponent implements OnInit {
   public messageError: string = null;
   public title = "Registo Historia Clinica";
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de registro', 'Personal Asistencial', 'Estado'];
+  public headerFields: any[] = ['Fecha de registro', 'Personal Asistencial','Fecha de atención', 'Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public routes = [];
   public data = [];
@@ -31,6 +31,7 @@ export class ChRecordListComponent implements OnInit {
   public user;
   public assigned_management_plan;
   public disabled: boolean = false;
+  public showButtom:boolean=true;
 
   
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -48,9 +49,13 @@ export class ChRecordListComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          if(row.status=='ACTIVO' || row.status==null){
+            this.showButtom=false;
+          }
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'assigned':this.assigned_management_plan,
             'user': this.user,
             'refresh': this.RefreshData.bind(this),
           };
@@ -67,8 +72,12 @@ export class ChRecordListComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
       },
-      status: {
+      date_finish: {
         title: this.headerFields[2],
+        width: 'string',
+      },
+      status: {
+        title: this.headerFields[3],
         width: 'string',
       },
     },
