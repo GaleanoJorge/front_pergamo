@@ -75,8 +75,6 @@ const routes: Routes = [{
       path: 'pad-complementary',
       loadChildren: () => import('./pad-complementary/pad-complementary.module')
         .then(m => m.PadComplementaryModule),
-        canActivate: [PermissionsGuard],
-      data: { permission: 'gloss.read' }
     },
     {
       path: '',
