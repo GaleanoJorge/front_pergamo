@@ -12,6 +12,7 @@ import { AuthService } from '../../../services/auth.service';
 import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
+import { PatientService } from '../../../business-controller/patient.service';
 
 @Component({
   selector: 'ngx-assigned-management-plan',
@@ -89,6 +90,9 @@ export class AssignedManagementPlanComponent implements OnInit {
     {
       name: 'Plan de manejo',
     },
+    {
+      name: 'Ejecución de plan de manejo',
+    },
   ];
 
   constructor(
@@ -99,6 +103,7 @@ export class AssignedManagementPlanComponent implements OnInit {
     private toastService: NbToastrService,
 
     private currency: CurrencyPipe,
+    private patientBS: PatientService,
     private userBS: UserBusinessService,
 
     private authService: AuthService,
@@ -125,7 +130,7 @@ export class AssignedManagementPlanComponent implements OnInit {
     this.management_id = this.route.snapshot.params.management_id;
     this.user_id = this.route.snapshot.params.user;
 
-    await this.userBS.GetUserById(this.user_id).then(x => {
+    await this.patientBS.GetUserById(this.user_id).then(x => {
       this.user=x;
     });
   }

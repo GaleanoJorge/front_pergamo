@@ -43,6 +43,8 @@ import { Item } from '../../../models/item';
 import { InabilityService } from '../../../business-controller/inability.service';
 import { date } from '@rxweb/reactive-form-validators';
 import {LocationCapacityService} from '../../../business-controller/location-capacity.service';
+import { PatientService } from '../../../business-controller/patient.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
 
@@ -139,6 +141,7 @@ export class FormUsersComponent implements OnInit {
     private entityBS: EntityBusinessService,
     private positionBS: PositionService,
     private userBS: UserBusinessService,
+    private patientBS: PatientService,
     private router: Router,
     private toastService: NbToastrService,
     private academicLevelBS: AcademicLevelBusinessService,
@@ -152,6 +155,8 @@ export class FormUsersComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: NbDialogService,
     private locationCapacityS: LocationCapacityService,
+    public datePipe: DateFormatPipe,
+
   ) {
   }
 
@@ -173,7 +178,7 @@ export class FormUsersComponent implements OnInit {
     } else {
       this.image = "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg";
     }
-    if(this.data && this.data.assistance.length>0){
+    if(this.data && this.data.assistance){
     this.currentImg = environment.storage + this.data.assistance[0].firm;  
     }else{
       this.currentImg=null;
@@ -202,7 +207,7 @@ export class FormUsersComponent implements OnInit {
 
   GetAuxData($type_professional_id?, $search?) {
     return this.userBS.GetFormAuxData(this.data ? false : true,
-      this.data == null && !$type_professional_id ? null : $type_professional_id == null && this.data.assistance.length > 0 ? this.data.assistance[0].type_professional_id : $type_professional_id, $search).then(x => {
+      this.data == null && !$type_professional_id ? null : $type_professional_id == null && this.data.assistance ? this.data.assistance[0].type_professional_id : $type_professional_id, $search).then(x => {
         if (!$type_professional_id) {
           this.identification_types = x.identificationTypes;
           this.countries = x.countries;
@@ -678,9 +683,17 @@ export class FormUsersComponent implements OnInit {
         let x;
 
         if (!this.data?.id) {
-          x = await this.userBS.SavePublic(formData);
+          if(this.role == 2){
+            x = await this.patientBS.SavePacient(formData);
+          } else {
+            x = await this.userBS.SavePublic(formData);
+          }
         } else {
-          x = await this.userBS.UpdatePublic(formData, this.data.id);
+          if(this.role == 2){
+            x = await this.patientBS.UpdatePatient(formData, this.data.id);
+          } else {
+            x = await this.userBS.UpdatePublic(formData);
+          }
         }
 
         this.toastService.success('', x.message);
@@ -999,7 +1012,9 @@ export class FormUsersComponent implements OnInit {
         day=day+30;
       }
     }
-
+    if(year<0){
+      year=0
+    }
     this.age = year + " años " + m + " meses y " + day + " dia(s) ";
 
   }

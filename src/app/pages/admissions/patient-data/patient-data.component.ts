@@ -97,7 +97,7 @@ export class PatientDataComponent implements OnInit {
       },
       {
         name: 'Admisiones del paciente',
-        route: '../../admissions-patient/' + this.route.snapshot.params.user_id,
+        route: '../../admissions-patient/' + this.route.snapshot.params.patient_id,
       },
       {
         name: 'acompañantes',

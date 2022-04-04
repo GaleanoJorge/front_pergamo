@@ -14,6 +14,7 @@ import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 import { ManagementPlanService } from '../../../business-controller/management-plan.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
+import { PatientService } from '../../../business-controller/patient.service';
 
 @Component({
   selector: 'ngx-pad-list',
@@ -101,7 +102,7 @@ export class ManagementPlanComponent implements OnInit {
   public routes = [
     {
       name: 'Pad',
-      route: '../pad/list',
+      route: '../list',
     },
     {
       name: 'Plan de manejo',
@@ -117,6 +118,7 @@ export class ManagementPlanComponent implements OnInit {
 
     private currency: CurrencyPipe,
     private userBS: UserBusinessService,
+    private patienBS: PatientService,
 
     private authService: AuthService,
     private dialogService: NbDialogService,
@@ -143,7 +145,7 @@ export class ManagementPlanComponent implements OnInit {
     this.admissions_id = this.route.snapshot.params.id;
     this.user_id = this.route.snapshot.params.user;
 
-    await this.userBS.GetUserById(this.user_id).then(x => {
+    await this.patienBS.GetUserById(this.user_id).then(x => {
       this.user=x;
     });
   }

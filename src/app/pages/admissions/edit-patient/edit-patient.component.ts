@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PatientService } from '../../../business-controller/patient.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { FormUsersComponent } from '../../components/form-users/form-users.component';
 
@@ -22,6 +23,7 @@ export class EditPatientComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userBS: UserBusinessService,
+    private PatientBS: PatientService
   ) {
     this.routes = [
       {
@@ -36,7 +38,7 @@ export class EditPatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userBS.GetUserById(this.route.snapshot.params['id']).then(x => {
+    this.PatientBS.GetUserById(this.route.snapshot.params['id']).then(x => {
       this.data = x;
       this.loading = false;
       // this.form.LoadStudent(x).then();

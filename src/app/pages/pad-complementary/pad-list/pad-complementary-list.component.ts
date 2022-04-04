@@ -13,7 +13,6 @@ import { FormGroup} from '@angular/forms';
 })
 export class PadComplementaryListComponent implements OnInit {
   public isSubmitted = false;
-  public entity: string = "admission/byPAC/2";
   public loading: boolean = false;
   public category_id: number = null;
   public messageError: string = null;

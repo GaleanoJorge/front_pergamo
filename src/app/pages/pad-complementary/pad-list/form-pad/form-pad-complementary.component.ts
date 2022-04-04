@@ -163,11 +163,11 @@ export class FormPadComplementaryComponent implements OnInit {
       respiratory_issues:
         [
           this.data.respiratory_issues == '' ? false : this.data.reason_consultation.length > 0 ? this.data.reason_consultation[0].respiratory_issues : false,
-          Validators.compose([Validators.required])
+          // Validators.compose([Validators.required])
         ],
       covid_contact: [
         this.data.covid_contact == '' ? false : this.data.reason_consultation.length > 0 ? this.data.reason_consultation[0].covid_contact : false,
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ],
       application_date: [
         this.data.application_date == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].application_date : '',
@@ -176,61 +176,61 @@ export class FormPadComplementaryComponent implements OnInit {
       ],
       authorization_pin: [
         this.data.authorization_pin == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].authorization_pin : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       profesional_user_id: [
         this.data.profesional_user_id == '' ? '' : this.data.pac_monitoring.length > 0 ? this.returnInputSearch(this.data.pac_monitoring[0].profesional_user_id) : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
         // 
       ],
       diagnosis_id: [
         this.data.diagnosis_id == '' ? '' : this.data.pac_monitoring.length > 0 ? this.returnInputSearch(this.data.pac_monitoring[0].diagnosis_id, 1) : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
       ],
       reception_hour: [
         this.data.reception_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].reception_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       presentation_hour: [
         this.data.presentation_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].presentation_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       acceptance_hour: [
         this.data.acceptance_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].acceptance_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       offer_hour: [
         this.data.offer_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].offer_hour : '',
-        // Validators.compose([Validators.required])
-        // 
+        Validators.compose([Validators.required])
+        
       ],
       start_consult_hour: [
         this.data.start_consult_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].start_consult_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       finish_consult_hour: [
         this.data.finish_consult_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].finish_consult_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       close_date: [
         this.data.close_date == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].close_date : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       close_crm_hour: [
         this.data.close_crm_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].close_crm_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       copay_value: [
         this.data.copay_value == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].copay_value : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
     });

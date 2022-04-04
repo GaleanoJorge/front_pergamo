@@ -24,7 +24,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() user_id: any = null;
+  @Input() patient_id: any = null;
 
   public form: FormGroup;
   public rips_typefile: any[];
@@ -127,9 +127,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
   async save() {
 
-    this.isSubmitted = true;
-    this.showTable = false;
     if (!this.form.invalid) {
+      this.isSubmitted = true;
+      this.showTable = false;
       this.loading = true;
 
       if (this.data.id) {
@@ -144,7 +144,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           bed_id: this.form.controls.bed_id.value,
           contract_id: this.form.controls.contract_id.value,
           campus_id: this.campus_id,
-          user_id: this.user_id
+          patient_id: this.patient_id
         }).then(x => {
           this.toastService.success('', x.message);
           if (this.form.controls.has_caregiver.value != true) {
@@ -171,7 +171,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           bed_id: this.form.controls.bed_id.value,
           contract_id: this.form.controls.contract_id.value,
           campus_id: this.campus_id,
-          user_id: this.user_id,
+          patient_id: this.patient_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.admission_id = x.data.admissions ? x.data.admissions.id : 0;
@@ -186,14 +186,10 @@ export class FormAdmissionsPatientComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
-          // if (this.form.controls.has_caregiver.value == true) {
-          //   this.isSubmitted = true;
-          //   this.loading = true;
-          // } else {
-          //   this.isSubmitted = false;
-          //   this.loading = false;
-          // }
-          this.isSubmitted = true;
+          if(this.form.controls.has_caregiver.value == true){
+            this.showTable=true;
+          }
+          this.isSubmitted = false;
           this.loading = false;
         });
         this.saveFromAdmission = null;
@@ -202,7 +198,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
     }
   }
   async ShowDiagnostic(e) {
-    // console.log(e);
     if (e == 1) {
       this.show_diagnostic = true;
       this.show_inputs = true;
