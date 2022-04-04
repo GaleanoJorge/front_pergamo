@@ -8,6 +8,9 @@ import { compare } from '@rxweb/reactive-form-validators';
 import { StatusBillService } from '../../../../business-controller/status-bill.service';
 import { CampusService } from '../../../../business-controller/campus.service';
 import { AuthService } from '../../../../services/auth.service';
+import { UserActivityService } from '../../../../business-controller/user-activity.service';
+import * as XLSX from 'ts-xlsx';
+
 
 
 @Component({
@@ -30,8 +33,11 @@ export class FormAccountReceivableComponent implements OnInit {
   public gloss_ambit: any[];
   public status_bill: any[];
   public campus: any[];
+  public loading2: boolean = false;
+  public file: File;
+  public arrayBuffer: any;
   
-
+  public selectedOptions: any[] = [];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -40,6 +46,7 @@ export class FormAccountReceivableComponent implements OnInit {
     private accountReceivableS: AccountReceivableService,
     private statusBillS: StatusBillService,
     private glossAmbitS: GlossAmbitService,
+    private userActivityS: UserActivityService,
     private CampusS: CampusService,
     private authService: AuthService,
   ) {
@@ -48,10 +55,8 @@ export class FormAccountReceivableComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        file_payment: '',
         total_value_activities: '',
         gloss_ambit_id: '',
-        status_bill_id: '',
         campus_id:'',
         observation: '',
       };
@@ -59,23 +64,23 @@ export class FormAccountReceivableComponent implements OnInit {
 
     this.user = this.authService.GetUser();
 
+    this.userActivityS.GetCollection({ user_id: this.user.id }).then(x => {
+      this.selectedOptions = x;
+    });
+
     this.glossAmbitS.GetCollection({ status_id: 1 }).then(x => {
       this.gloss_ambit = x;
     });
-    this.statusBillS.GetCollection().then(x => {
-      this.status_bill = x;
-    });
+  
     this.CampusS.GetCollection({ status_id: 1 }).then(x => {
       this.campus = x;
     });
 
     this.form = this.formBuilder.group({
-      file_payment: [this.data.file_payment, Validators.compose([Validators.required])],
       total_value_activities: [this.data.total_value_activities, Validators.compose([Validators.required])],
       gloss_ambit_id: [this.data.gloss_ambit_id, Validators.compose([Validators.required])],
-      status_bill_id: [this.data.status_bill_id, Validators.compose([Validators.required])],
       campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
-      observation: [this.data.observation, Validators.compose([Validators.required])],
+      //observation: [this.data.observation, Validators.compose([Validators.required])],
     });
 
 
@@ -120,6 +125,48 @@ export class FormAccountReceivableComponent implements OnInit {
   //   }
   // }
 
+  receiveMessage($event) {
+    this.selectedOptions = $event;
+    
+  }
+  async saveFile(event) {
+    if (event.target.files[0]) {
+      this.loading2 = true;
+      this.file = event.target.files[0];
+      let lectura;
+      let fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        this.arrayBuffer = fileReader.result;
+        var data = new Uint8Array(this.arrayBuffer);
+        var arr = new Array();
+        for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+        var bstr = arr.join("");
+        var workbook = XLSX.read(bstr, { type: "binary" });
+        var first_sheet_name = workbook.SheetNames[0];
+        var worksheet = workbook.Sheets[first_sheet_name];
+        lectura = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+        console.log(lectura);
+        this.uploadDocumentInfo(lectura);
+      }
+      fileReader.readAsArrayBuffer(this.file);
+    }
+  }
+
+  async uploadDocumentInfo(lectura) {
+    try {
+      let response;
+      response = await this.accountReceivableS.SaveFile(lectura);
+      this.loading2 = false;
+      this.toastService.success('', response.message);
+      //this.RefreshData();
+    } catch (e) {
+      this.loading2 = false;
+      throw new Error(e);
+    }
+  }
+  
+
+
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
@@ -127,13 +174,13 @@ export class FormAccountReceivableComponent implements OnInit {
       if (this.data.id) {
         this.accountReceivableS.Update({
           id: this.data.id,
-          file_payment: this.form.controls.file_payment.value,
+          file_payment: 'sgbns',
           total_value_activities: this.form.controls.total_value_activities.value,
           gloss_ambit_id: this.form.controls.gloss_ambit_id.value,
-          status_bill_id: this.form.controls.status_bill_id.value,
+          status_bill_id: 1,
           campus_id: this.form.controls.campus_id.value,
           user_id: this.user.id, 
-          observation: this.form.controls.observation.value,
+          observation: 'ok',
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -146,13 +193,13 @@ export class FormAccountReceivableComponent implements OnInit {
         });
       } else {
         this.accountReceivableS.Save({
-          file_payment: this.form.controls.file_payment.value,
+          file_payment: 'gdbhdg',
           total_value_activities: this.form.controls.total_value_activities.value,
           gloss_ambit_id: this.form.controls.gloss_ambit_id.value,
-          status_bill_id: this.form.controls.status_bill_id.value,
+          status_bill_id: 1,
           campus_id: this.form.controls.campus_id.value,
           user_id: this.user.id, 
-          observation: this.form.controls.observation.value,
+          observation: 'ok',
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -163,7 +210,9 @@ export class FormAccountReceivableComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+        
       }
     }
   }
 }
+

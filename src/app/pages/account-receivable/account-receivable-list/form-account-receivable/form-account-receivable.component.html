@@ -35,11 +35,14 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold">Planilla:</label>
-          <button nbButton (click)="close()" type="button">
-            <nb-icon icon="adjuntar-2-esquema"></nb-icon>
-          </button>
+          <div class="file-select" id="src-file1" [nbSpinner]="loading2">
+            <input class="file" accept=".pdf" type="file" id="file"  />
+          </div>
         </div>
+      </div>
 
+      <div style="margin-top: 10px;">
+        <ngx-user-activity (messageEvent)="receiveMessage($event)" [parentData]="selectedOptions"></ngx-user-activity>
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">

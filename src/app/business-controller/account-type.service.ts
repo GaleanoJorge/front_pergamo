@@ -2,38 +2,38 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { AccountReceivable } from '../models/account-receivable';
+import { AccountType } from '../models/account-type';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccountReceivableService {
-  public account_receivable: AccountReceivable[] = [];
+export class AccountTypeService {
+  public account_type: AccountType[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<AccountReceivable[]> {
-    let servObj = new ServiceObject(params ? 'account_receivable?pagination=false' : 'account_receivable');
+  GetCollection(params = {}): Promise<AccountType[]> {
+    let servObj = new ServiceObject(params ? 'account_type?pagination=false' : 'account_type');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.account_receivable = <AccountReceivable[]>servObj.data.account_receivable;
+        this.account_type = <AccountType[]>servObj.data.account_type;
 
-        return Promise.resolve(this.account_receivable);
+        return Promise.resolve(this.account_type);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(account_receivable: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('account_receivable');
-    servObj.data = account_receivable;
+  Save(account_type: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('account_type');
+    servObj.data = account_type;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,25 +47,9 @@ export class AccountReceivableService {
       });
   }
 
-  SaveFile(account_receivable: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fileUpload_account_receivable');
-    servObj.data = account_receivable;
-    return this.webAPI.PostAction(servObj)
-      .then(x => {
-        servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
-
-        return Promise.resolve(servObj);
-      })
-      .catch(x => {
-        throw x.message;
-      });
-  }
-
-  Update(account_receivable: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('account_receivable', account_receivable.id);
-    servObj.data = account_receivable;
+  Update(account_type: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('account_type', account_type.id);
+    servObj.data = account_type;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -80,7 +64,7 @@ export class AccountReceivableService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('account_receivable', id);
+    let servObj = new ServiceObject('account_type', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

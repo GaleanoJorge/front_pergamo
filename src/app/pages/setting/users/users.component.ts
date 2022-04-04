@@ -5,6 +5,7 @@ import { UserBusinessService } from '../../../business-controller/user-business.
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component';
 import { ActionsUsersComponent } from './actions-users.component';
+import { FormFinancialDataComponent } from './form-financial-data/form-financial-data.component';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class UsersComponent implements OnInit {
                     return {
                         'data': row,
                         'reset_password': this.UpdateResetPassword.bind(this),
+                        'financialdata': this.NewFinancialData.bind(this),
                     };
                 },
                 renderComponent: ActionsUsersComponent,
@@ -130,5 +132,16 @@ export class UsersComponent implements OnInit {
     open(dialog: TemplateRef<any>) {
         this.dialogService.open(dialog);
     }
+
+    NewFinancialData(data) {
+        this.dialogService.open(FormFinancialDataComponent, {
+          context: {
+            title: 'Información Financiera',
+            data,
+            //saved: this.RefreshData.bind(this),
+          },
+        });
+      
+      }
 
 }

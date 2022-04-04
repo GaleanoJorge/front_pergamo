@@ -18,8 +18,8 @@ export class AccountReceivableListComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Ambito de Glosas';
-  public subtitle: string = 'Ambito';
+  public title: string = 'Cuentas de Cobro';
+  public subtitle: string = 'Historial';
   public headerFields: any[] = [ 'CC', 'NOMBRE', 'SEDE', 'AMBITO', 'VALOR', 'ESTADO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
@@ -40,6 +40,7 @@ export class AccountReceivableListComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditAccountReceivable.bind(this),
+            'response': this.ResponseAccountReceivable.bind(this),
           };
         },
         renderComponent: Actions2Component,
@@ -91,7 +92,7 @@ export class AccountReceivableListComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Ambito de glosas',
+      name: 'Cuentas de Cobro',
       route: '../../setting/account-receivable',
     },
   ];
@@ -116,7 +117,7 @@ export class AccountReceivableListComponent implements OnInit {
   NewAccountReceivable() {
     this.dialogFormService.open(FormAccountReceivableComponent, {
       context: {
-        title: 'Crear nuevo ambito de glosa',
+        title: 'Crear nueva cuenta de cobro',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -125,7 +126,16 @@ export class AccountReceivableListComponent implements OnInit {
   EditAccountReceivable(data) {
     this.dialogFormService.open(FormAccountReceivableComponent, {
       context: {
-        title: 'Editar ambito de glosa',
+        title: 'Editar cuenta de cobro',
+        data,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+  ResponseAccountReceivable(data) {
+    this.dialogFormService.open(FormAccountReceivableComponent, {
+      context: {
+        title: 'Responder cuenta de cobro',
         data,
         saved: this.RefreshData.bind(this),
       },

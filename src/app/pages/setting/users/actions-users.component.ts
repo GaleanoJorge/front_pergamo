@@ -18,6 +18,9 @@ import { UserCampusBusinessService } from '../../../business-controller/user-cam
       <button  nbTooltip="Forzar Cambio Contraseña" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost (click)="value.reset_password(value.data)" >
         <nb-icon [icon]="(value.data.force_reset_password ? 'shield-outline' : 'shield-off-outline')"></nb-icon>
       </button>
+      <button  nbTooltip="Información Financiera" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost (click)="value.financialdata(value.data)"  >
+        <nb-icon icon="inbox-outline"></nb-icon>
+      </button>
       <a nbTooltip="Agregar Sede a usuario" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost (click)="open(dialog2)" >
       <nb-icon icon="plus-circle"></nb-icon>
     </a>

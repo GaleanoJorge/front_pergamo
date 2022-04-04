@@ -30,6 +30,10 @@ import {FormAccountReceivableComponent} from './account-receivable-list/form-acc
 import {Actions2Component} from './account-receivable-list/actions.component';
 import { ActionsSemaphoreComponent } from './account-receivable-list/actions-semaphore.component';
 import { AccountReceivableRoutingModule } from './account-receivable-routing.module';
+import { AmountUserActivityComponent } from './account-receivable-list/user-activity/amount-user-activity.component';
+import { SelectUserActivityComponent } from './account-receivable-list/user-activity/select-user-activity.component';
+import { DishStockPackageComponent } from './account-receivable-list/user-activity/user-activity.component';
+import { FormManagerPadComponent } from './account-receivable-list/form-manager-pad/form-manager-pad.component';
 
 
 
@@ -67,7 +71,12 @@ import { AccountReceivableRoutingModule } from './account-receivable-routing.mod
     AccountReceivableListComponent,
     FormAccountReceivableComponent,
     Actions2Component,
-    ActionsSemaphoreComponent
+    ActionsSemaphoreComponent,
+    AmountUserActivityComponent,
+    SelectUserActivityComponent,
+    DishStockPackageComponent,
+    FormManagerPadComponent
+
   ],
   providers: [
     DateFormatPipe,
