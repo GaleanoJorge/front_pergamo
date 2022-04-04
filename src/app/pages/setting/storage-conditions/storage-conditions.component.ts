@@ -16,7 +16,7 @@ export class StorageConditionsComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Condiciones de almacenaje';
+  public title: string = 'Condiciones de Almacenaje';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;

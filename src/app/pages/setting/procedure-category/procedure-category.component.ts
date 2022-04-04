@@ -16,7 +16,7 @@ export class ProcedureCategoryComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Categoria del procedimiento';
+  public title: string = 'Categorí  a del Procedimiento';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre','Tipo de Rips'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;

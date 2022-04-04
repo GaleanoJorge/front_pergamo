@@ -16,7 +16,7 @@ export class ProcedurePurposeComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Proposito del procedimiento';
+  public title: string = 'Proposito del Procedimiento';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Codigo', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
