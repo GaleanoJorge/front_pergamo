@@ -254,6 +254,14 @@ import { FormRelationshipComponent } from './relationship/form-relationship/form
 import { ActionsCompanyComponent } from './company/actions.component';
 import { ActionsComponentEditDelete } from './company-mail/actions.component';
 import { ActionsCDComponent } from './company-document/actionsCD.component';
+import { LocalityComponent } from './locality/locality.component';
+import { FormLocalityComponent } from './locality/form-locality/form-locality.component';
+import { FormNeighborhoodOrResidenceComponent } from './neighborhood/form-neighborhood/form-neighborhood.component';
+import { NeighborhoodOrResidenceComponent } from './neighborhood/neighborhood.component';
+import { PadRiskComponent } from './pad-risk/pad-risk.component';
+import { FormPadRiskComponent } from './pad-risk/form-pad-risk/form-pad-risk.component';
+import { TariffComponent } from './tariff/tariff.component';
+import { FormTariffComponent } from './tariff/form-tariff/form-tariff.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -522,8 +530,14 @@ import { ActionsCDComponent } from './company-document/actionsCD.component';
     FormDietMenuComponent,
     DishPackageComponent,
     SelectDishComponent,
-
-
+    LocalityComponent,
+    FormLocalityComponent,
+    NeighborhoodOrResidenceComponent,
+    FormNeighborhoodOrResidenceComponent,
+    PadRiskComponent,
+    FormPadRiskComponent,
+    TariffComponent,
+    FormTariffComponent,
   ],
   providers: [
     DateFormatPipe,

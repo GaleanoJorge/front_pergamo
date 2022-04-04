@@ -22,8 +22,8 @@ export class WorkLocationPackageComponent implements OnInit {
 
 
   public form: FormGroup;
-  public title = 'Asignación de Insumos: ';
-  public subtitle = 'Insumos: ';
+  public title = 'Asignación de Localidad: ';
+  public subtitle = 'Localidad: ';
   public headerFields: any[] = ['Nombre', 'Cantidad'];
   public routes = [];
   public selectedOptions: any[] = [];
@@ -116,11 +116,11 @@ export class WorkLocationPackageComponent implements OnInit {
 
     this.routes = [
       {
-        name: 'Insumos',
+        name: 'Localidad',
         route: '../../component',
       },
       {
-        name: 'Paquete de Insumos',
+        name: 'Paquete de Localidad',
         route: '../../contract/briefcase',
       },
     ];

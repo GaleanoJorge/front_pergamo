@@ -1,24 +1,24 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MunicipalityService} from '../../../business-controller/municipality.service';
-import {StatusFieldComponent} from '.././sectional-council/status-field.component';
+import {LocalityService} from '../../../business-controller/locality.service';
+import {StatusFieldComponent} from '../sectional-council/status-field.component';
 import {NbToastrService, NbDialogService} from '@nebular/theme';
-import {FormMunicipalityComponent} from './form-municipality/form-municipality.component';
-import {ActionsComponent} from '.././sectional-council/actions.component';
+import {FormLocalityComponent} from './form-locality/form-locality.component';
+import {ActionsComponent} from '../sectional-council/actions.component';
 import {ConfirmDialogComponent} from '../../components/confirm-dialog/confirm-dialog.component';
 import {BaseTableComponent} from '../../components/base-table/base-table.component';
 
 @Component({
-  selector: 'ngx-municipality',
-  templateUrl: './municipality.component.html',
-  styleUrls: ['./municipality.component.scss'],
+  selector: 'ngx-locality',
+  templateUrl: './locality.component.html',
+  styleUrls: ['./locality.component.scss'],
 })
-export class MunicipalityComponent implements OnInit {
+export class LocalityComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Ciudades';
+  public title: string = 'Localidades';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Departamento'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Municipio'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -34,8 +34,8 @@ export class MunicipalityComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditMunicipality.bind(this),
-            'delete': this.DeleteConfirmMunicipality.bind(this),
+            'edit': this.EditLocality.bind(this),
+            'delete': this.DeleteConfirmLocality.bind(this),
           };
         },
         renderComponent: ActionsComponent,
@@ -48,7 +48,7 @@ export class MunicipalityComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      region: {
+      municipality: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction(value) {
@@ -73,13 +73,13 @@ export class MunicipalityComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Ciudades',
-      route: '../../setting/municipality',
+      name: 'Localidades',
+      route: '../../setting/locality',
     },
   ];
 
   constructor(
-    private municipalityS: MunicipalityService,
+    private localityS: LocalityService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -94,19 +94,19 @@ export class MunicipalityComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewMunicipality() {
-    this.dialogFormService.open(FormMunicipalityComponent, {
+  NewLocality() {
+    this.dialogFormService.open(FormLocalityComponent, {
       context: {
-        title: 'Crear nueva ciudad',
+        title: 'Crear nueva localidad',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditMunicipality(data) {
-    this.dialogFormService.open(FormMunicipalityComponent, {
+  EditLocality(data) {
+    this.dialogFormService.open(FormLocalityComponent, {
       context: {
-        title: 'Editar ciudad',
+        title: 'Editar localidad',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -118,7 +118,7 @@ export class MunicipalityComponent implements OnInit {
 
   //   this.toastrService.info('', 'Cambiando estado');
 
-  //   this.municipalityS.Update(data).then((x) => {
+  //   this.localityS.Update(data).then((x) => {
   //     this.toastrService.success('', x.message);
   //     this.table.refresh();
   //   }).catch((x) => {
@@ -126,18 +126,18 @@ export class MunicipalityComponent implements OnInit {
   //   });
   // }
 
-  DeleteConfirmMunicipality(data) {
+  DeleteConfirmLocality(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteMunicipality.bind(this),
+        delete: this.DeleteLocality.bind(this),
       },
     });
   }
 
-  DeleteMunicipality(data) {
-    return this.municipalityS.Delete(data.id).then(x => {
+  DeleteLocality(data) {
+    return this.localityS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {
