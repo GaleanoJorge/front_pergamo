@@ -55,7 +55,7 @@ export class StatusBillService {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
-
+ 
         return Promise.resolve(servObj);
       })
       .catch(x => {

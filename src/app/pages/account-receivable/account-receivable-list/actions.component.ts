@@ -17,7 +17,7 @@ import { ViewCell } from 'ng2-smart-table';
       <nb-icon icon="eye-outline"></nb-icon>
     </button>
 
-    <button nbTooltip="Responder" nbTooltipPlacement="top" nbTooltipStatus="primary"  ngxCheckPerms="update" nbButton ghost (click)="value.edit(value.data)">
+    <button nbTooltip="Responder" nbTooltipPlacement="top" nbTooltipStatus="primary"  ngxCheckPerms="update" nbButton ghost (click)="value.response(value.data)">
       <nb-icon icon="checkmark-square-outline"></nb-icon>
     </button>
 
