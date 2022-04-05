@@ -43,6 +43,7 @@ import { Item } from '../../../models/item';
 import { InabilityService } from '../../../business-controller/inability.service';
 import { date } from '@rxweb/reactive-form-validators';
 import {LocationCapacityService} from '../../../business-controller/location-capacity.service';
+import { RoleBusinessService } from '../../../business-controller/role-business.service';
 
 
 
@@ -150,6 +151,7 @@ export class FormUsersComponent implements OnInit {
     private districtBS: DistrictService,
     private circuitBS: CircuitBusinessService,
     private inabilitysS: InabilityService,
+    public roleBS: RoleBusinessService,
     private route: ActivatedRoute,
     private dialog: NbDialogService,
     private locationCapacityS: LocationCapacityService,
@@ -199,6 +201,9 @@ export class FormUsersComponent implements OnInit {
     this.today.setDate(this.today.getDate() - 2);
     this.today = this.today.toISOString().split('T')[0];
 
+    this.roleBS.GetCollection({id: this.role}).then(x => {
+      console.log(x);
+    }).catch(x => {});
     if(this.role==7){
       this.GetAuxData(1)
     } else if(this.role==14){
@@ -446,7 +451,7 @@ export class FormUsersComponent implements OnInit {
     if (this.data) {
       this.age = this.data.age;
     }
-    if (this.role == 3 || this.role ==7) {
+    if (this.roleBS.roles[0].role_type_id == 2) {
       configForm = {
         ...configForm,
         medical_record: [
@@ -646,8 +651,8 @@ export class FormUsersComponent implements OnInit {
       formData.append('residence_address', this.residence);
       formData.append('neighborhood_or_residence_id', data.neighborhood_or_residence_id.value);
 
-      var role = Number(this.role);
-      if (role == 3 || role == 7) {
+      // var role = Number(this.role);
+      if (this.roleBS.roles[0].role_type_id == 2) {
         formData.append('assistance_id', this.data==null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
         formData.append('localities_id', JSON.stringify(this.parentData.selectedOptions));

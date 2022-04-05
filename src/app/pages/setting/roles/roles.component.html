@@ -50,6 +50,18 @@
                                 <small *ngIf="roleForm.controls.status.errors.required">Seleccione un estado</small>
                             </div>
                         </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Tipo de rol:</small>
+                            <nb-select placeholder="Tipo" size="medium" fullWidth formControlName="role_type"
+                                status="{{ isSubmitted && roleForm.controls.role_type.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                required role_type>
+                                <nb-option *ngFor="let role_type of RoleTypeS.role_type" [value]="role_type.id">{{role_type.name}}
+                                </nb-option>
+                            </nb-select>
+                            <div *ngIf="roleForm.controls.role_type.errors && isSubmitted ">
+                                <small *ngIf="roleForm.controls.role_type.errors.required">Seleccione un estado</small>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-12 div-send text-right">
                         <a nbButton status="primary" class="btn-left" *ngIf="role" (click)="Cancel()">Cancelar</a>
