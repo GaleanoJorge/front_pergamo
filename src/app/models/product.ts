@@ -24,4 +24,5 @@ export class Product extends MainClass {
   minimum_stock: number;
   maximum_stock: number;
   generate_iva: number;
+  date_cum: string;
 }
