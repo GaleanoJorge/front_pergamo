@@ -262,6 +262,11 @@ import { PadRiskComponent } from './pad-risk/pad-risk.component';
 import { FormPadRiskComponent } from './pad-risk/form-pad-risk/form-pad-risk.component';
 import { TariffComponent } from './tariff/tariff.component';
 import { FormTariffComponent } from './tariff/form-tariff/form-tariff.component';
+import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
+import { ActionsLocationCapacityComponent } from './location-capacity/actions-location-capacity.component';
+import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
+import { ActionsSingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/actions-single-location-capacity.component';
+import { FormLocationCapacityComponent } from './location-capacity/sigle-location-capacity/form-location-capacity/form-location-capacity.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -538,6 +543,11 @@ import { FormTariffComponent } from './tariff/form-tariff/form-tariff.component'
     FormPadRiskComponent,
     TariffComponent,
     FormTariffComponent,
+    LocationCapacityComponent,
+    ActionsLocationCapacityComponent,
+    SingleLocationCapacityComponent,
+    ActionsSingleLocationCapacityComponent,
+    FormLocationCapacityComponent,
   ],
   providers: [
     DateFormatPipe,

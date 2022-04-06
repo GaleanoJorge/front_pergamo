@@ -47,14 +47,6 @@ export class WorkLocationPackageComponent implements OnInit {
         title: '',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          // if (!this.done) {
-          //   this.selectedOptions = this.parentData.selectedOptions;
-          //   this.emit = this.parentData;
-          //   this.selectedOptions.forEach(x => {
-          //     this.selectedOptions2.push(x.diet_supplies_id);
-          //   });
-          //   this.done = true;
-          // }
           return {
             'data': row,
             'valid': (!this.selectedOptions2.includes(row.id)) ? false : true,
@@ -71,12 +63,6 @@ export class WorkLocationPackageComponent implements OnInit {
         title: this.headerFields[1],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          // var amo;
-          // this.selectedOptions.forEach(x => {
-          //   if (x.diet_supplies_id == row.id) {
-          //     amo = x.amount;
-          //   }
-          // });
           return {
             'data': row,
             'enabled': !this.selectedOptions2.includes(row.id),
@@ -184,6 +170,5 @@ export class WorkLocationPackageComponent implements OnInit {
   onMunicipalityChange(municipality_id) {
     this.entity = `${this.parentData.entity}/${municipality_id}`;
     this.customData = this.parentData.customData;
-    this.RefreshData();
   }
 }

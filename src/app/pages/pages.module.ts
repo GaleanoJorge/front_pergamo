@@ -106,6 +106,9 @@ import { WorkLocationPackageComponent } from './components/form-users/work-locat
     BaseFormComponent,
     FormUsersComponent,
     CheckPermsDirective,
+    AmountWorkLocationComponent,
+    SelectWorkLocationComponent,
+    WorkLocationPackageComponent,
   ],
   providers: [PermissionsGuard],
 })

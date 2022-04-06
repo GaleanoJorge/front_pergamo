@@ -117,6 +117,8 @@ import { LocalityComponent } from './locality/locality.component';
 import { NeighborhoodOrResidenceComponent } from './neighborhood/neighborhood.component';
 import { PadRiskComponent } from './pad-risk/pad-risk.component';
 import { TariffComponent } from './tariff/tariff.component';
+import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
+import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
 
 const routes: Routes = [{
   path: '',
@@ -433,6 +435,11 @@ const routes: Routes = [{
 
     },
     {
+      path: 'location-capacity/single-location-capacity/:user_id',
+      component: SingleLocationCapacityComponent,
+
+    },
+    {
       path: 'users/create/:id',
       component: FormUserComponent,
     },
@@ -443,6 +450,11 @@ const routes: Routes = [{
     {
       path: 'roles',
       component: RolesComponent,
+
+    },
+    {
+      path: 'location-capacity',
+      component: LocationCapacityComponent,
 
     },
     {
