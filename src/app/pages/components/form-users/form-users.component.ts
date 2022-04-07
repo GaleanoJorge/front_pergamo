@@ -129,6 +129,7 @@ export class FormUsersComponent implements OnInit {
   public image;
   public signatureImage;
   public currentImg;
+  public roles;
 
 
 
@@ -170,6 +171,14 @@ export class FormUsersComponent implements OnInit {
 
   async ngOnInit() 
   {
+    await this.roleBS.GetCollection({id: this.role}).then(x => {
+      this.roles=x;
+    }).catch(x => {});
+    if(this.role==7){
+      this.GetAuxData(1)
+    } else if(this.role==14){
+      this.GetAuxData(2)
+    }
     this.parentData = {
       selectedOptions: [],
       entity: 'residence/locationbyMunicipality',
@@ -201,14 +210,7 @@ export class FormUsersComponent implements OnInit {
     this.today.setDate(this.today.getDate() - 2);
     this.today = this.today.toISOString().split('T')[0];
 
-    this.roleBS.GetCollection({id: this.role}).then(x => {
-      console.log(x);
-    }).catch(x => {});
-    if(this.role==7){
-      this.GetAuxData(1)
-    } else if(this.role==14){
-      this.GetAuxData(2)
-    }
+
   }
 
   GetAuxData($type_professional_id?, $search?) {
@@ -451,7 +453,7 @@ export class FormUsersComponent implements OnInit {
     if (this.data) {
       this.age = this.data.age;
     }
-    if (this.roleBS.roles[0].role_type_id == 2) {
+    if (this.roles[0].role_type_id == 2) {
       configForm = {
         ...configForm,
         medical_record: [
