@@ -18,7 +18,7 @@ export class NeighborhoodOrResidenceComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Barrios';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Riesgo', 'Localidad'];
+  public headerFields: any[] = ['ID', 'NOMBRE', 'TARIFA', 'LOCALIDAD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -62,19 +62,6 @@ export class NeighborhoodOrResidenceComponent implements OnInit {
           return value.name;
         },
       },
-      // status_id: {
-      //   title: 'Estado',
-      //   type: 'custom',
-      //   width: '10%',
-      //   valuePrepareFunction: (value, row) => {
-      //     // DATA FROM HERE GOES TO renderComponent
-      //     return {
-      //       'data': row,
-      //       'changeState': this.ChangeState.bind(this),
-      //     };
-      //   },
-      //   renderComponent: StatusFieldComponent,
-      // },
     },
   };
 

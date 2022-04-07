@@ -47,7 +47,7 @@
 
 
         <div class="col-12" *ngIf="selected_locality">
-          <label for="pad_risk" class="form-text text-muted font-weight-bold">RIESGO:</label>
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">TARIFA:</label>
           <nb-select [selected]="this.data.pad_risk_id" formControlName="pad_risk_id" id="pad_risk" fullWidth
             status="{{ isSubmitted && form.controls.pad_risk_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
