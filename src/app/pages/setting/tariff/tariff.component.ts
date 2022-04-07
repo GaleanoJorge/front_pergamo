@@ -25,7 +25,7 @@ export class TariffComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'TARIFAS DE MÉDICOS';
   public subtitle: string = 'TARIFAS';
-  public headerFields: any[] = ['NOMBRE', 'RIESGO', 'ESPECIALIDAD', 'AMBITO DE ATENCIÓN', 'PRECIO'];
+  public headerFields: any[] = ['NOMBRE', 'TARIFA', 'ROL', 'AMBITO DE ATENCIÓN', 'PRECIO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -59,7 +59,7 @@ export class TariffComponent implements OnInit {
           return value.name;
         },
       },
-      specialty: {
+      role: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {

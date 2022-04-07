@@ -10,7 +10,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="pad_risk" class="form-text text-muted font-weight-bold">RIESGO DE BARRIO:</label>
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">TARIFA DE BARRIO:</label>
           <nb-select [selected]="this.data.pad_risk_id" formControlName="pad_risk_id"
             id="pad_risk_id" fullWidth (selectedChange)="ChangeName($event)"
             status="{{ isSubmitted && form.controls.pad_risk_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -22,12 +22,12 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="specialty" class="form-text text-muted font-weight-bold">ESPECIALIDAD:</label>
-          <nb-select [selected]="this.data.specialty_id" formControlName="specialty_id"
-            id="specialty_id" fullWidth (selectedChange)="ChangeName($event)"
-            status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="role" class="form-text text-muted font-weight-bold">ROL:</label>
+          <nb-select [selected]="this.data.role_id" formControlName="role_id"
+            id="role_id" fullWidth (selectedChange)="ChangeName($event)"
+            status="{{ isSubmitted && form.controls.role_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.specialty_id }}" *ngFor="let item of specialty"
+            <nb-option selected="{{ item.id == data.role_id }}" *ngFor="let item of role"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>

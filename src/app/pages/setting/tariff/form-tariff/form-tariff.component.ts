@@ -3,8 +3,8 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TariffService } from '../../../../business-controller/tariff.service';
 import { PadRiskService } from '../../../../business-controller/pad-risk.service';
-import { SpecialtyService } from '../../../../business-controller/specialty.service';
 import { ScopeOfAttentionService } from '../../../../business-controller/scope-of-attention.service';
+import { RoleBusinessService } from '../../../../business-controller/role-business.service';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class FormTariffComponent implements OnInit {
   public geteratedName: string = '----';
 
   public pad_risk: any[];
-  public specialty: any[];
+  public role: any[];
   public scope_of_attention: any[];
 
 
@@ -32,7 +32,7 @@ export class FormTariffComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private PadRiskS: PadRiskService,
-    private SpecialtyS: SpecialtyService,
+    private RoleS: RoleBusinessService,
     private ScopeOfAttentionS: ScopeOfAttentionService,
     private tariffS: TariffService,
     private toastS: NbToastrService,
@@ -45,7 +45,7 @@ export class FormTariffComponent implements OnInit {
         name: '',
         amount: '',
         pad_risk_id: '',
-        specialty_id: '',
+        role_id: '',
         diet_component_id: '',
         scope_of_attention_id: '',
       };
@@ -56,8 +56,10 @@ export class FormTariffComponent implements OnInit {
     this.PadRiskS.GetCollection().then(x => {
       this.pad_risk = x;
     });
-    this.SpecialtyS.GetCollection().then(x => {
-      this.specialty = x;
+    this.RoleS.GetCollection({
+      role_type_id: 2,
+    }).then(x => {
+      this.role = x;
     });
     this.ScopeOfAttentionS.GetCollection({ admission_route_id: 2 }).then(x => {
       this.scope_of_attention = x;
@@ -66,7 +68,7 @@ export class FormTariffComponent implements OnInit {
     this.form = this.formBuilder.group({
       amount: [this.data.amount, Validators.compose([Validators.required])],
       pad_risk_id: [this.data.pad_risk_id, Validators.compose([Validators.required])],
-      specialty_id: [this.data.specialty_id, Validators.compose([Validators.required])],
+      role_id: [this.data.role_id, Validators.compose([Validators.required])],
       scope_of_attention_id: [this.data.scope_of_attention_id, Validators.compose([Validators.required])],
     });
 
@@ -75,9 +77,9 @@ export class FormTariffComponent implements OnInit {
 
   ChangeName($event) {
     if ($event) {
-      if (this.form.controls.pad_risk_id.value && this.form.controls.specialty_id.value && this.form.controls.scope_of_attention_id.value) {
+      if (this.form.controls.pad_risk_id.value && this.form.controls.role_id.value && this.form.controls.scope_of_attention_id.value) {
         var A = this.pad_risk[this.form.controls.pad_risk_id.value - 1].name;
-        var B = this.specialty[this.form.controls.specialty_id.value - 1].name;
+        var B = this.role[this.form.controls.role_id.value - 1].name;
         var C = this.scope_of_attention[this.form.controls.scope_of_attention_id.value - 3].name;
         this.geteratedName = A + '-' + B + '-' + C;
       }
@@ -98,7 +100,7 @@ export class FormTariffComponent implements OnInit {
           name: this.geteratedName,
           amount: this.form.controls.amount.value,
           pad_risk_id: this.form.controls.pad_risk_id.value,
-          specialty_id: this.form.controls.specialty_id.value,
+          role_id: this.form.controls.role_id.value,
           scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -115,7 +117,7 @@ export class FormTariffComponent implements OnInit {
           name: this.geteratedName,
           amount: this.form.controls.amount.value,
           pad_risk_id: this.form.controls.pad_risk_id.value,
-          specialty_id: this.form.controls.specialty_id.value,
+          role_id: this.form.controls.role_id.value,
           scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
