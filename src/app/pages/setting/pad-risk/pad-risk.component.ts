@@ -5,6 +5,7 @@ import { FormPadRiskComponent } from './form-pad-risk/form-pad-risk.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { StatusFieldComponent } from '../../components/status-field/status-field.component';
 
 @Component({
   selector: 'ngx-pad-risk',
@@ -15,9 +16,9 @@ export class PadRiskComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'RIESGO DE BARRIOS';
-  public subtitle: string = 'RIESGOS';
-  public headerFields: any[] = ['ID', 'NOMBRE'];
+  public title: string = 'TARIFA DE BARRIOS';
+  public subtitle: string = 'TARIFAS';
+  public headerFields: any[] = ['ID', 'NOMBRE', 'ESTADO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -49,12 +50,24 @@ export class PadRiskComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
+      status_id: {
+        title: this.headerFields[2],
+        type: 'custom',
+        width: '10%',
+        valuePrepareFunction: (value, row) => {
+            return {
+                'data': row,
+                'changeState': this.ChangeState.bind(this),
+            };
+        },
+        renderComponent: StatusFieldComponent,
+    },
     },
   };
 
   public routes = [
     {
-      name: 'Riesgos de barrios',
+      name: 'Tatifas de barrios',
       route: '../../setting/pad-risk',
     },
   ];
@@ -78,16 +91,29 @@ export class PadRiskComponent implements OnInit {
   NewPadRisk() {
     this.dialogFormService.open(FormPadRiskComponent, {
       context: {
-        title: 'Crear nuevo riesgo',
+        title: 'Crear nuevo tarifa',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
+  ChangeState(data) {
+    this.PadRiskS.Update({
+      id: data.id,
+      name: data.name,
+      status_id: 2,
+    }).then((x) => {
+        this.toastrService.success('', x.message);
+        this.RefreshData();
+    }).catch((x) => {
+        // this.toastrService.danger(x.message);
+    });
+}
+
   EditPadRisk(data) {
     this.dialogFormService.open(FormPadRiskComponent, {
       context: {
-        title: 'Editar riesgo',
+        title: 'Editar tarifa',
         data,
         saved: this.RefreshData.bind(this),
       },
