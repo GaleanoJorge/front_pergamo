@@ -7,6 +7,7 @@ import { ManagementPlanService } from '../../../../business-controller/managemen
 import { TypeOfAttentionService } from '../../../../business-controller/type-of-attention.service';
 import { FrequencyService } from '../../../../business-controller/frequency.service';
 import { SpecialtyService } from '../../../../business-controller/specialty.service';
+import { RoleAttentionService } from '../../../../business-controller/role-attention.service';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class FormManagementPlanComponent implements OnInit {
   public frequency: any[];
   public special_field: any[];
   public assigned_user: any[];
+  public roles;
   
 
   constructor(
@@ -39,6 +41,7 @@ export class FormManagementPlanComponent implements OnInit {
     private frequencyS: FrequencyService,
     private specialField: SpecialtyService,
     private userAssigned: UserBusinessService,
+    private roleAttentionS: RoleAttentionService,
   ) {
   }
 
@@ -85,31 +88,52 @@ this.onChanges();
       // console.log(val);
       if (val === '') {
         this.assigned_user = [];
-      } else if(val==1){
-        this.GetMedical(val,this.user.locality_id).then();
-      } else if(val==2){
-        this.GetSpeciality(val,this.user.locality_id).then();
+      } else {
+        this.getRoleByAttention(val).then(x => {
+          if (x) {
+            this.GetMedical(this.roles, this.user.locality_id).then(x => {
+              if (x) {
+                this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+              }
+            });
+          }
+        }).catch(e => {});
       }
     });
 
   }
 
+  async getRoleByAttention(type_of_attention_id) {
+    if (!type_of_attention_id || type_of_attention_id === '') return Promise.resolve(false);
+
+    return await this.roleAttentionS.GetCollection({
+      type_of_attention_id: type_of_attention_id
+    }).then(x => {
+      this.roles = x;    
+        return Promise.resolve(true);
+    });
+  }
+
   async GetMedical(type_professional, locality_id) {
     if (!type_professional || type_professional === '') return Promise.resolve(false);
 
-    return await this.userAssigned.UserByRoleLocation(locality_id,3).then(x => {
+    return await this.userAssigned.UserByRoleLocation(locality_id, 3, {
+      roles: JSON.stringify(this.roles),
+    }).then(x => {
       this.assigned_user = x;    
         return Promise.resolve(true);
     });
   }
-  async GetSpeciality(type_professional, locality_id) {
-    if (!type_professional || type_professional === '') return Promise.resolve(false);
 
-    return await this.userAssigned.UserByRoleLocation(locality_id,7).then(x => {
-      this.assigned_user = x;    
-        return Promise.resolve(true);
-    });
-  }
+  // async GetSpeciality(type_professional, locality_id) {
+  //   if (!type_professional || type_professional === '') return Promise.resolve(false);
+
+  //   return await this.userAssigned.UserByRoleLocation(locality_id,7).then(x => {
+  //     this.assigned_user = x;    
+  //       return Promise.resolve(true);
+  //   });
+  // }
+
   close() {
     this.dialogRef.close();
   }
