@@ -1,24 +1,24 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MunicipalityService} from '../../../business-controller/municipality.service';
-import {StatusFieldComponent} from '.././sectional-council/status-field.component';
+import {StatusFieldComponent} from '../sectional-council/status-field.component';
 import {NbToastrService, NbDialogService} from '@nebular/theme';
-import {FormMunicipalityComponent} from './form-municipality/form-municipality.component';
-import {ActionsComponent} from '.././sectional-council/actions.component';
+import {FormNeighborhoodOrResidenceComponent} from './form-neighborhood/form-neighborhood.component';
+import {ActionsComponent} from '../sectional-council/actions.component';
 import {ConfirmDialogComponent} from '../../components/confirm-dialog/confirm-dialog.component';
 import {BaseTableComponent} from '../../components/base-table/base-table.component';
+import { NeighborhoodOrResidenceService } from '../../../business-controller/neighborhood-or-residence.service';
 
 @Component({
-  selector: 'ngx-municipality',
-  templateUrl: './municipality.component.html',
-  styleUrls: ['./municipality.component.scss'],
+  selector: 'ngx-neighborhood',
+  templateUrl: './neighborhood.component.html',
+  styleUrls: ['./neighborhood.component.scss'],
 })
-export class MunicipalityComponent implements OnInit {
+export class NeighborhoodOrResidenceComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Ciudades';
+  public title: string = 'Barrios';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Departamento'];
+  public headerFields: any[] = ['ID', 'NOMBRE', 'TARIFA', 'LOCALIDAD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -34,8 +34,8 @@ export class MunicipalityComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditMunicipality.bind(this),
-            'delete': this.DeleteConfirmMunicipality.bind(this),
+            'edit': this.EditNeighborhoodOrResidence.bind(this),
+            'delete': this.DeleteConfirmNeighborhoodOrResidence.bind(this),
           };
         },
         renderComponent: ActionsComponent,
@@ -48,38 +48,32 @@ export class MunicipalityComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      region: {
+      pad_risk: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction(value) {
           return value.name;
         },
       },
-      // status_id: {
-      //   title: 'Estado',
-      //   type: 'custom',
-      //   width: '10%',
-      //   valuePrepareFunction: (value, row) => {
-      //     // DATA FROM HERE GOES TO renderComponent
-      //     return {
-      //       'data': row,
-      //       'changeState': this.ChangeState.bind(this),
-      //     };
-      //   },
-      //   renderComponent: StatusFieldComponent,
-      // },
+      locality: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value.name;
+        },
+      },
     },
   };
 
   public routes = [
     {
-      name: 'Ciudades',
-      route: '../../setting/municipality',
+      name: 'Barrios',
+      route: '../../setting/locality',
     },
   ];
 
   constructor(
-    private municipalityS: MunicipalityService,
+    private NeighborhoodOrResidenceS: NeighborhoodOrResidenceService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -94,19 +88,19 @@ export class MunicipalityComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewMunicipality() {
-    this.dialogFormService.open(FormMunicipalityComponent, {
+  NewNeighborhoodOrResidence() {
+    this.dialogFormService.open(FormNeighborhoodOrResidenceComponent, {
       context: {
-        title: 'Crear nueva ciudad',
+        title: 'Crear nuevo barrio',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditMunicipality(data) {
-    this.dialogFormService.open(FormMunicipalityComponent, {
+  EditNeighborhoodOrResidence(data) {
+    this.dialogFormService.open(FormNeighborhoodOrResidenceComponent, {
       context: {
-        title: 'Editar ciudad',
+        title: 'Editar barrrio',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -118,7 +112,7 @@ export class MunicipalityComponent implements OnInit {
 
   //   this.toastrService.info('', 'Cambiando estado');
 
-  //   this.municipalityS.Update(data).then((x) => {
+  //   this.NeighborhoodOrResidenceS.Update(data).then((x) => {
   //     this.toastrService.success('', x.message);
   //     this.table.refresh();
   //   }).catch((x) => {
@@ -126,18 +120,18 @@ export class MunicipalityComponent implements OnInit {
   //   });
   // }
 
-  DeleteConfirmMunicipality(data) {
+  DeleteConfirmNeighborhoodOrResidence(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteMunicipality.bind(this),
+        delete: this.DeleteNeighborhoodOrResidence.bind(this),
       },
     });
   }
 
-  DeleteMunicipality(data) {
-    return this.municipalityS.Delete(data.id).then(x => {
+  DeleteNeighborhoodOrResidence(data) {
+    return this.NeighborhoodOrResidenceS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {

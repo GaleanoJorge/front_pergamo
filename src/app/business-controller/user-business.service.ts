@@ -202,9 +202,9 @@ v
       });
   }
 
-  UserByRoleLocation(location_id:any,id:any): Promise<User[]> {
+  UserByRoleLocation(location_id:any,id:any, params = {}): Promise<User[]> {
     var servObj = new ServiceObject("user/byRoleLocation/"+location_id, id);
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

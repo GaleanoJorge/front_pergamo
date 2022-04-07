@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { ScopeOfAttention } from '../models/scope-of-attention';
+import { Locality } from '../models/locality';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ScopeOfAttentionService {
-  public scope_of_attention: ScopeOfAttention[] = [];
+export class LocalityService {
+  public locality: Locality[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<ScopeOfAttention[]> {
-    let servObj = new ServiceObject(params ? 'scope_of_attention?pagination=false' : 'scope_of_attention');
+  GetCollection(params = {}): Promise<Locality[]> {
+    let servObj = new ServiceObject(params ? 'locality?pagination=false' : 'locality');
 
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
@@ -22,35 +22,18 @@ export class ScopeOfAttentionService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.scope_of_attention = <ScopeOfAttention[]>servObj.data.scope_of_attention;
+        this.locality = <Locality[]>servObj.data.locality;
 
-        return Promise.resolve(this.scope_of_attention);
+        return Promise.resolve(this.locality);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-
-  GetScopeByAdmission(admission_route_id): Promise<ScopeOfAttention[]> {
-    let servObj = new ServiceObject('scopeofattention/byAdmission',admission_route_id);
-    return this.webAPI.GetAction(servObj)
-      .then(x => {
-        servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
-
-        this.scope_of_attention = <ScopeOfAttention[]>servObj.data.scope_of_attention;
-        return Promise.resolve(this.scope_of_attention);
-      })
-      .catch(x => {
-        throw x.message;
-      });
-  }
-
-  Save(scope_of_attention: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('scope_of_attention');
-    servObj.data = scope_of_attention;
+  Save(locality: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('locality');
+    servObj.data = locality;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,9 +47,9 @@ export class ScopeOfAttentionService {
       });
   }
 
-  Update(scope_of_attention: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('scope_of_attention', scope_of_attention.id);
-    servObj.data = scope_of_attention;
+  Update(locality: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('locality', locality.id);
+    servObj.data = locality;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -81,7 +64,7 @@ export class ScopeOfAttentionService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('scope_of_attention', id);
+    let servObj = new ServiceObject('locality', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

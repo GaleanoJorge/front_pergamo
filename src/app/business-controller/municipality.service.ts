@@ -12,10 +12,10 @@ export class MunicipalityService {
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(): Promise<Municipality[]> {
-    let servObj = new ServiceObject('municipality');
+  GetCollection(params = {}): Promise<Municipality[]> {
+    let servObj = new ServiceObject(params ? 'municipality?pagination=false' :'municipality');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

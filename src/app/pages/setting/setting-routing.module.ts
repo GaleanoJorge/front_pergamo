@@ -113,6 +113,12 @@ import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component
 import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
 import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
 import { DietMenuComponent } from './diet-menu/diet-menu.component';
+import { LocalityComponent } from './locality/locality.component';
+import { NeighborhoodOrResidenceComponent } from './neighborhood/neighborhood.component';
+import { PadRiskComponent } from './pad-risk/pad-risk.component';
+import { TariffComponent } from './tariff/tariff.component';
+import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
+import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
 
 const routes: Routes = [{
   path: '',
@@ -196,6 +202,26 @@ const routes: Routes = [{
     {
       path: 'diet-menu',
       component: DietMenuComponent,
+
+    },
+    {
+      path: 'locality',
+      component: LocalityComponent,
+
+    },
+    {
+      path: 'neighborhood',
+      component: NeighborhoodOrResidenceComponent,
+
+    },
+    {
+      path: 'pad-risk',
+      component: PadRiskComponent,
+
+    },
+    {
+      path: 'tariff',
+      component: TariffComponent,
 
     },
     {
@@ -407,6 +433,11 @@ const routes: Routes = [{
 
     },
     {
+      path: 'location-capacity/single-location-capacity/:user_id',
+      component: SingleLocationCapacityComponent,
+
+    },
+    {
       path: 'users/create/:id',
       component: FormUserComponent,
     },
@@ -419,6 +450,11 @@ const routes: Routes = [{
       component: RolesComponent,
       // canActivate: [PermissionsGuard],
       // // data: { permission: 'roles.read'},
+
+    },
+    {
+      path: 'location-capacity',
+      component: LocationCapacityComponent,
 
     },
     {

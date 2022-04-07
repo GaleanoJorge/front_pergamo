@@ -1,0 +1,21 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="location_capacity/AssistanceByLocation/{{assistance_id}}"
+                    customData='location_capacity'
+                    [messageToltip]="messageToltip"
+                    [queryParams]="GetParams()"
+                    >
+      <div actions>
+        <div class="actions">
+          <button nbButton [disabled]="!show_create" status="danger" (click)="NewSigleLocationCapacity()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>
