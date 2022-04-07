@@ -20,12 +20,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { AcademicLevelBusinessService } from '../../../business-controller/academic-level-business.service';
 import { AcademicLevel } from '../../../models/academic_level';
-import { Office } from '../../../models/office';
 import { OfficeService } from '../../../business-controller/office.service';
 import { SpecialtyService } from '../../../business-controller/specialty.service';
-import { Specialty } from '../../../models/specialty';
 import { DependenceService } from '../../../business-controller/dependence.service';
-import { Dependence } from '../../../models/dependence';
 import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
 import { SectionalCouncil } from '../../../models/sectional-council';
 import { District } from '../../../models/district';
@@ -33,15 +30,10 @@ import { Circuit } from '../../../models/circuit';
 import { DistrictService } from '../../../business-controller/district.service';
 import { CircuitBusinessService } from '../../../business-controller/circuit-business.service';
 import { Category } from '../../../models/category';
-import { CategoriesDialogComponent } from './categories-dialog.component';
 import { environment } from '../../../../environments/environment';
-import { AssistanceSpecialService } from '../../../business-controller/assistance-special.service';
 import { AssistanceSpecial } from '../../../models/assistance-special';
 import { SpecialitiesDialogComponent } from './especialities-dialog.component';
-import { search } from '@syncfusion/ej2-angular-filemanager';
-import { Item } from '../../../models/item';
 import { InabilityService } from '../../../business-controller/inability.service';
-import { date } from '@rxweb/reactive-form-validators';
 import {LocationCapacityService} from '../../../business-controller/location-capacity.service';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 
@@ -133,6 +125,7 @@ export class FormUsersComponent implements OnInit {
 
 
 
+
   constructor(
     private formBuilder: FormBuilder,
     private identificationTypeBS: IdentificationTypeBusinessService,
@@ -156,6 +149,7 @@ export class FormUsersComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: NbDialogService,
     private locationCapacityS: LocationCapacityService,
+    private dialogFormS: NbDialogService
   ) {
   }
 

@@ -135,6 +135,8 @@ export class PatientDataComponent implements OnInit {
     this.dialogFormService.open(FormPatientDataComponent, {
       context: {
         title: 'Crear nuevo acompañante',
+        showTable:true,
+        savedUser:false,
         saved: this.RefreshData.bind(this),
         admission_id: this.admission_id,
       },
@@ -146,6 +148,8 @@ export class PatientDataComponent implements OnInit {
       context: {
         title: 'Editar acompañante',
         data,
+        showTable:true,
+        savedUser:false,
         saved: this.RefreshData.bind(this),
       },
     });

@@ -1,0 +1,35 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+          <nb-step [stepControl]="nameForm" label="Orden médica">
+
+        
+
+          </nb-step>
+          <nb-step [stepControl]="nameForm" label="Interconsulta">
+            
+            <div class="row">
+              <div class="col-md-12">
+               
+              </div>
+            </div>
+
+
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Plan manejo">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-management-pad admissions="1" medical="true" title="Plan de manejo"></ngx-management-pad>
+              </div>
+            </div>
+
+          </nb-step>
+
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>

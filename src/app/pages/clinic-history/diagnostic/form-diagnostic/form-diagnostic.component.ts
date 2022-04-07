@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChDiagnosisTypeService } from '../../../../business-controller/ch-diagnosis-type.service';
@@ -16,6 +16,7 @@ export class FormDiagnosticComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -23,17 +24,15 @@ export class FormDiagnosticComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public selectedOptions2: any[] = [];
   public diagnosis_id;
-  public selectedOptions: any[] = [];
   public diagnosis: any[];
   public diagnosis_type: any[];
   public diagnosis_class: any[];
 
 
   constructor(
-    private formBuilder: FormBuilder,
     private toastService: NbToastrService,
+    private formBuilder: FormBuilder,
     private chDiagnosisS: ChDiagnosisService,
     private diagnosisS: DiagnosisService,
     private diagnosisTypeS: ChDiagnosisTypeService,
@@ -62,30 +61,11 @@ export class FormDiagnosticComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id],
-      ch_vital_temperature_id: [this.data[0] ? this.data[0].ch_vital_temperature_id : this.data.ch_vital_temperature_id],
-      ch_diagnosis_class_id: [this.data[0] ? this.data[0].ch_diagnosis_class_id : this.data.ch_diagnosis_class_id],
-      diagnosis_observation: [this.data[0] ? this.data[0].diagnosis_observation : this.data.diagnosis_observation],
+      diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
+      ch_diagnosis_type_id: [this.data.ch_diagnosis_type_id, Validators.compose([Validators.required])],
+      ch_diagnosis_class_id: [this.data.ch_diagnosis_class_id, Validators.compose([Validators.required])],
+      diagnosis_observation: [this.data.diagnosis_observation, Validators.compose([Validators.required])],
     });
-
-    if (this.data || this.data.length != 0) {
-      this.form.controls.ch_diagnosiss_type_id.disable();
-      this.form.controls.ch_diagnosis_class_id.disable();
-      this.form.controls.diagnosis_id.disable();
-      this.form.controls.diagnosis_observation.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.ch_diagnosis_type_id.enable();
-      this.form.controls.ch_diagnosis_class_id.enable();
-      this.form.controls.diagnosis_id.enable();
-      this.form.controls.diagnosis_observation.enable();
-      this.disabled = false;
-    }
-  }
-
-
-  receiveMessage($event) {
-    this.selectedOptions = $event;
   }
 
   async save() {
@@ -122,24 +102,22 @@ export class FormDiagnosticComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.setValue({ diagnosis_id: '', ch_diagnosis_type_id: '', ch_diagnosis_class_id: '', diagnosis_observation: '' });
           if (this.saved) {
             this.saved();
           }
         }).catch(x => {
-          if (this.form.controls.has_caregiver.value == true) {
-            this.isSubmitted = true;
-            this.loading = true;
-          } else {
             this.isSubmitted = false;
             this.loading = false;
-          }
-
         });
       }
     }
   }
+
   saveCode(e): void {
     var localidentify = this.diagnosis.find(item => item.name == e);
+
     if (localidentify) {
       this.diagnosis_id = localidentify.id;
     } else {

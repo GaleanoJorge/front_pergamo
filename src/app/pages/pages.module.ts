@@ -39,7 +39,6 @@ import {CheckPermsDirective} from '../directives/check-perms.directive';
 import {PermissionsGuard} from '../guards/permissions.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SpecialitiesDialogComponent } from './components/form-users/especialities-dialog.component';
-import { SpecialFieldComponent } from './setting/special-field/special-field.component';
 import { SignaturePadModule } from '@ng-plus/signature-pad';
 import { AmountWorkLocationComponent } from './components/form-users/work-location-package/amount-work-location.component';
 import { SelectWorkLocationComponent } from './components/form-users/work-location-package/select-work-location.component';

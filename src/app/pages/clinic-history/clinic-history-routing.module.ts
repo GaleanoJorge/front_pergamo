@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BackgroundComponent } from './background/background.component';
 import { ChRecordListComponent } from './ch-record-list/ch-record-list.component';
 import { ClinicHistoryListComponent } from './clinic-history-list/clinic-history-list.component';
 import { ClinicHistoryComponent } from './clinic-history.component';
 import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
-import { SignsListComponent } from './signs/signs.component';
 
 
 const routes: Routes = [{
@@ -12,11 +12,11 @@ const routes: Routes = [{
   component: ClinicHistoryComponent,
   children: [
     {
-      path: 'clinic-history-list/:id',
+      path: 'clinic-history-list/:id/:id2',
       component: ClinicHistoryListComponent,
     },
     {
-      path: 'ch-record-list/:id',
+      path: 'ch-record-list/:id/:id2',
       component: ChRecordListComponent,
     },
     {
@@ -24,8 +24,8 @@ const routes: Routes = [{
       component: EntryClinicHistoryComponent,
     },
     {
-      path: 'form-signs/:id',
-      component: SignsListComponent,
+      path: 'background/:id',
+      component: BackgroundComponent,
     }
   ],
 }];

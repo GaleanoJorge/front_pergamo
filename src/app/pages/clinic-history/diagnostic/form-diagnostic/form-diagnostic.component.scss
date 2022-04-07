@@ -6,57 +6,6 @@
   .field_set{
   border: 1px solid #78dada;
   }
-  .space
-  {
-  outline: none; 
-  border: 0;
-  padding: 10px;
-  margin: 10px;
-  height: 30px;
-  width: 100px;
-  border:1px solid #eaeaea;  
-  }
-  .space1
-  {
-    border: none;
-    padding: 10px;
-    margin: 10px;
-    height: 30px;
-    width: 250px;
-    border:1px solid #eaeaea;
-    outline:none;
-  }
-  .space2
-  {
-    border: none;
-    padding: 10px;
-    margin: 10px;
-    height: 30px;
-    width: 200px;
-    border:1px solid #eaeaea;
-    outline:none;
-  }
-
-  .space3
-  {
-    outline: none; 
-    border: 0;
-    padding: 10px;
-    margin: 10px;
-    height: 30px;
-    width: 130px;
-    border:1px solid #eaeaea;  
-  }
-
-  .ImpPeq
-  {
-    outline: none; 
-    border: 0;
-    margin: 10px;
-    height: 30px;
-    width: 85px;
-    border:1px solid #eaeaea; 
-  }
 
   .list
   { 
@@ -77,11 +26,19 @@
     text-align: center;
   }
 
+  .btn-save{
+    margin-top: 8PX;
+      float: RIGHT;
+  }
 
-
-
-
-
-
+  .ImpPeq
+  {
+    outline: none; 
+    border: none;
+    margin: 10px;
+    height: 30px;
+    width: 85px;
+    border: none; 
+  }
 
 

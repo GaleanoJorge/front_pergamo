@@ -3,26 +3,32 @@
     <nb-tabset class="tabset">
       <nb-tab tabTitle="INGRESO">
         <ngx-entry-clinic-history>
-          </ngx-entry-clinic-history>
+        </ngx-entry-clinic-history>
       </nb-tab>
       <nb-tab tabTitle="ANTECEDENES">
+        <ngx-background [record_id]="record_id"></ngx-background>
+
 
       </nb-tab>
       <nb-tab tabTitle="EVOLUCIÓN">
 
       </nb-tab>
       <nb-tab tabTitle="FORMULACIÓN">
-     
-      </nb-tab>
-      <nb-tab tabTitle="ORDEN MEDICAS">
 
       </nb-tab>
+      <nb-tab tabTitle="ORDEN MEDICAS">
+        <ngx-orders-medical></ngx-orders-medical>
+      </nb-tab>
       <nb-tab tabTitle="RESULTADOS">
- 
+
       </nb-tab>
       <nb-tab tabTitle="SALIDA">
 
       </nb-tab>
     </nb-tabset>
+    <div style="text-align: center;">
+    <a (click)="finish()" nbButton >Finalizar registro</a>
   </div>
+  </div>
+
 </ngx-base-list>

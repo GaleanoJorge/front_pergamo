@@ -8,6 +8,7 @@ import { TypeOfAttentionService } from '../../../../business-controller/type-of-
 import { FrequencyService } from '../../../../business-controller/frequency.service';
 import { SpecialtyService } from '../../../../business-controller/specialty.service';
 import { RoleAttentionService } from '../../../../business-controller/role-attention.service';
+import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user: any = null;
+  @Input() medical: boolean;
+  @Input() assigned: boolean;
   @Input() admissions_id: any = null;
 
   public form: FormGroup;
@@ -30,7 +33,9 @@ export class FormManagementPlanComponent implements OnInit {
   public special_field: any[];
   public assigned_user: any[];
   public roles;
-  
+  public procedure;
+  public procedure_id: any;
+
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -42,6 +47,7 @@ export class FormManagementPlanComponent implements OnInit {
     private specialField: SpecialtyService,
     private userAssigned: UserBusinessService,
     private roleAttentionS: RoleAttentionService,
+    private serviceBriefcaseS: ServicesBriefcaseService
   ) {
   }
 
@@ -55,6 +61,7 @@ export class FormManagementPlanComponent implements OnInit {
         quantity: '',
         special_field_id: '',
         user_assigned_id: '',
+        procedure_id: '',
       };
     }
 
@@ -64,26 +71,45 @@ export class FormManagementPlanComponent implements OnInit {
     this.frequencyS.GetCollection().then(x => {
       this.frequency = x;
     });
+    this.serviceBriefcaseS.GetByBriefcase(this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+      this.procedure = x;
+    });
     this.specialField.GetCollection({
       type_professional: 1
     }).then(x => {
       this.special_field = x;
     });
+    if (this.medical == false) {
+      this.form = this.formBuilder.group({
+        type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
+        frequency_id: [this.data.frequency_id, Validators.compose([Validators.required])],
+        quantity: [this.data.quantity, Validators.compose([Validators.required])],
+        special_field_id: [this.data.special_field_id],
+        assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
+        procedure_id: [this.data.procedure_id],
 
-   
+      });
+    } else {
+      this.form = this.formBuilder.group({
+        type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
+        frequency_id: [this.data.frequency_id, Validators.compose([Validators.required])],
+        quantity: [this.data.quantity, Validators.compose([Validators.required])],
+        special_field_id: [this.data.special_field_id],
+        assigned_user_id: [this.data.assigned_user_id],
+        procedure_id: [this.data.procedure_id],
 
-    this.form = this.formBuilder.group({
-      type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
-      frequency_id: [this.data.frequency_id, Validators.compose([Validators.required])],
-      quantity: [this.data.quantity, Validators.compose([Validators.required])],
-      special_field_id: [this.data.special_field_id],
-      assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
-    });
-this.onChanges();
+      });
+      this.onChanges();
+    }
+
+    if (this.assigned == true) {
+      this.onChanges();
+    }
 
   }
 
   onChanges() {
+
     this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
       // console.log(val);
       if (val === '') {
@@ -97,9 +123,10 @@ this.onChanges();
               }
             });
           }
-        }).catch(e => {});
+        }).catch(e => { });
       }
     });
+
 
   }
 
@@ -109,8 +136,8 @@ this.onChanges();
     return await this.roleAttentionS.GetCollection({
       type_of_attention_id: type_of_attention_id
     }).then(x => {
-      this.roles = x;    
-        return Promise.resolve(true);
+      this.roles = x;
+      return Promise.resolve(true);
     });
   }
 
@@ -120,8 +147,8 @@ this.onChanges();
     return await this.userAssigned.UserByRoleLocation(locality_id, 3, {
       roles: JSON.stringify(this.roles),
     }).then(x => {
-      this.assigned_user = x;    
-        return Promise.resolve(true);
+      this.assigned_user = x;
+      return Promise.resolve(true);
     });
   }
 
@@ -180,6 +207,16 @@ this.onChanges();
           this.loading = false;
         });
       }
+    }
+  }
+
+  saveCode(e): void {
+    var localidentify = this.procedure.data.find(item => item.manual_price.name == e);
+
+    if (localidentify) {
+      this.procedure_id = localidentify.id;
+    } else {
+      this.procedure_id = null;
     }
   }
 }

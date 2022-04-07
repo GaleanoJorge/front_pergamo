@@ -1,0 +1,53 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="campus" class="form-text text-muted font-weight-bold">Seleccione Sede:</label>
+          <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="gloss_ambit" class="form-text text-muted font-weight-bold">Seleccione Ambito:</label>
+          <nb-select [selected]="this.data.gloss_ambit_id" formControlName="gloss_ambit_id" id="gloss_ambit_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.gloss_ambit_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.gloss_ambit_id }}" *ngFor="let item of gloss_ambit"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="total_value_activities" class="form-text text-muted font-weight-bold">Valor Actividades:</label>
+          <input nbInput fullWidth id="total_value_activities" formControlName="total_value_activities" total_value_activities
+            status="{{ isSubmitted && form.controls.total_value_activities.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label class="form-text text-muted font-weight-bold">Planilla:</label>
+          <div class="file-select" id="src-file1" [nbSpinner]="loading2">
+            <input class="file" accept=".pdf" type="file" id="file"  />
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <ngx-user-activity (messageEvent)="receiveMessage($event)" [parentData]="selectedOptions"></ngx-user-activity>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

@@ -16,7 +16,7 @@ export class ProductConcentrationComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Concentración del producto';
+  public title: string = 'Concentración del Producto';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Valor'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;

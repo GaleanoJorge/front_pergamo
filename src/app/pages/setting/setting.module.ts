@@ -268,6 +268,7 @@ import { ActionsLocationCapacityComponent } from './location-capacity/actions-lo
 import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
 import { ActionsSingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/actions-single-location-capacity.component';
 import { FormLocationCapacityComponent } from './location-capacity/sigle-location-capacity/form-location-capacity/form-location-capacity.component';
+import { FormFinancialDataComponent } from './users/form-financial-data/form-financial-data.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -549,6 +550,8 @@ import { FormLocationCapacityComponent } from './location-capacity/sigle-locatio
     SingleLocationCapacityComponent,
     ActionsSingleLocationCapacityComponent,
     FormLocationCapacityComponent,
+    FormFinancialDataComponent,
+
   ],
   providers: [
     DateFormatPipe,

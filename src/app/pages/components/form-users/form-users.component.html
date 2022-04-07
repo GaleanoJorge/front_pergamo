@@ -130,7 +130,7 @@
         <div class="col-md-6" style="position: relative;">
           <div class="form-group">
             <label for="select_RH_id" class="form-text text-muted font-weight-bold">Seleccione RH:</label>
-            <nb-select  id="select_RH_id" fullWidth formControlName="select_RH_id" select_RH_id
+            <nb-select id="select_RH_id" fullWidth formControlName="select_RH_id" select_RH_id
               status="{{ isSubmitted && form.controls.select_RH_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of select_RH" [value]="item.id">{{ item.name }}</nb-option>
@@ -145,7 +145,7 @@
         <div class="col-12">
           <p class="text-muted ">Lugar de nacimiento</p>
         </div>
-        
+
         <div class="col-md-2">
           <div class="form-group">
             <label for="birthday" class="form-text text-muted font-weight-bold">Fecha:</label>
@@ -332,7 +332,7 @@
       </div> -->
 
       <div class="row">
-        
+
         <div class="col-md-12">
           <div class="form-group">
             <label for="is_disability" class="form-text text-muted font-weight-bold">¿Tiene alguna discapacidad?
@@ -400,8 +400,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="locality_id" class="form-text text-muted font-weight-bold">Localidad:</label>
-            <nb-select id="locality_id" fullWidth formControlName="locality_id"
-              residence_municipality_id
+            <nb-select id="locality_id" fullWidth formControlName="locality_id" residence_municipality_id
               status="{{ isSubmitted && form.controls.locality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of localities" [value]="item.id">{{ item.name }}</nb-option>
@@ -426,7 +425,7 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="residence_id" class="form-text text-muted font-weight-bold">Zona residencial:</label>
-            <nb-select id="residence_id"  formControlName="residence_id" residence_id
+            <nb-select id="residence_id" formControlName="residence_id" residence_id
               status="{{ isSubmitted && form.controls.residence_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of residences" [value]="item.id">{{ item.name }}</nb-option>
@@ -509,7 +508,7 @@
         </div>
       </div>
 
-      
+
       <!--<div class="row">
         <div class="col-md-6">
           <div class="form-group  border border-danger p-3 rounded-sm">
@@ -562,7 +561,7 @@
             </nb-select>
           </div>
         </div> -->
-        <div class="col-md-4">
+        <div class="col-md-2">
           <div class="form-group">
             <nb-card-body>
               <nb-toggle formControlName="attends_external_consultation" name>Consulta externa</nb-toggle>
@@ -577,9 +576,9 @@
           </div>
         </div>
         <!-- pad -->
-        <div class="col-md-4">
+        <div class="col-md-2">
           <div class="form-group">
-            <nb-toggle formControlName="PAD_service" PAD_service >Servicio de PAD</nb-toggle>
+            <nb-toggle formControlName="PAD_service" PAD_service>Servicio de PAD</nb-toggle>
           </div>
         </div>
         <div class="col-md-12 col-lg-12" *ngIf="form.controls.PAD_service.value">
@@ -590,12 +589,16 @@
 
         <div class="col-12 col-sm-12 col-md-12">
           <label for="firm" class="form-text text-muted font-weight-bold">Firma:</label>
-          <label for="firm" *ngIf="currentImg==null" class="form-text text-muted font-weight-bold"> Manifiesto que conforme a lo dispuesto en la ley 527 de 1999, reglamentada por el Decreto 2364 de 2012, hemos acordado que mi firma será captada de manera electrónica, entendiendo que se da cumplimiento a los dispuesto en el numeral 3 de la normativa mencionada: Artículo 3°. Cumplimiento del requisito de firma. Cuando se exija la firma de una persona, ese requisito quedará cumplido en relación con un mensaje de datos si se utiliza una firma electrónica que, a la luz de todas las circunstancias del caso, incluido cualquier acuerdo aplicable, sea tan confiable como apropiada para los fines con los cuales se generó o comunicó ese mensaje.</label>
-          <ng-signature-pad *ngIf="currentImg==null" [emitOnDragEnd]="true" [showDoneButton]="false" clearButtonText="Borrar" format="base64"
-            (done)="showImage($event)">
+          <label for="firm" *ngIf="currentImg==null" class="form-text text-muted font-weight-bold"> Manifiesto que
+            conforme a lo dispuesto en la ley 527 de 1999, reglamentada por el Decreto 2364 de 2012, hemos acordado que
+            mi firma será captada de manera electrónica, entendiendo que se da cumplimiento a los dispuesto en el
+            numeral 3 de la normativa mencionada: Artículo 3°. Cumplimiento del requisito de firma. Cuando se exija la
+            firma de una persona, ese requisito quedará cumplido en relación con un mensaje de datos si se utiliza una
+            firma electrónica que, a la luz de todas las circunstancias del caso, incluido cualquier acuerdo aplicable,
+            sea tan confiable como apropiada para los fines con los cuales se generó o comunicó ese mensaje.</label>
+          <ng-signature-pad *ngIf="currentImg==null" [emitOnDragEnd]="true" [showDoneButton]="false"
+            clearButtonText="Borrar" format="base64" (done)="showImage($event)">
           </ng-signature-pad>
-
-
           <img [src]="currentImg" *ngIf="currentImg" />
         </div>
         <!-- <div class="col-md-4" *ngIf="role ==7 || role==14">

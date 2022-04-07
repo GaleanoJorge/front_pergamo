@@ -10,21 +10,38 @@
 
           </nb-step>
           <nb-step [stepControl]="nameForm" label="Rx Sistemas">
-          
+            
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-system-exam [record_id]="record_id"></ngx-system-exam>
+              </div>
+            </div>
+
+
           </nb-step>
 
-          <nb-step [stepControl]="movieForm" label="Ex Físico">
-           
+          <nb-step [stepControl]="nameForm" label="Ex Físico">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-physical-exam [record_id]="record_id"></ngx-physical-exam>
+              </div>
+            </div>
+
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
             <ngx-form-signs [record_id]="record_id"></ngx-form-signs>
           </nb-step>
-          
-          <nb-step [stepControl]="nameForm" label="Diagnóstico">
-            <ngx-form-diagnostic></ngx-form-diagnostic>
 
-           <!-- <ngx-form-diagnostic [record_id]="record_id"></ngx-form-diagnostic>-->
+          <nb-step [stepControl]="nameForm" label="Diagnóstico">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-diagnostic [record_id]="record_id"></ngx-diagnostic>
+              </div>
+            </div>
+            <!--   <ngx-form-diagnostic></ngx-form-diagnostic>
+
+           <ngx-form-diagnostic [record_id]="record_id"></ngx-form-diagnostic>-->
 
           </nb-step>
 

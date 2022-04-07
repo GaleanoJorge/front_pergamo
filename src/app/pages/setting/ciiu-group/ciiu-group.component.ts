@@ -16,7 +16,7 @@ export class CiiuGroupComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Grupos de clasificación industrial';
+  public title: string = 'Grupos de Clasificación Industrial';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Código', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]}`;

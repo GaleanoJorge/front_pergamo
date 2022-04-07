@@ -81,6 +81,7 @@ import { Actions4Component } from './assigned-management-plan/actions.component'
     DateFormatPipe,
     CurrencyPipe
   ],
+  exports: [ ManagementPlanComponent ]
 })
 export class PadModule {
 }

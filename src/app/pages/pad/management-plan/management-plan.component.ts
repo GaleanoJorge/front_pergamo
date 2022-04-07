@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
@@ -14,21 +14,25 @@ import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 import { ManagementPlanService } from '../../../business-controller/management-plan.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
+import { TypeChPhysicalExam } from '../../../models/ch-type-ch-physical-exam';
 
 @Component({
-  selector: 'ngx-pad-list',
+  selector: 'ngx-management-pad',
   templateUrl: './management-plan.component.html',
   styleUrls: ['./management-plan.component.scss'],
 })
 export class ManagementPlanComponent implements OnInit {
 
+
+  @Input() admissions: any = null;
+  @Input() medical: boolean = false;
+  @Input() title: string=null;
   public isSubmitted = false;
   public entity: string;
   public loading: boolean = false;
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Plan de manejo';
   public subtitle: string = '';
   public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
@@ -43,12 +47,13 @@ export class ManagementPlanComponent implements OnInit {
   public currentRole;
   public selectedOptions: any[] = [];
   public result: any = null;
+  public settings;
   
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
-  public settings = {
+  public settings1 = {
     pager: {
       display: true,
       perPage: 30,
@@ -63,6 +68,7 @@ export class ManagementPlanComponent implements OnInit {
             'data': row,
             'user':this.user,
             'edit': this.EditManagementPlan.bind(this),
+            'assignedUser': this.AssignedUser.bind(this),
             'delete': this.DeleteConfirmManagementPlan.bind(this),
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
@@ -92,21 +98,44 @@ export class ManagementPlanComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction(value) {
+          if(value){
           return value?.firstname+' '+value.lastname;
+          }else{
+            return 'Sin asignación';
+          }
         },
       },
     },
   };
 
-  public routes = [
-    {
-      name: 'Pad',
-      route: '../pad/list',
+  public settings2 = {
+    pager: {
+      display: true,
+      perPage: 30,
     },
-    {
-      name: 'Plan de manejo',
+    columns: {
+      type_of_attention: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.name;
+        },
+      },
+      frequency: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.name;
+        },
+      },
+      quantity: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
     },
-  ];
+  };
+
+ 
 
   constructor(
 
@@ -124,6 +153,7 @@ export class ManagementPlanComponent implements OnInit {
     private toastS: NbToastrService,
     private route: ActivatedRoute,
 
+
   ) {
   }
   public form: FormGroup;
@@ -133,19 +163,40 @@ export class ManagementPlanComponent implements OnInit {
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
   public saved: any = null;
+  public routes;
+  public assigned_user: any[];
+
   
 
 
 
 
   async ngOnInit() {
- 
-    this.admissions_id = this.route.snapshot.params.id;
-    this.user_id = this.route.snapshot.params.user;
+    if (this.title==null){
+      this.title="Agendamiento Plan de atención domiciliario";
+    }
+    if(this.admissions){
+    this.admissions_id = this.admissions;
+    this.settings=this.settings2;
+    }else{
+      this.admissions_id = this.route.snapshot.params.id;
+      this.user_id = this.route.snapshot.params.user;
+      this.settings=this.settings1;
 
-    await this.userBS.GetUserById(this.user_id).then(x => {
-      this.user=x;
-    });
+      await this.userBS.GetUserById(this.user_id).then(x => {
+        this.user=x;
+      });
+
+      this.routes = [
+        {
+          name: 'Pad',
+          route: '../pad/list',
+        },
+        {
+          name: 'Plan de manejo',
+        },
+      ];
+    }
   }
 
 
@@ -164,7 +215,23 @@ export class ManagementPlanComponent implements OnInit {
     this.dialogFormService.open(FormManagementPlanComponent, {
       context: {
         title: 'Crear plan de manejo',
+        assigned:true,
         user:this.user,
+        medical:this.medical,
+        admissions_id:this.admissions_id,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
+  AssignedUser(data) {
+    this.dialogFormService.open(FormManagementPlanComponent, {
+      context: {
+        title: 'Asignar personal asistencial',
+        data,
+        user:this.user,
+        medical:this.medical,
+        assigned:false,
         admissions_id:this.admissions_id,
         saved: this.RefreshData.bind(this),
       },
