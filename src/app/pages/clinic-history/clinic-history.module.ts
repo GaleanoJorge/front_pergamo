@@ -31,12 +31,7 @@ import { FormsignsComponent } from './signs/form-signs/form-signs.component';
 import { Actions1Component } from './signs/actions.component';
 import { SignsListComponent } from './signs/signs.component';
 import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
-import { FormDiagnosticComponent } from './diagnostic/form-diagnostic/form-diagnostic.component';
-import { Actions2Component } from './diagnostic/actions.component';
-import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
-
 import { SystemExamComponent } from './system-exam/system-exam.component';
-
 import { OrdersMedicalComponent } from './medical-orders/orders-medical.component';
 import { FormOrdersMedicalComponent } from './medical-orders/form-orders-medical/form-orders-medical.component';
 import { FormPhysicalExamComponent } from './physical-exam/form-physical-exam/form-physical-exam.component';
@@ -48,6 +43,9 @@ import { PadModule } from '../pad/pad.module';
 import { FormBackgroundComponent } from './background/form-background/form-background.component';
 import { BackgroundComponent } from './background/background.component';
 import { Actions8Component } from './background/actions.component';
+import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
+import { Actions2Component } from './diagnostic/actions.component';
+import { FormDiagnosticComponent } from './diagnostic/form-diagnostic/form-diagnostic.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -107,7 +105,6 @@ import { Actions8Component } from './background/actions.component';
     Actions8Component,
 
   ],
-
   providers: [
     DateFormatPipe,
   ],

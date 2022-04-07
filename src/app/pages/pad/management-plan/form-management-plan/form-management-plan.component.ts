@@ -7,6 +7,7 @@ import { ManagementPlanService } from '../../../../business-controller/managemen
 import { TypeOfAttentionService } from '../../../../business-controller/type-of-attention.service';
 import { FrequencyService } from '../../../../business-controller/frequency.service';
 import { SpecialtyService } from '../../../../business-controller/specialty.service';
+import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
 
 
 @Component({
@@ -30,6 +31,8 @@ export class FormManagementPlanComponent implements OnInit {
   public frequency: any[];
   public special_field: any[];
   public assigned_user: any[];
+  public procedure;
+  public procedure_id: any;
   
 
   constructor(
@@ -41,6 +44,7 @@ export class FormManagementPlanComponent implements OnInit {
     private frequencyS: FrequencyService,
     private specialField: SpecialtyService,
     private userAssigned: UserBusinessService,
+    private serviceBriefcaseS: ServicesBriefcaseService
   ) {
   }
 
@@ -54,6 +58,7 @@ export class FormManagementPlanComponent implements OnInit {
         quantity: '',
         special_field_id: '',
         user_assigned_id: '',
+        procedure_id: '',
       };
     }
 
@@ -62,6 +67,9 @@ export class FormManagementPlanComponent implements OnInit {
     });
     this.frequencyS.GetCollection().then(x => {
       this.frequency = x;
+    });
+    this.serviceBriefcaseS.GetByBriefcase(this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+      this.procedure = x;
     });
     this.specialField.GetCollection({
       type_professional: 1
@@ -75,6 +83,8 @@ if(this.medical==false){
     quantity: [this.data.quantity, Validators.compose([Validators.required])],
     special_field_id: [this.data.special_field_id],
     assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
+    procedure_id: [this.data.procedure_id],
+
   });
 }else{
   this.form = this.formBuilder.group({
@@ -83,6 +93,7 @@ if(this.medical==false){
     quantity: [this.data.quantity, Validators.compose([Validators.required])],
     special_field_id: [this.data.special_field_id],
     assigned_user_id: [this.data.assigned_user_id],
+    procedure_id: [this.data.procedure_id],
     
   });
   this.onChanges();
@@ -183,6 +194,16 @@ if (this.data.type_of_attention_id === '') {
           this.loading = false;
         });
       }
+    }
+  }
+
+  saveCode(e): void {
+    var localidentify = this.procedure.data.find(item => item.manual_price.name == e);
+
+    if (localidentify) {
+      this.procedure_id = localidentify.id;
+    } else {
+      this.procedure_id = null;
     }
   }
 }

@@ -133,11 +133,11 @@ export class UsersComponent implements OnInit {
         this.dialogService.open(dialog);
     }
 
-    NewFinancialData(data) {
+    NewFinancialData(dataUser) {
         this.dialogService.open(FormFinancialDataComponent, {
           context: {
             title: 'Información Financiera',
-            data,
+            dataUser,
             //saved: this.RefreshData.bind(this),
           },
         });

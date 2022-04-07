@@ -11,6 +11,7 @@ import { CurrencyPipe } from '@angular/common';
 import { GlossRadicationService } from '../../../business-controller/gloss-radication.service';
 import { GlossService } from '../../../business-controller/gloss.service';
 import { date } from '@rxweb/reactive-form-validators';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   template: `
@@ -29,6 +30,7 @@ public today;
 
 
   constructor(
+    private datePipe: DateFormatPipe,
 
   ) {
   }
@@ -41,7 +43,7 @@ public today;
 let month = this.today.getMonth() + 1;
 let year = this.today.getFullYear();
 
-this.today=year+'-0'+month+'-'+day;
+this.today=this.datePipe.transform2(this.today);
 
 
   }
