@@ -133,7 +133,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-      this.isSubmitted = true;
       this.loading = true;
       if (this.data.id) {
         this.AdmissionsS.Update({
@@ -147,7 +146,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           bed_id: this.form.controls.bed_id.value,
           contract_id: this.form.controls.contract_id.value,
           campus_id: this.campus_id,
-          user_id: this.user_id
+          patient_id: this.user_id
         }).then(x => {
           this.toastService.success('', x.message);
           if (this.form.controls.has_caregiver.value != true) {
@@ -287,7 +286,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
   //   }
   // }
   async ShowDiagnostic(e) {
-    // console.log(e);
     if (e == 1) {
       this.show_diagnostic = true;
       this.show_inputs = true;

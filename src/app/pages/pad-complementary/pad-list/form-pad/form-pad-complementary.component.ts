@@ -121,11 +121,11 @@ export class FormPadComplementaryComponent implements OnInit {
       respiratory_issues:
         [
           this.data.respiratory_issues == '' ? false : this.data.reason_consultation.length > 0 ? this.data.reason_consultation[0].respiratory_issues : false,
-          Validators.compose([Validators.required])
+          // Validators.compose([Validators.required])
         ],
       covid_contact: [
         this.data.covid_contact == '' ? false : this.data.reason_consultation.length > 0 ? this.data.reason_consultation[0].covid_contact : false,
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ],
       type_plan: [
         this.data.type_plan == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].type_plan : '',
@@ -169,7 +169,7 @@ export class FormPadComplementaryComponent implements OnInit {
       offer_hour: [
         this.data.offer_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].offer_hour : '',
         Validators.compose([Validators.required])
-        // 
+        
       ],
       start_consult_hour: [
         this.data.start_consult_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].start_consult_hour : '',

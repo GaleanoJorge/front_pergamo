@@ -15,6 +15,7 @@ import { date } from '@rxweb/reactive-form-validators';
 import { ManagementPlanService } from '../../../business-controller/management-plan.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { TypeChPhysicalExam } from '../../../models/ch-type-ch-physical-exam';
+import { PatientService } from '../../../business-controller/patient.service';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -146,6 +147,7 @@ export class ManagementPlanComponent implements OnInit {
 
     private currency: CurrencyPipe,
     private userBS: UserBusinessService,
+    private patienBS: PatientService,
 
     private authService: AuthService,
     private dialogService: NbDialogService,

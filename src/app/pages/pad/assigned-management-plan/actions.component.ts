@@ -26,7 +26,11 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 export class Actions4Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
-public today;
+
+  public today;
+  public start;
+  public finish;
+  public showBotton: boolean = false;
 
 
   constructor(
@@ -38,13 +42,13 @@ public today;
   async ngOnInit() {
 
     this.today = new Date;
-
+    this.start = this.value.data.start_date.split('-');
+    this.finish = this.value.data.finish_date.split('-');
     let day = this.today.getDate();
-let month = this.today.getMonth() + 1;
-let year = this.today.getFullYear();
+    let month = this.today.getMonth() + 1;
+    let year = this.today.getFullYear();
 
-this.today=this.datePipe.transform2(this.today);
-
+    this.today = this.datePipe.transform2(this.today);
 
   }
 

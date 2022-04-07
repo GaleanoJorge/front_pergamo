@@ -122,8 +122,40 @@ v
       });
   }
 
+  SavePacient(user: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('PacientInscription');
+    servObj.data = user;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
   UpdatePublic(user: any,id = null): Promise<ServiceObject> {
     let servObj = new ServiceObject('public/userInscription', (user.id ? user.id : id));
+    servObj.data = user;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
+  UpdatePatient(user: any,id = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('PacientInscription', (user.id ? user.id : id));
     servObj.data = user;
     return this.webAPI.PostAction(servObj)
       .then(x => {
