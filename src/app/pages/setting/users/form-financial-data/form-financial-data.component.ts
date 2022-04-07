@@ -18,6 +18,7 @@ export class FormFinancialDataComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any;
+  @Input() dataUser: any;
 
 
   public form: FormGroup;
@@ -58,7 +59,7 @@ export class FormFinancialDataComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       bank_id: [this.data.bank_id, Validators.compose([Validators.required])],
-      accont_type_id: [this.data.account_type_id, Validators.compose([Validators.required])],
+      account_type_id: [this.data.account_type_id, Validators.compose([Validators.required])],
       account_number: [this.data.account_number, Validators.compose([Validators.required])],
       rut: [this.data.rut, Validators.compose([Validators.required])],
     });
@@ -79,10 +80,11 @@ export class FormFinancialDataComponent implements OnInit {
       if (this.data.id) {
         this.FinancialDataS.Update({
           id: this.data.id,
-          bank_id: this.data.bank_id,
-          account_type_id: this.data.account_type_id,
-          account_number: this.data.account_number,
-          rut: this.data.rut,
+          bank_id: this.form.controls.bank_id.value,
+          account_type_id: this.form.controls.account_type_id.value,
+          account_number: this.form.controls.account_number.value,
+          rut: this.form.controls.rut.value,
+          user_id: this.dataUser.id 
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -96,10 +98,11 @@ export class FormFinancialDataComponent implements OnInit {
       } else {
         
         this.FinancialDataS.Save({
-          bank_id: this.data.bank_id,
-          account_type_id: this.data.account_type_id,
-          account_number: this.data.account_number,
-          rut: this.data.rut
+          bank_id: this.form.controls.bank_id.value,
+          account_type_id: this.form.controls.account_type_id.value,
+          account_number: this.form.controls.account_number.value,
+          rut: this.form.controls.rut.value,
+          user_id: this.dataUser.id
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
