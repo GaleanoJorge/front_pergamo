@@ -7,6 +7,7 @@ import { FormAdmissionsPatientComponent } from './form-admissions-patient/form-a
 import {ActivatedRoute, Router} from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { FormPatientDataComponent } from '../patient-data/form-admissions-patient/form-patient-data.component';
 
 
 @Component({
@@ -191,7 +192,7 @@ export class AdmissionsPatientComponent implements OnInit {
   }
 
   NewAdmissions() {
-    this.dialogFormService.open(FormAdmissionsPatientComponent, {
+    this.dialogFormService.open(FormPatientDataComponent, {
       context: {
         title: 'Crear nuevo ingreso',
         user_id:this.user_id,

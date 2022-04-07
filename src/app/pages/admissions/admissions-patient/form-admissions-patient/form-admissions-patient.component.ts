@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
@@ -25,12 +25,14 @@ export class FormAdmissionsPatientComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public rips_typefile: any[];
   // public status: Status[];
   public isSubmitted: boolean = false;
   public saved: any = null;
+  public savedUser: any = null;
   public loading: boolean = true;
   public coverage: any[];
   public admission_route: any[];
@@ -50,6 +52,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public showTable;
   public admission_id: number = 0;
   public saveFromAdmission = null;
+  public isOpen = null;
 
 
   constructor(
@@ -125,15 +128,14 @@ export class FormAdmissionsPatientComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-  async save() {
 
+
+  save() {
     this.isSubmitted = true;
-    this.showTable = false;
     if (!this.form.invalid) {
       this.loading = true;
-
       if (this.data.id) {
-        await this.AdmissionsS.Update({
+        this.AdmissionsS.Update({
           diagnosis_id: this.diagnosis_id,
           id: this.data.id,
           admission_route_id: this.form.controls.admission_route_id.value,
@@ -152,6 +154,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           } else {
             this.showTable = true;
           }
+          this.close();
           if (this.saved) {
             this.saved();
           }
@@ -160,7 +163,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.AdmissionsS.Save({
+        if(this.admission_id==0){
+        this.AdmissionsS.Save({
           briefcase_id: this.form.controls.briefcase_id.value,
           diagnosis_id: this.diagnosis_id,
           admission_route_id: this.form.controls.admission_route_id.value,
@@ -174,33 +178,111 @@ export class FormAdmissionsPatientComponent implements OnInit {
           user_id: this.user_id,
         }).then(x => {
           this.toastService.success('', x.message);
-          this.admission_id = x.data.admissions ? x.data.admissions.id : 0;
           if (this.form.controls.has_caregiver.value != true) {
             this.close();
           } else {
             this.showTable = true
             this.isSubmitted = true;
             this.loading = false;
+            this.admission_id = x.data.admissions ? x.data.admissions.id : 0;
+            this.messageEvent.emit([false,true,this.admission_id]);
           }
+       
           if (this.saved) {
             this.saved();
           }
         }).catch(x => {
-          // if (this.form.controls.has_caregiver.value == true) {
-          //   this.isSubmitted = true;
-          //   this.loading = true;
-          // } else {
-          //   this.isSubmitted = false;
-          //   this.loading = false;
-          // }
-          this.isSubmitted = true;
+          this.isSubmitted = false;
           this.loading = false;
         });
-        this.saveFromAdmission = null;
-      }
+      }else{
+        this.showTable = true
+        this.isSubmitted = true;
+        this.loading = false;
+        this.messageEvent.emit([true,true]);
 
+      }
+    }
     }
   }
+
+
+  // async save() {
+
+  //   this.isSubmitted = true;
+  //   this.showTable = false;
+  //   if (!this.form.invalid) {
+  //     this.loading = true;
+
+  //     if (this.data.id) {
+  //       await this.AdmissionsS.Update({
+  //         diagnosis_id: this.diagnosis_id,
+  //         id: this.data.id,
+  //         admission_route_id: this.form.controls.admission_route_id.value,
+  //         scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
+  //         program_id: this.form.controls.program_id.value,
+  //         flat_id: this.form.controls.flat_id.value,
+  //         pavilion_id: this.form.controls.pavilion_id.value,
+  //         bed_id: this.form.controls.bed_id.value,
+  //         contract_id: this.form.controls.contract_id.value,
+  //         campus_id: this.campus_id,
+  //         user_id: this.user_id
+  //       }).then(x => {
+  //         this.toastService.success('', x.message);
+  //         if (this.form.controls.has_caregiver.value != true) {
+  //           this.close();
+  //         } else {
+  //           this.showTable = true;
+  //         }
+  //         if (this.saved) {
+  //           this.saved();
+  //         }
+  //       }).catch(x => {
+  //         this.isSubmitted = false;
+  //         this.loading = false;
+  //       });
+  //     } else {
+  //       await this.AdmissionsS.Save({
+  //         briefcase_id: this.form.controls.briefcase_id.value,
+  //         diagnosis_id: this.diagnosis_id,
+  //         admission_route_id: this.form.controls.admission_route_id.value,
+  //         scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
+  //         program_id: this.form.controls.program_id.value,
+  //         flat_id: this.form.controls.flat_id.value,
+  //         pavilion_id: this.form.controls.pavilion_id.value,
+  //         bed_id: this.form.controls.bed_id.value,
+  //         contract_id: this.form.controls.contract_id.value,
+  //         campus_id: this.campus_id,
+  //         user_id: this.user_id,
+  //       }).then(x => {
+  //         this.toastService.success('', x.message);
+  //         this.admission_id = x.data.admissions ? x.data.admissions.id : 0;
+  //         if (this.form.controls.has_caregiver.value != true) {
+  //           this.close();
+  //         } else {
+  //           this.showTable = true
+  //           this.isSubmitted = true;
+  //           this.loading = false;
+  //         }
+  //         if (this.saved) {
+  //           this.saved();
+  //         }
+  //       }).catch(x => {
+  //         // if (this.form.controls.has_caregiver.value == true) {
+  //         //   this.isSubmitted = true;
+  //         //   this.loading = true;
+  //         // } else {
+  //         //   this.isSubmitted = false;
+  //         //   this.loading = false;
+  //         // }
+  //         this.isSubmitted = true;
+  //         this.loading = false;
+  //       });
+  //       this.saveFromAdmission = null;
+  //     }
+
+  //   }
+  // }
   async ShowDiagnostic(e) {
     // console.log(e);
     if (e == 1) {
