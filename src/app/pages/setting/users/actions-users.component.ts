@@ -15,7 +15,7 @@ import { UserCampusBusinessService } from '../../../business-controller/user-cam
       <!--<button ngxCheckPerms="delete" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>-->
-      <button  nbTooltip="Forzar Cambio Contraseña" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost (click)="value.reset_password(value.data)" >
+      <button  nbTooltip="Restablecer Contraseña" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost (click)="value.reset_password(value.data)" >
         <nb-icon [icon]="(value.data.force_reset_password ? 'shield-outline' : 'shield-off-outline')"></nb-icon>
       </button>
       <a nbTooltip="Agregar Sede a usuario" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost (click)="open(dialog2)" >
