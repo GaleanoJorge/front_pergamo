@@ -551,7 +551,7 @@ import { FormFinancialDataComponent } from './users/form-financial-data/form-fin
     ActionsSingleLocationCapacityComponent,
     FormLocationCapacityComponent,
     FormFinancialDataComponent,
-
+    ActionsDishComponent,
   ],
   providers: [
     DateFormatPipe,
