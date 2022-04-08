@@ -1,18 +1,16 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserChangeService } from '../../../business-controller/user-change.service';
-import { ChReasonConsultationService } from '../../../business-controller/ch-reason-consultation.service';
-import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
+import { BaseTableComponent } from '../../../components/base-table/base-table.component';
+import { UserChangeService } from '../../../../business-controller/user-change.service';
 
 
 @Component({
-  selector: 'ngx-background',
-  templateUrl: './background.component.html',
-  styleUrls: ['./background.component.scss'],
+  selector: 'ngx-back-gyneco',
+  templateUrl: './back-gyneco.component.html',
+  styleUrls: ['./back-gyneco.component.scss'],
 })
-export class BackgroundComponent implements OnInit {
+export class BackgGynecoComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;

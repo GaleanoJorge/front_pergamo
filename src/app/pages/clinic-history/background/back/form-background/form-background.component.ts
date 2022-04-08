@@ -1,13 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ChTypeBackgroundService } from '../../../../business-controller/ch_type_background.service';
-import { ChBackgroundService } from '../../../../business-controller/ch_background.service';
-import { BackgroundComponent } from '../background.component';
-
-
-
-
+import { ChTypeBackgroundService } from '../../../../../business-controller/ch_type_background.service';
+import { ChBackgroundService } from '../../../../../business-controller/ch_background.service';
 
 
 @Component({
@@ -37,8 +32,8 @@ export class FormBackgroundComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ChTypeBackgroundS: ChTypeBackgroundService,
     private BackgroundS: ChBackgroundService,
-    private toastService: NbToastrService,
-    private system: BackgroundComponent,
+    private toastService: NbToastrService,   
+
   ) {
   }
 
@@ -118,4 +113,6 @@ export class FormBackgroundComponent implements OnInit {
     }
   }
 
+
 }
+
