@@ -580,8 +580,8 @@
           <div class="form-group">
             <nb-toggle formControlName="PAD_service" PAD_service>Servicio de PAD</nb-toggle>
           </div>
-        </div>
-        <div class="col-md-12 col-lg-12" *ngIf="form.controls.PAD_service.value">
+        </div> 
+        <div class="col-md-12 col-lg-12" *ngIf="form.controls.PAD_service.value && !this.data">
           <div style="margin-top: 10px;">
             <ngx-work-location-package (messageEvent)="receiveMessage($event)" [parentData]="parentData"></ngx-work-location-package>
           </div>

@@ -25,6 +25,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user_id: any = null;
+  @Input() stored: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -149,6 +150,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           patient_id: this.user_id
         }).then(x => {
           this.toastService.success('', x.message);
+          this.saved=true;
           if (this.form.controls.has_caregiver.value != true) {
             this.close();
           } else {
@@ -157,6 +159,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
           this.close();
           if (this.saved) {
             this.saved();
+          }
+          if (this.stored) {
+            this.stored();
           }
         }).catch(x => {
           this.isSubmitted = false;
@@ -175,7 +180,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
             bed_id: this.form.controls.bed_id.value,
             contract_id: this.form.controls.contract_id.value,
             campus_id: this.campus_id,
-            user_id: this.user_id,
+            patient_id: this.user_id,
           }).then(x => {
             this.toastService.success('', x.message);
             if (this.form.controls.has_caregiver.value != true) {
@@ -190,6 +195,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
             if (this.saved) {
               this.saved();
+            }
+            if (this.stored) {
+              this.stored();
             }
           }).catch(x => {
             this.isSubmitted = false;

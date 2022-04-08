@@ -14,6 +14,7 @@ import { UserBusinessService } from '../../../business-controller/user-business.
 import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 import { PatientService } from '../../../business-controller/patient.service';
+import { RoleBusinessService } from '../../../business-controller/role-business.service';
 
 @Component({
   selector: 'ngx-pad-list',
@@ -64,7 +65,7 @@ export class PadListComponent implements OnInit {
             'edit': this.EditGloss.bind(this),
             'delete': this.DeleteConfirmGloss.bind(this),
             'refresh': this.RefreshData.bind(this),
-            'currentRole': this.currentRole,
+            'currentRole': this.user.roles[0].role_type_id,
           };
         },
         renderComponent: Actions2Component,
@@ -122,12 +123,11 @@ export class PadListComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
-    private userBS: UserBusinessService,
     private PatientBS: PatientService,
-    private currency: CurrencyPipe,
     private authService: AuthService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
+    public roleBS: RoleBusinessService,
   ) {
   }
   public form: FormGroup;
@@ -145,7 +145,7 @@ export class PadListComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
     this.currentRole = this.authService.GetRole();
-    if (this.user_id && this.currentRole == 3 || this.currentRole == 7 ) {
+    if (this.user.roles[0].role_type_id==2 ) {
       this.entity = 'patient/byPAD/2/' + this.user_id;
     }
     else {

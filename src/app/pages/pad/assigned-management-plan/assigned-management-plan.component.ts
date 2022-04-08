@@ -129,7 +129,8 @@ export class AssignedManagementPlanComponent implements OnInit {
   async ngOnInit() {
  
     this.management_id = this.route.snapshot.params.management_id;
-    if(this.authService.GetRole()==3){
+    this.user = this.authService.GetUser();
+    if(this.user.roles[0].role_type_id==2){
       this.user_logged= this.authService.GetUser().id;
     }else{
       this.user_logged=0;

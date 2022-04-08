@@ -21,8 +21,8 @@
 
           <nb-step [stepControl]="nameForm" label="Plan manejo">
             <div class="row">
-              <div class="col-md-12">
-                <ngx-management-pad admissions="1" medical="true" title="Plan de manejo"></ngx-management-pad>
+              <div class="col-md-12" *ngIf="this.admissions_id">
+                <ngx-management-pad [admissions]="this.admissions_id[0].admissions_id" [patient]="this.admissions_id[0].admissions.patient_id" medical="true" title="Plan de manejo"></ngx-management-pad>
               </div>
             </div>
 

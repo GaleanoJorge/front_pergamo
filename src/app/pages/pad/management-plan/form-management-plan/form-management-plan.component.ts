@@ -20,7 +20,7 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user: any = null;
-  @Input() medical: boolean;
+  @Input() medical: boolean = false;
   @Input() assigned: boolean;
   @Input() admissions_id: any = null;
 
@@ -63,6 +63,20 @@ export class FormManagementPlanComponent implements OnInit {
         user_assigned_id: '',
         procedure_id: '',
       };
+    } else {
+      this.getRoleByAttention(this.data.type_of_attention_id).then(x => {
+        if (x) {
+          this.GetMedical(this.roles, this.user.locality_id).then(x => {
+            if (x) {
+              this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+            }
+          }).catch(e => {
+            this.toastService.danger(e, 'Error');
+          });
+        }
+      }).catch(e => {
+        this.toastService.danger(e, 'Error');
+      });
     }
 
     this.typeOfAttentionS.GetCollection().then(x => {
@@ -121,9 +135,13 @@ export class FormManagementPlanComponent implements OnInit {
               if (x) {
                 this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
               }
+            }).catch(e => {
+              this.toastService.danger(e, 'Error');
             });
           }
-        }).catch(e => { });
+        }).catch(e => {
+          this.toastService.danger(e, 'Error');
+        });
       }
     });
 
@@ -178,6 +196,7 @@ export class FormManagementPlanComponent implements OnInit {
           special_field_id: this.form.controls.special_field_id.value,
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
+          procedure_id: this.procedure_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -196,6 +215,7 @@ export class FormManagementPlanComponent implements OnInit {
           special_field_id: this.form.controls.special_field_id.value,
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
+          procedure_id: this.procedure_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

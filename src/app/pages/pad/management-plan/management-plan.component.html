@@ -3,7 +3,7 @@
 
     <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="management_plan_by_admissions/{{admissions_id}}"
       customData="management_plan" [messageToltip]="messageToltip">
-      <div title *ngIf="user">
+      <div title *ngIf="user && medical==false">
         <p class="parrafo" >CÉDULA: {{user.identification}} </p>
         <p class="parrafo">NOMBRE:  {{user.nombre_completo}}</p>
         <p class="parrafo" >FECHA DE NACIMIENTO: {{user.birthday}} </p>

@@ -274,8 +274,8 @@ export class FormUsersComponent implements OnInit {
         this.GetMunicipalities(this.data.region_id),
         this.GetRegions(this.data.country_id, true),
         this.GetMunicipalities(this.data.residence_region_id, true),
-        this.data.locality_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null ,this.data.locality_id) : this.GetNeighborhoodResidence(this.data.residence_municipality_id),
-        this.data.localities_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null ,this.data.localities_id) : this.GetNeighborhoodResidence(this.data.residence_municipality_id)
+        this.data.locality_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null ,this.data.locality_id) : null,
+        // this.data.localities_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null ,this.data.localities_id) : this.GetNeighborhoodResidence(this.data.residence_municipality_id)
       ];
 
       await Promise.all(promises);
@@ -699,7 +699,7 @@ export class FormUsersComponent implements OnInit {
           if(this.role == 2){
             x = await this.patientBS.UpdatePatient(formData, this.data.id);
           } else {
-            x = await this.userBS.UpdatePublic(formData);
+            x = await this.userBS.UpdatePublic(formData, this.data.id);
           }
         }
 
@@ -811,18 +811,19 @@ export class FormUsersComponent implements OnInit {
 
     this.form.get('residence_municipality_id').valueChanges.subscribe(val => {
       if (val === '') {
-        this.neighborhood_or_residence = [];
+        // this.neighborhood_or_residence = [];
         this.localities = [];
-      } else if(val == 11001) { 
-        this.neighborhood_or_residence = [];
-        this.GetLocality(val).then();
+      // } else if(val == 11001) { 
+      //   this.neighborhood_or_residence = [];
       } else {
-        this.GetNeighborhoodResidence(val).then();
+        // this.GetNeighborhoodResidence(val).then();
+        this.GetLocality(val).then();
+
       }
       this.form.patchValue({
         locality_id: '',
         localities_id: [],
-        neighborhood_or_residence_id: '',
+        // neighborhood_or_residence_id: '',
       });
     });
 
@@ -895,11 +896,13 @@ export class FormUsersComponent implements OnInit {
   
   GetNeighborhoodResidence(municipality_id? , locality_id?) {
     if(municipality_id){
-      if (!municipality_id || municipality_id === '') return Promise.resolve(false);
-      return this.locationBS.GetNeighborhoodResidenceByMunicipality(municipality_id).then(x => {
-        this.neighborhood_or_residence = x;
-        return Promise.resolve(true);
-      });
+      // if (!municipality_id || municipality_id === '') return Promise.resolve(false);
+      // return this.locationBS.GetNeighborhoodResidenceByMunicipality(municipality_id).then(x => {
+      //   this.neighborhood_or_residence = x;
+      //   return Promise.resolve(true);
+      // }).catch(e => {
+      //   console.log(e);
+      // });
     } else if(locality_id){
       if (!locality_id || locality_id === '') return Promise.resolve(false);
       return this.locationBS.GetNeighborhoodResidenceByLocality(locality_id).then(x => {
