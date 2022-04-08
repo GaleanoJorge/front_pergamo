@@ -8,8 +8,6 @@
 
     <form [formGroup]="form">
 
-
-
       <div class="row">
         <div class="col-12 col-sm-12 col-md-4">
           <label for="country" class="form-text text-muted font-weight-bold">PAÍS:</label>
@@ -43,22 +41,17 @@
         </div>
       </div>
 
-
-
-
-
-
     </form>
 
-
-
-
-    <ngx-base-table *ngIf="form.controls.municipality_id.value" [title]="title" [settings]="settings" [entity]="entity"
-      [customData]="customData">
-      <div actions>
-        <div class="actions">
+    <div class="esta_tabla">
+      <ngx-base-table *ngIf="form.controls.municipality_id.value" [title]="title" [settings]="settings"
+        [entity]="entity" [customData]="customData">
+        <div actions>
+          <div class="actions">
+          </div>
         </div>
-      </div>
-    </ngx-base-table>
+      </ngx-base-table>
+
+    </div>
   </div>
 </ngx-base-list>
