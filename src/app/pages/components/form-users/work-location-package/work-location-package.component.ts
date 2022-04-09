@@ -22,6 +22,7 @@ export class WorkLocationPackageComponent implements OnInit {
 
 
   public form: FormGroup;
+  public data: any = [];
   public title = 'Asignación de Localidad: ';
   public subtitle = 'Localidad: ';
   public headerFields: any[] = ['Nombre', 'Cantidad'];
@@ -47,6 +48,14 @@ export class WorkLocationPackageComponent implements OnInit {
         title: '',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          if (!this.done) {
+            this.selectedOptions = this.parentData.selectedOptions;
+            this.emit = this.parentData.selectedOptions;
+            this.parentData.selectedOptions.forEach(x => {
+              this.selectedOptions2.push(x.locality_id);
+            });
+            this.done = true;
+          }
           return {
             'data': row,
             'valid': (!this.selectedOptions2.includes(row.id)) ? false : true,
@@ -63,10 +72,16 @@ export class WorkLocationPackageComponent implements OnInit {
         title: this.headerFields[1],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          var amo;
+          this.parentData.selectedOptions.forEach(x => {
+            if (x.locality_id == row.id) {
+              amo = x.PAD_base_patient_quantity;
+            }
+          });
           return {
             'data': row,
             'enabled': !this.selectedOptions2.includes(row.id),
-            'amount':  '',
+            'amount': amo ? amo : '',
             'onchange': (input, row: any) => this.onAmountChange(input, row),
           };
         },
@@ -85,20 +100,42 @@ export class WorkLocationPackageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
+
+    this.data = {
+      country_id: '',
+      region_id: '',
+      municipality_id: '',
+    };
+
     this.component_package_id = this.route.snapshot.params.id;
 
     this.selectedOptions = this.parentData.selectedOptions;
 
+    this.entity = `${this.parentData.entity}/0`;
+    this.customData = this.parentData.customData;
+
     this.form = this.formBuilder.group({
-      country_id: [null, Validators.compose([Validators.required])],
-      region_id: [null, Validators.compose([Validators.required])],
-      municipality_id: [null, Validators.compose([Validators.required])],
+      country_id: [this.data.country_id, Validators.compose([Validators.required])],
+      region_id: [this.data.region_id, Validators.compose([Validators.required])],
+      municipality_id: [this.data.municipality_id, Validators.compose([Validators.required])],
     });
 
+    if (this.selectedOptions.length > 0) {
+      this.data.municipality_id = this.parentData.selectedOptions[0].locality.municipality.id;
+      this.form.controls.municipality_id.setValue(this.data.municipality_id);
+      this.data.region_id = this.parentData.selectedOptions[0].locality.municipality.region.id;
+      this.form.controls.region_id.setValue(this.data.region_id);
+      this.data.country_id = this.parentData.selectedOptions[0].locality.municipality.region.country.id;
+      this.form.controls.country_id.setValue(this.data.country_id);
+      this.onCountryChange(this.data.country_id);
+      this.onRegionChange(this.data.region_id);
+      this.onMunicipalityChange(this.data.municipality_id);
+    }
     this.countryS.GetCollection().then(x => {
       this.country = x;
     });
+
+
 
     this.routes = [
       {
@@ -117,7 +154,7 @@ export class WorkLocationPackageComponent implements OnInit {
       this.selectedOptions2.push(row.id);
       var diet = {
         locality_id: row.id,
-        amount: 0,
+        PAD_base_patient_quantity: 0,
       };
       this.emit.push(diet);
     } else {
@@ -142,7 +179,7 @@ export class WorkLocationPackageComponent implements OnInit {
     var mientras = this.selectedOptions;
     this.selectedOptions.forEach(element => {
       if (element.locality_id == row.id) {
-        mientras[i].amount = input.target.valueAsNumber;
+        mientras[i].PAD_base_patient_quantity = input.target.valueAsNumber;
       }
       i++
     });
@@ -158,7 +195,7 @@ export class WorkLocationPackageComponent implements OnInit {
     this.locationBS.GetPublicRegionByCountry(country_id).then(x => {
       this.region = x;
     });
-  
+
   }
 
   onRegionChange(region_id) {

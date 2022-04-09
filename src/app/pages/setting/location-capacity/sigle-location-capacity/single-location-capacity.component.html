@@ -3,6 +3,20 @@
   [routes]="routes">
   <div content>
 
+    <ngx-base-table [title]="title_base"
+                    [subtitle]="subtitle_base" [settings]="settings_base"
+                    entity="base_location_capacity/AssistanceByLocation/{{assistance_id}}"
+                    customData='base_location_capacity'
+                    [messageToltip]="messageToltip"
+                    [queryParams]="GetParams()"
+                    >
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" (click)="NewSigleLocationCapacity()">Editar</button>
+        </div>
+      </div>
+    </ngx-base-table>
+
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
                     entity="location_capacity/AssistanceByLocation/{{assistance_id}}"
@@ -10,11 +24,11 @@
                     [messageToltip]="messageToltip"
                     [queryParams]="GetParams()"
                     >
-      <div actions>
+      <!-- <div actions>
         <div class="actions">
           <button nbButton [disabled]="!show_create" status="danger" (click)="NewSigleLocationCapacity()">Crear</button>
         </div>
-      </div>
+      </div> -->
     </ngx-base-table>
 
   </div>

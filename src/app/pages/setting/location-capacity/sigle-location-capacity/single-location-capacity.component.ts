@@ -14,21 +14,22 @@ export class SingleLocationCapacityComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'CAPACIDAD INSTALADA';
+  public title: string = 'REGISTROS DE CAPACIDAD INSTALADA';
   public subtitle: string = 'LOCALIDADES';
+  public title_base: string = 'CAPACIDAD INSTALADA BASE';
+  public subtitle_base: string = 'LOCALIDADES';
   public headerFields: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'SERVICIOS REALIZADOS', 'ACCIONES'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
+  public headerFields_base: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD BASE'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public assistance_id;
   public data = [];
-  public validation_done = false;
-  public show_create: boolean;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
     pager: {
       display: true,
-      perPage: 10,
+      perPage: 5,
     },
     columns: {
       // actions: {
@@ -42,20 +43,10 @@ export class SingleLocationCapacityComponent implements OnInit {
       //   },
       //   renderComponent: ActionsSingleLocationCapacityComponent,
       // },
-      created_at: {
+      validation_date: {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (!this.validation_done) {
-            var d1 = this.datePipe.getMonth(value);
-            var d2 = this.datePipe.getCurrentMonth(value);
-            if (d1 < d2) {
-              this.show_create = true;
-            } else {
-              this.show_create = false;
-            }
-            this.validation_done = true;
-          }
           return this.datePipe.getMonthPretty(value);
         }
       },
@@ -76,6 +67,27 @@ export class SingleLocationCapacityComponent implements OnInit {
       },
       PAD_patient_attended: {
         title: this.headerFields[4],
+        type: 'string',
+      },
+    },
+  };
+
+  @ViewChild(BaseTableComponent) table_base: BaseTableComponent;
+  public settings_base = {
+    pager: {
+      display: true,
+      perPage: 5,
+    },
+    columns: {
+      locality: {
+        title: this.headerFields_base[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        }
+      },
+      PAD_base_patient_quantity: {
+        title: this.headerFields_base[2],
         type: 'string',
       },
     },
@@ -108,14 +120,14 @@ export class SingleLocationCapacityComponent implements OnInit {
   }
 
   RefreshData() {
-    this.validation_done = false;
     this.table.refresh();
+    this.table_base.refresh();
   }
 
   NewSigleLocationCapacity() {
     this.dialogFormService.open(FormLocationCapacityComponent, {
       context: {
-        title: 'Crear nueva capacidad instalada',
+        title: 'Editar capacidad instalada',
         data: {
           id: this.assistance_id,
         },
