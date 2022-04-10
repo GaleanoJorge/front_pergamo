@@ -187,6 +187,12 @@ export class FormManagementPlanComponent implements OnInit {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
+      var selectes_assistance_id;
+      this.assigned_user.forEach(user => {
+        if (user.id === this.form.value.assigned_user_id) {
+          selectes_assistance_id = user.assistance_id;
+        }
+      });
       if (this.data.id) {
         this.managementPlanS.Update({
           id: this.data.id,
@@ -197,6 +203,8 @@ export class FormManagementPlanComponent implements OnInit {
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
+          assistance_id: selectes_assistance_id,
+          locality_id: this.user.locality_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -216,6 +224,8 @@ export class FormManagementPlanComponent implements OnInit {
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
+          assistance_id: selectes_assistance_id,
+          locality_id: this.user.locality_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
