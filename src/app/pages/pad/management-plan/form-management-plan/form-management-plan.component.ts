@@ -228,6 +228,9 @@ export class FormManagementPlanComponent implements OnInit {
           locality_id: this.user.locality_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          if (x['message_error']) {
+            this.toastService.danger(x['message_error'], 'Error');
+          }
           this.close();
           if (this.saved) {
             this.saved();
