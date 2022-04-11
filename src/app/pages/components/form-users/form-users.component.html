@@ -51,15 +51,16 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="identification" class="form-text text-muted font-weight-bold">Número de documento:</label>
-            <input nbInput minlength="6" maxlength="15" type="text" fullWidth id="identification"
+            <input nbInput minlength="6" maxlength="16" type="text" fullWidth id="identification"
               formControlName="identification" identification
-              status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+              status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" />
             <ng-container *ngIf="form.controls.identification.errors && form.controls.identification.touched">
               <p class="caption status-danger" *ngIf="form.controls.identification.errors?.minlength">
                 El número de documento debe tener un mínimo de 6 caracteres
               </p>
               <p class="caption status-danger" *ngIf="form.controls.identification.errors?.maxlenth">
-                El número de documento debe tener un máximo de 15 caracteres
+                El número de documento debe tener un máximo de 16 caracteres
               </p>
             </ng-container>
           </div>
@@ -438,18 +439,18 @@
             <nb-select id="residence_address" formControlName="residence_address" residence_address fullWidth
               title="Tipo de Via (Ej.Calle)"
               status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Tipo de Via (Ej.Calle)</nb-option>
-              <nb-option value="Avenida">Avenida</nb-option>
-              <nb-option value="Av.Calle">Avenida Calle </nb-option>
-              <nb-option value="Av.Carrera">Avenida Carrera</nb-option>
-              <nb-option value="Calle">Calle</nb-option>
-              <nb-option value="Carrera">Carrera</nb-option>
-              <nb-option value="Circular">Circular</nb-option>
-              <nb-option value="Circunvalar">Circunvalar</nb-option>
-              <nb-option value="Diagonal">Diagonal</nb-option>
-              <nb-option value="Manzana">Manzana</nb-option>
-              <nb-option value="Transversal">Transversal</nb-option>
-              <nb-option value="Vía">Vía</nb-option>
+              <nb-option value="">Tipo de vía (Ej.Calle)</nb-option>
+              <nb-option value="Avenida">AVENIDA</nb-option>
+              <nb-option value="Av.Calle">AVENIDA CALLE </nb-option>
+              <nb-option value="Av.Carrera">AVENIDA CARRERA</nb-option>
+              <nb-option value="Calle">CALLE</nb-option>
+              <nb-option value="Carrera">CARRERA</nb-option>
+              <!--<nb-option value="Circular">CIRCULAR</nb-option> -->
+              <nb-option value="Circunvalar">CIRCUNVALAR</nb-option>
+              <nb-option value="Diagonal">DIAGONAL</nb-option>
+              <nb-option value="Manzana">MANZANA</nb-option>
+              <nb-option value="Transversal">TRANSVERSAL</nb-option>
+              <nb-option value="Vía">VÍA</nb-option>
             </nb-select>
           </div>
         </div>
@@ -486,14 +487,14 @@
               residence_address_cardinality fullWidth title="Seleccione..."
               status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value=" ">Seleccione...</nb-option>
-              <nb-option value="Noreste">Noreste</nb-option>
-              <nb-option value="Noroeste">Noroeste</nb-option>
-              <nb-option value="Sureste">Sureste</nb-option>
-              <nb-option value="Suroeste">Suroeste</nb-option>
-              <nb-option value="Norte">Norte</nb-option>
-              <nb-option value="Este">Este</nb-option>
-              <nb-option value="Sur">Sur</nb-option>
-              <nb-option value="Oeste">Oeste</nb-option>
+              <nb-option value="Noreste">NORESTE</nb-option>
+              <nb-option value="Noroeste">NOROESTE</nb-option>
+              <nb-option value="Sureste">SURESTE</nb-option>
+              <nb-option value="Suroeste">SUROESTE</nb-option>
+              <nb-option value="Norte">NORTE</nb-option>
+              <nb-option value="Este">ESTE</nb-option>
+              <nb-option value="Sur">SUR</nb-option>
+              <nb-option value="Oeste">OESTE</nb-option>
             </nb-select>
           </div>
         </div>
@@ -580,10 +581,11 @@
           <div class="form-group">
             <nb-toggle formControlName="PAD_service" PAD_service>Servicio de PAD</nb-toggle>
           </div>
-        </div> 
+        </div>
         <div class="col-md-12 col-lg-12" *ngIf="form.controls.PAD_service.value && !this.data">
           <div style="margin-top: 10px;">
-            <ngx-work-location-package (messageEvent)="receiveMessage($event)" [parentData]="parentData"></ngx-work-location-package>
+            <ngx-work-location-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
+            </ngx-work-location-package>
           </div>
         </div>
 
@@ -633,6 +635,7 @@
                 <input class="password" [type]="getInputTypePassword()" nbInput fullWidth id="password"
                   formControlName="password" password
                   status="{{ isSubmitted && form.controls.password.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+
                 <button nbSuffix nbButton ghost (click)="toggleShowPassword()" type="button">
                   <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'" pack="eva"
                     [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
