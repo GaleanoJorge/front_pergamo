@@ -20,7 +20,7 @@ export class BackgGynecoComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Lista', 'Revisión', 'Observación'];
+  public headerFields: any[] = ['Fecha', 'Observación examen de seno', 'Observación de flujo'];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -33,18 +33,15 @@ export class BackgGynecoComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      ch_type_background: {
+        id: {
         title: this.headerFields[0],
         width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.name;
-        },
       },
-      revision: {
+      observation_breast_self_exam: {
         title: this.headerFields[1],
         width: 'string',
       },
-      observation: {
+      observation_flow: {
         title: this.headerFields[2],
         width: 'string',
       },
