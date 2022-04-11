@@ -34,6 +34,7 @@ import { AmountUserActivityComponent } from './account-receivable-list/user-acti
 import { SelectUserActivityComponent } from './account-receivable-list/user-activity/select-user-activity.component';
 import { DishStockPackageComponent } from './account-receivable-list/user-activity/user-activity.component';
 import { FormManagerPadComponent } from './account-receivable-list/form-manager-pad/form-manager-pad.component';
+import { BillUserActivityComponent } from './bill-user-activity/bill-user-activity.component';
 
 
 
@@ -75,7 +76,8 @@ import { FormManagerPadComponent } from './account-receivable-list/form-manager-
     AmountUserActivityComponent,
     SelectUserActivityComponent,
     DishStockPackageComponent,
-    FormManagerPadComponent
+    FormManagerPadComponent,
+    BillUserActivityComponent
 
   ],
   providers: [

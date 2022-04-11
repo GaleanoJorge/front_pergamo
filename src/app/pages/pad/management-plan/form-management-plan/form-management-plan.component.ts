@@ -35,6 +35,7 @@ export class FormManagementPlanComponent implements OnInit {
   public roles;
   public procedure;
   public procedure_id: any;
+  public isMedical: boolean=false;
 
 
   constructor(
@@ -100,9 +101,12 @@ export class FormManagementPlanComponent implements OnInit {
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
         special_field_id: [this.data.special_field_id],
         assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
-        procedure_id: [this.data.procedure_id],
+        procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
+        start_date: [this.data.start_date],
+        finish_date: [this.data.finish_date]
 
       });
+      this.onChanges();
     } else {
       this.form = this.formBuilder.group({
         type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
@@ -110,15 +114,17 @@ export class FormManagementPlanComponent implements OnInit {
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
         special_field_id: [this.data.special_field_id],
         assigned_user_id: [this.data.assigned_user_id],
-        procedure_id: [this.data.procedure_id],
+        procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
+        start_date: [this.data.start_date],
+        finish_date: [this.data.finish_date]
 
       });
-      this.onChanges();
+      this.isMedical=true;
     }
 
-    if (this.assigned == true) {
-      this.onChanges();
-    }
+    // if (this.assigned == true) {
+    
+    // }
 
   }
 
@@ -197,6 +203,8 @@ export class FormManagementPlanComponent implements OnInit {
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
+          start_date:  this.form.controls.start_date.value,
+          finish_date:  this.form.controls.finish_date.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -216,6 +224,9 @@ export class FormManagementPlanComponent implements OnInit {
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
+          start_date:  this.form.controls.start_date.value,
+          finish_date:  this.form.controls.finish_date.value,
+          medical: this.isMedical,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -237,6 +248,8 @@ export class FormManagementPlanComponent implements OnInit {
       this.procedure_id = localidentify.id;
     } else {
       this.procedure_id = null;
+      this.toastService.success('', 'Debe seleccionar un procedimiento');
+
     }
   }
 }
