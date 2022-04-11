@@ -90,7 +90,7 @@ export class AuthorizationListComponent implements OnInit {
         },
       },
       auth_number: {
-        title: this.headerFields[12],
+        title: this.headerFields[13],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           return {
