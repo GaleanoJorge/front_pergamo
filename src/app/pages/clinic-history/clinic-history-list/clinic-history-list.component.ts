@@ -34,6 +34,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public program;
   public flat;
   public user;
+  public own_user;
   public bed;
   public bed_id;
   public pavilion; 
@@ -196,6 +197,7 @@ export class ClinicHistoryListComponent implements OnInit {
     this.user_id = this.route.snapshot.params.user_id;
     this.record_id = this.route.snapshot.params.id;
     this.currentRole = this.authService.GetRole();
+    this.own_user = this.authService.GetUser();
 
     this.UserBS.GetUserById(this.user_id).then(x => {
       this.user = x;
@@ -209,7 +211,8 @@ export class ClinicHistoryListComponent implements OnInit {
       id: this.record_id,
       status: 'CERRADO',
       user:this.user,
-      role:this.currentRole
+      role:this.currentRole,
+      user_id: this.own_user.id,
     }).then(x => {
       this.toastService.success('', x.message);
       this.location.back();
