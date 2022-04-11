@@ -255,6 +255,8 @@ import { ActionsCompanyComponent } from './company/actions.component';
 import { ActionsComponentEditDelete } from './company-mail/actions.component';
 import { ActionsCDComponent } from './company-document/actionsCD.component';
 import { ActionsDishComponent } from './diet-dish/actions-dish.component';
+import { AuthStatusComponent } from './auth-status/auth-status.component';
+import { FormAuthStatusComponent } from './auth-status/form-auth-status/form-auth-status.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -286,6 +288,8 @@ import { ActionsDishComponent } from './diet-dish/actions-dish.component';
     NbIconModule
   ],
   declarations: [
+    AuthStatusComponent,
+    FormAuthStatusComponent,
     ActionsCDComponent,
     ActionsComponentEditDelete,
     RelationshipComponent,

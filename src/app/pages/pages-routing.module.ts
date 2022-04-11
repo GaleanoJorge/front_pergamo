@@ -77,6 +77,11 @@ const routes: Routes = [{
         .then(m => m.PadComplementaryModule),
     },
     {
+      path: 'authorization',
+      loadChildren: () => import('./authorization/authorization.module')
+        .then(m => m.AuthorizationModule),
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
