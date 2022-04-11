@@ -34,7 +34,7 @@
           formControlName="procedure_id" procedure_id type="text" required
           status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <datalist id="codes" *ngIf="procedure">
-            <option *ngFor="let item of procedure.data" [value]="item.manual_price.name">{{ item.manual_price.own_code }} - {{item.manual_price.homologous_id}} </option>
+            <option *ngFor="let item of procedure" [value]="item.manual_price.name">{{ item.manual_price.own_code }} - {{item.manual_price.homologous_id}} </option>
           </datalist>
         </div>
 

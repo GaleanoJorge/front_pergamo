@@ -255,13 +255,13 @@ export class FormManagementPlanComponent implements OnInit {
   }
 
   saveCode(e): void {
-    var localidentify = this.procedure.data.find(item => item.manual_price.name == e);
+    var localidentify = this.procedure.find(item => item.manual_price.name == e);
 
     if (localidentify) {
       this.procedure_id = localidentify.id;
     } else {
       this.procedure_id = null;
-      this.toastService.success('', 'Debe seleccionar un procedimiento');
+      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
 
     }
   }
