@@ -12,6 +12,7 @@ import { BedService } from '../../../../business-controller/bed.service';
 import { ContractService } from '../../../../business-controller/contract.service';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { BriefcaseService } from '../../../../business-controller/briefcase.service';
+import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
 
 
 
@@ -42,6 +43,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public contract: any[];
   public diagnosis: any[] = [];
   public briefcase: any[] = [];
+  public procedures: any[] = [];
   public campus_id;
   public ambit;
   public show_diagnostic: boolean = false;
@@ -67,6 +69,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     private ContractS: ContractService,
     private toastService: NbToastrService,
     private BriefcaseS: BriefcaseService,
+    private ServiceBriefcaseS: ServicesBriefcaseService
   ) {
   }
 
@@ -81,6 +84,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         bed_id: '',
         contract_id: '',
         briefcase_id: '',
+        procedure_id: '',
         has_caregiver: false,
       };
     }
@@ -99,7 +103,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
       pavilion_id: [this.data.pavilion_id,],
       bed_id: [this.data.bed_id,],
       contract_id: [this.data.contract_id, Validators.compose([Validators.required])],
-      briefcase_id: [this.data.contract_id, Validators.compose([Validators.required])],
+      briefcase_id: [this.data.briefcase_id, Validators.compose([Validators.required])],
+      procedure_id: [this.data.procedure_id],
       has_caregiver: [this.data.has_caregiver, Validators.compose([Validators.required])],
     });
 
@@ -126,11 +131,11 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.dialogRef.close();
   }
   async save() {
-    
+
     this.showTable = false;
+    this.isSubmitted = true;
 
     if (!this.form.invalid) {
-      this.isSubmitted = true;
       this.loading = true;
 
       if (this.data.id) {
@@ -144,6 +149,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
           pavilion_id: this.form.controls.pavilion_id.value,
           bed_id: this.form.controls.bed_id.value,
           contract_id: this.form.controls.contract_id.value,
+          briefcase_id: this.form.controls.briefcase_id.value,
+          procedure_id: this.form.controls.procedure_id.value,
           campus_id: this.campus_id,
           user_id: this.user_id
         }).then(x => {
@@ -162,7 +169,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
         });
       } else {
         await this.AdmissionsS.Save({
-          briefcase_id: this.form.controls.briefcase_id.value,
           diagnosis_id: this.diagnosis_id,
           admission_route_id: this.form.controls.admission_route_id.value,
           scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
@@ -171,6 +177,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
           pavilion_id: this.form.controls.pavilion_id.value,
           bed_id: this.form.controls.bed_id.value,
           contract_id: this.form.controls.contract_id.value,
+          briefcase_id: this.form.controls.briefcase_id.value,
+          procedure_id: this.form.controls.procedure_id.value,
           campus_id: this.campus_id,
           user_id: this.user_id,
         }).then(x => {
@@ -194,7 +202,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           //   this.isSubmitted = false;
           //   this.loading = false;
           // }
-          this.isSubmitted = true;
+          this.isSubmitted = false;
           this.loading = false;
         });
         this.saveFromAdmission = null;
@@ -236,6 +244,12 @@ export class FormAdmissionsPatientComponent implements OnInit {
       if (val === '') {
         this.scope_of_attention = [];
       } else {
+        if (val == 1) {
+          this.form.controls.procedure_id.setValidators(Validators.compose([Validators.required]));
+        } else {
+          this.form.controls.procedure_id.clearValidators();
+          this.form.controls.procedure_id.setErrors(null);
+        }
         this.GetScope(val).then();
       }
       this.form.patchValue({
@@ -286,6 +300,17 @@ export class FormAdmissionsPatientComponent implements OnInit {
       }
       this.form.patchValue({
         briefcase_id: '',
+      });
+    });
+
+    this.form.get('briefcase_id').valueChanges.subscribe(val => {
+      if (val === '') {
+        this.procedures = [];
+      } else if (this.form.value.admission_route_id == 1) {
+        this.Getprocedures(val).then();
+      }
+      this.form.patchValue({
+        procedures: '',
       });
     });
   }
@@ -349,6 +374,15 @@ export class FormAdmissionsPatientComponent implements OnInit {
     if (!contract_id || contract_id === '') return Promise.resolve(false);
     return this.BriefcaseS.GetBriefcaseByContract(contract_id).then(x => {
       this.briefcase = x;
+
+      return Promise.resolve(true);
+    });
+  }
+
+  Getprocedures(briefcase_id) {
+    if (!briefcase_id || briefcase_id === '') return Promise.resolve(false);
+    return this.ServiceBriefcaseS.GetProcedureByBriefcase(briefcase_id).then(x => {
+      this.procedures = x;
 
       return Promise.resolve(true);
     });
