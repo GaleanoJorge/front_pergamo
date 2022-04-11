@@ -31,6 +31,24 @@ export class ServicesBriefcaseService {
       });
   }
 
+  GetProcedureByBriefcase(briefcase_id): Promise<ServicesBriefcase[]> {
+    let servObj = new ServiceObject('ServiceBriefcase/ServicesByBriefcase' , briefcase_id);
+
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.services_briefcase = <ServicesBriefcase[]>servObj.data.services_briefcase;
+
+        return Promise.resolve(this.services_briefcase);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(services_briefcase: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('services_briefcase');
     servObj.data = services_briefcase;

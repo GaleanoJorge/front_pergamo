@@ -91,6 +91,16 @@
                 {{ item.name }}</nb-option>
             </nb-select>
           </div>
+          <div class="col-md-6" *ngIf="this.form.value.admission_route_id==1" >
+            <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimientos del portafolio:</label>
+            <nb-select  [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth
+              status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
+                [value]="item.manual_price.procedure.id">
+                {{ item.manual_price.procedure.name }} - {{ item.manual_price.name }}</nb-option>
+            </nb-select>
+          </div>
           <div class="col-md-6">
             <label for="has_caregiver" class="form-text text-muted font-weight-bold">¿Tiene algún acompañante/responsable?
             </label>

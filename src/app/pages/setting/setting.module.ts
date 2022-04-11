@@ -269,6 +269,8 @@ import { SingleLocationCapacityComponent } from './location-capacity/sigle-locat
 import { ActionsSingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/actions-single-location-capacity.component';
 import { FormLocationCapacityComponent } from './location-capacity/sigle-location-capacity/form-location-capacity/form-location-capacity.component';
 import { FormFinancialDataComponent } from './users/form-financial-data/form-financial-data.component';
+import { AuthStatusComponent } from './auth-status/auth-status.component';
+import { FormAuthStatusComponent } from './auth-status/form-auth-status/form-auth-status.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -300,6 +302,8 @@ import { FormFinancialDataComponent } from './users/form-financial-data/form-fin
     NbIconModule
   ],
   declarations: [
+    AuthStatusComponent,
+    FormAuthStatusComponent,
     ActionsCDComponent,
     ActionsComponentEditDelete,
     RelationshipComponent,

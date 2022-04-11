@@ -119,6 +119,7 @@ import { PadRiskComponent } from './pad-risk/pad-risk.component';
 import { TariffComponent } from './tariff/tariff.component';
 import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
 import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
+import { AuthStatusComponent } from './auth-status/auth-status.component';
 
 const routes: Routes = [{
   path: '',
@@ -280,6 +281,10 @@ const routes: Routes = [{
     {
       path: 'contract-status',
       component: ContractStatusComponent,
+
+    },{
+      path: 'auth-status',
+      component: AuthStatusComponent,
 
     },
     {

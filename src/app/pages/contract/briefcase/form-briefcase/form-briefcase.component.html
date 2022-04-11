@@ -6,8 +6,8 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
-            <input oninput="this.value = this.value.toUpperCase()" minlength="3" nbInput fullWidth
-              id="name" formControlName="name" name type="text" required
+            <input oninput="this.value = this.value.toUpperCase()" minlength="3" nbInput fullWidth id="name"
+              formControlName="name" name type="text" required
               status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
         </div>
@@ -53,6 +53,14 @@
                 {{ item.name }}</nb-option>
             </nb-select>
           </div>
+        </div>
+        <div class="col-md-12">
+          <label for="type_auth" class="form-text text-muted font-weight-bold">Tipo de autorización:</label>
+          <nb-radio-group formControlName="type_auth" type_auth id="type_auth" name="type_auth" class="d-flex"
+            status="{{ isSubmitted && form.controls.type_auth.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio [value]="0">Pre</nb-radio>
+            <nb-radio [value]="1">Post</nb-radio>
+          </nb-radio-group>
         </div>
       </div>
 
