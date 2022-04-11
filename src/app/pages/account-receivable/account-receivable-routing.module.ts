@@ -4,6 +4,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {AccountReceivableComponent} from './account-receivable..component';
 import {AccountReceivableListComponent} from './account-receivable-list/account-receivable-list.component';
 import {PermissionsGuard} from '../../guards/permissions.guard';
+import { BillUserActivityComponent } from './bill-user-activity/bill-user-activity.component';
 
 
 const routes: Routes = [{
@@ -13,6 +14,10 @@ const routes: Routes = [{
     {
       path: 'list',
       component: AccountReceivableListComponent,
+    },
+    {
+      path: 'bill-user-activity/:id',
+      component: BillUserActivityComponent,
     },
   ],
 }];

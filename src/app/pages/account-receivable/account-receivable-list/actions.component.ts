@@ -24,6 +24,9 @@ import { ViewCell } from 'ng2-smart-table';
     <button nbTooltip="Pagar" nbTooltipPlacement="top" nbTooltipStatus="primary"  ngxCheckPerms="update" nbButton ghost (click)="value.edit(value.data)">
     <nb-icon icon="diagonal-arrow-right-up-outline"></nb-icon>
   </button>
+  <a nbTooltip="Ver actividades" ngxCheckPerms="create" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/account-receivable/bill-user-activity/' + value.data.id" >
+  <nb-icon icon="archive-outline"></nb-icon>
+</a>
   </div>
 
 
@@ -35,16 +38,16 @@ export class Actions2Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
 
-  
+
 
   constructor(
-   
+
   ) {
   }
 
   async ngOnInit() {
-   
+
   }
 
-  
+
 }

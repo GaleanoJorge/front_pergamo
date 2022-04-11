@@ -4,11 +4,11 @@
     <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="management_plan_by_admissions/{{admissions_id}}"
       customData="management_plan" [messageToltip]="messageToltip">
       <div title *ngIf="user && medical==false">
-        <p class="parrafo" >CÉDULA: {{user.identification}} </p>
-        <p class="parrafo">NOMBRE:  {{user.nombre_completo}}</p>
-        <p class="parrafo" >FECHA DE NACIMIENTO: {{user.birthday}} </p>
-        <p class="parrafo" >EDAD: {{user.age}} </p>
-        <p class="parrafo" >GÉNERO: {{user.gender.name}} </p>
+        <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
+        <p class="parrafo"*ngIf="user">NOMBRE:  {{user.nombre_completo}}</p>
+        <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday}} </p>
+        <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
+        <p class="parrafo" *ngIf="user">GÉNERO: {{user.gender.name}} </p>
       </div>
       <div actions>
         <div class="actions">
