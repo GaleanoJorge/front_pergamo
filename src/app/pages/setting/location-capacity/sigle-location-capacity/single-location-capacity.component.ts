@@ -18,7 +18,7 @@ export class SingleLocationCapacityComponent implements OnInit {
   public subtitle: string = 'LOCALIDADES';
   public title_base: string = 'CAPACIDAD INSTALADA BASE';
   public subtitle_base: string = 'LOCALIDADES';
-  public headerFields: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'SERVICIOS REALIZADOS', 'ACCIONES'];
+  public headerFields: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'CAPACIDAD PROYECTADA', 'SERVICIOS REALIZADOS'];
   public headerFields_base: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD BASE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
@@ -65,8 +65,15 @@ export class SingleLocationCapacityComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
       },
-      PAD_patient_attended: {
+      proyectada: {
         title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.PAD_patient_quantity - row.PAD_patient_actual_capacity;
+        }
+      },
+      PAD_patient_attended: {
+        title: this.headerFields[5],
         type: 'string',
       },
     },
