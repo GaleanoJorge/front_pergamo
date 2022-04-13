@@ -30,6 +30,7 @@ import {AuthorizationListComponent} from './authorization-list/authorization-lis
 import {HistoricAuthorizationListComponent} from './authorization-list/historic-authorization/historic-authorization.component';
 import { ActionsStatusComponent } from './authorization-list/actions-status.component';
 import { ActionsAuthNumberComponent } from './authorization-list/actions-auth-number.component';
+import { FormObservationComponent } from './authorization-list/historic-authorization/form-observation/form-observation.component';
 
 
 
@@ -63,6 +64,7 @@ import { ActionsAuthNumberComponent } from './authorization-list/actions-auth-nu
     NbSpinnerModule,
   ],
   declarations: [
+    FormObservationComponent,
     ActionsStatusComponent,
     ActionsAuthNumberComponent,
     AuthorizationComponent,
