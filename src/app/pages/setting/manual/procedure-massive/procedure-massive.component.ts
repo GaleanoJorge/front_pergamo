@@ -16,7 +16,7 @@ import { FormManualProcedureComponent } from '../form-manual-procedure/form-manu
 import { ActionsComponentProcedure } from './actions.component';
 import * as XLSX from 'ts-xlsx';
 import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
-import { ProcedurePackageService } from '../../../../business-controller/procedure-package.Service';
+import { ProcedurePackageService } from '../../../../business-controller/procedure-package.service';
 
 
 @Component({
