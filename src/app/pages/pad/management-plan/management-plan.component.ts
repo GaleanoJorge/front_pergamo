@@ -16,6 +16,7 @@ import { ManagementPlanService } from '../../../business-controller/management-p
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { TypeChPhysicalExam } from '../../../models/ch-type-ch-physical-exam';
 import { PatientService } from '../../../business-controller/patient.service';
+import { type } from 'os';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -36,7 +37,7 @@ export class ManagementPlanComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = '';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial'];
+  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Cantidad autorizada'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -95,6 +96,13 @@ export class ManagementPlanComponent implements OnInit {
       quantity: {
         title: this.headerFields[2],
         type: 'string',
+      },
+      authorization: {
+        title: this.headerFields[4] ,
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.authorized_amount;
+        },
       },
       assigned_user: {
         title: this.headerFields[3],
