@@ -34,7 +34,7 @@ import { environment } from '../../../../environments/environment';
 import { AssistanceSpecial } from '../../../models/assistance-special';
 import { SpecialitiesDialogComponent } from './especialities-dialog.component';
 import { InabilityService } from '../../../business-controller/inability.service';
-import {LocationCapacityService} from '../../../business-controller/location-capacity.service';
+import { LocationCapacityService } from '../../../business-controller/location-capacity.service';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 import { PatientService } from '../../../business-controller/patient.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
@@ -168,38 +168,39 @@ export class FormUsersComponent implements OnInit {
     reader.readAsDataURL(file)
   }
 
-  async ngOnInit() 
-  {
-    await this.roleBS.GetCollection({id: this.role}).then(x => {
-      this.roles=x;
-    }).catch(x => {});
-    if(this.role==7){
+  async ngOnInit() {
+    await this.roleBS.GetCollection({ id: this.role }).then(x => {
+      this.roles = x;
+    }).catch(x => { });
+    if (this.role == 7) {
       this.GetAuxData(1)
-    } else if(this.role==14){
+    } else if (this.role == 14) {
       this.GetAuxData(2)
     }
     this.parentData = {
       selectedOptions: [],
       entity: 'residence/locationbyMunicipality',
       customData: 'locality'
-      };
+    };
     if (this.data && this.data.file) {
       this.image = environment.storage + this.data.file;
-       
+
     } else {
       this.image = "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg";
     }
-    if(this.data && this.data.assistance){
-    this.currentImg = environment.storage + this.data.assistance[0].firm;  
-    }else{
-      this.currentImg=null;
+    if (this.data && this.data.assistance) {
+      if (this.data && this.data.assistance.length > 0) {
+        this.currentImg = environment.storage + this.data.assistance[0].file_firm;
+      } else {
+        this.currentImg = null;
+      }
     }
     this.currentRoleId = localStorage.getItem('role_id');
     this.LoadForm(false).then();
     await Promise.all([
       this.GetAuxData(null),
     ]);
-    
+
     this.course_id = this.route.snapshot.queryParams.course_id;
     this.loadAuxData = false;
     this.LoadForm().then();
@@ -214,7 +215,7 @@ export class FormUsersComponent implements OnInit {
 
   GetAuxData($type_professional_id?, $search?) {
     return this.userBS.GetFormAuxData(this.data ? false : true,
-      this.data == null && !$type_professional_id ? null : $type_professional_id == null && this.data.assistance ? this.data.assistance[0].type_professional_id : $type_professional_id, $search).then(x => {
+      this.data == null && !$type_professional_id ? null : $type_professional_id == null && this.data.assistance && this.data.assistance.length > 0 ? this.data.assistance[0].type_professional_id : $type_professional_id, $search).then(x => {
         if (!$type_professional_id) {
           this.identification_types = x.identificationTypes;
           this.countries = x.countries;
@@ -274,7 +275,7 @@ export class FormUsersComponent implements OnInit {
         this.GetMunicipalities(this.data.region_id),
         this.GetRegions(this.data.country_id, true),
         this.GetMunicipalities(this.data.residence_region_id, true),
-        this.data.locality_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null ,this.data.locality_id) : null,
+        this.data.locality_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null, this.data.locality_id) : null,
         // this.data.localities_id ? this.GetLocality(this.data.residence_municipality_id) && this.GetNeighborhoodResidence(null ,this.data.localities_id) : this.GetNeighborhoodResidence(this.data.residence_municipality_id)
       ];
 
@@ -541,21 +542,21 @@ export class FormUsersComponent implements OnInit {
     this.LoadForm().then();
   }
 
-  async getlocalities(){
-    if(this.data != null && this.data.assistance.length>0){
-  await this.locationCapacityS.GetByAssistance(this.data.assistance[0].id).then(x => {
-    var arrdta = [];
-    this.location_capacity = x.data;
-    this.location_capacity.forEach(element => {
-      arrdta.push(element.locality_id);
-    });
+  async getlocalities() {
+    if (this.data != null && this.data.assistance.length > 0) {
+      await this.locationCapacityS.GetByAssistance(this.data.assistance[0].id).then(x => {
+        var arrdta = [];
+        this.location_capacity = x.data;
+        this.location_capacity.forEach(element => {
+          arrdta.push(element.locality_id);
+        });
 
-    this.form.controls.localities_id.setValue([arrdta]);
-    this.data.localities_id=[arrdta];
+        this.form.controls.localities_id.setValue([arrdta]);
+        this.data.localities_id = [arrdta];
 
-  });
-}
-}
+      });
+    }
+  }
 
   ReturnResidence(e) {
     var complete_address = e;
@@ -597,7 +598,7 @@ export class FormUsersComponent implements OnInit {
 
   async SaveStudent() {
     this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' + this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) ';
-    if(this.role == 3 || this.role ==7){
+    if (this.role == 3 || this.role == 7) {
       // this.patient_quantity();
     }
     this.isSubmitted = true;
@@ -641,9 +642,9 @@ export class FormUsersComponent implements OnInit {
       formData.append('residence_id', data.residence_id.value);
       formData.append('residence_country_id', data.residence_country_id.value);
       formData.append('residence_region_id', data.residence_region_id.value);
-      formData.append('residence_municipality_id', data.residence_municipality_id.value);  
+      formData.append('residence_municipality_id', data.residence_municipality_id.value);
       formData.append('locality_id', data.locality_id.value);
-    
+
       formData.append('study_level_status_id', data.study_level_status_id.value);
       formData.append('activities_id', this.activities_id);
       formData.append('select_RH_id', this.form.value.select_RH_id);
@@ -654,7 +655,7 @@ export class FormUsersComponent implements OnInit {
 
       // var role = Number(this.role);
       if (this.roleBS.roles[0].role_type_id == 2) {
-        formData.append('assistance_id', this.data==null ? null : this.data.assistance[0].id);
+        formData.append('assistance_id', this.data == null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
         formData.append('localities_id', JSON.stringify(this.parentData.selectedOptions));
         formData.append('contract_type_id', data.contract_type_id.value);
@@ -690,13 +691,13 @@ export class FormUsersComponent implements OnInit {
         let x;
 
         if (!this.data?.id) {
-          if(this.role == 2){
+          if (this.role == 2) {
             x = await this.patientBS.SavePacient(formData);
           } else {
             x = await this.userBS.SavePublic(formData);
           }
         } else {
-          if(this.role == 2){
+          if (this.role == 2) {
             x = await this.patientBS.UpdatePatient(formData, this.data.id);
           } else {
             x = await this.userBS.UpdatePublic(formData, this.data.id);
@@ -813,8 +814,8 @@ export class FormUsersComponent implements OnInit {
       if (val === '') {
         // this.neighborhood_or_residence = [];
         this.localities = [];
-      // } else if(val == 11001) { 
-      //   this.neighborhood_or_residence = [];
+        // } else if(val == 11001) { 
+        //   this.neighborhood_or_residence = [];
       } else {
         // this.GetNeighborhoodResidence(val).then();
         this.GetLocality(val).then();
@@ -831,7 +832,7 @@ export class FormUsersComponent implements OnInit {
       if (val === '') {
         this.neighborhood_or_residence = [];
       } else {
-        this.GetNeighborhoodResidence(null,val).then();
+        this.GetNeighborhoodResidence(null, val).then();
       }
       this.form.patchValue({
         neighborhood_or_residence_id: '',
@@ -893,9 +894,9 @@ export class FormUsersComponent implements OnInit {
       return Promise.resolve(true);
     });
   }
-  
-  GetNeighborhoodResidence(municipality_id? , locality_id?) {
-    if(municipality_id){
+
+  GetNeighborhoodResidence(municipality_id?, locality_id?) {
+    if (municipality_id) {
       // if (!municipality_id || municipality_id === '') return Promise.resolve(false);
       // return this.locationBS.GetNeighborhoodResidenceByMunicipality(municipality_id).then(x => {
       //   this.neighborhood_or_residence = x;
@@ -903,7 +904,7 @@ export class FormUsersComponent implements OnInit {
       // }).catch(e => {
       //   console.log(e);
       // });
-    } else if(locality_id){
+    } else if (locality_id) {
       if (!locality_id || locality_id === '') return Promise.resolve(false);
       return this.locationBS.GetNeighborhoodResidenceByLocality(locality_id).then(x => {
         this.neighborhood_or_residence = x;
@@ -1000,30 +1001,25 @@ export class FormUsersComponent implements OnInit {
     var year = today.getFullYear() - age.getFullYear();
     var m = (today.getMonth() + 1) - (age.getMonth() + 1);
     var Month = age.getMonth();
-    var day = today.getDate() - (age.getDate()+1);
-    if( m < 0)
-    {
+    var day = today.getDate() - (age.getDate() + 1);
+    if (m < 0) {
       year--;
       m = m + 12;
     }
-    if(day < 0)
-    { 
+    if (day < 0) {
       m--;
-      if(Month==1)
-      {
-        day=day+28
+      if (Month == 1) {
+        day = day + 28
       }
-      else if( Month==0 || Month==2 || Month==4 || Month==6 || Month==7 || Month==9 || Month==11 ) 
-      { 
-        day=day+31;
-      } 
-      else 
-      {
-        day=day+30;
+      else if (Month == 0 || Month == 2 || Month == 4 || Month == 6 || Month == 7 || Month == 9 || Month == 11) {
+        day = day + 31;
+      }
+      else {
+        day = day + 30;
       }
     }
-    if(year<0){
-      year=0
+    if (year < 0) {
+      year = 0
     }
     this.age = year + " años " + m + " meses y " + day + " dia(s) ";
 
@@ -1031,6 +1027,6 @@ export class FormUsersComponent implements OnInit {
 
   receiveMessage($event) {
     this.parentData.selectedOptions = $event;
-    
+
   }
 }

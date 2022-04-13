@@ -562,7 +562,7 @@
             </nb-select>
           </div>
         </div> -->
-        <div class="col-md-2">
+        <div class="col-md-4">
           <div class="form-group">
             <nb-card-body>
               <nb-toggle formControlName="attends_external_consultation" name>Consulta externa</nb-toggle>
@@ -577,12 +577,12 @@
           </div>
         </div>
         <!-- pad -->
-        <div class="col-md-2">
+        <div class="col-md-4">
           <div class="form-group">
             <nb-toggle formControlName="PAD_service" PAD_service>Servicio de PAD</nb-toggle>
           </div>
         </div>
-        <div class="col-md-12 col-lg-12" *ngIf="form.controls.PAD_service.value && !this.data">
+        <div class="col-md-12" *ngIf="form.controls.PAD_service.value && !this.data">
           <div style="margin-top: 10px;">
             <ngx-work-location-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
             </ngx-work-location-package>
