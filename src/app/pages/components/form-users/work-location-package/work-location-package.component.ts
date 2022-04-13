@@ -6,6 +6,7 @@ import { SelectWorkLocationComponent } from './select-work-location.component';
 import { AmountWorkLocationComponent } from './amount-work-location.component';
 import { LocationBusinessService } from '../../../../business-controller/location-business.service';
 import { CountryService } from '../../../../business-controller/country.service';
+import { isNumeric } from 'rxjs/internal-compatibility';
 
 
 @Component({
@@ -38,6 +39,8 @@ export class WorkLocationPackageComponent implements OnInit {
 
   public component_package_id: number;
   public done = false;
+  public consulto_done = false;
+  public region_changed = false;
 
 
 
@@ -192,6 +195,14 @@ export class WorkLocationPackageComponent implements OnInit {
   }
 
   onCountryChange(country_id) {
+    if (this.consulto_done) {
+      this.data.region_id = '';
+      this.form.controls.region_id.setValue('');
+      this.region = [];
+      this.data.municipality_id = '';
+      this.form.controls.municipality_id.setValue('');
+      this.municipality = [];
+    }
     this.locationBS.GetPublicRegionByCountry(country_id).then(x => {
       this.region = x;
     });
@@ -199,6 +210,12 @@ export class WorkLocationPackageComponent implements OnInit {
   }
 
   onRegionChange(region_id) {
+    if (this.consulto_done) {
+      this.data.municipality_id = '';
+      this.form.controls.municipality_id.setValue('');
+      this.municipality = [];
+      this.region_changed = true;
+    }
     this.locationBS.GetPublicMunicipalitiesByRegion(region_id).then(x => {
       this.municipality = x;
     });
@@ -207,5 +224,10 @@ export class WorkLocationPackageComponent implements OnInit {
   onMunicipalityChange(municipality_id) {
     this.entity = `${this.parentData.entity}/${municipality_id}`;
     this.customData = this.parentData.customData;
+    if (this.consulto_done && !this.region_changed) {
+      this.RefreshData();
+    }
+    this.region_changed = false;
+    this.consulto_done = true;
   }
 }

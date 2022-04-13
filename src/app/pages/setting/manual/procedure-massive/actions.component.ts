@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ViewCell} from 'ng2-smart-table';
-import { ProcedurePackageService } from '../../../../business-controller/procedure-package.Service';
+import { ProcedurePackageService } from '../../../../business-controller/procedure-package.service';
 
 @Component({
   template: `

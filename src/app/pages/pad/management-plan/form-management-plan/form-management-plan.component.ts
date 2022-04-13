@@ -193,12 +193,14 @@ export class FormManagementPlanComponent implements OnInit {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
+      if (this.medical == false) {
       var selectes_assistance_id;
       this.assigned_user.forEach(user => {
         if (user.id === this.form.value.assigned_user_id) {
           selectes_assistance_id = user.assistance_id;
         }
       });
+    }
       if (this.data.id) {
         this.managementPlanS.Update({
           id: this.data.id,
@@ -213,6 +215,7 @@ export class FormManagementPlanComponent implements OnInit {
           locality_id: this.user.locality_id,
           start_date:  this.form.controls.start_date.value,
           finish_date:  this.form.controls.finish_date.value,
+          medical: this.isMedical
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
