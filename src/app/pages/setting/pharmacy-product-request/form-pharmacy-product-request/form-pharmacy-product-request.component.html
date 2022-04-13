@@ -1,0 +1,45 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="product_generic_id" class="form-text text-muted font-weight-bold">PRODUCTO GENERICO:</label>
+        <nb-select [selected]="this.data.product_generic_id" formControlName="product_generic_id"
+          id="product_generic_id" fullWidth
+          status="{{ isSubmitted && form.controls.product_generic_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.product_generic_id }}" *ngFor="let item of product_generic_id"
+            [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="pharmacy_stock_id" class="form-text text-muted font-weight-bold">SOLICITAR
+          A(sede, bodega, farmacia):</label>
+        <nb-select [selected]="this.data.pharmacy_stock_id" formControlName="pharmacy_stock_id"
+          id="pharmacy_stock_id" fullWidth
+          status="{{ isSubmitted && form.controls.pharmacy_stock_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.pharmacy_stock_id }}"
+            *ngFor="let item of pharmacy_stock_id" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="amount" class="form-text text-muted font-weight-bold">CANTIDAD A SOLICITAR:</label>
+        <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount" formControlName="amount"
+          amount status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+      </div>
+
+
+    </div>
+    <div class="div-send">
+      <label></label>
+      <button [disabled]="disabled" type="submit" nbButton status="success">SOLICITAR</button>
+    </div>
+
+  </div>
+
+</form>

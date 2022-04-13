@@ -1,0 +1,73 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1100px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="provider_name" class="form-text text-muted font-weight-bold">Nombre del proveedor:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="provider_name"
+            formControlName="provider_name" provider_name
+            status="{{ isSubmitted && form.controls.provider_name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label class="form-text text-muted font-weight-bold">Tipo de Documento Soporte:</label>
+          <nb-select [selected]="this.data.type_billing_evidence_id" formControlName="type_billing_evidence_id"
+            id="type_billing_evidence_id" fullWidth
+            status="{{ isSubmitted && form.controls.type_billing_evidence_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.type_billing_evidence_id }}" *ngFor="let item of type_billing_evidence"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="num_evidence" class="form-text text-muted font-weight-bold">Nro de Documento Soporte:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="num_evidence"
+            formControlName="num_evidence" num_evidence
+            status="{{ isSubmitted && form.controls.num_evidence.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="ordered_quantity" class="form-text text-muted font-weight-bold">Cantidad ordenada:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="ordered_quantity"
+            formControlName="ordered_quantity" ordered_quantity
+            status="{{ isSubmitted && form.controls.ordered_quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="sub_total" class="form-text text-muted font-weight-bold">Subtotal:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="sub_total"
+            formControlName="sub_total" sub_total
+            status="{{ isSubmitted && form.controls.sub_total.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="vat" class="form-text text-muted font-weight-bold">Iva:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="vat" formControlName="vat" vat
+            status="{{ isSubmitted && form.controls.vat.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="setting_value" class="form-text text-muted font-weight-bold">Valor Ajuste:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="setting_value"
+            formControlName="setting_value" setting_value
+            status="{{ isSubmitted && form.controls.setting_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="invoice_value" class="form-text text-muted font-weight-bold">Valor total de la factura $:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="invoice_value"
+            formControlName="invoice_value" invoice_value
+            status="{{ isSubmitted && form.controls.invoice_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

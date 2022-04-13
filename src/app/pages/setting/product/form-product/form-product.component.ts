@@ -73,6 +73,7 @@ export class FormProductComponent implements OnInit {
         minimum_stock:'',
         maximum_stock:'',
         generate_iva:'',
+        date_cum:'',
       };   
     }    
     this.form = this.formBuilder.group({      
@@ -96,6 +97,7 @@ export class FormProductComponent implements OnInit {
       minimum_stock: [this.data.minimum_stock, Validators.compose([Validators.required])],
       maximum_stock: [this.data.maximum_stock, Validators.compose([Validators.required])],
       generate_iva: [this.data.generate_iva, Validators.compose([Validators.required])],
+      date_cum: [this.data.date_cum, Validators.compose([Validators.required])],
     });
 
     await this.FactoryS.GetCollection().then(x => {
@@ -149,6 +151,7 @@ export class FormProductComponent implements OnInit {
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           generate_iva: this.form.controls.generate_iva.value,
+          date_cum: this.form.controls.date_cum.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -182,6 +185,7 @@ export class FormProductComponent implements OnInit {
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           generate_iva: this.form.controls.generate_iva.value,    
+          date_cum: this.form.controls.date_cum.value,    
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

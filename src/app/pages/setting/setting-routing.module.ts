@@ -120,6 +120,9 @@ import { TariffComponent } from './tariff/tariff.component';
 import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
 import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
 import { AuthStatusComponent } from './auth-status/auth-status.component';
+import { BillingComponent } from './billing/billing.component';
+import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
+import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
 
 const routes: Routes = [{
   path: '',
@@ -400,6 +403,21 @@ const routes: Routes = [{
     {
       path: 'product',
       component: ProductComponent,
+
+    },
+    {
+      path: 'billing',
+      component: BillingComponent,
+
+    },
+    {
+      path: 'pharmacy-stock',
+      component: PharmacyStockComponent,
+
+    },
+    {
+      path: 'pharmacy-product-request',
+      component: PharmacyProductRequestComponent,
 
     },
     {

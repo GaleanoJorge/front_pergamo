@@ -43,12 +43,14 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
 import { AmountWorkLocationComponent } from './components/form-users/work-location-package/amount-work-location.component';
 import { SelectWorkLocationComponent } from './components/form-users/work-location-package/select-work-location.component';
 import { WorkLocationPackageComponent } from './components/form-users/work-location-package/work-location-package.component';
+import { PharmacyRoutingModule } from './pharmacy/pharmacy-routing.module';
 
 
 
 @NgModule({
   imports: [
     PagesRoutingModule,
+    PharmacyRoutingModule,
     ThemeModule,
     NgxEchartsModule,
     NgxChartsModule,

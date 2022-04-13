@@ -271,6 +271,12 @@ import { FormLocationCapacityComponent } from './location-capacity/sigle-locatio
 import { FormFinancialDataComponent } from './users/form-financial-data/form-financial-data.component';
 import { AuthStatusComponent } from './auth-status/auth-status.component';
 import { FormAuthStatusComponent } from './auth-status/form-auth-status/form-auth-status.component';
+import { BillingComponent } from './billing/billing.component';
+import { FormBillingComponent } from './billing/form-billing/form-billing.component';
+import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
+import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
+import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
+import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/form-pharmacy-product-request/form-pharmacy-product-request.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -556,6 +562,17 @@ import { FormAuthStatusComponent } from './auth-status/form-auth-status/form-aut
     FormLocationCapacityComponent,
     FormFinancialDataComponent,
     ActionsDishComponent,
+
+    BillingComponent,
+    FormBillingComponent,
+    ActionsComponent,
+
+    PharmacyStockComponent,
+    FormPharmacyStockComponent,
+    
+    PharmacyProductRequestComponent,
+    FormPharmacyProductRequestComponent,
+
   ],
   providers: [
     DateFormatPipe,
