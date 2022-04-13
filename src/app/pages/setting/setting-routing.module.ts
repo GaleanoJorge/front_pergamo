@@ -113,6 +113,10 @@ import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component
 import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
 import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
 import { DietMenuComponent } from './diet-menu/diet-menu.component';
+import { BillingComponent } from './billing/billing.component';
+import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
+import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
+import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
 
 const routes: Routes = [{
   path: '',
@@ -369,6 +373,25 @@ const routes: Routes = [{
     {
       path: 'product',
       component: ProductComponent,
+
+    },
+    {
+      path: 'billing',
+      component: BillingComponent,
+
+    },
+    {
+      path: 'pharmacy-stock',
+      component: PharmacyStockComponent,
+
+    },{
+      path: 'pharmacy-inventory',
+      component: PharmacyInventoryComponent,
+
+    },
+    {
+      path: 'pharmacy-product-request',
+      component: PharmacyProductRequestComponent,
 
     },
     {

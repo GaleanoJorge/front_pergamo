@@ -255,6 +255,15 @@ import { ActionsCompanyComponent } from './company/actions.component';
 import { ActionsComponentEditDelete } from './company-mail/actions.component';
 import { ActionsCDComponent } from './company-document/actionsCD.component';
 import { ActionsDishComponent } from './diet-dish/actions-dish.component';
+import { BillingComponent } from './billing/billing.component';
+import { FormBillingComponent } from './billing/form-billing/form-billing.component';
+import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
+import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
+import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
+import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/form-pharmacy-product-request/form-pharmacy-product-request.component';
+import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
+import { FormPharmacyInventoryComponent } from './pharmacy-inventory/form-pharmacy-inventory/form-pharmacy-inventory.component';
+import { ActionsPharmacyOutputComponent } from './pharmacy-inventory/actions.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -524,6 +533,20 @@ import { ActionsDishComponent } from './diet-dish/actions-dish.component';
     DishPackageComponent,
     SelectDishComponent,
     ActionsDishComponent,
+
+    BillingComponent,
+    FormBillingComponent,
+    ActionsComponent,
+
+    PharmacyStockComponent,
+    FormPharmacyStockComponent,
+    
+    PharmacyProductRequestComponent,
+    FormPharmacyProductRequestComponent,
+
+    PharmacyInventoryComponent,
+    FormPharmacyInventoryComponent,
+    ActionsPharmacyOutputComponent,
 
   ],
   providers: [
