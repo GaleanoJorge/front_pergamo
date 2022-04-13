@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BackgroundComponent } from './background/background.component';
+import { BackListComponent } from './background/back-list.component'; 
 import { ChRecordListComponent } from './ch-record-list/ch-record-list.component';
 import { ClinicHistoryListComponent } from './clinic-history-list/clinic-history-list.component';
 import { ClinicHistoryComponent } from './clinic-history.component';
@@ -24,8 +24,8 @@ const routes: Routes = [{
       component: EntryClinicHistoryComponent,
     },
     {
-      path: 'background/:id',
-      component: BackgroundComponent,
+      path: 'back-list/:id',
+      component: BackListComponent,
     }
   ],
 }];

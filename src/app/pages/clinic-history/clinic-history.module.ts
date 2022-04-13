@@ -34,18 +34,22 @@ import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic
 import { SystemExamComponent } from './system-exam/system-exam.component';
 import { OrdersMedicalComponent } from './medical-orders/orders-medical.component';
 import { FormOrdersMedicalComponent } from './medical-orders/form-orders-medical/form-orders-medical.component';
+import { FormSystemExamComponent } from './system-exam/form-system-exam/form-system-exam.component';
+import { PadModule } from '../pad/pad.module';
+import { FormBackgroundComponent } from './background/back/form-background/form-background.component';
+
 import { FormPhysicalExamComponent } from './physical-exam/form-physical-exam/form-physical-exam.component';
 import { PhysicalExamComponent } from './physical-exam/physical-exam.component';
 import { Actions3Component } from './physical-exam/actions.component';
-import { FormSystemExamComponent } from './system-exam/form-system-exam/form-system-exam.component';
 import { Actions7Component } from './system-exam/actions.component';
-import { PadModule } from '../pad/pad.module';
-import { FormBackgroundComponent } from './background/form-background/form-background.component';
-import { BackgroundComponent } from './background/background.component';
-import { Actions8Component } from './background/actions.component';
 import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
 import { Actions2Component } from './diagnostic/actions.component';
 import { FormDiagnosticComponent } from './diagnostic/form-diagnostic/form-diagnostic.component';
+
+import { FormBackGynecoComponent } from './background/back-gyneco/form-back-gyneco/form-back-gyneco.component';
+import { BackgGynecoComponent } from './background/back-gyneco/back-gyneco.component';
+import { Actions9Component } from './background/back-gyneco/actions.component';
+import { BackListComponent } from './background/back-list.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -101,10 +105,14 @@ import { FormDiagnosticComponent } from './diagnostic/form-diagnostic/form-diagn
 
 
     FormBackgroundComponent,
-    BackgroundComponent,
-    Actions8Component,
 
-  ],
+    FormBackGynecoComponent,
+    BackgGynecoComponent,
+    Actions9Component,
+
+    BackListComponent,
+   ],
+
   providers: [
     DateFormatPipe,
   ],
