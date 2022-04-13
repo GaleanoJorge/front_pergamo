@@ -73,6 +73,7 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
     NbAutocompleteModule,
     NbTooltipModule,
     NbFormFieldModule,
+    NbRadioModule,
   ],
   declarations: [
     PagesComponent,

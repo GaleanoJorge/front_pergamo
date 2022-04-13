@@ -1,0 +1,1055 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1 ">ESCALA DE NORTON</legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Estado Mental
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="4">Alerta </nb-radio>
+              <nb-radio value="3">Apático </nb-radio>
+              <nb-radio value="2">Confuso</nb-radio>
+              <nb-radio value="1">Estuporoso</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Movilidad
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="4">Completa</nb-radio>
+              <nb-radio value="3">Limitada Ligeramente </nb-radio>
+              <nb-radio value="2">Muy Limitada </nb-radio>
+              <nb-radio value="1">Inmóvil</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Actividad
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="4">Ambulante</nb-radio>
+              <nb-radio value="3">Camina con Ayuda</nb-radio>
+              <nb-radio value="2">Sentado</nb-radio>
+              <nb-radio value="1">Encamado</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Incontinencia
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="4">Ninguna</nb-radio>
+              <nb-radio value="3">Ocasional</nb-radio>
+              <nb-radio value="2">Urinaria o Fecal</nb-radio>
+              <nb-radio value="1">Urinaria y Fecal </nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Total
+            </label>
+            <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+              formControlName="cardiac_frequency" nbInput ngModel>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA DE GLASGOW</legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Apertura Ocular</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="4">Espontanea</nb-radio>
+              <nb-radio value="3">A la orden verbal</nb-radio>
+              <nb-radio value="2">Dolor</nb-radio>
+              <nb-radio value="1">Ninguna respuesta</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Respuesta Verbal</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="5">Orientado</nb-radio>
+              <nb-radio value="4">Desorientado</nb-radio>
+              <nb-radio value="3">Lenguaje Inapropiado</nb-radio>
+              <nb-radio value="2">Sonidos Incomprensibles</nb-radio>
+              <nb-radio value="1">Ninguna respuesta</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Respuesta Motora</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="6">Obedece Ordenes </nb-radio>
+              <nb-radio value="5">Localiza el Dolor </nb-radio>
+              <nb-radio value="4">Retirada y Flexión</nb-radio>
+              <nb-radio value="3">Flexión Anormal</nb-radio>
+              <nb-radio value="2">Extensión</nb-radio>
+              <nb-radio value="1">Ninguna respuesta</nb-radio>
+            </nb-radio-group>
+          </div>
+          <label class="form-text text-muted font-weight-bold align">Total
+          </label>
+          <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+            formControlName="cardiac_frequency" nbInput ngModel>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA DE BARTHEL</legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Comer</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Incapaz</nb-radio>
+              <nb-radio value="5">Necesita ayuda para cortar, extender mantequilla, usar condimentos, etc.</nb-radio>
+              <nb-radio value="10">Independiente (capaz de usar cualquier instrumento)</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Trasladarse entre la silla
+              y la cama</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Dependiente, no se mantiene sentado</nb-radio>
+              <nb-radio value="5">Dependiente, no se mantiene sentado
+              </nb-radio>
+              <nb-radio value="10">Necesita algo de ayuda (una pequeña ayuda física o ayuda verbal)</nb-radio>
+              <nb-radio value="15">Independiente</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Aseo personal</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Dependiente</nb-radio>
+              <nb-radio value="5">Independiente para lavarse la cara, las manos y los dientes, peinarse y afeitarse
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Uso del retrete</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Dependiente</nb-radio>
+              <nb-radio value="5">Necesita alguna ayuda, pero puede hacer algo solo</nb-radio>
+              <nb-radio value="10">Independiente (entrar y salir, limpiarse y vestirse)</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Bañarse o Ducharse</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Dependiente</nb-radio>
+              <nb-radio value="5">Independiente para bañarse o ducharse</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Desplazarse</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Inmóvil</nb-radio>
+              <nb-radio value="5">Independiente en silla de ruedas en 50 m</nb-radio>
+              <nb-radio value="10">Anda con pequeña ayuda de una persona (física o verbal)</nb-radio>
+              <nb-radio value="15">Independiente al menos 50 m, con cualquier tipo de muleta, excepto andador</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Subir y bajar
+              escaleras</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Dependiente</nb-radio>
+              <nb-radio value="5">Necesita ayuda física o verbal, puede llevar cualquier tipo de muleta</nb-radio>
+              <nb-radio value="10">Independiente para subir y bajar</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Vestirse y
+              desvestirse</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Dependiente</nb-radio>
+              <nb-radio value="5">Necesita ayuda, pero puede hacer la mitad aproximadamente, sin ayuda</nb-radio>
+              <nb-radio value="10">Independiente, incluyendo botones, cremalleras, cordones, etc.</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Control de heces</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Incontinente (o necesita que le suministren enema)</nb-radio>
+              <nb-radio value="5">Accidente excepcional (uno/semana)</nb-radio>
+              <nb-radio value="10">Continente</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Control de orina</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Incontinente, o sondado incapaz de cambiarse la bolsa</nb-radio>
+              <nb-radio value="5">Accidente excepcional (máximo uno/24 horas)</nb-radio>
+              <nb-radio value="10">Continente, durante al menos 7 días</nb-radio>
+            </nb-radio-group>
+          </div>
+          <label class="form-text text-muted font-weight-bold align">Total
+          </label>
+          <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+            formControlName="cardiac_frequency" nbInput ngModel>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA PAYETTE</legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light align">¿La persona es muy
+              delgada?
+            </label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="2">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light align">¿La persona ha perdido
+              peso en el curso del último año?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light align">¿La persona sufre de
+              artritis con repercusión en su funcionalidad global?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Buena</nb-radio>
+              <nb-radio value="1">Mediocre</nb-radio>
+              <nb-radio value="2">Mala</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light align">¿La persona tiene buen
+              apetito?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Con frecuencia</nb-radio>
+              <nb-radio value="1">A veces</nb-radio>
+              <nb-radio value="2">Nunca</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light   align">¿La persona ha vivido
+              recientemente algún acontecimiento que le ha afectado profundamente(enfermedad personal, pérdida de un
+              familiar)?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light   align">¿La persona come
+              habitualmente fruta o jugo de frutas?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light   align">¿La persona come
+              habitualmente huevos, queso, mantequilla o aceite vegetal?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light   align">¿La persona come
+              habitualmente tortilla, pan o cereal?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light   align">¿La persona come
+              habitualmente leche (1 vaso o más de 1/4 de taza en el café?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <label class="form-text text-muted font-weight-bold align">Total
+          </label>
+          <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+            formControlName="cardiac_frequency" nbInput ngModel>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA FRAJILIDAD</legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light align">¿Está cansado?
+            </label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light align">¿Es incapaz de subir un
+              piso de escaleras?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light align">¿Es incapaz de caminar
+              una manzana?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light align">¿Tiene más de 5
+              enfermedades?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light   align">¿La persona ha vivido
+              recientemente algún acontecimiento que le ha afectado profundamente(enfermedad personal, pérdida de un
+              familiar)?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-light   align">¿Ha perdido más del 5%
+              de su peso en los últimos 6 meses?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <label class="form-text text-muted font-weight-bold align">Total
+          </label>
+          <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+            formControlName="cardiac_frequency" nbInput ngModel>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA NEWS</legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Frecuencia respiratoria
+            </label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="3">≤ 8</nb-radio>
+              <nb-radio value="1">9-11</nb-radio>
+              <nb-radio value="0">12-20</nb-radio>
+              <nb-radio value="2">21-24</nb-radio>
+              <nb-radio value="3">≥ 25</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Saturación de oxígeno
+              (SpO2)
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="3">≤ 91</nb-radio>
+              <nb-radio value="2">92-93</nb-radio>
+              <nb-radio value="1">94-95</nb-radio>
+              <nb-radio value="0">≤ 96</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">SpO2 en caso de EPOC
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="3">≤ 83</nb-radio>
+              <nb-radio value="2">84-85</nb-radio>
+              <nb-radio value="1">86-87</nb-radio>
+              <nb-radio value="0">88-92 ≤ 93 sin O2</nb-radio>
+              <nb-radio value="1">93-94 con O2</nb-radio>
+              <nb-radio value="2">95-96 con O2</nb-radio>
+              <nb-radio value="3">≥ 97 con O2</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">¿Oxígeno suplementario?
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="2">Si</nb-radio>
+              <nb-radio value="0">Aire ambiente</nb-radio>
+              <nb-radio value="3">≥ 220</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Tensión arterial
+              sistólica
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="3">≤ 90</nb-radio>
+              <nb-radio value="2">91-100</nb-radio>
+              <nb-radio value="1">101-110</nb-radio>
+              <nb-radio value="0">111-219</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Frecuencia cardiaca
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="3">≤ 40</nb-radio>
+              <nb-radio value="1">41-50</nb-radio>
+              <nb-radio value="0">51-90</nb-radio>
+              <nb-radio value="1">91-110 </nb-radio>
+              <nb-radio value="2">111-130</nb-radio>
+              <nb-radio value="3">≥ 131</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Nivel de consciencia
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="3">C, V, D, I</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Temperatura
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="3">≤ 35.0</nb-radio>
+              <nb-radio value="1">35.1-36.0</nb-radio>
+              <nb-radio value="0">36.1-38.0</nb-radio>
+              <nb-radio value="1">38.1-39.0</nb-radio>
+              <nb-radio value="2">≥ 39.1</nb-radio>
+            </nb-radio-group>
+          </div>
+          <label class="form-text text-muted font-weight-bold align">Total
+          </label>
+          <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+            formControlName="cardiac_frequency" nbInput ngModel>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA PaP SCORE O INICE PRONÓSTICO DE SUPERVIVENCIA </legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Disnea
+            </label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">No</nb-radio>
+              <nb-radio value="1">Si</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Anorexia
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">No</nb-radio>
+              <nb-radio value="1.5">Si</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Índice de Karnofsky
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">>= 50</nb-radio>
+              <nb-radio value="0">30 - 40</nb-radio>
+              <nb-radio value="2,5">10 - 20</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Estimación Clínica de
+              Supervivencia (Semanas)
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">> 12</nb-radio>
+              <nb-radio value="2">11 - 12</nb-radio>
+              <nb-radio value="2,5">9 - 10</nb-radio>
+              <nb-radio value="2,5">7 - 8</nb-radio>
+              <nb-radio value="4,5">5 - 6</nb-radio>
+              <nb-radio value="6">3 - 4</nb-radio>
+              <nb-radio value="8,5">1 - 2</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Leucocitos
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="3">≤ 90</nb-radio>
+              <nb-radio value="2">91-100</nb-radio>
+              <nb-radio value="1">101-110</nb-radio>
+              <nb-radio value="0">111-219</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Frecuencia cardiaca
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Normal, 4800-8500 cel/l</nb-radio>
+              <nb-radio value="0,5">Alto, 8501-11000 cel/l</nb-radio>
+              <nb-radio value="1,5">Muy Alto</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Porcentaje de
+              Linfocitos
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Normal, 20-40%</nb-radio>
+              <nb-radio value="1">Alto, 12-19%</nb-radio>
+              <nb-radio value="2,5">Muy Alto,0-11%</nb-radio>
+            </nb-radio-group>
+          </div>
+          <label class="form-text text-muted font-weight-bold align">Total
+          </label>
+          <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+            formControlName="cardiac_frequency" nbInput ngModel>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA HAMILTON</legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Humor depresivo
+              (tristeza, desesperanza, desamparo, sentimiento de inutilidad)
+            </label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Ausente</nb-radio>
+              <nb-radio value="1">Estas sensaciones las expresa solamente si le preguntan como se siente</nb-radio>
+              <nb-radio value="2">Estas sensaciones las relata espontáneamente</nb-radio>
+              <nb-radio value="3">Sensaciones no comunicadas verbalmente (expresión facial, postura, voz, tendencia al
+                llanto)</nb-radio>
+              <nb-radio value="4">"Manifiesta estas sensaciones en su comunicación verbal y no verbal en forma
+                espontánea"</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Sentimientos de culpa
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Ausente</nb-radio>
+              <nb-radio value="1">Se culpa a si mismo, cree haber decepcionado a la gente</nb-radio>
+              <nb-radio value="2">Tiene ideas de culpabilidad o medita sobre errores pasados o malas acciones</nb-radio>
+              <nb-radio value="3">Siente que la enfermedad actual es un castigo</nb-radio>
+              <nb-radio value="4">Oye voces acusatorias o de denuncia y/o experimenta alucinaciones visuales de amenaza
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Suicidio</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Ausente</nb-radio>
+              <nb-radio value="1">Le parece que la vida no vale la pena ser vivida</nb-radio>
+              <nb-radio value="2">Desearía estar muerto o tiene pensamientos sobre la posibilidad de morirse</nb-radio>
+              <nb-radio value="3">Ideas de suicidio o amenazas</nb-radio>
+              <nb-radio value="4">Intentos de suicidio (cualquier intento serio)</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Insomnio precoz</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">No tiene dificultad</nb-radio>
+              <nb-radio value="1">Dificultad ocasional para dormir, por ej. más de media hora el conciliar el sueño
+              </nb-radio>
+              <nb-radio value="2">Dificultad para dormir cada noche</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Insomnio intermedio
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">No hay dificultad</nb-radio>
+              <nb-radio value="1">Esta desvelado e inquieto o se despierta varias veces durante la noche
+              </nb-radio>
+              <nb-radio value="2">Esta despierto durante la noche, cualquier ocasión de levantarse de la cama se
+                clasifica en 2 (excepto por motivos de evacuar)</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Insomnio tardío
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">No hay dificultad</nb-radio>
+              <nb-radio value="1">Se despierta a primeras horas de la madrugada, pero se vuelve a dormir</nb-radio>
+              <nb-radio value="2">No puede volver a dormirse si se levanta de la cama</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Trabajo y actividades
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">No hay dificultad</nb-radio>
+              <nb-radio value="1">Ideas y sentimientos de incapacidad, fatiga o debilidad (trabajos, pasatiempos)
+              </nb-radio>
+              <nb-radio value="2">Pérdida de interés en su actividad (disminución de la atención, indecisión y
+                vacilación)</nb-radio>
+              <nb-radio value="3">Disminución del tiempo actual dedicado a actividades o disminución de la
+                productividad</nb-radio>
+              <nb-radio value="4">Dejó de trabajar por la presente enfermedad. Solo se compromete en las pequeñas
+                tareas, o no puede realizar estas sin ayuda.)</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Inhibición psicomotora
+              (lentitud de pensamiento y lenguaje, facultad de concentración disminuida, disminución de la actividad
+              motora)
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Palabra y pensamiento normales</nb-radio>
+              <nb-radio value="1">Ligero retraso en el habla</nb-radio>
+              <nb-radio value="2">Evidente retraso en el habla</nb-radio>
+              <nb-radio value="3">Dificultad para expresarse</nb-radio>
+              <nb-radio value="4">Incapacidad para expresarse</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Agitación psicomotora
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Ninguna</nb-radio>
+              <nb-radio value="1">Juega con sus dedos</nb-radio>
+              <nb-radio value="2">Juega con sus manos, cabello, etc.</nb-radio>
+              <nb-radio value="3">No puede quedarse quieto ni permanecer sentado</nb-radio>
+              <nb-radio value="4">Retuerce las manos, se muerde las uñas, se tira de los cabellos, se muerde los labios
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Ansiedad
+              psíquica</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">No hay dificultad</nb-radio>
+              <nb-radio value="1">Tensión subjetiva e irritabilidad</nb-radio>
+              <nb-radio value="2">Preocupación por pequeñas cosas</nb-radio>
+              <nb-radio value="3">Actitud aprensiva en la expresión o en el habla</nb-radio>
+              <nb-radio value="4">Expresa sus temores sin que le pregunten</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Ansiedad
+              psíquica</label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">No hay dificultad</nb-radio>
+              <nb-radio value="1">Tensión subjetiva e irritabilidad</nb-radio>
+              <nb-radio value="2">Preocupación por pequeñas cosas</nb-radio>
+              <nb-radio value="3">Actitud aprensiva en la expresión o en el habla</nb-radio>
+              <nb-radio value="4">Expresa sus temores sin que le pregunten</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Ansiedad somática
+              (signos físicos de ansiedad: gastrointestinales: sequedad de boca, diarrea, eructos, indigestión, etc;
+              cardiovasculares: palpitaciones, cefaleas; respiratorios: hiperventilación, suspiros; frecuencia de
+              micción incrementada; transpiración)
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Ausente</nb-radio>
+              <nb-radio value="1">Ligera</nb-radio>
+              <nb-radio value="2">Moderada</nb-radio>
+              <nb-radio value="3">Severa</nb-radio>
+              <nb-radio value="4">Incapacitante</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Síntomas somáticos
+              gastrointestinales
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Ninguno</nb-radio>
+              <nb-radio value="1">Pérdida del apetito, pero come sin necesidad de que lo estimulen. Sensación de pesadez
+                en el abdomen.</nb-radio>
+              <nb-radio value="2">Dificultad en comer si no se le insiste. Solicita o necesita laxantes o medicación
+                intestinal o para sus síntomas gastrointestinales.</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Síntomas somáticos
+              generales
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Ninguno</nb-radio>
+              <nb-radio value="1">Pesadez en la extremidades, espalda o cabeza. Dorsalgias, cefalalgias, mialgias.
+                Fatigabilidad y pérdida de energía.</nb-radio>
+              <nb-radio value="2">Cualquiera de los síntomas anteriores se puntúa como 2 si está muy bien definido.
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Síntomas genitales
+              (tales como: disminución de la libido y trastornos menstruales)
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Ausentes</nb-radio>
+              <nb-radio value="1">Débiles</nb-radio>
+              <nb-radio value="2">Graves</nb-radio>
+              <nb-radio value="2">IncapacitanteS</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Hipocondría
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Ausente</nb-radio>
+              <nb-radio value="1">Preocupado de si mismo (corporalmente)</nb-radio>
+              <nb-radio value="2">Preocupado por su salud</nb-radio>
+              <nb-radio value="3">Se lamenta constantemente, solicita ayuda</nb-radio>
+              <nb-radio value="4">Ideas delirantes hipocondríacas</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Pérdida de peso
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Pérdida de peso inferior a 500 gr. en una semana</nb-radio>
+              <nb-radio value="1">Pérdida de más de 500 gr. en una semana</nb-radio>
+              <nb-radio value="2">Pérdida de más de 1 Kg. en una semana</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold   align">Introspeccción
+              (insight)
+            </label>
+            <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+              status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="0">Se da cuenta de que está deprimido y enfermo.</nb-radio>
+              <nb-radio value="1">Se da cuenta de su enfermedad pero atribuye la causa a la mala alimentación, clima,
+                exceso de trabajo, virus, necesidad de descanso, etc.</nb-radio>
+              <nb-radio value="2">No se da cuenta que está enfermo</nb-radio>
+            </nb-radio-group>
+          </div>
+          <label class="form-text text-muted font-weight-bold align">Total
+          </label>
+          <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+            formControlName="cardiac_frequency" nbInput ngModel>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA CAM (CONFUSION ASSESMENT METHOD)</legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Comienzo agudo y curso
+              fluctuante: ¿Ha observado un cambio agudo en el estado mental del paciente? ¿Ha observado un cambio agudo
+              en el estado mental del paciente?</label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="2">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Alteración de la
+              atención:¿El paciente se distrae con facilidad o tiene dificultad para seguir una conversación?</label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="2">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Pensamiento
+              desorganizado:¿El paciente manifiesta ideas o conversaciones incoherentes o confunde a las
+              personas?</label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="2">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Alteración del nivel
+              de conciencia: ¿Está alterado el nivel de conciencia del paciente (Vigilante, Letárgico,
+              Estuporoso)?</label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="2">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <label class="form-text text-muted font-weight-bold align">Total
+          </label>
+          <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+            formControlName="cardiac_frequency" nbInput ngModel>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA FAC (VALORACIÓN FUNCIONAL DE LA MARCHA)</legend>
+          <div class="row justify-content-md-center">
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold">Clasificación:</label>
+              <nb-select [selected]="this.data.ch_type_gynecologists_id" formControlName="ch_type_gynecologists_id"
+                id="ch_type_gynecologists_id" fullWidth
+                status="{{ isSubmitted && form.controls.ch_type_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              </nb-select>
+            </div>
+          </div>
+          <div class="row justify-content-md-center">
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold text ">Definición</label>
+              <textarea id="observation_flow" nbInput fullWidth formControlName="observation_flow" observation_flow
+                rows="4" cols="50"
+                status="{{ isSubmitted && form.controls.observation_flow.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA CRUZ ROJA</legend>
+          <div class="row justify-content-md-center">
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold">Grado</label>
+              <nb-select [selected]="this.data.ch_type_gynecologists_id" formControlName="ch_type_gynecologists_id"
+                id="ch_type_gynecologists_id" fullWidth
+                status="{{ isSubmitted && form.controls.ch_type_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              </nb-select>
+            </div>
+          </div>
+          <div class="row justify-content-md-center">
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold text ">Definición</label>
+              <textarea id="observation_flow" nbInput fullWidth formControlName="observation_flow" observation_flow
+                rows="4" cols="5"
+                status="{{ isSubmitted && form.controls.observation_flow.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA KARNOFSKY</legend>
+          <div class="center">
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="100">Normal, no quejas referidas, no evidencia de enfermedad. </nb-radio>
+              <nb-radio value="90">Capaz de desarrollar actividades normales, signos y síntomas leves de enfermedad.
+              </nb-radio>
+              <nb-radio value="80">Actividad normal con esfuerzo, con algunos signos y síntomas de enfermedad.
+              </nb-radio>
+              <nb-radio value="70">Capaz de cuidarse, es incapaz de desarrollar actividades normales o trabajo activo.
+              </nb-radio>
+              <nb-radio value="60">Requiere asistencia ocasional, es capaz de atender la mayoría de sus necesidades.
+              </nb-radio>
+              <nb-radio value="50">Requiere asistencia considerable y frecuente cuidado médico. </nb-radio>
+              <nb-radio value="40">Discapacitado, requiere asistencia y cuidados especiales </nb-radio>
+              <nb-radio value="30">Severamente discapacitado, hospitalización es indicada, aunque la muerte no es
+                inminente.</nb-radio>
+              <nb-radio value="20">Muy enfermo, hospitalización y tratamiento de soporte activo son necesarios.
+              </nb-radio>
+              <nb-radio value="10">Moribundo, proceso fatal rápidamente en progresión.</nb-radio>
+              <nb-radio value="0">Fallecido</nb-radio>
+            </nb-radio-group>
+            <label class="form-text text-muted font-weight-bold align">Puntaje
+            </label>
+            <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+              formControlName="cardiac_frequency" nbInput ngModel>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA ECOG (Easterm Cooperative Oncology Group)</legend>
+          <div class="row justify-content-md-center">
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold">Grado</label>
+              <nb-select [selected]="this.data.ch_type_gynecologists_id" formControlName="ch_type_gynecologists_id"
+                id="ch_type_gynecologists_id" fullWidth
+                status="{{ isSubmitted && form.controls.ch_type_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              </nb-select>
+            </div>
+          </div>
+          <div class="row justify-content-md-center">
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold text ">ECOG</label>
+              <textarea id="observation_flow" nbInput fullWidth formControlName="observation_flow" observation_flow
+                rows="4" cols="5"
+                status="{{ isSubmitted && form.controls.observation_flow.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">TAMIZAJE NUTRICIONAL PEDIATRICO</legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Existe alguna enfermedad
+              subyacente con riesgo de malnutrición?</label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="2">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+            <p>
+              Anorexia nerviosa. * Quemaduras.
+              * Displasia Broncopulmonar (máx. 2 años de edad). * Enfermedad celiaca.
+              * Fibrosis quística. * Cardiopatía Crónica.
+              * Dismadurez, prematurez (corregida a los 6 meses) * Pancreatitis.
+              * Enfermedad Infecciosa (Sida) * Cáncer.
+              * Enfermedad Inflamatoria Intestinal * Miopatía.
+              * Hepatopatía Crónica. * Trauma.
+              * Nefropatía Crónica. * Enfermedad metabólica.
+              * Síndrome de Intestino Corto. * Discapacidad/Retardo mental.
+              * No especificada (clasificada por el médico).
+            </p>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">El Paciente tiene pobre
+              estado nutricional según la evaluación clínica subjetiva (disminución de la grasa subcutánea y/o la masa
+              muscular y/o por su rostro demacrado)?
+            </label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Está presente alguna de
+              las siguientes situaciones?
+            </label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+            <p>
+              * Diarrea excesiva (>5 por día) y/o vomito (>3 veces/día) en los últimos días.
+              * Reducción de la ingesta de alimentos durante los últimos días antes de la admisión (no incluye ayuno
+              para un procedimiento electivo o cirugía).
+              * Intervención nutricional pre- existente aconsejada sobre la dieta.
+              * Incapacidad para consumir adecuadamente debido al dolor.
+            </p>
+          </div>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Ha presentado pérdida de
+              peso o ningún aumento de peso (lactantes menos de 1 año) en las últimas semanas/meses?
+            </label>
+            <nb-radio-group formControlName="norton" norton id="norton" class="d-flex text center" name="norton"
+              status="{{ isSubmitted && form.controls.norton.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="1">Si</nb-radio>
+              <nb-radio value="0">No</nb-radio>
+            </nb-radio-group>
+          </div>
+          <label class="form-text text-muted font-weight-bold align">Total
+          </label>
+          <input type="number" placeholder="" class="ImpPeq center" id="cardiac_frequency"
+            formControlName="cardiac_frequency" nbInput ngModel>
+        </fieldset>
+      </div>
+    </div>
+    <!-- <div class="col">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">ESCALA ESAS</legend>
+          <div class="row asd">
+            <label class="form-text text-muted font-weight-bold align">Dolor</label>
+            <nb-button-group>
+              <button nbButtonToggle>A</button>
+              <button nbButtonToggle>B</button>
+              <button nbButtonToggle>C</button>
+              <button nbButtonToggle>D</button>
+              <button nbButtonToggle>E</button>
+              <button nbButtonToggle>F</button>
+            </nb-button-group> 
+          </div>
+        </fieldset>
+      </div>
+    </div> -->
+  </div>
+</form>
