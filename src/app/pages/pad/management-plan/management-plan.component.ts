@@ -17,6 +17,7 @@ import { UserBusinessService } from '../../../business-controller/user-business.
 import { TypeChPhysicalExam } from '../../../models/ch-type-ch-physical-exam';
 import { PatientService } from '../../../business-controller/patient.service';
 import { rowDataBound } from '@syncfusion/ej2/grids';
+import { type } from 'os';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -37,7 +38,7 @@ export class ManagementPlanComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = '';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Ejecutado'];
+  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Cantidad autorizada', 'Ejecutado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -97,6 +98,13 @@ export class ManagementPlanComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
+      authorization: {
+        title: this.headerFields[4] ,
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.authorized_amount;
+        },
+      },
       assigned_user: {
         title: this.headerFields[3],
         type: 'string',
@@ -109,7 +117,7 @@ export class ManagementPlanComponent implements OnInit {
         },
       },
       not_executed: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.quantity - value;

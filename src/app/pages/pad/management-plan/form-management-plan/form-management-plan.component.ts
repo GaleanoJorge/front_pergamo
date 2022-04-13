@@ -35,7 +35,8 @@ export class FormManagementPlanComponent implements OnInit {
   public roles;
   public procedure;
   public procedure_id: any;
-  public isMedical: boolean=false;
+  public isMedical: boolean = false;
+  public type_auth = 1;
 
 
   constructor(
@@ -119,11 +120,11 @@ export class FormManagementPlanComponent implements OnInit {
         finish_date: [this.data.finish_date]
 
       });
-      this.isMedical=true;
+      this.isMedical = true;
     }
 
     // if (this.assigned == true) {
-    
+
     // }
 
   }
@@ -211,6 +212,7 @@ export class FormManagementPlanComponent implements OnInit {
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
+          type_auth: this.type_auth,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,
           start_date:  this.form.controls.start_date.value,
@@ -237,9 +239,10 @@ export class FormManagementPlanComponent implements OnInit {
           procedure_id: this.procedure_id,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,
-          start_date:  this.form.controls.start_date.value,
-          finish_date:  this.form.controls.finish_date.value,
+          start_date: this.form.controls.start_date.value,
+          finish_date: this.form.controls.finish_date.value,
           medical: this.isMedical,
+          type_auth: this.type_auth,
         }).then(x => {
           this.toastService.success('', x.message);
           if (x['message_error']) {
@@ -262,8 +265,14 @@ export class FormManagementPlanComponent implements OnInit {
 
     if (localidentify) {
       this.procedure_id = localidentify.id;
+      this.type_auth = localidentify.briefcase.type_auth;
+      if (this.type_auth == 0) {
+        this.form.controls.assigned_user_id.clearValidators();
+        this.form.controls.assigned_user_id.setErrors(null);
+      }
     } else {
       this.procedure_id = null;
+      this.type_auth = null;
       this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
 
     }

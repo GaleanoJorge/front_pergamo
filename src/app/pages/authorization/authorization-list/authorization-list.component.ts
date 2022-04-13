@@ -9,6 +9,8 @@ import { ActionsAuthNumberComponent } from './actions-auth-number.component';
 import { ActionsStatusComponent } from './actions-status.component';
 import { AuthStatusService } from '../../../business-controller/auth-status.service';
 import { AuthorizationService } from '../../../business-controller/authorization.service';
+import { FormObservationComponent } from './historic-authorization/form-observation/form-observation.component';
+import { ManagementPlan } from '../../../models/management-plan';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -29,7 +31,7 @@ export class AuthorizationListComponent implements OnInit {
   public icon: string = 'nb-star';
   public data = [];
   public auth_status;
-  public auth_statusM: any [] = [];
+  public auth_statusM: any[] = [];
   public arrayBuffer: any;
   public user;
   public dialog;
@@ -171,11 +173,9 @@ export class AuthorizationListComponent implements OnInit {
 
   async ngOnInit() {
     await this.authStatusS.GetCollection().then(x => {
-      if(x.length == 4){
-        x.splice(2,1);
-        this.auth_status = x;
-        this.auth_statusM = x;
-      }
+      x.splice(2, 1);
+      this.auth_status = x;
+      this.auth_statusM = x;
     });
 
   }
@@ -219,29 +219,64 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
-  // ConfirmAction(data) {
-
-  //   this.dialogFormService.open(HistoricAuthorizationListComponent, {
-  //     context: {
-  //       title: 'FORMATO DE RECEPCION, SEGUIMIENTO Y CONTROL PLAN COMPLEMENTARIO',
-  //       admissions_id: data.admissions[data.admissions.length - 1].id,
-  //       saved: this.RefreshData.bind(this),
-  //     },
-  //   });
-  // }
+  ConfirmAction(data, Managemen?) {
+    var closeOnBackdropClick = false;
+    this.dialogFormService.open(FormObservationComponent, {
+      closeOnBackdropClick,
+      context: {
+        data: data,
+        Managemen: Managemen,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
 
   SaveStatus(event?, data?) {
+
     if (event == data.auth_status_id) {
 
     } else {
-      this.authorizationS.Update({
-        id: data.id,
-        auth_status_id: event
-      }).then(x => {
-        this.toastS.success('', x.message);
-        this.RefreshData();
-      }).catch()
+      switch (event) {
+        case 1: {
+          this.authorizationS.Update({
+            id: data.id,
+            auth_status_id: event
+          }).then(x => {
+            this.toastS.success('', x.message);
+            this.RefreshData();
+          }).catch()
+          break;
+        }
+        case 2: {
+          if (data.management_plan) {
+            this.ConfirmAction(data, 1);
+          } else {
+            this.authorizationS.Update({
+              id: data.id,
+              auth_status_id: event
+            }).then(x => {
+              this.toastS.success('', x.message);
+              this.RefreshData();
+            }).catch()
+          }
+          break;
+        }
+        default: {
+          this.ConfirmAction(data);
+
+        }
+      }
     }
+    // } if (event == 4) {
+    // } else {
+    //   this.authorizationS.Update({
+    //     id: data.id,
+    //     auth_status_id: event
+    //   }).then(x => {
+    //     this.toastS.success('', x.message);
+    //     this.RefreshData();
+    //   }).catch()
+    // }
   }
 
   // async EditPadComplementary(data) {

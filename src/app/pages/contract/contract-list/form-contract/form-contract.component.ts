@@ -111,7 +111,9 @@ export class FormContractComponent implements OnInit {
       ],
       start_date: [this.data.start_date],
       finish_date: [this.data.finish_date],
-      contract_status_id: [this.data.contract_status_id],
+      contract_status_id: [this.data.contract_status_id,
+        Validators.compose([Validators.required])
+      ],
       firms_contractor_id: [this.data.firms_contractor_id],
       firms_contracting_id: [this.data.firms_contracting_id],
       regime_id: [this.data.regime_id],
