@@ -50,6 +50,8 @@ import { FormBackGynecoComponent } from './background/back-gyneco/form-back-gyne
 import { BackgGynecoComponent } from './background/back-gyneco/back-gyneco.component';
 import { Actions9Component } from './background/back-gyneco/actions.component';
 import { BackListComponent } from './background/back-list.component';
+import { BackgroundComponent } from './background/back/background.component';
+import { Actions8Component } from './background/back/actions.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -105,6 +107,8 @@ import { BackListComponent } from './background/back-list.component';
 
 
     FormBackgroundComponent,
+    BackgroundComponent,
+    Actions8Component,
 
     FormBackGynecoComponent,
     BackgGynecoComponent,
