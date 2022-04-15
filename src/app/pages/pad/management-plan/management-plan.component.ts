@@ -120,7 +120,11 @@ export class ManagementPlanComponent implements OnInit {
         title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction(value, row) {
-          return row.quantity - value;
+          if (value == -1) {
+            return '--';
+          } else {
+            return row.quantity - value;
+          }
         },
       },
     },
