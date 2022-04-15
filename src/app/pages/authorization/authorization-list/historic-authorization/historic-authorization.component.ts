@@ -24,7 +24,7 @@ export class HistoricAuthorizationListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'AUTORIZACIONES: PENDIENTES';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'ambito', 'Programa', 'Sede', 'Estado', 'Procedimiento', 'Número de autorización', 'Observación'];
+  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'ambito', 'Programa', 'Sede', 'Estado', 'Procedimiento', 'Número de autorización', 'Observación', 'Cantidad solicitada'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -98,6 +98,17 @@ export class HistoricAuthorizationListComponent implements OnInit {
         title: this.headerFields[13],
         type: 'string',
       },
+      authorized_amount: {
+        title: this.headerFields[15],
+        type: 'string',
+        valuePrepareFunction(value) {
+          if (value) {
+            return value
+          } else {
+            return '--';
+          }
+        },
+      },
       identification_type: {
         title: this.headerFields[0],
         type: 'string',
@@ -139,12 +150,11 @@ export class HistoricAuthorizationListComponent implements OnInit {
         title: this.headerFields[14],
         type: 'string',
         valuePrepareFunction(value) {
-          if(value){
-            return value?.name;
+          if (value) {
+            return value;
           } else {
             return 'NO APLICA';
           }
-          
         },
       },
       auth_status: {
@@ -186,7 +196,7 @@ export class HistoricAuthorizationListComponent implements OnInit {
 
   async ngOnInit() {
     await this.authStatusS.GetCollection().then(x => {
-      x.splice(0,2);
+      x.splice(0, 2);
       this.auth_status = x;
     });
   }
