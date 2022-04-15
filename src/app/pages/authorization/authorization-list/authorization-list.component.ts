@@ -26,7 +26,7 @@ export class AuthorizationListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'AUTORIZACIONES: PENDIENTES';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'ambito', 'Programa', 'Sede', 'Estado', 'Procedimiento', 'Número de autorización'];
+  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'ambito', 'Programa', 'Sede', 'Estado', 'Procedimiento', 'Número de autorización', 'Cantidad autorizada'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -103,6 +103,17 @@ export class AuthorizationListComponent implements OnInit {
           }
         },
         renderComponent: ActionsAuthNumberComponent,
+      },
+      management_plan: {
+        title: this.headerFields[14],
+        type: 'string',
+        valuePrepareFunction(value) {
+          if(value.length > 0){
+            return value[0]?.quantity
+          } else {
+            return '--';
+          }
+        },
       },
       identification_type: {
         title: this.headerFields[0],
