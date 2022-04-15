@@ -215,6 +215,7 @@ export class FormManagementPlanComponent implements OnInit {
           locality_id: this.user.locality_id,
           start_date: this.form.controls.start_date.value,
           finish_date: this.form.controls.finish_date.value,
+          authorized_amount: this.data.authorization.authorized_amount,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
