@@ -74,8 +74,21 @@ export class FormObservationComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  compareQuantity() {
+
+    if (this.form.controls.authorized_amount.value > this.max) {
+      this.toastService.warning('','El valor autorizado no puede exceder el valor solicitado en el plan de manejo')
+      this.form.controls.authorized_amount.setErrors({ 'incorrect': true });
+    } else {
+      this.form.controls.authorized_amount.setErrors( null) ;
+    }
+  }
+
   save() {
 
+    if (this.Managemen) {
+      this.compareQuantity()
+    }
     this.isSubmitted = true;
 
     if (!this.form.invalid) {
@@ -83,9 +96,9 @@ export class FormObservationComponent implements OnInit {
       if (this.data.id) {
         this.authorizationS.Update({
           id: this.data.id,
-          auth_number: this.form.controls.auth_number.value ?  this.form.controls.auth_number.value : null,
-          authorized_amount: this.form.controls.authorized_amount.value ?  this.form.controls.authorized_amount.value : null,
-          observation: this.form.controls.observation.value ?  this.form.controls.observation.value : null,
+          auth_number: this.form.controls.auth_number.value ? this.form.controls.auth_number.value : null,
+          authorized_amount: this.form.controls.authorized_amount.value ? this.form.controls.authorized_amount.value : null,
+          observation: this.form.controls.observation.value ? this.form.controls.observation.value : null,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
