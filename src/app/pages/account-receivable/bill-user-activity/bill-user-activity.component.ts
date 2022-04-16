@@ -10,6 +10,8 @@ import { DietDishStock } from '../../../models/diet-dish-stock';
 import { UserActivityService } from '../../../business-controller/user-activity.service';
 import { AuthService } from '../../../services/auth.service';
 import { CurrencyPipe } from '@angular/common';
+import { ActionsBillComponent } from './actions.component';
+import { BillUserActivityService } from '../../../business-controller/bill-user-activity.service';
 
 
 @Component({
@@ -28,7 +30,7 @@ export class BillUserActivityComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Actividades realizadas: ';
   public subtitle = '';
-  public headerFields: any[] = ['PROCEDIMIENTO', 'VALOR',];
+  public headerFields: any[] = ['PROCEDIMIENTO', 'VALOR','ESTADO'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -42,7 +44,7 @@ export class BillUserActivityComponent implements OnInit {
   public campus;
   public user;
   public entity: string;
-  
+
   public package: any[] = [];
   public type_briefcase: any[] = [];
   public component_package_id: number;
@@ -50,6 +52,10 @@ export class BillUserActivityComponent implements OnInit {
   public units: any[] = [];
   public account;
   public done = false;
+  public isSubmitted: boolean = false;
+  public saved: any = null;
+  public loading: boolean = false;
+
 
 
 
@@ -57,6 +63,19 @@ export class BillUserActivityComponent implements OnInit {
     //selectMode: 'multi',
 
     columns: {
+      actions: {
+        title: 'ACCIONES',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'refresh': this.RefreshData.bind(this),
+          };
+        },
+        renderComponent: ActionsBillComponent,
+      },
       procedure: {
         title: this.headerFields[0],
         type: 'string',
@@ -71,7 +90,11 @@ export class BillUserActivityComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return this.currency.transform(value);
         },
-      }
+      },
+      status: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
     },
   };
 
@@ -80,8 +103,8 @@ export class BillUserActivityComponent implements OnInit {
     private dietComponentS: DietComponentService,
     private dialogService: NbDialogService,
     private UserActivityS: UserActivityService,
-    private toastS: NbToastrService,
-    private e: ElementRef,
+    private toastService: NbToastrService,
+    private billUserActivityS: BillUserActivityService,
     private authService: AuthService,
     private currency: CurrencyPipe,
 
@@ -104,9 +127,6 @@ export class BillUserActivityComponent implements OnInit {
       },
     ];
   }
-
-
-
 
 
   RefreshData() {
