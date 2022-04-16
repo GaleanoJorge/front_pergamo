@@ -3,9 +3,9 @@
   [routes]="routes">
   <div content>
 
-    <ngx-base-table [title]="title"
+    <ngx-base-table *ngIf="entity" [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    entity="account_receivable"
+                    [entity]="entity"
                     customData='account_receivable'
                     [messageToltip]="messageToltip"
                     >

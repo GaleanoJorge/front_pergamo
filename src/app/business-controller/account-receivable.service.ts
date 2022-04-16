@@ -79,6 +79,21 @@ export class AccountReceivableService {
       });
   }
 
+  saveFile(account_receivable: any, id = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('account_receivable_file', (account_receivable.id ? account_receivable.id : id));
+    servObj.data = account_receivable;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message)
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      })
+  }
+
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('account_receivable', id);
     return this.webAPI.DeleteAction(servObj)
