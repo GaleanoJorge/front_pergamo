@@ -19,6 +19,7 @@ import { ServicesBriefcaseService } from '../../../../business-controller/servic
 export class FormManagementPlanComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() type_auth: any = null;
   @Input() user: any = null;
   @Input() medical: boolean = false;
   @Input() assigned: boolean;
@@ -36,7 +37,6 @@ export class FormManagementPlanComponent implements OnInit {
   public procedure;
   public procedure_id: any;
   public isMedical: boolean = false;
-  public type_auth = 1;
 
 
   constructor(
@@ -265,14 +265,12 @@ export class FormManagementPlanComponent implements OnInit {
 
     if (localidentify) {
       this.procedure_id = localidentify.id;
-      this.type_auth = localidentify.briefcase.type_auth;
       if (this.type_auth == 0) {
         this.form.controls.assigned_user_id.clearValidators();
         this.form.controls.assigned_user_id.setErrors(null);
       }
     } else {
       this.procedure_id = null;
-      this.type_auth = null;
       this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
 
     }
