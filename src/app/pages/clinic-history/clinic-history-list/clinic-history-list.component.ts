@@ -37,13 +37,13 @@ export class ClinicHistoryListComponent implements OnInit {
   public own_user;
   public bed;
   public bed_id;
-  public pavilion; 
+  public pavilion;
   public record_id;
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
   public currentRole: any;
-  
+
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
   }
@@ -194,13 +194,14 @@ export class ClinicHistoryListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user_id = this.route.snapshot.params.user_id;
     this.record_id = this.route.snapshot.params.id;
     this.currentRole = this.authService.GetRole();
     this.own_user = this.authService.GetUser();
 
-    this.UserBS.GetUserById(this.user_id).then(x => {
-      this.user = x;
+    this.chRecord.GetCollection({
+      record_id: this.record_id
+    }).then(x => {
+      this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
   }
@@ -210,8 +211,8 @@ export class ClinicHistoryListComponent implements OnInit {
     await this.chRecord.Update({
       id: this.record_id,
       status: 'CERRADO',
-      user:this.user,
-      role:this.currentRole,
+      user: this.user,
+      role: this.currentRole,
       user_id: this.own_user.id,
     }).then(x => {
       this.toastService.success('', x.message);
@@ -226,7 +227,7 @@ export class ClinicHistoryListComponent implements OnInit {
   }
 
   RefreshData() {
-   
+
     this.table.refresh();
   }
 

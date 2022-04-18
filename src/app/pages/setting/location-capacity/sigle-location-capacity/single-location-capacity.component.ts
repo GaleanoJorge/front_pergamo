@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
+import { AssistanceService } from '../../../../business-controller/assistance.service';
 import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { FormLocationCapacityComponent } from './form-location-capacity/form-location-capacity.component';
@@ -23,6 +24,7 @@ export class SingleLocationCapacityComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public assistance_id;
+  public assistance_name;
   public data = [];
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -112,12 +114,19 @@ export class SingleLocationCapacityComponent implements OnInit {
     public datePipe: DateFormatPipe,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
+    private assistanceS: AssistanceService,
     private deleteConfirmService: NbDialogService,
   ) {
   }
 
   ngOnInit(): void {
     this.assistance_id = this.route.snapshot.params.user_id;
+
+    this.assistanceS.GetCollection({
+      id: this.assistance_id,
+    }).then(x => {
+      this.assistance_name = x[0]['user']['firstname'] + ' ' + x[0]['user']['lastname'];
+    });
   }
 
   GetParams() {

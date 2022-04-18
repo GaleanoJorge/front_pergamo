@@ -99,7 +99,7 @@ export class ManagementPlanComponent implements OnInit {
         type: 'string',
       },
       authorization: {
-        title: this.headerFields[4] ,
+        title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction(value) {
           return value?.authorized_amount;
@@ -123,7 +123,7 @@ export class ManagementPlanComponent implements OnInit {
           if (value == -1) {
             return '--';
           } else {
-            return row.quantity - value;
+            return row.created - value;
           }
         },
       },
@@ -207,7 +207,7 @@ export class ManagementPlanComponent implements OnInit {
       this.user_id = this.route.snapshot.params.user;
       this.settings = this.settings1;
 
-      
+
       this.routes = [
         {
           name: 'Pad',
