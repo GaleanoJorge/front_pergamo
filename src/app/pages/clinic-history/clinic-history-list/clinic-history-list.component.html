@@ -1,5 +1,12 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
+    <div title *ngIf="user">
+      <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
+      <p class="parrafo"*ngIf="user">NOMBRE:  {{this.user.firstname + ' ' + this.user.lastname}}</p>
+      <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday}} </p>
+      <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
+      <p class="parrafo" *ngIf="user">GÉNERO: {{user.gender.name}} </p>
+    </div>
     <nb-tabset class="tabset">
       <nb-tab tabTitle="INGRESO">
         <ngx-entry-clinic-history>
