@@ -27,6 +27,7 @@ const routes: Routes = [{
       path: 'back-list/:id',
       component: BackListComponent,
     }
+    
   ],
 }];
 

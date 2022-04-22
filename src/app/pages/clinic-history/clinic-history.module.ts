@@ -10,7 +10,16 @@ import {
   NbStepperModule,
   NbTabsetModule,
   NbUserModule,
-  NbInputModule, NbSelectModule, NbRadioModule, NbIconModule, NbSpinnerModule, NbPopoverModule, NbToggleModule, NbTooltipModule, NbDialogModule, NbCheckboxModule
+  NbInputModule,
+  NbSelectModule,
+  NbRadioModule,
+  NbIconModule,
+  NbSpinnerModule,
+  NbPopoverModule,
+  NbToggleModule,
+  NbTooltipModule,
+  NbDialogModule,
+  NbCheckboxModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -54,6 +63,28 @@ import { FormBackGynecoComponent } from './background/back-gyneco/form-back-gyne
 import { BackgGynecoComponent } from './background/back-gyneco/back-gyneco.component';
 import { Actions9Component } from './background/back-gyneco/actions.component';
 import { BackListComponent } from './background/back-list.component';
+import { EvoSoapComponent } from './evo-soap/evo-soap.component';
+import { FormEvoSoapComponent } from './evo-soap/form-evo-soap/form-evo-soap.component';
+import { Actions10Component } from './evo-soap/actions.component';
+import { FormPhysicalExamEvoComponent } from './physical-exam-evo/form-physical-exam-evo/form-physical-exam-evo.component';
+import { PhysicalExamEvoComponent } from './physical-exam-evo/physical-exam-evo.component';
+import { Actions11Component } from './physical-exam-evo/actions.component';
+import { EvolutionListComponent } from './evolution-list/evolution-list.component';
+import { FormsignsEvoComponent } from './signs-evo/form-signs-evo/form-signs-evo.component';
+import { Actions12Component } from './signs-evo/actions.component';
+import { SignsEvoComponent } from './signs-evo/signs-evo.component';
+import { FormDiagnosticEvoComponent } from './diagnostic-evo/form-diagnostic-evo/form-diagnostic-evo.component';
+import { Actions13Component } from './diagnostic-evo/actions.component';
+import { DiagnosticEvoComponent } from './diagnostic-evo/diagnostic-evo.component';
+import { FormDietsEvoComponent } from './diets-evo/form-diets-evo/form-diets-evo.component';
+import { Actions14Component } from './diets-evo/actions.component';
+import { DietsEvoComponent } from './diets-evo/diets-evo.component';
+import { FormRecommendationsEvoComponent } from './recommendations-evo/form-recommendations-evo/form-recommendations-evo.component';
+import { Actions15Component } from './recommendations-evo/actions.component';
+import { RecommendationsEvoComponent } from './recommendations-evo/recommendations-evo.component';
+import { FormFormulationComponent } from './formulation/form-formulation/form-formulation.component';
+import { FormulationComponent } from './formulation/formulation.component';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -107,7 +138,6 @@ import { BackListComponent } from './background/back-list.component';
     SystemExamComponent,
     Actions7Component,
 
-
     FormBackgroundComponent,
     BackgroundComponent,
     Actions8Component,
@@ -117,12 +147,36 @@ import { BackListComponent } from './background/back-list.component';
     Actions9Component,
 
     BackListComponent,
-   ],
+    EvoSoapComponent,
+    FormEvoSoapComponent,
+    Actions10Component,
 
-  providers: [
-    DateFormatPipe,
+    EvolutionListComponent,
+    FormPhysicalExamEvoComponent,
+    PhysicalExamEvoComponent,
+    Actions11Component,
+
+    FormsignsEvoComponent,
+    Actions12Component,
+    SignsEvoComponent,
+
+    FormDiagnosticEvoComponent,
+    Actions13Component,
+    DiagnosticEvoComponent,
+
+    FormDietsEvoComponent,
+    Actions14Component,
+    DietsEvoComponent,
+
+    FormRecommendationsEvoComponent,
+    Actions15Component,
+    RecommendationsEvoComponent,
+
+    FormFormulationComponent,
+    FormulationComponent,
   ],
+
+  providers: [DateFormatPipe],
   exports: [],
 })
-export class ClinicHistoryModule {
-}
+export class ClinicHistoryModule {}

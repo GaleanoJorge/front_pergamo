@@ -1,0 +1,74 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <label class="form-text text-muted font-weight-bold align"></label>
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          <fieldset class="field_set">
+            <nb-radio-group formControlName="outpatient_formulation" revision id="outpatient_formulation"
+              class="d-flex text" name="outpatient_formulation">
+              <nb-radio value="SI">FORMULA AMBULATORIA?</nb-radio>
+            </nb-radio-group>
+
+            <label class="font-weight-bold ImpPeq">PRODUCTO GENERICO</label>
+            <nb-select [selected]="this.data.product_generic_id" formControlName="product_generic_id"
+              id="product_generic_id"
+              status="{{ isSubmitted && form.controls.product_generic_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.product_generic_id }}"
+                *ngFor="let item of product_generic_id" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+
+
+            <label class="font-weight-bold ImpPeq">VÍA DE ADMINISTRACIÓN</label>
+            <nb-select [selected]="this.data.administration_route_id" formControlName="administration_route_id"
+              id="administration_route_id"
+              status="{{ isSubmitted && form.controls.administration_route_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.administration_route_id }}"
+                *ngFor="let item of administration_route_id" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+
+            <label class="font-weight-bold ImpPeq">ASIGNACIÓN DE COMPONENTES</label>
+            <nb-select [selected]="this.data.hourly_frequency_id" formControlName="hourly_frequency_id"
+              id="hourly_frequency_id"
+              status="{{ isSubmitted && form.controls.hourly_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.hourly_frequency_id }}"
+                *ngFor="let item of hourly_frequency_id" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </fieldset>
+        </div>
+      </div>
+
+
+      <div class="col-md-2">
+
+        <label class="form-text text-muted font-weight-bold">DÍAS DE TRATAMIENTO</label>
+        <input type="number" class="ImpPeq" id="treatment_days" formControlName="treatment_days"
+          required nbInput ngModel something
+          status="{{ isSubmitted && form.controls.treatment_days.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      </div>
+      <div class="col-md-2">
+        <label class="form-text text-muted font-weight-bold">CANT. SOLIC.</label>
+        <input type="number"  class="ImpPeq" id="medical_formula" formControlName="medical_formula"
+          required nbInput ngModel something
+          status="{{ isSubmitted && form.controls.medical_formula.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      </div>
+      <div class="col-md-12">
+        <label class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
+        <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+</form>

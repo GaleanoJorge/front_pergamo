@@ -254,6 +254,8 @@ import { FormRelationshipComponent } from './relationship/form-relationship/form
 import { ActionsCompanyComponent } from './company/actions.component';
 import { ActionsComponentEditDelete } from './company-mail/actions.component';
 import { ActionsCDComponent } from './company-document/actionsCD.component';
+import { FormHourlyFrequencyComponent } from './hourly-frequency/form-hourly-frequency/form-hourly-frequency.component';
+import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -522,6 +524,8 @@ import { ActionsCDComponent } from './company-document/actionsCD.component';
     FormDietMenuComponent,
     DishPackageComponent,
     SelectDishComponent,
+    FormHourlyFrequencyComponent,
+    HourlyFrequencyComponent,
 
 
   ],
