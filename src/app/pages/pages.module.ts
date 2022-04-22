@@ -44,6 +44,7 @@ import { AmountWorkLocationComponent } from './components/form-users/work-locati
 import { SelectWorkLocationComponent } from './components/form-users/work-location-package/select-work-location.component';
 import { WorkLocationPackageComponent } from './components/form-users/work-location-package/work-location-package.component';
 import { PharmacyRoutingModule } from './pharmacy/pharmacy-routing.module';
+import { PreBillingPadComponent } from './billing-pad/billing-pad.component';
 
 
 
@@ -97,6 +98,7 @@ import { PharmacyRoutingModule } from './pharmacy/pharmacy-routing.module';
     AmountWorkLocationComponent,
     SelectWorkLocationComponent,
     WorkLocationPackageComponent,
+    PreBillingPadComponent,
   ],
   exports: [
     BreadcrumbComponent,
