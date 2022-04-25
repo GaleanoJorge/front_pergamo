@@ -1,8 +1,8 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {NbDialogRef, NbToastrService} from '@nebular/theme';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Region} from '../../../../models/region';
-import {RegionService} from '../../../../business-controller/region.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Region } from '../../../../models/region';
+import { RegionService } from '../../../../business-controller/region.service';
 import { MunicipalityService } from '../../../../business-controller/municipality.service';
 import { CountryService } from '../../../../business-controller/country.service';
 import { NeighborhoodOrResidenceService } from '../../../../business-controller/neighborhood-or-residence.service';
@@ -53,8 +53,34 @@ export class FormNeighborhoodOrResidenceComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
-        locality_id: '',
         pad_risk_id: '',
+        country_id: '',
+        region_id: '',
+        municipality_id: '',
+        locality_id: '',
+      };
+    } else {
+      this.selected_country = true;
+      this.selected_region = true;
+      this.selected_municipality = true;
+      this.selected_locality = true;
+
+      this.locationBS.GetPublicRegionByCountry(this.data.locality.municipality.region.country_id).then(x => {
+        this.region = x;
+      });
+      this.municipalityS.GetCollection({ region_id: this.data.locality.municipality.region_id }).then(x => {
+        this.municipality = x;
+      });
+      this.locationBS.GetLocalityByMunicipality(this.data.locality.municipality_id).then(x => {
+        this.locality = x;
+      });
+      this.data = {
+        country_id: this.data.locality.municipality.region.country_id,
+        region_id: this.data.locality.municipality.region_id,
+        municipality_id: this.data.locality.municipality_id,
+        locality_id: this.data.locality_id,
+        pad_risk_id: this.data.pad_risk_id,
+        name: this.data.name,
       };
     }
 
@@ -66,11 +92,14 @@ export class FormNeighborhoodOrResidenceComponent implements OnInit {
       this.pad_risk = x;
     });
 
-    
+
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
-      locality_id: [this.data.locality_id, Validators.compose([Validators.required])],
       pad_risk_id: [this.data.pad_risk_id, Validators.compose([Validators.required])],
+      country_id: [this.data.country_id, Validators.compose([Validators.required])],
+      region_id: [this.data.region_id, Validators.compose([Validators.required])],
+      municipality_id: [this.data.municipality_id, Validators.compose([Validators.required])],
+      locality_id: [this.data.locality_id, Validators.compose([Validators.required])],
     });
 
   }
@@ -153,7 +182,7 @@ export class FormNeighborhoodOrResidenceComponent implements OnInit {
       this.selected_municipality = false;
       this.locality = [];
       this.selected_locality = false;
-      this.municipalityS.GetCollection({region_id: region_id}).then(x => {
+      this.municipalityS.GetCollection({ region_id: region_id }).then(x => {
         this.municipality = x;
       });
     } else {
@@ -177,7 +206,7 @@ export class FormNeighborhoodOrResidenceComponent implements OnInit {
       this.locality = [];
       this.selected_locality = false;
     }
-  
+
   }
   onLocalityChange(locality_id) {
     if (locality_id) {
