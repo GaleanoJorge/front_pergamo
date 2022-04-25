@@ -1,0 +1,20 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table *ngIf="entity" [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    [entity]="entity"
+                    customData='account_receivable'
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <div class="actions">
+          <!-- <button nbButton status="danger" ngxCheckPerms="create" (click)="NewAccountReceivable()">Crear</button> -->
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

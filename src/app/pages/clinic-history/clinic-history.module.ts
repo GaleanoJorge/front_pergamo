@@ -40,12 +40,7 @@ import { FormsignsComponent } from './signs/form-signs/form-signs.component';
 import { Actions1Component } from './signs/actions.component';
 import { SignsListComponent } from './signs/signs.component';
 import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
-import { FormDiagnosticComponent } from './diagnostic/form-diagnostic/form-diagnostic.component';
-import { Actions2Component } from './diagnostic/actions.component';
-import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
-
 import { SystemExamComponent } from './system-exam/system-exam.component';
-
 import { OrdersMedicalComponent } from './medical-orders/orders-medical.component';
 import { FormOrdersMedicalComponent } from './medical-orders/form-orders-medical/form-orders-medical.component';
 import { FormSystemExamComponent } from './system-exam/form-system-exam/form-system-exam.component';
@@ -56,9 +51,10 @@ import { FormPhysicalExamComponent } from './physical-exam/form-physical-exam/fo
 import { PhysicalExamComponent } from './physical-exam/physical-exam.component';
 import { Actions3Component } from './physical-exam/actions.component';
 import { Actions7Component } from './system-exam/actions.component';
+import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
+import { Actions2Component } from './diagnostic/actions.component';
+import { FormDiagnosticComponent } from './diagnostic/form-diagnostic/form-diagnostic.component';
 
-import { BackgroundComponent } from './background/back/background.component';
-import { Actions8Component } from './background/back/actions.component';
 import { FormBackGynecoComponent } from './background/back-gyneco/form-back-gyneco/form-back-gyneco.component';
 import { BackgGynecoComponent } from './background/back-gyneco/back-gyneco.component';
 import { Actions9Component } from './background/back-gyneco/actions.component';
@@ -85,6 +81,8 @@ import { RecommendationsEvoComponent } from './recommendations-evo/recommendatio
 import { FormFormulationComponent } from './formulation/form-formulation/form-formulation.component';
 import { FormulationComponent } from './formulation/formulation.component';
 
+import { BackgroundComponent } from './background/back/background.component';
+import { Actions8Component } from './background/back/actions.component';
 @NgModule({
   imports: [
     FormsModule,

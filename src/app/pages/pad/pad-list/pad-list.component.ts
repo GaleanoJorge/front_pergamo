@@ -13,6 +13,8 @@ import { AuthService } from '../../../services/auth.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
+import { PatientService } from '../../../business-controller/patient.service';
+import { RoleBusinessService } from '../../../business-controller/role-business.service';
 
 @Component({
   selector: 'ngx-pad-list',
@@ -37,7 +39,7 @@ export class PadListComponent implements OnInit {
   public file: File;
   public user_id;
   public user;
-  public users:any;
+  public patients:any;
   public dialog;
   public currentRole;
   public selectedOptions: any[] = [];
@@ -59,11 +61,11 @@ export class PadListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'management':this.users,
+            'management':this.patients,
             'edit': this.EditGloss.bind(this),
             'delete': this.DeleteConfirmGloss.bind(this),
             'refresh': this.RefreshData.bind(this),
-            'currentRole': this.currentRole,
+            'currentRole': this.user.roles[0].role_type_id,
           };
         },
         renderComponent: Actions2Component,
@@ -121,11 +123,11 @@ export class PadListComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
-    private userBS: UserBusinessService,
-    private currency: CurrencyPipe,
+    private PatientBS: PatientService,
     private authService: AuthService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
+    public roleBS: RoleBusinessService,
   ) {
   }
   public form: FormGroup;
@@ -143,11 +145,11 @@ export class PadListComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
     this.currentRole = this.authService.GetRole();
-    if (this.user_id && this.currentRole == 3 || this.currentRole == 7 ) {
-      this.entity = 'user/byPAD/2/' + this.user_id;
+    if (this.user.roles[0].role_type_id==2 ) {
+      this.entity = 'patient/byPAD/2/' + this.user_id;
     }
     else {
-      this.entity = "user/byPAD/2/0";
+      this.entity = "patient/byPAD/2/0";
     }
 
 
@@ -170,8 +172,8 @@ export class PadListComponent implements OnInit {
       file: ['', Validators.compose([Validators.required])],
     });
 
-    this.userBS.UserByPad(this.user_id).then(x => {
-      this.users=x;
+    this.PatientBS.PatientByPad(this.user_id).then(x => {
+      this.patients=x;
     });
   }
 

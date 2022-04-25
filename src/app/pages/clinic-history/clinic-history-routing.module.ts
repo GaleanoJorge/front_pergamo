@@ -12,7 +12,7 @@ const routes: Routes = [{
   component: ClinicHistoryComponent,
   children: [
     {
-      path: 'clinic-history-list/:id',
+      path: 'clinic-history-list/:id/:id2',
       component: ClinicHistoryListComponent,
     },
     {

@@ -30,6 +30,9 @@ import {GlossListComponent} from './gloss-list/gloss-list.component';
 import {FormGlossComponent} from './gloss-list/form-gloss/form-gloss.component';
 import {Actions2Component} from './gloss-list/actions.component';
 import { ActionsSemaphoreComponent } from './gloss-list/actions-semaphore.component';
+import { Actions3Component } from './gloss-conciliations/actions.component';
+import { ConciliationsListComponent } from './gloss-conciliations/conciliations-list.component';
+import { FormConciliationsComponent } from './gloss-conciliations/form-gloss/form-conciliations.component';
 
 
 
@@ -65,8 +68,11 @@ import { ActionsSemaphoreComponent } from './gloss-list/actions-semaphore.compon
   declarations: [
     GlossComponent,
     GlossListComponent,
+    ConciliationsListComponent,
+    FormConciliationsComponent,
     FormGlossComponent,
     Actions2Component,
+    Actions3Component,
     ActionsSemaphoreComponent
   ],
   providers: [

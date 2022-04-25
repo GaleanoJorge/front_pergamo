@@ -39,14 +39,18 @@ import {CheckPermsDirective} from '../directives/check-perms.directive';
 import {PermissionsGuard} from '../guards/permissions.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SpecialitiesDialogComponent } from './components/form-users/especialities-dialog.component';
-import { SpecialFieldComponent } from './setting/special-field/special-field.component';
 import { SignaturePadModule } from '@ng-plus/signature-pad';
+import { AmountWorkLocationComponent } from './components/form-users/work-location-package/amount-work-location.component';
+import { SelectWorkLocationComponent } from './components/form-users/work-location-package/select-work-location.component';
+import { WorkLocationPackageComponent } from './components/form-users/work-location-package/work-location-package.component';
+import { PharmacyRoutingModule } from './pharmacy/pharmacy-routing.module';
 
 
 
 @NgModule({
   imports: [
     PagesRoutingModule,
+    PharmacyRoutingModule,
     ThemeModule,
     NgxEchartsModule,
     NgxChartsModule,
@@ -90,6 +94,9 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
     SpecialitiesDialogComponent,
     CheckPermsDirective,
     ResetPasswordComponent,
+    AmountWorkLocationComponent,
+    SelectWorkLocationComponent,
+    WorkLocationPackageComponent,
   ],
   exports: [
     BreadcrumbComponent,
@@ -100,6 +107,9 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
     BaseFormComponent,
     FormUsersComponent,
     CheckPermsDirective,
+    AmountWorkLocationComponent,
+    SelectWorkLocationComponent,
+    WorkLocationPackageComponent,
   ],
   providers: [PermissionsGuard],
 })

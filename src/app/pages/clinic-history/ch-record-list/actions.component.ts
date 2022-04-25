@@ -15,7 +15,11 @@ import { LocationService } from '../../../business-controller/location.service';
   template: `
   <div class="d-flex justify-content-center">
 
-    <button nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id" >
+    <button *ngIf="value.data.status=='ACTIVO'" nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id + '/'+ value.assigned" >
+      <nb-icon icon="file-add-outline"></nb-icon>
+    </button>
+
+    <button *ngIf="value.data.status=='CERRADO'" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
@@ -62,6 +66,7 @@ export class Actions5Component implements ViewCell {
   ) {
   }
   ngOnInit() {
+    console.log(this.value.data.status);
     if (this.value.data.medical_date == '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {
       this.medical = false;
       this.status = false;

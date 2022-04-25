@@ -15,6 +15,9 @@ import { date } from '@rxweb/reactive-form-validators';
 import { ManagementPlanService } from '../../../business-controller/management-plan.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { TypeChPhysicalExam } from '../../../models/ch-type-ch-physical-exam';
+import { PatientService } from '../../../business-controller/patient.service';
+import { rowDataBound } from '@syncfusion/ej2/grids';
+import { type } from 'os';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -26,7 +29,8 @@ export class ManagementPlanComponent implements OnInit {
 
   @Input() admissions: any = null;
   @Input() medical: boolean = false;
-  @Input() title: string=null;
+  @Input() patient: boolean = false;
+  @Input() title: string = null;
   public isSubmitted = false;
   public entity: string;
   public loading: boolean = false;
@@ -34,7 +38,7 @@ export class ManagementPlanComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = '';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial'];
+  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Cantidad autorizada', 'Ejecutado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -48,7 +52,7 @@ export class ManagementPlanComponent implements OnInit {
   public selectedOptions: any[] = [];
   public result: any = null;
   public settings;
-  
+
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -66,7 +70,7 @@ export class ManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'user':this.user,
+            'user': this.user,
             'edit': this.EditManagementPlan.bind(this),
             'assignedUser': this.AssignedUser.bind(this),
             'delete': this.DeleteConfirmManagementPlan.bind(this),
@@ -94,14 +98,32 @@ export class ManagementPlanComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
+      authorization: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.authorized_amount;
+        },
+      },
       assigned_user: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction(value) {
-          if(value){
-          return value?.firstname+' '+value.lastname;
-          }else{
+          if (value) {
+            return value?.firstname + ' ' + value.lastname;
+          } else {
             return 'Sin asignación';
+          }
+        },
+      },
+      not_executed: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if (value == -1) {
+            return '--';
+          } else {
+            return row.created - value;
           }
         },
       },
@@ -135,7 +157,7 @@ export class ManagementPlanComponent implements OnInit {
     },
   };
 
- 
+
 
   constructor(
 
@@ -146,6 +168,7 @@ export class ManagementPlanComponent implements OnInit {
 
     private currency: CurrencyPipe,
     private userBS: UserBusinessService,
+    private patienBS: PatientService,
 
     private authService: AuthService,
     private dialogService: NbDialogService,
@@ -166,26 +189,24 @@ export class ManagementPlanComponent implements OnInit {
   public routes;
   public assigned_user: any[];
 
-  
+
 
 
 
 
   async ngOnInit() {
-    if (this.title==null){
-      this.title="Agendamiento Plan de atención domiciliario";
+    if (this.title == null) {
+      this.title = "Agendamiento Plan de atención domiciliario";
     }
-    if(this.admissions){
-    this.admissions_id = this.admissions;
-    this.settings=this.settings2;
-    }else{
+    if (this.admissions) {
+      this.admissions_id = this.admissions;
+      this.settings = this.settings2;
+      this.user_id = this.patient;
+    } else {
       this.admissions_id = this.route.snapshot.params.id;
       this.user_id = this.route.snapshot.params.user;
-      this.settings=this.settings1;
+      this.settings = this.settings1;
 
-      await this.userBS.GetUserById(this.user_id).then(x => {
-        this.user=x;
-      });
 
       this.routes = [
         {
@@ -197,6 +218,9 @@ export class ManagementPlanComponent implements OnInit {
         },
       ];
     }
+    await this.patienBS.GetUserById(this.user_id).then(x => {
+      this.user = x;
+    });
   }
 
 
@@ -215,10 +239,10 @@ export class ManagementPlanComponent implements OnInit {
     this.dialogFormService.open(FormManagementPlanComponent, {
       context: {
         title: 'Crear plan de manejo',
-        assigned:true,
-        user:this.user,
-        medical:this.medical,
-        admissions_id:this.admissions_id,
+        assigned: true,
+        user: this.user,
+        medical: this.medical,
+        admissions_id: this.admissions_id,
         saved: this.RefreshData.bind(this),
       },
     });
@@ -229,10 +253,10 @@ export class ManagementPlanComponent implements OnInit {
       context: {
         title: 'Asignar personal asistencial',
         data,
-        user:this.user,
-        medical:this.medical,
-        assigned:false,
-        admissions_id:this.admissions_id,
+        user: this.user,
+        medical: this.medical,
+        assigned: false,
+        admissions_id: this.admissions_id,
         saved: this.RefreshData.bind(this),
       },
     });
@@ -260,12 +284,12 @@ export class ManagementPlanComponent implements OnInit {
   }
 
   DeleteManagementPlan(data) {
-      return this.managementPlanS.Delete(data.id).then(x => {
-        this.table.refresh();
-        return Promise.resolve(x.message);
-      }).catch(x => {
-        throw x;
-      });
+    return this.managementPlanS.Delete(data.id).then(x => {
+      this.table.refresh();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
   }
 
 }

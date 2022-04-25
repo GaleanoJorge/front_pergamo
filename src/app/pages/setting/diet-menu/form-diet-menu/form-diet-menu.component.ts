@@ -17,7 +17,7 @@ import { DietComponentService } from '../../../../business-controller/diet-compo
 })
 export class FormDietMenuComponent implements OnInit {
   @Input() title: string;
-  @Input() data: any = null;
+  @Input() data:any = null;
 
   public form: FormGroup;
   public loading: boolean = false;
@@ -98,16 +98,22 @@ export class FormDietMenuComponent implements OnInit {
   }
 
   ChangeName($event) {
-    this.geteratedName =
-      (this.diet_consistency[this.form.controls.diet_consistency_id.value - 1].name ?? '')
-      + '-' +
-      (this.diet_component[this.form.controls.diet_component_id.value - 1].name ?? '')
-      + '-' +
-      (this.diet_menu_type[this.form.controls.diet_menu_type_id.value - 1].name ?? '')
-      + '-' +
-      (this.diet_week[this.form.controls.diet_week_id.value - 1].name ?? '')
-      + '-' +
-      (this.diet_day[this.form.controls.diet_day_id.value - 1].name ?? '');
+    if (this.form.controls.diet_consistency_id.value &&
+      this.form.controls.diet_menu_type_id.value &&
+      this.form.controls.diet_component_id.value &&
+      this.form.controls.diet_week_id.value &&
+      this.form.controls.diet_day_id.value) {
+      this.geteratedName =
+        (this.diet_consistency[this.form.controls.diet_consistency_id.value - 1].name ?? '')
+        + '-' +
+        (this.diet_component[this.form.controls.diet_component_id.value - 1].name ?? '')
+        + '-' +
+        (this.diet_menu_type[this.form.controls.diet_menu_type_id.value - 1].name ?? '')
+        + '-' +
+        (this.diet_week[this.form.controls.diet_week_id.value - 1].name ?? '')
+        + '-' +
+        (this.diet_day[this.form.controls.diet_day_id.value - 1].name ?? '');
+    }
   }
 
   receiveMessage($event) {
@@ -121,29 +127,28 @@ export class FormDietMenuComponent implements OnInit {
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-      this.loading = true;
-      if (this.data.id) {
-        this.dietMenuS.Update({
-          id: this.data.id,
-          name: this.geteratedName,
-          diet_consistency_id: this.form.controls.diet_consistency_id.value,
-          diet_menu_type_id: this.form.controls.diet_menu_type_id.value,
-          diet_component_id: this.form.controls.diet_component_id.value,
-          diet_week_id: this.form.controls.diet_week_id.value,
-          diet_day_id: this.form.controls.diet_day_id.value,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          var id = x.data.diet_menu.id;
-          var contador = 0;
-          var err = 0;
-          if (this.saved) {
-            this.saved();
-          }
-          if (!this.selectedOptions.length) {
-            this.toastS.danger(null, 'Debe seleccionar al menos un plato');
-          }
-          else {
+      var valid_values = true;
+      if (!this.selectedOptions || this.selectedOptions.length == 0) {
+        valid_values = false;
+        this.toastS.danger('Debe seleccionar al menos un plato', 'Error');
+      }
+      if (valid_values) {
+        this.loading = true;
+        if (this.data.id) {
+          this.dietMenuS.Update({
+            id: this.data.id,
+            name: this.geteratedName,
+            diet_consistency_id: this.form.controls.diet_consistency_id.value,
+            diet_menu_type_id: this.form.controls.diet_menu_type_id.value,
+            diet_component_id: this.form.controls.diet_component_id.value,
+            diet_week_id: this.form.controls.diet_week_id.value,
+            diet_day_id: this.form.controls.diet_day_id.value,
+          }).then(x => {
+            this.toastService.success('', x.message);
+            this.close();
+            var id = x.data.diet_menu.id;
+            var contador = 0;
+            var err = 0;
             this.dietMenuDishS.Update({
               diet_menu_id: id,
               diet_dish_id: JSON.stringify(this.selectedOptions),
@@ -159,35 +164,27 @@ export class FormDietMenuComponent implements OnInit {
               this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
             }
             this.selectedOptions = [];
-          }
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
-      } else {
-        this.dietMenuS.Save({
-          name: this.geteratedName,
-          diet_consistency_id: this.form.controls.diet_consistency_id.value,
-          diet_menu_type_id: this.form.controls.diet_menu_type_id.value,
-          diet_component_id: this.form.controls.diet_component_id.value,
-          diet_week_id: this.form.controls.diet_week_id.value,
-          diet_day_id: this.form.controls.diet_day_id.value,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          var id = x.data.diet_menu.id;
-          var contador = 0;
-          var err = 0;
-          if (this.saved) {
-            this.saved();
-          }
-          if (!this.selectedOptions.length) {
-            this.toastS.danger(null, 'Debe seleccionar al menos un plato');
-          }
-          else {
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        } else {
+          this.dietMenuS.Save({
+            name: this.geteratedName,
+            diet_consistency_id: this.form.controls.diet_consistency_id.value,
+            diet_menu_type_id: this.form.controls.diet_menu_type_id.value,
+            diet_component_id: this.form.controls.diet_component_id.value,
+            diet_week_id: this.form.controls.diet_week_id.value,
+            diet_day_id: this.form.controls.diet_day_id.value,
+          }).then(x => {
+            this.toastService.success('', x.message);
+            this.close();
+            var id = x.data.diet_menu.id;
+            var contador = 0;
+            var err = 0;
             this.dietMenuDishS.Save({
               diet_menu_id: id,
               diet_dish_id: JSON.stringify(this.selectedOptions),
@@ -202,14 +199,15 @@ export class FormDietMenuComponent implements OnInit {
               this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
             }
             this.selectedOptions = [];
-          }
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.toastService.danger('', x);
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        }
       }
     }
   }

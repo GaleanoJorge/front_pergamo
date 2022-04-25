@@ -39,6 +39,7 @@ export class FormPadComplementaryComponent implements OnInit {
   public objeted_value: any = null;
   public diagnosis: any[] = [];
   public profesionals: any[] = [];
+  public type_plan: any[] = [];
   public diagnosis_id;
   public profesional_id;
   public loadAuxData = true;
@@ -61,16 +62,15 @@ export class FormPadComplementaryComponent implements OnInit {
   async ngOnInit() {
 
     this.today = new Date();
-    // this.today.setDate(this.today.getDate() - 2);
     this.today = this.today.toISOString().split('T')[0];
 
-    console.log(this.data);
 
     if (!this.data) {
       this.data = {
         symptoms: '',
         respiratory_issues: '',
         covid_contact: '',
+        type_plan: '',
         application_date: '',
         authorization_pin: '',
         profesional_user_id: '',
@@ -92,24 +92,6 @@ export class FormPadComplementaryComponent implements OnInit {
     ]);
     this.loadAuxData = false;
     this.loadForm();
-    // await this.DiagnosisS.GetCollection().then(x => {
-    //   this.diagnosis = x;
-    // });
-    // await this.UserBS.UserByRole(1).then(x => {
-    //   this.profesionals = x;
-    //   this.loading = false;
-    // });
-
-    // await this.DiagnosisS.GetCollection().then(x => {
-    //   this.diagnosis = x;
-    // });
-
-    // await this.UserBS.UserByRole(1).then(x => {
-    //   this.profesionals = x;
-    //   this.loading = false;
-    // });
-    // this.loadForm(false).then();
-    // this.loading = false
   }
 
   async GetAuxData() {
@@ -121,38 +103,14 @@ export class FormPadComplementaryComponent implements OnInit {
       this.profesionals = x;
       this.loading = false;
     });
+
     return Promise.resolve(true);
   }
 
-  // GetDiagnosis(Diagnosis_id) {
-  //   if (!Diagnosis_id || Diagnosis_id === '') return Promise.resolve(false);
-
-  //   return this.DiagnosisS.GetCollection().then(x => {
-  //     this.diagnosis = x;
-  //     return Promise.resolve(true);
-  //   });
-  // }
-
-  // GetProfesions(profesional_id, job = false) {
-  //   if (!profesional_id || profesional_id === '') return Promise.resolve(false);
-
-  //   return this.UserBS.UserByRole(1).then(x => {
-  //     this.profesionals = x;
-  //     return Promise.resolve(true);
-  //   });
-  // }
 
 
   async loadForm(force = true) {
     if (this.loadAuxData && force) return false;
-    // if (this.data) {
-    //   // const promises = [
-    //   //   this.GetDiagnosis(this.data.pac_monitoring[0].diagnosis_id),
-    //   //   this.GetProfesions(this.data.pac_monitoring[0].profesional_user_id),
-    //   // ]
-
-    //   await Promise.all(promises);
-    // }
 
     this.form = this.formBuilder.group({
       symptoms:
@@ -163,11 +121,16 @@ export class FormPadComplementaryComponent implements OnInit {
       respiratory_issues:
         [
           this.data.respiratory_issues == '' ? false : this.data.reason_consultation.length > 0 ? this.data.reason_consultation[0].respiratory_issues : false,
-          Validators.compose([Validators.required])
+          // Validators.compose([Validators.required])
         ],
       covid_contact: [
         this.data.covid_contact == '' ? false : this.data.reason_consultation.length > 0 ? this.data.reason_consultation[0].covid_contact : false,
+        // Validators.compose([Validators.required])
+      ],
+      type_plan: [
+        this.data.type_plan == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].type_plan : '',
         Validators.compose([Validators.required])
+
       ],
       application_date: [
         this.data.application_date == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].application_date : '',
@@ -176,61 +139,61 @@ export class FormPadComplementaryComponent implements OnInit {
       ],
       authorization_pin: [
         this.data.authorization_pin == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].authorization_pin : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       profesional_user_id: [
         this.data.profesional_user_id == '' ? '' : this.data.pac_monitoring.length > 0 ? this.returnInputSearch(this.data.pac_monitoring[0].profesional_user_id) : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
         // 
       ],
       diagnosis_id: [
         this.data.diagnosis_id == '' ? '' : this.data.pac_monitoring.length > 0 ? this.returnInputSearch(this.data.pac_monitoring[0].diagnosis_id, 1) : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
       ],
       reception_hour: [
         this.data.reception_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].reception_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       presentation_hour: [
         this.data.presentation_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].presentation_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       acceptance_hour: [
         this.data.acceptance_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].acceptance_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       offer_hour: [
         this.data.offer_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].offer_hour : '',
-        // Validators.compose([Validators.required])
-        // 
+        Validators.compose([Validators.required])
+        
       ],
       start_consult_hour: [
         this.data.start_consult_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].start_consult_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       finish_consult_hour: [
         this.data.finish_consult_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].finish_consult_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       close_date: [
         this.data.close_date == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].close_date : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       close_crm_hour: [
         this.data.close_crm_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].close_crm_hour : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
       copay_value: [
         this.data.copay_value == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].copay_value : '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
 
       ],
     });
@@ -270,7 +233,6 @@ export class FormPadComplementaryComponent implements OnInit {
     if (type_search) {
       localidentify = this.diagnosis.find(item => item.id == n);
       if (localidentify) {
-        // diagnosis_name = localidentify.name;
         this.diagnosis_id = localidentify.id;
         name = localidentify.name;
       } else {
@@ -286,23 +248,22 @@ export class FormPadComplementaryComponent implements OnInit {
         name = null;
       }
     }
-    // var diagnosis_name;
-
-
 
     return name;
   }
 
   save() {
-    this.isSubmitted = true;
+
     if (!this.form.invalid) {
       this.loading = true;
+      this.isSubmitted = true;
       if (!this.data.id) {
         this.pacMonitoringService.Save({
           admissions_id: this.admissions_id,
           symptoms: this.form.controls.symptoms.value,
           respiratory_issues: this.form.controls.respiratory_issues.value === true ? true : false,
           covid_contact: this.form.controls.covid_contact.value === true ? true : false,
+          type_plan: this.form.controls.type_plan.value,
           application_date: this.form.controls.application_date.value,
           authorization_pin: this.form.controls.authorization_pin.value,
           profesional_user_id: this.profesional_id,
@@ -334,6 +295,7 @@ export class FormPadComplementaryComponent implements OnInit {
           symptoms: this.form.controls.symptoms.value,
           respiratory_issues: this.form.controls.respiratory_issues.value === true ? true : false,
           covid_contact: this.form.controls.covid_contact.value === true ? true : false,
+          type_plan: this.form.controls.type_plan.value,
           application_date: this.form.controls.application_date.value,
           authorization_pin: this.form.controls.authorization_pin.value,
           profesional_user_id: this.profesional_id,
@@ -358,6 +320,8 @@ export class FormPadComplementaryComponent implements OnInit {
           this.loading = false;
         });
       }
+    } else {
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 

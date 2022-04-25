@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="file" class="form-text text-muted font-weight-bold">
+                Cargar Planilla de seguridad social:
+              </label>
+              <div *ngIf="previewFile" class="container py-2">
+                <a [href]="previewFile" target="_blank">Ver documentos</a>
+              </div>
+              <input accept="application/pdf" type="file" id="file" nbInput fullWidth
+                (change)="changeImage($event.target.files, 1)" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

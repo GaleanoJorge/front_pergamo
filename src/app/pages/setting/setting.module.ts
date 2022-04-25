@@ -256,6 +256,29 @@ import { ActionsComponentEditDelete } from './company-mail/actions.component';
 import { ActionsCDComponent } from './company-document/actionsCD.component';
 import { FormHourlyFrequencyComponent } from './hourly-frequency/form-hourly-frequency/form-hourly-frequency.component';
 import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.component';
+import { ActionsDishComponent } from './diet-dish/actions-dish.component';
+import { LocalityComponent } from './locality/locality.component';
+import { FormLocalityComponent } from './locality/form-locality/form-locality.component';
+import { FormNeighborhoodOrResidenceComponent } from './neighborhood/form-neighborhood/form-neighborhood.component';
+import { NeighborhoodOrResidenceComponent } from './neighborhood/neighborhood.component';
+import { PadRiskComponent } from './pad-risk/pad-risk.component';
+import { FormPadRiskComponent } from './pad-risk/form-pad-risk/form-pad-risk.component';
+import { TariffComponent } from './tariff/tariff.component';
+import { FormTariffComponent } from './tariff/form-tariff/form-tariff.component';
+import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
+import { ActionsLocationCapacityComponent } from './location-capacity/actions-location-capacity.component';
+import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
+import { ActionsSingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/actions-single-location-capacity.component';
+import { FormLocationCapacityComponent } from './location-capacity/sigle-location-capacity/form-location-capacity/form-location-capacity.component';
+import { FormFinancialDataComponent } from './users/form-financial-data/form-financial-data.component';
+import { AuthStatusComponent } from './auth-status/auth-status.component';
+import { FormAuthStatusComponent } from './auth-status/form-auth-status/form-auth-status.component';
+import { BillingComponent } from './billing/billing.component';
+import { FormBillingComponent } from './billing/form-billing/form-billing.component';
+import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
+import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
+import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
+import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/form-pharmacy-product-request/form-pharmacy-product-request.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -287,6 +310,8 @@ import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.co
     NbIconModule
   ],
   declarations: [
+    AuthStatusComponent,
+    FormAuthStatusComponent,
     ActionsCDComponent,
     ActionsComponentEditDelete,
     RelationshipComponent,
@@ -526,7 +551,31 @@ import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.co
     SelectDishComponent,
     FormHourlyFrequencyComponent,
     HourlyFrequencyComponent,
+    LocalityComponent,
+    FormLocalityComponent,
+    NeighborhoodOrResidenceComponent,
+    FormNeighborhoodOrResidenceComponent,
+    PadRiskComponent,
+    FormPadRiskComponent,
+    TariffComponent,
+    FormTariffComponent,
+    LocationCapacityComponent,
+    ActionsLocationCapacityComponent,
+    SingleLocationCapacityComponent,
+    ActionsSingleLocationCapacityComponent,
+    FormLocationCapacityComponent,
+    FormFinancialDataComponent,
+    ActionsDishComponent,
 
+    BillingComponent,
+    FormBillingComponent,
+    ActionsComponent,
+
+    PharmacyStockComponent,
+    FormPharmacyStockComponent,
+    
+    PharmacyProductRequestComponent,
+    FormPharmacyProductRequestComponent,
 
   ],
   providers: [

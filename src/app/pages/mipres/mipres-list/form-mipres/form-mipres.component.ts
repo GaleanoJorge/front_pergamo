@@ -23,7 +23,7 @@ import { compare } from '@rxweb/reactive-form-validators';
 })
 export class FormMipresComponent implements OnInit {
   @Input() title: string;
-  @Input() data: any = null;
+  @Input() data:any = null;
 
   public form: FormGroup;
   public loading: boolean = false;

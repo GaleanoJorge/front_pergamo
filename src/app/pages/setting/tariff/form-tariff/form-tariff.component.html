@@ -1,0 +1,64 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
+          <input nbInput fullWidth id="name" name disabled="false" [value] = "this.geteratedName" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">TARIFA DE BARRIO:</label>
+          <nb-select [selected]="this.data.pad_risk_id" formControlName="pad_risk_id"
+            id="pad_risk_id" fullWidth (selectedChange)="ChangeName($event)"
+            status="{{ isSubmitted && form.controls.pad_risk_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.pad_risk_id }}" *ngFor="let item of pad_risk"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="role" class="form-text text-muted font-weight-bold">ROL:</label>
+          <nb-select [selected]="this.data.role_id" formControlName="role_id"
+            id="role_id" fullWidth (selectedChange)="ChangeName($event)"
+            status="{{ isSubmitted && form.controls.role_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.role_id }}" *ngFor="let item of role"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="scope_of_attention" class="form-text text-muted font-weight-bold">AMBITO DE ATENCIÓN:</label>
+          <nb-select [selected]="this.data.scope_of_attention_id" formControlName="scope_of_attention_id" id="scope_of_attention_id"
+            fullWidth (selectedChange)="ChangeName($event)"
+            status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.scope_of_attention_id }}" *ngFor="let item of scope_of_attention"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="amount" class="form-text text-muted font-weight-bold">PRECIO:</label>
+          <input type="number" nbInput fullWidth id="amount" formControlName="amount" amount placeholder="$"
+            status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+
+      </div>
+
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

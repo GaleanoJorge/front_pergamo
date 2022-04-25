@@ -14,7 +14,7 @@ import { CompanyService } from '../../../../business-controller/company.service'
 export class FormDietStockComponent implements OnInit {
 
   @Input() title: string;
-  @Input() data: any = null;
+  @Input() data: any =null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;

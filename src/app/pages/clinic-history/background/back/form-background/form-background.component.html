@@ -1,8 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
     <label for="ch_external_cause" class="form-text text-muted font-weight-bold align">ANTECEDENTES</label>
-    <div class="row justify-content-center">
-      <div class="col align-self-center">
+    <div class="row">
+      <div class="col align-self-center text">
         <nb-select [selected]="this.data.ch_type_background_id" formControlName="ch_type_background_id"
           id="ch_type_background_id" fullWidth
           status="{{ isSubmitted && form.controls.ch_type_background_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">

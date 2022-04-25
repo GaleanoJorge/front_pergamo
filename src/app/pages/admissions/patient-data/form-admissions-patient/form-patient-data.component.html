@@ -1,3 +1,7 @@
+
+  <ngx-form-admissions-patient *ngIf="savedUser" [user_id]="user_id" [stored]="this.saved" (messageEvent)="receiveMessage($event)"></ngx-form-admissions-patient>
+
+<div *ngIf="showTable"  style="margin-top: 15px;">
 <form [formGroup]="form" (ngSubmit)="save()">
   <nb-card style="margin: 30px; max-width: 1400px; max-height: 1300px; overflow: auto;" >
     <nb-card-header>{{ title }}</nb-card-header>
@@ -28,7 +32,7 @@
         </div>
       </div>
       <div style="margin: 0px;" class="row">
-        <div *ngIf="form.controls.patient_data_type.value">
+        <div>
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -283,3 +287,4 @@
     </nb-card-footer>
   </nb-card>
 </form>
+</div>

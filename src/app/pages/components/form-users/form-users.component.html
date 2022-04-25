@@ -51,15 +51,16 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="identification" class="form-text text-muted font-weight-bold">Número de documento:</label>
-            <input nbInput minlength="6" maxlength="15" type="text" fullWidth id="identification"
+            <input nbInput minlength="6" maxlength="16" type="text" fullWidth id="identification"
               formControlName="identification" identification
-              status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+              status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" />
             <ng-container *ngIf="form.controls.identification.errors && form.controls.identification.touched">
               <p class="caption status-danger" *ngIf="form.controls.identification.errors?.minlength">
                 El número de documento debe tener un mínimo de 6 caracteres
               </p>
               <p class="caption status-danger" *ngIf="form.controls.identification.errors?.maxlenth">
-                El número de documento debe tener un máximo de 15 caracteres
+                El número de documento debe tener un máximo de 16 caracteres
               </p>
             </ng-container>
           </div>
@@ -130,7 +131,7 @@
         <div class="col-md-6" style="position: relative;">
           <div class="form-group">
             <label for="select_RH_id" class="form-text text-muted font-weight-bold">Seleccione RH:</label>
-            <nb-select  id="select_RH_id" fullWidth formControlName="select_RH_id" select_RH_id
+            <nb-select id="select_RH_id" fullWidth formControlName="select_RH_id" select_RH_id
               status="{{ isSubmitted && form.controls.select_RH_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of select_RH" [value]="item.id">{{ item.name }}</nb-option>
@@ -145,7 +146,7 @@
         <div class="col-12">
           <p class="text-muted ">Lugar de nacimiento</p>
         </div>
-        
+
         <div class="col-md-2">
           <div class="form-group">
             <label for="birthday" class="form-text text-muted font-weight-bold">Fecha:</label>
@@ -332,7 +333,7 @@
       </div> -->
 
       <div class="row">
-        
+
         <div class="col-md-12">
           <div class="form-group">
             <label for="is_disability" class="form-text text-muted font-weight-bold">¿Tiene alguna discapacidad?
@@ -400,8 +401,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="locality_id" class="form-text text-muted font-weight-bold">Localidad:</label>
-            <nb-select id="locality_id" fullWidth formControlName="locality_id"
-              residence_municipality_id
+            <nb-select id="locality_id" fullWidth formControlName="locality_id" residence_municipality_id
               status="{{ isSubmitted && form.controls.locality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of localities" [value]="item.id">{{ item.name }}</nb-option>
@@ -426,7 +426,7 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="residence_id" class="form-text text-muted font-weight-bold">Zona residencial:</label>
-            <nb-select id="residence_id"  formControlName="residence_id" residence_id
+            <nb-select id="residence_id" formControlName="residence_id" residence_id
               status="{{ isSubmitted && form.controls.residence_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of residences" [value]="item.id">{{ item.name }}</nb-option>
@@ -439,18 +439,18 @@
             <nb-select id="residence_address" formControlName="residence_address" residence_address fullWidth
               title="Tipo de Via (Ej.Calle)"
               status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Tipo de Via (Ej.Calle)</nb-option>
-              <nb-option value="Avenida">Avenida</nb-option>
-              <nb-option value="Av.Calle">Avenida Calle </nb-option>
-              <nb-option value="Av.Carrera">Avenida Carrera</nb-option>
-              <nb-option value="Calle">Calle</nb-option>
-              <nb-option value="Carrera">Carrera</nb-option>
-              <nb-option value="Circular">Circular</nb-option>
-              <nb-option value="Circunvalar">Circunvalar</nb-option>
-              <nb-option value="Diagonal">Diagonal</nb-option>
-              <nb-option value="Manzana">Manzana</nb-option>
-              <nb-option value="Transversal">Transversal</nb-option>
-              <nb-option value="Vía">Vía</nb-option>
+              <nb-option value="">Tipo de vía (Ej.Calle)</nb-option>
+              <nb-option value="Avenida">AVENIDA</nb-option>
+              <nb-option value="Av.Calle">AVENIDA CALLE </nb-option>
+              <nb-option value="Av.Carrera">AVENIDA CARRERA</nb-option>
+              <nb-option value="Calle">CALLE</nb-option>
+              <nb-option value="Carrera">CARRERA</nb-option>
+              <!--<nb-option value="Circular">CIRCULAR</nb-option> -->
+              <nb-option value="Circunvalar">CIRCUNVALAR</nb-option>
+              <nb-option value="Diagonal">DIAGONAL</nb-option>
+              <nb-option value="Manzana">MANZANA</nb-option>
+              <nb-option value="Transversal">TRANSVERSAL</nb-option>
+              <nb-option value="Vía">VÍA</nb-option>
             </nb-select>
           </div>
         </div>
@@ -487,14 +487,14 @@
               residence_address_cardinality fullWidth title="Seleccione..."
               status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value=" ">Seleccione...</nb-option>
-              <nb-option value="Noreste">Noreste</nb-option>
-              <nb-option value="Noroeste">Noroeste</nb-option>
-              <nb-option value="Sureste">Sureste</nb-option>
-              <nb-option value="Suroeste">Suroeste</nb-option>
-              <nb-option value="Norte">Norte</nb-option>
-              <nb-option value="Este">Este</nb-option>
-              <nb-option value="Sur">Sur</nb-option>
-              <nb-option value="Oeste">Oeste</nb-option>
+              <nb-option value="Noreste">NORESTE</nb-option>
+              <nb-option value="Noroeste">NOROESTE</nb-option>
+              <nb-option value="Sureste">SURESTE</nb-option>
+              <nb-option value="Suroeste">SUROESTE</nb-option>
+              <nb-option value="Norte">NORTE</nb-option>
+              <nb-option value="Este">ESTE</nb-option>
+              <nb-option value="Sur">SUR</nb-option>
+              <nb-option value="Oeste">OESTE</nb-option>
             </nb-select>
           </div>
         </div>
@@ -509,7 +509,7 @@
         </div>
       </div>
 
-      
+
       <!--<div class="row">
         <div class="col-md-6">
           <div class="form-group  border border-danger p-3 rounded-sm">
@@ -524,7 +524,7 @@
         </div>
       </div>-->
 
-      <div class="row mt-3" *ngIf="role==3 || role==7">
+      <div class="row mt-3" *ngIf="this.roleBS.roles[0].role_type_id == 2">
         <div class="col-12">
           <p class="text-muted title-users">Información personal asistencial</p>
         </div>
@@ -548,7 +548,7 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="role==3 || role ==7">
+      <div class="row" *ngIf="this.roleBS.roles[0].role_type_id == 2">
 
         <!-- <div class="col-md-4">
           <div class="form-group">
@@ -579,36 +579,28 @@
         <!-- pad -->
         <div class="col-md-4">
           <div class="form-group">
-            <nb-toggle formControlName="PAD_service" PAD_service >Servicio de PAD</nb-toggle>
+            <nb-toggle formControlName="PAD_service" PAD_service>Servicio de PAD</nb-toggle>
           </div>
         </div>
-        <div class="col-md-12 col-lg-6" *ngIf="form.controls.PAD_service.value">
-          <div class="form-group">
-            <label for="PAD_patient_quantity" class="form-text text-muted font-weight-bold">Inserte la cantidad de pacientes para la atención: </label>
-            <input oninput="this.value = this.value.slice(0,4)" nbInput type="number" fullWidth id="PAD_patient_quantity"
-              formControlName="PAD_patient_quantity" PAD_patient_quantity
-              status="{{ isSubmitted && form.controls.PAD_patient_quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-          </div>
-        </div>
-        <div class="col-md-12 col-lg-6" *ngIf="form.controls.PAD_service.value">
-          <div class="form-group">
-            <label for="localities_id" class="form-text text-muted font-weight-bold">Localidades:</label>
-            <nb-select multiple formControlName="localities_id" id="localities_id" name="localities_id" fullWidth
-              status="{{ isSubmitted && form.controls.localities_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option *ngFor="let item of localities" [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
+        <div class="col-md-12" *ngIf="form.controls.PAD_service.value && !this.data">
+          <div style="margin-top: 10px;">
+            <ngx-work-location-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
+            </ngx-work-location-package>
           </div>
         </div>
 
         <div class="col-12 col-sm-12 col-md-12">
           <label for="firm" class="form-text text-muted font-weight-bold">Firma:</label>
-          <label for="firm" *ngIf="currentImg==null" class="form-text text-muted font-weight-bold"> Manifiesto que conforme a lo dispuesto en la ley 527 de 1999, reglamentada por el Decreto 2364 de 2012, hemos acordado que mi firma será captada de manera electrónica, entendiendo que se da cumplimiento a los dispuesto en el numeral 3 de la normativa mencionada: Artículo 3°. Cumplimiento del requisito de firma. Cuando se exija la firma de una persona, ese requisito quedará cumplido en relación con un mensaje de datos si se utiliza una firma electrónica que, a la luz de todas las circunstancias del caso, incluido cualquier acuerdo aplicable, sea tan confiable como apropiada para los fines con los cuales se generó o comunicó ese mensaje.</label>
-          <ng-signature-pad *ngIf="currentImg==null" [emitOnDragEnd]="true" [showDoneButton]="false" clearButtonText="Borrar" format="base64"
-            (done)="showImage($event)">
+          <label for="firm" *ngIf="currentImg==null" class="form-text text-muted font-weight-bold"> Manifiesto que
+            conforme a lo dispuesto en la ley 527 de 1999, reglamentada por el Decreto 2364 de 2012, hemos acordado que
+            mi firma será captada de manera electrónica, entendiendo que se da cumplimiento a los dispuesto en el
+            numeral 3 de la normativa mencionada: Artículo 3°. Cumplimiento del requisito de firma. Cuando se exija la
+            firma de una persona, ese requisito quedará cumplido en relación con un mensaje de datos si se utiliza una
+            firma electrónica que, a la luz de todas las circunstancias del caso, incluido cualquier acuerdo aplicable,
+            sea tan confiable como apropiada para los fines con los cuales se generó o comunicó ese mensaje.</label>
+          <ng-signature-pad *ngIf="currentImg==null" [emitOnDragEnd]="true" [showDoneButton]="false"
+            clearButtonText="Borrar" format="base64" (done)="showImage($event)">
           </ng-signature-pad>
-
-
           <img [src]="currentImg" *ngIf="currentImg" />
         </div>
         <!-- <div class="col-md-4" *ngIf="role ==7 || role==14">
@@ -643,6 +635,7 @@
                 <input class="password" [type]="getInputTypePassword()" nbInput fullWidth id="password"
                   formControlName="password" password
                   status="{{ isSubmitted && form.controls.password.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+
                 <button nbSuffix nbButton ghost (click)="toggleShowPassword()" type="button">
                   <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'" pack="eva"
                     [attr.aria-label]="showPassword ? 'hide password' : 'show password'">

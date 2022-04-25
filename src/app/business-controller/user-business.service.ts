@@ -122,8 +122,40 @@ v
       });
   }
 
+  SavePacient(user: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('PacientInscription');
+    servObj.data = user;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
   UpdatePublic(user: any,id = null): Promise<ServiceObject> {
     let servObj = new ServiceObject('public/userInscription', (user.id ? user.id : id));
+    servObj.data = user;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
+  UpdatePatient(user: any,id = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('PacientInscription', (user.id ? user.id : id));
     servObj.data = user;
     return this.webAPI.PostAction(servObj)
       .then(x => {
@@ -202,9 +234,9 @@ v
       });
   }
 
-  UserByRoleLocation(location_id:any,id:any): Promise<User[]> {
+  UserByRoleLocation(location_id:any,id:any, params = {}): Promise<User[]> {
     var servObj = new ServiceObject("user/byRoleLocation/"+location_id, id);
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

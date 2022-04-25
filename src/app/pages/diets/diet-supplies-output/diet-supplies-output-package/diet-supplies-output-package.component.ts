@@ -20,7 +20,7 @@ export class DietSuppliesOutputPackageComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<any>();
   @Input() parentData: any = [];
-  @Input() show: any = [];
+  @Input() show: any= [];
   public messageError = null;
 
 
@@ -39,6 +39,8 @@ export class DietSuppliesOutputPackageComponent implements OnInit {
   public selectedRows: any;
   public inscriptionId;
   public campus;
+  public entity;
+  public customData;
 
   public manual_price: any[] = [];
   public package: any[] = [];
@@ -48,10 +50,11 @@ export class DietSuppliesOutputPackageComponent implements OnInit {
   public units: any[] = [];
   public filter2;
   public done = false;
+  public settings;
 
 
 
-  public settings = {
+  public settings_menu = {
     //selectMode: 'multi',
 
     columns: {
@@ -59,14 +62,6 @@ export class DietSuppliesOutputPackageComponent implements OnInit {
         title: '',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          if (!this.done) {
-            this.selectedOptions = this.parentData;
-            this.emit = this.parentData;
-            this.selectedOptions.forEach(x => {
-              this.selectedOptions2.push(x.diet_menu_id);
-            });
-            this.done = true;
-          }
           return {
             'data': row,
             'show': this.show,
@@ -84,20 +79,33 @@ export class DietSuppliesOutputPackageComponent implements OnInit {
         title: this.headerFields[1],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          var amo;
-          this.selectedOptions.forEach(x => {
-            if (x.diet_menu_id == row.id) {
-              amo = x.amount;
-            }
-          });
           return {
             'data': row,
             'enabled': (!this.show)? !this.selectedOptions2.includes(row.id) : true,
-            'amount': amo ? amo : '',
+            'amount': '',
             'onchange': (input, row: any) => this.onAmountChange(input, row),
           };
         },
         renderComponent: AmountDietSuppliesOutputComponent,
+      },
+    },
+  };
+
+  public settings_output = {
+    columns: {
+      name: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.diet_menu.name;
+        },
+      },
+      amount: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.amount;
+        },
       },
     },
   };
@@ -116,9 +124,17 @@ export class DietSuppliesOutputPackageComponent implements OnInit {
   ngOnInit(): void {
     this.component_package_id = this.route.snapshot.params.id;
     
-    this.selectedOptions = this.parentData;
+    this.selectedOptions = this.parentData.selectedOptions;
     //   this.selectedOptions = this.parentData.id;
     //  this.selectedOptions2 = this.parentData.amount;
+    if (this.parentData.customData == 'diet_supplies_output_menu') {
+      this.settings = this.settings_output;
+    } else {
+      this.settings = this.settings_menu;
+    }
+
+    this.entity = this.parentData.entity;
+    this.customData = this.parentData.customData;
 
     this.routes = [
       {

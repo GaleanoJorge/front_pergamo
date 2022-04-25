@@ -93,7 +93,7 @@ export class DocumentComponent implements OnInit {
   NewDocument() {
     this.dialogFormService.open(FormDocumentComponent, {
       context: {
-        title: 'Crear nuevo documento contable',
+        title: 'Crear nuevo Documento Contable',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -102,7 +102,7 @@ export class DocumentComponent implements OnInit {
   EditDocument(data) {
     this.dialogFormService.open(FormDocumentComponent, {
       context: {
-        title: 'Editar documentos contables',
+        title: 'Editar Documentos Contables',
         data,
         saved: this.RefreshData.bind(this),
       },

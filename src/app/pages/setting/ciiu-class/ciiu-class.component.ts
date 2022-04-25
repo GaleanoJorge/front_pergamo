@@ -16,7 +16,7 @@ export class CiiuClassComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Clase de clasificación industrial';
+  public title: string = 'Tipo de Clasificación Industrial';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Código', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]}`;

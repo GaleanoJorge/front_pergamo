@@ -6,4 +6,5 @@ export class LocationCapacity extends MainClass {
   id: number;
   assistance_id: number;
   locality_id: number;
+  validation_date: string;
 }

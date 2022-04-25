@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <div class="row">
+    <div class="row">
     <div class="col-12 col-sm-12 col-md-4">
       <label class="form-text text-muted font-weight-bold">ESTADO</label>
       <nb-radio-group formControlName="pregnancy_status" pregnancy_status id="pregnancy_status" class="d-flex text"
@@ -39,7 +39,7 @@
         id="ch_type_gynecologists_id" fullWidth
         status="{{ isSubmitted && form.controls.ch_type_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         <nb-option value="">Seleccione...</nb-option>
-        <nb-option selected="{{ item.id == data.ch_type_gynecologists_id }}" *ngFor="let item of ch_type_background"
+        <nb-option selected="{{ item.id == data.ch_type_gynecologists_id }}" *ngFor="let item of ch_type_gynecologists"
           [value]="item.id">
           {{ item.name }}</nb-option>
       </nb-select>
@@ -65,13 +65,13 @@
         status="{{ isSubmitted && form.controls.date_last_cytology.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
 
-    <div *ngIf="this.form.controls.ch_rst_cytology_gyneco_id" class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">RESULTADO CITOLOGIA</label>
       <nb-select [selected]="this.data.ch_rst_cytology_gyneco_id" formControlName="ch_rst_cytology_gyneco_id"
         id="ch_rst_cytology_gyneco_id" fullWidth
         status="{{ isSubmitted && form.controls.ch_rst_cytology_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         <nb-option value="">Seleccione...</nb-option>
-        <nb-option selected="{{ item.id == data.ch_rst_cytology_gyneco_id }}" *ngFor="let item of special_field"
+        <nb-option selected="{{ item.id == data.ch_rst_cytology_gyneco_id }}" *ngFor="let item of ch_rst_cytology_gyneco"
           [value]="item.id">
           {{ item.name }}</nb-option>
       </nb-select>
@@ -82,13 +82,13 @@
       <input nbInput type="date" fullWidth id="date_biopsy" formControlName="date_biopsy" date_biopsy
         status="{{ isSubmitted && form.controls.date_biopsy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
-    <div *ngIf="this.form.controls.ch_rst_biopsy_gyneco_id" class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">RESULTADO BIOPSIA</label>
       <nb-select [selected]="this.data.ch_rst_biopsy_gyneco_id" formControlName="ch_rst_biopsy_gyneco_id"
         id="ch_rst_biopsy_gyneco_id" fullWidth
         status="{{ isSubmitted && form.controls.ch_rst_biopsy_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         <nb-option value="">Seleccione...</nb-option>
-        <nb-option selected="{{ item.id == data.ch_rst_biopsy_gyneco_id }}" *ngFor="let item of special_field"
+        <nb-option selected="{{ item.id == data.ch_rst_biopsy_gyneco_id }}" *ngFor="let item of ch_rst_biopsy_gyneco"
           [value]="item.id">
           {{ item.name }}</nb-option>
       </nb-select>
@@ -99,13 +99,13 @@
         status="{{ isSubmitted && form.controls.date_mammography.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
 
-    <div *ngIf="this.form.controls.ch_rst_mammography_gyneco" class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">RESULTADO MAMOGRAFIA</label>
-      <nb-select [selected]="this.data.ch_rst_mammography_gyneco" formControlName="ch_rst_mammography_gyneco"
-        id="ch_rst_mammography_gyneco" fullWidth
-        status="{{ isSubmitted && form.controls.ch_rst_mammography_gyneco.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      <nb-select [selected]="this.data.ch_rst_mammography_gyneco_id" formControlName="ch_rst_mammography_gyneco_id"
+        id="ch_rst_mammography_gyneco_id" fullWidth
+        status="{{ isSubmitted && form.controls.ch_rst_mammography_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         <nb-option value="">Seleccione...</nb-option>
-        <nb-option selected="{{ item.id == data.ch_rst_mammography_gyneco }}" *ngFor="let item of special_field"
+        <nb-option selected="{{ item.id == data.ch_rst_mammography_gyneco_id }}" *ngFor="let item of ch_rst_mammography_gyneco"
           [value]="item.id">
           {{ item.name }}</nb-option>
       </nb-select>
@@ -115,14 +115,13 @@
       <input nbInput type="date" fullWidth id="date_colposcipia" formControlName="date_colposcipia" date_colposcipia
         status="{{ isSubmitted && form.controls.date_colposcipia.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
-    <div *ngIf="this.form.controls.ch_rst_colposcipia_gyneco" class="col-12 col-sm-12 col-md-3">
-      <label class="form-text text-muted font-weight-bold">RESULTADO
-        COLPOSCIPIA</label>
-      <nb-select [selected]="this.data.ch_rst_colposcipia_gyneco" formControlName="ch_rst_colposcipia_gyneco"
-        id="ch_rst_colposcipia_gyneco" fullWidth
-        status="{{ isSubmitted && form.controls.ch_rst_colposcipia_gyneco.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+    <div class="col-12 col-sm-12 col-md-3">
+      <label class="form-text text-muted font-weight-bold">RESULTADO COLPOSCIPIA</label>
+      <nb-select [selected]="this.data.ch_rst_colposcipia_gyneco_id" formControlName="ch_rst_colposcipia_gyneco_id"
+        id="ch_rst_colposcipia_gyneco_id" fullWidth
+        status="{{ isSubmitted && form.controls.ch_rst_colposcipia_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         <nb-option value="">Seleccione...</nb-option>
-        <nb-option selected="{{ item.id == data.ch_rst_colposcipia_gyneco }}" *ngFor="let item of special_field"
+        <nb-option selected="{{ item.id == data.ch_rst_colposcipia_gyneco_id }}" *ngFor="let item of ch_rst_colposcipia_gyneco"
           [value]="item.id">
           {{ item.name }}</nb-option>
       </nb-select>
@@ -140,7 +139,7 @@
         status="{{ isSubmitted && form.controls.caesarean_operation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
-      <label class="form-text text-muted font-weight-bold align">ABORTO</label>
+      <label class="form-text text-muted font-weight-bold align">ABORTOS</label>
       <input nbInput type="number" fullWidth id="misbirth" formControlName="misbirth" misbirth
         status="{{ isSubmitted && form.controls.misbirth.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
@@ -170,14 +169,14 @@
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
-      <label class="form-text text-muted font-weight-bold align">HIJOS MUERTOS PRIMERA SEMANA</label>
+      <label class="form-text text-muted font-weight-bold align">HIJOS MUERTOS 1ERA SEMANA</label>
       <input nbInput type="number" fullWidth id="sons_dead_first_week" formControlName="sons_dead_first_week"
         sons_dead_first_week
         status="{{ isSubmitted && form.controls.sons_dead_first_week.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
-      <label class="form-text text-muted font-weight-bold align">HIJOS M. DESPUES DE LA PRIMERA SEMANA</label>
+      <label class="form-text text-muted font-weight-bold align">HIJOS MUERTOS DESPUES 1ERA SEMANA</label>
       <input nbInput type="number" fullWidth id="children_died_after_the_first_week"
         formControlName="children_died_after_the_first_week" children_died_after_the_first_week
         status="{{ isSubmitted && form.controls.children_died_after_the_first_week.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
@@ -201,9 +200,9 @@
         ANTECEDENTES GEMELARES</nb-checkbox>
     </div>
     <div class="col-12 col-sm-12 col-md-3">
-      <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="first_checkbox" formControlName="first_checkbox"
-        first_checkbox
-        status="{{ isSubmitted && form.controls.first_checkbox.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="last_planned_pregnancy" formControlName="last_planned_pregnancy"
+      last_planned_pregnancy
+        status="{{ isSubmitted && form.controls.last_planned_pregnancy.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         ULTIMO EMBARAZO PLANEADO</nb-checkbox>
     </div>
     <div class="col-12 col-sm-12 col-md-3">
@@ -217,36 +216,36 @@
       <input nbInput type="number" fullWidth id="last_weight" formControlName="last_weight" last_weight
         status="{{ isSubmitted && form.controls.last_weight.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
-    <div *ngIf="this.form.controls.ch_failure_method_gyneco_id" class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">METODO FRACASO</label>
       <nb-select [selected]="this.data.ch_failure_method_gyneco_id" formControlName="ch_failure_method_gyneco_id"
         id="ch_failure_method_gyneco_id" fullWidth
         status="{{ isSubmitted && form.controls.ch_failure_method_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         <nb-option value="">Seleccione...</nb-option>
-        <nb-option selected="{{ item.id == data.ch_failure_method_gyneco_id }}" *ngFor="let item of special_field"
+        <nb-option selected="{{ item.id == data.ch_failure_method_gyneco_id }}" *ngFor="let item of ch_failure_method_gyneco"
           [value]="item.id">
           {{ item.name }}</nb-option>
       </nb-select>
     </div>
-    <div *ngIf="this.form.controls.ch_planning_gynecologists_id" class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">PLANIFICA</label>
       <nb-select [selected]="this.data.ch_planning_gynecologists_id" formControlName="ch_planning_gynecologists_id"
         id="ch_planning_gynecologists_id" fullWidth
         status="{{ isSubmitted && form.controls.ch_planning_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         <nb-option value="">Seleccione...</nb-option>
-        <nb-option selected="{{ item.id == data.ch_planning_gynecologists_id }}" *ngFor="let item of special_field"
+        <nb-option selected="{{ item.id == data.ch_planning_gynecologists_id }}" *ngFor="let item of ch_planning_gynecologists"
           [value]="item.id">
           {{ item.name }}</nb-option>
       </nb-select>
     </div>
-    <div *ngIf="this.form.controls.ch_method_planning_gyneco_id" class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">MÉTODO DE
         PLANIFICACIÓN</label>
       <nb-select [selected]="this.data.ch_method_planning_gyneco_id" formControlName="ch_method_planning_gyneco_id"
         id="ch_method_planning_gyneco_id" fullWidth
         status="{{ isSubmitted && form.controls.ch_method_planning_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         <nb-option value="">Seleccione...</nb-option>
-        <nb-option selected="{{ item.id == data.ch_method_planning_gyneco_id }}" *ngFor="let item of special_field"
+        <nb-option selected="{{ item.id == data.ch_method_planning_gyneco_id }}" *ngFor="let item of ch_method_planning_gyneco"
           [value]="item.id">
           {{ item.name }}</nb-option>
       </nb-select>
@@ -261,13 +260,13 @@
       <input nbInput type="number" fullWidth id="sexual_partners" formControlName="sexual_partners" sexual_partners
         status="{{ isSubmitted && form.controls.sexual_partners.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
-    <div *ngIf="this.form.controls.ch_exam_gynecologists_id" class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">AUTO EXAMEN SENO</label>
       <nb-select [selected]="this.data.ch_exam_gynecologists_id" formControlName="ch_exam_gynecologists_id"
         id="ch_exam_gynecologists_id" fullWidth
         status="{{ isSubmitted && form.controls.ch_exam_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         <nb-option value="">Seleccione...</nb-option>
-        <nb-option selected="{{ item.id == data.ch_exam_gynecologists_id }}" *ngFor="let item of special_field"
+        <nb-option selected="{{ item.id == data.ch_exam_gynecologists_id }}" *ngFor="let item of ch_exam_gynecologists"
           [value]="item.id">
           {{ item.name }}</nb-option>
       </nb-select>
@@ -284,13 +283,13 @@
         observation_breast_self_exam
         status="{{ isSubmitted && form.controls.observation_breast_self_exam.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
     </div>
-    <div *ngIf="this.form.controls.ch_flow_gynecologists_id" class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">FLUJO</label>
       <nb-select [selected]="this.data.ch_flow_gynecologists_id" formControlName="ch_flow_gynecologists_id"
         id="ch_flow_gynecologists_id" fullWidth
         status="{{ isSubmitted && form.controls.ch_flow_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
         <nb-option value="">Seleccione...</nb-option>
-        <nb-option selected="{{ item.id == data.ch_flow_gynecologists_id }}" *ngFor="let item of special_field"
+        <nb-option selected="{{ item.id == data.ch_flow_gynecologists_id }}" *ngFor="let item of ch_flow_gynecologists"
           [value]="item.id">
           {{ item.name }}</nb-option>
       </nb-select>
@@ -301,6 +300,7 @@
         status="{{ isSubmitted && form.controls.observation_flow.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
     </div>
   </div>
+
   <div class="row">
     <div class="col-md-12">
       <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>

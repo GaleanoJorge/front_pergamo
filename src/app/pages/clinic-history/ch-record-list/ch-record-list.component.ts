@@ -5,6 +5,7 @@ import { ActivatedRoute, } from '@angular/router';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Actions5Component } from './actions.component';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -22,15 +23,17 @@ export class ChRecordListComponent implements OnInit {
   public messageError: string = null;
   public title = "Registo Historia Clinica";
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de registro', 'Personal Asistencial', 'Estado'];
+  public headerFields: any[] = ['Fecha de registro', 'Personal Asistencial','Fecha de atención', 'Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public routes = [];
   public data = [];
   public admissions_id;
   public saved: any = null;
   public user;
+  public own_user;
   public assigned_management_plan;
   public disabled: boolean = false;
+  public showButtom:boolean=true;
 
   
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -48,9 +51,13 @@ export class ChRecordListComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          if(row.status=='ACTIVO' || row.status==null){
+            this.showButtom=false;
+          }
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'assigned':this.assigned_management_plan,
             'user': this.user,
             'refresh': this.RefreshData.bind(this),
           };
@@ -67,8 +74,12 @@ export class ChRecordListComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
       },
-      status: {
+      date_finish: {
         title: this.headerFields[2],
+        width: 'string',
+      },
+      status: {
+        title: this.headerFields[3],
         width: 'string',
       },
     },
@@ -80,6 +91,7 @@ export class ChRecordListComponent implements OnInit {
     private toastService: NbToastrService,
     private userBS: UserBusinessService,
     private dialogService: NbDialogService,
+    private authService: AuthService,
 
   ) {
     this.routes = [
@@ -106,6 +118,8 @@ export class ChRecordListComponent implements OnInit {
     this.admissions_id = this.route.snapshot.params.id;
     this.assigned_management_plan = this.route.snapshot.params.id2;
 
+    this.own_user = this.authService.GetUser();
+
     // await this.userBS.GetUserById(this.user_id).then(x => {
     //   this.user=x;
     // });
@@ -122,6 +136,7 @@ export class ChRecordListComponent implements OnInit {
       status: 'ACTIVO',
       admissions_id: this.admissions_id,
       assigned_management_plan: this.assigned_management_plan,
+      user_id: this.own_user.id,
     }).then(x => {
       this.toastService.success('', x.message);
       this.RefreshData();

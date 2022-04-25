@@ -1,0 +1,18 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="assistance/?pagination=true"
+                    customData='assistance'
+                    [queryParams]="GetParams()"
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

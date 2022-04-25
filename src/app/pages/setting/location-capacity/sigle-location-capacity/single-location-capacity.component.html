@@ -1,0 +1,39 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+      <div class="col-md-12">
+        <h3 class="parrafo"*ngIf="assistance_name">CAPACIDAD INSTALADA DE {{assistance_name}}</h3>
+      </div>
+
+    <ngx-base-table [title]="title_base"
+                    [subtitle]="subtitle_base" [settings]="settings_base"
+                    entity="base_location_capacity/AssistanceByLocation/{{assistance_id}}"
+                    customData='base_location_capacity'
+                    [messageToltip]="messageToltip"
+                    [queryParams]="GetParams()"
+                    >
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" (click)="NewSigleLocationCapacity()">Editar</button>
+        </div>
+      </div>
+    </ngx-base-table>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="location_capacity/AssistanceByLocation/{{assistance_id}}"
+                    customData='location_capacity'
+                    [messageToltip]="messageToltip"
+                    [queryParams]="GetParams()"
+                    >
+      <!-- <div actions>
+        <div class="actions">
+          <button nbButton [disabled]="!show_create" status="danger" (click)="NewSigleLocationCapacity()">Crear</button>
+        </div>
+      </div> -->
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

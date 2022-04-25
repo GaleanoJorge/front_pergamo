@@ -12,6 +12,7 @@ import { AuthService } from '../../../services/auth.service';
 import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
+import { PatientService } from '../../../business-controller/patient.service';
 
 @Component({
   selector: 'ngx-assigned-management-plan',
@@ -89,6 +90,9 @@ export class AssignedManagementPlanComponent implements OnInit {
     {
       name: 'Plan de manejo',
     },
+    {
+      name: 'Ejecución de plan de manejo',
+    },
   ];
 
   constructor(
@@ -99,6 +103,7 @@ export class AssignedManagementPlanComponent implements OnInit {
     private toastService: NbToastrService,
 
     private currency: CurrencyPipe,
+    private patientBS: PatientService,
     private userBS: UserBusinessService,
 
     private authService: AuthService,
@@ -115,6 +120,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
   public saved: any = null;
+  public user_logged;
   
 
 
@@ -123,9 +129,16 @@ export class AssignedManagementPlanComponent implements OnInit {
   async ngOnInit() {
  
     this.management_id = this.route.snapshot.params.management_id;
+    this.user = this.authService.GetUser();
+    if(this.user.roles[0].role_type_id==2){
+      this.user_logged= this.authService.GetUser().id;
+    }else{
+      this.user_logged=0;
+    }
+    
     this.user_id = this.route.snapshot.params.user;
 
-    await this.userBS.GetUserById(this.user_id).then(x => {
+    await this.patientBS.GetUserById(this.user_id).then(x => {
       this.user=x;
     });
   }

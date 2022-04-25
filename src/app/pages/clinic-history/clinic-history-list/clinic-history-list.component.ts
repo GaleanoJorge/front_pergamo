@@ -7,6 +7,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Actions4Component } from './actions.component';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { Location } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -30,11 +33,17 @@ export class ClinicHistoryListComponent implements OnInit {
   public ambit;
   public program;
   public flat;
+  public user;
+  public own_user;
   public bed;
   public bed_id;
-  public pavilion; 
+  public pavilion;
   public record_id;
-  
+  public isSubmitted: boolean = false;
+  public saved: any = null;
+  public loading: boolean = false;
+  public currentRole: any;
+
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
   }
@@ -158,6 +167,12 @@ export class ClinicHistoryListComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private UserBS: UserBusinessService,
     private deleteConfirmService: NbDialogService,
+    private chRecord: ChRecordService,
+    private toastService: NbToastrService,
+    private location: Location,
+    private authService: AuthService,
+
+
   ) {
     this.routes = [
       {
@@ -179,12 +194,35 @@ export class ClinicHistoryListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user_id = this.route.snapshot.params.user_id;
     this.record_id = this.route.snapshot.params.id;
+    this.currentRole = this.authService.GetRole();
+    this.own_user = this.authService.GetUser();
 
-    this.UserBS.GetUserById(this.user_id).then(x => {
-      var user = x;
-      this.title = 'Admisiones de paciente: ' + user.firstname + ' ' + user.lastname;
+    this.chRecord.GetCollection({
+      record_id: this.record_id
+    }).then(x => {
+      this.user = x[0]['admissions']['patients'];
+      this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
+    });
+  }
+
+  async finish() {
+
+    await this.chRecord.Update({
+      id: this.record_id,
+      status: 'CERRADO',
+      user: this.user,
+      role: this.currentRole,
+      user_id: this.own_user.id,
+    }).then(x => {
+      this.toastService.success('', x.message);
+      this.location.back();
+      if (this.saved) {
+        this.saved();
+      }
+    }).catch(x => {
+      this.isSubmitted = false;
+      this.loading = false;
     });
   }
 

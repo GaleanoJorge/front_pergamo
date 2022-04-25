@@ -16,7 +16,7 @@ export class ProductGenericComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Productos Genericos';
+  public title: string = 'Productos Génericos';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre', 'Descripción'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]}`;

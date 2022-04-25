@@ -35,7 +35,7 @@ export class MunicipalityComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditMunicipality.bind(this),
-            'delete': this.DeleteMunicipality.bind(this),
+            'delete': this.DeleteConfirmMunicipality.bind(this),
           };
         },
         renderComponent: ActionsComponent,

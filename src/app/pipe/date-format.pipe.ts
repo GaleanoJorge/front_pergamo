@@ -10,6 +10,20 @@ export class DateFormatPipe extends DatePipe implements PipeTransform {
     return super.transform(value, "MMM/dd/yyyy, HH:mm:ss");
   }
 
+  getMonth(value: any, args?: any): any {
+    var fecha = new Date(value);
+    return fecha.getMonth()+1;
+  }
+
+  getCurrentMonth(value: any, args?: any): any {
+    var fecha = new Date();
+    return fecha.getMonth()+1;
+  }
+
+  getMonthPretty(value: any, args?: any): any {
+    return super.transform(value, "MMM");
+  }
+
   transform2(value: any, args?: any): any {
     return super.transform(value, "yyyy-MM-dd");
   }

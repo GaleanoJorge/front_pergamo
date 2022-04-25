@@ -34,11 +34,21 @@ const routes: Routes = [{
         .then(m => m.ClinicHistoryModule),
     },
     {
+      path: 'pharmacy',
+      loadChildren: () => import('./pharmacy/pharmacy.module')
+        .then(m => m.PharmacyModule),
+    },
+    {
       path: 'gloss',
       loadChildren: () => import('./gloss/gloss.module')
         .then(m => m.GlossModule),
       canActivate: [PermissionsGuard],
       data: { permission: 'gloss.read' }
+    },
+    {
+      path: 'account-receivable',
+      loadChildren: () => import('./account-receivable/account-receivable.module')
+        .then(m => m.AccountReceivableModule),
     },
     {
       path: 'pad',
@@ -75,8 +85,11 @@ const routes: Routes = [{
       path: 'pad-complementary',
       loadChildren: () => import('./pad-complementary/pad-complementary.module')
         .then(m => m.PadComplementaryModule),
-        canActivate: [PermissionsGuard],
-      data: { permission: 'gloss.read' }
+    },
+    {
+      path: 'authorization',
+      loadChildren: () => import('./authorization/authorization.module')
+        .then(m => m.AuthorizationModule),
     },
     {
       path: '',

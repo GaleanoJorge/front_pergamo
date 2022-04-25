@@ -1,0 +1,178 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="invoice_prefix" class="form-text text-muted font-weight-bold">Prefijo de factura:</label>
+          <input nbInput fullWidth id="invoice_prefix" formControlName="invoice_prefix" invoice_prefix
+            status = "{{ isSubmitted && form.controls.invoice_prefix.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="invoice_consecutive" class="form-text text-muted font-weight-bold">Consecutivo de factura:</label>
+          <input nbInput fullWidth id="invoice_consecutive" formControlName="invoice_consecutive" invoice_consecutive
+            status="{{ isSubmitted && form.controls.invoice_consecutive.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="objetion_type" class="form-text text-muted font-weight-bold">Tipo de objeción:</label>
+          <nb-select [selected]="this.data.objetion_type_id" formControlName="objetion_type_id" id="objetion_type_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.objetion_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.objetion_type_id }}" *ngFor="let item of objetion_type"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="regime" class="form-text text-muted font-weight-bold">Régimen:</label>
+          <nb-select [selected]="this.data.regime_id" formControlName="regime_id" id="regime_id" fullWidth
+            status="{{ isSubmitted && form.controls.regime_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.regime_id }}" *ngFor="let item of regime" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="emission_date" class="form-text text-muted font-weight-bold">Fecha de emisión:</label>
+          <input type="date" nbInput fullWidth id="emission_date" formControlName="emission_date" emission_date
+            status="{{ isSubmitted && form.controls.emission_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="received_date" class="form-text text-muted font-weight-bold">Fecha de recibido:</label>
+          <input type="date" nbInput fullWidth id="received_date" formControlName="received_date" received_date
+            status="{{ isSubmitted && form.controls.received_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="radication_date" class="form-text text-muted font-weight-bold">Fecha de radicación:</label>
+          <input type="date" nbInput fullWidth id="radication_date" formControlName="radication_date" radication_date
+            status="{{ isSubmitted && form.controls.radication_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="company" class="form-text text-muted font-weight-bold">EAPB:</label>
+          <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="campus" class="form-text text-muted font-weight-bold">Sede:</label>
+          <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="gloss_modality" class="form-text text-muted font-weight-bold">Modalidad de Glosa:</label>
+          <nb-select [selected]="this.data.gloss_modality_id" formControlName="gloss_modality_id" id="gloss_modality_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.gloss_modality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.gloss_modality_id }}" *ngFor="let item of gloss_modality"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="gloss_ambit" class="form-text text-muted font-weight-bold">Ambito de Glosa:</label>
+          <nb-select [selected]="this.data.gloss_ambit_id" formControlName="gloss_ambit_id" id="gloss_ambit_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.gloss_ambit_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.gloss_ambit_id }}" *ngFor="let item of gloss_ambit"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="gloss_service" class="form-text text-muted font-weight-bold">Sevicio de Glosa:</label>
+          <nb-select [selected]="this.data.gloss_service_id" formControlName="gloss_service_id" id="gloss_service_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.gloss_service_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.gloss_service_id }}" *ngFor="let item of gloss_service"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label class="form-text text-muted font-weight-bold">Código de objeción:</label>
+          <input id="data-list" formControlName="objetion_code_id" objetion_code_id type="text" list="codes"
+            class="data-list" (change)="saveCode($event)" required>
+          <datalist id="codes">
+            <option *ngFor="let item of objetion_code" [value]="item.name">{{item.code}} - {{item.name}}</option>
+          </datalist>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="objetion_detail" class="form-text text-muted font-weight-bold">Detalle de objeción:</label>
+          <input nbInput fullWidth id="objetion_detail" formControlName="objetion_detail" objetion_detail
+            status="{{ isSubmitted && form.controls.objetion_detail.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="invoice_value" class="form-text text-muted font-weight-bold">Valor de factura:</label>
+          <input type="number" nbInput fullWidth id="invoice_value" formControlName="invoice_value" invoice_value
+            (change)="saveValue($event)"
+            status="{{ isSubmitted && form.controls.invoice_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="objeted_value" class="form-text text-muted font-weight-bold">Valor de objetado:</label>
+          <input type="number" nbInput fullWidth id="objeted_value" formControlName="objeted_value" objeted_value
+            (change)="ValueCompare($event)"
+            status="{{ isSubmitted && form.controls.objeted_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="received_by" class="form-text text-muted font-weight-bold">Medio de recibido:</label>
+          <nb-select [selected]="this.data.received_by_id" formControlName="received_by_id" id="received_by_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.received_by_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.received_by_id }}" *ngFor="let item of received_by"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="assing_user" class="form-text text-muted font-weight-bold">Usuario asignado:</label>
+          <nb-select [selected]="this.data.assing_user_id" formControlName="assing_user_id" id="assing_user_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.assing_user_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.assing_user_id }}" *ngFor="let item of assing_user"
+              [value]="item.id">
+              {{ item.nombre_completo }}</nb-option>
+          </nb-select>
+        </div>
+
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

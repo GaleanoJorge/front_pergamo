@@ -28,7 +28,7 @@ const routes: Routes = [{
       component: EditPatientComponent,
     },
     {
-      path: 'admissions-patient/:user_id',
+      path: 'admissions-patient/:patient_id',
       component: AdmissionsPatientComponent,
     },
     {

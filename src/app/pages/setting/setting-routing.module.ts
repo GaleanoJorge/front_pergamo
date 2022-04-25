@@ -114,6 +114,16 @@ import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.com
 import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
 import { DietMenuComponent } from './diet-menu/diet-menu.component';
 import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.component';
+import { LocalityComponent } from './locality/locality.component';
+import { NeighborhoodOrResidenceComponent } from './neighborhood/neighborhood.component';
+import { PadRiskComponent } from './pad-risk/pad-risk.component';
+import { TariffComponent } from './tariff/tariff.component';
+import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
+import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
+import { AuthStatusComponent } from './auth-status/auth-status.component';
+import { BillingComponent } from './billing/billing.component';
+import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
+import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
 
 const routes: Routes = [{
   path: '',
@@ -200,6 +210,26 @@ const routes: Routes = [{
 
     },
     {
+      path: 'locality',
+      component: LocalityComponent,
+
+    },
+    {
+      path: 'neighborhood',
+      component: NeighborhoodOrResidenceComponent,
+
+    },
+    {
+      path: 'pad-risk',
+      component: PadRiskComponent,
+
+    },
+    {
+      path: 'tariff',
+      component: TariffComponent,
+
+    },
+    {
       path: 'gloss-modality',
       component: GlossModalityComponent,
 
@@ -227,7 +257,6 @@ const routes: Routes = [{
     {
       path: 'policy-type',
       component: PolicyTypeComponent,
-      data: { permission: 'roles.read' }
     },
     {
       path: 'special-field',
@@ -237,7 +266,6 @@ const routes: Routes = [{
     {
       path: 'cost-center',
       component: CostCenterComponent,
-      data: { Permission: 'roles.read' },
     },
     {
       path: 'gloss-service',
@@ -257,6 +285,10 @@ const routes: Routes = [{
     {
       path: 'contract-status',
       component: ContractStatusComponent,
+
+    },{
+      path: 'auth-status',
+      component: AuthStatusComponent,
 
     },
     {
@@ -375,6 +407,21 @@ const routes: Routes = [{
 
     },
     {
+      path: 'billing',
+      component: BillingComponent,
+
+    },
+    {
+      path: 'pharmacy-stock',
+      component: PharmacyStockComponent,
+
+    },
+    {
+      path: 'pharmacy-product-request',
+      component: PharmacyProductRequestComponent,
+
+    },
+    {
       path: 'invima-status',
       component: InvimaStatusComponent,
 
@@ -410,6 +457,11 @@ const routes: Routes = [{
 
     },
     {
+      path: 'location-capacity/single-location-capacity/:user_id',
+      component: SingleLocationCapacityComponent,
+
+    },
+    {
       path: 'users/create/:id',
       component: FormUserComponent,
     },
@@ -420,13 +472,18 @@ const routes: Routes = [{
     {
       path: 'roles',
       component: RolesComponent,
+      // canActivate: [PermissionsGuard],
+      // // data: { permission: 'roles.read'},
+
+    },
+    {
+      path: 'location-capacity',
+      component: LocationCapacityComponent,
 
     },
     {
       path: 'permissions',
       component: PermissionsComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'permisos.read' },
     },
     {
       path: 'manual/procedure-massive/procedure-package/:id',
@@ -435,8 +492,6 @@ const routes: Routes = [{
     {
       path: 'items',
       component: ItemComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'items.read' },
     },
     {
       path: 'campus',
@@ -621,32 +676,25 @@ const routes: Routes = [{
     {
       path: 'sectional-council',
       component: SectionalCouncilComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'concejo-seccional.read' },
     },
     {
       path: 'district',
       component: DistrictComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'distritos.read' },
+
     },
     {
       path: 'office',
       component: OfficeComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'despacho.read' },
     },
     {
       path: 'dependence',
       component: DependenceComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'dependencia.read' },
+
     },
     {
       path: 'position',
       component: PositionComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'cargos.read' },
+
     },
     {
       path: 'specialty',
@@ -655,20 +703,17 @@ const routes: Routes = [{
     {
       path: 'entity',
       component: EntityComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'entidad.read' },
+
     },
     {
       path: 'region',
       component: RegionComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'region.read' },
+
     },
     {
       path: 'municipality',
       component: MunicipalityComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'ciudad.read' },
+
     },
     {
       path: 'themes',

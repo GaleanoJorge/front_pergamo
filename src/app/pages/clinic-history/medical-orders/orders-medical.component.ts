@@ -63,7 +63,7 @@ export class OrdersMedicalComponent implements OnInit {
   async ngOnInit() {
     this.record_id = this.route.snapshot.params.id;
 
-    this.chRecord.GetCollection(this.record_id).then(x => {
+    this.chRecord.GetCollection({record_id: this.record_id}).then(x => {
       this.admissions_id=x;
      
     });
