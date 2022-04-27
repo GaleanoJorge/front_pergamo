@@ -37,6 +37,7 @@ export class FormManagementPlanComponent implements OnInit {
   public procedure_id: any;
   public isMedical: boolean = false;
   public type_auth = 1;
+  public phone_consult = false;
 
 
   constructor(
@@ -68,7 +69,7 @@ export class FormManagementPlanComponent implements OnInit {
     } else {
       this.getRoleByAttention(this.data.type_of_attention_id).then(x => {
         if (x) {
-          this.GetMedical(this.roles, this.user.locality_id).then(x => {
+          this.GetMedical(this.user.locality_id).then(x => {
             if (x) {
               this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
             }
@@ -138,7 +139,7 @@ export class FormManagementPlanComponent implements OnInit {
       } else {
         this.getRoleByAttention(val).then(x => {
           if (x) {
-            this.GetMedical(this.roles, this.user.locality_id).then(x => {
+            this.GetMedical(this.user.locality_id).then(x => {
               if (x) {
                 this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
               }
@@ -166,15 +167,29 @@ export class FormManagementPlanComponent implements OnInit {
     });
   }
 
-  async GetMedical(type_professional, locality_id) {
-    if (!type_professional || type_professional === '') return Promise.resolve(false);
+  async GetMedical(locality_id) {
+    // if (!type_professional || type_professional === '') return Promise.resolve(false);
 
-    return await this.userAssigned.UserByRoleLocation(locality_id, 3, {
+    return await this.userAssigned.UserByRoleLocation(locality_id, this.phone_consult ? 2 : 1, {
       roles: JSON.stringify(this.roles),
     }).then(x => {
       this.assigned_user = x;
       return Promise.resolve(true);
     });
+  }
+
+  phoneConsultChange(event) {
+    this.assigned_user = [];
+    this.phone_consult = event.target.checked;
+    if (this.roles) {
+      this.GetMedical(this.user.locality_id).then(x => {
+        if (x) {
+          this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+        }
+      }).catch(e => {
+        this.toastService.danger(e, 'Error');
+      });
+    }
   }
 
   // async GetSpeciality(type_professional, locality_id) {
@@ -195,13 +210,13 @@ export class FormManagementPlanComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       if (this.medical == false) {
-      var selectes_assistance_id;
-      this.assigned_user.forEach(user => {
-        if (user.id === this.form.value.assigned_user_id) {
-          selectes_assistance_id = user.assistance_id;
-        }
-      });
-    }
+        var selectes_assistance_id;
+        this.assigned_user.forEach(user => {
+          if (user.id === this.form.value.assigned_user_id) {
+            selectes_assistance_id = user.assistance_id;
+          }
+        });
+      }
       if (this.data.id) {
         this.managementPlanS.Update({
           id: this.data.id,
@@ -215,6 +230,7 @@ export class FormManagementPlanComponent implements OnInit {
           type_auth: this.type_auth,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,
+          phone_consult: this.phone_consult,
           start_date: this.form.controls.start_date.value,
           finish_date: this.form.controls.finish_date.value,
           authorized_amount: this.data.authorization.authorized_amount,
@@ -239,6 +255,7 @@ export class FormManagementPlanComponent implements OnInit {
           procedure_id: this.procedure_id,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,
+          phone_consult: this.phone_consult,
           start_date: this.form.controls.start_date.value,
           finish_date: this.form.controls.finish_date.value,
           medical: this.isMedical,

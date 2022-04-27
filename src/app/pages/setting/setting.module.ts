@@ -277,6 +277,7 @@ import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.componen
 import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
 import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
 import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/form-pharmacy-product-request/form-pharmacy-product-request.component';
+import { FormEditLocationCapacityComponent } from './location-capacity/sigle-location-capacity/form-edit-location-capacity/form-edit-location-capacity.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -556,6 +557,7 @@ import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/
     TariffComponent,
     FormTariffComponent,
     LocationCapacityComponent,
+    FormEditLocationCapacityComponent,
     ActionsLocationCapacityComponent,
     SingleLocationCapacityComponent,
     ActionsSingleLocationCapacityComponent,
