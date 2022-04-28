@@ -294,6 +294,8 @@ import { ProdShippingPackageComponent } from './pharmacy-request/prod-shipping-p
 import { ProdBillingPackageComponent } from './billing/prod-billing-package/prod-billing-package.component';
 import { AmountBillingComponent } from './billing/prod-billing-package/amount-billing.component';
 import { SelectProductBillingComponent } from './billing/prod-billing-package/select-prod-billing.component';
+import { AmountProcedureComponent } from './procedure/procedure-package/amount-procedure-package.component';
+import { DynamicProcedurePackageComponent } from './procedure/procedure-package/dynamic-procedure-package.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -334,6 +336,8 @@ import { SelectProductBillingComponent } from './billing/prod-billing-package/se
     ActionsCompanyComponent,
     ActionsComponentProcedure,
     ActionsComponentProduct,
+    AmountProcedureComponent,
+    DynamicProcedurePackageComponent,
     SelectProcedureComponent,
     ProductMassiveComponent,
     FormManualProcedureComponent,
