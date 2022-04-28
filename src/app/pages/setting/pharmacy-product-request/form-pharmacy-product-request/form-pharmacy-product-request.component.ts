@@ -92,6 +92,7 @@ export class FormPharmacyProductRequestComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
+          this.form.setValue({ amount: '', product_generic_id: '', pharmacy_stock_id:''});
           if (this.saved) {
             this.saved();
           }
@@ -101,6 +102,5 @@ export class FormPharmacyProductRequestComponent implements OnInit {
         });
       }
     }
-  }
-
+  } 
 }

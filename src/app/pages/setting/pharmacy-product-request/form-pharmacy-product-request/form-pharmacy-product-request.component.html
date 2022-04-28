@@ -1,18 +1,18 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
     <div class="row">
+
       <div class="col-12 col-sm-12 col-md-6">
-        <label for="product_generic_id" class="form-text text-muted font-weight-bold">PRODUCTO GENERICO:</label>
+        <label for="product_generic" class="form-text text-muted font-weight-bold">PRODUCTO GENÉRICO:</label>
         <nb-select [selected]="this.data.product_generic_id" formControlName="product_generic_id"
           id="product_generic_id" fullWidth
           status="{{ isSubmitted && form.controls.product_generic_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.product_generic_id }}" *ngFor="let item of product_generic_id"
             [value]="item.id">
-            {{ item.name }}</nb-option>
+            {{ item.description }}</nb-option>
         </nb-select>
       </div>
-
 
       <div class="col-12 col-sm-12 col-md-6">
         <label for="pharmacy_stock_id" class="form-text text-muted font-weight-bold">SOLICITAR
@@ -23,7 +23,7 @@
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.pharmacy_stock_id }}"
             *ngFor="let item of pharmacy_stock_id" [value]="item.id">
-            {{ item.name }}</nb-option>
+            {{ item.name }} - {{ item.campus.name }}</nb-option>
         </nb-select>
       </div>
 
