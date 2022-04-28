@@ -16,7 +16,7 @@ export class PharmacyStockService {
   GetCollection(params = {}): Promise<PharmacyStock[]> {
     let servObj = new ServiceObject(params ? 'pharmacy_stock?pagination=false' : 'pharmacy_stock');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

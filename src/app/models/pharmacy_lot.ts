@@ -9,6 +9,6 @@ export class PharmacyLot extends MainClass {
   lot: string;
   expiration_date: string;
   billing_id: number;
-  product_id: number;  
+  billing_stock_id: number;  
   pharmacy_stock_id: number;  
 }

@@ -39,13 +39,13 @@ export class PharmacyLotComponent implements OnInit {
         type: 'string',
       },
       product: {
-        title: this.headerFields[1],
+        title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name + ' - ' +row.product.factory.name;
+          return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
         },
       },
-      unit_value: {
+      enter_amount: {
         title: this.headerFields[2],
         type: 'string',
       },

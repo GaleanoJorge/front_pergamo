@@ -5,10 +5,13 @@
       <div class="row">
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="provider_name" class="form-text text-muted font-weight-bold">Nombre del proveedor:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="provider_name"
-            formControlName="provider_name" provider_name
-            status="{{ isSubmitted && form.controls.provider_name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="company" class="form-text text-muted font-weight-bold">PROVEEDOR:</label>
+          <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
@@ -17,11 +20,12 @@
             id="type_billing_evidence_id" fullWidth
             status="{{ isSubmitted && form.controls.type_billing_evidence_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.type_billing_evidence_id }}" *ngFor="let item of type_billing_evidence"
-              [value]="item.id">
+            <nb-option selected="{{ item.id == data.type_billing_evidence_id }}"
+              *ngFor="let item of type_billing_evidence" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
+
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="num_evidence" class="form-text text-muted font-weight-bold">Nro de Documento Soporte:</label>
@@ -30,11 +34,15 @@
             status="{{ isSubmitted && form.controls.num_evidence.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-6">
-          <label for="ordered_quantity" class="form-text text-muted font-weight-bold">Cantidad ordenada:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="ordered_quantity"
-            formControlName="ordered_quantity" ordered_quantity
-            status="{{ isSubmitted && form.controls.ordered_quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <ngx-prod-billing-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
+          </ngx-prod-billing-package>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">

@@ -21,7 +21,7 @@ export class PharmacyProductRequestComponent implements OnInit {
 
   public title: string = 'LISTA DE MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'PRODUCTO', 'CANTIDAD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'PRODUCTO', 'CANTIDAD', 'SOLICITADO A'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -42,12 +42,19 @@ export class PharmacyProductRequestComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return value.description;
         },
       },
       amount: {
         title: this.headerFields[2],
         type: 'string',
+      }, 
+      pharmacy_stock: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name + ' - ' + row.pharmacy_stock.campus.name;
+        },
       }
     },
   };

@@ -5,12 +5,23 @@
       <div class="row">
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="name" class="form-text text-muted font-weight-bold">Nombre farmacia:</label>
+          <label for="name" class="form-text text-muted font-weight-bold">TIPO:</label>
+          <nb-select [selected]="this.data.type_pharmacy_stock_id" formControlName="type_pharmacy_stock_id" id="type_pharmacy_stock_id" fullWidth
+          status="{{ isSubmitted && form.controls.type_pharmacy_stock_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.type_pharmacy_stock_id }}" *ngFor="let item of type_pharmacy_stock_id" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
+
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="campus_id" class="form-text text-muted font-weight-bold">Sede:</label>
+          <label for="campus_id" class="form-text text-muted font-weight-bold">SEDE:</label>
           <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
             status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
@@ -22,8 +33,8 @@
 
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton (click)="close()" type="button">Cancelar</button>
-      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+      <button nbButton (click)="close()" type="button">CANCELAR</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">GUARDAR</button>
     </nb-card-footer>
   </nb-card>
 </form>

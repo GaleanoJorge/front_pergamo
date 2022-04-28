@@ -1,0 +1,23 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <div *ngIf="entity">
+      <ngx-base-table [title]="title"
+                      [subtitle]="subtitle" [settings]="settings"
+                      [entity]="entity"
+                      customData='pharmacy_inventory'
+                      [messageToltip]="messageToltip"
+                      >
+        <div actions>
+          <div class="actions">
+    <!--        <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacyInventory()">Crear</button>-->
+          </div>
+        </div>
+      </ngx-base-table>
+    </div>
+
+
+  </div>
+</ngx-base-list>

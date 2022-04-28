@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {CurrencyPipe} from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {
   NbAccordionModule,
@@ -278,6 +278,22 @@ import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock
 import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
 import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/form-pharmacy-product-request/form-pharmacy-product-request.component';
 import { FormEditLocationCapacityComponent } from './location-capacity/sigle-location-capacity/form-edit-location-capacity/form-edit-location-capacity.component';
+import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
+import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
+import { FormPharmacyInventoryComponent } from './pharmacy-inventory/form-pharmacy-inventory/form-pharmacy-inventory.component';
+import { FormPharmacyRequestComponent } from './pharmacy-request/form-pharmacy-request/form-pharmacy-request.component';
+import { ActionsSendComponent } from './pharmacy-request/actions.component';
+import { PharmacyBulkInventoryComponent } from './pharmacy-bulk-inventory/pharmacy-bulk-inventory.component';
+import { FormPharmacyBulkInventoryComponent } from './pharmacy-bulk-inventory/form-pharmacy-bulk-inventory/form-pharmacy-bulk-inventory.component';
+import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
+import { PharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/pharmacy-update-max-min.component';
+import { ActionsInvComponent } from './pharmacy-inventory/actionsInv.component';
+import { SelectProductShippingComponent } from './pharmacy-request/prod-shipping-package/select-prod-shipping.component';
+import { AmountShippingComponent } from './pharmacy-request/prod-shipping-package/amount-shipping.component';
+import { ProdShippingPackageComponent } from './pharmacy-request/prod-shipping-package/prod-shipping-package.component';
+import { ProdBillingPackageComponent } from './billing/prod-billing-package/prod-billing-package.component';
+import { AmountBillingComponent } from './billing/prod-billing-package/amount-billing.component';
+import { SelectProductBillingComponent } from './billing/prod-billing-package/select-prod-billing.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -343,7 +359,7 @@ import { FormEditLocationCapacityComponent } from './location-capacity/sigle-loc
     FormCostCenterComponent,
     ProgramComponent,
     FormProgramComponent,
-    PavilionComponent, 
+    PavilionComponent,
     FormPavilionComponent,
     FlatComponent,
     FormFlatComponent,
@@ -568,12 +584,34 @@ import { FormEditLocationCapacityComponent } from './location-capacity/sigle-loc
     BillingComponent,
     FormBillingComponent,
     ActionsComponent,
+    ProdBillingPackageComponent,
+    SelectProductBillingComponent,
+    AmountBillingComponent,
 
     PharmacyStockComponent,
     FormPharmacyStockComponent,
-    
+
+    PharmacyInventoryComponent,
+    FormPharmacyInventoryComponent,
+    ActionsInvComponent,
+
     PharmacyProductRequestComponent,
     FormPharmacyProductRequestComponent,
+
+    PharmacyRequestComponent,
+    FormPharmacyRequestComponent,
+    ActionsSendComponent,
+
+    PharmacyBulkInventoryComponent,
+    FormPharmacyBulkInventoryComponent,
+
+    PharmacyUpdateMaxMinComponent,
+    FormPharmacyUpdateMaxMinComponent,
+
+
+    ProdShippingPackageComponent,
+    SelectProductShippingComponent,
+    AmountShippingComponent
 
   ],
   providers: [
