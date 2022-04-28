@@ -30,7 +30,7 @@ export class FormManagementPlanComponent implements OnInit {
   public saved: any = null;
   public type_of_attention: any[];
   public frequency: any[];
-  public special_field: any[];
+  public specialty: any[];
   public assigned_user: any[];
   public roles;
   public procedure;
@@ -62,7 +62,7 @@ export class FormManagementPlanComponent implements OnInit {
         type_of_attention_id: '',
         frequency_id: '',
         quantity: '',
-        special_field_id: '',
+        specialty_id: '',
         user_assigned_id: '',
         procedure_id: '',
       };
@@ -94,14 +94,14 @@ export class FormManagementPlanComponent implements OnInit {
     this.specialField.GetCollection({
       type_professional: 1
     }).then(x => {
-      this.special_field = x;
+      this.specialty = x;
     });
     if (this.medical == false) {
       this.form = this.formBuilder.group({
         type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
         frequency_id: [this.data.frequency_id, Validators.compose([Validators.required])],
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
-        special_field_id: [this.data.special_field_id],
+        specialty_id: [this.data.specialty_id],
         assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
         procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
         start_date: [this.data.start_date],
@@ -114,7 +114,7 @@ export class FormManagementPlanComponent implements OnInit {
         type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
         frequency_id: [this.data.frequency_id, Validators.compose([Validators.required])],
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
-        special_field_id: [this.data.special_field_id],
+        specialty_id: [this.data.specialty_id],
         assigned_user_id: [this.data.assigned_user_id],
         procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
         start_date: [this.data.start_date],
@@ -136,7 +136,7 @@ export class FormManagementPlanComponent implements OnInit {
       // console.log(val);
       if (val === '') {
         this.assigned_user = [];
-      } else {
+      } else if (val != "2") {
         this.getRoleByAttention(val).then(x => {
           if (x) {
             this.GetMedical(this.user.locality_id).then(x => {
@@ -149,6 +149,24 @@ export class FormManagementPlanComponent implements OnInit {
           }
         }).catch(e => {
           this.toastService.danger(e, 'Error');
+        });
+      } else {
+        this.form.get('specialty_id').valueChanges.subscribe(val => {
+          if (val != "") {
+            this.getRoleByAttention(val).then(x => {
+              if (x) {
+                this.GetMedical(this.user.locality_id, val).then(x => {
+                  if (x) {
+                    this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+                  }
+                }).catch(e => {
+                  this.toastService.danger(e, 'Error');
+                });
+              }
+            }).catch(e => {
+              this.toastService.danger(e, 'Error');
+            });
+          }
         });
       }
     });
@@ -167,7 +185,7 @@ export class FormManagementPlanComponent implements OnInit {
     });
   }
 
-  async GetMedical(locality_id) {
+  async GetMedical(locality_id, specualty?) {
     // if (!type_professional || type_professional === '') return Promise.resolve(false);
 
     return await this.userAssigned.UserByRoleLocation(locality_id, this.phone_consult ? 2 : 1, {
@@ -223,7 +241,7 @@ export class FormManagementPlanComponent implements OnInit {
           type_of_attention_id: this.form.controls.type_of_attention_id.value,
           frequency_id: this.form.controls.frequency_id.value,
           quantity: this.form.controls.quantity.value,
-          special_field_id: this.form.controls.special_field_id.value,
+          specialty_id: this.form.controls.specialty_id.value,
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
@@ -249,7 +267,7 @@ export class FormManagementPlanComponent implements OnInit {
           type_of_attention_id: this.form.controls.type_of_attention_id.value,
           frequency_id: this.form.controls.frequency_id.value,
           quantity: this.form.controls.quantity.value,
-          special_field_id: this.form.controls.special_field_id.value,
+          specialty_id: this.form.controls.specialty_id.value,
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
