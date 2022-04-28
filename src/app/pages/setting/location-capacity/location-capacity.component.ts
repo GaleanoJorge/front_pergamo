@@ -19,7 +19,7 @@ export class LocationCapacityComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'PERSONAL ASISTENCIAL';
   public subtitle: string = 'PERSONAL';
-  public headerFields: any[] = ['ID', 'NOMBRE'];
+  public headerFields: any[] = ['ROL', 'NOMBRE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -42,7 +42,7 @@ export class LocationCapacityComponent implements OnInit {
         },
         renderComponent: ActionsLocationCapacityComponent,
       },
-      id: {
+      role_name: {
         title: this.headerFields[0],
         type: 'string',
       },

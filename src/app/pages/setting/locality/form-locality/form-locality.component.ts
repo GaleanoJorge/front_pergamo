@@ -5,6 +5,7 @@ import { RegionService } from '../../../../business-controller/region.service';
 import { LocationBusinessService } from '../../../../business-controller/location-business.service';
 import { CountryService } from '../../../../business-controller/country.service';
 import { LocalityService } from '../../../../business-controller/locality.service';
+import { PadRiskService } from '../../../../business-controller/pad-risk.service';
 
 @Component({
   selector: 'ngx-form-locality',
@@ -17,6 +18,7 @@ export class FormLocalityComponent implements OnInit {
   @Input() data: any = null;
 
   public form: FormGroup;
+  public pad_risk: any[];
   public municipality_id: number;
   public region_id: number;
   public municipality: any[];
@@ -28,6 +30,7 @@ export class FormLocalityComponent implements OnInit {
   public selected_country: boolean = false;
   public selected_municipality: boolean = false;
   public selected_region: boolean = false;
+  public selected_pad_risk: boolean = false;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -36,6 +39,7 @@ export class FormLocalityComponent implements OnInit {
     private countryS: CountryService,
     private localityS: LocalityService,
     private toastService: NbToastrService,
+    private padRiskS: PadRiskService,
   ) {
   }
 
@@ -43,7 +47,35 @@ export class FormLocalityComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
+        country_id: '',
+        region_id: '',
         municipality_id: '',
+        pad_risk_id: '',
+      };
+    } else {
+      this.selected_country = true;
+      this.selected_region = true;
+      this.selected_municipality = true;
+      this.selected_pad_risk = true;
+      this.locationBS.GetPublicRegionByCountry(this.data.municipality.region.country_id).then(x => {
+        this.region = x;
+      });
+      this.locationBS.GetPublicMunicipalitiesByRegion(this.data.municipality.region_id).then(x => {
+        this.municipality = x;
+      });
+      this.locationBS.GetMunicipalitiesByRegion(this.data.municipality_id).then(x => {
+        this.municipality = x;
+      });
+      this.padRiskS.GetCollection().then(x => {
+        this.pad_risk = x;
+      });
+      this.data = {
+        id: this.data.id,
+        name: this.data.name,
+        country_id: this.data.municipality.region.country_id,
+        region_id: this.data.municipality.region_id,
+        municipality_id: this.data.municipality_id,
+        pad_risk_id: '',
       };
     }
 
@@ -54,7 +86,10 @@ export class FormLocalityComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
+      country_id: [this.data.country_id, Validators.compose([Validators.required])],
+      region_id: [this.data.region_id, Validators.compose([Validators.required])],
       municipality_id: [this.data.municipality_id, Validators.compose([Validators.required])],
+      pad_risk_id: [this.data.pad_risk_id],
     });
 
   }
@@ -76,6 +111,7 @@ export class FormLocalityComponent implements OnInit {
           id: this.data.id,
           name: this.form.controls.name.value,
           municipality_id: this.form.controls.municipality_id.value,
+          pad_risk_id: this.form.controls.pad_risk_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

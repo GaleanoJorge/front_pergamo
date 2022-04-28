@@ -19,7 +19,7 @@ import {
   NbCheckboxModule,
   NbRadioModule,
   NbTooltipModule,
-  NbDatepickerModule, NbSpinnerModule,
+  NbDatepickerModule, NbSpinnerModule, NbToggleModule,
 } from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import {PadRoutingModule} from './pad-routing.module';
@@ -45,6 +45,7 @@ import { Actions4Component } from './assigned-management-plan/actions.component'
     ReactiveFormsModule,
     ThemeModule,
     NbTabsetModule,
+    NbToggleModule,
     NbRouteTabsetModule,
     NbRadioModule,
     NbStepperModule,
