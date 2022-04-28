@@ -45,6 +45,24 @@ export class ChRecordService {
       });
   }
 
+  ViewHC(ch_record: any): any {
+    let servObj = new ServiceObject('viewHC/'+ ch_record);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        //this.ch_record = <any[]>servObj.data.ch_record;
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+
   Update(ch_record: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_record', ch_record.id);
     servObj.data = ch_record;

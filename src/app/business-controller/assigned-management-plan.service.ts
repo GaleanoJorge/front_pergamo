@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { ManagementPlan } from '../models/management-plan';
+import { AssignedManagementPlan } from '../models/assigned-management-plan';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ManagementPlanService {
-  public management_plan: ManagementPlan[] = [];
+export class AssignedManagementPlanService {
+  public assigned_management_plan: AssignedManagementPlan[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<ManagementPlan[]> {
-    let servObj = new ServiceObject(params ? 'management_plan?pagination=false' : 'management_plan');
+  GetCollection(params = {}): Promise<AssignedManagementPlan[]> {
+    let servObj = new ServiceObject(params ? 'assigned_management_plan?pagination=false' : 'assigned_management_plan');
 
     return this.webAPI.GetAction(servObj,params)
       .then(x => {
@@ -22,18 +22,18 @@ export class ManagementPlanService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.management_plan = <ManagementPlan[]>servObj.data.management_plan;
+        this.assigned_management_plan = <AssignedManagementPlan[]>servObj.data.assigned_management_plan;
 
-        return Promise.resolve(this.management_plan);
+        return Promise.resolve(this.assigned_management_plan);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(management_plan: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('management_plan');
-    servObj.data = management_plan;
+  Save(assigned_management_plan: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('assigned_management_plan');
+    servObj.data = assigned_management_plan;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class ManagementPlanService {
       });
   }
 
-  Update(management_plan: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('management_plan', management_plan.id);
-    servObj.data = management_plan;
+  Update(assigned_management_plan: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('assigned_management_plan', assigned_management_plan.id);
+    servObj.data = assigned_management_plan;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +64,7 @@ export class ManagementPlanService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('management_plan', id);
+    let servObj = new ServiceObject('assigned_management_plan', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

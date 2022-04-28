@@ -6,6 +6,8 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { Actions5Component } from './actions.component';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { AuthService } from '../../../services/auth.service';
+import { PatientService } from '../../../business-controller/patient.service';
+import { AdmissionsService } from '../../../business-controller/admissions.service';
 
 
 @Component({
@@ -30,6 +32,7 @@ export class ChRecordListComponent implements OnInit {
   public admissions_id;
   public saved: any = null;
   public user;
+  public admissions;
   public own_user;
   public assigned_management_plan;
   public disabled: boolean = false;
@@ -89,9 +92,11 @@ export class ChRecordListComponent implements OnInit {
     private route: ActivatedRoute,
     private chRecordS: ChRecordService,
     private toastService: NbToastrService,
+    private patientBS: PatientService,
     private userBS: UserBusinessService,
     private dialogService: NbDialogService,
     private authService: AuthService,
+    private admissionsS: AdmissionsService,
 
   ) {
     this.routes = [
@@ -118,11 +123,15 @@ export class ChRecordListComponent implements OnInit {
     this.admissions_id = this.route.snapshot.params.id;
     this.assigned_management_plan = this.route.snapshot.params.id2;
 
+    await this.admissionsS.GetCollection({admissions_id:this.admissions_id}).then(x => {
+      this.admissions=x;
+    });
+
     this.own_user = this.authService.GetUser();
 
-    // await this.userBS.GetUserById(this.user_id).then(x => {
-    //   this.user=x;
-    // });
+     await this.patientBS.GetUserById(this.admissions[0].patient_id).then(x => {
+       this.user=x;
+     });
  
 
   }

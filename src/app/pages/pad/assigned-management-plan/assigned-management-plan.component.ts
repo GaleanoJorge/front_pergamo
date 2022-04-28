@@ -13,6 +13,8 @@ import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { PatientService } from '../../../business-controller/patient.service';
+import { ManagementPlanService } from '../../../business-controller/management-plan.service';
+import { FormAssignedManagementPlanComponent } from './form-assigned-management-plan/form-assigned-management-plan.component';
 
 @Component({
   selector: 'ngx-assigned-management-plan',
@@ -40,6 +42,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public user;
   public dialog;
   public currentRole;
+  public settings;
   public selectedOptions: any[] = [];
   public result: any = null;
   
@@ -47,7 +50,7 @@ export class AssignedManagementPlanComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
-  public settings = {
+  public settings1 = {
     pager: {
       display: true,
       perPage: 30,
@@ -63,12 +66,54 @@ export class AssignedManagementPlanComponent implements OnInit {
             'user':this.user,
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
+            'edit': this.EditAssigned.bind(this),
+
           };
         },
         renderComponent: Actions4Component,
       },
       start_date: {
         title: this.headerFields[0],
+        type: 'string',
+      },
+      finish_date: {
+        title: this.headerFields[1],
+        type: 'string',
+      },
+      execution_date: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
+    },
+  };
+
+  public settings2 = {
+    pager: {
+      display: true,
+      perPage: 30,
+    },
+    columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'user':this.user,
+            'refresh': this.RefreshData.bind(this),
+            'currentRole': this.currentRole,
+            'edit': this.EditAssigned.bind(this),
+          };
+        },
+        renderComponent: Actions4Component,
+      },
+      start_date: {
+        title: this.headerFields[0],
+        type: 'string',
+      },
+      start_hour: {
+        title: 'Hora de aplicación',
         type: 'string',
       },
       finish_date: {
@@ -105,6 +150,7 @@ export class AssignedManagementPlanComponent implements OnInit {
     private currency: CurrencyPipe,
     private patientBS: PatientService,
     private userBS: UserBusinessService,
+    private ManagementS: ManagementPlanService,
 
     private authService: AuthService,
     private dialogService: NbDialogService,
@@ -121,6 +167,8 @@ export class AssignedManagementPlanComponent implements OnInit {
   public objetion_response: any[] = null;
   public saved: any = null;
   public user_logged;
+  public management;
+
   
 
 
@@ -129,6 +177,14 @@ export class AssignedManagementPlanComponent implements OnInit {
   async ngOnInit() {
  
     this.management_id = this.route.snapshot.params.management_id;
+    await this.ManagementS.GetCollection({management_id:this.management_id}).then(x => {
+      this.management=x;
+    });
+    if(this.management[0].type_of_attention_id==17){
+      this.settings= this.settings2;
+    }else{
+      this.settings= this.settings1;
+    }
     this.user = this.authService.GetUser();
     if(this.user.roles[0].role_type_id==2){
       this.user_logged= this.authService.GetUser().id;
@@ -150,7 +206,16 @@ export class AssignedManagementPlanComponent implements OnInit {
   }
 
 
-
+  EditAssigned(data) {
+    this.dialogFormService.open(FormAssignedManagementPlanComponent, {
+      context: {
+        title: 'Editar agendamiento',
+        data,
+        user:this.user,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
   RefreshData() {
     this.table.refresh();
   }
