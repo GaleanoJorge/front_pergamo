@@ -2,63 +2,64 @@
   <div content>
     <div title *ngIf="user">
       <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
-      <p class="parrafo"*ngIf="user">NOMBRE:  {{this.user.firstname + ' ' + this.user.lastname}}</p>
+      <p class="parrafo" *ngIf="user">NOMBRE: {{this.user.firstname + ' ' + this.user.lastname}}</p>
       <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday}} </p>
       <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
       <p class="parrafo" *ngIf="user">GÉNERO: {{user.gender.name}} </p>
     </div>
     <nb-tabset class="tabset">
-    <nb-tabset class="tabset" (changeTab)="tablock($event)">
-      <nb-tab tabTitle="INGRESO">
-        <div *ngIf="this.show == 1">
-          <ngx-entry-clinic-history>
-          </ngx-entry-clinic-history>
-        </div>
-      </nb-tab>
-      <nb-tab tabTitle="ANTECEDENTES">
-        <div *ngIf="this.show == 2">
-          <ngx-back-list>
-          </ngx-back-list>
-        </div>
-      </nb-tab>
-      <nb-tab tabTitle="EVOLUCIÓN">
-        <div *ngIf="this.show == 3">
+      <nb-tabset class="tabset" (changeTab)="tablock($event)">
+        <nb-tab tabTitle="INGRESO">
+          <div *ngIf="this.show == 1">
+            <ngx-entry-clinic-history>
+            </ngx-entry-clinic-history>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="ANTECEDENTES">
+          <div *ngIf="this.show == 2">
+            <ngx-back-list>
+            </ngx-back-list>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="EVOLUCIÓN">
+          <div *ngIf="this.show == 3">
 
-        </div>
-      </nb-tab>
-      <nb-tab tabTitle="ESCALAS">
-        <div *ngIf="this.show == 4">
-          <ngx-ch-scales>
-          </ngx-ch-scales>
-        </div>
-      </nb-tab>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="ESCALAS">
+          <div *ngIf="this.show == 4">
+            <ngx-ch-scales>
+            </ngx-ch-scales>
+          </div>
+        </nb-tab>
 
-      <nb-tab tabTitle="FORMULACIÓN">
-        <div *ngIf="this.show == 5">
+        <nb-tab tabTitle="FORMULACIÓN">
+          <div *ngIf="this.show == 5">
 
-        </div>
+          </div>
 
-      </nb-tab>
-      <nb-tab tabTitle="ORDEN MEDICAS">
-        <div *ngIf="this.show == 6">
-          <ngx-orders-medical></ngx-orders-medical>
-        </div>
-      </nb-tab>
-      <nb-tab tabTitle="RESULTADOS">
-        <div *ngIf="this.show == 7">
+        </nb-tab>
+        <nb-tab tabTitle="ORDEN MEDICAS">
+          <div *ngIf="this.show == 6">
+            <ngx-orders-medical></ngx-orders-medical>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="RESULTADOS">
+          <div *ngIf="this.show == 7">
 
-        </div>
+          </div>
 
-      </nb-tab>
-      <nb-tab tabTitle="SALIDA">
-        <div *ngIf="this.show == 8">
+        </nb-tab>
+        <nb-tab tabTitle="SALIDA">
+          <div *ngIf="this.show == 8">
 
-        </div>
-      </nb-tab>
+          </div>
+        </nb-tab>
+      </nb-tabset>
     </nb-tabset>
     <div style="text-align: center;">
-    <a (click)="finish()" nbButton >Finalizar registro</a>
-  </div>
+      <a (click)="finish()" nbButton>Finalizar registro</a>
+    </div>
   </div>
 
 </ngx-base-list>
