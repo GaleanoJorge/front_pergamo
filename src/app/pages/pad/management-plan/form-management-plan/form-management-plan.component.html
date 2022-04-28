@@ -17,12 +17,12 @@
         </div>
 
         <div *ngIf="this.form.controls.type_of_attention_id.value==2" class="col-12 col-sm-12 col-md-4">
-          <label for="special_field" class="form-text text-muted font-weight-bold">Especialidad:</label>
-          <nb-select [selected]="this.data.special_field_id" formControlName="special_field_id" id="special_field_id"
+          <label for="specialty" class="form-text text-muted font-weight-bold">Especialidad:</label>
+          <nb-select [selected]="this.data.specialty_id" formControlName="specialty_id" id="specialty_id"
             fullWidth
-            status="{{ isSubmitted && form.controls.special_field_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.special_field_id }}" *ngFor="let item of special_field"
+            <nb-option selected="{{ item.id == data.specialty_id }}" *ngFor="let item of specialty"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>

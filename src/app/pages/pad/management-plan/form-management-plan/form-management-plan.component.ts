@@ -31,7 +31,7 @@ export class FormManagementPlanComponent implements OnInit {
   public saved: any = null;
   public type_of_attention: any[];
   public frequency: any[];
-  public special_field: any[];
+  public specialty: any[];
   public assigned_user: any[];
   public roles;
   public procedure;
@@ -71,7 +71,7 @@ export class FormManagementPlanComponent implements OnInit {
         type_of_attention_id: '',
         frequency_id: '',
         quantity: '',
-        special_field_id: '',
+        specialty_id: '',
         user_assigned_id: '',
         procedure_id: '',
         preparation: '',
@@ -111,14 +111,14 @@ export class FormManagementPlanComponent implements OnInit {
     this.specialField.GetCollection({
       type_professional: 1
     }).then(x => {
-      this.special_field = x;
+      this.specialty = x;
     });
     if (this.medical == false) {
         this.configForm = {
         type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
         frequency_id: [this.data.frequency_id,],
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
-        special_field_id: [this.data.special_field_id],
+        specialty_id: [this.data.specialty_id],
         assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
         procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
         product_id: [this.data.product_id],
@@ -138,7 +138,7 @@ export class FormManagementPlanComponent implements OnInit {
         type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
         frequency_id: [this.data.frequency_id, Validators.compose([Validators.required])],
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
-        special_field_id: [this.data.special_field_id],
+        specialty_id: [this.data.specialty_id],
         assigned_user_id: [this.data.assigned_user_id],
         procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
         product_id: [this.data.product_id],
@@ -255,7 +255,7 @@ export class FormManagementPlanComponent implements OnInit {
           type_of_attention_id: this.form.controls.type_of_attention_id.value,
           frequency_id: this.form.controls.frequency_id.value,
           quantity: this.form.controls.quantity.value,
-          special_field_id: this.form.controls.special_field_id.value,
+          specialty_id: this.form.controls.specialty_id.value,
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
@@ -287,7 +287,7 @@ export class FormManagementPlanComponent implements OnInit {
           type_of_attention_id: this.form.controls.type_of_attention_id.value,
           frequency_id: this.form.controls.frequency_id.value,
           quantity: this.form.controls.quantity.value,
-          special_field_id: this.form.controls.special_field_id.value,
+          specialty_id: this.form.controls.specialty_id.value,
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,

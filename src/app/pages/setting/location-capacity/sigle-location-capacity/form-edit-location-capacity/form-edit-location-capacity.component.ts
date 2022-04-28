@@ -81,7 +81,7 @@ export class FormEditLocationCapacityComponent implements OnInit {
           id: this.data.id,
           assistance_id: this.form.controls.assistance_id.value,
           phone_consult: this.form.controls.phone_consult.value,
-          location_id: this.form.controls.location_id.value,
+          locality_id: this.data.locality_id,
           validation_date: this.form.controls.validation_date.value,
           PAD_patient_quantity: this.form.controls.PAD_patient_quantity.value + (this.new_location_capacity - this.data.PAD_patient_actual_capacity),
           PAD_patient_attended: this.form.controls.PAD_patient_attended.value,
