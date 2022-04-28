@@ -5,7 +5,6 @@
       <p class="parrafo" *ngIf="user">NOMBRE: {{this.user.firstname + ' ' + this.user.lastname}}</p>
       <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday}} </p>
       <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
-      <p class="parrafo" *ngIf="user">GÉNERO: {{user.gender.name}} </p>
     </div>
     <nb-tabset class="tabset">
       <nb-tabset class="tabset" (changeTab)="tablock($event)">

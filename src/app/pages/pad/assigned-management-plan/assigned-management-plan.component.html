@@ -1,13 +1,18 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="assigned_management_plan/{{management_id}}/{{user_logged}}"
+    <ngx-base-table *ngIf="settings" [title]="title" [subtitle]="subtitle" [settings]="settings" entity="assigned_management_plan/{{management_id}}/{{user_logged}}"
       customData="assigned_management_plan" [messageToltip]="messageToltip">
       <div title *ngIf="user">
         <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
         <p class="parrafo" *ngIf="user">NOMBRE:  {{user.nombre_completo}}</p>
         <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday}} </p>
         <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
+        <p class="parrafo" *ngIf="management">TIPO DE ATENCIÓN: {{management[0].type_of_attention.name}} </p>
+        <p class="parrafo" *ngIf="management[0].preparation!=null">PREPARACIÓN: {{management[0].preparation}} </p>
+        <p class="parrafo" *ngIf="management[0].route_of_administration!=null">VIA DE ADMINISTRACIÓN: {{management[0].route_of_administration}} </p>
+        <p class="parrafo" *ngIf="management[0].blend!=null">MEZCLA: {{management[0].blend}} </p>
+        <p class="parrafo" *ngIf="management[0].administration_time!=null">TIEMPO DE ADMINISTRACIÓN: {{management[0].administration_time}} </p>
         <!-- <p class="parrafo" *ngIf="user.gender.name">GÉNERO: {{user.gender.name}} </p> -->
       </div>
       <div actions>

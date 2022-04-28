@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CompanyService } from '../../../../business-controller/company.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 import { ManagementPlanService } from '../../../../business-controller/management-plan.service';
-import { TypeOfAttentionService } from '../../../../business-controller/type-of-attention.service';
+import { AssignedManagementPlanService } from '../../../../business-controller/assigned-management-plan.service';
 import { FrequencyService } from '../../../../business-controller/frequency.service';
 import { SpecialtyService } from '../../../../business-controller/specialty.service';
 import { RoleAttentionService } from '../../../../business-controller/role-attention.service';
@@ -13,11 +12,11 @@ import { ProductGenericService } from '../../../../business-controller/product-g
 
 
 @Component({
-  selector: 'ngx-form-management-plan',
-  templateUrl: './form-management-plan.component.html',
-  styleUrls: ['./form-management-plan.component.scss'],
+  selector: 'ngx-form-assigned-management-plan',
+  templateUrl: './form-assigned-management-plan.component.html',
+  styleUrls: ['./form-assigned-management-plan.component.scss'],
 })
-export class FormManagementPlanComponent implements OnInit {
+export class FormAssignedManagementPlanComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user: any = null;
@@ -38,11 +37,9 @@ export class FormManagementPlanComponent implements OnInit {
   public procedure_id: any;
   public isMedical: boolean = false;
   public type_auth = 1;
-  public phone_consult = false;
   public show=false;
   public product_gen: any[];
   public product_id;
-  public configForm;
   
   //   this.status = x;
 
@@ -53,18 +50,15 @@ export class FormManagementPlanComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private managementPlanS: ManagementPlanService,
-    private typeOfAttentionS: TypeOfAttentionService,
-    private frequencyS: FrequencyService,
     private specialField: SpecialtyService,
     private userAssigned: UserBusinessService,
     private roleAttentionS: RoleAttentionService,
-    private ProductGenS: ProductGenericService,
-    private serviceBriefcaseS: ServicesBriefcaseService
+    private AssignedManagementPlanS: AssignedManagementPlanService,
+
   ) {
   }
 
   ngOnInit(): void {
-    console.log(this.user);
     if (!this.data) {
       this.data = {
         id: '',
@@ -74,16 +68,11 @@ export class FormManagementPlanComponent implements OnInit {
         special_field_id: '',
         user_assigned_id: '',
         procedure_id: '',
-        preparation: '',
-        route_of_administration: '',
-        blend: '',
-        administration_time: '',
-        start_hours: '',
       };
     } else {
-      this.getRoleByAttention(this.data.type_of_attention_id).then(x => {
+      this.getRoleByAttention(this.data.management_plan.type_of_attention_id).then(x => {
         if (x) {
-          this.GetMedical(this.user.locality_id).then(x => {
+          this.GetMedical(this.roles, this.user.locality_id).then(x => {
             if (x) {
               this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
             }
@@ -96,57 +85,29 @@ export class FormManagementPlanComponent implements OnInit {
       });
     }
 
-    this.serviceBriefcaseS.GetByBriefcase({type:'2'},this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
-      this.product_gen = x;
-    });
-    this.typeOfAttentionS.GetCollection().then(x => {
-      this.type_of_attention = x;
-    });
-    this.frequencyS.GetCollection().then(x => {
-      this.frequency = x;
-    });
-    this.serviceBriefcaseS.GetByBriefcase({type:'1'},this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
-      this.procedure = x;
-    });
+    if(this.data.management_plan.type_of_attention_id==17){
+      this.show= true;
+      this.form = this.formBuilder.group({
+        start_date: [this.data.start_date],
+        finish_date: [this.data.finish_date],
+        assigned_user_id:[this.data.user_id],
+      start_hours: [this.data.start_hours,Validators.compose([Validators.required])],
+      });
+    }else{
+      this.show= false;
+      this.form = this.formBuilder.group({
+      start_date: [this.data.start_date],
+      finish_date: [this.data.finish_date],
+      assigned_user_id:[this.data.user_id],
+      });
+    }
+
     this.specialField.GetCollection({
       type_professional: 1
     }).then(x => {
       this.special_field = x;
     });
-    if (this.medical == false) {
-        this.configForm = {
-        type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
-        frequency_id: [this.data.frequency_id,],
-        quantity: [this.data.quantity, Validators.compose([Validators.required])],
-        special_field_id: [this.data.special_field_id],
-        assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
-        procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
-        product_id: [this.data.product_id],
-        start_date: [this.data.start_date],
-        finish_date: [this.data.finish_date],
-        preparation: [this.data.preparation],
-        route_of_administration: [this.data.route_of_administration],
-        blend: [this.data.blend],
-        administration_time: [this.data.administration_time,],
-        start_hours: [this.data.start_hours],
-        
-        }
-        this.form = this.formBuilder.group(this.configForm);
-      this.onChanges();
-    } else {
-      this.form = this.formBuilder.group({
-        type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
-        frequency_id: [this.data.frequency_id, Validators.compose([Validators.required])],
-        quantity: [this.data.quantity, Validators.compose([Validators.required])],
-        special_field_id: [this.data.special_field_id],
-        assigned_user_id: [this.data.assigned_user_id],
-        procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
-        product_id: [this.data.product_id],
-        start_date: [this.data.start_date],
-        finish_date: [this.data.finish_date],
-      });
-      this.isMedical = true;
-    }
+  
 
     // if (this.assigned == true) {
 
@@ -163,7 +124,7 @@ export class FormManagementPlanComponent implements OnInit {
       } else {
         this.getRoleByAttention(val).then(x => {
           if (x) {
-            this.GetMedical(this.user.locality_id).then(x => {
+            this.GetMedical(this.roles, this.user.locality_id).then(x => {
               if (x) {
                 this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
               }
@@ -174,14 +135,6 @@ export class FormManagementPlanComponent implements OnInit {
         }).catch(e => {
           this.toastService.danger(e, 'Error');
         });
-
-        if(val==17){
-          this.show= true;
-      
-          
-        }else{
-          this.show= false;
-        }
       }
     });
 
@@ -199,29 +152,15 @@ export class FormManagementPlanComponent implements OnInit {
     });
   }
 
-  async GetMedical(locality_id) {
-    // if (!type_professional || type_professional === '') return Promise.resolve(false);
+  async GetMedical(type_professional, locality_id) {
+    if (!type_professional || type_professional === '') return Promise.resolve(false);
 
-    return await this.userAssigned.UserByRoleLocation(locality_id, this.phone_consult ? 2 : 1, {
+    return await this.userAssigned.UserByRoleLocation(locality_id, 3, {
       roles: JSON.stringify(this.roles),
     }).then(x => {
       this.assigned_user = x;
       return Promise.resolve(true);
     });
-  }
-
-  phoneConsultChange(event) {
-    this.assigned_user = [];
-    this.phone_consult = event.target.checked;
-    if (this.roles) {
-      this.GetMedical(this.user.locality_id).then(x => {
-        if (x) {
-          this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
-        }
-      }).catch(e => {
-        this.toastService.danger(e, 'Error');
-      });
-    }
   }
 
   // async GetSpeciality(type_professional, locality_id) {
@@ -242,36 +181,21 @@ export class FormManagementPlanComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       if (this.medical == false) {
-        var selectes_assistance_id;
-        this.assigned_user.forEach(user => {
-          if (user.id === this.form.value.assigned_user_id) {
-            selectes_assistance_id = user.assistance_id;
-          }
-        });
-      }
+      var selectes_assistance_id;
+      this.assigned_user.forEach(user => {
+        if (user.id === this.form.value.assigned_user_id) {
+          selectes_assistance_id = user.assistance_id;
+        }
+      });
+    }
       if (this.data.id) {
-        this.managementPlanS.Update({
+        this.AssignedManagementPlanS.Update({
           id: this.data.id,
-          type_of_attention_id: this.form.controls.type_of_attention_id.value,
-          frequency_id: this.form.controls.frequency_id.value,
-          quantity: this.form.controls.quantity.value,
-          special_field_id: this.form.controls.special_field_id.value,
-          assigned_user_id: this.form.controls.assigned_user_id.value,
-          admissions_id: this.admissions_id,
-          procedure_id: this.procedure_id,
-          product_id: this.product_id,
-          type_auth: this.type_auth,
-          assistance_id: selectes_assistance_id,
-          locality_id: this.user.locality_id,
-          phone_consult: this.phone_consult,
+          type_of_attention_id: this.data.management_plan.type_of_attention_id,
           start_date: this.form.controls.start_date.value,
           finish_date: this.form.controls.finish_date.value,
-          preparation: this.form.controls.preparation.value,
-          route_of_administration: this.form.controls.route_of_administration.value,
-          blend: this.form.controls.blend.value,
-          administration_time: this.form.controls.administration_time.value,
-          start_hours: this.form.controls.start_hours.value,
-          authorized_amount: this.data.authorization.authorized_amount,
+          user_id: this.form.controls.assigned_user_id.value,
+          start_hour: this.data.management_plan.type_of_attention_id==17?this.form.controls.start_hours.value :null,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -293,16 +217,15 @@ export class FormManagementPlanComponent implements OnInit {
           procedure_id: this.procedure_id,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,
-          phone_consult: this.phone_consult,
           start_date: this.form.controls.start_date.value,
           finish_date: this.form.controls.finish_date.value,
           medical: this.isMedical,
           product_id: this.product_id,
           preparation: this.form.controls.preparation.value,
           route_of_administration: this.form.controls.route_of_administration.value,
-          blend:this.form.controls.blend.value,
-          administration_time:this.form.controls.administration_time.value,
-          start_hours:this.form.controls.start_hours.value,
+          blend: this.form.controls.blend.value,
+          administration_time: this.form.controls.administration_time.value,
+          start_hours: this.form.controls.start_hours.value,
           type_auth: this.type_auth,
         }).then(x => {
           this.toastService.success('', x.message);

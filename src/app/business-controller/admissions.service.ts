@@ -16,7 +16,7 @@ export class AdmissionsService {
   GetCollection(params = {}): Promise<Admissions[]> {
     let servObj = new ServiceObject(params ? 'admissions?pagination=false' : 'admissions');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj,params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

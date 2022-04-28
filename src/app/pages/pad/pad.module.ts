@@ -34,6 +34,7 @@ import { ManagementPlanComponent } from './management-plan/management-plan.compo
 import { FormManagementPlanComponent } from './management-plan/form-management-plan/form-management-plan.component';
 import { AssignedManagementPlanComponent } from './assigned-management-plan/assigned-management-plan.component';
 import { Actions4Component } from './assigned-management-plan/actions.component';
+import { FormAssignedManagementPlanComponent } from './assigned-management-plan/form-assigned-management-plan/form-assigned-management-plan.component';
 
 
 
@@ -73,6 +74,7 @@ import { Actions4Component } from './assigned-management-plan/actions.component'
     FormPadComponent,
     ManagementPlanComponent,
     FormManagementPlanComponent,
+    FormAssignedManagementPlanComponent,
     Actions2Component,
     Actions4Component,
     ActionsComponent,
