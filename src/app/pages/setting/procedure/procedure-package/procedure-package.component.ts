@@ -9,6 +9,8 @@ import { numeric } from '@rxweb/reactive-form-validators';
 import { multicast } from 'rxjs/operators';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { SelectProcedureComponent } from './select-procedure.component';
+import { AmountProcedureComponent } from './amount-procedure-package.component';
+import { DynamicProcedurePackageComponent } from './dynamic-procedure-package.component';
 
 
 @Component({
@@ -21,18 +23,20 @@ export class ProcedurePackageComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<any>();
   @Input() parentData: any = [];
+  @Input() show: any;
   public messageError = null;
 
 
   public InscriptionForm: FormGroup;
   public title = 'Asignación procedimientos para paquete: ';
   public subtitle = 'Asignación procedimientos para paquete: ';
-  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Categoria del procedimiento', 'Pos', 'Rango de Edad ', 'Genero', 'Estado del procedimiento', 'Id de finalidad ', 'Tiempo'];
+  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Valor mínimo', 'Valor máximo', 'Valor dinamico', 'Valor dinamico'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
   public selectedOptionsTemp: any[] = [];
   public selectedOptions2: any[] = [];
+  public emit: any[] = [];
   public data = [];
   public dialog;
   public inscriptionstatus = 0;
@@ -40,6 +44,7 @@ export class ProcedurePackageComponent implements OnInit {
   public inscriptionId;
   public campus;
 
+  public localidentify
   public manual_price: any[] = [];
   public package: any[] = [];
   public type_briefcase: any[] = [];
@@ -58,9 +63,18 @@ export class ProcedurePackageComponent implements OnInit {
         title: '',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          if (!this.done) {
+            this.selectedOptions = this.parentData.selectedOptions;
+            this.emit = this.parentData.selectedOptions;
+            this.parentData.selectedOptions.forEach(x => {
+              this.selectedOptions2.push(x.procedure_id);
+            });
+            this.done = true;
+          }
           return {
             'data': row,
-            'valid': (!this.selectedOptions.includes(row.id)) ? false : true,
+            'show': this.show,
+            'valid': (!this.selectedOptions2.includes(row.id)) ? false : true,
             'selection': (event, row: any) => this.eventSelections(event, row),
           };
         },
@@ -77,6 +91,91 @@ export class ProcedurePackageComponent implements OnInit {
       name: {
         title: this.headerFields[3],
         type: 'string',
+      },
+      min_quantity: {
+        title: this.headerFields[4],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // if(this.selectedOptions2.includes(row.id)){
+          //   var localidentify = this.selectedOptions.find(item => item.procedure_id == row.id)
+          // }
+          var amo;
+          this.selectedOptions.forEach(x => {
+            if (x.procedure_id == row.id) {
+              amo = x.min_quantity;
+            }
+          });
+          // return {
+          //   'data': row,
+          //   'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+          //   'amount': this.selectedOptions2.includes(row.id) ? localidentify.min_quantity : '',
+          //   'onchange': (input, row: any) => this.onAmountChange(input, row),
+          // };
+          return {
+            'data': row,
+            'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+            'amount': amo ? amo : '',
+            'onchange': (input, row: any) => this.onAmountChange(input, row),
+          };
+        },
+        renderComponent: AmountProcedureComponent,
+      },
+      max_quantity: {
+        title: this.headerFields[5],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+
+          // if(this.selectedOptions2.includes(row.id)){
+          //   var localidentify = this.selectedOptions.find(item => item.procedure_id == row.id)
+          // }
+          // return {
+          //   'data': row,
+          //   'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+          //   'amount': this.selectedOptions2.includes(row.id) ? localidentify.max_quantity :'',
+          //   'onchange': (input, row: any) => this.onMaxAmountChange(input, row),
+          // };
+          var amo;
+          this.selectedOptions.forEach(x => {
+            if (x.procedure_id == row.id) {
+              amo = x.max_quantity;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+            'amount': amo ? amo : '',
+            'onchange': (input, row: any) => this.onMaxAmountChange(input, row),
+          };
+        },
+        renderComponent: AmountProcedureComponent,
+      },
+      dynamic: {
+        title: this.headerFields[6],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // if(this.selectedOptions2.includes(row.id)){
+          //   var localidentify = this.selectedOptions.find(item => item.procedure_id == row.id)
+          // }
+          // return {
+          //   'data': row,
+          //   'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+          //   'amount': this.selectedOptions2.includes(row.id) ? localidentify.dynamic == 1 ? false : true : false,
+          //   'onchange': (input, row: any) => this.onDynamicChange(input, row),
+          // };
+          var amo;
+          this.selectedOptions.forEach(x => {
+            if (x.procedure_id == row.id) {
+              amo = x.dynamic_charge;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+            'amount': amo == 1 ? true : false,
+            'onchange': (input, row: any) => this.onDynamicChange(input, row),
+          };
+        },
+        renderComponent: DynamicProcedurePackageComponent,
       },
     },
   };
@@ -95,7 +194,7 @@ export class ProcedurePackageComponent implements OnInit {
 
   ngOnInit(): void {
     this.procedure_package_id = this.route.snapshot.params.id;
-    this.selectedOptions = this.parentData;
+    
 
     /*this.procedurePackageS.GetByPackage(this.procedure_package_id).then(x => {
       this.package=x;
@@ -117,11 +216,71 @@ export class ProcedurePackageComponent implements OnInit {
 
   eventSelections(event, row) {
     if (event) {
-      this.selectedOptions.push(row.id);
+      this.selectedOptions2.push(row.id);
+      var procedure_package = {
+        procedure_id: row.id,
+        max_quantity: null,
+        min_quantity: null,
+        dynamic_charge: false,
+      }
+      this.emit.push(procedure_package);
     } else {
-      let i = this.selectedOptions.indexOf(row.id);
-      i !== -1 && this.selectedOptions.splice(i, 1);
+      this.emit = [];
+      let i = this.selectedOptions2.indexOf(row.id);
+      i !== -1 && this.selectedOptions2.splice(i, 1);
+      var j = 0;
+      this.selectedOptions.forEach(element => {
+        if (this.selectedOptions2.includes(element.procedure_id)) {
+          this.emit.push(element);
+        }
+        j++;
+      });
     }
+    this.selectedOptions = this.emit;
+    this.messageEvent.emit(this.selectedOptions);
+    this.RefreshData();
+  }
+
+  onDynamicChange(input, row) {
+    var i = 0;
+    var mientras = this.selectedOptions;
+    this.selectedOptions.forEach(element => {
+      if (element.procedure_id == row.id) {
+        mientras[i].dynamic_charge = input.target.checked;
+      }
+      i++
+    });
+    this.selectedOptions = mientras;
+    this.messageEvent.emit(this.selectedOptions);
+  }
+
+  onAmountChange(input, row) {
+    var i = 0;
+    var mientras = this.selectedOptions;
+    this.selectedOptions.forEach(element => {
+      if (element.procedure_id == row.id) {
+        mientras[i].min_quantity = input.target.valueAsNumber;
+      }
+      i++
+    });
+    this.selectedOptions = mientras;
+    this.messageEvent.emit(this.selectedOptions);
+  }
+
+  onMaxAmountChange(input, row) {
+    var i = 0;
+    var mientras = this.selectedOptions;
+    this.selectedOptions.forEach(element => {
+      if (element.procedure_id == row.id) {
+        if (mientras[i].min_quantity >= input.target.valueAsNumber) {
+          this.toastS.warning('El valor máximo no puede exceder el valor mínimo', 'Valor invalido');
+        } else {
+          mientras[i].max_quantity = input.target.valueAsNumber;
+        }
+      }
+      i++
+    });
+    this.selectedOptions = mientras;
     this.messageEvent.emit(this.selectedOptions);
   }
 
@@ -178,9 +337,9 @@ export class ProcedurePackageComponent implements OnInit {
   //         }
   //         //this.selectedOptions.splice(index, 1);
   //         //this.selectedOptions=this.selectedOptions.concat(this.selectedOptionsTemp);
-        
+
   //     });
-     
+
   //   }else{
   //     this.selectedOptions=this.selectedOptions.concat(this.selectedOptionsTemp);
   //   }
@@ -276,4 +435,33 @@ export class ProcedurePackageComponent implements OnInit {
   //     this.selectedOptions = [];
   //   }
   // }
+  saveGroup() {
+    var contador = 0;
+    var err = 0;
+    if (!this.selectedOptions.length) {
+      this.toastS.danger(null, 'Debe seleccionar al menos un Menú');
+    }
+    else {
+      var dta = {
+        component_package_id: null,
+        component_id: null,
+      };
+      this.selectedOptions.forEach(element => {
+        dta.component_package_id = this.procedure_package_id;
+        dta.component_id = element.id;
+        this.procedurePackageS.Save(dta).then(x => {
+        }).catch(x => {
+          err++;
+        });
+        contador++;
+      });
+      if (contador > 0) {
+        this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
+      } else if (err > 0) {
+        this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
+      }
+      this.RefreshData();
+      this.selectedOptions = [];
+    }
+  }
 }
