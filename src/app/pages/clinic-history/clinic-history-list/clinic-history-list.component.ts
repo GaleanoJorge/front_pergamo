@@ -43,6 +43,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public currentRole: any;
+  public show: any;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -263,6 +264,44 @@ export class ClinicHistoryListComponent implements OnInit {
   //     this.toastrService.danger(x.message);
   //   });
   // }
+
+  tablock(e) {
+    console.log(e.tabTitle);
+    switch (e.tabTitle) {
+      case "INGRESO": {
+        this.show = 1;
+        break;
+      }
+      case "ANTECEDENTES": {
+        this.show = 2;
+        break;
+      }
+      case "EVOLUCIÓN": {
+        this.show = 3;
+        break;
+      }
+      case "ESCALAS": {
+        this.show = 4;
+        break;
+      }
+      case "FORMULACIÓN": {
+        this.show = 5;
+        break;
+      }
+      case "ORDEN MEDICAS": {
+        this.show = 6;
+        break;
+      }
+      case "RESULTADOS": {
+        this.show = 7;
+        break;
+      }
+      case "SALIDA": {
+        this.show = 8;
+        break;
+      }
+    }
+  }
 
   DeleteConfirmAdmissions(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {

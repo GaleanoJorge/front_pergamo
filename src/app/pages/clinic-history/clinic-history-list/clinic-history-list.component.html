@@ -8,28 +8,52 @@
       <p class="parrafo" *ngIf="user">GÉNERO: {{user.gender.name}} </p>
     </div>
     <nb-tabset class="tabset">
+    <nb-tabset class="tabset" (changeTab)="tablock($event)">
       <nb-tab tabTitle="INGRESO">
-        <ngx-entry-clinic-history>
-        </ngx-entry-clinic-history>
+        <div *ngIf="this.show == 1">
+          <ngx-entry-clinic-history>
+          </ngx-entry-clinic-history>
+        </div>
       </nb-tab>
-      <nb-tab tabTitle="ANTECEDENES">
-        <ngx-back-list>
+      <nb-tab tabTitle="ANTECEDENTES">
+        <div *ngIf="this.show == 2">
+          <ngx-back-list>
           </ngx-back-list>
+        </div>
       </nb-tab>
       <nb-tab tabTitle="EVOLUCIÓN">
+        <div *ngIf="this.show == 3">
 
+        </div>
       </nb-tab>
+      <nb-tab tabTitle="ESCALAS">
+        <div *ngIf="this.show == 4">
+          <ngx-ch-scales>
+          </ngx-ch-scales>
+        </div>
+      </nb-tab>
+
       <nb-tab tabTitle="FORMULACIÓN">
+        <div *ngIf="this.show == 5">
+
+        </div>
 
       </nb-tab>
       <nb-tab tabTitle="ORDEN MEDICAS">
-        <ngx-orders-medical></ngx-orders-medical>
+        <div *ngIf="this.show == 6">
+          <ngx-orders-medical></ngx-orders-medical>
+        </div>
       </nb-tab>
       <nb-tab tabTitle="RESULTADOS">
+        <div *ngIf="this.show == 7">
+
+        </div>
 
       </nb-tab>
       <nb-tab tabTitle="SALIDA">
+        <div *ngIf="this.show == 8">
 
+        </div>
       </nb-tab>
     </nb-tabset>
     <div style="text-align: center;">

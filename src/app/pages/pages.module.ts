@@ -77,6 +77,7 @@ import { PharmacyRoutingModule } from './pharmacy/pharmacy-routing.module';
     NbAutocompleteModule,
     NbTooltipModule,
     NbFormFieldModule,
+    NbRadioModule,
   ],
   declarations: [
     PagesComponent,

@@ -52,6 +52,7 @@ import { Actions9Component } from './background/back-gyneco/actions.component';
 import { BackListComponent } from './background/back-list.component';
 import { BackgroundComponent } from './background/back/background.component';
 import { Actions8Component } from './background/back/actions.component';
+import { ChScalesComponent } from './scales/ch-scales.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -105,7 +106,6 @@ import { Actions8Component } from './background/back/actions.component';
     SystemExamComponent,
     Actions7Component,
 
-
     FormBackgroundComponent,
     BackgroundComponent,
     Actions8Component,
@@ -115,6 +115,9 @@ import { Actions8Component } from './background/back/actions.component';
     Actions9Component,
 
     BackListComponent,
+
+    ChScalesComponent,
+    
    ],
 
   providers: [
