@@ -277,6 +277,8 @@ import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.componen
 import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
 import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
 import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/form-pharmacy-product-request/form-pharmacy-product-request.component';
+import { AmountProcedureComponent } from './procedure/procedure-package/amount-procedure-package.component';
+import { DynamicProcedurePackageComponent } from './procedure/procedure-package/dynamic-procedure-package.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -317,6 +319,8 @@ import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/
     ActionsCompanyComponent,
     ActionsComponentProcedure,
     ActionsComponentProduct,
+    AmountProcedureComponent,
+    DynamicProcedurePackageComponent,
     SelectProcedureComponent,
     ProductMassiveComponent,
     FormManualProcedureComponent,
