@@ -3,6 +3,7 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CampusService } from '../../../../business-controller/campus.service';
 import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
+import { TypePharmacyStockService } from '../../../../business-controller/type-pharmacy-stock.service';
 
 @Component({
   selector: 'ngx-form-pharmacy-stock',
@@ -20,11 +21,13 @@ export class FormPharmacyStockComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public campus_id: any[];
+  public type_pharmacy_stock_id: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private sedesS: CampusService,
+    private typePharmaS: TypePharmacyStockService,
     private PharmacyStockS: PharmacyStockService,
     private toastService: NbToastrService,
   ) {
@@ -34,6 +37,7 @@ export class FormPharmacyStockComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
+        type_pharmacy_stock_id: '',
         campus_id: '',
 
       };
@@ -41,11 +45,15 @@ export class FormPharmacyStockComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
+      type_pharmacy_stock_id: [this.data.type_pharmacy_stock_id, Validators.compose([Validators.required])],
       campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
     });
 
     await this.sedesS.GetCollection().then(x => {
       this.campus_id = x;
+    });
+    await this.typePharmaS.GetCollection().then(x => {
+      this.type_pharmacy_stock_id = x;
     });
   }
 
@@ -63,6 +71,7 @@ export class FormPharmacyStockComponent implements OnInit {
         this.PharmacyStockS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
+          type_pharmacy_stock_id: this.form.controls.type_pharmacy_stock_id.value,
           campus_id: this.form.controls.campus_id.value,
           permission_pharmacy_stock_id: 1,
         }).then(x => {
@@ -79,6 +88,7 @@ export class FormPharmacyStockComponent implements OnInit {
 
         this.PharmacyStockS.Save({
           name: this.form.controls.name.value,
+          type_pharmacy_stock_id: this.form.controls.type_pharmacy_stock_id.value,
           campus_id: this.form.controls.campus_id.value,
           permission_pharmacy_stock_id: 1,
         }).then(x => {

@@ -2,38 +2,38 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { PharmacyStock } from '../models/pharmacy_stock';
+import { Packing } from '../models/packing';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PharmacyStockService {
-  public pharmacy_stock: PharmacyStock[] = [];
+export class PackingService {
+  public packing: Packing[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<PharmacyStock[]> {
-    let servObj = new ServiceObject(params ? 'pharmacy_stock?pagination=false' : 'pharmacy_stock');
+  GetCollection(params = {}): Promise<Packing[]> {
+    let servObj = new ServiceObject(params ? 'packing?pagination=false' : 'packing');
 
-    return this.webAPI.GetAction(servObj, params)
+    return this.webAPI.GetAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.pharmacy_stock = <PharmacyStock[]>servObj.data.pharmacy_stock;
+        this.packing = <Packing[]>servObj.data.packing;
 
-        return Promise.resolve(this.pharmacy_stock);
+        return Promise.resolve(this.packing);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(pharmacy_stock: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('pharmacy_stock');
-    servObj.data = pharmacy_stock;
+  Save(packing: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('packing');
+    servObj.data = packing;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class PharmacyStockService {
       });
   }
 
-  Update(pharmacy_stock: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('pharmacy_stock', pharmacy_stock.id);
-    servObj.data = pharmacy_stock;
+  Update(packing: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('packing', packing.id);
+    servObj.data = packing;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +64,7 @@ export class PharmacyStockService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('pharmacy_stock', id);
+    let servObj = new ServiceObject('packing', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

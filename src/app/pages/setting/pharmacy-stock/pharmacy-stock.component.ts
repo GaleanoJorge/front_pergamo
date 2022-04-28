@@ -16,10 +16,10 @@ export class PharmacyStockComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Usuarios';
+  public title: string = 'CREAR BODEGA O FARMACIA';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'Nombre', 'Sede'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]}`;
+  public headerFields: any[] = ['ID', 'TIPO', 'NOMBRE', 'SEDE'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -47,13 +47,23 @@ export class PharmacyStockComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      name: {
+      type_pharmacy_stock: {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
       },
-      campus_id: {
+      name: {
         title: this.headerFields[2],
         type: 'string',
+      },
+      campus: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
       }
     },
   };
@@ -64,7 +74,6 @@ export class PharmacyStockComponent implements OnInit {
       route: '../../setting/pharmacy-stock',
     },
   ];
-
 
   constructor(
     private PharmacyStockS: PharmacyStockService,
@@ -77,14 +86,13 @@ export class PharmacyStockComponent implements OnInit {
   }
 
   RefreshData() {
-
     this.table.refresh();
   }
 
   NewPharmacyStock() {
     this.dialogFormService.open(FormPharmacyStockComponent, {
       context: {
-        title: 'Crear Usuario',
+        title: 'CRAR FARMACIA O BODEGA',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -93,7 +101,7 @@ export class PharmacyStockComponent implements OnInit {
   EditPharmacyStock(data) {
     this.dialogFormService.open(FormPharmacyStockComponent, {
       context: {
-        title: 'Editar Usuario',
+        title: 'EDITAR FARMACIA O BODEGA',
         data,
         saved: this.RefreshData.bind(this),
       },
