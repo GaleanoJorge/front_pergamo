@@ -92,7 +92,7 @@ export class ContractListComponent implements OnInit {
   public routes = [
     {
       name: 'Contratos',
-      route: '../contract/list',
+      route: '../list',
     },
   ];
 
