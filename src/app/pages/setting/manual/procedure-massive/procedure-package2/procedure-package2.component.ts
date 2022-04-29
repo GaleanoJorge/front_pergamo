@@ -1,8 +1,8 @@
-import {Component, OnInit,Input,TemplateRef,ViewChild,ElementRef,Output, EventEmitter} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NbDialogService, NbToastrService} from '@nebular/theme';
-import {ProcedurePackageService} from '../../../../../business-controller/procedure-package.service';
-import {ProcedureService} from '../../../../../business-controller/procedure.service';
+import { Component, OnInit, Input, TemplateRef, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { ProcedurePackageService } from '../../../../../business-controller/procedure-package.service';
+import { ProcedureService } from '../../../../../business-controller/procedure.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 import { numeric } from '@rxweb/reactive-form-validators';
@@ -19,17 +19,17 @@ export class ProcedurePackage2Component implements OnInit {
 
   @Output() messageEvent = new EventEmitter<any>();
   public messageError = null;
-  
+
 
   public InscriptionForm: FormGroup;
   public title = 'Información de paquete';
-  public subtitle ;
-  public headerFields: any[] =  ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Categoria del procedimiento', 'Pos', 'Rango de Edad ', 'Genero', 'Estado del procedimiento', 'Id de finalidad ', 'Tiempo'];
+  public subtitle;
+  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Cantidad mínima', 'Cantidad máxima', ''];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
-  public data= [];
-  public dialog; 
+  public data = [];
+  public dialog;
   public inscriptionstatus = 0;
   public selectedRows: any;
   public inscriptionId;
@@ -38,12 +38,12 @@ export class ProcedurePackage2Component implements OnInit {
   public manual_price: any[] = [];
   public package: any[] = [];
   public type_briefcase: any[] = [];
-  public procedure_package_id:number;
+  public procedure_package_id: number;
 
-  
 
-  public settings = {  
-    columns: {  
+
+  public settings = {
+    columns: {
       id: {
         title: this.headerFields[0],
         type: 'string',
@@ -60,6 +60,38 @@ export class ProcedurePackage2Component implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, data) => {
           return data.procedure.name;
+        },
+      },
+      min_quantity: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, data) => {
+          if (value) {
+            return value;
+          } else {
+            return '-SIN LIMITE MÍNIMO-';
+          }
+        },
+      },
+      max_quantity: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, data) => {
+          if (value) {
+            return value;
+          } else {
+            return '-SIN LIMITE MÁXIMO-'
+          }
+        },
+      }, dynamic_charge: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, data) => {
+          if (value) {
+            return '-CON COBRO DINAMICO-';
+          } else {
+            return '-SIN COBRO DINAMICO-';
+          }
         },
       },
     },
@@ -79,30 +111,30 @@ export class ProcedurePackage2Component implements OnInit {
 
   ngOnInit(): void {
     this.procedure_package_id = this.route.snapshot.params.id;
- 
+
     /*this.procedurePackageS.GetByPackage(this.procedure_package_id).then(x => {
       this.package=x;
       var checkbox = this.e.nativeElement.querySelectorAll('input[type=checkbox]')
       console.log(checkbox);
     });*/
 
-      this.routes = [
-        {
-          name: 'Procedimientos',
-          route: '../../procedure',
-        },
-        {
-          name: 'Paquete de procedimiento',
-          route: '../../contract/briefcase',
-        },
-      ];
+    this.routes = [
+      {
+        name: 'Procedimientos',
+        route: '../../procedure',
+      },
+      {
+        name: 'Paquete de procedimiento',
+        route: '../../contract/briefcase',
+      },
+    ];
   }
 
 
- 
+
   RefreshData() {
     this.table.refresh();
-    this.selectedOptions=[];
+    this.selectedOptions = [];
   }
   ConfirmAction(dialog: TemplateRef<any>) {
     this.dialog = this.dialogService.open(dialog);
