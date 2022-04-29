@@ -3,7 +3,7 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { HistoricAuthorizationListComponent } from './historic-authorization/historic-authorization.component';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { rowDataBound } from '@syncfusion/ej2/grids';
 import { ActionsAuthNumberComponent } from './actions-auth-number.component';
 import { ActionsStatusComponent } from './actions-status.component';
@@ -11,6 +11,8 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
 import { AuthorizationService } from '../../../business-controller/authorization.service';
 import { FormObservationComponent } from './historic-authorization/form-observation/form-observation.component';
 import { ManagementPlan } from '../../../models/management-plan';
+import { CompanyService } from '../../../business-controller/company.service';
+import { ContractService } from '../../../business-controller/contract.service';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -39,6 +41,8 @@ export class AuthorizationListComponent implements OnInit {
   public showdiv: boolean = null;
   public show;
 
+  public company: any [] = []
+  public contract: any [] = []
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -166,13 +170,16 @@ export class AuthorizationListComponent implements OnInit {
   constructor(
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    public companyS: CompanyService,
+    public contractS: ContractService,
+    private formBuilder: FormBuilder,
     private authStatusS: AuthStatusService,
     private authorizationS: AuthorizationService,
     private toastS: NbToastrService,
   ) {
   }
   public form: FormGroup;
-  public ResponseGlossForm: FormGroup;
+  public xlsForm: FormGroup;
   public RadicationGlossForm: FormGroup;
   public status;
   public objetion_code_response: any[] = null;
@@ -189,6 +196,9 @@ export class AuthorizationListComponent implements OnInit {
       this.auth_statusM = x;
     });
 
+    this.xlsForm = this.formBuilder.group({
+      
+    });
   }
 
 
@@ -223,7 +233,7 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
-  ChangeGlossStatus(status) {
+  FilterStatus(status) {
     this.status = status;
     this.table.changeEntity(`authorization/byStatus/0/${this.status}`, 'authorization');
     // this.RefreshData();
@@ -240,6 +250,11 @@ export class AuthorizationListComponent implements OnInit {
         saved: this.RefreshData.bind(this),
       },
     });
+  }
+
+  CreateXLS(dialog: TemplateRef<any>) {
+    this.dialogFormService.open(dialog);
+    this.GetResponseParam();
   }
 
   SaveStatus(event?, data?) {
@@ -315,7 +330,17 @@ export class AuthorizationListComponent implements OnInit {
   // DeleteGloss(data) {
   // }
 
-  GetResponseParam() {
+  GetResponseParam(company_id?) {
+    this.companyS.GetCollection().then(x => {
+      this.company = x;
+    });
+
+    if(company_id){
+      this.contractS.GetByCompany({company_id:company_id}).then(x => {
+        this.contract = x
+      })
+    }
+
   }
 
 
