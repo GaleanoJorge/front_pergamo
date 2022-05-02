@@ -6,7 +6,6 @@
       <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday}} </p>
       <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
     </div>
-    <nb-tabset class="tabset">
       <nb-tabset class="tabset" (changeTab)="tablock($event)">
         <nb-tab tabTitle="INGRESO">
           <div *ngIf="this.show == 1">
@@ -36,7 +35,6 @@
           <div *ngIf="this.show == 5">
             <ngx-formulation [record_id]="record_id"></ngx-formulation>
           </div>
-
         </nb-tab>
         <nb-tab tabTitle="ORDEN MEDICAS">
           <div *ngIf="this.show == 6">
@@ -55,7 +53,6 @@
           </div>
         </nb-tab>
       </nb-tabset>
-    </nb-tabset>
     <div style="text-align: center;">
       <a (click)="finish()" nbButton>Finalizar registro</a>
     </div>
