@@ -102,7 +102,7 @@ export class FormFormulationComponent implements OnInit {
             outpatient_formulation: this.form.controls.outpatient_formulation.value,
             dose: this.form.controls.dose.value,
             observation: this.form.controls.observation.value,
-            type_record_id: 4,
+            type_record_id: 5,
             ch_record_id: this.record_id,
           })
           .then((x) => {
@@ -126,7 +126,7 @@ export class FormFormulationComponent implements OnInit {
             outpatient_formulation: this.form.controls.outpatient_formulation.value,
             dose: this.form.controls.dose.value,
             observation: this.form.controls.observation.value,
-            type_record_id: 4,
+            type_record_id: 5,
             ch_record_id: this.record_id,
           })
           .then((x) => {
