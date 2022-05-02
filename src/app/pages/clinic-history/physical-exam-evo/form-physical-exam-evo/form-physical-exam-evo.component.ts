@@ -28,6 +28,8 @@ export class FormPhysicalExamEvoComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public type_ch_physical_exam: any[];
+  public revision: any[];
+  public showrevision: boolean = false;
 
 
   constructor(
@@ -39,7 +41,7 @@ export class FormPhysicalExamEvoComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+ async ngOnInit() {
     if (!this.data) {
       this.data = {
         revision: '',
@@ -60,6 +62,17 @@ export class FormPhysicalExamEvoComponent implements OnInit {
       type_ch_physical_exam_id: [this.data.type_ch_physical_exam_id, Validators.compose([Validators.required])],
     });
 
+
+    this.onChanges1();
+
+
+  }
+  onChange1(tipoId) {
+    if (tipoId == 1) {
+      this.showrevision = true;
+    } else {
+      this.showrevision = false;
+    }
   }
 
   async save() {
@@ -79,6 +92,7 @@ export class FormPhysicalExamEvoComponent implements OnInit {
 
         }).then(x => {
           this.toastService.success('', x.message);
+          this.form.setValue({ revision: '', observation: '', type_ch_physical_exam:''});
           if (this.saved) {
             this.saved();
           }
@@ -111,8 +125,23 @@ export class FormPhysicalExamEvoComponent implements OnInit {
 
         });
       }
-
     }
   }
 
+  onChanges1() {
+    this.form.get('revision').valueChanges.subscribe(val => {
+      console.log(val);
+      if (val === '') {
+        this.revision = [];
+      }
+      if (val == "0") {
+        this.showrevision = true;
+      } else {
+        this.showrevision = false;
+      }
+    });
+  }
+  
 }
+
+

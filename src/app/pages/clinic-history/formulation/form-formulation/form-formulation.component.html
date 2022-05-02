@@ -3,8 +3,10 @@
     <label class="form-text text-muted font-weight-bold align"></label>
     <div class="row">
       <div class="col-md-12">
-        <div>
+        <div class="center">
           <fieldset class="field_set">
+            <legend class="prue1">FORMULA MEDICA</legend>
+
             <nb-radio-group formControlName="outpatient_formulation" revision id="outpatient_formulation"
               class="d-flex text" name="outpatient_formulation">
               <nb-radio value="SI">FORMULA AMBULATORIA?</nb-radio>
@@ -20,6 +22,9 @@
                 {{ item.name }}</nb-option>
             </nb-select>
 
+            <label class="font-weight-bold ImpPeq">DOSIS</label>
+            <input type="number" class="Box" id="dose" formControlName="dose" required nbInput ngModel something
+              status="{{ isSubmitted && form.controls.dose.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
 
             <label class="font-weight-bold ImpPeq">VÍA DE ADMINISTRACIÓN</label>
             <nb-select [selected]="this.data.administration_route_id" formControlName="administration_route_id"
@@ -31,7 +36,8 @@
                 {{ item.name }}</nb-option>
             </nb-select>
 
-            <label class="font-weight-bold ImpPeq">ASIGNACIÓN DE COMPONENTES</label>
+
+            <label class="font-weight-bold ImpPeq">FRECUENCIA HORARIA</label>
             <nb-select [selected]="this.data.hourly_frequency_id" formControlName="hourly_frequency_id"
               id="hourly_frequency_id"
               status="{{ isSubmitted && form.controls.hourly_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -40,30 +46,29 @@
                 *ngFor="let item of hourly_frequency_id" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
+
+
+
+            <label class="font-weight-bold ImpPeq">DÍAS DE TRATAMIENTO</label>
+            <input type="number" class="Box" id="treatment_days" formControlName="treatment_days" required nbInput
+              ngModel something
+              status="{{ isSubmitted && form.controls.treatment_days.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+
+            <label class="font-weight-bold Box">CANT. SOLIC.</label>
+            <input disabled="true" id="medical_formula" formControlName="medical_formula">
           </fieldset>
         </div>
       </div>
 
-
-      <div class="col-md-2">
-
-        <label class="form-text text-muted font-weight-bold">DÍAS DE TRATAMIENTO</label>
-        <input type="number" class="ImpPeq" id="treatment_days" formControlName="treatment_days"
-          required nbInput ngModel something
-          status="{{ isSubmitted && form.controls.treatment_days.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-      </div>
-      <div class="col-md-2">
-        <label class="form-text text-muted font-weight-bold">CANT. SOLIC.</label>
-        <input type="number"  class="ImpPeq" id="medical_formula" formControlName="medical_formula"
-          required nbInput ngModel something
-          status="{{ isSubmitted && form.controls.medical_formula.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-      </div>
+    </div>
+    <div class="center">
       <div class="col-md-12">
         <label class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
         <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"
           status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
       </div>
     </div>
+
 
     <div class="row">
       <div class="col-md-12">

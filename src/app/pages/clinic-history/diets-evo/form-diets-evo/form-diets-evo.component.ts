@@ -43,6 +43,7 @@ export class FormDietsEvoComponent implements OnInit {
       this.data = {
         diet_component_id: '',
         diet_consistency_id: '',
+        observation:'',
         
       };
     };
@@ -57,7 +58,7 @@ export class FormDietsEvoComponent implements OnInit {
     this.form = this.formBuilder.group({
       diet_component_id: [this.data.diet_component_id, Validators.compose([Validators.required])],
       diet_consistency_id: [this.data.diet_consistency_id, Validators.compose([Validators.required])],
- 
+      observation: [this.data.observation, Validators.compose([Validators.required])],
     });
   }
 
@@ -72,10 +73,12 @@ export class FormDietsEvoComponent implements OnInit {
           id: this.data.id,
           diet_component_id: this.form.controls.diet_component_id.value,
           diet_consistency_id: this.form.controls.diet_consistency_id.value,
+          observation: this.form.controls.observation.value,
           type_record_id: 3,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.form.setValue({ diet_component: '', diet_consistency: '',});
           if (this.saved) {
             this.saved();
           }
@@ -87,12 +90,13 @@ export class FormDietsEvoComponent implements OnInit {
         await this.ChDietsEvoS.Save({
           diet_component_id: this.form.controls.diet_component_id.value,
           diet_consistency_id: this.form.controls.diet_consistency_id.value,
+          observation: this.form.controls.observation.value,
           type_record_id: 3,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ diet_component_id: '', diet_consistency_id: '' });
+          this.form.setValue({ diet_component_id: '', diet_consistency_id: '', observation:'' });
           if (this.saved) {
             this.saved();
           }

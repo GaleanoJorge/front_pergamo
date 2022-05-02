@@ -21,7 +21,7 @@ export class BackgroundComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Lista', 'Revisión', 'Observación'];
+  public headerFields: any[] = ['Fecha','Lista', 'Revisión', 'Observación'];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -34,19 +34,24 @@ export class BackgroundComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      ch_type_background: {
+
+      created_at: {
         title: this.headerFields[0],
+        width: 'string',
+      },
+      ch_type_background: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
       revision: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
       },
       observation: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
     },

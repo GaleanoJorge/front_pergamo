@@ -131,8 +131,5 @@ export class SignsEvoComponent implements OnInit {
       this.isSubmitted = false;
       this.loading = false;
     });
-
   }
-
-
 }

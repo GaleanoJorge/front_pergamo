@@ -85,6 +85,7 @@ export class FormDiagnosticEvoComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.form.setValue({ diagnosis: '', ch_diagnosis_type: '', ch_diagnosis_class:'',diagnosis_observation:''});
           if (this.saved) {
             this.saved();
           }

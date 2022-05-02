@@ -20,19 +20,18 @@ export class FormulationComponent implements OnInit {
   public nameForm: String;
   public headerFields: any[] = [
     'DESCRIPCIÓN',
+    'DOSIS',
     'VÍA DE ADMINISTRACIÓN',
     'FRECUENCIA HORARIA ',
     'DÍAS DE TRATAMIENTO',
-    'FORMULA AMBULATORIA ',
+    'CANT. SOLIC ',
     'OBSERVACIONES',
   ];
-  
+
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
-  public saveEntry: any = 0;
   public loading: boolean = false;
-  
 
   public settings = {
     pager: {
@@ -44,37 +43,43 @@ export class FormulationComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value.description;
         },
-       
-      },
-      administration_route_id: {
+
+      dose: {
         title: this.headerFields[1],
-        width: 'string',
-        
+        type: 'string',
+        },
       },
-      hourly_frequency_id: {
+      administration_route: {
         title: this.headerFields[2],
         width: 'string',
-        
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
+
+      },
+      hourly_frequency: {
+        title: this.headerFields[3],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
       },
       outpatient_formulation: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         type: 'string',
-       
       },
-    observation: {
-      title: this.headerFields[4],
-      type: 'string',
-    },
+      observation: {
+        title: this.headerFields[5],
+        type: 'string',
+      },
     },
   };
 
   constructor(public userChangeS: UserChangeService) {}
 
-  async ngOnInit() {
-
-  }
+  async ngOnInit() {}
 
   RefreshData() {
     this.table.refresh();
