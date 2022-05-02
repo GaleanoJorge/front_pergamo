@@ -9,7 +9,7 @@
 
             <label class="font-weight-bold ImpPeq">RECOMENDACIÓN</label>
             <nb-select [selected]="this.data.recommendations_evo_id" formControlName="recommendations_evo_id"
-              id="recommendations_evo_id"
+              id="recommendations_evo_id" (selectedChange)="onDescriptionChange($event)"
               status="{{ isSubmitted && form.controls.recommendations_evo_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.recommendations_evo_id }}"

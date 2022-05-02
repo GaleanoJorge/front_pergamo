@@ -39,6 +39,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
     if (!this.data || this.data.length == 0) {
       this.data = {
         recommendations_evo_id: '',
+        treatment_days: '',
         
       };
     };
@@ -49,6 +50,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
    
     this.form = this.formBuilder.group({
       recommendations_evo_id: [this.data.recommendations_evo_id, Validators.compose([Validators.required])],
+      treatment_days: [this.data.treatment_days],
  
     });
   }
@@ -96,5 +98,12 @@ export class FormRecommendationsEvoComponent implements OnInit {
     }
   }
 
+  onDescriptionChange(event) {
+    this.recommendations_evo_id.forEach(x => {
+      if (x.id == event) {
+        this.form.controls.treatment_days.setValue(x.description);
+      }
+    });
+  }
 
 }
