@@ -124,6 +124,9 @@ import { AuthStatusComponent } from './auth-status/auth-status.component';
 import { BillingComponent } from './billing/billing.component';
 import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
 import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
+import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
+import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
+import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
 
 const routes: Routes = [{
   path: '',
@@ -417,9 +420,23 @@ const routes: Routes = [{
 
     },
     {
+      path: 'pharmacy-inventory',
+      component: PharmacyInventoryComponent,
+
+    },
+    {
       path: 'pharmacy-product-request',
       component: PharmacyProductRequestComponent,
 
+    },
+    {
+      path: 'pharmacy-request',
+      component: PharmacyRequestComponent,
+
+    },
+    {
+      path: 'pharmacy-update-max-min',
+      component: FormPharmacyUpdateMaxMinComponent,
     },
     {
       path: 'invima-status',

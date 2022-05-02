@@ -5,18 +5,18 @@
       <div class="row">
 
 
-        <div class="col-12 col-sm-12 col-md-4">
+        <div class="col-12 col-sm-12 col-md-12">
           <label for="country" class="form-text text-muted font-weight-bold">PAIS:</label>
-          <nb-select id="country_id" (selectedChange)="onCountryChange($event)" fullWidth>
+          <nb-select id="country_id" (selectedChange)="onCountryChange($event)" formControlName="country_id" fullWidth>
             <nb-option value="">Seleccione...</nb-option>
             <nb-option *ngFor="let item of country" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="selected_country">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_country">
           <label for="region" class="form-text text-muted font-weight-bold">DEPARTAMENTO:</label>
-          <nb-select id="region_id" (selectedChange)="onRegionChange($event)" fullWidth>
+          <nb-select id="region_id" (selectedChange)="onRegionChange($event)" formControlName="region_id" fullWidth>
             <nb-option value="">Seleccione...</nb-option>
             <nb-option *ngFor="let item of region" [value]="item.id">
               {{ item.name }}</nb-option>
@@ -24,18 +24,27 @@
         </div>
 
 
-        <div class="col-12" *ngIf="selected_region">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_region">
           <label for="municipality" class="form-text text-muted font-weight-bold">MUNICIPIO:</label>
           <nb-select [selected]="this.data.municipality_id" formControlName="municipality_id" id="municipality"
-            fullWidth (selectedChange)="onMunicipalityChange($event)"
-            status="{{ isSubmitted && form.controls.municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            fullWidth (selectedChange)="onMunicipalityChange($event)">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.municipality_id }}" *ngFor="let item of municipality"
               [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>
         </div>
 
-        <div class="col-12" *ngIf="selected_municipality">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_pad_risk">
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">TARIFA BARRIOS ASOCIADOS:</label>
+          <nb-select [selected]="this.data.pad_risk_id" formControlName="pad_risk_id" id="pad_risk"
+            fullWidth (selectedChange)="onMunicipalityChange($event)">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.pad_risk_id }}" *ngFor="let item of pad_risk"
+              [value]="item.id">{{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_municipality">
           <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />

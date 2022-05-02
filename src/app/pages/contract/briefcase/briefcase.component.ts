@@ -119,7 +119,7 @@ export class BriefcaseComponent implements OnInit {
     },
     {
       name: 'Portafolio',
-      route: '../../contract/briefcase',
+      route: '../../briefcase',
     },
   ];
 

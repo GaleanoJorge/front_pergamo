@@ -36,6 +36,8 @@ export class WorkLocationPackageComponent implements OnInit {
   public municipality;
   public entity;
   public customData;
+  public phone_consult_alowed = false;
+  public phone_consult_alowed_amount = null;
 
   public component_package_id: number;
   public done = false;
@@ -55,6 +57,10 @@ export class WorkLocationPackageComponent implements OnInit {
             this.selectedOptions = this.parentData.selectedOptions;
             this.emit = this.parentData.selectedOptions;
             this.parentData.selectedOptions.forEach(x => {
+              if (x.phone_consult) {
+                this.phone_consult_alowed = true;
+                this.phone_consult_alowed_amount = x.PAD_base_patient_quantity;
+              }
               this.selectedOptions2.push(x.locality_id);
             });
             this.done = true;
@@ -188,6 +194,30 @@ export class WorkLocationPackageComponent implements OnInit {
     });
     this.selectedOptions = mientras;
     this.messageEvent.emit(this.selectedOptions);
+  }
+
+  eventPhoneSelections(input) {
+    var send = 1;
+    if (input) {
+      send = 0;
+      this.phone_consult_alowed = true;
+    } else {
+      this.phone_consult_alowed = false;
+      this.phone_consult_alowed_amount = null;
+    }
+    var mientras = {
+      'phone_consult': send,
+    };
+    this.messageEvent.emit(mientras);
+  }
+
+  onAmountPhoneChange(input) {
+    var mientras = {
+      'phone_consult': 0,
+      'phone_consult_amount': input.target.valueAsNumber,
+    };
+    this.phone_consult_alowed_amount = input.target.valueAsNumber;
+    this.messageEvent.emit(mientras);
   }
 
   RefreshData() {

@@ -10,6 +10,7 @@ import { ProgramService } from '../../../business-controller/program.service';
 import { ScopeOfAttentionService } from '../../../business-controller/scope-of-attention.service';
 import { AdmissionRouteService } from '../../../business-controller/admission-route.service';
 import { LocationService } from '../../../business-controller/location.service';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
 
 @Component({
   template: `
@@ -19,7 +20,7 @@ import { LocationService } from '../../../business-controller/location.service';
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='CERRADO'" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id" >
+    <button *ngIf="value.data.status=='CERRADO'" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
@@ -63,6 +64,7 @@ export class Actions5Component implements ViewCell {
     private FlatS: FlatService,
     private AdmissionRouteS: AdmissionRouteService,
     private BedS: BedService,
+    private viewHCS: ChRecordService,
   ) {
   }
   ngOnInit() {
@@ -160,6 +162,19 @@ export class Actions5Component implements ViewCell {
 
     } else
       this.toastService.success('', 'Debe tener una salida asistencial');
+  }
+
+  viewHC(){
+    this.viewHCS.ViewHC(this.value.data.id).then(x => {
+
+      //this.loadingDownload = false;
+      this.toastService.success('', x.message);
+      window.open(x.url, '_blank');
+
+    }).catch(x => {
+      this.isSubmitted = false;
+      this.loading = false;
+    });
   }
 
   save() {

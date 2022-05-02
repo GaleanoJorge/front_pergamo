@@ -19,7 +19,7 @@ import {
   NbCheckboxModule,
   NbRadioModule,
   NbTooltipModule,
-  NbDatepickerModule, NbSpinnerModule,
+  NbDatepickerModule, NbSpinnerModule, NbToggleModule,
 } from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import {PadRoutingModule} from './pad-routing.module';
@@ -34,6 +34,7 @@ import { ManagementPlanComponent } from './management-plan/management-plan.compo
 import { FormManagementPlanComponent } from './management-plan/form-management-plan/form-management-plan.component';
 import { AssignedManagementPlanComponent } from './assigned-management-plan/assigned-management-plan.component';
 import { Actions4Component } from './assigned-management-plan/actions.component';
+import { FormAssignedManagementPlanComponent } from './assigned-management-plan/form-assigned-management-plan/form-assigned-management-plan.component';
 
 
 
@@ -45,6 +46,7 @@ import { Actions4Component } from './assigned-management-plan/actions.component'
     ReactiveFormsModule,
     ThemeModule,
     NbTabsetModule,
+    NbToggleModule,
     NbRouteTabsetModule,
     NbRadioModule,
     NbStepperModule,
@@ -72,6 +74,7 @@ import { Actions4Component } from './assigned-management-plan/actions.component'
     FormPadComponent,
     ManagementPlanComponent,
     FormManagementPlanComponent,
+    FormAssignedManagementPlanComponent,
     Actions2Component,
     Actions4Component,
     ActionsComponent,

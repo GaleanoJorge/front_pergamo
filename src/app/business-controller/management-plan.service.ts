@@ -16,7 +16,7 @@ export class ManagementPlanService {
   GetCollection(params = {}): Promise<ManagementPlan[]> {
     let servObj = new ServiceObject(params ? 'management_plan?pagination=false' : 'management_plan');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj,params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

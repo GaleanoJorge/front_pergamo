@@ -83,6 +83,7 @@ import { FormulationComponent } from './formulation/formulation.component';
 
 import { BackgroundComponent } from './background/back/background.component';
 import { Actions8Component } from './background/back/actions.component';
+import { ChScalesComponent } from './scales/ch-scales.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -157,6 +158,8 @@ import { Actions8Component } from './background/back/actions.component';
     FormsignsEvoComponent,
     Actions12Component,
     SignsEvoComponent,
+
+    ChScalesComponent,
 
     FormDiagnosticEvoComponent,
     Actions13Component,

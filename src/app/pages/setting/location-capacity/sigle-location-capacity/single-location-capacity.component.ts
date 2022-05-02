@@ -4,6 +4,8 @@ import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { AssistanceService } from '../../../../business-controller/assistance.service';
 import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
+import { ActionsSingleLocationCapacityComponent } from './actions-single-location-capacity.component';
+import { FormEditLocationCapacityComponent } from './form-edit-location-capacity/form-edit-location-capacity.component';
 import { FormLocationCapacityComponent } from './form-location-capacity/form-location-capacity.component';
 
 @Component({
@@ -34,17 +36,17 @@ export class SingleLocationCapacityComponent implements OnInit {
       perPage: 5,
     },
     columns: {
-      // actions: {
-      //   title: 'ACCIONES',
-      //   type: 'custom',
-      //   valuePrepareFunction: (value, row) => {
-      //     return {
-      //       'data': row,
-      //       'edit': this.EditSigleLocationCapacity.bind(this),
-      //     };
-      //   },
-      //   renderComponent: ActionsSingleLocationCapacityComponent,
-      // },
+      actions: {
+        title: 'ACCIONES',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          return {
+            'data': row,
+            'edit': this.EditSigleLocationCapacity.bind(this),
+          };
+        },
+        renderComponent: ActionsSingleLocationCapacityComponent,
+      },
       validation_date: {
         title: this.headerFields[0],
         type: 'string',
@@ -52,11 +54,15 @@ export class SingleLocationCapacityComponent implements OnInit {
           return this.datePipe.getMonthPretty(value);
         }
       },
-      locality: {
-        title: this.headerFields[1],
+      'locality': {
+        title: this.headerFields_base[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          if(row.locality) {
+            return row.locality.name;
+          } else {
+            return row.phone_consult;
+          }
         }
       },
       PAD_patient_quantity: {
@@ -88,11 +94,15 @@ export class SingleLocationCapacityComponent implements OnInit {
       perPage: 5,
     },
     columns: {
-      locality: {
+      'locality': {
         title: this.headerFields_base[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          if(row.locality) {
+            return row.locality.name;
+          } else {
+            return row.phone_consult;
+          }
         }
       },
       PAD_base_patient_quantity: {
@@ -153,13 +163,13 @@ export class SingleLocationCapacityComponent implements OnInit {
   }
 
   EditSigleLocationCapacity(data) {
-    // this.dialogFormService.open(FormSigleLocationCapacityComponent, {
-    //   context: {
-    //     title: 'Editar día de dietas',
-    //     data,
-    //     saved: this.RefreshData.bind(this),
-    //   },
-    // });
+    this.dialogFormService.open(FormEditLocationCapacityComponent, {
+      context: {
+        title: 'Editar capacidad instalada',
+        data,
+        saved: this.RefreshData.bind(this),
+      },
+    });
   }
 
 }

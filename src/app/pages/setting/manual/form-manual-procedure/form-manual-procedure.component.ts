@@ -21,6 +21,7 @@ export class FormManualProcedureComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() show: any = null;
   @Input() manual_id;
 
   public form: FormGroup;
@@ -38,12 +39,13 @@ export class FormManualProcedureComponent implements OnInit {
   public pbs_type: any[];
   public status: any[];
   public procedure_cups: any[];
-  public manual_procedure_type: any[] = [];
+  public manual_procedure_type: any[] = null;
   public showSelect: Boolean = false;
   public price_type: any[] = [];
   public procedure_id;
   public showTable;
   public selectedOptions: any[];
+  public parentData;
 
 
 
@@ -62,6 +64,11 @@ export class FormManualProcedureComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.parentData = {
+      selectedOptions: [],
+      entity: '',
+      customData: '',
+    };
     if (!this.data) {
       this.data = {
         own_code: '',
@@ -73,6 +80,11 @@ export class FormManualProcedureComponent implements OnInit {
         procedure_id: '',
         manual_procedure_type_id: '',
       };
+      this.parentData.entity = 'procedure_bypackage';
+      this.parentData.customData = 'procedure_package';
+    } else {
+      this.parentData.entity = 'procedure_bypackage';
+      this.parentData.customData = 'procedure_package';
     }
 
     // this.statusBS.GetCollection().then(x => {
@@ -100,10 +112,11 @@ export class FormManualProcedureComponent implements OnInit {
     });
     await this.procedurePackageS.GetCollection({ procedure_package_id: this.data.id }).then(x => {
       if (x.length > 0 || this.data.manual_procedure_type_id == 3) {
-        // this.manual_procedure_type=x;
+        this.manual_procedure_type=[];
         x.forEach(element => {
-          this.manual_procedure_type.push(element.procedure_id);
+          this.manual_procedure_type.push(element);
         });
+        this.parentData.selectedOptions = this.manual_procedure_type;
         this.showTable = true;
       } else {
         this.showTable = false;
@@ -234,8 +247,11 @@ export class FormManualProcedureComponent implements OnInit {
             };
             this.selectedOptions.forEach(element => {
               dta.procedure_package_id = id;
-              dta.procedure_id = element;
-              this.procedurePackageS.Save(dta).then(x => {
+              dta.procedure_id = JSON.stringify(element);
+              this.procedurePackageS.Save({
+                procedure_package_id: id,
+                procedure_id: JSON.stringify(element),
+              }).then(x => {
               }).catch(x => {
                 err++;
               });

@@ -9,25 +9,25 @@
           status="{{ isSubmitted && form.controls.billing_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.billing_id }}" *ngFor="let item of billing_id" [value]="item.id">
-            {{ item.num_evidence }} - {{item.provider_name}}</nb-option>
+            {{ item.num_evidence }} - {{item.company.name}}</nb-option>
         </nb-select>
       </div>
-
       <div class="col-12 col-sm-12 col-md-6">
-        <label for="product_id" class="form-text text-muted font-weight-bold">Nombre producto:</label>
-        <nb-select [selected]="this.data.product_id" formControlName="product_id" id="product_id" fullWidth
-          status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <label for="billing_stock_id" class="form-text text-muted font-weight-bold">Nombre producto:</label>
+        <nb-select [selected]="this.data.billing_stock_id" formControlName="billing_stock_id" id="billing_stock_id" fullWidth
+        (selectedChange)="ProdSelect($event)"
+          status="{{ isSubmitted && form.controls.billing_stock_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == data.product_id }}" *ngFor="let item of product_id" [value]="item.id">
-            {{ item.name }}</nb-option>
+          <nb-option selected="{{ item.id == data.billing_stock_id }}" *ngFor="let item of billing_stock_id" [value]="item.id">
+            {{ item.product.name }} - {{ item.product.product_generic.description }}</nb-option>
         </nb-select>
       </div>
 
       <div class="col-12 col-sm-12 col-md-6">
-        <label for="billing_id" class="form-text text-muted font-weight-bold">Cantidad ordenada:</label>
-        <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="billing_id"
-          formControlName="billing_id" billing_id [value]="this.billing_amount_order" disabled="true"
-          status="{{ isSubmitted && form.controls.billing_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        <label for="billing_stock_id" class="form-text text-muted font-weight-bold">Cantidad ordenada:</label>
+        <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="billing_stock_id"
+          formControlName="billing_stock_id" billing_stock_id  [value]="this.bill_value" disabled="true"
+          status="{{ isSubmitted && form.controls.billing_stock_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
       </div>
 
       <div class="col-12 col-sm-12 col-md-6">
@@ -46,7 +46,7 @@
       <div class="col-12 col-sm-12 col-md-6">
         <label for="unit_value" class="form-text text-muted font-weight-bold">Valor unidad $:</label>
         <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="unit_value"
-          formControlName="unit_value" unit_value disabled="true"
+          formControlName="unit_value" unit_value
           status="{{ isSubmitted && form.controls.unit_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
       </div>
 

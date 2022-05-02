@@ -65,10 +65,10 @@ export class ServicesBriefcaseService {
       });
   }
 
-  GetByBriefcase(services_briefcase :any): Promise<ServicesBriefcase[]> {
+  GetByBriefcase(params = {},services_briefcase :any): Promise<ServicesBriefcase[]> {
     let servObj = new ServiceObject('ServiceBriefcase/ServicesByBriefcase',services_briefcase);
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj,params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

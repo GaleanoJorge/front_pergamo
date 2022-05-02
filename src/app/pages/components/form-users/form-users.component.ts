@@ -97,6 +97,8 @@ export class FormUsersComponent implements OnInit {
   public today = null;
   public previewCurriculum = null;
   public currentRoleId = null;
+  public phone_consult = false;
+  public phone_consult_amount = null;
   public showPassword = false;
   public showConfirmPassword = false;
   public contract_type: any[];
@@ -658,6 +660,9 @@ export class FormUsersComponent implements OnInit {
         formData.append('assistance_id', this.data == null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
         formData.append('localities_id', JSON.stringify(this.parentData.selectedOptions));
+        if (this.phone_consult) {
+          formData.append('phone_consult', this.phone_consult_amount);
+        }
         formData.append('contract_type_id', data.contract_type_id.value);
         // formData.append('cost_center_id', data.cost_center_id.value);
         // formData.append('type_professional_id', data.type_professional_id.value);
@@ -1026,7 +1031,18 @@ export class FormUsersComponent implements OnInit {
   }
 
   receiveMessage($event) {
-    this.parentData.selectedOptions = $event;
-
+    if ($event.phone_consult == 0) {
+      this.phone_consult = true;
+      if ($event.phone_consult_amount) {
+        this.phone_consult_amount = $event.phone_consult_amount;
+      } else {
+        this.phone_consult_amount = 0;
+      }
+    } else if ($event.phone_consult == 1) {
+      this.phone_consult = false;
+      this.phone_consult_amount = null;
+    } else {
+      this.parentData.selectedOptions = $event;
+    }
   }
 }

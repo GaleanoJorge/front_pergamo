@@ -6,7 +6,6 @@ import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 
-
 @Component({
   selector: 'ngx-product',
   templateUrl: './product.component.html',
@@ -18,8 +17,8 @@ export class ProductComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Productos';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]}`;
+  public headerFields: any[] = ['ID', 'Nombre', 'Producto'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -51,6 +50,13 @@ export class ProductComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
+      product_generic: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.description;
+        },
+      },
     },
   };
 
@@ -73,7 +79,6 @@ export class ProductComponent implements OnInit {
   }
 
   RefreshData() {
-
     this.table.refresh();
   }
 
@@ -95,19 +100,6 @@ export class ProductComponent implements OnInit {
       },
     });
   }
-
-  // ChangeState(data) {
-  //   // data.status_id = data.status_id === 1 ? 2 : 1;
-
-  //   this.toastrService.info('', 'Cambiando estado');
-
-  //   this.regionS.Update(data).then((x) => {
-  //     this.toastrService.success('', x.message);
-  //     this.table.refresh();
-  //   }).catch((x) => {
-  //     this.toastrService.danger(x.message);
-  //   });
-  // }
 
   DeleteConfirmProduct(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {

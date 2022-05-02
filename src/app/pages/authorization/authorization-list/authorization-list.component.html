@@ -2,33 +2,51 @@
   <div content>
 
     <nb-tabset fullWidth (changeTab)="reloadForm($event)">
-      <nb-tab tabTitle="A tramitar"  >
-        <ngx-base-table *ngIf = "auth_status"
-                        [title]="title" 
-                        [subtitle]="subtitle" 
-                        [settings]="settings" 
-                        entity="authorization/byStatus/0/0"
-                        customData="authorization" 
-                        [messageToltip]="messageToltip">
+      <nb-tab tabTitle="A tramitar">
+        <ngx-base-table *ngIf="auth_status" [title]="title" [subtitle]="subtitle" [settings]="settings"
+          entity="authorization/byStatus/0/0" customData="authorization" [messageToltip]="messageToltip">
           <div actions>
             <div class="actions">
-              <nb-select  (selectedChange)="ChangeGlossStatus($event)"
-              placeholder="Filtrar por estado">
-              <nb-option value="0">TODOS LOS REGISTROS</nb-option>
-              <nb-option *ngFor="let item of auth_statusM" [value]="item.id">{{item.name}}</nb-option>
-            </nb-select>
+              <nb-select (selectedChange)="FilterStatus($event)" placeholder="Filtrar por estado">
+                <nb-option value="0">TODOS LOS REGISTROS</nb-option>
+                <nb-option *ngFor="let item of auth_statusM" [value]="item.id">{{item.name}}</nb-option>
+              </nb-select>
             </div>
             <div class="actions" style="margin-top:1em;">
             </div>
           </div>
         </ngx-base-table>
+        <button nbButton status="danger" class="btn-studen-admissions" (click)="CreateXLS(confirmAction)"> Generar masivo de autorizaciones </button>
       </nb-tab>
-      <nb-tab  tabTitle="Historico" >
+      <nb-tab tabTitle="Historico">
         <div *ngIf="this.showdiv">
-          <ngx-historic-authorization (messageEvent)="null"  ></ngx-historic-authorization>
+          <ngx-historic-authorization (messageEvent)="null"></ngx-historic-authorization>
         </div>
       </nb-tab>
     </nb-tabset>
 
   </div>
 </ngx-base-list>
+
+<ng-template #confirmAction>
+  <div class="container-fluid">
+    <nb-card style="width: 430px;">
+      <nb-card-header>Generar XLS</nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="xlsForm" (ngSubmit)="saveCartera()">
+          <div>
+            <div class="col-md-12">
+              <nb-select (selectedChange)="GetResponseParam()" formControlName="state_gloss" id="state_gloss" fullWidth>
+                <nb-option value="">Seleccione...</nb-option>
+                <nb-option *ngFor="let item of company">{{item.name}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="div-send">
+            <button type="submit" nbButton status="success">Agregar</button>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ng-template>

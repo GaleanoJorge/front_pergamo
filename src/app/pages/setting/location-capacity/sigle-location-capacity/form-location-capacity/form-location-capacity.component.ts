@@ -23,6 +23,8 @@ export class FormLocationCapacityComponent implements OnInit {
   public loading: boolean = true;
   public show: boolean = false;
   public parentData;
+  public phone_consult = false;
+  public phone_consult_amount = null;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -58,8 +60,19 @@ export class FormLocationCapacityComponent implements OnInit {
   }
 
   receiveMessage($event) {
-    this.parentData.selectedOptions = $event;
-
+    if ($event.phone_consult == 0) {
+      this.phone_consult = true;
+      if ($event.phone_consult_amount) {
+        this.phone_consult_amount = $event.phone_consult_amount;
+      } else {
+        this.phone_consult_amount = 0;
+      }
+    } else if ($event.phone_consult == 1) {
+      this.phone_consult = false;
+      this.phone_consult_amount = null;
+    } else {
+      this.parentData.selectedOptions = $event;
+    }
   }
 
   close() {
@@ -94,6 +107,7 @@ export class FormLocationCapacityComponent implements OnInit {
         this.LocationCapacityS.Save({
           assistance_id: this.data.id,
           localities_id: JSON.stringify(this.parentData.selectedOptions),
+          phone_consult: this.phone_consult_amount,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
