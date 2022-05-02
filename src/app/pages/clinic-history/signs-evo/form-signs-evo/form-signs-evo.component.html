@@ -40,10 +40,10 @@
               formControlName="body_mass_index" required nbInput ngModel>
 
             <input type="number" placeholder="SISTÓLICA" class="space3" id="invoice_value"
-              formControlName="pressure_systolic" required nbInput ngModel
+              formControlName="pressure_systolic" required nbInput ngModel (change)="onChanges($event, 1)"
               status="{{ isSubmitted && form.controls.pressure_systolic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <input type="number" placeholder="DIASTÓLICA" class="space2" id="ordered_quantity"
-              formControlName="pressure_diastolic" required nbInput ngModel
+              formControlName="pressure_diastolic" required nbInput ngModel (change)="onChanges($event, 2)"
               status="{{ isSubmitted && form.controls.pressure_diastolic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <input type="number" disabled="true" placeholder="MEDIA" class="space3" id="pressure_half"
               formControlName="pressure_half" required nbInput ngModel>

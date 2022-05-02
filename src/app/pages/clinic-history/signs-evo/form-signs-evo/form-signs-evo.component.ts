@@ -47,38 +47,35 @@ export class FormsignsEvoComponent implements OnInit {
     private chvitalTemperatureS: ChVitalTemperatureService,
     private chvitalVentilatedS: ChVitalVentilatedService,
     private currency: CurrencyPipe
-  ) {
-    
-  }
-
+  ) {}
 
   checkboxesDataList = [
     {
       id: 'mydriatic',
       label: 'MINDRIÁTICA',
-      isChecked: true
+      isChecked: true,
     },
     {
       id: 'normal',
       label: 'NORMAL',
-      isChecked: true
+      isChecked: true,
     },
     {
       id: 'lazy_reaction_light',
       label: 'REACCIÓN PERESOZA ( A LA LUZ)',
-      isChecked: true
+      isChecked: true,
     },
     {
       id: 'fixed_lazy_reaction',
       label: 'REACCIÓN PERESOZA',
-      isChecked: true 
+      isChecked: true,
     },
     {
       id: 'miotic_size',
       label: 'TAMAÑO MIÓTICA',
-      isChecked: true
-    }
-  ]
+      isChecked: true,
+    },
+  ];
 
   async ngOnInit(): Promise<void> {
     if (!this.data) {
@@ -112,7 +109,7 @@ export class FormsignsEvoComponent implements OnInit {
         lazy_reaction_light: '',
         fixed_lazy_reaction: '',
         miotic_size: '',
-        observations_glucometry:'',
+        observations_glucometry: '',
         head_circunference: '',
         abdominal_perimeter: '',
         chest_perimeter: '',
@@ -135,10 +132,6 @@ export class FormsignsEvoComponent implements OnInit {
     this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then((x) => {
       this.vital_ventilated = x;
     });
-
-    this.onChanges();
-    this.onChanges();
-    this.fetchSelectedItems();
 
     this.form = this.formBuilder.group({
       clock: [this.data.clock],
@@ -200,6 +193,10 @@ export class FormsignsEvoComponent implements OnInit {
       ],
       ch_vital_neurological_id: [this.data.ch_vital_neurological_id],
     });
+
+    // this.onChanges();
+    // this.oonChanges();
+    this.fetchSelectedItems();
   }
 
   async save() {
@@ -243,11 +240,12 @@ export class FormsignsEvoComponent implements OnInit {
             left_reaction: this.form.controls.left_reaction.value,
             pupil_size_left: this.form.controls.pupil_size_left.value,
             mydriatic: this.form.controls.mydriatic.value,
-            normal:this.form.controls.normal.value,
+            normal: this.form.controls.normal.value,
             lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
             fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,
             miotic_size: this.form.controls.miotic_size.value,
-            observations_glucometry: this.form.controls.observations_glucometry.value,
+            observations_glucometry:
+              this.form.controls.observations_glucometry.value,
             ch_vital_hydration_id:
               this.form.controls.ch_vital_hydration_id.value,
             //ch_vital_ventilated_id:this.form.controls.ch_vital_ventilated_id.value,
@@ -302,11 +300,12 @@ export class FormsignsEvoComponent implements OnInit {
             left_reaction: this.form.controls.left_reaction.value,
             pupil_size_left: this.form.controls.pupil_size_left.value,
             mydriatic: this.form.controls.mydriatic.value,
-            normal:this.form.controls.normal.value,
+            normal: this.form.controls.normal.value,
             lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
             fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,
             miotic_size: this.form.controls.miotic_size.value,
-            observations_glucometry: this.form.controls.observations_glucometry.value,
+            observations_glucometry:
+              this.form.controls.observations_glucometry.value,
             ch_vital_hydration_id:
               this.form.controls.ch_vital_hydration_id.value,
             //ch_vital_ventilated_id: this.form.controls.ch_vital_ventilated_id.value,
@@ -319,11 +318,46 @@ export class FormsignsEvoComponent implements OnInit {
           })
           .then((x) => {
             this.toastService.success('', x.message);
-            this.form.setValue({ clock: '', cardiac_frequency: '', respiratory_frequency:'',temperature:'',oxigen_saturation:'',intracranial_pressure:'',cerebral_perfusion_pressure:'',intra_abdominal:'',
-            pressure_systolic:'',pressure_diastolic:'',pressure_half:'',pulse:'',venous_pressure:'',size:'',weight:'',glucometry:'',body_mass_index:'',pulmonary_systolic:'',
-            pulmonary_diastolic:'',pulmonary_half:'',head_circunference:'',abdominal_perimeter:'',chest_perimeter:'',right_reaction:'',pupil_size_right:'',left_reaction:'',pupil_size_left:'',ch_vital_hydration:'',
-            //ch_vital_ventilated:'',
-            ch_vital_temperature:'',ch_vital_neurological:'',pupillary_assessment:'',mydriatic:'',normal:'',lazy_reaction_light:'',fixed_lazy_reaction:'',miotic_size:'',observations_glucometry:'',});
+            this.form.setValue({
+              clock: '',
+              cardiac_frequency: '',
+              respiratory_frequency: '',
+              temperature: '',
+              oxigen_saturation: '',
+              intracranial_pressure: '',
+              cerebral_perfusion_pressure: '',
+              intra_abdominal: '',
+              pressure_systolic: '',
+              pressure_diastolic: '',
+              pressure_half: '',
+              pulse: '',
+              venous_pressure: '',
+              size: '',
+              weight: '',
+              glucometry: '',
+              body_mass_index: '',
+              pulmonary_systolic: '',
+              pulmonary_diastolic: '',
+              pulmonary_half: '',
+              head_circunference: '',
+              abdominal_perimeter: '',
+              chest_perimeter: '',
+              right_reaction: '',
+              pupil_size_right: '',
+              left_reaction: '',
+              pupil_size_left: '',
+              ch_vital_hydration: '',
+              //ch_vital_ventilated:'',
+              ch_vital_temperature: '',
+              ch_vital_neurological: '',
+              pupillary_assessment: '',
+              mydriatic: '',
+              normal: '',
+              lazy_reaction_light: '',
+              fixed_lazy_reaction: '',
+              miotic_size: '',
+              observations_glucometry: '',
+            });
             if (this.saved) {
               this.saved();
             }
@@ -340,54 +374,45 @@ export class FormsignsEvoComponent implements OnInit {
       }
     }
   }
-  onChanges() {
-    this.form.get('pressure_systolic').valueChanges.subscribe((val) => {
-      console.log(val);
-      if (val === '') {
-        this.pressure_systolic = '';
-        this.pressure_diastolic = '';
-      } else {
-        this.pressure_half.forEach((x) => {
-          if (x.id == event) {
-            this.pressure_systolic = this.currency.transform(x.invoice_value);
-            this.pressure_diastolic = x.ordered_quantity;
-            this.form.controls.unit_value.setValue( x.invoice_value + (2 * x.ordered_quantity) / 3
-            );
-          }
-        });
-      }
-      this.form.patchValue({
-        pressure_half: '',
-      });
-    });
+  onChanges(event, id) {
+    if (
+      this.form.controls.pressure_systolic.value &&
+      this.form.controls.pressure_systolic.value != '' &&
+      this.form.controls.pressure_diastolic.value &&
+      this.form.controls.pressure_diastolic.value != ''
+    ) {
+      var sys = this.form.controls.pressure_systolic.value;
+      var dias = this.form.controls.pressure_diastolic.value;
+      this.form.controls.pressure_half.setValue((sys + 2 * dias) / 3);
+    } else {
+      this.form.controls.pressure_half.setValue('');
+    }
   }
-  oonChanges() {
-    this.form.get('weight').valueChanges.subscribe((val) => {
-      console.log(val);
-      if (val === '') {
-        this.weight = '';
-        this.size = '';
-      } else {
-        this.body_mass_index.forEach((x) => {
-          if (x.id == event) {
-            this.weight = this.currency.transform(x.invoice_value);
-            this.size = x.ordered_quantity;
-            this.form.controls.unit_value.setValue( x.invoice_value / (2 * x.ordered_quantity) 
-            );
-          }
-        });
-      }
-      this.form.patchValue({
-        body_mass_index: '',
-      });
-    });
+  oonChanges(event) {
+    // this.form.get('weight').valueChanges.subscribe((val) => {
+    //   if (val === '') {
+    //     this.weight = '';
+    //     this.size = '';
+    //   } else {
+    //     console.log(val);
+    //     // this.body_mass_index.forEach((x) => {
+    //     //   if (x.id == event) {
+    //     //     this.weight = this.currency.transform(x.invoice_value);
+    //     //     this.size = x.ordered_quantity;
+    //     //     this.form.controls.unit_value.setValue( x.invoice_value / (2 * x.ordered_quantity)
+    //     //     );
+    //     //   }
+    //     // });
+    //   }
+    //   // this.form.patchValue({
+    //   //   body_mass_index: '',
+    //   // });
+    // });
   }
 
   fetchSelectedItems() {
     this.selectedItemsList = this.checkboxesDataList.filter((value, index) => {
-      return value.isChecked
+      return value.isChecked;
     });
   }
-  
 }
-
