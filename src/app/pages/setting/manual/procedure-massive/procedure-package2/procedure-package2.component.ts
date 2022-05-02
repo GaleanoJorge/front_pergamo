@@ -24,7 +24,7 @@ export class ProcedurePackage2Component implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Información de paquete';
   public subtitle;
-  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Cantidad mínima', 'Cantidad máxima', ''];
+  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Cantidad mínima', 'Cantidad máxima', 'Valor dinámico'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -88,9 +88,9 @@ export class ProcedurePackage2Component implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, data) => {
           if (value) {
-            return '-CON COBRO DINAMICO-';
+            return '-CON COBRO DINÁMICO-';
           } else {
-            return '-SIN COBRO DINAMICO-';
+            return '-SIN COBRO DINÁMICO-';
           }
         },
       },
