@@ -1,29 +1,28 @@
-<form [formGroup]="form" (ngSubmit)="save()">
+<form [formGroup]="form">
   <div class="row">
     <!-- NORTON -->
     <fieldset class="field_set">
       <legend class="prue1 center">ESCALA DE NORTON</legend>
       <div class="row justify-content-md">
-        <div class="col col-lg-3">
-          <label class="form-text text-muted font-weight-bold text-justify">Estado Físico General
+        <div class="col col-lg-2">
+          <label class="form-text text-muted font-weight-bold">Estado Físico General
           </label>
         </div>
-        <div class="col col-lg-9">
-          <nb-radio-group formControlName="physical_state" physical_state id="physical_state" class="d-flex"
-            name="physical_state"
+        <div class="col col-lg-2">
+          <nb-radio-group formControlName="physical_state" physical_state id="physical_state" name="physical_state"
             status="{{ isSubmitted && form.controls.physical_state.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value=4>Bueno</nb-radio>
-            <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value=3>Mediano </nb-radio>
-            <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value=2>Regular</nb-radio>
-            <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value=1>Muy malo</nb-radio>
+            <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value="4">Bueno</nb-radio>
+            <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value="3">Mediano </nb-radio>
+            <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value="2">Regular</nb-radio>
+            <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value="1">Muy malo</nb-radio>
           </nb-radio-group>
         </div>
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold align">Estado Mental
           </label>
         </div>
-        <div class="col col-lg-9">
-          <nb-radio-group formControlName="state_mind" state_mind id="state_mind" class="d-flex" name="state_mind"
+        <div class="col col-lg-2">
+          <nb-radio-group formControlName="state_mind" state_mind id="state_mind" name="state_mind"
             status="{{ isSubmitted && form.controls.state_mind.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,2,1)" value=4>Alerta</nb-radio>
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,2,1)" value=3>Apático </nb-radio>
@@ -31,12 +30,12 @@
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,2,1)" value=1>Estuporoso</nb-radio>
           </nb-radio-group>
         </div>
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold align">Movilidad
           </label>
         </div>
-        <div class="col col-lg-9">
-          <nb-radio-group formControlName="mobility" mobility id="mobility" class="d-flex" name="mobility"
+        <div class="col col-lg-2">
+          <nb-radio-group formControlName="mobility" mobility id="mobility" name="mobility"
             status="{{ isSubmitted && form.controls.mobility.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,3,1)" value=4>Completa</nb-radio>
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,3,1)" value=3>Limitada Ligeramente </nb-radio>
@@ -44,12 +43,21 @@
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,3,1)" value=1>Inmóvil</nb-radio>
           </nb-radio-group>
         </div>
-        <div class="col col-lg-3">
+
+        <div class="container">
+          <div class="row justify-content-md-center">
+            <div class="col col-lg-6">
+              <hr />
+            </div>
+          </div>
+        </div>
+
+        <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold align">Actividad
           </label>
         </div>
-        <div class="col col-lg-9">
-          <nb-radio-group formControlName="activity" activity id="activity" class="d-flex" name="activity"
+        <div class="col col-lg-2">
+          <nb-radio-group formControlName="activity" activity id="activity" name="activity"
             status="{{ isSubmitted && form.controls.activity.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,4,1)" value=4>Ambulante</nb-radio>
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,4,1)" value=3>Camina con Ayuda</nb-radio>
@@ -57,13 +65,12 @@
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,4,1)" value=1>Encamado</nb-radio>
           </nb-radio-group>
         </div>
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold align">Incontinencia
           </label>
         </div>
-        <div class="col col-lg-9">
-          <nb-radio-group formControlName="incontinence" incontinence id="incontinence" class="d-flex"
-            name="incontinence"
+        <div class="col col-lg-4">
+          <nb-radio-group formControlName="incontinence" incontinence id="incontinence" name="incontinence"
             status="{{ isSubmitted && form.controls.incontinence.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,5,1)" value=4>Ninguna</nb-radio>
             <nb-radio class="col-lg-3" (valueChange)="calculate($event,5,1)" value=3>Ocasional</nb-radio>
@@ -82,14 +89,13 @@
 
         <div class="container">
           <div class="row justify-content-md-center">
-            <div class="col col-lg-2 d-flex">
+            <div class="col col-lg-6 d-flex">
               <label class="form-text text-muted font-weight-bold align">Total
               </label>
-              <input type="text" readonly="readonly" class="ImpPeq center" id="total" value='{{totalNorton}}' fullWidth
-                disabled>
-            </div>
-            <div class="col-lg-3">
-              <input type="text" nbInput [value]="risk_norton" id="risk" fullWidth disabled />
+              <input type="text" formControlName="totalNorton" readonly="readonly" class="ImpPeq center" id="total"
+                value='{{totalNorton}}' fullWidth disabled>
+              <input type="text" nbInput formControlName="risk_norton" [value]="risk_norton" id="risk" fullWidth
+                disabled />
             </div>
           </div>
         </div>
@@ -97,7 +103,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
+              <button nbButton status="danger" class="ml-1 btn-save" (click)="save(1)" [disabled]="disabled"
                 type="submit">GUARDAR</button>
             </div>
           </div>
@@ -162,11 +168,11 @@
 
         <div class="container">
           <div class="row justify-content-md-center">
-            <div class="col col-lg-3 d-flex">
+            <div class="col col-lg-4 d-flex">
               <label class="form-text text-muted font-weight-bold align">Total
               </label>
-              <input type="text" readonly="readonly" class="ImpPeq center" id="total" value='{{totalGlasgow}}' fullWidth
-                disabled>
+              <input type="text" readonly="readonly" formControlName="totalGlasgow" class="ImpPeq center" id="total"
+                value='{{totalGlasgow}}' fullWidth disabled>
               <label class="form-text text-muted font-weight-light ">/ 15
               </label>
             </div>
@@ -174,7 +180,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-12">
-                  <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
+                  <button nbButton status="danger" class="ml-1 btn-save" (click)="save(2)" [disabled]="disabled"
                     type="submit">GUARDAR</button>
                 </div>
               </div>
@@ -347,14 +353,13 @@
 
         <div class="container">
           <div class="row justify-content-md-center">
-            <div class="col col-lg-2 d-flex">
+            <div class="col col-lg-6 d-flex">
               <label class="form-text text-muted font-weight-bold align">Puntaje
               </label>
-              <input type="text" readonly="readonly" class="ImpPeq center" id="score" value='{{totalBarthel}}' fullWidth
-                disabled>
-            </div>
-            <div class="col-md-auto">
-              <input type="text" nbInput [value]="classification" id="classification" fullWidth disabled />
+              <input type="text" readonly="readonly" formControlName="totalBarthel" class="ImpPeq center" id="score"
+                value='{{totalBarthel}}' fullWidth disabled>
+              <input type="text" nbInput formControlName="classBarthel" [value]="classBarthel" id="classification"
+                fullWidth disabled />
             </div>
           </div>
         </div>
@@ -362,7 +367,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
+              <button nbButton status="danger" class="ml-1 btn-save" (click)="save(3)" [disabled]="disabled"
                 type="submit">GUARDAR</button>
             </div>
           </div>
@@ -371,7 +376,7 @@
       </div>
     </fieldset>
 
-    <!-- PAYETTE -->
+    <!-- PAYETTE-->
     <fieldset class="field_set">
       <legend class="prue1 center">ESCALA PAYETTE</legend>
       <div class="row justify-content-md">
@@ -381,7 +386,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_one" question_one id="question_one" name="question_one"
+          <nb-radio-group formControlName="qOnePayette" question_one id="question_one" name="question_one"
             status="{{ isSubmitted && form.controls.question_one.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,1,4)" value="2">Si</nb-radio>
             <nb-radio (valueChange)="calculate($event,1,4)" value="0">No</nb-radio>
@@ -393,7 +398,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_two" question_two id="question_two" name="question_two"
+          <nb-radio-group formControlName="qTwoPayette" question_two id="question_two" name="question_two"
             status="{{ isSubmitted && form.controls.question_two.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,2,4)" value="1">Si</nb-radio>
             <nb-radio (valueChange)="calculate($event,2,4)" value="0">No</nb-radio>
@@ -410,7 +415,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_three" question_three id="question_three" name="question_three"
+          <nb-radio-group formControlName="qThreePayette" question_three id="question_three" name="question_three"
             status="{{ isSubmitted && form.controls.question_three.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,3,4)" value="1">Si</nb-radio>
             <nb-radio (valueChange)="calculate($event,3,4)" value="0">No</nb-radio>
@@ -422,7 +427,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_four" question_four id="question_four" name="question_four"
+          <nb-radio-group formControlName="qFourPayette" question_four id="question_four" name="question_four"
             status="{{ isSubmitted && form.controls.question_four.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,4,4)" value="0">Buena</nb-radio>
             <nb-radio (valueChange)="calculate($event,4,4)" value="1">Mediocre</nb-radio>
@@ -440,7 +445,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_five" question_five id="question_five" name="question_five"
+          <nb-radio-group formControlName="qFivePayette" question_five id="question_five" name="question_five"
             status="{{ isSubmitted && form.controls.question_five.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,5,4)" value="0">Con frecuencia</nb-radio>
             <nb-radio (valueChange)="calculate($event,5,4)" value="1">A veces</nb-radio>
@@ -455,7 +460,7 @@
         </div>
 
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_six" question_six id="question_six" name="question_six"
+          <nb-radio-group formControlName="qSixPayette" question_six id="question_six" name="question_six"
             status="{{ isSubmitted && form.controls.question_six.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,6,4)" value="1">Si</nb-radio>
             <nb-radio (valueChange)="calculate($event,6,4)" value="0">No</nb-radio>
@@ -471,7 +476,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_seven" question_seven id="question_seven" name="question_seven"
+          <nb-radio-group formControlName="qSevenPayette" question_seven id="question_seven" name="question_seven"
             status="{{ isSubmitted && form.controls.question_seven.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,7,4)" value="1">Si</nb-radio>
             <nb-radio (valueChange)="calculate($event,7,4)" value="0">No</nb-radio>
@@ -483,7 +488,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_eight" question_eight id="question_eight" name="question_eight"
+          <nb-radio-group formControlName="qEightPayette" question_eight id="question_eight" name="question_eight"
             status="{{ isSubmitted && form.controls.question_eight.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,8,4)" value="1">Si</nb-radio>
             <nb-radio (valueChange)="calculate($event,8,4)" value="0">No</nb-radio>
@@ -500,7 +505,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_nine" question_nine id="question_nine" name="question_nine"
+          <nb-radio-group formControlName="qNinePayette" question_nine id="question_nine" name="question_nine"
             status="{{ isSubmitted && form.controls.question_nine.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,9,4)" value="1">Si</nb-radio>
             <nb-radio (valueChange)="calculate($event,9,4)" value="0">No</nb-radio>
@@ -512,7 +517,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_ten" question_ten id="question_ten" name="question_ten"
+          <nb-radio-group formControlName="qTenPayette" question_ten id="question_ten" name="question_ten"
             status="{{ isSubmitted && form.controls.question_ten.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,10,4)" value="1">Si</nb-radio>
             <nb-radio (valueChange)="calculate($event,10,4)" value="0">No</nb-radio>
@@ -526,37 +531,37 @@
             </div>
           </div>
         </div>
-
-        <div class="container">
-          <div class="row justify-content-md-center">
-            <div class="col col-lg-2 d-flex">
-              <label class="form-text text-muted font-weight-bold text-justify">Calificación
-              </label>
-              <input type="text" readonly="readonly" class="ImpPeq center" id="classification" value='{{totalPayette}}'
-                fullWidth disabled>
-            </div>
-            <div class="col-lg-2">
-              <input type="text" nbInput [value]="riskPayette" id="risk" fullWidth disabled />
-            </div>
-            <div class="col-lg-3">
-              <textarea class="form-text col col-lg-12" [value]="recommendations" id="recommendations" nbInput fullWidth
-                rows="3" cols="20"
-                status="{{ isSubmitted && form.controls.definition.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-                disabled> </textarea>
-            </div>
-          </div>
-        </div>
-
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
-                type="submit">GUARDAR</button>
-            </div>
-          </div>
-        </div>
-
       </div>
+
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-6 d-flex">
+            <label class="form-text text-muted font-weight-bold text-justify">Calificación
+            </label>
+            <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalPayette"
+              id="classification" value='{{totalPayette}}' fullWidth disabled>
+            <input type="text" class="ImpPeq center" nbInput [value]="riskPayette" id="risk"
+              formControlName="riskPayette" fullWidth disabled />
+          </div>
+          <div class="col col-lg-6 d-flex">
+            <textarea class="form-text" [value]="recommendations" formControlName="recommendations" id="recommendations"
+              nbInput fullWidth rows="2" cols="2"
+              status="{{ isSubmitted && form.controls.definition.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              disabled> </textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" (click)="save(4)"
+              type="submit">GUARDAR</button>
+          </div>
+        </div>
+      </div>
+
+
     </fieldset>
 
     <!-- FRAGILIDAD -->
@@ -568,7 +573,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_one" question_one id="question_one" class="d-flex text center"
+          <nb-radio-group formControlName="qOneFragility" question_one id="question_one" class="d-flex text center"
             name="question_one"
             status="{{ isSubmitted && form.controls.question_one.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,1,5)" value="1">Si</nb-radio>
@@ -581,7 +586,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_two" question_two id="question_two" class="d-flex text"
+          <nb-radio-group formControlName="qTwoFragility" question_two id="question_two" class="d-flex text"
             name="question_two"
             status="{{ isSubmitted && form.controls.question_two.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,2,5)" value="1">Si</nb-radio>
@@ -594,7 +599,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_three" question_three id="question_three" class="d-flex text"
+          <nb-radio-group formControlName="qThreeFragility" question_three id="question_three" class="d-flex text"
             name="question_three"
             status="{{ isSubmitted && form.controls.question_three.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,3,5)" value="1">Si</nb-radio>
@@ -607,7 +612,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_four" question_four id="question_four" class="d-flex text"
+          <nb-radio-group formControlName="qFourFragility" question_four id="question_four" class="d-flex text"
             name="question_four"
             status="{{ isSubmitted && form.controls.question_four.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,4,5)" value="1">Si</nb-radio>
@@ -621,7 +626,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_five" question_five id="question_five" class="d-flex text"
+          <nb-radio-group formControlName="qFiveFragility" question_five id="question_five" class="d-flex text"
             name="question_five"
             status="{{ isSubmitted && form.controls.question_five.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,5,5)" value="1">Si</nb-radio>
@@ -634,7 +639,7 @@
           </label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="question_six" question_six id="question_six" class="d-flex text"
+          <nb-radio-group formControlName="qSixFragility" question_six id="question_six" class="d-flex text"
             name="question_six"
             status="{{ isSubmitted && form.controls.question_six.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio (valueChange)="calculate($event,6,5)" value="1">Si</nb-radio>
@@ -652,14 +657,12 @@
 
         <div class="container">
           <div class="row justify-content-md-center">
-            <div class="col col-lg-2 d-flex">
+            <div class="col col-lg-6 d-flex">
               <label class="form-text text-muted font-weight-bold text-justify">Puntaje
               </label>
-              <input type="text" readonly="readonly" class="ImpPeq center" id="total" value='{{totalFragility}}'
+              <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalFragility" id="total" value='{{totalFragility}}'
                 fullWidth disabled>
-            </div>
-            <div class="col-lg-auto">
-              <input type="text" nbInput [value]="classificationFragility" id="classification" fullWidth disabled />
+              <input type="text" nbInput [value]="classFragility" formControlName="classFragility" id="classification" fullWidth disabled />
             </div>
           </div>
         </div>
@@ -667,7 +670,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
+              <button nbButton status="danger" class="ml-1 btn-save" (click)="save(5)" [disabled]="disabled"
                 type="submit">GUARDAR</button>
             </div>
           </div>
@@ -677,7 +680,7 @@
     </fieldset>
 
     <!-- NEWS -->
-    <fieldset class="field_set">
+    <!-- <fieldset class="field_set">
       <legend class="prue1 center">ESCALA NEWS</legend>
       <div class="row justify-content-md">
         <div class="col col-lg-3">
@@ -804,46 +807,48 @@
             <nb-radio (valueChange)="calculate($event,7,6)" value="3">C, V, D, I</nb-radio>
           </nb-radio-group><br />
         </div>
-
-        <div class="container">
-          <div class="row justify-content-md-center">
-            <div class="col col-lg-4">
-              <hr />
-            </div>
-          </div>
-        </div>
-
-        <div class="container">
-          <div class="row justify-content-md-center">
-            <div class="col col-lg-2 d-flex">
-              <label class="form-text text-muted font-weight-bold text-justify">Calificación
-              </label>
-              <input type="text" readonly="readonly" class="ImpPeq center" id="classification" value='{{totalNews}}'
-                fullWidth disabled>
-            </div>
-
-            <div class="col-md-2">
-              <input type="text" nbInput [value]="riskNews" id="risk" fullWidth disabled />
-            </div>
-            <div class="col-md-5">
-              <input type="text" nbInput [value]="response" id="recommendations" fullWidth disabled />
-            </div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
-                type="submit">GUARDAR</button>
-            </div>
-          </div>
-        </div>
-
       </div>
-    </fieldset>
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-4">
+            <hr />
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-2 d-flex">
+            <label class="form-text text-muted font-weight-bold text-justify">Calificación
+            </label>
+            <input type="text" readonly="readonly" class="ImpPeq center" id="classification" value='{{totalNews}}'
+              fullWidth disabled>
+          </div>
+
+          <div class="col-md-auto">
+            <input type="text" nbInput [value]="riskNews" id="risk" fullWidth disabled />
+          </div>
+          <div class="col-md-4">
+            <textarea class="form-text col col-lg-12" [value]="response" id="recommendations" nbInput fullWidth
+              formControlName="response" definition rows="3" cols="20s"
+              status="{{ isSubmitted && form.controls.definition.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              disabled> </textarea>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+          </div>
+        </div>
+      </div>
+
+
+    </fieldset> -->
 
     <!-- PaP -->
-    <fieldset class="field_set">
+    <!-- <fieldset class="field_set">
       <legend class="prue1 center">ESCALA PaP SCORE O INICE PRONÓSTICO DE SUPERVIVENCIA </legend>
       <div class="row justify-content-md">
         <div class="col col-lg-3">
@@ -966,10 +971,10 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- HAMILTON -->
-    <fieldset class="field_set">
+    <!-- <fieldset class="field_set">
       <legend class="prue1 center">ESCALA HAMILTON</legend>
       <div class="row justify-content-md">
         <div class="col col-lg-6">
@@ -1360,16 +1365,16 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- CAM -->
-    <fieldset class="field_set">
+    <!-- <fieldset class="field_set">
       <legend class="prue1 center">ESCALA CAM (CONFUSION ASSESMENT METHOD)</legend>
       <div class="row justify-content-md">
         <div class="col col-lg-4">
-          <label class="form-text text-muted font-weight-bold align">Comienzo agudo y curso
+          <label class="form-text text-muted font-weight-bold detail">Comienzo agudo y curso
             fluctuante:</label>
-          <label class="form-text text-muted font-weight-ligth align">
+          <label class="form-text text-muted font-weight-ligth detail">
             ¿Ha observado un cambio agudo en el estado mental del paciente? ¿Ha observado un cambio
             agudo en el estado mental del paciente? </label>
         </div>
@@ -1382,9 +1387,9 @@
           </nb-radio-group>
         </div>
         <div class="col col-lg-4">
-          <label class="form-text text-muted font-weight-bold align">Alteración de la
+          <label class="form-text text-muted font-weight-bold detail">Alteración de la
             atención:</label>
-          <label class="form-text text-muted font-weight-ligth align">
+          <label class="form-text text-muted font-weight-ligth detail">
             ¿El paciente se distrae con facilidad o tiene dificultad para seguir una conversación?</label>
         </div>
         <div class="col col-lg-2">
@@ -1401,9 +1406,9 @@
         </div>
 
         <div class="col col-lg-4">
-          <label class="form-text text-muted font-weight-bold align">Pensamiento
+          <label class="form-text text-muted font-weight-bold detail">Pensamiento
             desorganizado:</label>
-          <label class="form-text text-muted font-weight-ligth align">¿El paciente manifiesta ideas o conversaciones
+          <label class="form-text text-muted font-weight-ligth detail">¿El paciente manifiesta ideas o conversaciones
             incoherentes o confunde a las personas?</label>
         </div>
         <div class="col col-lg-2">
@@ -1414,9 +1419,10 @@
           </nb-radio-group>
         </div>
         <div class="col col-lg-4">
-          <label class="form-text text-muted font-weight-bold align">Alteración del nivel
+          <label class="form-text text-muted font-weight-bold detail">Alteración del nivel
             de conciencia:</label>
-          <label class="form-text text-muted font-weight-ligth align">¿Está alterado el nivel de conciencia del paciente
+          <label class="form-text text-muted font-weight-ligth detail">¿Está alterado el nivel de conciencia del
+            paciente
             (Vigilante, Letárgico,
             Estuporoso)?</label>
         </div>
@@ -1458,30 +1464,31 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- FAC -->
-    <fieldset class="field_set col-lg-12">
+    <!-- <fieldset class="field_set col-lg-12">
       <legend class="prue1 center">ESCALA FAC (VALORACIÓN FUNCIONAL DE LA MARCHA)</legend>
       <div class="row justify-content-md-center">
         <div class="col col-lg-4 ">
           <label class="form-text font-weight-bold">Clasificación:</label>
           <nb-select class="form-text" id="level" formControlName="level" placeholder="Seleccione...">
             <nb-option [value]="0">Nivel 0 - Nonambulation</nb-option>
-            <nb-option [value]="2">Nivel 1 - Deambulación funcional</nb-option>
-            <nb-option [value]="3">Nivel 2 - Hogar deambulación</nb-option>
+            <nb-option [value]="1">Nivel 1 - Deambulación funcional</nb-option>
+            <nb-option [value]="2">Nivel 2 - Hogar deambulación</nb-option>
+            <nb-option [value]="3">Nivel 3 - Alrededores de la casa o barrio</nb-option>
             <nb-option [value]="4">Nivel 4 - Deambulación independiente de la comunidad</nb-option>
-            <nb-option [value]="4">Nivel 5 - Normal deambulación</nb-option>
+            <nb-option [value]="5">Nivel 5 - Normal deambulación</nb-option>
           </nb-select>
         </div>
         <div class="row justify-content-md-center">
-        <div class="col col-lg-10 ">
-          <label class="form-text text-muted font-weight-bold text ">Definición</label>
-          <textarea class="form-text col col-lg-10" id="definition" nbInput fullWidth formControlName="definition"
-            [value]="this.defitionText" definition rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.definition.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-            disabled> </textarea>
-        </div>
+          <div class="col col-lg-10 ">
+            <label class="form-text text-muted font-weight-bold">Definición</label>
+            <textarea class="form-text col col-lg-10 detail" id="definition" nbInput fullWidth
+              formControlName="definitionFac" [value]="this.definitionFacText" definitionFac rows="3" cols="70"
+              status="{{ isSubmitted && form.controls.definitionFacText.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              disabled> </textarea>
+          </div>
         </div>
 
         <div class="container">
@@ -1494,32 +1501,33 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- CRUZ ROJA -->
-    <fieldset class="field_set col-lg-12">
+    <!-- <fieldset class="field_set col-lg-12">
       <legend class="prue1 center">ESCALA CRUZ ROJA</legend>
       <div class="row justify-content-md-center">
         <div class="col col-lg-4">
           <label class="form-text text-muted font-weight-bold">Clasificación:</label>
-          <nb-select class="form-text" id="grade" formControlName="grade" grade placeholder="Seleccione...">
-            <nb-option [value]="0">Nivel</nb-option>
-            <nb-option [value]="2">Nivel 1</nb-option>
-            <nb-option [value]="3">Nivel 2</nb-option>
+          <nb-select class="form-text" id="grade_cross" formControlName="grade_cross" placeholder="Seleccione...">
+            <nb-option [value]="0">Nivel 0</nb-option>
+            <nb-option [value]="1">Nivel 1</nb-option>
+            <nb-option [value]="2">Nivel 2</nb-option>
+            <nb-option [value]="3">Nivel 3</nb-option>
             <nb-option [value]="4">Nivel 4</nb-option>
-            <nb-option [value]="4">Nivel 5</nb-option>
+            <nb-option [value]="5">Nivel 5</nb-option>
           </nb-select>
         </div>
 
         <div class="row justify-content-md-center">
-        <div class="col col-lg-10">
-          <label class="form-text text-muted font-weight-bold text ">Definición</label>
-          <textarea class="form-text col col-lg-10" id="definition" nbInput fullWidth formControlName="definition"
-            definition rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.definition.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-            disabled> </textarea>
+          <div class="col col-lg-10">
+            <label class="form-text text-muted font-weight-bold text ">Definición</label>
+            <textarea class="form-text col col-lg-10 detail" id="definition" nbInput fullWidth
+              formControlName="definitionCross" [value]="this.definitionCrossText" definitionCross rows="3" cols="70"
+              status="{{ isSubmitted && form.controls.definitionCrossText.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              disabled> </textarea>
+          </div>
         </div>
-      </div>
 
         <div class="container">
           <div class="row">
@@ -1531,13 +1539,14 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!--KARNOFSKY  -->
-    <fieldset class="field_set col-lg-12">
+    <!-- <fieldset class="field_set col-lg-12">
       <legend class="prue1 center">ESCALA KARNOFSKY</legend>
       <div class="row justify-content-md-center">
-        <nb-radio-group class="form-text text-muted text-justify" formControlName="score" score id="score" name="score"
+        <nb-radio-group class="form-text text-muted text-justify" formControlName="scoreKarnofsky" scoreKarnofsky
+          id="score" name="score"
           status="{{ isSubmitted && form.controls.score.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-radio [value]="100">Normal, no quejas referidas, no evidencia de enfermedad. </nb-radio>
           <nb-radio [value]="90">Capaz de desarrollar actividades normales, signos y síntomas leves de enfermedad.
@@ -1576,7 +1585,8 @@
             </label>
           </div>
           <div class="col-lg-auto">
-            <input type="text" nbInput id="total" fullWidth disabled />
+            <input type="text" readonly="readonly" class="ImpPeq center" id="score"
+              value='{{this.form.controls.scoreKarnofsky.value}}' fullWidth disabled>
           </div>
         </div>
       </div>
@@ -1588,26 +1598,33 @@
           </div>
         </div>
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- ECOG -->
-    <fieldset class="field_set col-lg-12">
+    <!-- <fieldset class="field_set col-lg-12">
       <legend class="prue1 center">ESCALA ECOG (Easterm Cooperative Oncology Group)</legend>
       <div class="row justify-content-md-center">
         <div class="col col-lg-4">
           <label class="form-text text-muted font-weight-bold">Grado</label>
-          <nb-select class="form-text" id="grade" formControlName="grade" grade placeholder="Seleccione...">
+          <nb-select class="form-text" id="grade_ecog" formControlName="grade_ecog" grade_ecog
+            placeholder="Seleccione...">
             <nb-option [value]="0">Grado 0</nb-option>
-            <nb-option [value]="2">Grado 1</nb-option>
-            <nb-option [value]="3">Grado 2</nb-option>
-            <nb-option [value]="4">Grado 3</nb-option>
+            <nb-option [value]="1">Grado 1</nb-option>
+            <nb-option [value]="2">Grado 2</nb-option>
+            <nb-option [value]="3">Grado 3</nb-option>
             <nb-option [value]="4">Grado 4</nb-option>
-            <nb-option [value]="4">Grado 5</nb-option>
+            <nb-option [value]="5">Grado 5</nb-option>
           </nb-select>
         </div>
-        <div class="col-lg-6">
-          <label class="form-text text-muted font-weight-bold">ECOG</label>
-          <input type="text" class="form-text" nbInput [value]="resultCam" id="definition" fullWidth disabled />
+
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-10">
+            <label class="form-text text-muted font-weight-bold text ">Definición</label>
+            <textarea class="form-text col col-lg-10 detail" id="definition" nbInput fullWidth
+              formControlName="definitionEcog" [value]="this.definitionEcogText" definitionEcog rows="3" cols="70"
+              status="{{ isSubmitted && form.controls.definitionEcogText.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              disabled> </textarea>
+          </div>
         </div>
 
         <div class="container">
@@ -1620,10 +1637,10 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- NUTRICIONAL PEDIATRICO -->
-    <fieldset class="field_set">
+    <!-- <fieldset class="field_set">
       <legend class="prue1 center">TAMIZAJE NUTRICIONAL PEDIATRICO</legend>
       <div class="row justify-content-md">
         <div class="col col-lg-4">
@@ -1745,10 +1762,10 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- ESAS -->
-    <fieldset class="field_set">
+    <!-- <fieldset class="field_set">
       <legend class="prue1 center">ESCALA ESAS</legend>
       <div class="row justify-content-center">
         <div class="row justify-content-center">
@@ -1760,17 +1777,17 @@
               <label class="form-text font-weight-ligth ">
                 Sin dolor</label>
               <div class="btn-group btn-group-sm" role="group" formControlName="pain" id="pain"
-                aria-label="First group">
-                <button type="button" class="btn btn-outline-secondary">1</button>
-                <button type="button" class="btn btn-outline-secondary">2</button>
-                <button type="button" class="btn btn-outline-secondary">3</button>
-                <button type="button" class="btn btn-outline-secondary">4</button>
-                <button type="button" class="btn btn-outline-secondary">5</button>
-                <button type="button" class="btn btn-outline-secondary">6</button>
-                <button type="button" class="btn btn-outline-secondary">7</button>
-                <button type="button" class="btn btn-outline-secondary">8</button>
-                <button type="button" class="btn btn-outline-secondary">9</button>
-                <button type="button" class="btn btn-outline-secondary">10</button>
+                aria-label="First group" (valueChange)="updateSingleSelectGroupValue($event)">      
+                <button nbButtonToggle  value="1" class="btn btn-outline-secondary">1</button>
+                <button nbButtonToggle value="3" class="btn btn-outline-secondary">3</button>
+                <button nbButtonToggle value="2" class="btn btn-outline-secondary">2</button>
+                <button nbButtonToggle value="4" class="btn btn-outline-secondary">4</button>
+                <button nbButtonToggle value="5" class="btn btn-outline-secondary">5</button>
+                <button nbButtonToggle value="6" class="btn btn-outline-secondary">6</button>
+                <button nbButtonToggle value="7" class="btn btn-outline-secondary">7</button>
+                <button nbButtonToggle value="8" class="btn btn-outline-secondary">8</button>
+                <button nbButtonToggle value="9" class="btn btn-outline-secondary">9</button>
+                <button nbButtonToggle value="10" class="btn btn-outline-secondary">10</button>
               </div>
               <label class="form-text text-muted font-weight-ligth ">Máximo dolor</label>
             </div>
@@ -2070,10 +2087,10 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!--FLACC  -->
-    <fieldset class="field_set">
+    <!-- <fieldset class="field_set">
       <legend class="prue1 center">ESCALA FLACC</legend>
       <div class="row justify-content-md">
         <div class="col col-lg-3">
@@ -2184,10 +2201,10 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- PPI -->
-    <fieldset class="field_set">
+    <!-- <fieldset class="field_set">
       <legend class="prue1 center">ESCALA PPI</legend>
       <div class="row justify-content-md">
         <div class="col col-lg-3">
@@ -2296,10 +2313,10 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- ZARIT -->
-    <fieldset class="field_set">
+    <!-- <fieldset class="field_set">
       <legend class="prue1 center">ESCALA ZARIT</legend>
       <div class="row justify-content-md">
         <div class="col col-lg-3">
@@ -2760,26 +2777,27 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- DOLOR ADULTOS -->
-    <fieldset class="field_set col-lg-12">
+    <!-- <fieldset class="field_set col-lg-12">
       <legend class="prue1 center">ESCALA DOLOR ADULTOS</legend>
       <div class="row justify-content-center">
         <div class="btn-toolbar mb-3 example-items-col" role="toolbar" aria-label="Toolbar with button groups">
           <label class="form-text font-weight-ligth ">
             Sin Dolor</label>
-          <div class="btn-group btn-group-sm" role="group" formControlName="range" id="range" aria-label="First group">
-            <button type="button" class="btn btn-outline-secondary">1</button>
-            <button type="button" class="btn btn-outline-secondary">2</button>
-            <button type="button" class="btn btn-outline-secondary">3</button>
-            <button type="button" class="btn btn-outline-secondary">4</button>
-            <button type="button" class="btn btn-outline-secondary">5</button>
-            <button type="button" class="btn btn-outline-secondary">6</button>
-            <button type="button" class="btn btn-outline-secondary">7</button>
-            <button type="button" class="btn btn-outline-secondary">8</button>
-            <button type="button" class="btn btn-outline-secondary">9</button>
-            <button type="button" class="btn btn-outline-secondary">10</button>
+          <div class="btn-group btn-group-sm" role="group" formControlName="range_pain" id="range_pain" range_pain
+            aria-label="First group">
+            <button type="button" class="btn btn-outline-secondary"  [value]="1" >1</button>
+            <button type="button" class="btn btn-outline-secondary"  [value]="2" >2</button>
+            <button type="button" class="btn btn-outline-secondary"  [value]="3" >3</button>
+            <button type="button" class="btn btn-outline-secondary"  [value]="4" >4</button>
+            <button type="button" class="btn btn-outline-secondary"  [value]="5" >5</button>
+            <button type="button" class="btn btn-outline-secondary"  [value]="6" >6</button>
+            <button type="button" class="btn btn-outline-secondary"  [value]="7" >7</button>
+            <button type="button" class="btn btn-outline-secondary"  [value]="8" >8</button>
+            <button type="button" class="btn btn-outline-secondary"  [value]="9" >9</button>
+            <button type="button" class="btn btn-outline-secondary"  [value]="10" >10</button>
           </div>
           <label class="form-text text-muted font-weight-ligth ">Dolor intenso</label>
         </div>
@@ -2795,8 +2813,11 @@
               <div class="col col-lg-2 d-flex">
                 <label class="form-text text-muted font-weight-bold text-justify">Rango
                 </label>
-                <input type="text" readonly="readonly" class="ImpPeq center" id="total" value='{{totalZarit}}' fullWidth
-                  disabled>
+                <input type="text" readonly="readonly" class="ImpPeq center" id="range"
+                  value={{this.form.controls.range_pain.value}} fullWidth disabled>
+              </div>
+              <div class="col-md-auto">
+                <input type="text" nbInput value='{{this.form.controls.range_pain.value}}' id="detail" fullWidth disabled />
               </div>
             </div>
           </div>
@@ -2812,10 +2833,10 @@
         </div>
 
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- WONG BAKER -->
-    <fieldset class="field_set  col-lg-12">
+    <!-- <fieldset class="field_set  col-lg-12">
       <legend class="prue1 center">ESCALA WONG BAKER</legend>
       <div class="row justify-content-md-center">
         <p class="form-text text-muted">No dolor</p>
@@ -2847,22 +2868,31 @@
                   disabled>
               </div>
               <div class="col-md-auto">
-                <input type="text" nbInput [value]="classificationZarit" id="classification" fullWidth disabled />
+                <input type="text" nbInput [value]="classificationZarit" id="risk" fullWidth disabled />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </fieldset>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+          </div>
+        </div>
+      </div>
+
+    </fieldset> -->
 
     <!-- PFEIFFER -->
-    <fieldset class="field_set">
+    <!-- <fieldset class="field_set">
       <legend class="prue1 center">ESCALA PFEIFFER</legend>
       <div class="row justify-content-md">
         <div class="col col-lg-12 center">
           <nb-card>
             <nb-card-body class="example-items-col">
-              <nb-toggle labelPosition="start" value="1" formControlName="study">¿Tiene estudios?</nb-toggle>
+              <nb-toggle (click)="studyscale()" labelPosition="start" value="1" formControlName="study" id="study" study>¿Tiene estudios?</nb-toggle>
             </nb-card-body>
           </nb-card>
         </div>
@@ -3037,7 +3067,119 @@
         </div>
       </div>
 
-    </fieldset>
+    </fieldset> -->
+
+    <!-- J.H.DOWNTON -->
+    <!-- <fieldset class="field_set">
+      <legend class="prue1 center">ESCALA DE RIESGO DE CAÍDAS (J.H.DOWNTON)</legend>
+      <div class="row justify-content-md">
+
+        <div class="col col-lg-2">
+          <label class="form-text text-muted font-weight-bold align">Medicación</label>
+        </div>
+        <div class="col col-lg-2">
+          <nb-radio-group formControlName="question_two" question_two id="question_two" class="text-aling"
+            name="question_two"
+            status="{{ isSubmitted && form.controls.question_two.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio (valueChange)="calculate($event,1,15)" value="0">Ninguna</nb-radio>
+            <nb-radio (valueChange)="calculate($event,1,15)" value="1">Tranquilizantes o sedantes</nb-radio>
+            <nb-radio (valueChange)="calculate($event,1,15)" value="1">Diuréticos</nb-radio>
+            <nb-radio (valueChange)="calculate($event,1,15)" value="1">Hipotensores no diuréticos</nb-radio>
+            <nb-radio (valueChange)="calculate($event,1,15)" value="1">Antiparkinsonianos</nb-radio>
+            <nb-radio (valueChange)="calculate($event,1,15)" value="1">Antidepresivos</nb-radio>
+            <nb-radio (valueChange)="calculate($event,1,15)" value="1">Otros medicamentos </nb-radio>
+          </nb-radio-group>
+        </div>
+
+        <div class="col col-lg-2">
+          <label class="form-text text-muted font-weight-bold align">Déficit sensoriales</label>
+        </div>
+        <div class="col col-lg-2">
+          <nb-radio-group formControlName="question_three" question_three id="question_three" name="question_three"
+            status="{{ isSubmitted && form.controls.question_three.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio (valueChange)="calculate($event,2,15)" value="0">Ninguno</nb-radio>
+            <nb-radio (valueChange)="calculate($event,2,15)" value="1">Alteraciones de la vista</nb-radio>
+            <nb-radio (valueChange)="calculate($event,2,15)" value="1">Alteraciones auditivas</nb-radio>
+            <nb-radio (valueChange)="calculate($event,2,15)" value="1">Alteraciones de las extremidades causadas, por
+              ejemplo, por haber sufrido un ictus, una enfermedad neurológica, etc.</nb-radio>
+          </nb-radio-group>
+        </div>
+
+        <div class="col col-lg-2">
+          <label class="form-text text-muted font-weight-bold align">Deambulación</label>
+        </div>
+        <div class="col col-lg-2">
+          <nb-radio-group formControlName="question_five" question_five id="question_five" name="question_five"
+            status="{{ isSubmitted && form.controls.question_five.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio (valueChange)="calculate($event,3,15)" value="0">Normal</nb-radio>
+            <nb-radio (valueChange)="calculate($event,3,15)" value="1">Segura con ayuda</nb-radio>
+            <nb-radio (valueChange)="calculate($event,3,15)" value="1">Insegura con o sin ayuda</nb-radio>
+            <nb-radio (valueChange)="calculate($event,3,15)" value="1">Imposible</nb-radio>
+          </nb-radio-group>
+        </div>
+
+        <div class="container">
+          <div class="row justify-content-md-center">
+            <div class="col col-lg-12">
+              <hr />
+            </div>
+          </div>
+        </div>
+
+        <div class="col col-lg-2">
+          <label class="form-text text-muted font-weight-bold align">Estado mental</label>
+        </div>
+        <div class="col col-lg-2">
+          <nb-radio-group formControlName="question_four" question_four id="question_four" name="question_four"
+            status="{{ isSubmitted && form.controls.question_four.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio (valueChange)="calculate($event,4,15)" value="0">Orientado</nb-radio>
+            <nb-radio (valueChange)="calculate($event,4,15)" value="1">Confuso</nb-radio>
+          </nb-radio-group>
+        </div>
+
+        <div class="col col-lg-2">
+          <label class="form-text text-muted font-weight-bold align">Caídas previas</label>
+        </div>
+        <div class="col col-lg-2">
+          <nb-radio-group formControlName="question_one" question_one id="question_one" name="question_one"
+            status="{{ isSubmitted && form.controls.question_one.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio (valueChange)="calculate($event,5,15)" value="1">Si</nb-radio>
+            <nb-radio (valueChange)="calculate($event,5,15)" value="0">No</nb-radio>
+          </nb-radio-group>
+        </div>
+
+        <div class="container">
+          <div class="row justify-content-md-center">
+            <div class="col col-lg-4">
+              <hr />
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row justify-content-md-center">
+            <div class="col col-lg-2 d-flex">
+              <label class="form-text text-muted font-weight-bold align">Total
+              </label>
+              <input type="text" readonly="readonly" class="ImpPeq center" id="total" value='{{totalJhDowton}}'
+                fullWidth disabled>
+            </div>
+            <div class="col-lg-3">
+              <input type="text" nbInput [value]="riskJhDowtown" id="risk" fullWidth disabled />
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
+                type="submit">GUARDAR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset> -->
 
   </div>
 </form>

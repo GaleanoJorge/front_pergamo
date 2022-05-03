@@ -30,8 +30,8 @@ export class ChScalesService {
       });
   }
 
-  Save(ch_scales: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_scales');
+  SaveNorton(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('chScaleNorton');
     servObj.data = ch_scales;
     return this.webAPI.PostAction(servObj)
       .then(x => {
@@ -46,6 +46,54 @@ export class ChScalesService {
       });
   }
 
+  SaveGlasgow(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('chScaleGlasgow');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveBarthel(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('chScaleBarthel');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+  
+  SavePayette(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('chScalePayette');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+  
   Update(ch_scales: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_scales', ch_scales.id);
     servObj.data = ch_scales;
