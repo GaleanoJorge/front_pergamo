@@ -121,6 +121,7 @@ export class FormBriefcaseComponent implements OnInit {
           modality_id: this.form.controls.modality_id.value,
           campus_id: this.form.controls.campus_id.value,
           status_id: this.form.controls.status_id.value,
+          type_auth: this.form.controls.type_auth.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
