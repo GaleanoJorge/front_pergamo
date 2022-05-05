@@ -315,7 +315,7 @@ export class FormManagementPlanComponent implements OnInit {
           }
         }).catch(x => {
           this.isSubmitted = false;
-          this.loading = false;
+          this.loading = false
         });
       }
     }
