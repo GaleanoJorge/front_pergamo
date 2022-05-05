@@ -163,9 +163,9 @@ export class ChScalesComponent implements OnInit {
   public riskNews: string = '';
   public response: string = '';
 
-  public classificationPap: string = '';
+  public classPap: string = '';
 
-  public classificationHam: string = '';
+  public classHamilton: string = '';
 
   public resultCam: string = '';
 
@@ -173,7 +173,7 @@ export class ChScalesComponent implements OnInit {
   public calificationRed: string = '';
 
   public riskNPedriatic: string = '';
-  public classificationNPedriatic: string = '';
+  public classNPedriatic: string = '';
 
   public classificationNFlacc: string = '';
 
@@ -218,18 +218,18 @@ export class ChScalesComponent implements OnInit {
       totalGlasgow: [this.data.totalGlasgow],
 
       //Escala Barthel
-      eat:  [this.data.eat],
-      move:  [this.data.move],
-      cleanliness:  [this.data.cleanliness],
-      toilet:  [this.data.toilet],
-      shower:  [this.data.shower],
-      commute:  [this.data.commute],
-      stairs:  [this.data.stairs],
-      dress:  [this.data.dress],
-      fecal:  [this.data.fecal],
-      urine:  [this.data.urine],
-      totalBarthel:  [this.data.totalBarthel],
-      classBarthel:  [this.data.classBarthel],
+      eat: [this.data.eat],
+      move: [this.data.move],
+      cleanliness: [this.data.cleanliness],
+      toilet: [this.data.toilet],
+      shower: [this.data.shower],
+      commute: [this.data.commute],
+      stairs: [this.data.stairs],
+      dress: [this.data.dress],
+      fecal: [this.data.fecal],
+      urine: [this.data.urine],
+      totalBarthel: [this.data.totalBarthel],
+      classBarthel: [this.data.classBarthel],
 
       //Escala Payette
       qOnePayette: [this.data.qOnePayette],
@@ -256,16 +256,103 @@ export class ChScalesComponent implements OnInit {
       totalFragility: [this.data.totalFragility],
       classFragility: [this.data.classFragility],
 
+      //Escala News
+      parameter_one: [this.data.parameter_one],
+      parameter_two: [this.data.parameter_two],
+      parameter_three: [this.data.parameter_three],
+      parameter_four: [this.data.parameter_four],
+      parameter_eight: [this.data.parameter_eight],
+      parameter_six: [this.data.parameter_six],
+      parameter_five: [this.data.parameter_five],
+      parameter_seven: [this.data.parameter_seven],
+      totalNews: [this.data.totalNews],
+      riskNews: [this.data.riskNews],
+      response: [this.data.response],
 
+      //Escala Pap
+      vOnePap: [this.data.vOnePap],
+      vTwoPap: [this.data.vTwoPap],
+      vThreePap: [this.data.vThreePap],
+      vFourPap: [this.data.vFourPap],
+      vFivePap: [this.data.vFivePap],
+      vSixPap: [this.data.vSixPap],
+      totalPap: [this.data.totalPap],
+      classPap: [this.data.classPap],
 
+      //Esacala Hamilton
+      vOneHamilton: [this.data.vOneHamilton],
+      vTwoHamilton: [this.data.vTwoHamilton],
+      vThreeHamilton: [this.data.vThreeHamilton],
+      vFourHamilton: [this.data.vFourHamilton],
+      vFiveHamilton: [this.data.vFiveHamilton],
+      vSixHamilton: [this.data.vSixHamilton],
+      vSevenHamilton: [this.data.vSevenHamilton],
+      vEigthHamilton: [this.data.vEigthHamilton],
+      vNineHamilton: [this.data.vNineHamilton],
+      vTenHamilton: [this.data.vTenHamilton],
+      vElevenHamilton: [this.data.vElevenHamilton],
+      vTwelveHamilton: [this.data.vTwelveHamilton],
+      vThirteenHamilton: [this.data.vThirteenHamilton],
+      vFourteenHamilton: [this.data.vFourteenHamilton],
+      vFifteenHamilton: [this.data.vFifteenHamilton],
+      vSixteenHamilton: [this.data.vSixteenHamilton],
+      vSeventeenHamilton: [this.data.vSeventeenHamilton],
+      vEighteenHamilton: [this.data.vEighteenHamilton],
+      totalHamilton: [this.data.totalHamilton],
+      classHamilton: [this.data.classHamilton],
 
+      //Escala CAM
+      stateMindCam: [this.data.stateMindCam],
+      attentionCam: [this.data.attentionCam],
+      thoughtCam: [this.data.thoughtCam],
+      awarenessCam: [this.data.awarenessCam],
+      resultCam: [this.data.resultCam],
+
+      //Escala FAC
       level: [this.data.level],
-      grade_cross: [this.data.grade_cross],
-      definitionFac: [this.data.definitionFac],
-      definitionCross: [this.data.definitionCross],
+      definitionFacText: [this.data.definitionFacText],
+
+
+      //Escala Red Cross
+      gradeCross: [this.data.gradeCross],
+      definitionCrossText: [this.data.definitionCrossText],
+
+      //Escala Karnofsky
       scoreKarnofsky: [this.data.scoreKarnofsky],
-      definitionEcog: [this.data.definitionEcog],
+
+      //Escala ECOG
+      gradeEcog: [this.data.gradeEcog],
+      definitionEcogText: [this.data.definitionEcogText],
+
+      //Escala tamizake Nutricional pediátrico
+      score_one: [this.data.score_one],
+      score_two: [this.data.score_two],
+      score_three: [this.data.score_three],
+      score_four: [this.data.score_four],
+      totalNPedriatic: [this.data.totalNPedriatic],
+      riskNPedriatic: [this.data.riskNPedriatic],
+      classNPedriatic: [this.data.classNPedriatic],
+
+      //Escala Esas
+      pain: [this.data.pain],
+      tiredness: [this.data.tiredness],
+      retching: [this.data.retching],
+      depression: [this.data.depression],
+      anxiety: [this.data.anxiety],
+      drowsiness: [this.data.drowsiness],
+      appetite: [this.data.appetite],
+      welfare: [this.data.welfare],
+      breathing: [this.data.breathing],
+      sleep: [this.data.sleep],
+      obsEsas: [this.data.obsEsas],
+
+
+
+
       range_pain: [this.data.range_pain],
+
+
+
 
     });
     this.onChanges();
@@ -285,7 +372,7 @@ export class ChScalesComponent implements OnInit {
       }
     })
 
-    this.form.get('grade_cross').valueChanges.subscribe(val => {
+    this.form.get('gradeCross').valueChanges.subscribe(val => {
       if (val === '') {
         this.definitionCrossText = '';
       } else {
@@ -298,7 +385,7 @@ export class ChScalesComponent implements OnInit {
       }
     })
 
-    this.form.get('grade_ecog').valueChanges.subscribe(val => {
+    this.form.get('gradeEcog').valueChanges.subscribe(val => {
       if (val === '') {
         this.definitionEcogText = '';
       } else {
@@ -316,12 +403,6 @@ export class ChScalesComponent implements OnInit {
   studyscale() {
 
   }
-
-
-  updateSingleSelectGroupValue(e) {
-    console.log(e);
-  }
-
   calculate(e, orden?, type?): void {
 
     if (type == 1) {
@@ -364,7 +445,7 @@ export class ChScalesComponent implements OnInit {
       this.totalBarthel = this.num1 + this.num2 + this.num3 + this.num4 + this.num5 + this.num6 + this.num7 + this.num8 + this.num9 + this.num10;
 
       if (this.totalBarthel >= 0 && this.totalBarthel <= 20) {
-        this.classBarthel= 'Dependencia Leve';
+        this.classBarthel = 'Dependencia Leve';
 
       } else if (this.totalBarthel >= 21 && this.totalBarthel <= 60) {
         this.classBarthel = 'Dependencia Severa';
@@ -457,9 +538,9 @@ export class ChScalesComponent implements OnInit {
       this.totalPap = this.num1 + this.num2 + this.num3 + this.num4 + this.num5 + this.num6;
 
       if (this.totalPap == 0 || this.totalPap <= 5, 5) {
-        this.classificationPap = 'Probabilidad > 70% de supervivencia a los 30 días';
+        this.classPap = 'Probabilidad > 70% de supervivencia a los 30 días';
       } else {
-        this.classificationPap = 'Probabilidad entre 30-70% de supervivencia a los 30 días';
+        this.classPap = 'Probabilidad entre 30-70% de supervivencia a los 30 días';
       }
     } else if (type == 8) {
       this.num1 = orden == 1 ? Number(e) : this.num1;
@@ -485,19 +566,19 @@ export class ChScalesComponent implements OnInit {
 
 
       if (this.totalHamilton <= 7) {
-        this.classificationHam = 'No deprimido';
+        this.classHamilton = 'No deprimido';
 
       } else if (this.totalHamilton > 7 && this.totalHamilton <= 13) {
-        this.classificationHam = 'Depresión ligera/menor';
+        this.classHamilton = 'Depresión ligera/menor';
 
       } else if (this.totalHamilton > 13 && this.totalHamilton <= 18) {
-        this.classificationHam = 'Depresión moderada';
+        this.classHamilton = 'Depresión moderada';
 
       } else if (this.totalHamilton > 18 || this.totalHamilton <= 22) {
-        this.classificationHam = 'Depresión severa';
+        this.classHamilton = 'Depresión severa';
 
       } else {
-        this.classificationHam = 'Depresión muy severa';
+        this.classHamilton = 'Depresión muy severa';
 
       }
     } else if (type == 9) {
@@ -523,14 +604,14 @@ export class ChScalesComponent implements OnInit {
 
       if (this.totalNPedriatic > 4 && this.totalNPedriatic <= 5) {
         this.riskNPedriatic = 'Riesgo alto';
-        this.classificationNPedriatic = 'Interconsulta a Nutrición para un diagnóstico completo, asesoría y seguimiento Nutricional Individual.';
+        this.classNPedriatic = 'Interconsulta a Nutrición para un diagnóstico completo, asesoría y seguimiento Nutricional Individual.';
 
       } else if ((this.totalNPedriatic >= 1 && this.totalNPedriatic <= 3)) {
         this.riskNPedriatic = 'Riesgo Medio';
-        this.classificationNPedriatic = 'Considerar la Intervención nutricional, verificar el peso dos veces a la semana y evaluar el riesgo nutricional después de una semana.';
+        this.classNPedriatic = 'Considerar la Intervención nutricional, verificar el peso dos veces a la semana y evaluar el riesgo nutricional después de una semana.';
       } else {
         this.riskNPedriatic = 'Riesgo Bajo';
-        this.classificationNPedriatic = ' No es necesaria intervención, verificar peso y evaluar riesgo después de una semana.';
+        this.classNPedriatic = ' No es necesaria intervención, verificar peso y evaluar riesgo después de una semana.';
       }
 
     } else if (type == 11) {
@@ -716,7 +797,7 @@ export class ChScalesComponent implements OnInit {
           incontinence: this.form.controls.incontinence.value,
           total: this.totalNorton,
           risk: this.risk_norton,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -750,7 +831,7 @@ export class ChScalesComponent implements OnInit {
           verbal: this.form.controls.verbal.value,
           ocular: this.form.controls.ocular.value,
           total: this.totalGlasgow,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -800,11 +881,11 @@ export class ChScalesComponent implements OnInit {
           urine: this.form.controls.urine.value,
           score: this.totalBarthel,
           classification: this.classBarthel,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
-          this.form.setValue({ eat:'', move:'', cleanliness:'', toilet:'', shower:'', commute:'', stairs:'', dress:'', fecal:'', urine:'', score:'', classification: ''});
+          this.form.setValue({ eat: '', move: '', cleanliness: '', toilet: '', shower: '', commute: '', stairs: '', dress: '', fecal: '', urine: '', score: '', classification: '' });
           if (this.saved) {
             this.saved();
           }
@@ -852,11 +933,11 @@ export class ChScalesComponent implements OnInit {
           classification: this.totalPayette,
           risk: this.riskPayette,
           recommendations: this.recommendations,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
-          this.form.setValue({ question_one:'', question_two:'', question_three:'',  question_four:'', question_five:'',  question_six:'',  question_seven:'',  question_eight:'', question_nine:'',  question_ten:'',  classification:'',    risk:'',   recommendations:'',});
+          this.form.setValue({ question_one: '', question_two: '', question_three: '', question_four: '', question_five: '', question_six: '', question_seven: '', question_eight: '', question_nine: '', question_ten: '', classification: '', risk: '', recommendations: '', });
           if (this.saved) {
             this.saved();
           }
@@ -902,7 +983,7 @@ export class ChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
-          this.form.setValue({ question_one:'', question_two:'', question_three:'',  question_four:'', question_five:'',  question_six:'', total:'',    risk:'',   classification:'',});
+          this.form.setValue({ question_one: '', question_two: '', question_three: '', question_four: '', question_five: '', question_six: '', total: '', risk: '', classification: '', });
           if (this.saved) {
             this.saved();
           }
@@ -919,6 +1000,460 @@ export class ChScalesComponent implements OnInit {
       }
     }
 
+    if (escale_id == 6) {
+      this.form.controls.qTwoFragility.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.qOneFragility.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.qThreeFragility.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.qFourFragility.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.qFiveFragility.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.qSixFragility.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.totalFragility.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.classFragility.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SaveFragility({
+          question_one: this.form.controls.qTwoFragility.value,
+          question_two: this.form.controls.qOneFragility.value,
+          question_three: this.form.controls.qThreeFragility.value,
+          question_four: this.form.controls.qFourFragility.value,
+          question_five: this.form.controls.qFiveFragility.value,
+          question_six: this.form.controls.qSixFragility.value,
+          total: this.totalFragility,
+          classification: this.classFragility,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({ question_one: '', qTwoFragility: '', question_two: '', question_three: '', question_four: '', question_five: '', question_six: '', total: '', classification: '', });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
+
+    if (escale_id == 7) {
+      this.form.controls.parameter_one.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.parameter_two.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.parameter_three.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.parameter_four.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.parameter_eight.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.parameter_six.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.parameter_five.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.parameter_seven.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.totalNews.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.riskNews.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.response.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SaveNews({
+          parameter_one: this.form.controls.parameter_one.value,
+          parameter_two: this.form.controls.parameter_two.value,
+          parameter_three: this.form.controls.parameter_three.value,
+          parameter_four: this.form.controls.parameter_four.value,
+          parameter_eight: this.form.controls.parameter_eight.value,
+          parameter_six: this.form.controls.parameter_six.value,
+          parameter_five: this.form.controls.parameter_five.value,
+          parameter_seven: this.form.controls.parameter_seven.value,
+          qualification: this.totalNews,
+          risk: this.riskNews,
+          response: this.response,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({ parameter_one: '', parameter_two: '', parameter_three: '', parameter_four: '', parameter_eight: '', parameter_six: '', parameter_five: '', parameter_seven: '', qualification: '', risk: '', response: '', });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
+
+    if (escale_id == 8) {
+      this.form.controls.vOnePap.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vTwoPap.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vThreePap.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vFourPap.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vFivePap.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vSixPap.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.totalPap.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.classPap.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SavePap({
+          variable_one: this.form.controls.vOnePap.value,
+          variable_two: this.form.controls.vTwoPap.value,
+          variable_three: this.form.controls.vThreePap.value,
+          variable_four: this.form.controls.vFourPap.value,
+          variable_five: this.form.controls.vFivePap.value,
+          variable_six: this.form.controls.vSixPap.value,
+          total: this.totalPap,
+          classification: this.classPap,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({ variable_one: '', variable_two: '', variable_three: '', variable_four: '', variable_five: '', variable_six: '', total: '', classification: '', qualification: '' });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
+
+    if (escale_id == 9) {
+      this.form.controls.vOneHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vTwoHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vThreeHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vFourHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vFiveHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vSixHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vSevenHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vEigthHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vNineHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vTenHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vElevenHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vTwelveHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vThirteenHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vFourteenHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vFifteenHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vSixteenHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vSeventeenHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.vEighteenHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.totalHamilton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.classHamilton.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SaveHamilton({
+          variable_one: this.form.controls.vOneHamilton.value,
+          variable_two: this.form.controls.vTwoHamilton.value,
+          variable_three: this.form.controls.vThreeHamilton.value,
+          variable_four: this.form.controls.vFourHamilton.value,
+          variable_five: this.form.controls.vFiveHamilton.value,
+          variable_six: this.form.controls.vSixHamilton.value,
+          variable_seven: this.form.controls.vSevenHamilton.value,
+          variable_eigth: this.form.controls.vEigthHamilton.value,
+          variable_nine: this.form.controls.vNineHamilton.value,
+          variable_ten: this.form.controls.vTenHamilton.value,
+          variable_eleven: this.form.controls.vElevenHamilton.value,
+          variable_twelve: this.form.controls.vTwelveHamilton.value,
+          variable_thirteen: this.form.controls.vThirteenHamilton.value,
+          variable_fourteen: this.form.controls.vFourteenHamilton.value,
+          variable_fifteen: this.form.controls.vFifteenHamilton.value,
+          variable_sixteen: this.form.controls.vSixteenHamilton.value,
+          variable_seventeen: this.form.controls.vSeventeenHamilton.value,
+          variable_eighteen: this.form.controls.vEighteenHamilton.value,
+          total: this.totalHamilton,
+          qualification: this.classHamilton,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({
+            variable_one: '', variable_two: '', variable_three: '', variable_four: '', variable_five: '', variable_six: '', variable_seven: '',
+            variable_eigth: '', variable_nine: '', variable_ten: '', variable_eleven: '', variable_twelve: '', variable_thirteen: '', variable_fourteen: '',
+            variable_fifteen: '', variable_sixteen: '', variable_seventeen: '', variable_eighteen: '', total: '', qualification: ''
+          });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
+
+    if (escale_id == 10) {
+      this.form.controls.stateMindCam.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.attentionCam.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.thoughtCam.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.awarenessCam.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.resultCam.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SaveCam({
+          state_mind: this.form.controls.stateMindCam.value,
+          attention: this.form.controls.attentionCam.value,
+          thought: this.form.controls.thoughtCam.value,
+          awareness: this.form.controls.awarenessCam.value,
+          classification: this.resultCam,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({ state_mind: '', attention: '', thought: '', awareness: '', classification: '' });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
+
+    if (escale_id == 11) {
+      this.form.controls.level.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.definitionFacText.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SaveFac({
+          level: this.form.controls.level.value,
+          definition: this.definitionFacText,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({ level: '', definition: '' });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
+
+    if (escale_id == 12) {
+      this.form.controls.gradeCross.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.definitionCrossText.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SaveRedCross({
+          grade: this.form.controls.gradeCross.value,
+          definition: this.definitionCrossText,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({ grade: '', definition: '' });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
+
+    if (escale_id == 13) {
+      this.form.controls.scoreKarnofsky.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SaveKarnofsky({
+          score: this.form.controls.scoreKarnofsky.value,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({ scoreKarnofsky: '', });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
+
+    if (escale_id == 14) {
+      this.form.controls.gradeEcog.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.definitionEcogText.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SaveEcog({
+          grade: this.form.controls.gradeEcog.value,
+          definition: this.definitionEcogText,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({ grade: '', definition: '', });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
+
+    if (escale_id == 15) {
+      this.form.controls.score_one.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.score_two.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.score_three.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.score_four.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.totalNPedriatic.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.riskNPedriatic.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.classNPedriatic.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SavePNutrition({
+          score_one: this.form.controls.score_one.value,
+          score_two: this.form.controls.score_two.value,
+          score_three: this.form.controls.score_three.value,
+          score_four: this.form.controls.score_four.value,
+          total: this.totalNPedriatic,
+          risk: this.riskNPedriatic,
+          classification: this.classNPedriatic,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({ score_one: '', score_two: '', score_three: '', score_four: '', total: '', risk: '', classification: '', });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
+
+    if (escale_id == 16) {
+      this.form.controls.pain.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.tiredness.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.retching.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.depression.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.anxiety.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.drowsiness.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.appetite.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.welfare.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.breathing.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.sleep.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.obsEsas.setValidators(Validators.compose([Validators.required]));
+      this.loading = true;
+      this.showTable = false;
+      if (!this.form.invalid) {
+        await this.chScalesS.SaveEsas({
+          pain: this.form.controls.pain.value,
+          tiredness: this.form.controls.tiredness.value,
+          retching: this.form.controls.retching.value,
+          depression: this.form.controls.depression.value,
+          anxiety: this.form.controls.anxiety.value,
+          drowsiness: this.form.controls.drowsiness.value,
+          appetite: this.form.controls.appetite.value,
+          welfare: this.form.controls.welfare.value,
+          breathing: this.form.controls.breathing.value,
+          sleep: this.form.controls.sleep.value,
+          observation: this.form.controls.obsEsas.value,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.form.setValue({ pain: '', tiredness: '', retching: '', depression: '', anxiety: '', drowsiness: '', appetite: '', welfare: '', breathing: '', sleep: '', observation: '' });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
+            this.isSubmitted = false;
+            this.loading = false;
+          }
+
+        });
+      }
+    }
     // this.form.controls.physical_state.setValidators(Validators.compose([Validators.required]));
     // this.form.controls.physical_state.clearValidators();
     // this.form.controls.physical_state.setErrors(null);
