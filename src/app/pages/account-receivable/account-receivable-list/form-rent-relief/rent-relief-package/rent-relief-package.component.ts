@@ -31,7 +31,7 @@ export class RentReliefPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'ALIVIOS DE RENTA: ';
   public subtitle = 'Alivios:';
-  public headerFields: any[] = ['ALIVIO', 'PAGO','ARCHIVO SOPORTE'];
+  public headerFields: any[] = ['TIPO DE ALIVIO','ALIVIO', 'PAGO','ARCHIVO SOPORTE'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -88,12 +88,16 @@ export class RentReliefPackageComponent implements OnInit {
         },
         renderComponent: SelectRentReliefPackageComponent,
       },
-      name: {
+      type: {
         title: this.headerFields[0],
         type: 'string',
       },
-      amount: {
+      name: {
         title: this.headerFields[1],
+        type: 'string',
+      },
+      amount: {
+        title: this.headerFields[2],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -112,7 +116,7 @@ export class RentReliefPackageComponent implements OnInit {
         renderComponent: AmountRentReliefPackageComponent,
       },
       file: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var with_file = false;
@@ -141,8 +145,15 @@ export class RentReliefPackageComponent implements OnInit {
 
   public settings_show = {
     columns: {
-      name: {
+      type: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.source_retention_type.type;
+        },
+      },
+      name: {
+        title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (!this.done) {
@@ -157,17 +168,19 @@ export class RentReliefPackageComponent implements OnInit {
         },
       },
       value: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return this.currency.transform(row.value);
         },
       },
       file: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var path = environment.storage + row.file;
+          this.selectedOptions.push(row);
+          this.messageEvent.emit(this.selectedOptions);
           return {
             'data': row,
             'procedence': this.parentData.procedence,

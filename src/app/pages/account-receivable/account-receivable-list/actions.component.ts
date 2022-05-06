@@ -17,7 +17,7 @@ import { ViewCell } from 'ng2-smart-table';
           (click)="value.view(value.data)">
           <nb-icon icon="eye-outline"></nb-icon>
       </button>
-      <div *ngIf="value.data.gross_value_activities > 50 && value.data.has_retention == 0">
+      <div *ngIf="value.data.gross_value_activities > 5000000 && value.data.has_retention == 0">
           <button nbTooltip="Alivios de Renta" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost
               (click)="value.rent(value.data)">
               <nb-icon icon="trending-down-outline"></nb-icon>
