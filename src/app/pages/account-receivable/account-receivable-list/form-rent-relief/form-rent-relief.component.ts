@@ -58,30 +58,30 @@ export class FormRentReliefComponent implements OnInit {
   public Ingreso_laboral_gravado_en_UVT = 0;
   public Retencion_por_aplicar = 0;
 
-  public gross_value_activities_format;
-  public salud_format;
-  public arl_format;
-  public pension_format;
-  public ingresos_no_constitutivos_format;
-  public sub_total_1_format;
-  public deduc1_format;
-  public deduc2_format;
-  public deduc3_format;
-  public total_deduc_format;
-  public sub_total_2_format;
-  public rent1_format;
-  public rent2_format;
-  public rent3_format;
-  public total_renta_format;
-  public sub_total_3_format;
-  public Renta_de_Trabajo_Exenta_format;
-  public sub_total_4_format;
-  public Cifra_control1_format;
-  public Cifra_control2_format;
-  public Cifra_control3_format;
-  public Ingreso_Base_format;
-  public Ingreso_laboral_gravado_en_UVT_format;
-  public Retencion_por_aplicar_format;
+  public gross_value_activities_format = this.currency.transform(0);
+  public salud_format = this.currency.transform(0);
+  public arl_format = this.currency.transform(0);
+  public pension_format = this.currency.transform(0);
+  public ingresos_no_constitutivos_format = this.currency.transform(0);
+  public sub_total_1_format = this.currency.transform(0);
+  public deduc1_format = this.currency.transform(0);
+  public deduc2_format = this.currency.transform(0);
+  public deduc3_format = this.currency.transform(0);
+  public total_deduc_format = this.currency.transform(0);
+  public sub_total_2_format = this.currency.transform(0);
+  public rent1_format = this.currency.transform(0);
+  public rent2_format = this.currency.transform(0);
+  public rent3_format = this.currency.transform(0);
+  public total_renta_format = this.currency.transform(0);
+  public sub_total_3_format = this.currency.transform(0);
+  public Renta_de_Trabajo_Exenta_format = this.currency.transform(0);
+  public sub_total_4_format = this.currency.transform(0);
+  public Cifra_control1_format = this.currency.transform(0);
+  public Cifra_control2_format = this.currency.transform(0);
+  public Cifra_control3_format = this.currency.transform(0);
+  public Ingreso_Base_format = this.currency.transform(0);
+  public Ingreso_laboral_gravado_en_UVT_format = 0;
+  public Retencion_por_aplicar_format = this.currency.transform(0);
 
   public selectedOptions: any[] = [];
 
@@ -146,9 +146,11 @@ export class FormRentReliefComponent implements OnInit {
   }
 
   applySourceRetention() {
-    this.salud = this.data.gross_value_activities * 0.04 < this.data.minimum_salary.value ? 0 : this.data.gross_value_activities * 0.04;
-    this.arl = this.data.gross_value_activities * 0.01 < this.data.minimum_salary.value ? 0 : this.data.gross_value_activities * 0.01;
-    this.pension = this.data.gross_value_activities * 0.04 < this.data.minimum_salary.value ? 0 : this.data.gross_value_activities * 0.04;
+    if (this.data.gross_value_activities >= this.data.minimum_salary.value) {
+      this.salud = this.data.gross_value_activities * 0.04;
+      this.arl = this.data.gross_value_activities * 0.01;
+      this.pension = this.data.gross_value_activities * 0.04;
+    }
     this.ingresos_no_constitutivos = this.salud + this.arl + this.pension;
     this.sub_total_1 = Math.round((this.data.gross_value_activities - this.salud - this.arl - this.pension) / 1000) * 1000;
     this.selectedOptions.forEach(element => {
