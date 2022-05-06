@@ -31,8 +31,8 @@ export class TaxValueUnitService {
       });
   }
 
-  GetLatestTaxValueUnit(): Promise<TaxValueUnit[]> {
-    let servObj = new ServiceObject('tax_value_unit/get_latest_tax_value_unit');
+  GetLatestTaxValueUnit(params = {}): Promise<TaxValueUnit[]> {
+    let servObj = new ServiceObject(params ? 'tax_value_unit/get_latest_tax_value_unit/1?pagination=false' : 'tax_value_unit/get_latest_tax_value_unit/1');
 
     return this.webAPI.GetAction(servObj)
       .then(x => {
