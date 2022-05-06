@@ -4,15 +4,215 @@
     <nb-card-body>
       <div class="row">
 
-        <div *ngIf="show_table" style="margin-top: 10px;">
+        <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-12">
+          <label class="form-text text-muted font-weight-bold">DOCUMENTO PAGO SALUD Y PENSIÓN:</label>
+          <a *ngIf="this.data.file_payment" [href]="this.path_file" target="_blank">Ver documento</a>
+          <p class="parrafo" *ngIf="!this.data.file_payment">NO SE HA CARGADO DOCUMENTO</p>
+        </div>
+
+        <div *ngIf="show_table" style="margin-top: 10px;" class ="col-12 col-sm-12 col-md-12">
           <ngx-rent-relief-package (messageEvent)="receiveMessage($event)" [parentData]="parentData"></ngx-rent-relief-package>
         </div>
+
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Salario Integral:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.gross_value_activities_format}}</p>
+          </div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-12 separador"></div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Aportes obligatorios a Pension:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.pension_format}}</p>
+          </div>
+        
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Aportes obligatorios a Fondo solidaridad Pensional:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.arl_format}}</p>
+          </div>
+        
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Aportes obligatorios a salud:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.salud_format}}</p>
+          </div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Total Ingresos no constitutivos:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.ingresos_no_constitutivos_format}}</p>
+          </div>
+        
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Subtotal 1:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.sub_total_1_format}}</p>
+          </div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-12 separador"></div>
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Pago intereses de vivienda o Costo Financiero Leasing Habitacional:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.deduc1_format}}</p>
+          </div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Pagos por dependientes:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.deduc2_format}}</p>
+          </div>
+        
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Pagos Por Salud medicina prepagada:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.deduc3_format}}</p>
+          </div>
+        
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Total Deduciones:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.total_deduc_format}}</p>
+          </div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Subtotal 2:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.sub_total_2_format}}</p>
+          </div>
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-12 separador"></div>
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Aportes a Fondo de pensiones voluntarias:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.rent1_format}}</p>
+          </div>
+        
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Aportes a cuentas AFC:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.rent2_format}}</p>
+          </div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Otras rentas exentas:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.rent3_format}}</p>
+          </div>
+        
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Total Rentas Exentas:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.total_renta_format}}</p>
+          </div>
+        
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Subtotal 3:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.sub_total_3_format}}</p>
+          </div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-12 separador"></div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Renta de Trabajo Exenta (25%):</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.Renta_de_Trabajo_Exenta_format}}</p>
+          </div>
+        
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Subtotal 4:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.sub_total_4_format}}</p>
+          </div>
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-12 separador"></div>
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Cifra control 40% Deducciones y rentas exentas:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.Cifra_control1_format}}</p>
+          </div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >En todo caso el Maximo permitido es de 420 UVT Articulo 1.2.4.1.6 Decreto 1625 de 2016:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.Cifra_control2_format}}</p>
+          </div>
+        
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >En todo caso el Maximo permitido es de 420 UVT Articulo 1.2.4.1.6 Decreto 1625 de 2016:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.Cifra_control3_format}}</p>
+          </div>
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-12 separador"></div>
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Ingreso Laboral Mensual Base para Retención en la Fuente:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.Ingreso_Base_format}}</p>
+          </div>
+
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Ingreso laboral gravado en UVT:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.Ingreso_laboral_gravado_en_UVT_format}}</p>
+          </div>
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-12 separador"></div>
+        
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-8">
+            <p class="parrafo" >Retención en la fuente a practicar:</p>
+          </div>
+          <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-4">
+            <p class="parrafo" >{{this.Retencion_por_aplicar_format}}</p>
+          </div>
+        
 
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
       <button nbButton (click)="close()" type="button">Cancelar</button>
-      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">{{this.button_save}}</button>
     </nb-card-footer>
   </nb-card>
 </form>
