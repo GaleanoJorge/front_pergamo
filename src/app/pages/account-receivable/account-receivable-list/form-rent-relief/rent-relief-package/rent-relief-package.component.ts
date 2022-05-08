@@ -156,14 +156,6 @@ export class RentReliefPackageComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (!this.done) {
-            this.selectedOptions = this.parentData.selectedOptions;
-            this.emit = this.parentData.selectedOptions;
-            this.selectedOptions.forEach(x => {
-              this.selectedOptions2.push(x.source_retention_type_id);
-            });
-            this.done = true;
-          }
           return row.source_retention_type.name;
         },
       },
@@ -179,8 +171,6 @@ export class RentReliefPackageComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var path = environment.storage + row.file;
-          this.selectedOptions.push(row);
-          this.messageEvent.emit(this.selectedOptions);
           return {
             'data': row,
             'procedence': this.parentData.procedence,

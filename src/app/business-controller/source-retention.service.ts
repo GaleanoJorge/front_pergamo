@@ -31,6 +31,24 @@ export class SourceRetentionService {
       });
   }
 
+  GetByAccountReceivableId(id): Promise<SourceRetention[]> {
+    let servObj = new ServiceObject('source_retention/get_by_account_receivable_id', id);
+
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.source_retention = <SourceRetention[]>servObj.data.source_retention;
+
+        return Promise.resolve(this.source_retention);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(source_retention: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('source_retention');
     servObj.data = source_retention;
