@@ -58,6 +58,7 @@ export class FormRentReliefComponent implements OnInit {
   public Ingreso_Base_format = this.currency.transform(0);
   public Ingreso_laboral_gravado_en_UVT_format = 0;
   public Retencion_por_aplicar_format = this.currency.transform(0);
+  public Rete_ica_format = this.currency.transform(0);
 
   public selectedOptions: any[] = [];
 
@@ -143,6 +144,7 @@ export class FormRentReliefComponent implements OnInit {
     this.Ingreso_Base_format = this.currency.transform(this.source_retention.Ingreso_Base);
     this.Ingreso_laboral_gravado_en_UVT_format = this.source_retention.Ingreso_laboral_gravado_en_UVT;
     this.Retencion_por_aplicar_format = this.currency.transform(this.source_retention.Retencion_por_aplicar);
+    this.Rete_ica_format = this.currency.transform(this.source_retention.Rete_ica);
   }
 
 
@@ -184,7 +186,7 @@ export class FormRentReliefComponent implements OnInit {
           id: this.data.id,
           file_payment: this.data.file_payment,
           gross_value_activities: this.data.gross_value_activities,
-          net_value_activities: this.data.gross_value_activities - this.source_retention.Retencion_por_aplicar,
+          net_value_activities: this.data.gross_value_activities - (this.source_retention.Retencion_por_aplicar + this.source_retention.Rete_ica),
           user_id: this.data.user_id,
           status_bill_id: this.data.status_bill_id,
           minimum_salary_id: this.data.minimum_salary_id,
