@@ -1,0 +1,65 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="center">
+          <fieldset class="field_set">
+            <legend class="prue1">DIAGNOSTICO</legend>
+            <label for="diagnosis_id" class="font-weight-bold"></label>
+            <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
+              (change)="saveCode($event.target.value)" id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id
+              type="text" required
+              status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <datalist id="codes">
+              <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+            </datalist>
+            <label class="font-weight-bold ImpPeq">CLASE</label>
+            <nb-select [selected]="this.data.ch_diagnosis_class_id" formControlName="ch_diagnosis_class_id"
+              id="ch_diagnosis_class_id"
+              status="{{ isSubmitted && form.controls.ch_diagnosis_class_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.ch_diagnosis_class_id }}"
+                *ngFor="let item of diagnosis_class" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+            <label class="font-weight-bold ImpPeq">TIPO</label>
+            <nb-select [selected]="this.data.ch_diagnosis_type_id" formControlName="ch_diagnosis_type_id"
+              id="ch_diagnosis_type_id"
+              status="{{ isSubmitted && form.controls.ch_diagnosis_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.ch_diagnosis_type_id }}" *ngFor="let item of diagnosis_type"
+                [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <label class="font-weight-bold ImpPeq"> </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="center">
+          <label for="diagnosis_id" class="font-weight-bold">OBSERVACIÓN</label>
+          <textarea id="diagnosis_observation" nbInput fullWidth formControlName="diagnosis_observation" current_illness
+            rows="3"
+            status="{{ isSubmitted && form.controls.diagnosis_observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" type="submit">GUARDAR</button>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="font-weight-bold ImpPeq"> </label>
+      </div>
+    </div>
+  </div>
+</form>

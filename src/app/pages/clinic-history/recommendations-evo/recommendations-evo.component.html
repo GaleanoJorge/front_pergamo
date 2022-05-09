@@ -1,0 +1,20 @@
+<ngx-form-recommendations-evo (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+</ngx-form-recommendations-evo>
+<div class="row">
+  <div class="col-md-12">
+    <label class="font-weight-bold ImpPeq">REGISTROS DE RECOMENDACIONES</label>
+  </div>
+</div>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table pager="false" [title]="title" customData="ch_recommendations_evo" [settings]="settings"
+      entity="ch_recommendations_evo/by_record/{{record_id}}/3">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
