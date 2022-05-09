@@ -1007,7 +1007,7 @@ export class FormUsersComponent implements OnInit {
     var m = (today.getMonth() + 1) - (age.getMonth() + 1);
     var Month = age.getMonth();
     var day = today.getDate() - (age.getDate() + 1);
-    if (m < 0) {
+    if (m <= 0) {
       year--;
       m = m + 12;
     }
