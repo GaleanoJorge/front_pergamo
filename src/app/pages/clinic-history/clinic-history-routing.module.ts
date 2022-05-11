@@ -32,6 +32,7 @@ const routes: Routes = [{
       path: 'ch-scales/:id',
       component: ChScalesComponent,
     }
+    
   ],
 }];
 

@@ -1,0 +1,34 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <label class="form-text text-muted font-weight-bold align"></label>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="center">
+          <fieldset class="field_set">
+            <legend class="prue1">RECOMENDACIONES</legend>
+
+            <label class="font-weight-bold ImpPeq">RECOMENDACIÓN</label>
+            <nb-select [selected]="this.data.recommendations_evo_id" formControlName="recommendations_evo_id"
+              id="recommendations_evo_id" (selectedChange)="onDescriptionChange($event)"
+              status="{{ isSubmitted && form.controls.recommendations_evo_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.recommendations_evo_id }}"
+                *ngFor="let item of recommendations_evo_id" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+
+            <label class="font-weight-bold ImpPeq">DESCRIPCIÓN</label>
+            <input type="text" id="treatment_days" formControlName="treatment_days" required nbInput ngModel something
+              status="{{ isSubmitted && form.controls.treatment_days.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+</form>

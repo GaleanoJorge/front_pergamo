@@ -254,6 +254,8 @@ import { FormRelationshipComponent } from './relationship/form-relationship/form
 import { ActionsCompanyComponent } from './company/actions.component';
 import { ActionsComponentEditDelete } from './company-mail/actions.component';
 import { ActionsCDComponent } from './company-document/actionsCD.component';
+import { FormHourlyFrequencyComponent } from './hourly-frequency/form-hourly-frequency/form-hourly-frequency.component';
+import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.component';
 import { ActionsDishComponent } from './diet-dish/actions-dish.component';
 import { LocalityComponent } from './locality/locality.component';
 import { FormLocalityComponent } from './locality/form-locality/form-locality.component';
@@ -568,6 +570,8 @@ import { DynamicProcedurePackageComponent } from './procedure/procedure-package/
     FormDietMenuComponent,
     DishPackageComponent,
     SelectDishComponent,
+    FormHourlyFrequencyComponent,
+    HourlyFrequencyComponent,
     LocalityComponent,
     FormLocalityComponent,
     NeighborhoodOrResidenceComponent,

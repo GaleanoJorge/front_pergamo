@@ -113,6 +113,7 @@ import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component
 import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
 import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
 import { DietMenuComponent } from './diet-menu/diet-menu.component';
+import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.component';
 import { LocalityComponent } from './locality/locality.component';
 import { NeighborhoodOrResidenceComponent } from './neighborhood/neighborhood.component';
 import { PadRiskComponent } from './pad-risk/pad-risk.component';
@@ -735,6 +736,10 @@ const routes: Routes = [{
       path: 'themes',
       component: ThemesComponent,
     },
+    {
+      path: 'hourly-frequency',
+      component: HourlyFrequencyComponent,
+    }
 
   ],
 }];

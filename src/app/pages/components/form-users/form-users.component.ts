@@ -254,6 +254,8 @@ export class FormUsersComponent implements OnInit {
       this.activities_id = localidentify.id;
     } else {
       this.activities_id = null;
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+      this.form.controls.activities_id.setErrors({'incorrect': true});
     }
   }
   returnProfession(n): string {
@@ -741,9 +743,6 @@ export class FormUsersComponent implements OnInit {
     }
   }
 
-  mayus(e) {
-    e.value = e.value.toUpperCase();
-  }
 
   onChanges() {
     this.form.get('identification_type_id').valueChanges.subscribe(val => {
@@ -1009,10 +1008,24 @@ export class FormUsersComponent implements OnInit {
     var day = today.getDate() - (age.getDate() + 1);
     if (m < 0) {
       year--;
+      if(year){
+
+      }
       m = m + 12;
-    }
+    } 
+    // else if (m == 0){
+    //   if (day < 0){
+    //     day = Math.abs(day);
+    //   } else {
+
+    //   }
+    // }
     if (day < 0) {
       m--;
+      if(m < 0 ){
+        year--;
+        m = m + 12;
+      }
       if (Month == 1) {
         day = day + 28
       }
