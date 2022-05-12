@@ -11,6 +11,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 import { AuthService } from '../../../services/auth.service';
 import { FormRentReliefComponent } from './form-rent-relief/form-rent-relief.component';
+import { FormLocationCapacityComponent } from '../../setting/location-capacity/sigle-location-capacity/form-location-capacity/form-location-capacity.component';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class AccountReceivableListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'role': this.roles[0],
             'edit': this.EditAccountReceivable.bind(this),
             'rent': this.RentAccountReceivable.bind(this),
             'view': this.ViewSourceRetention.bind(this),
@@ -65,7 +67,7 @@ export class AccountReceivableListComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.firstname + value.lastname;
+          return value.firstname + ' ' + value.lastname;
         },
       },
       created_at: {
@@ -170,6 +172,7 @@ export class AccountReceivableListComponent implements OnInit {
         title: 'Editar cuenta de cobro',
         data,
         saved: this.RefreshData.bind(this),
+        capacity: this.NewSigleLocationCapacity.bind(this),
       },
     });
   }
@@ -191,6 +194,20 @@ export class AccountReceivableListComponent implements OnInit {
         title: 'Soportes de cuenta de cobro',
         data,
         procedence: 1,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+  NewSigleLocationCapacity(data) {
+    // var closeOnBackdropClick = false;
+    this.dialogFormService.open(FormLocationCapacityComponent, {
+      closeOnBackdropClick: false,
+      context: {
+        title: 'Editar capacidad instalada',
+        data: {
+          id: data,
+        },
+        procedence: 2,
         saved: this.RefreshData.bind(this),
       },
     });

@@ -28,6 +28,7 @@ export class FormAccountReceivableComponent implements OnInit {
   public loading: boolean = false;
   public isSubmitted: boolean = false;
   public saved: any = null;
+  public capacity: any = null;
   public previewFile = null;
   public user;
   public messageError = null;
@@ -97,6 +98,9 @@ export class FormAccountReceivableComponent implements OnInit {
       this.close();
       if (this.saved) {
         this.saved();
+      }
+      if (this.capacity) {
+        this.capacity(this.data.assistance_id);
       }
     } catch (response) {
       this.messageError = response;

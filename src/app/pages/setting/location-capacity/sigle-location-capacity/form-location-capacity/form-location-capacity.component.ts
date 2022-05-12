@@ -16,6 +16,7 @@ export class FormLocationCapacityComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() procedence: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -108,6 +109,7 @@ export class FormLocationCapacityComponent implements OnInit {
           assistance_id: this.data.id,
           localities_id: JSON.stringify(this.parentData.selectedOptions),
           phone_consult: this.phone_consult_amount,
+          procedence: this.procedence,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

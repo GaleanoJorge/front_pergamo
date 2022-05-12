@@ -157,6 +157,7 @@ export class SingleLocationCapacityComponent implements OnInit {
         data: {
           id: this.assistance_id,
         },
+        procedence: 1,
         saved: this.RefreshData.bind(this),
       },
     });

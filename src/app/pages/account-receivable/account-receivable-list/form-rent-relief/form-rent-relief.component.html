@@ -5,7 +5,8 @@
       <div class="row">
 
         <div *ngIf="procedence == 1" class ="col-12 col-sm-12 col-md-12">
-          <label class="form-text text-muted font-weight-bold">DOCUMENTO PAGO SALUD Y PENSIÓN:</label>
+          <label *ngIf="this.data.gross_value_activities >= this.data.minimum_salary.value" class="form-text text-muted font-weight-bold">DOCUMENTO PAGO SALUD Y PENSIÓN:</label>
+          <label *ngIf="!(this.data.gross_value_activities >= this.data.minimum_salary.value)" class="form-text text-muted font-weight-bold">DOCUMENTO CERTIFICADO AFILIACIÓN EPS:</label>
           <a *ngIf="this.data.file_payment" [href]="this.path_file" target="_blank">Ver documento</a>
           <p class="parrafo" *ngIf="!this.data.file_payment">NO SE HA CARGADO DOCUMENTO</p>
         </div>

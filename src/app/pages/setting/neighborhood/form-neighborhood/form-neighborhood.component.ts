@@ -75,6 +75,7 @@ export class FormNeighborhoodOrResidenceComponent implements OnInit {
         this.locality = x;
       });
       this.data = {
+        id: this.data.id,
         country_id: this.data.locality.municipality.region.country_id,
         region_id: this.data.locality.municipality.region_id,
         municipality_id: this.data.locality.municipality_id,

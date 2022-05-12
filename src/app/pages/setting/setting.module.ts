@@ -627,6 +627,9 @@ import { DynamicProcedurePackageComponent } from './procedure/procedure-package/
     CurrencyPipe
   ],
   bootstrap: [],
+  exports: [
+    FormLocationCapacityComponent,
+  ],
 })
 export class SettingModule {
 }
