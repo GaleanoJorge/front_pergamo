@@ -59,14 +59,14 @@ export class TariffComponent implements OnInit {
           return value.name;
         },
       },
-      role: {
+      type_of_attention_id: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      scope_of_attention: {
+      program_id: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
