@@ -19,11 +19,9 @@ export class EvoSoapComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'ID',
-    'SUBJETIVO',
-    'OBJETIVO',
-    'ANÁLISIS',
-    'PLAN',
+    'Id',
+    'Subjetivo',
+    'Objetivo',
   ];
   
   public isSubmitted: boolean = false;
@@ -52,14 +50,7 @@ export class EvoSoapComponent implements OnInit {
         title: this.headerFields[2],
         width: 'string',
       },
-      analisys: {
-        title: this.headerFields[3],
-        width: 'string',
-      },
-      plan: {
-        title: this.headerFields[4],
-        width: 'string',
-      },
+     
     },
   };
 
