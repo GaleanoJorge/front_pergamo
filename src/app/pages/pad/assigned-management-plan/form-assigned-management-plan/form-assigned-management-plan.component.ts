@@ -21,6 +21,7 @@ export class FormAssignedManagementPlanComponent implements OnInit {
   @Input() data: any = null;
   @Input() user: any = null;
   @Input() medical: boolean = false;
+  @Input() phone_consult;
   @Input() assigned: boolean;
   @Input() admissions_id: any = null;
 
@@ -155,7 +156,7 @@ export class FormAssignedManagementPlanComponent implements OnInit {
   async GetMedical(type_professional, locality_id) {
     if (!type_professional || type_professional === '') return Promise.resolve(false);
 
-    return await this.userAssigned.UserByRoleLocation(locality_id, 3, {
+    return await this.userAssigned.UserByRoleLocation(locality_id, this.phone_consult==1 ? 2 : 1, {
       roles: JSON.stringify(this.roles),
     }).then(x => {
       this.assigned_user = x;

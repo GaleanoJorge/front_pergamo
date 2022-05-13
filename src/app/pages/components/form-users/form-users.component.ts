@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IdentificationTypeBusinessService } from '../../../business-controller/identification-type-business.service';
 import { IdentificationType } from '../../../models/identification-type';
@@ -58,6 +58,10 @@ export class FormUsersComponent implements OnInit {
   @Input() redirectTo = null;
   @Input() isTeacher = null;
   @Input() isStudent = null;
+  @Input() isTH = null;
+  @Output() messageEvent = new EventEmitter<any>();
+
+
 
   public messageError = null;
   public form: FormGroup;
@@ -673,6 +677,11 @@ export class FormUsersComponent implements OnInit {
         // formData.append('PAD_patient_quantity', data.PAD_patient_quantity.value === false ? null : data.PAD_patient_quantity.value);
       }
 
+      if(this.isTH){
+        formData.append('isTH', this.isTH);
+
+      }
+
       if (data.is_judicial_branch) {
         formData.append('sectional_council_id', data.sectional_council_id.value);
         formData.append('district_id', data.district_id.value);
@@ -719,13 +728,16 @@ export class FormUsersComponent implements OnInit {
               await this.router.navigateByUrl(this.routeBack);
             else
               this.redirectTo = '/public/register/' + this.route.snapshot.params.role + '/success';
+              this.messageEvent.emit(true);
             // await this.router.navigateByUrl('/auth');
           } else {
             if (this.routeBack)
               await this.router.navigateByUrl(this.routeBack);
+              this.messageEvent.emit(true);
           }
         } else {
           await this.router.navigateByUrl(this.routeBack);
+          this.messageEvent.emit(true);
           //await this.router.navigateByUrl('/public/register/' + this.route.snapshot.params.role + '/success');
           // console.log('/public/register/' + this.route.snapshot.params.role + '/success');
         }
