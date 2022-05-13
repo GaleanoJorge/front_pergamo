@@ -277,6 +277,9 @@ import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.componen
 import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
 import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
 import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/form-pharmacy-product-request/form-pharmacy-product-request.component';
+import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
+import { TcRadicationComponent } from './tc-radication/tc-radication.component';
+import { TcBillingComponent } from './tc-billing/tc-billing.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -572,6 +575,10 @@ import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/
     
     PharmacyProductRequestComponent,
     FormPharmacyProductRequestComponent,
+
+    TcBillingComponent,
+    TcRadicationComponent,
+    TcHumanTalentComponent,
 
   ],
   providers: [

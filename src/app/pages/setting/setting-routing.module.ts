@@ -123,6 +123,9 @@ import { AuthStatusComponent } from './auth-status/auth-status.component';
 import { BillingComponent } from './billing/billing.component';
 import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
 import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
+import { TcBillingComponent } from './tc-billing/tc-billing.component';
+import { TcRadicationComponent } from './tc-radication/tc-radication.component';
+import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
 
 const routes: Routes = [{
   path: '',
@@ -285,7 +288,8 @@ const routes: Routes = [{
       path: 'contract-status',
       component: ContractStatusComponent,
 
-    },{
+    },
+    {
       path: 'auth-status',
       component: AuthStatusComponent,
 
@@ -717,6 +721,18 @@ const routes: Routes = [{
     {
       path: 'themes',
       component: ThemesComponent,
+    },
+    {
+      path: 'tc-billing',
+      component: TcBillingComponent,
+    },
+    {
+      path: 'tc-radication',
+      component: TcRadicationComponent,
+    },
+    {
+      path: 'tc-human-talent',
+      component: TcHumanTalentComponent,
     },
 
   ],
