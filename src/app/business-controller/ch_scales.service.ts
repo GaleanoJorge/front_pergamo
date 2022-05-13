@@ -30,8 +30,345 @@ export class ChScalesService {
       });
   }
 
-  Save(ch_scales: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_scales');
+  SaveNorton(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('chScaleNorton');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveGlasgow(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('chScaleGlasgow');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveBarthel(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('chScaleBarthel');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+  
+  SavePayette(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('chScalePayette');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+  SaveFragility(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_fragility');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveNews(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_news');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SavePap(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_pap');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveHamilton(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_hamilton');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveCam(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_cam');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveFac(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_fac');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveRedCross(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_red_cross');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveKarnofsky(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_karnofsky');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveEcog(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_ecog');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+  
+  SavePNutrition(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_pediatric_nutrition');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveEsas(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_esas');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+  
+  SaveFlacc(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_flacc');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+  
+  SavePpi(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_ppi');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+    
+  SaveZarit(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_zarit');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SavePain(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_pain');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveWongBaker(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_wong_baker');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  
+  SavePfeiffer(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_pfeiffer');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveJhDowton(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_jh_dowton');
     servObj.data = ch_scales;
     return this.webAPI.PostAction(servObj)
       .then(x => {
