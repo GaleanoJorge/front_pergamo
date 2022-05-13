@@ -19,7 +19,7 @@ export class DietsEvoComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['CONSISTENCIA', 'COMPONENTE - DESCRIPCIÓN','OBSERVACIONES'];
+  public headerFields: any[] = ['Oral', 'Enteral','Observaciones'];
   public movieForm: String;
 
   public isSubmitted: boolean = false;
@@ -34,6 +34,7 @@ export class DietsEvoComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+
       diet_consistency: {
         title: this.headerFields[0],
         width: 'string',
@@ -41,11 +42,11 @@ export class DietsEvoComponent implements OnInit {
           return value.name;
         },
       },
-      diet_component: {
+      enterally_diet: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name +' - '+ row.diet_component.description;
+          return value.name;
         },
       },
       observation: {

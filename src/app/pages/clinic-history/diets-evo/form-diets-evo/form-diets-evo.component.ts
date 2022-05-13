@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChDietsEvoService } from '../../../../business-controller/ch-diets-evo.service';
 import { DietComponentService } from '../../../../business-controller/diet-componet.service';
 import { DietConsistencyService } from '../../../../business-controller/diet-consistency.service';
+import { EnterallyDietService } from '../../../../business-controller/enterally-diet.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class FormDietsEvoComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public diet_component_id;
+  public enterally_diet_id;
   public diet_consistency_id;
  
 
@@ -32,7 +33,7 @@ export class FormDietsEvoComponent implements OnInit {
     private toastService: NbToastrService,
     private formBuilder: FormBuilder,
     private ChDietsEvoS: ChDietsEvoService,
-    private DietComponentS: DietComponentService,
+    private EnterallyDietS: EnterallyDietService,
     private DietConsistencyS: DietConsistencyService,
     
   ) {
@@ -41,22 +42,22 @@ export class FormDietsEvoComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     if (!this.data ) {
       this.data = {
-        diet_component_id: '',
+        enterally_diet_id: '',
         diet_consistency_id: '',
         observation:'',
         
       };
     };
 
-    this.DietComponentS.GetCollection().then(x => {
-      this.diet_component_id = x;
+    this.EnterallyDietS.GetCollection().then(x => {
+      this.enterally_diet_id = x;
     });
     this.DietConsistencyS.GetCollection().then(x => {
       this.diet_consistency_id = x;
     });
    
     this.form = this.formBuilder.group({
-      diet_component_id: [this.data.diet_component_id, Validators.compose([Validators.required])],
+      enterally_diet_id: [this.data.enterally_diet_id, Validators.compose([Validators.required])],
       diet_consistency_id: [this.data.diet_consistency_id, Validators.compose([Validators.required])],
       observation: [this.data.observation, Validators.compose([Validators.required])],
     });
@@ -71,7 +72,7 @@ export class FormDietsEvoComponent implements OnInit {
       if (this.data.id) {
         await this.ChDietsEvoS.Update({
           id: this.data.id,
-          diet_component_id: this.form.controls.diet_component_id.value,
+          enterally_diet_id: this.form.controls.enterally_diet_id.value,
           diet_consistency_id: this.form.controls.diet_consistency_id.value,
           observation: this.form.controls.observation.value,
           type_record_id: 3,
@@ -88,7 +89,7 @@ export class FormDietsEvoComponent implements OnInit {
         });
       } else {
         await this.ChDietsEvoS.Save({
-          diet_component_id: this.form.controls.diet_component_id.value,
+          enterally_diet_id: this.form.controls.enterally_diet_id.value,
           diet_consistency_id: this.form.controls.diet_consistency_id.value,
           observation: this.form.controls.observation.value,
           type_record_id: 3,
@@ -96,7 +97,7 @@ export class FormDietsEvoComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ diet_component_id: '', diet_consistency_id: '', observation:'' });
+          this.form.setValue({  diet_consistency_id: '', enterally_diet_id: '', observation:'' });
           if (this.saved) {
             this.saved();
           }

@@ -127,6 +127,11 @@
       </nb-select>
     </div>
     <div class="col-12 col-sm-12 col-md-3">
+      <label class="form-text text-muted font-weight-bold align">TOTAL GESTAS PREVIAS</label>
+      <input nbInput type="number" fullWidth id="total_feats" formControlName="total_feats" total_feats
+        status="{{ isSubmitted && form.controls.total_feats.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+    </div>
+    <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">PARTOS</label>
       <input nbInput type="number" fullWidth id="childbirth_number" formControlName="childbirth_number"
         childbirth_number
@@ -182,11 +187,7 @@
         status="{{ isSubmitted && form.controls.children_died_after_the_first_week.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
 
-    <div class="col-12 col-sm-12 col-md-3">
-      <label class="form-text text-muted font-weight-bold align">TOTAL GESTAS PREVIAS</label>
-      <input nbInput type="number" fullWidth id="total_feats" formControlName="total_feats" total_feats
-        status="{{ isSubmitted && form.controls.total_feats.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-    </div>
+    
     <div class="col-12 col-sm-12 col-md-3">
       <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="misbirth_unstudied"
         formControlName="misbirth_unstudied" misbirth_unstudied

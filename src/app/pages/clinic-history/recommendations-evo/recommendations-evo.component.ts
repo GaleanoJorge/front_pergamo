@@ -3,7 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
-
+import { ChEvoSoapService } from '../../../business-controller/ch-evo-soap.service';
 @Component({
   selector: 'ngx-recommendations-evo',
   templateUrl: './recommendations-evo.component.html',
@@ -21,7 +21,11 @@ export class RecommendationsEvoComponent implements OnInit {
   public chreasonconsultation: any[];
   public chvitsigns: any[];
   public nameForm: String;
-  public headerFields: any[] = ['Nombre','Descripción',];
+  public headerFields: any[] = [
+    'Nombre',
+    'Análisis',
+    'Plan (Diagnostico, Terapeutico, de seguimiento',
+  ];
   public movieForm: String;
 
   public isSubmitted: boolean = false;
@@ -40,22 +44,24 @@ export class RecommendationsEvoComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name +'-'+ row.recommendations_evo.description;
+          return value.name + '-' + row.recommendations_evo.description;
         },
+      },
+
+      analisys: {
+        title: this.headerFields[1],
+        width: 'string',
+      },
+      plan: {
+        title: this.headerFields[2],
+        width: 'string',
       },
     },
   };
 
+  constructor(public userChangeS: UserChangeService) {}
 
-  constructor(
-    public userChangeS: UserChangeService,
-  ) {
-
-  }
-
-  async ngOnInit() {
-
-  }
+  async ngOnInit() {}
 
   RefreshData() {
     this.table.refresh();
@@ -66,5 +72,4 @@ export class RecommendationsEvoComponent implements OnInit {
       this.RefreshData();
     }
   }
-
 }

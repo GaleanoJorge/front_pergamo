@@ -1,42 +1,23 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
-    <label  class="form-text text-muted font-weight-bold align">SOAP</label>
+ 
     <div class="row">
       <div class="col-md-6">
-        <label  class="form-text text-muted font-weight-bold">SUBJETIVO </label>
-        <textarea id="subjective" nbInput fullWidth formControlName="subjective" subjective rows="4"
-          cols="50"
+        <label class="form-text text-muted font-weight-bold">SUBJETIVO </label>
+        <textarea id="subjective" nbInput fullWidth formControlName="subjective" subjective rows="4" cols="50"
           status="{{ isSubmitted && form.controls.subjective.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
       </div>
       <div class="col-md-6">
-        <label  class="form-text text-muted font-weight-bold">OBJETIVO</label>
-        <textarea id="objective" nbInput fullWidth formControlName="objective" objective rows="4"
-          cols="50"
+        <label class="form-text text-muted font-weight-bold">OBJETIVO</label>
+        <textarea id="objective" nbInput fullWidth formControlName="objective" objective rows="4" cols="50"
           status="{{ isSubmitted && form.controls.objective.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
       </div>
     </div>
 
-
     <div class="row">
-      <div class="col-md-6">
-        <label  class="form-text text-muted font-weight-bold">ANALISIS</label>
-        <textarea id="analisys" nbInput fullWidth formControlName="analisys" analisys rows="4"
-          cols="50"
-          status="{{ isSubmitted && form.controls.analisys.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
       </div>
-      <div class="col-md-6">
-        <label  class="form-text text-muted font-weight-bold">PLAN(diagnóstico, terapeutico, de
-          seguimiento)</label>
-        <textarea id="plan" nbInput fullWidth formControlName="plan" plan rows="4"
-          cols="50"
-          status="{{ isSubmitted && form.controls.plan.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
     </div>
   </div>
 </form>

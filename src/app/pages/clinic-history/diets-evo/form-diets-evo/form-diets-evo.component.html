@@ -4,10 +4,10 @@
     <div class="row">
       <div class="col-md-12">
         <div class="center">
-          <fieldset class="field_set">
+          <fieldset class="field_set col-lg-12 center">
             <legend class="prue1">DIETA RECOMENDADA</legend>
             
-            <label class="font-weight-bold ImpPeq">CONSISTENCIA DE DIETA</label>
+            <label class="font-weight-bold ImpPeq">ORAL</label>
             <nb-select [selected]="this.data.diet_consistency_id" formControlName="diet_consistency_id"
               id="diet_consistency_id"
               status="{{ isSubmitted && form.controls.diet_consistency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -16,12 +16,12 @@
                 *ngFor="let item of diet_consistency_id" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
-            <label class="font-weight-bold ImpPeq">ASIGNACIÓN DE COMPONENTES</label>
-            <nb-select [selected]="this.data.diet_component_id" formControlName="diet_component_id"
-              id="diet_component_id"
-              status="{{ isSubmitted && form.controls.diet_component_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <label class="font-weight-bold ImpPeq">ENTERAL</label>
+            <nb-select [selected]="this.data.enterally_diet_id" formControlName="enterally_diet_id"
+              id="enterally_diet_id"
+              status="{{ isSubmitted && form.controls.enterally_diet_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.diet_component_id }}" *ngFor="let item of diet_component_id"
+              <nb-option selected="{{ item.id == this.data.enterally_diet_id }}" *ngFor="let item of enterally_diet_id"
                 [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>

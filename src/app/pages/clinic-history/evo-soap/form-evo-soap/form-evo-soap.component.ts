@@ -43,16 +43,14 @@ export class FormEvoSoapComponent implements OnInit {
       this.data = {
         subjective: '',
         objective: '',
-        analisys: '',
-        plan: '',
+        
       };
     }
 
     this.form = this.formBuilder.group({
       subjective: [this.data.subjective, Validators.compose([Validators.required])],
       objective: [this.data.objective, Validators.compose([Validators.required])],
-      analisys: [this.data.analisys, Validators.compose([Validators.required])],
-      plan: [this.data.plan, Validators.compose([Validators.required])],
+     
     });
   }
 
@@ -68,8 +66,7 @@ export class FormEvoSoapComponent implements OnInit {
             id: this.data.id,
             subjective: this.form.controls.subjective.value,
             objective: this.form.controls.objective.value,
-            analisys: this.form.controls.analisys.value,
-            plan: this.form.controls.plan.value,
+         
             type_record_id: 3,
             ch_record_id: this.record_id,
           })
@@ -89,8 +86,7 @@ export class FormEvoSoapComponent implements OnInit {
           .Save({
             subjective: this.form.controls.subjective.value,
             objective: this.form.controls.objective.value,
-            analisys: this.form.controls.analisys.value,
-            plan: this.form.controls.plan.value,
+            
             type_record_id: 3,
             ch_record_id: this.record_id,
           })

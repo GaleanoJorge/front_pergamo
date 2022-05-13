@@ -3,7 +3,7 @@ import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChRecommendationsEvoService } from '../../../../business-controller/ch-recommendations-evo.service';
 import { RecommendationsEvoService } from '../../../../business-controller/recommendations_evo.service';
-
+import { ChEvoSoapService } from '../../../../business-controller/ch-evo-soap.service';
 
 @Component({
   selector: 'ngx-form-recommendations-evo',
@@ -23,6 +23,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public recommendations_evo_id : any[];;
+  public ch_evo_soap_id : any[];
  
 
 
@@ -31,6 +32,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ChRecommendationsEvoS: ChRecommendationsEvoService,
     private RecommendationsEvoS: RecommendationsEvoService,
+    private ChEvoSoapS: ChEvoSoapService,
     
   ) {
   }
@@ -39,7 +41,9 @@ export class FormRecommendationsEvoComponent implements OnInit {
     if (!this.data || this.data.length == 0) {
       this.data = {
         recommendations_evo_id: '',
-        treatment_days: '',
+        description: '',
+        analisys: '',
+        plan: '',
         
       };
     };
@@ -47,10 +51,16 @@ export class FormRecommendationsEvoComponent implements OnInit {
     this.RecommendationsEvoS.GetCollection().then(x => {
       this.recommendations_evo_id = x; //variable que trae toda la info de la tabla
     });
+    this.ChEvoSoapS.GetCollection().then(x => {
+      this.ch_evo_soap_id = x;
+    });
+
    
     this.form = this.formBuilder.group({
       recommendations_evo_id: [this.data.recommendations_evo_id, Validators.compose([Validators.required])],
-      treatment_days: [this.data.treatment_days],
+      description: [this.data.description],
+      analisys: [this.data.analisys, Validators.compose([Validators.required])],
+      plan: [this.data.plan, Validators.compose([Validators.required])],
  
     });
   }
@@ -65,6 +75,8 @@ export class FormRecommendationsEvoComponent implements OnInit {
         await this.ChRecommendationsEvoS.Update({
           id: this.data.id,
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
+          analisys: this.form.controls.analisys.value,
+          plan: this.form.controls.plan.value,
           type_record_id: 3,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -81,6 +93,8 @@ export class FormRecommendationsEvoComponent implements OnInit {
         await this.ChRecommendationsEvoS.Save({
           id: this.data.id, 
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
+          analisys: this.form.controls.analisys.value,
+          plan: this.form.controls.plan.value,
           type_record_id: 3,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -101,7 +115,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
   onDescriptionChange(event) {
     this.recommendations_evo_id.forEach(x => {
       if (x.id == event) {
-        this.form.controls.treatment_days.setValue(x.description);
+        this.form.controls.description.setValue(x.description);
       }
     });
   }
