@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChTypeGynecologistsService } from '../../../../../business-controller/ch_type_gynecologists.service';
 import { ChPlanningGynecologistsService } from '../../../../../business-controller/ch_planning_gynecologists.service';
 import { ChExamGynecologistsService } from '../../../../../business-controller/ch_exam_gynecologists.service';
@@ -154,8 +154,9 @@ export class FormBackGynecoComponent implements OnInit {
       pregnancy_status: [this.data.pregnancy_status,],
       gestational_age: [this.data.gestational_age,],
       date_childbirth: [this.data.date_childbirth,],
-      menarche_years: [this.data.menarche_years,],
-      last_menstruation: [this.data.last_menstruation,],
+      menarche_years: [this.data.menarche_years, Validators.compose([Validators.required]),
+    ],
+      last_menstruation: [this.data.last_menstruation,Validators.compose([Validators.required]),],
       time_menstruation: [this.data.time_menstruation,],
       duration_menstruation: [this.data.duration_menstruation,],
       date_last_cytology: [this.data.date_last_cytology,],

@@ -145,7 +145,7 @@ export class ClinicHistoryListComponent implements OnInit {
         title: this.headerFields[10],
         type: 'date',
         valuePrepareFunction: (value, row) => {
-          if (value == '0000-00-00 00:00:00' && this.cont != 1) {
+          if (value == '0000-00-00 00:00' && this.cont != 1) {
             this.date_end = false;
             this.cont = + 1;
           } else if (this.cont == 0) {
@@ -292,10 +292,12 @@ export class ClinicHistoryListComponent implements OnInit {
         this.show = 6;
         break;
       }
-      case "RESULTADOS": {
+    
+      case "FALLIDA": {
         this.show = 7;
         break;
       }
+      
       case "SALIDA": {
         this.show = 8;
         break;
