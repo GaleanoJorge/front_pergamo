@@ -10,6 +10,7 @@ import { SpecialtyService } from '../../../../business-controller/specialty.serv
 import { RoleAttentionService } from '../../../../business-controller/role-attention.service';
 import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
 import { ProductGenericService } from '../../../../business-controller/product-generic.service';
+import { AdministrationRouteService } from '../../../../business-controller/administration-route.service';
 
 
 @Component({
@@ -40,9 +41,13 @@ export class FormManagementPlanComponent implements OnInit {
   public type_auth = 1;
   public phone_consult = false;
   public show=false;
+  public showTemp=false;
   public product_gen: any[];
   public product_id;
   public configForm;
+  public route_of_administration;
+  public localidentify;
+  public showUser=true;
   
   //   this.status = x;
 
@@ -59,6 +64,7 @@ export class FormManagementPlanComponent implements OnInit {
     private userAssigned: UserBusinessService,
     private roleAttentionS: RoleAttentionService,
     private ProductGenS: ProductGenericService,
+    private AdministrationRouteS: AdministrationRouteService,
     private serviceBriefcaseS: ServicesBriefcaseService
   ) {
   }
@@ -96,6 +102,11 @@ export class FormManagementPlanComponent implements OnInit {
       });
     }
 
+
+    
+    this.AdministrationRouteS.GetCollection().then(x => {
+      this.route_of_administration = x;
+    });
     this.serviceBriefcaseS.GetByBriefcase({type:'2'},this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
       this.product_gen = x;
     });
@@ -119,7 +130,7 @@ export class FormManagementPlanComponent implements OnInit {
         frequency_id: [this.data.frequency_id,],
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
         specialty_id: [this.data.specialty_id],
-        assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
+        assigned_user_id: [this.data.assigned_user_id,Validators.compose([Validators.required])],
         procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
         product_id: [this.data.product_id],
         start_date: [this.data.start_date],
@@ -127,9 +138,12 @@ export class FormManagementPlanComponent implements OnInit {
         preparation: [this.data.preparation],
         route_of_administration: [this.data.route_of_administration],
         blend: [this.data.blend],
+        observation: [this.data.observation],
         administration_time: [this.data.administration_time,],
         start_hours: [this.data.start_hours],
-        
+        number_doses: [this.data.number_doses],
+        dosage_administer: [this.data.dosage_administer],
+        product_gen: [this.data.product_gen],
         }
         this.form = this.formBuilder.group(this.configForm);
       this.onChanges();
@@ -168,7 +182,10 @@ export class FormManagementPlanComponent implements OnInit {
                 this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
               }
             }).catch(e => {
+              this.showUser=false;
+              this.form.controls.assigned_user_id.setErrors(null);
               this.toastService.danger(e, 'Error');
+
             });
           }
         }).catch(e => {
@@ -177,10 +194,43 @@ export class FormManagementPlanComponent implements OnInit {
 
         if(val==17){
           this.show= true;
+          this.form.controls.start_date.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.preparation.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.route_of_administration.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.blend.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.observation.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.administration_time.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.start_hours.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.number_doses.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.dosage_administer.setValidators(Validators.compose([Validators.required]));
       
           
-        }else{
+        }else if(val==13 || val==12){
+          this.showTemp=true;
           this.show= false;
+          this.form.controls.start_date.setValidators(null);
+          this.form.controls.preparation.setValidators(null);
+          this.form.controls.route_of_administration.setValidators(null);
+          this.form.controls.blend.setValidators(null);
+          this.form.controls.observation.setValidators(null);
+          this.form.controls.administration_time.setValidators(null);
+          this.form.controls.start_hours.setValidators(null);
+          this.form.controls.number_doses.setValidators(null);
+          this.form.controls.dosage_administer.setValidators(null);
+        }
+        else{
+          this.show= false;
+          this.showTemp= false;
+
+          this.form.controls.start_date.setValidators(null);
+          this.form.controls.preparation.setValidators(null);
+          this.form.controls.route_of_administration.setValidators(null);
+          this.form.controls.blend.setValidators(null);
+          this.form.controls.observation.setValidators(null);
+          this.form.controls.administration_time.setValidators(null);
+          this.form.controls.start_hours.setValidators(null);
+          this.form.controls.number_doses.setValidators(null);
+          this.form.controls.dosage_administer.setValidators(null);
         }
       }
     });
@@ -241,7 +291,7 @@ export class FormManagementPlanComponent implements OnInit {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
-      if (this.medical == false) {
+      if (this.medical == false && this.assigned_user) {
         var selectes_assistance_id;
         this.assigned_user.forEach(user => {
           if (user.id === this.form.value.assigned_user_id) {
@@ -271,6 +321,9 @@ export class FormManagementPlanComponent implements OnInit {
           blend: this.form.controls.blend.value,
           administration_time: this.form.controls.administration_time.value,
           start_hours: this.form.controls.start_hours.value,
+          observation: this.form.controls.observation.value,
+          number_doses: this.form.controls.number_doses.value,
+          dosage_administer: this.form.controls.dosage_administer.value,
           authorized_amount: this.data.authorization.authorized_amount,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -282,7 +335,47 @@ export class FormManagementPlanComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
-      } else {
+      } else if(this.form.controls.assigned_user_id.value==null) {
+        this.managementPlanS.Save({
+          isnewrequest:1,
+          type_of_attention_id: this.form.controls.type_of_attention_id.value,
+          frequency_id: this.form.controls.frequency_id.value,
+          quantity: this.form.controls.quantity.value,
+          specialty_id: this.form.controls.specialty_id.value,
+          assigned_user_id: this.form.controls.assigned_user_id.value,
+          admissions_id: this.admissions_id,
+          procedure_id: this.procedure_id,
+          assistance_id: selectes_assistance_id,
+          locality_id: this.user.locality_id,
+          phone_consult: this.phone_consult,
+          start_date: this.form.controls.start_date.value,
+          finish_date: this.form.controls.finish_date.value,
+          medical: this.isMedical,
+          product_id: this.product_id,
+          preparation: this.form.controls.preparation.value,
+          route_of_administration: this.form.controls.route_of_administration.value,
+          blend:this.form.controls.blend.value,
+          administration_time:this.form.controls.administration_time.value,
+          start_hours:this.form.controls.start_hours.value,
+          observation: this.form.controls.observation.value,
+          number_doses: this.form.controls.number_doses.value,
+          dosage_administer: this.form.controls.dosage_administer.value,
+          type_auth: this.type_auth,
+    
+        }).then(x => {
+          this.toastService.success('', x.message);
+          if (x['message_error']) {
+            this.toastService.danger(x['message_error'], 'Error');
+          }
+          this.close();
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      }else{
         this.managementPlanS.Save({
           type_of_attention_id: this.form.controls.type_of_attention_id.value,
           frequency_id: this.form.controls.frequency_id.value,
@@ -303,7 +396,11 @@ export class FormManagementPlanComponent implements OnInit {
           blend:this.form.controls.blend.value,
           administration_time:this.form.controls.administration_time.value,
           start_hours:this.form.controls.start_hours.value,
+          observation: this.form.controls.observation.value,
+          number_doses: this.form.controls.number_doses.value,
+          dosage_administer: this.form.controls.dosage_administer.value,
           type_auth: this.type_auth,
+    
         }).then(x => {
           this.toastService.success('', x.message);
           if (x['message_error']) {
@@ -326,22 +423,26 @@ export class FormManagementPlanComponent implements OnInit {
 
     if (localidentify) {
       this.procedure_id = localidentify.id;
+      this.form.controls.procedure_id.setErrors(null);
+
     } else {
       this.procedure_id = null;
       this.type_auth = null;
       this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
-
+      this.form.controls.procedure_id.setErrors({'incorrect': true});
     }
   }
 
   saveCode1(e): void {
-    var localidentify = this.product_gen.find(item => item.manual_price.name == e);
+    this.localidentify = this.product_gen.find(item => item.manual_price.name == e);
 
-    if (localidentify) {
-      this.product_id = localidentify.id;
+    if ( this.localidentify) {
+      this.product_id =  this.localidentify.id;
+      this.form.controls.product_gen.setErrors(null);
     } else {
       this.product_id = null;
       this.toastService.warning('', 'Debe seleccionar un Medicamento de la lista');
+      this.form.controls.product_gen.setErrors({'incorrect': true});
 
     }
   }

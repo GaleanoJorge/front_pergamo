@@ -18,6 +18,7 @@ import { TypeChPhysicalExam } from '../../../models/ch-type-ch-physical-exam';
 import { PatientService } from '../../../business-controller/patient.service';
 import { rowDataBound } from '@syncfusion/ej2/grids';
 import { type } from 'os';
+import { ActionsSemaphore2Component } from './actions-semaphore.component';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -38,7 +39,7 @@ export class ManagementPlanComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = '';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Cantidad autorizada', 'Ejecutado'];
+  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Cantidad autorizada', 'Ejecutado','Incumplidas'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -63,6 +64,16 @@ export class ManagementPlanComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      semaphore: {
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsSemaphore2Component,
+      },
       actions: {
         title: 'Acciones',
         type: 'custom',
@@ -97,6 +108,13 @@ export class ManagementPlanComponent implements OnInit {
       quantity: {
         title: this.headerFields[2],
         type: 'string',
+        valuePrepareFunction(value,row) {
+          if(row.type_of_attention_id==17){
+            return row.number_doses;
+          }else{
+            return value;
+          }
+        },
       },
       authorization: {
         title: this.headerFields[4],
@@ -125,6 +143,15 @@ export class ManagementPlanComponent implements OnInit {
           } else {
             return row.created - value;
           }
+        },
+      },
+      incumplidas: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+         
+            return  value;
+          
         },
       },
     },
