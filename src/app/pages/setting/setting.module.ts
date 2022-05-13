@@ -298,6 +298,9 @@ import { AmountBillingComponent } from './billing/prod-billing-package/amount-bi
 import { SelectProductBillingComponent } from './billing/prod-billing-package/select-prod-billing.component';
 import { AmountProcedureComponent } from './procedure/procedure-package/amount-procedure-package.component';
 import { DynamicProcedurePackageComponent } from './procedure/procedure-package/dynamic-procedure-package.component';
+import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
+import { TcRadicationComponent } from './tc-radication/tc-radication.component';
+import { TcBillingComponent } from './tc-billing/tc-billing.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -619,7 +622,10 @@ import { DynamicProcedurePackageComponent } from './procedure/procedure-package/
 
     ProdShippingPackageComponent,
     SelectProductShippingComponent,
-    AmountShippingComponent
+    AmountShippingComponent,
+    TcBillingComponent,
+    TcRadicationComponent,
+    TcHumanTalentComponent,
 
   ],
   providers: [

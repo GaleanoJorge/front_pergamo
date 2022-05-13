@@ -127,6 +127,9 @@ import { PharmacyProductRequestComponent } from './pharmacy-product-request/phar
 import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
 import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
 import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
+import { TcBillingComponent } from './tc-billing/tc-billing.component';
+import { TcRadicationComponent } from './tc-radication/tc-radication.component';
+import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
 
 const routes: Routes = [{
   path: '',
@@ -289,7 +292,8 @@ const routes: Routes = [{
       path: 'contract-status',
       component: ContractStatusComponent,
 
-    },{
+    },
+    {
       path: 'auth-status',
       component: AuthStatusComponent,
 
@@ -740,6 +744,17 @@ const routes: Routes = [{
       path: 'hourly-frequency',
       component: HourlyFrequencyComponent,
     }
+      path: 'tc-billing',
+      component: TcBillingComponent,
+    },
+    {
+      path: 'tc-radication',
+      component: TcRadicationComponent,
+    },
+    {
+      path: 'tc-human-talent',
+      component: TcHumanTalentComponent,
+    },
 
   ],
 }];
