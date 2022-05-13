@@ -743,7 +743,8 @@ const routes: Routes = [{
     {
       path: 'hourly-frequency',
       component: HourlyFrequencyComponent,
-    }
+    },
+    {
       path: 'tc-billing',
       component: TcBillingComponent,
     },
