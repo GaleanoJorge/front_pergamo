@@ -11,8 +11,8 @@ export class AccountReceivable extends MainClass {
   user_id: User;
   gloss_ambit_id: GlossAmbit;
   status_bill_id: StatusBill;
-  total_value_activities: Double; 
+  minimum_salary_id: Double;
+  gross_value_activities: Double;
+  net_value_activities: Double;
   observation: string;
-  
-
 }

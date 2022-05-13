@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="small" >
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="name" class="form-text text-muted font-weight-bold">¿ESTÁ SEGURO QUE DESEA PAGAR ESTA CUENTA DE COBRO?</label>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Pagar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

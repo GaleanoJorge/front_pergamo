@@ -630,6 +630,9 @@ import { DynamicProcedurePackageComponent } from './procedure/procedure-package/
     FormUserComponent,
   ],
   bootstrap: [],
+  exports: [
+    FormLocationCapacityComponent,
+  ],
 })
 export class SettingModule {
 }
