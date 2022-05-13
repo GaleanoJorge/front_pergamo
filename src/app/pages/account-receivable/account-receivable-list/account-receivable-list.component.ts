@@ -12,6 +12,7 @@ import { RoleBusinessService } from '../../../business-controller/role-business.
 import { AuthService } from '../../../services/auth.service';
 import { FormRentReliefComponent } from './form-rent-relief/form-rent-relief.component';
 import { FormLocationCapacityComponent } from '../../setting/location-capacity/sigle-location-capacity/form-location-capacity/form-location-capacity.component';
+import { FormConfirmPayComponent } from './form-confirm-pay/form-confirm-pay.component';
 
 
 @Component({
@@ -50,6 +51,7 @@ export class AccountReceivableListComponent implements OnInit {
             'data': row,
             'role': this.roles[0],
             'edit': this.EditAccountReceivable.bind(this),
+            'pay': this.PayAccountReceivable.bind(this),
             'rent': this.RentAccountReceivable.bind(this),
             'view': this.ViewSourceRetention.bind(this),
           };
@@ -161,6 +163,16 @@ export class AccountReceivableListComponent implements OnInit {
     this.dialogFormService.open(FormAccountReceivableComponent, {
       context: {
         title: 'Crear nueva cuenta de cobro',
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
+  PayAccountReceivable(data) {
+    this.dialogFormService.open(FormConfirmPayComponent, {
+      context: {
+        title: 'Pagar cuenta de cobro',
+        data: data,
         saved: this.RefreshData.bind(this),
       },
     });

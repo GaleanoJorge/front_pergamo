@@ -188,7 +188,7 @@ export class FormRentReliefComponent implements OnInit {
           gross_value_activities: this.data.gross_value_activities,
           net_value_activities: this.data.gross_value_activities - (this.source_retention.Retencion_por_aplicar + this.source_retention.Rete_ica),
           user_id: this.data.user_id,
-          status_bill_id: this.data.status_bill_id,
+          status_bill_id: 2,
           minimum_salary_id: this.data.minimum_salary_id,
         }).then(x => {
           this.toastService.success('', x.message);
