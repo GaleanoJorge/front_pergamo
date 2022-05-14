@@ -25,7 +25,7 @@ export class TariffComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'TARIFAS DE MÉDICOS';
   public subtitle: string = 'TARIFAS';
-  public headerFields: any[] = ['NOMBRE', 'TARIFA', 'ROL', 'AMBITO DE ATENCIÓN', 'PRECIO'];
+  public headerFields: any[] = ['NOMBRE', 'TARIFA', 'EXTRA DOSIS', 'TELECONSULTA', 'PROGRAMA', 'HORAS ATENCIÓN', 'ESTADO', 'TIPO DE TENCIÓN', 'PRECIO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -59,22 +59,67 @@ export class TariffComponent implements OnInit {
           return value.name;
         },
       },
-      type_of_attention_id: {
+      extra_dose: {
         title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value == 1) {
+            return 'SI';
+          } else {
+            return 'NO';
+          }
+        },
+      },
+      phone_consult: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value == 1) {
+            return 'SI';
+          } else {
+            return 'NO';
+          }
+        },
+      },
+      program: {
+        title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      program_id: {
-        title: this.headerFields[3],
+      quantity: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value) {
+            if (value == 1) {
+              return value + ' HORA';
+
+            } else {
+              return value + ' HORAS';
+            }
+          } else {
+            return 'NO APLICA';
+          }
+        },
+      },
+      status: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      type_of_attention: {
+        title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
       amount: {
-        title: this.headerFields[4],
+        title: this.headerFields[8],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return this.currency.transform(value);
