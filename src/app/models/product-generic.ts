@@ -16,6 +16,8 @@ export class ProductGeneric extends MainClass {
   special_controller_medicene:number;
   code_atc: string;
   implantable: number;
+  dose: string;
+  product_dose_id: number;
   reuse_id: number;
   invasive: number;
   minimum_stock: number;
