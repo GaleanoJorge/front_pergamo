@@ -1,15 +1,13 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
-import { DietComponentService } from '../../../../business-controller/diet-componet.service';
-import { MeasurementUnitsService } from '../../../../business-controller/measurement-units.service';
-import { DietDishStockService } from '../../../../business-controller/diet-dish-stock.service';
-import { DietDishStock } from '../../../../models/diet-dish-stock';
 import { AmountShippingComponent } from './amount-shipping.component';
 import { SelectProductShippingComponent } from './select-prod-shipping.component';
-import { PharmacyInventoryService } from '../../../../business-controller/pharmacy-inventory.service';
+import { PharmacyLotStockService } from '../../../../business-controller/pharmacy-lot-stock.service';
+import { PharmacyRequestShippingService } from '../../../../business-controller/pharmacy-request-shipping.service';
+import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 
 
 @Component({
@@ -24,13 +22,11 @@ export class ProdShippingPackageComponent implements OnInit {
   @Input() parentData: any = [];
   public messageError = null;
 
-
   public InscriptionForm: FormGroup;
-  public title = 'Asignación de medicamentos: ';
-  public subtitle = 'medicamentos: ';
-  public headerFields: any[] = ['Nombre', 'Descripción generico', 'Cantidad a enviar', 'Fecha de vencimiento'];
+  public title = 'MEDICAMENTO COMERCIAL: ';
+  public subtitle = ' ';
+  public headerFields: any[] = ['PRODUCTO COMERCIAL', 'PRODUCTO GENERICO', 'CANTIDAD ACTUAL STOCK', 'CANTIDAD A ENVIAR', 'FECHA DE VENCIMIENTO'];
   public routes = [];
-  public row;
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
   public emit: any[] = [];
@@ -39,20 +35,12 @@ export class ProdShippingPackageComponent implements OnInit {
   public inscriptionstatus = 0;
   public selectedRows: any;
   public inscriptionId;
-  public campus;
   public entity;
   public customData;
 
-  public manual_price: any[] = [];
-  public package: any[] = [];
-  public type_briefcase: any[] = [];
   public component_package_id: number;
-  public filter: any[] = [];
-  public units: any[] = [];
-  public filter2;
   public done = false;
   public settings;
-
 
   public settings_supplies = {
     columns: {
@@ -62,9 +50,9 @@ export class ProdShippingPackageComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if (!this.done) {
             this.selectedOptions = this.parentData.selectedOptions;
-            this.emit = this.parentData;
+            this.emit = this.parentData.selectedOptions;
             this.parentData.selectedOptions.forEach(x => {
-              this.selectedOptions2.push(x.diet_supplies_id);
+              this.selectedOptions2.push(x.pharmacy_lot_stock_id);
             });
             this.done = true;
           }
@@ -80,23 +68,27 @@ export class ProdShippingPackageComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot.billing_stock.product.name + ' - ' + row.pharmacy_lot.billing_stock.product.factory.name;
+          return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
         },
       },
       product_generic: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot.billing_stock.product.product_generic.description;
+          return row.billing_stock.product.product_generic.description;
         },
       },
-      amount: {
+      actual_amount: {
         title: this.headerFields[2],
+        type: 'string',
+      },
+      amount: {
+        title: this.headerFields[3],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
           this.parentData.selectedOptions.forEach(x => {
-            if (x.diet_supplies_id == row.id) {
+            if (x.pharmacy_lot_stock_id == row.id) {
               amo = x.amount;
             }
           });
@@ -110,24 +102,22 @@ export class ProdShippingPackageComponent implements OnInit {
         renderComponent: AmountShippingComponent,
       },
       expiration_date: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot.expiration_date;
-        },
       }
     },
   };
 
   constructor(
     private route: ActivatedRoute,
-    private pharInvS: PharmacyInventoryService,
+    private pharProdReqS: PharmacyProductRequestService,
+
+  //  private pharReqShippS: PharmacyRequestShippingService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     private e: ElementRef
   ) {
   }
-
 
   ngOnInit(): void {
     this.component_package_id = this.route.snapshot.params.id;
@@ -136,23 +126,13 @@ export class ProdShippingPackageComponent implements OnInit {
     this.entity = this.parentData.entity;
     this.customData = this.parentData.customData;
 
-    this.routes = [
-      {
-        name: 'Insumos',
-        route: '../../component',
-      },
-      {
-        name: 'Paquete de Insumos',
-        route: '../../contract/briefcase',
-      },
-    ];
   }
 
   eventSelections(event, row) {
     if (event) {
       this.selectedOptions2.push(row.id);
       var diet = {
-        diet_supplies_id: row.id,
+        pharmacy_lot_stock_id: row.id,
         amount: 0,
       };
       this.emit.push(diet);
@@ -162,7 +142,7 @@ export class ProdShippingPackageComponent implements OnInit {
       i !== -1 && this.selectedOptions2.splice(i, 1);
       var j = 0;
       this.selectedOptions.forEach(element => {
-        if (this.selectedOptions2.includes(element.diet_supplies_id)) {
+        if (this.selectedOptions2.includes(element.pharmacy_lot_stock_id)) {
           this.emit.push(element);
         }
         j++;
@@ -177,7 +157,7 @@ export class ProdShippingPackageComponent implements OnInit {
     var i = 0;
     var mientras = this.selectedOptions;
     this.selectedOptions.forEach(element => {
-      if (element.diet_supplies_id == row.id) {
+      if (element.pharmacy_lot_stock_id == row.id) {
         mientras[i].amount = input.target.valueAsNumber;
       }
       i++
@@ -212,7 +192,7 @@ export class ProdShippingPackageComponent implements OnInit {
       this.selectedOptions.forEach(element => {
         dta.component_package_id = this.component_package_id;
         dta.component_id = element.id;
-        this.pharInvS.Save(dta).then(x => {
+        this.pharProdReqS.Save(dta).then(x => {
         }).catch(x => {
           err++;
         });
