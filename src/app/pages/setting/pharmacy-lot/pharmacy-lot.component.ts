@@ -1,10 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { NbToastrService, NbDialogService } from '@nebular/theme';
-
-import { PharmacyLotService } from '../../../business-controller/pharmacy-lot.service';
+import { NbDialogService } from '@nebular/theme';
+import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { ActionsComponent } from '../../contract/briefcase/actions.component';
 import { FormPharmacyLotComponent } from './form-pharmacy-lot/form-pharmacy-lot.component';
 
 
@@ -19,10 +17,10 @@ export class PharmacyLotComponent implements OnInit {
   public isSubmitted = false;
   public messageError = null;
 
-  public title: string = 'INGRESO DE MEDICAMENTOS';
+  public title: string = 'LOTES INGRESADOS EN ALMACEN';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'Producto', 'Cantidad', 'Lote', 'Fecha vencimiento'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
+  public headerFields: any[] = ['ID', 'PRODUCTO - FABRICANTE', 'CANTIDAD REAL', 'LOTE', 'FECHA DE VENCIMIENTO'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -39,13 +37,14 @@ export class PharmacyLotComponent implements OnInit {
         type: 'string',
       },
       product: {
-        title: this.headerFields[0],
+        title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
         },
       },
-      enter_amount: {
+
+      actual_amount: {
         title: this.headerFields[2],
         type: 'string',
       },
@@ -61,13 +60,14 @@ export class PharmacyLotComponent implements OnInit {
   };
 
   constructor(
-    private pharmacyS: PharmacyLotService,
+    private pharmacyS: PharmacyLotStockService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
   ) {
   }
 
   ngOnInit(): void {
+    console.log('algo');
   }
 
   RefreshData() {
@@ -77,15 +77,15 @@ export class PharmacyLotComponent implements OnInit {
   NewPharmacy() {
     this.dialogFormService.open(FormPharmacyLotComponent, {
       context: {
-        title: 'Crear nueva factura',
+        title: 'Crear nuevo lote',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
   receiveMessage($event) {
-    if($event==true){
-this.RefreshData();
+    if ($event == true) {
+      this.RefreshData();
     }
   }
 
