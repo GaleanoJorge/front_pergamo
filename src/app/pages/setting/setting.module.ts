@@ -329,7 +329,6 @@ import { TcBillingComponent } from './tc-billing/tc-billing.component';
     NbLayoutModule,
     NbSpinnerModule,
     NbCheckboxModule,
-    NbIconModule
   ],
   declarations: [
     AuthStatusComponent,
@@ -636,7 +635,7 @@ import { TcBillingComponent } from './tc-billing/tc-billing.component';
     FormUserComponent,
     FormLocationCapacityComponent,
   ],
-  bootstrap: []
+  bootstrap: [],
 })
 export class SettingModule {
 }
