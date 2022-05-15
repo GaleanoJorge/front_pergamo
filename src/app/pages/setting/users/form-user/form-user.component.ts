@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbDialogRef } from '@nebular/theme';
 import { RoleBusinessService } from '../../../../business-controller/role-business.service';
@@ -24,7 +24,7 @@ export class FormUserComponent implements OnInit {
   
 
   constructor(
-    protected dialogRef: NbDialogRef<any>,
+    @Optional() protected dialogRef: NbDialogRef<any>,
     private route: ActivatedRoute,
     private roleS: RoleBusinessService) {
   }

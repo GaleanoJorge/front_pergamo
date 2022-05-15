@@ -171,6 +171,8 @@ export class FormManagementPlanComponent implements OnInit {
   onChanges() {
 
     this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
+      this.form.controls.assigned_user_id.setValue(null);
+      this.assigned_user=[];
       // console.log(val);
       if (val === '') {
         this.assigned_user = [];
