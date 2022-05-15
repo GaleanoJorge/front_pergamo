@@ -45,15 +45,15 @@ export class PharmacyProductRequestComponent implements OnInit {
           return value.description;
         },
       },
-      amount: {
+      request_amount: {
         title: this.headerFields[2],
         type: 'string',
       }, 
-      pharmacy_stock: {
+      request_pharmacy_stock: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name + ' - ' + row.pharmacy_stock.campus.name;
+          return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
         },
       }
     },
