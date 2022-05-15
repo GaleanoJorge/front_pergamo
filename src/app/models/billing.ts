@@ -5,10 +5,6 @@ import { MainClass } from './main-class';
 export class Billing extends MainClass {
   id: number;
   company_id: number;
-  num_evidence: string;
-  sub_total: string;
-  vat: string;
-  setting_value: string;
-  invoice_value: string;
+  pharmacy_stock_id: number;
   type_billing_evidence_id: number;
 }

@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BillingService } from '../../../business-controller/billing.service';
-import { NbToastrService, NbDialogService } from '@nebular/theme';
+import { NbDialogService } from '@nebular/theme';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormBillingComponent } from './form-billing/form-billing.component';
-import { CurrencyPipe } from '@angular/common';
 
 
 @Component({
@@ -17,9 +16,9 @@ export class BillingComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Facturas';
+  public title: string = 'Orden de compra';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'Proveedor', 'Num factura','Valor total'];
+  public headerFields: any[] = ['Identificador', 'Proveedor', 'Enviada a'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -55,35 +54,20 @@ export class BillingComponent implements OnInit {
           return value.name;
         },
       },
-      num_evidence: {
+      pharmacy_stock: {
         title: this.headerFields[2],
         type: 'string',
-      },
-       
-      invoice_value: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, data) => {
-          return this.currency.transform(value);
+        valuePrepareFunction: (value, row) => {
+          return value.name;
         },
       },
     },
   };
 
-  public routes = [
-    {
-      name: 'Factura',
-      route: '../../setting/billing',
-    },
-  ];
-
   constructor(
     private BillingS: BillingService,
-    private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
-    private currency: CurrencyPipe,
-
   ) {
   }
 
@@ -97,7 +81,7 @@ export class BillingComponent implements OnInit {
   NewBilling() {
     this.dialogFormService.open(FormBillingComponent, {
       context: {
-        title: 'Crear factura',
+        title: 'Crear orden de compra',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -106,7 +90,7 @@ export class BillingComponent implements OnInit {
   EditBilling(data) {
     this.dialogFormService.open(FormBillingComponent, {
       context: {
-        title: 'Editar factura',
+        title: 'Editar orden de compra',
         data,
         saved: this.RefreshData.bind(this),
       },

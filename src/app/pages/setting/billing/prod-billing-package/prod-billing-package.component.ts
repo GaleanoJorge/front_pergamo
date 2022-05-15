@@ -3,16 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
-import { DietComponentService } from '../../../../business-controller/diet-componet.service';
-import { MeasurementUnitsService } from '../../../../business-controller/measurement-units.service';
-import { DietDishStockService } from '../../../../business-controller/diet-dish-stock.service';
-import { DietDishStock } from '../../../../models/diet-dish-stock';
-import { PharmacyInventoryService } from '../../../../business-controller/pharmacy-inventory.service';
 import { SelectProductBillingComponent } from './select-prod-billing.component';
 import { AmountBillingComponent } from './amount-billing.component';
-import { ProductService } from '../../../../business-controller/product.service';
-import { BillingService } from '../../../../business-controller/billing.service';
-
+import { AmountUnitBillingComponent } from './amount-unit-billing.component';
+import { BillingStockService } from '../../../../business-controller/billing-stock.service';
 
 @Component({
   selector: 'ngx-prod-billing-package',
@@ -30,7 +24,7 @@ export class ProdBillingPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Selección de medicamentos: ';
   public subtitle = 'medicamentos a comprar: ';
-  public headerFields: any[] = ['Medicamento', 'Descripción generico', 'Cantidad ordenada'];
+  public headerFields: any[] = ['Medicamento', 'Descripción generico', 'Cantidad ordenada', 'Valor por unidad'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -64,7 +58,7 @@ export class ProdBillingPackageComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if (!this.done) {
             this.selectedOptions = this.parentData.selectedOptions;
-            this.emit = this.parentData;
+            this.emit = this.parentData.selectedOptions;
             this.parentData.selectedOptions.forEach(x => {
               this.selectedOptions2.push(x.product_id);
             });
@@ -111,13 +105,31 @@ export class ProdBillingPackageComponent implements OnInit {
         },
         renderComponent: AmountBillingComponent,
       },
+      amount_unit: {
+        title: this.headerFields[3],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          var amo;
+          this.parentData.selectedOptions.forEach(x => {
+            if (x.product_id == row.id) {
+              amo = x.amount_unit;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': !this.selectedOptions2.includes(row.id),
+            'amount_unit': amo ? amo : '',
+            'onchange': (input, row: any) => this.onAmountUnitChange(input, row),
+          };
+        },
+        renderComponent: AmountUnitBillingComponent,
+      },
     },
   };
 
   constructor(
     private route: ActivatedRoute,
-    private billS: BillingService,
-    private prodS: ProductService,
+    private billS: BillingStockService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     private e: ElementRef
@@ -150,6 +162,7 @@ export class ProdBillingPackageComponent implements OnInit {
       var diet = {
         product_id: row.id,
         amount: 0,
+        amount_unit: 0,
       };
       this.emit.push(diet);
     } else {
@@ -175,6 +188,20 @@ export class ProdBillingPackageComponent implements OnInit {
     this.selectedOptions.forEach(element => {
       if (element.product_id == row.id) {
         mientras[i].amount = input.target.valueAsNumber;
+      }
+      i++
+    });
+    this.selectedOptions = mientras;
+    this.messageEvent.emit(this.selectedOptions);
+  }
+
+
+  onAmountUnitChange(input, row) {
+    var i = 0;
+    var mientras = this.selectedOptions;
+    this.selectedOptions.forEach(element => {
+      if (element.product_id == row.id) {
+        mientras[i].amount_unit = input.target.valueAsNumber;
       }
       i++
     });
