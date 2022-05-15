@@ -3,9 +3,8 @@ import { NbDialogService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormPharmacyInventoryComponent } from './form-pharmacy-inventory/form-pharmacy-inventory.component';
 import { ActionsInvComponent } from './actionsInv.component';
-import { PharmacyInventoryService } from '../../../business-controller/pharmacy-inventory.service';
 import { AuthService } from '../../../services/auth.service';
-
+import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 
 @Component({
   selector: 'ngx-pharmacy-inventory',
@@ -18,7 +17,7 @@ export class PharmacyInventoryComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'INVENTARIO';
   public subtitle: string = '';
-  public headerFields: any[] = ['PRODUCTO Y FABRICANTE', 'CANTIDAD INICIAL', 'CANTIDAD ACTUAL', 'LOTE', 'FECHA DE VENCIMIENTO'];
+  public headerFields: any[] = ['PRODUCTO - PRODUCTO GENERICO', 'FABRICANTE', 'CANTIDAD INICIAL', 'CANTIDAD ACTUAL', 'LOTE', 'FECHA DE VENCIMIENTO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -49,36 +48,31 @@ export class PharmacyInventoryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot.billing_stock.product.name + ' - ' + row.pharmacy_lot.billing_stock.product.factory.name;
+          return row.billing_stock.product.name + ' - ' + row.billing_stock.product.product_generic.description;
         },
       },
-      enter_amount: {
+      factory: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot.enter_amount;
+          return row.billing_stock.product.factory.name;
         },
+      },
+      amount_total: {
+        title: this.headerFields[2],
+        type: 'string', 
       },
       actual_amount: {
-        title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value;
-        },
-      },
-      lot: {
         title: this.headerFields[3],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot.lot;
-        },
+      },
+      lot: {
+        title: this.headerFields[4],
+        type: 'string', 
       },
       expiration_date: {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot.expiration_date;
-        },
+        title: this.headerFields[5],
+        type: 'string', 
       }
     },
 
@@ -93,7 +87,7 @@ export class PharmacyInventoryComponent implements OnInit {
 
   constructor(
     private dialogFormService: NbDialogService,
-    private invS: PharmacyInventoryService,
+    private invS: PharmacyLotStockService,
     private authService: AuthService,
   ) {
   }
@@ -102,7 +96,7 @@ export class PharmacyInventoryComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
-      this.entity = 'pharmacy_inventory?pharmacy_stock_id=' + x[0].id;
+      this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id ;
       this.title = 'INVENTARIO DE ' + x[0]['name'];
     });
   }
@@ -121,4 +115,6 @@ export class PharmacyInventoryComponent implements OnInit {
       },
     });
   }
+
+ 
 }

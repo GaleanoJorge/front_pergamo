@@ -4,7 +4,7 @@ import { MainClass } from './main-class';
 
 export class PermissionPharmacyStock extends MainClass {
   id: number;
-  name: string;
-  campus_id: number;
+  user_id: number;
+  permission_id: number;
   pharmacy_stock_id: number;
 }

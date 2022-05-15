@@ -6,21 +6,20 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label class="form-text text-muted font-weight-bold">A donde enviar:</label>
-          <nb-select [selected]="this.data.pharmacy_stock_id" formControlName="pharmacy_stock_id" id="pharmacy_stock_id"
-            fullWidth
-            status="{{ isSubmitted && form.controls.pharmacy_stock_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-select [selected]="this.data.own_pharmacy_stock_id" formControlName="own_pharmacy_stock_id" id="own_pharmacy_stock_id"
+            fullWidth >
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.pharmacy_stock_id }}" *ngFor="let item of pharmacy_stock_id"
+            <nb-option selected="{{ item.id == data.own_pharmacy_stock_id }}" *ngFor="let item of own_pharmacy_stock_id"
               [value]="item.id">
               {{ item.name }} - {{ item.campus.name }}</nb-option>
           </nb-select>
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="amount" class="form-text text-muted font-weight-bold">Cantidad a enviar:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount" formControlName="amount"
-            amount
-            status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <label for="amount_provition" class="form-text text-muted font-weight-bold">Cantidad a enviar:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount_provition" formControlName="amount_provition"
+            amount_provition
+            status="{{ isSubmitted && form.controls.amount_provition.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
       </div>
 

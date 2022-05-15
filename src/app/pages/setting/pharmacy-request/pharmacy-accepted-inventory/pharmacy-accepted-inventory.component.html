@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1500px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+          <ngx-base-list [messageError]="messageError">
+            <div content>
+
+              <div *ngIf="entity">
+                <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+                  customData='pharmacy_product_request' [messageToltip]="messageToltip">
+                  <div actions>
+                    <div class="actions">
+                      <!--        <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacyInventory()">Crear</button>-->
+                    </div>
+                  </div>
+                </ngx-base-table>
+              </div>
+
+
+            </div>
+          </ngx-base-list>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">CANCELAR</button>
+      <button nbButton status="danger" class="ml-1">GUARDAR</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
