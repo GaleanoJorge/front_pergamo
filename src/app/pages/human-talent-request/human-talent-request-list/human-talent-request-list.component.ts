@@ -54,7 +54,7 @@ export class HumanTalentRequestListComponent implements OnInit {
             'edit': this.EditHumanTalentRequest.bind(this),
             'new': this.NewHumanTalentRequest.bind(this),
             'saved': this.RefreshData.bind(this),
-            'status':this.status=='Creado'?0:1,
+            'status':this.status=='Creada'?0:1,
 
           };
         },

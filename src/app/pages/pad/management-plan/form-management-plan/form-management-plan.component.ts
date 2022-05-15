@@ -324,7 +324,6 @@ export class FormManagementPlanComponent implements OnInit {
           observation: this.form.controls.observation.value,
           number_doses: this.form.controls.number_doses.value,
           dosage_administer: this.form.controls.dosage_administer.value,
-          authorized_amount: this.data.authorization.authorized_amount,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

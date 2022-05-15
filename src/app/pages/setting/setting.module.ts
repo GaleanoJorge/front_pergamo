@@ -634,11 +634,9 @@ import { TcBillingComponent } from './tc-billing/tc-billing.component';
   ],
   exports:[
     FormUserComponent,
-  ],
-  bootstrap: [],
-  exports: [
     FormLocationCapacityComponent,
   ],
+  bootstrap: []
 })
 export class SettingModule {
 }
