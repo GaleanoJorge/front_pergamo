@@ -35,6 +35,10 @@ import { FormManagementPlanComponent } from './management-plan/form-management-p
 import { AssignedManagementPlanComponent } from './assigned-management-plan/assigned-management-plan.component';
 import { Actions4Component } from './assigned-management-plan/actions.component';
 import { FormAssignedManagementPlanComponent } from './assigned-management-plan/form-assigned-management-plan/form-assigned-management-plan.component';
+import { ActionsSemaphoreComponent } from './assigned-management-plan/actions-semaphore.component';
+import { ActionsSemaphore2Component } from './management-plan/actions-semaphore.component';
+import { PharmacyApplicationComponent } from './management-plan/pharmacy-application/pharmacy-application.component';
+import { Actions3Component } from './management-plan/pharmacy-application/actions.component';
 
 
 
@@ -70,13 +74,17 @@ import { FormAssignedManagementPlanComponent } from './assigned-management-plan/
   ],
   declarations: [
     PadComponent,
+    PharmacyApplicationComponent,
     PadListComponent,
     FormPadComponent,
     ManagementPlanComponent,
     FormManagementPlanComponent,
     FormAssignedManagementPlanComponent,
     Actions2Component,
+    Actions3Component,
     Actions4Component,
+    ActionsSemaphoreComponent,
+    ActionsSemaphore2Component,
     ActionsComponent,
     AssignedManagementPlanComponent
   ],
