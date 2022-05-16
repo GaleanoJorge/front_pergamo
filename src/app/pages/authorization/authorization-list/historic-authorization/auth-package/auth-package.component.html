@@ -1,0 +1,67 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1400px;max-height: 800px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="contract_id" class="form-text text-muted font-weight-bold">Contratos de la EPS:</label>
+          <nb-select [selected]="this.data.contract_id" formControlName="contract_id" id="contract_id" fullWidth
+            status="{{ isSubmitted && form.controls.contract_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.contract_id }}" *ngFor="let item of contracts"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="briefcase_id" class="form-text text-muted font-weight-bold">Portafolios de contrato:</label>
+          <nb-select [selected]="this.data.briefcase_id" formControlName="briefcase_id" id="briefcase_id" fullWidth
+            status="{{ isSubmitted && form.controls.briefcase_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.briefcase_id }}" *ngFor="let item of briefcase"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label  for="admissions_id" class="form-text text-muted font-weight-bold">Pacientes del portafolio:</label>
+          <input  fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="admissions_id" 
+          formControlName="admissions_id" admissions_id type="text" required
+          status="{{ isSubmitted && form.controls.admissions_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <datalist id="codes">
+            <option *ngFor="let item of patients" [value]="item.nombre_completo">{{ item.nombre_completo }} - {{item.identification}} </option>
+          </datalist>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="package_id" class="form-text text-muted font-weight-bold">Paquetes disponibles:</label>
+          <nb-select [selected]="this.data.package_id" formControlName="package_id" id="package_id" fullWidth (selectedChange)="openInfo()"
+            status="{{ isSubmitted && form.controls.package_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.package_id }}" *ngFor="let item of packages"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div *ngIf="package_id && admissions_id">
+        <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [parentData]="parentData"
+        ></ngx-auth-asociated-package>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
+
+<ng-template #infoPackage>
+  <div class="container-fluid">
+    <nb-card style="width: 700px;">
+      <nb-card-header>Información del paquete</nb-card-header>
+      <div *ngIf="package_id">
+        <ngx-procedure-package2 (messageEvent)="selectOptions" [procedure_package_id]="package_id"></ngx-procedure-package2>
+      </div>
+    </nb-card>
+  </div>
+</ng-template>
