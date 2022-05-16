@@ -622,6 +622,9 @@ import { DynamicProcedurePackageComponent } from './procedure/procedure-package/
     AmountShippingComponent
 
   ],
+  exports: [
+    ProcedurePackage2Component,
+  ],
   providers: [
     DateFormatPipe,
     CurrencyPipe

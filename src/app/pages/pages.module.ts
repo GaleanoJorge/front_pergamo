@@ -44,6 +44,7 @@ import { AmountWorkLocationComponent } from './components/form-users/work-locati
 import { SelectWorkLocationComponent } from './components/form-users/work-location-package/select-work-location.component';
 import { WorkLocationPackageComponent } from './components/form-users/work-location-package/work-location-package.component';
 import { PharmacyRoutingModule } from './pharmacy/pharmacy-routing.module';
+import { ProcedurePackage2Component } from './setting/manual/procedure-massive/procedure-package2/procedure-package2.component';
 
 
 
