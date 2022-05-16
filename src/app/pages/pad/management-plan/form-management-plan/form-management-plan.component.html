@@ -128,7 +128,7 @@
         </div>
 
         <div class="assigned ? col-12 col-sm-12 col-md-4: col-12 col-sm-12 col-md-12"
-          *ngIf="medical==false && this.type_auth == 1 && showUser!=false">
+          *ngIf="medical==false && showUser!=false">
           <label for="assigned_user_id" class="form-text text-muted font-weight-bold">Personal asistencial:</label>
           <nb-select [selected]="this.data.assigned_user_id" formControlName="assigned_user_id" id="assigned_user_id"
             fullWidth
