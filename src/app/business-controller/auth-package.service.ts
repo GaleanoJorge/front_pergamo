@@ -2,73 +2,54 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { Contract } from '../models/contract';
+import { AuthPackage } from '../models/auth-package';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContractService {
-  public contract: Contract[] = [];
+export class AuthPackageService {
+  public auth_package: AuthPackage[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<Contract[]> {
-    let servObj = new ServiceObject(params ? 'contract?pagination=false' : 'contract');
+  GetCollection(params = {}): Promise<AuthPackage[]> {
+    let servObj = new ServiceObject(params ? 'auth_package?pagination=false' : 'auth_package');
 
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.auth_package = <AuthPackage[]>servObj.data.auth_package;
+
+        return Promise.resolve(this.auth_package);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetByPackage(params = {},id: number): Promise<AuthPackage[]> {
+    var servObj = new ServiceObject("bypackage_procedure", id);
     return this.webAPI.GetAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.contract = <Contract[]>servObj.data.contract;
-
-        return Promise.resolve(this.contract);
+        this.auth_package = <AuthPackage[]>servObj.data.auth_package;
+        return Promise.resolve(this.auth_package);
       })
       .catch(x => {
-        throw x.message;
+        throw x.status == 401 ? x.error.msg : x.message;
       });
   }
-  GetByCompany(contract: any): Promise<Contract[]> {
-    let servObj = new ServiceObject('contractByCompany', contract.id);
 
-    return this.webAPI.GetAction(servObj)
-      .then(x => {
-        servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
-
-        this.contract = <Contract[]>servObj.data.contract;
-
-        return Promise.resolve(this.contract);
-      })
-      .catch(x => {
-        throw x.message;
-      });
-  }
-  
-  // GetContractById(id): Promise<Contract[]> {
-  //   let servObj = new ServiceObject('Policy/FileByContract', id);
-
-  //   return this.webAPI.GetAction(servObj)
-  //     .then(x => {
-  //       servObj = <ServiceObject>x;
-  //       if (!servObj.status)
-  //         throw new Error(servObj.message);
-
-  //       this.contract = <Contract[]>servObj.data.contract;
-
-  //       return Promise.resolve(this.contract);
-  //     })
-  //     .catch(x => {
-  //       throw x.message;
-  //     });
-  // }
-
-  Save(contract: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('contract');
-    servObj.data = contract;
+  Save(auth_package: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('auth_package');
+    servObj.data = auth_package;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -82,9 +63,9 @@ export class ContractService {
       });
   }
 
-  Update(contract: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('contract', contract.id);
-    servObj.data = contract;
+  Update(auth_package: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('auth_package', auth_package.id);
+    servObj.data = auth_package;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -99,7 +80,7 @@ export class ContractService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('contract', id);
+    let servObj = new ServiceObject('auth_package', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

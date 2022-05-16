@@ -25,6 +25,7 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() medical: boolean = false;
   @Input() assigned: boolean;
   @Input() admissions_id: any = null;
+  @Input() type_auth: any = null;
 
   public form: FormGroup;
   public loading: boolean = false;
@@ -33,12 +34,11 @@ export class FormManagementPlanComponent implements OnInit {
   public type_of_attention: any[];
   public frequency: any[];
   public specialty: any[];
-  public assigned_user: any[];
+  public assigned_user: any[] = [];
   public roles;
   public procedure;
   public procedure_id: any;
   public isMedical: boolean = false;
-  public type_auth = 1;
   public phone_consult = false;
   public show=false;
   public showTemp=false;
@@ -116,7 +116,7 @@ export class FormManagementPlanComponent implements OnInit {
     this.frequencyS.GetCollection().then(x => {
       this.frequency = x;
     });
-    this.serviceBriefcaseS.GetByBriefcase({type:'1'},this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+    this.serviceBriefcaseS.GetByBriefcase({ type: '1' }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
       this.procedure = x;
     });
     this.specialField.GetCollection({
@@ -125,7 +125,7 @@ export class FormManagementPlanComponent implements OnInit {
       this.specialty = x;
     });
     if (this.medical == false) {
-        this.configForm = {
+      this.configForm = {
         type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
         frequency_id: [this.data.frequency_id,],
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
@@ -429,7 +429,6 @@ export class FormManagementPlanComponent implements OnInit {
 
     } else {
       this.procedure_id = null;
-      this.type_auth = null;
       this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
       this.form.controls.procedure_id.setErrors({'incorrect': true});
     }

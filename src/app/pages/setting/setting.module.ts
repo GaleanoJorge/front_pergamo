@@ -663,6 +663,9 @@ import { SelectIncomeComponent } from './pharmacy-income/income-package/select-i
     SelectIncomeComponent
 
   ],
+  exports: [
+    ProcedurePackage2Component,
+  ],
   providers: [
     DateFormatPipe,
     CurrencyPipe

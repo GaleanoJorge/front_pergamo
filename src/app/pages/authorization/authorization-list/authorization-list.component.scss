@@ -128,3 +128,17 @@ input[type=number] { -moz-appearance:textfield; }
   border: 1px solid black;
   justify-content: center;
 }
+
+.col-md-4 {
+  margin-bottom: 20px;
+}
+
+.inputdate{
+  height: auto !important;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%
+}

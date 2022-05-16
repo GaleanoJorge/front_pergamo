@@ -18,6 +18,8 @@ export class ProcedurePackage2Component implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() procedure_package_id: any = null;
+
   public messageError = null;
 
 
@@ -38,7 +40,6 @@ export class ProcedurePackage2Component implements OnInit {
   public manual_price: any[] = [];
   public package: any[] = [];
   public type_briefcase: any[] = [];
-  public procedure_package_id: number;
 
 
 
@@ -110,7 +111,9 @@ export class ProcedurePackage2Component implements OnInit {
 
 
   ngOnInit(): void {
-    this.procedure_package_id = this.route.snapshot.params.id;
+    if(this.route.snapshot.params.id){
+      this.procedure_package_id = this.route.snapshot.params.id;
+    };
 
     /*this.procedurePackageS.GetByPackage(this.procedure_package_id).then(x => {
       this.package=x;
