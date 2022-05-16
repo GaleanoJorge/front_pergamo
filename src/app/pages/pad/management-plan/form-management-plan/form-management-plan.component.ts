@@ -24,6 +24,7 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() medical: boolean = false;
   @Input() assigned: boolean;
   @Input() admissions_id: any = null;
+  @Input() type_auth: any = null;
 
   public form: FormGroup;
   public loading: boolean = false;
@@ -32,18 +33,17 @@ export class FormManagementPlanComponent implements OnInit {
   public type_of_attention: any[];
   public frequency: any[];
   public specialty: any[];
-  public assigned_user: any[];
+  public assigned_user: any[] = [];
   public roles;
   public procedure;
   public procedure_id: any;
   public isMedical: boolean = false;
-  public type_auth = 1;
   public phone_consult = false;
-  public show=false;
+  public show = false;
   public product_gen: any[];
   public product_id;
   public configForm;
-  
+
   //   this.status = x;
 
 
@@ -96,7 +96,7 @@ export class FormManagementPlanComponent implements OnInit {
       });
     }
 
-    this.serviceBriefcaseS.GetByBriefcase({type:'2'},this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+    this.serviceBriefcaseS.GetByBriefcase({ type: '2' }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
       this.product_gen = x;
     });
     this.typeOfAttentionS.GetCollection().then(x => {
@@ -105,7 +105,7 @@ export class FormManagementPlanComponent implements OnInit {
     this.frequencyS.GetCollection().then(x => {
       this.frequency = x;
     });
-    this.serviceBriefcaseS.GetByBriefcase({type:'1'},this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+    this.serviceBriefcaseS.GetByBriefcase({ type: '1' }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
       this.procedure = x;
     });
     this.specialField.GetCollection({
@@ -114,7 +114,7 @@ export class FormManagementPlanComponent implements OnInit {
       this.specialty = x;
     });
     if (this.medical == false) {
-        this.configForm = {
+      this.configForm = {
         type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
         frequency_id: [this.data.frequency_id,],
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
@@ -129,9 +129,9 @@ export class FormManagementPlanComponent implements OnInit {
         blend: [this.data.blend],
         administration_time: [this.data.administration_time,],
         start_hours: [this.data.start_hours],
-        
-        }
-        this.form = this.formBuilder.group(this.configForm);
+
+      }
+      this.form = this.formBuilder.group(this.configForm);
       this.onChanges();
     } else {
       this.form = this.formBuilder.group({
@@ -161,26 +161,32 @@ export class FormManagementPlanComponent implements OnInit {
       if (val === '') {
         this.assigned_user = [];
       } else {
-        this.getRoleByAttention(val).then(x => {
-          if (x) {
-            this.GetMedical(this.user.locality_id).then(x => {
-              if (x) {
-                this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
-              }
-            }).catch(e => {
-              this.toastService.danger(e, 'Error');
-            });
-          }
-        }).catch(e => {
-          this.toastService.danger(e, 'Error');
-        });
+        if (this.type_auth == 1) {
 
-        if(val==17){
-          this.show= true;
-      
-          
-        }else{
-          this.show= false;
+          this.getRoleByAttention(val).then(x => {
+            if (x) {
+              this.GetMedical(this.user.locality_id).then(x => {
+                if (x) {
+                  this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+                }
+              }).catch(e => {
+                this.toastService.danger(e, 'Error');
+              });
+            }
+          }).catch(e => {
+            this.toastService.danger(e, 'Error');
+          });
+        } else {
+          this.form.controls.assigned_user_id.clearValidators();
+          this.form.controls.assigned_user_id.setErrors(null);
+        }
+
+        if (val == 17) {
+          this.show = true;
+
+
+        } else {
+          this.show = false;
         }
       }
     });
@@ -300,9 +306,9 @@ export class FormManagementPlanComponent implements OnInit {
           product_id: this.product_id,
           preparation: this.form.controls.preparation.value,
           route_of_administration: this.form.controls.route_of_administration.value,
-          blend:this.form.controls.blend.value,
-          administration_time:this.form.controls.administration_time.value,
-          start_hours:this.form.controls.start_hours.value,
+          blend: this.form.controls.blend.value,
+          administration_time: this.form.controls.administration_time.value,
+          start_hours: this.form.controls.start_hours.value,
           type_auth: this.type_auth,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -328,7 +334,6 @@ export class FormManagementPlanComponent implements OnInit {
       this.procedure_id = localidentify.id;
     } else {
       this.procedure_id = null;
-      this.type_auth = null;
       this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
 
     }
