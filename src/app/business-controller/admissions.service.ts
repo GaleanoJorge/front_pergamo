@@ -47,6 +47,21 @@ export class AdmissionsService {
       });
   }
 
+  GetByBriefcase(briefcase_id) {
+    let servObj = new ServiceObject(`admissions/Briefcase/${briefcase_id}`);
+    return  this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj.data.admissions);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(admissions: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('admissions');
     servObj.data = admissions;
