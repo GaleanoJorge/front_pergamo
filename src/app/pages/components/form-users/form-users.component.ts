@@ -508,6 +508,7 @@ export class FormUsersComponent implements OnInit {
     this.form = this.formBuilder.group(configForm);
 
     if (this.data) {
+      this.form.controls['identification_type_id'].disable();
       this.form.controls['identification'].disable();
     }
 
