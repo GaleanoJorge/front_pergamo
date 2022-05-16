@@ -277,13 +277,8 @@ import { FormEditLocationCapacityComponent } from './location-capacity/sigle-loc
 import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
 import { SelectProductShippingComponent } from './pharmacy-request/prod-shipping-package/select-prod-shipping.component';
 import { AmountShippingComponent } from './pharmacy-request/prod-shipping-package/amount-shipping.component';
-import { AmountProcedureComponent } from './procedure/procedure-package/amount-procedure-package.component';
-import { DynamicProcedurePackageComponent } from './procedure/procedure-package/dynamic-procedure-package.component';
 import { BillingComponent } from './billing/billing.component';
 import { FormBillingComponent } from './billing/form-billing/form-billing.component';
-import { ProdBillingPackageComponent } from './billing/prod-billing-package/prod-billing-package.component';
-import { SelectProductBillingComponent } from './billing/prod-billing-package/select-prod-billing.component';
-import { AmountBillingComponent } from './billing/prod-billing-package/amount-billing.component';
 import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
 import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
 import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
