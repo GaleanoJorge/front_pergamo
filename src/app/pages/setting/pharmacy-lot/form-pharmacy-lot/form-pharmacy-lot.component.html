@@ -14,7 +14,7 @@
         <div class="col-12 col-sm-12 col-md-6">
           <label for="subtotal" class="form-text text-muted font-weight-bold">Sub total $:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="subtotal"
-            formControlName="subtotal" subtotal
+            formControlName="subtotal" subtotal type="number"
             status="{{ isSubmitted && form.controls.subtotal.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
@@ -23,11 +23,12 @@
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="vat" formControlName="vat" vat
             status="{{ isSubmitted && form.controls.vat.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        
+
         <div class="col-12 col-sm-12 col-md-6">
           <label for="total" class="form-text text-muted font-weight-bold">Total $:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="total" formControlName="total"
-            total status="{{ isSubmitted && form.controls.total.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            type="number" total
+            status="{{ isSubmitted && form.controls.total.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
