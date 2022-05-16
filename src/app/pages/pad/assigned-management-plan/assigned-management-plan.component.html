@@ -1,7 +1,7 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table *ngIf="settings" [title]="title" [subtitle]="subtitle" [settings]="settings" entity="assigned_management_plan/{{management_id}}/{{user_logged}}"
+    <ngx-base-table *ngIf="settings" [title]="title" [subtitle]="subtitle" [settings]="settings" entity="assigned_management_plan/{{management_id}}/{{user_logged}}?patient={{this.user.admissions[0].id}}"
       customData="assigned_management_plan" [messageToltip]="messageToltip">
       <div title *ngIf="user">
         <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
