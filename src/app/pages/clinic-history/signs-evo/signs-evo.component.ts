@@ -19,19 +19,7 @@ export class SignsEvoComponent implements OnInit {
   public messageError = null;
   public title: string = '';
   public subtitle: string = '';
-  public headerFields: any[] = [
-    
-'PRESIÓN ARTERIAL',
-'PRESIÓN ARTERIAL MEDIA',
-'FRECUENCIA CARDIACA',
-'FRECUENCIA RESPIRATORIA',
-'TEMPERATURA', 
-'SATURACIÓN', 
-'PESO',
-'TALLA',
-
-
-  ];
+  public headerFields: any[] = ['PRESIÓN ARTERIAL'];
   public routes = [];
   public data = [];
   public loading: boolean = false;
@@ -47,46 +35,17 @@ export class SignsEvoComponent implements OnInit {
   public settings = {
     pager: {
       display: true,
-      perPage: 10,
+      perPage: 30,
     },
 
     columns: {
       
-      field_set:{
+      observations_glucometry: {
         title: this.headerFields[0],
-        type: 'string',
+        width: 'string',
       },
 
-      pressure_half:{
-        title: this.headerFields[1],
-        type: 'string',
-      },
-      cardiac_frequency: {
-        title: this.headerFields[2],
-        type: 'string',
-      },
-      respiratory_frequency: {
-        title: this.headerFields[3],
-        type: 'string',
-      },
-      temperature: {
-        title: this.headerFields[4],
-        type: 'string',
-      },
-      oxigen_saturation: {
-        title: this.headerFields[5],
-        type: 'string',
-      },
-      weight: {
-        title: this.headerFields[6],
-        type: 'string',
-      },
-      size: {
-        title: this.headerFields[7],
-        type: 'string',
-      },
-
-
+     
     },
   };
 

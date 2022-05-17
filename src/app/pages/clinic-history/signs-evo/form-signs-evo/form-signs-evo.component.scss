@@ -44,7 +44,7 @@
     padding: 10px;
     margin: 10px;
     height: 23px;
-    width: 120px;
+    width: 122px;
     border:1px solid #eaeaea;  
   }
 
@@ -54,13 +54,15 @@
     border: 0;
     margin: 10px;
     height: 23px;
-    width: 75px;
+    width: 90px;
     border:1px solid #eaeaea; 
   }
 
   .list
   { 
+    
     width: 550px;
+
   }
   .prue1{
     margin-left:1px;
@@ -69,7 +71,7 @@
     padding-right:10px; 
     padding-bottom:1px; 
     color:white; 
-    border:1px solid #eeece1;
+    border:0px solid #eeece1;
     font-size:20px
   }
 
@@ -92,10 +94,25 @@
     padding: 1px;
     margin: 1px;
     height: 12px;
-    border:2px solid #eaeaea;  
+    border:0px solid #eaeaea;  
     
   }
 
+
+  .hgf{
+
+    color: #999b9b;
+    list-style-type: none ;
+    font-size: small;
+   }
+
+   .imga1 {
+    padding: 5px 10px 5px 10px;
+    margin: 2px;
+    float: left;
+    width: 200px;
+    text-align: center;
+  }
 
 
 
