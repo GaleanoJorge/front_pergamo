@@ -82,7 +82,7 @@ export class FormFormulationComponent implements OnInit {
       dose: [this.data.dose, Validators.compose([Validators.required])],
       observation: [this.data.observation, Validators.compose([Validators.required])]
         });
-    this.onChanges;
+  
   }
 
   async save() {
@@ -146,30 +146,30 @@ export class FormFormulationComponent implements OnInit {
     }
   }
 
-  onChanges() {
-    this.form.get('outpatient_formulation').valueChanges.subscribe((val) => {
-      console.log(val);
-      if (val === '') {
-        this.dose = '';
-      //  this.hourly_frequency_id = '';
-        this.treatment_days = '';
-        
-      } else {
-        this.outpatient_formulation.forEach((x) => {
-          if (x.id == event) {
-            this.dose = this.currency.transform(x.invoice_value);
-            this.hourly_frequency_id = x.ordered_quantity;
-            this.hourly_frequency_id = x.ordered_quantity;
-            this.form.controls.unit_value.setValue( x.invoice_value + (2 * x.ordered_quantity) / 3
-            );
-          }
-        });
-      }
-      this.form.patchValue({
-        pressure_half: '',
-      });
-    });
-  }
 
+ onChangesFormulation(event, id) {
+    if (
+      this.form.controls.dose.value &&
+      this.form.controls.dose.value != '' &&
+      this.form.controls.hourly_frequency_id.value &&
+      this.form.controls.hourly_frequency_id.value != '' &&
+      this.form.controls.treatment_days.value &&
+      this.form.controls.treatment_days.value != '' 
+    ) {
+      var dose = this.form.controls.dose.value;
+      var hourly_frequency_id = 1;
+      var treatment_days = this.form.controls.treatment_days.value; 
+      this.hourly_frequency_id.forEach(element =>{
+        if (element.id ==  this.form.controls.hourly_frequency_id.value){
+          hourly_frequency_id = element.value;
+        }
+      });
+      var operate =  dose * ( 24 / hourly_frequency_id ) * treatment_days;
+      this.form.controls.outpatient_formulation.setValue(operate);
+    } 
+    else {
+      this.form.controls.outpatient_formulation.setValue('');
+    }
+  }
 
 }

@@ -18,19 +18,12 @@ export class FormulationComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = [
-    'DESCRIPCIÓN',
-    'DOSIS',
-    'VÍA DE ADMINISTRACIÓN',
-    'FRECUENCIA HORARIA ',
-    'DÍAS DE TRATAMIENTO',
-    'CANT. SOLIC ',
-    'OBSERVACIONES',
-  ];
-
+  public headerFields: any[] = ['Descripción','Dosis','Vía De Administración','Frecuencia Horaria ','Días De Tratamiento','Cant. Solic ','Observaciones'];
+  public saveEntry: any = 0;
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
+
   public loading: boolean = false;
 
   public settings = {
@@ -39,6 +32,7 @@ export class FormulationComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+
       product_generic: {
         title: this.headerFields[0],
         width: 'string',
@@ -48,7 +42,7 @@ export class FormulationComponent implements OnInit {
 
       dose: {
         title: this.headerFields[1],
-        type: 'string',
+        width: 'string',
         },
       },
       administration_route: {
@@ -63,16 +57,20 @@ export class FormulationComponent implements OnInit {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value.value + '-' + row.hourly_frequency.name;
         },
       },
-      outpatient_formulation: {
+      treatment_days: {
         title: this.headerFields[4],
-        type: 'string',
+        width: 'string',
+      },
+      outpatient_formulation: {
+        title: this.headerFields[5],
+        width: 'string',
       },
       observation: {
-        title: this.headerFields[5],
-        type: 'string',
+        title: this.headerFields[6],
+        width: 'string',
       },
     },
   };
@@ -90,4 +88,6 @@ export class FormulationComponent implements OnInit {
       this.RefreshData();
     }
   }
+
+ 
 }
