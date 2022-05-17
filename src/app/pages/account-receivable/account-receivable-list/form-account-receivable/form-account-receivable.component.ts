@@ -54,7 +54,9 @@ export class FormAccountReceivableComponent implements OnInit {
         file: '',
       };
     }else{
-      this.previewFile = environment.storage + this.data.file_payment;
+      if (this.data.file_payment) {
+        this.previewFile = environment.storage + this.data.file_payment;
+      }
     }
 
     // this.statusBS.GetCollection().then(x => {
