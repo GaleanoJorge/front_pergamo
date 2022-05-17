@@ -84,6 +84,8 @@ import { FormulationComponent } from './formulation/formulation.component';
 import { BackgroundComponent } from './background/back/background.component';
 import { Actions8Component } from './background/back/actions.component';
 import { ChScalesComponent } from './scales/ch-scales.component';
+import { FormFailedComponent } from './failed/form-failed/form-failed.component';
+import { FailedComponent } from './failed/failed.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -175,6 +177,9 @@ import { ChScalesComponent } from './scales/ch-scales.component';
 
     FormFormulationComponent,
     FormulationComponent,
+
+    FormFailedComponent,
+    FailedComponent,
   ],
 
   providers: [DateFormatPipe],
