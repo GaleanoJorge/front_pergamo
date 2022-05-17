@@ -68,3 +68,47 @@ button {
 
     float: RIGHT;
 }
+.detail{
+  text-align: justify;
+}
+.radio {
+	background: rgb(255, 255, 255);
+	padding: 4px;
+	position: center;
+}
+
+.radio input {
+	width: auto;
+	height: 100%;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	outline: none;
+	cursor: pointer;
+	border-radius: 1px;
+	padding: 4px 8px;
+	background: rgb(255, 255, 255);
+	color: #000000bd;
+  box-shadow: inset 0 0 0 1px rgb(145, 145, 145);
+	font-size: 14px;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	transition: all 100ms linear;
+  margin: 5px;
+}
+
+.radio input:checked {
+	background-image:  rgb(8, 8, 8);
+	color: rgb(255, 255, 255);
+  background: darkturquoise;
+	border-radius: 1px;
+	box-shadow: inset 0 0 0 1px rgb(255, 255, 255);
+}
+
+.radio input:before {
+	content: attr(label);
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+}

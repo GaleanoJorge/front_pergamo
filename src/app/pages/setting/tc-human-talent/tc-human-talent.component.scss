@@ -1,0 +1,64 @@
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%
+}
+
+.file-select {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.file-select::before {
+  background-color: #54bcc1;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  content: 'CARGA MASIVA'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select input[type="file"] {
+  opacity: 0;
+  width: 150px;
+  margin-right: 5px;
+  height: 40px;
+  display: inline-block;
+}
+
+.file-select-evicencias {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.file-select-evicencias::before {
+  background-color: #54bcc1;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
+  border-radius: 3px;
+  content: 'AGREGAR ARCHIVO'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select-evicencias input[type="file"] {
+  opacity: 0;
+  height: 40px;
+  display: inline-block;
+}

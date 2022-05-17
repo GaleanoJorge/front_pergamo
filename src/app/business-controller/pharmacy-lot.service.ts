@@ -2,7 +2,7 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { PharmacyLot } from '../models/pharmacy_lot';
+import { PharmacyLot } from '../models/pharmacy-lot';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class PharmacyLotService {
   GetCollection(params = {}): Promise<PharmacyLot[]> {
     let servObj = new ServiceObject(params ? 'pharmacy_lot?pagination=false' : 'pharmacy_lot');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

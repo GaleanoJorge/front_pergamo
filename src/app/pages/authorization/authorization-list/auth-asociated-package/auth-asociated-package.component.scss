@@ -1,0 +1,194 @@
+.div-send {
+  padding-top: 30px;
+}
+
+.btn-studen-admissions {
+  margin-top: 30px;
+  float: right;
+}
+
+.actions {
+  display: flex;
+}
+
+:host ::ng-deep .ng2-smart-action-multiple-select {
+  text-align: center;
+}
+
+:host ::ng-deep .ng2-smart-action-multiple-select > input {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-style: solid;
+  border-width: 1px;
+  margin: auto;
+  border-radius: 0.17rem;
+  position: relative;
+  transition-duration: 0.15s;
+  transition-property: background-color, border, box-shadow;
+  background-color: rgba(143, 155, 179, 0.08);
+  border-color: #8f9bb3;
+  transition-timing-function: ease-in;
+}
+
+:host ::ng-deep .ng-star-inserted > input {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-style: solid;
+  border-width: 1px;
+  margin: auto;
+  border-radius: 0.17rem;
+  position: relative;
+  transition-duration: 0.15s;
+  transition-property: background-color, border, box-shadow;
+  background-color: rgba(143, 155, 179, 0.08);
+  border-color: #8f9bb3;
+  transition-timing-function: ease-in;
+}
+
+:host ::ng-deep .ng-star-inserted > {
+  padding-right: 0rem !important;
+}
+
+:host ::ng-deep .ng2-smart-action-multiple-select > input.checked {
+  background-color: #002775;
+  border-color: #002775;
+}
+
+:root {
+  --white: #e8e9ed;
+  --gray: #434257;
+  --blue: #18172c;
+  --green: #00d084;
+  --pink: #ff4b77;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ol {
+  list-style: none;
+}
+
+label {
+  cursor: pointer;
+}
+
+[type="checkbox"] {
+  position: absolute;
+  left: -9999px;
+}
+
+body {
+  font-size: 20px;
+  font-family: "Roboto Slab", serif;
+  margin: 50px 0;
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.switches {
+  max-width: 500px;
+  width: 95%;
+  margin: 50px auto 0;
+  border-radius: 5px;
+  color: var(--white);
+  background: var(--blue);
+}
+
+.switches li {
+  position: relative;
+  counter-increment: switchCounter;
+}
+
+.switches li:not(:last-child) {
+  border-bottom: 1px solid var(--gray);
+}
+
+.switches li::before {
+  content: counter(switchCounter);
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--pink);
+}
+
+.switches label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.switches span:last-child {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  border-radius: 15px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+  background: var(--gray);
+  transition: all 0.3s;
+}
+
+.switches span:last-child::before,
+.switches span:last-child::after {
+  content: "";
+  position: absolute;
+}
+
+.switches span:last-child::before {
+  left: 1px;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  background: var(--white);
+  border-radius: 50%;
+  z-index: 1;
+  transition: transform 0.3s;
+}
+
+.switches span:last-child::after {
+  top: 50%;
+  right: 8px;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%);
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/uncheck-switcher.svg);
+  background-size: 12px 12px;
+}
+
+.switches [type="checkbox"]:checked + label span:last-child {
+  background: var(--green);
+}
+
+.switches [type="checkbox"]:checked + label span:last-child::before {
+  transform: translateX(24px);
+}
+
+.switches [type="checkbox"]:checked + label span:last-child::after {
+  width: 14px;
+  height: 14px;
+  /*right: auto;*/
+  left: 8px;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/checkmark-switcher.svg);
+  background-size: 14px 14px;
+}
+
+@media screen and (max-width: 600px) {
+  .switches li::before {
+    display: none;
+  }
+}

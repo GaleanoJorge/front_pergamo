@@ -34,11 +34,6 @@ const routes: Routes = [{
         .then(m => m.ClinicHistoryModule),
     },
     {
-      path: 'pharmacy',
-      loadChildren: () => import('./pharmacy/pharmacy.module')
-        .then(m => m.PharmacyModule),
-    },
-    {
       path: 'gloss',
       loadChildren: () => import('./gloss/gloss.module')
         .then(m => m.GlossModule),
@@ -49,6 +44,11 @@ const routes: Routes = [{
       path: 'account-receivable',
       loadChildren: () => import('./account-receivable/account-receivable.module')
         .then(m => m.AccountReceivableModule),
+    },
+    {
+      path: 'human-talent-request',
+      loadChildren: () => import('./human-talent-request/human-talent-request.module')
+        .then(m => m.HumanTalentRequestModule),
     },
     {
       path: 'pad',

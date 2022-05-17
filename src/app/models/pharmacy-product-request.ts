@@ -4,7 +4,10 @@ import { MainClass } from './main-class';
 
 export class PharmacyProductRequest extends MainClass {
   id: number;
-  amount: number;
+  request_amount: number;
+  status: string;
+  observation: string;
   product_generic_id: number;
-  pharmacy_stock_id: number;
+  own_pharmacy_stock_id: number;
+  request_pharmacy_stock_id: number;
 }

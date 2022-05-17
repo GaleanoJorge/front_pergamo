@@ -33,8 +33,8 @@ export class ActionsStatusComponent implements ViewCell {
 
     async ngOnInit() {
 
-        console.log(this.rowData);
-        console.log(this.value);
+        // console.log(this.rowData);
+        // console.log(this.value);
 
 
     }

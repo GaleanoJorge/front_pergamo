@@ -164,7 +164,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label for="residence_address" class="form-text text-muted font-weight-bold">Tipo de Via</label>
-                <nb-select id="residence_address" formControlName="residence_address" residence_address fullWidth
+                <nb-select id="residence_address" formControlName="residence_address" fullWidth
                   title="Tipo de Via (Ej.Calle)"
                   status="{{ isSubmitted && form.controls.residence_address.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
 
@@ -216,7 +216,7 @@
               <div class="form-group">
                 <label for="residence_address" class="form-text text-muted font-weight-bold">Puntos Cardinales</label>
                 <nb-select select="option, optgroup" id="residence_address_cardinality" formControlName="residence_address_cardinality"
-                  residence_address_cardinality fullWidth title="Seleccione..."
+                   fullWidth title="Seleccione..."
                   status="{{ isSubmitted && form.controls.residence_address_cardinality.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                   >
                   <!-- status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" -->

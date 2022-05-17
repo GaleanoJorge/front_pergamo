@@ -11,6 +11,7 @@ import { ProductSubcategoryService } from '../../../../business-controller/produ
 import { ConsumptionUnitService } from '../../../../business-controller/consumption-unit.service';
 import { AdministrationRouteService } from '../../../../business-controller/administration-route.service';
 import { ProductConcentrationService } from '../../../../business-controller/product-concentration.service';
+import { ProductDoseService } from '../../../../business-controller/product_dose.service';
 
 
 @Component({
@@ -37,8 +38,10 @@ export class FormProductGenericComponent implements OnInit {
   public administration_route: any[];
   public product_group: any[];
   public product_category: any[];
+  public product_dose: any[];
   public showMedicine: boolean = false;
   public showPbs: boolean = false;
+  public showDose: boolean = false;
   public showInsumo: boolean = false;
   public subcategory: string;
   public drugconcentration: string;
@@ -59,6 +62,7 @@ export class FormProductGenericComponent implements OnInit {
     private ProductConcentrationS: ProductConcentrationService,
     private ProductCategoryS: ProductCategoryService,
     private ProductSubcategoryS: ProductSubcategoryService,
+    private prodDoseS: ProductDoseService,
   ) {
   }
 
@@ -80,6 +84,8 @@ export class FormProductGenericComponent implements OnInit {
         consignment: '',
         minimum_stock: '',
         maximum_stock: '',
+        product_dose_id: '',
+        dose: '',
       };
     }
 
@@ -101,6 +107,8 @@ export class FormProductGenericComponent implements OnInit {
       consignment: [this.data.consignment],
       product_group_id: [],
       product_category_id: [],
+      product_dose_id: [],
+      dose: [],
     });
 
     this.form.controls.description.disable();
@@ -124,11 +132,16 @@ export class FormProductGenericComponent implements OnInit {
     await this.PbsTypeS.GetCollection().then(x => {
       this.pbs_type = x;
     });
+    await this.prodDoseS.GetCollection().then(x => {
+      this.product_dose = x;
+    });
     await this.ProductConcentrationS.GetCollection().then(x => {
       this.drug_concentration = x;
     });
+   
     this.onChanges();
     this.onChanges1();
+    this.onChanges2();
   }
 
   selectsubcategory(event: Event) {
@@ -143,7 +156,7 @@ export class FormProductGenericComponent implements OnInit {
   }
   selectmeasurement(event: Event) {
     let measurement = this.measurement_units.find(x => x.id == event);
-    this.measurementunits = measurement.name;
+    this.measurementunits = measurement.code;
     this.form.controls.description.setValue(this.subcategory + " " + this.drugconcentration + " " + this.measurementunits);
   }
   selectpresentation(event: Event) {
@@ -173,6 +186,13 @@ export class FormProductGenericComponent implements OnInit {
       this.showPbs = false;
     }
   }
+  onChange2(tipoId) {
+    if (tipoId == 2) {
+      this.showDose = true;
+    } else {
+      this.showDose = false;
+    }
+  }
 
   save() {
     this.isSubmitted = true;
@@ -196,6 +216,7 @@ export class FormProductGenericComponent implements OnInit {
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           consignment: this.form.controls.consignment.value,
+          product_dose_id: this.form.controls.product_dose_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -223,6 +244,7 @@ export class FormProductGenericComponent implements OnInit {
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           consignment: this.form.controls.consignment.value,
+          product_dose_id: this.form.controls.product_dose_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -269,6 +291,17 @@ export class FormProductGenericComponent implements OnInit {
       console.log(val);
       if (val === '') {
         this.pbs_type = [];
+      } else {
+        this.GetCategories(val).then();
+      }
+    });
+  }
+  
+  onChanges2() {
+    this.form.get('product_dose_id').valueChanges.subscribe(val => {
+      console.log(val);
+      if (val === '') {
+        this.product_dose = [];
       } else {
         this.GetCategories(val).then();
       }

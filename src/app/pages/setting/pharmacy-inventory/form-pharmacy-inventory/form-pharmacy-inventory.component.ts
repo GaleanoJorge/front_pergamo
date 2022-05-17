@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BillingService } from '../../../../business-controller/billing.service';
-import { TypeBillingEvidenceService } from '../../../../business-controller/type-billing-evidence.service';
 import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
-import { PharmacyInventoryService } from '../../../../business-controller/pharmacy-inventory.service';
+import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 
 @Component({
   selector: 'ngx-form-pharmacy-inventory',
@@ -21,31 +19,34 @@ export class FormPharmacyInventoryComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public pharmacy_stock_id: any[];
+  public own_pharmacy_stock_id: any[];
+  public selectedOptions: any[] = [];
+
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
-    private invS: PharmacyInventoryService,
+    private pharProdReqS: PharmacyProductRequestService,
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private perPharmaS: PharmacyStockService,
+    private toastS: NbToastrService,
+
   ) {
   }
 
   async ngOnInit() {
     if (!this.data) {
       this.data = {
-        pharmacy_stock_id: '',
-        amount: '',
+        amount_provition: '',
       };
     }
     this.form = this.formBuilder.group({
-      pharmacy_stock_id: [this.data.pharmacy_stock_id, Validators.compose([Validators.required])],
-      amount: [this.data.amount, Validators.compose([Validators.required])],
+      own_pharmacy_stock_id: [this.data.own_pharmacy_stock_id, Validators.compose([Validators.required])],
+      amount_provition: [this.data.amount_provition, Validators.compose([Validators.required])],
     });
 
-    await this.perPharmaS.GetCollection({not_pharmacy: this.my_pharmacy_id,}).then(x => {
-      this.pharmacy_stock_id = x;
+    await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
+      this.own_pharmacy_stock_id = x;
     });
 
   }
@@ -57,27 +58,15 @@ export class FormPharmacyInventoryComponent implements OnInit {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
-
       if (this.data.id) {
-        this.invS.updateInventoryByLot({
-          id: this.data.id,
-          pharmacy_lot_id: this.data.pharmacy_lot_id,
-          pharmacy_stock_id: this.form.controls.pharmacy_stock_id.value,
-          amount: this.form.controls.amount.value,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
-      } else {
-        this.invS.Save({
-          pharmacy_stock_id: this.form.controls.pharmacy_stock_id.value,
-          amount: this.form.controls.amount.value,
+        this.pharProdReqS.updateInventoryByLot({
+          id: -1,
+          pharmacy_lot_stock_id: this.data.id,
+          amount_provition: this.form.controls.amount_provition.value,
+          status: 'ENVIADO',
+          product_generic_id: this.data.billing_stock.product.product_generic_id,
+          request_pharmacy_stock_id: 1,
+          own_pharmacy_stock_id: this.form.controls.own_pharmacy_stock_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

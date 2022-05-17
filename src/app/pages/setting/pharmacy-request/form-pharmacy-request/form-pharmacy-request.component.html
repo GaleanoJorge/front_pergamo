@@ -1,15 +1,15 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="margin: 10px;max-width: 1100px;max-height: 600px;overflow: auto;">
+  <nb-card style="margin: 10px;max-width: 1100px;max-height: 900px;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
         <div class="row">
           <div class="col-12 col-sm-12 col-md-6">
-            <label for="amount" class="form-text text-muted font-weight-bold">CANTIDAD SOLICITADA:</label>
+            <label for="request_amount" class="form-text text-muted font-weight-bold">CANTIDAD SOLICITADA:</label>
           </div>
           <div class="col-12 col-sm-12 col-md-6">
-            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount"
-              formControlName="amount" disabled="disabled" />
+            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="request_amount"
+              formControlName="request_amount" disabled="disabled" />
           </div>
         </div>
 

@@ -31,7 +31,7 @@ export class ContractService {
       });
   }
   GetByCompany(contract: any): Promise<Contract[]> {
-    let servObj = new ServiceObject('contractByCompany/', contract.id);
+    let servObj = new ServiceObject('contractByCompany', contract.id);
 
     return this.webAPI.GetAction(servObj)
       .then(x => {

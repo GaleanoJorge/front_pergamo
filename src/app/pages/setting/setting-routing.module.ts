@@ -65,7 +65,6 @@ import { SpecialtyComponent } from './specialty/specialty.component';
 import { EntityComponent } from './entity/entity.component';
 import { RegionComponent } from './region/region.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
-import { PermissionsGuard } from "../../guards/permissions.guard";
 import { FormUserComponent } from './users/form-user/form-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { ThemesComponent } from './themes/themes.component';
@@ -121,12 +120,17 @@ import { TariffComponent } from './tariff/tariff.component';
 import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
 import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
 import { AuthStatusComponent } from './auth-status/auth-status.component';
+import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
 import { BillingComponent } from './billing/billing.component';
 import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
-import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
-import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
 import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
+import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
 import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
+import { TcBillingComponent } from './tc-billing/tc-billing.component';
+import { TcRadicationComponent } from './tc-radication/tc-radication.component';
+import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
+import { PharmacyLotComponent } from './pharmacy-lot/pharmacy-lot.component';
+import { PharmacyIncomeComponent } from './pharmacy-income/pharmacy-income.component';
 
 const routes: Routes = [{
   path: '',
@@ -289,7 +293,8 @@ const routes: Routes = [{
       path: 'contract-status',
       component: ContractStatusComponent,
 
-    },{
+    },
+    {
       path: 'auth-status',
       component: AuthStatusComponent,
 
@@ -415,6 +420,11 @@ const routes: Routes = [{
 
     },
     {
+      path: 'pharmacy-lot',
+      component: PharmacyLotComponent,
+
+    },
+    {
       path: 'pharmacy-stock',
       component: PharmacyStockComponent,
 
@@ -437,7 +447,14 @@ const routes: Routes = [{
     {
       path: 'pharmacy-update-max-min',
       component: FormPharmacyUpdateMaxMinComponent,
-    },
+    }
+    ,
+    {
+      path: 'pharmacy-income',
+      component: PharmacyIncomeComponent,
+    }
+
+    ,
     {
       path: 'invima-status',
       component: InvimaStatusComponent,
@@ -739,7 +756,19 @@ const routes: Routes = [{
     {
       path: 'hourly-frequency',
       component: HourlyFrequencyComponent,
-    }
+    },
+    {
+      path: 'tc-billing',
+      component: TcBillingComponent,
+    },
+    {
+      path: 'tc-radication',
+      component: TcRadicationComponent,
+    },
+    {
+      path: 'tc-human-talent',
+      component: TcHumanTalentComponent,
+    },
 
   ],
 }];

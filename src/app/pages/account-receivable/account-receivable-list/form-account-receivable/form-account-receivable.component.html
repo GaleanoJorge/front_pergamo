@@ -7,8 +7,11 @@
         <div class="col-md-12">
           <div class="form-group">
             <div class="form-group">
-              <label for="file" class="form-text text-muted font-weight-bold">
-                Cargar Planilla de seguridad social:
+              <label *ngIf="this.data.gross_value_activities >= this.data.minimum_salary.value" for="file" class="form-text text-muted font-weight-bold">
+                Cargar planilla de seguridad social:
+              </label>
+              <label *ngIf="!(this.data.gross_value_activities >= this.data.minimum_salary.value)" for="file" class="form-text text-muted font-weight-bold">
+                Cargar certificado afiliación EPS:
               </label>
               <div *ngIf="previewFile" class="container py-2">
                 <a [href]="previewFile" target="_blank">Ver documentos</a>

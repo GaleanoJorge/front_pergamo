@@ -5,6 +5,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ActionsSendComponent } from './actions.component';
 import { FormPharmacyRequestComponent } from './form-pharmacy-request/form-pharmacy-request.component';
+import { PharmacyAcceptedInventoryComponent } from './pharmacy-accepted-inventory/pharmacy-accepted-inventory.component';
 
 @Component({
   selector: 'ngx-pharmacy-request',
@@ -18,11 +19,10 @@ export class PharmacyRequestComponent implements OnInit {
 
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'NOMBRE-SEDE', 'PRODUCTO', 'CANTIDAD SOLICITADA'];
+  public headerFields: any[] = ['ID', 'NOMBRE-SEDE', 'PRODUCTO', 'CANTIDAD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
-
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -35,23 +35,22 @@ export class PharmacyRequestComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
             'edit': this.EditInv.bind(this),
           };
         },
-           renderComponent: ActionsSendComponent,
+        renderComponent: ActionsSendComponent,
       },
       id: {
         title: this.headerFields[0],
         type: 'string',
       },
-      pharmacy_stock: {
+      own_pharmacy_stock: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name + ' - ' + row.pharmacy_stock.campus.name;
+          return value.name + ' - ' + row.own_pharmacy_stock.campus.name;
         },
       },
       product_generic: {
@@ -61,10 +60,10 @@ export class PharmacyRequestComponent implements OnInit {
           return value.description;
         },
       },
-      amount: {
+      request_amount: {
         title: this.headerFields[3],
         type: 'string',
-      }
+      },
     },
   };
 
@@ -95,7 +94,6 @@ export class PharmacyRequestComponent implements OnInit {
         saved: this.RefreshData.bind(this),
       },
     });
-  
   }
 
   DeletePharInventary(data) {
@@ -114,6 +112,15 @@ export class PharmacyRequestComponent implements OnInit {
       return Promise.resolve(x.message);
     }).catch(x => {
       throw x;
+    });
+  }
+
+  NewDev() {
+    this.dialogFormService.open(PharmacyAcceptedInventoryComponent, {
+      context: {
+        title: 'Crear nuevo lote',
+        saved: this.RefreshData.bind(this),
+      },
     });
   }
 }
