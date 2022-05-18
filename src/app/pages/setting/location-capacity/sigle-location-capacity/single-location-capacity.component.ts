@@ -145,6 +145,10 @@ export class SingleLocationCapacityComponent implements OnInit {
     };
   }
 
+  receiveMessage(event) {
+    this.RefreshData();
+  }
+
   RefreshData() {
     this.table.refresh();
     this.table_base.refresh();
