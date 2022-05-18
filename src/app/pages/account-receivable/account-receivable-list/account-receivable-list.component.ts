@@ -26,7 +26,7 @@ export class AccountReceivableListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Cuentas de Cobro';
   public subtitle: string = 'Historial';
-  public headerFields: any[] = [ 'IDENTIFICACIÓN','NOMBRE','MES', 'VALOR BRUTO', 'VALOR NETO', 'ESTADO', 'CÁLCULO SEGURIDAD SOCIAL'];
+  public headerFields: any[] = ['IDENTIFICACIÓN', 'NOMBRE', 'MES', 'VALOR BRUTO', 'VALOR NETO', 'ESTADO', 'CÁLCULO SEGURIDAD SOCIAL'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -54,6 +54,7 @@ export class AccountReceivableListComponent implements OnInit {
             'pay': this.PayAccountReceivable.bind(this),
             'rent': this.RentAccountReceivable.bind(this),
             'view': this.ViewSourceRetention.bind(this),
+            'generate_file': this.GenerateFile.bind(this),
           };
         },
         renderComponent: Actions2Component,
@@ -85,7 +86,7 @@ export class AccountReceivableListComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return this.currency.transform(value);
         },
-        
+
       },
       net_value_activities: {
         title: this.headerFields[4],
@@ -93,7 +94,7 @@ export class AccountReceivableListComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return this.currency.transform(value);
         },
-        
+
       },
       status_bill: {
         title: this.headerFields[5],
@@ -107,10 +108,10 @@ export class AccountReceivableListComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           var result = 0;
-          if(row.gross_value_activities >= row.minimum_salary.value && row.gross_value_activities*0.4 <= row.minimum_salary.value) {
-            var result = row.minimum_salary.value*0.295;
-          } else if (row.gross_value_activities*0.4 > row.minimum_salary.value) {
-           result = row.gross_value_activities*0.4*0.295; 
+          if (row.gross_value_activities >= row.minimum_salary.value && row.gross_value_activities * 0.4 <= row.minimum_salary.value) {
+            var result = row.minimum_salary.value * 0.295;
+          } else if (row.gross_value_activities * 0.4 > row.minimum_salary.value) {
+            result = row.gross_value_activities * 0.4 * 0.295;
           }
           return this.currency.transform(result);
         },
@@ -135,22 +136,22 @@ export class AccountReceivableListComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private authService: AuthService,
 
-  
+
   ) {
   }
 
- async ngOnInit() {
+  async ngOnInit() {
     this.user = this.authService.GetUser();
     this.currentRole = this.authService.GetRole();
     await this.roleBS.GetCollection({ id: this.currentRole }).then(x => {
       this.roles = x;
     }).catch(x => { });
-   if( this.roles[0].role_type_id == 2){
-    this.entity='account_receivable/byUser/' + this.user.id;
-   }else{
-    this.entity='account_receivable/byUser/0';
+    if (this.roles[0].role_type_id == 2) {
+      this.entity = 'account_receivable/byUser/' + this.user.id;
+    } else {
+      this.entity = 'account_receivable/byUser/0';
 
-   }
+    }
 
   }
 
@@ -208,6 +209,15 @@ export class AccountReceivableListComponent implements OnInit {
         procedence: 1,
         saved: this.RefreshData.bind(this),
       },
+    });
+  }
+
+  GenerateFile(data) {
+    this.AccountReceivableS.GenerateFile({ id: data.id }).then(x => {
+      this.toastrService.success('Archivo generado con exito', 'Exito');
+      window.open(x['url'], '_blank');
+    }).catch(x => {
+      this.toastrService.danger('Error al generar archivo', 'Error');
     });
   }
   NewSigleLocationCapacity(data) {

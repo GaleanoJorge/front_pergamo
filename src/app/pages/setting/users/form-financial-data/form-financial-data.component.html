@@ -5,22 +5,22 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6">
           <label for="bank_id" class="form-text text-muted font-weight-bold">Seleccione Banco:</label>
-          <nb-select [selected]="this.data.bank_id" formControlName="bank_id" id="bank_id"
+          <nb-select [selected]="this.dataUser.financial_data_bank_id" formControlName="bank_id" id="bank_id"
             fullWidth
             status="{{ isSubmitted && form.controls.bank_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.bank_id }}" *ngFor="let item of bank"
+            <nb-option selected="{{ item.id == dataUser.financial_data_bank_id }}" *ngFor="let item of bank"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
         <div class="col-12 col-sm-12 col-md-6">
           <label for="account_type_id" class="form-text text-muted font-weight-bold">Tipo de cuenta:</label>
-          <nb-select [selected]="this.data.account_type_id" formControlName="account_type_id" id="account_type_id"
+          <nb-select [selected]="this.dataUser.financial_data_account_type_id" formControlName="account_type_id" id="account_type_id"
           fullWidth
           status="{{ isSubmitted && form.controls.bank_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == data.account_type_id }}" *ngFor="let item of account_type"
+          <nb-option selected="{{ item.id == dataUser.financial_data_account_type_id }}" *ngFor="let item of account_type"
             [value]="item.id">
             {{ item.name }}</nb-option>
         </nb-select>
