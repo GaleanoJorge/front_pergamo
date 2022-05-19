@@ -15,6 +15,9 @@ import { ManagementPlan } from '../../../models/management-plan';
 import { CompanyService } from '../../../business-controller/company.service';
 import { ContractService } from '../../../business-controller/contract.service';
 import { AuthPackageComponent } from './historic-authorization/auth-package/auth-package.component';
+import { ActionsComponent } from './actions.component';
+import { AuthAsociatedPackageComponent } from './auth-asociated-package/auth-asociated-package.component';
+import { AuthPackageService } from '../../../business-controller/auth-package.service';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -35,13 +38,19 @@ export class AuthorizationListComponent implements OnInit {
   public icon: string = 'nb-star';
   public entity: string = 'authorization/byStatus/0';
   public data: any = [];
+  public data_aux: any = [];
   public auth_status;
   public auth_statusM: any[] = [];
   public arrayBuffer: any;
   public user;
   public dialog;
   public currentRole;
+
+  public today = null;
+  public min_day = null;
   public selectedOptions: any[] = [];
+  public briefcase_id: any = null;
+  public admissions_id: any = null;
   public showdiv: boolean = null;
   public show;
   public checkbox: any[] = [];
@@ -54,11 +63,13 @@ export class AuthorizationListComponent implements OnInit {
       initial_date: null,
       final_date: null,
     }
+  public parentData: any;
 
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @ViewChild('packagingTemplate', { read: TemplateRef }) packagingTemplate: TemplateRef<HTMLElement>;
+  @ViewChild('packagingedit', { read: TemplateRef }) packagingedit: TemplateRef<HTMLElement>;
 
 
   public selectedMode: boolean = true;
@@ -75,6 +86,7 @@ export class AuthorizationListComponent implements OnInit {
     // private renderer2: Renderer2,
     // private elementR: ElementRef,
     private windowService: NbWindowService,
+    private authPackageS: AuthPackageService,
   ) {
   }
 
@@ -130,6 +142,21 @@ export class AuthorizationListComponent implements OnInit {
       //   },
       //   renderComponent: Actions2Component,
       // },
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'edit': this.EditAdmissions.bind(this),
+            'view': this.ViewPackage.bind(this),
+            'delete': this.DeleteConfirmAuth.bind(this),
+            'refresh': this.RefreshData.bind(this),
+          };
+        },
+        renderComponent: ActionsComponent,
+      },
       select: {
         title: this.headerFields[11],
         type: 'custom',
@@ -242,6 +269,15 @@ export class AuthorizationListComponent implements OnInit {
 
   async ngOnInit() {
 
+    this.parentData = {
+      selectedOptions: [],
+      entity: '',
+      customData: '',
+    };
+
+    this.today = new Date();
+    this.today = this.today.toISOString().split('T')[0];
+
     this.data = {
       company_id: null,
       start_date: '',
@@ -281,10 +317,27 @@ export class AuthorizationListComponent implements OnInit {
 
   onUserRowSelect(select: any[]) {
     this.selectedOptions = [];
+    var briefValidator = [];
+    var admiValidator = [];
     select.forEach(element => {
-      var auth = element;
-      this.selectedOptions.push(auth);
+
+      this.selectedOptions.push(element);
+      briefValidator.push(element.services_briefcase.briefcase_id);
+      admiValidator.push(element.admissions_id);
     });
+    let result = briefValidator.filter((item, index) => {
+      return briefValidator.indexOf(item) === index;
+    })
+    let result2 = admiValidator.filter((item, index) => {
+      return admiValidator.indexOf(item) === index;
+    })
+    if (result.length == 1 && result2.length == 1) {
+      this.briefcase_id = result[0];
+      this.admissions_id = result2[0];
+    } else {
+      this.briefcase_id = null;
+      this.admissions_id = null;
+    }
   }
 
   RefreshData() {
@@ -301,6 +354,52 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
+  EditAdmissions(data) {
+    this.data_aux = [];
+    if(data){
+      this.parentData.entity = 'authorization/auth_byAdmission/' + data.admissions_id + '?edit=true&id='+data.id;
+      this.parentData.customData = 'authorization'
+    };
+    this.data_aux = data;
+    this.dialog = this.dialogFormService.open(this.packagingedit, {
+    });
+  }
+
+  ViewPackage(data) {
+    if(data){
+      this.parentData.entity = 'authorization/auth_byAdmission/' + data.admissions_id + '?view=true&id='+data.id;
+      this.parentData.customData = 'authorization'
+    };
+
+    this.dialogFormService.open(AuthAsociatedPackageComponent, {
+      context: {
+        title: 'Ver',
+        data,
+        show: true,
+        parentData: this.parentData,
+      },
+    });
+  }
+
+  DeleteConfirmAuth(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        name: data.name,
+        data: data,
+        delete: this.DeleteAuth.bind(this),
+      },
+    });
+  }
+
+  DeleteAuth(data) {
+    return this.authPackageS.Delete(data.id).then(x => {
+      this.table.refresh();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
+  }
+
   onAmountChange(input, row) {
 
     if (input.target.value != '') {
@@ -315,6 +414,10 @@ export class AuthorizationListComponent implements OnInit {
       });
     }
 
+  }
+
+  receiveMessage($event){
+    this.selectedOptions = $event;
   }
 
   FilterAuth() {
@@ -383,23 +486,61 @@ export class AuthorizationListComponent implements OnInit {
     //     data: data
     //   }
     // });
-    if (this.form.controls.company_id.value) {
-      let eps_id = this.form.controls.company_id.value;
-      var localidentify = this.company.find(item => item.id == eps_id);
-      this.dialogFormService.open(AuthPackageComponent, {
-        context: {
-          eps_id: eps_id,
-          title: "Organizar paquete de: " + localidentify.name,
-          saved: this.RefreshData.bind(this),
-
-        },
-      });
+    if (this.selectedOptions.length < 1) {
+      this.toastS.warning('', 'Debe seleccionar procedimientos');
     } else {
-      this.toastS.warning('Debe seleccionar una eps', 'Acción invalida')
-
+      if (this.form.controls.company_id.value) {
+        let eps_id = this.form.controls.company_id.value;
+        var localidentify = this.company.find(item => item.id == eps_id);
+        if (this.briefcase_id) {
+          this.dialogFormService.open(AuthPackageComponent, {
+            context: {
+              briefcase_id: this.briefcase_id,
+              title: "Organizar paquete de: " + localidentify.name + ' para ' + this.selectedOptions[1].nombre_completo,
+              saved: this.RefreshData.bind(this),
+              selectedOptions: this.selectedOptions,
+              admissions_id: this.admissions_id
+            },
+          });
+        } else {
+          this.toastS.warning('Dentro de la selección hay un elemento invalido', 'Selección invalida')
+        }
+      } else {
+        this.toastS.warning('Debe seleccionar una eps', 'Acción invalida')
+      }
     }
 
   }
+
+  // saveGroup() {
+  //   var contador = 0;
+  //   var err = 0;
+  //   if (!this.selectedOptions.length) {
+  //     this.toastS.danger(null, 'Debe seleccionar al menos un Menú');
+  //   }
+  //   else {
+  //     var dta = {
+  //       component_package_id: null,
+  //       component_id: null,
+  //     };
+  //     this.selectedOptions.forEach(element => {
+  //       dta.component_package_id = this.procedure_package_id;
+  //       dta.component_id = element.id;
+  //       this.procedurePackageS.Save(dta).then(x => {
+  //       }).catch(x => {
+  //         err++;
+  //       });
+  //       contador++;
+  //     });
+  //     if (contador > 0) {
+  //       this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
+  //     } else if (err > 0) {
+  //       this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
+  //     }
+  //     this.RefreshData();
+  //     this.selectedOptions = [];
+  //   }
+  // }
 
   authMassive() {
     // this.disableCheck();
@@ -477,18 +618,18 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
-  GetResponseParam(company_id?) {
-    this.companyS.GetCollection().then(x => {
-      this.company = x;
-    });
+  // GetResponseParam(company_id?) {
+  //   this.companyS.GetCollection().then(x => {
+  //     this.company = x;
+  //   });
 
-    if (company_id) {
-      this.contractS.GetByCompany({ company_id: company_id }).then(x => {
-        this.contract = x
-      })
-    }
+  //   if (company_id) {
+  //     this.contractS.GetByCompany({ company_id: company_id }).then(x => {
+  //       this.contract = x
+  //     })
+  //   }
 
-  }
+  // }
 
   onChanges() {
     this.form.get('company_id').valueChanges.subscribe(val => {
@@ -496,6 +637,7 @@ export class AuthorizationListComponent implements OnInit {
     });
 
     this.form.get('start_date').valueChanges.subscribe(val => {
+      this.min_day = val;
       this.filter.initial_date = val;
     });
 
@@ -505,5 +647,32 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
+  save() {
+
+    this.isSubmitted = true;
+    if (!this.selectedOptions.length) {
+      this.toastS.danger(null, 'Debe seleccionar al menos un procedimiento');
+    } else {
+      if (!this.form.invalid) {
+        this.loading = true;
+        if (this.data_aux.id) {
+          this.authPackageS.Update({
+            id: this.data_aux.id,
+            auth_array: JSON.stringify(this.selectedOptions),
+          }).then(x => {
+            this.toastS.success('', x.message);
+            this.dialog.close();
+            if (this.saved) {
+              this.saved();
+            }
+            this.data_aux = [];
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        } 
+      }
+    }
+  }
 }
 
