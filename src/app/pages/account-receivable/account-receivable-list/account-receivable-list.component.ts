@@ -217,7 +217,7 @@ export class AccountReceivableListComponent implements OnInit {
       this.toastrService.success('Archivo generado con exito', 'Exito');
       window.open(x['url'], '_blank');
     }).catch(x => {
-      this.toastrService.danger('Error al generar archivo', 'Error');
+      this.toastrService.danger('Error al generar archivo: ' + x, 'Error');
     });
   }
   NewSigleLocationCapacity(data) {

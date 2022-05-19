@@ -42,6 +42,7 @@ export class FormFinancialDataComponent implements OnInit {
   ngOnInit(): void {
     if (!this.dataUser.financial_data_id) {
       this.dataUser = {
+        id: this.dataUser.id,
         financial_data_bank_id: '',
         financial_data_account_type_id: '',
         financial_data_account_number:'',
