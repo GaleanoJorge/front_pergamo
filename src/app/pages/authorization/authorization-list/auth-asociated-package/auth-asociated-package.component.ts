@@ -23,7 +23,8 @@ export class AuthAsociatedPackageComponent implements OnInit {
   @Input() parentData: any = [];
   @Input() show: any;
   public messageError = null;
-
+  
+  public saved: any = null;
 
   public InscriptionForm: FormGroup;
   public title = 'Asignación autorizaciones para paquete: ';
@@ -40,6 +41,7 @@ export class AuthAsociatedPackageComponent implements OnInit {
   public selectedRows: any;
   public inscriptionId;
   public campus;
+  
 
   public localidentify
   public manual_price: any[] = [];
@@ -59,10 +61,18 @@ export class AuthAsociatedPackageComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           if (!this.done) {
+            this.selectedOptions=[];
+            this.parentData.selectedOptions=[];
+            
+            this.table.source.data.forEach(x =>{ 
+              if(x.auth_package_id){
+                this.parentData.selectedOptions.push(x.id);
+              }
+            });
             this.selectedOptions = this.parentData.selectedOptions;
             this.emit = this.parentData.selectedOptions;
             this.parentData.selectedOptions.forEach(x => {
-              this.selectedOptions2.push(x.procedure_id);
+              this.selectedOptions2.push(x);
             });
             this.done = true;
           }
@@ -149,17 +159,14 @@ export class AuthAsociatedPackageComponent implements OnInit {
   eventSelections(event, row) {
     if (event) {
       this.selectedOptions2.push(row.id);
-      var auth_package = {
-        auth: row.id,
-      }
-      this.emit.push(auth_package);
+      this.emit.push(row.id);
     } else {
       this.emit = [];
       let i = this.selectedOptions2.indexOf(row.id);
       i !== -1 && this.selectedOptions2.splice(i, 1);
       var j = 0;
       this.selectedOptions.forEach(element => {
-        if (this.selectedOptions2.includes(element.auth_id)) {
+        if (this.selectedOptions2.includes(element)) {
           this.emit.push(element);
         }
         j++;
@@ -167,12 +174,14 @@ export class AuthAsociatedPackageComponent implements OnInit {
     }
     this.selectedOptions = this.emit;
     this.messageEvent.emit(this.selectedOptions);
-    this.RefreshData();
+    // this.RefreshData();
   }
 
-  RefreshData() {
-    this.table.refresh();
-  }
+
+
+  // RefreshData() {
+  //   this.table.refresh();
+  // }
  
   saveGroup() {
     var contador = 0;
@@ -199,7 +208,7 @@ export class AuthAsociatedPackageComponent implements OnInit {
       } else if (err > 0) {
         this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
       }
-      this.RefreshData();
+      // this.RefreshData();
       this.selectedOptions = [];
     }
   }
