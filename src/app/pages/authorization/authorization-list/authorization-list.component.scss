@@ -50,7 +50,11 @@ input[type=number] { -moz-appearance:textfield; }
 }
 
 .div-send {
-  padding-top: 30px;
+  // padding-top: 30px;
+  text-align: end;
+  display: flex;
+  justify-content: flex-end;
+  align-content: stretch;
 }
 
 .file-select-evicencias {

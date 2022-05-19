@@ -33,7 +33,7 @@ export class AuthorizationListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'AUTORIZACIONES: PENDIENTES';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'ambito', 'Programa', 'Sede', 'Estado', 'Procedimiento', 'Número de autorización', 'Cantidad autorizada'];
+  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'Ambito', 'Programa', 'Sede', 'Estado', 'Procedimiento', 'Número de autorización', 'Fecha de creación'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public entity: string = 'authorization/byStatus/0';
@@ -196,17 +196,6 @@ export class AuthorizationListComponent implements OnInit {
         },
         renderComponent: ActionsAuthNumberComponent,
       },
-      management_plan: {
-        title: this.headerFields[14],
-        type: 'string',
-        valuePrepareFunction(value) {
-          if (value.length > 0) {
-            return value[0]?.quantity
-          } else {
-            return '--';
-          }
-        },
-      },
       identification_type: {
         title: this.headerFields[0],
         type: 'string',
@@ -242,6 +231,10 @@ export class AuthorizationListComponent implements OnInit {
       },
       residence_address: {
         title: this.headerFields[6],
+        type: 'string',
+      },
+      date: {
+        title: this.headerFields[14],
         type: 'string',
       },
 
@@ -356,8 +349,8 @@ export class AuthorizationListComponent implements OnInit {
 
   EditAdmissions(data) {
     this.data_aux = [];
-    if(data){
-      this.parentData.entity = 'authorization/auth_byAdmission/' + data.admissions_id + '?edit=true&id='+data.id;
+    if (data) {
+      this.parentData.entity = 'authorization/auth_byAdmission/' + data.admissions_id + '?edit=true&id=' + data.id;
       this.parentData.customData = 'authorization'
     };
     this.data_aux = data;
@@ -366,8 +359,8 @@ export class AuthorizationListComponent implements OnInit {
   }
 
   ViewPackage(data) {
-    if(data){
-      this.parentData.entity = 'authorization/auth_byAdmission/' + data.admissions_id + '?view=true&id='+data.id;
+    if (data) {
+      this.parentData.entity = 'authorization/auth_byAdmission/' + data.admissions_id + '?view=true&id=' + data.id;
       this.parentData.customData = 'authorization'
     };
 
@@ -416,43 +409,14 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
-  receiveMessage($event){
+  receiveMessage($event) {
     this.selectedOptions = $event;
   }
 
   FilterAuth() {
     // this.disableCheck();
-    if (!this.filter.eps_id && !this.filter.final_date && !this.filter.final_date) {
-      this.title = 'AUTORIZACIONES: PENDIENTES';
-      this.table.changeEntity(`${this.entity}`, 'authorization')
-    } else {
-      var localidentify = this.company.find(item => item.id == this.filter.eps_id)
-      this.title = 'AUTORIZACIONES: PENDIENTES DE ' + localidentify.name;
-      var entity = this.entity
-      this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}`, 'authorization')
-    };
-
-
-    // switch () {
-    //   //por EPS
-    //   case 1: {
-    //     if (search) {
-    //       var localidentify = this.company.find(item => item.id == search)
-    //       this.title = 'AUTORIZACIONES: PENDIENTES DE ' + localidentify.name;
-    //       var entity = this.entity
-    //       this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}`, 'authorization')
-    //       // this.authorizationS.GetInProcess({eps_id: search}).then(x => {
-    //       //   this.table.source.data = x;
-    //       // });
-    //       // this.table.refresh();
-    //     } else {
-    //       this.title = 'AUTORIZACIONES: PENDIENTES';
-    //       this.table.changeEntity(`${this.entity}`, 'authorization')
-
-    //     }
-    //     break;
-    //   }
-    // }
+    var entity = this.entity
+    this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}`, 'authorization');
   }
 
   FilterStatus(status) {
@@ -476,71 +440,27 @@ export class AuthorizationListComponent implements OnInit {
   }
 
   packagingProcess() {
-    // this.disableCheck();
-    // this.dialogFormService.open(dialog);
-    // this.GetResponseParam();
-    // this.windowService.open(AuthPackageComponent, {
-    //   hasBackdrop: false,
-    //   closeOnEsc: false,
-    //   context: {
-    //     data: data
-    //   }
-    // });
+
     if (this.selectedOptions.length < 1) {
-      this.toastS.warning('', 'Debe seleccionar procedimientos');
+      this.toastS.warning('', 'Debe seleccionar al menos 1 autorización de procedimientos');
     } else {
-      if (this.form.controls.company_id.value) {
-        let eps_id = this.form.controls.company_id.value;
-        var localidentify = this.company.find(item => item.id == eps_id);
-        if (this.briefcase_id) {
-          this.dialogFormService.open(AuthPackageComponent, {
-            context: {
-              briefcase_id: this.briefcase_id,
-              title: "Organizar paquete de: " + localidentify.name + ' para ' + this.selectedOptions[1].nombre_completo,
-              saved: this.RefreshData.bind(this),
-              selectedOptions: this.selectedOptions,
-              admissions_id: this.admissions_id
-            },
-          });
-        } else {
-          this.toastS.warning('Dentro de la selección hay un elemento invalido', 'Selección invalida')
-        }
+      if (this.briefcase_id) {
+        this.dialogFormService.open(AuthPackageComponent, {
+          context: {
+            briefcase_id: this.briefcase_id,
+            title: "Organizar paquete para " + this.selectedOptions[0].nombre_completo,
+            saved: this.RefreshData.bind(this),
+            selectedOptions: this.selectedOptions,
+            admissions_id: this.admissions_id
+          },
+        });
       } else {
-        this.toastS.warning('Debe seleccionar una eps', 'Acción invalida')
+        this.toastS.warning('Dentro de la selección hay un elemento invalido', 'Selección invalida')
       }
     }
 
   }
 
-  // saveGroup() {
-  //   var contador = 0;
-  //   var err = 0;
-  //   if (!this.selectedOptions.length) {
-  //     this.toastS.danger(null, 'Debe seleccionar al menos un Menú');
-  //   }
-  //   else {
-  //     var dta = {
-  //       component_package_id: null,
-  //       component_id: null,
-  //     };
-  //     this.selectedOptions.forEach(element => {
-  //       dta.component_package_id = this.procedure_package_id;
-  //       dta.component_id = element.id;
-  //       this.procedurePackageS.Save(dta).then(x => {
-  //       }).catch(x => {
-  //         err++;
-  //       });
-  //       contador++;
-  //     });
-  //     if (contador > 0) {
-  //       this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
-  //     } else if (err > 0) {
-  //       this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
-  //     }
-  //     this.RefreshData();
-  //     this.selectedOptions = [];
-  //   }
-  // }
 
   authMassive() {
     // this.disableCheck();
@@ -552,20 +472,6 @@ export class AuthorizationListComponent implements OnInit {
       context: {
       }
     });
-    // if(this.form.controls.company_id.value){
-    //   let eps_id = this.form.controls.company_id.value;
-    //   var localidentify = this.company.find(item => item.id == eps_id);
-    //   this.dialogFormService.open(AuthPackageComponent, {
-    //     context: {
-    //       data: data,
-    //       eps_id: eps_id,
-    //       title: "Organizar paquete de: " + localidentify.name,
-    //     },
-    //   });
-    // } else {
-    //   this.toastS.warning('Debe seleccionar una eps','Acción invalida')
-
-    // }
 
   }
 
@@ -586,8 +492,8 @@ export class AuthorizationListComponent implements OnInit {
           break;
         }
         case 2: {
-          if (data.management_plan) {
-            this.ConfirmAction(data, 1);
+          if (data.assigned_management_plan) {
+            this.ConfirmAction(data, data.assigned_management_plan);
           } else {
             this.authorizationS.Update({
               id: data.id,
@@ -617,19 +523,6 @@ export class AuthorizationListComponent implements OnInit {
     });
 
   }
-
-  // GetResponseParam(company_id?) {
-  //   this.companyS.GetCollection().then(x => {
-  //     this.company = x;
-  //   });
-
-  //   if (company_id) {
-  //     this.contractS.GetByCompany({ company_id: company_id }).then(x => {
-  //       this.contract = x
-  //     })
-  //   }
-
-  // }
 
   onChanges() {
     this.form.get('company_id').valueChanges.subscribe(val => {
@@ -670,7 +563,7 @@ export class AuthorizationListComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
-        } 
+        }
       }
     }
   }
