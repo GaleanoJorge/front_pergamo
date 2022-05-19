@@ -135,10 +135,10 @@ export class ProcedurePackage2Component implements OnInit {
 
 
 
-  RefreshData() {
-    this.table.refresh();
-    this.selectedOptions = [];
-  }
+  // RefreshData() {
+  //   this.table.refresh();
+  //   this.selectedOptions = [];
+  // }
   ConfirmAction(dialog: TemplateRef<any>) {
     this.dialog = this.dialogService.open(dialog);
   }
