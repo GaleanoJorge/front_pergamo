@@ -3,22 +3,22 @@ import { NbDialogService } from '@nebular/theme';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { ActionsSendComponent } from './actions.component';
-import { FormPharmacyRequestComponent } from './form-pharmacy-request/form-pharmacy-request.component';
+import { ActionsReturnComponent } from './actions-return.component';
+import { FormPharmacyReturnComponent } from './form-pharmacy-return/form-pharmacy-return.component';
 
 @Component({
-  selector: 'ngx-pharmacy-request',
-  templateUrl: './pharmacy-request.component.html',
-  styleUrls: ['./pharmacy-request.component.scss']
+  selector: 'ngx-pharmacy-return',
+  templateUrl: './pharmacy-return.component.html',
+  styleUrls: ['./pharmacy-return.component.scss']
 })
-export class PharmacyRequestComponent implements OnInit {
+export class PharmacyReturnComponent implements OnInit {
   @Input() parentData: any;
   public isSubmitted = false;
   public messageError = null;
 
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'NOMBRE-SEDE', 'PRODUCTO', 'CANTIDAD'];
+  public headerFields: any[] = ['ID', 'DEVUELVE NOMBRE-SEDE', 'PRODUCTO', 'CANTIDAD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -39,7 +39,7 @@ export class PharmacyRequestComponent implements OnInit {
             'edit': this.EditInv.bind(this),
           };
         },
-        renderComponent: ActionsSendComponent,
+        renderComponent: ActionsReturnComponent,
       },
       id: {
         title: this.headerFields[0],
@@ -86,9 +86,9 @@ export class PharmacyRequestComponent implements OnInit {
   }
 
   EditInv(data) {
-    this.dialogFormService.open(FormPharmacyRequestComponent, {
+    this.dialogFormService.open(FormPharmacyReturnComponent, {
       context: {
-        title: 'Enviar Medicamento',
+        title: '',
         data,
         saved: this.RefreshData.bind(this),
       },
