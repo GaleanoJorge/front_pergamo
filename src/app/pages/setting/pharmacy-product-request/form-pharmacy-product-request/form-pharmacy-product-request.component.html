@@ -16,7 +16,7 @@
 
       <div class="col-12 col-sm-12 col-md-6">
         <label for="request_pharmacy_stock_id" class="form-text text-muted font-weight-bold">SOLICITAR
-          A(sede, bodega, farmacia):</label>
+          A(bodega, farmacia):</label>
         <nb-select [selected]="this.data.request_pharmacy_stock_id" formControlName="request_pharmacy_stock_id"
           id="request_pharmacy_stock_id" fullWidth
           status="{{ isSubmitted && form.controls.request_pharmacy_stock_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
