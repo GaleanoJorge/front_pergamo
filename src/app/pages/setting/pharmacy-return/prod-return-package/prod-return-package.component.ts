@@ -3,16 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
-import { AmountShippingComponent } from './amount-shipping.component';
-import { SelectProductShippingComponent } from './select-prod-shipping.component';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
+import { AmountReturnComponent } from './amount-return.component';
+import { SelectProductReturnComponent } from './select-prod-return.component';
 
 @Component({
-  selector: 'ngx-prod-shipping-package',
-  templateUrl: './prod-shipping-package.component.html',
-  styleUrls: ['./prod-shipping-package.component.scss'],
+  selector: 'ngx-prod-return-package',
+  templateUrl: './prod-return-package.component.html',
+  styleUrls: ['./prod-return-package.component.scss'],
 })
-export class ProdShippingPackageComponent implements OnInit {
+export class ProdReturnPackageComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   @Output() messageEvent = new EventEmitter<any>();
@@ -20,9 +20,9 @@ export class ProdShippingPackageComponent implements OnInit {
   public messageError = null;
 
   public InscriptionForm: FormGroup;
-  public title = 'MEDICAMENTO COMERCIAL: ';
+  public title = '';
   public subtitle = ' ';
-  public headerFields: any[] = ['PRODUCTO COMERCIAL', 'PRODUCTO GENERICO', 'CANTIDAD ACTUAL STOCK', 'CANTIDAD A ENVIAR', 'FECHA DE VENCIMIENTO'];
+  public headerFields: any[] = ['PRODUCTO GENERICO', 'CANTIDAD A DEVOLVER'];
   public routes = [];
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
@@ -59,57 +59,25 @@ export class ProdShippingPackageComponent implements OnInit {
             'selection': (event, row: any) => this.eventSelections(event, row),
           };
         },
-        renderComponent: SelectProductShippingComponent,
+        renderComponent: SelectProductReturnComponent,
       },
-      product: {
+      product_generic: {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
+          return value.description;
         },
       },
-      product_generic: {
+      request_amount: {
         title: this.headerFields[1],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.billing_stock.product.product_generic.description;
-        },
       },
-      actual_amount: {
-        title: this.headerFields[2],
-        type: 'string',
-      },
-      amount: {
-        title: this.headerFields[3],
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          var amo;
-          this.parentData.selectedOptions.forEach(x => {
-            if (x.pharmacy_lot_stock_id == row.id) {
-              amo = x.amount;
-            }
-          });
-          return {
-            'data': row,
-            'enabled': !this.selectedOptions2.includes(row.id),
-            'amount': amo ? amo : '',
-            'onchange': (input, row: any) => this.onAmountChange(input, row),
-          };
-        },
-        renderComponent: AmountShippingComponent,
-      },
-      expiration_date: {
-        title: this.headerFields[4],
-        type: 'string',
-      }
     },
   };
 
   constructor(
     private route: ActivatedRoute,
     private pharProdReqS: PharmacyProductRequestService,
-
-  //  private pharReqShippS: PharmacyRequestShippingService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     private e: ElementRef
@@ -148,24 +116,6 @@ export class ProdShippingPackageComponent implements OnInit {
     this.selectedOptions = this.emit;
     this.messageEvent.emit(this.selectedOptions);
     this.RefreshData();
-  }
-
-  onAmountChange(input, row) {
-    var i = 0;
-    var mientras = this.selectedOptions;
-    this.selectedOptions.forEach(element => {
-      if (element.pharmacy_lot_stock_id == row.id) {
-        mientras[i].amount = input.target.valueAsNumber;
-      }
-      i++
-    });
-    this.selectedOptions = mientras;
-    this.messageEvent.emit(this.selectedOptions);
-  }
-
-  ChangeManual(inscriptionstatus) {
-    this.inscriptionstatus = inscriptionstatus;
-    this.table.changeEntity(`inscriptionsByCourse/${this.inscriptionstatus}`);
   }
 
   RefreshData() {

@@ -4,13 +4,13 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    entity="product_generic/?pagination=true"
-                    customData='product_generic'
+                    entity="nom_product/?pagination=true"
+                    customData='nom_product'
                     [messageToltip]="messageToltip"
                     >
       <div actions>
         <div class="actions">
-          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewProductGeneric()">Crear</button>
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewProductSubcategory()">Crear</button>
         </div>
       </div>
     </ngx-base-table>

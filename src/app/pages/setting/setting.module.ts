@@ -307,10 +307,6 @@ import { AmountComponent } from './pharmacy-lot/prod-lot-package/amount.componen
 import { LotComponent } from './pharmacy-lot/prod-lot-package/lot.component';
 import { DateComponent } from './pharmacy-lot/prod-lot-package/date.component';
 import { SelectPharmacyLotComponent } from './pharmacy-lot/prod-lot-package/select-prod-lot.component';
-import { FormPharmacyAcceptedInventoryComponent } from './pharmacy-request/pharmacy-accepted-inventory/form-pharmacy-accepted-inventory/form-pharmacy-accepted-inventory.component';
-import { PharmacyAcceptedInventoryComponent } from './pharmacy-request/pharmacy-accepted-inventory/pharmacy-accepted-inventory.component';
-import { ObservationComponent } from './pharmacy-request/pharmacy-accepted-inventory/observation.component';
-import { StatusComponent } from './pharmacy-request/pharmacy-accepted-inventory/status.component';
 import { FormPharmacyIncomeComponent } from './pharmacy-income/form-pharmacy-income/form-pharmacy-income.component';
 import { PharmacyIncomeComponent } from './pharmacy-income/pharmacy-income.component';
 import { ActionsIncoComponent } from './pharmacy-income/actions.component';
@@ -319,6 +315,14 @@ import { AmountIncomeComponent } from './pharmacy-income/income-package/amountIn
 import { IncomePackageComponent } from './pharmacy-income/income-package/income-package.component';
 import { SelectIncomeComponent } from './pharmacy-income/income-package/select-income.component';
 import { BaseLocationPackageComponent } from './location-capacity/sigle-location-capacity/base-location-package/base-location-package.component';
+import { FormPharmacyReturnComponent } from './pharmacy-return/form-pharmacy-return/form-pharmacy-return.component';
+import { AmountReturnComponent } from './pharmacy-return/prod-return-package/amount-return.component';
+import { ProdReturnPackageComponent } from './pharmacy-return/prod-return-package/prod-return-package.component';
+import { SelectProductReturnComponent } from './pharmacy-return/prod-return-package/select-prod-return.component';
+import { ActionsReturnComponent } from './pharmacy-return/actions-return.component';
+import { PharmacyReturnComponent } from './pharmacy-return/pharmacy-return.component';
+import { NomProductComponent } from './nom-product/nom-product.component';
+import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom-product.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -649,12 +653,6 @@ import { BaseLocationPackageComponent } from './location-capacity/sigle-location
     LotComponent,
     DateComponent,
 
-
-    FormPharmacyAcceptedInventoryComponent,
-    PharmacyAcceptedInventoryComponent,
-    StatusComponent,
-    ObservationComponent,
-
     FormPharmacyIncomeComponent,
     PharmacyIncomeComponent,
     ActionsIncoComponent,
@@ -663,6 +661,16 @@ import { BaseLocationPackageComponent } from './location-capacity/sigle-location
     IncomePackageComponent,
     SelectIncomeComponent,
     BaseLocationPackageComponent,
+
+    FormPharmacyReturnComponent,
+    AmountReturnComponent,
+    ProdReturnPackageComponent,
+    SelectProductReturnComponent,
+    ActionsReturnComponent,
+    PharmacyReturnComponent,
+
+    NomProductComponent,
+    FormNomProductComponent
 
   ],
   providers: [

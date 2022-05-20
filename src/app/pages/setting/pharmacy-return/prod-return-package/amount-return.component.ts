@@ -4,12 +4,13 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-      <input type="text" nbInput fullWidth id="lot" lot [value]="value.lot"
+      <input type="number" nbInput fullWidth id="amount" amount [value]="value.amount"
       (change)="value.onchange($event, value.data)" [disabled]="value.enabled" />
   </div>
   `,
+  styleUrls: ['./prod-return-package.component.scss'],
 })
-export class ObservationComponent implements ViewCell {
+export class AmountReturnComponent implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;
 }

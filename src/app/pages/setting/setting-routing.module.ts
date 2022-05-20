@@ -131,6 +131,7 @@ import { TcRadicationComponent } from './tc-radication/tc-radication.component';
 import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
 import { PharmacyLotComponent } from './pharmacy-lot/pharmacy-lot.component';
 import { PharmacyIncomeComponent } from './pharmacy-income/pharmacy-income.component';
+import { NomProductComponent } from './nom-product/nom-product.component';
 
 const routes: Routes = [{
   path: '',
@@ -412,6 +413,12 @@ const routes: Routes = [{
     {
       path: 'product',
       component: ProductComponent,
+
+    }
+    ,
+    {
+      path: 'nom-product',
+      component: NomProductComponent,
 
     },
     {

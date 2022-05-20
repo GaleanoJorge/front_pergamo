@@ -11,7 +11,7 @@ export class ProductGeneric extends MainClass {
   product_genericcol: string;
   pbs_type_id: number;
   pbs_restriction: string;
-  product_subcategory_id: number;
+  nom_product_id: number;
   administration_route_id: number;
   special_controller_medicene:number;
   code_atc: string;

@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1100px;max-height: 900px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div *ngIf="show_table" class="col-12 col-sm-12">
+          <ngx-prod-return-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
+          </ngx-prod-return-package>
+        </div>
+        
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">ACEPTAR</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
