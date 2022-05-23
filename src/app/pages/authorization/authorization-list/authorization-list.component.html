@@ -100,8 +100,8 @@
       <nb-card-header>Editar paquete</nb-card-header>
       <nb-card-body>
         <form [formGroup]="xlsForm" (ngSubmit)="save()">
-          <div>
-            <div class="col-md-12" style="max-height: 800px;">
+          <div >
+            <div class="col-md-12" >
               <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [show]="false" [parentData]="this.parentData"></ngx-auth-asociated-package>
             </div>
           </div>
