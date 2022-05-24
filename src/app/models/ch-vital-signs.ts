@@ -28,11 +28,20 @@ export class ChVitalSigns extends MainClass {
     right_reaction: string;
     pupil_size_right: string;
     left_reaction: string;
+    mydriatic: string;
+    normal: string;
+    lazy_reaction_light:string;
+    fixed_lazy_reaction:string;
+    miotic_size:string;
+    observations_glucometry:string;
     pupil_size_left: string;
     ch_vital_hydration_id: number;
     ch_vital_ventilated_id: number;
     ch_vital_temperature_id: number;
     ch_vital_neurological_id: number;
+    oxygen_type_id: number;
+    liters_per_minute_id: number;
+    parameters_signs_id: number;
     type_record_id: number;
     ch_record_id: number;
 }

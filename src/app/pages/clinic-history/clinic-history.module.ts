@@ -90,6 +90,8 @@ import { ActionsNursingComponent } from './clinic-history-nursing-list/actionsNu
 import { ActionsNursing2Component } from './entry-clinic-history-nursing/actions.component';
 import { FormReasonConsultationNursingComponent } from './entry-clinic-history-nursing/form-reason-consultation-nursing/form-reason-consultation-nursing.component';
 import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
+import { FormFailedComponent } from './failed/form-failed/form-failed.component';
+import { FailedComponent } from './failed/failed.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -192,6 +194,9 @@ import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursi
 
     FormFormulationComponent,
     FormulationComponent,
+
+    FormFailedComponent,
+    FailedComponent,
   ],
 
   providers: [DateFormatPipe],
