@@ -84,6 +84,12 @@ import { FormulationComponent } from './formulation/formulation.component';
 import { BackgroundComponent } from './background/back/background.component';
 import { Actions8Component } from './background/back/actions.component';
 import { ChScalesComponent } from './scales/ch-scales.component';
+import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
+import { FormClinicHistoryNursingComponent } from './clinic-history-nursing-list/form-clinic-history-nursing/form-clinic-history-nursing.component';
+import { ActionsNursingComponent } from './clinic-history-nursing-list/actionsNursing.component';
+import { ActionsNursing2Component } from './entry-clinic-history-nursing/actions.component';
+import { FormReasonConsultationNursingComponent } from './entry-clinic-history-nursing/form-reason-consultation-nursing/form-reason-consultation-nursing.component';
+import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -113,6 +119,17 @@ import { ChScalesComponent } from './scales/ch-scales.component';
     NbCheckboxModule,
   ],
   declarations: [
+
+    ClinicHistoryNursingListComponent,
+    FormClinicHistoryNursingComponent,
+    
+    EntryClinicHistoryNursingComponent,
+    FormReasonConsultationNursingComponent,
+    
+    ActionsNursingComponent,
+    ActionsNursing2Component,
+
+
     ClinicHistoryComponent,
     FormClinicHistoryComponent,
     ClinicHistoryListComponent,

@@ -1,0 +1,63 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <div title *ngIf="user">
+      <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
+      <p class="parrafo" *ngIf="user">NOMBRE: {{this.user.firstname + ' ' + this.user.lastname}}</p>
+      <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday_parse}} </p>
+      <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
+    </div>
+    <nb-tabset class="tabset" (changeTab)="tablock($event)">
+      <nb-tab tabTitle="INGRESO">
+        <div *ngIf="this.show == 1">
+          <ngx-entry-clinic-history-nursing
+          [data]="null">  
+          </ngx-entry-clinic-history-nursing>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="ANTECEDENTES">
+        <div *ngIf="this.show == 2">
+          <ngx-back-list [data]="this.user">
+          </ngx-back-list>
+        </div> 
+      </nb-tab>
+      <nb-tab tabTitle="EVOLUCIÓN">
+        <div *ngIf="this.show == 3">
+          <ngx-evolution-list></ngx-evolution-list>
+        </div> 
+      </nb-tab>
+      <nb-tab tabTitle="ESCALAS">
+         <div *ngIf="this.show == 4">
+          <ngx-ch-scales>
+          </ngx-ch-scales>
+        </div> 
+      </nb-tab>
+
+      <nb-tab tabTitle="FORMULACIÓN">
+         <div *ngIf="this.show == 5">
+          <ngx-formulation [record_id]="record_id"></ngx-formulation>
+        </div> 
+      </nb-tab>
+      <nb-tab tabTitle="ORDEN MEDICAS">
+        <div *ngIf="this.show == 6">
+          <ngx-orders-medical></ngx-orders-medical>
+        </div> 
+      </nb-tab>   
+
+      <nb-tab tabTitle="FALLIDA">
+        <div *ngIf="this.show == 7">
+          <ngx-failed [record_id]="record_id"></ngx-failed>
+        </div> 
+      </nb-tab>
+
+      <nb-tab tabTitle="SALIDA">
+        <div *ngIf="this.show == 8">
+        </div>
+      </nb-tab>
+
+    </nb-tabset>
+    <div style="text-align: center;">
+      <a (click)="finish()" nbButton>Finalizar registro</a>
+    </div>
+  </div>
+
+</ngx-base-list>

@@ -3,10 +3,10 @@
     <nb-card>
       <nb-card-body>
         <nb-stepper #stepper [linear]="linearMode">
-          <nb-step [stepControl]="nameForm" label="Valoración">
+          <nb-step [stepControl]="nameForm" label="Nota de ingreso">
 
-            <ngx-form-reason-consultation *ngIf="chreasonconsultation" [record_id]="record_id"
-              [data]="chreasonconsultation"></ngx-form-reason-consultation>
+            <ngx-form-reason-consultation-nursing *ngIf="chreasonconsultation" [record_id]="record_id"
+              [data]="chreasonconsultation"></ngx-form-reason-consultation-nursing>
 
           </nb-step>
 
@@ -33,18 +33,6 @@
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
 
             <ngx-form-signs [record_id]="record_id"></ngx-form-signs>
-
-          </nb-step>
-
-          <nb-step [stepControl]="nameForm" label="Diagnóstico">
-            
-            <div class="row">
-              <div class="col-md-12">
-                <ngx-diagnostic [record_id]="record_id"></ngx-diagnostic>
-              </div>
-            </div>
-            <!--   <ngx-form-diagnostic></ngx-form-diagnostic>
-           <ngx-form-diagnostic [record_id]="record_id"></ngx-form-diagnostic>-->
 
           </nb-step>
 

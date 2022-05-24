@@ -15,7 +15,7 @@ import { UserBusinessService } from '../../../business-controller/user-business.
 import { PatientService } from '../../../business-controller/patient.service';
 import { ManagementPlanService } from '../../../business-controller/management-plan.service';
 import { FormAssignedManagementPlanComponent } from './form-assigned-management-plan/form-assigned-management-plan.component';
-import { ActionsSemaphoreComponent } from './actions-semaphore.component';
+import { ActionsSemaphoreComponent } from './actions-semaphore.component'; 
 
 @Component({
   selector: 'ngx-assigned-management-plan',

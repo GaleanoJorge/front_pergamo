@@ -6,7 +6,7 @@
       <div title *ngIf="user && medical==false">
         <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
         <p class="parrafo"*ngIf="user">NOMBRE:  {{user.nombre_completo}}</p>
-        <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday}} </p>
+        <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday_parse}} </p>
         <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
         <p class="parrafo" *ngIf="user">GÉNERO: {{user.gender.name}} </p>
       </div>
