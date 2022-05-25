@@ -73,10 +73,10 @@ export class ChRecordListComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
       },
-      user_id: {
+      user: {
         title: this.headerFields[1],
         width: 'string',
-        valuePrepareFunction(value) {
+        valuePrepareFunction(value, row) {
           return value?.firstname + ' ' + value.lastname;
         },
       },

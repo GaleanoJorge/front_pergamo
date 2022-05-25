@@ -3,7 +3,7 @@
 
 <div *ngIf="showTable"  style="margin-top: 15px;">
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="margin: 30px; max-width: 1400px; max-height: 1300px; overflow: auto;" >
+  <nb-card style="margin: 30px; max-width: 1400px; overflow-y: auto; height: 600px;" >
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body style="border: 20px;">
 
