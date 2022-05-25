@@ -33,6 +33,7 @@ import { ActionsBillingComponent } from './billing-admission/actions-billing.com
 import { BillingPadProcedureComponent } from './billing-pad-procedure/billing-pad-procedure.component';
 import { ActionsPadProcedureComponent } from './billing-pad-procedure/actions-pad-procedure.component';
 import { SelectServiceBillingComponent } from './billing-pad-procedure/select-service-billing.component';
+import { FormShowBillingPadComponent } from './billing-admission/form-show-billing-pad/form-show-billing-pad.component';
 
 @NgModule({
   imports: [
@@ -71,6 +72,7 @@ import { SelectServiceBillingComponent } from './billing-pad-procedure/select-se
     BillingPadProcedureComponent,
     ActionsPadProcedureComponent,
     SelectServiceBillingComponent,
+    FormShowBillingPadComponent,
   ],
   providers: [
     DateFormatPipe,

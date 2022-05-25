@@ -8,6 +8,7 @@ import { CurrencyPipe } from '@angular/common';
 import { SelectServiceBillingComponent } from './select-service-billing.component';
 import { FormBillingPadComponent } from './form-billing-pad/form-billing-pad.component';
 import { BillingPadService } from '../../../business-controller/bulling-pad.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'ngx-billing-pad-procedure',
@@ -127,6 +128,7 @@ export class BillingPadProcedureComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private toastS: NbToastrService,
     private BillingPadS: BillingPadService,
+    private authService: AuthService,
   ) {
   }
 
@@ -137,7 +139,8 @@ export class BillingPadProcedureComponent implements OnInit {
     this.admission_id = this.route.snapshot.params.admission_id;
     this.billing_id = this.route.snapshot.params.billing_id;
     this.entity = 'billing_pad/getAuthorizedProcedures/' + this.admission_id + '?billing_id=' + this.billing_id;
-    this.user_id = localStorage.getItem('user_id');
+    this.user = this.authService.GetUser();
+    this.user_id = this.user.id;
   }
 
 

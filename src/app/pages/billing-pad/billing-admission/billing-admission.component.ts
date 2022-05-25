@@ -5,6 +5,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { ActionsBillingComponent } from './actions-billing.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ActivatedRoute } from '@angular/router';
+import { FormShowBillingPadComponent } from './form-show-billing-pad/form-show-billing-pad.component';
 
 @Component({
   selector: 'ngx-billing-admission',
@@ -36,8 +37,8 @@ export class BillingAdmissionComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return {
             'data': row,
-            // 'edit': this.EditBillingAdmission.bind(this),
-            'delete': this.DeleteConfirmBillingAdmission.bind(this),
+            'show': this.ShowBillingAdmission.bind(this),
+            // 'delete': this.DeleteConfirmBillingAdmission.bind(this),
           };
         },
         renderComponent: ActionsBillingComponent,
@@ -100,15 +101,15 @@ export class BillingAdmissionComponent implements OnInit {
   //   });
   // }
 
-  // EditBillingAdmission(data) {
-  //   this.dialogFormService.open(FormBillingAdmissionComponent, {
-  //     context: {
-  //       title: 'Editar día de dietas',
-  //       data,
-  //       saved: this.RefreshData.bind(this),
-  //     },
-  //   });
-  // }
+  ShowBillingAdmission(data) {
+    this.dialogFormService.open(FormShowBillingPadComponent, {
+      context: {
+        title: 'Servicios facturados',
+        data,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
 
   DeleteConfirmBillingAdmission(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {

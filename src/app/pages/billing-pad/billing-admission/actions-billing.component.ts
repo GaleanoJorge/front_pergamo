@@ -6,8 +6,11 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
 @Component({
     template: `
     <div class="d-flex justify-content-center">
-      <button nbTooltip="Facturas" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/billing-pad/billing-pad-procedure/' + value.data.admissions_id + '/' + value.data.id">
-        <nb-icon icon="eye-outline"></nb-icon>
+      <button nbTooltip="PROCEDIMIENTOS" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/billing-pad/billing-pad-procedure/' + value.data.admissions_id + '/' + value.data.id">
+        <nb-icon icon="archive-outline"></nb-icon>
+      </button>
+      <button *ngIf="value.data.billing_pad_status_id == 2" nbTooltip="VER FACTURACIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data)">
+          <nb-icon icon="eye-outline"></nb-icon>
       </button>
     </div>
   `,
