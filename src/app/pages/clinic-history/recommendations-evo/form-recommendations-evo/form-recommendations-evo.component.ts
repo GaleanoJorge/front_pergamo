@@ -40,6 +40,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     if (!this.data || this.data.length == 0) {
       this.data = {
+        patient_family_education:'',
         recommendations_evo_id: '',
         description: '',
         analisys: '',
@@ -57,6 +58,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
 
    
     this.form = this.formBuilder.group({
+      patient_family_education: [this.data.patient_family_education],
       recommendations_evo_id: [this.data.recommendations_evo_id, Validators.compose([Validators.required])],
       description: [this.data.description],
       analisys: [this.data.analisys, Validators.compose([Validators.required])],
@@ -74,6 +76,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
       if (this.data.id) {
         await this.ChRecommendationsEvoS.Update({
           id: this.data.id,
+          patient_family_education: this.form.controls.patient_family_education.value,
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
           analisys: this.form.controls.analisys.value,
           plan: this.form.controls.plan.value,
@@ -92,6 +95,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
       } else {
         await this.ChRecommendationsEvoS.Save({
           id: this.data.id, 
+          patient_family_education: this.form.controls.patient_family_education.value,
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
           analisys: this.form.controls.analisys.value,
           plan: this.form.controls.plan.value,
