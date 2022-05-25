@@ -24,11 +24,15 @@ import {
 import {ThemeModule} from '../../@theme/theme.module';
 import {PagesModule} from '../pages.module';
 import {DateFormatPipe} from '../../pipe/date-format.pipe';
-import { PreBillingPadListComponent} from './billing-pad-list/pre-billing-pad-list.component';
-import { PreBillingPadRoutingModule } from './billing-pad-routing.module';
-import { PreBillingAdmissionComponent } from './pre-billing-admission/pre-billing-admission.component';
-import { FormPreBillingAdmissionComponent } from './pre-billing-admission/form-pre-billing-admission/form-pre-billing-admission.component';
+import { BillingPadListComponent} from './billing-pad-list/billing-pad-list.component';
+import { BillingPadRoutingModule } from './billing-pad-routing.module';
+import { BillingAdmissionComponent } from './billing-admission/billing-admission.component';
+import { FormBillingPadComponent } from './billing-pad-procedure/form-billing-pad/form-billing-pad.component';
 import { ActionsStatusComponent } from './billing-pad-list/actions-status.component';
+import { ActionsBillingComponent } from './billing-admission/actions-billing.component';
+import { BillingPadProcedureComponent } from './billing-pad-procedure/billing-pad-procedure.component';
+import { ActionsPadProcedureComponent } from './billing-pad-procedure/actions-pad-procedure.component';
+import { SelectServiceBillingComponent } from './billing-pad-procedure/select-service-billing.component';
 
 @NgModule({
   imports: [
@@ -48,7 +52,7 @@ import { ActionsStatusComponent } from './billing-pad-list/actions-status.compon
     NbAccordionModule,
     NbUserModule,
     NbSelectModule,
-    PreBillingPadRoutingModule,
+    BillingPadRoutingModule,
     NbAlertModule,
     PagesModule,
     NbDialogModule.forRoot(),
@@ -59,15 +63,19 @@ import { ActionsStatusComponent } from './billing-pad-list/actions-status.compon
     NbSpinnerModule,
   ],
   declarations: [
-    PreBillingPadListComponent,
-    PreBillingAdmissionComponent,
-    FormPreBillingAdmissionComponent,
+    BillingPadListComponent,
+    BillingAdmissionComponent,
+    FormBillingPadComponent,
     ActionsStatusComponent,
+    ActionsBillingComponent,
+    BillingPadProcedureComponent,
+    ActionsPadProcedureComponent,
+    SelectServiceBillingComponent,
   ],
   providers: [
     DateFormatPipe,
     CurrencyPipe
   ],
 })
-export class PreBillingPadModule {
+export class BillingPadModule {
 }

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
     <router-outlet></router-outlet>
   `,
 })
-export class PreBillingPadComponent {
+export class BillingPadComponent {
 }

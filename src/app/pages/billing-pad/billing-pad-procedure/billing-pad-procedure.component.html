@@ -1,0 +1,25 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table [title]="title" pager="false" [subtitle]="subtitle" [settings]="settings"
+      [entity]="entity" customData="billing_pad" [messageToltip]="messageToltip">
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" (click)="SaveBilling()">Crear</button>
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+
+    <!-- <nb-tabset fullWidth (changeTab)="reloadForm($event)">
+      <nb-tab tabTitle="ADMISIONES">
+      </nb-tab>
+      <nb-tab tabTitle="FACTURAS">
+        <div *ngIf="screen == 2">
+          <ngx-historic-authorization (messageEvent)="null"></ngx-historic-authorization>
+        </div>
+      </nb-tab>
+    </nb-tabset> -->
+
+  </div>
+</ngx-base-list>

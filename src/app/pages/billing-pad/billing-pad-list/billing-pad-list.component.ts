@@ -5,11 +5,11 @@ import { FormGroup } from '@angular/forms';
 import { ActionsStatusComponent } from './actions-status.component';
 
 @Component({
-  selector: 'ngx-pre-billing-pad-list',
-  templateUrl: './pre-billing-pad-list.component.html',
-  styleUrls: ['./pre-billing-pad-list.component.scss'],
+  selector: 'ngx-billing-pad-list',
+  templateUrl: './billing-pad-list.component.html',
+  styleUrls: ['./billing-pad-list.component.scss'],
 })
-export class PreBillingPadListComponent implements OnInit {
+export class BillingPadListComponent implements OnInit {
 
 
   public isSubmitted = false;
@@ -18,7 +18,7 @@ export class PreBillingPadListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'ADMISIONES';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['id'];
+  public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'DOCUMENTO', 'EPS'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -26,8 +26,6 @@ export class PreBillingPadListComponent implements OnInit {
   public user;
   public dialog;
   public currentRole;
-  public show;
-  public screen = 1;
 
 
 
@@ -40,26 +38,34 @@ export class PreBillingPadListComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      select: {
-        title: this.headerFields[11],
+      actions: {
+        title: this.headerFields[0],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          if (row.auth_status_id == 2) {
-            this.show = true;
-          } else {
-            this.show = false;
-          }
           return {
             'data': row,
-            'show': true,
           };
         },
         renderComponent: ActionsStatusComponent,
       },
-      id: {
-        title: this.headerFields[0],
+      nombre_completo: {
+        title: this.headerFields[1],
         type: 'string',
-      }
+      },
+      patients: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.patients.identification;
+        },
+      },
+      contract: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.contract.company.name;
+        },
+      },
     },
   };
 
@@ -95,17 +101,6 @@ export class PreBillingPadListComponent implements OnInit {
     this.table.refresh();
   }
 
-  reloadForm(tab) {
-
-
-    if (tab.tabTitle == 'ADMISIONES') {
-      this.screen = 1;
-    } else {
-      this.screen = 2;
-    }
-
-  }
-
   ConfirmAction(data, Managemen?) {
     // var closeOnBackdropClick = false;
     // this.dialogFormService.open(FormObservationComponent, {
@@ -120,10 +115,10 @@ export class PreBillingPadListComponent implements OnInit {
 
   SaveStatus(event?, data?) {
 
-    
+
   }
 
-  
+
 
   GetResponseParam() {
   }

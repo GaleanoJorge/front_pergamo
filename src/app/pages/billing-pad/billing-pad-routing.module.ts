@@ -1,23 +1,28 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {PreBillingPadComponent} from './billing-pad.component';
+import {BillingPadComponent} from './billing-pad.component';
 import {PermissionsGuard} from '../../guards/permissions.guard';
-import { PreBillingAdmissionComponent } from './pre-billing-admission/pre-billing-admission.component';
-import { PreBillingPadListComponent } from './billing-pad-list/pre-billing-pad-list.component';
+import { BillingAdmissionComponent } from './billing-admission/billing-admission.component';
+import { BillingPadListComponent } from './billing-pad-list/billing-pad-list.component';
+import { BillingPadProcedureComponent } from './billing-pad-procedure/billing-pad-procedure.component';
 
 
 const routes: Routes = [{
   path: '',
-  component: PreBillingPadComponent,
+  component: BillingPadComponent,
   children: [
     {
       path: 'list',
-      component: PreBillingPadListComponent,
+      component: BillingPadListComponent,
     },
     {
-      path: 'pre-billing-admission/:id',
-      component: PreBillingAdmissionComponent,
+      path: 'billing-admission/:id',
+      component: BillingAdmissionComponent,
+    },
+    {
+      path: 'billing-pad-procedure/:admission_id/:billing_id',
+      component: BillingPadProcedureComponent,
     },
   ],
 }];
@@ -26,5 +31,5 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PreBillingPadRoutingModule {
+export class BillingPadRoutingModule {
 }

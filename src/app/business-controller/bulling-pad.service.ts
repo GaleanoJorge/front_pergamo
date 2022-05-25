@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { PreBillingPad } from '../models/pre-billing-pad';
+import { BillingPad } from '../models/billing-pad';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PreBillingPadService {
-  public diet_day: PreBillingPad[] = [];
+export class BillingPadService {
+  public billing_pad: BillingPad[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<PreBillingPad[]> {
-    let servObj = new ServiceObject(params ? 'diet_day?pagination=false' : 'diet_day');
+  GetCollection(params = {}): Promise<BillingPad[]> {
+    let servObj = new ServiceObject(params ? 'billing_pad?pagination=false' : 'billing_pad');
 
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
@@ -22,18 +22,18 @@ export class PreBillingPadService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.diet_day = <PreBillingPad[]>servObj.data.diet_day;
+        this.billing_pad = <BillingPad[]>servObj.data.billing_pad;
 
-        return Promise.resolve(this.diet_day);
+        return Promise.resolve(this.billing_pad);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(diet_day: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('diet_day');
-    servObj.data = diet_day;
+  Save(billing_pad: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad');
+    servObj.data = billing_pad;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class PreBillingPadService {
       });
   }
 
-  Update(diet_day: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('diet_day', diet_day.id);
-    servObj.data = diet_day;
+  Update(billing_pad: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad', billing_pad.id);
+    servObj.data = billing_pad;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +64,7 @@ export class PreBillingPadService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('diet_day', id);
+    let servObj = new ServiceObject('billing_pad', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

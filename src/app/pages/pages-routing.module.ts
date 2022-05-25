@@ -63,7 +63,7 @@ const routes: Routes = [{
     {
       path: 'billing-pad',
       loadChildren: () => import('./billing-pad/billing-pad.module')
-        .then(m => m.PreBillingPadModule),
+        .then(m => m.BillingPadModule),
     },
     {
       path: 'setting',
