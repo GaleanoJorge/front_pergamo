@@ -1,4 +1,4 @@
-<ngx-form-formulation (messageEvent)="receiveMessage($event)">
+<ngx-form-formulation (messageEvent)="receiveMessage($event)" [user]="this.user">
 </ngx-form-formulation>
 <label class="form-text text-muted font-weight-bold align">FORMULACIONES</label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">

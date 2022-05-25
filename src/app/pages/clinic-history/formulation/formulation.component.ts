@@ -12,6 +12,7 @@ export class FormulationComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id;
+  @Input() user;
   linearMode = false;
   public messageError = null;
   public title;
@@ -33,11 +34,11 @@ export class FormulationComponent implements OnInit {
     },
     columns: {
 
-      product_generic: {
+      product_id: {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.description;
+          return value.product;
         },
 
       dose: {
