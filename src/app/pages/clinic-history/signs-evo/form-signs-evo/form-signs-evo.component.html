@@ -24,7 +24,7 @@
               status="{{ isSubmitted && form.controls.ch_vital_temperature_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value=""> VÍA DE TOMA </nb-option>
               <nb-option selected="{{ item.id == this.data.ch_vital_temperature_id }}"
-                *ngFor="let item of vital_temperature" [value]="item.id">
+                *ngFor="let item of ch_vital_temperature" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
             <input type="number" placeholder="SAT.O2" class="space" id="oxigen_saturation"
@@ -60,7 +60,7 @@
               status="{{ isSubmitted && form.controls.ch_vital_neurological_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.ch_vital_neurological_id }}"
-                *ngFor="let item of vital_neurological" [value]="item.id">
+                *ngFor="let item of ch_vital_neurological" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
           </fieldset>
@@ -75,7 +75,7 @@
               status="{{ isSubmitted && form.controls.ch_vital_hydration_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.ch_vital_hydration_id }}"
-                *ngFor="let item of vital_hydration" [value]="item.id">
+                *ngFor="let item of ch_vital_hydration" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
           </fieldset>
@@ -105,7 +105,7 @@
         </div>
       </div>
 
-      <!-- <div class="col-md-4">
+      <div class="col-md-4">
         <div>
           <fieldset class="field_set ">
             <legend class="prue1 center ">PUPILAS</legend>
@@ -117,7 +117,7 @@
             </ul>
           </fieldset>
         </div>
-      </div> -->
+      </div>
 
       <div class="col-md-3 ">
         <div class="center">
@@ -128,7 +128,7 @@
               status="{{ isSubmitted && form.controls.ch_vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.ch_vital_ventilated_id }}"
-                *ngFor="let item of vital_ventilated" [value]="item.id">
+                *ngFor="let item of ch_vital_ventilated" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
           </fieldset>
@@ -235,10 +235,9 @@
                 required nbInput ngModel>
               <input type="number" placeholder="GLUCOMETRIA" class="space1" id="glucometry" formControlName="glucometry"
                 required nbInput ngModel>
-              <label class="form-text text-muted font-weight-bold">OBSERVACIÓN DE GLUCOMETRIA</label>
+              <label class="form-text text-muted font-weight-bold">Observación de Glucometria</label>
               <textarea id="observations_glucometry" formControlName="observations_glucometry" observations_glucometry
-              rows="1" cols="10"> </textarea>
-  
+              onpaste="return false" rows="4" cols="150"> </textarea>
             </table>
           </fieldset>
         </div>

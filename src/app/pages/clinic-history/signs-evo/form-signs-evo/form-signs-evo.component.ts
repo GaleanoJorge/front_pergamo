@@ -28,10 +28,10 @@ export class FormsignsEvoComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public vital_hydration: any[];
-  public vital_neurological: any[];
-  public vital_temperature: any[];
-  public vital_ventilated: any[];
+  public ch_vital_hydration: any[];
+  public ch_vital_neurological: any[];
+  public ch_vital_temperature: any[];
+  public ch_vital_ventilated: any[];
   public oxygen_type: any[];
   public liters_per_minute: any[]; 
   public parameters_signs: any[];
@@ -137,16 +137,16 @@ export class FormsignsEvoComponent implements OnInit {
     }
 
     this.chvitalHydrationS.GetCollection({ status_id: 1 }).then((x) => {
-      this.vital_hydration = x;
+      this.ch_vital_hydration = x;
     });
     this.chvitalNeurologicalS.GetCollection({ status_id: 1 }).then((x) => {
-      this.vital_neurological = x;
+      this.ch_vital_neurological = x;
     });
     this.chvitalTemperatureS.GetCollection({ status_id: 1 }).then((x) => {
-      this.vital_temperature = x;
+      this.ch_vital_temperature = x;
     });
     this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then((x) => {
-      this.vital_ventilated = x;
+      this.ch_vital_ventilated = x;
     });
     this.OxygenTypeS.GetCollection({ status_id: 1 }).then((x) => {
       this.oxygen_type = x;
@@ -175,14 +175,8 @@ export class FormsignsEvoComponent implements OnInit {
       intracranial_pressure: [this.data.intracranial_pressure],
       cerebral_perfusion_pressure: [this.data.cerebral_perfusion_pressure],
       intra_abdominal: [this.data.intra_abdominal],
-      pressure_systolic: [
-        this.data.pressure_systolic,
-        Validators.compose([Validators.required]),
-      ],
-      pressure_diastolic: [
-        this.data.pressure_diastolic,
-        Validators.compose([Validators.required]),
-      ],
+      pressure_systolic: [this.data.pressure_systolic,Validators.compose([Validators.required]),],
+      pressure_diastolic: [this.data.pressure_diastolic,Validators.compose([Validators.required]),],
       pressure_half: [this.data.pressure_half],
       pulse: [this.data.pulse],
       venous_pressure: [this.data.venous_pressure],
@@ -208,10 +202,7 @@ export class FormsignsEvoComponent implements OnInit {
       observations_glucometry: [this.data.observations_glucometry],
       ch_vital_hydration_id: [this.data.ch_vital_hydration_id],
       ch_vital_ventilated_id: [this.data.ch_vital_ventilated_id],
-      ch_vital_temperature_id: [
-        this.data.ch_vital_temperature_id,
-        Validators.compose([Validators.required]),
-      ],
+      ch_vital_temperature_id: [this.data.ch_vital_temperature_id,Validators.compose([Validators.required]),],
       ch_vital_neurological_id: [this.data.ch_vital_neurological_id],
       oxygen_type_id: [this.data.oxygen_type_id],
       liters_per_minute_id: [this.data.liters_per_minute_id],
@@ -275,8 +266,7 @@ export class FormsignsEvoComponent implements OnInit {
             ch_vital_hydration_id:
               this.form.controls.ch_vital_hydration_id.value,
             ch_vital_ventilated_id:this.form.controls.ch_vital_ventilated_id.value,
-            ch_vital_temperature_id:
-              this.form.controls.ch_vital_temperature_id.value,
+            ch_vital_temperature_id:this.form.controls.ch_vital_temperature_id.value,
             ch_vital_neurological_id:
               this.form.controls.ch_vital_neurological_id.value,
               oxygen_type_id:

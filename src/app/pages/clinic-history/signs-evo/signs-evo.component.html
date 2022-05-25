@@ -1,6 +1,7 @@
 <ngx-form-signs-evo (messageEvent)="receiveMessage($event)" [record_id]="record_id">
 </ngx-form-signs-evo>
-<label class="form-text text-muted font-weight-bold align">REGISTROS SIGNOS VITALES</label>
+<div class="center">
+<label class="form-text text-muted font-weight-bold align center">Registro de Signos Vitales</label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table pager="false" [title]="title" customData="ch_vital_signs" [settings]="settings"
@@ -14,3 +15,4 @@
     </ngx-base-table>
   </div>
 </ngx-base-list>
+</div>

@@ -105,7 +105,7 @@
         </div>
       </div>
 
-      <!-- <div class="col-md-4">
+      <div class="col-md-4">
         <div>
           <fieldset class="field_set ">
             <legend class="prue1 center ">PUPILAS</legend>
@@ -117,7 +117,7 @@
             </ul>
           </fieldset>
         </div>
-      </div> -->
+      </div>
 
       <div class="col-md-3 ">
         <div class="center">
@@ -135,7 +135,6 @@
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="col-md-4 ">
         <div class="center">
@@ -159,8 +158,8 @@
               id="liters_per_minute_id"
               status="{{ isSubmitted && form.controls.liters_per_minute_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.liters_per_minute_id }}"
-                *ngFor="let item of liters_per_minute" [value]="item.id">
+              <nb-option selected="{{ item.id == this.data.liters_per_minute_id }}" *ngFor="let item of liters_per_minute"
+                [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
           </fieldset>
@@ -182,8 +181,8 @@
         </div>
       </div>
     </div>
-
-
+  
+  
     <div class="row">
       <div class="col-md-6">
         <div class="center">
@@ -194,13 +193,13 @@
                 formControlName="pulmonary_systolic" required nbInput ngModel>
               <input type="number" placeholder="DIASTÓLICA" class="space2" id="pulmonary_diastolic"
                 formControlName="pulmonary_diastolic" required nbInput ngModel>
-              <input type="number" placeholder="MEDIA" class="space3" id="pulmonary_half"
-                formControlName="pulmonary_half" required nbInput ngModel>
+              <input type="number" placeholder="MEDIA" class="space3" id="pulmonary_half" formControlName="pulmonary_half"
+                required nbInput ngModel>
             </table>
           </fieldset>
         </div>
       </div>
-
+  
       <div class="col-md-6">
         <div class="center">
           <fieldset class="field_set">
@@ -217,7 +216,7 @@
         </div>
       </div>
     </div>
-
+  
     <div class="row">
       <div class="col-md-12">
         <div class="center">
@@ -226,26 +225,26 @@
             <table width="100%">
               <input type="number" placeholder="PULSO" class="space" id="pulse" formControlName="pulse" required nbInput
                 ngModel>
-              <input type="number" placeholder="PVC" class="ImpPeq" id="venous_pressure"
-                formControlName="venous_pressure" required nbInput ngModel>
+              <input type="number" placeholder="PVC" class="ImpPeq" id="venous_pressure" formControlName="venous_pressure"
+                required nbInput ngModel>
               <input type="number" placeholder="PIC" class="ImpPeq" id="intracranial_pressure"
                 formControlName="intracranial_pressure" required nbInput ngModel>
               <input type="number" placeholder="PPC" class="ImpPeq" id="cerebral_perfusion_pressure"
                 formControlName="cerebral_perfusion_pressure" required nbInput ngModel>
-              <input type="number" placeholder="PIA" class="ImpPeq" id="intra_abdominal"
-                formControlName="intra_abdominal" required nbInput ngModel>
+              <input type="number" placeholder="PIA" class="ImpPeq" id="intra_abdominal" formControlName="intra_abdominal"
+                required nbInput ngModel>
               <input type="number" placeholder="GLUCOMETRIA" class="space1" id="glucometry" formControlName="glucometry"
                 required nbInput ngModel>
               <label class="form-text text-muted font-weight-bold">OBSERVACIÓN DE GLUCOMETRIA</label>
-            <textarea id="observations_glucometry" formControlName="observations_glucometry" observations_glucometry
-                rows="1" cols="10"> </textarea>
-                
+              <textarea id="observations_glucometry" formControlName="observations_glucometry" observations_glucometry
+              onpaste="return false" rows="4" cols="150"> </textarea>
+  
             </table>
           </fieldset>
         </div>
       </div>
     </div>
-
+  
     <div class="div-send">
       <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
     </div>
