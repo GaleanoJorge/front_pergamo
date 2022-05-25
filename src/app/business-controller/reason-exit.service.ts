@@ -6,7 +6,7 @@ import { ReasonExit } from '../models/reason-exit';
 @Injectable({
   providedIn: 'root'
 })
-export class ChReasonService {
+export class ReasonExitService {
   public reason_exit: ReasonExit[] = [];
 
   constructor(private webAPI: WebAPIService) {

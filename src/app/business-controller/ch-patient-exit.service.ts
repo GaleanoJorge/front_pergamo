@@ -6,7 +6,7 @@ import { ChPatientExit } from '../models/ch-patient-exit';
 @Injectable({
   providedIn: 'root'
 })
-export class ChFormulationService {
+export class ChPatientExitService {
   public ch_patient_exit: ChPatientExit[] = [];
 
   constructor(private webAPI: WebAPIService) {
