@@ -281,7 +281,7 @@
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold text ">OBSERVACIONES</label>
       <textarea id="observation_breast_self_exam" nbInput fullWidth formControlName="observation_breast_self_exam"
-        observation_breast_self_exam
+        observation_breast_self_exam onpaste="return false"
         status="{{ isSubmitted && form.controls.observation_breast_self_exam.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
     </div>
     <div class="col-12 col-sm-12 col-md-3">
@@ -297,7 +297,7 @@
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold text ">OBSERVACIONES</label>
-      <textarea id="observation_flow" nbInput fullWidth formControlName="observation_flow" observation_flow
+      <textarea id="observation_flow" nbInput fullWidth formControlName="observation_flow" observation_flow onpaste="return false"
         status="{{ isSubmitted && form.controls.observation_flow.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
     </div>
   </div>

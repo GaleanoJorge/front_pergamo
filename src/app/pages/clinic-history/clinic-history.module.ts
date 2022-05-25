@@ -86,6 +86,12 @@ import { Actions8Component } from './background/back/actions.component';
 import { ChScalesComponent } from './scales/ch-scales.component';
 import { FormFailedComponent } from './failed/form-failed/form-failed.component';
 import { FailedComponent } from './failed/failed.component';
+import { FormPatientExitComponent } from './patient-exit/form-patient-exit/form-patient-exit.component';
+import { PatientExitComponent } from './patient-exit/patient-exit.component';
+import { FormChMedicalOrdersComponent } from './ch-medical-orders/form-ch-medical-orders/form-ch-medical-orders.component';
+import { ChMedicalOrdersComponent } from './ch-medical-orders/ch-medical-orders.component';
+import { FormChInterconsultationComponent } from './ch-interconsultation/form-ch-interconsultation/form-ch-interconsultation.component';
+import { ChInterconsultationComponent } from './ch-interconsultation/ch-interconsultation.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -180,7 +186,20 @@ import { FailedComponent } from './failed/failed.component';
 
     FormFailedComponent,
     FailedComponent,
+
+    FormPatientExitComponent,
+    PatientExitComponent,
+
+    FormChInterconsultationComponent,
+    ChInterconsultationComponent,
+
+    FormChMedicalOrdersComponent,
+    ChMedicalOrdersComponent,
+    FormOrdersMedicalComponent,
+    OrdersMedicalComponent,
+    
   ],
+
 
   providers: [DateFormatPipe],
   exports: [],
