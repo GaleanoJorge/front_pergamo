@@ -1,12 +1,14 @@
 import { MainClass } from './main-class';
-import { BankInformation } from './bank-information';
 
 
 export class FinancialData extends MainClass {
   id: number;
-  bank_information_id: BankInformation;
-  rut: string; 
+  user_id: number;
+  bank_id: number;
+  rut: string;
+  account_type_id: number;
+  account_number: number;
 
-  
+
 
 }

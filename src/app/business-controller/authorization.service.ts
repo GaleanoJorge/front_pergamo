@@ -16,7 +16,25 @@ export class AuthorizationService {
   GetCollection(params = {}): Promise<Authorization[]> {
     let servObj = new ServiceObject(params ? 'authorization?pagination=false' : 'authorization');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.authorization = <Authorization[]>servObj.data.authorization;
+
+        return Promise.resolve(this.authorization);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetInProcess(params = {}): Promise<Authorization[]> {
+    let servObj = new ServiceObject(params ? 'authorization/byStatus/0?pagination=false' : 'authorization/byStatus/0');
+
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

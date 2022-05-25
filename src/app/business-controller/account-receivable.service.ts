@@ -108,4 +108,20 @@ export class AccountReceivableService {
         throw x.message;
       });
   }
+
+  GenerateFile(account_receivable: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('account_receivable/generate_file/'+account_receivable.id);
+    servObj.data = account_receivable;
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 }

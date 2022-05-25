@@ -46,6 +46,11 @@ const routes: Routes = [{
         .then(m => m.AccountReceivableModule),
     },
     {
+      path: 'human-talent-request',
+      loadChildren: () => import('./human-talent-request/human-talent-request.module')
+        .then(m => m.HumanTalentRequestModule),
+    },
+    {
       path: 'pad',
       loadChildren: () => import('./pad/pad.module')
         .then(m => m.PadModule),

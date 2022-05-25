@@ -87,7 +87,7 @@ export class HistoricAuthorizationListComponent implements OnInit {
       //   },
       //   renderComponent: ActionsStatusComponent,
       // },
-      procedure: {
+      services_briefcase: {
         title: this.headerFields[12],
         type: 'string',
         valuePrepareFunction(value) {
@@ -235,7 +235,7 @@ export class HistoricAuthorizationListComponent implements OnInit {
 
   ChangeGlossStatus(status) {
     this.status = status;
-    this.table.changeEntity(`authorization/byStatus/0/${this.status}`, 'authorization');
+    this.table.changeEntity(`authorization/Historic/${this.status}`, 'authorization');
     // this.RefreshData();
 
   }

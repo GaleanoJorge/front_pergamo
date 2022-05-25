@@ -18,7 +18,7 @@ export class PadRiskComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'TARIFA DE BARRIOS';
   public subtitle: string = 'TARIFAS';
-  public headerFields: any[] = ['ID', 'NOMBRE', 'ESTADO'];
+  public headerFields: any[] = ['ID', 'NOMBRE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -50,18 +50,6 @@ export class PadRiskComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      status_id: {
-        title: this.headerFields[2],
-        type: 'custom',
-        width: '10%',
-        valuePrepareFunction: (value, row) => {
-            return {
-                'data': row,
-                'changeState': this.ChangeState.bind(this),
-            };
-        },
-        renderComponent: StatusFieldComponent,
-    },
     },
   };
 

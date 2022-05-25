@@ -1,0 +1,105 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FixedPropertyService } from '../../../../business-controller/fixed-property.service';
+import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
+import { FixedClasificationService } from '../../../../business-controller/fixed-clasification.service';
+import { FixedConditionService } from '../../../../business-controller/fixed-condition.service';
+import { FixedAccessoriesService } from '../../../../business-controller/fixed-accessories.service';
+
+
+@Component({
+  selector: 'ngx-form-fixed-inventary',
+  templateUrl: './form-fixed-inventary.component.html',
+  styleUrls: ['./form-fixed-inventary.component.scss']
+})
+export class FormFixedInventaryComponent implements OnInit {
+
+  @Input() title: string;
+  @Input() data: any = null;
+
+  public form: FormGroup;
+  public region_id: number;
+  // public status: Status[];
+  public isSubmitted: boolean = false;
+  public saved: any = null;
+  public loading: boolean = false;
+  public fixed_type: any[];
+
+  constructor(
+    protected dialogRef: NbDialogRef<any>,
+    private formBuilder: FormBuilder,
+    private FixedTypeS: FixedTypeService,
+    private FixedAccessoriesS: FixedAccessoriesService,
+    private toastService: NbToastrService,
+  ) {
+  }
+
+  async ngOnInit() {
+    if (!this.data) {
+      this.data = {
+        name: '',
+        amount: '',
+        fixed_type_id: '',
+      };
+    }
+
+    this.form = this.formBuilder.group({
+      name: [this.data.name, Validators.compose([Validators.required])],
+      amount: [this.data.name, Validators.compose([Validators.required])],
+      fixed_type_id: [this.data.fixed_type_id, Validators.compose([Validators.required])],
+
+    });
+
+    await this.FixedTypeS.GetCollection().then(x => {
+      this.fixed_type = x;
+    });
+  }
+
+  close() {
+    this.dialogRef.close();
+  }
+
+  save() {
+
+    this.isSubmitted = true;
+
+    if (!this.form.invalid) {
+      this.loading = true;
+
+      if (this.data.id) {
+        this.FixedAccessoriesS.Update({
+          id: this.data.id,
+          fixed_type_id: this.form.controls.fixed_type_id.value,
+          name: this.form.controls.name.value,
+          amount: this.form.controls.amount.value,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.close();
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      } else {
+
+        this.FixedAccessoriesS.Save({
+          fixed_type_id: this.form.controls.fixed_type_id.value,
+          name: this.form.controls.name.value,
+          amount: this.form.controls.amount.value,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.close();
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      }
+    }
+  }
+}

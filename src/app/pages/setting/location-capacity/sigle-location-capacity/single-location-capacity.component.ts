@@ -145,6 +145,10 @@ export class SingleLocationCapacityComponent implements OnInit {
     };
   }
 
+  receiveMessage(event) {
+    this.RefreshData();
+  }
+
   RefreshData() {
     this.table.refresh();
     this.table_base.refresh();
@@ -157,6 +161,7 @@ export class SingleLocationCapacityComponent implements OnInit {
         data: {
           id: this.assistance_id,
         },
+        procedence: 1,
         saved: this.RefreshData.bind(this),
       },
     });

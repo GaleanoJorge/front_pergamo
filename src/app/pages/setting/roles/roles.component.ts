@@ -99,12 +99,12 @@ export class RolesComponent implements OnInit {
 
     EditRole(role: Role) {
         this.role = role;
-        this.roleForm.setValue({ name: role.name, status: role.status_id });
+        this.roleForm.setValue({ name: role.name, status: role.status_id, role_type: role.role_type_id });
     }
 
     Cancel() {
         this.role = null;
-        this.roleForm.setValue({ name: '', status: '' });
+        this.roleForm.setValue({ name: '', status: '', role_type: '' });
     }
 
     GetRoles() {

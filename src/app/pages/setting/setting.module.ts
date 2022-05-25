@@ -140,9 +140,7 @@ import { FormProductGroupComponent } from './product-group/form-product-group/fo
 import { FormProductCategoryComponent } from './product-category/form-product-category/form-product-category.component';
 import { FormProductSubcategoryComponent } from './product-subcategory/form-product-subcategory/form-product-subcategory.component';
 import { FormProductGenericComponent } from './product-generic/form-product-generic/form-product-generic.component';
-import { TypeAssetsComponent } from './type-assets/type-assets.component';
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
-import { FormTypeAssetsComponent } from './type-assets/form-type-assets/form-type-assets.component';
 import { FormFixedAssetsComponent } from './fixed-assets/form-fixed-assets/form-fixed-assets.component';
 import { ProductComponent } from './product/product.component';
 import { InvimaStatusComponent } from './invima-status/invima-status.component';
@@ -254,6 +252,8 @@ import { FormRelationshipComponent } from './relationship/form-relationship/form
 import { ActionsCompanyComponent } from './company/actions.component';
 import { ActionsComponentEditDelete } from './company-mail/actions.component';
 import { ActionsCDComponent } from './company-document/actionsCD.component';
+import { FormHourlyFrequencyComponent } from './hourly-frequency/form-hourly-frequency/form-hourly-frequency.component';
+import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.component';
 import { ActionsDishComponent } from './diet-dish/actions-dish.component';
 import { LocalityComponent } from './locality/locality.component';
 import { FormLocalityComponent } from './locality/form-locality/form-locality.component';
@@ -275,13 +275,8 @@ import { FormEditLocationCapacityComponent } from './location-capacity/sigle-loc
 import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
 import { SelectProductShippingComponent } from './pharmacy-request/prod-shipping-package/select-prod-shipping.component';
 import { AmountShippingComponent } from './pharmacy-request/prod-shipping-package/amount-shipping.component';
-import { AmountProcedureComponent } from './procedure/procedure-package/amount-procedure-package.component';
-import { DynamicProcedurePackageComponent } from './procedure/procedure-package/dynamic-procedure-package.component';
 import { BillingComponent } from './billing/billing.component';
 import { FormBillingComponent } from './billing/form-billing/form-billing.component';
-import { ProdBillingPackageComponent } from './billing/prod-billing-package/prod-billing-package.component';
-import { SelectProductBillingComponent } from './billing/prod-billing-package/select-prod-billing.component';
-import { AmountBillingComponent } from './billing/prod-billing-package/amount-billing.component';
 import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
 import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
 import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
@@ -294,6 +289,14 @@ import { ActionsSendComponent } from './pharmacy-request/actions.component';
 import { PharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/pharmacy-update-max-min.component';
 import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
 import { ProdShippingPackageComponent } from './pharmacy-request/prod-shipping-package/prod-shipping-package.component';
+import { ProdBillingPackageComponent } from './billing/prod-billing-package/prod-billing-package.component';
+import { AmountBillingComponent } from './billing/prod-billing-package/amount-billing.component';
+import { SelectProductBillingComponent } from './billing/prod-billing-package/select-prod-billing.component';
+import { AmountProcedureComponent } from './procedure/procedure-package/amount-procedure-package.component';
+import { DynamicProcedurePackageComponent } from './procedure/procedure-package/dynamic-procedure-package.component';
+import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
+import { TcRadicationComponent } from './tc-radication/tc-radication.component';
+import { TcBillingComponent } from './tc-billing/tc-billing.component';
 import { PharmacyLotComponent } from './pharmacy-lot/pharmacy-lot.component';
 import { FormPharmacyLotComponent } from './pharmacy-lot/form-pharmacy-lot/form-pharmacy-lot.component';
 import { ProdLotPackageComponent } from './pharmacy-lot/prod-lot-package/prod-lot-package.component';
@@ -317,6 +320,25 @@ import { ActionsReturnComponent } from './pharmacy-return/actions-return.compone
 import { PharmacyReturnComponent } from './pharmacy-return/pharmacy-return.component';
 import { NomProductComponent } from './nom-product/nom-product.component';
 import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom-product.component';
+import { BaseLocationPackageComponent } from './location-capacity/sigle-location-capacity/base-location-package/base-location-package.component';
+import { FormFixedAreaCampusComponent } from './fixed-area-campus/form-fixed-area-campus/form-fixed-area-campus.component';
+import { FixedAreaCampusComponent } from './fixed-area-campus/fixed-area-campus.component';
+import { FixedCodeComponent } from './fixed-code/fixed-code.component';
+import { FixedConditionComponent } from './fixed-condition/fixed-condition.component';
+import { FixedPropertyComponent } from './fixed-property/fixed-property.component';
+import { FormFixedConditionComponent } from './fixed-condition/form-fixed-condition/form-fixed-condition.component';
+import { FormFixedCodeComponent } from './fixed-code/form-fixed-code/form-fixed-code.component';
+import { FormFixedPropertyComponent } from './fixed-property/form-fixed-property/form-fixed-property.component';
+import { FixedClasificationComponent } from './fixed-clasification/fixed-clasification.component';
+import { FormFixedClasificationComponent } from './fixed-clasification/form-fixed-clasification/form-fixed-clasification.component';
+import { FormFixedTypeComponent } from './fixed-type/form-fixed-type/form-fixed-type.component';
+import { FixedTypeComponent } from './fixed-type/fixed-type.component';
+import { FormFixedLocationCampusComponent } from './fixed-location-campus/form-fixed-location-campus/form-fixed-location-campus.component';
+import { FixedLocationCampusComponent } from './fixed-location-campus/fixed-location-campus.component';
+import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories.component';
+import { FormFixedAccessoriesComponent } from './fixed-accessories/form-fixed-accessories/form-fixed-accessories.component';
+import { FormFixedInventaryComponent } from './fixed-inventary/form-fixed-inventary/form-fixed-inventary.component';
+import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -345,7 +367,6 @@ import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom
     NbLayoutModule,
     NbSpinnerModule,
     NbCheckboxModule,
-    NbIconModule
   ],
   declarations: [
     AuthStatusComponent,
@@ -411,9 +432,7 @@ import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom
     FormModalityComponent,
     FormTypeBriefcaseComponent,
     FormTypeContractComponent,
-    TypeAssetsComponent,
     FixedAssetsComponent,
-    FormTypeAssetsComponent,
     FormFixedAssetsComponent,
     AdministrationRouteComponent,
     MeasurementUnitsComponent,
@@ -589,6 +608,8 @@ import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom
     FormDietMenuComponent,
     DishPackageComponent,
     SelectDishComponent,
+    FormHourlyFrequencyComponent,
+    HourlyFrequencyComponent,
     LocalityComponent,
     FormLocalityComponent,
     NeighborhoodOrResidenceComponent,
@@ -634,6 +655,9 @@ import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom
     ProdShippingPackageComponent,
     SelectProductShippingComponent,
     AmountShippingComponent,
+    TcBillingComponent,
+    TcRadicationComponent,
+    TcHumanTalentComponent,
 
     PharmacyLotComponent,
     FormPharmacyLotComponent,
@@ -660,11 +684,35 @@ import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom
 
     NomProductComponent,
     FormNomProductComponent
+    BaseLocationPackageComponent,
+    FormFixedAreaCampusComponent,
+    FixedAreaCampusComponent,
+    FormFixedCodeComponent,
+    FixedCodeComponent,
+    FormFixedConditionComponent,
+    FixedConditionComponent,
+    FormFixedPropertyComponent,
+    FixedPropertyComponent,
+    FixedClasificationComponent,
+    FormFixedClasificationComponent,
+    FormFixedTypeComponent,
+    FixedTypeComponent,
+    FormFixedLocationCampusComponent,
+    FixedLocationCampusComponent,
+    FixedAccessoriesComponent,
+    FormFixedAccessoriesComponent,
+    FixedInventaryComponent,
+    FormFixedInventaryComponent
 
   ],
   providers: [
     DateFormatPipe,
     CurrencyPipe
+  ],
+  exports: [
+    ProcedurePackage2Component,
+    FormUserComponent,
+    FormLocationCapacityComponent,
   ],
   bootstrap: [],
 })

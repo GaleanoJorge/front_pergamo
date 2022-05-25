@@ -49,7 +49,7 @@
             </nb-select>
           </div>
     </div>
-    <div *ngIf="this.data.id ? this.manual_procedure_type : true" style="margin-top: 10px;">
+    <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable" style="margin-top: 10px;">
       <ngx-procedure-package (messageEvent)="receiveMessage($event)" [parentData]="parentData" 
       [show]="showSelect"></ngx-procedure-package>
     </div>

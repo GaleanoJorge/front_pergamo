@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <label class="form-text text-muted font-weight-bold align"></label>
+    <fieldset class="field_set center">
+      <legend class="prue1">AP</legend>
+      <div class="row center">
+        <div class="col-md-6">
+
+          <label class="form-text text-muted font-weight-bold">ANÁLISIS</label>
+          <textarea id="analisys" nbInput fullWidth formControlName="analisys" analisys rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.analisys.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+        <div class="col-md-6">
+          <label class="form-text text-muted font-weight-bold">PLAN(diagnóstico, terapeutico, de
+            seguimiento)</label>
+          <textarea id="plan" nbInput fullWidth formControlName="plan" plan rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.plan.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+      </div>
+    </fieldset>
+
+
+
+    <fieldset class="field_set col-lg-12">
+      <legend class="prue1  center ">RECOMENDACIONES</legend>
+      <label class="form-text text-muted font-weight-bold align"></label>
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-4">
+
+          <label class="form-text text-muted font-weight-bold">Recomendación:</label>
+          <nb-select  [selected]="this.data.recommendations_evo_id" formControlName="recommendations_evo_id"
+            id="recommendations_evo_id" (selectedChange)="onDescriptionChange($event)"
+            status="{{ isSubmitted && form.controls.recommendations_evo_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option selected="{{ item.id == this.data.recommendations_evo_id }}"
+              *ngFor="let item of recommendations_evo_id" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-10">
+            <label class="form-text text-muted font-weight-bold">Descripción:</label>
+            <textarea class="form-text col col-lg-12 detail" id="description" nbInput fullWidth
+              formControlName="description" analisys rows="3" cols="70"
+              status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,16 @@
+<ngx-form-evo-soap (messageEvent)="receiveMessage($event)">
+</ngx-form-evo-soap>
+<label class="form-text text-muted font-weight-bold align">REGISTRO EVOLUCIÓN MÉDICA</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table pager="false" [title]="title" customData="ch_evo_soap" [settings]="settings"
+      entity="ch_evo_soap/by_record/{{record_id}}/3">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

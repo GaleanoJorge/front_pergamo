@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <label class="form-text text-muted font-weight-bold align"></label>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="center">
+          <fieldset class="field_set col-lg-12 center">
+            <legend class="prue1">DIETA RECOMENDADA</legend>
+            
+            <label class="font-weight-bold ImpPeq">ORAL</label>
+            <nb-select [selected]="this.data.diet_consistency_id" formControlName="diet_consistency_id"
+              id="diet_consistency_id"
+              status="{{ isSubmitted && form.controls.diet_consistency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.diet_consistency_id }}"
+                *ngFor="let item of diet_consistency_id" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+            <label class="font-weight-bold ImpPeq">ENTERAL</label>
+            <nb-select [selected]="this.data.enterally_diet_id" formControlName="enterally_diet_id"
+              id="enterally_diet_id"
+              status="{{ isSubmitted && form.controls.enterally_diet_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.enterally_diet_id }}" *ngFor="let item of enterally_diet_id"
+                [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+
+            <label  class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
+        <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+</form>

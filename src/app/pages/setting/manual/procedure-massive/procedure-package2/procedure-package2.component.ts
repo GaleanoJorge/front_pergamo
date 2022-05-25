@@ -18,13 +18,15 @@ export class ProcedurePackage2Component implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() procedure_package_id: any = null;
+
   public messageError = null;
 
 
   public InscriptionForm: FormGroup;
   public title = 'Información de paquete';
   public subtitle;
-  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Cantidad mínima', 'Cantidad máxima', ''];
+  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Cantidad mínima', 'Cantidad máxima', 'Valor dinámico'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -38,7 +40,6 @@ export class ProcedurePackage2Component implements OnInit {
   public manual_price: any[] = [];
   public package: any[] = [];
   public type_briefcase: any[] = [];
-  public procedure_package_id: number;
 
 
 
@@ -88,9 +89,9 @@ export class ProcedurePackage2Component implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, data) => {
           if (value) {
-            return '-CON COBRO DINAMICO-';
+            return '-CON COBRO DINÁMICO-';
           } else {
-            return '-SIN COBRO DINAMICO-';
+            return '-SIN COBRO DINÁMICO-';
           }
         },
       },
@@ -110,7 +111,9 @@ export class ProcedurePackage2Component implements OnInit {
 
 
   ngOnInit(): void {
-    this.procedure_package_id = this.route.snapshot.params.id;
+    if(this.route.snapshot.params.id){
+      this.procedure_package_id = this.route.snapshot.params.id;
+    };
 
     /*this.procedurePackageS.GetByPackage(this.procedure_package_id).then(x => {
       this.package=x;
@@ -132,10 +135,10 @@ export class ProcedurePackage2Component implements OnInit {
 
 
 
-  RefreshData() {
-    this.table.refresh();
-    this.selectedOptions = [];
-  }
+  // RefreshData() {
+  //   this.table.refresh();
+  //   this.selectedOptions = [];
+  // }
   ConfirmAction(dialog: TemplateRef<any>) {
     this.dialog = this.dialogService.open(dialog);
   }

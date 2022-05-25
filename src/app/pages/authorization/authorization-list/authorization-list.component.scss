@@ -18,6 +18,13 @@ input[type=number] { -moz-appearance:textfield; }
   margin-right: 5px;
 }
 
+.filter {
+
+    /* border-bottom: 7px white; */
+    text-align: end;
+    margin-bottom: 15px;
+}
+
 .file-select::before {
   background-color: #54bcc1;
   color: white;
@@ -40,6 +47,14 @@ input[type=number] { -moz-appearance:textfield; }
   margin-right: 5px;
   height: 40px;
   display: inline-block;
+}
+
+.div-send {
+  // padding-top: 30px;
+  text-align: end;
+  display: flex;
+  justify-content: flex-end;
+  align-content: stretch;
 }
 
 .file-select-evicencias {
@@ -127,4 +142,18 @@ input[type=number] { -moz-appearance:textfield; }
   justify-content: 0.6875rem 0.5625rem;
   border: 1px solid black;
   justify-content: center;
+}
+
+.col-md-4 {
+  margin-bottom: 20px;
+}
+
+.inputdate{
+  height: auto !important;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%
 }

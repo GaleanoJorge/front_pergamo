@@ -15,20 +15,20 @@
           status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
       </div>
       <div *ngIf="this.Managemen">
-        <div >
+        <!-- <div >
           <div class="col-md-12">
             <label for="max_quantity" class="form-text text-muted font-weight-bold">Cantidad solicitada: </label>
             <input type="text" nbInput [value]="max" fullWidth disabled />
           </div>
-        </div>
-        <div >
+        </div> -->
+        <!-- <div >
           <div class="col-md-12">
             <label for="authorized_amount" class="form-text text-muted font-weight-bold">Cantidad autorizada:</label>
             <input nbInput type="number" min="1" [max]="max" fullWidth id="authorized_amount"
               formControlName="authorized_amount" authorized_amount
               status="{{ isSubmitted && form.controls.authorized_amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
-        </div>
+        </div> -->
         <div >
           <div class="col-md-12" >
             <label for="auth_number" class="form-text text-muted font-weight-bold">Número de autorización:</label>
