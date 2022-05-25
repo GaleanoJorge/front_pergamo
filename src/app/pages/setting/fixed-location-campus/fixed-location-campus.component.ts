@@ -1,24 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormFixedAssetsComponent } from './form-fixed-assets/form-fixed-assets.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-
+import { FormFixedLocationCampusComponent } from './form-fixed-location-campus/form-fixed-location-campus.component';
+import { FixedLocationCampusService } from '../../../business-controller/fixed-location-campus.service';
 
 @Component({
-  selector: 'ngx-fixed-assets',
-  templateUrl: './fixed-assets.component.html',
-  styleUrls: ['./fixed-assets.component.scss']
+  selector: 'ngx-fixed-location-campus',
+  templateUrl: './fixed-location-campus.component.html',
+  styleUrls: ['./fixed-location-campus.component.scss']
 })
-export class FixedAssetsComponent implements OnInit {
+export class FixedLocationCampusComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Activos Fijos';
+  public title: string = 'Ubicacion del Activo sedes';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Clasificación', 'Propio / Arrendado', 'Nombre', 'Marca'];
+  public headerFields: any[] = ['ID', 'Piso', 'Sede', 'Area / Servicio'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -37,8 +36,8 @@ export class FixedAssetsComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditFixedAssets.bind(this),
-            'delete': this.DeleteConfirmFixedAssets.bind(this),
+            'edit': this.EditAdministrationRoute.bind(this),
+            'delete': this.DeleteConfirmAdministrationRoute.bind(this),
           };
         },
         renderComponent: ActionsComponent,
@@ -47,40 +46,36 @@ export class FixedAssetsComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      fixed_clasification: {
+      flat: {
         title: this.headerFields[1],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.fixed_clasification.name;
+        type: 'string', valuePrepareFunction: (value, row) => {
+          return value.name;
         },
       },
-      fixed_property: {
+      campus: {
         title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.fixed_property.name;
+        type: 'string', valuePrepareFunction: (value, row) => {
+          return value.name;
         },
       },
-      name: {
+      fixed_area_campus: {
         title: this.headerFields[3],
-        type: 'string',
-      },
-      mark: {
-        title: this.headerFields[4],
-        type: 'string',
+        type: 'string', valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
       },
     },
   };
 
   public routes = [
     {
-      name: 'Activos Fijos',
-      route: '../../setting/fixed-assets',
+      name: 'Ubicacion del Activo sedes',
+      route: '../../setting/fixed-location-campus',
     },
   ];
 
   constructor(
-    private FixedAssetsS: FixedAssetsService,
+    private FixedLocationCampusS: FixedLocationCampusService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -95,50 +90,37 @@ export class FixedAssetsComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewFixedAssets() {
-    this.dialogFormService.open(FormFixedAssetsComponent, {
+  NewAdministrationRoute() {
+    this.dialogFormService.open(FormFixedLocationCampusComponent, {
       context: {
-        title: 'Crear activos Fijos',
+        title: 'Crear nueva Ubicacion del Activo sedes',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  EditFixedAssets(data) {
-    this.dialogFormService.open(FormFixedAssetsComponent, {
+  EditAdministrationRoute(data) {
+    this.dialogFormService.open(FormFixedLocationCampusComponent, {
       context: {
-        title: 'Editar activos Fijos',
+        title: 'Editar Ubicacion del Activo sedes',
         data,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  // ChangeState(data) {
-  //   // data.status_id = data.status_id === 1 ? 2 : 1;
-
-  //   this.toastrService.info('', 'Cambiando estado');
-
-  //   this.regionS.Update(data).then((x) => {
-  //     this.toastrService.success('', x.message);
-  //     this.table.refresh();
-  //   }).catch((x) => {
-  //     this.toastrService.danger(x.message);
-  //   });
-  // }
-
-  DeleteConfirmFixedAssets(data) {
+  DeleteConfirmAdministrationRoute(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteFixedAssets.bind(this),
+        delete: this.DeleteAdministrationRoute.bind(this),
       },
     });
   }
 
-  DeleteFixedAssets(data) {
-    return this.FixedAssetsS.Delete(data.id).then(x => {
+  DeleteAdministrationRoute(data) {
+    return this.FixedLocationCampusS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {

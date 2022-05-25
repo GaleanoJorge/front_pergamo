@@ -5,13 +5,13 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    entity="type_assets/?pagination=true"
-                    customData='type_assets'
+                    entity="fixed_code/?pagination=true"
+                    customData='fixed_code'
                     [messageToltip]="messageToltip"
                     >
       <div actions>
         <div class="actions">
-          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewTypeAssets()">Crear</button>
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewAdministrationRoute()">Crear</button>
         </div>
       </div>
     </ngx-base-table>

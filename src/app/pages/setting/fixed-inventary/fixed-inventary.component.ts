@@ -1,24 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
+import { FixedAccessoriesService } from '../../../business-controller/fixed-accessories.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { FormFixedAssetsComponent } from './form-fixed-assets/form-fixed-assets.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-
+import { FormFixedInventaryComponent } from './form-fixed-inventary/form-fixed-inventary.component';
 
 @Component({
-  selector: 'ngx-fixed-assets',
-  templateUrl: './fixed-assets.component.html',
-  styleUrls: ['./fixed-assets.component.scss']
+  selector: 'ngx-fixed-inventary',
+  templateUrl: './fixed-inventary.component.html',
+  styleUrls: ['./fixed-inventary.component.scss']
 })
-export class FixedAssetsComponent implements OnInit {
+export class FixedInventaryComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Activos Fijos';
+  public title: string = 'Accesorios en Activos';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Clasificación', 'Propio / Arrendado', 'Nombre', 'Marca'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Cantidad'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -47,26 +46,12 @@ export class FixedAssetsComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      fixed_clasification: {
+      name: {
         title: this.headerFields[1],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.fixed_clasification.name;
-        },
       },
-      fixed_property: {
+      amount: {
         title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.fixed_property.name;
-        },
-      },
-      name: {
-        title: this.headerFields[3],
-        type: 'string',
-      },
-      mark: {
-        title: this.headerFields[4],
         type: 'string',
       },
     },
@@ -74,13 +59,13 @@ export class FixedAssetsComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Activos Fijos',
-      route: '../../setting/fixed-assets',
+      name: 'Accesorios en Activos',
+      route: '../../setting/fixed-accessories',
     },
   ];
 
   constructor(
-    private FixedAssetsS: FixedAssetsService,
+    private FixedAccessoriesS: FixedAccessoriesService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -96,37 +81,23 @@ export class FixedAssetsComponent implements OnInit {
   }
 
   NewFixedAssets() {
-    this.dialogFormService.open(FormFixedAssetsComponent, {
+    this.dialogFormService.open(FormFixedInventaryComponent, {
       context: {
-        title: 'Crear activos Fijos',
+        title: 'Crear Accesorios en Activos',
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
   EditFixedAssets(data) {
-    this.dialogFormService.open(FormFixedAssetsComponent, {
+    this.dialogFormService.open(FormFixedInventaryComponent, {
       context: {
-        title: 'Editar activos Fijos',
+        title: 'Editar Accesorios en Activos',
         data,
         saved: this.RefreshData.bind(this),
       },
     });
   }
-
-  // ChangeState(data) {
-  //   // data.status_id = data.status_id === 1 ? 2 : 1;
-
-  //   this.toastrService.info('', 'Cambiando estado');
-
-  //   this.regionS.Update(data).then((x) => {
-  //     this.toastrService.success('', x.message);
-  //     this.table.refresh();
-  //   }).catch((x) => {
-  //     this.toastrService.danger(x.message);
-  //   });
-  // }
-
   DeleteConfirmFixedAssets(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
@@ -138,7 +109,7 @@ export class FixedAssetsComponent implements OnInit {
   }
 
   DeleteFixedAssets(data) {
-    return this.FixedAssetsS.Delete(data.id).then(x => {
+    return this.FixedAccessoriesS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {

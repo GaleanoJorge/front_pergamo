@@ -54,8 +54,6 @@ import { InvimaStatusComponent } from './invima-status/invima-status.component';
 import { StorageConditionsComponent } from './storage-conditions/storage-conditions.component';
 import { RiskComponent } from './risk/risk.component';
 import { ProductGenericComponent } from './product-generic/product-generic.component';
-import { TypeAssetsComponent } from './type-assets/type-assets.component';
-import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { DistrictComponent } from './district/district.component';
 import { OfficeComponent } from './office/office.component';
@@ -131,6 +129,16 @@ import { TcRadicationComponent } from './tc-radication/tc-radication.component';
 import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
 import { PharmacyLotComponent } from './pharmacy-lot/pharmacy-lot.component';
 import { PharmacyIncomeComponent } from './pharmacy-income/pharmacy-income.component';
+import { FixedConditionComponent } from './fixed-condition/fixed-condition.component';
+import { FixedPropertyComponent } from './fixed-property/fixed-property.component';
+import { FixedCodeComponent } from './fixed-code/fixed-code.component';
+import { FixedAreaCampusComponent } from './fixed-area-campus/fixed-area-campus.component';
+import { FixedClasificationComponent } from './fixed-clasification/fixed-clasification.component';
+import { FixedTypeComponent } from './fixed-type/fixed-type.component';
+import { FixedLocationCampusComponent } from './fixed-location-campus/fixed-location-campus.component';
+import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
+import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories.component';
+import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 
 const routes: Routes = [{
   path: '',
@@ -372,11 +380,6 @@ const routes: Routes = [{
     {
       path: 'administration-route',
       component: AdministrationRouteComponent,
-
-    },
-    {
-      path: 'type-assets',
-      component: TypeAssetsComponent,
 
     },
     {
@@ -769,7 +772,42 @@ const routes: Routes = [{
       path: 'tc-human-talent',
       component: TcHumanTalentComponent,
     },
-
+    {
+      path: 'fixed-area-campus',
+      component: FixedAreaCampusComponent,
+    },
+    {
+      path: 'fixed-code',
+      component: FixedCodeComponent,
+    },
+    {
+      path: 'fixed-condition',
+      component: FixedConditionComponent,
+    },
+    {
+      path: 'fixed-property',
+      component: FixedPropertyComponent,
+    },
+    {
+      path: 'fixed-clasification',
+      component: FixedClasificationComponent,
+    },
+    {
+      path: 'fixed-type',
+      component: FixedTypeComponent,
+    },
+    {
+      path: 'fixed-location-campus',
+      component: FixedLocationCampusComponent,
+    },
+    {
+      path: 'fixed-accessories',
+      component: FixedAccessoriesComponent,
+    },
+    {
+      path: 'fixed-inventory',
+      component: FixedInventaryComponent,
+    }
   ],
 }];
 

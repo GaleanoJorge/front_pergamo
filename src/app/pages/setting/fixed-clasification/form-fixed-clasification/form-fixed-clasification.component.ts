@@ -2,15 +2,17 @@ import { Component, OnInit, Input } from '@angular/core';
 import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import {TypeAssetsService} from '../../../../business-controller/type-assets.service';
+import {ProductGroupService} from '../../../../business-controller/product-group.service';
+import { FixedClasificationService } from '../../../../business-controller/fixed-clasification.service';
+import { FixedCodeService } from '../../../../business-controller/fixed-code.service';
 
 
 @Component({
-  selector: 'ngx-form-type-assets',
-  templateUrl: './form-type-assets.component.html',
-  styleUrls: ['./form-type-assets.component.scss']
+  selector: 'ngx-form-fixed-clasification',
+  templateUrl: './form-fixed-clasification.component.html',
+  styleUrls: ['./form-fixed-clasification.component.scss']
 })
-export class FormTypeAssetsComponent implements OnInit {
+export class FormFixedClasificationComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -21,12 +23,13 @@ export class FormTypeAssetsComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
+  public fixed_code:any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
-    // private statusBS: StatusBusinessService,
-    private TypeAssetsS: TypeAssetsService,
+    private FixedClasificationS: FixedClasificationService,
+    private FixedCodeS: FixedCodeService,
     private toastService: NbToastrService,
   ) {
   }
@@ -35,35 +38,33 @@ export class FormTypeAssetsComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
+        fixed_code_id: '',
       };
     }
 
-    // this.statusBS.GetCollection().then(x => {
-    //   this.status = x;
-    // });
-    
-    
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
+      fixed_code_id: [this.data.fixed_code_id, Validators.compose([Validators.required])],
+    });
+
+    this.FixedCodeS.GetCollection().then(x => {
+      this.fixed_code=x;
     });
   }
   
-
   close() {
     this.dialogRef.close();
   }
 
   save() {
-
     this.isSubmitted = true;
-
     if (!this.form.invalid) {
       this.loading = true;
-
       if (this.data.id) {
-        this.TypeAssetsS.Update({
+        this.FixedClasificationS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
+          fixed_code_id: this.form.controls.fixed_code_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -75,8 +76,9 @@ export class FormTypeAssetsComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        this.TypeAssetsS.Save({
+        this.FixedClasificationS.Save({
           name: this.form.controls.name.value,
+          fixed_code_id: this.form.controls.fixed_code_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
