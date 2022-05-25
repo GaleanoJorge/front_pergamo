@@ -126,7 +126,7 @@ export class FormChScalesComponent implements OnInit {
   public totalZarit = 0;
   public range = 0;
   public totalPfeiffer = 0;
-  public totalJhDowton = 0;
+  public totalJhDownton = 0;
   public totalScreening = 0;
   public num1 = 0;
   public num2 = 0;
@@ -422,8 +422,8 @@ export class FormChScalesComponent implements OnInit {
       deficiency_value: [this.data.deficiency_value],
       mental_value: [this.data.mental_value],
       wandering_value: [this.data.wandering_value],
-      totalJhDowton: [this.data.totalJhDowton],
-      riskJhDowtown: [this.data.riskJhDowtown],
+      totalJhDownton: [this.data.totalJhDownton],
+      riskJhDownton: [this.data.riskJhDownton],
 
       //Escala screening
       vOneScreening_value: [this.data.vOneScreening_value],
@@ -832,17 +832,17 @@ export class FormChScalesComponent implements OnInit {
       this.num4 = orden == 4 ? Number(texts[0]) : this.num4;
       this.num5 = orden == 5 ? Number(texts[0]) : this.num5;
 
-      this.totalJhDowton = this.num1 + this.num2 + this.num3 + this.num4 + this.num5;
+      this.totalJhDownton = this.num1 + this.num2 + this.num3 + this.num4 + this.num5;
 
 
-      if (this.totalJhDowton > 3) {
-        this.riskJhDowtown = 'Riesgo Alto';
+      if (this.totalJhDownton > 3) {
+        this.riskJhDownton = 'Riesgo Alto';
 
-      } else if ((this.totalJhDowton == 2 || this.totalJhDowton == 3)) {
-        this.riskJhDowtown = 'Riesgo Mediano ';
+      } else if ((this.totalJhDownton == 2 || this.totalJhDownton == 3)) {
+        this.riskJhDownton = 'Riesgo Mediano ';
 
-      } else if ((this.totalJhDowton == 0 || this.totalJhDowton == 1)) {
-        this.riskJhDowtown = 'Deterioro cognitivo moderado';
+      } else if ((this.totalJhDownton == 0 || this.totalJhDownton == 1)) {
+        this.riskJhDownton = 'Deterioro cognitivo moderado';
 
       }
 
@@ -2065,12 +2065,12 @@ export class FormChScalesComponent implements OnInit {
       var mental = this.separateText(this.form.controls.mental_value.value);
       this.form.controls.wandering_value.setValidators(Validators.compose([Validators.required]));
       var wandering = this.separateText(this.form.controls.wandering_value.value);
-      this.form.controls.totalJhDowton.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.riskJhDowtown.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.totalJhDownton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.riskJhDownton.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
-        await this.chScalesS.SaveJhDowton({
+        await this.chScalesS.SaveJhDownton({
           falls_title: 'Caídas previas',
           falls_value: falls[0],
           falls_detail: falls[1],
@@ -2086,8 +2086,8 @@ export class FormChScalesComponent implements OnInit {
           wandering_title: 'Deambulación',
           wandering_value: wandering[0],
           wandering_detail: wandering[1],
-          total: this.totalJhDowton,
-          risk: this.riskJhDowtown,
+          total: this.totalJhDownton,
+          risk: this.riskJhDownton,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
