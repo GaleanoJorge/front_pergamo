@@ -25,10 +25,10 @@
         </div> 
       </nb-tab>
       <nb-tab tabTitle="ESCALAS">
-         <div *ngIf="this.show == 4">
-          <ngx-ch-scales>
-          </ngx-ch-scales>
-        </div> 
+        <div *ngIf="this.show == 4">
+          <ngx-form-ch-scales [record_id]="record_id">
+          </ngx-form-ch-scales>
+        </div>
       </nb-tab>
 
       <nb-tab tabTitle="FORMULACIÓN">

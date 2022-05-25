@@ -92,6 +92,32 @@ import { FormChMedicalOrdersComponent } from './ch-medical-orders/form-ch-medica
 import { ChMedicalOrdersComponent } from './ch-medical-orders/ch-medical-orders.component';
 import { FormChInterconsultationComponent } from './ch-interconsultation/form-ch-interconsultation/form-ch-interconsultation.component';
 import { ChInterconsultationComponent } from './ch-interconsultation/ch-interconsultation.component';
+import { FormChScalesComponent } from './scales/form-ch-scales/form-ch-scales.component';
+import { ChHistoricScalesComponent } from './scales/ch-historic-scales/ch-historic-scales.component';
+import { ChScaleBarthelComponent } from './scales/ch-scale-barthel/ch-scale-barthel.component';
+import { ChScaleNortonComponent } from './scales/ch-scale-norton/ch-scale-norton.component';
+import { ChScaleGlasgowComponent } from './scales/ch-scale-glasgow/ch-scale-glasgow.component';
+import { ChScalePayetteComponent } from './scales/ch-scale-payette/ch-scale-payette.component';
+import { ChScaleFragilidadComponent } from './scales/ch-scale-fragility/ch-scale-fragility.component';
+import { ChScaleNewsComponent } from './scales/ch-scale-news/ch-scale-news.component';
+import { ChScalPapComponent } from './scales/ch-scale-pap/ch-scale-pap.component';
+import { ChScaleHamiltonComponent } from './scales/ch-scale-hamilton/ch-scale-hamilton.component';
+import { ChScaleCamComponent } from './scales/ch-scale-cam/ch-scale-cam.component';
+import { ChScaleFacComponent } from './scales/ch-scale-fac/ch-scale-fac.component';
+import { ChScaleRedCrossComponent } from './scales/ch-scale-red-cross/ch-scale-red-cross.component';
+import { ChScaleKarnofskyComponent } from './scales/ch-scale-karnofsky/ch-scale-karnofsky.component';
+import { ChScaleEcogComponent } from './scales/ch-scales-ecog/ch-scale-ecog.component';
+import { ChScalePediatricNutritionComponent } from './scales/ch-scale-pediatric-nutrition/ch-scale-pediatric-nutrition.component';
+import { ChScaleFlaccComponent } from './scales/ch-scale-flacc/ch-scale-flacc.component';
+import { ChScaleEsasComponent } from './scales/ch-scale-esas/ch-scale-esas.component';
+import { ChScalePpiComponent } from './scales/ch-scale-ppi/ch-scale-ppi.component';
+import { ChScaleZaritComponent } from './scales/ch-scale-zarit/ch-scale-zarit.component';
+import { ChScalePainComponent } from './scales/ch-scale-pain/ch-scale-pain.component';
+import { ChScaleWongBakerComponent } from './scales/ch-scale-wong-baker/ch-scale-wong.component';
+import { ChScalePfeifferComponent } from './scales/ch-scale-pfeiffer/ch-scale-pfeiffer.component';
+import { ChScaleJhDowntonComponent } from './scales/ch-scale-jh-downton/ch-scale-jh-downton.component';
+import { ChScaleScreeningComponent } from './scales/ch-scale-screening/ch-scale-screening.component';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -167,8 +193,31 @@ import { ChInterconsultationComponent } from './ch-interconsultation/ch-intercon
     Actions12Component,
     SignsEvoComponent,
 
-    ChScalesComponent,
-
+    FormChScalesComponent,
+    ChScaleNortonComponent,
+    ChScaleGlasgowComponent,
+    ChScaleBarthelComponent,
+    ChScalePayetteComponent,
+    ChScaleFragilidadComponent,
+    ChScaleNewsComponent,
+    ChScalPapComponent,
+    ChScaleHamiltonComponent,
+    ChScaleCamComponent,
+    ChScaleFacComponent, 
+    ChScaleRedCrossComponent,
+    ChScaleKarnofskyComponent,
+    ChScaleEcogComponent,
+    ChScalePediatricNutritionComponent,
+    ChScaleEsasComponent,
+    ChScaleFlaccComponent,
+    ChScalePpiComponent,
+    ChScaleZaritComponent,
+    ChScalePainComponent,
+    ChScaleWongBakerComponent,
+    ChScalePfeifferComponent,
+    ChScaleJhDowntonComponent,
+    ChScaleScreeningComponent,
+    
     FormDiagnosticEvoComponent,
     Actions13Component,
     DiagnosticEvoComponent,
@@ -198,6 +247,7 @@ import { ChInterconsultationComponent } from './ch-interconsultation/ch-intercon
     FormOrdersMedicalComponent,
     OrdersMedicalComponent,
     
+    ChHistoricScalesComponent,
   ],
 
 

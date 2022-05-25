@@ -5,7 +5,7 @@ import { ChRecordListComponent } from './ch-record-list/ch-record-list.component
 import { ClinicHistoryListComponent } from './clinic-history-list/clinic-history-list.component';
 import { ClinicHistoryComponent } from './clinic-history.component';
 import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
-import { ChScalesComponent } from './scales/ch-scales.component';
+import { FormChScalesComponent } from './scales/form-ch-scales/form-ch-scales.component';
 
 
 const routes: Routes = [{
@@ -29,8 +29,8 @@ const routes: Routes = [{
       component: BackListComponent,
     },
     {
-      path: 'ch-scales/:id',
-      component: ChScalesComponent,
+      path: 'form-ch-scales/:id',
+      component: FormChScalesComponent,
     }
     
   ],
