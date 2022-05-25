@@ -185,7 +185,7 @@ export class FormChScalesComponent implements OnInit {
 
   public classPfeiffer: string = '';
 
-  public riskJhDowtown: string = '';
+  public riskJhDownton: string = '';
 
   public riskScreening: string = '';
 
