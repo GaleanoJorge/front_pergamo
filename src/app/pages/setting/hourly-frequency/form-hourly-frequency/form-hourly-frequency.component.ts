@@ -35,6 +35,7 @@ export class FormHourlyFrequencyComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
+        value: '',
       };
     }
 
@@ -45,6 +46,7 @@ export class FormHourlyFrequencyComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
+      value: [this.data.value, Validators.compose([Validators.required])],
     });
   }
   
@@ -64,6 +66,7 @@ export class FormHourlyFrequencyComponent implements OnInit {
         this.HourlyFrequencyS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
+          value: this.form.controls.value.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -77,6 +80,7 @@ export class FormHourlyFrequencyComponent implements OnInit {
       } else {
         this.HourlyFrequencyS.Save({
           name: this.form.controls.name.value,
+          value: this.form.controls.value.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

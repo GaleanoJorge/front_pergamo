@@ -2,7 +2,7 @@ import { MainClass } from './main-class';
 
 export class ChFormulation extends MainClass{
     id: number;
-    product_generic_id: number;
+    management_plan_id: number;
     administration_route_id: number;
     hourly_frequency_id: number;
     medical_formula: string;

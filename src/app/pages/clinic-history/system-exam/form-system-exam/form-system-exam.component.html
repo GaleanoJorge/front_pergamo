@@ -16,14 +16,14 @@
       <div class="col-md-12">
         <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
           status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-radio value="NO EVALUADO">EVALUADO</nb-radio>
+          <nb-radio value="NO EVALUADO">CON ALTERACIÓN</nb-radio>
           <nb-radio value="NORMAL">NORMAL</nb-radio>
         </nb-radio-group>
       </div>
 
       <div class="col-md-12">
         <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
-        <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"
+        <textarea id="observation" nbInput fullWidth formControlName="observation" observation onpaste="return false" rows="4" cols="50"
           status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
       </div>
     </div>

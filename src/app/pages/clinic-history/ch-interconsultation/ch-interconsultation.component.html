@@ -1,0 +1,16 @@
+<ngx-form-ch-interconsultation (messageEvent)="receiveMessage($event)">
+</ngx-form-ch-interconsultation>
+<label class="form-text text-muted font-weight-bold align">Interconsulta</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table pager="false" [title]="title" customData="ch_interconsultation" [settings]="settings"
+      entity="ch_interconsultation/by_record/{{record_id}}/6">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

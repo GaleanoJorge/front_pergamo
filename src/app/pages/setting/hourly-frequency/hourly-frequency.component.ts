@@ -16,9 +16,9 @@ export class HourlyFrequencyComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Concentración del producto';
+  public title: string = 'Frecuencia Horaria';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID','Nombre'];
+  public headerFields: any[] = ['ID','Valor','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -47,8 +47,12 @@ export class HourlyFrequencyComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      name: {
+      value: {
         title: this.headerFields[1],
+        type: 'string',
+      },
+      name: {
+        title: this.headerFields[2],
         type: 'string',
       },
     },
@@ -56,7 +60,7 @@ export class HourlyFrequencyComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Concentración del producto',
+      name: 'Frecuencia Horaria',
       route: '../../setting/hourly-frequency',
     },
   ];
@@ -80,7 +84,7 @@ export class HourlyFrequencyComponent implements OnInit {
   NewFrequency() {
     this.dialogFormService.open(FormHourlyFrequencyComponent, {
       context: {
-        title: 'Crear nueva Concentración del producto',
+        title: 'Crear nueva Frecuencia Horaria',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -89,7 +93,7 @@ export class HourlyFrequencyComponent implements OnInit {
   EditHourlyFrequency(data) {
     this.dialogFormService.open(FormHourlyFrequencyComponent, {
       context: {
-        title: 'Editar Concentración del producto',
+        title: 'Editar Frecuencia Horaria',
         data,
         saved: this.RefreshData.bind(this),
       },
