@@ -7,7 +7,8 @@
         <h3 class="parrafo"*ngIf="assistance_name">CAPACIDAD INSTALADA DE {{assistance_name}}</h3>
       </div>
 
-    <ngx-base-table [title]="title_base"
+      <ngx-base-location-package [parentData]="this.assistance_id" (emitMessage)="receiveMessage($event)"></ngx-base-location-package>
+    <!-- <ngx-base-table [title]="title_base"
                     [subtitle]="subtitle_base" [settings]="settings_base"
                     entity="base_location_capacity/AssistanceByLocation/{{assistance_id}}"
                     customData='base_location_capacity'
@@ -19,7 +20,7 @@
           <button nbButton status="danger" (click)="NewSigleLocationCapacity()">Editar</button>
         </div>
       </div>
-    </ngx-base-table>
+    </ngx-base-table> -->
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"

@@ -17,17 +17,17 @@
             </div>
             <div class="col-md-4" >
               <label for="start_date" class="form-text text-muted font-weight-bold">Desde</label>
-              <input class="inputdate" type="date" nbInput fieldSize="medium" fullWidth id="start_date" formControlName="start_date" start_date
+              <input class="inputdate" [max]="today" type="date" nbInput fieldSize="medium" fullWidth id="start_date" formControlName="start_date" start_date
               />
             </div>
             <div class="col-md-4">
               <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta</label>
-              <input class="inputdate" type="date" nbInput fieldSize="medium" fullWidth id="finish_date" formControlName="finish_date" finish_date
+              <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date" formControlName="finish_date" finish_date
               />
             </div>
           </div>
 
-          <div class="col-md-12">
+          <div class="col-md-12 filter">
             <button nbButton status="success" class="ml-1" disabled="{{ loading }}">Filtar</button>
           </div>
 
@@ -87,6 +87,26 @@
           </div>
           <div class="div-send">
             <button type="submit" nbButton status="success">Generar</button>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ng-template>
+
+<ng-template #packagingedit >
+  <div class="container-fluid">
+    <nb-card style="max-width: 1400px;max-height: 1200px;overflow: auto;">
+      <nb-card-header>Editar paquete</nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="xlsForm" (ngSubmit)="save()">
+          <div >
+            <div class="col-md-12" >
+              <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [show]="false" [parentData]="this.parentData"></ngx-auth-asociated-package>
+            </div>
+          </div>
+          <div class="div-send">
+            <button type="submit" nbButton status="success">Guardar</button>
           </div>
         </form>
       </nb-card-body>

@@ -41,17 +41,14 @@ export class FormObservationComponent implements OnInit {
     }
 
     if (this.Managemen) {
-      this.title = 'AUTROZACIÓN PLAN DE MANEJO';
+      this.title = 'AUTORIZACIÓN PLAN DE MANEJO';
       this.form = this.formBuilder.group({
-        authorized_amount: [this.data.authorized_amount, Validators.compose([Validators.required])],
         auth_number: [this.data.auth_number, Validators.compose([Validators.required])],
         observation: [this.data.observation,]
       });
-      this.max = this.data.management_plan[0].quantity;
     } else {
       this.title = 'OBSERVACIÓN MOTIVO DE CANCELACIÓN';
       this.form = this.formBuilder.group({
-        authorized_amount: [this.data.authorized_amount,],
         auth_number: [this.data.auth_number,],
         observation: [this.data.observation, Validators.compose([Validators.required])],
       });
@@ -74,21 +71,21 @@ export class FormObservationComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  compareQuantity() {
+  // compareQuantity() {
 
-    if (this.form.controls.authorized_amount.value > this.max) {
-      this.toastService.warning('','El valor autorizado no puede exceder el valor solicitado en el plan de manejo')
-      this.form.controls.authorized_amount.setErrors({ 'incorrect': true });
-    } else {
-      this.form.controls.authorized_amount.setErrors( null) ;
-    }
-  }
+  //   if (this.form.controls.authorized_amount.value > this.max) {
+  //     this.toastService.warning('','El valor autorizado no puede exceder el valor solicitado en el plan de manejo')
+  //     this.form.controls.authorized_amount.setErrors({ 'incorrect': true });
+  //   } else {
+  //     this.form.controls.authorized_amount.setErrors( null) ;
+  //   }
+  // }
 
   save() {
 
-    if (this.Managemen) {
-      this.compareQuantity()
-    }
+    // if (this.Managemen) {
+    //   this.compareQuantity()
+    // }
     this.isSubmitted = true;
 
     if (!this.form.invalid) {

@@ -2,38 +2,38 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { BankInformation } from '../models/bank-information';
+import { BillingPad } from '../models/billing-pad';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BankInformationService {
-  public bank_information: BankInformation[] = [];
+export class BillingPadService {
+  public billing_pad: BillingPad[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<BankInformation[]> {
-    let servObj = new ServiceObject(params ? 'bank_information?pagination=false' : 'bank_information');
+  GetCollection(params = {}): Promise<BillingPad[]> {
+    let servObj = new ServiceObject(params ? 'billing_pad?pagination=false' : 'billing_pad');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.bank_information = <BankInformation[]>servObj.data.bank_information;
+        this.billing_pad = <BillingPad[]>servObj.data.billing_pad;
 
-        return Promise.resolve(this.bank_information);
+        return Promise.resolve(this.billing_pad);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(bank_information: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('bank_information');
-    servObj.data = bank_information;
+  Save(billing_pad: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad');
+    servObj.data = billing_pad;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class BankInformationService {
       });
   }
 
-  Update(bank_information: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('bank_information', bank_information.id);
-    servObj.data = bank_information;
+  Update(billing_pad: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad', billing_pad.id);
+    servObj.data = billing_pad;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +64,7 @@ export class BankInformationService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('bank_information', id);
+    let servObj = new ServiceObject('billing_pad', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

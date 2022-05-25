@@ -318,6 +318,7 @@ import { AmountDamagedComponent } from './pharmacy-income/income-package/amountd
 import { AmountIncomeComponent } from './pharmacy-income/income-package/amountIncome.component';
 import { IncomePackageComponent } from './pharmacy-income/income-package/income-package.component';
 import { SelectIncomeComponent } from './pharmacy-income/income-package/select-income.component';
+import { BaseLocationPackageComponent } from './location-capacity/sigle-location-capacity/base-location-package/base-location-package.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -660,7 +661,8 @@ import { SelectIncomeComponent } from './pharmacy-income/income-package/select-i
     AmountDamagedComponent,
     AmountIncomeComponent,
     IncomePackageComponent,
-    SelectIncomeComponent
+    SelectIncomeComponent,
+    BaseLocationPackageComponent,
 
   ],
   providers: [

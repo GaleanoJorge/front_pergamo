@@ -20,6 +20,7 @@ export class PharmacyRequestComponent implements OnInit {
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
   public headerFields: any[] = ['ID', 'NOMBRE-SEDE', 'PRODUCTO', 'CANTIDAD'];
+  public headerFields2: any[] = ['ID', 'SOLICITANTE','PACIENTE', 'PRODUCTO', 'CANTIDAD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -62,6 +63,58 @@ export class PharmacyRequestComponent implements OnInit {
       },
       request_amount: {
         title: this.headerFields[3],
+        type: 'string',
+      },
+    },
+  };
+
+
+  public settings2 = {
+    pager: {
+      display: true,
+      perPage: 10,
+    },
+    columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          return {
+            'data': row,
+            'edit': this.EditInv.bind(this),
+          };
+        },
+        renderComponent: ActionsSendComponent,
+      },
+      id: {
+        title: this.headerFields2[0],
+        type: 'string',
+      },
+      users: {
+        title: this.headerFields2[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(value!=null){
+          return value.firstname + ' ' + value.lastname;
+          }
+        },
+      },
+      admissions: {
+        title: this.headerFields2[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.patients.firstname + ' ' + value.patients.lastname + ' - ' + value.patients.identification;
+        },
+      },
+      services_briefcase: {
+        title: this.headerFields2[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.manual_price.name;
+        },
+      },
+      request_amount: {
+        title: this.headerFields2[4],
         type: 'string',
       },
     },

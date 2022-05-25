@@ -459,7 +459,7 @@
             <label for="residence_address" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">
             </label>
             <input nbInput fullWidth id="street" formControlName="street" street placeholder="Ej: 22 Sur" maxlength="10"
-              required />
+            status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
         </div>
         <label for="residence_address" style="margin-top: 40px;" class="form-text text-muted font-weight-bold">#</label>
@@ -467,7 +467,7 @@
           <div class="form-group">
             <label for="residence_address" class="form-text text-muted font-weight-bold">Número</label>
             <input nbInput fullWidth id="num1" formControlName="num1" num1 placeholder="Ej: 45 B" maxlength="10"
-              required />
+            status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
         </div>
         <label for="residence_address" style="margin-top: 40px;" class="form-text text-muted font-weight-bold">-</label>
@@ -476,7 +476,7 @@
             <label for="residence_address" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">
             </label>
             <input nbInput fullWidth id="num2" formControlName="num2" num2 placeholder="Ej: 45 B" maxlength="10"
-              required />
+            status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
         </div>
 

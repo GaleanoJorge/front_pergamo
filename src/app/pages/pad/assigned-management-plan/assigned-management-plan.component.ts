@@ -40,7 +40,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public file: File;
   public management_id;
   public user_id;
-  public user;
+  public user=null;
   public dialog;
   public currentRole;
   public settings;
@@ -199,8 +199,7 @@ export class AssignedManagementPlanComponent implements OnInit {
 
 
 
-  async ngOnInit() {
- 
+  async ngOnInit() { 
     this.management_id = this.route.snapshot.params.management_id;
     await this.ManagementS.GetCollection({management_id:this.management_id}).then(x => {
       this.management=x;
@@ -221,6 +220,7 @@ export class AssignedManagementPlanComponent implements OnInit {
 
     await this.patientBS.GetUserById(this.user_id).then(x => {
       this.user=x;
+      this.entity="assigned_management_plan/"+this.management_id+"/"+this.user_logged+"?patient="+this.user.admissions[0].id;
     });
   }
 
