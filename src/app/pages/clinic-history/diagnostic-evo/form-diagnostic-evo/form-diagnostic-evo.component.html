@@ -56,7 +56,7 @@
         <div class="center">
           <label for="diagnosis_id" class="font-weight-bold">OBSERVACIÓN</label>
           <textarea id="diagnosis_observation" nbInput fullWidth formControlName="diagnosis_observation" current_illness
-            rows="3"
+          onpaste="return false" rows="3"
             status="{{ isSubmitted && form.controls.diagnosis_observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
         </div>
       </div>

@@ -194,17 +194,22 @@ export class ClinicHistoryListComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.record_id = this.route.snapshot.params.id;
     this.currentRole = this.authService.GetRole();
     this.own_user = this.authService.GetUser();
 
-    this.chRecord.GetCollection({
+
+    await this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
+
+
+    this.user_id=this.user.id;
+
   }
 
   async finish() {

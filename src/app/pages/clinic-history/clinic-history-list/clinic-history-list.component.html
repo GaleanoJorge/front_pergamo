@@ -33,7 +33,7 @@
 
       <nb-tab tabTitle="FORMULACIÓN">
          <div *ngIf="this.show == 5">
-          <ngx-formulation [record_id]="record_id"></ngx-formulation>
+          <ngx-formulation [record_id]="record_id" [user]="user_id"></ngx-formulation>
         </div> 
       </nb-tab>
       <nb-tab tabTitle="ORDEN MEDICAS">
@@ -50,6 +50,7 @@
 
       <nb-tab tabTitle="SALIDA">
         <div *ngIf="this.show == 8">
+          <ngx-patient-exit [record_id]="record_id"></ngx-patient-exit>
         </div>
       </nb-tab>
 

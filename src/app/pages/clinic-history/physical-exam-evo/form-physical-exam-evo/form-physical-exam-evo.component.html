@@ -23,7 +23,7 @@
 
       <div class="col-md-12">
         <label class="form-text text-muted font-weight-bold text ">DESCRIPCIÓN:</label>
-        <textarea id="description" nbInput fullWidth formControlName="description" description rows="4" cols="50"
+        <textarea id="description"  (selectedChange)="onDescriptionChange($event)" nbInput fullWidth formControlName="description" description onpaste="return false" rows="4" cols="50"
           status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
       </div>
     </div>
