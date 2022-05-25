@@ -1,36 +1,38 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
-    <fieldset class="field_set center">
+    <fieldset class="field_set">
+      <legend class="prue1 center">FALLIDA</legend>
 
-      <legend class="prue1">FALLIDA</legend>
-      <label class="font-weight-bold ImpPeq">MOTIVO</label>
-
-      <nb-select [selected]="this.data.ch_reason_id" formControlName="ch_reason_id" id="ch_reason_id"
-        status="{{ isSubmitted && form.controls.ch_reason_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-        <nb-option value="">SELECCIONE...</nb-option>
-        <nb-option selected="{{ item.id == this.data.ch_reason_id }}" *ngFor="let item of ch_reason_id"
-          [value]="item.id">
-          {{ item.name }}</nb-option>
-      </nb-select>
-
-      <div class="col-md-12">
-        <div class="form-group">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Motivo</label>
+          <nb-select [selected]="this.data.ch_reason_id" formControlName="ch_reason_id"
+            id="ch_reason_id" 
+            status="{{ isSubmitted && form.controls.ch_reason_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option selected="{{ item.id == this.data.ch_reason_id }}"
+              *ngFor="let item of ch_reason_id" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col col-lg-6">
           <div class="form-group">
-            <label for="file_evidence" class="font-weight-bold ImpPeq">
+            <label for="file" class="form-text text-muted font-weight-bold">
               Subir documentos:
             </label>
             <div *ngIf="previewFile" class="container py-2">
               <a [href]="previewFile" target="_blank">Ver documentos</a>
             </div>
-            <input accept="application/pdf" type="file_evidence" id="file_evidence" nbInput fullWidth
-              (change)="changeImage($event.target.file_evidences, 1)" />
+            
+            <input accept="image/png, .jpeg, .jpg, image/gif" type="file" id="file_evidence" formControlName="file_evidence" nbInput fullWidth
+              (change)="changeImage($event.target.files, 1)" />
           </div>
         </div>
-      </div> 
+      </div>
 
 
-      <label class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
-      <textarea id="descriptions" nbInput fullWidth formControlName="descriptions" analisys rows="4" cols="50"
+      <label class="form-text text-muted font-weight-bold center">Observaciones</label>
+      <textarea id="descriptions" nbInput fullWidth formControlName="descriptions" analisys onpaste="return false"  rows="4" cols="50"
         status="{{ isSubmitted && form.controls.descriptions.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
     </fieldset>
 

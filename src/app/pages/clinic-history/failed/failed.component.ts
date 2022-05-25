@@ -35,7 +35,7 @@ export class FailedComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      ch_reason_id: {
+      ch_reason: {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
