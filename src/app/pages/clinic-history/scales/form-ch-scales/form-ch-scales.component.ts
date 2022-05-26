@@ -14,6 +14,7 @@ import { ChScalesService } from '../../../../business-controller/ch_scales.servi
 export class FormChScalesComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() enfermery: any = null;
   @Input() record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
