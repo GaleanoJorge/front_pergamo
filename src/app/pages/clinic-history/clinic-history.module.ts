@@ -117,6 +117,14 @@ import { ChScalePfeifferComponent } from './scales/ch-scale-pfeiffer/ch-scale-pf
 import { ChScaleJhDowntonComponent } from './scales/ch-scale-jh-downton/ch-scale-jh-downton.component';
 import { ChScaleScreeningComponent } from './scales/ch-scale-screening/ch-scale-screening.component';
 
+import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
+import { FormClinicHistoryNursingComponent } from './clinic-history-nursing-list/form-clinic-history-nursing/form-clinic-history-nursing.component';
+import { ActionsNursingComponent } from './clinic-history-nursing-list/actionsNursing.component';
+import { ActionsNursing2Component } from './entry-clinic-history-nursing/actions.component';
+import { FormReasonConsultationNursingComponent } from './entry-clinic-history-nursing/form-reason-consultation-nursing/form-reason-consultation-nursing.component';
+import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
+import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
+import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -146,6 +154,20 @@ import { ChScaleScreeningComponent } from './scales/ch-scale-screening/ch-scale-
     NbCheckboxModule,
   ],
   declarations: [
+
+    ClinicHistoryNursingListComponent,
+    FormClinicHistoryNursingComponent,
+    
+    EntryClinicHistoryNursingComponent,
+    FormReasonConsultationNursingComponent,
+    
+    ActionsNursingComponent,
+    ActionsNursing2Component,
+
+    SkinValorationComponent,
+    FormSkinValorationComponent,
+
+
     ClinicHistoryComponent,
     FormClinicHistoryComponent,
     ClinicHistoryListComponent,

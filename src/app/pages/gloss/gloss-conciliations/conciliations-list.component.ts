@@ -217,8 +217,8 @@ export class ConciliationsListComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Glosas',
-      route: '../list',
+      name: 'Conciliaciones',
+      route: '../conciliations',
     },
   ];
 

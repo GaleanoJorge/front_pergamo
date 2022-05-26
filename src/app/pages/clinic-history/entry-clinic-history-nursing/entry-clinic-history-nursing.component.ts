@@ -10,11 +10,11 @@ import { ChPhysicalExamService } from '../../../business-controller/ch_physical_
 
 
 @Component({
-  selector: 'ngx-entry-clinic-history',
-  templateUrl: './entry-clinic-history.component.html',
-  styleUrls: ['./entry-clinic-history.component.scss'],
+  selector: 'ngx-entry-clinic-history-nursing',
+  templateUrl: './entry-clinic-history-nursing.component.html',
+  styleUrls: ['./entry-clinic-history-nursing.component.scss'],
 })
-export class EntryClinicHistoryComponent implements OnInit {
+export class EntryClinicHistoryNursingComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
