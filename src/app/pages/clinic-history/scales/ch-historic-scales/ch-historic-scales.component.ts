@@ -501,7 +501,7 @@ export class ChHistoricScalesComponent implements OnInit {
       this.settings = this.settings_wong;
     } else if (this.path == 'ch_scale_pfeiffer') {
       this.settings = this.settings_1;
-    } else if (this.path == 'ch_scale_jh_dowton') {
+    } else if (this.path == 'ch_scale_jh_downton') {
       this.settings = this.settings_jh_downton;
     } else if (this.path == 'ch_scale_screening') {
       this.settings = this.settings_2;
