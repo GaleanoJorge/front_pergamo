@@ -3,7 +3,7 @@
     <nb-tabset fullWidth>
       <nb-tab tabTitle="FARMACIA">
         <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-          entity="pharmacy_product_request/?pagination=true" customData='pharmacy_product_request'
+          entity="pharmacy_product_request/?pagination=true&is=true" customData='pharmacy_product_request'
           [messageToltip]="messageToltip">
           <div actions>
             <div class="actions">
@@ -12,8 +12,16 @@
           </div>
         </ngx-base-table>
       </nb-tab>
-      <nb-tab tabTitle="PERSONAL">
-
+      <nb-tab tabTitle="PACIENTE">
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings2"
+          entity="pharmacy_product_request/?pagination=true&is=false" customData='pharmacy_product_request'
+          [messageToltip]="messageToltip">
+          <div actions>
+            <div class="actions">
+                <button nbButton status="danger" ngxCheckPerms="create" (click)="NewDev()">DEVOLUCIONES</button>
+            </div>
+          </div>
+        </ngx-base-table>
       </nb-tab>
 
     </nb-tabset>

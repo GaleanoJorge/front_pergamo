@@ -312,6 +312,7 @@ import { AmountDamagedComponent } from './pharmacy-income/income-package/amountd
 import { AmountIncomeComponent } from './pharmacy-income/income-package/amountIncome.component';
 import { IncomePackageComponent } from './pharmacy-income/income-package/income-package.component';
 import { SelectIncomeComponent } from './pharmacy-income/income-package/select-income.component';
+import { BaseLocationPackageComponent } from './location-capacity/sigle-location-capacity/base-location-package/base-location-package.component';
 import { FormPharmacyReturnComponent } from './pharmacy-return/form-pharmacy-return/form-pharmacy-return.component';
 import { AmountReturnComponent } from './pharmacy-return/prod-return-package/amount-return.component';
 import { ProdReturnPackageComponent } from './pharmacy-return/prod-return-package/prod-return-package.component';
@@ -320,7 +321,6 @@ import { ActionsReturnComponent } from './pharmacy-return/actions-return.compone
 import { PharmacyReturnComponent } from './pharmacy-return/pharmacy-return.component';
 import { NomProductComponent } from './nom-product/nom-product.component';
 import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom-product.component';
-import { BaseLocationPackageComponent } from './location-capacity/sigle-location-capacity/base-location-package/base-location-package.component';
 import { FormFixedAreaCampusComponent } from './fixed-area-campus/form-fixed-area-campus/form-fixed-area-campus.component';
 import { FixedAreaCampusComponent } from './fixed-area-campus/fixed-area-campus.component';
 import { FixedCodeComponent } from './fixed-code/fixed-code.component';
@@ -675,6 +675,7 @@ import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component'
     AmountIncomeComponent,
     IncomePackageComponent,
     SelectIncomeComponent,
+    BaseLocationPackageComponent,
 
     FormPharmacyReturnComponent,
     AmountReturnComponent,
@@ -705,6 +706,8 @@ import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component'
     FixedInventaryComponent,
     FormFixedInventaryComponent,
     ActionsInFixComponent,
+    FormNomProductComponent
+
   ],
   providers: [
     DateFormatPipe,
