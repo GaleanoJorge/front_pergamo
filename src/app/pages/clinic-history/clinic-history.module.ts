@@ -83,7 +83,6 @@ import { FormulationComponent } from './formulation/formulation.component';
 
 import { BackgroundComponent } from './background/back/background.component';
 import { Actions8Component } from './background/back/actions.component';
-import { ChScalesComponent } from './scales/ch-scales.component';
 import { FormFailedComponent } from './failed/form-failed/form-failed.component';
 import { FailedComponent } from './failed/failed.component';
 import { FormPatientExitComponent } from './patient-exit/form-patient-exit/form-patient-exit.component';
