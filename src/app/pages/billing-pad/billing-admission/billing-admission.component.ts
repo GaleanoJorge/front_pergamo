@@ -84,7 +84,7 @@ export class BillingAdmissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.admission_id = this.route.snapshot.params.admissions_id;
+    this.admission_id = this.route.snapshot.params.id;
   }
 
   RefreshData() {
