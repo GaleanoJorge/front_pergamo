@@ -16,7 +16,7 @@ export class BillingPadListComponent implements OnInit {
   public loading: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'ADMISIONES';
+  public title: string = 'FACTURACIÓN POR PACIENTES';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'DOCUMENTO', 'EPS'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
