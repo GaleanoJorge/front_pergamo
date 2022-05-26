@@ -367,8 +367,8 @@ export class ChScalesService {
       });
   }
 
-  SaveJhDowton(ch_scales: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_scale_jh_dowton');
+  SaveJhDownton(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_jh_downton');
     servObj.data = ch_scales;
     return this.webAPI.PostAction(servObj)
       .then(x => {
