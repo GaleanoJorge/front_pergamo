@@ -23,21 +23,21 @@ export class UserBusinessService {
 
 v
 
-  // GetCollectionOfID(): Promise<User[]> {
-  //   var servObj = new ServiceObject("user");
-  //   return this.webAPI.GetAction(servObj)
-  //     .then(x => {
-  //       servObj = <ServiceObject>x;
-  //       if (!servObj.status)
-  //         throw new Error(servObj.message);
+  GetCollection(): Promise<User[]> {
+    var servObj = new ServiceObject("user");
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
 
-  //       this.users = <User[]>servObj.data.user;
-  //       return Promise.resolve(this.users);
-  //     })
-  //     .catch(x => {
-  //       throw x.message;
-  //     });
-  // }
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 
   GetByPacient(identification:{}): Promise<User[]> {
     console.log(identification);

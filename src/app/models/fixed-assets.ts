@@ -11,6 +11,7 @@ export class FixedAssets extends MainClass {
   plaque: string;
   name: string;
   model: string;
+  amount: string;
   mark: string;
   serial: string;
   description: string;

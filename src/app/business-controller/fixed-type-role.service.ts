@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { FixedLoan } from '../models/fixed-loan';
+import { FixedTypeRole } from '../models/fixed-type-role';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FixedLoanService {
-  public fixed_loan: FixedLoan[] = [];
+export class FixedTypeRoleService {
+  public fixed_type_role: FixedTypeRole[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<FixedLoan[]> {
-    let servObj = new ServiceObject(params ? 'fixed_loan?pagination=false' : 'fixed_loan');
+  GetCollection(params = {}): Promise<FixedTypeRole[]> {
+    let servObj = new ServiceObject(params ? 'fixed_type_role?pagination=false' : 'fixed_type_role');
 
     return this.webAPI.GetAction(servObj)
       .then(x => {
@@ -22,18 +22,18 @@ export class FixedLoanService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.fixed_loan = <FixedLoan[]>servObj.data.fixed_loan;
+        this.fixed_type_role = <FixedTypeRole[]>servObj.data.fixed_type_role;
 
-        return Promise.resolve(this.fixed_loan);
+        return Promise.resolve(this.fixed_type_role);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  updateInventoryByLot(fixed_loan: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_loan/updateInventoryByLot', fixed_loan.id);
-    servObj.data = fixed_loan;
+  Save(fixed_type_role: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('fixed_type_role');
+    servObj.data = fixed_type_role;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,25 +47,9 @@ export class FixedLoanService {
       });
   }
 
-  Save(fixed_loan: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_loan');
-    servObj.data = fixed_loan;
-    return this.webAPI.PostAction(servObj)
-      .then(x => {
-        servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
-
-        return Promise.resolve(servObj);
-      })
-      .catch(x => {
-        throw x.message;
-      });
-  }
-
-  Update(fixed_loan: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_loan', fixed_loan.id);
-    servObj.data = fixed_loan;
+  Update(fixed_type_role: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('fixed_type_role', fixed_type_role.id);
+    servObj.data = fixed_type_role;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -80,7 +64,7 @@ export class FixedLoanService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_loan', id);
+    let servObj = new ServiceObject('fixed_type_role', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
