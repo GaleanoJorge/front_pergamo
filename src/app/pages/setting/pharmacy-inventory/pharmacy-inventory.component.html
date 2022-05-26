@@ -9,6 +9,8 @@
             customData='pharmacy_lot_stock' [messageToltip]="messageToltip">
             <div actions>
               <div class="actions">
+                <button nbButton status="danger" ngxCheckPerms="create" (click)="NewDev()">DEVOLUCIONES</button>
+
                 <!--        <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacyInventory()">Crear</button>-->
               </div>
             </div>
@@ -19,9 +21,6 @@
       <nb-tab tabTitle="ACEPTAR MEDICAMENTOS">
         <ngx-pharmacy-income></ngx-pharmacy-income>
       </nb-tab>
-
-
     </nb-tabset>
-
   </div>
 </ngx-base-list>

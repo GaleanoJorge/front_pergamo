@@ -12,6 +12,7 @@ import { ConsumptionUnitService } from '../../../../business-controller/consumpt
 import { AdministrationRouteService } from '../../../../business-controller/administration-route.service';
 import { ProductConcentrationService } from '../../../../business-controller/product-concentration.service';
 import { ProductDoseService } from '../../../../business-controller/product_dose.service';
+import { NomProductService } from '../../../../business-controller/nom-product.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class FormProductGenericComponent implements OnInit {
   public measurement_units: any[];
   public product_presentation: any[];
   public pbs_type: any[];
+  public nom_product: any[];
   public product_subcategory: any[];
   public consumption_unit: any[];
   public administration_route: any[];
@@ -44,6 +46,7 @@ export class FormProductGenericComponent implements OnInit {
   public showDose: boolean = false;
   public showInsumo: boolean = false;
   public subcategory: string;
+  public nomProduct: string;
   public drugconcentration: string;
   public measurementunits: string;
   public productpresentation: string;
@@ -62,6 +65,7 @@ export class FormProductGenericComponent implements OnInit {
     private ProductConcentrationS: ProductConcentrationService,
     private ProductCategoryS: ProductCategoryService,
     private ProductSubcategoryS: ProductSubcategoryService,
+    private NomProductS: NomProductService,
     private prodDoseS: ProductDoseService,
   ) {
   }
@@ -74,7 +78,7 @@ export class FormProductGenericComponent implements OnInit {
         product_presentation_id: '',
         description: '',
         pbs_type_id: '',
-        product_subcategory_id: '',
+        nom_product_id: '',
         administration_route_id: '',
         special_controller_medicine: '',
         code_atc: '',
@@ -95,7 +99,7 @@ export class FormProductGenericComponent implements OnInit {
       product_presentation_id: [this.data.product_presentation_id, Validators.compose([Validators.required])],
       description: [this.data.description],
       pbs_type_id: [this.data.pbs_type_id, Validators.compose([Validators.required])],
-      product_subcategory_id: [this.data.product_subcategory_id, Validators.compose([Validators.required])],
+      nom_product_id: [this.data.nom_product_id, Validators.compose([Validators.required])],
       minimum_stock: [this.data.minimum_stock, Validators.compose([Validators.required])],
       maximum_stock: [this.data.maximum_stock, Validators.compose([Validators.required])],
       administration_route_id: [this.data.administration_route_id],
@@ -107,6 +111,7 @@ export class FormProductGenericComponent implements OnInit {
       consignment: [this.data.consignment],
       product_group_id: [],
       product_category_id: [],
+      product_subcategory_id: [],
       product_dose_id: [],
       dose: [],
     });
@@ -145,24 +150,24 @@ export class FormProductGenericComponent implements OnInit {
   }
 
   selectsubcategory(event: Event) {
-    let Subcat = this.product_subcategory.find(x => x.id == event);
-    this.subcategory = Subcat.name;
-    this.form.controls.description.setValue(this.subcategory);
+    let Subcat = this.nom_product.find(x => x.id == event);
+    this.nomProduct = Subcat.name;
+    this.form.controls.description.setValue(this.nomProduct);
   }
   selectdrug(event: Event) {
     let drug = this.drug_concentration.find(x => x.id == event);
     this.drugconcentration = drug.value;
-    this.form.controls.description.setValue(this.subcategory + " " + this.drugconcentration);
+    this.form.controls.description.setValue(this.nomProduct + " " + this.drugconcentration);
   }
   selectmeasurement(event: Event) {
     let measurement = this.measurement_units.find(x => x.id == event);
     this.measurementunits = measurement.code;
-    this.form.controls.description.setValue(this.subcategory + " " + this.drugconcentration + " " + this.measurementunits);
+    this.form.controls.description.setValue(this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits);
   }
   selectpresentation(event: Event) {
     let presentation = this.product_presentation.find(x => x.id == event);
     this.productpresentation = presentation.name;
-    this.form.controls.description.setValue(this.subcategory + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation);
+    this.form.controls.description.setValue(this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation);
   }
 
   close() {
@@ -204,9 +209,9 @@ export class FormProductGenericComponent implements OnInit {
           drug_concentration_id: this.form.controls.drug_concentration_id.value,
           measurement_units_id: this.form.controls.measurement_units_id.value,
           product_presentation_id: this.form.controls.product_presentation_id.value,
-          description: this.subcategory + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation,
+          description: this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation,
           pbs_type_id: this.form.controls.pbs_type_id.value,
-          product_subcategory_id: this.form.controls.product_subcategory_id.value,
+          nom_product_id: this.form.controls.nom_product_id.value,
           administration_route_id: this.form.controls.administration_route_id.value,
           special_controller_medicine: this.form.controls.special_controller_medicine.value,
           code_atc: this.form.controls.code_atc.value,
@@ -232,9 +237,9 @@ export class FormProductGenericComponent implements OnInit {
           drug_concentration_id: this.form.controls.drug_concentration_id.value,
           measurement_units_id: this.form.controls.measurement_units_id.value,
           product_presentation_id: this.form.controls.product_presentation_id.value,
-          description: this.subcategory + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation,
+          description: this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation,
           pbs_type_id: this.form.controls.pbs_type_id.value,
-          product_subcategory_id: this.form.controls.product_subcategory_id.value,
+          nom_product_id: this.form.controls.nom_product_id.value,
           administration_route_id: this.form.controls.administration_route_id.value,
           special_controller_medicine: this.form.controls.special_controller_medicine.value,
           code_atc: this.form.controls.code_atc.value,
@@ -280,8 +285,16 @@ export class FormProductGenericComponent implements OnInit {
         this.GetSubcategory(val).then();
       }
       this.form.patchValue({
-        product_subcategory_id: '',
+        nom_product_id: '',
       });
+    });
+
+    this.form.get('product_subcategory_id').valueChanges.subscribe(val => {
+      if (val === '') {
+        this.nom_product = [];
+      } else {
+        this.GetNomProd(val).then();
+      }
     });
   }
 
@@ -320,6 +333,14 @@ export class FormProductGenericComponent implements OnInit {
     if (!product_category_id || product_category_id === '') return Promise.resolve(false);
     return this.ProductSubcategoryS.GetProductSubcategoryByCategory(product_category_id).then(x => {
       this.product_subcategory = x;
+      return Promise.resolve(true);
+    });
+  }
+
+  GetNomProd(product_subcategory_id, job = false) {
+    if (!product_subcategory_id || product_subcategory_id === '') return Promise.resolve(false);
+    return this.NomProductS.GetProductSubcategoryByCategory(product_subcategory_id).then(x => {
+      this.nom_product = x;
       return Promise.resolve(true);
     });
   }

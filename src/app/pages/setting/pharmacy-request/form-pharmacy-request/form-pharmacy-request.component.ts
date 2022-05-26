@@ -104,14 +104,7 @@ export class FormPharmacyRequestComponent implements OnInit {
             var err = 0;
             if (this.saved) {
               this.saved();
-            }
-            // this.pharProdReqS.updateInventoryByLot({
-            //   pharmacy_product_request_id: id,
-            //   pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
-            // }).then(x => {
-            // }).catch(x => {
-            //   err++;
-            // });
+            } 
             contador++;
 
             if (contador > 0) {

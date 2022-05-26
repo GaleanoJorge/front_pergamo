@@ -8,6 +8,7 @@ import { ViewCell } from 'ng2-smart-table';
       (change)="value.onchange($event, value.data)" [disabled]="value.enabled" />
   </div>
   `,
+  styleUrls: ['./income-package.component.scss'],
 })
 export class AmountDamagedComponent implements ViewCell {
   @Input() value: any;    // This hold the cell value

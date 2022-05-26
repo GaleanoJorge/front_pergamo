@@ -31,7 +31,7 @@
         <div class="col-12 col-sm-12 col-md-4">
           <label for="product_subcategory" class="form-text text-muted font-weight-bold">Subcategoria del
             producto:</label>
-          <nb-select (selectedChange)="selectsubcategory($event)" formControlName="product_subcategory_id"
+          <nb-select [selected]="this.data.product_subcategory_id"  formControlName="product_subcategory_id"
             id="product_subcategory_id" fullWidth
             status="{{ isSubmitted && form.controls.product_subcategory_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
@@ -40,6 +40,21 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="nom_product" class="form-text text-muted font-weight-bold">Nombre del producto:</label>
+          <nb-select (selectedChange)="selectsubcategory($event)" formControlName="nom_product_id"
+            id="nom_product_id" fullWidth
+            status="{{ isSubmitted && form.controls.nom_product_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.nom_product_id }}" *ngFor="let item of nom_product"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+
         <div class="col-12 col-sm-12 col-md-4">
           <label for="drug_concentration" class="form-text text-muted font-weight-bold">Concentración:</label>
           <nb-select (selectedChange)="selectdrug($event)" [selected]="this.data.drug_concentration_id"

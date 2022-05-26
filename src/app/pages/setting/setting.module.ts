@@ -140,9 +140,7 @@ import { FormProductGroupComponent } from './product-group/form-product-group/fo
 import { FormProductCategoryComponent } from './product-category/form-product-category/form-product-category.component';
 import { FormProductSubcategoryComponent } from './product-subcategory/form-product-subcategory/form-product-subcategory.component';
 import { FormProductGenericComponent } from './product-generic/form-product-generic/form-product-generic.component';
-import { TypeAssetsComponent } from './type-assets/type-assets.component';
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
-import { FormTypeAssetsComponent } from './type-assets/form-type-assets/form-type-assets.component';
 import { FormFixedAssetsComponent } from './fixed-assets/form-fixed-assets/form-fixed-assets.component';
 import { ProductComponent } from './product/product.component';
 import { InvimaStatusComponent } from './invima-status/invima-status.component';
@@ -307,10 +305,6 @@ import { AmountComponent } from './pharmacy-lot/prod-lot-package/amount.componen
 import { LotComponent } from './pharmacy-lot/prod-lot-package/lot.component';
 import { DateComponent } from './pharmacy-lot/prod-lot-package/date.component';
 import { SelectPharmacyLotComponent } from './pharmacy-lot/prod-lot-package/select-prod-lot.component';
-import { FormPharmacyAcceptedInventoryComponent } from './pharmacy-request/pharmacy-accepted-inventory/form-pharmacy-accepted-inventory/form-pharmacy-accepted-inventory.component';
-import { PharmacyAcceptedInventoryComponent } from './pharmacy-request/pharmacy-accepted-inventory/pharmacy-accepted-inventory.component';
-import { ObservationComponent } from './pharmacy-request/pharmacy-accepted-inventory/observation.component';
-import { StatusComponent } from './pharmacy-request/pharmacy-accepted-inventory/status.component';
 import { FormPharmacyIncomeComponent } from './pharmacy-income/form-pharmacy-income/form-pharmacy-income.component';
 import { PharmacyIncomeComponent } from './pharmacy-income/pharmacy-income.component';
 import { ActionsIncoComponent } from './pharmacy-income/actions.component';
@@ -319,6 +313,33 @@ import { AmountIncomeComponent } from './pharmacy-income/income-package/amountIn
 import { IncomePackageComponent } from './pharmacy-income/income-package/income-package.component';
 import { SelectIncomeComponent } from './pharmacy-income/income-package/select-income.component';
 import { BaseLocationPackageComponent } from './location-capacity/sigle-location-capacity/base-location-package/base-location-package.component';
+import { FormPharmacyReturnComponent } from './pharmacy-return/form-pharmacy-return/form-pharmacy-return.component';
+import { AmountReturnComponent } from './pharmacy-return/prod-return-package/amount-return.component';
+import { ProdReturnPackageComponent } from './pharmacy-return/prod-return-package/prod-return-package.component';
+import { SelectProductReturnComponent } from './pharmacy-return/prod-return-package/select-prod-return.component';
+import { ActionsReturnComponent } from './pharmacy-return/actions-return.component';
+import { PharmacyReturnComponent } from './pharmacy-return/pharmacy-return.component';
+import { NomProductComponent } from './nom-product/nom-product.component';
+import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom-product.component';
+import { FormFixedAreaCampusComponent } from './fixed-area-campus/form-fixed-area-campus/form-fixed-area-campus.component';
+import { FixedAreaCampusComponent } from './fixed-area-campus/fixed-area-campus.component';
+import { FixedCodeComponent } from './fixed-code/fixed-code.component';
+import { FixedConditionComponent } from './fixed-condition/fixed-condition.component';
+import { FixedPropertyComponent } from './fixed-property/fixed-property.component';
+import { FormFixedConditionComponent } from './fixed-condition/form-fixed-condition/form-fixed-condition.component';
+import { FormFixedCodeComponent } from './fixed-code/form-fixed-code/form-fixed-code.component';
+import { FormFixedPropertyComponent } from './fixed-property/form-fixed-property/form-fixed-property.component';
+import { FixedClasificationComponent } from './fixed-clasification/fixed-clasification.component';
+import { FormFixedClasificationComponent } from './fixed-clasification/form-fixed-clasification/form-fixed-clasification.component';
+import { FormFixedTypeComponent } from './fixed-type/form-fixed-type/form-fixed-type.component';
+import { FixedTypeComponent } from './fixed-type/fixed-type.component';
+import { FormFixedLocationCampusComponent } from './fixed-location-campus/form-fixed-location-campus/form-fixed-location-campus.component';
+import { FixedLocationCampusComponent } from './fixed-location-campus/fixed-location-campus.component';
+import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories.component';
+import { FormFixedAccessoriesComponent } from './fixed-accessories/form-fixed-accessories/form-fixed-accessories.component';
+import { FormFixedInventaryComponent } from './fixed-inventary/form-fixed-inventary/form-fixed-inventary.component';
+import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
+import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -412,9 +433,7 @@ import { BaseLocationPackageComponent } from './location-capacity/sigle-location
     FormModalityComponent,
     FormTypeBriefcaseComponent,
     FormTypeContractComponent,
-    TypeAssetsComponent,
     FixedAssetsComponent,
-    FormTypeAssetsComponent,
     FormFixedAssetsComponent,
     AdministrationRouteComponent,
     MeasurementUnitsComponent,
@@ -649,12 +668,6 @@ import { BaseLocationPackageComponent } from './location-capacity/sigle-location
     LotComponent,
     DateComponent,
 
-
-    FormPharmacyAcceptedInventoryComponent,
-    PharmacyAcceptedInventoryComponent,
-    StatusComponent,
-    ObservationComponent,
-
     FormPharmacyIncomeComponent,
     PharmacyIncomeComponent,
     ActionsIncoComponent,
@@ -664,12 +677,43 @@ import { BaseLocationPackageComponent } from './location-capacity/sigle-location
     SelectIncomeComponent,
     BaseLocationPackageComponent,
 
+    FormPharmacyReturnComponent,
+    AmountReturnComponent,
+    ProdReturnPackageComponent,
+    SelectProductReturnComponent,
+    ActionsReturnComponent,
+    PharmacyReturnComponent,
+
+    NomProductComponent,
+    FormNomProductComponent,
+    BaseLocationPackageComponent,
+    FormFixedAreaCampusComponent,
+    FixedAreaCampusComponent,
+    FormFixedCodeComponent,
+    FixedCodeComponent,
+    FormFixedConditionComponent,
+    FixedConditionComponent,
+    FormFixedPropertyComponent,
+    FixedPropertyComponent,
+    FixedClasificationComponent,
+    FormFixedClasificationComponent,
+    FormFixedTypeComponent,
+    FixedTypeComponent,
+    FormFixedLocationCampusComponent,
+    FixedLocationCampusComponent,
+    FixedAccessoriesComponent,
+    FormFixedAccessoriesComponent,
+    FixedInventaryComponent,
+    FormFixedInventaryComponent,
+    ActionsInFixComponent,
+    FormNomProductComponent
+
   ],
   providers: [
     DateFormatPipe,
     CurrencyPipe
   ],
-  exports:[
+  exports: [
     ProcedurePackage2Component,
     FormUserComponent,
     FormLocationCapacityComponent,
