@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChScalesService } from '../../../business-controller/ch_scales.service';
+import { INPUT } from '@syncfusion/ej2/inplace-editor';
 
 
 
@@ -15,6 +16,7 @@ export class ChScalesComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() enfermery: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
 
@@ -24,6 +26,7 @@ export class ChScalesComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
+  public showEnfermery= true
   public arrayDefinitionsFac =
     [
       {
@@ -207,6 +210,7 @@ export class ChScalesComponent implements OnInit {
       this.data = {
       };
     }
+
     this.form = this.formBuilder.group({
 
       //Escala Norton Form

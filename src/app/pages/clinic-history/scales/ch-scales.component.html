@@ -2,7 +2,7 @@
   <div class="row">
     <nb-accordion multi>
     <!-- NORTON -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? true : true">
         <nb-accordion-item-header>
           Escala Norton
         </nb-accordion-item-header>
@@ -137,7 +137,7 @@
       </nb-accordion-item>
 
     <!-- GLASGOW -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? true : true">
         <nb-accordion-item-header>
           Escala Glasgow
         </nb-accordion-item-header>
@@ -224,7 +224,7 @@
       </nb-accordion-item>
  
     <!-- BARTHEL -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Barthel
         </nb-accordion-item-header>
@@ -429,7 +429,7 @@
       </nb-accordion-item>
 
     <!-- PAYETTE-->  
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Payette
         </nb-accordion-item-header>
@@ -625,7 +625,7 @@
       </nb-accordion-item>
 
     <!-- FRAGILIDAD -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Fragilidad
         </nb-accordion-item-header>
@@ -748,7 +748,7 @@
       </nb-accordion-item>
 
     <!-- NEWS -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala News
         </nb-accordion-item-header>
@@ -928,7 +928,7 @@
       </nb-accordion-item>
 
     <!-- PaP -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala PaP
         </nb-accordion-item-header>
@@ -1061,7 +1061,7 @@
       </nb-accordion-item>
 
     <!-- HAMILTON -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Hamilton
         </nb-accordion-item-header>
@@ -1481,7 +1481,7 @@
       </nb-accordion-item>
 
     <!-- CAM -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala CAM
         </nb-accordion-item-header>
@@ -1591,7 +1591,7 @@
       </nb-accordion-item>
 
     <!-- FAC -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala FAC
         </nb-accordion-item-header>
@@ -1636,7 +1636,7 @@
       </nb-accordion-item>
 
     <!-- CRUZ ROJA -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Cruz roja
         </nb-accordion-item-header>
@@ -1683,7 +1683,7 @@
       </nb-accordion-item>
 
     <!--KARNOFSKY  -->    
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Karnofsky
         </nb-accordion-item-header>
@@ -1749,7 +1749,7 @@
       </nb-accordion-item>
 
     <!-- ECOG -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala ECOG
         </nb-accordion-item-header>
@@ -1795,7 +1795,7 @@
       </nb-accordion-item>
 
     <!-- NUTRICIONAL PEDIATRICO -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Nutricional Pediátrico
         </nb-accordion-item-header>
@@ -1925,7 +1925,7 @@
       </nb-accordion-item>
 
     <!-- ESAS -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala ESAS
         </nb-accordion-item-header>
@@ -2227,7 +2227,7 @@
       </nb-accordion-item>
 
     <!--FLACC  -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala FLACC
         </nb-accordion-item-header>
@@ -2346,7 +2346,7 @@
       </nb-accordion-item>
 
     <!-- PPI -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala PPI
         </nb-accordion-item-header>
@@ -2464,7 +2464,7 @@
       </nb-accordion-item>
 
     <!-- ZARIT -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Zarit
         </nb-accordion-item-header>
@@ -2951,7 +2951,7 @@
       </nb-accordion-item>
 
     <!-- DOLOR ADULTOS -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Dolor Adultos
         </nb-accordion-item-header>
@@ -3018,7 +3018,7 @@
       </nb-accordion-item>
 
     <!-- WONG BAKER -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Wong Baker
         </nb-accordion-item-header>
@@ -3078,7 +3078,7 @@
       </nb-accordion-item>
 
     <!-- PFEIFFER -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? false : true">
         <nb-accordion-item-header>
           Escala Pfeiffer
         </nb-accordion-item-header>
@@ -3279,7 +3279,7 @@
       </nb-accordion-item>
 
     <!-- J.H.DOWNTON -->
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="this.enfermery ? true : true">
         <nb-accordion-item-header>
           Escala J.H.Downton
         </nb-accordion-item-header>
