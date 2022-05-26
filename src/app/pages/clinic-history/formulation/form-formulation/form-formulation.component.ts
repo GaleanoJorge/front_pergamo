@@ -109,7 +109,7 @@ export class FormFormulationComponent implements OnInit {
       treatment_days: [this.data.treatment_days, Validators.compose([Validators.required])],
       outpatient_formulation: [this.data.outpatient_formulation],
       dose: [this.data.dose, Validators.compose([Validators.required])],
-      observation: [this.data.observation, Validators.compose([Validators.required])],
+      observation: [this.data.observation],
       number_mipres: [this.data.number_mipres],
         });
   
