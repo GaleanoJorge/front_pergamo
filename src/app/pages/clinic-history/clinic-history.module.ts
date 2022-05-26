@@ -92,6 +92,8 @@ import { FormReasonConsultationNursingComponent } from './entry-clinic-history-n
 import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
 import { FormFailedComponent } from './failed/form-failed/form-failed.component';
 import { FailedComponent } from './failed/failed.component';
+import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
+import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -130,6 +132,9 @@ import { FailedComponent } from './failed/failed.component';
     
     ActionsNursingComponent,
     ActionsNursing2Component,
+
+    SkinValorationComponent,
+    FormSkinValorationComponent,
 
 
     ClinicHistoryComponent,
