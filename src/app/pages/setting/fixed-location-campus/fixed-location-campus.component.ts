@@ -17,7 +17,7 @@ export class FixedLocationCampusComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Ubicacion del Activo sedes';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Piso', 'Sede', 'Area / Servicio'];
+  public headerFields: any[] = ['ID', 'Sede', 'Piso', 'Area / Servicio'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -46,13 +46,13 @@ export class FixedLocationCampusComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      flat: {
+      campus: {
         title: this.headerFields[1],
         type: 'string', valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      campus: {
+      flat: {
         title: this.headerFields[2],
         type: 'string', valuePrepareFunction: (value, row) => {
           return value.name;

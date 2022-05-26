@@ -1,12 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FixedPropertyService } from '../../../../business-controller/fixed-property.service';
-import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
-import { FixedClasificationService } from '../../../../business-controller/fixed-clasification.service';
-import { FixedConditionService } from '../../../../business-controller/fixed-condition.service';
-import { FixedAccessoriesService } from '../../../../business-controller/fixed-accessories.service';
-
+import { FixedLocationCampusService } from '../../../../business-controller/fixed-location-campus.service';
+import { FixedLoanService } from '../../../../business-controller/fixed-loan.service';
+import { RoleBusinessService } from '../../../../business-controller/role-business.service';
+import { UserBusinessService } from '../../../../business-controller/user-business.service';
 
 @Component({
   selector: 'ngx-form-fixed-inventary',
@@ -17,78 +15,66 @@ export class FormFixedInventaryComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() my_pharmacy_id: any = null;
 
   public form: FormGroup;
-  public region_id: number;
-  // public status: Status[];
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public fixed_type: any[];
+  public fixed_location_campus_id: any[];
+  public responsible_user_id: any[];
+  public selectedOptions: any[] = [];
+
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
-    private FixedTypeS: FixedTypeService,
-    private FixedAccessoriesS: FixedAccessoriesService,
     private toastService: NbToastrService,
+    private FixedLocationCampusS: FixedLocationCampusService,
+    private RoleBusinessS: UserBusinessService,
+    private FixedLoanS: FixedLoanService,
+    private toastS: NbToastrService,
+
   ) {
   }
 
   async ngOnInit() {
     if (!this.data) {
       this.data = {
-        name: '',
-        amount: '',
-        fixed_type_id: '',
+        amount_provition: '',
       };
     }
-
     this.form = this.formBuilder.group({
-      name: [this.data.name, Validators.compose([Validators.required])],
-      amount: [this.data.name, Validators.compose([Validators.required])],
-      fixed_type_id: [this.data.fixed_type_id, Validators.compose([Validators.required])],
-
+      fixed_location_campus_id: [this.data.fixed_location_campus_id, Validators.compose([Validators.required])],
+      responsible_user_id: [this.data.responsible_user_id, Validators.compose([Validators.required])],
+      observation: [this.data.observation, Validators.compose([Validators.required])],
     });
 
-    await this.FixedTypeS.GetCollection().then(x => {
-      this.fixed_type = x;
+    await this.FixedLocationCampusS.GetCollection({}).then(x => {
+      this.fixed_location_campus_id = x;
     });
+
+    await this.RoleBusinessS.GetCollection().then(x => {
+      this.responsible_user_id = x;
+    });
+
   }
-
   close() {
     this.dialogRef.close();
   }
-
   save() {
-
     this.isSubmitted = true;
-
     if (!this.form.invalid) {
       this.loading = true;
-
       if (this.data.id) {
-        this.FixedAccessoriesS.Update({
-          id: this.data.id,
-          fixed_type_id: this.form.controls.fixed_type_id.value,
-          name: this.form.controls.name.value,
-          amount: this.form.controls.amount.value,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
-      } else {
-
-        this.FixedAccessoriesS.Save({
-          fixed_type_id: this.form.controls.fixed_type_id.value,
-          name: this.form.controls.name.value,
-          amount: this.form.controls.amount.value,
+        this.FixedLoanS.Update({
+          id: -1,
+          own_user_id: this.data.id,
+          fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
+          status: 'ENVIADO',
+       //   own_user_id: 1,
+          request_user_id: 1,
+          responsible_user_id: this.form.controls.responsible_user_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

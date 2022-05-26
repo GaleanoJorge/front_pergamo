@@ -1,31 +1,22 @@
 <ngx-base-list [messageError]="messageError">
+
+
   <div content>
     <nb-tabset fullWidth>
       <nb-tab tabTitle="INVENTARIO">
-        <ngx-fixed-assets></ngx-fixed-assets>
-        <!-- <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-          entity="fixed_assets/?pagination=true" customData='fixed_assets' [messageToltip]="messageToltip">
+        <!-- <div *ngIf="entity"> -->
+          <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+          entity="fixed_assets/?pagination=true" customData='fixed_assets'
+          [messageToltip]="messageToltip">
           <div actions>
-            <div class="actions">
-            </div>
           </div>
-        </ngx-base-table> 
-  </div>-->
+        </ngx-base-table>
+        <!-- </div> -->
       </nb-tab>
 
-      <nb-tab tabTitle="ACCESORIOS">
+      <nb-tab tabTitle="INVENTARIO ACCESORIOS">
         <ngx-fixed-accessories></ngx-fixed-accessories>
-        <!-- <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-    entity="fixed_accessories/?pagination=true" customData='fixed_accessories' [messageToltip]="messageToltip">
-    <div actions>
-      <div class="actions">
-      </div>
-    </div>
-  </ngx-base-table> -->
       </nb-tab>
-
-
     </nb-tabset>
-
   </div>
 </ngx-base-list>

@@ -130,7 +130,6 @@ export class FormFixedAssetsComponent implements OnInit {
       if (this.data.id) {
         this.FixedAssetsS.Update({
           id: this.data.id,
-          fixed_type_id: 1,
           name: this.form.controls.name.value,
           fixed_clasification_id: this.form.controls.fixed_clasification_id.value,
           fixed_property_id: this.form.controls.fixed_property_id.value,
@@ -144,6 +143,9 @@ export class FormFixedAssetsComponent implements OnInit {
           color: this.form.controls.color.value,
           company_id: this.form.controls.company_id.value,
           fixed_condition_id: this.form.controls.fixed_condition_id.value,
+          fixed_type_role_id: 1,
+          amount: 1,
+
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -157,7 +159,6 @@ export class FormFixedAssetsComponent implements OnInit {
       } else {
 
         this.FixedAssetsS.Save({
-          fixed_type_id: 1,
           name: this.form.controls.name.value,
           fixed_clasification_id: this.form.controls.fixed_clasification_id.value,
           fixed_property_id: this.form.controls.fixed_property_id.value,
@@ -171,6 +172,8 @@ export class FormFixedAssetsComponent implements OnInit {
           color: this.form.controls.color.value,
           company_id: this.form.controls.company_id.value,
           fixed_condition_id: this.form.controls.fixed_condition_id.value,
+          fixed_type_role_id: 1,
+          amount: 1,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

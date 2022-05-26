@@ -3,15 +3,7 @@
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-md-12">
-          <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
-          <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
-            status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
+
 
         <div class="col-md-12">
           <label for="campus" class="form-text text-muted font-weight-bold">Sede:</label>
@@ -22,6 +14,18 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
+
+        <div class="col-md-12">
+          <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
+          <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
+            status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+       
 
         <div class="col-md-12">
           <label for="fixed_area_campus" class="form-text text-muted font-weight-bold">Area / Servicio:</label>

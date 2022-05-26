@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FixedAccessoriesService } from '../../../business-controller/fixed-accessories.service';
-import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from '../sectional-council/actions.component';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { NbDialogService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormFixedInventaryComponent } from './form-fixed-inventary/form-fixed-inventary.component';
+import { AuthService } from '../../../services/auth.service';
+import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
+import { ActionsInFixComponent } from './actionsInFix.component';
 
 @Component({
   selector: 'ngx-fixed-inventary',
@@ -15,12 +15,15 @@ export class FixedInventaryComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Accesorios en Activos';
-  public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Cantidad'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
+  public title: string = 'INVENTARIO';
+  public subtitle: string = '';
+  public headerFields: any[] = ['ID', 'Clasificación', 'Propio / Arrendado', 'Nombre', 'Marca'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public entity;
+  public user;
+  //public my_pharmacy_id;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -36,85 +39,88 @@ export class FixedInventaryComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditFixedAssets.bind(this),
-            'delete': this.DeleteConfirmFixedAssets.bind(this),
+            'edit': this.EditInv.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionsInFixComponent,
       },
       id: {
         title: this.headerFields[0],
         type: 'string',
       },
-      name: {
+      fixed_clasification: {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.fixed_clasification.name;
+        },
       },
-      amount: {
+      fixed_property: {
         title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.fixed_property.name;
+        },
+      },
+      name: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      mark: {
+        title: this.headerFields[4],
         type: 'string',
       },
     },
+
   };
 
   public routes = [
     {
-      name: 'Accesorios en Activos',
-      route: '../../setting/fixed-accessories',
+      name: 'Inventario',
+      route: '../../setting/fixed-inventary',
     },
   ];
 
   constructor(
-    private FixedAccessoriesS: FixedAccessoriesService,
-    private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
-    private deleteConfirmService: NbDialogService,
+    private invS: PharmacyLotStockService,
+    private authService: AuthService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.user = this.authService.GetUser();
+    this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
+    //  this.my_pharmacy_id = x[0].id;
+      this.entity = 'fixed_loan?fixed_loan=' + x[0].id;
+      this.title = 'INVENTARIO DE ' + x[0]['name'];
+    });
   }
 
   RefreshData() {
-
     this.table.refresh();
   }
 
-  NewFixedAssets() {
+  EditInv(data) {
     this.dialogFormService.open(FormFixedInventaryComponent, {
       context: {
-        title: 'Crear Accesorios en Activos',
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
-
-  EditFixedAssets(data) {
-    this.dialogFormService.open(FormFixedInventaryComponent, {
-      context: {
-        title: 'Editar Accesorios en Activos',
-        data,
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
-  DeleteConfirmFixedAssets(data) {
-    this.deleteConfirmService.open(ConfirmDialogComponent, {
-      context: {
-        name: data.name,
+        title: 'ENVIAR ACTIVO',
         data: data,
-        delete: this.DeleteFixedAssets.bind(this),
+     //   my_pharmacy_id: this.my_pharmacy_id,
+        saved: this.RefreshData.bind(this),
       },
     });
   }
+  // NewDev(data) {
+  //   this.dialogFormService.open(FormFixedInventaryComponent, {
+  //     context: {
+  //       title: 'ACTIVO DEVUELTOS',
+  //       data: data,
+  //       //    my_pharmacy_id: this.my_pharmacy_id,
+  //       saved: this.RefreshData.bind(this),
+  //     },
+  //   });
+  // }
 
-  DeleteFixedAssets(data) {
-    return this.FixedAccessoriesS.Delete(data.id).then(x => {
-      this.table.refresh();
-      return Promise.resolve(x.message);
-    }).catch(x => {
-      throw x;
-    });
-  }
 
 }
