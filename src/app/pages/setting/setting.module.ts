@@ -339,6 +339,7 @@ import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories
 import { FormFixedAccessoriesComponent } from './fixed-accessories/form-fixed-accessories/form-fixed-accessories.component';
 import { FormFixedInventaryComponent } from './fixed-inventary/form-fixed-inventary/form-fixed-inventary.component';
 import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
+import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -683,7 +684,7 @@ import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.compo
     PharmacyReturnComponent,
 
     NomProductComponent,
-    FormNomProductComponent
+    FormNomProductComponent,
     BaseLocationPackageComponent,
     FormFixedAreaCampusComponent,
     FixedAreaCampusComponent,
@@ -702,8 +703,8 @@ import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.compo
     FixedAccessoriesComponent,
     FormFixedAccessoriesComponent,
     FixedInventaryComponent,
-    FormFixedInventaryComponent
-
+    FormFixedInventaryComponent,
+    ActionsInFixComponent,
   ],
   providers: [
     DateFormatPipe,

@@ -812,7 +812,7 @@ const routes: Routes = [{
       component: FixedAccessoriesComponent,
     },
     {
-      path: 'fixed-inventory',
+      path: 'fixed-inventary',
       component: FixedInventaryComponent,
     }
   ],
