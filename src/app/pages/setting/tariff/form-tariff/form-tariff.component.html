@@ -6,7 +6,7 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
-          <input nbInput fullWidth id="name" name formControlName="name"
+          <input nbInput oninput="this.value = this.value.toUpperCase()" fullWidth id="name" name formControlName="name"
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
