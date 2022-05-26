@@ -8,6 +8,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 import { AuthService } from '../../../services/auth.service';
 import { PatientService } from '../../../business-controller/patient.service';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -100,6 +101,7 @@ export class ChRecordListComponent implements OnInit {
     private dialogService: NbDialogService,
     private authService: AuthService,
     private admissionsS: AdmissionsService,
+    public datePipe: DateFormatPipe,
 
   ) {
     this.routes = [

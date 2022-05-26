@@ -16,6 +16,7 @@ import { PatientService } from '../../../business-controller/patient.service';
 import { ManagementPlanService } from '../../../business-controller/management-plan.service';
 import { FormAssignedManagementPlanComponent } from './form-assigned-management-plan/form-assigned-management-plan.component';
 import { ActionsSemaphoreComponent } from './actions-semaphore.component';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-assigned-management-plan',
@@ -170,6 +171,7 @@ export class AssignedManagementPlanComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
+    public datePipe: DateFormatPipe,
 
     private currency: CurrencyPipe,
     private patientBS: PatientService,
