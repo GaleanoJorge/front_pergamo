@@ -83,7 +83,48 @@ import { FormulationComponent } from './formulation/formulation.component';
 
 import { BackgroundComponent } from './background/back/background.component';
 import { Actions8Component } from './background/back/actions.component';
-import { ChScalesComponent } from './scales/ch-scales.component';
+import { FormFailedComponent } from './failed/form-failed/form-failed.component';
+import { FailedComponent } from './failed/failed.component';
+import { FormPatientExitComponent } from './patient-exit/form-patient-exit/form-patient-exit.component';
+import { PatientExitComponent } from './patient-exit/patient-exit.component';
+import { FormChMedicalOrdersComponent } from './ch-medical-orders/form-ch-medical-orders/form-ch-medical-orders.component';
+import { ChMedicalOrdersComponent } from './ch-medical-orders/ch-medical-orders.component';
+import { FormChInterconsultationComponent } from './ch-interconsultation/form-ch-interconsultation/form-ch-interconsultation.component';
+import { ChInterconsultationComponent } from './ch-interconsultation/ch-interconsultation.component';
+import { FormChScalesComponent } from './scales/form-ch-scales/form-ch-scales.component';
+import { ChHistoricScalesComponent } from './scales/ch-historic-scales/ch-historic-scales.component';
+import { ChScaleBarthelComponent } from './scales/ch-scale-barthel/ch-scale-barthel.component';
+import { ChScaleNortonComponent } from './scales/ch-scale-norton/ch-scale-norton.component';
+import { ChScaleGlasgowComponent } from './scales/ch-scale-glasgow/ch-scale-glasgow.component';
+import { ChScalePayetteComponent } from './scales/ch-scale-payette/ch-scale-payette.component';
+import { ChScaleFragilidadComponent } from './scales/ch-scale-fragility/ch-scale-fragility.component';
+import { ChScaleNewsComponent } from './scales/ch-scale-news/ch-scale-news.component';
+import { ChScalPapComponent } from './scales/ch-scale-pap/ch-scale-pap.component';
+import { ChScaleHamiltonComponent } from './scales/ch-scale-hamilton/ch-scale-hamilton.component';
+import { ChScaleCamComponent } from './scales/ch-scale-cam/ch-scale-cam.component';
+import { ChScaleFacComponent } from './scales/ch-scale-fac/ch-scale-fac.component';
+import { ChScaleRedCrossComponent } from './scales/ch-scale-red-cross/ch-scale-red-cross.component';
+import { ChScaleKarnofskyComponent } from './scales/ch-scale-karnofsky/ch-scale-karnofsky.component';
+import { ChScaleEcogComponent } from './scales/ch-scales-ecog/ch-scale-ecog.component';
+import { ChScalePediatricNutritionComponent } from './scales/ch-scale-pediatric-nutrition/ch-scale-pediatric-nutrition.component';
+import { ChScaleFlaccComponent } from './scales/ch-scale-flacc/ch-scale-flacc.component';
+import { ChScaleEsasComponent } from './scales/ch-scale-esas/ch-scale-esas.component';
+import { ChScalePpiComponent } from './scales/ch-scale-ppi/ch-scale-ppi.component';
+import { ChScaleZaritComponent } from './scales/ch-scale-zarit/ch-scale-zarit.component';
+import { ChScalePainComponent } from './scales/ch-scale-pain/ch-scale-pain.component';
+import { ChScaleWongBakerComponent } from './scales/ch-scale-wong-baker/ch-scale-wong.component';
+import { ChScalePfeifferComponent } from './scales/ch-scale-pfeiffer/ch-scale-pfeiffer.component';
+import { ChScaleJhDowntonComponent } from './scales/ch-scale-jh-downton/ch-scale-jh-downton.component';
+import { ChScaleScreeningComponent } from './scales/ch-scale-screening/ch-scale-screening.component';
+
+import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
+import { FormClinicHistoryNursingComponent } from './clinic-history-nursing-list/form-clinic-history-nursing/form-clinic-history-nursing.component';
+import { ActionsNursingComponent } from './clinic-history-nursing-list/actionsNursing.component';
+import { ActionsNursing2Component } from './entry-clinic-history-nursing/actions.component';
+import { FormReasonConsultationNursingComponent } from './entry-clinic-history-nursing/form-reason-consultation-nursing/form-reason-consultation-nursing.component';
+import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
+import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
+import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -113,6 +154,20 @@ import { ChScalesComponent } from './scales/ch-scales.component';
     NbCheckboxModule,
   ],
   declarations: [
+
+    ClinicHistoryNursingListComponent,
+    FormClinicHistoryNursingComponent,
+    
+    EntryClinicHistoryNursingComponent,
+    FormReasonConsultationNursingComponent,
+    
+    ActionsNursingComponent,
+    ActionsNursing2Component,
+
+    SkinValorationComponent,
+    FormSkinValorationComponent,
+
+
     ClinicHistoryComponent,
     FormClinicHistoryComponent,
     ClinicHistoryListComponent,
@@ -159,8 +214,31 @@ import { ChScalesComponent } from './scales/ch-scales.component';
     Actions12Component,
     SignsEvoComponent,
 
-    ChScalesComponent,
-
+    FormChScalesComponent,
+    ChScaleNortonComponent,
+    ChScaleGlasgowComponent,
+    ChScaleBarthelComponent,
+    ChScalePayetteComponent,
+    ChScaleFragilidadComponent,
+    ChScaleNewsComponent,
+    ChScalPapComponent,
+    ChScaleHamiltonComponent,
+    ChScaleCamComponent,
+    ChScaleFacComponent, 
+    ChScaleRedCrossComponent,
+    ChScaleKarnofskyComponent,
+    ChScaleEcogComponent,
+    ChScalePediatricNutritionComponent,
+    ChScaleEsasComponent,
+    ChScaleFlaccComponent,
+    ChScalePpiComponent,
+    ChScaleZaritComponent,
+    ChScalePainComponent,
+    ChScaleWongBakerComponent,
+    ChScalePfeifferComponent,
+    ChScaleJhDowntonComponent,
+    ChScaleScreeningComponent,
+    
     FormDiagnosticEvoComponent,
     Actions13Component,
     DiagnosticEvoComponent,
@@ -175,7 +253,24 @@ import { ChScalesComponent } from './scales/ch-scales.component';
 
     FormFormulationComponent,
     FormulationComponent,
+
+    FormFailedComponent,
+    FailedComponent,
+
+    FormPatientExitComponent,
+    PatientExitComponent,
+
+    FormChInterconsultationComponent,
+    ChInterconsultationComponent,
+
+    FormChMedicalOrdersComponent,
+    ChMedicalOrdersComponent,
+    FormOrdersMedicalComponent,
+    OrdersMedicalComponent,
+    
+    ChHistoricScalesComponent,
   ],
+
 
   providers: [DateFormatPipe],
   exports: [],

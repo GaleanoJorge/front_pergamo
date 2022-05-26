@@ -27,9 +27,10 @@ export class FormPhysicalExamEvoComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public type_ch_physical_exam: any[];
+  public type_ch_physical_exam : any[];
   public revision: any[];
   public showrevision: boolean = false;
+  public type_ch_physical_exam_id : any[];
 
 
   constructor(
@@ -45,35 +46,33 @@ export class FormPhysicalExamEvoComponent implements OnInit {
     if (!this.data) {
       this.data = {
         revision: '',
-        observation: '',
         type_ch_physical_exam_id: '',
       };
     }
 
     this.typeChPhysical.GetCollection({ status_id: 1 }).then(x => {
-      this.type_ch_physical_exam = x;
+      this.type_ch_physical_exam= x;
     });
 
 
 
     this.form = this.formBuilder.group({
       revision: [this.data.revision, Validators.compose([Validators.required])],
-      observation: [this.data.observation, Validators.compose([Validators.required])],
       type_ch_physical_exam_id: [this.data.type_ch_physical_exam_id, Validators.compose([Validators.required])],
+      description: ['', Validators.compose([Validators.required])],
     });
 
 
-    this.onChanges1();
-
+    //this.onChanges1(); //Función de Validacion, de habilitar campo de observaciones
 
   }
-  onChange1(tipoId) {
+  /*onChange1(tipoId) {
     if (tipoId == 1) {
       this.showrevision = true;
     } else {
       this.showrevision = false;
     }
-  }
+  } */
 
   async save() {
     this.isSubmitted = true;
@@ -85,14 +84,13 @@ export class FormPhysicalExamEvoComponent implements OnInit {
         await this.PhysicalExamS.Update({
           id: this.data.id,
           revision: this.form.controls.revision.value,
-          observation: this.form.controls.observation.value,
           type_ch_physical_exam_id: this.form.controls.type_ch_physical_exam_id.value,
           type_record_id: 3,
           ch_record_id: this.record_id,
 
         }).then(x => {
           this.toastService.success('', x.message);
-          this.form.setValue({ revision: '', observation: '', type_ch_physical_exam:''});
+          this.form.setValue({ revision: '', type_ch_physical_exam:''});
           if (this.saved) {
             this.saved();
           }
@@ -103,32 +101,26 @@ export class FormPhysicalExamEvoComponent implements OnInit {
       } else {
         await this.PhysicalExamS.Save({
           revision: this.form.controls.revision.value,
-          observation: this.form.controls.observation.value,
           type_ch_physical_exam_id: this.form.controls.type_ch_physical_exam_id.value,
           type_record_id: 3,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ revision: '', observation: '', type_ch_physical_exam_id:''});
+          this.form.setValue({ revision: '', type_ch_physical_exam_id:''});
           if (this.saved) {
             this.saved();
           }
         }).catch(x => {
-          if (this.form.controls.has_caregiver.value == true) {
-            this.isSubmitted = true;
-            this.loading = true;
-          } else {
-            this.isSubmitted = false;
+          this.isSubmitted = false;
             this.loading = false;
-          }
-
         });
+
       }
     }
   }
 
-  onChanges1() {
+ /* onChanges1() {
     this.form.get('revision').valueChanges.subscribe(val => {
       console.log(val);
       if (val === '') {
@@ -140,7 +132,17 @@ export class FormPhysicalExamEvoComponent implements OnInit {
         this.showrevision = false;
       }
     });
+  }*/
+
+  onDescriptionChange(event) {
+    this.type_ch_physical_exam_id.forEach(x => {
+      if (x.id == event) {
+        this.form.controls.description.setValue(x.description);
+      }
+    });
   }
+
+  
   
 }
 

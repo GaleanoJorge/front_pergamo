@@ -4,16 +4,20 @@
     <ngx-base-table [title]="title" [subtitle]="subtitle" customData="ch_record" [settings]="settings"
       entity="ch_record/byadmission/{{admissions_id}}/{{assigned_management_plan}}" [messageToltip]="messageToltip">
       <div title *ngIf="user">
-        <p class="parrafo" >CÉDULA: {{user.identification}} </p>
-        <p class="parrafo">NOMBRE:  {{user.nombre_completo}}</p>
-        <p class="parrafo" >FECHA DE NACIMIENTO: {{user.birthday}} </p>
-        <p class="parrafo" >EDAD: {{user.age}} </p>
+        <p class="parrafo" ><b>CÉDULA:</b> {{user.identification}} </p>
+        <p class="parrafo"><b>NOMBRE:</b>  {{user.nombre_completo}}</p>
+        <p class="parrafo"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}} </p>
+        <p class="parrafo" ><b>EDAD:</b> {{user.age}} </p>
+        <p class="parrafo" ><b>GÉNERO:</b> {{user.gender.name}} </p>
+        <p class="parrafo" ><b>EPS:</b> {{user.admissions[0].contract.company.name}} </p>
+        <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability}} </p>
+        <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES </p>
       </div>
       <div actions>
         <div class="actions">
           <button *ngIf="showButtom==true" nbButton status="danger" (click)="NewChRecord()">Crear</button>
         </div>
-        <div class="actions" style="margin-top:1em;">
+        <div class="actions" >
         </div>
       </div>
     </ngx-base-table>

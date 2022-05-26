@@ -325,12 +325,12 @@ export class FormUsersComponent implements OnInit {
         Validators.compose([Validators.required]),
       ],
       is_disability: [
-        ((this.GetData('is_disability') === '' || this.GetData('is_disability') === null || !this.GetData('is_disability')) ? false : true),
+        ((this.GetData('is_disability') === '' || this.GetData('is_disability') === null/**  || !this.GetData('is_disability')*/) ? false : true),
         Validators.compose([Validators.required]),
       ],
-      disability: [
-        this.GetData('disability'),
-      ],
+      // disability: [
+      //   this.GetData('disability'),
+      // ],
       gender_type: [
         this.GetData('gender_type'),
       ],
@@ -860,11 +860,11 @@ export class FormUsersComponent implements OnInit {
 
     this.form.get('is_disability').valueChanges.subscribe(val => {
       if (val) {
-        this.form.get('disability').setValidators(Validators.required);
-        this.form.get('disability').updateValueAndValidity();
+        this.form.get('inability_id').setValidators(Validators.required);
+        this.form.get('inability_id').updateValueAndValidity();
       } else {
-        this.form.get('disability').clearValidators();
-        this.form.get('disability').updateValueAndValidity();
+        this.form.get('inability_id').clearValidators();
+        this.form.get('inability_id').updateValueAndValidity();
       }
     });
     // if (this.role == 3 || this.role==7) {

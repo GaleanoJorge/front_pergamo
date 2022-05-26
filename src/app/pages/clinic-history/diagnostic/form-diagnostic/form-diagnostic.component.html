@@ -55,7 +55,7 @@
       <div class="col-md-12">
         <div class="center">
           <label for="diagnosis_id" class="font-weight-bold">OBSERVACIÓN</label>
-          <textarea id="diagnosis_observation" nbInput fullWidth formControlName="diagnosis_observation" current_illness
+          <textarea id="diagnosis_observation" nbInput fullWidth formControlName="diagnosis_observation" current_illness onpaste="return false"
             rows="3"
             status="{{ isSubmitted && form.controls.diagnosis_observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
         </div>

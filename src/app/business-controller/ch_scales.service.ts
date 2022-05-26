@@ -14,7 +14,7 @@ export class ChScalesService {
   }
 
   GetCollection(params = {}): Promise<ChScales[]> {
-    let servObj = new ServiceObject(params ? 'ch_scales?pagination=false' : 'ch_scales');
+    let servObj = new ServiceObject(params ? 'chScaleNorton?pagination=false' : 'ch_scales');
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -367,8 +367,24 @@ export class ChScalesService {
       });
   }
 
-  SaveJhDowton(ch_scales: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_scale_jh_dowton');
+  SaveJhDownton(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_jh_downton');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveScreening(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_screening');
     servObj.data = ch_scales;
     return this.webAPI.PostAction(servObj)
       .then(x => {

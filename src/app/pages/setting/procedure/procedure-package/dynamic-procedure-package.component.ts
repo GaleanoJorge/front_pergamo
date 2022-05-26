@@ -15,7 +15,7 @@ export class DynamicProcedurePackageComponent implements ViewCell {
   @Input() rowData: any;
   
   ngOnInit(): void{
-    console.log(this.value);
-    console.log(this.rowData)
+    // console.log(this.value);
+    // console.log(this.rowData);
   }
 }

@@ -103,12 +103,16 @@ export class EntryClinicHistoryComponent implements OnInit {
 
   saveMcEa() {
   }
+
   saveRxSystem() {
   }
+
   saveExFisic() {
   }
+
   saveVitalSgns() {
   }
+  
   saveDiagnostic() {
   }
 

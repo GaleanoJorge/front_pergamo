@@ -19,6 +19,7 @@ import { PatientService } from '../../../business-controller/patient.service';
 import { rowDataBound } from '@syncfusion/ej2/grids';
 import { type } from 'os';
 import { ActionsSemaphore2Component } from './actions-semaphore.component';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -192,6 +193,7 @@ export class ManagementPlanComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
+    public datePipe: DateFormatPipe,
 
     private currency: CurrencyPipe,
     private userBS: UserBusinessService,

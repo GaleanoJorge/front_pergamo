@@ -22,7 +22,7 @@ export class PhysicalExamComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Lista', 'Revisión', 'Observación'];
+  public headerFields: any[] = ['Lista', 'Revisión'];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -39,15 +39,11 @@ export class PhysicalExamComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value.name + '-' + row.type_ch_physical_exam.description;
         },
       },
       revision: {
         title: this.headerFields[1],
-        width: 'string',
-      },
-      observation: {
-        title: this.headerFields[2],
         width: 'string',
       },
     },

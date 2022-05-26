@@ -32,7 +32,7 @@ export class AdmissionsListComponent {
   public routes = [
     {
       name: 'Pacientes',
-      route: '../../admissions/admissions-list',
+      route: '../../admissions/list',
     },
   ];
 

@@ -3,20 +3,20 @@
     <nb-card>
       <nb-card-body>
         <nb-stepper #stepper [linear]="linearMode">
-          <nb-step [stepControl]="nameForm" label="Orden médica">
 
-        
-
-          </nb-step>
-          <nb-step [stepControl]="nameForm" label="Interconsulta">
-            
+          <nb-step [stepControl]="nameForm" label="Ordenes Medicas">
             <div class="row">
               <div class="col-md-12">
-               
+                <ngx-ch-medical-orders [record_id]="record_id"></ngx-ch-medical-orders>
               </div>
-            </div>
-
-
+            </div> 
+          </nb-step>
+          <nb-step [stepControl]="nameForm" label="Interconsulta">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-ch-interconsultation [record_id]="record_id"></ngx-ch-interconsultation>
+              </div>
+            </div> 
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Plan manejo">

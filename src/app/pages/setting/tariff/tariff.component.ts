@@ -52,11 +52,11 @@ export class TariffComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      pad_risk: {
+      pad_risk_id: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return row.pad_risk.name;
         },
       },
       extra_dose: {
@@ -81,11 +81,11 @@ export class TariffComponent implements OnInit {
           }
         },
       },
-      program: {
+      program_id: {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return row.program.name;
         },
       },
       quantity: {
@@ -104,18 +104,18 @@ export class TariffComponent implements OnInit {
           }
         },
       },
-      status: {
+      status_id: {
         title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return row.status.name;
         },
       },
-      type_of_attention: {
+      type_of_attention_id: {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return row.type_of_attention.name;
         },
       },
       amount: {

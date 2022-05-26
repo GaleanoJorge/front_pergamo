@@ -3,19 +3,19 @@
     <nb-card>
       <nb-card-body>
         <nb-stepper #stepper [linear]="linearMode">
-          <nb-step [stepControl]="nameForm" label="SOAP">
+          <nb-step [stepControl]="nameForm" label="SO">
             <div class="row">
               <div class="col-md-12">
                 <ngx-evo-soap [record_id]="record_id"></ngx-evo-soap>
               </div>
-            </div>
+            </div> 
           </nb-step>
           <nb-step [stepControl]="nameForm" label="Ex Físico">
             <div class="row">
               <div class="col-md-12">
                 <ngx-physical-exam-evo [record_id]="record_id"></ngx-physical-exam-evo>
               </div>
-            </div>
+            </div> 
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
@@ -26,30 +26,30 @@
             </div>
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="Diagnostico">
-            <div class="row">
+          <nb-step [stepControl]="nameForm" label="Diagnóstico">
+             <div class="row">
               <div class="col-md-12">
                 <ngx-diagnostic-evo [record_id]="record_id"></ngx-diagnostic-evo>
               </div>
             </div>
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="Recomendaciones">
+          <nb-step [stepControl]="nameForm" label="AP/Recomendaciones">
             <div class="row">
               <div class="col-md-12">
                 <ngx-recommendations-evo [record_id]="record_id"></ngx-recommendations-evo>
 
               </div>
-            </div>
+            </div> 
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Dietas">
-            <div class="row">
+             <div class="row">
               <div class="col-md-12">
                 <ngx-diets-evo [record_id]="record_id"></ngx-diets-evo>
 
               </div>
-            </div>
+            </div> 
           </nb-step>
         </nb-stepper>
       </nb-card-body>

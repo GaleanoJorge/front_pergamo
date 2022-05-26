@@ -21,7 +21,7 @@ export class DiagnosticEvoComponent implements OnInit {
   public chreasonconsultation: any[];
   public chvitsigns: any[];
   public nameForm: String;
-  public headerFields: any[] = ['Diagnostico', 'Clase', 'Tipo', 'Observación'];
+  public headerFields: any[] = ['Diagnóstico', 'Clase', 'Tipo', 'Observación'];
   public movieForm: String;
 
   public isSubmitted: boolean = false;

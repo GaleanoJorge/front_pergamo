@@ -61,6 +61,11 @@ const routes: Routes = [{
         .then(m => m.DietsModule),
     },
     {
+      path: 'billing-pad',
+      loadChildren: () => import('./billing-pad/billing-pad.module')
+        .then(m => m.BillingPadModule),
+    },
+    {
       path: 'setting',
       loadChildren: () => import('./setting/setting.module')
         .then(m => m.SettingModule),

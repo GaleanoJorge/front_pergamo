@@ -15,6 +15,6 @@ export class AmountProcedureComponent implements ViewCell {
   @Input() rowData: any;
 
   ngOnInit(): void {
-    console.log(this.rowData);
+    // console.log(this.rowData);
   }
 }

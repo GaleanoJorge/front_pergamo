@@ -21,7 +21,7 @@ export class RecommendationsEvoComponent implements OnInit {
   public chreasonconsultation: any[];
   public chvitsigns: any[];
   public nameForm: String;
-  public headerFields: any[] = [
+  public headerFields: any[] = [ 'Educación Paciente/Familiar',
     'Nombre',
     'Análisis',
     'Plan (Diagnostico, Terapeutico, de seguimiento',
@@ -40,8 +40,13 @@ export class RecommendationsEvoComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      recommendations_evo: {
+      patient_family_education: {
         title: this.headerFields[0],
+        width: 'string',
+      },
+
+      recommendations_evo: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name + '-' + row.recommendations_evo.description;
@@ -49,11 +54,11 @@ export class RecommendationsEvoComponent implements OnInit {
       },
 
       analisys: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
       },
       plan: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
     },
