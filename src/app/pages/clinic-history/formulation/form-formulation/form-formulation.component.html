@@ -92,33 +92,29 @@
               </div>
             </div>
 
-
-            <!-- <div class="row justify-content-md">
-              <div class="col col-lg-7">
-                <label class="form-text text-muted font-weight-bold text-justify"> </label>
-                
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12">
+                  <hr />
+                </div>
               </div>
-              <div class="col col-lg-5">
-                <nb-card>
-                  <nb-card-body class="text-justify">
+            </div>
 
-                    
-                      <a href="https:
-                      //www.sispro.gov.co/central-prestadores-de-servicios/Pages/MIPRES.aspx#:~:text=MIPRES%20es%20una%20herramienta%20tecnol%C3%B3gica,la%20UPC%20o%20servicios%20complementarios.">
-                        <button>Crear MIPRES</button>
-                        </a> 
-
-
-                      <div class="col-md-12">
-                        <label class="form-text text-muted font-weight-bold">N° de Mipres.</label>
-                        <input type="number" placeholder="N° de Mipres." class="Box" id="number_mipres"
-                          formControlName="number_mipres">
-                      </div>
-
-                  </nb-card-body>
-                </nb-card>
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-4">
+                <li><a href="https://mipres.sispro.gov.co/" target ="_self">Crear MIPRES</a></li>
               </div>
-            </div> -->
+
+
+
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-bold">N° de Mipres</label>
+                <input type="number" class="Box" id="number_mipres" formControlName="number_mipres" required
+                  nbInput ngModel
+                  status="{{ isSubmitted && form.controls.number_mipres.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              </div>
+            </div> 
+
 
           </fieldset>
         </div>

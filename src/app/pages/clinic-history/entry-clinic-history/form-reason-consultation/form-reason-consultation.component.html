@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <label for="ch_entry" class="form-text text-muted font-weight-bold">MOTIVO DE
           CONSULTA:</label>
-        <textarea id="reason_consultation" nbInput fullWidth formControlName="reason_consultation" reason_consultation
+        <textarea id="reason_consultation" nbInput fullWidth formControlName="reason_consultation" reason_consultation onpaste="return false"
           rows="4" cols="50"
           status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
       </div>
@@ -12,7 +12,7 @@
       <div class="col-md-12">
         <label for="ch_entry" class="form-text text-muted font-weight-bold">ENFERMEDAD
           ACTUAL:</label>
-        <textarea id="current_illness" nbInput fullWidth formControlName="current_illness" current_illness rows="4"
+        <textarea id="current_illness" nbInput fullWidth formControlName="current_illness" current_illness onpaste="return false" rows="4"
           cols="50"
           status="{{ isSubmitted && form.controls.current_illness.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
       </div>
