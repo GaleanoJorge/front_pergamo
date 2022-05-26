@@ -24,7 +24,6 @@ export class FormFixedAccessoriesComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public fixed_type: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -40,20 +39,13 @@ export class FormFixedAccessoriesComponent implements OnInit {
       this.data = {
         name: '',
         amount: '',
-        fixed_type_id: '',
       };
     }
 
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
       amount: [this.data.name, Validators.compose([Validators.required])],
-      fixed_type_id: [this.data.fixed_type_id, Validators.compose([Validators.required])],
-
-    });
-
-    await this.FixedTypeS.GetCollection().then(x => {
-      this.fixed_type = x;
-    });
+    }); 
   }
 
   close() {
@@ -70,7 +62,7 @@ export class FormFixedAccessoriesComponent implements OnInit {
       if (this.data.id) {
         this.FixedAccessoriesS.Update({
           id: this.data.id,
-          fixed_type_id: this.form.controls.fixed_type_id.value,
+          fixed_type_role_id: 1,
           name: this.form.controls.name.value,
           amount: this.form.controls.amount.value,
         }).then(x => {
@@ -86,7 +78,7 @@ export class FormFixedAccessoriesComponent implements OnInit {
       } else {
 
         this.FixedAccessoriesS.Save({
-          fixed_type_id: this.form.controls.fixed_type_id.value,
+          fixed_type_role_id: 1,
           name: this.form.controls.name.value,
           amount: this.form.controls.amount.value,
         }).then(x => {

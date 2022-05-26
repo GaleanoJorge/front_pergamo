@@ -4,27 +4,17 @@
     <nb-card-body>
       <div class="row">
 
-        <div class="col-12 col-sm-12 col-md-4">
+        <div class="col-12 col-sm-12 col-md-6">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4">
+        <div class="col-12 col-sm-12 col-md-6">
           <label for="amount" class="form-text text-muted font-weight-bold">Cantidad:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount" formControlName="amount"
             amount
             status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div>
-
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="fixed_type" class="form-text text-muted font-weight-bold">Clasificación:</label>
-          <nb-select [selected]="this.data.fixed_type_id" formControlName="fixed_type_id" id="fixed_type_id" fullWidth
-            status="{{ isSubmitted && form.controls.fixed_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.fixed_type_id }}" *ngFor="let item of fixed_type" [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
         </div>
 
       </div>
