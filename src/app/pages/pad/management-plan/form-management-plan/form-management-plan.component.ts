@@ -271,7 +271,7 @@ export class FormManagementPlanComponent implements OnInit {
           this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
         }
       }).catch(e => {
-        this.toastService.danger(e, 'Error');
+        this.toastService.warning(e, 'AVISO');
       });
     }
   }
@@ -364,7 +364,7 @@ export class FormManagementPlanComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           if (x['message_error']) {
-            this.toastService.danger(x['message_error'], 'Error');
+            this.toastService.warning(x['message_error'], 'Error');
           }
           this.close();
           if (this.saved) {
@@ -402,7 +402,7 @@ export class FormManagementPlanComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           if (x['message_error']) {
-            this.toastService.danger(x['message_error'], 'Error');
+            this.toastService.warning(x['message_error'], 'Error');
           }
           this.close();
           if (this.saved) {
