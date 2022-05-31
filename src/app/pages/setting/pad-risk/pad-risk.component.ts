@@ -16,7 +16,7 @@ export class PadRiskComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'TARIFA DE BARRIOS';
+  public title: string = 'TARIFA POR LOCALIZACIÓN';
   public subtitle: string = 'TARIFAS';
   public headerFields: any[] = ['ID', 'NOMBRE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -55,7 +55,7 @@ export class PadRiskComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Tatifas de barrios',
+      name: 'Tatifas por localización',
       route: '../../setting/pad-risk',
     },
   ];

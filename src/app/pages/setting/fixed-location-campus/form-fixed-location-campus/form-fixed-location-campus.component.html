@@ -1,0 +1,49 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="small" style="max-width: 400px;height: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+
+        <div class="col-md-12">
+          <label for="campus" class="form-text text-muted font-weight-bold">Sede:</label>
+          <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-12">
+          <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
+          <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
+            status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+       
+
+        <div class="col-md-12">
+          <label for="fixed_area_campus" class="form-text text-muted font-weight-bold">Area / Servicio:</label>
+          <nb-select [selected]="this.data.fixed_area_campus_id" formControlName="fixed_area_campus_id"
+            id="fixed_area_campus_id" fullWidth
+            status="{{ isSubmitted && form.controls.fixed_area_campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.fixed_area_campus_id }}" *ngFor="let item of fixed_area_campus"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

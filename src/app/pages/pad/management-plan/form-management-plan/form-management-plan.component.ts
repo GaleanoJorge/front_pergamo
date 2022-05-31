@@ -25,7 +25,6 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() medical: boolean = false;
   @Input() assigned: boolean;
   @Input() admissions_id: any = null;
-  @Input() type_auth: any = null;
 
   public form: FormGroup;
   public loading: boolean = false;
@@ -272,7 +271,7 @@ export class FormManagementPlanComponent implements OnInit {
           this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
         }
       }).catch(e => {
-        this.toastService.danger(e, 'Error');
+        this.toastService.warning(e, 'AVISO');
       });
     }
   }
@@ -313,7 +312,6 @@ export class FormManagementPlanComponent implements OnInit {
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
           product_id: this.product_id,
-          type_auth: this.type_auth,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,
           phone_consult: this.phone_consult,
@@ -362,12 +360,11 @@ export class FormManagementPlanComponent implements OnInit {
           observation: this.form.controls.observation.value,
           number_doses: this.form.controls.number_doses.value,
           dosage_administer: this.form.controls.dosage_administer.value,
-          type_auth: this.type_auth,
     
         }).then(x => {
           this.toastService.success('', x.message);
           if (x['message_error']) {
-            this.toastService.danger(x['message_error'], 'Error');
+            this.toastService.warning(x['message_error'], 'Error');
           }
           this.close();
           if (this.saved) {
@@ -401,12 +398,11 @@ export class FormManagementPlanComponent implements OnInit {
           observation: this.form.controls.observation.value,
           number_doses: this.form.controls.number_doses.value,
           dosage_administer: this.form.controls.dosage_administer.value,
-          type_auth: this.type_auth,
     
         }).then(x => {
           this.toastService.success('', x.message);
           if (x['message_error']) {
-            this.toastService.danger(x['message_error'], 'Error');
+            this.toastService.warning(x['message_error'], 'Error');
           }
           this.close();
           if (this.saved) {

@@ -84,7 +84,7 @@ export class BillingPadProcedureComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan) {
-            return row.assigned_management_plan.management_plan.procedure.name;
+            return row.services_briefcase.manual_price.procedure.name;
           } else if (row.manual_price) {
             return row.manual_price.name;
           }

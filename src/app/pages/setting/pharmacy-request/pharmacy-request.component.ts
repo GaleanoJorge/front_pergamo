@@ -5,7 +5,6 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ActionsSendComponent } from './actions.component';
 import { FormPharmacyRequestComponent } from './form-pharmacy-request/form-pharmacy-request.component';
-import { PharmacyAcceptedInventoryComponent } from './pharmacy-accepted-inventory/pharmacy-accepted-inventory.component';
 
 @Component({
   selector: 'ngx-pharmacy-request',
@@ -165,15 +164,6 @@ export class PharmacyRequestComponent implements OnInit {
       return Promise.resolve(x.message);
     }).catch(x => {
       throw x;
-    });
-  }
-
-  NewDev() {
-    this.dialogFormService.open(PharmacyAcceptedInventoryComponent, {
-      context: {
-        title: 'Crear nuevo lote',
-        saved: this.RefreshData.bind(this),
-      },
     });
   }
 }

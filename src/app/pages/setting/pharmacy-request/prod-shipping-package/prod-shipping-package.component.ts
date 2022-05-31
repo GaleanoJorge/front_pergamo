@@ -5,10 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { AmountShippingComponent } from './amount-shipping.component';
 import { SelectProductShippingComponent } from './select-prod-shipping.component';
-import { PharmacyLotStockService } from '../../../../business-controller/pharmacy-lot-stock.service';
-import { PharmacyRequestShippingService } from '../../../../business-controller/pharmacy-request-shipping.service';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
-
 
 @Component({
   selector: 'ngx-prod-shipping-package',
