@@ -21,7 +21,7 @@ export class SingleLocationCapacityComponent implements OnInit {
   public subtitle: string = 'LOCALIDADES';
   public title_base: string = 'CAPACIDAD INSTALADA BASE';
   public subtitle_base: string = 'LOCALIDADES';
-  public headerFields: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'CAPACIDAD PROYECTADA', 'SERVICIOS REALIZADOS'];
+  public headerFields: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'CAPACIDAD PROYECTADA', 'SERVICIOS EJECUTADOS'];
   public headerFields_base: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD BASE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]}`;
   public icon: string = 'nb-star';

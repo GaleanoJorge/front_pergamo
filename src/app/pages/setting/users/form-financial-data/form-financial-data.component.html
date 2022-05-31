@@ -11,7 +11,7 @@
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == dataUser.financial_data_bank_id }}" *ngFor="let item of bank"
               [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ item.code }} - {{ item.name }}</nb-option>
           </nb-select>
         </div>
         <div class="col-12 col-sm-12 col-md-6">
