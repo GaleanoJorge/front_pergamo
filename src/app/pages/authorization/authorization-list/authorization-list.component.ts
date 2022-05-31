@@ -293,6 +293,7 @@ export class AuthorizationListComponent implements OnInit {
     await this.authStatusS.GetCollection().then(x => {
       this.auth_status = x;
       this.auth_statusM = x;
+      this.auth_statusM.pop();
     });
 
     await this.companyS.GetCollection().then(x => {
@@ -492,6 +493,17 @@ export class AuthorizationListComponent implements OnInit {
           break;
         }
         case 2: {
+
+          this.authorizationS.Update({
+            id: data.id,
+            auth_status_id: event
+          }).then(x => {
+            this.toastS.success('', x.message);
+            this.RefreshData();
+          }).catch()
+          break;
+        }
+        case 3: {
           if (data.assigned_management_plan) {
             this.ConfirmAction(data, data.assigned_management_plan);
           } else {

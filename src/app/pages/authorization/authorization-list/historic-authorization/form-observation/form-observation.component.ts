@@ -94,7 +94,7 @@ export class FormObservationComponent implements OnInit {
         this.authorizationS.Update({
           id: this.data.id,
           auth_number: this.form.controls.auth_number.value ? this.form.controls.auth_number.value : null,
-          authorized_amount: this.form.controls.authorized_amount.value ? this.form.controls.authorized_amount.value : null,
+          // authorized_amount: this.form.controls.authorized_amount.value ? this.form.controls.authorized_amount.value : null,
           observation: this.form.controls.observation.value ? this.form.controls.observation.value : null,
         }).then(x => {
           this.toastService.success('', x.message);
