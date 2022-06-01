@@ -6,19 +6,19 @@ import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 import { ChHistoricScalesComponent } from '../ch-historic-scales/ch-historic-scales.component';
 
 @Component({
-  selector: 'ngx-ch-scale-barthel',
-  templateUrl: './ch-scale-barthel.component.html',
-  styleUrls: ['./ch-scale-barthel.component.scss'],
+  selector: 'ngx-ch-scale-braden',
+  templateUrl: './ch-scale-braden.component.html',
+  styleUrls: ['./ch-scale-braden.component.scss'],
 })
-export class ChScaleBarthelComponent implements OnInit {
+export class ChScaleBradenComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-  @Input() refresh3;
-  
+  @Input() refresh26;
+
   linearMode = true;
   public messageError = null;
-  public title: string = 'Registros Escala Barthel';
+  public title: string = 'Registros Escala Braden';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha', 'Puntaje', 'Clasificación'];
+  public headerFields: any[] = ['Fecha','Puntaje', 'Riesgo'];
   public routes = [];
   public data = [];
   public ch_record_id;
@@ -35,14 +35,14 @@ export class ChScaleBarthelComponent implements OnInit {
           return this.datePipe.transform2(value);
         },
       },
-         score: {
+      total: {
         title: this.headerFields[1],
         type: 'string',
       },
-      classification: {
+      risk: {
         title: this.headerFields[2],
         type: 'string',
-      },
+      }
     },
   };
 
@@ -59,30 +59,36 @@ export class ChScaleBarthelComponent implements OnInit {
       ch_record_id: this.route.snapshot.params.id,
     };
   }
-
+  
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.refresh3.currentValue==true){
+    if(changes.refresh26.currentValue==true){
       this.RefreshData();
     }
 
   }
 
+
   ngOnInit(): void {
     this.ch_record_id = this.route.snapshot.params.id;
   }
-
+  
   Historic() {
     this.dialogFormService.open(ChHistoricScalesComponent, {
       context: {
-        title: 'Escala Barthel',
-        path: 'chScaleBarthel',
-        catch_info: 'ch_scale_barthel',
+        title: 'Escala Braden',
+        path: 'ch_scale_braden',
+        catch_info: 'ch_scale_braden',
         ch_record_id: this.ch_record_id,
       },
     });
   }
-
   RefreshData() {
     this.table.refresh();
+  }
+
+  receiveMessage($event) {
+    if($event==true){
+      this.RefreshData();
+    }
   }
 }

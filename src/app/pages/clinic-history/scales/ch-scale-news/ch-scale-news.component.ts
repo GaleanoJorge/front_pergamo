@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
@@ -12,6 +12,8 @@ import { ChHistoricScalesComponent } from '../ch-historic-scales/ch-historic-sca
 })
 export class ChScaleNewsComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() refresh7;
+  
   linearMode = true;
   public messageError = null;
   public title: string = 'Registros Escala News';
@@ -63,8 +65,18 @@ export class ChScaleNewsComponent implements OnInit {
     };
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.refresh7.currentValue==true){
+      this.RefreshData();
+    }
+
+  }
+
   ngOnInit(): void {
     this.ch_record_id = this.route.snapshot.params.id;
+    if(this.refresh7==true){
+      this.RefreshData;
+    }
   }
   Historic() {
     this.dialogFormService.open(ChHistoricScalesComponent, {

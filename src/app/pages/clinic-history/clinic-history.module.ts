@@ -116,6 +116,9 @@ import { ChScaleWongBakerComponent } from './scales/ch-scale-wong-baker/ch-scale
 import { ChScalePfeifferComponent } from './scales/ch-scale-pfeiffer/ch-scale-pfeiffer.component';
 import { ChScaleJhDowntonComponent } from './scales/ch-scale-jh-downton/ch-scale-jh-downton.component';
 import { ChScaleScreeningComponent } from './scales/ch-scale-screening/ch-scale-screening.component';
+import { ChScalePpsComponent } from './scales/ch-scale-pps/ch-scale-pps.component';
+import { ChScaleBradenComponent } from './scales/ch-scale-braden/ch-scale-braden.component';
+import { ChScaleLawtonComponent } from './scales/ch-scale-lawton/ch-scale-lawton.component';
 
 import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
 import { FormClinicHistoryNursingComponent } from './clinic-history-nursing-list/form-clinic-history-nursing/form-clinic-history-nursing.component';
@@ -238,6 +241,9 @@ import { FormSkinValorationComponent } from './skin-valoration/form-skin-valorat
     ChScalePfeifferComponent,
     ChScaleJhDowntonComponent,
     ChScaleScreeningComponent,
+    ChScalePpsComponent,
+    ChScaleBradenComponent,
+    ChScaleLawtonComponent,
     
     FormDiagnosticEvoComponent,
     Actions13Component,
