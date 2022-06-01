@@ -1,0 +1,24 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="medium" style="max-width: 600px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="value" class="form-text text-muted font-weight-bold">VALOR:</label>
+          <input type="number" nbInput fullWidth id="value" formControlName="value" value placeholder="$"
+            status= "{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12" *ngIf="!this.disable">
+          <label for="year" class="form-text text-muted font-weight-bold">AÑO:</label>
+          <input type="number" nbInput fullWidth id="year" formControlName="year" year
+            status= "{{ isSubmitted && form.controls.year.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

@@ -140,6 +140,9 @@ import { FixedLocationCampusComponent } from './fixed-location-campus/fixed-loca
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
 import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories.component';
 import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
+import { MinimumSalaryComponent } from './minimum-salary/minimum-salary.component';
+import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component';
+import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
 
 const routes: Routes = [{
   path: '',
@@ -183,11 +186,6 @@ const routes: Routes = [{
     {
       path: 'diet-consistency',
       component: DietConsistencyComponent,
-
-    },
-    {
-      path: 'diet-day',
-      component: DietDayComponent,
 
     },
     {
@@ -810,6 +808,18 @@ const routes: Routes = [{
     {
       path: 'fixed-accessories',
       component: FixedAccessoriesComponent,
+    },
+    {
+      path: 'minimum-salary',
+      component: MinimumSalaryComponent,
+    },
+    {
+      path: 'tax-value-unit',
+      component: TaxValueUnitComponent,
+    },
+    {
+      path: 'municipality-ica',
+      component: MunicipalityIcaComponent,
     },
     {
       path: 'fixed-inventary',

@@ -340,6 +340,12 @@ import { FormFixedAccessoriesComponent } from './fixed-accessories/form-fixed-ac
 import { FormFixedInventaryComponent } from './fixed-inventary/form-fixed-inventary/form-fixed-inventary.component';
 import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component';
+import { MinimumSalaryComponent } from './minimum-salary/minimum-salary.component';
+import { FormMinimumSalaryComponent } from './minimum-salary/form-minimum-salary/form-minimum-salary.component';
+import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component';
+import { FormTaxValueUnitComponent } from './tax-value-unit/form-tax-value-unit/form-tax-value-unit.component';
+import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
+import { FormMunicipalityIcaComponent } from './municipality-ica/form-municipality-ica/form-municipality-ica.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -706,7 +712,14 @@ import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component'
     FixedInventaryComponent,
     FormFixedInventaryComponent,
     ActionsInFixComponent,
-    FormNomProductComponent
+    FormNomProductComponent,
+
+    MinimumSalaryComponent,
+    FormMinimumSalaryComponent,
+    TaxValueUnitComponent,
+    FormTaxValueUnitComponent,
+    MunicipalityIcaComponent,
+    FormMunicipalityIcaComponent,
 
   ],
   providers: [
