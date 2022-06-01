@@ -16,8 +16,8 @@ export class TaxValueUnitComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'DÍAS DE DIETAS';
-  public subtitle: string = 'DÍAS';
+  public title: string = 'UNIDADES DE VALOR TRIBUTARIO';
+  public subtitle: string = 'UNIDADES';
   public headerFields: any[] = ['ID', 'VALOR', 'AÑO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
@@ -62,7 +62,7 @@ export class TaxValueUnitComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Días de dietas',
+      name: 'Unidades de valor tributario',
       route: '../../setting/tax-value-unit',
     },
   ];
@@ -87,7 +87,7 @@ export class TaxValueUnitComponent implements OnInit {
   NewTaxValueUnit() {
     this.dialogFormService.open(FormTaxValueUnitComponent, {
       context: {
-        title: 'Crear nuevo día de dietas',
+        title: 'Crear nueva unidad de valor tributario',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -96,7 +96,7 @@ export class TaxValueUnitComponent implements OnInit {
   EditTaxValueUnit(data) {
     this.dialogFormService.open(FormTaxValueUnitComponent, {
       context: {
-        title: 'Editar día de dietas',
+        title: 'Editar unidad de valor tributario',
         data,
         saved: this.RefreshData.bind(this),
       },
