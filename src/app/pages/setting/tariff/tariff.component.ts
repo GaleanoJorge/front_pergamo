@@ -25,7 +25,7 @@ export class TariffComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'TARIFAS DE MÉDICOS';
   public subtitle: string = 'TARIFAS';
-  public headerFields: any[] = ['NOMBRE', 'TARIFA', 'EXTRA DOSIS', 'TELECONSULTA', 'PROGRAMA', 'HORAS ATENCIÓN', 'ESTADO', 'TIPO DE TENCIÓN', 'PRECIO'];
+  public headerFields: any[] = ['NOMBRE', 'ZONA', 'EXTRA DOSIS', 'TELECONSULTA', 'PROGRAMA', 'HORAS ATENCIÓN', 'ESTADO', 'TIPO DE ATENCIÓN', 'HONORARIOS'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
