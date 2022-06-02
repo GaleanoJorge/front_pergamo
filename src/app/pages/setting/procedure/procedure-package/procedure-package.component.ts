@@ -30,7 +30,7 @@ export class ProcedurePackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Asignación procedimientos para paquete: ';
   public subtitle = 'Asignación procedimientos para paquete: ';
-  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Valor mínimo', 'Valor máximo', 'Valor dinamico', 'Valor dinamico'];
+  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Cantidad mínima', 'Cantidad máximo', 'Cantidad dinámica'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
