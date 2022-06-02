@@ -45,7 +45,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="pad_risk" class="form-text text-muted font-weight-bold">TARIFA DE BARRIO:</label>
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">ZONA:</label>
           <nb-select [selected]="this.data.pad_risk_id" formControlName="pad_risk_id" id="pad_risk_id" fullWidth
             quantity
             status="{{ isSubmitted && form.controls.pad_risk_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -68,7 +68,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="amount" class="form-text text-muted font-weight-bold">PRECIO:</label>
+          <label for="amount" class="form-text text-muted font-weight-bold">HONORARIOS:</label>
           <input type="number" nbInput fullWidth id="amount" formControlName="amount" amount placeholder="$"
             status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>

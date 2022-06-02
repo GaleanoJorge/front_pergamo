@@ -49,7 +49,7 @@
 
 
         <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_locality">
-          <label for="pad_risk" class="form-text text-muted font-weight-bold">TARIFA:</label>
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">ZONA:</label>
           <nb-select [selected]="this.data.pad_risk_id" formControlName="pad_risk_id" id="pad_risk" fullWidth>
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.pad_risk_id }}" *ngFor="let item of pad_risk" [value]="item.id">{{

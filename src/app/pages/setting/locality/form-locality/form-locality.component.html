@@ -35,7 +35,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_pad_risk">
-          <label for="pad_risk" class="form-text text-muted font-weight-bold">TARIFA BARRIOS ASOCIADOS:</label>
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">ZONA DE BARRIOS ASOCIADOS:</label>
           <nb-select [selected]="this.data.pad_risk_id" formControlName="pad_risk_id" id="pad_risk"
             fullWidth (selectedChange)="onMunicipalityChange($event)">
             <nb-option value="">Seleccione...</nb-option>
