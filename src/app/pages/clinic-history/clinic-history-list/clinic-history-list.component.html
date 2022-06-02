@@ -17,12 +17,12 @@
         <div *ngIf="this.show == 2">
           <ngx-back-list [data]="this.user">
           </ngx-back-list>
-        </div> 
+        </div>
       </nb-tab>
       <nb-tab tabTitle="EVOLUCIÓN">
         <div *ngIf="this.show == 3">
           <ngx-evolution-list></ngx-evolution-list>
-        </div> 
+        </div>
       </nb-tab>
       <nb-tab tabTitle="ESCALAS">
         <div *ngIf="this.show == 4">
@@ -32,20 +32,20 @@
       </nb-tab>
 
       <nb-tab tabTitle="FORMULACIÓN">
-         <div *ngIf="this.show == 5">
+        <div *ngIf="this.show == 5">
           <ngx-formulation [record_id]="record_id" [user]="user_id"></ngx-formulation>
-        </div> 
+        </div>
       </nb-tab>
       <nb-tab tabTitle="ORDEN MEDICAS">
         <div *ngIf="this.show == 6">
           <ngx-orders-medical></ngx-orders-medical>
-        </div> 
-      </nb-tab>   
+        </div>
+      </nb-tab>
 
       <nb-tab tabTitle="FALLIDA">
         <div *ngIf="this.show == 7">
           <ngx-failed [record_id]="record_id"></ngx-failed>
-        </div> 
+        </div>
       </nb-tab>
 
       <nb-tab tabTitle="SALIDA">
