@@ -175,7 +175,7 @@ export class FormManagementPlanComponent implements OnInit {
       // console.log(val);
       if (val === '') {
         this.assigned_user = [];
-      } else {
+      } else if (val != "2") {
         this.getRoleByAttention(val).then(x => {
           if (x) {
             this.GetMedical(this.user.locality_id).then(x => {
@@ -234,6 +234,24 @@ export class FormManagementPlanComponent implements OnInit {
           this.form.controls.number_doses.setValidators(null);
           this.form.controls.dosage_administer.setValidators(null);
         }
+      } else {
+        this.form.get('specialty_id').valueChanges.subscribe(val => {
+          if (val != "") {
+            this.getRoleByAttention(val).then(x => {
+              if (x) {
+                this.GetMedical(this.user.locality_id, val).then(x => {
+                  if (x) {
+                    this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+                  }
+                }).catch(e => {
+                  this.toastService.danger(e, 'Error');
+                });
+              }
+            }).catch(e => {
+              this.toastService.danger(e, 'Error');
+            });
+          }
+        });
       }
     });
 
@@ -251,7 +269,7 @@ export class FormManagementPlanComponent implements OnInit {
     });
   }
 
-  async GetMedical(locality_id) {
+  async GetMedical(locality_id, specualty?) {
     // if (!type_professional || type_professional === '') return Promise.resolve(false);
 
     return await this.userAssigned.UserByRoleLocation(locality_id, this.phone_consult ? 2 : 1, {

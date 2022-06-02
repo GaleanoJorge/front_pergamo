@@ -178,11 +178,7 @@ export class FormUsersComponent implements OnInit {
     await this.roleBS.GetCollection({ id: this.role }).then(x => {
       this.roles = x;
     }).catch(x => { });
-    if (this.role == 7) {
-      this.GetAuxData(1)
-    } else if (this.role == 14) {
-      this.GetAuxData(2)
-    }
+
     this.parentData = {
       selectedOptions: [],
       entity: 'residence/locationbyMunicipality',
@@ -205,6 +201,7 @@ export class FormUsersComponent implements OnInit {
     this.LoadForm(false).then();
     await Promise.all([
       this.GetAuxData(null),
+      this.GetAuxData(this.role == 7 ? 1 : this.role == 14 ? 2 : null),
     ]);
 
     this.course_id = this.route.snapshot.queryParams.course_id;
@@ -237,11 +234,11 @@ export class FormUsersComponent implements OnInit {
           this.cost_center = x.cost_center;
           this.type_professional = x.type_professional;
           this.contract_type = x.contract_type;
-          this.specialities = x.special_field;
+          this.specialities = x.specialty;
           this.inabilitys = x.inability;
           this.residences = x.residence;
         } else {
-          this.specialities = x.special_field;
+          this.specialities = x.specialty;
         }
         return Promise.resolve(true);
       });
@@ -698,10 +695,10 @@ export class FormUsersComponent implements OnInit {
 
       if (this.specialitiesSelect.length > 0) {
         for (let assistanceSpecial of this.specialitiesSelect) {
-          formData.append('special_field[]', assistanceSpecial);
+          formData.append('specialty[]', assistanceSpecial);
         }
       } else {
-        formData.append('special_field', null);
+        formData.append('specialty', null);
       }
 
       try {
@@ -932,8 +929,8 @@ export class FormUsersComponent implements OnInit {
 
   ShowDialogSpecialities() {
     this.selected = [];
-    this.data?.assistance[0]?.special_field.forEach(element => {
-      this.selected.push(element.special_field_id);
+    this.data?.assistance[0]?.specialty.forEach(element => {
+      this.selected.push(element.specialty_id);
     });
 
 
