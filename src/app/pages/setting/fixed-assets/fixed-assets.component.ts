@@ -18,7 +18,7 @@ export class FixedAssetsComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Activos Fijos';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Clasificación', 'Propio / Arrendado', 'Nombre', 'Marca'];
+  public headerFields: any[] = ['ID', 'Clasificación', 'Descripción', 'Propio / Arrendado', 'Marca', 'Sede'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -54,20 +54,29 @@ export class FixedAssetsComponent implements OnInit {
           return row.fixed_clasification.name;
         },
       },
-      fixed_property: {
+
+      description: {
         title: this.headerFields[2],
+        type: 'string',
+      },
+      fixed_property: {
+        title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.fixed_property.name;
         },
       },
-      name: {
-        title: this.headerFields[3],
-        type: 'string',
-      },
+
       mark: {
         title: this.headerFields[4],
         type: 'string',
+      },
+      campus: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.campus.name;
+        },
       },
     },
   };
