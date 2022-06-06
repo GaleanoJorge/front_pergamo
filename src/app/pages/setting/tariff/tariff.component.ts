@@ -25,7 +25,7 @@ export class TariffComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'TARIFAS DE MÉDICOS';
   public subtitle: string = 'TARIFAS';
-  public headerFields: any[] = ['NOMBRE', 'ZONA', 'EXTRA DOSIS', 'TELECONSULTA', 'PROGRAMA', 'HORAS ATENCIÓN', 'ESTADO', 'TIPO DE ATENCIÓN', 'HONORARIOS'];
+  public headerFields: any[] = ['NOMBRE', 'ZONA', 'EXTRA DOSIS', 'TELECONSULTA', 'PROGRAMA', 'HORAS ATENCIÓN', 'ESTADO', 'TIPO DE ATENCIÓN', 'HONORARIOS', 'FALLIDA', 'ADMISIÓN'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -56,17 +56,25 @@ export class TariffComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.pad_risk.name;
+          if (row.pad_risk_id) {
+            return row.pad_risk.name;
+          } else {
+            return 'NO APLICA';
+          }
         },
       },
       extra_dose: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (value == 1) {
-            return 'SI';
+          if (value != null) {
+            if (value == 1) {
+              return 'SI';
+            } else {
+              return 'NO';
+            }
           } else {
-            return 'NO';
+            return 'NO APLICA';
           }
         },
       },
@@ -74,10 +82,14 @@ export class TariffComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (value == 1) {
-            return 'SI';
+          if (value != null) {
+            if (value == 1) {
+              return 'SI';
+            } else {
+              return 'NO';
+            }
           } else {
-            return 'NO';
+            return 'NO APLICA';
           }
         },
       },
@@ -85,14 +97,18 @@ export class TariffComponent implements OnInit {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.program.name;
+          if (row.program) {
+            return row.program.name;
+          } else {
+            return 'NO APLICA';
+          }
         },
       },
       quantity: {
         title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (value) {
+          if (value != null) {
             if (value == 1) {
               return value + ' HORA';
 
@@ -108,14 +124,48 @@ export class TariffComponent implements OnInit {
         title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.status.name;
+          if (row.status) {
+            return row.status.name;
+          } else {
+            return 'NO APLICA';
+          }
         },
       },
       type_of_attention_id: {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.type_of_attention.name;
+          if (row.type_of_attention) {
+            return row.type_of_attention.name;
+          } else {
+            return 'NO APLICA';
+          }
+        },
+      },
+      failed: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value != null) {
+            if (value == 1) {
+              return 'SI';
+            } else {
+              return 'NO';
+            }
+          } else {
+            return 'NO APLICA';
+          }
+        },
+      },
+      admissions_id: {
+        title: this.headerFields[10],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.admissions) {
+            return row.nombre_completo;
+          } else {
+            return 'NO APLICA';
+          }
         },
       },
       amount: {
