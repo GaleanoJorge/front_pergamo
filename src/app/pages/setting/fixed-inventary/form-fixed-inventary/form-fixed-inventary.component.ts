@@ -2,8 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FixedLocationCampusService } from '../../../../business-controller/fixed-location-campus.service';
-import { FixedLoanService } from '../../../../business-controller/fixed-loan.service';
-import { RoleBusinessService } from '../../../../business-controller/role-business.service';
+import { FixedAddService } from '../../../../business-controller/fixed-add.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 
 @Component({
@@ -25,23 +24,20 @@ export class FormFixedInventaryComponent implements OnInit {
   public responsible_user_id: any[];
   public selectedOptions: any[] = [];
 
-
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private FixedLocationCampusS: FixedLocationCampusService,
-    private RoleBusinessS: UserBusinessService,
-    private FixedLoanS: FixedLoanService,
-    private toastS: NbToastrService,
-
+    private UserRoleBusinessS: UserBusinessService,
+    private FixedAddS: FixedAddService,
   ) {
   }
 
   async ngOnInit() {
     if (!this.data) {
       this.data = {
-        amount_provition: '',
+        observation: '',
       };
     }
     this.form = this.formBuilder.group({
@@ -54,7 +50,7 @@ export class FormFixedInventaryComponent implements OnInit {
       this.fixed_location_campus_id = x;
     });
 
-    await this.RoleBusinessS.GetCollection().then(x => {
+    await this.UserRoleBusinessS.GetCollection().then(x => {
       this.responsible_user_id = x;
     });
 
@@ -67,14 +63,13 @@ export class FormFixedInventaryComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       if (this.data.id) {
-        this.FixedLoanS.Update({
-          id: -1,
-          own_user_id: this.data.id,
+        this.FixedAddS.Save({
+          fixed_assets_id: this.data.id,
           fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
-          status: 'ENVIADO',
-       //   own_user_id: 1,
-          request_user_id: 1,
           responsible_user_id: this.form.controls.responsible_user_id.value,
+          observation: this.form.controls.observation.value,
+          status: 'ADICION',
+          amount: 1,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

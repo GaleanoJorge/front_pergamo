@@ -15,9 +15,9 @@ export class FixedInventaryComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'INVENTARIO';
+  public title: string = 'DISPONIBILIDAD';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'Clasificación', 'Propio / Arrendado', 'Nombre', 'Marca'];
+  public headerFields: any[] = ['ID', 'Descripción', 'Marca', 'Sede'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -48,27 +48,22 @@ export class FixedInventaryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      fixed_clasification: {
+
+      description: {
         title: this.headerFields[1],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.fixed_clasification.name;
-        },
       },
-      fixed_property: {
+
+      mark: {
         title: this.headerFields[2],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.fixed_property.name;
-        },
       },
-      name: {
+      campus: {
         title: this.headerFields[3],
         type: 'string',
-      },
-      mark: {
-        title: this.headerFields[4],
-        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.campus.name;
+        },
       },
     },
 
@@ -83,18 +78,12 @@ export class FixedInventaryComponent implements OnInit {
 
   constructor(
     private dialogFormService: NbDialogService,
-    private invS: PharmacyLotStockService,
     private authService: AuthService,
   ) {
   }
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
-    //  this.my_pharmacy_id = x[0].id;
-      this.entity = 'fixed_loan?fixed_loan=' + x[0].id;
-      this.title = 'INVENTARIO DE ' + x[0]['name'];
-    });
   }
 
   RefreshData() {
@@ -106,7 +95,7 @@ export class FixedInventaryComponent implements OnInit {
       context: {
         title: 'ENVIAR ACTIVO',
         data: data,
-     //   my_pharmacy_id: this.my_pharmacy_id,
+        //   my_pharmacy_id: this.my_pharmacy_id,
         saved: this.RefreshData.bind(this),
       },
     });
