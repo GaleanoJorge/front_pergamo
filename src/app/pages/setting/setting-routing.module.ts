@@ -139,7 +139,11 @@ import { FixedTypeComponent } from './fixed-type/fixed-type.component';
 import { FixedLocationCampusComponent } from './fixed-location-campus/fixed-location-campus.component';
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
 import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories.component';
-import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
+import { FixedTabComponent } from './fixed-tab/fixed-tab.component';
+import { FixedRequestComponent } from './fixed-request/fixed-request.component';
+import { FormFixedRequestComponent } from './fixed-request/form-fixed-request/form-fixed-request.component';
+import { FixedAccessRequestsComponent } from './fixed-access-requests/fixed-access-requests.component';
+import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-requests.component';
 
 const routes: Routes = [{
   path: '',
@@ -813,7 +817,15 @@ const routes: Routes = [{
     },
     {
       path: 'fixed-inventary',
-      component: FixedInventaryComponent,
+      component: FixedTabComponent,
+    },
+    {
+      path: 'fixed-request',
+      component: FormFixedRequestComponent,
+    },
+    {
+      path: 'fixed-access-requests',
+      component: FixedTabRequestsComponent,
     }
   ],
 }];

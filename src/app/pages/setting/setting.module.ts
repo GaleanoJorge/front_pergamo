@@ -340,6 +340,28 @@ import { FormFixedAccessoriesComponent } from './fixed-accessories/form-fixed-ac
 import { FormFixedInventaryComponent } from './fixed-inventary/form-fixed-inventary/form-fixed-inventary.component';
 import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component';
+import { FormFixedRequestComponent } from './fixed-request/form-fixed-request/form-fixed-request.component';
+import { FixedRequestComponent } from './fixed-request/fixed-request.component';
+import { FixedInventaryAccesoriesComponent } from './fixed-inventary-accesories/fixed-inventary-accesories.component';
+import { ActionsInvAccesComponent } from './fixed-inventary-accesories/actionsInAcces.component';
+import { FormFixedInventaryAccesoriesComponent } from './fixed-inventary-accesories/form-fixed-inventary-accesories/form-fixed-inventary-accesories.component';
+import { FixedTabComponent } from './fixed-tab/fixed-tab.component';
+import { FixedInventaryAddComponent } from './fixed-inventary-add/fixed-inventary-add.component';
+import { FixedInventaryAddAccessComponent } from './fixed-inventary-add-access/fixed-inventary-add-access.component';
+import { FormFixedInventaryAddAccessComponent } from './fixed-inventary-add-access/form-fixed-inventary_add-access/form-fixed-inventary-add-access.component';
+import { FixedAccessRequestsComponent } from './fixed-access-requests/fixed-access-requests.component';
+import { FormFixedAccessRequestsComponent } from './fixed-access-requests/form-fixed-access-requests/form-fixed-access-requests.component';
+import { FormFixedInventaryAddComponent } from './fixed-inventary-add/form-fixed-inventary-add/form-fixed-inventary-add.component';
+import { ActionsAccReqComponent } from './fixed-access-requests/actions.component';
+import { AmountRequestsComponent } from './fixed-access-requests/requests-package/amountRequests.component';
+import { RequestsPackageComponent } from './fixed-access-requests/requests-package/requests-package.component';
+import { SelectRequestsComponent } from './fixed-access-requests/requests-package/select-requests.component';
+import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-requests.component';
+import { AssetsRequestsPackageComponent } from './fixed-assets-requests/assets-requests-package/assets-requests-package.component';
+import { AssetsSelectRequestsComponent } from './fixed-assets-requests/assets-requests-package/assets-select-requests.component';
+import { FormFixedAssetsRequestsComponent } from './fixed-assets-requests/form-fixed-assets-requests/form-fixed-assets-requests.component';
+import { ActionsAssReqComponent } from './fixed-assets-requests/actions.component';
+import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -358,7 +380,6 @@ import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component'
     NbSelectModule,
     NbPopoverModule,
     NbTooltipModule,
-    NbAccordionModule,
     NbUserModule,
     NbAlertModule,
     SettingRoutingModule,
@@ -368,6 +389,7 @@ import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component'
     NbLayoutModule,
     NbSpinnerModule,
     NbCheckboxModule,
+    NbAccordionModule,
   ],
   declarations: [
     AuthStatusComponent,
@@ -706,7 +728,33 @@ import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component'
     FixedInventaryComponent,
     FormFixedInventaryComponent,
     ActionsInFixComponent,
-    FormNomProductComponent
+    FormNomProductComponent,
+    FormFixedRequestComponent,
+    FixedRequestComponent,
+    FixedInventaryAccesoriesComponent,
+    FormFixedInventaryAccesoriesComponent,
+    ActionsInvAccesComponent,
+    FixedTabComponent,
+    FixedInventaryAddComponent,
+    FormFixedInventaryAddComponent,
+    FixedInventaryAddAccessComponent,
+    FormFixedInventaryAddAccessComponent,
+    FixedAccessRequestsComponent,
+    FormFixedAccessRequestsComponent,
+    ActionsAccReqComponent,
+
+    AmountRequestsComponent,
+    SelectRequestsComponent,
+    RequestsPackageComponent,
+
+    FixedTabRequestsComponent,
+    AssetsRequestsPackageComponent,
+    AssetsSelectRequestsComponent,
+    FormFixedAssetsRequestsComponent,
+    ActionsAssReqComponent,
+    FixedAssetsRequestsComponent
+
+
 
   ],
   providers: [
