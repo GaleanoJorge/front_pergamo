@@ -16,7 +16,7 @@ export class ProcedureTypeComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Tipo de procedimiento';
+  public title: string = 'Tipo de Procedimiento';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;

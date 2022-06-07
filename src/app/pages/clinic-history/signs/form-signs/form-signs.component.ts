@@ -6,6 +6,9 @@ import { ChVitalHydrationService } from '../../../../business-controller/ch-vita
 import { ChVitalNeurologicalService } from '../../../../business-controller/ch-vital-neurological.service';
 import { ChVitalVentilatedService } from '../../../../business-controller/ch-vital-ventilated.service';
 import { ChVitalTemperatureService } from '../../../../business-controller/ch-vital-temperature.service';
+import { OxygenTypeService } from '../../../../business-controller/oxygen_type.service';
+import { LitersPerMinuteService } from '../../../../business-controller/liters_per_minute.service';
+import { ParametersSignsService } from '../../../../business-controller/parameters-signs.service';
 
 
 @Component({
@@ -28,7 +31,18 @@ export class FormsignsComponent implements OnInit {
   public vital_neurological: any[];
   public vital_temperature: any[];
   public vital_ventilated: any[];
+  public oxygen_type: any[];
+  public liters_per_minute: any[];
+  public parameters_signs: any[];
   public chvitsigns: any[];
+  public pressure_half: any[];
+  public pressure_systolic;
+  public pressure_diastolic;
+  public weight;
+  public size;
+  public body_mass_index;
+  public selectedItemsList  = [];
+  public checkedIDs = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,8 +52,39 @@ export class FormsignsComponent implements OnInit {
     private chvitalNeurologicalS: ChVitalNeurologicalService,
     private chvitalTemperatureS: ChVitalTemperatureService,
     private chvitalVentilatedS: ChVitalVentilatedService,
+    private OxygenTypeS: OxygenTypeService,
+    private LitersPerMinuteS: LitersPerMinuteService,
+    private ParametersSignsS: ParametersSignsService,
+    
   ) {
   }
+  checkboxesDataList = [
+    {
+      id: 'mydriatic',
+      label: 'MINDRIÁTICA',
+      isChecked: true,
+    },
+    {
+      id: 'normal',
+      label: 'NORMAL',
+      isChecked: true,
+    },
+    {
+      id: 'lazy_reaction_light',
+      label: 'REACCIÓN PERESOZA ( A LA LUZ)',
+      isChecked: true,
+    },
+    {
+      id: 'fixed_lazy_reaction',
+      label: 'REACCIÓN PERESOZA',
+      isChecked: true,
+    },
+    {
+      id: 'miotic_size',
+      label: 'TAMAÑO MIÓTICA',
+      isChecked: true,
+    },
+  ];
 
   async ngOnInit(): Promise<void> {
     if (!this.data || this.data.length == 0) {
@@ -68,6 +113,12 @@ export class FormsignsComponent implements OnInit {
         pupil_size_right: '',
         left_reaction: '',
         pupil_size_left: '',
+        mydriatic: '',
+        normal: '',
+        lazy_reaction_light: '',
+        fixed_lazy_reaction: '',
+        miotic_size: '',
+        observations_glucometry: '',
         head_circunference: '',
         abdominal_perimeter: '',
         chest_perimeter: '',
@@ -75,7 +126,11 @@ export class FormsignsComponent implements OnInit {
         ch_vital_ventilated_id: '',
         ch_vital_temperature_id: '',
         ch_vital_neurological_id: '',
+        oxygen_type_id: '',
+        liters_per_minute_id: '',
+        parameters_signs_id: '',
       };
+
     }
 
     this.chvitalHydrationS.GetCollection({ status_id: 1 }).then(x => {
@@ -89,6 +144,15 @@ export class FormsignsComponent implements OnInit {
     });
     this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
       this.vital_ventilated = x;
+    });
+    this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
+      this.oxygen_type = x;
+    });
+    this.LitersPerMinuteS.GetCollection({ status_id: 1 }).then(x => {
+      this.liters_per_minute = x;
+    });
+    this.ParametersSignsS.GetCollection({ status_id: 1 }).then((x) => {
+      this.parameters_signs = x; 
     });
 
     this.form = this.formBuilder.group({
@@ -104,6 +168,7 @@ export class FormsignsComponent implements OnInit {
       pressure_diastolic: [this.data[0] ? this.data[0].pressure_diastolic : this.data.pressure_diastolic, Validators.compose([Validators.required])],
       pressure_half: [this.data[0] ? this.data[0].pressure_half : this.data.pressure_half, Validators.compose([Validators.required])],
       pulse: [this.data[0] ? this.data[0].pulse : this.data.pulse],
+      observations_glucometry: [this.data[0] ? this.data[0].observations_glucometry : this.data.observations_glucometry],
       venous_pressure: [this.data[0] ? this.data[0].venous_pressure : this.data.venous_pressure],
       size: [this.data[0] ? this.data[0].size : this.data.size],
       weight: [this.data[0] ? this.data[0].weight : this.data.weight],
@@ -123,6 +188,9 @@ export class FormsignsComponent implements OnInit {
       ch_vital_ventilated_id: [this.data[0] ? this.data[0].ch_vital_ventilated_id : this.data.ch_vital_ventilated_id],
       ch_vital_temperature_id: [this.data[0] ? this.data[0].ch_vital_temperature_id : this.data.ch_vital_temperature_id],
       ch_vital_neurological_id: [this.data[0] ? this.data[0].ch_vital_neurological_id : this.data.ch_vital_neurological_id],
+      oxygen_type_id: [this.data[0] ? this.data[0].oxygen_type_id : this.data.oxygen_type_id],
+      liters_per_minute_id: [this.data[0] ? this.data[0].liters_per_minute_id : this.data.liters_per_minute_id],
+      parameters_signs_id: [this.data.parameters_signs_id],
     });
 
 
@@ -158,6 +226,9 @@ export class FormsignsComponent implements OnInit {
       this.form.controls.ch_vital_ventilated_id.disable();
       this.form.controls.ch_vital_temperature_id.disable();
       this.form.controls.ch_vital_neurological_id.disable();
+      this.form.controls.oxygen_type_id.disable();
+      this.form.controls.liters_per_minute_id.disable();
+      this.form.controls.parameters_signs_id.disable();
       this.disabled = true;
     } else {
       this.form.controls.clock.enable();
@@ -191,8 +262,17 @@ export class FormsignsComponent implements OnInit {
       this.form.controls.ch_vital_ventilated_id.enable();
       this.form.controls.ch_vital_temperature_id.enable();
       this.form.controls.ch_vital_neurological_id.enable();
+      this.form.controls.oxygen_type_id.enable();
+      this.form.controls.liters_per_minute_id.enable();
+      this.form.controls.parameters_signs_id.enable();
       this.disabled = false;
     }
+    
+    this.fetchSelectedItems();
+    this.fetchCheckedIDs();
+  }
+  changeSelection() {
+    this.fetchSelectedItems()
   }
 
   async save() {
@@ -229,12 +309,21 @@ export class FormsignsComponent implements OnInit {
           chest_perimeter: this.form.controls.chest_perimeter.value,
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
+          mydriatic: this.form.controls.mydriatic.value,
+          normal: this.form.controls.normal.value,
+          lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
+          fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,
+          miotic_size: this.form.controls.miotic_size.value,
+          observations_glucometry: this.form.controls.observations_glucometry.value,
           left_reaction: this.form.controls.left_reaction.value,
           pupil_size_left: this.form.controls.pupil_size_left.value,
           ch_vital_hydration_id: this.form.controls.ch_vital_hydration_id.value,
           ch_vital_ventilated_id: this.form.controls.ch_vital_ventilated_id.value,
           ch_vital_temperature_id: this.form.controls.ch_vital_temperature_id.value,
           ch_vital_neurological_id: this.form.controls.ch_vital_neurological_id.value,
+          oxygen_type_id: this.form.controls.oxygen_type_id.value,
+          liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
+          parameters_signs_id: [this.data.parameters_signs_id],
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -273,12 +362,21 @@ export class FormsignsComponent implements OnInit {
           chest_perimeter: this.form.controls.chest_perimeter.value,
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
+          mydriatic: this.form.controls.mydriatic.value,
+          normal: this.form.controls.normal.value,
+          lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
+          fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,
+          miotic_size: this.form.controls.miotic_size.value,
+          observations_glucometry: this.form.controls.observations_glucometry.value,
           left_reaction: this.form.controls.left_reaction.value,
           pupil_size_left: this.form.controls.pupil_size_left.value,
           ch_vital_hydration_id: this.form.controls.ch_vital_hydration_id.value,
           ch_vital_ventilated_id: this.form.controls.ch_vital_ventilated_id.value,
           ch_vital_temperature_id: this.form.controls.ch_vital_temperature_id.value,
           ch_vital_neurological_id: this.form.controls.ch_vital_neurological_id.value,
+          oxygen_type_id: this.form.controls.oxygen_type_id.value,
+          liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
+          parameters_signs_id:this.form.controls.parameters_signs_id.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -299,6 +397,48 @@ export class FormsignsComponent implements OnInit {
       }
 
     }
+  }
+  onChanges(event, id) {
+    if (
+      this.form.controls.pressure_systolic.value &&
+      this.form.controls.pressure_systolic.value != '' &&
+      this.form.controls.pressure_diastolic.value &&
+      this.form.controls.pressure_diastolic.value != ''
+    ) {
+      var sys = this.form.controls.pressure_systolic.value;
+      var dias = this.form.controls.pressure_diastolic.value;
+      this.form.controls.pressure_half.setValue((sys + 2 * dias) / 3);
+    } else {
+      this.form.controls.pressure_half.setValue('');
+    }
+  }
+  onChangesIMC(event, id) {
+    if (
+      this.form.controls.size.value &&
+      this.form.controls.size.value != '' &&
+      this.form.controls.weight.value &&
+      this.form.controls.weight.value != ''
+    ) {
+      var size = this.form.controls.size.value;
+      var weight = this.form.controls.weight.value;
+      this.form.controls.body_mass_index.setValue(weight / (size * size));
+    } else {
+      this.form.controls.body_mass_index.setValue('');
+    }
+  }
+
+  fetchSelectedItems() {
+    this.selectedItemsList = this.checkboxesDataList.filter((value, index) => {
+      return value.isChecked;
+    });
+  }
+  fetchCheckedIDs() {
+    this.checkedIDs = []
+    this.checkboxesDataList.forEach((value, index) => {
+      if (value.isChecked) {
+        this.checkedIDs.push(value.id);
+      }
+    });
   }
 
 }

@@ -1,0 +1,194 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <fieldset class="field_set center">
+
+      <legend class="prue1">DIAGNÓSTICO CUTANEO</legend>
+      <div class="col-md-12 space">
+        <label  for="diagnosis_id" class="font-weight-bold">DIAGNÓSTICO:</label>
+        <input  fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="diagnosis_id" 
+        formControlName="diagnosis_id" diagnosis_id type="text" required
+        status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        </datalist>
+      </div>
+      <div class="row">
+        <div class="col-md-4 space">
+          <label for="head" class="form-text text-muted font-weight-bold">CABEZA:</label>
+
+          <nb-select formControlName="head" id="head" fullWidth head
+            status="{{ isSubmitted && form.controls.head.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option *ngFor="let item of skin_status"
+              [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4 space">
+          <label for="malleolus" class="form-text text-muted font-weight-bold">MALÉOLOS:</label>
+
+          <nb-select formControlName="malleolus" id="malleolus" fullWidth malleolus
+            status="{{ isSubmitted && form.controls.malleolus.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option *ngFor="let item of skin_status"
+              [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4 space">
+          <label for="lower_limbs" class="form-text text-muted font-weight-bold">MIEMBROS INFERIORES:</label>
+
+          <nb-select formControlName="lower_limbs" id="lower_limbs" fullWidth lower_limbs
+            status="{{ isSubmitted && form.controls.lower_limbs.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option *ngFor="let item of skin_status"
+              [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4 space">
+          <label for="feet" class="form-text text-muted font-weight-bold">PIES:</label>
+
+          <nb-select formControlName="feet" id="feet" feet fullWidth
+            status="{{ isSubmitted && form.controls.feet.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option *ngFor="let item of skin_status"
+              [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4 space">
+          <label for="gluteal_region" class="form-text text-muted font-weight-bold">REGIÓN DORSAL:</label>
+
+          <nb-select formControlName="gluteal_region" id="gluteal_region" gluteal_region fullWidth
+            status="{{ isSubmitted && form.controls.gluteal_region.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option *ngFor="let item of skin_status"
+              [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4 space">
+          <label for="lumbar_region" class="form-text text-muted font-weight-bold">REGIÓN GLÚTEA:</label>
+
+          <nb-select formControlName="lumbar_region" id="lumbar_region" lumbar_region fullWidth
+            status="{{ isSubmitted && form.controls.lumbar_region.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option *ngFor="let item of skin_status"
+              [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4 space">
+          <label for="lumbar_region" class="form-text text-muted font-weight-bold">REGIÓN LUMBAR:</label>
+ 
+          <nb-select formControlName="lumbar_region" id="lumbar_region" lumbar_region fullWidth
+            status="{{ isSubmitted && form.controls.lumbar_region.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option *ngFor="let item of skin_status"
+              [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4 space">
+          <label for="sacrum_region" class="form-text text-muted font-weight-bold">REGIÓN SACRA:</label>
+
+          <nb-select formControlName="sacrum_region" id="sacrum_region" sacrum_region fullWidth
+            status="{{ isSubmitted && form.controls.sacrum_region.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option *ngFor="let item of skin_status"
+              [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4 space">
+          <label for="trochanteric_region" class="form-text text-muted font-weight-bold">REGIÓN TROCANTÉRICA:</label>
+
+          <nb-select formControlName="trochanteric_region" fullWidth trochanteric_region
+            id="trochanteric_region"
+            status="{{ isSubmitted && form.controls.trochanteric_region.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option *ngFor="let item of skin_status"
+              [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-6 space">
+          <label for="exudate" class="form-text text-muted font-weight-bold">EXUDADO:</label>
+
+          <nb-select formControlName="exudate" id="exudate" fullWidth exudate   
+            status="{{ isSubmitted && form.controls.exudate.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option *ngFor="let item of exudate_type"
+              [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-6 space">
+          <label for="concentrated" class="form-text text-muted font-weight-bold">REGIÓN TROCANTÉRICA:</label>
+
+          <nb-select formControlName="concentrated" id="concentrated" concentrated fullWidth
+            status="{{ isSubmitted && form.controls.concentrated.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option value="ESCASA">ESCASA</nb-option>
+            <nb-option value="MODERADA">MODERADA</nb-option>
+            <nb-option value="ABUNDANTE">ABUNDANTE</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-6 space">
+          <label for="infection_sign" class="form-text text-muted font-weight-bold">REGIÓN TROCANTÉRICA:</label>
+
+          <nb-select formControlName="infection_sign" infection_sign
+            id="infection_sign" fullWidth
+            status="{{ isSubmitted && form.controls.infection_sign.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option value="CALOR">CALOR</nb-option>
+            <nb-option value="COLOR">COLOR</nb-option>
+            <nb-option value="DOLOR">DOLOR</nb-option>
+            <nb-option value="EDEMA">EDEMA</nb-option>
+            <nb-option value="OLOR FETIDO">OLOR FETIDO</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-6 space">
+          <label for="surrounding_skin" class="form-text text-muted font-weight-bold">REGIÓN TROCANTÉRICA:</label>
+
+          <nb-select formControlName="surrounding_skin" fullWidth
+            id="surrounding_skin" surrounding_skin
+            status="{{ isSubmitted && form.controls.surrounding_skin.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option value="CALIENTE">CALIENTE</nb-option>
+            <nb-option value="DESFACELADA">DESFACELADA</nb-option>
+            <nb-option value="EPITELIZADA">EPITELIZADA</nb-option>
+            <nb-option value="ERITETOMATOSA">ERITETOMATOSA</nb-option>
+            <nb-option value="OLOR FETIDO">OLOR FETIDO</nb-option>
+          </nb-select>
+        </div>
+
+      </div>
+
+      <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
+      <textarea id="observation" nbInput fullWidth formControlName="observation" analisys rows="4" cols="50"
+        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+    </fieldset>
+
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+</form>

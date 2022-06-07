@@ -3,18 +3,13 @@
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-6">
-          <label for="code" class="form-text text-muted font-weight-bold">Código del producto:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="code" formControlName="code" code
-            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div>
+
         <div class="col-12 col-sm-12 col-md-6">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre producto:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
-           />
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
+        <div class="col-12 col-sm-12 col-md-6">
           <label for="factory" class="form-text text-muted font-weight-bold">Fabricante:</label>
           <nb-select [selected]="this.data.factory_id" formControlName="factory_id" id="factory_id" fullWidth
             status="{{ isSubmitted && form.controls.factory_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -23,75 +18,148 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label class="form-text text-muted font-weight-bold">Empaque:</label>
+          <nb-select [selected]="this.data.packing_id" formControlName="packing_id" id="packing_id" fullWidth
+            status="{{ isSubmitted && form.controls.packing_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.packing_id }}" *ngFor="let item of packing" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="unit_packing" class="form-text text-muted font-weight-bold">Unidades por empaque:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="unit_packing"
+            formControlName="unit_packing" unit_packing
+            status="{{ isSubmitted && form.controls.unit_packing.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
           <label for="product_generic" class="form-text text-muted font-weight-bold">Producto Genérico:</label>
-          <nb-select [selected]="this.data.product_generic_id" formControlName="product_generic_id" id="product_generic_id" fullWidth
+          <nb-select [selected]="this.data.product_generic_id" formControlName="product_generic_id"
+            id="product_generic_id" fullWidth
             status="{{ isSubmitted && form.controls.product_generic_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.product_generic_id }}" *ngFor="let item of product_generic" [value]="item.id">
+            <nb-option selected="{{ item.id == data.product_generic_id }}" *ngFor="let item of product_generic"
+              [value]="item.id">
               {{ item.description }}</nb-option>
           </nb-select>
         </div>
+
         <div class="col-12 col-sm-12 col-md-6">
           <label for="invima_registration" class="form-text text-muted font-weight-bold">Registro invima:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="invima_registration" formControlName="invima_registration" invima_registration
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="invima_registration"
+            formControlName="invima_registration" invima_registration
             status="{{ isSubmitted && form.controls.invima_registration.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="invima_status" class="form-text text-muted font-weight-bold">Estado de registro del invima:</label>
-          <nb-select [selected]="this.data.invima_status_id" formControlName="invima_status_id" id="invima_status_id" fullWidth
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="invima_status" class="form-text text-muted font-weight-bold">Estado de registro del
+            invima:</label>
+          <nb-select [selected]="this.data.invima_status_id" formControlName="invima_status_id" id="invima_status_id"
+            fullWidth
             status="{{ isSubmitted && form.controls.invima_status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.invima_status_id }}" *ngFor="let item of invima_status" [value]="item.id">
+            <nb-option selected="{{ item.id == data.invima_status_id }}" *ngFor="let item of invima_status"
+              [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="sanitary_registration" class="form-text text-muted font-weight-bold">Titular del registro sanitario:</label>
-          <nb-select [selected]="this.data.sanitary_registration_id" formControlName="sanitary_registration_id" id="sanitary_registration_id" fullWidth
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <div class="form-group">
+            <label for="date_cum" class="form-text text-muted font-weight-bold">Fecha vencimiento:</label>
+            <input type="date" nbInput fullWidth id="date_cum" formControlName="date_cum" date_cum
+              status="{{ isSubmitted && form.controls.date_cum.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="sanitary_registration" class="form-text text-muted font-weight-bold">Titular del registro
+            sanitario:</label>
+          <nb-select [selected]="this.data.sanitary_registration_id" formControlName="sanitary_registration_id"
+            id="sanitary_registration_id" fullWidth
             status="{{ isSubmitted && form.controls.sanitary_registration_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.sanitary_registration_id }}" *ngFor="let item of factory" [value]="item.id">
+            <nb-option selected="{{ item.id == data.sanitary_registration_id }}" *ngFor="let item of factory"
+              [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="storage_conditions" class="form-text text-muted font-weight-bold">Condiciones de almacenaje:</label>
-          <nb-select [selected]="this.data.storage_conditions_id" formControlName="storage_conditions_id" id="storage_conditions_id" fullWidth
+
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="refrigeration" class="form-text text-muted font-weight-bold">Requiere Refrigeración:</label>
+          <nb-radio-group formControlName="refrigeration" refrigeration id="refrigeration" name="refrigeration"
+            class="d-flex"
+            status="{{ isSubmitted && form.controls.refrigeration.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio [value]="0">No</nb-radio>
+            <nb-radio [value]="1">Si</nb-radio>
+          </nb-radio-group>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="refrigeration" class="form-text text-muted font-weight-bold">Vida utíl en meses:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput id="useful_life" fullWidth
+            formControlName="useful_life" useful_life
+            status="{{ isSubmitted && form.controls.useful_life.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="storage_conditions" class="form-text text-muted font-weight-bold">Condiciones de
+            almacenaje:</label>
+          <nb-select [selected]="this.data.storage_conditions_id" formControlName="storage_conditions_id"
+            id="storage_conditions_id" fullWidth
             status="{{ isSubmitted && form.controls.storage_conditions_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.storage_conditions_id }}" *ngFor="let item of storage_conditions" [value]="item.id">
+            <nb-option selected="{{ item.id == data.storage_conditions_id }}" *ngFor="let item of storage_conditions"
+              [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="risk" class="form-text text-muted font-weight-bold">Riesgo:</label>
-          <nb-select [selected]="this.data.risk_id" formControlName="risk_id" id="risk_id" fullWidth
-            status="{{ isSubmitted && form.controls.risk_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.risk_id }}" *ngFor="let item of risk" [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="code_cum_file"  class="form-text text-muted font-weight-bold">Código CUM expediente:</label>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="code_cum_file" class="form-text text-muted font-weight-bold">Código CUM expediente:</label>
           <input nbInput fullWidth id="code_cum_file" formControlName="code_cum_file" code_cum_file
             status="{{ isSubmitted && form.controls.code_cum_file.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="code_cum_consecutive"  class="form-text text-muted font-weight-bold">Código CUM consecutivo:</label>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="code_cum_consecutive" class="form-text text-muted font-weight-bold">Código CUM
+            consecutivo:</label>
           <input nbInput fullWidth id="code_cum_consecutive" formControlName="code_cum_consecutive" code_cum_consecutive
             status="{{ isSubmitted && form.controls.code_cum_consecutive.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="regulated_drug" class="form-text text-muted font-weight-bold">¿Es un medicamento regulado?:</label>
-          <nb-radio-group formControlName="regulated_drug" regulated_drug id="regulated_drug" name="regulated_drug" class="d-flex"
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="regulated_drug" class="form-text text-muted font-weight-bold">¿Es un medicamento
+            regulado?:</label>
+          <nb-radio-group formControlName="regulated_drug" regulated_drug id="regulated_drug" name="regulated_drug"
+            class="d-flex"
             status="{{ isSubmitted && form.controls.regulated_drug.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio [value]="0">No es regulado</nb-radio>
             <nb-radio [value]="1">Si es regulado</nb-radio>
           </nb-radio-group>
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="value_circular" class="form-text text-muted font-weight-bold">Valor:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="value_circular"
+            formControlName="value_circular" value_circular type="number"
+            status="{{ isSubmitted && form.controls.value_circular.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="circular" class="form-text text-muted font-weight-bold">Circular:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="circular"
+            formControlName="circular" circular
+            status="{{ isSubmitted && form.controls.circular.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
           <label for="high_price" class="form-text text-muted font-weight-bold">¿Es de alto costo?:</label>
           <nb-radio-group formControlName="high_price" high_price id="high_price" name="high_price" class="d-flex"
             status="{{ isSubmitted && form.controls.high_price.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -99,44 +167,30 @@
             <nb-radio [value]="1">Si es de alto costo</nb-radio>
           </nb-radio-group>
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="maximum_dose"  class="form-text text-muted font-weight-bold">Dosis maxima:</label>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="maximum_dose" class="form-text text-muted font-weight-bold">Dosis maxima:</label>
           <input nbInput fullWidth id="maximum_dose" formControlName="maximum_dose" maximum_dose
             status="{{ isSubmitted && form.controls.maximum_dose.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="indications"  class="form-text text-muted font-weight-bold">Indicaciones:</label>
-          <input  nbInput fullWidth id="indications" formControlName="indications" indications
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="indications" class="form-text text-muted font-weight-bold">Indicaciones:</label>
+          <input nbInput fullWidth id="indications" formControlName="indications" indications
             status="{{ isSubmitted && form.controls.indications.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="contraindications"  class="form-text text-muted font-weight-bold">Contraindicaciones:</label>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="contraindications" class="form-text text-muted font-weight-bold">Contraindicaciones:</label>
           <input nbInput fullWidth id="contraindications" formControlName="contraindications" contraindications
             status="{{ isSubmitted && form.controls.contraindications.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="applications"  class="form-text text-muted font-weight-bold">Usos:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="applications" formControlName="applications" applications
-            status="{{ isSubmitted && form.controls.applications.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
-           />
-        </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="minimum_stock"  class="form-text text-muted font-weight-bold">Stock minimo:</label>
-          <input nbInput fullWidth id="minimum_stock" formControlName="minimum_stock" minimum_stock
-            status="{{ isSubmitted && form.controls.minimum_stock.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="maximum_stock"  class="form-text text-muted font-weight-bold">Stock maximo:</label>
-          <input nbInput fullWidth id="maximum_stock" formControlName="maximum_stock" maximum_stock
-            status="{{ isSubmitted && form.controls.maximum_stock.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="generate_iva" class="form-text text-muted font-weight-bold">¿Este producto genéra IVA?:</label>
-          <nb-radio-group formControlName="generate_iva" generate_iva id="generate_iva" name="generate_iva" class="d-flex"
-            status="{{ isSubmitted && form.controls.generate_iva.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-radio [value]="0">No genera IVA</nb-radio>
-            <nb-radio [value]="1">Si genera IVA</nb-radio>
-          </nb-radio-group>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="applications" class="form-text text-muted font-weight-bold">Usos:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="applications"
+            formControlName="applications" applications
+            status="{{ isSubmitted && form.controls.applications.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
       </div>
 

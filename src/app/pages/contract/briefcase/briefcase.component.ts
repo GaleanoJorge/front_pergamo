@@ -24,7 +24,7 @@ export class BriefcaseComponent implements OnInit {
   public messageError: string = null;
   public title: string;
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Sede', 'Cobertura', 'Modalidad', 'Estado'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Sede', 'Cobertura', 'Modalidad', 'Tipo de autorización', 'Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -91,8 +91,19 @@ export class BriefcaseComponent implements OnInit {
           return value.name;
         },
       },
-      status: {
+      type_auth: {
         title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value == 1) {
+            return 'Post';
+          } else {
+          return 'Pre';
+          }
+        },
+      },
+      status: {
+        title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
@@ -108,7 +119,7 @@ export class BriefcaseComponent implements OnInit {
     },
     {
       name: 'Portafolio',
-      route: '../../contract/briefcase',
+      route: '../../briefcase',
     },
   ];
 

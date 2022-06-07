@@ -5,6 +5,7 @@ import { RoleBusinessService } from '../../../business-controller/role-business.
 import { Role } from '../../../models/role';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { StatusBusinessService } from '../../../business-controller/status-business.service';
+import { RoleTypeService } from '../../../business-controller/role-type.service';
 
 @Component({
     selector: 'ngx-roles',
@@ -30,15 +31,22 @@ export class RolesComponent implements OnInit {
         public roleBS: RoleBusinessService,
         private toastrService: NbToastrService,
         private dialogService: NbDialogService,
-        public statusBS: StatusBusinessService
+        public statusBS: StatusBusinessService,
+        public RoleTypeS: RoleTypeService,
     ) { }
 
     ngOnInit() {
         this.roleForm = this.formBuilder.group({
             name: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-            status: ['', Validators.compose([Validators.required])]
+            status: ['', Validators.compose([Validators.required])],
+            role_type: ['', Validators.compose([Validators.required])],
         });
         this.statusBS.GetCollection().then(x => {
+            this.messageError = null;
+        }).catch(x => {
+            this.messageError = x;
+        });
+        this.RoleTypeS.GetCollection().then(x => {
             this.messageError = null;
         }).catch(x => {
             this.messageError = x;
@@ -53,7 +61,8 @@ export class RolesComponent implements OnInit {
                 this.roleBS.Update({
                     id: this.role.id,
                     nombre: this.roleForm.controls.name.value,
-                    estado: this.roleForm.controls.status.value
+                    estado: this.roleForm.controls.status.value,
+                    tipo: this.roleForm.controls.role_type.value,
                 }).then(x => {
                     this.toastrService.success("", x.message);
                     this.GetRoles();
@@ -63,7 +72,8 @@ export class RolesComponent implements OnInit {
             else
                 this.roleBS.Save({
                     nombre: this.roleForm.controls.name.value,
-                    estado: this.roleForm.controls.status.value
+                    estado: this.roleForm.controls.status.value,
+                    tipo: this.roleForm.controls.role_type.value,
                 }).then(x => {
                     this.toastrService.success("", x.message);
                     this.GetRoles();
@@ -89,12 +99,12 @@ export class RolesComponent implements OnInit {
 
     EditRole(role: Role) {
         this.role = role;
-        this.roleForm.setValue({ name: role.name, status: role.status_id });
+        this.roleForm.setValue({ name: role.name, status: role.status_id, role_type: role.role_type_id });
     }
 
     Cancel() {
         this.role = null;
-        this.roleForm.setValue({ name: '', status: '' });
+        this.roleForm.setValue({ name: '', status: '', role_type: '' });
     }
 
     GetRoles() {

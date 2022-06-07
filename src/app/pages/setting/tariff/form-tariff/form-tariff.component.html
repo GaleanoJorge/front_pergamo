@@ -1,0 +1,117 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="tariff_type" class="form-text text-muted font-weight-bold">TIPO DE TARIFA:</label>
+          <nb-select [selected]="this.data.tariff_type" formControlName="tariff_type" id="tariff_type" fullWidth
+            tariff_type (selectedChange)="changeType($event)"
+            status="{{ isSubmitted && form.controls.tariff_type.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">No Aplica</nb-option>
+            <nb-option selected="{{ item.value == data.tariff_type }}" *ngFor="let item of tariff_type"
+              [value]="item.value">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="name" class="form-text text-muted font-weight-bold">NOMBRE DE TARIFA:</label>
+          <input nbInput oninput="this.value = this.value.toUpperCase()" fullWidth id="name" name formControlName="name"
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="type_of_attention" class="form-text text-muted font-weight-bold">TIPO DE ATENCIÓN:</label>
+          <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id"
+            id="type_of_attention_id" fullWidth quantity
+            status="{{ isSubmitted && form.controls.type_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.type_of_attention_id }}" *ngFor="let item of type_of_attention"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div *ngIf="this.form.controls.tariff_type.value == 1" class="col-12 col-sm-12 col-md-4">
+          <label for="program" class="form-text text-muted font-weight-bold">PROGRAMA:</label>
+          <nb-select [selected]="this.data.program_id" formControlName="program_id" id="program_id" fullWidth quantity
+            status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.program_id }}" *ngFor="let item of program" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div *ngIf="this.form.controls.tariff_type.value == 1" class="col-12 col-sm-12 col-md-4">
+          <label for="quantity" class="form-text text-muted font-weight-bold">CANTIDAD DE HORAS:</label>
+          <nb-select [selected]="this.data.quantity" formControlName="quantity" id="quantity" fullWidth quantity
+            status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">No Aplica</nb-option>
+            <nb-option selected="{{ item.value == data.quantity }}" *ngFor="let item of quantity" [value]="item.value">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div *ngIf="this.form.controls.tariff_type.value == 1" class="col-12 col-sm-12 col-md-4">
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">ZONA:</label>
+          <nb-select [selected]="this.data.pad_risk_id" formControlName="pad_risk_id" id="pad_risk_id" fullWidth
+            quantity
+            status="{{ isSubmitted && form.controls.pad_risk_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.pad_risk_id }}" *ngFor="let item of pad_risk" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div *ngIf="this.form.controls.tariff_type.value == 2" class="col-12 col-sm-12 col-md-12">
+          <label for="nombre_completo" class="form-text text-muted font-weight-bold">PACIENTE:</label>
+          <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="nombre_completo"
+            formControlName="nombre_completo" nombre_completo type="text" required
+            status="{{ isSubmitted && form.controls.nombre_completo.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <datalist id="codes" *ngIf="admissions">
+            <option *ngFor="let item of admissions" [value]="item.nombre_completo">{{item.nombre_completo}} </option>
+          </datalist>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-2">
+          <label for="failed" class="form-text text-muted font-weight-bold">FALLIDA:</label>
+          <nb-toggle labelPosition="left" [checked]="failed" (change)="failedChange($event)">
+          </nb-toggle>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-2">
+          <label for="phone_consult" class="form-text text-muted font-weight-bold">TELECONSULTA:</label>
+          <nb-toggle labelPosition="left" [checked]="phone_consult" (change)="phoneConsultChange($event)">
+          </nb-toggle>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-2">
+          <label for="extra_dose" class="form-text text-muted font-weight-bold">EXTRA DOSIS:</label>
+          <nb-toggle labelPosition="left" [checked]="extra_dose" (change)="extraDoseChange($event)">
+          </nb-toggle>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="amount" class="form-text text-muted font-weight-bold">HONORARIOS:</label>
+          <input type="number" nbInput fullWidth id="amount" formControlName="amount" amount placeholder="$"
+            status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+
+      </div>
+
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

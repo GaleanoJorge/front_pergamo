@@ -16,7 +16,7 @@ export class ProductPresentationComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Presentación del producto';
+  public title: string = 'Forma farmaceutica';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -56,7 +56,7 @@ export class ProductPresentationComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Presentación del producto',
+      name: 'Forma farmaceutica',
       route: '../../setting/product-presentation',
     },
   ];
@@ -80,7 +80,7 @@ export class ProductPresentationComponent implements OnInit {
   NewProductPresentation() {
     this.dialogFormService.open(FormProductPresentationComponent, {
       context: {
-        title: 'Crear nueva Presentación del producto',
+        title: 'Crear nueva Forma farmaceutica',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -89,7 +89,7 @@ export class ProductPresentationComponent implements OnInit {
   EditProductPresentation(data) {
     this.dialogFormService.open(FormProductPresentationComponent, {
       context: {
-        title: 'Editar Presentación del producto',
+        title: 'Editar Forma farmaceutica',
         data,
         saved: this.RefreshData.bind(this),
       },

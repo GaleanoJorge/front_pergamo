@@ -8,6 +8,7 @@ import { FirmsService } from '../../../../business-controller/firms.service';
 import { InsuranceCarrierService } from '../../../../business-controller/insurance-carrier.service';
 import { ContractService } from '../../../../business-controller/contract.service';
 import { TypeBriefcaseService } from '../../../../business-controller/type-briefcase.service';
+import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class FormContractComponent implements OnInit {
     private InsuranceCarrierS: InsuranceCarrierService,
     private contractS: ContractService,
     private regimeS: TypeBriefcaseService,
+    private ServiceBriefcaseS: ServicesBriefcaseService,
   ) {
   }
 
@@ -49,7 +51,7 @@ export class FormContractComponent implements OnInit {
     if (!this.data) {
       this.data = {
         number_contract: '',
-        name:'',
+        name: '',
         company_id: '',
         type_contract_id: '',
         occasional: '',
@@ -59,15 +61,15 @@ export class FormContractComponent implements OnInit {
         contract_status_id: '',
         firms_contractor_id: '',
         firms_contracting_id: '',
-        regime_id:'',
+        regime_id: '',
         start_date_invoice: '',
         finish_date_invoice: '',
         expiration_days_portafolio: '',
-        discount:'',
+        discount: '',
         observations: '',
         objective: '',
       };
-    } 
+    }
 
     this.companyS.GetCollection().then(x => {
       this.company = x;
@@ -81,34 +83,37 @@ export class FormContractComponent implements OnInit {
     this.firmsS.GetCollection().then(x => {
       this.firms = x;
     });
-    this.InsuranceCarrierS.GetCollection().then(x => {
-      this.insurance_carrier = x;
-    });
+    // this.InsuranceCarrierS.GetCollection().then(x => {
+    //   this.insurance_carrier = x;
+    // });
     this.regimeS.GetCollection().then(x => {
       this.regime = x;
     });
 
 
+
     this.form = this.formBuilder.group({
-      number_contract: [this.data.number_contract, 
+      number_contract: [this.data.number_contract,
       ],
       name: [this.data.name,
-         Validators.compose([Validators.required])
-    ],
+      Validators.compose([Validators.required])
+      ],
       company_id: [this.data.company_id,
-         Validators.compose([Validators.required])
-    ],
+      Validators.compose([Validators.required])
+      ],
       type_contract_id: [this.data.type_contract_id,
-         Validators.compose([Validators.required])
-    ],
-      occasional: [this.data.occasional, 
-        Validators.compose([Validators.required])
-    ],
-      amount: [this.data.amount, 
-    ],
+      Validators.compose([Validators.required])
+      ],
+      occasional: [this.data.occasional,
+      Validators.compose([Validators.required])
+      ],
+      amount: [this.data.amount,
+      ],
       start_date: [this.data.start_date],
       finish_date: [this.data.finish_date],
-      contract_status_id: [this.data.contract_status_id],
+      contract_status_id: [this.data.contract_status_id,
+        Validators.compose([Validators.required])
+      ],
       firms_contractor_id: [this.data.firms_contractor_id],
       firms_contracting_id: [this.data.firms_contracting_id],
       regime_id: [this.data.regime_id],
@@ -142,12 +147,12 @@ export class FormContractComponent implements OnInit {
             type_contract_id: this.form.controls.type_contract_id.value,
             occasional: this.form.controls.occasional.value,
             amount: this.form.controls.amount.value,
-            start_date:this.form.controls.start_date.value,
+            start_date: this.form.controls.start_date.value,
             finish_date: this.form.controls.finish_date.value,
             contract_status_id: this.form.controls.contract_status_id.value,
             firms_contractor_id: this.form.controls.firms_contractor_id.value,
             firms_contracting_id: this.form.controls.firms_contracting_id.value,
-            regime_id:this.form.controls.regime_id.value,
+            regime_id: this.form.controls.regime_id.value,
             start_date_invoice: this.form.controls.start_date_invoice.value,
             finish_date_invoice: this.form.controls.finish_date_invoice.value,
             expiration_days_portafolio: this.form.controls.expiration_days_portafolio.value,
@@ -172,12 +177,12 @@ export class FormContractComponent implements OnInit {
             type_contract_id: this.form.controls.type_contract_id.value,
             occasional: this.form.controls.occasional.value,
             amount: this.form.controls.amount.value,
-            start_date:this.form.controls.start_date.value,
+            start_date: this.form.controls.start_date.value,
             finish_date: this.form.controls.finish_date.value,
             contract_status_id: this.form.controls.contract_status_id.value,
             firms_contractor_id: this.form.controls.firms_contractor_id.value,
             firms_contracting_id: this.form.controls.firms_contracting_id.value,
-            regime_id:this.form.controls.regime_id.value,
+            regime_id: this.form.controls.regime_id.value,
             start_date_invoice: this.form.controls.start_date_invoice.value,
             finish_date_invoice: this.form.controls.finish_date_invoice.value,
             expiration_days_portafolio: this.form.controls.expiration_days_portafolio.value,

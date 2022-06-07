@@ -41,6 +41,16 @@ const routes: Routes = [{
       data: { permission: 'gloss.read' }
     },
     {
+      path: 'account-receivable',
+      loadChildren: () => import('./account-receivable/account-receivable.module')
+        .then(m => m.AccountReceivableModule),
+    },
+    {
+      path: 'human-talent-request',
+      loadChildren: () => import('./human-talent-request/human-talent-request.module')
+        .then(m => m.HumanTalentRequestModule),
+    },
+    {
       path: 'pad',
       loadChildren: () => import('./pad/pad.module')
         .then(m => m.PadModule),
@@ -49,6 +59,11 @@ const routes: Routes = [{
       path: 'diets',
       loadChildren: () => import('./diets/diets.module')
         .then(m => m.DietsModule),
+    },
+    {
+      path: 'billing-pad',
+      loadChildren: () => import('./billing-pad/billing-pad.module')
+        .then(m => m.BillingPadModule),
     },
     {
       path: 'setting',
@@ -75,6 +90,11 @@ const routes: Routes = [{
       path: 'pad-complementary',
       loadChildren: () => import('./pad-complementary/pad-complementary.module')
         .then(m => m.PadComplementaryModule),
+    },
+    {
+      path: 'authorization',
+      loadChildren: () => import('./authorization/authorization.module')
+        .then(m => m.AuthorizationModule),
     },
     {
       path: '',

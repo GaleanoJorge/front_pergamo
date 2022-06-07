@@ -1,0 +1,47 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1500px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+          <ngx-prod-lot-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
+          </ngx-prod-lot-package>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="subtotal" class="form-text text-muted font-weight-bold">SUB TOTAL $:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="subtotal"
+            formControlName="subtotal" subtotal type="number"
+            status="{{ isSubmitted && form.controls.subtotal.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="vat" class="form-text text-muted font-weight-bold">IVA $:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="vat" formControlName="vat" vat
+            status="{{ isSubmitted && form.controls.vat.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="total" class="form-text text-muted font-weight-bold">TOTAL $:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="total" formControlName="total"
+            type="number" total
+            status="{{ isSubmitted && form.controls.total.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="receipt_date" class="form-text text-muted font-weight-bold">FECHA RECEPCIÓN DEL PRODUCTO:</label>
+          <input type="date" nbInput fullWidth id="receipt_date" formControlName="receipt_date" receipt_date
+            status="{{ isSubmitted && form.controls.receipt_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">CANCELAR</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">GUARDAR</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

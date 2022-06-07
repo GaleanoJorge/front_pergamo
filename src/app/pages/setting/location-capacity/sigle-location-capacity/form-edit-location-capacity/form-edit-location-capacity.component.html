@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="medium" style="max-width: 600px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-md-12">
+          <label for="name" class="form-text text-muted font-weight-bold">{{this.data.locality? "COMUNA, LOCALIDAD O VEREDA" : "TELECONSULTA" }} :</label>
+          <input disabled nbInput fullWidth id="name" [value]="this.data.locality? this.data.locality.name : this.data.phone_consult" name
+            status= "{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-md-12">
+          <label for="name" class="form-text text-muted font-weight-bold">MES:</label>
+          <input disabled nbInput fullWidth id="name" [value]="this.capacity_month" name />
+        </div>
+
+        <div class="col-md-12">
+          <label for="name" class="form-text text-muted font-weight-bold">CAPACIDAD INSTALADA ACTUAL:</label>
+          <input type="number" disabled nbInput fullWidth id="name" [value]="this.data.PAD_patient_actual_capacity" name />
+        </div>
+
+        <div class="col-md-12">
+          <label for="name" class="form-text text-muted font-weight-bold">NUEVA CAPACIDAD INSTALADA:</label>
+          <input type="number" nbInput fullWidth id="name" (change)="changeLocationCapacity($event)" [value]="this.new_location_capacity" name />
+        </div>
+
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

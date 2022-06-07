@@ -7,4 +7,5 @@ export class ChRecord extends MainClass {
     admissions_id: number;
     user_id: number;
     date_finish: Date;
+    url: string;
 }

@@ -13,7 +13,7 @@ export class RoleBusinessService {
   constructor(private webAPI: WebAPIService) { }
 
   GetCollection(params = {}): Promise<Role[]> {
-    var servObj = new ServiceObject("role");
+    var servObj = new ServiceObject(params ? 'role?pagination=false' : 'role');
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;

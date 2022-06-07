@@ -1,0 +1,75 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="medium" style="max-width: 400px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="country" class="form-text text-muted font-weight-bold">PAIS:</label>
+          <nb-select [selected]="this.data.country_id" id="country_id" (selectedChange)="onCountryChange($event)"
+          formControlName="country_id" fullWidth>
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of country" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_country">
+          <label for="region" class="form-text text-muted font-weight-bold">DEPARTAMENTO:</label>
+          <nb-select [selected]="this.data.region_id" id="region_id" (selectedChange)="onRegionChange($event)"
+          formControlName="region_id" fullWidth>
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of region" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_region">
+          <label for="municipality" class="form-text text-muted font-weight-bold">MUNICIPIO:</label>
+          <nb-select [selected]="this.data.municipality_id" id="municipality_id" (selectedChange)="onMunicipalityChange($event)"
+          formControlName="municipality_id" fullWidth>
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of municipality" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div class="col-12" *ngIf="selected_municipality">
+          <label for="locality" class="form-text text-muted font-weight-bold">COMUNA, LOCALIDAD O VEREDA:</label>
+          <nb-select [selected]="this.data.locality_id" (selectedChange)="onLocalityChange($event)"
+            formControlName="locality_id" id="locality" fullWidth>
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.locality_id }}" *ngFor="let item of locality" [value]="item.id">{{
+              item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_locality">
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">ZONA:</label>
+          <nb-select [selected]="this.data.pad_risk_id" formControlName="pad_risk_id" id="pad_risk" fullWidth>
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.pad_risk_id }}" *ngFor="let item of pad_risk" [value]="item.id">{{
+              item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_locality">
+          <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+      </div>
+
+
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

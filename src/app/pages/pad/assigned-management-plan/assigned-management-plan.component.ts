@@ -12,6 +12,11 @@ import { AuthService } from '../../../services/auth.service';
 import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
+import { PatientService } from '../../../business-controller/patient.service';
+import { ManagementPlanService } from '../../../business-controller/management-plan.service';
+import { FormAssignedManagementPlanComponent } from './form-assigned-management-plan/form-assigned-management-plan.component';
+import { ActionsSemaphoreComponent } from './actions-semaphore.component';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-assigned-management-plan',
@@ -36,9 +41,10 @@ export class AssignedManagementPlanComponent implements OnInit {
   public file: File;
   public management_id;
   public user_id;
-  public user;
+  public user=null;
   public dialog;
   public currentRole;
+  public settings;
   public selectedOptions: any[] = [];
   public result: any = null;
   
@@ -46,12 +52,24 @@ export class AssignedManagementPlanComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
-  public settings = {
+  public settings1 = {
     pager: {
       display: true,
       perPage: 30,
     },
     columns: {
+      semaphore: {
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'getDate': this.statusSemaphor.bind(this),
+
+          };
+        },
+        renderComponent: ActionsSemaphoreComponent,
+      },
       actions: {
         title: 'Acciones',
         type: 'custom',
@@ -62,12 +80,65 @@ export class AssignedManagementPlanComponent implements OnInit {
             'user':this.user,
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
+            'edit': this.EditAssigned.bind(this),
+
           };
         },
         renderComponent: Actions4Component,
       },
       start_date: {
         title: this.headerFields[0],
+        type: 'string',
+      },
+      finish_date: {
+        title: this.headerFields[1],
+        type: 'string',
+      },
+      execution_date: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
+    },
+  };
+
+  public settings2 = {
+    pager: {
+      display: true,
+      perPage: 30,
+    },
+    columns: {
+      semaphore: {
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'getDate': this.statusSemaphor.bind(this),
+          };
+        },
+        renderComponent: ActionsSemaphoreComponent,
+      },
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'user':this.user,
+            'refresh': this.RefreshData.bind(this),
+            'currentRole': this.currentRole,
+            'edit': this.EditAssigned.bind(this),
+          };
+        },
+        renderComponent: Actions4Component,
+      },
+      start_date: {
+        title: this.headerFields[0],
+        type: 'string',
+      },
+      start_hour: {
+        title: 'Hora de aplicación',
         type: 'string',
       },
       finish_date: {
@@ -89,6 +160,9 @@ export class AssignedManagementPlanComponent implements OnInit {
     {
       name: 'Plan de manejo',
     },
+    {
+      name: 'Ejecución de plan de manejo',
+    },
   ];
 
   constructor(
@@ -97,9 +171,12 @@ export class AssignedManagementPlanComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
+    public datePipe: DateFormatPipe,
 
     private currency: CurrencyPipe,
+    private patientBS: PatientService,
     private userBS: UserBusinessService,
+    private ManagementS: ManagementPlanService,
 
     private authService: AuthService,
     private dialogService: NbDialogService,
@@ -115,19 +192,58 @@ export class AssignedManagementPlanComponent implements OnInit {
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
   public saved: any = null;
+  public user_logged;
+  public management;
+  public semaphore;
+
   
 
 
 
 
-  async ngOnInit() {
- 
+  async ngOnInit() { 
     this.management_id = this.route.snapshot.params.management_id;
+    await this.ManagementS.GetCollection({management_id:this.management_id}).then(x => {
+      this.management=x;
+    });
+    if(this.management[0].type_of_attention_id==17){
+      this.settings= this.settings2;
+    }else{
+      this.settings= this.settings1;
+    }
+    this.user = this.authService.GetUser();
+    if(this.user.roles[0].role_type_id==2){
+      this.user_logged= this.authService.GetUser().id;
+    }else{
+      this.user_logged=0;
+    }
+    
     this.user_id = this.route.snapshot.params.user;
 
-    await this.userBS.GetUserById(this.user_id).then(x => {
+    await this.patientBS.GetUserById(this.user_id).then(x => {
       this.user=x;
+      this.entity="assigned_management_plan/"+this.management_id+"/"+this.user_logged+"?patient="+this.user.admissions[0].id;
     });
+  }
+
+  statusSemaphor(data) {
+    var today = new Date().getTime();
+    var finish = new Date(data.finish_date).getTime();
+    var start = new Date(data.start_date).getTime();
+    var execution = new Date(data.execution_date).getTime();
+
+  
+
+    if (today < start) {
+      this.semaphore = 1; 
+    } else if (today <= finish && today >= start && isNaN(execution)) {
+      this.semaphore = 2; 
+    }  else if (isNaN(execution) && today > finish) {
+      this.semaphore = 4; 
+    } else if (execution!=NaN) {
+      this.semaphore = 3; 
+    }
+    return this.semaphore
   }
 
 
@@ -137,7 +253,17 @@ export class AssignedManagementPlanComponent implements OnInit {
   }
 
 
-
+  EditAssigned(data) {
+    this.dialogFormService.open(FormAssignedManagementPlanComponent, {
+      context: {
+        title: 'Editar agendamiento',
+        data,
+        phone_consult:this.management[0].phone_consult,
+        user:this.user,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
   RefreshData() {
     this.table.refresh();
   }

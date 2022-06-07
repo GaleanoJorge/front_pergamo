@@ -54,8 +54,6 @@ import { InvimaStatusComponent } from './invima-status/invima-status.component';
 import { StorageConditionsComponent } from './storage-conditions/storage-conditions.component';
 import { RiskComponent } from './risk/risk.component';
 import { ProductGenericComponent } from './product-generic/product-generic.component';
-import { TypeAssetsComponent } from './type-assets/type-assets.component';
-import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { DistrictComponent } from './district/district.component';
 import { OfficeComponent } from './office/office.component';
@@ -65,7 +63,6 @@ import { SpecialtyComponent } from './specialty/specialty.component';
 import { EntityComponent } from './entity/entity.component';
 import { RegionComponent } from './region/region.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
-import { PermissionsGuard } from "../../guards/permissions.guard";
 import { FormUserComponent } from './users/form-user/form-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { ThemesComponent } from './themes/themes.component';
@@ -113,6 +110,39 @@ import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component
 import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
 import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
 import { DietMenuComponent } from './diet-menu/diet-menu.component';
+import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.component';
+import { LocalityComponent } from './locality/locality.component';
+import { NeighborhoodOrResidenceComponent } from './neighborhood/neighborhood.component';
+import { PadRiskComponent } from './pad-risk/pad-risk.component';
+import { TariffComponent } from './tariff/tariff.component';
+import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
+import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
+import { AuthStatusComponent } from './auth-status/auth-status.component';
+import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
+import { BillingComponent } from './billing/billing.component';
+import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
+import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
+import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
+import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
+import { TcBillingComponent } from './tc-billing/tc-billing.component';
+import { TcRadicationComponent } from './tc-radication/tc-radication.component';
+import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
+import { PharmacyLotComponent } from './pharmacy-lot/pharmacy-lot.component';
+import { PharmacyIncomeComponent } from './pharmacy-income/pharmacy-income.component';
+import { NomProductComponent } from './nom-product/nom-product.component';
+import { FixedConditionComponent } from './fixed-condition/fixed-condition.component';
+import { FixedPropertyComponent } from './fixed-property/fixed-property.component';
+import { FixedCodeComponent } from './fixed-code/fixed-code.component';
+import { FixedAreaCampusComponent } from './fixed-area-campus/fixed-area-campus.component';
+import { FixedClasificationComponent } from './fixed-clasification/fixed-clasification.component';
+import { FixedTypeComponent } from './fixed-type/fixed-type.component';
+import { FixedLocationCampusComponent } from './fixed-location-campus/fixed-location-campus.component';
+import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
+import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories.component';
+import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
+import { MinimumSalaryComponent } from './minimum-salary/minimum-salary.component';
+import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component';
+import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
 
 const routes: Routes = [{
   path: '',
@@ -164,11 +194,6 @@ const routes: Routes = [{
 
     },
     {
-      path: 'diet-day',
-      component: DietDayComponent,
-
-    },
-    {
       path: 'diet-dish',
       component: DietDishComponent,
 
@@ -196,6 +221,26 @@ const routes: Routes = [{
     {
       path: 'diet-menu',
       component: DietMenuComponent,
+
+    },
+    {
+      path: 'locality',
+      component: LocalityComponent,
+
+    },
+    {
+      path: 'neighborhood',
+      component: NeighborhoodOrResidenceComponent,
+
+    },
+    {
+      path: 'pad-risk',
+      component: PadRiskComponent,
+
+    },
+    {
+      path: 'tariff',
+      component: TariffComponent,
 
     },
     {
@@ -254,6 +299,11 @@ const routes: Routes = [{
     {
       path: 'contract-status',
       component: ContractStatusComponent,
+
+    },
+    {
+      path: 'auth-status',
+      component: AuthStatusComponent,
 
     },
     {
@@ -332,11 +382,6 @@ const routes: Routes = [{
 
     },
     {
-      path: 'type-assets',
-      component: TypeAssetsComponent,
-
-    },
-    {
       path: 'fixed-assets',
       component: FixedAssetsComponent,
 
@@ -370,7 +415,54 @@ const routes: Routes = [{
       path: 'product',
       component: ProductComponent,
 
+    }
+    ,
+    {
+      path: 'nom-product',
+      component: NomProductComponent,
+
     },
+    {
+      path: 'billing',
+      component: BillingComponent,
+
+    },
+    {
+      path: 'pharmacy-lot',
+      component: PharmacyLotComponent,
+
+    },
+    {
+      path: 'pharmacy-stock',
+      component: PharmacyStockComponent,
+
+    },
+    {
+      path: 'pharmacy-inventory',
+      component: PharmacyInventoryComponent,
+
+    },
+    {
+      path: 'pharmacy-product-request',
+      component: PharmacyProductRequestComponent,
+
+    },
+    {
+      path: 'pharmacy-request',
+      component: PharmacyRequestComponent,
+
+    },
+    {
+      path: 'pharmacy-update-max-min',
+      component: FormPharmacyUpdateMaxMinComponent,
+    }
+    ,
+    {
+      path: 'pharmacy-income',
+      component: PharmacyIncomeComponent,
+    }
+
+    ,
     {
       path: 'invima-status',
       component: InvimaStatusComponent,
@@ -407,6 +499,11 @@ const routes: Routes = [{
 
     },
     {
+      path: 'location-capacity/single-location-capacity/:user_id',
+      component: SingleLocationCapacityComponent,
+
+    },
+    {
       path: 'users/create/:id',
       component: FormUserComponent,
     },
@@ -419,6 +516,11 @@ const routes: Routes = [{
       component: RolesComponent,
       // canActivate: [PermissionsGuard],
       // // data: { permission: 'roles.read'},
+
+    },
+    {
+      path: 'location-capacity',
+      component: LocationCapacityComponent,
 
     },
     {
@@ -659,7 +761,70 @@ const routes: Routes = [{
       path: 'themes',
       component: ThemesComponent,
     },
-
+    {
+      path: 'hourly-frequency',
+      component: HourlyFrequencyComponent,
+    },
+    {
+      path: 'tc-billing',
+      component: TcBillingComponent,
+    },
+    {
+      path: 'tc-radication',
+      component: TcRadicationComponent,
+    },
+    {
+      path: 'tc-human-talent',
+      component: TcHumanTalentComponent,
+    },
+    {
+      path: 'fixed-area-campus',
+      component: FixedAreaCampusComponent,
+    },
+    {
+      path: 'fixed-code',
+      component: FixedCodeComponent,
+    },
+    {
+      path: 'fixed-condition',
+      component: FixedConditionComponent,
+    },
+    {
+      path: 'fixed-property',
+      component: FixedPropertyComponent,
+    },
+    {
+      path: 'fixed-clasification',
+      component: FixedClasificationComponent,
+    },
+    {
+      path: 'fixed-type',
+      component: FixedTypeComponent,
+    },
+    {
+      path: 'fixed-location-campus',
+      component: FixedLocationCampusComponent,
+    },
+    {
+      path: 'fixed-accessories',
+      component: FixedAccessoriesComponent,
+    },
+    {
+      path: 'minimum-salary',
+      component: MinimumSalaryComponent,
+    },
+    {
+      path: 'tax-value-unit',
+      component: TaxValueUnitComponent,
+    },
+    {
+      path: 'municipality-ica',
+      component: MunicipalityIcaComponent,
+    },
+    {
+      path: 'fixed-inventary',
+      component: FixedInventaryComponent,
+    }
   ],
 }];
 

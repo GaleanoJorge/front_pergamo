@@ -15,10 +15,10 @@ import { date } from '@rxweb/reactive-form-validators';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="value.currentRole!=3 && value.currentRole!=7" nbTooltip="Plan de manejo" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/management-plan/' + value.data.admissions[0].id+'/'+value.data.id">
+    <a *ngIf="value.currentRole!=2" nbTooltip="Plan de manejo" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/management-plan/' + value.data.admissions[0].id+'/'+value.data.id">
       <nb-icon icon="menu-outline"></nb-icon>
     </a>
-    <a *ngIf="value.currentRole==3 || value.currentRole==7" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/assigned-management-plan/' + this.value.management.management[0].management_id+'/'+value.data.id ">
+    <a *ngIf="value.currentRole==2" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/assigned-management-plan/' + this.value.management.management[0].management_id+'/'+value.data.id ">
     <nb-icon icon="menu-outline"></nb-icon>
   </a>
   </div>
@@ -41,7 +41,7 @@ export class Actions2Component implements ViewCell {
   }
 
   async ngOnInit() {
-console.log(this.value);
+// console.log(this.value);
     }
 
   

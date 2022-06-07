@@ -1,9 +1,88 @@
-<ngx-breadcrumb [routes]="routes"></ngx-breadcrumb>
-<nb-card>
-    <nb-card-header>Metas</nb-card-header>
-    <nb-card-body>
-        <iframe title="Analisis_Decr_Glosas - Inicio" width="100%" height="800px"
-            src="https://app.powerbi.com/view?r=eyJrIjoiOWUzZmMzN2MtNjY4Yy00ODY1LTgwYzQtOGMwZWQwMjBjNWI3IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
-            frameborder="0" allowFullScreen="true"></iframe>
-    </nb-card-body>
-</nb-card>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+        <nb-tabset class="tabset">
+            <nb-tab tabTitle="INICIO">
+               
+                        <nb-card-body class="cuadrito">
+                            <div style="width: 100%;"><div style="position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0;"><iframe frameborder="0" width="1280" height="720" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://view.genial.ly/627bdda873bea10011c0a09e" type="text/html" allowscriptaccess="always" allowfullscreen="true" scrolling="yes" allownetworking="all"></iframe> </div> </div>
+                        </nb-card-body>
+                 
+            </nb-tab>
+            <nb-tab tabTitle="GERENCIA">
+                <nb-tabset class="tabset">
+                    <nb-tab tabTitle="REPORTE FRT">
+                        <nb-card-body>
+                            <iframe title="TABLERO DOC - INICIO" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiMzk2Y2EzYTktNmNlMS00Yzk2LWE2N2UtMjZmYjNiODQzNWMwIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9" frameborder="0" allowFullScreen="true"></iframe>
+                        </nb-card-body>
+                    </nb-tab>
+                    <nb-tab tabTitle="INICIO DE SESIÓN">
+                        <nb-card-body>
+                            <iframe title="Login - Resumen" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiMWJmZDc3ZTQtMzM5Ny00ZjYwLTlmYWEtMDdlZTc0MGZiMTM2IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9" frameborder="0" allowFullScreen="true"></iframe>
+                        </nb-card-body>
+                    </nb-tab>
+                </nb-tabset>
+            </nb-tab>
+            <nb-tab tabTitle="GLOSAS">
+                <nb-tabset class="tabset">
+                    <nb-tab tabTitle="REPORTE GLOSAS">
+                        <nb-card-body>
+                            <iframe title="Analisis_Decr_Glosas - Inicio" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiOWUzZmMzN2MtNjY4Yy00ODY1LTgwYzQtOGMwZWQwMjBjNWI3IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
+                                frameborder="0" allowFullScreen="true"></iframe>
+                        </nb-card-body>
+                    </nb-tab>
+                    <nb-tab tabTitle="INDICADORES GLOSAS">
+                    </nb-tab>
+                </nb-tabset>
+            </nb-tab>
+            <nb-tab tabTitle="ADMINISTRATIVA">
+                <nb-tabset class="tabset">
+                    <nb-tab tabTitle="REPORTE VEHICULOS">
+                        <nb-card-body>
+                            <iframe title="Vehiculos" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiNjNhOGU4YjAtOTM1NS00NzJkLThhYjItNjdkN2IxNzFiNmM2IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>
+                        </nb-card-body>
+                    </nb-tab>
+                    <nb-tab tabTitle="INDICADORES">
+                    </nb-tab>
+                </nb-tabset>
+            </nb-tab>
+            <nb-tab tabTitle="JURIDICA">
+                <nb-tabset class="tabset">
+                    <nb-tab tabTitle="REPORTE">
+                        <nb-card-body>
+                            <iframe title="Indicadores Juridica - Secretaria de Salud" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiZDZlMjk0MDItZWYyMS00YjMyLWEwM2MtNzhiMThmYWNjMmEyIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9" frameborder="0" allowFullScreen="true"></iframe>
+                          </nb-card-body>
+                    </nb-tab>
+                    <nb-tab tabTitle="INDICADORES">
+                    </nb-tab>
+                </nb-tabset>
+            </nb-tab>
+
+            <nb-tab tabTitle="CALIDAD">
+                <nb-tabset class="tabset">
+                    <nb-tab tabTitle="REPORTE PBX">
+                        <nb-card-body>
+                            <iframe title="PBX_HL - Nacional" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiNjllN2U3NTktNTQ0MS00ZjFlLWI0ZGItYmQzZjJjNTlkNWI0IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9" frameborder="0" allowFullScreen="true"></iframe>
+                          </nb-card-body>
+                    </nb-tab>
+                    <nb-tab tabTitle="REPORTE EPIDEMIOLOGICO">
+                        <nb-card-body>
+                            <iframe title="Epid_2021 - General" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiOTA0YWVkMjQtZGNjNi00OWZiLWFjMmQtNzk4MTg5NjkxNTUzIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9" frameborder="0" allowFullScreen="true"></iframe>
+                          </nb-card-body>
+                    </nb-tab>
+                    <nb-tab tabTitle="INDICADORES">
+                    </nb-tab>
+                </nb-tabset>
+            </nb-tab>
+            <nb-tab tabTitle="..">
+
+            </nb-tab>
+            <nb-tab tabTitle="..">
+
+            </nb-tab>
+            <nb-tab tabTitle="..">
+
+            </nb-tab>
+        </nb-tabset>
+    </div>
+</ngx-base-list>

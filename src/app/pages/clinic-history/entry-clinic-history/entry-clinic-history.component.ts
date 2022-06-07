@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { ChReasonConsultationService } from '../../../business-controller/ch-reason-consultation.service';
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
+import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.service';
+import { ChPhysicalExamService } from '../../../business-controller/ch_physical_exam.service';
 
 
 @Component({
@@ -15,6 +17,8 @@ import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs
 export class EntryClinicHistoryComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
+
   //@Input() vital: any;
   linearMode = false;
   public messageError = null;
@@ -22,7 +26,9 @@ export class EntryClinicHistoryComponent implements OnInit {
   public routes = [];
   public user_id;
   public chreasonconsultation: any[];
+  public physical: any[];
   public chvitsigns: any[];
+  public chdiagnosis: any[];
   public nameForm: String;
   public movieForm: String;
 
@@ -39,8 +45,11 @@ export class EntryClinicHistoryComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private chreasonconsultS: ChReasonConsultationService,
+    private chphysicalS: ChPhysicalExamService,
     private chvitalSignsS: ChVitalSignsService,
+    private chdiagnosisS: ChDiagnosisService,
     public userChangeS: UserChangeService,
+
 
   ) {
 
@@ -59,6 +68,12 @@ export class EntryClinicHistoryComponent implements OnInit {
     });
     await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chvitsigns = x;
+    });
+    await this.chdiagnosisS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.chdiagnosis = x;
+    });
+    await this.chphysicalS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.physical = x;
     });
 
     this.form = this.formBuilder.group({
@@ -88,13 +103,23 @@ export class EntryClinicHistoryComponent implements OnInit {
 
   saveMcEa() {
   }
+
   saveRxSystem() {
   }
+
   saveExFisic() {
   }
+
   saveVitalSgns() {
   }
+  
   saveDiagnostic() {
+  }
+
+  receiveMessage($event) {
+    if ($event == true) {
+      this.messageEvent.emit($event);
+    }
   }
 }
 

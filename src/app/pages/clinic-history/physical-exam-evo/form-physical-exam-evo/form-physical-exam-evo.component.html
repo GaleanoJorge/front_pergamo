@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <label class="form-text text-muted font-weight-bold align">REVISIÓN POR ESTADO FÍSICO</label>
+    <div class="row">
+      <div class="col-md-12">
+        <nb-select [selected]="this.data.type_ch_physical_exam_id" formControlName="type_ch_physical_exam_id" 
+          id="type_ch_physical_exam_id" (selectedChange)="onDescriptionChange($event)" fullWidth
+          status="{{ isSubmitted && form.controls.type_ch_physical_exam_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.type_ch_physical_exam_id }}"
+            *ngFor="let item of type_ch_physical_exam" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+      <div class="col-md-12">
+        <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
+        
+          status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
+          <nb-radio value="NORMAL">NORMAL</nb-radio>
+        </nb-radio-group>
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-text text-muted font-weight-bold text ">DESCRIPCIÓN:</label>
+        <textarea id="description"  (selectedChange)="onDescriptionChange($event)" nbInput fullWidth formControlName="description" description onpaste="return false" rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+</form>

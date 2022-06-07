@@ -1,5 +1,9 @@
+
+  <ngx-form-admissions-patient *ngIf="savedUser" [user_id]="user_id" [stored]="this.saved" (messageEvent)="receiveMessage($event)"></ngx-form-admissions-patient>
+
+<div *ngIf="showTable"  style="margin-top: 15px;">
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="margin: 30px; max-width: 1400px; max-height: 1300px; overflow: auto;" >
+  <nb-card style="margin: 30px; max-width: 1400px; overflow-y: auto; height: 600px;" >
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body style="border: 20px;">
 
@@ -28,7 +32,7 @@
         </div>
       </div>
       <div style="margin: 0px;" class="row">
-        <div *ngIf="form.controls.patient_data_type.value">
+        <div>
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -160,10 +164,9 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label for="residence_address" class="form-text text-muted font-weight-bold">Tipo de Via</label>
-                <nb-select id="residence_address" formControlName="residence_address" residence_address fullWidth
+                <nb-select id="residence_address" formControlName="residence_address" fullWidth
                   title="Tipo de Via (Ej.Calle)"
                   status="{{ isSubmitted && form.controls.residence_address.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-
                   >
                   <nb-option value="">Seleccione...</nb-option>
                   <nb-option value="Avenida">Avenida</nb-option>
@@ -185,7 +188,7 @@
                 <label for="residence_address" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">
                 </label>
                 <input nbInput fullWidth id="street" formControlName="street" street placeholder="Ej: 22 Sur"
-                  maxlength="10" required />
+                  maxlength="10" status="{{ isSubmitted && form.controls.street.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
               </div>
             </div>
             <label for="residence_address" style="margin-top: 40px;"
@@ -194,7 +197,7 @@
               <div class="form-group">
                 <label for="residence_address" class="form-text text-muted font-weight-bold">Número</label>
                 <input nbInput fullWidth id="num1" formControlName="num1" num1 placeholder="Ej: 45 B" maxlength="10"
-                  required />
+                status="{{ isSubmitted && form.controls.num1.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
               </div>
             </div>
             <label for="residence_address" style="margin-top: 40px;"
@@ -204,7 +207,7 @@
                 <label for="residence_address" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">
                 </label>
                 <input nbInput fullWidth id="num2" formControlName="num2" num2 placeholder="Ej: 45 B" maxlength="10"
-                  required />
+                status="{{ isSubmitted && form.controls.num2.errors ? 'danger' : isSubmitted ? 'success' : '' }}"/>
               </div>
             </div>
 
@@ -212,7 +215,7 @@
               <div class="form-group">
                 <label for="residence_address" class="form-text text-muted font-weight-bold">Puntos Cardinales</label>
                 <nb-select select="option, optgroup" id="residence_address_cardinality" formControlName="residence_address_cardinality"
-                  residence_address_cardinality fullWidth title="Seleccione..."
+                   fullWidth title="Seleccione..."
                   status="{{ isSubmitted && form.controls.residence_address_cardinality.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                   >
                   <!-- status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" -->
@@ -234,7 +237,7 @@
                   class="form-text text-muted font-weight-bold">Referencias Adicionales (Apartamento, Torre,
                   Multifamiliar)</label>
                 <input nbInput fullWidth id="reference" formControlName="reference" reference
-                  placeholder="Ej: Torre 4 Apto 302" />
+                  placeholder="Ej: Torre 4 Apto 302" status="{{ isSubmitted && form.controls.reference.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
               </div>
             </div>
             <!-- <div class="col-md-4">
@@ -283,3 +286,4 @@
     </nb-card-footer>
   </nb-card>
 </form>
+</div>

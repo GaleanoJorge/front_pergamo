@@ -1,0 +1,84 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+
+    <label class="form-text text-muted font-weight-bold align"></label>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="center">
+          <fieldset class="field_set">
+            <legend class="prue1">ORDENES MEDICAS</legend>
+
+            <nb-radio-group formControlName="ambulatory_medical_order" revision id="ambulatory_medical_order"
+              class="d-flex text" name="ambulatory_medical_order">
+              <nb-radio value="Si">¿Formula Ambulatoria?</nb-radio>
+            </nb-radio-group>
+
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12">
+                  <hr />
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-bold">Procedimiento:</label>
+                <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id"
+                  status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-option value="">SELECCIONE...</nb-option>
+                  <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedure_id"
+                    [value]="item.id">
+                    {{ item.name }}</nb-option>
+                </nb-select>
+              </div>
+
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-bold">Cantidad</label>
+                <input type="number" placeholder="DOSIS" class="Box" id="amount" formControlName="amount" required
+                  nbInput ngModel
+                  status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              </div>
+
+        
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-bold">Frecuencia Horaria</label>
+                <nb-select [selected]="this.data.hourly_frequency_id" formControlName="hourly_frequency_id"
+                  id="hourly_frequency_id" ngModel 
+                  status="{{ isSubmitted && form.controls.hourly_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-option value="">SELECCIONE...</nb-option>
+                  <nb-option selected="{{ item.id == this.data.hourly_frequency_id }}"
+                    *ngFor="let item of hourly_frequency_id" [value]="item.id">
+                    {{ item.value }}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12">
+                  <hr />
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="center">
+        <fieldset class="field_set">
+          <legend class="prue1">Observaciones</legend>
+          <textarea id="observations" nbInput fullWidth formControlName="observations" observations onpaste="return false" rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+
+  </div>
+</form>

@@ -7,6 +7,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Actions4Component } from './actions.component';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { Location } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -30,10 +33,18 @@ export class ClinicHistoryListComponent implements OnInit {
   public ambit;
   public program;
   public flat;
+  public user;
+  public own_user;
   public bed;
   public bed_id;
-  public pavilion; 
-  
+  public pavilion;
+  public record_id;
+  public isSubmitted: boolean = false;
+  public saved: any = null;
+  public loading: boolean = false;
+  public currentRole: any;
+  public show: any;
+
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
   }
@@ -134,7 +145,7 @@ export class ClinicHistoryListComponent implements OnInit {
         title: this.headerFields[10],
         type: 'date',
         valuePrepareFunction: (value, row) => {
-          if (value == '0000-00-00 00:00:00' && this.cont != 1) {
+          if (value == '0000-00-00 00:00' && this.cont != 1) {
             this.date_end = false;
             this.cont = + 1;
           } else if (this.cont == 0) {
@@ -157,6 +168,12 @@ export class ClinicHistoryListComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private UserBS: UserBusinessService,
     private deleteConfirmService: NbDialogService,
+    private chRecord: ChRecordService,
+    private toastService: NbToastrService,
+    private location: Location,
+    private authService: AuthService,
+
+
   ) {
     this.routes = [
       {
@@ -177,13 +194,41 @@ export class ClinicHistoryListComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
-    this.user_id = this.route.snapshot.params.user_id;
+  async ngOnInit() {
+    this.record_id = this.route.snapshot.params.id;
+    this.currentRole = this.authService.GetRole();
+    this.own_user = this.authService.GetUser();
 
 
-    this.UserBS.GetUserById(this.user_id).then(x => {
-      var user = x;
-      this.title = 'Admisiones de paciente: ' + user.firstname + ' ' + user.lastname;
+    await this.chRecord.GetCollection({
+      record_id: this.record_id
+    }).then(x => {
+      this.user = x[0]['admissions']['patients'];
+      this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
+    });
+
+
+    this.user_id=this.user.id;
+
+  }
+
+  async finish() {
+
+    await this.chRecord.Update({
+      id: this.record_id,
+      status: 'CERRADO',
+      user: this.user,
+      role: this.currentRole,
+      user_id: this.own_user.id,
+    }).then(x => {
+      this.toastService.success('', x.message);
+      this.location.back();
+      if (this.saved) {
+        this.saved();
+      }
+    }).catch(x => {
+      this.isSubmitted = false;
+      this.loading = false;
     });
   }
 
@@ -224,6 +269,46 @@ export class ClinicHistoryListComponent implements OnInit {
   //     this.toastrService.danger(x.message);
   //   });
   // }
+
+  tablock(e) {
+    console.log(e.tabTitle);
+    switch (e.tabTitle) {
+      case "INGRESO": {
+        this.show = 1;
+        break;
+      }
+      case "ANTECEDENTES": {
+        this.show = 2;
+        break;
+      }
+      case "EVOLUCIÓN": {
+        this.show = 3;
+        break;
+      }
+      case "ESCALAS": {
+        this.show = 4;
+        break;
+      }
+      case "FORMULACIÓN": {
+        this.show = 5;
+        break;
+      }
+      case "ORDEN MEDICAS": {
+        this.show = 6;
+        break;
+      }
+    
+      case "FALLIDA": {
+        this.show = 7;
+        break;
+      }
+      
+      case "SALIDA": {
+        this.show = 8;
+        break;
+      }
+    }
+  }
 
   DeleteConfirmAdmissions(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {

@@ -1,13 +1,8 @@
 import { UserBusinessService } from '../../../business-controller/user-business.service';
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { DiagnosisService } from '../../../business-controller/diagnosis.service';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { Actions2Component } from './actions.component';
-import { FormDiagnosticComponent } from './form-diagnostic/form-diagnostic.component';
-import { ActivatedRoute } from '@angular/router';
-import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.service';
+import { FormGroup } from '@angular/forms';
+import { UserChangeService } from '../../../business-controller/user-change.service';
 
 @Component({
   selector: 'ngx-diagnostic',
@@ -15,96 +10,79 @@ import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.se
   styleUrls: ['./diagnostic.component.scss'],
 })
 export class DiagnosticListComponent implements OnInit {
-  @Output() messageEvent = new EventEmitter<any>();
-  @Input() parentData: any;
-  public messageError = null;
-  public isSubmitted = false;
-  public title: string = 'BUSCAR CIE10';
-  public subtitle: string = 'SELECCIÓN MULTIPLE';
-  public headerFields: any[] = ['ID', 'Código', 'Nombre'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
-  public icon: string = 'nb-star';
-  public data = [];
-  public flat;
-  public sede;
-  public selectedOptions2: any[] = [];
-  public selectedOptions: any[] = [];
-  public component_package_id: number;
-  public routes = [];
-  public dialog;
-
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() data: any = null;
+  @Input() record_id: any;
+  linearMode = false;
+  public messageError = null;
+  public title;
+  public routes = [];
+  public user_id;
+  public chreasonconsultation: any[];
+  public chvitsigns: any[];
+  public nameForm: String;
+  public headerFields: any[] = ['Diagnostico', 'Clase', 'Tipo', 'Observación'];
+  public movieForm: String;
+
+  public isSubmitted: boolean = false;
+  public form: FormGroup;
+  public all_changes: any[];
+  public saveEntry: any = 0;
+  public loading: boolean = false;
+
   public settings = {
     pager: {
       display: true,
-      perPage: 5,
+      perPage: 30,
     },
     columns: {
-      actions: {
-        title: 'CHECK',
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          // DATA FROM HERE GOES TO renderComponent
-          return {
-            'data': row,
-            'valid': (!this.selectedOptions.includes(row.id)) ? false : true,
-            'selection': (event, row: any) => this.eventSelections(event, row),
-          };
-        },
-        renderComponent: Actions2Component,
-      },
-      id: {
+      diagnosis: {
         title: this.headerFields[0],
-        type: 'string',
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
       },
-      code: {
+      ch_diagnosis_class: {
         title: this.headerFields[1],
-        type: 'string',
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
       },
-      name: {
+      ch_diagnosis_type: {
         title: this.headerFields[2],
-        type: 'string',
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
       },
+      diagnosis_observation: {
+        title: this.headerFields[3],
+        width: 'string',
+      }
     },
   };
 
+
   constructor(
-    private route: ActivatedRoute,
-    private dialogFormService: NbDialogService,
-    private dialogService: NbDialogService,
-    private chDiagnosticS: ChDiagnosisService,
+    public userChangeS: UserChangeService,
   ) {
+
   }
 
-  ngOnInit(): void {
-    this.component_package_id = this.route.snapshot.params.id;
-    this.selectedOptions = this.parentData;
-  }
+  async ngOnInit() {
 
-  eventSelections(event, row) {
-    if (event) {
-      this.selectedOptions.push(row.id);
-    } else {
-      let i = this.selectedOptions.indexOf(row.id);
-      i !== -1 && this.selectedOptions.splice(i, 1);
-    }
-    this.messageEvent.emit(this.selectedOptions);
   }
 
   RefreshData() {
     this.table.refresh();
   }
 
-  ConfirmAction(dialog: TemplateRef<any>) {
-    this.dialog = this.dialogService.open(dialog);
+  receiveMessage($event) {
+    if ($event == true) {
+      this.RefreshData();
+    }
   }
 
-  NewDiagnosis() {
-    this.dialogFormService.open(FormDiagnosticComponent, {
-      context: {
-        title: 'Crear nuevo diagnóstico',
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
 }

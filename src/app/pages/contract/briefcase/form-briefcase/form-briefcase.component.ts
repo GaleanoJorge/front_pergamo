@@ -61,6 +61,7 @@ export class FormBriefcaseComponent implements OnInit {
         modality_id: '',
         campus_id: [],
         status_id: '',
+        type_auth: '',
       };
 
     }
@@ -82,9 +83,10 @@ export class FormBriefcaseComponent implements OnInit {
       name: [this.data.name, Validators.compose([Validators.required])],
       coverage_id: [this.data.coverage_id, Validators.compose([Validators.required])],
       modality_id: [this.data.modality_id, Validators.compose([Validators.required])],
-      campus_id: [this.getcampus()],
+      campus_id: [[this.getcampus()]],
       status_id: [this.data.status_id, Validators.compose([Validators.required])],
       contract_id: [this.data.contract_id],
+      type_auth: [this.data.type_auth, Validators.compose([Validators.required])],
     });
 
   }
@@ -119,6 +121,7 @@ export class FormBriefcaseComponent implements OnInit {
           modality_id: this.form.controls.modality_id.value,
           campus_id: this.form.controls.campus_id.value,
           status_id: this.form.controls.status_id.value,
+          type_auth: this.form.controls.type_auth.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -137,6 +140,7 @@ export class FormBriefcaseComponent implements OnInit {
           modality_id: this.form.controls.modality_id.value,
           campus_id: this.form.controls.campus_id.value,
           status_id: this.form.controls.status_id.value,
+          type_auth: this.form.controls.type_auth.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

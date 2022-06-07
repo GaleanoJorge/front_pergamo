@@ -16,7 +16,7 @@ export class ScopeOfAttentionService {
   GetCollection(params = {}): Promise<ScopeOfAttention[]> {
     let servObj = new ServiceObject(params ? 'scope_of_attention?pagination=false' : 'scope_of_attention');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

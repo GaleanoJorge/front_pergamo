@@ -6,12 +6,12 @@
                     [title]="title"
                     [subtitle]="subtitle"
                     [settings]="settings"
-                    entity="admissions/ByPacient/{{user_id}}"
+                    entity="admissions/ByPacient/{{patient_id}}"
                     customData="admissions"
                     [queryParams]="GetParams()">
       <div actions>
         <div class="actions">
-          <button *ngIf="this.date_end" nbButton status="danger" (click)="NewAdmissions()">Crear</button>
+          <button *ngIf="this.date_end" nbButton status="danger" (click)="NewAdmissions()">Admitir</button>
         </div>
       </div>
     </ngx-base-table>

@@ -24,6 +24,7 @@ import {
   NbInputModule,
   NbButtonModule,
   NbAlertModule,
+  NbRadioModule,
 } from '@nebular/theme';
 import { LoginComponent } from './pages/login/login.component';
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
@@ -56,6 +57,7 @@ import { PagesModule } from './pages/pages.module';
     ReactiveFormsModule,
     FormsModule,
     PagesModule,
+    NbRadioModule,
   ],
   bootstrap: [AppComponent],
   providers: [

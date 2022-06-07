@@ -103,3 +103,8 @@ input[type=number] { -moz-appearance:textfield; }
 .avatar-pic {
   width: 150px;
   }
+
+
+  :host ::ng-deep .cdk-overlay-pane{
+    overflow: auto !important;
+  }

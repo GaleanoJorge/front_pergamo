@@ -30,6 +30,23 @@ export class ContractService {
         throw x.message;
       });
   }
+  GetByCompany(contract: any): Promise<Contract[]> {
+    let servObj = new ServiceObject('contractByCompany', contract.id);
+
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.contract = <Contract[]>servObj.data.contract;
+
+        return Promise.resolve(this.contract);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
   
   // GetContractById(id): Promise<Contract[]> {
   //   let servObj = new ServiceObject('Policy/FileByContract', id);

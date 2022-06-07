@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
@@ -20,7 +20,12 @@ export class FormPatientDataComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() admission_id: any ;
+  @Input() admission_id: any =null;
+  @Input() savedUser: any =true;
+  @Input() showTable: any =null;
+  @Input() user_id: any =null;
+  
+
 
   public form: FormGroup;
   // public status: Status[];
@@ -78,6 +83,8 @@ export class FormPatientDataComponent implements OnInit {
         relationship_id: '',
       };
     }
+
+
 
     this.affiliateTypeS.GetCollection().then(x => {
       this.affiliate_type = x;
@@ -172,6 +179,8 @@ export class FormPatientDataComponent implements OnInit {
         Validators.compose([Validators.required])
       ],
     });
+
+
   }
 
 
@@ -287,6 +296,16 @@ export class FormPatientDataComponent implements OnInit {
         });
       }
 
+    }
+  }
+
+  receiveMessage($event) {
+    if ($event[0] == true) {
+        this.save();
+    }else if($event[1] == true){
+      this.showTable=true;
+      this.savedUser=false;
+      this.admission_id=$event[2];
     }
   }
 

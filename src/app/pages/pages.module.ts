@@ -39,8 +39,14 @@ import {CheckPermsDirective} from '../directives/check-perms.directive';
 import {PermissionsGuard} from '../guards/permissions.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SpecialitiesDialogComponent } from './components/form-users/especialities-dialog.component';
-import { SpecialFieldComponent } from './setting/special-field/special-field.component';
 import { SignaturePadModule } from '@ng-plus/signature-pad';
+import { AmountWorkLocationComponent } from './components/form-users/work-location-package/amount-work-location.component';
+import { SelectWorkLocationComponent } from './components/form-users/work-location-package/select-work-location.component';
+import { WorkLocationPackageComponent } from './components/form-users/work-location-package/work-location-package.component';
+import { BillingPadComponent } from './billing-pad/billing-pad.component';
+import { UsersCampusComponent } from './components/form-users/users-campus/users-campus.component';
+import { SelectUsersCampusComponent } from './components/form-users/users-campus/select-user-campus.component';
+
 
 
 
@@ -53,7 +59,7 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
     ChartModule,
     NbCardModule,
     SignaturePadModule,
-    NbMenuModule,
+    NbMenuModule.forRoot(),
     NbAlertModule,
     Ng2SmartTableModule,
     NbInputModule,
@@ -73,6 +79,7 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
     NbAutocompleteModule,
     NbTooltipModule,
     NbFormFieldModule,
+    NbRadioModule,
   ],
   declarations: [
     PagesComponent,
@@ -90,6 +97,12 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
     SpecialitiesDialogComponent,
     CheckPermsDirective,
     ResetPasswordComponent,
+    AmountWorkLocationComponent,
+    SelectWorkLocationComponent,
+    WorkLocationPackageComponent,
+    BillingPadComponent,
+    SelectUsersCampusComponent,
+    UsersCampusComponent,
   ],
   exports: [
     BreadcrumbComponent,
@@ -100,6 +113,11 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
     BaseFormComponent,
     FormUsersComponent,
     CheckPermsDirective,
+    AmountWorkLocationComponent,
+    SelectWorkLocationComponent,
+    SelectUsersCampusComponent,
+    WorkLocationPackageComponent,
+    UsersCampusComponent,
   ],
   providers: [PermissionsGuard],
 })

@@ -10,13 +10,23 @@ import { ProgramService } from '../../../business-controller/program.service';
 import { ScopeOfAttentionService } from '../../../business-controller/scope-of-attention.service';
 import { AdmissionRouteService } from '../../../business-controller/admission-route.service';
 import { LocationService } from '../../../business-controller/location.service';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   template: `
   <div class="d-flex justify-content-center">
 
-    <button nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id" >
+    <button *ngIf="value.data.status=='ACTIVO' && (this.role_user == 3 || this.role_user == 7 || this.role_user == 1)" nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
+    </button>
+
+    <button *ngIf="value.data.status=='ACTIVO' && (this.role_user == 8 || this.role_user == 9 || this.role_user == 1)" nbTooltip="Historia Clinica de enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-nursing-list/' + value.data.id + '/'+ value.assigned" >
+      <nb-icon icon="file-add-outline"></nb-icon>
+    </button>
+
+    <button *ngIf="value.data.status=='CERRADO'" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
+      <nb-icon icon="file-add"></nb-icon>
     </button>
 
   </div>
@@ -24,11 +34,12 @@ import { LocationService } from '../../../business-controller/location.service';
 })
 export class Actions5Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
+  @Input() rowData: any;  // This holds the entire row object
+  
   public dialog;
   public status: boolean;
   public medical: boolean;
   loading: boolean = false;
-  @Input() rowData: any;  // This holds the entire row object
   public form: FormGroup;
   public rips_typefile: any[];
   // public status: Status[];
@@ -45,6 +56,7 @@ export class Actions5Component implements ViewCell {
   public ambit;
   public data;
   public service;
+  public role_user;
 
 
   constructor(
@@ -59,9 +71,15 @@ export class Actions5Component implements ViewCell {
     private FlatS: FlatService,
     private AdmissionRouteS: AdmissionRouteService,
     private BedS: BedService,
+    private viewHCS: ChRecordService,
+    private authService: AuthService,
   ) {
   }
   ngOnInit() {
+
+    this.role_user = this.authService.GetRole();
+
+    console.log(this.value.data.status);
     if (this.value.data.medical_date == '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {
       this.medical = false;
       this.status = false;
@@ -155,6 +173,19 @@ export class Actions5Component implements ViewCell {
 
     } else
       this.toastService.success('', 'Debe tener una salida asistencial');
+  }
+
+  viewHC() {
+    this.viewHCS.ViewHC(this.value.data.id).then(x => {
+
+      //this.loadingDownload = false;
+      this.toastService.success('', x.message);
+      window.open(x.url, '_blank');
+
+    }).catch(x => {
+      this.isSubmitted = false;
+      this.loading = false;
+    });
   }
 
   save() {

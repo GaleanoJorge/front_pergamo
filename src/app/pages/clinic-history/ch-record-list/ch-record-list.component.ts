@@ -5,6 +5,11 @@ import { ActivatedRoute, } from '@angular/router';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Actions5Component } from './actions.component';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { AuthService } from '../../../services/auth.service';
+import { PatientService } from '../../../business-controller/patient.service';
+import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -22,17 +27,22 @@ export class ChRecordListComponent implements OnInit {
   public messageError: string = null;
   public title = "Registo Historia Clinica";
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de registro', 'Personal Asistencial', 'Estado'];
+  public headerFields: any[] = ['Fecha de registro', 'Personal Asistencial', 'Fecha de atención', 'Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public routes = [];
   public data = [];
   public admissions_id;
   public saved: any = null;
   public user;
-  public user_id;
+  public admissions;
+  public own_user;
+  public done;
+  public role_user;
+  public assigned_management_plan;
   public disabled: boolean = false;
+  public showButtom: boolean = true;
 
-  
+
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   toggleLinearMode() {
@@ -48,9 +58,13 @@ export class ChRecordListComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          if (row.status == 'ACTIVO' || row.status == null) {
+            this.showButtom = false;
+          }
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'assigned': this.assigned_management_plan,
             'user': this.user,
             'refresh': this.RefreshData.bind(this),
           };
@@ -63,12 +77,19 @@ export class ChRecordListComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
       },
-      user_id: {
+      user: {
         title: this.headerFields[1],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value?.firstname + ' ' + value.lastname;
+        },
+      },
+      date_finish: {
+        title: this.headerFields[2],
         width: 'string',
       },
       status: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
     },
@@ -78,8 +99,12 @@ export class ChRecordListComponent implements OnInit {
     private route: ActivatedRoute,
     private chRecordS: ChRecordService,
     private toastService: NbToastrService,
+    private patientBS: PatientService,
     private userBS: UserBusinessService,
     private dialogService: NbDialogService,
+    private authService: AuthService,
+    private admissionsS: AdmissionsService,
+    public datePipe: DateFormatPipe,
 
   ) {
     this.routes = [
@@ -102,14 +127,20 @@ export class ChRecordListComponent implements OnInit {
   }
 
   async ngOnInit() {
- 
-    this.admissions_id = this.route.snapshot.params.id;
-    this.user_id = this.route.snapshot.params.user;
 
-    await this.userBS.GetUserById(this.user_id).then(x => {
-      this.user=x;
+    this.admissions_id = this.route.snapshot.params.id;
+    this.assigned_management_plan = this.route.snapshot.params.id2;
+
+    await this.admissionsS.GetCollection({ admissions_id: this.admissions_id }).then(x => {
+      this.admissions = x;
     });
- 
+
+    this.own_user = this.authService.GetUser();
+
+    await this.patientBS.GetUserById(this.admissions[0].patient_id).then(x => {
+      this.user = x;
+    });
+
 
   }
 
@@ -121,6 +152,8 @@ export class ChRecordListComponent implements OnInit {
     this.chRecordS.Save({
       status: 'ACTIVO',
       admissions_id: this.admissions_id,
+      assigned_management_plan: this.assigned_management_plan,
+      user_id: this.own_user.id,
     }).then(x => {
       this.toastService.success('', x.message);
       this.RefreshData();

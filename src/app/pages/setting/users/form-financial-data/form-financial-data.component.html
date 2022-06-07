@@ -1,0 +1,47 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="medium" style="max-width: 600px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="bank_id" class="form-text text-muted font-weight-bold">Seleccione Banco:</label>
+          <nb-select [selected]="this.dataUser.financial_data_bank_id" formControlName="bank_id" id="bank_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.bank_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == dataUser.financial_data_bank_id }}" *ngFor="let item of bank"
+              [value]="item.id">
+              {{ item.code }} - {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="account_type_id" class="form-text text-muted font-weight-bold">Tipo de cuenta:</label>
+          <nb-select [selected]="this.dataUser.financial_data_account_type_id" formControlName="account_type_id" id="account_type_id"
+          fullWidth
+          status="{{ isSubmitted && form.controls.bank_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == dataUser.financial_data_account_type_id }}" *ngFor="let item of account_type"
+            [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="account_number" class="form-text text-muted font-weight-bold">Número de cuenta:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="account_number" formControlName="account_number" account_number
+            status="{{ isSubmitted && form.controls.account_number.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="rut" class="form-text text-muted font-weight-bold">Número de RUT:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="rut" formControlName="rut" rut
+            status="{{ isSubmitted && form.controls.rut.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+      </div>
+    
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" type="submit">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
