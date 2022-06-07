@@ -26,7 +26,7 @@ export class AccountReceivableListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Cuentas de Cobro';
   public subtitle: string = 'Historial';
-  public headerFields: any[] = ['IDENTIFICACIÓN', 'NOMBRE', 'MES', 'VALOR BRUTO', 'VALOR NETO', 'ESTADO', 'CÁLCULO SEGURIDAD SOCIAL'];
+  public headerFields: any[] = ['IDENTIFICACIÓN', 'NOMBRE', 'MES', 'VALOR BRUTO', 'VALOR NETO', 'ESTADO', 'CÁLCULO SEGURIDAD SOCIAL SUGERIDO DEL PRÓXIMO MES'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
