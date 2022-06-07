@@ -18,7 +18,7 @@ export class LocalityComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Comunas, Localidades o Veredas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Municipio'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Providencia, Vereda o Municipio'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
