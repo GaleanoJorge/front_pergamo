@@ -56,6 +56,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public admission_id: number = 0;
   public saveFromAdmission = null;
   public isOpen = null;
+  public route;
 
 
   constructor(
@@ -89,7 +90,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         contract_id: '',
         briefcase_id: '',
         procedure_id: '',
-        has_caregiver: false,
+        has_caregiver:false,
       };
     }
 
@@ -223,8 +224,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
-
-
   // async save() {
 
   //   this.isSubmitted = true;
@@ -329,17 +328,28 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
     this.form.get('admission_route_id').valueChanges.subscribe(val => {
       // console.log(val);
+      this.route=val;
       if (val === '') {
         this.scope_of_attention = [];
+      }else if(val==2){
+        this.form.controls.has_caregiver.setValue(true);
+        this.form.controls.has_caregiver.disable();
+        this.form.controls.procedure_id.clearValidators();
+        this.form.controls.procedure_id.setErrors(null);
+
+
       } else {
         if (val == 1) {
           this.form.controls.procedure_id.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.has_caregiver.setValue(false);
+          this.form.controls.has_caregiver.enable();
         } else {
           this.form.controls.procedure_id.clearValidators();
           this.form.controls.procedure_id.setErrors(null);
         }
-        this.GetScope(val).then();
+        
       }
+      this.GetScope(val).then();
       this.form.patchValue({
         scope_of_attention_id: '',
       });
@@ -401,6 +411,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         procedures: '',
       });
     });
+
   }
 
   saveCode(e): void {

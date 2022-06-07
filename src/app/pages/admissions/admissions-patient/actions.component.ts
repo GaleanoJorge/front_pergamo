@@ -23,9 +23,9 @@ import { LocationService } from '../../../business-controller/location.service';
     <button nbTooltip="Agregar o modificar acompañantes" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/admissions/patient-data/' + value.data.id" >
       <nb-icon icon="person-add-outline"></nb-icon>
     </button>
-    <button nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
-        <nb-icon icon="info-outline"></nb-icon>
-    </button>
+    <button *ngIf="service" nbTooltip="Cambio de servicio" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef3)">
+    <nb-icon icon="repeat-outline"></nb-icon>
+  </button>
   </div>
   <ng-template #templateRef>
     <nb-card size="tiny">

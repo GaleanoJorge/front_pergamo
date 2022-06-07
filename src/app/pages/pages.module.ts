@@ -44,6 +44,9 @@ import { AmountWorkLocationComponent } from './components/form-users/work-locati
 import { SelectWorkLocationComponent } from './components/form-users/work-location-package/select-work-location.component';
 import { WorkLocationPackageComponent } from './components/form-users/work-location-package/work-location-package.component';
 import { BillingPadComponent } from './billing-pad/billing-pad.component';
+import { UsersCampusComponent } from './components/form-users/users-campus/users-campus.component';
+import { SelectUsersCampusComponent } from './components/form-users/users-campus/select-user-campus.component';
+
 
 
 
@@ -56,7 +59,7 @@ import { BillingPadComponent } from './billing-pad/billing-pad.component';
     ChartModule,
     NbCardModule,
     SignaturePadModule,
-    NbMenuModule,
+    NbMenuModule.forRoot(),
     NbAlertModule,
     Ng2SmartTableModule,
     NbInputModule,
@@ -98,6 +101,8 @@ import { BillingPadComponent } from './billing-pad/billing-pad.component';
     SelectWorkLocationComponent,
     WorkLocationPackageComponent,
     BillingPadComponent,
+    SelectUsersCampusComponent,
+    UsersCampusComponent,
   ],
   exports: [
     BreadcrumbComponent,
@@ -110,7 +115,9 @@ import { BillingPadComponent } from './billing-pad/billing-pad.component';
     CheckPermsDirective,
     AmountWorkLocationComponent,
     SelectWorkLocationComponent,
+    SelectUsersCampusComponent,
     WorkLocationPackageComponent,
+    UsersCampusComponent,
   ],
   providers: [PermissionsGuard],
 })

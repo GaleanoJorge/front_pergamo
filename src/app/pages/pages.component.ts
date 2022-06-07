@@ -10,7 +10,7 @@ import {NbMenuItem} from '@nebular/theme';
   styleUrls: ['pages.component.scss'],
   template: `
     <ngx-one-column-layout>
-      <nb-menu *ngIf="menu" [items]="menu"></nb-menu>
+      <nb-menu *ngIf="menu" [items]="menu" autoCollapse="true"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-one-column-layout>
   `,
@@ -30,7 +30,6 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.menu = JSON.parse(localStorage.getItem('mainMenu'));
-    console.log(this.menu);
   }
   
 

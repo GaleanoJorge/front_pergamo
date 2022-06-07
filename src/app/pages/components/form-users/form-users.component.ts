@@ -89,6 +89,7 @@ export class FormUsersComponent implements OnInit {
   public neighborhood_or_residence: any[] = [];
   public localities: any[] = [];
   public parentData;
+  public campusData;
 
   public sectionals: SectionalCouncil[] = [];
   public districts: District[] = [];
@@ -187,6 +188,11 @@ export class FormUsersComponent implements OnInit {
       selectedOptions: [],
       entity: 'residence/locationbyMunicipality',
       customData: 'locality'
+    };
+    this.campusData = {
+      selectedOptions: this.data!=null?this.data.users_campus:[],
+      entity: 'campus',
+      customData: 'campus'
     };
     if (this.data && this.data.file) {
       this.image = environment.storage + this.data.file;
@@ -326,6 +332,10 @@ export class FormUsersComponent implements OnInit {
       ],
       is_disability: [
         ((this.GetData('is_disability') === '' || this.GetData('is_disability') === null/**  || !this.GetData('is_disability')*/) ? false : true),
+        Validators.compose([Validators.required]),
+      ],
+      is_street_dweller: [
+        ((this.GetData('is_street_dweller') === '' || this.GetData('is_street_dweller') === null/**  || !this.GetData('is_disability')*/) ? false : true),
         Validators.compose([Validators.required]),
       ],
       // disability: [
@@ -496,6 +506,7 @@ export class FormUsersComponent implements OnInit {
     }
 
 
+
     if (this.data && this.data.id) {
       configForm.password = [
         '',
@@ -621,6 +632,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('status_id', data.status_id.value);
       formData.append('gender_id', data.gender_id.value);
       formData.append('is_disability', data.is_disability.value === true ? '1' : null);
+      formData.append('is_street_dweller', data.is_street_dweller.value === true ? '1' : null);
       formData.append('inability_id', data.inability_id.value);
       formData.append('gender_type', data.gender_id.value === 3 ? data.gender_type.value : '');
       formData.append('academic_level_id', data.academic_level_id.value);
@@ -661,12 +673,14 @@ export class FormUsersComponent implements OnInit {
       formData.append('marital_status_id', data.marital_status_id.value);
       formData.append('residence_address', this.residence);
       formData.append('neighborhood_or_residence_id', data.neighborhood_or_residence_id.value);
+      formData.append('campus_id', JSON.stringify(this.campusData.selectedOptions));
 
       // var role = Number(this.role);
       if (this.roleBS.roles[0].role_type_id == 2) {
         formData.append('assistance_id', this.data == null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
         formData.append('localities_id', JSON.stringify(this.parentData.selectedOptions));
+
         if (this.phone_consult) {
           formData.append('phone_consult', this.phone_consult_amount);
         }
@@ -856,15 +870,13 @@ export class FormUsersComponent implements OnInit {
       });
     });
 
-    this.form.get('ne')
-
     this.form.get('is_disability').valueChanges.subscribe(val => {
       if (val) {
         this.form.get('inability_id').setValidators(Validators.required);
-        this.form.get('inability_id').updateValueAndValidity();
+        //this.form.get('inability_id').updateValueAndValidity();
       } else {
-        this.form.get('inability_id').clearValidators();
-        this.form.get('inability_id').updateValueAndValidity();
+        this.form.get('inability_id').setValidators(null);
+
       }
     });
     // if (this.role == 3 || this.role==7) {
@@ -1070,5 +1082,9 @@ export class FormUsersComponent implements OnInit {
     } else {
       this.parentData.selectedOptions = $event;
     }
+  }
+
+  receiveCampusMessage($event) {
+      this.campusData.selectedOptions = $event;
   }
 }

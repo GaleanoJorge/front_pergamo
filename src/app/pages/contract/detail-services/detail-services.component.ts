@@ -159,7 +159,7 @@ export class DetailServicesComponent implements OnInit {
     });
     if(this.route.snapshot.params.id){
       this.briefcase_id = this.route.snapshot.params.id;
-      this.entity = this.briefcase_id ? 'ServiceBriefcase/ServicesByBriefcase/' + this.briefcase_id : 'services_briefcase';
+      this.entity = this.briefcase_id ? 'ServiceBriefcase/ServicesByBriefcase/' + this.briefcase_id+'?type=1' : 'services_briefcase';
     }else{
       this.entity='services_briefcase';
     }
