@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
@@ -12,6 +12,8 @@ import { ChHistoricScalesComponent } from '../ch-historic-scales/ch-historic-sca
 })
 export class ChScaleKarnofskyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() refresh13;
+
   linearMode = true;
   public messageError = null;
   public title: string = 'Registros Escala Karnofsky';
@@ -58,6 +60,14 @@ export class ChScaleKarnofskyComponent implements OnInit {
       ch_record_id: this.route.snapshot.params.id,
     };
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.refresh13.currentValue==true){
+      this.RefreshData();
+    }
+
+  }
+
 
   ngOnInit(): void {
     this.ch_record_id = this.route.snapshot.params.id;

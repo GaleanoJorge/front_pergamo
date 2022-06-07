@@ -95,6 +95,7 @@ export class FormFinancialDataComponent implements OnInit {
         }).catch(x => {
           this.isSubmitted = false;
           this.loading = false;
+          this.toastService.warning(x, 'Aviso');
         });
       } else {
         this.FinancialDataS.Save({
@@ -112,6 +113,7 @@ export class FormFinancialDataComponent implements OnInit {
         }).catch(x => {
           this.isSubmitted = false;
           this.loading = false;
+          this.toastService.warning(x, 'Aviso');
         });
       }
 

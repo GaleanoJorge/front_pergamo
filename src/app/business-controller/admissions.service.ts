@@ -31,6 +31,23 @@ export class AdmissionsService {
       });
   }
 
+  GetActiveAdmissions(params = {}): Promise<Admissions[]> {
+    let servObj = new ServiceObject(params ? 'admissions/active/0?pagination=false' : 'admissions/active/0');
+
+    return this.webAPI.GetAction(servObj,params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.admissions = <Admissions[]>servObj.data.admissions;
+
+        return Promise.resolve(this.admissions);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 
    GetByPacient(user_id) {
     let servObj = new ServiceObject(`admissions/ByPacient/${user_id}`);

@@ -15,8 +15,8 @@ export class MunicipalityIcaComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'DÍAS DE DIETAS';
-  public subtitle: string = 'DÍAS';
+  public title: string = 'RETE ICA POR MUNICIPIO';
+  public subtitle: string = 'RETE ICA';
   public headerFields: any[] = ['MUNICIPIO', 'VALOR'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
@@ -60,7 +60,7 @@ export class MunicipalityIcaComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Días de dietas',
+      name: 'Rete Ica por Municipio',
       route: '../../setting/municipality-ica',
     },
   ];
@@ -84,7 +84,7 @@ export class MunicipalityIcaComponent implements OnInit {
   NewMunicipalityIca() {
     this.dialogFormService.open(FormMunicipalityIcaComponent, {
       context: {
-        title: 'Crear nuevo día de dietas',
+        title: 'Crear nuevo rete ica',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -93,7 +93,7 @@ export class MunicipalityIcaComponent implements OnInit {
   EditMunicipalityIca(data) {
     this.dialogFormService.open(FormMunicipalityIcaComponent, {
       context: {
-        title: 'Editar día de dietas',
+        title: 'Editar rete ica',
         data,
         saved: this.RefreshData.bind(this),
       },

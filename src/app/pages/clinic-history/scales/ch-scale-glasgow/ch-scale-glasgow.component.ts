@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
@@ -12,6 +12,8 @@ import { ChHistoricScalesComponent } from '../ch-historic-scales/ch-historic-sca
 })
 export class ChScaleGlasgowComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() refresh2;
+
   linearMode = true;
   public messageError = null;
   public title: string = 'Registros Escala Glasgow';
@@ -64,6 +66,13 @@ export class ChScaleGlasgowComponent implements OnInit {
     return {
       ch_record_id: this.route.snapshot.params.id,
     };
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.refresh2.currentValue==true){
+      this.RefreshData();
+    }
+
   }
 
   ngOnInit(): void {

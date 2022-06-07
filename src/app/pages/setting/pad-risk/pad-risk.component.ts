@@ -16,8 +16,8 @@ export class PadRiskComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'TARIFA POR LOCALIZACIÓN';
-  public subtitle: string = 'TARIFAS';
+  public title: string = 'ZONAS';
+  public subtitle: string = 'ZONAS';
   public headerFields: any[] = ['ID', 'NOMBRE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
