@@ -123,7 +123,9 @@ export class BillingPadListComponent implements OnInit {
   GetResponseParam() {
   }
 
-
+  tablock(e) {
+    
+  }
 
 
 }
