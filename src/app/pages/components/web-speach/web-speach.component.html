@@ -1,0 +1,11 @@
+<button id="entity" name="entity"  type="button"  *ngIf="listening$ | async; else mic" nbButton ghost (click)="stop()" >
+  <nb-icon icon="mic-off-outline"></nb-icon>
+</button>
+<ng-template #mic>
+<button id="entity" name="entity" type="button" nbButton ghost (click)="start()" >
+  <nb-icon icon="mic-outline"></nb-icon>
+</button>
+</ng-template>
+<section *ngIf="transcript$ | async">
+  <nb-card style="display: none;" class="notification mat-elevation-z4">{{transcript$ | async}}</nb-card>
+</section>

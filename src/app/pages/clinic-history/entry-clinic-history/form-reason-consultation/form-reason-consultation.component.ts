@@ -1,21 +1,39 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ChReasonConsultationService } from '../../../../business-controller/ch-reason-consultation.service';
 import { ChExternalCauseService } from '../../../../business-controller/ch-external-cause.service';
+import { merge, Observable, of, Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { defaultLanguage, languages } from '../../../../models/languages';
+import { SpeechError } from '../../../../models/speech-error';
+import { SpeechEvent } from '../../../../models/speech-event';
+import { SpeechRecognizerService } from '../../../../business-controller/speech-recognizer.service';
+import { ActionContext } from '../../../../business-controller/action-context';
+import { SpeechNotification } from '../../../../models/speech-notification';
+
 
 
 
 @Component({
   selector: 'ngx-form-reason-consultation',
   templateUrl: './form-reason-consultation.component.html',
-  styleUrls: ['./form-reason-consultation.component.scss']
+  styleUrls: ['./form-reason-consultation.component.scss'],
 })
 export class FormReasonConsultationComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+
+  languages: string[] = languages;
+  currentLanguage: string = defaultLanguage;
+  totalTranscript?: string;
+
+  transcript$?: Observable<string>;
+  listening$?: Observable<boolean>;
+  errorMessage$?: Observable<string>;
+  defaultError$ = new Subject<string | undefined>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -24,6 +42,7 @@ export class FormReasonConsultationComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public ch_external_cause: any[];
+  public changes;
 
 
   constructor(
@@ -31,6 +50,10 @@ export class FormReasonConsultationComponent implements OnInit {
     private reasonConsultationS: ChReasonConsultationService,
     private chexternalcauseS: ChExternalCauseService,
     private toastService: NbToastrService,
+    private speechRecognizer: SpeechRecognizerService,
+    private actionContext: ActionContext,
+
+    
   ) {
   }
 
@@ -42,7 +65,7 @@ export class FormReasonConsultationComponent implements OnInit {
         ch_external_cause_id: '',
       };
     }
-
+    
     this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
       this.ch_external_cause = x;
     });
@@ -55,7 +78,7 @@ export class FormReasonConsultationComponent implements OnInit {
       ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id,],
     });
 
-  
+
 
     if (this.data.reason_consultation != '') {
       this.form.controls.reason_consultation.disable();
@@ -68,6 +91,8 @@ export class FormReasonConsultationComponent implements OnInit {
       this.form.controls.ch_external_cause_id.enable();
       this.disabled = false;
     }
+
+
   }
 
   async save() {
@@ -120,5 +145,16 @@ export class FormReasonConsultationComponent implements OnInit {
 
     }
   }
+  receiveMessage($event) {
+   
+      this.form.get('reason_consultation').setValue(this.form.get('reason_consultation').value+' '+$event.text);
+
+
+  }
+
+  changebuttom() {
+    this.changes=true;
+  }
+
 
 }
