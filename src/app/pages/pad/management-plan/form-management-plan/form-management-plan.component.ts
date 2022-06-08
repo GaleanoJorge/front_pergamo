@@ -153,12 +153,22 @@ export class FormManagementPlanComponent implements OnInit {
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
         specialty_id: [this.data.specialty_id],
         assigned_user_id: [this.data.assigned_user_id],
+        observation: [this.data.observation],
         procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
         product_id: [this.data.product_id],
         start_date: [this.data.start_date],
         finish_date: [this.data.finish_date],
+        preparation: [this.data.preparation],
+        administration_time: [this.data.administration_time,],
+        route_of_administration: [this.data.route_of_administration],
+        blend: [this.data.blend],
+        start_hours: [this.data.start_hours],
+        number_doses: [this.data.number_doses],
+        dosage_administer: [this.data.dosage_administer],
+        product_gen: [this.data.product_gen],
       });
       this.isMedical = true;
+      this.onChanges2();
     }
 
     // if (this.assigned == true) {
@@ -167,6 +177,55 @@ export class FormManagementPlanComponent implements OnInit {
 
   }
 
+
+  onChanges2() {
+
+    this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
+
+        if(val==17){
+          this.show= true;
+          this.form.controls.start_date.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.preparation.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.route_of_administration.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.blend.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.observation.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.administration_time.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.start_hours.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.number_doses.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.dosage_administer.setValidators(Validators.compose([Validators.required]));
+          this.form.controls.frequency_id.clearValidators();
+          this.form.controls.frequency_id.setErrors(null);
+      
+          
+        }else if(val==13 || val==12){
+          this.showTemp=true;
+          this.show= false;
+          this.form.controls.start_date.setValidators(null);
+          this.form.controls.preparation.setValidators(null);
+          this.form.controls.route_of_administration.setValidators(null);
+          this.form.controls.blend.setValidators(null);
+          this.form.controls.observation.setValidators(null);
+          this.form.controls.administration_time.setValidators(null);
+          this.form.controls.start_hours.setValidators(null);
+          this.form.controls.number_doses.setValidators(null);
+          this.form.controls.dosage_administer.setValidators(null);
+        }
+        else{
+          this.show= false;
+          this.showTemp= false;
+
+          this.form.controls.start_date.setValidators(null);
+          this.form.controls.preparation.setValidators(null);
+          this.form.controls.route_of_administration.setValidators(null);
+          this.form.controls.blend.setValidators(null);
+          this.form.controls.observation.setValidators(null);
+          this.form.controls.administration_time.setValidators(null);
+          this.form.controls.start_hours.setValidators(null);
+          this.form.controls.number_doses.setValidators(null);
+          this.form.controls.dosage_administer.setValidators(null);
+        }
+    });
+  }
   onChanges() {
 
     this.form.get('type_of_attention_id').valueChanges.subscribe(val => {

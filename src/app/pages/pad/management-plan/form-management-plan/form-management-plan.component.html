@@ -108,13 +108,13 @@
             status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="show">
           <label for="number_doses" class="form-text text-muted font-weight-bold">Cantidad de dosis:</label>
           <input type="number" nbInput fullWidth id="number_doses" formControlName="number_doses" number_doses
             status="{{ isSubmitted && form.controls.number_doses.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="show">
           <label for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a administrar:</label>
           <input *ngIf="localidentify" placeholder="{{localidentify.manual_price.product.measurement_units.name}}" type="number" nbInput fullWidth id="dosage_administer" formControlName="dosage_administer" dosage_administer
             status="{{ isSubmitted && form.controls.dosage_administer.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
@@ -146,17 +146,17 @@
       </div>
 
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="medical==false && assigned!=false && show">
           <h6 style="margin-top: 10px;text-align: center;" for="preparation"
             class="form-text text-muted font-weight-bold">Recomendaciones para la aplicación de medicamentos:</h6>
         </div>
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==false && assigned!=false && show">
           <label for="preparation" class="form-text text-muted font-weight-bold">Preparación:</label>
           <input nbInput fullWidth id="preparation" formControlName="preparation" preparation
             status="{{ isSubmitted && form.controls.preparation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && assigned!=false && show">
           <label for="administration_route" class="form-text text-muted font-weight-bold">Via des
             administración:</label>
           <nb-select [selected]="this.data.route_of_administration" formControlName="route_of_administration"
@@ -169,13 +169,13 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==false && assigned!=false && show">
           <label for="blend" class="form-text text-muted font-weight-bold">Mezcla:</label>
           <input nbInput fullWidth id="blend" formControlName="blend" blend
             status="{{ isSubmitted && form.controls.blend.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && assigned!=false && show">
           <label for="administration_time" class="form-text text-muted font-weight-bold">Tiempo de
             administración:</label>
           <input nbInput fullWidth id="administration_time" formControlName="administration_time" administration_time
