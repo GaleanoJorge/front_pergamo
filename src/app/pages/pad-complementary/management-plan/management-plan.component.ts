@@ -27,7 +27,7 @@ export class ManagementPlanComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'HISTORICO PLAN DE ATENCIÓN COMPLEMENTARIA';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'Contrato', 'Fecha ingreso', 'Fecha egreso'];
+  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Providencia, Vereda o Municipio', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'Contrato', 'Fecha ingreso', 'Fecha egreso'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];

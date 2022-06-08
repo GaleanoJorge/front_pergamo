@@ -27,7 +27,7 @@
 
 
         <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_region">
-          <label for="municipality" class="form-text text-muted font-weight-bold">MUNICIPIO:</label>
+          <label for="municipality" class="form-text text-muted font-weight-bold">PROVIDENCIA, VEREDA O MUNICIPIO:</label>
           <nb-select [selected]="this.data.municipality_id" id="municipality_id" (selectedChange)="onMunicipalityChange($event)"
           formControlName="municipality_id" fullWidth>
             <nb-option value="">Seleccione...</nb-option>
