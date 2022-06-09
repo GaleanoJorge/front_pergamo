@@ -2,22 +2,26 @@ import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core'
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGroup } from '@angular/forms';
-import { ActionsStatusComponent } from './actions-status.component';
+import { ActionsAdmissionsListComponent } from './actions-admissions-list.component';
+import { FormShowBillingPadComponent } from '../billing-admission/form-show-billing-pad/form-show-billing-pad.component';
 
 @Component({
-  selector: 'ngx-billing-pad-list',
-  templateUrl: './billing-pad-list.component.html',
-  styleUrls: ['./billing-pad-list.component.scss'],
+  selector: 'ngx-billing-admissions-pad-list',
+  templateUrl: './billing-admissions-pad-list.component.html',
+  styleUrls: ['./billing-admissions-pad-list.component.scss'],
 })
-export class BillingPadListComponent implements OnInit {
-
+export class BillingAdmissionsPadListComponent implements OnInit {
+  @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() title: string;
+  @Input() is_pgp: boolean;
+  @Input() route: number;
+  @Input() entity: string;
+  @Input() billing_pad_pgp_id: number = null;
 
   public isSubmitted = false;
   public loading: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'FACTURACIÓN POR PACIENTES';
-  public title_pgp: string = 'FACTURACIÓN CONTRATOS PGP';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'DOCUMENTO', 'EPS'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
@@ -27,13 +31,10 @@ export class BillingPadListComponent implements OnInit {
   public user;
   public dialog;
   public currentRole;
+  public settings;
 
 
-
-  @ViewChild(BaseTableComponent) table: BaseTableComponent;
-
-
-  public settings = {
+  public settings1 = {
     pager: {
       display: true,
       perPage: 10,
@@ -45,10 +46,12 @@ export class BillingPadListComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return {
             'data': row,
-            'route': 1,
+            'route': this.route,
+            'billing_pad_pgp': this.billing_pad_pgp_id,
+            'show': this.ShowProcedures.bind(this),
           };
         },
-        renderComponent: ActionsStatusComponent,
+        renderComponent: ActionsAdmissionsListComponent,
       },
       nombre_completo: {
         title: this.headerFields[1],
@@ -83,10 +86,10 @@ export class BillingPadListComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return {
             'data': row,
-            'route': 2,
+            'route': this.route,
           };
         },
-        renderComponent: ActionsStatusComponent,
+        renderComponent: ActionsAdmissionsListComponent,
       },
       name: {
         title: this.headerFields[1],
@@ -127,6 +130,11 @@ export class BillingPadListComponent implements OnInit {
 
 
   async ngOnInit() {
+    if (this.route == 1) {
+      this.settings = this.settings1;
+    } else if (this.route == 2) {
+      this.settings = this.settings2;
+    }
   }
 
 
@@ -158,6 +166,17 @@ export class BillingPadListComponent implements OnInit {
 
   tablock(e) {
     
+  }
+
+  ShowProcedures(data) {
+    this.dialogFormService.open(FormShowBillingPadComponent, {
+      context: {
+        data: data,
+        title: 'Servicios facturados',
+        billing_pad_pgp_id: this.billing_pad_pgp_id,
+        saved: this.RefreshData.bind(this),
+      },
+    });
   }
 
 

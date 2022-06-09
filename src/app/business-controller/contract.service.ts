@@ -16,7 +16,7 @@ export class ContractService {
   GetCollection(params = {}): Promise<Contract[]> {
     let servObj = new ServiceObject(params ? 'contract?pagination=false' : 'contract');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

@@ -2,29 +2,31 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { ActionsBillingComponent } from './actions-billing.component';
+import { ActionsBillingPgpComponent } from './actions-billing-pgp.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ActivatedRoute } from '@angular/router';
-import { FormShowBillingPadComponent } from './form-show-billing-pad/form-show-billing-pad.component';
 import { CurrencyPipe } from '@angular/common';
-import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { ContractService } from '../../../business-controller/contract.service';
+import { FormShowBillingPgpComponent } from './form-show-billing-pgp/form-show-billing-pgp.component';
+import { FormCreateBillingPgpComponent } from './form-create-billing-pgp/form-create-billing-pgp.component';
+import { BillingAdmissionsPadListComponent } from '../billing-pad-admissions-list/billing-admissions-pad-list.component';
 
 @Component({
-  selector: 'ngx-billing-admission',
-  templateUrl: './billing-admission.component.html',
-  styleUrls: ['./billing-admission.component.scss']
+  selector: 'ngx-billing-pgp',
+  templateUrl: './billing-pgp.component.html',
+  styleUrls: ['./billing-pgp.component.scss']
 })
-export class BillingAdmissionComponent implements OnInit {
+export class BillingPgpComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'FACTURAS';
+  public title: string = 'FACTURAS DEL CONTRATO: ';
   public subtitle: string = 'GESTIÓN';
   public headerFields: any[] = ['MES', 'VALOR', 'ESTADO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
-  public admission_id;
+  public contract_id;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -39,11 +41,11 @@ export class BillingAdmissionComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return {
             'data': row,
-            'show': this.ShowBillingAdmission.bind(this),
-            // 'delete': this.DeleteConfirmBillingAdmission.bind(this),
+            'show': this.ShowAdmissionsPgp.bind(this),
+            // 'delete': this.DeleteConfirmBillingPgp.bind(this),
           };
         },
-        renderComponent: ActionsBillingComponent,
+        renderComponent: ActionsBillingPgpComponent,
       },
       month: {
         title: this.headerFields[0],
@@ -72,7 +74,7 @@ export class BillingAdmissionComponent implements OnInit {
   public routes = [
     {
       name: 'Facturas',
-      route: '../../setting/billing-admission',
+      route: '../../setting/billing-pgp',
     },
   ];
 
@@ -83,14 +85,14 @@ export class BillingAdmissionComponent implements OnInit {
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
-    private AdmissionsS: AdmissionsService,
+    private ContractS: ContractService,
   ) {
   }
 
   ngOnInit(): void {
-    this.admission_id = this.route.snapshot.params.id;
-    this.AdmissionsS.GetCollection({admissions_id: this.admission_id}).then(x => {
-      this.title = 'FACTURAS DE: ' + x[0]['nombre_completo'];
+    this.contract_id = this.route.snapshot.params.contract_id;
+    this.ContractS.GetCollection({id: this.contract_id}).then(x => {
+      this.title = 'FACTURAS DEL CONTRATO: ' + x[0]['name'];
     }).catch(x => {});
   }
 
@@ -99,17 +101,20 @@ export class BillingAdmissionComponent implements OnInit {
     this.table.refresh();
   }
 
-  // NewBillingAdmission() {
-  //   this.dialogFormService.open(FormBillingAdmissionComponent, {
-  //     context: {
-  //       title: 'Crear nuevo día de dietas',
-  //       saved: this.RefreshData.bind(this),
-  //     },
-  //   });
-  // }
+  NewBillingAdmission() {
+    this.dialogFormService.open(FormCreateBillingPgpComponent, {
+      context: {
+        data: {
+          id: this.contract_id,
+        },
+        title: 'Crear nueva factura',
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
 
-  ShowBillingAdmission(data) {
-    this.dialogFormService.open(FormShowBillingPadComponent, {
+  ShowBillingPgp(data) {
+    this.dialogFormService.open(FormShowBillingPgpComponent, {
       context: {
         title: 'Servicios facturados',
         data,
@@ -118,18 +123,30 @@ export class BillingAdmissionComponent implements OnInit {
     });
   }
 
-  DeleteConfirmBillingAdmission(data) {
-    this.deleteConfirmService.open(ConfirmDialogComponent, {
+  ShowAdmissionsPgp(data) {
+    this.dialogFormService.open(BillingAdmissionsPadListComponent, {
       context: {
-        name: data.name,
-        data: data,
-        delete: this.DeleteBillingAdmission.bind(this),
+        title: 'ADMISIONES PGP',
+        is_pgp: true,
+        route: 1,
+        entity: 'billing_pad/getEnabledAdmissions/0',
+        billing_pad_pgp_id: data.id,
       },
     });
   }
 
-  DeleteBillingAdmission(data) {
-    // return this.BillingAdmissionS.Delete(data.id).then(x => {
+  DeleteConfirmBillingPgp(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        name: data.name,
+        data: data,
+        delete: this.DeleteBillingPgp.bind(this),
+      },
+    });
+  }
+
+  DeleteBillingPgp(data) {
+    // return this.BillingPgpS.Delete(data.id).then(x => {
     //   this.table.refresh();
     //   return Promise.resolve(x.message);
     // }).catch(x => {
