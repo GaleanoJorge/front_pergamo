@@ -6,6 +6,7 @@ import {PermissionsGuard} from '../../guards/permissions.guard';
 import { BillingAdmissionComponent } from './billing-admission/billing-admission.component';
 import { BillingPadListComponent } from './billing-pad-list/billing-pad-list.component';
 import { BillingPadProcedureComponent } from './billing-pad-procedure/billing-pad-procedure.component';
+import { BillingPgpComponent } from './billing-pgp/billing-pgp.component';
 
 
 const routes: Routes = [{
@@ -23,6 +24,10 @@ const routes: Routes = [{
     {
       path: 'billing-pad-procedure/:admission_id/:billing_id',
       component: BillingPadProcedureComponent,
+    },
+    {
+      path: 'billing-pgp/:contract_id',
+      component: BillingPgpComponent,
     },
   ],
 }];

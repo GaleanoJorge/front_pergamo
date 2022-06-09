@@ -1,25 +1,11 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <nb-tabset class="tabset" (changeTab)="tablock($event)">
-      <nb-tab tabTitle="ADMISIONES NO PGP">
-        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-          entity="billing_pad/getEnabledAdmissions/0?pgp=false" customData="billing_pad"
-          [messageToltip]="messageToltip">
-          <div actions>
-            <div class="actions" style="margin-top:1em;">
-            </div>
-          </div>
-        </ngx-base-table>
+      <nb-tab tabTitle="NO PGP">
+        <ngx-billing-admissions-pad-list [entity]="'billing_pad/getEnabledAdmissions/0'" [title]="this.title" [is_pgp]="false" [route]="1"></ngx-billing-admissions-pad-list>
       </nb-tab>
-      <nb-tab tabTitle="ADMISIONES PGP">
-        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-        entity="billing_pad/getEnabledAdmissions/0?pgp=true" customData="billing_pad"
-        [messageToltip]="messageToltip">
-        <div actions>
-          <div class="actions" style="margin-top:1em;">
-          </div>
-        </div>
-      </ngx-base-table>
+      <nb-tab tabTitle="PGP">
+        <ngx-billing-admissions-pad-list [entity]="'billing_pad/getPgpContracts/5'" [title]="this.title_pgp" [is_pgp]="false" [route]="2"></ngx-billing-admissions-pad-list>
       </nb-tab>
     </nb-tabset>
   </div>

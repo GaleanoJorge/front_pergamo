@@ -47,6 +47,22 @@ export class BillingPadService {
       });
   }
 
+  GeneratePgpBilling(billing_pad: any, contract_id: number): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad/generatePgpBilling', contract_id);
+    servObj.data = billing_pad;
+    return this.webAPI.PutAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Update(billing_pad: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('billing_pad', billing_pad.id);
     servObj.data = billing_pad;
