@@ -2,38 +2,38 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { ProductGroup } from '../models/product-group';
+import { ProductSupplies } from '../models/product-supplies';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductGroupService {
-  public product_group: ProductGroup[] = [];
+export class ProductSuppliesService {
+  public product_supplies: ProductSupplies[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<ProductGroup[]> {
-    let servObj = new ServiceObject(params ? 'product_group?pagination=false' : 'product_group');
+  GetCollection(params = {}): Promise<ProductSupplies[]> {
+    let servObj = new ServiceObject(params ? 'product_supplies?pagination=false' : 'product_supplies');
 
-    return this.webAPI.GetAction(servObj, params)
+    return this.webAPI.GetAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.product_group = <ProductGroup[]>servObj.data.product_group;
+        this.product_supplies = <ProductSupplies[]>servObj.data.product_supplies;
 
-        return Promise.resolve(this.product_group);
+        return Promise.resolve(this.product_supplies);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(product_group: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('product_group');
-    servObj.data = product_group;
+  Save(product_supplies: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('product_supplies');
+    servObj.data = product_supplies;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class ProductGroupService {
       });
   }
 
-  Update(product_group: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('product_group', product_group.id);
-    servObj.data = product_group;
+  Update(product_supplies: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('product_supplies', product_supplies.id);
+    servObj.data = product_supplies;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +64,7 @@ export class ProductGroupService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('product_group', id);
+    let servObj = new ServiceObject('product_supplies', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
