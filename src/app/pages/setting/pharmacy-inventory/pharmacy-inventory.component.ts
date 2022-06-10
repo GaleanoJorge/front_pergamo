@@ -97,7 +97,7 @@ export class PharmacyInventoryComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
-      this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id ;
+      this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product='+ true;
       this.title = 'INVENTARIO DE ' + x[0]['name'];
     });
   }
