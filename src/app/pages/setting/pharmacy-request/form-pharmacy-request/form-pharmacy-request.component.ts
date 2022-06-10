@@ -39,12 +39,19 @@ export class FormPharmacyRequestComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    this.parentData = {
-      selectedOptions: [],
-      entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.product_generic_id + '&pharmacy_stock_id=' + this.data.request_pharmacy_stock_id,
-      //entity: 'pharmacy_lot_stock?pharmacy_lot_stock_id=' + x[0].id + '&pharmacy_product_request_id=' + this.data.pharmacy_product_request_id,
-      customData: 'pharmacy_lot_stock',
-    };
+    if (this.data.product_generic_id == null) {
+      this.parentData = {
+        selectedOptions: [],
+        entity: 'pharmacy_lot_stock?product_supplies_id=' + this.data.product_supplies_id + '&pharmacy_stock_id=' + this.data.request_pharmacy_stock_id,
+        customData: 'pharmacy_lot_stock',
+      };
+    } else {
+      this.parentData = {
+        selectedOptions: [],
+        entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.product_generic_id + '&pharmacy_stock_id=' + this.data.request_pharmacy_stock_id,
+        customData: 'pharmacy_lot_stock',
+      };
+    }
     this.show_table = true;
     if (!this.data) {
       this.data = {
@@ -104,7 +111,7 @@ export class FormPharmacyRequestComponent implements OnInit {
             var err = 0;
             if (this.saved) {
               this.saved();
-            } 
+            }
             contador++;
 
             if (contador > 0) {
