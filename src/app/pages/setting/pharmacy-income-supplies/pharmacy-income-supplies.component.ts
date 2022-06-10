@@ -1,28 +1,31 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
+import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
+import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { ActionsIncoComponent } from './actions.component';
-import { FormPharmacyIncomeComponent } from './form-pharmacy-income/form-pharmacy-income.component';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component'; 
+import { ActionsSupComponent } from './actions.component';
+import { FormPharmacyIncomeSuppliesComponent } from './form-pharmacy-income-supplies/form-pharmacy-income-supplies.component';
 
 @Component({
-  selector: 'ngx-pharmacy-income',
-  templateUrl: './pharmacy-income.component.html',
-  styleUrls: ['./pharmacy-income.component.scss']
+  selector: 'ngx-pharmacy-income-supplies',
+  templateUrl: './pharmacy-income-supplies.component.html',
+  styleUrls: ['./pharmacy-income-supplies.component.scss']
 })
-export class PharmacyIncomeComponent implements OnInit {
+export class PharmacyIncomeSuppliesComponent implements OnInit {
   @Input() parentData: any;
-  @Input() data: any = [];
   public isSubmitted = false;
   public messageError = null;
 
-  public title: string = 'ACEPTAR O DEVOLVER MEDICAMENTOS';
+  public title: string = 'ACEPTAR O DEVOLVER INSUMOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
+  public headerFields: any[] = ['ID', 'INSUMO ENVIADO POR', 'INSUMO GENERICO', 'CANTIDAD A RECIBIR'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
+  public data = [];
   public validator ;
+
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -40,9 +43,9 @@ export class PharmacyIncomeComponent implements OnInit {
             'edit': this.EditInv.bind(this),
           };
         },
-        renderComponent: ActionsIncoComponent,
+        renderComponent: ActionsSupComponent,
       },
-      id: {
+      id: { 
         title: this.headerFields[0],
         type: 'string',
       },
@@ -53,7 +56,7 @@ export class PharmacyIncomeComponent implements OnInit {
           return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
         },
       },
-      product_generic: {
+      product_supplies: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
@@ -75,11 +78,13 @@ export class PharmacyIncomeComponent implements OnInit {
   constructor(
     private dialogFormService: NbDialogService,
     private requesS: PharmacyProductRequestService,
+    private pharmalotStockS: PharmacyLotStockService,
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
-      this.validator = this.parentData;
+    this.validator = this.parentData;
   }
 
   RefreshData() {
@@ -93,9 +98,9 @@ export class PharmacyIncomeComponent implements OnInit {
   }
 
   EditInv(data) {
-    this.dialogFormService.open(FormPharmacyIncomeComponent, {
+    this.dialogFormService.open(FormPharmacyIncomeSuppliesComponent, {
       context: {
-        title: 'Aceptar Medicamento',
+        title: 'Aceptar Insumo',
         data,
         saved: this.RefreshData.bind(this),
       },

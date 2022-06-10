@@ -6,11 +6,11 @@ import { PharmacyProductRequestService } from '../../../../business-controller/p
 import { AuthService } from '../../../../services/auth.service';
 
 @Component({
-  selector: 'ngx-form-pharmacy-income',
-  templateUrl: './form-pharmacy-income.component.html',
-  styleUrls: ['./form-pharmacy-income.component.scss']
+  selector: 'ngx-form-pharmacy-income-supplies',
+  templateUrl: './form-pharmacy-income-supplies.component.html',
+  styleUrls: ['./form-pharmacy-income-supplies.component.scss']
 })
-export class FormPharmacyIncomeComponent implements OnInit {
+export class FormPharmacyIncomeSuppliesComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -35,6 +35,7 @@ export class FormPharmacyIncomeComponent implements OnInit {
     private toastService: NbToastrService,
     private toastS: NbToastrService,
     private authService: AuthService,
+
   ) {
   }
 
@@ -42,7 +43,7 @@ export class FormPharmacyIncomeComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.parentData = {
       selectedOptions: [],
-      entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1='+ true,
+      entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1='+ false,
       customData: 'pharmacy_request_shipping',
     };
     if (!this.data) {
@@ -51,44 +52,13 @@ export class FormPharmacyIncomeComponent implements OnInit {
         amount: '',
         observation: '',
       };
-    }
-
-    // var num: number = +this.data.amount_damaged;
+    };
 
     this.form = this.formBuilder.group({
       cantidad_enviada: [this.data.cantidad_enviada],
       observation: [this.data.observation],
-      /*  amount_provition: [this.data.amount_provition],
-        amount_damaged: [num],
-        amount: [this.data.amount],
-        observation: [this.data.observation],*/
     });
   }
-
-  /*onAmountChange(value) {
-    if (this.form.controls.amount.value <= this.form.controls.amount_provition.value && this.form.controls.amount.value >= 0) {
-      if (this.form.controls.amount.value == this.form.controls.amount_provition.value) {
-        this.form.controls.observation.disable();
-        this.form.controls.amount_damaged.disable();
-      } else {
-        this.form.controls.observation.enable();
-        this.form.controls.amount_damaged.enable();
-      }
-    } else if (this.form.controls.amount.value < 0) {
-      this.form.controls.amount.setValue(0);
-    } else {
-      this.form.controls.amount.setValue(this.form.controls.amount_provition.value);
-    }
-    if ((this.form.controls.amount.value + this.form.controls.amount_damaged.value) > this.form.controls.amount_provition.value && !(this.form.controls.amount_damaged.value < 0)) {
-      this.form.controls.amount_damaged.setValue(this.form.controls.amount_provition.value - this.form.controls.amount.value);
-    } else {
-      if (this.form.controls.amount_damaged.value < 0) {
-        this.form.controls.amount_damaged.setValue(0);
-      }
-    }
-
-  }*/
-
 
   close() {
     this.dialogRef.close();
