@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BackListComponent } from './background/back-list.component'; 
+import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { ChRecordListComponent } from './ch-record-list/ch-record-list.component';
 import { ClinicHistoryListComponent } from './clinic-history-list/clinic-history-list.component';
 import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
@@ -20,6 +21,10 @@ const routes: Routes = [{
     {
       path: 'clinic-history-nursing-list/:id/:id2',
       component: ClinicHistoryNursingListComponent,
+    },
+    {
+      path: 'ch-nutrition-list/:id/:id2',
+      component: ChNutritionListComponent,
     },
     {
       path: 'ch-record-list/:id/:id2',

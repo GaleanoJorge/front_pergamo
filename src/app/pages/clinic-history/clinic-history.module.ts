@@ -128,6 +128,11 @@ import { FormReasonConsultationNursingComponent } from './entry-clinic-history-n
 import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
 import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
 import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
+import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
+import { ChNutritionInputComponent } from './ch-nutrition-list/ch-nutrition-input/ch-nutrition-input.component';
+import { ChNutritionScalesComponent } from './ch-nutrition-list/ch-nutrition-scales/ch-nutrition-scales.component';
+import { ChNutritionRegularNoneComponent } from './ch-nutrition-list/ch-nutrition-regular-note/ch-nutrition-regular-note.component';
+import { FormAnthropometryComponent } from './ch-nutrition-list/ch-nutrition-input/form-anthropometry/form-anthropometry.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -275,6 +280,12 @@ import { FormSkinValorationComponent } from './skin-valoration/form-skin-valorat
     OrdersMedicalComponent,
     
     ChHistoricScalesComponent,
+
+    ChNutritionListComponent,
+    ChNutritionInputComponent,
+    ChNutritionScalesComponent,
+    ChNutritionRegularNoneComponent,
+    FormAnthropometryComponent,
   ],
 
 
