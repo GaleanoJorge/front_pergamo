@@ -25,6 +25,10 @@ import { AuthService } from '../../../services/auth.service';
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
+    <button nbTooltip="Historia Clinica de NUTRICIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
+      <nb-icon icon="file-add-outline"></nb-icon>
+    </button>
+
     <button *ngIf="value.data.status=='CERRADO'" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
       <nb-icon icon="file-add"></nb-icon>
     </button>
