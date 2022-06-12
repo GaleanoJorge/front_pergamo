@@ -1,0 +1,38 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper  orientation="vertical">
+          <nb-step label="Antropometría">
+            <ngx-form-anthropometry [data]="this.data"></ngx-form-anthropometry>
+          </nb-step>
+
+          <nb-step label="Gastrointestinales">
+
+          </nb-step>
+
+          <nb-step label="Anamnesis Alimentaria">
+            
+          </nb-step>
+
+          <nb-step label="Cálculos de Nutrición Parenteral">
+
+          </nb-step>
+
+          <nb-step label="Antecedentes">
+
+          </nb-step>
+
+          <nb-step label="Análisis e Interpretación">
+
+          </nb-step>
+
+          <nb-step label="Recomendaciones / Educación">
+            
+          </nb-step>
+
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>
