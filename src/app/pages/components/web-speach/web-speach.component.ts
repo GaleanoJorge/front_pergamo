@@ -20,6 +20,7 @@ export class WebSpeachComponent implements OnInit {
   @Input() routes = null;
   @Input() messageError = null;
   @Input() entity=null;
+  @Input() isactive=null;
   @Input() subtitle = null;
   @Input() routeBack = null;
   @Input() actionSave = null;
@@ -50,6 +51,9 @@ export class WebSpeachComponent implements OnInit {
     } else {
       this.errorMessage$ = of('Your Browser is not supported. Please try Google Chrome.');
     }
+    if(this.isactive=="true"){
+      this.start();
+    }
   }
 
   start(): void {
@@ -64,6 +68,11 @@ export class WebSpeachComponent implements OnInit {
 
   stop(): void {
     this.speechRecognizer.stop();
+    this.totalTranscript = {
+      isactive: false,
+    };    
+    this.messageEvent.emit(this.totalTranscript);
+
   }
 
   selectLanguage(language: string): void {

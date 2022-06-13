@@ -42,7 +42,8 @@ export class FormReasonConsultationComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public ch_external_cause: any[];
-  public changes;
+  public changes=false;
+  public changes1=false;
 
 
   constructor(
@@ -145,15 +146,23 @@ export class FormReasonConsultationComponent implements OnInit {
 
     }
   }
-  receiveMessage($event) {
-   
-      this.form.get('reason_consultation').setValue(this.form.get('reason_consultation').value+' '+$event.text);
-
-
+  receiveMessage($event) {   
+    
+    if($event.isactive==false){
+      this.changes=false;
+      this.changes1=false;
+    }
+    if($event.entity){
+    this.form.get($event.entity).setValue(this.form.get($event.entity).value+' '+$event.text);
+    }
   }
 
   changebuttom() {
     this.changes=true;
+  }
+
+  changebuttom1() {
+    this.changes1=true;
   }
 
 

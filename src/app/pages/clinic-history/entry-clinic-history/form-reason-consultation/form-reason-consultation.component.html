@@ -11,7 +11,10 @@
               status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
           </div>
           <div class="col-md-1">
-            <ngx-web-speach id="reason_consultation" name="reason_consultation"  (messageEvent)="receiveMessage($event)" entity="reason_consultation"></ngx-web-speach>
+            <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()" >
+              <nb-icon icon="mic-outline"></nb-icon>
+            </button>
+            <ngx-web-speach *ngIf="changes1" id="reason_consultation" name="reason_consultation"  (messageEvent)="receiveMessage($event)" entity="reason_consultation" isactive="true"></ngx-web-speach>
           </div>
         </div>
       </div>
@@ -29,7 +32,7 @@
             <button *ngIf="!changes" type="button" nbButton ghost (click)="changebuttom()" >
               <nb-icon icon="mic-outline"></nb-icon>
             </button>
-            <ngx-web-speach *ngIf="changes" id="current_illness" name="current_illness" (messageEvent)="receiveMessage($event)" entity="current_illness"></ngx-web-speach>
+            <ngx-web-speach *ngIf="changes" id="current_illness" name="current_illness" (messageEvent)="receiveMessage($event)" entity="current_illness" isactive="true"></ngx-web-speach>
           </div>
         </div>
       </div>
