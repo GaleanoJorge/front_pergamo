@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductCategoryService } from '../../../../business-controller/product-category.service';
 import { ProductSubcategoryService } from '../../../../business-controller/product-subcategory.service';
 import { ProductSuppliesService } from '../../../../business-controller/product-supplies.service';
-import { NomSuppliesService } from '../../../../business-controller/nom-supplies.service';
 import { ProductGroupService } from '../../../../business-controller/product-group.service';
 import { SuppliesMeasureService } from '../../../../business-controller/supplies-measure.service';
 
@@ -42,7 +41,6 @@ export class FormProductSuppliesComponent implements OnInit {
     private toastService: NbToastrService,
     private ProductCategoryS: ProductCategoryService,
     private ProductSubcategoryS: ProductSubcategoryService,
-    private NomSuppliesS: NomSuppliesService,
     private ProductGroupS: ProductGroupService,
     private SuppliesMeasureS: SuppliesMeasureService
   ) {
@@ -213,11 +211,11 @@ export class FormProductSuppliesComponent implements OnInit {
     });
   }
 
-  GetNomProd(product_subcategory_id, job = false) {
-    if (!product_subcategory_id || product_subcategory_id === '') return Promise.resolve(false);
-    return this.NomSuppliesS.GetProductSubcategoryByCategory(product_subcategory_id).then(x => {
-      this.product_subcategory = x;
-      return Promise.resolve(true);
-    });
-  }
+  // GetNomProd(product_subcategory_id, job = false) {
+  //   if (!product_subcategory_id || product_subcategory_id === '') return Promise.resolve(false);
+  //   return this.NomSuppliesS.GetProductSubcategoryByCategory(product_subcategory_id).then(x => {
+  //     this.product_subcategory = x;
+  //     return Promise.resolve(true);
+  //   });
+  // }
 }

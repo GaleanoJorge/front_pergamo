@@ -362,10 +362,8 @@ import { AssetsSelectRequestsComponent } from './fixed-assets-requests/assets-re
 import { FormFixedAssetsRequestsComponent } from './fixed-assets-requests/form-fixed-assets-requests/form-fixed-assets-requests.component';
 import { ActionsAssReqComponent } from './fixed-assets-requests/actions.component';
 import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
-import { NomSuppliesComponent } from './nom-supplies/nom-supplies.component';
 import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
 import { FormProductSuppliesComponent } from './product-supplies/form-product-supplies/form-product-supplies.component';
-import { FormNomSuppliesComponent } from './nom-supplies/form-nom-supplies/form-nom-supplies.component';
 import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
 import { FormSuppliesCommComponent } from './supplies-comm/form-supplies-comm/form-supplies-comm.component';
 import { ProductTabComponent } from './product-tab/product-tab.component';
@@ -775,10 +773,8 @@ import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-sup
     ActionsAssReqComponent,
     FixedAssetsRequestsComponent,
 
-    NomSuppliesComponent,
     ProductSuppliesComponent,
     FormProductSuppliesComponent,
-    FormNomSuppliesComponent,
 
     SuppliesCommComponent,
     FormSuppliesCommComponent,
