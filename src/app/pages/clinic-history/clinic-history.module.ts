@@ -135,6 +135,7 @@ import { ChNutritionRegularNoneComponent } from './ch-nutrition-list/ch-nutritio
 import { FormAnthropometryComponent } from './ch-nutrition-list/ch-nutrition-input/form-anthropometry/form-anthropometry.component';
 import { FormGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition-input/form-gastrointestinal/form-gastrointestinal.component';
 import { FormFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input/form-food-history/form-food-history.component';
+import { FormAnalysisAndInterpretationComponent } from './ch-nutrition-list/ch-nutrition-input/form-analysis-and-interpretation/form-analysis-and-interpretation.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -290,6 +291,7 @@ import { FormFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input
     FormAnthropometryComponent,
     FormGastrointestinalComponent,
     FormFoodHistoryComponent,
+    FormAnalysisAndInterpretationComponent,
   ],
 
 
