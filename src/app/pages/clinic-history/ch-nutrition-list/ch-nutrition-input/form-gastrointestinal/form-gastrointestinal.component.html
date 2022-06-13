@@ -1,0 +1,56 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card>
+    <nb-card-body>
+      <fieldset class="field_set">
+        <legend class="prue1 center">Gastrointestinales</legend>
+        <div class="row">
+
+          <div class="col-12 col-sm-12 col-md-12">
+            <label for="bowel_habit" class="form-text text-muted font-weight-bold">Hábito Intestinal:</label>
+            <nb-select formControlName="bowel_habit" id="bowel_habit" fullWidth
+              status="{{ isSubmitted && form.controls.bowel_habit.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of bowel_habit" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="vomit" class="form-text text-muted font-weight-bold">¿Ha presentado vómito?:</label>
+            <nb-radio-group formControlName="vomit" is_functional id="vomit" class="d-flex"
+              status="{{ isSubmitted && form.controls.vomit.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+              <nb-radio *ngFor="let item of vomit" [value]="item.id">{{ item.name }}</nb-radio>
+            </nb-radio-group>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-9">
+            <label *ngIf="form.controls.vomit.value != '' && form.controls.vomit.value == 'SI'" class="form-text text-muted font-weight-bold text ">Cantidad de
+              episodios eméticos:</label>
+            <textarea *ngIf="form.controls.vomit.value != '' && form.controls.vomit.value == 'SI'" id="amount_of_vomit" nbInput fullWidth
+              formControlName="amount_of_vomit" amount_of_vomit onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.amount_of_vomit.errors ? 'danger' : isSubmitted ? 'success' : null }}"> </textarea>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="nausea" class="form-text text-muted font-weight-bold">¿Ha presentado náuseas?:</label>
+            <nb-radio-group formControlName="nausea" is_functional id="nausea" class="d-flex"
+              status="{{ isSubmitted && form.controls.nausea.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+              <nb-radio *ngFor="let item of vomit" [value]="item.id">{{ item.name }}</nb-radio>
+            </nb-radio-group>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-9">
+            <label class="form-text text-muted font-weight-bold text ">Observaciones:</label>
+            <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+              onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : null }}"> </textarea>
+          </div>
+
+        </div>
+      </fieldset>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
