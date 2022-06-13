@@ -4,17 +4,37 @@
       <div class="col-md-12">
         <label for="ch_entry" class="form-text text-muted font-weight-bold">MOTIVO DE
           CONSULTA:</label>
-        <textarea id="reason_consultation" nbInput fullWidth formControlName="reason_consultation" reason_consultation onpaste="return false"
-          rows="4" cols="50"
-          status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        <div class="row" style="align-items: center;">
+          <div class="col-md-11">
+            <textarea id="reason_consultation" nbInput fullWidth formControlName="reason_consultation"
+              reason_consultation onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          </div>
+          <div class="col-md-1">
+            <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()" >
+              <nb-icon icon="mic-outline"></nb-icon>
+            </button>
+            <ngx-web-speach *ngIf="changes1" id="reason_consultation" name="reason_consultation"  (messageEvent)="receiveMessage($event)" entity="reason_consultation" isactive="true"></ngx-web-speach>
+          </div>
+        </div>
       </div>
 
       <div class="col-md-12">
         <label for="ch_entry" class="form-text text-muted font-weight-bold">ENFERMEDAD
           ACTUAL:</label>
-        <textarea id="current_illness" nbInput fullWidth formControlName="current_illness" current_illness onpaste="return false" rows="4"
-          cols="50"
-          status="{{ isSubmitted && form.controls.current_illness.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        <div class="row" style="align-items: center;">
+          <div class="col-md-11">
+            <textarea id="current_illness" nbInput fullWidth formControlName="current_illness" current_illness
+              onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.current_illness.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          </div>
+          <div class="col-md-1" >
+            <button *ngIf="!changes" type="button" nbButton ghost (click)="changebuttom()" >
+              <nb-icon icon="mic-outline"></nb-icon>
+            </button>
+            <ngx-web-speach *ngIf="changes" id="current_illness" name="current_illness" (messageEvent)="receiveMessage($event)" entity="current_illness" isactive="true"></ngx-web-speach>
+          </div>
+        </div>
       </div>
 
       <div class="col-md-12">
