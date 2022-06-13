@@ -362,6 +362,27 @@ import { AssetsSelectRequestsComponent } from './fixed-assets-requests/assets-re
 import { FormFixedAssetsRequestsComponent } from './fixed-assets-requests/form-fixed-assets-requests/form-fixed-assets-requests.component';
 import { ActionsAssReqComponent } from './fixed-assets-requests/actions.component';
 import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
+import { NomSuppliesComponent } from './nom-supplies/nom-supplies.component';
+import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
+import { FormProductSuppliesComponent } from './product-supplies/form-product-supplies/form-product-supplies.component';
+import { FormNomSuppliesComponent } from './nom-supplies/form-nom-supplies/form-nom-supplies.component';
+import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
+import { FormSuppliesCommComponent } from './supplies-comm/form-supplies-comm/form-supplies-comm.component';
+import { ProductTabComponent } from './product-tab/product-tab.component';
+import { AmountSuppliesComponent } from './billing/prod-supplies-package/amount-supplies.component';
+import { AmountUnitSuppliesComponent } from './billing/prod-supplies-package/amount-unit-supplies.component';
+import { ProdSuppliesPackageComponent } from './billing/prod-supplies-package/prod-supplies-package.component';
+import { SelectProductSuppliesComponent } from './billing/prod-supplies-package/select-prod-supplies.component';
+import { ActionsInvSupComponent } from './pharmacy-inventory-supplies/actionsInv.component';
+import { PharmacyInventorySuppliesComponent } from './pharmacy-inventory-supplies/pharmacy-inventory-supplies.component';
+import { FormPharmacyInventorySuppliesComponent } from './pharmacy-inventory-supplies/form-pharmacy-inventory-supplies/form-pharmacy-inventory-supplies.component';
+import { FormPharmacyIncomeSuppliesComponent } from './pharmacy-income-supplies/form-pharmacy-income-supplies/form-pharmacy-income-supplies.component';
+import { AmountSupComeComponent } from './pharmacy-income-supplies/income-supplies-package/amountSupCome.component';
+import { IncomeSuppliesPackageComponent } from './pharmacy-income-supplies/income-supplies-package/income-supplies-package.component';
+import { SelectSuppliesIncomeComponent } from './pharmacy-income-supplies/income-supplies-package/select-supplies-income.component';
+import { ActionsSupComponent } from './pharmacy-income-supplies/actions.component';
+import { PharmacyIncomeSuppliesComponent } from './pharmacy-income-supplies/pharmacy-income-supplies.component';
+import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-supplies-package/amountDamagedSup.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -752,8 +773,33 @@ import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-asse
     AssetsSelectRequestsComponent,
     FormFixedAssetsRequestsComponent,
     ActionsAssReqComponent,
-    FixedAssetsRequestsComponent
+    FixedAssetsRequestsComponent,
 
+    NomSuppliesComponent,
+    ProductSuppliesComponent,
+    FormProductSuppliesComponent,
+    FormNomSuppliesComponent,
+
+    SuppliesCommComponent,
+    FormSuppliesCommComponent,
+    ProductTabComponent,
+
+    AmountSuppliesComponent,
+    AmountUnitSuppliesComponent,
+    ProdSuppliesPackageComponent,
+    SelectProductSuppliesComponent,
+    ActionsInvSupComponent,
+    PharmacyInventorySuppliesComponent,
+    FormPharmacyInventorySuppliesComponent,
+
+
+    FormPharmacyIncomeSuppliesComponent,
+    AmountDamagedSupComponent,
+    AmountSupComeComponent,
+    IncomeSuppliesPackageComponent,
+    SelectSuppliesIncomeComponent,
+    ActionsSupComponent,
+    PharmacyIncomeSuppliesComponent
 
 
   ],

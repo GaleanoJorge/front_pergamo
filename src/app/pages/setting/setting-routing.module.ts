@@ -144,6 +144,10 @@ import { FixedRequestComponent } from './fixed-request/fixed-request.component';
 import { FormFixedRequestComponent } from './fixed-request/form-fixed-request/form-fixed-request.component';
 import { FixedAccessRequestsComponent } from './fixed-access-requests/fixed-access-requests.component';
 import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-requests.component';
+import { NomSuppliesComponent } from './nom-supplies/nom-supplies.component';
+import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
+import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
+import { ProductTabComponent } from './product-tab/product-tab.component';
 
 const routes: Routes = [{
   path: '',
@@ -445,7 +449,7 @@ const routes: Routes = [{
     },
     {
       path: 'pharmacy-inventory',
-      component: PharmacyInventoryComponent,
+      component: ProductTabComponent,
 
     },
     {
@@ -826,6 +830,14 @@ const routes: Routes = [{
     {
       path: 'fixed-access-requests',
       component: FixedTabRequestsComponent,
+    },
+    {
+      path: 'product-supplies',
+      component: ProductSuppliesComponent,
+    },
+    {
+      path: 'supplies-comm',
+      component: SuppliesCommComponent,
     }
   ],
 }];
