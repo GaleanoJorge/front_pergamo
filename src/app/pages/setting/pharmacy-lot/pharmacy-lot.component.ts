@@ -40,7 +40,11 @@ export class PharmacyLotComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
+          if (row.billing_stock.product_id == null) {
+            return row.billing_stock.product_supplies_com.name + " - "+row.billing_stock.product_supplies_com.product_supplies.description;
+          } else {
+            return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
+          }
         },
       },
 
