@@ -1,0 +1,108 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+
+        <nb-tabset class="tabset">
+          <nb-tab tabTitle="INGRESO">
+
+            <nb-stepper #stepper [linear]="linearMode">
+
+              <nb-step label='Valoracion Terapeutica'>
+                <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+
+              <nb-step label="Signos Vitales">
+
+                <ngx-form-signs [record_id]="record_id"></ngx-form-signs>
+
+
+              </nb-step>
+
+              <nb-step label='Soporte Oxigeno Terapia Ventilatorio'>
+                <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+              <nb-step label='Historia Ocupacional'>
+                <ngx-form-entry-occupat-history-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-occupat-history-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+              <nb-step label='Antecedentes Ocupacionales'>
+                <ngx-form-entry-past-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-past-consultation-occupational-therapy>
+              </nb-step>
+
+              <nb-step label='Actividades Vida Diaria'>
+                <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+              <nb-step label='Habilidades Motoras'>
+                <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+            </nb-stepper>
+
+          </nb-tab>
+          <nb-tab tabTitle="NOTA REGULAR">
+            <nb-stepper #stepper [linear]="linearMode">
+              <nb-step label='Valoracion Terapeutica'>
+                <ngx-form-reason-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-reason-consultation-occupational-therapy>
+              </nb-step>
+
+
+              <nb-step label="Signos Vitales">
+
+                <ngx-form-signs [record_id]="record_id"></ngx-form-signs>
+
+
+              </nb-step>
+
+              <nb-step label='Soporte Oxigeno Terapia Ventilatorio'>
+                <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+              <nb-step label='Objetivos Teraputicos'>
+                <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+              
+              <nb-step label='Intervencion'>
+                <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+              <nb-step label='Materiales e Insumos Utilizados'>
+                <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+              <nb-step label='Concepto Ocupacional'>
+                <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+              <nb-step label='Numero De Sesiones Mensuales e Intensidad Semanal'>
+                <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy>
+              </nb-step>
+
+            </nb-stepper>
+
+
+          </nb-tab>
+        </nb-tabset>
+
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>
