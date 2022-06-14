@@ -21,7 +21,7 @@ export class ChNutritionRegularNoneComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public messageError = null;
-
+  public weight: any = null;
 
   constructor(
 
@@ -31,4 +31,9 @@ export class ChNutritionRegularNoneComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  receiveMessage(event) {
+    if (event.name === 'weight') {
+      this.weight = event.value;
+    }
+  }
 }

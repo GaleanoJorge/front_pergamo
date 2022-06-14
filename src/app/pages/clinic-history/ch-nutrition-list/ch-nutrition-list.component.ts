@@ -136,7 +136,6 @@ export class ChNutritionListComponent implements OnInit {
   // }
 
   tablock(e) {
-    console.log(e.tabTitle);
     switch (e.tabTitle) {
       case "INGRESO": {
         this.show = 1;
@@ -147,7 +146,7 @@ export class ChNutritionListComponent implements OnInit {
         break;
       }
       case "ESCALAS": {
-        this.show = 4;
+        this.show = 3;
         break;
       }
     }

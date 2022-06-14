@@ -15,6 +15,7 @@ export class FormChScalesComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() enfermery: any = null;
+  @Input() nutrition: any = null;
   @Input() record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
