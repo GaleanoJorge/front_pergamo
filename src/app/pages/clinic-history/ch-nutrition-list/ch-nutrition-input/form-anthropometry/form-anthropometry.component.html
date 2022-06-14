@@ -36,10 +36,10 @@
           </div>
 
           <div class="col-12 col-sm-12 col-md-3">
-            <label for="name" class="form-text text-muted font-weight-bold">Altura de Pierna:</label>
-            <input nbInput fullWidth id="name" name formControlName="leg_height" placeholder="centímetros (cm)"
+            <label for="name" class="form-text text-muted font-weight-bold">Circunferencia de Brazo:</label>
+            <input nbInput fullWidth id="name" name formControlName="arm_circunferency" placeholder="centímetros (cm)"
               type="number" (change)="onInputChanges($event)" onpaste="return false"
-              status="{{ isSubmitted && form.controls.leg_height.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+              status="{{ isSubmitted && form.controls.arm_circunferency.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
           </div>
 
           <div class="col-12 col-sm-12 col-md-3">

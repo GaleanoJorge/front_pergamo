@@ -21,7 +21,7 @@
                 <input nbInput fullWidth id="name" name disabled [value]="this.total_grams_of_protein" />
               </div>
               <div class="col-12 col-sm-12 col-md-6">
-                g
+                g/día
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@
                 <input nbInput fullWidth id="name" name disabled [value]="this.total_carbohydrates" />
               </div>
               <div class="col-12 col-sm-12 col-md-6">
-                mg/Kg/min
+                g/día
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@
           <div class="col-12 col-sm-12 col-md-6">
             <label for="lipid_contribution" class="form-text text-muted font-weight-bold">Aporte de Lípidos:</label>
             <input nbInput fullWidth id="lipid_contribution" name formControlName="lipid_contribution"
-              placeholder="miligramos / Kilogramos (mg/Kg)" type="number" (change)="onInputChanges($event)"
+              placeholder="gramos / Kilogramos (g/Kg)" type="number" (change)="onInputChanges($event)"
               onpaste="return false"
               status="{{ isSubmitted && form.controls.lipid_contribution.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
           </div>
@@ -74,7 +74,7 @@
                 <input nbInput fullWidth id="name" name disabled [value]="this.total_grams_of_lipids" />
               </div>
               <div class="col-12 col-sm-12 col-md-6">
-                g
+                g/día
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@
                   </nb-select>
                 </div>
                 <div class="col-12 col-sm-12 col-md-4">
-                  Resultado
+                  {{this.total_amino_acid_volume}} ml
                 </div>
               </div>
             </fieldset>
@@ -124,7 +124,7 @@
                   </nb-select>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6">
-                  Resultado
+                  {{this.total_dextrose_volume}} ml
                 </div>
               </div>
             </fieldset>
@@ -144,7 +144,7 @@
                   </nb-select>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6">
-                  Resultado
+                  {{this.total_lipid_volume}} ml
                 </div>
               </div>
             </fieldset>
@@ -153,7 +153,14 @@
           <div class="col-12 col-sm-12 col-md-6 mar">
             <fieldset class="field_set1 col-12 col-sm-12 col-md-12">
               <label for="lipid_volume" class="form-text text-muted font-weight-bold">Calorias Totales:</label>
-              <input nbInput fullWidth id="name" name disabled [value]="this.total_calories" />
+              <div class="row" style="align-items: center;">
+                <div class="col-12 col-sm-12 col-md-6">
+                  <input nbInput fullWidth id="name" name disabled [value]="this.total_calories" />
+                </div>
+                <div class="col-12 col-sm-12 col-md-6">
+                  cal
+                </div>
+              </div>
             </fieldset>
           </div>
 

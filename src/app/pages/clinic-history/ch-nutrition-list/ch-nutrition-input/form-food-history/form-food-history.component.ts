@@ -48,6 +48,31 @@ export class FormFoodHistoryComponent implements OnInit {
     { id: 'PERIFÉRICA', name: 'PERIFÉRICA' },
     { id: 'TOTAL', name: 'TOTAL' },
   ];
+  public diet_type = [
+    { id: "LIQUIDA CLARA", name: "LIQUIDA CLARA" },
+    { id: "LIQUIDA COMPLETA", name: "LIQUIDA COMPLETA" },
+    { id: "BLANDA - TODO MIEL ", name: "BLANDA - TODO MIEL " },
+    { id: "BLANDA - TODO MOLIDO", name: "BLANDA - TODO MOLIDO" },
+    { id: "BLANDA - PURE", name: "BLANDA - PURE" },
+    { id: "BLANDA - TODO PICADO", name: "BLANDA - TODO PICADO" },
+    { id: "BLANDA - ESTIMULO", name: "BLANDA - ESTIMULO" },
+    { id: "SEMIBLANDA", name: "SEMIBLANDA" },
+    { id: "NORMAL", name: "NORMAL" },
+    { id: "HIPOCALORICA", name: "HIPOCALORICA" },
+    { id: "HIPERCALORICA", name: "HIPERCALORICA" },
+    { id: "HIPOPROTEICA", name: "HIPOPROTEICA" },
+    { id: "HIPERPROTEICA", name: "HIPERPROTEICA" },
+    { id: "HIPOGLUCIDA", name: "HIPOGLUCIDA" },
+    { id: "HIPOSODICA", name: "HIPOSODICA" },
+    { id: "HIPOGRASA", name: "HIPOGRASA" },
+    { id: "ALTA EN FIBRA", name: "ALTA EN FIBRA" },
+    { id: "VEGETARIANA", name: "VEGETARIANA" },
+    { id: "CETOGENICA", name: "CETOGENICA" },
+    { id: "SOPORTE NUTRICIONAL ESPECIALIZADO - GASTROSTOMIA", name: "SOPORTE NUTRICIONAL ESPECIALIZADO - GASTROSTOMIA" },
+    { id: "SOPORTE NUTRICIONAL ESPECIALIZADO - SONDA NASOGASTRICA", name: "SOPORTE NUTRICIONAL ESPECIALIZADO - SONDA NASOGASTRICA" },
+    { id: "SOPORTE NUTRICIONAL ESPECIALIZADO - SONDA OROGASTRICA", name: "SOPORTE NUTRICIONAL ESPECIALIZADO - SONDA OROGASTRICA" },
+    { id: "SOPORTE NUTRICIONAL ESPECIALIZADO - YEYUNOSTOMIA", name: "SOPORTE NUTRICIONAL ESPECIALIZADO - YEYUNOSTOMIA" },
+  ];
 
 
 

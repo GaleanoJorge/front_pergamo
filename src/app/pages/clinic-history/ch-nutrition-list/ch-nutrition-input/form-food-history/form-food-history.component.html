@@ -69,33 +69,8 @@
             <label for="swallowing" class="form-text text-muted font-weight-bold">Tipo de Dieta:</label>
             <nb-select multiple placeholder="Seleccione..." formControlName="diet_type" fullWidth
               status="{{ isSubmitted && form.controls.diet_type.errors ? 'danger' : isSubmitted ? 'success' : null }}">
-              <nb-option value="LIQUIDA CLARA">LIQUIDA CLARA</nb-option>
-              <nb-option value="LIQUIDA COMPLETA">LIQUIDA COMPLETA</nb-option>
-              <nb-option value="BLANDA - TODO MIEL ">BLANDA - TODO MIEL </nb-option>
-              <nb-option value="BLANDA - TODO MOLIDO">BLANDA - TODO MOLIDO</nb-option>
-              <nb-option value="BLANDA - PURE">BLANDA - PURE</nb-option>
-              <nb-option value="BLANDA - TODO PICADO">BLANDA - TODO PICADO</nb-option>
-              <nb-option value="BLANDA - ESTIMULO">BLANDA - ESTIMULO</nb-option>
-              <nb-option value="SEMIBLANDA">SEMIBLANDA</nb-option>
-              <nb-option value="NORMAL">NORMAL</nb-option>
-              <nb-option value="HIPOCALORICA">HIPOCALORICA</nb-option>
-              <nb-option value="HIPERCALORICA">HIPERCALORICA</nb-option>
-              <nb-option value="HIPOPROTEICA">HIPOPROTEICA</nb-option>
-              <nb-option value="HIPERPROTEICA">HIPERPROTEICA</nb-option>
-              <nb-option value="HIPOGLUCIDA">HIPOGLUCIDA</nb-option>
-              <nb-option value="HIPOSODICA">HIPOSODICA</nb-option>
-              <nb-option value="HIPOGRASA">HIPOGRASA</nb-option>
-              <nb-option value="ALTA EN FIBRA">ALTA EN FIBRA</nb-option>
-              <nb-option value="VEGETARIANA">VEGETARIANA</nb-option>
-              <nb-option value="CETOGENICA">CETOGENICA</nb-option>
-              <nb-option value="SOPORTE NUTRICIONAL ESPECIALIZADO - GASTROSTOMIA">SOPORTE NUTRICIONAL ESPECIALIZADO -
-                GASTROSTOMIA</nb-option>
-              <nb-option value="SOPORTE NUTRICIONAL ESPECIALIZADO - SONDA NASOGASTRICA">SOPORTE NUTRICIONAL
-                ESPECIALIZADO - SONDA NASOGASTRICA</nb-option>
-              <nb-option value="SOPORTE NUTRICIONAL ESPECIALIZADO - SONDA OROGASTRICA">SOPORTE NUTRICIONAL ESPECIALIZADO
-                - SONDA OROGASTRICA</nb-option>
-              <nb-option value="SOPORTE NUTRICIONAL ESPECIALIZADO - YEYUNOSTOMIA">SOPORTE NUTRICIONAL ESPECIALIZADO -
-                YEYUNOSTOMIA</nb-option>
+              <nb-option *ngFor="let item of diet_type" [value]="item.id">
+                {{ item.name }}</nb-option>
             </nb-select>
           </div>
 

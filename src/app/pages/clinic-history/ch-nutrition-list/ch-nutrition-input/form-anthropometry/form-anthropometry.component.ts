@@ -46,7 +46,7 @@ export class FormAnthropometryComponent implements OnInit {
       is_functional: ['', Validators.required],
       weight: ['', Validators.required],
       size: ['', Validators.required],
-      leg_height: ['', Validators.required],
+      arm_circunferency: ['', Validators.required],
       calf_circumference: ['', Validators.required],
       knee_height: ['', Validators.required],
       abdominal_perimeter: ['', Validators.required],
@@ -121,7 +121,7 @@ export class FormAnthropometryComponent implements OnInit {
         c3 = 5;
         c4 = 6.8;
       } else if (this.data.gender_id == 1) {
-        c1 = 65.5;
+        c1 = 655;
         c2 = 9.6;
         c3 = 1.8;
         c4 = 4.7;
