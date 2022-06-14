@@ -130,7 +130,6 @@ import { SkinValorationComponent } from './skin-valoration/skin-valoration.compo
 import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { ChNutritionInputComponent } from './ch-nutrition-list/ch-nutrition-input/ch-nutrition-input.component';
-import { ChNutritionScalesComponent } from './ch-nutrition-list/ch-nutrition-scales/ch-nutrition-scales.component';
 import { ChNutritionRegularNoneComponent } from './ch-nutrition-list/ch-nutrition-regular-note/ch-nutrition-regular-note.component';
 import { FormAnthropometryComponent } from './ch-nutrition-list/ch-nutrition-input/form-anthropometry/form-anthropometry.component';
 import { FormGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition-input/form-gastrointestinal/form-gastrointestinal.component';
@@ -287,7 +286,6 @@ import { FormParenteralNutritionComponent } from './ch-nutrition-list/ch-nutriti
 
     ChNutritionListComponent,
     ChNutritionInputComponent,
-    ChNutritionScalesComponent,
     ChNutritionRegularNoneComponent,
     FormAnthropometryComponent,
     FormGastrointestinalComponent,
