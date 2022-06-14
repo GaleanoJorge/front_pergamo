@@ -79,71 +79,82 @@
             </div>
           </div>
 
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="amino_acid_volume" class="form-text text-muted font-weight-bold">Volumen de aminoácidos:</label>
-            <div class="row" style="align-items: center;">
-              <div class="col-12 col-sm-12 col-md-4">
-                <nb-select formControlName="amino_acid_volume" id="amino_acid_volume" fullWidth
-                  (selectedChange)="onInputChanges($event)"
-                  status="{{ isSubmitted && form.controls.amino_acid_volume.errors ? 'danger' : isSubmitted ? 'success' : null }}">
-                  <nb-option value="">Seleccione...</nb-option>
-                  <nb-option *ngFor="let item of amino_acid_volume" [value]="item.id">
-                    {{ item.name }}</nb-option>
-                </nb-select>
+          <div class="col-12 col-sm-12 col-md-6 mar">
+            <fieldset class="field_set1 col-12 col-sm-12 col-md-12">
+              <label class="form-text text-muted font-weight-bold">Volumen de
+                aminoácidos: </label>
+              <div class="row" style="align-items: center;">
+                <div class="col-12 col-sm-12 col-md-4">
+                  <nb-select formControlName="amino_acid_volume" id="amino_acid_volume" fullWidth
+                    (selectedChange)="onInputChanges($event)"
+                    status="{{ isSubmitted && form.controls.amino_acid_volume.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of amino_acid_volume" [value]="item.id">
+                      {{ item.name }}</nb-option>
+                  </nb-select>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4">
+                  <nb-select formControlName="ce_se" id="ce_se" fullWidth
+                    status="{{ isSubmitted && form.controls.ce_se.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of ce_se" [value]="item.id">
+                      {{ item.name }}</nb-option>
+                  </nb-select>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4">
+                  Resultado
+                </div>
               </div>
-              <div class="col-12 col-sm-12 col-md-4">
-                <nb-select formControlName="ce_se" id="ce_se" fullWidth
-                  status="{{ isSubmitted && form.controls.ce_se.errors ? 'danger' : isSubmitted ? 'success' : null }}">
-                  <nb-option value="">Seleccione...</nb-option>
-                  <nb-option *ngFor="let item of ce_se" [value]="item.id">
-                    {{ item.name }}</nb-option>
-                </nb-select>
-              </div>
-              <div class="col-12 col-sm-12 col-md-4">
-                Resultado
-              </div>
-            </div>
+            </fieldset>
           </div>
 
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="dextrose_volume" class="form-text text-muted font-weight-bold">Volumen de Dextrosa:</label>
-            <div class="row" style="align-items: center;">
-              <div class="col-12 col-sm-12 col-md-6">
-                <nb-select formControlName="dextrose_volume" id="dextrose_volume" fullWidth
-                  (selectedChange)="onInputChanges($event)"
-                  status="{{ isSubmitted && form.controls.dextrose_volume.errors ? 'danger' : isSubmitted ? 'success' : null }}">
-                  <nb-option value="">Seleccione...</nb-option>
-                  <nb-option *ngFor="let item of dextrose_volume" [value]="item.id">
-                    {{ item.name }}</nb-option>
-                </nb-select>
+
+          <div class="col-12 col-sm-12 col-md-6 mar">
+            <fieldset class="field_set1 col-12 col-sm-12 col-md-12">
+              <label class="form-text text-muted font-weight-bold">Volumen de
+                Dextrosa:</label>
+              <div class="row" style="align-items: center;">
+                <div class="col-12 col-sm-12 col-md-6">
+                  <nb-select formControlName="dextrose_volume" id="dextrose_volume" fullWidth
+                    (selectedChange)="onInputChanges($event)"
+                    status="{{ isSubmitted && form.controls.dextrose_volume.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of dextrose_volume" [value]="item.id">
+                      {{ item.name }}</nb-option>
+                  </nb-select>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6">
+                  Resultado
+                </div>
               </div>
-              <div class="col-12 col-sm-12 col-md-6">
-                Resultado
-              </div>
-            </div>
+            </fieldset>
           </div>
 
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="lipid_volume" class="form-text text-muted font-weight-bold">Volumen de Lípidos:</label>
-            <div class="row" style="align-items: center;">
-              <div class="col-12 col-sm-12 col-md-6">
-                <nb-select formControlName="lipid_volume" id="lipid_volume" fullWidth
-                  (selectedChange)="onInputChanges($event)"
-                  status="{{ isSubmitted && form.controls.lipid_volume.errors ? 'danger' : isSubmitted ? 'success' : null }}">
-                  <nb-option value="">Seleccione...</nb-option>
-                  <nb-option *ngFor="let item of lipid_volume" [value]="item.id">
-                    {{ item.name }}</nb-option>
-                </nb-select>
+          <div class="col-12 col-sm-12 col-md-6 mar">
+            <fieldset class="field_set1 col-12 col-sm-12 col-md-12">
+              <label for="lipid_volume" class="form-text text-muted font-weight-bold">Volumen de Lípidos:</label>
+              <div class="row" style="align-items: center;">
+                <div class="col-12 col-sm-12 col-md-6">
+                  <nb-select formControlName="lipid_volume" id="lipid_volume" fullWidth
+                    (selectedChange)="onInputChanges($event)"
+                    status="{{ isSubmitted && form.controls.lipid_volume.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of lipid_volume" [value]="item.id">
+                      {{ item.name }}</nb-option>
+                  </nb-select>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6">
+                  Resultado
+                </div>
               </div>
-              <div class="col-12 col-sm-12 col-md-6">
-                Resultado
-              </div>
-            </div>
+            </fieldset>
           </div>
 
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="lipid_volume" class="form-text text-muted font-weight-bold">Calorias Totales:</label>
-            <input nbInput fullWidth id="name" name disabled [value]="this.total_calories" />
+          <div class="col-12 col-sm-12 col-md-6 mar">
+            <fieldset class="field_set1 col-12 col-sm-12 col-md-12">
+              <label for="lipid_volume" class="form-text text-muted font-weight-bold">Calorias Totales:</label>
+              <input nbInput fullWidth id="name" name disabled [value]="this.total_calories" />
+            </fieldset>
           </div>
 
         </div>
