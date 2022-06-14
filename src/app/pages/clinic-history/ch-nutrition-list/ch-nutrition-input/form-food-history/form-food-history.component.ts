@@ -85,7 +85,6 @@ export class FormFoodHistoryComponent implements OnInit {
     });
 
     this.form.get('is_allergic').valueChanges.subscribe(val => {
-      console.log(val);
       if (val == 'SI') {
         this.form.controls.allergy.setValidators([Validators.required]);
         this.form.controls.allergy.updateValueAndValidity();

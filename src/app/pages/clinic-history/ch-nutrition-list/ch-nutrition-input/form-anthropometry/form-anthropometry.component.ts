@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 
@@ -13,6 +13,7 @@ export class FormAnthropometryComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   linearMode = false;
   public form: FormGroup;
@@ -161,7 +162,10 @@ export class FormAnthropometryComponent implements OnInit {
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-
+      this.messageEvent.emit({
+        name: 'weight',
+        value: this.form.controls.weight.value
+      });
     }
   }
 

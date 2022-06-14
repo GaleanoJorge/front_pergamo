@@ -49,7 +49,6 @@ export class FormGastrointestinalComponent implements OnInit {
     });
 
     this.form.get('vomit').valueChanges.subscribe(val => {
-      console.log(val);
       if (val == 'SI') {
         this.form.controls.amount_of_vomit.setValidators([Validators.required]);
         this.form.controls.amount_of_vomit.updateValueAndValidity();
