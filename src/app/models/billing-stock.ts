@@ -6,4 +6,5 @@ export class BillingStock extends MainClass {
   amount_unit: number;
   billing_id: number;
   product_id: number;
+  product_supplies_com_id: number;
 }

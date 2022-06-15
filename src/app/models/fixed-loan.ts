@@ -4,12 +4,10 @@ import { MainClass } from './main-class';
 
 export class FixedLoan extends MainClass {
   id: number;
-  own_user_id: number;
-  fixed_assets_id: number;
-  fixed_stock_accessories_id: number;
-  fixed_location_campus_id: number;
+  amount: number;
+  amount_damaged: number;
+  amount_provition: number;
+  fixed_add_id: number;
   responsible_user_id: number;
   observation: string;
-  request_user_id: number;
-  status: string;
 }

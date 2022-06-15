@@ -17,6 +17,19 @@
             status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="campus_id" class="form-text text-muted font-weight-bold">Enviar a la sede:</label>
+          <nb-select [selected]="this.data.campus_id" formControlName="campus_id"
+            id="campus_id" fullWidth
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.campus_id }}"
+              *ngFor="let item of campus_id" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
       </div>
 
     </nb-card-body>

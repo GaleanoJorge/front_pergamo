@@ -143,6 +143,12 @@ import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.compo
 import { MinimumSalaryComponent } from './minimum-salary/minimum-salary.component';
 import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component';
 import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
+import { FixedTabComponent } from './fixed-tab/fixed-tab.component';
+import { FormFixedRequestComponent } from './fixed-request/form-fixed-request/form-fixed-request.component';
+import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-requests.component';
+import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
+import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
+import { ProductTabComponent } from './product-tab/product-tab.component';
 
 const routes: Routes = [{
   path: '',
@@ -439,7 +445,7 @@ const routes: Routes = [{
     },
     {
       path: 'pharmacy-inventory',
-      component: PharmacyInventoryComponent,
+      component: ProductTabComponent,
 
     },
     {
@@ -823,7 +829,23 @@ const routes: Routes = [{
     },
     {
       path: 'fixed-inventary',
-      component: FixedInventaryComponent,
+      component: FixedTabComponent,
+    },
+    {
+      path: 'fixed-request',
+      component: FormFixedRequestComponent,
+    },
+    {
+      path: 'fixed-access-requests',
+      component: FixedTabRequestsComponent,
+    },
+    {
+      path: 'product-supplies',
+      component: ProductSuppliesComponent,
+    },
+    {
+      path: 'supplies-comm',
+      component: SuppliesCommComponent,
     }
   ],
 }];

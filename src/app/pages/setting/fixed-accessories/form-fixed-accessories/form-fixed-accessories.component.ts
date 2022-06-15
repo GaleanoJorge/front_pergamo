@@ -6,6 +6,7 @@ import { FixedTypeService } from '../../../../business-controller/fixed-type.ser
 import { FixedClasificationService } from '../../../../business-controller/fixed-clasification.service';
 import { FixedConditionService } from '../../../../business-controller/fixed-condition.service';
 import { FixedAccessoriesService } from '../../../../business-controller/fixed-accessories.service';
+import { CampusService } from '../../../../business-controller/campus.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class FormFixedAccessoriesComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
+  public campus_id: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -31,6 +33,7 @@ export class FormFixedAccessoriesComponent implements OnInit {
     private FixedTypeS: FixedTypeService,
     private FixedAccessoriesS: FixedAccessoriesService,
     private toastService: NbToastrService,
+    private CampusS: CampusService
   ) {
   }
 
@@ -45,7 +48,12 @@ export class FormFixedAccessoriesComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
       amount: [this.data.name, Validators.compose([Validators.required])],
-    }); 
+      campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
+    });
+
+    await this.CampusS.GetCollection().then(x => {
+      this.campus_id = x;
+    });
   }
 
   close() {
@@ -53,18 +61,16 @@ export class FormFixedAccessoriesComponent implements OnInit {
   }
 
   save() {
-
     this.isSubmitted = true;
-
     if (!this.form.invalid) {
       this.loading = true;
-
       if (this.data.id) {
         this.FixedAccessoriesS.Update({
           id: this.data.id,
-          fixed_type_role_id: 1,
           name: this.form.controls.name.value,
           amount: this.form.controls.amount.value,
+          campus_id: this.form.controls.campus_id.value,
+          fixed_type_role_id: 1,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -75,12 +81,13 @@ export class FormFixedAccessoriesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
-      } else {
-
+      }
+      else {
         this.FixedAccessoriesS.Save({
-          fixed_type_role_id: 1,
           name: this.form.controls.name.value,
           amount: this.form.controls.amount.value,
+          campus_id: this.form.controls.campus_id.value,
+          fixed_type_role_id: 1,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

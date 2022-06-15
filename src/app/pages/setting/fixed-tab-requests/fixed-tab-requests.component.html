@@ -1,0 +1,13 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="ACTIVOS">
+        <ngx-fixed-assets-requests [parentData]="true"></ngx-fixed-assets-requests>
+      </nb-tab>
+
+      <nb-tab tabTitle="ACCESORIOS">
+        <ngx-fixed-access-requests [parentData]="false" ></ngx-fixed-access-requests>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</ngx-base-list>

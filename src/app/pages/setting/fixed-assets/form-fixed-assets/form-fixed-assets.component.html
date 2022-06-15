@@ -27,11 +27,6 @@
           </nb-select>
         </div>
 
-
-
-
-
-
         <div  *ngIf="showProv" class="col-12 col-sm-12 col-md-4">
           <label for="company" class="form-text text-muted font-weight-bold">Proveedor:</label>
           <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id"
@@ -60,11 +55,7 @@
             plaque
             status="{{ isSubmitted && form.controls.plaque.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
-          <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-        </div>
+
         <div class="col-12 col-sm-12 col-md-4">
           <label for="model" class="form-text text-muted font-weight-bold">Modelo:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="model" formControlName="model"
@@ -117,6 +108,18 @@
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="obs_property"
             formControlName="obs_property" obs_property
             status="{{ isSubmitted && form.controls.obs_property.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="campus_id" class="form-text text-muted font-weight-bold">Enviar a la sede:</label>
+          <nb-select [selected]="this.data.campus_id" formControlName="campus_id"
+            id="campus_id" fullWidth
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.campus_id }}"
+              *ngFor="let item of campus_id" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
         </div>
 
       </div>

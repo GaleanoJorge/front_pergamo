@@ -16,7 +16,7 @@ export class ProductCategoryComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'CategorÍa del Producto';
+  public title: string = 'Categoría del Producto  / Clasificación de riesgo';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
