@@ -128,6 +128,23 @@ import { FormReasonConsultationNursingComponent } from './entry-clinic-history-n
 import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
 import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
 import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
+import { FormClinicHistoryLanguageComponent } from './clinic-history-language-list/form-clinic-history-language/form-clinic-history-language.component';
+import { ClinicHistoryLanguageListComponent } from './clinic-history-language-list/clinic-history-language-list.component';
+import { ActionsLanguageComponent } from './clinic-history-language-list/actionslanguage.component';
+import { FormLanguageAssessmentComponent } from './language-assessment/form-language-assessment/form-language-assessment.component';
+import { LanguageAssessmentComponent } from './language-assessment/language-assessment.component';
+import { LanguageListComponent } from './language-list/language-list.component';
+import { FormLanguageEvolutionComponent } from './language-evolution/form-language-evolution/form-language-evolution.component';
+import { RegularLanguageListComponent } from './regularlanguage-list/regularlanguage-list.component';
+import { FormLanguageAssessmentRegularComponent } from './language-assessment-regular/form-language-assessment-regular/form-language-assessment-regular.component';
+import { FormLanguageConceptComponent } from './language-concept/form-language-concept/form-language-concept.component';
+import { FormLanguageMaterialusedComponent } from './language-materialused/form-language-materialused/form-language-materialused.component';
+import { LanguageMaterialusedComponent } from './language-materialused/language-materialused.component';
+import { FormLanguageInterventionComponent } from './language-intervention/form-language-intervention/form-language-intervention.component';
+import { FormLanguageEvoDiagnosisComponent } from './language-evo-diagnosis/form-language-evo-diagnosis/form-language-evo-diagnosis.component';
+import { FormLanguageRegSessionsComponent } from './language-reg-sessions/form-language-reg-sessions/form-language-reg-sessions.component';
+import { FormLanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/form-language-therapeutic-goals/form-language-therapeutic-goals.component';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -275,6 +292,26 @@ import { FormSkinValorationComponent } from './skin-valoration/form-skin-valorat
     OrdersMedicalComponent,
     
     ChHistoricScalesComponent,
+    FormClinicHistoryLanguageComponent,
+    ClinicHistoryLanguageListComponent,
+    ActionsLanguageComponent,
+
+    FormLanguageAssessmentComponent,
+    LanguageAssessmentComponent,
+    LanguageListComponent,
+    FormLanguageEvolutionComponent,
+    RegularLanguageListComponent,
+    FormLanguageAssessmentRegularComponent,
+    FormLanguageConceptComponent,
+    FormLanguageMaterialusedComponent,
+    LanguageMaterialusedComponent,
+    FormLanguageInterventionComponent,
+    FormLanguageEvoDiagnosisComponent,
+    FormLanguageRegSessionsComponent,
+    FormLanguageTherapeuticGoalsComponent,
+  
+    
+
   ],
 
 

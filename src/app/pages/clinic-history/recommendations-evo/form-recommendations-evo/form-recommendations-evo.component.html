@@ -21,10 +21,13 @@
 
  
 
-    <fieldset class="field_set col-lg-12">
+    <fieldset class="field_set">
       <legend class="prue1  center ">RECOMENDACIONES</legend>
+      <div class="row justify-content-md center">
+        <div class="col col-lg-6">
       <label class="form-text text-muted font-weight-bold">Educación al paciente/familiar</label>
-      <div class="row justify-content-md-center">
+    </div>
+  
       <div class="col col-lg-2">
         <nb-radio-group formControlName="patient_family_education" patient_family_education id="patient_family_education" class="d-flex text center" name="patient_family_education"
           status="{{ isSubmitted && form.controls.patient_family_education.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -32,12 +35,18 @@
           <nb-radio value="No">No</nb-radio>
         </nb-radio-group>
       </div> 
+    </div>
+
+    <div class="col col-lg-12">
+      <hr />
+    </div>
 
 
-
-      
+      <div class="row justify-content-md center">
         <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold">Recomendación:</label>
+        </div>
+        <div class="col col-lg-3">
           <nb-select  [selected]="this.data.recommendations_evo_id" formControlName="recommendations_evo_id"
             id="recommendations_evo_id" (selectedChange)="onDescriptionChange($event)"
             status="{{ isSubmitted && form.controls.recommendations_evo_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -48,14 +57,18 @@
           </nb-select>
         </div>
 
-        <div class="row justify-content-md-center">
-          <div class="col col-lg-10">
+        
+          <div class="col col-lg-2">
             <label class="form-text text-muted font-weight-bold">Descripción:</label>
-            <textarea class="form-text col col-lg-10 detail" id="description" nbInput fullWidth
+          </div> 
+            <div class="col col-lg-3">
+
+            
+            <textarea class="form-text col col-lg-12 detail" id="description" nbInput fullWidth
               formControlName="description" analisys onpaste="return false" rows="3" cols="70"
               status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
           </div>
-        </div>
+        
       </div>
     </fieldset>
 

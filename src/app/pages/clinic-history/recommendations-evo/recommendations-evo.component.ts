@@ -22,7 +22,7 @@ export class RecommendationsEvoComponent implements OnInit {
   public chvitsigns: any[];
   public nameForm: String;
   public headerFields: any[] = [ 'Educación Paciente/Familiar',
-    'Nombre',
+    'Recomendación',
     'Análisis',
     'Plan (Diagnostico, Terapeutico, de seguimiento',
   ];
