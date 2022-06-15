@@ -25,6 +25,10 @@ import { AuthService } from '../../../services/auth.service';
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
+    <button *ngIf="value.data.status=='ACTIVO' && (this.role_user == 8 || this.role_user == 9 || this.role_user == 1)" nbTooltip="Historia Clinica Terapia Respiratoria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/respiratory-therapy-list/' + value.data.id + '/'+ value.assigned" >
+      <nb-icon icon="file-add-outline"></nb-icon>
+    </button>
+
     <button *ngIf="value.data.status=='CERRADO'" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
       <nb-icon icon="file-add"></nb-icon>
     </button>
