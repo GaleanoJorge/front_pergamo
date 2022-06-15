@@ -18,7 +18,7 @@ export class NeighborhoodOrResidenceComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Barrios';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'NOMBRE', 'ZONA', 'LOCALIDAD'];
+  public headerFields: any[] = ['ID', 'NOMBRE', 'ZONA', 'Comuna, Localidad o Vereda'.toUpperCase()];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];

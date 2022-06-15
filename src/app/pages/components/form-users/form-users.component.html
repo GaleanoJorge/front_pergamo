@@ -188,7 +188,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="birthplace_municipality_id" class="form-text text-muted font-weight-bold">Municipio:</label>
+            <label for="birthplace_municipality_id" class="form-text text-muted font-weight-bold">Providencia, Vereda o Municipio:</label>
             <nb-select id="birthplace_municipality_id" fullWidth formControlName="birthplace_municipality_id"
               birthplace_municipality_id
               status="{{ isSubmitted && form.controls.birthplace_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -334,7 +334,7 @@
 
       <div class="row">
 
-        <div class="col-md-12">
+        <div class="col-md-3">
           <div class="form-group">
             <label for="is_disability" class="form-text text-muted font-weight-bold">¿Tiene alguna discapacidad?
             </label>
@@ -350,6 +350,14 @@
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of inabilitys" [value]="item.code">{{ item.name }}</nb-option>
             </nb-select>
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="this.role==2">
+          <div class="form-group">
+            <label for="is_street_dweller" class="form-text text-muted font-weight-bold">¿Es habitante de calle?
+            </label>
+            <nb-toggle formControlName="is_street_dweller" is_street_dweller>
+            </nb-toggle>
           </div>
         </div>
       </div>
@@ -388,7 +396,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="residence_municipality_id" class="form-text text-muted font-weight-bold">Municipio:</label>
+            <label for="residence_municipality_id" class="form-text text-muted font-weight-bold">Providencia, Vereda o Municipio:</label>
             <nb-select id="residence_municipality_id" fullWidth formControlName="residence_municipality_id"
               residence_municipality_id
               status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -400,7 +408,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="locality_id" class="form-text text-muted font-weight-bold">Localidad:</label>
+            <label for="locality_id" class="form-text text-muted font-weight-bold">Comuna, Localidad o Vereda:</label>
             <nb-select id="locality_id" fullWidth formControlName="locality_id" residence_municipality_id
               status="{{ isSubmitted && form.controls.locality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Seleccione...</nb-option>
@@ -438,7 +446,7 @@
             <label for="residence_address" class="form-text text-muted font-weight-bold">Tipo de Via</label>
             <nb-select id="residence_address" formControlName="residence_address" residence_address fullWidth
               title="Tipo de Via (Ej.Calle)"
-              status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.residence_address.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">Tipo de vía (Ej.Calle)</nb-option>
               <nb-option value="Avenida">AVENIDA</nb-option>
               <nb-option value="Av.Calle">AVENIDA CALLE </nb-option>
@@ -459,7 +467,7 @@
             <label for="residence_address" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">
             </label>
             <input nbInput fullWidth id="street" formControlName="street" street placeholder="Ej: 22 Sur" maxlength="10"
-            status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.street.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
         </div>
         <label for="residence_address" style="margin-top: 40px;" class="form-text text-muted font-weight-bold">#</label>
@@ -467,7 +475,7 @@
           <div class="form-group">
             <label for="residence_address" class="form-text text-muted font-weight-bold">Número</label>
             <input nbInput fullWidth id="num1" formControlName="num1" num1 placeholder="Ej: 45 B" maxlength="10"
-            status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.num1.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
         </div>
         <label for="residence_address" style="margin-top: 40px;" class="form-text text-muted font-weight-bold">-</label>
@@ -476,7 +484,7 @@
             <label for="residence_address" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">
             </label>
             <input nbInput fullWidth id="num2" formControlName="num2" num2 placeholder="Ej: 45 B" maxlength="10"
-            status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.num2.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
         </div>
 
@@ -678,7 +686,15 @@
             </nb-select>
           </div>
         </div>
+        <div class="col-md-12" *ngIf="this.role!=2">
+          <div style="margin-top: 10px;">
+            <ngx-users-campus (messageEvent)="receiveCampusMessage($event)" [campusData]="campusData">
+            </ngx-users-campus>
+          </div>
+        </div>
       </div>
+
+
 
 
     </form>

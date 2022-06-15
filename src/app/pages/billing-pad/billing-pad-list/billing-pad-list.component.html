@@ -1,28 +1,12 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-      entity="billing_pad/getEnabledAdmissions/0" customData="billing_pad" [messageToltip]="messageToltip">
-      <div actions>
-        <!-- <div class="actions">
-          <nb-select (selectedChange)="ChangeGlossStatus($event)" placeholder="Filtrar por estado">
-            <nb-option value="0">TODOS LOS REGISTROS</nb-option>
-            <nb-option *ngFor="let item of auth_statusM" [value]="item.id">{{item.name}}</nb-option>
-          </nb-select>
-        </div> -->
-        <div class="actions" style="margin-top:1em;">
-        </div>
-      </div>
-    </ngx-base-table>
-
-    <!-- <nb-tabset fullWidth (changeTab)="reloadForm($event)">
-      <nb-tab tabTitle="ADMISIONES">
+    <nb-tabset class="tabset" (changeTab)="tablock($event)">
+      <nb-tab tabTitle="NO PGP">
+        <ngx-billing-admissions-pad-list [entity]="'billing_pad/getEnabledAdmissions/0'" [title]="this.title" [is_pgp]="false" [route]="1"></ngx-billing-admissions-pad-list>
       </nb-tab>
-      <nb-tab tabTitle="FACTURAS">
-        <div *ngIf="screen == 2">
-          <ngx-historic-authorization (messageEvent)="null"></ngx-historic-authorization>
-        </div>
+      <nb-tab tabTitle="PGP">
+        <ngx-billing-admissions-pad-list [entity]="'billing_pad/getPgpContracts/5'" [title]="this.title_pgp" [is_pgp]="false" [route]="2"></ngx-billing-admissions-pad-list>
       </nb-tab>
-    </nb-tabset> -->
-
+    </nb-tabset>
   </div>
 </ngx-base-list>

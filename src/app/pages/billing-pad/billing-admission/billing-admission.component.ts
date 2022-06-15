@@ -7,6 +7,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { FormShowBillingPadComponent } from './form-show-billing-pad/form-show-billing-pad.component';
 import { CurrencyPipe } from '@angular/common';
+import { AdmissionsService } from '../../../business-controller/admissions.service';
 
 @Component({
   selector: 'ngx-billing-admission',
@@ -82,11 +83,15 @@ export class BillingAdmissionComponent implements OnInit {
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private AdmissionsS: AdmissionsService,
   ) {
   }
 
   ngOnInit(): void {
     this.admission_id = this.route.snapshot.params.id;
+    this.AdmissionsS.GetCollection({admissions_id: this.admission_id}).then(x => {
+      this.title = 'FACTURAS DE: ' + x[0]['nombre_completo'];
+    }).catch(x => {});
   }
 
   RefreshData() {

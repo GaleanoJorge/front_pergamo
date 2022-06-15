@@ -91,7 +91,7 @@ export class FormLocationCapacityComponent implements OnInit {
         valid_values = false;
         this.loading = false;
         this.isSubmitted = false;
-        this.toastService.danger('Debe seleccionar al menos una localidad', 'Error');
+        this.toastService.danger('Debe seleccionar al menos una Comuna, Localidad o Vereda', 'Error');
       } else {
         this.parentData.selectedOptions.forEach(element => {
           if (element.PAD_base_patient_quantity == null || element.PAD_base_patient_quantity <= 0) {

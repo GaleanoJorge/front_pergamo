@@ -24,8 +24,8 @@ export class WorkLocationPackageComponent implements OnInit {
 
   public form: FormGroup;
   public data: any = [];
-  public title = 'Asignación de Localidad: ';
-  public subtitle = 'Localidad: ';
+  public title = 'Asignación de Comuna, Localidad o Vereda: ';
+  public subtitle = 'Localidades: ';
   public headerFields: any[] = ['Nombre', 'Cantidad'];
   public routes = [];
   public selectedOptions: any[] = [];

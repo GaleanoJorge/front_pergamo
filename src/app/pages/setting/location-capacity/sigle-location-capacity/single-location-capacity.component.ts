@@ -18,11 +18,11 @@ export class SingleLocationCapacityComponent implements OnInit {
   public isSubmitted = false;
   public messageError: string = null;
   public title: string = 'REGISTROS DE CAPACIDAD INSTALADA';
-  public subtitle: string = 'LOCALIDADES';
+  public subtitle: string = 'Comunas, Localidades o Veredas'.toUpperCase();
   public title_base: string = 'CAPACIDAD INSTALADA BASE';
-  public subtitle_base: string = 'LOCALIDADES';
+  public subtitle_base: string = 'Comunas, Localidades o Veredas'.toUpperCase();
   public headerFields: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'CAPACIDAD PROYECTADA', 'SERVICIOS EJECUTADOS'];
-  public headerFields_base: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD BASE'];
+  public headerFields_base: any[] = ['MES', 'Comuna, Localidad o Vereda'.toUpperCase(), 'CAPACIDAD BASE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public assistance_id;
