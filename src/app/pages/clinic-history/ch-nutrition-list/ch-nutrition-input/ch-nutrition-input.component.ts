@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -12,6 +13,7 @@ export class ChNutritionInputComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() record_id: any = null;
   @Input() user_id: any = null;
 
   linearMode = false;
@@ -25,11 +27,12 @@ export class ChNutritionInputComponent implements OnInit {
 
 
   constructor(
-
+    private route: ActivatedRoute,
   ) {
   }
 
   ngOnInit(): void {
+    this.record_id = this.route.snapshot.params.id;
   }
 
   receiveMessage(event) {

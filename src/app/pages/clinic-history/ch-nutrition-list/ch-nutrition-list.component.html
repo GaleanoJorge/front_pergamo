@@ -10,14 +10,14 @@
 
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show == 1">
-          <ngx-ch-nutrition-input [data]="this.user">
+          <ngx-ch-nutrition-input [data]="this.user" [record_id]="this.record_id">
           </ngx-ch-nutrition-input>
         </div>
       </nb-tab>
       
       <nb-tab tabTitle="NOTA REGULAR">
         <div *ngIf="this.show == 2">
-          <ngx-ch-nutrition-regular-note [data]="this.user">
+          <ngx-ch-nutrition-regular-note [data]="this.user" [record_id]="this.record_id">
           </ngx-ch-nutrition-regular-note>
         </div>
       </nb-tab>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
+import { ChNutritionParentalService } from '../../../../../business-controller/ch-nutrition-parenteral.service';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class FormParenteralNutritionComponent implements OnInit {
   @Input() data: any = null;
   @Input() weight: any = null;
   @Input() route: any = null;
+  @Input() record_id: any = null;
   @Input() user_id: any = null;
 
   linearMode = false;
@@ -53,6 +55,7 @@ export class FormParenteralNutritionComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private ChNutritionParentalNutritionS: ChNutritionParentalService,
     private toastService: NbToastrService,
   ) {
   }
@@ -118,7 +121,33 @@ export class FormParenteralNutritionComponent implements OnInit {
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-
+      this.loading = true;
+      this.messageError = null;
+      this.ChNutritionParentalNutritionS.Save({
+        ch_record_id: this.record_id,
+        type_record_id: this.route,
+        protein_contributions: this.form.controls.protein_contributions.value,
+        carbohydrate_contribution: this.form.controls.carbohydrate_contribution.value,
+        lipid_contribution: this.form.controls.lipid_contribution.value,
+        amino_acid_volume: this.form.controls.amino_acid_volume.value,
+        ce_se: this.form.controls.ce_se.value,
+        dextrose_volume: this.form.controls.dextrose_volume.value,
+        lipid_volume: this.form.controls.lipid_volume.value,
+        total_grams_of_protein: this.total_grams_of_protein,
+        grams_of_nitrogen: this.grams_of_nitrogen,
+        total_carbohydrates: this.total_carbohydrates,
+        total_grams_of_lipids: this.total_grams_of_lipids,
+        total_amino_acid_volume: this.total_amino_acid_volume,
+        total_dextrose_volume: this.total_dextrose_volume,
+        total_lipid_volume: this.total_lipid_volume,
+        total_calories: this.total_calories,
+      }).then(x => {
+        this.saved = x;
+        this.toastService.success('Registro guardado correctamente', 'Correcto');
+      }).catch(x => {
+        this.loading = false;
+        this.toastService.danger(x, 'Error');
+      });
     }
   }
 

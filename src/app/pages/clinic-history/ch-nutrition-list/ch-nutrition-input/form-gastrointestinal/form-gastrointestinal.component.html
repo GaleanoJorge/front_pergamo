@@ -17,14 +17,14 @@
 
           <div class="col-12 col-sm-12 col-md-3">
             <label for="vomit" class="form-text text-muted font-weight-bold">¿Ha presentado vómito?:</label>
-            <nb-radio-group formControlName="vomit" is_functional id="vomit" class="d-flex"
+            <nb-radio-group formControlName="vomit" vomit id="vomit" class="d-flex" name="vomit"
               status="{{ isSubmitted && form.controls.vomit.errors ? 'danger' : isSubmitted ? 'success' : null }}">
               <nb-radio *ngFor="let item of vomit" [value]="item.id">{{ item.name }}</nb-radio>
             </nb-radio-group>
           </div>
 
           <div class="col-12 col-sm-12 col-md-9">
-            <label *ngIf="form.controls.vomit.value != '' && form.controls.vomit.value == 'SI'" class="form-text text-muted font-weight-bold text ">Cantidad de
+            <label *ngIf="showVomit" class="form-text text-muted font-weight-bold text ">Cantidad de
               episodios eméticos:</label>
             <textarea *ngIf="form.controls.vomit.value != '' && form.controls.vomit.value == 'SI'" id="amount_of_vomit" nbInput fullWidth
               formControlName="amount_of_vomit" amount_of_vomit onpaste="return false" rows="4" cols="50"
@@ -33,7 +33,7 @@
 
           <div class="col-12 col-sm-12 col-md-3">
             <label for="nausea" class="form-text text-muted font-weight-bold">¿Ha presentado náuseas?:</label>
-            <nb-radio-group formControlName="nausea" is_functional id="nausea" class="d-flex"
+            <nb-radio-group formControlName="nausea" nausea id="nausea" class="d-flex" name="nausea"
               status="{{ isSubmitted && form.controls.nausea.errors ? 'danger' : isSubmitted ? 'success' : null }}">
               <nb-radio *ngFor="let item of vomit" [value]="item.id">{{ item.name }}</nb-radio>
             </nb-radio-group>

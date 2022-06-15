@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
+import { ChNutritionFoodHistoryService } from '../../../../../business-controller/ch-nutrition-food-history.service';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -14,6 +15,7 @@ export class FormFoodHistoryComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() route: any = null;
+  @Input() record_id: any = null;
   @Input() user_id: any = null;
 
   linearMode = false;
@@ -93,6 +95,7 @@ export class FormFoodHistoryComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private ChNutritionFoodHistoryS: ChNutritionFoodHistoryService,
     private toastService: NbToastrService,
   ) {
   }
@@ -124,7 +127,27 @@ export class FormFoodHistoryComponent implements OnInit {
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-
+      this.loading = true;
+      this.messageError = null;
+      this.ChNutritionFoodHistoryS.Save({
+        ch_record_id: this.record_id,
+        type_record_id: this.route,
+        description: this.form.controls.description.value,
+        is_allergic: this.form.controls.is_allergic.value,
+        allergy: this.form.controls.allergy.value,
+        appetite: this.form.controls.appetite.value,
+        intake: this.form.controls.intake.value,
+        swallowing: this.form.controls.swallowing.value,
+        diet_type: JSON.stringify(this.form.controls.diet_type.value),
+        parenteral_nutrition: this.form.controls.parenteral_nutrition.value,
+        intake_control: this.form.controls.intake_control.value,
+      }).then(x => {
+        this.saved = x;
+        this.toastService.success('Registro guardado correctamente', 'Correcto');
+      }).catch(x => {
+        this.loading = false;
+        this.toastService.danger(x, 'Error');
+      });
     }
   }
 

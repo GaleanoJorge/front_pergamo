@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
+import { ChNutritionAnthropometryService } from '../../../../../business-controller/ch-nutrition-anthropometry.service';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class FormAnthropometryComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() route: any = null;
+  @Input() record_id: any = null;
   @Input() user_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -37,6 +39,7 @@ export class FormAnthropometryComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private ChNutritionAnthropometryS: ChNutritionAnthropometryService,
     private toastService: NbToastrService,
   ) {
   }
@@ -166,6 +169,31 @@ export class FormAnthropometryComponent implements OnInit {
       this.messageEvent.emit({
         name: 'weight',
         value: this.form.controls.weight.value
+      });
+      this.loading = true;
+      this.messageError = null;
+      this.ChNutritionAnthropometryS.Save({
+        ch_record_id: this.record_id,
+        type_record_id: this.route,
+        is_functional: this.form.controls.is_functional.value,
+        weight: this.form.controls.weight.value,
+        size: this.form.controls.size.value,
+        arm_circunferency: this.form.controls.arm_circunferency.value,
+        calf_circumference: this.form.controls.calf_circumference.value,
+        knee_height: this.form.controls.knee_height.value,
+        abdominal_perimeter: this.form.controls.abdominal_perimeter.value,
+        hip_perimeter: this.form.controls.hip_perimeter.value,
+        geteratedIMC: this.geteratedIMC,
+        classification: this.classification,
+        estimated_weight: this.estimated_weight,
+        estimated_size: this.estimated_size,
+        total_energy_expenditure: this.total_energy_expenditure,
+      }).then(x => {
+        this.saved = x;
+        this.toastService.success('Registro guardado correctamente', 'Correcto');
+      }).catch(x => {
+        this.loading = false;
+        this.toastService.danger(x, 'Error');
       });
     }
   }
