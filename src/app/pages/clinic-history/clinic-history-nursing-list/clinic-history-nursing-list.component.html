@@ -6,7 +6,7 @@
       <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:  </b> {{user.birthday}} </p>
       <p class="parrafo" *ngIf="user"><b>EDAD:  </b> {{user.age}} </p>
     </div>
-    <nb-tabset fullWidth class="tabset" (changeTab)="tablock($event)">
+    <nb-tabset class="tabset" (changeTab)="tablock($event)">
 
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show == 1">
@@ -17,8 +17,9 @@
       
       <nb-tab tabTitle="NOTA DE ENFERMERÍA">
         <div *ngIf="this.show == 2">
-          <ngx-back-list [data]="this.user">
-          </ngx-back-list>
+          <!-- <ngx-back-list [data]="this.user">
+          </ngx-back-list> -->
+          <ngx-nursering-notes [record_id]="this.record_id"></ngx-nursering-notes>
         </div>
       </nb-tab>
 
@@ -30,14 +31,17 @@
 
       <nb-tab tabTitle="ESCALAS">
         <div *ngIf="this.show == 4">
-          <ngx-ch-scales [enfermery]="true">
-          </ngx-ch-scales>
+          
+          <ngx-form-ch-scales [enfermery]="true">
+          </ngx-form-ch-scales>
+          
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="APLICACIÓN DE MEDICAMENTOS">
         <div *ngIf="this.show == 5">
-          <ngx-formulation [record_id]="record_id"></ngx-formulation>
+
+          <!-- <ngx-nursering-medication [data]="null"></ngx-nursering-medication> -->
         </div>
       </nb-tab>
 

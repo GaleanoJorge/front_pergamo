@@ -144,6 +144,24 @@ import { FormLanguageInterventionComponent } from './language-intervention/form-
 import { FormLanguageEvoDiagnosisComponent } from './language-evo-diagnosis/form-language-evo-diagnosis/form-language-evo-diagnosis.component';
 import { FormLanguageRegSessionsComponent } from './language-reg-sessions/form-language-reg-sessions/form-language-reg-sessions.component';
 import { FormLanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/form-language-therapeutic-goals/form-language-therapeutic-goals.component';
+import { DrugApplicationComponent } from './drug-application/drug-application.component';
+import { FormDrugApplicationComponent } from './drug-application/form-drug-application/form-drug-application.component';
+import { NurseringMedicationComponent } from './nursering-medication/nursering-medication.component';
+import { FormNurseringMedicationComponent } from './nursering-medication/form-nursering-medication/form-nursering-medication.component';
+import { MedicationOrderComponent } from './medication-order/medication-order.component';
+import { FormMedicationOrderComponent } from './medication-order/form-medication-order/form-medication-order.component';
+import { NurseringNotesComponent } from './nursering-notes/nursering-notes.component';
+import { FormNurseringNotesComponent } from './nursering-notes/form-nursering-notes/form-nursering-notes.component';
+import { NotesDescriptionComponent } from './notes-description/notes-description.component';
+import { FormNotesDescriptionComponent } from './notes-description/form-notes-description/form-notes-description.component';
+import { CarePlanComponent } from './care-plan/care-plan.component';
+import { FormCarePlanComponent } from './care-plan/form-care-plan/form-care-plan.component';
+import { LiquidControlComponent } from './liquid-control/liquid-control.component';
+import { FormLiquidControlComponent } from './liquid-control/form-liquid-control/form-liquid-control.component';
+import { FormLiquidEliminationComponent } from './liquid-control/form-liquid-elimination/form-liquid-elimination.component';
+import { NursingProcedure } from '../../models/nursing-procedure';
+import { NursingProcedureComponent } from './nursing-procedure/nursing-procedure.component';
+import { FormNursingProcedureComponent } from './nursing-procedure/form-nursing-procedure/form-nursing-procedure.component';
 
 @NgModule({
   imports: [
@@ -175,12 +193,40 @@ import { FormLanguageTherapeuticGoalsComponent } from './language-therapeutic-go
   ],
   declarations: [
 
+    NursingProcedureComponent,
+    FormNursingProcedureComponent,
+
+    LiquidControlComponent,
+    FormLiquidControlComponent,
+    FormLiquidEliminationComponent,
+
+    CarePlanComponent,
+    FormCarePlanComponent,
+
+    NotesDescriptionComponent,
+    FormNotesDescriptionComponent,
+
+    NurseringNotesComponent,
+    FormNurseringNotesComponent,
+
+    MedicationOrderComponent,
+    FormMedicationOrderComponent,
+
+    DrugApplicationComponent,
+    FormDrugApplicationComponent,
+
+    NurseringMedicationComponent,
+    FormNurseringMedicationComponent,
+
+    DrugApplicationComponent,
+    FormDrugApplicationComponent,
+
     ClinicHistoryNursingListComponent,
     FormClinicHistoryNursingComponent,
-    
+
     EntryClinicHistoryNursingComponent,
     FormReasonConsultationNursingComponent,
-    
+
     ActionsNursingComponent,
     ActionsNursing2Component,
 
@@ -244,7 +290,7 @@ import { FormLanguageTherapeuticGoalsComponent } from './language-therapeutic-go
     ChScalPapComponent,
     ChScaleHamiltonComponent,
     ChScaleCamComponent,
-    ChScaleFacComponent, 
+    ChScaleFacComponent,
     ChScaleRedCrossComponent,
     ChScaleKarnofskyComponent,
     ChScaleEcogComponent,
@@ -258,6 +304,7 @@ import { FormLanguageTherapeuticGoalsComponent } from './language-therapeutic-go
     ChScalePfeifferComponent,
     ChScaleJhDowntonComponent,
     ChScaleScreeningComponent,
+
     ChScalePpsComponent,
     ChScaleBradenComponent,
     ChScaleLawtonComponent,
@@ -290,7 +337,7 @@ import { FormLanguageTherapeuticGoalsComponent } from './language-therapeutic-go
     ChMedicalOrdersComponent,
     FormOrdersMedicalComponent,
     OrdersMedicalComponent,
-    
+
     ChHistoricScalesComponent,
     FormClinicHistoryLanguageComponent,
     ClinicHistoryLanguageListComponent,
@@ -318,4 +365,4 @@ import { FormLanguageTherapeuticGoalsComponent } from './language-therapeutic-go
   providers: [DateFormatPipe],
   exports: [],
 })
-export class ClinicHistoryModule {}
+export class ClinicHistoryModule { }

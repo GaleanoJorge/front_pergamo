@@ -111,7 +111,7 @@
             <legend class="prue1 center ">PUPILAS</legend>
             <ul>
               <li class="hgf" *ngFor="let item of checkboxesDataList">
-                <input type="checkbox" [()]="item.isChecked" (change)="changeSelection()">
+                <input type="checkbox" formControlName="pupilas" [selected]="item.isChecked" (change)="changeSelection()">
                 {{item.label}}
               </li>
             </ul>
