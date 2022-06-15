@@ -25,6 +25,7 @@ export class FormFoodHistoryComponent implements OnInit {
   public messageToltip: string = `Búsqueda por:`;
   public rips_typefile: any[];
   public isSubmitted: boolean = false;
+  public show_alergy: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
   public is_allergic = [
@@ -115,9 +116,11 @@ export class FormFoodHistoryComponent implements OnInit {
 
     this.form.get('is_allergic').valueChanges.subscribe(val => {
       if (val == 'SI') {
+        this.show_alergy = true;
         this.form.controls.allergy.setValidators([Validators.required]);
         this.form.controls.allergy.updateValueAndValidity();
       } else {
+        this.show_alergy = false;
         this.form.controls.allergy.setValidators([]);
         this.form.controls.allergy.updateValueAndValidity();
       }

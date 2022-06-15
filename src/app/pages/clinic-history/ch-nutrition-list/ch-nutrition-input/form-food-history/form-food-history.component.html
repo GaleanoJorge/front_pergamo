@@ -13,7 +13,7 @@
           </div>
 
           <div class="col-12 col-sm-12 col-md-3">
-            <label for="is_allergic" class="form-text text-muted font-weight-bold">¿Ha presentado vómito?:</label>
+            <label for="is_allergic" class="form-text text-muted font-weight-bold">¿Es alérgico e intolerante a algún alimento?:</label>
             <nb-radio-group formControlName="is_allergic" is_functional id="is_allergic" class="d-flex"
               status="{{ isSubmitted && form.controls.is_allergic.errors ? 'danger' : isSubmitted ? 'success' : null }}">
               <nb-radio *ngFor="let item of is_allergic" [value]="item.id">{{ item.name }}</nb-radio>
@@ -21,9 +21,9 @@
           </div>
 
           <div class="col-12 col-sm-12 col-md-9">
-            <label *ngIf="form.controls.is_allergic.value != '' && form.controls.is_allergic.value == 'SI'"
+            <label *ngIf="show_alergy"
               class="form-text text-muted font-weight-bold text ">¿Cuál?:</label>
-            <textarea *ngIf="form.controls.is_allergic.value != '' && form.controls.is_allergic.value == 'SI'"
+            <textarea *ngIf="show_alergy"
               id="allergy" nbInput fullWidth formControlName="allergy" allergy onpaste="return false" rows="4" cols="50"
               status="{{ isSubmitted && form.controls.allergy.errors ? 'danger' : isSubmitted ? 'success' : null }}"> </textarea>
           </div>
