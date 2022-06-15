@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { AuthService } from '../../../services/auth.service';
@@ -11,17 +11,19 @@ import { FormFixedInventaryAddComponent } from './form-fixed-inventary-add/form-
   styleUrls: ['./fixed-inventary-add.component.scss']
 })
 export class FixedInventaryAddComponent implements OnInit {
-
+  @Input() parentData: any;
   public isSubmitted = false;
   public messageError: string = null;
   public title: string = '';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'Descripción', 'Ubicación', 'Responsable'];
+  public headerFields: any[] = ['ID', 'Descripción', 'Marca', 'Modelo', 'Serial', 'Ubicación', 'Responsable'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
   public entity;
   public user;
+  public validator ;
+
   //public my_pharmacy_id;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -43,8 +45,33 @@ export class FixedInventaryAddComponent implements OnInit {
           return row.fixed_assets.description;
         },
       },
-      fixed_location_campus: {
+
+      mark: {
         title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.fixed_assets.mark;
+        },
+      },
+
+      model: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.fixed_assets.model;
+        },
+      },
+
+      serial: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.fixed_assets.serial;
+        },
+      },
+
+      fixed_location_campus: {
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.fixed_location_campus.campus.name + " - " + row.fixed_location_campus.flat.name;
@@ -52,7 +79,7 @@ export class FixedInventaryAddComponent implements OnInit {
       },
 
       responsible_user: {
-        title: this.headerFields[3],
+        title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.responsible_user.user.firstname + " - " + row.responsible_user.user.lastname;
@@ -71,6 +98,7 @@ export class FixedInventaryAddComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.validator = this.parentData;
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       //  this.my_pharmacy_id = x[0].id;
