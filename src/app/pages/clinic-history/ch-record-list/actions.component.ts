@@ -17,11 +17,22 @@ import { AuthService } from '../../../services/auth.service';
   template: `
   <div class="d-flex justify-content-center">
 
-    <button *ngIf="value.data.status=='ACTIVO' && (this.role_user == 3 || this.role_user == 7 || this.role_user == 1)" nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id + '/'+ value.assigned" >
+    <button *ngIf="value.data.status=='ACTIVO' && 
+      (this.rowData.ch_type_id == 1)" 
+      nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" 
+      nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && (this.role_user == 8 || this.role_user == 9 || this.role_user == 1)" nbTooltip="Historia Clinica de enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-nursing-list/' + value.data.id + '/'+ value.assigned" >
+    <button *ngIf="value.data.status=='ACTIVO' && 
+      (this.rowData.ch_type_id == 2)"
+      nbTooltip="Historia Clinica de enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" 
+      nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-nursing-list/' + value.data.id + '/'+ value.assigned" >
+      <nb-icon icon="file-add-outline"></nb-icon>
+    </button>
+
+    <button *ngIf="value.data.status=='ACTIVO' && 
+    (this.rowData.ch_type_id == 3)" nbTooltip="Historia Clinica de Nutrición" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
@@ -77,7 +88,8 @@ export class Actions5Component implements ViewCell {
   }
   ngOnInit() {
 
-    this.role_user = this.authService.GetRole();
+    // console.log(this.value);
+    // console.log(this.rowData);
 
     console.log(this.value.data.status);
     if (this.value.data.medical_date == '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {

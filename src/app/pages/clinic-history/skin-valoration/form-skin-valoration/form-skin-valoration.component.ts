@@ -5,6 +5,11 @@ import { ChFailedService } from '../../../../business-controller/ch-failed.servi
 import { ChReasonService } from '../../../../business-controller/ch-reason.service';
 import { ActivatedRoute } from '@angular/router';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { BodyRegionService } from '../../../../business-controller/body-region.service';
+import { SkinStatusService } from '../../../../business-controller/skin-status.service';
+import { ChSkinValorationService } from '../../../../business-controller/ch-skin-valoration.service';
+
 @Component({
   selector: 'ngx-form-skin-valoration',
   templateUrl: './form-skin-valoration.component.html',
@@ -13,6 +18,7 @@ import { DiagnosisService } from '../../../../business-controller/diagnosis.serv
 export class FormSkinValorationComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -21,12 +27,13 @@ export class FormSkinValorationComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public record_id;
   public admissions_id;
   public ch_reason_id: any[];
-  public diagnosis: any [] = [];
+  public diagnosis: any[] = [];
   public diagnosis_id: any;
   public previewFile = null;
+
+  public body_region: any[] = [];
   public skin_status =
     [
       {
@@ -77,7 +84,7 @@ export class FormSkinValorationComponent implements OnInit {
         name: 'TRANSPARENTE',
       },
     ];
-    
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -85,24 +92,26 @@ export class FormSkinValorationComponent implements OnInit {
     private ChFailedS: ChFailedService,
     private ChReasonS: ChReasonService,
     private route: ActivatedRoute,
-    private DiagnosisS: DiagnosisService
+    private DiagnosisS: DiagnosisService,
+    private bodyRegionS: BodyRegionService,
+    private skinStatusS: SkinStatusService,
+    private chSkinValorationS: ChSkinValorationService
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.record_id = this.route.snapshot.params.id;
 
     if (!this.data) {
       this.data = {
         diagnosis_id: '',
-        head: '',
-        malleolus: '',
-        lower_limbs: '',
-        feet: '',
-        dorsal_region: '',
-        gluteal_region: '',
-        lumbar_region: '',
-        sacrum_region: '',
-        trochanteric_region: '',
+        body_region_id: '',
+        skin_status_id: '',
+        // lower_limbs: '',
+        // feet: '',
+        // dorsal_region: '',
+        // gluteal_region: '',
+        // lumbar_region: '',
+        // sacrum_region: '',
+        // trochanteric_region: '',
         exudate: '',
         concentrated: '',
         infection_sign: '',
@@ -110,48 +119,50 @@ export class FormSkinValorationComponent implements OnInit {
         observation: '',
       };
     }
-    
+
+
+
     this.form = this.formBuilder.group({
       diagnosis_id: [
         this.data.diagnosis_id,
         Validators.compose([Validators.required]),
       ],
-      head: [
-        this.data.head,
+      body_region_id: [
+        this.data.body_region_id,
         Validators.compose([Validators.required]),
       ],
-      malleolus: [
-        this.data.malleolus,
+      skin_status_id: [
+        this.data.skin_status_id,
         Validators.compose([Validators.required]),
       ],
-      lower_limbs: [
-        this.data.lower_limbs,
-        Validators.compose([Validators.required]),
-      ],
-      feet: [
-        this.data.feet,
-        Validators.compose([Validators.required]),
-      ],
-      dorsal_region: [
-        this.data.dorsal_region,
-        Validators.compose([Validators.required]),
-      ],
-      gluteal_region: [
-        this.data.gluteal_region,
-        Validators.compose([Validators.required]),
-      ],
-      lumbar_region: [
-        this.data.lumbar_region,
-        Validators.compose([Validators.required]),
-      ],
-      sacrum_region: [
-        this.data.sacrum_region,
-        Validators.compose([Validators.required]),
-      ],
-      trochanteric_region: [
-        this.data.trochanteric_region,
-        Validators.compose([Validators.required]),
-      ],
+      // lower_limbs: [
+      //   this.data.lower_limbs,
+      //   Validators.compose([Validators.required]),
+      // ],
+      // feet: [
+      //   this.data.feet,
+      //   Validators.compose([Validators.required]),
+      // ],
+      // dorsal_region: [
+      //   this.data.dorsal_region,
+      //   Validators.compose([Validators.required]),
+      // ],
+      // gluteal_region: [
+      //   this.data.gluteal_region,
+      //   Validators.compose([Validators.required]),
+      // ],
+      // lumbar_region: [
+      //   this.data.lumbar_region,
+      //   Validators.compose([Validators.required]),
+      // ],
+      // sacrum_region: [
+      //   this.data.sacrum_region,
+      //   Validators.compose([Validators.required]),
+      // ],
+      // trochanteric_region: [
+      //   this.data.trochanteric_region,
+      //   Validators.compose([Validators.required]),
+      // ],
       exudate: [
         this.data.exudate,
         Validators.compose([Validators.required]),
@@ -175,14 +186,22 @@ export class FormSkinValorationComponent implements OnInit {
 
     });
 
-    
+
     this.ChReasonS.GetCollection().then((x) => {
       this.ch_reason_id = x;
     });
+
     await this.DiagnosisS.GetCollection().then(x => {
       this.diagnosis = x;
     });
 
+    this.skinStatusS.GetCollection().then(x => {
+      this.skin_status = x;
+    });
+
+    this.bodyRegionS.GetCollection().then(x => {
+      this.body_region = x;
+    });
 
 
   }
@@ -195,7 +214,7 @@ export class FormSkinValorationComponent implements OnInit {
     } else {
       this.diagnosis_id = null;
       this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
-      this.form.controls.diagnosis_id.setErrors({'incorrect': true});
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
 
@@ -206,11 +225,16 @@ export class FormSkinValorationComponent implements OnInit {
       this.showTable = false;
 
       if (this.data.id) {
-        await this.ChFailedS.Update({
+        await this.chSkinValorationS.Update({
           id: this.data.id,
-          descriptions: this.form.controls.descriptions.value,
-          file_evidence: this.form.controls.file_evidence.value,
-          ch_reason_id: this.form.controls.ch_reason_id.value,
+          diagnosis_id: this.diagnosis_id,
+          body_region_id: this.form.controls.body_region_id.value,
+          skin_status_id: this.form.controls.skin_status_id.value,
+          exudate: this.form.controls.exudate.value,
+          concentrated: this.form.controls.concentrated.value,
+          infection_sign: this.form.controls.infection_sign.value,
+          surrounding_skin: this.form.controls.surrounding_skin.value,
+          observation: this.form.controls.observation.value,
           type_record_id: 7,
           ch_record_id: this.record_id,
         }).then((x) => {
@@ -224,10 +248,15 @@ export class FormSkinValorationComponent implements OnInit {
             this.loading = false;
           });
       } else {
-        await this.ChFailedS.Save({
-          descriptions: this.form.controls.descriptions.value,
-          file_evidence: this.form.controls.file_evidence.value,
-          ch_reason_id: this.form.controls.ch_reason_id.value,
+        await this.chSkinValorationS.Save({
+          diagnosis_id: this.diagnosis_id,
+          body_region_id: this.form.controls.body_region_id.value,
+          skin_status_id: this.form.controls.skin_status_id.value,
+          exudate: this.form.controls.exudate.value,
+          concentrated: this.form.controls.concentrated.value,
+          infection_sign: this.form.controls.infection_sign.value,
+          surrounding_skin: this.form.controls.surrounding_skin.value,
+          observation: this.form.controls.observation.value,
           type_record_id: 7,
           ch_record_id: this.record_id,
         })
@@ -235,9 +264,14 @@ export class FormSkinValorationComponent implements OnInit {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
             this.form.setValue({
-              descriptions: '',
-              file_evidence: '',
-              ch_reason_id: '',
+              diagnosis_id: '',
+              body_region_id: '',
+              skin_status_id: '',
+              exudate: '',
+              concentrated: '',
+              infection_sign: '',
+              surrounding_skin: '',
+              observation: '',
             });
             if (this.saved) {
               this.saved();
@@ -250,24 +284,6 @@ export class FormSkinValorationComponent implements OnInit {
       }
     }
   }
-  async changeImage(files, option) {
-    if (!files.length) return false;
 
-    const file = await this.toBase64(files[0]);
-
-    switch (option) {
-      case 1:
-        this.form.patchValue({
-          file: files[0],
-        });
-        break;
-    }
-  }
-  toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  })
 
 }

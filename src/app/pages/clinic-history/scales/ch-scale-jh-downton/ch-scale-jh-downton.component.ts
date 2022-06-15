@@ -12,6 +12,7 @@ import { ChHistoricScalesComponent } from '../ch-historic-scales/ch-historic-sca
 })
 export class ChScaleJhDowntonComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() enfermery: boolean = null;
   @Input() refresh23;
 
   linearMode = true;

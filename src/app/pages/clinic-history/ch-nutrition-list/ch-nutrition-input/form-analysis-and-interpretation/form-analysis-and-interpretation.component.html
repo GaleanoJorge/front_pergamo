@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card>
+    <nb-card-body>
+      <fieldset class="field_set">
+        <legend class="prue1 center">Análisis e Interpretación</legend>
+        <div class="row">
+
+          <div class="col-12 col-sm-12 col-md-12">
+            <label class="form-text text-muted font-weight-bold text ">Observación:</label>
+            <textarea id="observation" nbInput fullWidth formControlName="observation" observation
+              onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : null }}"> </textarea>
+          </div>
+
+        </div>
+      </fieldset>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

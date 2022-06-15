@@ -12,6 +12,8 @@ import { ChHistoricScalesComponent } from '../ch-historic-scales/ch-historic-sca
 })
 export class ChScaleNortonComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() enfermery: any = null;
+
   @Input() refresh1;
   
   linearMode = true;

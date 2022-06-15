@@ -128,6 +128,33 @@ import { FormReasonConsultationNursingComponent } from './entry-clinic-history-n
 import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
 import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
 import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
+import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
+import { ChNutritionInputComponent } from './ch-nutrition-list/ch-nutrition-input/ch-nutrition-input.component';
+import { ChNutritionRegularNoneComponent } from './ch-nutrition-list/ch-nutrition-regular-note/ch-nutrition-regular-note.component';
+import { FormAnthropometryComponent } from './ch-nutrition-list/ch-nutrition-input/form-anthropometry/form-anthropometry.component';
+import { FormGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition-input/form-gastrointestinal/form-gastrointestinal.component';
+import { FormFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input/form-food-history/form-food-history.component';
+import { FormAnalysisAndInterpretationComponent } from './ch-nutrition-list/ch-nutrition-input/form-analysis-and-interpretation/form-analysis-and-interpretation.component';
+import { FormParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/form-parenteral-nutrition/form-parenteral-nutrition.component';
+import { DrugApplicationComponent } from './drug-application/drug-application.component';
+import { FormDrugApplicationComponent } from './drug-application/form-drug-application/form-drug-application.component';
+import { NurseringMedicationComponent } from './nursering-medication/nursering-medication.component';
+import { FormNurseringMedicationComponent } from './nursering-medication/form-nursering-medication/form-nursering-medication.component';
+import { MedicationOrderComponent } from './medication-order/medication-order.component';
+import { FormMedicationOrderComponent } from './medication-order/form-medication-order/form-medication-order.component';
+import { NurseringNotesComponent } from './nursering-notes/nursering-notes.component';
+import { FormNurseringNotesComponent } from './nursering-notes/form-nursering-notes/form-nursering-notes.component';
+import { NotesDescriptionComponent } from './notes-description/notes-description.component';
+import { FormNotesDescriptionComponent } from './notes-description/form-notes-description/form-notes-description.component';
+import { CarePlanComponent } from './care-plan/care-plan.component';
+import { FormCarePlanComponent } from './care-plan/form-care-plan/form-care-plan.component';
+import { LiquidControlComponent } from './liquid-control/liquid-control.component';
+import { FormLiquidControlComponent } from './liquid-control/form-liquid-control/form-liquid-control.component';
+import { FormLiquidEliminationComponent } from './liquid-control/form-liquid-elimination/form-liquid-elimination.component';
+import { NursingProcedure } from '../../models/nursing-procedure';
+import { NursingProcedureComponent } from './nursing-procedure/nursing-procedure.component';
+import { FormNursingProcedureComponent } from './nursing-procedure/form-nursing-procedure/form-nursing-procedure.component';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -158,12 +185,40 @@ import { FormSkinValorationComponent } from './skin-valoration/form-skin-valorat
   ],
   declarations: [
 
+    NursingProcedureComponent,
+    FormNursingProcedureComponent,
+
+    LiquidControlComponent,
+    FormLiquidControlComponent,
+    FormLiquidEliminationComponent,
+
+    CarePlanComponent,
+    FormCarePlanComponent,
+
+    NotesDescriptionComponent,
+    FormNotesDescriptionComponent,
+
+    NurseringNotesComponent,
+    FormNurseringNotesComponent,
+
+    MedicationOrderComponent,
+    FormMedicationOrderComponent,
+
+    DrugApplicationComponent,
+    FormDrugApplicationComponent,
+
+    NurseringMedicationComponent,
+    FormNurseringMedicationComponent,
+
+    DrugApplicationComponent,
+    FormDrugApplicationComponent,
+
     ClinicHistoryNursingListComponent,
     FormClinicHistoryNursingComponent,
-    
+
     EntryClinicHistoryNursingComponent,
     FormReasonConsultationNursingComponent,
-    
+
     ActionsNursingComponent,
     ActionsNursing2Component,
 
@@ -227,7 +282,7 @@ import { FormSkinValorationComponent } from './skin-valoration/form-skin-valorat
     ChScalPapComponent,
     ChScaleHamiltonComponent,
     ChScaleCamComponent,
-    ChScaleFacComponent, 
+    ChScaleFacComponent,
     ChScaleRedCrossComponent,
     ChScaleKarnofskyComponent,
     ChScaleEcogComponent,
@@ -241,6 +296,7 @@ import { FormSkinValorationComponent } from './skin-valoration/form-skin-valorat
     ChScalePfeifferComponent,
     ChScaleJhDowntonComponent,
     ChScaleScreeningComponent,
+
     ChScalePpsComponent,
     ChScaleBradenComponent,
     ChScaleLawtonComponent,
@@ -273,12 +329,21 @@ import { FormSkinValorationComponent } from './skin-valoration/form-skin-valorat
     ChMedicalOrdersComponent,
     FormOrdersMedicalComponent,
     OrdersMedicalComponent,
-    
+
     ChHistoricScalesComponent,
+
+    ChNutritionListComponent,
+    ChNutritionInputComponent,
+    ChNutritionRegularNoneComponent,
+    FormAnthropometryComponent,
+    FormGastrointestinalComponent,
+    FormFoodHistoryComponent,
+    FormAnalysisAndInterpretationComponent,
+    FormParenteralNutritionComponent,
   ],
 
 
   providers: [DateFormatPipe],
   exports: [],
 })
-export class ClinicHistoryModule {}
+export class ClinicHistoryModule { }
