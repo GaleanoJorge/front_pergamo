@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { FixedAccessoriesService } from '../../../../business-controller/fixed-accessories.service';
+import { FixedAddService } from '../../../../business-controller/fixed-add.service';
 import { FixedAssetsService } from '../../../../business-controller/fixed-assets.service';
 import { FixedLocationCampusService } from '../../../../business-controller/fixed-location-campus.service';
-import { FixedRequestService } from '../../../../business-controller/fixed-request.service';
 import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class FormFixedRequestComponent implements OnInit {
     private formBuilder: FormBuilder,
     private FixedTypeS: FixedTypeService,
     private FixedAssetsS: FixedAssetsService,
-    private FixedRequestS: FixedRequestService,
+    private  FixedAddS: FixedAddService,
     private toastService: NbToastrService,
     private FixedAccessoriesS: FixedAccessoriesService,
     private FixedLocationCampusS: FixedLocationCampusService,
@@ -82,14 +82,14 @@ export class FormFixedRequestComponent implements OnInit {
         this.showTable = false;
 
         if (this.data.id) {
-          this.FixedRequestS.Update({
+          this.FixedAddS.Update({
             id: this.data.id,
             fixed_type_id: this.form.controls.fixed_type_id.value,
             fixed_assets_id: this.form.controls.fixed_assets_id.value,
             request_amount: this.form.controls.request_amount.value,
             fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
-            status: 'REQUERIDO',
-            request_user_id: 1,
+            status: 'SOLICITADO',
+            responsible_user_id: 1,
           }).then(x => {
             this.toastService.success('', x.message);
             if (this.saved) {
@@ -101,15 +101,18 @@ export class FormFixedRequestComponent implements OnInit {
           });
         } else {
 
-          this.FixedRequestS.Save({
+          this.FixedAddS.Save({
             fixed_type_id: this.form.controls.fixed_type_id.value,
             fixed_assets_id: this.form.controls.fixed_assets_id.value,
             request_amount: this.form.controls.request_amount.value,
             fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
-            status: 'REQUERIDO',
-            request_user_id: 1,
+            status: 'SOLICITADO',
+            responsible_user_id: 1,
+            observation : ''
+
           }).then(x => {
             this.toastService.success('', x.message);
+            this.form.setValue({ fixed_type_id: '', fixed_assets_id: '', request_amount: '', fixed_location_campus_id: '' });
             if (this.saved) {
               this.saved();
             }
@@ -133,14 +136,14 @@ export class FormFixedRequestComponent implements OnInit {
         this.showTable = false;
 
         if (this.data.id) {
-          this.FixedRequestS.Update({
+          this.FixedAddS.Update({
             id: this.data.id,
             fixed_type_id: this.form.controls.fixed_type_id.value,
             fixed_accessories_id: this.form.controls.fixed_accessories_id.value,
             request_amount: this.form.controls.request_amount.value,
             fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
-            status: 'REQUERIDO',
-            request_user_id: 1,
+            status: 'SOLICITADO',
+            responsible_user_id: 1,
           }).then(x => {
             this.toastService.success('', x.message);
             if (this.saved) {
@@ -152,15 +155,18 @@ export class FormFixedRequestComponent implements OnInit {
           });
         } else {
 
-          this.FixedRequestS.Save({
+          this.FixedAddS.Save({
             fixed_type_id: this.form.controls.fixed_type_id.value,
             fixed_accessories_id: this.form.controls.fixed_accessories_id.value,
             request_amount: this.form.controls.request_amount.value,
             fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
-            status: 'REQUERIDO',
-            request_user_id: 1,
+            status: 'SOLICITADO',
+            responsible_user_id: 1,
+            observation : ''
           }).then(x => {
             this.toastService.success('', x.message);
+            this.form.setValue({ fixed_type_id: '', fixed_accessories_id: '', request_amount: '', fixed_location_campus_id: '' });
+
             if (this.saved) {
               this.saved();
             }

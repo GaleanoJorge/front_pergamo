@@ -5,6 +5,7 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 import { PharmacyRequestShippingService } from '../../../../business-controller/pharmacy-request-shipping.service';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { AssetsSelectRequestsComponent } from './assets-select-requests.component';
+import { FixedLoanService } from '../../../../business-controller/fixed-loan.service';
 
 @Component({
   selector: 'ngx-assets-requests-package',
@@ -90,7 +91,7 @@ export class AssetsRequestsPackageComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     private e: ElementRef,
-    private shippingS: PharmacyRequestShippingService,
+    private FixedLoanS: FixedLoanService,
   ) {
   }
 
@@ -108,8 +109,8 @@ export class AssetsRequestsPackageComponent implements OnInit {
     if (event) {
       this.selectedOptions2.push(row.id);
       var diet = {
-        pharmacy_request_shipping_id: row.id,
-        pharmacy_lot_stock_id: row.pharmacy_lot_stock_id,
+        fixed_loan_id: row.id,
+        fixed_add_id: row.fixed_add_id,
         amount: 0,
         amount_damaged: 0,
         amount_provition: row.amount_provition,
@@ -132,38 +133,7 @@ export class AssetsRequestsPackageComponent implements OnInit {
     this.RefreshData();
   }
 
-  onAmountChange(input, row) {
-    var i = 0;
-    var mientras = this.selectedOptions;
-    this.selectedOptions.forEach(element => {
-      if (element.pharmacy_request_shipping_id == row.id) {
-        mientras[i].amount = input.target.valueAsNumber;
-      }
-      i++
-    });
-    this.selectedOptions = mientras;
-    this.messageEvent.emit(this.selectedOptions);
-  }
-
-  onAmountDamagedChange(input, row) {
-    var i = 0;
-    var mientras = this.selectedOptions;
-    this.selectedOptions.forEach(element => {
-      if (element.pharmacy_request_shipping_id == row.id) {
-        mientras[i].amount_damaged = input.target.valueAsNumber;
-      }
-      i++
-    });
-    this.selectedOptions = mientras;
-    this.messageEvent.emit(this.selectedOptions);
-  }
-
-  ChangeManual(inscriptionstatus) {
-    this.inscriptionstatus = inscriptionstatus;
-    this.table.changeEntity(`inscriptionsByCourse/${this.inscriptionstatus}`);
-  }
-
-  RefreshData() {
+   RefreshData() {
     this.table.refresh();
   }
 
@@ -184,7 +154,7 @@ export class AssetsRequestsPackageComponent implements OnInit {
       this.selectedOptions.forEach(element => {
         dta.component_package_id = this.component_package_id;
         dta.component_id = element.id;
-        this.shippingS.Save(dta).then(x => {
+        this.FixedLoanS.Save(dta).then(x => {
         }).catch(x => {
           err++;
         });

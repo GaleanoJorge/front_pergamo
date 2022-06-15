@@ -31,8 +31,7 @@
 
           <div class="col-12 col-sm-12 col-md-6">
             <label for="fixed_location_campus" class="form-text text-muted font-weight-bold">LOCALIZACIÓN DONDE ESTARA
-              EL
-              ACTIVO:</label>
+              EL ACTIVO:</label>
             <nb-select [selected]="this.data.fixed_location_campus_id" formControlName="fixed_location_campus_id"
               id="fixed_location_campus_id" fullWidth
               status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
