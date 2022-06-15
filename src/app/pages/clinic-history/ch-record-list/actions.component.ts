@@ -31,7 +31,8 @@ import { AuthService } from '../../../services/auth.service';
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button nbTooltip="Historia Clinica de NUTRICIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
+    <button *ngIf="value.data.status=='ACTIVO' && 
+    (this.rowData.assigned_management_plan.management_plan.role_attention.role_id == 10)" nbTooltip="Historia Clinica de NUTRICIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
