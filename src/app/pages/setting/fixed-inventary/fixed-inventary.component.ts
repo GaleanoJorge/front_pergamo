@@ -3,7 +3,6 @@ import { NbDialogService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormFixedInventaryComponent } from './form-fixed-inventary/form-fixed-inventary.component';
 import { AuthService } from '../../../services/auth.service';
-import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { ActionsInFixComponent } from './actionsInFix.component';
 
 @Component({
@@ -23,7 +22,7 @@ export class FixedInventaryComponent implements OnInit {
   public data = [];
   public entity;
   public user;
-  //public my_pharmacy_id;
+  public showdiv: boolean = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -66,7 +65,6 @@ export class FixedInventaryComponent implements OnInit {
         },
       },
     },
-
   };
 
   public routes = [
@@ -90,26 +88,21 @@ export class FixedInventaryComponent implements OnInit {
     this.table.refresh();
   }
 
+  reloadForm(tab) {
+    if (tab.tabTitle == 'DISPONIBLE') {
+      this.showdiv = false;
+    } else {
+      this.showdiv = true;
+    }
+  }
+
   EditInv(data) {
     this.dialogFormService.open(FormFixedInventaryComponent, {
       context: {
         title: 'ENVIAR ACTIVO',
         data: data,
-        //   my_pharmacy_id: this.my_pharmacy_id,
         saved: this.RefreshData.bind(this),
       },
     });
   }
-  // NewDev(data) {
-  //   this.dialogFormService.open(FormFixedInventaryComponent, {
-  //     context: {
-  //       title: 'ACTIVO DEVUELTOS',
-  //       data: data,
-  //       //    my_pharmacy_id: this.my_pharmacy_id,
-  //       saved: this.RefreshData.bind(this),
-  //     },
-  //   });
-  // }
-
-
 }

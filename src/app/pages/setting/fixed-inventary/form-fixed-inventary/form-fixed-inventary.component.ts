@@ -68,8 +68,8 @@ export class FormFixedInventaryComponent implements OnInit {
           fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
           responsible_user_id: this.form.controls.responsible_user_id.value,
           observation: this.form.controls.observation.value,
-          status: 'ADICION',
-          amount: 1,
+          status: 'ENVIADO',
+          request_amount: 1,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

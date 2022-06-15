@@ -1,10 +1,12 @@
 <ngx-base-list [messageError]="messageError">
   <!-- //INVENTARIO DE ACTIVOS  -->
   <div content>
-    <nb-tabset fullWidth>
+    <nb-tabset fullWidth  (changeTab)="reloadForm($event)">
 
       <nb-tab tabTitle="ASIGNADOS">
-        <ngx-fixed-inventary-add></ngx-fixed-inventary-add>
+        <div *ngIf="this.showdiv">
+          <ngx-fixed-inventary-add [parentData]="true"></ngx-fixed-inventary-add>
+        </div>
       </nb-tab>
 
       <nb-tab tabTitle="DISPONIBLE">

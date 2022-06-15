@@ -9,6 +9,6 @@ export class FixedAdd extends MainClass {
   fixed_location_campus_id: number;
   responsible_user_id: number;
   observation: string;
-  amount_ship: string;
+  request_amount: string;
   status: string;
 }
