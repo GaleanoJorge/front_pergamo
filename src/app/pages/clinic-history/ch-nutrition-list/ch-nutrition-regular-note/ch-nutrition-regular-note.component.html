@@ -4,12 +4,12 @@
       <nb-card-body>
         <nb-stepper #stepper  orientation="vertical">
           <nb-step label="Antropometría">
-            <ngx-form-anthropometry (messageEvent)="receiveMessage($event)" [data]="this.data"></ngx-form-anthropometry>
+            <ngx-form-anthropometry (messageEvent)="receiveMessage($event)" [data]="this.data" [route]="3"></ngx-form-anthropometry>
           </nb-step>
           
           <nb-step label="Cálculos de Nutrición Parenteral">
             <div *ngIf="this.weight">
-              <ngx-form-parenteral-nutrition [data]="this.data" [weight]="this.weight"></ngx-form-parenteral-nutrition>
+              <ngx-form-parenteral-nutrition [data]="this.data" [weight]="this.weight" [route]="3"></ngx-form-parenteral-nutrition>
             </div>
             <div *ngIf="!this.weight">
               Debes diligenciar y guardar Antropometría para acceder a este campo
@@ -17,7 +17,7 @@
           </nb-step>
           
           <nb-step label="Análisis e Interpretación">
-            <ngx-form-analysis-and-interpretation [data]="this.data"></ngx-form-analysis-and-interpretation>
+            <ngx-form-analysis-and-interpretation [data]="this.data" [route]="3"></ngx-form-analysis-and-interpretation>
           </nb-step>
 
           <nb-step label="Recomendaciones / Educación">

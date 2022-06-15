@@ -13,6 +13,7 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() route: any = null;
   @Input() user_id: any = null;
 
   linearMode = false;

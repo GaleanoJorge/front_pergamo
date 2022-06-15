@@ -12,6 +12,7 @@ export class FormGastrointestinalComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() route: any = null;
   @Input() user_id: any = null;
 
   linearMode = false;
@@ -29,8 +30,8 @@ export class FormGastrointestinalComponent implements OnInit {
     {id: 'MUY DURA', name: 'MUY DURA'},
   ];
   public vomit = [
-    {id: 'SI', name: 'Si'},
-    {id: 'NO', name: 'NO'},
+    {id: true, name: 'Si'},
+    {id: false, name: 'NO'},
   ];
 
   constructor(
@@ -49,7 +50,7 @@ export class FormGastrointestinalComponent implements OnInit {
     });
 
     this.form.get('vomit').valueChanges.subscribe(val => {
-      if (val == 'SI') {
+      if (val) {
         this.form.controls.amount_of_vomit.setValidators([Validators.required]);
         this.form.controls.amount_of_vomit.updateValueAndValidity();
       } else {

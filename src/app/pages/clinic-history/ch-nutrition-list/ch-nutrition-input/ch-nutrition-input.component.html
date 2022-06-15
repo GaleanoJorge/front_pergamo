@@ -8,16 +8,16 @@
           </nb-step>
           
           <nb-step label="Gastrointestinales">
-            <ngx-form-gastrointestinal [data]="this.data"></ngx-form-gastrointestinal>
+            <ngx-form-gastrointestinal [data]="this.data" [route]="1"></ngx-form-gastrointestinal>
           </nb-step>
           
           <nb-step label="Anamnesis Alimentaria">
-            <ngx-form-food-history [data]="this.data"></ngx-form-food-history>
+            <ngx-form-food-history [data]="this.data" [route]="1"></ngx-form-food-history>
           </nb-step>
           
           <nb-step label="Cálculos de Nutrición Parenteral">
             <div *ngIf="this.weight">
-              <ngx-form-parenteral-nutrition [data]="this.data" [weight]="this.weight"></ngx-form-parenteral-nutrition>
+              <ngx-form-parenteral-nutrition [data]="this.data" [weight]="this.weight" [route]="1"></ngx-form-parenteral-nutrition>
             </div>
             <div *ngIf="!this.weight">
               Debes diligenciar y guardar Antropometría para acceder a este campo
@@ -29,7 +29,7 @@
           </nb-step>
           
           <nb-step label="Análisis e Interpretación">
-            <ngx-form-analysis-and-interpretation [data]="this.data"></ngx-form-analysis-and-interpretation>
+            <ngx-form-analysis-and-interpretation [data]="this.data" [route]="1"></ngx-form-analysis-and-interpretation>
           </nb-step>
 
           <nb-step label="Recomendaciones / Educación">

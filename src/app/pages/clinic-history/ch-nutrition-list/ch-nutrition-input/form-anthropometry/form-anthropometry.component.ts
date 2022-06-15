@@ -12,6 +12,7 @@ export class FormAnthropometryComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() route: any = null;
   @Input() user_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -23,8 +24,8 @@ export class FormAnthropometryComponent implements OnInit {
   public loading: boolean = false;
   public messageError = null;
   public is_functional = [
-    {id: 'SI', name: 'Si'},
-    {id: 'NO', name: 'NO'},
+    {id: true, name: 'Si'},
+    {id: false, name: 'NO'},
   ];
   public geteratedIMC = null;
   public estimated_weight = null;

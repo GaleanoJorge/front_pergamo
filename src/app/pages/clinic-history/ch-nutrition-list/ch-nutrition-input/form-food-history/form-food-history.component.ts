@@ -13,6 +13,7 @@ export class FormFoodHistoryComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() route: any = null;
   @Input() user_id: any = null;
 
   linearMode = false;
@@ -25,8 +26,8 @@ export class FormFoodHistoryComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public is_allergic = [
-    { id: 'SI', name: 'Si' },
-    { id: 'NO', name: 'NO' },
+    {id: true, name: 'Si'},
+    {id: false, name: 'NO'},
   ];
   public appetite = [
     { id: 'AUMENTADO', name: 'AUMENTADO' },

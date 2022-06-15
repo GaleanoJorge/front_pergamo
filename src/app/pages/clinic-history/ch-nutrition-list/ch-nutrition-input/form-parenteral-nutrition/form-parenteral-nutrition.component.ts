@@ -13,6 +13,7 @@ export class FormParenteralNutritionComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() weight: any = null;
+  @Input() route: any = null;
   @Input() user_id: any = null;
 
   linearMode = false;
