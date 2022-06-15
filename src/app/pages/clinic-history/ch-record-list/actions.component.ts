@@ -18,21 +18,21 @@ import { AuthService } from '../../../services/auth.service';
   <div class="d-flex justify-content-center">
 
     <button *ngIf="value.data.status=='ACTIVO' && 
-      (this.rowData.assigned_management_plan.management_plan.role_attention.role_id == 3 || this.rowData.assigned_management_plan.management_plan.role_attention.role_id == 7)" 
+      (this.rowData.ch_type_id == 1)" 
       nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" 
       nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
     <button *ngIf="value.data.status=='ACTIVO' && 
-      (this.rowData.assigned_management_plan.management_plan.role_attention.role_id == 8 || this.rowData.assigned_management_plan.management_plan.role_attention.role_id == 9)"
+      (this.rowData.ch_type_id == 2)"
       nbTooltip="Historia Clinica de enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" 
       nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-nursing-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
     <button *ngIf="value.data.status=='ACTIVO' && 
-    (this.rowData.assigned_management_plan.management_plan.role_attention.role_id == 10)" nbTooltip="Historia Clinica de NUTRICIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
+    (this.rowData.ch_type_id == 3)" nbTooltip="Historia Clinica de Nutrición" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 

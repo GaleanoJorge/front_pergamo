@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
+import { ChNutritionGastrointestinalService } from '../../../../../business-controller/ch-nutrition-gastrointestinal.service';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class FormGastrointestinalComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() route: any = null;
+  @Input() record_id: any = null;
   @Input() user_id: any = null;
 
   linearMode = false;
@@ -22,6 +24,7 @@ export class FormGastrointestinalComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public messageError = null;
+  public showVomit = false;
   public bowel_habit = [
     {id: 'LÍQUIDA', name: 'LÍQUIDA'},
     {id: 'BLANDA', name: 'BLANDA'},
@@ -36,6 +39,7 @@ export class FormGastrointestinalComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private ChNutritionGastrointestinalS: ChNutritionGastrointestinalService,
     private toastService: NbToastrService,
   ) {
   }
@@ -51,9 +55,11 @@ export class FormGastrointestinalComponent implements OnInit {
 
     this.form.get('vomit').valueChanges.subscribe(val => {
       if (val) {
+        this.showVomit = true;
         this.form.controls.amount_of_vomit.setValidators([Validators.required]);
         this.form.controls.amount_of_vomit.updateValueAndValidity();
       } else {
+        this.showVomit = false;
         this.form.controls.amount_of_vomit.setValidators([]);
         this.form.controls.amount_of_vomit.updateValueAndValidity();
       }
@@ -63,7 +69,23 @@ export class FormGastrointestinalComponent implements OnInit {
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-
+      this.loading = true;
+      this.messageError = null;
+      this.ChNutritionGastrointestinalS.Save({
+        ch_record_id: this.record_id,
+        type_record_id: this.route,
+        bowel_habit: this.form.controls.bowel_habit.value,
+        vomit: this.form.controls.vomit.value,
+        amount_of_vomit: this.form.controls.amount_of_vomit.value,
+        nausea: this.form.controls.nausea.value,
+        observations: this.form.controls.observations.value,
+      }).then(x => {
+        this.saved = x;
+        this.toastService.success('Registro guardado correctamente', 'Correcto');
+      }).catch(x => {
+        this.loading = false;
+        this.toastService.danger(x, 'Error');
+      });
     }
   }
 
