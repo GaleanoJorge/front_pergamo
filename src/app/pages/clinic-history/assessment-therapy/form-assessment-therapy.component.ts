@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ChAssSignsService } from '../../../business-controller/ch_ass_signs.service';
 import { ChAssessmentTherapyService } from '../../../business-controller/ch_assessment_therapy.service';
 import { ChAssSwingService } from '../../../business-controller/ch_ass_swing.service';
 import { ChAssFrequencyService } from '../../../business-controller/ch_ass_frequency.service';
