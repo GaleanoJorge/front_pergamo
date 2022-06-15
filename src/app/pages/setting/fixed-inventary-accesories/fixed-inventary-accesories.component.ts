@@ -23,6 +23,8 @@ export class FixedInventaryAccesoriesComponent implements OnInit {
   public data = [];
   public entity;
   public user;
+  public showdiv: boolean = null;
+
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -83,6 +85,14 @@ export class FixedInventaryAccesoriesComponent implements OnInit {
 
   RefreshData() {
     this.table.refresh();
+  }
+
+  reloadForm(tab) {
+    if (tab.tabTitle == 'DISPONIBLE') {
+      this.showdiv = false;
+    } else {
+      this.showdiv = true;
+    }
   }
 
   EditInv(data) {

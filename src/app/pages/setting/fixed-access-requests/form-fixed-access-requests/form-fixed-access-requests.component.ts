@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FixedAddService } from '../../../../business-controller/fixed-add.service';
+import { FixedLoanService } from '../../../../business-controller/fixed-loan.service';
 import { FixedLocationCampusService } from '../../../../business-controller/fixed-location-campus.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 import { AuthService } from '../../../../services/auth.service';
@@ -36,9 +37,10 @@ export class FormFixedAccessRequestsComponent implements OnInit {
     private toastService: NbToastrService,
     protected dialogRef: NbDialogRef<any>,
     private authService: AuthService,
-
+    private toastS: NbToastrService,
     private FixedLocationCampusS: FixedLocationCampusService,
     private UserRoleBusinessS: UserBusinessService,
+    private FixedLoanS: FixedLoanService
 
   ) {
   }
@@ -81,42 +83,97 @@ export class FormFixedAccessRequestsComponent implements OnInit {
 
   async save() {
     this.isSubmitted = true;
-    if (!this.form.invalid) {
-      this.loading = true;
-      this.showTable = false;
 
-      if (this.data.id) {
-        await this.FixedAddS.Update({
-          id: this.data.id,
-          fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
-          responsible_user_id: this.form.controls.responsible_user_id.value,
-          observation: this.form.controls.observation.value,
-          status: 'ENVIADO',
-        }).then(x => {
-          this.toastService.success('', x.message);
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
+    if (!this.form.invalid) {
+      var valid_values = true;
+      var total_sent = 0;
+      if (!this.selectedOptions || this.selectedOptions.length == 0) {
+        valid_values = false;
+        this.toastS.danger('Debe seleccionar al menos un activo', 'Error');
       } else {
-        await this.FixedAddS.Save({
-          fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
-          responsible_user_id: this.form.controls.responsible_user_id.value,
-          observation: this.form.controls.observation.value,
-          status: 'ENVIADO',
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.form.setValue({ fixed_location_campus_id: '', responsible_user_id: '', observation: '' });
-          if (this.saved) {
-            this.saved();
+        this.selectedOptions.forEach(element => {
+          if (element.amount == null || element.amount <= 0) {
+            valid_values = false;
+          } else {
+            total_sent += element.amount
           }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
         });
+        if (!valid_values) {
+          this.toastS.danger('Debe ingresar una cantidad valida', 'Error');
+        }
+      }
+      if (valid_values) {
+        this.loading = true;
+        if (this.data.id) {
+          await this.FixedAddS.updateInventoryByLot({
+            id: this.data.id,
+            amount: total_sent,
+            status: 'ENVIADO',
+            fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
+            responsible_user_id: this.form.controls.responsible_user_id.value,
+            observation: this.form.controls.observation.value,
+            fixed_loan_id: JSON.stringify(this.selectedOptions),
+          }).then(x => {
+            this.toastService.success('', x.message);
+            this.close();
+            var id = x.data.fixed_add.id;
+            var contador = 0;
+            var err = 0;
+            if (this.saved) {
+              this.saved();
+            }
+            contador++;
+
+            if (contador > 0) {
+              this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
+            } else if (err > 0) {
+              this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
+            }
+            this.selectedOptions = [];
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        } else {
+          await this.FixedAddS.Save({
+            amount: this.form.controls.amount.value,
+            status: 'ENVIADO',
+            fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
+            responsible_user_id: this.form.controls.responsible_user_id.value,
+            observation: this.form.controls.observation.value,
+            // fixed_accessories_id: JSON.stringify(this.selectedOptions),
+            fixed_loan_id: JSON.stringify(this.selectedOptions),
+          }).then(x => {
+            this.toastService.success('', x.message);
+            this.close();
+            var id = x.data.fixed_add.id;
+            var contador = 0;
+            var err = 0;
+            this.FixedLoanS.Save({
+              fixed_add_id: id,
+              fixed_loan_id: JSON.stringify(this.selectedOptions),
+            }).then(x => {
+            }).catch(x => {
+              err++;
+            });
+            contador++;
+            if (contador > 0) {
+              this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
+            } else if (err > 0) {
+              this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
+            }
+            this.selectedOptions = [];
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        }
       }
     }
   }

@@ -39,14 +39,14 @@ export class FormFixedInventaryAccesoriesComponent implements OnInit {
         fixed_location_campus_id: '',
         responsible_user_id: '',
         observation: '',
-        amount_ship: '',
+        request_amount: '',
       };
     }
     this.form = this.formBuilder.group({
       fixed_location_campus_id: [this.data.fixed_location_campus_id, Validators.compose([Validators.required])],
       responsible_user_id: [this.data.responsible_user_id, Validators.compose([Validators.required])],
       observation: [this.data.observation, Validators.compose([Validators.required])],
-      amount_ship: [this.data.amount_ship, Validators.compose([Validators.required])],
+      request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
 
     });
 
@@ -72,8 +72,8 @@ export class FormFixedInventaryAccesoriesComponent implements OnInit {
           fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
           responsible_user_id: this.form.controls.responsible_user_id.value,
           observation: this.form.controls.observation.value,
-          amount_ship: this.form.controls.amount_ship.value,
-          status: 'ADICION',
+          request_amount: this.form.controls.request_amount.value,
+          status: 'ENVIADO',
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

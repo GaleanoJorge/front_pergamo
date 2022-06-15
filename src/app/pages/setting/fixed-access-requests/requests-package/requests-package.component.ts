@@ -6,6 +6,7 @@ import { PharmacyRequestShippingService } from '../../../../business-controller/
 import { AmountRequestsComponent } from './amountRequests.component';
 import { SelectRequestsComponent } from './select-requests.component';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { FixedLoanService } from '../../../../business-controller/fixed-loan.service';
 
 @Component({
   selector: 'ngx-requests-package',
@@ -41,7 +42,7 @@ export class RequestsPackageComponent implements OnInit {
   public component_package_id: number;
   public done = false;
   public settings;
-  public pharmacy_request_shipping;
+  public fixed_loan;
   public show: boolean = false;
 
   public settings_supplies = {
@@ -54,7 +55,7 @@ export class RequestsPackageComponent implements OnInit {
             this.selectedOptions = this.parentData.selectedOptions;
             this.emit = this.parentData.selectedOptions;
             this.parentData.selectedOptions.forEach(x => {
-              this.selectedOptions2.push(x.pharmacy_request_shipping);
+              this.selectedOptions2.push(x.fixed_loan);
             });
             this.done = true;
           }
@@ -77,7 +78,7 @@ export class RequestsPackageComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           var amo;
           this.parentData.selectedOptions.forEach(x => {
-            if (x.pharmacy_request_shipping == row.id) {
+            if (x.fixed_loan == row.id) {
               amo = x.amount;
             }
           });
@@ -98,7 +99,7 @@ export class RequestsPackageComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     private e: ElementRef,
-    private shippingS: PharmacyRequestShippingService,
+    private FixedLoanS: FixedLoanService,
   ) {
   }
 
@@ -116,8 +117,8 @@ export class RequestsPackageComponent implements OnInit {
     if (event) {
       this.selectedOptions2.push(row.id);
       var diet = {
-        pharmacy_request_shipping_id: row.id,
-        pharmacy_lot_stock_id: row.pharmacy_lot_stock_id,
+        fixed_loan_id: row.id,
+        fixed_add_id: row.fixed_add_id,
         amount: 0,
         amount_damaged: 0,
         amount_provition: row.amount_provition,
@@ -129,7 +130,7 @@ export class RequestsPackageComponent implements OnInit {
       i !== -1 && this.selectedOptions2.splice(i, 1);
       var j = 0;
       this.selectedOptions.forEach(element => {
-        if (this.selectedOptions2.includes(element.pharmacy_request_shipping)) {
+        if (this.selectedOptions2.includes(element.fixed_loan)) {
           this.emit.push(element);
         }
         j++;
@@ -144,7 +145,7 @@ export class RequestsPackageComponent implements OnInit {
     var i = 0;
     var mientras = this.selectedOptions;
     this.selectedOptions.forEach(element => {
-      if (element.pharmacy_request_shipping_id == row.id) {
+      if (element.fixed_loan_id == row.id) {
         mientras[i].amount = input.target.valueAsNumber;
       }
       i++
@@ -157,7 +158,7 @@ export class RequestsPackageComponent implements OnInit {
     var i = 0;
     var mientras = this.selectedOptions;
     this.selectedOptions.forEach(element => {
-      if (element.pharmacy_request_shipping_id == row.id) {
+      if (element.fixed_loan_id == row.id) {
         mientras[i].amount_damaged = input.target.valueAsNumber;
       }
       i++
@@ -192,7 +193,7 @@ export class RequestsPackageComponent implements OnInit {
       this.selectedOptions.forEach(element => {
         dta.component_package_id = this.component_package_id;
         dta.component_id = element.id;
-        this.shippingS.Save(dta).then(x => {
+        this.FixedLoanS.Save(dta).then(x => {
         }).catch(x => {
           err++;
         });

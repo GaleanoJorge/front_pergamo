@@ -23,6 +23,7 @@ export class FixedAccessRequestsComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public validator ;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -45,22 +46,22 @@ export class FixedAccessRequestsComponent implements OnInit {
         },
         renderComponent: ActionsAccReqComponent,
       },
-      fixed_assets: {
+      fixed_accessories: {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.description;
+          return value.name;
         },
       },
       request_amount: {
         title: this.headerFields[1],
         type: 'string',
       },
-      request_user: {
+      responsible_user: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.request_user.firstname + " - " + row.request_user.lastname;
+          return row.responsible_user.user.firstname + " - " + row.responsible_user.user.lastname;
         },
       },
     },
@@ -74,6 +75,7 @@ export class FixedAccessRequestsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.validator = this.parentData;
   }
 
   RefreshData() {
