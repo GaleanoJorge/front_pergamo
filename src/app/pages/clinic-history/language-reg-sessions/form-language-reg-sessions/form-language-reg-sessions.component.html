@@ -1,0 +1,100 @@
+<form [formGroup]="form">
+
+
+    <!-- Numero de Sesiones Mensuales E Intensidad Semana 15 -->
+
+ 
+        <div class="row justify-content-md-center">
+          <div class="col-md-6">
+            <label for="monthly_sessions" class="form-text text-muted font-weight-bold align">
+              Sesiones Mensuales
+            </label>
+            <nb-select formControlName="monthly_sessions" id="monthly_sessions" fullWidth
+              status="{{ isSubmitted && form.controls.monthly_sessions.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="1">1</nb-option>
+              <nb-option value="2">2</nb-option>
+              <nb-option value="3">3</nb-option>
+              <nb-option value="4">4</nb-option>
+              <nb-option value="5">5</nb-option>
+              <nb-option value="6">6</nb-option>
+              <nb-option value="7">7</nb-option>
+              <nb-option value="8">8</nb-option>
+              <nb-option value="9">9</nb-option>
+              <nb-option value="10">10</nb-option>
+              <nb-option value="11">11</nb-option>
+              <nb-option value="12">12</nb-option>
+              <nb-option value="13">13</nb-option>
+              <nb-option value="14">14</nb-option>
+              <nb-option value="15">15</nb-option>
+              <nb-option value="16">16</nb-option>
+              <nb-option value="17">17</nb-option>
+              <nb-option value="18">18</nb-option>
+              <nb-option value="19">19</nb-option>
+              <nb-option value="20">20</nb-option>
+              <nb-option value="21">21</nb-option>
+              <nb-option value="22">22</nb-option>
+              <nb-option value="23">23</nb-option>
+              <nb-option value="24">24</nb-option>
+              <nb-option value="25">25</nb-option>
+              <nb-option value="26">26</nb-option>
+              <nb-option value="27">27</nb-option>
+              <nb-option value="28">28</nb-option>
+              <nb-option value="29">29</nb-option>
+              <nb-option value="30">30</nb-option>
+              <nb-option value="31">31</nb-option>
+              <nb-option value="32">32</nb-option>
+              <nb-option value="33">33</nb-option>
+              <nb-option value="34">34</nb-option>
+              <nb-option value="35">35</nb-option>
+              <nb-option value="36">36</nb-option>
+            </nb-select>
+          </div>
+          <div class="col-md-6">
+
+            <label for="weekly_intensity" class="form-text text-muted font-weight-bold align">
+              Intensidad Semanal
+            </label>
+            <nb-select formControlName="weekly_intensity" id="weekly_intensity" fullWidth
+              status="{{ isSubmitted && form.controls.weekly_intensity.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="1">1</nb-option>
+              <nb-option value="2">2</nb-option>
+              <nb-option value="3">3</nb-option>
+              <nb-option value="4">4</nb-option>
+              <nb-option value="5">5</nb-option>
+
+            </nb-select>
+
+          </div>
+
+          <div class="col-md-12 center">
+            <label class="form-text text-muted font-weight-bold">Recomendaciones/Educación</label>
+            <textarea id="text" nbInput fullWidth formControlName="text" text onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.text.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          </div>
+
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+            </div>
+          </div>
+        </div>
+      
+
+        
+      <!-- Diagnostico Cif 14-->
+      <!-- <nb-accordion-item>
+        <nb-accordion-item-header>Diagnostico Cif</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-form-language-evo-diagnosis>
+          </ngx-form-language-evo-diagnosis>
+  
+        </nb-accordion-item-body>
+      </nb-accordion-item> -->
+
+
+     
+</form>
