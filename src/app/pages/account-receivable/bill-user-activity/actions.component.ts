@@ -2,6 +2,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { ViewCell } from 'ng2-smart-table';
 import { BillUserActivityService } from '../../../business-controller/bill-user-activity.service';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
 
 
 @Component({
@@ -14,9 +15,9 @@ import { BillUserActivityService } from '../../../business-controller/bill-user-
     <button *ngIf="!value.data.status" nbTooltip="Rechazar" nbTooltipPlacement="top" nbTooltipStatus="primary"   nbButton ghost (click)="ChangeAccountReceivable(value.data,1)">
     <nb-icon icon="close-outline"></nb-icon>
   </button>
-  <a nbTooltip="Ver Historia Clinica"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/account-receivable/bill-user-activity/' + value.data.id" >
-  <nb-icon icon="archive-outline"></nb-icon>
-</a>
+<button  nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
+<nb-icon icon="file-add"></nb-icon>
+</button>
   </div>
 
 
@@ -36,12 +37,29 @@ export class ActionsBillComponent implements ViewCell {
   constructor(
     private toastService: NbToastrService,
     private billUserActivityS: BillUserActivityService,
+    private viewHCS: ChRecordService,
   ) {
   }
 
   async ngOnInit() {
 
   }
+
+
+
+
+viewHC() {
+this.viewHCS.ViewHC(this.value.data.ch_record_id).then(x => {
+
+  //this.loadingDownload = false;
+  this.toastService.success('', x.message);
+  window.open(x.url, '_blank');
+
+}).catch(x => {
+  this.isSubmitted = false;
+  this.loading = false;
+});
+}
 
   async ChangeAccountReceivable(data,dta) {
     if(dta==0){
