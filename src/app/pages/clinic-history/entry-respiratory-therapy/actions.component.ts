@@ -10,51 +10,131 @@ import { ProgramService } from '../../../business-controller/program.service';
 import { ScopeOfAttentionService } from '../../../business-controller/scope-of-attention.service';
 import { AdmissionRouteService } from '../../../business-controller/admission-route.service';
 import { LocationService } from '../../../business-controller/location.service';
-import { ChRecordService } from '../../../business-controller/ch_record.service';
-import { AuthService } from '../../../services/auth.service';
 
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-
-    <button *ngIf="value.data.status=='ACTIVO' && 
-      (this.rowData.ch_type_id == 1)" 
-      nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" 
-      nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id + '/'+ value.assigned" >
-      <nb-icon icon="file-add-outline"></nb-icon>
+    <a *ngIf="status" nbTooltip="Estado" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef)">
+        <nb-icon icon="clock-outline"></nb-icon>
+    </a>
+    <button *ngIf="medical" nbTooltip="Medico" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(templateRef2)">
+        <nb-icon icon="log-out-outline"></nb-icon>
     </button>
-
-    <button *ngIf="value.data.status=='ACTIVO' && 
-      (this.rowData.ch_type_id == 2)"
-      nbTooltip="Historia Clinica de enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" 
-      nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-nursing-list/' + value.data.id + '/'+ value.assigned" >
-      <nb-icon icon="file-add-outline"></nb-icon>
+    <button nbTooltip="Agregar o modificar acompañantes" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/admissions/patient-data/' + value.data.id" >
+      <nb-icon icon="person-add-outline"></nb-icon>
     </button>
-
-    <button *ngIf="value.data.status=='ACTIVO' && 
-    (this.rowData.ch_type_id == 3)" nbTooltip="Historia Clinica de Nutrición" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
-      <nb-icon icon="file-add-outline"></nb-icon>
+    <button nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
+        <nb-icon icon="info-outline"></nb-icon>
     </button>
-
-    <button *ngIf="value.data.status=='ACTIVO' && (this.role_user == 8 || this.role_user == 9 || this.role_user == 1)" nbTooltip="Historia Clinica Terapia Respiratoria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/respiratory-therapy-list/' + value.data.id + '/'+ value.assigned" >
-      <nb-icon icon="file-add-outline"></nb-icon>
-    </button>
-
-    <button *ngIf="value.data.status=='CERRADO'" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
-      <nb-icon icon="file-add"></nb-icon>
-    </button>
-
   </div>
+  <ng-template #templateRef>
+    <nb-card size="tiny">
+      <nb-card-header>
+          <span class="h5">Salida de Paciente</span>
+      </nb-card-header>
+      <nb-card-body>
+      Desea dar salida al paciente.
+      </nb-card-body>
+
+      <nb-card-footer class="d-flex justify-content-end">
+          <button nbButton ghost type="button" (click)="close()">Cancelar</button>
+          <button nbButton status="danger" class="ml-1" type="button" (click)="DeleteAction()" [disabled]="loading">Confirmar</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>
+  <ng-template #templateRef2>
+  <nb-card size="tiny">
+    <nb-card-header>
+        <span class="h5">Reversión de salida</span>
+    </nb-card-header>
+    <nb-card-body>
+        Esta seguro que desea revertir la salida?
+    </nb-card-body>
+
+    <nb-card-footer class="d-flex justify-content-end">
+        <button nbButton ghost type="button" (click)="close()">Cancelar</button>
+        <button nbButton status="danger" class="ml-1" type="button" (click)="DeleteAction2()" [disabled]="loading">Confirmar</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<ng-template #templateRef3>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="small" style="max-width: 500px;height: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="admission_route" class="form-text text-muted font-weight-bold">Ruta de admisión:</label>
+          <nb-select [selected]="this.data.admission_route_id" formControlName="admission_route_id" id="admission_route_id" fullWidth
+          status="{{ isSubmitted && form.controls.admission_route_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == this.data.admission_route_id }}" *ngFor="let item of admission_route" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="scope_of_attention" class="form-text text-muted font-weight-bold">Ambito de atención:</label>
+          <nb-select [selected]="this.data.scope_of_attention_id" formControlName="scope_of_attention_id" id="scope_of_attention_id" fullWidth
+          status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == this.data.scope_of_attention_id }}" *ngFor="let item of scope_of_attention" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="program" class="form-text text-muted font-weight-bold">Programa:</label>
+          <nb-select [selected]="this.data.program_id" formControlName="program_id" id="program_id" fullWidth
+          status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == this.data.program_id }}" *ngFor="let item of program" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
+          <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
+          status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == this.data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
+          <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
+          status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == this.data.pavilion_id }}" *ngFor="let item of pavilion" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="bed" class="form-text text-muted font-weight-bold">Cama / Consultorio:</label>
+          <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
+          status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == this.data.bed_id }}" *ngFor="let item of bed" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+    </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
+</ng-template>
   `,
 })
-export class Actions5Component implements ViewCell {
+export class ActionsRespiratoryTherapy2Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
-  @Input() rowData: any;  // This holds the entire row object
-  
   public dialog;
   public status: boolean;
   public medical: boolean;
   loading: boolean = false;
+  @Input() rowData: any;  // This holds the entire row object
   public form: FormGroup;
   public rips_typefile: any[];
   // public status: Status[];
@@ -71,7 +151,6 @@ export class Actions5Component implements ViewCell {
   public ambit;
   public data;
   public service;
-  public role_user;
 
 
   constructor(
@@ -86,16 +165,9 @@ export class Actions5Component implements ViewCell {
     private FlatS: FlatService,
     private AdmissionRouteS: AdmissionRouteService,
     private BedS: BedService,
-    private viewHCS: ChRecordService,
-    private authService: AuthService,
   ) {
   }
   ngOnInit() {
-
-    // console.log(this.value);
-    // console.log(this.rowData);
-
-    console.log(this.value.data.status);
     if (this.value.data.medical_date == '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {
       this.medical = false;
       this.status = false;
@@ -189,19 +261,6 @@ export class Actions5Component implements ViewCell {
 
     } else
       this.toastService.success('', 'Debe tener una salida asistencial');
-  }
-
-  viewHC() {
-    this.viewHCS.ViewHC(this.value.data.id).then(x => {
-
-      //this.loadingDownload = false;
-      this.toastService.success('', x.message);
-      window.open(x.url, '_blank');
-
-    }).catch(x => {
-      this.isSubmitted = false;
-      this.loading = false;
-    });
   }
 
   save() {
