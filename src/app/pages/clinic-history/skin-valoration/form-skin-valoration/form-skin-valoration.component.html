@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="save()">
+<form [formGroup]="form" >
   <div>
     <fieldset class="field_set center">
 
@@ -13,31 +13,31 @@
         </datalist>
       </div>
       <div class="row">
-        <div class="col-md-4 space">
-          <label for="head" class="form-text text-muted font-weight-bold">CABEZA:</label>
+        <div class="col-md-12 space">
+          <label for="body_region_id" class="form-text text-muted font-weight-bold">REGIÓN DEL CUERPO:</label>
 
-          <nb-select formControlName="head" id="head" fullWidth head
-            status="{{ isSubmitted && form.controls.head.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-select formControlName="body_region_id" id="body_region_id" fullWidth body_region_id
+            status="{{ isSubmitted && form.controls.body_region_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">SELECCIONE...</nb-option>
-            <nb-option *ngFor="let item of skin_status"
-              [value]="item.name">
+            <nb-option *ngFor="let item of body_region"
+              [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
 
-        <div class="col-md-4 space">
-          <label for="malleolus" class="form-text text-muted font-weight-bold">MALÉOLOS:</label>
+        <div class="col-md-12 space">
+          <label for="skin_status_id" class="form-text text-muted font-weight-bold">ESTADO DE LA PIEL:</label>
 
-          <nb-select formControlName="malleolus" id="malleolus" fullWidth malleolus
-            status="{{ isSubmitted && form.controls.malleolus.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-select formControlName="skin_status_id" id="skin_status_id" fullWidth skin_status_id
+            status="{{ isSubmitted && form.controls.skin_status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">SELECCIONE...</nb-option>
             <nb-option *ngFor="let item of skin_status"
-              [value]="item.name">
+              [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
 
-        <div class="col-md-4 space">
+        <!-- <div class="col-md-4 space">
           <label for="lower_limbs" class="form-text text-muted font-weight-bold">MIEMBROS INFERIORES:</label>
 
           <nb-select formControlName="lower_limbs" id="lower_limbs" fullWidth lower_limbs
@@ -47,9 +47,9 @@
               [value]="item.name">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
 
-        <div class="col-md-4 space">
+        <!-- <div class="col-md-4 space">
           <label for="feet" class="form-text text-muted font-weight-bold">PIES:</label>
 
           <nb-select formControlName="feet" id="feet" feet fullWidth
@@ -59,9 +59,9 @@
               [value]="item.name">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
 
-        <div class="col-md-4 space">
+        <!-- <div class="col-md-4 space">
           <label for="gluteal_region" class="form-text text-muted font-weight-bold">REGIÓN DORSAL:</label>
 
           <nb-select formControlName="gluteal_region" id="gluteal_region" gluteal_region fullWidth
@@ -71,9 +71,9 @@
               [value]="item.name">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
 
-        <div class="col-md-4 space">
+        <!-- <div class="col-md-4 space">
           <label for="lumbar_region" class="form-text text-muted font-weight-bold">REGIÓN GLÚTEA:</label>
 
           <nb-select formControlName="lumbar_region" id="lumbar_region" lumbar_region fullWidth
@@ -83,8 +83,8 @@
               [value]="item.name">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
-
+        </div> -->
+<!-- 
         <div class="col-md-4 space">
           <label for="lumbar_region" class="form-text text-muted font-weight-bold">REGIÓN LUMBAR:</label>
  
@@ -95,9 +95,9 @@
               [value]="item.name">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
 
-        <div class="col-md-4 space">
+        <!-- <div class="col-md-4 space">
           <label for="sacrum_region" class="form-text text-muted font-weight-bold">REGIÓN SACRA:</label>
 
           <nb-select formControlName="sacrum_region" id="sacrum_region" sacrum_region fullWidth
@@ -120,7 +120,7 @@
               [value]="item.name">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
 
         <div class="col-md-6 space">
           <label for="exudate" class="form-text text-muted font-weight-bold">EXUDADO:</label>
@@ -134,8 +134,8 @@
           </nb-select>
         </div>
 
-        <div class="col-md-6 space">
-          <label for="concentrated" class="form-text text-muted font-weight-bold">REGIÓN TROCANTÉRICA:</label>
+        <div class="col-md-6 space" *ngIf="this.form.controls.exudate.value != ''">
+          <label for="concentrated" class="form-text text-muted font-weight-bold">TIPO DE EXUDADO:</label>
 
           <nb-select formControlName="concentrated" id="concentrated" concentrated fullWidth
             status="{{ isSubmitted && form.controls.concentrated.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -147,7 +147,7 @@
         </div>
 
         <div class="col-md-6 space">
-          <label for="infection_sign" class="form-text text-muted font-weight-bold">REGIÓN TROCANTÉRICA:</label>
+          <label for="infection_sign" class="form-text text-muted font-weight-bold">SIGNOS DE INFECCIÓN:</label>
 
           <nb-select formControlName="infection_sign" infection_sign
             id="infection_sign" fullWidth
@@ -162,7 +162,7 @@
         </div>
 
         <div class="col-md-6 space">
-          <label for="surrounding_skin" class="form-text text-muted font-weight-bold">REGIÓN TROCANTÉRICA:</label>
+          <label for="surrounding_skin" class="form-text text-muted font-weight-bold">PIEL CIRCUNDANTE:</label>
 
           <nb-select formControlName="surrounding_skin" fullWidth
             id="surrounding_skin" surrounding_skin
@@ -179,7 +179,7 @@
       </div>
 
       <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
-      <textarea id="observation" nbInput fullWidth formControlName="observation" analisys rows="4" cols="50"
+      <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"
         status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
     </fieldset>
 
@@ -187,7 +187,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="button" (click)="save()">GUARDAR</button>
       </div>
     </div>
   </div>

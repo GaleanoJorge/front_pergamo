@@ -6,12 +6,13 @@ import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 import { ChHistoricScalesComponent } from '../ch-historic-scales/ch-historic-scales.component';
 
 @Component({
-  selector: 'ngx-ch-scale-glasgow.',
+  selector: 'ngx-ch-scale-glasgow',
   templateUrl: './ch-scale-glasgow.component.html',
   styleUrls: ['./ch-scale-glasgow.component.scss'],
 })
 export class ChScaleGlasgowComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() enfermery: any = null;
   @Input() refresh2;
 
   linearMode = true;

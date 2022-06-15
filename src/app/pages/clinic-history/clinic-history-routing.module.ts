@@ -27,7 +27,7 @@ const routes: Routes = [{
       component: ChNutritionListComponent,
     },
     {
-      path: 'ch-record-list/:id/:id2',
+      path: 'ch-record-list/:id/:id2/:id3',
       component: ChRecordListComponent,
     },
     {
