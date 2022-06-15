@@ -136,6 +136,22 @@ import { FormGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition-
 import { FormFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input/form-food-history/form-food-history.component';
 import { FormAnalysisAndInterpretationComponent } from './ch-nutrition-list/ch-nutrition-input/form-analysis-and-interpretation/form-analysis-and-interpretation.component';
 import { FormParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/form-parenteral-nutrition/form-parenteral-nutrition.component';
+import { FormClinicHistoryLanguageComponent } from './clinic-history-language-list/form-clinic-history-language/form-clinic-history-language.component';
+import { ClinicHistoryLanguageListComponent } from './clinic-history-language-list/clinic-history-language-list.component';
+import { ActionsLanguageComponent } from './clinic-history-language-list/actionslanguage.component';
+import { FormLanguageAssessmentComponent } from './language-assessment/form-language-assessment/form-language-assessment.component';
+import { LanguageAssessmentComponent } from './language-assessment/language-assessment.component';
+import { LanguageListComponent } from './language-list/language-list.component';
+import { FormLanguageEvolutionComponent } from './language-evolution/form-language-evolution/form-language-evolution.component';
+import { RegularLanguageListComponent } from './regularlanguage-list/regularlanguage-list.component';
+import { FormLanguageAssessmentRegularComponent } from './language-assessment-regular/form-language-assessment-regular/form-language-assessment-regular.component';
+import { FormLanguageConceptComponent } from './language-concept/form-language-concept/form-language-concept.component';
+import { FormLanguageMaterialusedComponent } from './language-materialused/form-language-materialused/form-language-materialused.component';
+import { LanguageMaterialusedComponent } from './language-materialused/language-materialused.component';
+import { FormLanguageInterventionComponent } from './language-intervention/form-language-intervention/form-language-intervention.component';
+import { FormLanguageEvoDiagnosisComponent } from './language-evo-diagnosis/form-language-evo-diagnosis/form-language-evo-diagnosis.component';
+import { FormLanguageRegSessionsComponent } from './language-reg-sessions/form-language-reg-sessions/form-language-reg-sessions.component';
+import { FormLanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/form-language-therapeutic-goals/form-language-therapeutic-goals.component';
 import { DrugApplicationComponent } from './drug-application/drug-application.component';
 import { FormDrugApplicationComponent } from './drug-application/form-drug-application/form-drug-application.component';
 import { NurseringMedicationComponent } from './nursering-medication/nursering-medication.component';
@@ -382,6 +398,26 @@ import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.co
     FormFoodHistoryComponent,
     FormAnalysisAndInterpretationComponent,
     FormParenteralNutritionComponent,
+    FormClinicHistoryLanguageComponent,
+    ClinicHistoryLanguageListComponent,
+    ActionsLanguageComponent,
+
+    FormLanguageAssessmentComponent,
+    LanguageAssessmentComponent,
+    LanguageListComponent,
+    FormLanguageEvolutionComponent,
+    RegularLanguageListComponent,
+    FormLanguageAssessmentRegularComponent,
+    FormLanguageConceptComponent,
+    FormLanguageMaterialusedComponent,
+    LanguageMaterialusedComponent,
+    FormLanguageInterventionComponent,
+    FormLanguageEvoDiagnosisComponent,
+    FormLanguageRegSessionsComponent,
+    FormLanguageTherapeuticGoalsComponent,
+  
+    
+
   ],
 
 

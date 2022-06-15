@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BackListComponent } from './background/back-list.component'; 
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { ChRecordListComponent } from './ch-record-list/ch-record-list.component';
+import { ClinicHistoryLanguageListComponent } from './clinic-history-language-list/clinic-history-language-list.component';
 import { ClinicHistoryListComponent } from './clinic-history-list/clinic-history-list.component';
 import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
 import { ClinicHistoryComponent } from './clinic-history.component';
@@ -33,6 +34,11 @@ const routes: Routes = [{
       component: ChNutritionListComponent,
     },
     {
+      path: 'clinic-history-language-list/:id/:id2',
+      component: ClinicHistoryLanguageListComponent,
+    },
+    {
+  
       path: 'ch-record-list/:id/:id2/:id3',
       component: ChRecordListComponent,
     },

@@ -39,7 +39,7 @@ export class PhysicalExamComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name + '-' + row.type_ch_physical_exam.description;
+          return value.name + '-' + row.description;
         },
       },
       revision: {
