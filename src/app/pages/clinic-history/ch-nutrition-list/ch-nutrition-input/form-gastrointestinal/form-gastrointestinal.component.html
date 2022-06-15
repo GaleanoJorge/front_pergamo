@@ -26,7 +26,7 @@
           <div class="col-12 col-sm-12 col-md-9">
             <label *ngIf="showVomit" class="form-text text-muted font-weight-bold text ">Cantidad de
               episodios eméticos:</label>
-            <textarea *ngIf="form.controls.vomit.value != '' && form.controls.vomit.value == 'SI'" id="amount_of_vomit" nbInput fullWidth
+            <textarea *ngIf="showVomit" id="amount_of_vomit" nbInput fullWidth
               formControlName="amount_of_vomit" amount_of_vomit onpaste="return false" rows="4" cols="50"
               status="{{ isSubmitted && form.controls.amount_of_vomit.errors ? 'danger' : isSubmitted ? 'success' : null }}"> </textarea>
           </div>
