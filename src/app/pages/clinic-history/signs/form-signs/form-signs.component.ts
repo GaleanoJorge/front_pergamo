@@ -43,6 +43,7 @@ export class FormsignsComponent implements OnInit {
   public body_mass_index;
   public selectedItemsList  = [];
   public checkedIDs = [];
+  public checkboxesDataList: any []=[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,35 +59,35 @@ export class FormsignsComponent implements OnInit {
     
   ) {
   }
-  checkboxesDataList = [
-    {
-      id: 'mydriatic',
-      label: 'MINDRIÁTICA',
-      isChecked: true,
-    },
-    {
-      id: 'normal',
-      label: 'NORMAL',
-      isChecked: true,
-    },
-    {
-      id: 'lazy_reaction_light',
-      label: 'REACCIÓN PERESOZA ( A LA LUZ)',
-      isChecked: true,
-    },
-    {
-      id: 'fixed_lazy_reaction',
-      label: 'REACCIÓN PERESOZA',
-      isChecked: true,
-    },
-    {
-      id: 'miotic_size',
-      label: 'TAMAÑO MIÓTICA',
-      isChecked: true,
-    },
-  ];
-
+  
   async ngOnInit(): Promise<void> {
+    this.checkboxesDataList = [
+      {
+        id: 'mydriatic',
+        label: 'MINDRIÁTICA',
+        isChecked: true,
+      },
+      {
+        id: 'normal',
+        label: 'NORMAL',
+        isChecked: true,
+      },
+      {
+        id: 'lazy_reaction_light',
+        label: 'REACCIÓN PERESOZA ( A LA LUZ)',
+        isChecked: true,
+      },
+      {
+        id: 'fixed_lazy_reaction',
+        label: 'REACCIÓN PERESOZA',
+        isChecked: true,
+      },
+      {
+        id: 'miotic_size',
+        label: 'TAMAÑO MIÓTICA',
+        isChecked: true,
+      },
+    ];
     if (!this.data || this.data.length == 0) {
       this.data = {
         clock: '',
@@ -129,6 +130,7 @@ export class FormsignsComponent implements OnInit {
         oxygen_type_id: '',
         liters_per_minute_id: '',
         parameters_signs_id: '',
+        pupilas: '',
       };
 
     }
@@ -191,6 +193,7 @@ export class FormsignsComponent implements OnInit {
       oxygen_type_id: [this.data[0] ? this.data[0].oxygen_type_id : this.data.oxygen_type_id],
       liters_per_minute_id: [this.data[0] ? this.data[0].liters_per_minute_id : this.data.liters_per_minute_id],
       parameters_signs_id: [this.data.parameters_signs_id],
+      pupilas: [],
     });
 
 

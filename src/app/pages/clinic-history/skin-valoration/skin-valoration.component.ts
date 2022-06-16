@@ -21,8 +21,7 @@ export class SkinValorationComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Motivo', 'Descripción', 'Evidencia',
-    
+    'DIAGNOSTICO', 'ZONA EXAMINADA', 'EXUDADO', 'TIPO DE EXUDADO', 'SIGNOS DE INFECCIÓN', 'PIER CIRCUNCIDADA'
   ];
 
   public isSubmitted: boolean = false;
@@ -36,33 +35,74 @@ export class SkinValorationComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      ch_reason_id: {
+      diagnosis: {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-        descriptions: {
+      body_region: {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
         },
-      
-      file_evidence: {
+      },
+      exudate: {
         title: this.headerFields[2],
         width: 'string',
-        
-       }
+        valuePrepareFunction(value, row) {
+          if(value){
+            return value;
+          } else {
+            return 'NO APLICA';
+          }
+        },
+      },
+      concentrated: {
+        title: this.headerFields[3],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if(value){
+            return value;
+          } else {
+            return 'NO APLICA';
+          }
+        },
+      },
+      infection_sign: {
+        title: this.headerFields[4],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if(value){
+            return value;
+          } else {
+            return 'NO APLICA';
+          }
+        },
+      },
+      surrounding_skin: {
+        title: this.headerFields[5],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if(value){
+            return value;
+          } else {
+            return 'NO APLICA';
+          }
+        },
+      }
     },
   };
 
   constructor(
     public userChangeS: UserChangeService
-    ) {
-      
-    }
+  ) {
 
-  async ngOnInit() {}
+  }
+
+  async ngOnInit() { }
 
   RefreshData() {
     this.table.refresh();
@@ -74,5 +114,5 @@ export class SkinValorationComponent implements OnInit {
     }
   }
 
- 
+
 }

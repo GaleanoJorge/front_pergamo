@@ -39,6 +39,8 @@ export class ChRecordListComponent implements OnInit {
   public done;
   public role_user;
   public assigned_management_plan;
+  public type_of_attention;
+
   public disabled: boolean = false;
   public showButtom: boolean = true;
 
@@ -69,8 +71,6 @@ export class ChRecordListComponent implements OnInit {
             'refresh': this.RefreshData.bind(this),
           };
         },
-
-
         renderComponent: Actions5Component,
       },
       date_attention: {
@@ -130,6 +130,7 @@ export class ChRecordListComponent implements OnInit {
 
     this.admissions_id = this.route.snapshot.params.id;
     this.assigned_management_plan = this.route.snapshot.params.id2;
+    this.type_of_attention = this.route.snapshot.params.id3;
 
     await this.admissionsS.GetCollection({ admissions_id: this.admissions_id }).then(x => {
       this.admissions = x;
@@ -154,6 +155,7 @@ export class ChRecordListComponent implements OnInit {
       admissions_id: this.admissions_id,
       assigned_management_plan: this.assigned_management_plan,
       user_id: this.own_user.id,
+      type_of_attention_id: this.type_of_attention,
     }).then(x => {
       this.toastService.success('', x.message);
       this.RefreshData();
