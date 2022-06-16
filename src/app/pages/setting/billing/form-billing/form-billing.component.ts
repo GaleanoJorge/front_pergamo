@@ -19,6 +19,7 @@ export class FormBillingComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() parentData: any;
+  @Input() parentData1: any;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -28,6 +29,7 @@ export class FormBillingComponent implements OnInit {
   public pharmacy_stock: any[];
   public company: any[];
   public selectedOptions: any[] = [];
+  public selectedOptions1: any[] = [];
   public user;
   public show_table;
 
@@ -51,6 +53,12 @@ export class FormBillingComponent implements OnInit {
       selectedOptions: [],
       entity: 'product',
       customData: 'product',
+    };
+
+    this.parentData1 = {
+      selectedOptions1: [],
+      entity: 'product_supplies_com',
+      customData: 'product_supplies_com',
     };
 
     if (!this.data) {
@@ -83,13 +91,14 @@ export class FormBillingComponent implements OnInit {
   }
 
   receiveMessage($event) {
-    this.selectedOptions = $event;
-
+    this.selectedOptions = $event ;
+  }
+  receiveMessage1($event) {
+  this.selectedOptions1 = $event;
   }
 
   save() {
     this.isSubmitted = true;
-
     if (!this.form.invalid) {
       var valid_values = true;
       if (!this.selectedOptions || this.selectedOptions.length == 0) {
@@ -108,6 +117,7 @@ export class FormBillingComponent implements OnInit {
           this.toastS.danger('Debe ingresar una cantidad valida', 'Error');
         }
       }
+      
       if (valid_values) {
         this.loading = true;
  
@@ -135,6 +145,15 @@ export class FormBillingComponent implements OnInit {
             }).catch(x => {
               err++;
             });
+            this.billStockS.Update({
+              billing_id: id,
+              product_supplies_com_id: JSON.stringify(this.selectedOptions1), 
+              amount: 10,
+              amount_unit: 10,
+            }, id).then(x => {
+            }).catch(x => {
+              err++;
+            });
             contador++;
 
             if (contador > 0) {
@@ -143,6 +162,7 @@ export class FormBillingComponent implements OnInit {
               this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
             }
             this.selectedOptions = [];
+            this.selectedOptions1 = [];
             if (this.saved) {
               this.saved();
             }
@@ -170,6 +190,15 @@ export class FormBillingComponent implements OnInit {
             }).catch(x => {
               err++;
             });
+            this.billStockS.Save({
+              billing_id: id,
+              product_supplies_com_id: JSON.stringify(this.selectedOptions1), 
+              amount: 10,
+              amount_unit: 10,
+            }).then(x => {
+            }).catch(x => {
+              err++;
+            });
             contador++;
             if (contador > 0) {
               this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
@@ -177,6 +206,7 @@ export class FormBillingComponent implements OnInit {
               this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
             }
             this.selectedOptions = [];
+            this.selectedOptions1 = [];
             if (this.saved) {
               this.saved();
             }

@@ -3,7 +3,7 @@
 
   <div content>
     <nb-tabset fullWidth>
-      <nb-tab tabTitle="INVENTARIO">
+      <nb-tab tabTitle="MEDICAMENTOS EN STOCK">
         <div *ngIf="entity">
           <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
             customData='pharmacy_lot_stock' [messageToltip]="messageToltip">
@@ -19,7 +19,7 @@
       </nb-tab>
 
       <nb-tab tabTitle="ACEPTAR MEDICAMENTOS">
-        <ngx-pharmacy-income></ngx-pharmacy-income>
+        <ngx-pharmacy-income [parentData]="true"></ngx-pharmacy-income>
       </nb-tab>
     </nb-tabset>
   </div>

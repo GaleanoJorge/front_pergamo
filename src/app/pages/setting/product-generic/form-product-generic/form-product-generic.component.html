@@ -31,7 +31,7 @@
         <div class="col-12 col-sm-12 col-md-4">
           <label for="product_subcategory" class="form-text text-muted font-weight-bold">Subcategoria del
             producto:</label>
-          <nb-select [selected]="this.data.product_subcategory_id"  formControlName="product_subcategory_id"
+          <nb-select [selected]="this.data.product_subcategory_id" formControlName="product_subcategory_id"
             id="product_subcategory_id" fullWidth
             status="{{ isSubmitted && form.controls.product_subcategory_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
@@ -43,8 +43,8 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="nom_product" class="form-text text-muted font-weight-bold">Nombre del producto:</label>
-          <nb-select (selectedChange)="selectsubcategory($event)" formControlName="nom_product_id"
-            id="nom_product_id" fullWidth
+          <nb-select (selectedChange)="selectsubcategory($event)" formControlName="nom_product_id" id="nom_product_id"
+            fullWidth
             status="{{ isSubmitted && form.controls.nom_product_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.nom_product_id }}" *ngFor="let item of nom_product"
@@ -141,40 +141,6 @@
             formControlName="code_atc" code_atc
             status="{{ isSubmitted && form.controls.code_atc.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div *ngIf="showInsumo" class="col-md-12">
-          <label for="implantable" class="form-text text-muted font-weight-bold">¿Es un medicamento
-            implantable?:</label>
-          <nb-radio-group formControlName="implantable" implantable id="implantable" name="implantable" class="d-flex"
-            status="{{ isSubmitted && form.controls.implantable.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-radio [value]="0">No es de implantable</nb-radio>
-            <nb-radio [value]="1">Si es de implantable</nb-radio>
-          </nb-radio-group>
-        </div>
-        <div *ngIf="showInsumo" class="col-md-12">
-          <label for="reuse" class="form-text text-muted font-weight-bold">¿Es un medicamento reutilizable?:</label>
-          <nb-radio-group formControlName="reuse" reuse id="reuse" name="reuse" class="d-flex"
-            status="{{ isSubmitted && form.controls.reuse.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-radio [value]="0">No es de reutilizable</nb-radio>
-            <nb-radio [value]="1">Si es de reutilizable</nb-radio>
-          </nb-radio-group>
-        </div>
-        <div *ngIf="showInsumo" class="col-md-12">
-          <label for="invasive" class="form-text text-muted font-weight-bold">¿Es un medicamento invasivo?:</label>
-          <nb-radio-group formControlName="invasive" invasive id="invasive" name="invasive" class="d-flex"
-            status="{{ isSubmitted && form.controls.invasive.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-radio [value]="0">No es de invasivo</nb-radio>
-            <nb-radio [value]="1">Si es de invasivo</nb-radio>
-          </nb-radio-group>
-        </div>
-        <div *ngIf="showInsumo" class="col-md-12">
-          <label for="consignment" class="form-text text-muted font-weight-bold">¿Este producto esta en
-            consignación?:</label>
-          <nb-radio-group formControlName="consignment" consignment id="consignment" name="consignment" class="d-flex"
-            status="{{ isSubmitted && form.controls.consignment.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-radio [value]="0">No esta en consignación</nb-radio>
-            <nb-radio [value]="1">Si esta en consignación</nb-radio>
-          </nb-radio-group>
-        </div>
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="product_dose" class="form-text text-muted font-weight-bold">Dosís del producto:</label>
@@ -201,7 +167,7 @@
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="maximum_stock" class="form-text text-muted font-weight-bold">Stock maximo:</label>
-          <input nbInput fullWidth id="maximum_stock" formControlName="maximum_stock" maximum_stock
+          <input nbInput fullWidth type="number" id="maximum_stock" formControlName="maximum_stock" maximum_stock
             status="{{ isSubmitted && form.controls.maximum_stock.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
       </div>

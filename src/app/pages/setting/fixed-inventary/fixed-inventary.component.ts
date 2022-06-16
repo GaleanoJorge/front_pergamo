@@ -3,7 +3,6 @@ import { NbDialogService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormFixedInventaryComponent } from './form-fixed-inventary/form-fixed-inventary.component';
 import { AuthService } from '../../../services/auth.service';
-import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { ActionsInFixComponent } from './actionsInFix.component';
 
 @Component({
@@ -15,15 +14,15 @@ export class FixedInventaryComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'INVENTARIO';
+  public title: string = 'DISPONIBILIDAD';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'Clasificación', 'Propio / Arrendado', 'Nombre', 'Marca'];
+  public headerFields: any[] = ['ID', 'Descripción', 'Marca', 'Sede'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
   public entity;
   public user;
-  //public my_pharmacy_id;
+  public showdiv: boolean = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -48,30 +47,24 @@ export class FixedInventaryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      fixed_clasification: {
+
+      description: {
         title: this.headerFields[1],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.fixed_clasification.name;
-        },
       },
-      fixed_property: {
+
+      mark: {
         title: this.headerFields[2],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.fixed_property.name;
-        },
       },
-      name: {
+      campus: {
         title: this.headerFields[3],
         type: 'string',
-      },
-      mark: {
-        title: this.headerFields[4],
-        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.campus.name;
+        },
       },
     },
-
   };
 
   public routes = [
@@ -83,22 +76,24 @@ export class FixedInventaryComponent implements OnInit {
 
   constructor(
     private dialogFormService: NbDialogService,
-    private invS: PharmacyLotStockService,
     private authService: AuthService,
   ) {
   }
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
-    //  this.my_pharmacy_id = x[0].id;
-      this.entity = 'fixed_loan?fixed_loan=' + x[0].id;
-      this.title = 'INVENTARIO DE ' + x[0]['name'];
-    });
   }
 
   RefreshData() {
     this.table.refresh();
+  }
+
+  reloadForm(tab) {
+    if (tab.tabTitle == 'DISPONIBLE') {
+      this.showdiv = false;
+    } else {
+      this.showdiv = true;
+    }
   }
 
   EditInv(data) {
@@ -106,21 +101,8 @@ export class FixedInventaryComponent implements OnInit {
       context: {
         title: 'ENVIAR ACTIVO',
         data: data,
-     //   my_pharmacy_id: this.my_pharmacy_id,
         saved: this.RefreshData.bind(this),
       },
     });
   }
-  // NewDev(data) {
-  //   this.dialogFormService.open(FormFixedInventaryComponent, {
-  //     context: {
-  //       title: 'ACTIVO DEVUELTOS',
-  //       data: data,
-  //       //    my_pharmacy_id: this.my_pharmacy_id,
-  //       saved: this.RefreshData.bind(this),
-  //     },
-  //   });
-  // }
-
-
 }

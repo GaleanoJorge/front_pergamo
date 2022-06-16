@@ -7,6 +7,7 @@ import { FixedTypeService } from '../../../../business-controller/fixed-type.ser
 import { FixedClasificationService } from '../../../../business-controller/fixed-clasification.service';
 import { FixedConditionService } from '../../../../business-controller/fixed-condition.service';
 import { CompanyCategoryService } from '../../../../business-controller/company-category.service';
+import { CampusService } from '../../../../business-controller/campus.service';
 
 
 @Component({
@@ -31,6 +32,8 @@ export class FormFixedAssetsComponent implements OnInit {
   public company: any[];
   public showProv: boolean = false;
   public showCondi: boolean = false;
+  public campus_id: any[];
+
 
 
   constructor(
@@ -43,6 +46,8 @@ export class FormFixedAssetsComponent implements OnInit {
     private CompanyCategoryS: CompanyCategoryService,
     private FixedClasificationS: FixedClasificationService,
     private FixedConditionS: FixedConditionService,
+    private CampusS: CampusService
+
   ) {
   }
 
@@ -50,11 +55,9 @@ export class FormFixedAssetsComponent implements OnInit {
     if (!this.data) {
       this.data = {
         fixed_clasification_id: '',
-        //    fixed_type_id: '',
         fixed_property_id: '',
         obs_property: '',
         plaque: '',
-        name: '',
         model: '',
         mark: '',
         serial: '',
@@ -62,17 +65,16 @@ export class FormFixedAssetsComponent implements OnInit {
         detail_description: '',
         color: '',
         fixed_condition_id: '',
+        campus_id: '',
       };
     }
 
     this.form = this.formBuilder.group({
       fixed_clasification_id: [this.data.fixed_clasification_id, Validators.compose([Validators.required])],
-      //   fixed_type_id: [this.data.fixed_type_id, Validators.compose([Validators.required])],
       fixed_property_id: [this.data.fixed_property_id, Validators.compose([Validators.required])],
       obs_property: [],
       plaque: [],
       company_id: [],
-      name: [this.data.name, Validators.compose([Validators.required])],
       model: [],
       mark: [this.data.mark, Validators.compose([Validators.required])],
       serial: [],
@@ -80,7 +82,7 @@ export class FormFixedAssetsComponent implements OnInit {
       detail_description: [this.data.detail_description, Validators.compose([Validators.required])],
       color: [this.data.color, Validators.compose([Validators.required])],
       fixed_condition_id: [this.data.fixed_condition_id, Validators.compose([Validators.required])],
-
+      campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
     });
 
     await this.FixedPropertyS.GetCollection().then(x => {
@@ -95,6 +97,10 @@ export class FormFixedAssetsComponent implements OnInit {
     await this.CompanyCategoryS.GetCollection().then(x => {
       this.company = x;
     });
+    await this.CampusS.GetCollection().then(x => {
+      this.campus_id = x;
+    });
+
     this.onChanges1();
     this.onChanges2();
   }
@@ -130,7 +136,6 @@ export class FormFixedAssetsComponent implements OnInit {
       if (this.data.id) {
         this.FixedAssetsS.Update({
           id: this.data.id,
-          name: this.form.controls.name.value,
           fixed_clasification_id: this.form.controls.fixed_clasification_id.value,
           fixed_property_id: this.form.controls.fixed_property_id.value,
           obs_property: this.form.controls.obs_property.value,
@@ -145,6 +150,8 @@ export class FormFixedAssetsComponent implements OnInit {
           fixed_condition_id: this.form.controls.fixed_condition_id.value,
           fixed_type_role_id: 1,
           amount: 1,
+          status: 'INGRESADO',
+          campus_id: this.form.controls.campus_id.value,
 
         }).then(x => {
           this.toastService.success('', x.message);
@@ -159,7 +166,6 @@ export class FormFixedAssetsComponent implements OnInit {
       } else {
 
         this.FixedAssetsS.Save({
-          name: this.form.controls.name.value,
           fixed_clasification_id: this.form.controls.fixed_clasification_id.value,
           fixed_property_id: this.form.controls.fixed_property_id.value,
           obs_property: this.form.controls.obs_property.value,
@@ -174,6 +180,8 @@ export class FormFixedAssetsComponent implements OnInit {
           fixed_condition_id: this.form.controls.fixed_condition_id.value,
           fixed_type_role_id: 1,
           amount: 1,
+          status: 'INGRESADO',
+          campus_id: this.form.controls.campus_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

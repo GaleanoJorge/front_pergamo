@@ -1,0 +1,74 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">Sesiones Mensuales</label>
+        <nb-select formControlName="month" id="month" fullWidth placeholder="Seleccione..."
+          status="{{ isSubmitted && form.controls.month.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="1">1</nb-option>
+          <nb-option value="2">2</nb-option>
+          <nb-option value="2">3</nb-option>
+          <nb-option value="2">4</nb-option>
+          <nb-option value="2">5</nb-option>
+          <nb-option value="2">6</nb-option>
+          <nb-option value="2">7</nb-option>
+          <nb-option value="2">8</nb-option>
+          <nb-option value="2">9</nb-option>
+          <nb-option value="2">10</nb-option>
+          <nb-option value="2">11</nb-option>
+          <nb-option value="2">12</nb-option>
+          <nb-option value="2">13</nb-option>
+          <nb-option value="2">14</nb-option>
+          <nb-option value="2">15</nb-option>
+          <nb-option value="2">16</nb-option>
+          <nb-option value="2">17</nb-option>
+          <nb-option value="2">18</nb-option>
+          <nb-option value="2">19</nb-option>
+          <nb-option value="2">20</nb-option>
+          <nb-option value="2">21</nb-option>
+          <nb-option value="2">22</nb-option>
+          <nb-option value="2">23</nb-option>
+          <nb-option value="2">24</nb-option>
+          <nb-option value="2">25</nb-option>
+          <nb-option value="2">26</nb-option>
+          <nb-option value="2">27</nb-option>
+          <nb-option value="2">28</nb-option>
+          <nb-option value="2">29</nb-option>
+          <nb-option value="2">30</nb-option>
+          <nb-option value="2">31</nb-option>
+          <nb-option value="2">32</nb-option>
+          <nb-option value="2">33</nb-option>
+          <nb-option value="2">34</nb-option>
+          <nb-option value="2">35</nb-option>
+          <nb-option value="2">36</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">Intensidad Semanal</label>
+          <nb-select formControlName="week" id="week" fullWidth placeholder="Seleccione..."
+            status="{{ isSubmitted && form.controls.week.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="1">1</nb-option>
+            <nb-option value="2">2</nb-option>
+            <nb-option value="2">3</nb-option>
+            <nb-option value="2">4</nb-option>
+            <nb-option value="2">5</nb-option>
+          </nb-select>
+      </div>
+
+
+      <div class="col-md-12">
+        <label for="observation" class="form-text text-muted font-weight-bold">Recomendaciones</label>
+        <textarea id="recommendations" nbInput fullWidth formControlName="recommendations" current_illness
+          rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+
+</form>

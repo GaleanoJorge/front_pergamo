@@ -18,7 +18,7 @@ export class FixedAccessoriesComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Accesorios en Activos';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Cantidad'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Cantidad', 'Sede'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -54,6 +54,13 @@ export class FixedAccessoriesComponent implements OnInit {
       amount: {
         title: this.headerFields[2],
         type: 'string',
+      },
+      campus: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.campus.name;
+        },
       },
     },
   };

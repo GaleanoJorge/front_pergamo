@@ -1,21 +1,18 @@
 <ngx-base-list [messageError]="messageError">
-
-
+  <!-- //INVENTARIO DE ACTIVOS  -->
   <div content>
-    <nb-tabset fullWidth>
-      <nb-tab tabTitle="INVENTARIO">
-        <!-- <div *ngIf="entity"> -->
-          <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-          entity="fixed_assets/?pagination=true" customData='fixed_assets'
-          [messageToltip]="messageToltip">
-          <div actions>
-          </div>
-        </ngx-base-table>
-        <!-- </div> -->
+    <nb-tabset fullWidth  (changeTab)="reloadForm($event)">
+
+      <nb-tab tabTitle="ASIGNADOS">
+        <div *ngIf="this.showdiv">
+          <ngx-fixed-inventary-add [parentData]="true"></ngx-fixed-inventary-add>
+        </div>
       </nb-tab>
 
-      <nb-tab tabTitle="INVENTARIO ACCESORIOS">
-        <ngx-fixed-accessories></ngx-fixed-accessories>
+      <nb-tab tabTitle="DISPONIBLE">
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+          entity="fixed_assets/?pagination=true" customData='fixed_assets' [messageToltip]="messageToltip">
+        </ngx-base-table>
       </nb-tab>
     </nb-tabset>
   </div>

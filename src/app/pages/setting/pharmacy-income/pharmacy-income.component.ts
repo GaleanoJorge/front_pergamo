@@ -13,6 +13,7 @@ import { FormPharmacyIncomeComponent } from './form-pharmacy-income/form-pharmac
 })
 export class PharmacyIncomeComponent implements OnInit {
   @Input() parentData: any;
+  @Input() data: any = [];
   public isSubmitted = false;
   public messageError = null;
 
@@ -21,7 +22,7 @@ export class PharmacyIncomeComponent implements OnInit {
   public headerFields: any[] = ['ID', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
-  public data = [];
+  public validator ;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -41,7 +42,7 @@ export class PharmacyIncomeComponent implements OnInit {
         },
         renderComponent: ActionsIncoComponent,
       },
-      id: { 
+      id: {
         title: this.headerFields[0],
         type: 'string',
       },
@@ -56,7 +57,11 @@ export class PharmacyIncomeComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.description;
+          if (row.product_generic_id == null) {
+            return row.product_supplies.description;
+          } else {
+            return row.product_generic.description;
+          }
 
         },
       },
@@ -74,6 +79,7 @@ export class PharmacyIncomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+      this.validator = this.parentData;
   }
 
   RefreshData() {

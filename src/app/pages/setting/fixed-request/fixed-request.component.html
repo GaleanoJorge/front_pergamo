@@ -1,0 +1,13 @@
+<div class="col-12 col-sm-12 col-md-12">
+  <ngx-form-fixed-request (messageEvent)="receiveMessage($event)">
+  </ngx-form-fixed-request>
+</div>
+<ngx-base-list [messageError]="messageError">
+  <div content>
+
+    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+      entity="fixed_add/?pagination=true&is=true" customData='fixed_add' [messageToltip]="messageToltip">
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

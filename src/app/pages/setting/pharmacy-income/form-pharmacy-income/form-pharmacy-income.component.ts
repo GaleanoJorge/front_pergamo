@@ -42,7 +42,7 @@ export class FormPharmacyIncomeComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.parentData = {
       selectedOptions: [],
-      entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id,
+      entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1='+ true,
       customData: 'pharmacy_request_shipping',
     };
     if (!this.data) {
@@ -109,7 +109,7 @@ export class FormPharmacyIncomeComponent implements OnInit {
           if (element.amount == null || element.amount <= 0) {
             valid_values = false;
           }
-          if (element.amount_damaged == null || element.amount_damaged <= 0) {
+          if (element.amount_damaged == null || element.amount_damaged < 0) {
             valid_values = false;
           }
         });

@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-6">
+      <nb-select multiple formControlName="aus" id="aus" fullWidth placeholder="Seleccione..."
+        status="{{ isSubmitted && form.controls.aus.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="MURMULLO VESICULAR CONSERVADO">MURMULLO VESICULAR CONSERVADO</nb-option>
+        <nb-option value="CREPITOS">CREPITOS</nb-option>
+        <nb-option value="ESTERTORES">ESTERTORES</nb-option>
+        <nb-option value="ESTRIDOR LARINGEO">ESTRIDOR LARINGEO</nb-option>
+        <nb-option value="FROTE PLEURAL">FROTE PLEURAL</nb-option>
+        <nb-option value="RONCUS">RONCUS</nb-option>
+        <nb-option value="SIBILANCIAS">SIBILANCIAS</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-6">
+      <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN</label>
+      <textarea onpaste="return false" class="form-text col col-lg-12" id="observation" nbInput fullWidth
+        formControlName="observation" observation rows="4" cols="80"
+        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+    </div>
+  </div>
+
+
+  <div class="div-send">
+    <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+  </div>
+
+</form>

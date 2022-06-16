@@ -26,7 +26,7 @@ export class ProdLotPackageComponent implements OnInit {
   public form: FormGroup;
   public title = 'Selección de medicamentos: ';
   public subtitle = 'medicamentos a ingresar: ';
-  public headerFields: any[] = ['Medicamento', 'Descripción generico', 'Cantidad ordenada', 'Cantidad ingresar', 'Lote', 'Fecha vencimiento'];
+  public headerFields: any[] = ['Medicamentos e insumos', 'Descripción generico', 'Cantidad ordenada', 'Cantidad ingresar', 'Lote', 'Fecha vencimiento'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -72,18 +72,27 @@ export class ProdLotPackageComponent implements OnInit {
         },
         renderComponent: SelectPharmacyLotComponent,
       },
+
       product: {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.product.name;
+          if (value == null) {
+            return row.product_supplies_com.name;
+          } else {
+            return row.product.name;
+          }
         },
       },
       product_generic: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.product.product_generic.description;
+          if (row.product_id == null) {
+            return row.product_supplies_com.product_supplies.description;
+          } else {
+            return row.product.product_generic.description;
+          }
         },
       },
       amount: {
