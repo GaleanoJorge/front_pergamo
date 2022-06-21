@@ -5,6 +5,7 @@ import { ChRecordListComponent } from './ch-record-list/ch-record-list.component
 import { ClinicHistoryListComponent } from './clinic-history-list/clinic-history-list.component';
 import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
 import { ClinicHistoryComponent } from './clinic-history.component';
+import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
 import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
 import { FormChScalesComponent } from './scales/form-ch-scales/form-ch-scales.component';
 
@@ -36,6 +37,10 @@ const routes: Routes = [{
     {
       path: 'form-ch-scales/:id',
       component: FormChScalesComponent,
+    },
+    {
+      path: 'entry-clinic-history-occupational-therapy/:id/:id2',
+      component: ClinicHistoryOccupationalTherapy,
     }
     
   ],
