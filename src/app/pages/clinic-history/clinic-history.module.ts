@@ -137,6 +137,7 @@ import { FormEntryValorationOTComponent } from './entry-clinic-history-occupatio
 import { FormRegularNoteOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-ot.component';
 import { FormRegularNoteValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-ot/form-regular-note-valoration-ot.component';
 import { FormEntryOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-ot.component';
+import { FormRegularNoteTherapeuticGoalsOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-therapeutic-goals-ot/form-regular-note-therapeutic-goals-ot.component';
 
 
 @NgModule({
@@ -190,6 +191,7 @@ import { FormEntryOTComponent } from './entry-clinic-history-occupational-therap
 
     FormRegularNoteOTComponent,
     FormRegularNoteValorationOTComponent,
+    FormRegularNoteTherapeuticGoalsOTComponent,
 
     ActionoOcupationalTherapyComponent,
 

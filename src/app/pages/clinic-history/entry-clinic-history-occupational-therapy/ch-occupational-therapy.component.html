@@ -44,12 +44,14 @@
             </nb-stepper>
 
           </nb-tab>
+
+
           <nb-tab tabTitle="NOTA REGULAR">
             <nb-stepper #stepper [linear]="linearMode">
 
               <nb-step label='Valoracion Terapeutica'>
-                  <ngx-form-regular-note-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
-                  [data]="chreasonconsultation"></ngx-form-regular-note-occupational-therapy>
+                  <ngx-form-regular-note-ot *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-regular-note-ot>
               </nb-step>
 
 
@@ -60,28 +62,12 @@
 
               </nb-step>
 
-              <nb-step label='Soporte Oxigeno Terapia Ventilatorio'>
-                <!-- <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
-                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy> -->
-              </nb-step>
-
               <nb-step label='Objetivos Teraputicos'>
                 <!-- <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
                   [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy> -->
               </nb-step>
 
-              
-              <nb-step label='Intervencion'>
-                <!-- <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
-                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy> -->
-              </nb-step>
-
               <nb-step label='Materiales e Insumos Utilizados'>
-                <!-- <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
-                  [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy> -->
-              </nb-step>
-
-              <nb-step label='Concepto Ocupacional'>
                 <!-- <ngx-form-entry-valoration-consultation-occupational-therapy *ngIf="chreasonconsultation" [record_id]="record_id"
                   [data]="chreasonconsultation"></ngx-form-entry-valoration-consultation-occupational-therapy> -->
               </nb-step>
