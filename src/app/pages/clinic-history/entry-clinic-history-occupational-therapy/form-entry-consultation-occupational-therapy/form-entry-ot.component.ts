@@ -7,11 +7,11 @@ import { ChExternalCauseService } from '../../../../business-controller/ch-exter
 
 
 @Component({
-  selector: 'ngx-form-entry-consultation-occupational-therapy',
-  templateUrl: './form-entry-consultation-occupational-therapy.component.html',
-  styleUrls: ['./form-entry-consultation-occupational-therapy.component.scss']
+  selector: 'ngx-form-entry-ot',
+  templateUrl: './form-entry-ot.component.html',
+  styleUrls: ['./form-entry-ot.component.scss']
 })
-export class FormEntryConsultationOccupationalTherapyComponent implements OnInit {
+export class FormEntryOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;

@@ -1,0 +1,306 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="col-md-12">
+    <hr/>
+    <label for="activity" class="form-text text-muted font-weight-bold row justify-content-center">ACTIVIDADES:</label>
+    <hr/>
+  </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-5">
+        <label for="cook" class="form-text text-muted font-weight-bold">Cocinar:</label>
+        <nb-select [selected]="this.data.cook" formControlName="cook" id="cook" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.cook.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>  
+  
+      <div class="col col-lg-5">
+        <label for="kids" class="form-text text-muted font-weight-bold">Cuidar Niños:</label>
+        <nb-select [selected]="this.data.kids" formControlName="kids" id="kids" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.kids.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-5">
+        <label for="wash" class="form-text text-muted font-weight-bold">Lavar:</label>
+        <nb-select [selected]="this.data.wash" formControlName="wash" id="wash" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.wash.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>  
+  
+      <div class="col col-lg-5">
+        <label for="game" class="form-text text-muted font-weight-bold">Jugar Juegos de Azar:</label>
+        <nb-select [selected]="this.data.game" formControlName="game" id="game" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.game.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-5">
+        <label for="ironing" class="form-text text-muted font-weight-bold">Planchar:</label>
+        <nb-select [selected]="this.data.ironing" formControlName="ironing" id="ironing" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.ironing.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>  
+  
+      <div class="col col-lg-5">
+        <label for="walk" class="form-text text-muted font-weight-bold">Caminar:</label>
+        <nb-select [selected]="this.data.walk" formControlName="walk" id="walk" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.walk.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-5">
+        <label for="clean" class="form-text text-muted font-weight-bold">Asear:</label>
+        <nb-select [selected]="this.data.clean" formControlName="clean" id="clean" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.clean.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>  
+  
+      <div class="col col-lg-5">
+        <label for="sport" class="form-text text-muted font-weight-bold">Practicar Deporte:</label>
+        <nb-select [selected]="this.data.sport" formControlName="sport" id="sport" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.sport.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-5">
+        <label for="decorate" class="form-text text-muted font-weight-bold">Decorar:</label>
+        <nb-select [selected]="this.data.decorate" formControlName="decorate" id="decorate" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.decorate.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>  
+  
+      <div class="col col-lg-5">
+        <label for="social" class="form-text text-muted font-weight-bold">Reuniones Sociales:</label>
+        <nb-select [selected]="this.data.social" formControlName="social" id="social" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.social.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-5">
+        <label for="act_floristry" class="form-text text-muted font-weight-bold">Realizar Actividades de Floristeria:</label>
+        <nb-select [selected]="this.data.act_floristry" formControlName="act_floristry" id="act_floristry" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.act_floristry.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>  
+  
+      <div class="col col-lg-5">
+        <label for="friends" class="form-text text-muted font-weight-bold">Visitar Amigos:</label>
+        <nb-select [selected]="this.data.friends" formControlName="friends" id="friends" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.friends.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-5">
+        <label for="read" class="form-text text-muted font-weight-bold">Leer:</label>
+        <nb-select [selected]="this.data.read" formControlName="read" id="read" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.read.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>  
+  
+      <div class="col col-lg-5">
+        <label for="politic" class="form-text text-muted font-weight-bold">Practicar Grupos Politicos:</label>
+        <nb-select [selected]="this.data.politic" formControlName="politic" id="politic" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.politic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-5">
+        <label for="view_tv" class="form-text text-muted font-weight-bold">Ver Television:</label>
+        <nb-select [selected]="this.data.view_tv" formControlName="view_tv" id="view_tv" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.view_tv.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>  
+  
+      <div class="col col-lg-5">
+        <label for="religion" class="form-text text-muted font-weight-bold">Practicar Grupos Religiosos:</label>
+        <nb-select [selected]="this.data.religion" formControlName="religion" id="religion" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.religion.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-5">
+        <label for="write" class="form-text text-muted font-weight-bold">Escribir:</label>
+        <nb-select [selected]="this.data.write" formControlName="write" id="write" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.write.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>  
+  
+      <div class="col col-lg-5">
+        <label for="look" class="form-text text-muted font-weight-bold">Cuidar y Jugar con sus Hijos y Nietos:</label>
+        <nb-select [selected]="this.data.look" formControlName="look" id="look" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.look.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-5">
+        <label for="arrange" class="form-text text-muted font-weight-bold">Arreglar Electrodomesticos:</label>
+        <nb-select [selected]="this.data.arrange" formControlName="arrange" id="arrange" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.arrange.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>  
+  
+      <div class="col col-lg-5">
+        <label for="travel" class="form-text text-muted font-weight-bold">Ir de Paseo con la Familia:</label>
+        <nb-select [selected]="this.data.travel" formControlName="travel" id="travel" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.travel.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Siempre</nb-option>
+          <nb-option value="2">Algunas Veces</nb-option>
+          <nb-option value="3">Nunca</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="col col-lg-12">
+      <label for="observation_activity" class="form-text text-muted font-weight-bold">Observaciones:</label>
+      <textarea id="observation_activity" nbInput fullWidth formControlName="observation_activity" current_illness rows="3"
+        cols="50"
+        status="{{ isSubmitted && form.controls.observation_activity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+    </div>
+
+    <br/>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-6">
+        <label for="test" class="form-text text-muted font-weight-bold">Examen Muzcular:</label>
+        <nb-select [selected]="this.data.test" formControlName="test" id="test" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.test.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">HIPERTONIA</nb-option>
+          <nb-option value="2">HIPOTONIA</nb-option>
+          <nb-option value="3">EUTONIA</nb-option>
+        </nb-select>
+      </div>
+  
+      <div class="col col-lg-6">
+        <label for="observation_test" class="form-text text-muted font-weight-bold">Observaciones:</label>
+        <textarea id="observation_test" nbInput fullWidth formControlName="observation_test" current_illness rows="1"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation_test.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+
+
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+</form>

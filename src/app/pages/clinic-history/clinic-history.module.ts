@@ -119,7 +119,6 @@ import { ChScaleScreeningComponent } from './scales/ch-scale-screening/ch-scale-
 import { ChScalePpsComponent } from './scales/ch-scale-pps/ch-scale-pps.component';
 import { ChScaleBradenComponent } from './scales/ch-scale-braden/ch-scale-braden.component';
 import { ChScaleLawtonComponent } from './scales/ch-scale-lawton/ch-scale-lawton.component';
-
 import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
 import { FormClinicHistoryNursingComponent } from './clinic-history-nursing-list/form-clinic-history-nursing/form-clinic-history-nursing.component';
 import { ActionsNursingComponent } from './clinic-history-nursing-list/actionsNursing.component';
@@ -129,15 +128,16 @@ import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursi
 import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
 import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
 import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
-import { FormEntryConsultationOccupationalTherapyComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-consultation-occupational-therapy.component';
 import { ActionoOcupationalTherapyComponent } from './entry-clinic-history-occupational-therapy/actions.component';
-import { FormEntryValorationConsultationOccupationalTherapyComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-valoration-consultation-occupational-therapy/form-entry-valoration-consultation-occupational-therapy.component';
-import { FormRegularNoteConsultationOccupationalTherapyComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-consultation-occupational-therapy.component';
-import { FormEntryOccupatHistoryValorationConsultationOccupationalTherapyComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-occupat-history-occupational-therapy/form-entry-occupat-histoty-valoration-consultation-occupational-therapy.component';
-import { FormEntryPastConsultationOccupationalTherapyComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-past-consultation-occupational-therapy/form-entry-past-consultation-occupational-therapy.component';
-import { FormEntryDailyActivitiesConsultationOccupationalTherapyComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-daily-activities-consultation-occupational-therapy/form-entry-daily-activities-consultation-occupational-therapy.component';
-import { FormEntryMotorSkillsConsultationOccupationalTherapyComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-consultation-occupational-therapy/form-entry-motor-skills-consultation-occupational-therapy.component';
-import { FormRegularNoteOccupationalTherapyComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-consultation-occupational-therapy/form-regular-note-occupational-therapy.component';
+import { FormEntryDailyActivitiesOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-daily-activities-ot/form-entry-daily-activities-ot.component';
+import { FormEntryMotorSkillsOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-skills-ot.component';
+import { FormEntryOccupatHistoryValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-occupat-history-ot/form-entry-occupat-history-valoration-ot.component';
+import { FormEntryPastOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-past-ot/form-entry-past-ot.component';
+import { FormEntryValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-valoration-ot/form-entry-valoration-ot.component';
+import { FormRegularNoteOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-ot.component';
+import { FormRegularNoteValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-ot/form-regular-note-valoration-ot.component';
+import { FormEntryOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-ot.component';
+
 
 @NgModule({
   imports: [
@@ -179,16 +179,19 @@ import { FormRegularNoteOccupationalTherapyComponent } from './entry-clinic-hist
     ActionsNursing2Component,
 
     ClinicHistoryOccupationalTherapy,
-    FormEntryConsultationOccupationalTherapyComponent,
-    FormEntryValorationConsultationOccupationalTherapyComponent,
-    FormRegularNoteConsultationOccupationalTherapyComponent,
-    FormEntryOccupatHistoryValorationConsultationOccupationalTherapyComponent,
-    FormEntryPastConsultationOccupationalTherapyComponent,
-    FormEntryDailyActivitiesConsultationOccupationalTherapyComponent,
-    FormEntryMotorSkillsConsultationOccupationalTherapyComponent,
-    ActionoOcupationalTherapyComponent,
 
-    FormRegularNoteOccupationalTherapyComponent,
+    FormEntryDailyActivitiesOTComponent,
+    FormEntryMotorSkillsOTComponent,
+    FormEntryOccupatHistoryValorationOTComponent,
+    FormEntryPastOTComponent,
+    FormEntryValorationOTComponent,
+    FormEntryOTComponent,
+
+
+    FormRegularNoteOTComponent,
+    FormRegularNoteValorationOTComponent,
+
+    ActionoOcupationalTherapyComponent,
 
     SkinValorationComponent,
     FormSkinValorationComponent,
