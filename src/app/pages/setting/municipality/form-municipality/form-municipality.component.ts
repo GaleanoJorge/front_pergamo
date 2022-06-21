@@ -18,7 +18,6 @@ export class FormMunicipalityComponent implements OnInit {
   @Input() data: any = null;
 
   public form: FormGroup;
-  public circuit_id: number;
   public region_id: number;
   public circuit: Circuit[];
   public region: Region[];
@@ -49,9 +48,9 @@ export class FormMunicipalityComponent implements OnInit {
 
     if (!this.data.id) params.status_id = 1;
 
-    this.circuitS.GetCollection(params).then(x => {
-      this.circuit = x;
-    });
+    // this.circuitS.GetCollection(params).then(x => {
+    //   this.circuit = x;
+    // });
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
       circuit_id: [this.data.circuit_id, Validators.compose([Validators.required])],

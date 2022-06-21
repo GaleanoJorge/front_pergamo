@@ -5,6 +5,7 @@ import { UserBusinessService } from '../../../business-controller/user-business.
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component';
 import { ActionsUsersComponent } from './actions-users.component';
+import { FormConfirmDisabledComponent } from './form-confirm-disabled/form-confirm-disabled.component';
 import { FormFinancialDataComponent } from './form-financial-data/form-financial-data.component';
 
 
@@ -77,7 +78,7 @@ export class UsersComponent implements OnInit {
                 valuePrepareFunction: (value, row) => {
                     return {
                         'data': row,
-                        'changeState': this.ChangeState.bind(this),
+                        'changeState': this.ConfirmDisabled.bind(this),
                     };
                 },
                 renderComponent: StatusFieldComponent,
@@ -116,7 +117,7 @@ export class UsersComponent implements OnInit {
 
     ChangeRole(role) {
         this.role = role;
-        this.table.changeEntity(`user/all/${this.role}`);
+        this.table.changeEntity(`user/all/${this.role}`, 'users');
         // this.RefreshData();
     }
 
@@ -133,15 +134,25 @@ export class UsersComponent implements OnInit {
         this.dialogService.open(dialog);
     }
 
+    ConfirmDisabled(dataUser) {
+        this.dialogService.open(FormConfirmDisabledComponent, {
+            context: {
+                data: dataUser,
+                desable: this.ChangeState.bind(this),
+            },
+        });
+
+    }
+
     NewFinancialData(dataUser) {
         this.dialogService.open(FormFinancialDataComponent, {
-          context: {
-            title: 'Información Financiera',
-            dataUser,
-            //saved: this.RefreshData.bind(this),
-          },
+            context: {
+                title: 'Información Financiera',
+                dataUser,
+                //saved: this.RefreshData.bind(this),
+            },
         });
-      
-      }
+
+    }
 
 }
