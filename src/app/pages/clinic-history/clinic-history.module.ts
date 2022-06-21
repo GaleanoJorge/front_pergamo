@@ -139,6 +139,67 @@ import { FormRegularNoteValorationOTComponent } from './entry-clinic-history-occ
 import { FormEntryOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-ot.component';
 import { FormRegularNoteTherapeuticGoalsOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-therapeutic-goals-ot/form-regular-note-therapeutic-goals-ot.component';
 
+import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
+import { ChNutritionInputComponent } from './ch-nutrition-list/ch-nutrition-input/ch-nutrition-input.component';
+import { ChNutritionRegularNoneComponent } from './ch-nutrition-list/ch-nutrition-regular-note/ch-nutrition-regular-note.component';
+import { FormAnthropometryComponent } from './ch-nutrition-list/ch-nutrition-input/form-anthropometry/form-anthropometry.component';
+import { FormGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition-input/form-gastrointestinal/form-gastrointestinal.component';
+import { FormFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input/form-food-history/form-food-history.component';
+import { FormAnalysisAndInterpretationComponent } from './ch-nutrition-list/ch-nutrition-input/form-analysis-and-interpretation/form-analysis-and-interpretation.component';
+import { FormParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/form-parenteral-nutrition/form-parenteral-nutrition.component';
+import { FormClinicHistoryLanguageComponent } from './clinic-history-language-list/form-clinic-history-language/form-clinic-history-language.component';
+import { ClinicHistoryLanguageListComponent } from './clinic-history-language-list/clinic-history-language-list.component';
+import { ActionsLanguageComponent } from './clinic-history-language-list/actionslanguage.component';
+import { FormLanguageAssessmentComponent } from './language-assessment/form-language-assessment/form-language-assessment.component';
+import { LanguageAssessmentComponent } from './language-assessment/language-assessment.component';
+import { LanguageListComponent } from './language-list/language-list.component';
+import { FormLanguageEvolutionComponent } from './language-evolution/form-language-evolution/form-language-evolution.component';
+import { RegularLanguageListComponent } from './regularlanguage-list/regularlanguage-list.component';
+import { FormLanguageAssessmentRegularComponent } from './language-assessment-regular/form-language-assessment-regular/form-language-assessment-regular.component';
+import { FormLanguageConceptComponent } from './language-concept/form-language-concept/form-language-concept.component';
+import { FormLanguageMaterialusedComponent } from './language-materialused/form-language-materialused/form-language-materialused.component';
+import { LanguageMaterialusedComponent } from './language-materialused/language-materialused.component';
+import { FormLanguageInterventionComponent } from './language-intervention/form-language-intervention/form-language-intervention.component';
+import { FormLanguageEvoDiagnosisComponent } from './language-evo-diagnosis/form-language-evo-diagnosis/form-language-evo-diagnosis.component';
+import { FormLanguageRegSessionsComponent } from './language-reg-sessions/form-language-reg-sessions/form-language-reg-sessions.component';
+import { FormLanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/form-language-therapeutic-goals/form-language-therapeutic-goals.component';
+import { DrugApplicationComponent } from './drug-application/drug-application.component';
+import { FormDrugApplicationComponent } from './drug-application/form-drug-application/form-drug-application.component';
+import { NurseringMedicationComponent } from './nursering-medication/nursering-medication.component';
+import { FormNurseringMedicationComponent } from './nursering-medication/form-nursering-medication/form-nursering-medication.component';
+import { MedicationOrderComponent } from './medication-order/medication-order.component';
+import { FormMedicationOrderComponent } from './medication-order/form-medication-order/form-medication-order.component';
+import { NurseringNotesComponent } from './nursering-notes/nursering-notes.component';
+import { FormNurseringNotesComponent } from './nursering-notes/form-nursering-notes/form-nursering-notes.component';
+import { NotesDescriptionComponent } from './notes-description/notes-description.component';
+import { FormNotesDescriptionComponent } from './notes-description/form-notes-description/form-notes-description.component';
+import { CarePlanComponent } from './care-plan/care-plan.component';
+import { FormCarePlanComponent } from './care-plan/form-care-plan/form-care-plan.component';
+import { LiquidControlComponent } from './liquid-control/liquid-control.component';
+import { FormLiquidControlComponent } from './liquid-control/form-liquid-control/form-liquid-control.component';
+import { FormLiquidEliminationComponent } from './liquid-control/form-liquid-elimination/form-liquid-elimination.component';
+import { NursingProcedure } from '../../models/nursing-procedure';
+import { NursingProcedureComponent } from './nursing-procedure/nursing-procedure.component';
+import { FormNursingProcedureComponent } from './nursing-procedure/form-nursing-procedure/form-nursing-procedure.component';
+import { FormRespiratoryTherapyComponent } from './respiratory-therapy-list/form-respiratory-therapy/form-respiratory-therapy.component';
+import { EntryRespiratoryTherapyComponent } from './entry-respiratory-therapy/entry-respiratory-therapy.component';
+import { FormReasonConsultationRespiratoryTherapyComponent } from './entry-respiratory-therapy/form-reason-consultation-respiratory-therapy/form-reason-consultation-respiratory-therapy.component';
+import { ActionsRespiratoryTherapyComponent } from './respiratory-therapy-list/actionsRespiratoryTherapy.component';
+import { ActionsRespiratoryTherapy2Component } from './entry-respiratory-therapy/actions.component';
+import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/respiratory-therapy-list.component';
+import { FormAssessmentTherapyComponent } from './assessment-therapy/form-assessment-therapy.component';
+import { FormIspectionTherapyComponent } from './ispection-therapy/form-ispection-therapy.component';
+import { FormaAuscultacionTherapyComponent } from './auscultacion-therapy/form-auscultacion-therapy.component';
+import { FormaObjectivesTherapyComponent } from './objectives-therapy/form-objectives-therapy.component';
+import { FormaDiagnosticTherapyComponent } from './diagnostic-therapy/form-diagnostic-therapy.component';
+import { FormChOxygenTherapyComponent } from './oxygen-therapy/form-oxygen-therapy.component';
+import { FormRegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/form-regular-respiratory-therapy/form-regular-respiratory-therapy.component';
+import { RegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/regular-respiratory-therapy.component';
+import { FormSessionsTherapyComponent } from './sessions-therapy/form-sessions-therapy.component';
+import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-therapy.component';
+import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
+import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
+import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
 
 @NgModule({
   imports: [
@@ -170,12 +231,40 @@ import { FormRegularNoteTherapeuticGoalsOTComponent } from './entry-clinic-histo
   ],
   declarations: [
 
+    NursingProcedureComponent,
+    FormNursingProcedureComponent,
+
+    LiquidControlComponent,
+    FormLiquidControlComponent,
+    FormLiquidEliminationComponent,
+
+    CarePlanComponent,
+    FormCarePlanComponent,
+
+    NotesDescriptionComponent,
+    FormNotesDescriptionComponent,
+
+    NurseringNotesComponent,
+    FormNurseringNotesComponent,
+
+    MedicationOrderComponent,
+    FormMedicationOrderComponent,
+
+    DrugApplicationComponent,
+    FormDrugApplicationComponent,
+
+    NurseringMedicationComponent,
+    FormNurseringMedicationComponent,
+
+    DrugApplicationComponent,
+    FormDrugApplicationComponent,
+
     ClinicHistoryNursingListComponent,
     FormClinicHistoryNursingComponent,
-    
+
     EntryClinicHistoryNursingComponent,
     FormReasonConsultationNursingComponent,
-    
+
     ActionsNursingComponent,
     ActionsNursing2Component,
 
@@ -194,6 +283,28 @@ import { FormRegularNoteTherapeuticGoalsOTComponent } from './entry-clinic-histo
     FormRegularNoteTherapeuticGoalsOTComponent,
 
     ActionoOcupationalTherapyComponent,
+    RespiratoryTherapyListComponent,
+    FormRespiratoryTherapyComponent,
+    FormAssessmentTherapyComponent,
+    EntryRespiratoryTherapyComponent,
+    FormReasonConsultationRespiratoryTherapyComponent,
+    ActionsRespiratoryTherapyComponent,
+    ActionsRespiratoryTherapy2Component,
+
+    FormIspectionTherapyComponent,
+    FormaAuscultacionTherapyComponent,
+    FormaDiagnosticTherapyComponent,
+    FormaObjectivesTherapyComponent,
+    FormChOxygenTherapyComponent,
+    OxygenTherapyComponent,
+
+    FormRegularRespiratoryTherapyComponent,
+    RegularRespiratoryTherapyComponent,
+    FormDiagnosisCifTherapyComponent,
+    SessionsTherapyComponent,
+
+    FormSessionsTherapyComponent,
+    FormSuppliesTherapyComponent,
 
     SkinValorationComponent,
     FormSkinValorationComponent,
@@ -257,7 +368,7 @@ import { FormRegularNoteTherapeuticGoalsOTComponent } from './entry-clinic-histo
     ChScalPapComponent,
     ChScaleHamiltonComponent,
     ChScaleCamComponent,
-    ChScaleFacComponent, 
+    ChScaleFacComponent,
     ChScaleRedCrossComponent,
     ChScaleKarnofskyComponent,
     ChScaleEcogComponent,
@@ -271,10 +382,11 @@ import { FormRegularNoteTherapeuticGoalsOTComponent } from './entry-clinic-histo
     ChScalePfeifferComponent,
     ChScaleJhDowntonComponent,
     ChScaleScreeningComponent,
+
     ChScalePpsComponent,
     ChScaleBradenComponent,
     ChScaleLawtonComponent,
-    
+
     FormDiagnosticEvoComponent,
     Actions13Component,
     DiagnosticEvoComponent,
@@ -303,12 +415,41 @@ import { FormRegularNoteTherapeuticGoalsOTComponent } from './entry-clinic-histo
     ChMedicalOrdersComponent,
     FormOrdersMedicalComponent,
     OrdersMedicalComponent,
-    
+
     ChHistoricScalesComponent,
+
+    ChNutritionListComponent,
+    ChNutritionInputComponent,
+    ChNutritionRegularNoneComponent,
+    FormAnthropometryComponent,
+    FormGastrointestinalComponent,
+    FormFoodHistoryComponent,
+    FormAnalysisAndInterpretationComponent,
+    FormParenteralNutritionComponent,
+    FormClinicHistoryLanguageComponent,
+    ClinicHistoryLanguageListComponent,
+    ActionsLanguageComponent,
+
+    FormLanguageAssessmentComponent,
+    LanguageAssessmentComponent,
+    LanguageListComponent,
+    FormLanguageEvolutionComponent,
+    RegularLanguageListComponent,
+    FormLanguageAssessmentRegularComponent,
+    FormLanguageConceptComponent,
+    FormLanguageMaterialusedComponent,
+    LanguageMaterialusedComponent,
+    FormLanguageInterventionComponent,
+    FormLanguageEvoDiagnosisComponent,
+    FormLanguageRegSessionsComponent,
+    FormLanguageTherapeuticGoalsComponent,
+  
+    
+
   ],
 
 
   providers: [DateFormatPipe],
   exports: [],
 })
-export class ClinicHistoryModule {}
+export class ClinicHistoryModule { }

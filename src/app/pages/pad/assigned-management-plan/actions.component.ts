@@ -18,7 +18,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + value.user.admissions[0].id + '/' + value.data.id ">
+    <a *ngIf="today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + value.user.admissions[0].id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
     <nb-icon icon="folder-add-outline"></nb-icon>
     </a>
     <a *ngIf=" firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + value.user.admissions[0].id + '/' + value.data.id ">
@@ -59,15 +59,17 @@ export class Actions4Component implements ViewCell {
 
     this.today = new Date;
     this.today2 = new Date;
-    this.date=this.value.data.start_date + ' ' + this.value.data.start_hour;
+    this.date = this.value.data.start_date + ' ' + this.value.data.start_hour;
+    // console.log(this.rowData);
+    // console.log(this.value);
 
 
 
-    var firstdate= new Date(new Date(this.date).setHours(new Date(this.date).getHours() + 3));
-    var enddate=new Date(new Date(this.date).setHours(new Date(this.date).getHours() - 3 ));
-    this.hournow=this.today2.getTime();
-    this.firsthour=firstdate.getTime();
-    this.endhour=enddate.getTime();
+    var firstdate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() + 3));
+    var enddate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() - 3));
+    this.hournow = this.today2.getTime();
+    this.firsthour = firstdate.getTime();
+    this.endhour = enddate.getTime();
     this.start = this.value.data.start_date.split('-');
     this.finish = this.value.data.finish_date.split('-');
     let day = this.today.getDate();

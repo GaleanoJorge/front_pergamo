@@ -1,0 +1,134 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row" class="accordion">
+    <nb-accordion multi>
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Valoración Terapéutica
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div class="row justify-content-md-center">
+             <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold">PATRON RESPIRATORIO</label>
+              <nb-select [selected]="this.data.ch_ass_pattern_id" formControlName="ch_ass_pattern_id"
+                id="ch_ass_pattern_id" ch_ass_pattern_id fullWidth
+                status="{{ isSubmitted && form.controls.ch_ass_pattern_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                placeholder="Seleccione...">
+                <nb-option selected="{{ item.id == data.ch_ass_pattern_id }}" *ngFor="let item of ch_ass_pattern"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold">RITMO RESPIRACIÓN (Inspiración/Expiración)</label>
+              <nb-select [selected]="this.data.ch_ass_swing_id" formControlName="ch_ass_swing_id" id="ch_ass_swing_id"
+                ch_ass_swing_id fullWidth
+                status="{{ isSubmitted && form.controls.ch_ass_swing_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                placeholder="Seleccione...">
+                <nb-option selected="{{ item.id == data.ch_ass_swing_id }}" *ngFor="let item of ch_ass_swing"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold">FRECUENCIA RESPIRATORIA</label>
+              <nb-select [selected]="this.data.ch_ass_frequency_id" formControlName="ch_ass_frequency_id"
+                id="ch_ass_frequency_id" ch_ass_frequency_id fullWidth
+                status="{{ isSubmitted && form.controls.ch_ass_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                placeholder="Seleccione...">
+                <nb-option selected="{{ item.id == data.ch_ass_frequency_id }}" *ngFor="let item of ch_ass_frequency"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold">MODO VENTILATORIO</label>
+              <nb-select [selected]="this.data.ch_ass_mode_id" formControlName="ch_ass_mode_id" id="ch_ass_mode_id"
+                ch_ass_mode_id fullWidth
+                status="{{ isSubmitted && form.controls.ch_ass_mode_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                placeholder="Seleccione...">
+                <nb-option selected="{{ item.id == data.ch_ass_mode_id }}" *ngFor="let item of ch_ass_mode"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold">TOS</label>
+              <nb-select [selected]="this.data.ch_ass_cough_id" formControlName="ch_ass_cough_id" id="ch_ass_cough_id"
+                ch_ass_cough_id fullWidth
+                status="{{ isSubmitted && form.controls.ch_ass_cough_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                placeholder="Seleccione...">
+                <nb-option selected="{{ item.id == data.ch_ass_cough_id }}" *ngFor="let item of ch_ass_cough"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold">TIPO DE TORAX</label>
+              <nb-select [selected]="this.data.ch_ass_chest_type_id" formControlName="ch_ass_chest_type_id"
+                id="ch_ass_chest_type_id" ch_ass_chest_type_id fullWidth
+                status="{{ isSubmitted && form.controls.ch_ass_chest_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                placeholder="Seleccione...">
+                <nb-option selected="{{ item.id == data.ch_ass_chest_type_id }}" *ngFor="let item of ch_ass_chest_type"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+
+            <div class="col col-lg-6">
+              <label class="form-text text-muted font-weight-bold">SIMETRIA TORAX</label>
+              <nb-select [selected]="this.data.ch_ass_symmetry_id" formControlName="ch_ass_symmetry_id"
+                id="ch_ass_symmetry_id" ch_ass_symmetry_id fullWidth
+                status="{{ isSubmitted && form.controls.ch_ass_symmetry_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                placeholder="Seleccione...">
+                <nb-option selected="{{ item.id == data.ch_ass_symmetry_id }}" *ngFor="let item of ch_ass_symmetry"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="div-send">
+            <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+          </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header >
+          Inspección
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-form-ispection-therapy [record_id]="record_id">
+          </ngx-form-ispection-therapy>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Auscultación
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-form-auscultacion-therapy [record_id]="record_id">
+          </ngx-form-auscultacion-therapy>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Ayudas diagnósticas
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-form-diagnostic-therapy [record_id]="record_id">
+          </ngx-form-diagnostic-therapy>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+   
+
+    </nb-accordion>
+  </div>
+</form>

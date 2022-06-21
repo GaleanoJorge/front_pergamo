@@ -7,4 +7,5 @@ export class FixedAccessories extends MainClass {
   name: string;
   amount: number;
   fixed_type_id: number;
+  campus_id: number;
 }

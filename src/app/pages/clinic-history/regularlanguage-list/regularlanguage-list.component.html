@@ -1,0 +1,82 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+           <nb-step [stepControl]="nameForm" label="Valoración">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-form-language-assessment-regular ></ngx-form-language-assessment-regular>
+              </div>
+             </div> 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Signos Vitales">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-signs-evo [record_id]="record_id"></ngx-signs-evo>
+              </div>
+            </div>
+          </nb-step>
+
+          
+          <nb-step [stepControl]="nameForm" label="Obj Terapeuticos">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-form-language-therapeutic-goals></ngx-form-language-therapeutic-goals>
+              </div>
+            </div>
+          </nb-step>
+
+
+          
+          <nb-step [stepControl]="nameForm" label="Intervención">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-form-language-intervention></ngx-form-language-intervention> 
+               
+              </div>
+            </div>
+          </nb-step>
+          
+          <nb-step [stepControl]="nameForm" label="Materiales E Insumos Utilizados">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-language-materialused ></ngx-language-materialused>
+
+              </div>
+            </div> 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Conceptos de Fonoaudiologia">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-form-language-concept></ngx-form-language-concept>
+
+              </div>
+            </div> 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Diagnostico">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-form-language-evo-diagnosis ></ngx-form-language-evo-diagnosis>
+
+              </div>
+            </div> 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Sesiones">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-form-language-reg-sessions ></ngx-form-language-reg-sessions>
+
+              </div>
+            </div> 
+          </nb-step>
+
+        </nb-stepper>
+      </nb-card-body> 
+    </nb-card>
+  </div>
+</ngx-base-list>

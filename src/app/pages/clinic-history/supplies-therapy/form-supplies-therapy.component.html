@@ -1,0 +1,40 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-4">
+      <label class="form-text text-muted font-weight-bold align">Producto</label>
+      <nb-select formControlName="expansion" id="expansion" fullWidth placeholder="Seleccione..."
+        status="{{ isSubmitted && form.controls.expansion.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="PRODUCTO1">PRODUCTO1</nb-option>
+        <nb-option value="PRODUCTO2">PRODUCTO2</nb-option>
+        <nb-option value="PRODUCTO3">PRODUCTO3</nb-option>
+      </nb-select>
+    </div>
+
+    <div class="col col-lg-4 md-center">
+      <nb-checkbox (checkedChange)="toggle($event)">Usado</nb-checkbox>
+    </div>
+
+    <div class="col col-lg-4">
+      <label class="form-text text-muted font-weight-bold align">Cantidad</label>
+      <input type="number"  class="space" id="temperature" formControlName="temperature"
+      required nbInput ngModel
+      status="{{ isSubmitted && form.controls.temperature.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      
+    </div>
+
+    <div class="col-md-12">
+      <label for="observation" class="form-text text-muted font-weight-bold">Justificación</label>
+      <textarea id="recommendations" nbInput fullWidth formControlName="recommendations" current_illness rows="4"
+        cols="50"
+        status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+    </div>
+
+
+  </div>
+
+  <div class="div-send">
+    <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+  </div>
+
+
+</form>

@@ -159,9 +159,6 @@ export class FormTariffComponent implements OnInit {
       this.form.get('program_id').setValidators(Validators.required);
       this.form.get('program_id').updateValueAndValidity();
 
-      this.form.get('quantity').setValidators(Validators.required);
-      this.form.get('quantity').updateValueAndValidity();
-
       this.form.get('pad_risk_id').setValidators(Validators.required);
       this.form.get('pad_risk_id').updateValueAndValidity();
 
@@ -192,9 +189,6 @@ export class FormTariffComponent implements OnInit {
       }
       this.form.get('program_id').clearValidators();
       this.form.get('program_id').updateValueAndValidity();
-
-      this.form.get('quantity').clearValidators();
-      this.form.get('quantity').updateValueAndValidity();
 
       this.form.get('pad_risk_id').clearValidators();
       this.form.get('pad_risk_id').updateValueAndValidity();

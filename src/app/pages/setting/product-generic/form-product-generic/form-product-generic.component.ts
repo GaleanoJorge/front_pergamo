@@ -82,10 +82,6 @@ export class FormProductGenericComponent implements OnInit {
         administration_route_id: '',
         special_controller_medicine: '',
         code_atc: '',
-        implantable: '',
-        reuse: '',
-        invasive: '',
-        consignment: '',
         minimum_stock: '',
         maximum_stock: '',
         product_dose_id: '',
@@ -105,10 +101,6 @@ export class FormProductGenericComponent implements OnInit {
       administration_route_id: [this.data.administration_route_id],
       special_controller_medicine: [this.data.special_controller_medicine],
       code_atc: [this.data.code_atc],
-      implantable: [this.data.implantable],
-      reuse: [this.data.reuse],
-      invasive: [this.data.invasive],
-      consignment: [this.data.consignment],
       product_group_id: [],
       product_category_id: [],
       product_subcategory_id: [],
@@ -124,7 +116,7 @@ export class FormProductGenericComponent implements OnInit {
     await this.ProductPresentationS.GetCollection().then(x => {
       this.product_presentation = x;
     });
-    await this.ProductGroupS.GetCollection().then(x => {
+    await this.ProductGroupS.GetCollection({ id: 1 }).then(x => {
       this.product_group = x;
     });
     await this.ConsumptionUnitS.GetCollection().then(x => {
@@ -143,7 +135,7 @@ export class FormProductGenericComponent implements OnInit {
     await this.ProductConcentrationS.GetCollection().then(x => {
       this.drug_concentration = x;
     });
-   
+
     this.onChanges();
     this.onChanges1();
     this.onChanges2();
@@ -173,13 +165,10 @@ export class FormProductGenericComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-
   onChange(tipoId) {
     if (tipoId == 1) {
       this.showMedicine = true;
-      this.showInsumo = false;
     } else {
-      this.showInsumo = true;
       this.showMedicine = false;
     }
   }
@@ -215,12 +204,8 @@ export class FormProductGenericComponent implements OnInit {
           administration_route_id: this.form.controls.administration_route_id.value,
           special_controller_medicine: this.form.controls.special_controller_medicine.value,
           code_atc: this.form.controls.code_atc.value,
-          implantable: this.form.controls.implantable.value,
-          reuse: this.form.controls.reuse.value,
-          invasive: this.form.controls.invasive.value,
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
-          consignment: this.form.controls.consignment.value,
           product_dose_id: this.form.controls.product_dose_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -243,12 +228,8 @@ export class FormProductGenericComponent implements OnInit {
           administration_route_id: this.form.controls.administration_route_id.value,
           special_controller_medicine: this.form.controls.special_controller_medicine.value,
           code_atc: this.form.controls.code_atc.value,
-          implantable: this.form.controls.implantable.value,
-          reuse: this.form.controls.reuse.value,
-          invasive: this.form.controls.invasive.value,
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
-          consignment: this.form.controls.consignment.value,
           product_dose_id: this.form.controls.product_dose_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -309,7 +290,7 @@ export class FormProductGenericComponent implements OnInit {
       }
     });
   }
-  
+
   onChanges2() {
     this.form.get('product_dose_id').valueChanges.subscribe(val => {
       console.log(val);

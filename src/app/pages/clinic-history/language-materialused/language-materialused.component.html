@@ -1,0 +1,17 @@
+
+<ngx-form-language-materialused (messageEvent)="receiveMessage($event)" >
+</ngx-form-language-materialused>
+<label for="input_materials_used_tl" class="form-text text-muted font-weight-bold align">Materiales E Insumos Utilizados</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table  pager="false" [title]="title" customData="input_materials_used_tl" [settings]="settings"
+      entity="input_materials_used_tl/by_record/{{record_id}}/3?pagination=false">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

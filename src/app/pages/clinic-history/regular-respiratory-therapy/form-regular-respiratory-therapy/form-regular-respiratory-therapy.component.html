@@ -1,0 +1,38 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-6">
+        <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico Médico:</label>
+        <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value,1)" id="medical_diagnosis_id"
+          formControlName="diagnosis_id" medical_diagnosis_id type="text" required
+          status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        </datalist>
+      </div>
+
+      <div class="col col-lg-6">
+        <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico Terápeutico:</label>
+        <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value,2)" id="therapeutic_diagnosis_id"
+          formControlName="therapeutic_diagnosis_id" therapeutic_diagnosis_id="text" required
+          status="{{ isSubmitted && form.controls.therapeutic_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        </datalist>
+      </div>
+
+
+      <div class="col-md-12">
+        <label for="observation" class="form-text text-muted font-weight-bold">Motivo de consulta:</label>
+        <textarea id="reason_consultation" nbInput fullWidth formControlName="reason_consultation" current_illness
+          rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      </div>
+
+    </div>
+   
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+  </div>
+</form>

@@ -65,14 +65,22 @@ export class ProdShippingPackageComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
-        },
+          if (row.billing_stock.product_id == null) {
+            return row.billing_stock.product_supplies_com.name+ ' - ' + row.billing_stock.product_supplies_com.factory.name;
+          } else {
+            return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
+          }
+        }
       },
       product_generic: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.billing_stock.product.product_generic.description;
+          if (row.billing_stock.product_id == null) {
+            return row.billing_stock.product_supplies_com.product_supplies.description;
+          } else {
+            return row.billing_stock.product.product_generic.description;
+          }
         },
       },
       actual_amount: {
@@ -109,7 +117,7 @@ export class ProdShippingPackageComponent implements OnInit {
     private route: ActivatedRoute,
     private pharProdReqS: PharmacyProductRequestService,
 
-  //  private pharReqShippS: PharmacyRequestShippingService,
+    //  private pharReqShippS: PharmacyRequestShippingService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     private e: ElementRef

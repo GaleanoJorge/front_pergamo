@@ -19,7 +19,7 @@ export class PharmacyProductRequestComponent implements OnInit {
   public isSubmitted = false;
   public messageError = null;
 
-  public title: string = 'LISTA DE MEDICAMENTOS SOLICITADOS';
+  public title: string = 'LISTA DE MEDICAMENTOS O INSUMOS SOLICITADOS';
   public subtitle: string = '';
   public headerFields: any[] = ['CONSECUTIVO', 'PRODUCTO', 'CANTIDAD', 'SOLICITADO A'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
@@ -42,13 +42,17 @@ export class PharmacyProductRequestComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.description;
+          if (value == null) {
+            return row.product_supplies.description;
+          } else {
+            return row.product_generic.description;
+          }
         },
       },
       request_amount: {
         title: this.headerFields[2],
         type: 'string',
-      }, 
+      },
       request_pharmacy_stock: {
         title: this.headerFields[3],
         type: 'string',

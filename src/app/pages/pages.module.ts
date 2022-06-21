@@ -46,6 +46,7 @@ import { WorkLocationPackageComponent } from './components/form-users/work-locat
 import { BillingPadComponent } from './billing-pad/billing-pad.component';
 import { UsersCampusComponent } from './components/form-users/users-campus/users-campus.component';
 import { SelectUsersCampusComponent } from './components/form-users/users-campus/select-user-campus.component';
+import { WebSpeachComponent } from './components/web-speach/web-speach.component';
 
 
 
@@ -103,6 +104,7 @@ import { SelectUsersCampusComponent } from './components/form-users/users-campus
     BillingPadComponent,
     SelectUsersCampusComponent,
     UsersCampusComponent,
+    WebSpeachComponent,
   ],
   exports: [
     BreadcrumbComponent,
@@ -118,6 +120,7 @@ import { SelectUsersCampusComponent } from './components/form-users/users-campus
     SelectUsersCampusComponent,
     WorkLocationPackageComponent,
     UsersCampusComponent,
+    WebSpeachComponent,
   ],
   providers: [PermissionsGuard],
 })

@@ -1,0 +1,12 @@
+<ngx-form-oxygen-therapy (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+</ngx-form-oxygen-therapy>
+<div class="center">
+  <label class="form-text text-muted font-weight-bold align center">Registro de Destete de Oxígeno</label>
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <ngx-base-table pager="false" class="table" [title]="title" [subtitle]="subtitle" customData="ch_oxygen_therapy"
+        [settings]="settings" entity="ch_oxygen_therapy/by_record/{{record_id}}/1">
+      </ngx-base-table>
+    </div>
+  </ngx-base-list>
+</div>

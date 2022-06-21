@@ -15,6 +15,7 @@ export class FormChScalesComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() enfermery: any = null;
+  @Input() nutrition: any = null;
   @Input() record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -1357,7 +1358,7 @@ export class FormChScalesComponent implements OnInit {
           q_six_detail: qSixFragilitty[1],
           total: this.totalFragility,
           classification: this.classFragility,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh5=true;
@@ -1426,7 +1427,7 @@ export class FormChScalesComponent implements OnInit {
           qualification: this.totalNews,
           risk: this.riskNews,
           response: this.response,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh7=true;
@@ -1483,7 +1484,7 @@ export class FormChScalesComponent implements OnInit {
           v_six_detail: vSixPap[1],
           total: this.totalPap,
           classification: this.classPap,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh8=true;
@@ -1595,7 +1596,7 @@ export class FormChScalesComponent implements OnInit {
           v_seventeen_detail: vSeventeenHamilton[1],
           total: this.totalHamilton,
           qualification: this.classHamilton,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh9=true;
@@ -1644,7 +1645,7 @@ export class FormChScalesComponent implements OnInit {
           awareness_value: awarenessCam[0],
           awareness_detail: awarenessCam[1],
           result: this.resultCam,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh10=true;
@@ -1673,7 +1674,7 @@ export class FormChScalesComponent implements OnInit {
           level_title: level[1],
           level_value: level[0],
           definition: this.definitionFacText,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh11=false;
@@ -1702,7 +1703,7 @@ export class FormChScalesComponent implements OnInit {
           grade_title: grade[1],
           grade_value: grade[0],
           definition: this.definitionCrossText,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh12=true;
@@ -1729,7 +1730,7 @@ export class FormChScalesComponent implements OnInit {
         await this.chScalesS.SaveKarnofsky({
           score_title: scoreKarnofsky[1],
           score_value: scoreKarnofsky[0],
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh13=true;
@@ -1758,7 +1759,7 @@ export class FormChScalesComponent implements OnInit {
           grade_title: gradeEcog[1],
           grade_value: gradeEcog[0],
           definition: this.definitionEcogText,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh14=true;
@@ -1807,7 +1808,7 @@ export class FormChScalesComponent implements OnInit {
           total: this.totalNPedriatic,
           risk: this.riskNPedriatic,
           classification: this.classNPedriatic,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh15=true;
@@ -1872,7 +1873,7 @@ export class FormChScalesComponent implements OnInit {
           sleep_title: sleep[1],
           sleep_value: sleep[0],
           observation: this.form.controls.obsEsas.value,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh16=true;
@@ -1924,7 +1925,7 @@ export class FormChScalesComponent implements OnInit {
           comfort_detail: comfort[1],
           total: this.totalFlacc,
           classification: this.classFlacc,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh17=true;
@@ -1976,7 +1977,7 @@ export class FormChScalesComponent implements OnInit {
           delirium_detail: delirium[1],
           total: this.totalPpi,
           classification: this.classPpi,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh18=true;
@@ -2113,7 +2114,7 @@ export class FormChScalesComponent implements OnInit {
           q_twenty_two_detail: q_twenty_two[1],
           total: this.totalZarit,
           classification: this.classZarit,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh19=true;
@@ -2139,7 +2140,7 @@ export class FormChScalesComponent implements OnInit {
         await this.chScalesS.SavePain({
           range_title: rangePain[1],
           range_value: rangePain[0],
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh20=true;
@@ -2166,7 +2167,7 @@ export class FormChScalesComponent implements OnInit {
         await this.chScalesS.SaveWongBaker({
           pain_title: painWong[1],
           pain_value: painWong[0],
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh21=true;
@@ -2247,7 +2248,7 @@ export class FormChScalesComponent implements OnInit {
           q_ten_detail: qTenValue[1],
           total: this.totalPfeiffer,
           classification: this.classPfeiffer,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh22=true;
@@ -2299,7 +2300,7 @@ export class FormChScalesComponent implements OnInit {
           wandering_detail: wandering[1],
           total: this.totalJhDownton,
           risk: this.riskJhDownton, 
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh23=true;
@@ -2376,7 +2377,7 @@ export class FormChScalesComponent implements OnInit {
           v_ten_detail: vTenScreening[1],
           total: this.totalScreening,
           risk: this.riskScreening,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh24=true;
@@ -2402,7 +2403,7 @@ export class FormChScalesComponent implements OnInit {
         await this.chScalesS.SavePps({
           score_title: this.ppsObj.text,
           score_value: this.ppsObj.id,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh25=true;

@@ -160,18 +160,10 @@ export class FormsignsEvoComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       clock: [this.data.clock],
-      cardiac_frequency: [this.data.cardiac_frequency,Validators.compose([Validators.required]),
-      ],
-      respiratory_frequency: [this.data.respiratory_frequency, Validators.compose([Validators.required]),
-      ],
-      temperature: [
-        this.data.temperature,
-        Validators.compose([Validators.required]),
-      ],
-      oxigen_saturation: [
-        this.data.oxigen_saturation,
-        Validators.compose([Validators.required]),
-      ],
+      cardiac_frequency: [this.data.cardiac_frequency,Validators.compose([Validators.required]),],
+      respiratory_frequency: [this.data.respiratory_frequency, Validators.compose([Validators.required]),],
+      temperature: [this.data.temperature,Validators.compose([Validators.required]),],
+      oxigen_saturation: [this.data.oxigen_saturation,Validators.compose([Validators.required]),],
       intracranial_pressure: [this.data.intracranial_pressure],
       cerebral_perfusion_pressure: [this.data.cerebral_perfusion_pressure],
       intra_abdominal: [this.data.intra_abdominal],

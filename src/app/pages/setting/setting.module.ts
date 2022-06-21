@@ -346,6 +346,47 @@ import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component
 import { FormTaxValueUnitComponent } from './tax-value-unit/form-tax-value-unit/form-tax-value-unit.component';
 import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
 import { FormMunicipalityIcaComponent } from './municipality-ica/form-municipality-ica/form-municipality-ica.component';
+import { FormFixedRequestComponent } from './fixed-request/form-fixed-request/form-fixed-request.component';
+import { FixedRequestComponent } from './fixed-request/fixed-request.component';
+import { FixedInventaryAccesoriesComponent } from './fixed-inventary-accesories/fixed-inventary-accesories.component';
+import { ActionsInvAccesComponent } from './fixed-inventary-accesories/actionsInAcces.component';
+import { FormFixedInventaryAccesoriesComponent } from './fixed-inventary-accesories/form-fixed-inventary-accesories/form-fixed-inventary-accesories.component';
+import { FixedTabComponent } from './fixed-tab/fixed-tab.component';
+import { FixedInventaryAddComponent } from './fixed-inventary-add/fixed-inventary-add.component';
+import { FixedInventaryAddAccessComponent } from './fixed-inventary-add-access/fixed-inventary-add-access.component';
+import { FormFixedInventaryAddAccessComponent } from './fixed-inventary-add-access/form-fixed-inventary_add-access/form-fixed-inventary-add-access.component';
+import { FixedAccessRequestsComponent } from './fixed-access-requests/fixed-access-requests.component';
+import { FormFixedAccessRequestsComponent } from './fixed-access-requests/form-fixed-access-requests/form-fixed-access-requests.component';
+import { FormFixedInventaryAddComponent } from './fixed-inventary-add/form-fixed-inventary-add/form-fixed-inventary-add.component';
+import { ActionsAccReqComponent } from './fixed-access-requests/actions.component';
+import { AmountRequestsComponent } from './fixed-access-requests/requests-package/amountRequests.component';
+import { RequestsPackageComponent } from './fixed-access-requests/requests-package/requests-package.component';
+import { SelectRequestsComponent } from './fixed-access-requests/requests-package/select-requests.component';
+import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-requests.component';
+import { AssetsRequestsPackageComponent } from './fixed-assets-requests/assets-requests-package/assets-requests-package.component';
+import { AssetsSelectRequestsComponent } from './fixed-assets-requests/assets-requests-package/assets-select-requests.component';
+import { FormFixedAssetsRequestsComponent } from './fixed-assets-requests/form-fixed-assets-requests/form-fixed-assets-requests.component';
+import { ActionsAssReqComponent } from './fixed-assets-requests/actions.component';
+import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
+import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
+import { FormProductSuppliesComponent } from './product-supplies/form-product-supplies/form-product-supplies.component';
+import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
+import { FormSuppliesCommComponent } from './supplies-comm/form-supplies-comm/form-supplies-comm.component';
+import { ProductTabComponent } from './product-tab/product-tab.component';
+import { AmountSuppliesComponent } from './billing/prod-supplies-package/amount-supplies.component';
+import { AmountUnitSuppliesComponent } from './billing/prod-supplies-package/amount-unit-supplies.component';
+import { ProdSuppliesPackageComponent } from './billing/prod-supplies-package/prod-supplies-package.component';
+import { SelectProductSuppliesComponent } from './billing/prod-supplies-package/select-prod-supplies.component';
+import { ActionsInvSupComponent } from './pharmacy-inventory-supplies/actionsInv.component';
+import { PharmacyInventorySuppliesComponent } from './pharmacy-inventory-supplies/pharmacy-inventory-supplies.component';
+import { FormPharmacyInventorySuppliesComponent } from './pharmacy-inventory-supplies/form-pharmacy-inventory-supplies/form-pharmacy-inventory-supplies.component';
+import { FormPharmacyIncomeSuppliesComponent } from './pharmacy-income-supplies/form-pharmacy-income-supplies/form-pharmacy-income-supplies.component';
+import { AmountSupComeComponent } from './pharmacy-income-supplies/income-supplies-package/amountSupCome.component';
+import { IncomeSuppliesPackageComponent } from './pharmacy-income-supplies/income-supplies-package/income-supplies-package.component';
+import { SelectSuppliesIncomeComponent } from './pharmacy-income-supplies/income-supplies-package/select-supplies-income.component';
+import { ActionsSupComponent } from './pharmacy-income-supplies/actions.component';
+import { PharmacyIncomeSuppliesComponent } from './pharmacy-income-supplies/pharmacy-income-supplies.component';
+import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-supplies-package/amountDamagedSup.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -364,7 +405,6 @@ import { FormMunicipalityIcaComponent } from './municipality-ica/form-municipali
     NbSelectModule,
     NbPopoverModule,
     NbTooltipModule,
-    NbAccordionModule,
     NbUserModule,
     NbAlertModule,
     SettingRoutingModule,
@@ -374,6 +414,7 @@ import { FormMunicipalityIcaComponent } from './municipality-ica/form-municipali
     NbLayoutModule,
     NbSpinnerModule,
     NbCheckboxModule,
+    NbAccordionModule,
   ],
   declarations: [
     AuthStatusComponent,
@@ -720,6 +761,55 @@ import { FormMunicipalityIcaComponent } from './municipality-ica/form-municipali
     FormTaxValueUnitComponent,
     MunicipalityIcaComponent,
     FormMunicipalityIcaComponent,
+    FormFixedRequestComponent,
+    FixedRequestComponent,
+    FixedInventaryAccesoriesComponent,
+    FormFixedInventaryAccesoriesComponent,
+    ActionsInvAccesComponent,
+    FixedTabComponent,
+    FixedInventaryAddComponent,
+    FormFixedInventaryAddComponent,
+    FixedInventaryAddAccessComponent,
+    FormFixedInventaryAddAccessComponent,
+    FixedAccessRequestsComponent,
+    FormFixedAccessRequestsComponent,
+    ActionsAccReqComponent,
+
+    AmountRequestsComponent,
+    SelectRequestsComponent,
+    RequestsPackageComponent,
+
+    FixedTabRequestsComponent,
+    AssetsRequestsPackageComponent,
+    AssetsSelectRequestsComponent,
+    FormFixedAssetsRequestsComponent,
+    ActionsAssReqComponent,
+    FixedAssetsRequestsComponent,
+
+    ProductSuppliesComponent,
+    FormProductSuppliesComponent,
+
+    SuppliesCommComponent,
+    FormSuppliesCommComponent,
+    ProductTabComponent,
+
+    AmountSuppliesComponent,
+    AmountUnitSuppliesComponent,
+    ProdSuppliesPackageComponent,
+    SelectProductSuppliesComponent,
+    ActionsInvSupComponent,
+    PharmacyInventorySuppliesComponent,
+    FormPharmacyInventorySuppliesComponent,
+
+
+    FormPharmacyIncomeSuppliesComponent,
+    AmountDamagedSupComponent,
+    AmountSupComeComponent,
+    IncomeSuppliesPackageComponent,
+    SelectSuppliesIncomeComponent,
+    ActionsSupComponent,
+    PharmacyIncomeSuppliesComponent
+
 
   ],
   providers: [

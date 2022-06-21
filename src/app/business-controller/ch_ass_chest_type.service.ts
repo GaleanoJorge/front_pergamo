@@ -1,39 +1,37 @@
 import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
-import { FixedStockAccessories } from '../models/fixed-stock-accessories';
+import { ChAssChestType } from '../models/ch-ass-chest-type';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FixedStockAccessoriesService {
-  public fixed_stock_accessories: FixedStockAccessories[] = [];
+export class ChAssChestTypeService {
+  public ch_ass_chest_type: ChAssChestType[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<FixedStockAccessories[]> {
-    let servObj = new ServiceObject(params ? 'fixed_stock_accessories?pagination=false' : 'fixed_stock_accessories');
-
-    return this.webAPI.GetAction(servObj)
+  GetCollection(params = {}): Promise<ChAssChestType[]> {
+    let servObj = new ServiceObject(params ? 'ch_ass_chest_type?pagination=false' : 'ch_ass_chest_type');
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.fixed_stock_accessories = <FixedStockAccessories[]>servObj.data.fixed_stock_accessories;
+        this.ch_ass_chest_type = <ChAssChestType[]>servObj.data.ch_ass_chest_type;
 
-        return Promise.resolve(this.fixed_stock_accessories);
+        return Promise.resolve(this.ch_ass_chest_type);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(fixed_stock_accessories: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_stock_accessories');
-    servObj.data = fixed_stock_accessories;
+  Save(ch_ass_chest_type: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_ass_chest_type');
+    servObj.data = ch_ass_chest_type;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +45,9 @@ export class FixedStockAccessoriesService {
       });
   }
 
-  Update(fixed_stock_accessories: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_stock_accessories', fixed_stock_accessories.id);
-    servObj.data = fixed_stock_accessories;
+  Update(ch_ass_chest_type: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_ass_chest_type', ch_ass_chest_type.id);
+    servObj.data = ch_ass_chest_type;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +62,7 @@ export class FixedStockAccessoriesService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_stock_accessories', id);
+    let servObj = new ServiceObject('ch_ass_chest_type', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

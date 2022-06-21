@@ -1,0 +1,115 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card>
+    <nb-card-body>
+      <fieldset class="field_set">
+        <legend class="prue1 center">Antropometría</legend>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="name" class="form-text text-muted font-weight-bold">Paciente Funcional:</label>
+            <nb-radio-group formControlName="is_functional" is_functional id="is_functional" class="d-flex" onpaste="return false"
+              status="{{ isSubmitted && form.controls.is_functional.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio *ngFor="let item of is_functional" [value]="item.id">{{ item.name }}</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="name" class="form-text text-muted font-weight-bold">Peso:</label>
+            <input nbInput fullWidth id="name" name formControlName="weight" placeholder="Kilogramos (Kg)" type="number"
+              (change)="onInputChanges($event)" onpaste="return false"
+              status="{{ isSubmitted && form.controls.weight.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+          </div>
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="name" class="form-text text-muted font-weight-bold">Talla:</label>
+            <input nbInput fullWidth id="name" name formControlName="size" placeholder="centímetros (cm)" type="number"
+              (change)="onInputChanges($event)" onpaste="return false"
+              status="{{ isSubmitted && form.controls.size.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+          </div>
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="name" class="form-text text-muted font-weight-bold">IMC:</label>
+            <div class="row" style="align-items: center;">
+              <div class="col-12 col-sm-12 col-md-6">
+                <input nbInput fullWidth id="name" name disabled [value]="this.geteratedIMC" />
+              </div>
+              <div class="col-12 col-sm-12 col-md-6">
+                <b>{{this.classification}}</b>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="name" class="form-text text-muted font-weight-bold">Circunferencia de Brazo:</label>
+            <input nbInput fullWidth id="name" name formControlName="arm_circunferency" placeholder="centímetros (cm)"
+              type="number" (change)="onInputChanges($event)" onpaste="return false"
+              status="{{ isSubmitted && form.controls.arm_circunferency.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="name" class="form-text text-muted font-weight-bold">Circunferencia de pantorrilla:</label>
+            <input nbInput fullWidth id="name" name formControlName="calf_circumference" placeholder="centímetros (cm)"
+              type="number" (change)="onInputChanges($event)" onpaste="return false"
+              status="{{ isSubmitted && form.controls.calf_circumference.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="name" class="form-text text-muted font-weight-bold">Altura de Rodilla:</label>
+            <input nbInput fullWidth id="name" name formControlName="knee_height" placeholder="centímetros (cm)"
+              type="number" (change)="onInputChanges($event)" onpaste="return false"
+              status="{{ isSubmitted && form.controls.knee_height.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="name" class="form-text text-muted font-weight-bold">Perimetro Abdominal:</label>
+            <input nbInput fullWidth id="name" name formControlName="abdominal_perimeter" placeholder="centímetros (cm)"
+              type="number" (change)="onInputChanges($event)" onpaste="return false"
+              status="{{ isSubmitted && form.controls.abdominal_perimeter.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-3">
+            <label for="name" class="form-text text-muted font-weight-bold">Perimetro de Cadera:</label>
+            <input nbInput fullWidth id="name" name formControlName="hip_perimeter" placeholder="centímetros (cm)"
+              type="number" (change)="onInputChanges($event)" onpaste="return false"
+              status="{{ isSubmitted && form.controls.hip_perimeter.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-2">
+            <label for="name" class="form-text text-muted font-weight-bold">Peso Estimado:</label>
+            <div class="row" style="align-items: center;">
+              <div class="col-12 col-sm-12 col-md-9">
+                <input nbInput fullWidth id="name" name disabled [value]="this.estimated_weight" />
+              </div>
+              <div class="col-12 col-sm-12 col-md-3">
+                Kg
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-2">
+            <label for="name" class="form-text text-muted font-weight-bold">Talla Estimada:</label>
+            <div class="row" style="align-items: center;">
+              <div class="col-12 col-sm-12 col-md-9">
+                <input nbInput fullWidth id="name" name disabled [value]="this.estimated_size" />
+              </div>
+              <div class="col-12 col-sm-12 col-md-3">
+                cm
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-5">
+            <label for="name" class="form-text text-muted font-weight-bold">Cálculo de Gasto Energético Total:</label>
+            <div class="row" style="align-items: center;">
+              <div class="col-12 col-sm-12 col-md-8">
+                <input nbInput fullWidth id="name" name disabled [value]="this.total_energy_expenditure" />
+              </div>
+              <div class="col-12 col-sm-12 col-md-4">
+                cal
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
