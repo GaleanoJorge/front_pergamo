@@ -79,6 +79,7 @@ export class PharmacyProductRequestComponent implements OnInit {
 
   NewPharmacy() {
     this.dialogFormService.open(FormPharmacyProductRequestComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nueva factura',
         saved: this.RefreshData.bind(this),
@@ -94,6 +95,7 @@ export class PharmacyProductRequestComponent implements OnInit {
 
   EditPharmacy(data) {
     this.dialogFormService.open(FormPharmacyProductRequestComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar factura',
         data,

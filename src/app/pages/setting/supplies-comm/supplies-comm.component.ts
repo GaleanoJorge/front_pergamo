@@ -84,6 +84,7 @@ export class SuppliesCommComponent implements OnInit {
 
   NewProduct() {
     this.dialogFormService.open(FormSuppliesCommComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear insumo',
         saved: this.RefreshData.bind(this),
@@ -93,6 +94,7 @@ export class SuppliesCommComponent implements OnInit {
 
   EditProduct(data) {
     this.dialogFormService.open(FormSuppliesCommComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar insumo',
         data,
