@@ -1,22 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChReasonConsultationService } from '../../../../../business-controller/ch-reason-consultation.service';
-import { ChExternalCauseService } from '../../../../../business-controller/ch-external-cause.service';
+import { ChExternalCauseService } from '../../../../../../business-controller/ch-external-cause.service';
+
 
 
 
 
 @Component({
-  selector: 'ngx-form-regular-note-materials-supplies-ot',
-  templateUrl: './form-regular-note-materials-supplies-ot.component.html',
-  styleUrls: ['./form-regular-note-materials-supplies-ot.component.scss']
+  selector: 'ngx-form-entry-motor-component-ot',
+  templateUrl: './form-entry-motor-component-ot.component.html',
+  styleUrls: ['./form-entry-motor-component-ot.component.scss']
 })
-export class FormRegularNoteMaterialsSuppliesOTComponent implements OnInit {
+export class FormEntryComponentOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -27,27 +27,30 @@ export class FormRegularNoteMaterialsSuppliesOTComponent implements OnInit {
   public ch_external_cause: any[];
 
 
+
   constructor(
     private formBuilder: FormBuilder,
-    private reasonConsultationS: ChReasonConsultationService,
     private chexternalcauseS: ChExternalCauseService,
-    private toastService: NbToastrService,
   ) {
   }
 
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        materials: [],
+
+        dynamic_balance: '',
+        static_balance: '',
+        observation_component: '',
+
       };
     }
 
-
-
-
-
     this.form = this.formBuilder.group({
-      materials: [this.data[0] ? this.data[0].materials : this.data.materials, Validators.compose([Validators.required])],
+
+      dynamic_balance: [this.data[0] ? this.data[0].dynamic_balance : this.data.dynamic_balance, Validators.compose([Validators.required])],
+      static_balance: [this.data[0] ? this.data[0].static_balance : this.data.static_balance, Validators.compose([Validators.required])],
+      observation_component: [this.data[0] ? this.data[0].observation_component : this.data.observation_component, Validators.compose([Validators.required])],
+
     });
 
     this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {

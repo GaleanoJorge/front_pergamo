@@ -1,17 +1,17 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChExternalCauseService } from '../../../../../business-controller/ch-external-cause.service';
+import { ChExternalCauseService } from '../../../../../../business-controller/ch-external-cause.service';
 
 
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-skills-ot',
-  templateUrl: './form-entry-motor-skills-ot.component.html',
-  styleUrls: ['./form-entry-motor-skills-ot.component.scss']
+  selector: 'ngx-form-entry-motor-acuity-ot',
+  templateUrl: './form-entry-motor-acuity-ot.component.html',
+  styleUrls: ['./form-entry-motor-acuity-ot.component.scss']
 })
-export class FormEntryMotorSkillsOTComponent implements OnInit {
+export class FormEntryAcuityOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -26,10 +26,11 @@ export class FormEntryMotorSkillsOTComponent implements OnInit {
   public showTable;
   public ch_external_cause: any[];
 
+
+
   constructor(
     private formBuilder: FormBuilder,
     private chexternalcauseS: ChExternalCauseService,
-
   ) {
   }
 
@@ -37,13 +38,24 @@ export class FormEntryMotorSkillsOTComponent implements OnInit {
     if (!this.data || this.data.length == 0) {
       this.data = {
 
-
+        follow_up: '',
+        object_identify: '',
+        figures: '',
+        color_design: '',
+        categorization: '',
+        special_relation: '',
 
       };
     }
 
     this.form = this.formBuilder.group({
 
+      follow_up: [this.data[0] ? this.data[0].follow_up : this.data.follow_up, Validators.compose([Validators.required])],
+      object_identify: [this.data[0] ? this.data[0].object_identify : this.data.object_identify, Validators.compose([Validators.required])],
+      figures: [this.data[0] ? this.data[0].figures : this.data.figures, Validators.compose([Validators.required])],
+      color_design: [this.data[0] ? this.data[0].color_design : this.data.color_design, Validators.compose([Validators.required])],
+      categorization: [this.data[0] ? this.data[0].categorization : this.data.categorization, Validators.compose([Validators.required])],
+      special_relation: [this.data[0] ? this.data[0].special_relation : this.data.special_relation, Validators.compose([Validators.required])],
 
     });
 

@@ -42,7 +42,7 @@ export class FormEntryPastOTComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        family_base: '',
+        family_base: [],
         number_childrens: '',
         observation_family_struct: '',
         academy: '',
@@ -66,6 +66,7 @@ export class FormEntryPastOTComponent implements OnInit {
 
 
     this.form = this.formBuilder.group({
+      
       family_base: [this.data[0] ? this.data[0].family_base : this.data.family_base, Validators.compose([Validators.required])],
       number_childrens: [this.data[0] ? this.data[0].number_childrens : this.data.number_childrens, Validators.compose([Validators.required])],
       observation_family_struct: [this.data[0] ? this.data[0].observation_family_struct : this.data.observation_family_struct, ],

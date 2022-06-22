@@ -1,0 +1,198 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="row justify-content-center">
+  
+    <div class="col col-lg-6 asds">
+      <label for="appearance_text" class="form-text text-muted font-weight-bold justify-content-center"> Apariencia</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-select [selected]="this.data.appearance" formControlName="appearance" id="appearance" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.appearance.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="1">COLABORADOR</nb-option>
+        <nb-option value="2">TIMIDO</nb-option>
+        <nb-option value="3">DESCONFIADO</nb-option>
+        <nb-option value="4">AGRESIVO</nb-option>
+        <nb-option value="5">HOSTIL</nb-option>
+      </nb-select>
+    </div>  
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="consent_text" class="form-text text-muted font-weight-bold justify-content-center"> Conciencia</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-select [selected]="this.data.consent" formControlName="consent" id="consent" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.consent.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="1">ALERTA</nb-option>
+        <nb-option value="2">ESTUPOR</nb-option>
+        <nb-option value="3">DELIRIO</nb-option>
+      </nb-select>
+    </div>  
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="Attention_text" class="form-text text-muted font-weight-bold justify-content-center"> Atencion</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-select [selected]="this.data.Attention" formControlName="Attention" id="Attention" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.Attention.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="1">DISTACTIBILIDAD</nb-option>
+        <nb-option value="2">HIPOPROSEXIA</nb-option>
+        <nb-option value="3">HIPERPROSEXIA</nb-option>
+      </nb-select>
+    </div>  
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="humor_text" class="form-text text-muted font-weight-bold justify-content-center"> Estado de Humor</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-select [selected]="this.data.humor" formControlName="humor" id="humor" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.humor.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="1">LABILIDAD</nb-option>
+        <nb-option value="2">ANHEDONIA</nb-option>
+      </nb-select>
+    </div>  
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="language_text" class="form-text text-muted font-weight-bold justify-content-center"> lenguaje</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-select [selected]="this.data.language" formControlName="language" id="language" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.language.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="1">BRADILALIA</nb-option>
+        <nb-option value="2">TAQUILALIA</nb-option>
+        <nb-option value="3">LOGOREA</nb-option>
+        <nb-option value="4">MUTISMO</nb-option>
+      </nb-select>
+    </div>  
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="sensory_perception_text" class="form-text text-muted font-weight-bold justify-content-center"> Sensopercepcion</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-select [selected]="this.data.sensory_perception" formControlName="sensory_perception" id="sensory_perception" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.sensory_perception.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="1">AUDITIVA</nb-option>
+        <nb-option value="2">VISUALES</nb-option>
+        <nb-option value="3">TACTILES</nb-option>
+      </nb-select>
+    </div>  
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-4 asds">
+      <label for="thought_text" class="form-text text-muted font-weight-bold justify-content-center"> Pensamiento</label>
+    </div> 
+
+    <div class="col col-lg-4">
+      <label for="grade_text" class="form-text text-muted font-weight-bold justify-content-center"> Curso</label>
+      <nb-select [selected]="this.data.grade" formControlName="grade" id="grade" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.grade.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="1">TAQUIPSIQUIA</nb-option>
+        <nb-option value="2">BRADIPSIQUIA</nb-option>
+        <nb-option value="3">LOGICO</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-4">
+      <label for="contents_text" class="form-text text-muted font-weight-bold justify-content-center"> Contenido</label>
+      <nb-select [selected]="this.data.contents" formControlName="contents" id="contents" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.contents.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="1">IDEAS FIJAS</nb-option>
+        <nb-option value="2">OBSESIVAS</nb-option>
+        <nb-option value="3">DELIRANTES</nb-option>
+        <nb-option value="4">SUICIDA</nb-option>
+      </nb-select>
+    </div>  
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="orientation_text" class="form-text text-muted font-weight-bold justify-content-center"> Orientacion</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-select [selected]="this.data.orientation" formControlName="orientation" id="orientation" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.orientation.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="1">AUTOPSIQUICA</nb-option>
+        <nb-option value="2">ESPACIAL</nb-option>
+        <nb-option value="3">TEMPORAL</nb-option>
+      </nb-select>
+    </div>  
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="sleep_text" class="form-text text-muted font-weight-bold justify-content-center"> sueño</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-select [selected]="this.data.sleep" formControlName="sleep" id="sleep" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.sleep.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="1">SIN ALTERACION </nb-option>
+        <nb-option value="2">INSOMNIO</nb-option>
+        <nb-option value="3">DISMINUCION DE LA NECESIDAD DE SUEÑO</nb-option>
+      </nb-select>
+    </div>  
+  </div>
+    
+
+</form>

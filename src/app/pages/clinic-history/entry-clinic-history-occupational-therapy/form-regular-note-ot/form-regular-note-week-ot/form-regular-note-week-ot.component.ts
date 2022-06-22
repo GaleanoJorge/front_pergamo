@@ -8,11 +8,11 @@ import { ChExternalCauseService } from '../../../../../business-controller/ch-ex
 
 
 @Component({
-  selector: 'ngx-form-regular-note-materials-supplies-ot',
-  templateUrl: './form-regular-note-materials-supplies-ot.component.html',
-  styleUrls: ['./form-regular-note-materials-supplies-ot.component.scss']
+  selector: 'ngx-form-regular-note-week-ot',
+  templateUrl: './form-regular-note-week-ot.component.html',
+  styleUrls: ['./form-regular-note-week-ot.component.scss']
 })
-export class FormRegularNoteMaterialsSuppliesOTComponent implements OnInit {
+export class FormRegularNoteWeekOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -38,7 +38,9 @@ export class FormRegularNoteMaterialsSuppliesOTComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        materials: [],
+        monthly_sessions: '',
+        weekly_intensity: '',
+        recommendations: '',
       };
     }
 
@@ -47,7 +49,9 @@ export class FormRegularNoteMaterialsSuppliesOTComponent implements OnInit {
 
 
     this.form = this.formBuilder.group({
-      materials: [this.data[0] ? this.data[0].materials : this.data.materials, Validators.compose([Validators.required])],
+      monthly_sessions: [this.data[0] ? this.data[0].monthly_sessions : this.data.monthly_sessions, Validators.compose([Validators.required])],
+      weekly_intensity: [this.data[0] ? this.data[0].weekly_intensity : this.data.weekly_intensity, Validators.compose([Validators.required])],
+      recommendations: [this.data[0] ? this.data[0].recommendations : this.data.recommendations, Validators.compose([Validators.required])],
     });
 
     this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {

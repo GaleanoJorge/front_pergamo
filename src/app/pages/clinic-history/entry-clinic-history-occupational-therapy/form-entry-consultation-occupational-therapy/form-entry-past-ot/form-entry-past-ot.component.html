@@ -7,7 +7,7 @@
   </div>
 
     <div class="row justify-content-center">
-      <div class="col col-lg-3">
+      <div class="col col-lg-6">
         <label for="family_base_text" class="form-text text-muted font-weight-bold">Nucleo Familiar Base:</label>   
         <nb-select multiple placeholder="Seleccion Multiple" status="success">
               <nb-option value="1">Madre</nb-option>
@@ -20,7 +20,7 @@
             </nb-select>
       </div>  
   
-      <div class="col col-lg-3">
+      <div class="col col-lg-6">
         <label for="number_childrens" class="form-text text-muted font-weight-bold">Numero de Hijos:</label>
         <nb-select [selected]="this.data.number_childrens" formControlName="number_childrens" id="number_childrens" fullWidth
           title="Seleccione..."
@@ -39,9 +39,13 @@
         </nb-select>
       </div>
 
-      <div class="col col-lg-6">
+    </div>
+
+    <div class="row justify-content-center">
+
+      <div class="col col-lg-12">
         <label for="observation_family_struct" class="form-text text-muted font-weight-bold">Observaciones:</label>
-        <textarea id="observation_family_struct" nbInput fullWidth formControlName="observation_family_struct" current_illness rows="1"
+        <textarea id="observation_family_struct" nbInput fullWidth formControlName="observation_family_struct" current_illness rows="3"
           cols="50"
           status="{{ isSubmitted && form.controls.observation_family_struct.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>

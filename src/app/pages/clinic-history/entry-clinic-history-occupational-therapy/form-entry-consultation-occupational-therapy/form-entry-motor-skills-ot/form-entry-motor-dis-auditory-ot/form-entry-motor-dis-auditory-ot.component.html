@@ -1,0 +1,92 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="row justify-content-center">
+  
+    <div class="col col-lg-6">
+      <label for="sound_sources_text" class="form-text text-muted font-weight-bold justify-content-center"> Realiza Busqueda de Fuentes Sonoras</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="sound_sources" smoke id="sound_sources" class="d-flex text" name="sound_sources"
+        status="{{ isSubmitted && form.controls.sound_sources.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6">
+      <label for="auditory_hyposensitivity_text" class="form-text text-muted font-weight-bold justify-content-center"> Presenta Hipersensibilidad Auditiva</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="auditory_hyposensitivity" smoke id="auditory_hyposensitivity" class="d-flex text" name="auditory_hyposensitivity"
+        status="{{ isSubmitted && form.controls.auditory_hyposensitivity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6">
+      <label for="auditory_hypersensitivity_text" class="form-text text-muted font-weight-bold justify-content-center"> Presenta Hiposensibilidad Auditiva</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="auditory_hypersensitivity" smoke id="auditory_hypersensitivity" class="d-flex text" name="auditory_hypersensitivity"
+        status="{{ isSubmitted && form.controls.auditory_hypersensitivity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6">
+      <label for="auditory_stimuli_text" class="form-text text-muted font-weight-bold justify-content-center"> Presenta Respuesta Adaptativa Frente a los Diferentes Estimulos Auditivos</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="auditory_stimuli" smoke id="auditory_stimuli" class="d-flex text" name="auditory_stimuli"
+        status="{{ isSubmitted && form.controls.auditory_stimuli.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6">
+      <label for="auditive_discrimination_text" class="form-text text-muted font-weight-bold justify-content-center"> Logra Discriminacion Auditiva</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="auditive_discrimination" smoke id="auditive_discrimination" class="d-flex text" name="auditive_discrimination"
+        status="{{ isSubmitted && form.controls.auditive_discrimination.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+    
+
+</form>

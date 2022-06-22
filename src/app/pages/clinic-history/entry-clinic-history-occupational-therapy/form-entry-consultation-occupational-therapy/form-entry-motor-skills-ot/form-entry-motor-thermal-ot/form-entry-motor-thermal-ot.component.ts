@@ -1,22 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChReasonConsultationService } from '../../../../../business-controller/ch-reason-consultation.service';
-import { ChExternalCauseService } from '../../../../../business-controller/ch-external-cause.service';
+import { ChExternalCauseService } from '../../../../../../business-controller/ch-external-cause.service';
+
 
 
 
 
 @Component({
-  selector: 'ngx-form-regular-note-materials-supplies-ot',
-  templateUrl: './form-regular-note-materials-supplies-ot.component.html',
-  styleUrls: ['./form-regular-note-materials-supplies-ot.component.scss']
+  selector: 'ngx-form-entry-motor-thermal-ot',
+  templateUrl: './form-entry-motor-thermal-ot.component.html',
+  styleUrls: ['./form-entry-motor-thermal-ot.component.scss']
 })
-export class FormRegularNoteMaterialsSuppliesOTComponent implements OnInit {
+export class FormEntryThermalOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -27,27 +27,28 @@ export class FormRegularNoteMaterialsSuppliesOTComponent implements OnInit {
   public ch_external_cause: any[];
 
 
+
   constructor(
     private formBuilder: FormBuilder,
-    private reasonConsultationS: ChReasonConsultationService,
     private chexternalcauseS: ChExternalCauseService,
-    private toastService: NbToastrService,
   ) {
   }
 
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        materials: [],
+
+        heat: '',
+        cold: '',
+
       };
     }
 
-
-
-
-
     this.form = this.formBuilder.group({
-      materials: [this.data[0] ? this.data[0].materials : this.data.materials, Validators.compose([Validators.required])],
+
+      heat: [this.data[0] ? this.data[0].heat : this.data.heat, Validators.compose([Validators.required])],
+      cold: [this.data[0] ? this.data[0].cold : this.data.cold, Validators.compose([Validators.required])],
+
     });
 
     this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {

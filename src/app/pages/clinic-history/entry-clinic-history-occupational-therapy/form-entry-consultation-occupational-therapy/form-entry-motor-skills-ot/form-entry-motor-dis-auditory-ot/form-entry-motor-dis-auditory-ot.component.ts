@@ -1,17 +1,17 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChExternalCauseService } from '../../../../../business-controller/ch-external-cause.service';
+import { ChExternalCauseService } from '../../../../../../business-controller/ch-external-cause.service';
 
 
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-skills-ot',
-  templateUrl: './form-entry-motor-skills-ot.component.html',
-  styleUrls: ['./form-entry-motor-skills-ot.component.scss']
+  selector: 'ngx-form-entry-motor-dis-auditory-ot',
+  templateUrl: './form-entry-motor-dis-auditory-ot.component.html',
+  styleUrls: ['./form-entry-motor-dis-auditory-ot.component.scss']
 })
-export class FormEntryMotorSkillsOTComponent implements OnInit {
+export class FormEntryDisAuditorylOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -26,10 +26,11 @@ export class FormEntryMotorSkillsOTComponent implements OnInit {
   public showTable;
   public ch_external_cause: any[];
 
+
+
   constructor(
     private formBuilder: FormBuilder,
     private chexternalcauseS: ChExternalCauseService,
-
   ) {
   }
 
@@ -37,13 +38,22 @@ export class FormEntryMotorSkillsOTComponent implements OnInit {
     if (!this.data || this.data.length == 0) {
       this.data = {
 
-
+        sound_sources: '',
+        auditory_hyposensitivity: '',
+        auditory_hypersensitivity: '',
+        auditory_stimuli: '',
+        auditive_discrimination: '',
 
       };
     }
 
     this.form = this.formBuilder.group({
 
+      sound_sources: [this.data[0] ? this.data[0].sound_sources : this.data.sound_sources, Validators.compose([Validators.required])],
+      auditory_hyposensitivity: [this.data[0] ? this.data[0].auditory_hyposensitivity : this.data.auditory_hyposensitivity, Validators.compose([Validators.required])],
+      auditory_hypersensitivity: [this.data[0] ? this.data[0].auditory_hypersensitivity : this.data.auditory_hypersensitivity, Validators.compose([Validators.required])],
+      auditory_stimuli: [this.data[0] ? this.data[0].auditory_stimuli : this.data.auditory_stimuli, Validators.compose([Validators.required])],
+      auditive_discrimination: [this.data[0] ? this.data[0].auditive_discrimination : this.data.auditive_discrimination, Validators.compose([Validators.required])],
 
     });
 

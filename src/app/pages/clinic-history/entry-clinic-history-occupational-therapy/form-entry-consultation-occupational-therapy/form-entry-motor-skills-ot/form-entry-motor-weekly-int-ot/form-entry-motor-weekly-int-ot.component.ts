@@ -1,22 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChReasonConsultationService } from '../../../../../business-controller/ch-reason-consultation.service';
-import { ChExternalCauseService } from '../../../../../business-controller/ch-external-cause.service';
+import { ChExternalCauseService } from '../../../../../../business-controller/ch-external-cause.service';
+
 
 
 
 
 @Component({
-  selector: 'ngx-form-regular-note-materials-supplies-ot',
-  templateUrl: './form-regular-note-materials-supplies-ot.component.html',
-  styleUrls: ['./form-regular-note-materials-supplies-ot.component.scss']
+  selector: 'ngx-form-entry-motor-weekly-int-ot',
+  templateUrl: './form-entry-motor-weekly-int-ot.component.html',
+  styleUrls: ['./form-entry-motor-weekly-int-ot.component.scss']
 })
-export class FormRegularNoteMaterialsSuppliesOTComponent implements OnInit {
+export class FormEntryWeeklyIntOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -27,27 +27,30 @@ export class FormRegularNoteMaterialsSuppliesOTComponent implements OnInit {
   public ch_external_cause: any[];
 
 
+
   constructor(
     private formBuilder: FormBuilder,
-    private reasonConsultationS: ChReasonConsultationService,
     private chexternalcauseS: ChExternalCauseService,
-    private toastService: NbToastrService,
   ) {
   }
 
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        materials: [],
+
+        monthly_sessions: '',
+        weekly_intensity: '',
+        recommendations: '',
+
       };
     }
 
-
-
-
-
     this.form = this.formBuilder.group({
-      materials: [this.data[0] ? this.data[0].materials : this.data.materials, Validators.compose([Validators.required])],
+
+      monthly_sessions: [this.data[0] ? this.data[0].monthly_sessions : this.data.monthly_sessions, Validators.compose([Validators.required])],
+      weekly_intensity: [this.data[0] ? this.data[0].weekly_intensity : this.data.weekly_intensity, Validators.compose([Validators.required])],
+      recommendations: [this.data[0] ? this.data[0].recommendations : this.data.recommendations, Validators.compose([Validators.required])],
+
     });
 
     this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {

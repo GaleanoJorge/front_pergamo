@@ -1,0 +1,88 @@
+<div>
+
+  <div class ="justify-content-center">
+
+   <div class="col col-lg-6 asds">
+     <label for="monthly_sessions_text" class="form-text text-muted font-weight-bold">Sesiones Mensuales:</label>
+   </div>
+
+   <div class="col col-lg-6">
+     <nb-select [selected]="this.data.monthly_sessions" formControlName="monthly_sessions" id="monthly_sessions" fullWidth
+       title="Seleccione..."
+       status="{{ isSubmitted && form.controls.monthly_sessions.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+           <nb-option value="">Seleccione...</nb-option>
+           <nb-option value="1">1</nb-option>
+           <nb-option value="2">2</nb-option>
+           <nb-option value="3">3</nb-option>
+           <nb-option value="4">4</nb-option>
+           <nb-option value="5">5</nb-option>
+           <nb-option value="6">6</nb-option>
+           <nb-option value="7">7</nb-option>
+           <nb-option value="8">8</nb-option>
+           <nb-option value="9">9</nb-option>
+           <nb-option value="10">10</nb-option>
+           <nb-option value="11">11</nb-option>
+           <nb-option value="12">12</nb-option>
+           <nb-option value="13">13</nb-option>
+           <nb-option value="14">14</nb-option>
+           <nb-option value="15">15</nb-option>
+           <nb-option value="16">16</nb-option>
+           <nb-option value="17">17</nb-option>
+           <nb-option value="18">18</nb-option>
+           <nb-option value="19">19</nb-option>
+           <nb-option value="20">20</nb-option>
+           <nb-option value="21">21</nb-option>
+           <nb-option value="22">22</nb-option>
+           <nb-option value="23">23</nb-option>
+           <nb-option value="24">24</nb-option>
+           <nb-option value="25">25</nb-option>
+           <nb-option value="26">26</nb-option>
+           <nb-option value="27">27</nb-option>
+           <nb-option value="28">28</nb-option>
+           <nb-option value="29">29</nb-option>
+           <nb-option value="30">30</nb-option>
+           <nb-option value="31">31</nb-option>
+           <nb-option value="32">32</nb-option>
+           <nb-option value="33">33</nb-option>
+           <nb-option value="34">34</nb-option>
+           <nb-option value="35">35</nb-option>
+           <nb-option value="36">36</nb-option>
+     </nb-select>
+   </div>  
+
+  </div>
+
+<br/>
+
+<div class ="justify-content-center">
+
+ <div class="col col-lg-6 asds">
+   <label for="weekly_intensity_text" class="form-text text-muted font-weight-bold">Intensidad Semanal:</label>
+ </div>
+
+
+ <div class="col col-lg-6">
+   <nb-select [selected]="this.data.weekly_intensity" formControlName="weekly_intensity" id="weekly_intensity" fullWidth
+     title="Seleccione..."
+     status="{{ isSubmitted && form.controls.weekly_intensity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+     <nb-option value="">Seleccione...</nb-option>
+     <nb-option value="1">1</nb-option>
+     <nb-option value="2">2</nb-option>
+     <nb-option value="3">3</nb-option>
+     <nb-option value="4">4</nb-option>
+     <nb-option value="5">5</nb-option>
+   </nb-select>
+ </div>
+
+</div>
+
+<br/>
+
+<div class="col col-lg-12">
+<label for="recommendations_text" class="form-text text-muted font-weight-bold">Recomendaciones/Educacion</label>
+<textarea id="recommendations" nbInput fullWidth formControlName="recommendations" current_illness rows="1"
+ cols="50"
+ status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+</div>
+
+</div>
