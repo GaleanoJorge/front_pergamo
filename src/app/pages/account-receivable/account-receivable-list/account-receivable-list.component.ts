@@ -13,6 +13,7 @@ import { AuthService } from '../../../services/auth.service';
 import { FormRentReliefComponent } from './form-rent-relief/form-rent-relief.component';
 import { FormLocationCapacityComponent } from '../../setting/location-capacity/sigle-location-capacity/form-location-capacity/form-location-capacity.component';
 import { FormConfirmPayComponent } from './form-confirm-pay/form-confirm-pay.component';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -34,9 +35,10 @@ export class AccountReceivableListComponent implements OnInit {
   public entity;
   public user;
   public currentRole;
+  public settings;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-  public settings = {
+  public settings1 = {
     pager: {
       display: true,
       perPage: 10,
@@ -55,6 +57,7 @@ export class AccountReceivableListComponent implements OnInit {
             'rent': this.RentAccountReceivable.bind(this),
             'view': this.ViewSourceRetention.bind(this),
             'generate_file': this.GenerateFile.bind(this),
+            'group': false,
           };
         },
         renderComponent: Actions2Component,
@@ -119,6 +122,47 @@ export class AccountReceivableListComponent implements OnInit {
     },
   };
 
+  public settings2 = {
+    pager: {
+      display: true,
+      perPage: 10,
+    },
+    columns: {
+      actions: {
+        title: 'ACCIONES',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'role': this.roles[0],
+            'edit': this.EditAccountReceivable.bind(this),
+            'pay': this.PayAccountReceivable.bind(this),
+            'rent': this.RentAccountReceivable.bind(this),
+            'view': this.ViewSourceRetention.bind(this),
+            'generate_file': this.GenerateFile.bind(this),
+            'group': true,
+          };
+        },
+        renderComponent: Actions2Component,
+      },
+      'user.identification': {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.user.identification;
+        },
+      },
+      user: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.firstname + ' ' + value.lastname;
+        },
+      },
+    },
+  };
+
   public routes = [
     {
       name: 'Cuentas de Cobro',
@@ -135,8 +179,7 @@ export class AccountReceivableListComponent implements OnInit {
     public roleBS: RoleBusinessService,
     private deleteConfirmService: NbDialogService,
     private authService: AuthService,
-
-
+    private route: ActivatedRoute,
   ) {
   }
 
@@ -148,8 +191,19 @@ export class AccountReceivableListComponent implements OnInit {
     }).catch(x => { });
     if (this.roles[0].role_type_id == 2) {
       this.entity = 'account_receivable/byUser/' + this.user.id;
+      this.settings = this.settings1;
     } else {
-      this.entity = 'account_receivable/byUser/0';
+      if (this.route.snapshot.params.id) {
+        this.entity = 'account_receivable/byUser/' + this.route.snapshot.params.id;
+        this.settings = this.settings1;
+      } else {
+        this.title = 'Personal Asistencial';
+        this.subtitle = '';
+        this.settings = this.settings2;
+        this.entity = 'account_receivable/byUser/0';
+      }
+      // this.settings = this.settings2;
+      // this.entity = 'account_receivable/byUser/0';
 
     }
 
@@ -220,6 +274,7 @@ export class AccountReceivableListComponent implements OnInit {
       this.toastrService.danger('Error al generar archivo: ' + x, 'Error');
     });
   }
+
   NewSigleLocationCapacity(data) {
     // var closeOnBackdropClick = false;
     this.dialogFormService.open(FormLocationCapacityComponent, {

@@ -19,6 +19,10 @@ const routes: Routes = [{
       path: 'bill-user-activity/:id',
       component: BillUserActivityComponent,
     },
+    {
+      path: 'billings-user-activity/:id',
+      component: AccountReceivableListComponent,
+    },
   ],
 }];
 
