@@ -71,7 +71,8 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <div class="form-group">
-            <label for="date_cum" class="form-text text-muted font-weight-bold">Fecha vencimiento, registro sanitario:</label>
+            <label for="date_cum" class="form-text text-muted font-weight-bold">Fecha vencimiento, registro
+              sanitario:</label>
             <input type="date" nbInput fullWidth id="date_cum" formControlName="date_cum" date_cum
               status="{{ isSubmitted && form.controls.date_cum.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
           </div>
@@ -122,13 +123,15 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="code_cum_file" class="form-text text-muted font-weight-bold">Expediente de registro sanitario:</label>
+          <label for="code_cum_file" class="form-text text-muted font-weight-bold">Expediente de registro
+            sanitario:</label>
           <input nbInput fullWidth id="code_cum_file" formControlName="code_cum_file" code_cum_file
             status="{{ isSubmitted && form.controls.code_cum_file.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="code_cum_consecutive" class="form-text text-muted font-weight-bold">Consecutivo de registro sanitario:</label>
+          <label for="code_cum_consecutive" class="form-text text-muted font-weight-bold">Consecutivo de registro
+            sanitario:</label>
           <input nbInput fullWidth id="code_cum_consecutive" formControlName="code_cum_consecutive" code_cum_consecutive
             status="{{ isSubmitted && form.controls.code_cum_consecutive.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
@@ -144,14 +147,14 @@
           </nb-radio-group>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-6">
+        <div *ngIf="showReg" class="col-12 col-sm-12 col-md-6">
           <label for="value_circular" class="form-text text-muted font-weight-bold">Valor de regulación:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="value_circular"
             formControlName="value_circular" value_circular type="number"
             status="{{ isSubmitted && form.controls.value_circular.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-6">
+        <div *ngIf="showReg" class="col-12 col-sm-12 col-md-6">
           <label for="circular" class="form-text text-muted font-weight-bold">Circular:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="circular"
             formControlName="circular" circular
