@@ -48,10 +48,6 @@ export class FormConfirmDisabledComponent implements OnInit {
   DeleteAction() {
     this.loading = true;
     this.close();
-    this.desable(this.data).then((message) => {
-    }).catch((x) => {
-      this.loading = false;
-      // this.toastrService.danger('', message);
-    });
+    this.desable(this.data)
   }
 }

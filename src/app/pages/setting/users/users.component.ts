@@ -109,11 +109,21 @@ export class UsersComponent implements OnInit {
     ChangeState(data) {
         this.userS.ChangeStatus(data.id).then((x) => {
             this.toastrService.success('', x.message);
+            if (x.data.user.status_id == 2) {
+                this.showToast(10000);
+            }
             this.RefreshData();
         }).catch((x) => {
             // this.toastrService.danger(x.message);
         });
     }
+
+    showToast(duration) {
+        this.toastrService.warning(
+            'Los trabajadores que se retiran de la empresa deben ser retirados de la ARL',
+            'AVISO',
+          { duration });
+      }
 
     ChangeRole(role) {
         this.role = role;
