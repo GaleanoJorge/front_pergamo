@@ -31,7 +31,7 @@ import { AuthService } from '../../../services/auth.service';
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && (this.role_user == 8 || this.role_user == 9 || this.role_user == 1)" nbTooltip="Historia Clinica Terapia Ocupacional" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/entry-clinic-history-occupational-therapy/' + value.data.id + '/'+ value.assigned" >
+    <button nbTooltip="Historia Clinica Terapia Ocupacional" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/entry-clinic-history-occupational-therapy/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 

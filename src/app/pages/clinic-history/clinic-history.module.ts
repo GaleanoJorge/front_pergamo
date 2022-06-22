@@ -134,10 +134,7 @@ import { FormEntryMotorSkillsOTComponent } from './entry-clinic-history-occupati
 import { FormEntryOccupatHistoryValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-occupat-history-ot/form-entry-occupat-history-valoration-ot.component';
 import { FormEntryPastOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-past-ot/form-entry-past-ot.component';
 import { FormEntryValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-valoration-ot/form-entry-valoration-ot.component';
-import { FormRegularNoteOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-ot.component';
-import { FormRegularNoteValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-ot/form-regular-note-valoration-ot.component';
 import { FormEntryOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-ot.component';
-import { FormRegularNoteTherapeuticGoalsOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-consultation-occupational-therapy copy/form-regular-note-therapeutic-goals-ot/form-regular-note-therapeutic-goals-ot.component';
 
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { ChNutritionInputComponent } from './ch-nutrition-list/ch-nutrition-input/ch-nutrition-input.component';
@@ -200,6 +197,9 @@ import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-t
 import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
+import { FormRegularNoteOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-ot/form-regular-note-ot.component';
+import { FormRegularNoteValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-ot/form-regular-note-valoration-ot/form-regular-note-valoration-ot.component';
+import { FormRegularNoteTherapeuticGoalOT } from './entry-clinic-history-occupational-therapy/form-regular-note-ot/form-regular-note-therapeutic-goals-ot/form-regular-note-therapeutic-goals-ot.component';
 
 @NgModule({
   imports: [
@@ -280,7 +280,7 @@ import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.co
 
     FormRegularNoteOTComponent,
     FormRegularNoteValorationOTComponent,
-    FormRegularNoteTherapeuticGoalsOTComponent,
+    FormRegularNoteTherapeuticGoalOT,
 
     ActionoOcupationalTherapyComponent,
     RespiratoryTherapyListComponent,

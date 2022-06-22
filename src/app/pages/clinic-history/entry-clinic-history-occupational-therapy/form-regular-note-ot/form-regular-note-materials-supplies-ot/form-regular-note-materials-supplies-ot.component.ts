@@ -8,11 +8,11 @@ import { ChExternalCauseService } from '../../../../../business-controller/ch-ex
 
 
 @Component({
-  selector: 'ngx-form-regular-note-therapeutic-goals-ot',
-  templateUrl: './form-regular-note-therapeutic-goals-ot.component.html',
-  styleUrls: ['./form-regular-note-therapeutic-goals-ot.component.scss']
+  selector: 'ngx-form-regular-note-materials-supplies-ot',
+  templateUrl: './form-regular-note-materials-supplies-ot.component.html',
+  styleUrls: ['./form-regular-note-materials-supplies-ot.component.scss']
 })
-export class FormRegularNoteTherapeuticGoalsOTComponent implements OnInit {
+export class FormRegularNoteValorationOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
