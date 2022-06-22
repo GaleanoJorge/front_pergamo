@@ -93,7 +93,7 @@
         <div class="col-12 col-sm-12 col-md-6">
           <label for="refrigeration" class="form-text text-muted font-weight-bold">Vida utíl en meses:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput id="useful_life" fullWidth
-            formControlName="useful_life" useful_life
+            formControlName="useful_life" useful_life type="number" min="0" pattern="^[0-9]+"
             status="{{ isSubmitted && form.controls.useful_life.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 

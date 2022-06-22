@@ -129,7 +129,7 @@ export class FormProductSuppliesComponent implements OnInit {
           size: this.form.controls.size.value,
           measure: this.form.controls.measure.value,
           stature: this.form.controls.stature.value,
-          description: this.form.controls.size.value == null ? this.subcategory + " " + this.form.controls.measure.value + " " + this.measure_supplies + " x " + this.form.controls.stature.value : this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies,
+          description: this.form.controls.measure.value != null ? this.form.controls.size.value == null ? this.subcategory + " " + this.form.controls.measure.value + " " + this.measure_supplies + " x " + this.form.controls.stature.value : this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies  : this.subcategory + " " + this.form.controls.stature.value,
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           size_supplies_measure_id: this.form.controls.size_supplies_measure_id.value,
@@ -146,14 +146,14 @@ export class FormProductSuppliesComponent implements OnInit {
         });
       } else {
         this.ProductSuppliesS.Save({
-          description: this.form.controls.size.value == null ? this.subcategory + " " + this.form.controls.measure.value + " " + this.measure_supplies + " x " + this.form.controls.stature.value : this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies,
           size: this.form.controls.size.value,
           measure: this.form.controls.measure.value,
           stature: this.form.controls.stature.value,
-          minimum_stock: this.form.controls.minimum_stock.value,
-          maximum_stock: this.form.controls.maximum_stock.value,
           size_supplies_measure_id: this.form.controls.size_supplies_measure_id.value,
           measure_supplies_measure_id: this.form.controls.measure_supplies_measure_id.value,
+          description: this.form.controls.measure.value != null ? this.form.controls.size.value == null ? this.subcategory + " " + this.form.controls.measure.value + " " + this.measure_supplies + " x " + this.form.controls.stature.value : this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies  : this.subcategory + " " + this.form.controls.stature.value,
+          minimum_stock: this.form.controls.minimum_stock.value,
+          maximum_stock: this.form.controls.maximum_stock.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

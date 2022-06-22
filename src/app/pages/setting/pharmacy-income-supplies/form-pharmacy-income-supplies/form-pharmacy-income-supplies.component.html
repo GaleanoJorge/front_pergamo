@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6">
           <label for="cantidad_enviada" class="form-text text-muted font-weight-bold">CANTIDAD ENVIADA TOTAL:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput type="number" fullWidth id="cantidad_enviada"
+          <input oninput="this.value = this.value.toUpperCase()" nbInput type="number" min="0" pattern="^[0-9]+" fullWidth id="cantidad_enviada"
             formControlName="cantidad_enviada" disabled="disabled" />
         </div>
 

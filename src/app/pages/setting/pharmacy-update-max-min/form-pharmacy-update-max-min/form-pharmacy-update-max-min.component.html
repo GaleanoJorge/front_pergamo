@@ -41,13 +41,13 @@
 
       <div class="col-12 col-sm-12 col-md-6">
         <label for="amount" class="form-text text-muted font-weight-bold">STOCK MINIMO:</label>
-        <input type="number" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount"
+        <input type="number" min="0" pattern="^[0-9]+" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount"
           formControlName="amount" amount
           status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
       </div>
       <div class="col-12 col-sm-12 col-md-6">
         <label for="amount" class="form-text text-muted font-weight-bold">STOCK MAXIMO:</label>
-        <input type="number" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount"
+        <input type="number" min="0" pattern="^[0-9]+" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount"
           formControlName="amount" amount
           status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
       </div>

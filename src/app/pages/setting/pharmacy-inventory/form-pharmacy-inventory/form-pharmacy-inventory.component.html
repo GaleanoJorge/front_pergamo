@@ -28,7 +28,7 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="amount_provition" class="form-text text-muted font-weight-bold">CANTIDAD A ENVIAR:</label>
-          <input type="number" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount_provition"
+          <input type="number" min="0" pattern="^[0-9]+" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount_provition"
             formControlName="amount_provition" amount_provition
             status="{{ isSubmitted && form.controls.amount_provition.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>

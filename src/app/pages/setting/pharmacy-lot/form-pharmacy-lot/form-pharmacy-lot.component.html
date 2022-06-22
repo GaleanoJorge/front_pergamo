@@ -14,7 +14,7 @@
         <div class="col-12 col-sm-12 col-md-6">
           <label for="subtotal" class="form-text text-muted font-weight-bold">SUB TOTAL $:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="subtotal"
-            formControlName="subtotal" subtotal type="number"
+            formControlName="subtotal" subtotal type="number" min="0" pattern="^[0-9]+"
             status="{{ isSubmitted && form.controls.subtotal.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
@@ -27,7 +27,7 @@
         <div class="col-12 col-sm-12 col-md-6">
           <label for="total" class="form-text text-muted font-weight-bold">TOTAL $:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="total" formControlName="total"
-            type="number" total
+          type="number" min="0" pattern="^[0-9]+" total
             status="{{ isSubmitted && form.controls.total.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
