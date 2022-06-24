@@ -9,12 +9,14 @@
           <nb-option value="DECÚBITO DORSAL">DECÚBITO DORSAL</nb-option>
         </nb-select>
       </div>
+
+      <br/>
   
       <div class="col col-lg-12">
-        <label for="recommendations_text" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA</label>
-        <textarea id="recommendations" nbInput fullWidth formControlName="recommendations" current_illness rows="1"
+        <label for="patient_status_text" class="form-text text-muted font-weight-bold">ESTADO DEL PACIENTE</label>
+        <textarea id="patient_status" nbInput fullWidth formControlName="patient_status" current_illness rows="3"
           cols="50"
-          status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          status="{{ isSubmitted && form.controls.patient_status.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
   
       <div class="div-send">

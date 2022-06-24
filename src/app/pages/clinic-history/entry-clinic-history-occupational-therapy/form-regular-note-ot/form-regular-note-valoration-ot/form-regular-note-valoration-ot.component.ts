@@ -39,7 +39,7 @@ export class FormRegularNoteValorationOTComponent implements OnInit {
     if (!this.data || this.data.length == 0) {
       this.data = {
         position: '',
-        recommendations: '',
+        patient_status: '',
       };
     }
 
@@ -49,7 +49,7 @@ export class FormRegularNoteValorationOTComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       position: [this.data[0] ? this.data[0].position : this.data.position, Validators.compose([Validators.required])],
-      recommendations: [this.data[0] ? this.data[0].recommendations : this.data.recommendations, Validators.compose([Validators.required])],
+      patient_status: [this.data[0] ? this.data[0].patient_status : this.data.patient_status, Validators.compose([Validators.required])],
     });
 
     this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {

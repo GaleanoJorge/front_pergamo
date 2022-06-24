@@ -28,9 +28,7 @@ export class FormEntryOccupatHistoryValorationOTComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private reasonConsultationS: ChReasonConsultationService,
     private chexternalcauseS: ChExternalCauseService,
-    private toastService: NbToastrService,
   ) {
   }
 

@@ -22,8 +22,8 @@
               </nb-step>
 
               <nb-step label='Historia Ocupacional'>
-                  <ngx-form-entry-ot *ngIf="chreasonconsultation" [record_id]="record_id"
-                  [data]="chreasonconsultation"></ngx-form-entry-ot>
+                  <ngx-form-entry-occupat-history-valoration-ot *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-entry-occupat-history-valoration-ot>
               </nb-step>
               
               <nb-step label='Antecedentes Ocupacionales'>
@@ -50,8 +50,8 @@
             <nb-stepper #stepper [linear]="linearMode">
 
               <nb-step label='Valoracion Terapeutica'>
-                  <ngx-form-regular-note-ot *ngIf="chreasonconsultation" [record_id]="record_id"
-                  [data]="chreasonconsultation"></ngx-form-regular-note-ot>
+                  <ngx-form-regular-note-valoration-ot *ngIf="chreasonconsultation" [record_id]="record_id"
+                  [data]="chreasonconsultation"></ngx-form-regular-note-valoration-ot>
               </nb-step>
 
 

@@ -3,6 +3,9 @@ import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ChReasonConsultationService } from '../../../../../business-controller/ch-reason-consultation.service';
 import { ChExternalCauseService } from '../../../../../business-controller/ch-external-cause.service';
+import { DiagnosisService } from '../../../../../business-controller/diagnosis.service';
+import { threadId } from 'worker_threads';
+import { ChEValorationOTService } from '../../../../../business-controller/ch_e_valoration_o_t.service';
 
 
 
@@ -24,6 +27,9 @@ export class FormEntryValorationOTComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public ch_external_cause: any[];
+  public diagnosis: any[];
+
+  public diagnosis_id;
 
 
   constructor(
@@ -31,15 +37,16 @@ export class FormEntryValorationOTComponent implements OnInit {
     private reasonConsultationS: ChReasonConsultationService,
     private chexternalcauseS: ChExternalCauseService,
     private toastService: NbToastrService,
+    private diagnosisS: DiagnosisService,
+    private ChEValorationOTS: ChEValorationOTService,
   ) {
   }
 
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        position: '',
-        ostomy: '',
-        observation: '',
+        diagnosis_id: '',
+        recomendations: '',
       };
     }
 
@@ -47,12 +54,14 @@ export class FormEntryValorationOTComponent implements OnInit {
       this.ch_external_cause = x;
     });
 
+    this.diagnosisS.GetCollection().then(x => {
+      this.diagnosis = x;
+    });
 
 
     this.form = this.formBuilder.group({
-      position: [this.data[0] ? this.data[0].position : this.data.position,],
-      ostomy: [this.data[0] ? this.data[0].ostomy : this.data.ostomy,],
-      observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
+      diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id,],
+      recomendations: [this.data[0] ? this.data[0].recomendations : this.data.recomendations,],
     });
 
     // if (this.data.reason_consultation != '') {
@@ -68,6 +77,18 @@ export class FormEntryValorationOTComponent implements OnInit {
     // }
   }
 
+  saveCode(e): void {
+    var localidentify = this.diagnosis.find(item => item.name == e);
+
+    if (localidentify) {
+      this.diagnosis_id = localidentify.id;
+    } else {
+      this.diagnosis_id = null;
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+    }
+  }
+
   async save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
@@ -75,11 +96,10 @@ export class FormEntryValorationOTComponent implements OnInit {
       this.showTable = false;
 
       if (this.data.id) {
-        await this.reasonConsultationS.Update({
+        await this.ChEValorationOTS.Update({
           id: this.data.id,
-          reason_consultation: this.form.controls.reason_consultation.value,
-          current_illness: this.form.controls.current_illness.value,
-          ch_external_cause_id: this.form.controls.ch_external_cause_id.value,
+          ch_diagnosis_id: this.form.controls.diagnosis_id.value,
+          recomendations: this.form.controls.recomendations.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
 
@@ -93,10 +113,9 @@ export class FormEntryValorationOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.reasonConsultationS.Save({
-          reason_consultation: this.form.controls.reason_consultation.value,
-          current_illness: this.form.controls.current_illness.value,
-          ch_external_cause_id: this.form.controls.ch_external_cause_id.value,
+        await this.ChEValorationOTS.Save({
+          ch_diagnosis_id: this.diagnosis_id,
+          recomendations: this.form.controls.recomendations.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -105,14 +124,8 @@ export class FormEntryValorationOTComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
-          if (this.form.controls.has_caregiver.value == true) {
-            this.isSubmitted = true;
-            this.loading = true;
-          } else {
-            this.isSubmitted = false;
-            this.loading = false;
-          }
-
+          this.isSubmitted = false;
+          this.loading = false;
         });
       }
 

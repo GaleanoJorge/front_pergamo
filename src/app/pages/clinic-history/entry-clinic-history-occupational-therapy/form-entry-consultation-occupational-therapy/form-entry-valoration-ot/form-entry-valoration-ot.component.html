@@ -1,22 +1,22 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
-    <div class="col col-lg-12" >
-      <label for="position" class="form-text text-muted font-weight-bold">DIAGNOSTICO MEDICO:</label>
-      <nb-select [selected]="this.data.position" formControlName="position"
-        id="position" fullWidth title="Seleccione..."
-        status="{{ isSubmitted && form.controls.position.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-        <nb-option value="">Seleccione...</nb-option>
-        <nb-option value="DECÚBITO DORSAL">DECÚBITO DORSAL</nb-option>
-      </nb-select>
+    <div class="col col-lg-12">
+      <label for="diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNOSTICO MEDICO:</label>
+      <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="diagnosis_id"
+        formControlName="diagnosis_id" diagnosis_id type="text" required
+        status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      <datalist id="codes">
+        <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+      </datalist>
     </div>
-    
-    <br/>
+
+    <br />
 
     <div class="col col-lg-12">
-      <label for="observation" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
-      <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="3"
+      <label for="recomendations" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
+      <textarea id="recomendations" nbInput fullWidth formControlName="recomendations" current_illness rows="3"
         cols="50"
-        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+        status="{{ isSubmitted && form.controls.recomendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="div-send">
