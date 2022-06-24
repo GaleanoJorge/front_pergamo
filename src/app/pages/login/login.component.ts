@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   private endPointCAS = environment.cas;
   private serviceurl = environment.url_service;
   private type_login = environment.login_sso;
+  public showPassword = false;
 
   public register: boolean = false;
 
@@ -109,6 +110,17 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+  }
+
+  getInputTypePassword() {
+    if (this.showPassword) {
+      return 'text';
+    }
+    return 'password';
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 
   login() {

@@ -41,7 +41,7 @@
           <label class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
           <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value)" id="product_gen"
           formControlName="product_gen" product_gen required fullWidth nbInput
-          status="{{ isSubmitted && form.controls.product_gen.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.product_gen.errors ? 'danger' : isSubmitted ? 'success' : '' }}" multiple>
           <datalist id="codes1">
             <option *ngFor="let item of product_gen" [value]="item.manual_price.name">{{item.manual_price.name}}
             </option>
@@ -109,7 +109,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4" *ngIf="show">
-          <label for="number_doses" class="form-text text-muted font-weight-bold">Cantidad de dosis:</label>
+          <label for="number_doses" class="form-text text-muted font-weight-bold">Cantidad de dosis totales para el tratamiento:</label>
           <input type="number" nbInput fullWidth id="number_doses" formControlName="number_doses" number_doses
             status="{{ isSubmitted && form.controls.number_doses.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
