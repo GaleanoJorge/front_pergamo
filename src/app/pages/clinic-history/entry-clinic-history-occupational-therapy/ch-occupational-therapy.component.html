@@ -10,8 +10,8 @@
             <nb-stepper #stepper [linear]="linearMode">
 
               <nb-step label='Valoracion Terapeutica'>
-                  <ngx-form-entry-valoration-ot *ngIf="chreasonconsultation" [record_id]="record_id"
-                  [data]="chreasonconsultation"></ngx-form-entry-valoration-ot>
+                  <ngx-form-entry-valoration-ot *ngIf="chvaloration" [record_id]="record_id"
+                  [data]="chvaloration"></ngx-form-entry-valoration-ot>
               </nb-step>
 
 
@@ -22,18 +22,18 @@
               </nb-step>
 
               <nb-step label='Historia Ocupacional'>
-                  <ngx-form-entry-occupat-history-valoration-ot *ngIf="chreasonconsultation" [record_id]="record_id"
-                  [data]="chreasonconsultation"></ngx-form-entry-occupat-history-valoration-ot>
+                  <ngx-form-entry-occupat-history-valoration-ot *ngIf="chocuupationalhistory" [record_id]="record_id"
+                  [data]="chocuupationalhistory"></ngx-form-entry-occupat-history-valoration-ot>
               </nb-step>
               
               <nb-step label='Antecedentes Ocupacionales'>
-                  <ngx-form-entry-past-ot *ngIf="chreasonconsultation" [record_id]="record_id"
-                  [data]="chreasonconsultation"></ngx-form-entry-past-ot>
+                  <ngx-form-entry-past-ot *ngIf="chpast" [record_id]="record_id"
+                  [data]="chpast"></ngx-form-entry-past-ot>
               </nb-step>
 
               <nb-step label='Actividades Vida Diaria'>
-                  <ngx-form-entry-daily-activities-ot *ngIf="chreasonconsultation" [record_id]="record_id"
-                  [data]="chreasonconsultation"></ngx-form-entry-daily-activities-ot>
+                  <ngx-form-entry-daily-activities-ot *ngIf="chdailyactivities" [record_id]="record_id"
+                  [data]="chdailyactivities"></ngx-form-entry-daily-activities-ot>
               </nb-step>
 
               <nb-step label='Habilidades Motoras'>

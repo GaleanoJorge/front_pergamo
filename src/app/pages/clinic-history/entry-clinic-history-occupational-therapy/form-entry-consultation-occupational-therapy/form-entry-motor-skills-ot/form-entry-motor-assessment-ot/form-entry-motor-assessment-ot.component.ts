@@ -11,7 +11,7 @@ import { ChExternalCauseService } from '../../../../../../business-controller/ch
   templateUrl: './form-entry-motor-assessment-ot.component.html',
   styleUrls: ['./form-entry-motor-assessment-ot.component.scss']
 })
-export class FormEntryAssessmentOTComponent implements OnInit {
+export class FormEntryMotorAssessmentOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -23,8 +23,6 @@ export class FormEntryAssessmentOTComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public disabled: boolean = false;
-  public showTable;
-  public ch_external_cause: any[];
  
   public arrayObjectives = [
     {
@@ -73,7 +71,6 @@ export class FormEntryAssessmentOTComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private chexternalcauseS: ChExternalCauseService,
   ) {
   }
 
@@ -134,9 +131,6 @@ export class FormEntryAssessmentOTComponent implements OnInit {
 
     });
 
-    this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_external_cause = x;
-    });
     // if (this.data.reason_consultation != '') {
     //   this.form.controls.reason_consultation.disable();
     //   this.form.controls.current_illness.disable();

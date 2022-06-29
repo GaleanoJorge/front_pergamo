@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChReasonConsultationService } from '../../../../../business-controller/ch-reason-consultation.service';
-import { ChExternalCauseService } from '../../../../../business-controller/ch-external-cause.service';
+import { ChEPastOTService } from '../../../../../business-controller/ch_e_past_o_t.service';
 
 
 
@@ -24,25 +23,25 @@ export class FormEntryPastOTComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public ch_external_cause: any[];
   public showTerapy = false;
   public showSmoke = false;
   public showAlcohol = false;
   public showSport = false;
 
+  
+
 
   constructor(
     private formBuilder: FormBuilder,
-    private reasonConsultationS: ChReasonConsultationService,
-    private chexternalcauseS: ChExternalCauseService,
     private toastService: NbToastrService,
+    private ChEPastOTServiceS: ChEPastOTService,
   ) {
   }
 
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        family_base: [],
+        family_base: '',
         number_childrens: '',
         observation_family_struct: '',
         academy: '',
@@ -129,24 +128,115 @@ export class FormEntryPastOTComponent implements OnInit {
       
     })
 
-    this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_external_cause = x;
-    });
-    // if (this.data.reason_consultation != '') {
-    //   this.form.controls.reason_consultation.disable();
-    //   this.form.controls.current_illness.disable();
-    //   this.form.controls.ch_external_cause_id.disable();
-    //   this.disabled = true;
-    // } else {
-    //   this.form.controls.reason_consultation.enable();
-    //   this.form.controls.current_illness.enable();
-    //   this.form.controls.ch_external_cause_id.enable();
-    //   this.disabled = false;
-    // }
+    if (this.data.reason_consultation != '') {
+      this.form.controls.family_base.disable();
+      this.form.controls.number_childrens.disable();
+      this.form.controls.observation_family_struct.disable();
+      this.form.controls.academy.disable();
+      this.form.controls.level_academy.disable();
+      this.form.controls.observation_schooling_training.disable();
+      this.form.controls.terapy.disable();
+      this.form.controls.observation_terapy.disable();
+      this.form.controls.smoke.disable();
+      this.form.controls.f_smoke.disable();
+      this.form.controls.alcohol.disable();
+      this.form.controls.f_alcohol.disable();
+      this.form.controls.sport.disable();
+      this.form.controls.f_sport.disable();
+      this.form.controls.sport_practice_observation.disable();
+      this.form.controls.observation.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.family_base.enable();
+      this.form.controls.number_childrens.enable();
+      this.form.controls.observation_family_struct.enable();
+      this.form.controls.academy.enable();
+      this.form.controls.level_academy.enable();
+      this.form.controls.observation_schooling_training.enable();
+      this.form.controls.terapy.enable();
+      this.form.controls.observation_terapy.enable();
+      this.form.controls.smoke.enable();
+      this.form.controls.f_smoke.enable();
+      this.form.controls.alcohol.enable();
+      this.form.controls.f_alcohol.enable();
+      this.form.controls.sport.enable();
+      this.form.controls.f_sport.enable();
+      this.form.controls.sport_practice_observation.enable();
+      this.form.controls.observation.enable();
+      this.disabled = false;
+    }
   }
 
   async save() {
+    this.isSubmitted = true;
+    if (!this.form.invalid) {
+      this.loading = true;
+      this.showTable = false;
 
+      if (this.data.id) {
+        await this.ChEPastOTServiceS.Update({
+          id: this.data.id,
+          family_base: this.form.controls.family_base.value,
+          number_childrens: this.form.controls.number_childrens.value,
+          observation_family_struct: this.form.controls.observation_family_struct.value,
+          academy: this.form.controls.academy.value,
+          level_academy: this.form.controls.level_academy.value,
+          observation_schooling_training: this.form.controls.observation_schooling_training.value,
+          terapy: this.form.controls.terapy.value,
+          observation_terapy: this.form.controls.observation_terapy.value,
+          smoke: this.form.controls.smoke.value,
+          f_smoke: this.form.controls.f_smoke.value,
+          alcohol: this.form.controls.alcohol.value,
+          f_alcohol: this.form.controls.f_alcohol.value,
+          sport: this.form.controls.sport.value,
+          f_sport: this.form.controls.f_sport.value,
+          sport_practice_observation: this.form.controls.sport_practice_observation.value,
+          observation: this.form.controls.observation.value,
+          
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      } else {
+        await this.ChEPastOTServiceS.Save({
+          family_base: this.form.controls.family_base.value,
+          number_childrens: this.form.controls.number_childrens.value,
+          observation_family_struct: this.form.controls.observation_family_struct.value,
+          academy: this.form.controls.academy.value,
+          level_academy: this.form.controls.level_academy.value,
+          observation_schooling_training: this.form.controls.observation_schooling_training.value,
+          terapy: this.form.controls.terapy.value,
+          observation_terapy: this.form.controls.observation_terapy.value,
+          smoke: this.form.controls.smoke.value,
+          f_smoke: this.form.controls.f_smoke.value,
+          alcohol: this.form.controls.alcohol.value,
+          f_alcohol: this.form.controls.f_alcohol.value,
+          sport: this.form.controls.sport.value,
+          f_sport: this.form.controls.f_sport.value,
+          sport_practice_observation: this.form.controls.sport_practice_observation.value,
+          observation: this.form.controls.observation.value,
+
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+
+
+        });
+      }
+
+    }
   }
 
   checked = false;

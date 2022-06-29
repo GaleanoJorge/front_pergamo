@@ -29,13 +29,11 @@ export class FormEntryValorationOTComponent implements OnInit {
   public ch_external_cause: any[];
   public diagnosis: any[];
 
-  public diagnosis_id;
+  public ch_diagnosis_id;
 
 
   constructor(
     private formBuilder: FormBuilder,
-    private reasonConsultationS: ChReasonConsultationService,
-    private chexternalcauseS: ChExternalCauseService,
     private toastService: NbToastrService,
     private diagnosisS: DiagnosisService,
     private ChEValorationOTS: ChEValorationOTService,
@@ -45,14 +43,10 @@ export class FormEntryValorationOTComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        diagnosis_id: '',
+        ch_diagnosis_id: '',
         recomendations: '',
       };
     }
-
-    this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_external_cause = x;
-    });
 
     this.diagnosisS.GetCollection().then(x => {
       this.diagnosis = x;
@@ -60,31 +54,28 @@ export class FormEntryValorationOTComponent implements OnInit {
 
 
     this.form = this.formBuilder.group({
-      diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id,],
+      ch_diagnosis_id: [this.data[0] ? this.data[0].ch_diagnosis_id : this.data.ch_diagnosis_id,],
       recomendations: [this.data[0] ? this.data[0].recomendations : this.data.recomendations,],
     });
 
-    // if (this.data.reason_consultation != '') {
-    //   this.form.controls.reason_consultation.disable();
-    //   this.form.controls.current_illness.disable();
-    //   this.form.controls.ch_external_cause_id.disable();
-    //   this.disabled = true;
-    // } else {
-    //   this.form.controls.reason_consultation.enable();
-    //   this.form.controls.current_illness.enable();
-    //   this.form.controls.ch_external_cause_id.enable();
-    //   this.disabled = false;
-    // }
+    if (this.data.ocupation != '') {
+      this.form.controls.ch_diagnosis_id.disable();
+      this.form.controls.recomendations.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.ch_diagnosis_id.enable();
+      this.form.controls.recomendations.enable();
+      this.disabled = false;
+    }
   }
 
   saveCode(e): void {
     var localidentify = this.diagnosis.find(item => item.name == e);
-
     if (localidentify) {
-      this.diagnosis_id = localidentify.id;
+      this.ch_diagnosis_id = localidentify.id;
     } else {
-      this.diagnosis_id = null;
-      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
+      this.ch_diagnosis_id = null;
+      this.form.controls.ch_diagnosis_id.setErrors({ 'incorrect': true });
       this.toastService.warning('', 'Debe seleccionar un item de la lista');
     }
   }
@@ -98,7 +89,7 @@ export class FormEntryValorationOTComponent implements OnInit {
       if (this.data.id) {
         await this.ChEValorationOTS.Update({
           id: this.data.id,
-          ch_diagnosis_id: this.form.controls.diagnosis_id.value,
+          ch_diagnosis_id: this.form.controls.ch_diagnosis_id.value,
           recomendations: this.form.controls.recomendations.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
@@ -114,7 +105,7 @@ export class FormEntryValorationOTComponent implements OnInit {
         });
       } else {
         await this.ChEValorationOTS.Save({
-          ch_diagnosis_id: this.diagnosis_id,
+          ch_diagnosis_id: this.ch_diagnosis_id,
           recomendations: this.form.controls.recomendations.value,
           type_record_id: 1,
           ch_record_id: this.record_id,

@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChReasonConsultationService } from '../../../../../../business-controller/ch-reason-consultation.service';
-import { ChExternalCauseService } from '../../../../../../business-controller/ch-external-cause.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChObjectivesTherapyService } from '../../../../../../business-controller/ch_objectives_therapy.service';
 
@@ -14,7 +12,7 @@ import { ChObjectivesTherapyService } from '../../../../../../business-controlle
   templateUrl: './form-entry-motor-fun-pat-ot.component.html',
   styleUrls: ['./form-entry-motor-fun-pat-ot.component.scss']
 })
-export class FormEntryFunPatOTComponent implements OnInit {
+export class FormEntryMotorFunPatOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -27,14 +25,11 @@ export class FormEntryFunPatOTComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public ch_external_cause: any[];
 
 
 
   constructor(
     private formBuilder: FormBuilder,
-    private reasonConsultationS: ChReasonConsultationService,
-    private chexternalcauseS: ChExternalCauseService,
     private toastService: NbToastrService,
     private ObjectivesS: ChObjectivesTherapyService,
     private route: ActivatedRoute,
@@ -83,9 +78,6 @@ export class FormEntryFunPatOTComponent implements OnInit {
 
     });
 
-    this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_external_cause = x;
-    });
     // if (this.data.reason_consultation != '') {
     //   this.form.controls.reason_consultation.disable();
     //   this.form.controls.current_illness.disable();

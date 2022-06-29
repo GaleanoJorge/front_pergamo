@@ -14,7 +14,7 @@ import { ChObjectivesTherapyService } from '../../../../../../business-controlle
   templateUrl: './form-entry-motor-int-pat-ot.component.html',
   styleUrls: ['./form-entry-motor-int-pat-ot.component.scss']
 })
-export class FormEntryIntPatOTComponent implements OnInit {
+export class FormEntryMotorIntPatOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;

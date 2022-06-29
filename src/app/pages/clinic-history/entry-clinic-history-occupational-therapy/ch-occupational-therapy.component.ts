@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
-import { ChReasonConsultationService } from '../../../business-controller/ch-reason-consultation.service';
-import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
-import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.service';
-import { ChPhysicalExamService } from '../../../business-controller/ch_physical_exam.service';
+import { ChEOccHistoryOTService } from '../../../business-controller/ch_e_occ_history_o_t.service';
+import { ChEValorationOTService } from '../../../business-controller/ch_e_valoration_o_t.service';
+import { ChEPastOTService } from '../../../business-controller/ch_e_past_o_t.service';
+import { ChEDailyActivitiesOTService } from '../../../business-controller/ch_e_daily_activities_o_t.service';
 
 
 @Component({
@@ -25,6 +25,10 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public title;
   public routes = [];
   public user_id;
+  public chvaloration: any[];
+  public chpast: any[];
+  public chocuupationalhistory: any[];
+  public chdailyactivities: any[];
   public chreasonconsultation: any[];
   public physical: any[];
   public chvitsigns: any[];
@@ -44,10 +48,10 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private chreasonconsultS: ChReasonConsultationService,
-    private chphysicalS: ChPhysicalExamService,
-    private chvitalSignsS: ChVitalSignsService,
-    private chdiagnosisS: ChDiagnosisService,
+    private ChEOccHistoryOTServiceS: ChEOccHistoryOTService,
+    private ChEValorationOTService: ChEValorationOTService,
+    private ChEPastOTService: ChEPastOTService,
+    private ChEDailyActivitiesOTService: ChEDailyActivitiesOTService,
     public userChangeS: UserChangeService,
 
 
@@ -63,31 +67,29 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
       };
     }
 
-    await this.chreasonconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chreasonconsultation = x;
+    await this.ChEValorationOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.chvaloration = x;
+      
     });
-    await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chvitsigns = x;
+    await this.ChEOccHistoryOTServiceS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.chocuupationalhistory = x;
+      
     });
-    await this.chdiagnosisS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chdiagnosis = x;
+    await this.ChEPastOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.chpast = x;
+      
     });
-    await this.chphysicalS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.physical = x;
+    await this.ChEDailyActivitiesOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.chdailyactivities = x;
+      
     });
 
+
     this.form = this.formBuilder.group({
-      ch_entry_review_system_id: [this.data.ch_entry_review_system_id, Validators.compose([Validators.required])],//el que es ciclico
-      diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
-      ch_diagnosis_id: [this.data.ch_diagnosis_id, Validators.compose([Validators.required])],
-      ch_diagnosis_class_id: [this.data.ch_diagnosis_class_id, Validators.compose([Validators.required])],
-      ch_diagnosis_type_id: [this.data.ch_diagnosis_type_id, Validators.compose([Validators.required])],
-      ch_vital_hydration_id: [this.data.ch_vital_hydration_id, Validators.compose([Validators.required])],
-      ch_vital_ventilated_id: [this.data.ch_vital_ventilated_id, Validators.compose([Validators.required])],
-      ch_vital_temperature_id: [this.data.ch_vital_temperature_id, Validators.compose([Validators.required])],
-      ch_vital_neurological_id: [this.data.ch_vital_neurological_id, Validators.compose([Validators.required])],
-      ch_vital_signs_id: [this.data.ch_vital_signs_id, Validators.compose([Validators.required])],
-      ch_entry_id: [this.data.ch_entry_id, Validators.compose([Validators.required])],
+      ch_e_occ_history_o_t_id: [this.data.ch_e_occ_history_o_t_id, Validators.compose([Validators.required])],
+      ch_e_valoration_o_t: [this.data.ch_e_valoration_o_t, Validators.compose([Validators.required])],
+      ch_e_past_o_t: [this.data.ch_e_valoration_o_t, Validators.compose([Validators.required])],
+      ch_e_daily_activities_o_t: [this.data.ch_e_valoration_o_t, Validators.compose([Validators.required])],
 
     });
   }
@@ -96,24 +98,13 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
     if (!this.form.invalid && this.saveEntry) {
       this.loading = true;
       if (this.data.id) { }
-      await this.chreasonconsultS.Update({});
-      await this.chvitalSignsS.Update({});
+      await this.ChEValorationOTService.Update({});
+      await this.ChEOccHistoryOTServiceS.Update({});
+      await this.ChEPastOTService.Update({});
+      await this.ChEDailyActivitiesOTService.Update({});
+
+
     }
-  }
-
-  saveMcEa() {
-  }
-
-  saveRxSystem() {
-  }
-
-  saveExFisic() {
-  }
-
-  saveVitalSgns() {
-  }
-  
-  saveDiagnostic() {
   }
 
   receiveMessage($event) {

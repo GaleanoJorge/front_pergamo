@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChReasonConsultationService } from '../../../../../business-controller/ch-reason-consultation.service';
-import { ChExternalCauseService } from '../../../../../business-controller/ch-external-cause.service';
+import { ChEDailyActivitiesOTService } from '../../../../../business-controller/ch_e_daily_activities_o_t.service';
 
 
 
@@ -24,13 +23,12 @@ export class FormEntryDailyActivitiesOTComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public ch_external_cause: any[];
+
 
 
   constructor(
     private formBuilder: FormBuilder,
-    private reasonConsultationS: ChReasonConsultationService,
-    private chexternalcauseS: ChExternalCauseService,
+    private ChEDailyActivitiesOTService: ChEDailyActivitiesOTService,
     private toastService: NbToastrService,
   ) {
   }
@@ -38,7 +36,6 @@ export class FormEntryDailyActivitiesOTComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        activity: '',
         cook: '',
         kids: '',
         wash: '',
@@ -70,7 +67,6 @@ export class FormEntryDailyActivitiesOTComponent implements OnInit {
 
 
     this.form = this.formBuilder.group({
-      activity: [this.data[0] ? this.data[0].activity : this.data.activity, Validators.compose([Validators.required])],
       cook: [this.data[0] ? this.data[0].cook : this.data.cook, Validators.compose([Validators.required])],
       kids: [this.data[0] ? this.data[0].kids : this.data.kids, Validators.compose([Validators.required])],
       wash: [this.data[0] ? this.data[0].wash : this.data.wash, Validators.compose([Validators.required])],
@@ -96,24 +92,143 @@ export class FormEntryDailyActivitiesOTComponent implements OnInit {
       observation_test: [this.data[0] ? this.data[0].observation_test : this.data.observation_test,],
     });
 
-    this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_external_cause = x;
-    });
-    // if (this.data.reason_consultation != '') {
-    //   this.form.controls.reason_consultation.disable();
-    //   this.form.controls.current_illness.disable();
-    //   this.form.controls.ch_external_cause_id.disable();
-    //   this.disabled = true;
-    // } else {
-    //   this.form.controls.reason_consultation.enable();
-    //   this.form.controls.current_illness.enable();
-    //   this.form.controls.ch_external_cause_id.enable();
-    //   this.disabled = false;
-    // }
+    if (this.data.cook != '') {
+      this.form.controls.cook.disable();
+      this.form.controls.kids.disable();
+      this.form.controls.wash.disable();
+      this.form.controls.game.disable();
+      this.form.controls.ironing.disable();
+      this.form.controls.walk.disable();
+      this.form.controls.clean.disable();
+      this.form.controls.sport.disable();
+      this.form.controls.decorate.disable();
+      this.form.controls.social.disable();
+      this.form.controls.act_floristry.disable();
+      this.form.controls.friends.disable();
+      this.form.controls.read.disable();
+      this.form.controls.politic.disable();
+      this.form.controls.view_tv.disable();
+      this.form.controls.religion.disable();
+      this.form.controls.write.disable();
+      this.form.controls.look.disable();
+      this.form.controls.arrange.disable();
+      this.form.controls.travel.disable();
+      this.form.controls.observation_activity.disable();
+      this.form.controls.test.disable();
+      this.form.controls.observation_test.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.cook.enable();
+      this.form.controls.kids.enable();
+      this.form.controls.wash.enable();
+      this.form.controls.game.enable();
+      this.form.controls.ironing.enable();
+      this.form.controls.walk.enable();
+      this.form.controls.clean.enable();
+      this.form.controls.sport.enable();
+      this.form.controls.decorate.enable();
+      this.form.controls.social.enable();
+      this.form.controls.act_floristry.enable();
+      this.form.controls.friends.disable();
+      this.form.controls.read.enable();
+      this.form.controls.politic.enable();
+      this.form.controls.view_tv.enable();
+      this.form.controls.religion.enable();
+      this.form.controls.write.enable();
+      this.form.controls.look.enable();
+      this.form.controls.arrange.enable();
+      this.form.controls.travel.disable();
+      this.form.controls.observation_activity.enable();
+      this.form.controls.test.enable();
+      this.form.controls.observation_test.enable();
+      this.disabled = false;
+    }
   }
 
   async save() {
+    this.isSubmitted = true;
+    if (!this.form.invalid) {
+      this.loading = true;
+      this.showTable = false;
 
+      if (this.data.id) {
+        await this.ChEDailyActivitiesOTService.Update({
+          id: this.data.id,
+          cook: this.form.controls.cook.value,
+          kids: this.form.controls.kids.value,
+          wash: this.form.controls.wash.value,
+          game: this.form.controls.game.value,
+          ironing: this.form.controls.ironing.value,
+          walk: this.form.controls.walk.value,
+          clean: this.form.controls.clean.value,
+          sport: this.form.controls.sport.value,
+          decorate: this.form.controls.decorate.value,
+          social: this.form.controls.social.value,
+          act_floristry: this.form.controls.act_floristry.value,
+          friends: this.form.controls.friends.value,
+          read: this.form.controls.read.value,
+          politic: this.form.controls.politic.value,
+          view_tv: this.form.controls.view_tv.value,
+          religion: this.form.controls.religion.value,
+          write: this.form.controls.write.value,
+          look: this.form.controls.look.value,
+          arrange: this.form.controls.arrange.value,
+          travel: this.form.controls.travel.value,
+          observation_activity: this.form.controls.observation_activity.value,
+          test: this.form.controls.test.value,
+          observation_test: this.form.controls.observation_test.value,
+          
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      } else {
+        await this.ChEDailyActivitiesOTService.Save({
+          cook: this.form.controls.cook.value,
+          kids: this.form.controls.kids.value,
+          wash: this.form.controls.wash.value,
+          game: this.form.controls.game.value,
+          ironing: this.form.controls.ironing.value,
+          walk: this.form.controls.walk.value,
+          clean: this.form.controls.clean.value,
+          sport: this.form.controls.sport.value,
+          decorate: this.form.controls.decorate.value,
+          social: this.form.controls.social.value,
+          act_floristry: this.form.controls.act_floristry.value,
+          friends: this.form.controls.friends.value,
+          read: this.form.controls.read.value,
+          politic: this.form.controls.politic.value,
+          view_tv: this.form.controls.view_tv.value,
+          religion: this.form.controls.religion.value,
+          write: this.form.controls.write.value,
+          look: this.form.controls.look.value,
+          arrange: this.form.controls.arrange.value,
+          travel: this.form.controls.travel.value,
+          observation_activity: this.form.controls.observation_activity.value,
+          test: this.form.controls.test.value,
+          observation_test: this.form.controls.observation_test.value,
+
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+
+
+        });
+      }
+
+    }
   }
 
   checked = false;

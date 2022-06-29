@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChReasonConsultationService } from '../../../../../business-controller/ch-reason-consultation.service';
-import { ChExternalCauseService } from '../../../../../business-controller/ch-external-cause.service';
+import { NbToast, NbToastrService } from '@nebular/theme';
+import { ChEOccHistoryOTService } from '../../../../../business-controller/ch_e_occ_history_o_t.service';
 
 
 
@@ -23,12 +22,12 @@ export class FormEntryOccupatHistoryValorationOTComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public ch_external_cause: any[];
 
 
   constructor(
     private formBuilder: FormBuilder,
-    private chexternalcauseS: ChExternalCauseService,
+    private ChEOccHistoryOTServiceS: ChEOccHistoryOTService,
+    private toastService: NbToastrService
   ) {
   }
 
@@ -47,40 +46,101 @@ export class FormEntryOccupatHistoryValorationOTComponent implements OnInit {
       };
     }
 
-    this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_external_cause = x;
-    });
-
 
 
     this.form = this.formBuilder.group({
-      ocupation: [this.data[0] ? this.data[0].ocupation : this.data.ocupation, Validators.compose([Validators.required])],
-      enterprice_employee: [this.data[0] ? this.data[0].enterprice_employee : this.data.enterprice_employee, Validators.compose([Validators.required])],
-      work_employee: [this.data[0] ? this.data[0].work_employee : this.data.work_employee, Validators.compose([Validators.required])],
-      shift_employee: [this.data[0] ? this.data[0].shift_employee : this.data.shift_employee, Validators.compose([Validators.required])],
+      ocupation: [this.data[0] ? this.data[0].ocupation : this.data.ocupation],
+      enterprice_employee: [this.data[0] ? this.data[0].enterprice_employee : this.data.enterprice_employee],
+      work_employee: [this.data[0] ? this.data[0].work_employee : this.data.work_employee],
+      shift_employee: [this.data[0] ? this.data[0].shift_employee : this.data.shift_employee],
       observation_employee: [this.data[0] ? this.data[0].observation_employee : this.data.observation_employee,],
-      work_independent: [this.data[0] ? this.data[0].work_independent : this.data.work_independent, Validators.compose([Validators.required])],
-      shift_independent: [this.data[0] ? this.data[0].shift_independent : this.data.shift_independent, Validators.compose([Validators.required])],
+      work_independent: [this.data[0] ? this.data[0].work_independent : this.data.work_independent],
+      shift_independent: [this.data[0] ? this.data[0].shift_independent : this.data.shift_independent],
       observation_independent: [this.data[0] ? this.data[0].observation_independent : this.data.observation_independent,],
-      observation_home: [this.data[0] ? this.data[0].observation_home : this.data.observation_home, Validators.compose([Validators.required])],
+      observation_home: [this.data[0] ? this.data[0].observation_home : this.data.observation_home],
     });
 
-    // if (this.data.reason_consultation != '') {
-    //   this.form.controls.reason_consultation.disable();
-    //   this.form.controls.current_illness.disable();
-    //   this.form.controls.ch_external_cause_id.disable();
-    //   this.disabled = true;
-    // } else {
-    //   this.form.controls.reason_consultation.enable();
-    //   this.form.controls.current_illness.enable();
-    //   this.form.controls.ch_external_cause_id.enable();
-    //   this.disabled = false;
-    // }
+    if (this.data.ocupation != '') {
+      this.form.controls.ocupation.disable();
+      this.form.controls.enterprice_employee.disable();
+      this.form.controls.work_employee.disable();
+      this.form.controls.shift_employee.disable();
+      this.form.controls.observation_employee.disable();
+      this.form.controls.work_independent.disable();
+      this.form.controls.shift_independent.disable();
+      this.form.controls.observation_independent.disable(); 
+      this.form.controls.observation_home.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.ocupation.enable();
+      this.form.controls.enterprice_employee.enable();
+      this.form.controls.work_employee.enable();
+      this.form.controls.shift_employee.enable();
+      this.form.controls.observation_employee.enable();
+      this.form.controls.work_independent.enable();
+      this.form.controls.shift_independent.enable();
+      this.form.controls.observation_independent.enable();
+      this.form.controls.observation_home.enable();
+      this.disabled = false;
+    }
   }
 
-  async save() 
-  {
-    
+  async save() {
+    this.isSubmitted = true;
+    if (!this.form.invalid) {
+      this.loading = true;
+      this.showTable = false;
+
+      if (this.data.id) {
+        await this.ChEOccHistoryOTServiceS.Update({
+          id: this.data.id,
+          ocupation: this.form.controls.ocupation.value,
+          enterprice_employee: this.form.controls.enterprice_employee.value,
+          work_employee: this.form.controls.work_employee.value,
+          shift_employee: this.form.controls.shift_employee.value,
+          observation_employee: this.form.controls.observation_employee.value,
+          work_independent: this.form.controls.work_independent.value,
+          shift_independent: this.form.controls.shift_independent.value,
+          observation_independent: this.form.controls.observation_independent.value,
+          observation_home: this.form.controls.observation_home.value,
+
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      } else {
+        await this.ChEOccHistoryOTServiceS.Save({
+          ocupation: this.form.controls.ocupation.value,
+          enterprice_employee: this.form.controls.enterprice_employee.value,
+          work_employee: this.form.controls.work_employee.value,
+          shift_employee: this.form.controls.shift_employee.value,
+          observation_employee: this.form.controls.observation_employee.value,
+          work_independent: this.form.controls.work_independent.value,
+          shift_independent: this.form.controls.shift_independent.value,
+          observation_independent: this.form.controls.observation_independent.value,
+          observation_home: this.form.controls.observation_home.value,
+
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+
+
+        });
+      }
+
+    }
   }
 
 }

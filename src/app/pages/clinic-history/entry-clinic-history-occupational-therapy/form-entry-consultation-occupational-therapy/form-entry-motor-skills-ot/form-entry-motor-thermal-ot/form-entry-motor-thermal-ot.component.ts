@@ -11,7 +11,7 @@ import { ChExternalCauseService } from '../../../../../../business-controller/ch
   templateUrl: './form-entry-motor-thermal-ot.component.html',
   styleUrls: ['./form-entry-motor-thermal-ot.component.scss']
 })
-export class FormEntryThermalOTComponent implements OnInit {
+export class FormEntryMotorThermalOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
