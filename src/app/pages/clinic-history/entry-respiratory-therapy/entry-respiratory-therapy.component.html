@@ -5,7 +5,8 @@
         <nb-stepper #stepper [linear]="linearMode"> -->
         <!-- <nb-stepper orientation="vertical" #stepper [linear]="linearMode">  -->
           <nb-step [stepControl]="nameForm" label="Valoración">
-            <ngx-form-reason-consultation-respiratory-therapy [record_id]="record_id">
+            <ngx-form-reason-consultation-respiratory-therapy  *ngIf="chrespiratoryconsultation" [record_id]="record_id"
+            [data]="chrespiratoryconsultation">
             </ngx-form-reason-consultation-respiratory-therapy>
 
           </nb-step>
