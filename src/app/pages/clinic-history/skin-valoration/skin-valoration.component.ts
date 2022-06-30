@@ -13,6 +13,7 @@ export class SkinValorationComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id;
+  @Input() type_record_id;
 
   linearMode = false;
   public messageError = null;
@@ -21,7 +22,7 @@ export class SkinValorationComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'DIAGNOSTICO', 'ZONA EXAMINADA', 'EXUDADO', 'TIPO DE EXUDADO', 'SIGNOS DE INFECCIÓN', 'PIER CIRCUNCIDADA'
+    'DIAGNOSTICO', 'ZONA EXAMINADA', 'EXUDADO', 'TIPO DE EXUDADO', 'SIGNOS DE INFECCIÓN', 'PIEL CIRCUNCIDANTE', 'ESTADO DE LA PIEL'
   ];
 
   public isSubmitted: boolean = false;
@@ -44,6 +45,13 @@ export class SkinValorationComponent implements OnInit {
       },
       body_region: {
         title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
+      },
+      skin_status: {
+        title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
