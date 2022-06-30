@@ -189,6 +189,8 @@ import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-t
 import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
+import { NursingPhysicalExamComponent } from './nursing-physical-exam/nursing-physical-exam.component';
+import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-nursing-physical-exam/form-nursing-physical-exam.component';
 
 @NgModule({
   imports: [
@@ -219,6 +221,9 @@ import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.co
     NbCheckboxModule,
   ],
   declarations: [
+
+    NursingPhysicalExamComponent,
+    FormNursingPhysicalExamComponent,
 
     NursingProcedureComponent,
     FormNursingProcedureComponent,
