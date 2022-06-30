@@ -165,7 +165,7 @@ export class Actions3Component implements ViewCell {
 
   onChanges() {
     this.form2.get('flat_id').valueChanges.subscribe(val => {
-      console.log(val);
+      // console.log(val);
       if (val === '') {
         this.pavilion = [];
       } else {
