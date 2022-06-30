@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChDiagnosticAidsService } from '../../../business-controller/ch_diagnostic_aids.service';
 
 
@@ -42,7 +42,7 @@ export class FormaDiagnosticTherapyComponent implements OnInit {
       };
     }
     this.form = this.formBuilder.group({
-      aids: [this.data[0] ? this.data[0].aids : this.data.aids,],
+      aids: [this.data[0] ? this.data[0].aids : this.data.aids,Validators.compose([Validators.required])],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
            
     });    
@@ -98,6 +98,8 @@ export class FormaDiagnosticTherapyComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 
