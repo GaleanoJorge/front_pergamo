@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChRtInspectionService } from '../../../business-controller/ch_rt_inspection.service';
 
 
@@ -14,6 +14,7 @@ export class FormIspectionTherapyComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -44,11 +45,11 @@ export class FormIspectionTherapyComponent implements OnInit {
       };
     }
     this.form = this.formBuilder.group({
-      expansion: [this.data[0] ? this.data[0].expansion : this.data.expansion,],
-      masses: [this.data[0] ? this.data[0].masses : this.data.masses,],
-      crepitations: [this.data[0] ? this.data[0].crepitations : this.data.crepitations,],
-      fracturues: [this.data[0] ? this.data[0].fracturues : this.data.fracturues,],
-      airway: [this.data[0] ? this.data[0].airway : this.data.airway,],
+      expansion: [this.data[0] ? this.data[0].expansion : this.data.expansion,Validators.compose([Validators.required])],
+      masses: [this.data[0] ? this.data[0].masses : this.data.masses,Validators.compose([Validators.required])],
+      crepitations: [this.data[0] ? this.data[0].crepitations : this.data.crepitations,Validators.compose([Validators.required])],
+      fracturues: [this.data[0] ? this.data[0].fracturues : this.data.fracturues,Validators.compose([Validators.required])],
+      airway: [this.data[0] ? this.data[0].airway : this.data.airway,Validators.compose([Validators.required])],
            
     });    
 
@@ -92,6 +93,8 @@ export class FormIspectionTherapyComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.setValue({  expansion: '', masses: '',  crepitations:'', fracturues:'', airway:''});
           if (this.saved) {
             this.saved();
           }
@@ -107,6 +110,8 @@ export class FormIspectionTherapyComponent implements OnInit {
         });
       }
 
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 
