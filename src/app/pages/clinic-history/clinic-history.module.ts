@@ -189,6 +189,7 @@ import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-t
 import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
+import { SuppliesTherapyComponent } from './supplies-therapy/supplies-therapy.component';
 
 @NgModule({
   imports: [
@@ -279,6 +280,7 @@ import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.co
 
     FormSessionsTherapyComponent,
     FormSuppliesTherapyComponent,
+    SuppliesTherapyComponent,
 
     SkinValorationComponent,
     FormSkinValorationComponent,
