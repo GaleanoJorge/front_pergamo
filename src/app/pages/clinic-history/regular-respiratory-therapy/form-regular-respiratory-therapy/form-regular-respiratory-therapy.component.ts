@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChReasonConsultationService } from '../../../../business-controller/ch-reason-consultation.service';
 import { ChExternalCauseService } from '../../../../business-controller/ch-external-cause.service';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
@@ -64,8 +64,8 @@ export class FormRegularRespiratoryTherapyComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id,],
-      therapeutic_diagnosis_id: [this.data[0] ? this.data[0].therapeutic_diagnosis_id : this.data.therapeutic_diagnosis_id,],
-      reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation,],
+      therapeutic_diagnosis_id: [this.data[0] ? this.data[0].therapeutic_diagnosis_id : this.data.therapeutic_diagnosis_id,Validators.compose([Validators.required])],
+      reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation,Validators.compose([Validators.required])],
     });
 
   }
