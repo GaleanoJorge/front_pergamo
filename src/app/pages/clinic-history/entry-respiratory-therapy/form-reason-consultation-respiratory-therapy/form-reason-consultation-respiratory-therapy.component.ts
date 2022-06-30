@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ChReasonConsultationService } from '../../../../business-controller/ch-reason-consultation.service';
-import { ChExternalCauseService } from '../../../../business-controller/ch-external-cause.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { ChRespiratoryTherapyService } from '../../../../business-controller/ch_respiratory_therapy.service';
 
@@ -22,70 +20,107 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
   public form: FormGroup;
   public isSubmitted: boolean = false;
   public saved: any = null;
-  public loading: boolean = false;
+  public loading: boolean = true;
   public disabled: boolean = false;
   public showTable;
   public ch_external_cause: any[];
   public diagnosis: any[] = [];
   public diagnosis_therapeutyc;
   public diagnosis_medical;
+  public medical_diagnosis_id;
   public therapeutic_diagnosis_id;
   public reason_consultation;
+  public loadAuxData = true;
 
 
   constructor(
     private formBuilder: FormBuilder,
-    private chexternalcauseS: ChExternalCauseService,
     private toastService: NbToastrService,
     private diagnosisS: DiagnosisService,
     private respiratoryS: ChRespiratoryTherapyService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        diagnosis_id: '',
+        medical_diagnosis_id: '',
         therapeutic_diagnosis_id: '',
         reason_consultation: '',
-        
       };
+
     }
+    this.loadForm(false).then();
+    await Promise.all([
+      this.GetAux(),
+    ]);
+    this.loadAuxData = false;
+    this.loadForm();
 
-    this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
-      this.ch_external_cause = x;
-    });
 
-    this.diagnosisS.GetCollection().then(x => {
+  }
+
+  async GetAux() {
+    await this.diagnosisS.GetCollection().then(x => {
       this.diagnosis = x;
+      this.loading = false;
     });
+
+    return Promise.resolve(true);
+  }
+
+  async loadForm(force = true) {
+    if (this.loadAuxData && force) return false;
 
 
     this.form = this.formBuilder.group({
-      diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id,],
-      therapeutic_diagnosis_id: [this.data[0] ? this.data[0].therapeutic_diagnosis_id : this.data.therapeutic_diagnosis_id,],
-      reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation,],
+      medical_diagnosis_id: [this.data[0] ? this.returnCode(this.data[0].medical_diagnosis_id) : this.data.medical_diagnosis_id,],
+      therapeutic_diagnosis_id: [this.data[0] ? this.returnCode(this.data[0].therapeutic_diagnosis_id) : this.data.therapeutic_diagnosis_id,Validators.compose([Validators.required])],
+      reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation, Validators.compose([Validators.required])],
     });
 
+    if (this.data.medical_diagnosis_id != '') {
+      this.form.controls.medical_diagnosis_id.disable();
+      this.form.controls.therapeutic_diagnosis_id.disable();
+      this.form.controls.reason_consultation.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.medical_diagnosis_id.enable();
+      this.form.controls.therapeutic_diagnosis_id.enable();
+      this.form.controls.reason_consultation.enable();
+      this.disabled = false;
+    }
+
+  }
+
+  returnCode(diagnosis_id){
+    var localName = this.diagnosis.find(item => item.id == diagnosis_id);
+    var nombre_diagnosis
+    if(localName){
+      nombre_diagnosis = localName.name;
+    } else {
+      nombre_diagnosis = ''
+    }
+    return nombre_diagnosis;
   }
 
   saveCode(e, valid): void {
     var localidentify = this.diagnosis.find(item => item.name == e);
 
     if (localidentify) {
-      if (valid==1){
+      if (valid == 1) {
         this.diagnosis_medical = localidentify.id;
       } else {
         this.diagnosis_therapeutyc = localidentify.id;
       }
     } else {
-      if (valid==1){
+      if (valid == 1) {
         this.diagnosis_medical = null;
       } else {
         this.diagnosis_therapeutyc = null;
       }
       this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
-      this.form.controls.diagnosis_id.setErrors({'incorrect': true});
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
 
@@ -122,6 +157,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.disabled=true;
           if (this.saved) {
             this.saved();
           }
@@ -137,6 +173,8 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
         });
       }
 
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 
