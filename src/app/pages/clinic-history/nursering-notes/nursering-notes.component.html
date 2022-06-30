@@ -8,8 +8,8 @@
             <ngx-notes-description [data]="null"></ngx-notes-description>
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="Rx Sistemas">
-                <ngx-system-exam [record_id]="record_id"></ngx-system-exam>     
+          <nb-step [stepControl]="nameForm" label="Ex Físico">
+                <ngx-nursing-physical-exam [record_id]="record_id" [type_record_id]="3" [enfermery]="true"></ngx-nursing-physical-exam>     
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
@@ -17,15 +17,15 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Procedimientos de enfermeria">
-            <ngx-nursing-procedure [record_id]="record_id"></ngx-nursing-procedure> 
+            <ngx-nursing-procedure [record_id]="record_id" [type_record_id]="type_record_id"></ngx-nursing-procedure> 
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Plan de cuidados">
-            <ngx-care-plan [record_id]="record_id"></ngx-care-plan>
+            <ngx-care-plan [record_id]="record_id" [type_record_id]="type_record_id"></ngx-care-plan>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Control de líquidos">
-            <ngx-liquid-control [record_id]="record_id" ></ngx-liquid-control>
+            <ngx-liquid-control [record_id]="record_id" [type_record_id]="type_record_id" ></ngx-liquid-control>
           </nb-step>
 
         </nb-stepper>
