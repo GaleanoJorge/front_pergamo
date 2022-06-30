@@ -31,6 +31,24 @@ export class ChSkinValorationService {
       });
   }
 
+  ByRecord(record, type): Promise<ChSkinValoration[]> {
+    let servObj = new ServiceObject('ch_skin_valoration/by_record/' + record + '/' + type + '?pagination=false');
+
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.ch_skin_valoration = <ChSkinValoration[]>servObj.data.ch_skin_valoration;
+
+        return Promise.resolve(this.ch_skin_valoration);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(ch_skin_valoration: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_skin_valoration');
     servObj.data = ch_skin_valoration;
