@@ -186,7 +186,7 @@ export class FormUsersComponent implements OnInit {
       customData: 'locality'
     };
     this.campusData = {
-      selectedOptions: this.data!=null?this.data.users_campus:[],
+      selectedOptions: this.data != null ? this.data.users_campus : [],
       entity: 'campus',
       customData: 'campus'
     };
@@ -262,7 +262,7 @@ export class FormUsersComponent implements OnInit {
     } else {
       this.activities_id = null;
       this.toastService.warning('', 'Debe seleccionar un item de la lista');
-      this.form.controls.activities_id.setErrors({'incorrect': true});
+      this.form.controls.activities_id.setErrors({ 'incorrect': true });
     }
   }
   returnProfession(n): string {
@@ -340,10 +340,6 @@ export class FormUsersComponent implements OnInit {
       // ],
       gender_type: [
         this.GetData('gender_type'),
-      ],
-      email: [
-        this.GetData('email'),
-        Validators.compose([Validators.required, Validators.email]),
       ],
       phone: [
         this.GetData('phone'),
@@ -467,6 +463,23 @@ export class FormUsersComponent implements OnInit {
     };
     if (this.data) {
       this.age = this.data.age;
+    }
+    if (this.role != 2) {
+      configForm = {
+        ...configForm,
+        email: [
+          this.GetData('email'),
+          Validators.compose([Validators.required, Validators.email]),
+        ],
+      }
+    } else {
+      configForm = {
+        ...configForm,
+        email: [
+          this.GetData('email'),
+
+        ],
+      }
     }
     if (this.roles[0].role_type_id == 2) {
       configForm = {
@@ -686,12 +699,12 @@ export class FormUsersComponent implements OnInit {
         // formData.append('type_professional_id', data.type_professional_id.value);
         formData.append('attends_external_consultation', data.attends_external_consultation.value === true ? '1' : '0');
         formData.append('serve_multiple_patients', data.serve_multiple_patients.value === true ? '1' : '0');
-        formData.append('firm', this.signatureImage);
+        formData.append('firm_file', this.signatureImage);
         formData.append('PAD_service', data.PAD_service.value === true ? '1' : '0');
         // formData.append('PAD_patient_quantity', data.PAD_patient_quantity.value === false ? null : data.PAD_patient_quantity.value);
       }
 
-      if(this.isTH){
+      if (this.isTH) {
         formData.append('isTH', this.isTH);
 
       }
@@ -742,12 +755,12 @@ export class FormUsersComponent implements OnInit {
               await this.router.navigateByUrl(this.routeBack);
             else
               this.redirectTo = '/public/register/' + this.route.snapshot.params.role + '/success';
-              this.messageEvent.emit(true);
+            this.messageEvent.emit(true);
             // await this.router.navigateByUrl('/auth');
           } else {
             if (this.routeBack)
               await this.router.navigateByUrl(this.routeBack);
-              this.messageEvent.emit(true);
+            this.messageEvent.emit(true);
           }
         } else {
           await this.router.navigateByUrl(this.routeBack);
@@ -758,6 +771,7 @@ export class FormUsersComponent implements OnInit {
 
       } catch (x) {
         this.messageError = x;
+        this.toastService.warning('', "El número de documento ya se encuentra registrado.")
         this.isSubmitted = false;
         this.loading = false;
       }
@@ -1030,11 +1044,11 @@ export class FormUsersComponent implements OnInit {
     var day = today.getDate() - (age.getDate() + 1);
     if (m < 0) {
       year--;
-      if(year){
+      if (year) {
 
       }
       m = m + 12;
-    } 
+    }
     // else if (m == 0){
     //   if (day < 0){
     //     day = Math.abs(day);
@@ -1044,7 +1058,7 @@ export class FormUsersComponent implements OnInit {
     // }
     if (day < 0) {
       m--;
-      if(m < 0 ){
+      if (m < 0) {
         year--;
         m = m + 12;
       }
@@ -1082,6 +1096,6 @@ export class FormUsersComponent implements OnInit {
   }
 
   receiveCampusMessage($event) {
-      this.campusData.selectedOptions = $event;
+    this.campusData.selectedOptions = $event;
   }
 }

@@ -12,6 +12,7 @@ import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
   NbChatModule,
   NbCardModule,
@@ -25,6 +26,7 @@ import {
   NbButtonModule,
   NbAlertModule,
   NbRadioModule,
+  NbIconModule,
 } from '@nebular/theme';
 import { LoginComponent } from './pages/login/login.component';
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
@@ -48,6 +50,8 @@ import { PagesModule } from './pages/pages.module';
     NbButtonModule,
     NbInputModule,
     NbAlertModule,
+    NbEvaIconsModule,
+    NbIconModule,
     NbCardModule,
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
@@ -62,10 +66,12 @@ import { PagesModule } from './pages/pages.module';
   bootstrap: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    DateFormatPipe
   ],
   exports: [
     PagesModule,
     DateFormatPipe,
+    NbEvaIconsModule
   ],
 })
 export class AppModule {
