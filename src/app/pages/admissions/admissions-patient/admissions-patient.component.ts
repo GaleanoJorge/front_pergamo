@@ -37,6 +37,8 @@ export class AdmissionsPatientComponent implements OnInit {
   public bed_id;
   public pavilion;
   public patient;
+  public admission_route_id;
+  public admission_id;
 
 
 
@@ -65,6 +67,8 @@ export class AdmissionsPatientComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
+          this.admission_id=value[value.length - 1].id;
+          this.admission_route_id=value[value.length - 1].admission_route_id;
           this.ambit=value[value.length - 1].scope_of_attention.name;
           this.program=value[value.length - 1].program.name;
           if(value[value.length - 1].pavilion){
@@ -211,6 +215,7 @@ export class AdmissionsPatientComponent implements OnInit {
       context: {
         title: 'Crear nuevo ingreso',
         user_id: this.patient_id,
+        admission_id:this.admission_id,
         saved: this.RefreshData.bind(this),
       },
     });
