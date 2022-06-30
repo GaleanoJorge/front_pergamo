@@ -13,6 +13,7 @@ import { ContractService } from '../../../../business-controller/contract.servic
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { BriefcaseService } from '../../../../business-controller/briefcase.service';
 import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
+import { CompanyService } from '../../../../business-controller/company.service';
 
 
 
@@ -26,6 +27,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user_id: any = null;
+  @Input() admission_id: null;
   @Input() stored: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -44,6 +46,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public flat: any[];
   public bed: any[];
   public contract: any[];
+  public eps: any[];
   public diagnosis: any[] = [];
   public briefcase: any[] = [];
   public procedures: any[] = [];
@@ -53,7 +56,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public show_inputs: boolean = false;
   public diagnosis_id;
   public showTable;
-  public admission_id: number = 0;
+   public admissions_id: number = 0;
   public saveFromAdmission = null;
   public isOpen = null;
   public route;
@@ -74,7 +77,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
     private ContractS: ContractService,
     private toastService: NbToastrService,
     private BriefcaseS: BriefcaseService,
-    private ServiceBriefcaseS: ServicesBriefcaseService
+    private ServiceBriefcaseS: ServicesBriefcaseService,
+    private companyS: CompanyService,
   ) {
   }
 
@@ -111,6 +115,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       briefcase_id: [this.data.briefcase_id, Validators.compose([Validators.required])],
       procedure_id: [this.data.procedure_id],
       has_caregiver: [this.data.has_caregiver, Validators.compose([Validators.required])],
+      eps: [this.data.eps],
     });
 
     this.campus_id = localStorage.getItem('campus');
@@ -120,8 +125,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
       this.flat = x;
     });
-    this.ContractS.GetCollection().then(x => {
-      this.contract = x;
+
+    this.companyS.GetCollection({eps:0}).then(x => {
+      this.eps = x;
     });
     await this.DiagnosisS.GetCollection().then(x => {
       this.diagnosis = x;
@@ -176,8 +182,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        if (this.admission_id == 0) {
+        if (this.admissions_id == 0) {
           this.AdmissionsS.Save({
+            admission_id:this.admission_id,
             briefcase_id: this.form.controls.briefcase_id.value,
             diagnosis_id: this.diagnosis_id,
             procedure_id: this.form.controls.procedure_id.value,
@@ -324,6 +331,20 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
 
   onChanges() {
+
+    this.form.get('eps').valueChanges.subscribe(val => {
+      if (val === '') {
+        this.contract = [];
+      } else {
+        this.ContractS.GetCollection({company_id:val}).then(x => {
+          this.contract = x;
+        });
+      }
+      this.form.patchValue({
+        contract_id: '',
+      });
+    });
+   
 
 
     this.form.get('admission_route_id').valueChanges.subscribe(val => {
