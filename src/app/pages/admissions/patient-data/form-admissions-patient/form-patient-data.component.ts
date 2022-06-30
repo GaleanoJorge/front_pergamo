@@ -141,7 +141,6 @@ export class FormPatientDataComponent implements OnInit {
       ],
       email: [
         this.data.email,
-        Validators.compose([Validators.required])
       ],
       residence_address: [
         this.ReturnResidence(this.data.residence_address),

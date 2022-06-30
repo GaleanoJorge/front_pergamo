@@ -1,5 +1,5 @@
 
-  <ngx-form-admissions-patient *ngIf="savedUser" [user_id]="user_id" [stored]="this.saved" (messageEvent)="receiveMessage($event)"></ngx-form-admissions-patient>
+  <ngx-form-admissions-patient *ngIf="savedUser" [user_id]="user_id" [admission_id]="admission_id" [stored]="this.saved" (messageEvent)="receiveMessage($event)"></ngx-form-admissions-patient>
 
 <div *ngIf="showTable"  style="margin-top: 15px;">
 <form [formGroup]="form" (ngSubmit)="save()">
