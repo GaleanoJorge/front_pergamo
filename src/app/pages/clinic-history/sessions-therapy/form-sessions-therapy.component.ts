@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChRtSessionsService } from '../../../business-controller/ch_rt_sessions.service';
 
 
@@ -43,8 +43,8 @@ export class FormSessionsTherapyComponent implements OnInit {
       };
     }
     this.form = this.formBuilder.group({
-      month: [this.data[0] ? this.data[0].month : this.data.month,],
-      week: [this.data[0] ? this.data[0].week : this.data.week,],
+      month: [this.data[0] ? this.data[0].month : this.data.month,Validators.compose([Validators.required])],
+      week: [this.data[0] ? this.data[0].week : this.data.week,Validators.compose([Validators.required])],
       recommendations: [this.data[0] ? this.data[0].recommendations : this.data.recommendations,]
            
     });    
@@ -102,6 +102,8 @@ export class FormSessionsTherapyComponent implements OnInit {
         });
       }
 
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 

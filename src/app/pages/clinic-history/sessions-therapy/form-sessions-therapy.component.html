@@ -6,40 +6,40 @@
           status="{{ isSubmitted && form.controls.month.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-option value="1">1</nb-option>
           <nb-option value="2">2</nb-option>
-          <nb-option value="2">3</nb-option>
-          <nb-option value="2">4</nb-option>
-          <nb-option value="2">5</nb-option>
-          <nb-option value="2">6</nb-option>
-          <nb-option value="2">7</nb-option>
-          <nb-option value="2">8</nb-option>
-          <nb-option value="2">9</nb-option>
-          <nb-option value="2">10</nb-option>
-          <nb-option value="2">11</nb-option>
-          <nb-option value="2">12</nb-option>
-          <nb-option value="2">13</nb-option>
-          <nb-option value="2">14</nb-option>
-          <nb-option value="2">15</nb-option>
-          <nb-option value="2">16</nb-option>
-          <nb-option value="2">17</nb-option>
-          <nb-option value="2">18</nb-option>
-          <nb-option value="2">19</nb-option>
-          <nb-option value="2">20</nb-option>
-          <nb-option value="2">21</nb-option>
-          <nb-option value="2">22</nb-option>
-          <nb-option value="2">23</nb-option>
-          <nb-option value="2">24</nb-option>
-          <nb-option value="2">25</nb-option>
-          <nb-option value="2">26</nb-option>
-          <nb-option value="2">27</nb-option>
-          <nb-option value="2">28</nb-option>
-          <nb-option value="2">29</nb-option>
-          <nb-option value="2">30</nb-option>
-          <nb-option value="2">31</nb-option>
-          <nb-option value="2">32</nb-option>
-          <nb-option value="2">33</nb-option>
-          <nb-option value="2">34</nb-option>
-          <nb-option value="2">35</nb-option>
-          <nb-option value="2">36</nb-option>
+          <nb-option value="3">3</nb-option>
+          <nb-option value="4">4</nb-option>
+          <nb-option value="5">5</nb-option>
+          <nb-option value="6">6</nb-option>
+          <nb-option value="7">7</nb-option>
+          <nb-option value="8">8</nb-option>
+          <nb-option value="9">9</nb-option>
+          <nb-option value="10">10</nb-option>
+          <nb-option value="11">11</nb-option>
+          <nb-option value="12">12</nb-option>
+          <nb-option value="13">13</nb-option>
+          <nb-option value="14">14</nb-option>
+          <nb-option value="15">15</nb-option>
+          <nb-option value="16">16</nb-option>
+          <nb-option value="17">17</nb-option>
+          <nb-option value="18">18</nb-option>
+          <nb-option value="19">19</nb-option>
+          <nb-option value="20">20</nb-option>
+          <nb-option value="21">21</nb-option>
+          <nb-option value="22">22</nb-option>
+          <nb-option value="23">23</nb-option>
+          <nb-option value="24">24</nb-option>
+          <nb-option value="25">25</nb-option>
+          <nb-option value="26">26</nb-option>
+          <nb-option value="27">27</nb-option>
+          <nb-option value="28">28</nb-option>
+          <nb-option value="29">29</nb-option>
+          <nb-option value="30">30</nb-option>
+          <nb-option value="31">31</nb-option>
+          <nb-option value="32">32</nb-option>
+          <nb-option value="33">33</nb-option>
+          <nb-option value="34">34</nb-option>
+          <nb-option value="35">35</nb-option>
+          <nb-option value="36">36</nb-option>
         </nb-select>
       </div>
 
@@ -49,16 +49,16 @@
             status="{{ isSubmitted && form.controls.week.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="1">1</nb-option>
             <nb-option value="2">2</nb-option>
-            <nb-option value="2">3</nb-option>
-            <nb-option value="2">4</nb-option>
-            <nb-option value="2">5</nb-option>
+            <nb-option value="3">3</nb-option>
+            <nb-option value="4">4</nb-option>
+            <nb-option value="5">5</nb-option>
           </nb-select>
       </div>
 
 
       <div class="col-md-12">
         <label for="observation" class="form-text text-muted font-weight-bold">Recomendaciones</label>
-        <textarea id="recommendations" nbInput fullWidth formControlName="recommendations" current_illness
+        <textarea onpaste="return false" id="recommendations" nbInput fullWidth formControlName="recommendations" current_illness
           rows="4" cols="50"
           status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
       </div>

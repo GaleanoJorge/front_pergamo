@@ -46,11 +46,11 @@ export class SessionsTherapyComponent implements OnInit {
       },
       
       month: {
-        title: this.headerFields[2],
+        title: this.headerFields[1],
         width: 'string',
       },
       week: {
-        title: this.headerFields[3],
+        title: this.headerFields[2],
         width: 'string',
       },
       recommendations: {
