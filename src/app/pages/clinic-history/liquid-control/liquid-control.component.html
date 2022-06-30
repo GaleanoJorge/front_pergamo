@@ -1,13 +1,13 @@
 <nb-tabset class="tabset">
   <nb-tab tabTitle="Administrados">
     <div>
-      <ngx-form-liquid-control (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id">
+      <ngx-form-liquid-control (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id" [type_record_id]="this.type_record_id">
       </ngx-form-liquid-control>
     </div>
   </nb-tab>
   <nb-tab tabTitle="Eliminados">
     <div>
-      <ngx-form-liquid-elimination (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id">
+      <ngx-form-liquid-elimination (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id" [type_record_id]="this.type_record_id">
       </ngx-form-liquid-elimination>
     </div>
   </nb-tab>

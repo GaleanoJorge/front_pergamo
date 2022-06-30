@@ -15,6 +15,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class LiquidControlComponent implements OnInit {
   @Input() record_id: any = null;
+  @Input() type_record_id: any = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
