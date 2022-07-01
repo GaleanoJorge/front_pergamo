@@ -49,8 +49,8 @@ export class AdmissionsService {
       });
   }
 
-   GetByPacient(user_id) {
-    let servObj = new ServiceObject(`admissions/ByPacient/${user_id}`);
+   GetByPacient(user_id,pagination?) {
+    let servObj = new ServiceObject(!pagination ? `admissions/ByPacient/${user_id}` : `admissions/ByPacient/${user_id}?pagination=false` );
     return  this.webAPI.GetAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

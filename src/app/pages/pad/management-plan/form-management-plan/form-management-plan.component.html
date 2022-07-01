@@ -5,6 +5,18 @@
       <div class="row">
 
         <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false">
+          <label for="admissions_id" class="form-text text-muted font-weight-bold">Admisiónes del paciente:</label>
+          <nb-select [selected]="this.data.admissions_id" formControlName="admissions_id"
+            id="admissions_id" fullWidth
+            status="{{ isSubmitted && form.controls.admissions_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.admissions_id }}" *ngFor="let item of admissions"
+              [value]="item.id">
+              {{ item.consecutive}} - {{item.location[0].scope_of_attention.name}} - {{item.location[0].program.name  }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false">
           <label for="type_of_attention" class="form-text text-muted font-weight-bold">Tipo de Atención:</label>
           <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id"
             id="type_of_attention_id" fullWidth
