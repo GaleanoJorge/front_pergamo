@@ -97,6 +97,16 @@ export class ChNutritionListComponent implements OnInit {
     });
   }
 
+  close() {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        title: 'Finalizar registro.',
+        delete: this.finish.bind(this),
+        textConfirm:'Finalizar registro'
+      },
+    });
+  }
+  
   async finish() {
 
     await this.chRecord.Update({
