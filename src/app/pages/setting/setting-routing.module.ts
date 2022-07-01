@@ -145,6 +145,8 @@ import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-reques
 import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
 import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
 import { ProductTabComponent } from './product-tab/product-tab.component';
+import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/billing-request-pharmacy.component';
+import { BillingTabComponent } from './billing-tab/billing-tab.component';
 
 const routes: Routes = [{
   path: '',
@@ -431,7 +433,7 @@ const routes: Routes = [{
     },
     {
       path: 'billing',
-      component: BillingComponent,
+      component: BillingTabComponent,
 
     },
     {
@@ -835,6 +837,10 @@ const routes: Routes = [{
     {
       path: 'supplies-comm',
       component: SuppliesCommComponent,
+    },
+    {
+      path: 'billing-request-pharmacy',
+      component: BillingRequestPharmacyComponent,
     }
   ],
 }];
