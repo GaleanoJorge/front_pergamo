@@ -387,6 +387,7 @@ import { SelectSuppliesIncomeComponent } from './pharmacy-income-supplies/income
 import { ActionsSupComponent } from './pharmacy-income-supplies/actions.component';
 import { PharmacyIncomeSuppliesComponent } from './pharmacy-income-supplies/pharmacy-income-supplies.component';
 import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-supplies-package/amountDamagedSup.component';
+import { FormConfirmDisabledComponent } from './users/form-confirm-disabled/form-confirm-disabled.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -559,6 +560,7 @@ import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-sup
     CompanyTypeComponent,
     FormCompanyTypeComponent,
     UsersComponent,
+    FormConfirmDisabledComponent,
     RolesComponent,
     FormTaxesComponent,
     FormCiiuGroupComponent,
@@ -808,8 +810,7 @@ import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-sup
     IncomeSuppliesPackageComponent,
     SelectSuppliesIncomeComponent,
     ActionsSupComponent,
-    PharmacyIncomeSuppliesComponent
-
+    PharmacyIncomeSuppliesComponent,
 
   ],
   providers: [

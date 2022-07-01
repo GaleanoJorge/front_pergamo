@@ -189,6 +189,7 @@ import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-t
 import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
+import { FormNutritionBackgroundComponent } from './ch-nutrition-list/ch-nutrition-input/form-nutrition-background/form-nutrition-background.component';
 
 @NgModule({
   imports: [
@@ -401,6 +402,7 @@ import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.co
     FormClinicHistoryLanguageComponent,
     ClinicHistoryLanguageListComponent,
     ActionsLanguageComponent,
+    FormNutritionBackgroundComponent,
 
     FormLanguageAssessmentComponent,
     LanguageAssessmentComponent,

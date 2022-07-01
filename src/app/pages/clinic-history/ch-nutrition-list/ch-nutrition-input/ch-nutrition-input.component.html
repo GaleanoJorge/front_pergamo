@@ -25,7 +25,8 @@
           </nb-step>
           
           <nb-step label="Antecedentes">
-            
+            <ngx-form-nutrition-background [data]="this.data" [route]="1"  [record_id]="this.record_id">
+            </ngx-form-nutrition-background>
           </nb-step>
           
           <nb-step label="Análisis e Interpretación">
@@ -33,7 +34,7 @@
           </nb-step>
 
           <nb-step label="Recomendaciones / Educación">
-            
+            <ngx-recommendations-evo [record_id]="record_id"></ngx-recommendations-evo>
           </nb-step>
 
         </nb-stepper>

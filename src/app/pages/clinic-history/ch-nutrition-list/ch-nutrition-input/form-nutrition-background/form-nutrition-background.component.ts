@@ -7,11 +7,11 @@ import { BaseTableComponent } from '../../../../components/base-table/base-table
 
 
 @Component({
-  selector: 'ngx-form-analysis-and-interpretation',
-  templateUrl: './form-analysis-and-interpretation.component.html',
-  styleUrls: ['./form-analysis-and-interpretation.component.scss']
+  selector: 'ngx-form-nutrition-background',
+  templateUrl: './form-nutrition-background.component.html',
+  styleUrls: ['./form-nutrition-background.component.scss']
 })
-export class FormAnalysisAndInterpretationComponent implements OnInit {
+export class FormNutritionBackgroundComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -37,14 +37,22 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
     },
     columns: {
       created_at: {
-        title: 'Fecha Observación',
+        title: 'Fecha diagnóstico',
         type: 'string',
         valuePrepareFunction: (value) => {
           return this.datePipe.transform2(value);
         }
       },
+      ch_type_background: {
+        title: 'Tipo de antecedente',
+        type: 'string',
+      },
+      revision: {
+        title: 'Revición',
+        type: 'string',
+      },
       observation: {
-        title: 'Observación',
+        title: 'Diagnóstico',
         type: 'string',
       },
     },
@@ -64,10 +72,6 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
     });
   }
 
-  RefreshData() {
-    this.table.refresh();
-  }
-
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
@@ -79,7 +83,6 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
         observation: this.form.controls.observation.value,
       }).then(x => {
         this.saved = x;
-        this.RefreshData();
         this.toastService.success('Registro guardado correctamente', 'Correcto');
       }).catch(x => {
         this.loading = false;
