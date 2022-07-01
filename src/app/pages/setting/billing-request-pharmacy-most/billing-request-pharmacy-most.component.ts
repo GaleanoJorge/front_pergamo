@@ -29,17 +29,17 @@ export class BillingRequestPharmacyMostComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      actions: {
-        title: 'Acciones',
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          // DATA FROM HERE GOES TO renderComponent
-          return {
-            'data': row,
-          };
-        },
-        renderComponent: ActionsComponent,
-      },
+      // actions: {
+      //   title: 'Acciones',
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     // DATA FROM HERE GOES TO renderComponent
+      //     return {
+      //       'data': row,
+      //     };
+      //   },
+      //   renderComponent: ActionsComponent,
+      // },
       id: {
         title: this.headerFields[0],
         type: 'string',
