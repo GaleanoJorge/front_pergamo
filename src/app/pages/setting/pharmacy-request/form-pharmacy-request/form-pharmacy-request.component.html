@@ -25,6 +25,7 @@
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
       <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">ENVIAR</button>
     </nb-card-footer>
   </nb-card>
