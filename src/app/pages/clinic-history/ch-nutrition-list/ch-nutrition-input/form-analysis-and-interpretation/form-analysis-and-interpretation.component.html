@@ -14,6 +14,15 @@
 
         </div>
       </fieldset>
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+            entity="ch_nutrition_interpretation/getAllInterpretetations/{{this.data.id}}?pagination=true" customData='ch_nutrition_interpretation' [messageToltip]="messageToltip">
+          </ngx-base-table>
+        </div>
+
+      </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
       <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
