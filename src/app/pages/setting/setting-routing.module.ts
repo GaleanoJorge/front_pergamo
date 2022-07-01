@@ -406,11 +406,6 @@ const routes: Routes = [{
 
     },
     {
-      path: 'consumption-unit',
-      component: ConsumptionUnitComponent,
-
-    },
-    {
       path: 'product-presentation',
       component: ProductPresentationComponent,
 
@@ -480,11 +475,6 @@ const routes: Routes = [{
     {
       path: 'storage-conditions',
       component: StorageConditionsComponent,
-
-    },
-    {
-      path: 'risk',
-      component: RiskComponent,
 
     },
     {
