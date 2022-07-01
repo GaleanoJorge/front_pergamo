@@ -16,7 +16,7 @@ export class TypeBillingEvidenceService {
   GetCollection(params = {}): Promise<TypeBillingEvidence[]> {
     let servObj = new ServiceObject(params ? 'type_billing_evidence?pagination=false' : 'type_billing_evidence');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
