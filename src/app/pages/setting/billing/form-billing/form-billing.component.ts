@@ -74,7 +74,7 @@ export class FormBillingComponent implements OnInit {
       type_billing_evidence_id: [this.data.type_billing_evidence_id, Validators.compose([Validators.required])],
     });
 
-    await this.typeEvidenS.GetCollection().then(x => {
+    await this.typeEvidenS.GetCollection({ type_billing_evidence_id: 1 }).then(x => {
       this.type_billing_evidence = x;
     });
 
@@ -111,30 +111,23 @@ export class FormBillingComponent implements OnInit {
         var id = x.data.billing.id;
         var contador = 0;
         var err = 0;
-        if (this.saved) {
-          this.saved();
+        this.billStockS.Save({
+          billing_id: id,
+          product_id: this.selectedOptions || this.selectedOptions.length > 0 ? JSON.stringify(this.selectedOptions) : null,
+          product_supplies_com_id: this.selectedOptions1 || this.selectedOptions1.length > 0 ? JSON.stringify(this.selectedOptions1) : null,
+        }).then(x => {
+        }).catch(x => {
+          err++;
+        });
+        contador++;
+        if (contador > 0) {
+          this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
+        } else if (err > 0) {
+          this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
         }
-        if (!this.selectedOptions.length) {
-          this.toastS.danger(null, 'Debe seleccionar al menos un medicamento');
-        }
-        else {
-          this.billStockS.Save({
-            billing_id: id,
-            product_id: this.selectedOptions.length > 0 ? JSON.stringify(this.selectedOptions) : null,
-            product_supplies_com_id: this.selectedOptions1.length > 0 ? JSON.stringify(this.selectedOptions1) : null,
-          }).then(x => {
-          }).catch(x => {
-            err++;
-          });
-          contador++;
-          if (contador > 0) {
-            this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
-          } else if (err > 0) {
-            this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
-          }
-          this.selectedOptions = [];
-          this.selectedOptions1 = [];
-        }
+        this.selectedOptions = [];
+        this.selectedOptions1 = [];
+
         if (this.saved) {
           this.saved();
         }
@@ -142,50 +135,6 @@ export class FormBillingComponent implements OnInit {
         this.isSubmitted = false;
         this.loading = false;
       });
-
-      // if (this.selectedOptions || this.selectedOptions.length == 0) {
-      //   this.BillingS.Save({
-      //     company_id: this.form.controls.company_id.value,
-      //     pharmacy_stock_id: this.form.controls.pharmacy_stock_id.value,
-      //     type_billing_evidence_id: this.form.controls.type_billing_evidence_id.value,
-      //   }).then(x => {
-      //     this.toastService.success('', x.message);
-      //     this.close();
-      //     var id = x.data.billing.id;
-      //     var contador = 0;
-      //     var err = 0;
-      //     if (this.saved) {
-      //       this.saved();
-      //     }
-      //     if (!this.selectedOptions1.length) {
-      //       this.toastS.danger(null, 'Debe seleccionar al menos un insumo');
-      //     }
-      //     else {
-      //       this.billStockS.Save({
-      //         billing_id: id,
-      //         product_supplies_com_id: JSON.stringify(this.selectedOptions1),
-      //         product_id: null,
-      //       }).then(x => {
-      //       }).catch(x => {
-      //         this.isSubmitted = false;
-      //         this.loading = false;
-      //       });
-      //       contador++;
-      //       if (contador > 0) {
-      //         this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
-      //       } else if (err > 0) {
-      //         this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
-      //       }
-      //       this.selectedOptions1 = [];
-      //     }
-      //     if (this.saved) {
-      //       this.saved();
-      //     }
-      //   }).catch(x => {
-      //     this.isSubmitted = false;
-      //     this.loading = false;
-      //   });
-      // }
     }
   }
 }
