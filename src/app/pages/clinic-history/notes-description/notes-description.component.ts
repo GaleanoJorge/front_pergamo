@@ -20,6 +20,8 @@ export class NotesDescriptionComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   @Input() data: any = null;
+  @Input() record_id: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   //@Input() vital: any;
@@ -38,7 +40,6 @@ export class NotesDescriptionComponent implements OnInit {
   public movieForm: String;
 
 
-  public record_id;
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
@@ -132,7 +133,6 @@ export class NotesDescriptionComponent implements OnInit {
     },
   };
   async ngOnInit() {
-    this.record_id = this.route.snapshot.params.id;
     // if (!this.data) {
     //   this.data = {
     //     ch_diagnosis_id: '',
