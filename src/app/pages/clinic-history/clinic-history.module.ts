@@ -191,6 +191,8 @@ import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-d
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
 import { NursingPhysicalExamComponent } from './nursing-physical-exam/nursing-physical-exam.component';
 import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-nursing-physical-exam/form-nursing-physical-exam.component';
+import { InsumeRequestComponent } from './insume-request/insume-request.component';
+import { FormInsumeRequestComponent } from './insume-request/form-insume-request/form-insume-request.component';
 
 @NgModule({
   imports: [
@@ -221,6 +223,9 @@ import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-n
     NbCheckboxModule,
   ],
   declarations: [
+    
+    InsumeRequestComponent,
+    FormInsumeRequestComponent,
 
     NursingPhysicalExamComponent,
     FormNursingPhysicalExamComponent,
