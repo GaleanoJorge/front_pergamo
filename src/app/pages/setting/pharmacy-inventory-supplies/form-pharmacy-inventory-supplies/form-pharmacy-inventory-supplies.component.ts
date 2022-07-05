@@ -45,6 +45,7 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
     }
     this.form = this.formBuilder.group({
       own_pharmacy_stock_id: [this.data.own_pharmacy_stock_id, Validators.compose([Validators.required])],
+      user_request_id: [this.data.user_request_id, Validators.compose([Validators.required])],
       amount_provition: [this.data.amount_provition, Validators.compose([Validators.required])],
     });
 
@@ -72,7 +73,7 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
           amount_provition: this.form.controls.amount_provition.value,
           user_request_id: this.form.controls.user_request_id.value,
           status: 'ENVIADO',
-          product_supplies_id: this.data.billing_stock.product_supplies_com_id.product_supplies_id,
+          product_supplies_id: this.data.billing_stock.product_supplies_com.product_supplies_id,
           request_pharmacy_stock_id: 1,
           own_pharmacy_stock_id: this.form.controls.own_pharmacy_stock_id.value,
         }).then(x => {
