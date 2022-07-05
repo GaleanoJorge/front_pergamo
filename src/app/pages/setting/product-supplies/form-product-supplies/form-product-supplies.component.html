@@ -62,7 +62,7 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="measure" class="form-text text-muted font-weight-bold">Medida:</label>
-          <input nbInput fullWidth id="measure" formControlName="measure" measure />
+          <input nbInput fullWidth id="measure" formControlName="measure" measure/>
         </div>
 
         <div class="col-12 col-sm-12 col-md-2">
@@ -84,12 +84,12 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="minimum_stock" class="form-text text-muted font-weight-bold">Stock minimo:</label>
-          <input nbInput fullWidth id="minimum_stock" formControlName="minimum_stock" minimum_stock
+          <input nbInput fullWidth type="number" min="0" pattern="^[0-9]+" id="minimum_stock" formControlName="minimum_stock" minimum_stock
             status="{{ isSubmitted && form.controls.minimum_stock.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="maximum_stock" class="form-text text-muted font-weight-bold">Stock maximo:</label>
-          <input nbInput fullWidth type="number" id="maximum_stock" formControlName="maximum_stock" maximum_stock
+          <input nbInput fullWidth type="number" min="0" pattern="^[0-9]+" id="maximum_stock" formControlName="maximum_stock" maximum_stock
             status="{{ isSubmitted && form.controls.maximum_stock.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
       </div>

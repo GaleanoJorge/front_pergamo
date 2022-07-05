@@ -91,6 +91,7 @@ export class PharmacyStockComponent implements OnInit {
 
   NewPharmacyStock() {
     this.dialogFormService.open(FormPharmacyStockComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'CRAR FARMACIA O BODEGA',
         saved: this.RefreshData.bind(this),
@@ -100,6 +101,7 @@ export class PharmacyStockComponent implements OnInit {
 
   EditPharmacyStock(data) {
     this.dialogFormService.open(FormPharmacyStockComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'EDITAR FARMACIA O BODEGA',
         data,

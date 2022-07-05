@@ -91,132 +91,102 @@ export class FormBillingComponent implements OnInit {
   }
 
   receiveMessage($event) {
-    this.selectedOptions = $event ;
+    this.selectedOptions = $event;
   }
   receiveMessage1($event) {
-  this.selectedOptions1 = $event;
+    this.selectedOptions1 = $event;
   }
 
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-      var valid_values = true;
-      if (!this.selectedOptions || this.selectedOptions.length == 0) {
-        valid_values = false;
-        this.toastS.danger('Debe seleccionar al menos un medicamento', 'Error');
-      } else {
-        this.selectedOptions.forEach(element => {
-          if (element.amount == null || element.amount <= 0) {
-            valid_values = false;
-          }
-          if (element.amount_unit == null || element.amount_unit <= 0) {
-            valid_values = false;
-          }
-        });
-        if (!valid_values) {
-          this.toastS.danger('Debe ingresar una cantidad valida', 'Error');
+      this.loading = true;
+      this.BillingS.Save({
+        company_id: this.form.controls.company_id.value,
+        pharmacy_stock_id: this.form.controls.pharmacy_stock_id.value,
+        type_billing_evidence_id: this.form.controls.type_billing_evidence_id.value,
+      }).then(x => {
+        this.toastService.success('', x.message);
+        this.close();
+        var id = x.data.billing.id;
+        var contador = 0;
+        var err = 0;
+        if (this.saved) {
+          this.saved();
         }
-      }
-      
-      if (valid_values) {
-        this.loading = true;
- 
-        if (this.data.id) {
-          this.BillingS.Update({
-            id: this.data.id,
-            company_id: this.form.controls.company_id.value,
-            pharmacy_stock_id: this.form.controls.pharmacy_stock_id.value,
-            type_billing_evidence_id: this.form.controls.type_billing_evidence_id.value,
+        if (!this.selectedOptions.length) {
+          this.toastS.danger(null, 'Debe seleccionar al menos un medicamento');
+        }
+        else {
+          this.billStockS.Save({
+            billing_id: id,
+            product_id: this.selectedOptions.length > 0 ? JSON.stringify(this.selectedOptions) : null,
+            product_supplies_com_id: this.selectedOptions1.length > 0 ? JSON.stringify(this.selectedOptions1) : null,
           }).then(x => {
-            this.toastService.success('', x.message);
-            this.close();
-            var id = x.data.billing.id;
-            var contador = 0;
-            var err = 0;
-            if (this.saved) {
-              this.saved();
-            }
-            this.billStockS.Update({
-              billing_id: id,
-              product_id: JSON.stringify(this.selectedOptions),
-              amount: 10,
-              amount_unit: 10,
-            }, id).then(x => {
-            }).catch(x => {
-              err++;
-            });
-            this.billStockS.Update({
-              billing_id: id,
-              product_supplies_com_id: JSON.stringify(this.selectedOptions1), 
-              amount: 10,
-              amount_unit: 10,
-            }, id).then(x => {
-            }).catch(x => {
-              err++;
-            });
-            contador++;
+          }).catch(x => {
+            err++;
+          });
+          contador++;
+          if (contador > 0) {
+            this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
+          } else if (err > 0) {
+            this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
+          }
+          this.selectedOptions = [];
+          this.selectedOptions1 = [];
+        }
+        if (this.saved) {
+          this.saved();
+        }
+      }).catch(x => {
+        this.isSubmitted = false;
+        this.loading = false;
+      });
 
-            if (contador > 0) {
-              this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
-            } else if (err > 0) {
-              this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
-            }
-            this.selectedOptions = [];
-            this.selectedOptions1 = [];
-            if (this.saved) {
-              this.saved();
-            }
-          }).catch(x => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
-        } else {
-          this.BillingS.Save({
-            company_id: this.form.controls.company_id.value,
-            pharmacy_stock_id: this.form.controls.pharmacy_stock_id.value,
-            type_billing_evidence_id: this.form.controls.type_billing_evidence_id.value,
-          }).then(x => {
-            this.toastService.success('', x.message);
-            this.close();
-            var id = x.data.billing.id;
-            var contador = 0;
-            var err = 0;
-            this.billStockS.Save({
-              billing_id: id,
-              product_id: JSON.stringify(this.selectedOptions),
-              amount: 10,
-              amount_unit: 10,
-            }).then(x => {
-            }).catch(x => {
-              err++;
-            });
-            this.billStockS.Save({
-              billing_id: id,
-              product_supplies_com_id: JSON.stringify(this.selectedOptions1), 
-              amount: 10,
-              amount_unit: 10,
-            }).then(x => {
-            }).catch(x => {
-              err++;
-            });
-            contador++;
-            if (contador > 0) {
-              this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
-            } else if (err > 0) {
-              this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
-            }
-            this.selectedOptions = [];
-            this.selectedOptions1 = [];
-            if (this.saved) {
-              this.saved();
-            }
-          }).catch(x => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
-        }
-      }
+      // if (this.selectedOptions || this.selectedOptions.length == 0) {
+      //   this.BillingS.Save({
+      //     company_id: this.form.controls.company_id.value,
+      //     pharmacy_stock_id: this.form.controls.pharmacy_stock_id.value,
+      //     type_billing_evidence_id: this.form.controls.type_billing_evidence_id.value,
+      //   }).then(x => {
+      //     this.toastService.success('', x.message);
+      //     this.close();
+      //     var id = x.data.billing.id;
+      //     var contador = 0;
+      //     var err = 0;
+      //     if (this.saved) {
+      //       this.saved();
+      //     }
+      //     if (!this.selectedOptions1.length) {
+      //       this.toastS.danger(null, 'Debe seleccionar al menos un insumo');
+      //     }
+      //     else {
+      //       this.billStockS.Save({
+      //         billing_id: id,
+      //         product_supplies_com_id: JSON.stringify(this.selectedOptions1),
+      //         product_id: null,
+      //       }).then(x => {
+      //       }).catch(x => {
+      //         this.isSubmitted = false;
+      //         this.loading = false;
+      //       });
+      //       contador++;
+      //       if (contador > 0) {
+      //         this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
+      //       } else if (err > 0) {
+      //         this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
+      //       }
+      //       this.selectedOptions1 = [];
+      //     }
+      //     if (this.saved) {
+      //       this.saved();
+      //     }
+      //   }).catch(x => {
+      //     this.isSubmitted = false;
+      //     this.loading = false;
+      //   });
+      // }
     }
   }
-
 }
+

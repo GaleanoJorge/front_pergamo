@@ -11,10 +11,10 @@
         </div>
         <div class="col-md-12">
           <label for="product_sub_category" class="form-text text-muted font-weight-bold">Seleccione Sub Categoría del producto:</label>
-          <nb-select [selected]="this.data.product_sub_category_id" formControlName="product_sub_category_id" id="product_sub_category_id" fullWidth
-            status="{{ isSubmitted && form.controls.product_sub_category_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-select [selected]="this.data.product_subcategory_id" formControlName="product_subcategory_id" id="product_subcategory_id" fullWidth
+            status="{{ isSubmitted && form.controls.product_subcategory_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.product_sub_category_id }}" *ngFor="let item of product_sub_category" [value]="item.id">
+            <nb-option selected="{{ item.id == data.product_subcategory_id }}" *ngFor="let item of product_sub_category" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>

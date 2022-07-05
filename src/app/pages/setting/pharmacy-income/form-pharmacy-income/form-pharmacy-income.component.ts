@@ -42,7 +42,7 @@ export class FormPharmacyIncomeComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.parentData = {
       selectedOptions: [],
-      entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1='+ true,
+      entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + true,
       customData: 'pharmacy_request_shipping',
     };
     if (!this.data) {
@@ -52,43 +52,11 @@ export class FormPharmacyIncomeComponent implements OnInit {
         observation: '',
       };
     }
-
-    // var num: number = +this.data.amount_damaged;
-
     this.form = this.formBuilder.group({
       cantidad_enviada: [this.data.cantidad_enviada],
       observation: [this.data.observation],
-      /*  amount_provition: [this.data.amount_provition],
-        amount_damaged: [num],
-        amount: [this.data.amount],
-        observation: [this.data.observation],*/
     });
   }
-
-  /*onAmountChange(value) {
-    if (this.form.controls.amount.value <= this.form.controls.amount_provition.value && this.form.controls.amount.value >= 0) {
-      if (this.form.controls.amount.value == this.form.controls.amount_provition.value) {
-        this.form.controls.observation.disable();
-        this.form.controls.amount_damaged.disable();
-      } else {
-        this.form.controls.observation.enable();
-        this.form.controls.amount_damaged.enable();
-      }
-    } else if (this.form.controls.amount.value < 0) {
-      this.form.controls.amount.setValue(0);
-    } else {
-      this.form.controls.amount.setValue(this.form.controls.amount_provition.value);
-    }
-    if ((this.form.controls.amount.value + this.form.controls.amount_damaged.value) > this.form.controls.amount_provition.value && !(this.form.controls.amount_damaged.value < 0)) {
-      this.form.controls.amount_damaged.setValue(this.form.controls.amount_provition.value - this.form.controls.amount.value);
-    } else {
-      if (this.form.controls.amount_damaged.value < 0) {
-        this.form.controls.amount_damaged.setValue(0);
-      }
-    }
-
-  }*/
-
 
   close() {
     this.dialogRef.close();
@@ -129,26 +97,6 @@ export class FormPharmacyIncomeComponent implements OnInit {
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
-            // var id = x.data.pharmacy_lot_stock.id;
-            // var contador = 0;
-            // var err = 0;
-            // if (this.saved) {
-            //   this.saved();
-            // }
-            // this.pharmalotStockS.Update({
-            //   pharmacy_product_request_id: id,
-            //   pharmacy_request_shipping_id: JSON.stringify(this.selectedOptions),
-            // }, id).then(x => {
-            // }).catch(x => {
-            //   err++;
-            // });
-            // contador++;
-
-            // if (contador > 0) {
-            //   this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
-            // } else if (err > 0) {
-            //   this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
-            // }
             this.selectedOptions = [];
             if (this.saved) {
               this.saved();

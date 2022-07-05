@@ -99,6 +99,7 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyIncomeSuppliesComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Aceptar Insumo',
         data,

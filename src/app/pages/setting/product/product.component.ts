@@ -84,6 +84,7 @@ export class ProductComponent implements OnInit {
 
   NewProduct() {
     this.dialogFormService.open(FormProductComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear producto',
         saved: this.RefreshData.bind(this),
@@ -93,6 +94,7 @@ export class ProductComponent implements OnInit {
 
   EditProduct(data) {
     this.dialogFormService.open(FormProductComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar producto',
         data,

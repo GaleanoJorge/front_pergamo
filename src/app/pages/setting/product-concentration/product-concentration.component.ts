@@ -79,6 +79,7 @@ export class ProductConcentrationComponent implements OnInit {
 
   NewProductConcentration() {
     this.dialogFormService.open(FormProductConcentrationComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nueva Concentración del producto',
         saved: this.RefreshData.bind(this),
@@ -88,6 +89,7 @@ export class ProductConcentrationComponent implements OnInit {
 
   EditProductConcentration(data) {
     this.dialogFormService.open(FormProductConcentrationComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar Concentración del producto',
         data,

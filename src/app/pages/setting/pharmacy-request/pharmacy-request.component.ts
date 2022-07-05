@@ -144,6 +144,7 @@ export class PharmacyRequestComponent implements OnInit {
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyRequestComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Enviar Medicamento',
         data,

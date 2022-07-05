@@ -94,6 +94,7 @@ export class PharmacyIncomeComponent implements OnInit {
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyIncomeComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Aceptar Medicamento',
         data,
@@ -104,6 +105,7 @@ export class PharmacyIncomeComponent implements OnInit {
 
   DeletePharInventary(data) {
     this.dialogFormService.open(ConfirmDialogComponent, {
+      closeOnBackdropClick: false,
       context: {
         name: data.firstname,
         data: data,
