@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
+import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component';
 import { ActionsUsersComponent } from './actions-users.component';
@@ -26,6 +27,7 @@ export class UsersComponent implements OnInit {
     public headerFields: any[] = ['Tipo identificación', 'Identificación', 'Nombres', 'Correo', 'Estado'];
     public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
     public subtitle = 'Directorio';
+    public own_user: any = null;
 
     @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -90,7 +92,8 @@ export class UsersComponent implements OnInit {
         private userS: UserBusinessService,
         private roleS: RoleBusinessService,
         private toastrService: NbToastrService,
-        private dialogService: NbDialogService
+        private dialogService: NbDialogService,
+        private authService: AuthService,
     ) {
 
     }
@@ -100,6 +103,7 @@ export class UsersComponent implements OnInit {
         }).catch((x) => {
             this.toastrService.danger(x.message);
         });
+        this.own_user = this.authService.GetUser();
     }
 
     RefreshData() {
@@ -107,7 +111,7 @@ export class UsersComponent implements OnInit {
     }
 
     ChangeState(data) {
-        this.userS.ChangeStatus(data.id).then((x) => {
+        this.userS.ChangeStatus(data.id, this.own_user.id).then((x) => {
             this.toastrService.success('', x.message);
             if (x.data.user.status_id == 2) {
                 this.showToast(10000);
@@ -122,8 +126,8 @@ export class UsersComponent implements OnInit {
         this.toastrService.warning(
             'Los trabajadores que se retiran de la empresa deben ser retirados de la ARL',
             'AVISO',
-          { duration });
-      }
+            { duration });
+    }
 
     ChangeRole(role) {
         this.role = role;

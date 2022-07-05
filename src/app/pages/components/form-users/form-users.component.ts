@@ -38,6 +38,7 @@ import { LocationCapacityService } from '../../../business-controller/location-c
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 import { PatientService } from '../../../business-controller/patient.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { AuthService } from '../../../services/auth.service';
 
 
 
@@ -131,6 +132,7 @@ export class FormUsersComponent implements OnInit {
   public signatureImage;
   public currentImg;
   public roles;
+  public own_user: any = null;
 
 
 
@@ -161,6 +163,7 @@ export class FormUsersComponent implements OnInit {
     private locationCapacityS: LocationCapacityService,
     private dialogFormS: NbDialogService,
     public datePipe: DateFormatPipe,
+    private authService: AuthService,
 
   ) {
   }
@@ -179,6 +182,8 @@ export class FormUsersComponent implements OnInit {
     await this.roleBS.GetCollection({ id: this.role }).then(x => {
       this.roles = x;
     }).catch(x => { });
+
+    this.own_user = this.authService.GetUser();
 
     this.parentData = {
       selectedOptions: [],
@@ -639,6 +644,7 @@ export class FormUsersComponent implements OnInit {
       var formData = new FormData();
       var data = this.form.controls;
 
+      formData.append('own_user', this.own_user.id);
       formData.append('status_id', data.status_id.value);
       formData.append('gender_id', data.gender_id.value);
       formData.append('is_disability', data.is_disability.value === true ? '1' : null);
