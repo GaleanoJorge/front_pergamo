@@ -19,7 +19,7 @@ export class PharmacyIncomeComponent implements OnInit {
 
   public title: string = 'ACEPTAR O DEVOLVER MEDICAMENTOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
+  public headerFields: any[] = ['IDENTIFICADOR', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public validator ;

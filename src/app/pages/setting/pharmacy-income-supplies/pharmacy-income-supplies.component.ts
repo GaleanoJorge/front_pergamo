@@ -20,7 +20,7 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
 
   public title: string = 'ACEPTAR O DEVOLVER INSUMOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'INSUMO ENVIADO POR', 'INSUMO GENERICO', 'CANTIDAD A RECIBIR'];
+  public headerFields: any[] = ['IDENTIFICADOR', 'INSUMO ENVIADO POR', 'INSUMO GENERICO', 'CANTIDAD A RECIBIR'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
