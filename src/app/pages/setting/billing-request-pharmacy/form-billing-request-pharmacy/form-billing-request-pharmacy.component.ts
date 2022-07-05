@@ -62,7 +62,7 @@ export class FormBillingRequestPharmacyComponent implements OnInit {
       type_billing_evidence_id: [this.data.type_billing_evidence_id, Validators.compose([Validators.required])],
     });
 
-    await this.typeEvidenS.GetCollection().then(x => {
+    await this.typeEvidenS.GetCollection({id: 2}).then(x => {
       this.type_billing_evidence = x;
     });
   }
@@ -100,8 +100,8 @@ export class FormBillingRequestPharmacyComponent implements OnInit {
         else {
           this.BillingStockRequestS.Save({
             billing_id: id,
-            product_generic_id: this.selectedOptions.length > 0 ? JSON.stringify(this.selectedOptions) : null,
-            product_supplies_id: this.selectedOptions1.length > 0 ? JSON.stringify(this.selectedOptions1) : null,
+            product_generic_id: this.selectedOptions || this.selectedOptions.length > 0 ? JSON.stringify(this.selectedOptions) : null,
+            product_supplies_id: this.selectedOptions1 || this.selectedOptions1.length > 0 ? JSON.stringify(this.selectedOptions1) : null,
           }).then(x => {
           }).catch(x => {
             err++;

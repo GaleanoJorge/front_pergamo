@@ -74,7 +74,7 @@ export class FormBillingComponent implements OnInit {
       type_billing_evidence_id: [this.data.type_billing_evidence_id, Validators.compose([Validators.required])],
     });
 
-    await this.typeEvidenS.GetCollection({ type_billing_evidence_id: 1 }).then(x => {
+    await this.typeEvidenS.GetCollection({ id: 1 }).then(x => {
       this.type_billing_evidence = x;
     });
 
