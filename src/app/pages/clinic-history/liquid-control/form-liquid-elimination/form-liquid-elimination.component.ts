@@ -159,6 +159,14 @@ export class FormLiquidEliminationComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.form.patchValue({
+            clock: '',
+            ch_route_fluid_id: '',
+            ch_type_fluid_id: '',
+            specific_name: '',
+            delivered_volume: '',
+            bag_number: '',
+          });
           if (this.saved) {
             this.saved();
           }
