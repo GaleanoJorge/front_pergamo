@@ -31,7 +31,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
-            <ngx-form-signs [record_id]="record_id"></ngx-form-signs> 
+            <ngx-signs [record_id]="record_id"></ngx-signs> 
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Diagnóstico">
@@ -46,6 +46,24 @@
 
            <ngx-form-diagnostic [record_id]="record_id"></ngx-form-diagnostic>-->
 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="AP/Recomendaciones">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-recommendations-evo [type_record]="1" [record_id]="record_id"></ngx-recommendations-evo>
+
+              </div>
+            </div> 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Dietas">
+             <div class="row">
+              <div class="col-md-12">
+                <ngx-diets-evo [record_id]="record_id"></ngx-diets-evo>
+
+              </div>
+            </div> 
           </nb-step>
 
           <nb-step [hidden]="true">

@@ -1,0 +1,17 @@
+
+<ngx-form-language-alterations (messageEvent)="receiveMessage($event)" >
+</ngx-form-language-alterations>
+<label for="voice_alterations_tl" class="form-text text-muted font-weight-bold align">Alteraciones En La Voz</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table  pager="false" [title]="title" customData="voice_alterations_tl" [settings]="settings"
+      entity="voice_alterations_tl/by_record/{{record_id}}/1?pagination=false">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

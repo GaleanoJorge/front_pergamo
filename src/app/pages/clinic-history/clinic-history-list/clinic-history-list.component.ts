@@ -297,14 +297,22 @@ export class ClinicHistoryListComponent implements OnInit {
         this.show = 6;
         break;
       }
+      case "INCAPACIDAD": {
+        this.show = 7;
+        break;
+      }
+      case "CERTIFICADO MEDICO": {
+        this.show = 8;
+        break;
+      }
     
       case "FALLIDA": {
-        this.show = 7;
+        this.show = 9;
         break;
       }
       
       case "SALIDA": {
-        this.show = 8;
+        this.show = 10;
         break;
       }
     }

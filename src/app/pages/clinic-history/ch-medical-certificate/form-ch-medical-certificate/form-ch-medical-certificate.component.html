@@ -1,0 +1,18 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+  
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      <label for="description" class="form-text text-muted font-weight-bold ">Certificación Medica</label>
+      <textarea id="description" nbInput fullWidth formControlName="description" description onpaste="return false" rows="4"
+        cols="50"
+        status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+  </div>
+  </div>
+</form>

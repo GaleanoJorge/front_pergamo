@@ -37,11 +37,7 @@ export class EvoSoapComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      id: {
-        title: this.headerFields[0],
-        width: 'string',
-       
-      },
+      
       subjective: {
         title: this.headerFields[1],
         width: 'string',

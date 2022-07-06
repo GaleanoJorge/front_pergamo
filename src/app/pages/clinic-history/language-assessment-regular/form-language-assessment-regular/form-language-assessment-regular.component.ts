@@ -17,6 +17,7 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() record_id: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -24,9 +25,8 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public record_id;
   public admissions_id;
-  public tl_therapy_language_id: any[]; 
+  public medical_diagnosis_id: any[]; 
   public therapeutic_diagnosis_id: any[];
   public diagnosis_id;
   public diagnosis: any[];
@@ -50,19 +50,19 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
 
     if (!this.data) {
       this.data = {
-        tl_therapy_language_id: '',
+        medical_diagnosis_id: '',
         status_patient: '',
       };
     }
 
     this.form = this.formBuilder.group({
-      tl_therapy_language_id: [this.data.tl_therapy_language_id],
+      medical_diagnosis_id: [this.data.medical_diagnosis_id],
   
       status_patient: [this.data.status_patient],
     });
 
     this.DiagnosisS.GetCollection().then((x) => {
-      this.tl_therapy_language_id = x;
+      this.medical_diagnosis_id = x;
     });
     
   }
@@ -76,7 +76,7 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
       if (this.data.id) {
         await this.TlTherapyLanguageRegularS.Update({
           id: this.data.id,
-          tl_therapy_language_id: this.form.controls.tl_therapy_language_id.value,
+          medical_diagnosis_id: this.form.controls.medical_diagnosis_id.value,
          
           status_patient: this.form.controls.status_patient.value,
 
@@ -95,7 +95,7 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
           });
       } else {
         await this.TlTherapyLanguageRegularS.Save({
-          tl_therapy_language_id: this.form.controls.diagnosis_medical.value,
+          medical_diagnosis_id: this.form.controls.medical_diagnosis_id.value,
           
           status_patient: this.form.controls.status_patient.value,
 
@@ -106,7 +106,7 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
             this.form.setValue({
-              tl_therapy_language_id: '',
+              medical_diagnosis_id: '',
       
               status_patient: '',
             });

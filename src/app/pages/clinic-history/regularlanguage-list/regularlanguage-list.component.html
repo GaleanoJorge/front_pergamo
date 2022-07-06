@@ -6,7 +6,7 @@
            <nb-step [stepControl]="nameForm" label="Valoración">
             <div class="row">
               <div class="col-md-12">
-                <ngx-form-language-assessment-regular ></ngx-form-language-assessment-regular>
+                <ngx-form-language-assessment-regular [record_id]="record_id" ></ngx-form-language-assessment-regular>
               </div>
              </div> 
           </nb-step>
@@ -23,7 +23,7 @@
           <nb-step [stepControl]="nameForm" label="Obj Terapeuticos">
             <div class="row">
               <div class="col-md-12">
-                <ngx-form-language-therapeutic-goals></ngx-form-language-therapeutic-goals>
+                <ngx-form-language-therapeutic-goals  ></ngx-form-language-therapeutic-goals>
               </div>
             </div>
           </nb-step>
@@ -33,16 +33,16 @@
           <nb-step [stepControl]="nameForm" label="Intervención">
             <div class="row">
               <div class="col-md-12">
-                <ngx-form-language-intervention></ngx-form-language-intervention> 
+                <ngx-language-intervention [record_id]="record_id" ></ngx-language-intervention> 
                
               </div>
             </div>
           </nb-step>
           
-          <nb-step [stepControl]="nameForm" label="Materiales E Insumos Utilizados">
+          <nb-step [stepControl]="nameForm" label="Materiales E Insumos">
             <div class="row">
               <div class="col-md-12">
-                <ngx-language-materialused ></ngx-language-materialused>
+                <ngx-language-materialused [record_id]="record_id" ></ngx-language-materialused>
 
               </div>
             </div> 
@@ -51,7 +51,7 @@
           <nb-step [stepControl]="nameForm" label="Conceptos de Fonoaudiologia">
             <div class="row">
               <div class="col-md-12">
-                <ngx-form-language-concept></ngx-form-language-concept>
+                <ngx-language-concept  [record_id]="record_id"></ngx-language-concept>
 
               </div>
             </div> 
@@ -60,7 +60,8 @@
           <nb-step [stepControl]="nameForm" label="Diagnostico">
             <div class="row">
               <div class="col-md-12">
-                <ngx-form-language-evo-diagnosis ></ngx-form-language-evo-diagnosis>
+                <ngx-form-language-evo-diagnosis *ngIf="cifdiagnosistl" [record_id]="record_id"
+                [data]="cifdiagnosistl" ></ngx-form-language-evo-diagnosis>
 
               </div>
             </div> 
@@ -69,7 +70,7 @@
           <nb-step [stepControl]="nameForm" label="Sesiones">
             <div class="row">
               <div class="col-md-12">
-                <ngx-form-language-reg-sessions ></ngx-form-language-reg-sessions>
+                <ngx-language-reg-sessions [type_record]="3" [record_id]="record_id"></ngx-language-reg-sessions>
 
               </div>
             </div> 

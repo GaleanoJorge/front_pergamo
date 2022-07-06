@@ -86,7 +86,6 @@ export class FormEvoSoapComponent implements OnInit {
           .Save({
             subjective: this.form.controls.subjective.value,
             objective: this.form.controls.objective.value,
-            
             type_record_id: 3,
             ch_record_id: this.record_id,
           })

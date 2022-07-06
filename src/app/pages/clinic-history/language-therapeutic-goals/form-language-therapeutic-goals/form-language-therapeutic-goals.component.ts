@@ -96,6 +96,8 @@ export class FormLanguageTherapeuticGoalsComponent implements OnInit {
         check10:'',
         
       };
+    } else {
+      this.disabled = true;
     }
 
     this.form = this.formBuilder.group({

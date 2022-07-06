@@ -1,11 +1,12 @@
 <form [formGroup]="form" (ngSubmit)="save()">
 
   <div>
-    <fieldset class="field_set center col-lg-12">
+    <fieldset class="field_set center">
       <legend class="prue1  center ">SALIDA DEL PACIENTE</legend>
-      <label class="form-text text-muted font-weight-bold align"></label>
       <div class="row justify-content-md-center">
+        <div class="col col-lg-2">
         <label class="form-text text-muted font-weight-bold">Estado de Salida</label>
+        </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="exit_status" exit_status id="exit_status" class="d-flex text center"
             name="exit_status" 
@@ -92,7 +93,7 @@
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.ch_diagnosis_id }}" *ngFor="let item of ch_diagnosis_id"
                 [value]="item.id">
-                {{ item.name }}</nb-option>
+                {{ item.diagnosis_id }}</nb-option>
             </nb-select>
           </div>
           <div class="col col-lg-3">

@@ -7,41 +7,7 @@
       <nb-accordion-item-header center>Ostomias</nb-accordion-item-header>
       <nb-accordion-item-body>
 
-
-        <div class="row">
-          <div class="col-md-6">
-            <label class="form-text text-muted font-weight-bold">Yeyunostomía</label>
-            <textarea id="jejunostomy" nbInput fullWidth formControlName="jejunostomy" jejunostomy
-              onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.jejunostomy.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-text text-muted font-weight-bold">Colostomía</label>
-            <textarea id="colostomy" nbInput fullWidth formControlName="colostomy" colostomy onpaste="return false"
-              rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.colostomy.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </div>
-
-
-
-          <div class="col col-lg-12">
-            <label class="form-text text-muted font-weight-bold center">Observaciones</label>
-            <textarea id="observations" nbInput fullWidth formControlName="observations" observations
-              onpaste="return false" rows="3" cols="40"
-              status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </div>
-
-        </div>
-
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <button nbButton status="danger" class="ml-1 btn-save" (click)="save(1)" [disabled]="disabled"
-                type="submit">GUARDAR</button>
-            </div>
-          </div>
-        </div>
+    <ngx-language-ostomies [record_id]="record_id"></ngx-language-ostomies>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -51,103 +17,8 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Alteraciones En La Deglución</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <fieldset class="field_set">
-          <legend class="prue1 center">ALTERACIONES EN LA DEGLUCIÓN</legend>
-          <div class="row justify-content-md">
-            <div class="col col-lg-2">
-              <label class="form-text text-muted font-weight-bold">Disfagia para Solidos</label>
-            </div>
-            <div class="col col-lg-2">
-              <nb-radio-group formControlName="solid_dysphagia" solid_dysphagia id="solid_dysphagia"
-                name="solid_dysphagia"
-                status="{{ isSubmitted && form.controls.solid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                <nb-radio value="Si">Si</nb-radio>
-                <nb-radio value="No">No</nb-radio>
-              </nb-radio-group>
-            </div>
-            <div class="col col-lg-2">
-              <label class="form-text text-muted font-weight-bold">Disfagia para Líquidos Claros</label>
-            </div>
-            <div class="col col-lg-2">
-              <nb-radio-group formControlName="clear_liquid_dysphagia" clear_liquid_dysphagia
-                id="clear_liquid_dysphagia" name="clear_liquid_dysphagia"
-                status="{{ isSubmitted && form.controls.clear_liquid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                <nb-radio value="Si">Si</nb-radio>
-                <nb-radio value="No">No</nb-radio>
-              </nb-radio-group>
-            </div>
-
-            <div class="col col-lg-2">
-              <label class="form-text text-muted font-weight-bold">Disfagia para Líquidos
-                Espesos</label>
-            </div>
-            <div class="col col-lg-2">
-              <nb-radio-group formControlName="thick_liquid_dysphagia" thick_liquid_dysphagia
-                id="thick_liquid_dysphagia" name="thick_liquid_dysphagia"
-                status="{{ isSubmitted && form.controls.thick_liquid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                <nb-radio value="Si">Si</nb-radio>
-                <nb-radio value="No">No</nb-radio>
-              </nb-radio-group>
-            </div>
-
-            <div class="col col-lg-12">
-              <hr />
-            </div>
-
-            <div class="col col-lg-2">
-              <label class="form-text text-muted font-weight-bold">Sonda Nasogástrica</label>
-            </div>
-            <div class="col col-lg-2">
-              <nb-radio-group formControlName="nasogastric_tube" nasogastric_tube id="nasogastric_tube"
-                name="nasogastric_tube"
-                status="{{ isSubmitted && form.controls.nasogastric_tube.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                <nb-radio value="Si">Si</nb-radio>
-                <nb-radio value="No">No</nb-radio>
-              </nb-radio-group>
-            </div>
-
-
-            <div class="col col-lg-2">
-              <label class="form-text text-muted font-weight-bold">Gastrostomía</label>
-            </div>
-            <div class="col col-lg-2">
-              <nb-radio-group formControlName="gastrostomy" gastrostomy id="gastrostomy" name="gastrostomy"
-                status="{{ isSubmitted && form.controls.gastrostomy.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                <nb-radio value="Si">Si</nb-radio>
-                <nb-radio value="No">No</nb-radio>
-              </nb-radio-group>
-            </div>
-            <div class="col col-lg-2">
-              <label class="form-text text-muted font-weight-bold">Nada Vía Oral</label>
-            </div>
-
-            <div class="col col-lg-2">
-              <nb-radio-group formControlName="nothing_orally" nothing_orally id="nothing_orally" name="nothing_orally"
-                status="{{ isSubmitted && form.controls.nothing_orally.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                <nb-radio value="Si">Si</nb-radio>
-                <nb-radio value="No">No</nb-radio>
-              </nb-radio-group>
-            </div>
-          </div>
-
-          <div class="col col-lg-12">
-            <hr />
-          </div>
-
-          <label class="form-text text-muted font-weight-bold center">Observaciones</label>
-          <textarea id="observations" nbInput fullWidth formControlName="observations" observations
-            onpaste="return false" rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-        </fieldset>
-
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <button nbButton status="danger" class="ml-1 btn-save" (click)="save(2)" [disabled]="disabled"
-                type="submit">GUARDAR</button>
-            </div>
-          </div>
-        </div>
+        
+        <ngx-language-swallowing [record_id]="record_id"></ngx-language-swallowing>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -157,71 +28,10 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Alteraciones En La Voz</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <div class="row">
+        
+        <ngx-language-alterations [record_id]="record_id"></ngx-language-alterations>
 
-          <fieldset class="field_set">
-            <legend class="prue1 center">ALTERACIONES EN LA VOZ</legend>
-            <div class="row justify-content-md">
-              <div class="col col-lg-4">
-                <label class="form-text text-muted font-weight-bold">Alteración en Timbre</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="bell_alteration" bell_alteration id="bell_alteration"
-                  name="bell_alteration"
-                  status="{{ isSubmitted && form.controls.bell_alteration.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-4">
-                <label class="form-text text-muted font-weight-bold">Alteración en Tono</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="tone_alteration" tone_alteration id="tone_alteration"
-                  name="tone_alteration"
-                  status="{{ isSubmitted && form.controls.tone_alteration.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-
-              <div class="col col-lg-12">
-                <hr />
-              </div>
-
-              <div class="col col-lg-4">
-                <label class="form-text text-muted font-weight-bold">Alteración en Intensidad</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="intensity_alteration" intensity_alteration id="intensity_alteration"
-                  name="intensity_alteration"
-                  status="{{ isSubmitted && form.controls.intensity_alteration.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold center">Observaciones</label>
-              </div>
-              <div class="col col-lg-4">
-                <textarea id="observations" nbInput fullWidth formControlName="observations" observations
-                  onpaste="return false" rows="4" cols="50"
-                  status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-              </div>
-            </div>
-          </fieldset>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <button nbButton status="danger" class="ml-1 btn-save" (click)="save(3)" [disabled]="disabled"
-                  type="submit">GUARDAR</button>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
+        
       </nb-accordion-item-body>
     </nb-accordion-item>
 
@@ -232,68 +42,9 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Audición</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <div class="row">
+        
+        <ngx-language-hearing  [record_id]="record_id"></ngx-language-hearing>
 
-          <fieldset class="field_set">
-            <legend class="prue1 center">AUDICIÓN</legend>
-            <div class="row justify-content-md">
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Oído Externo</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="external_ear" external_ear id="external_ear" name="external_ear"
-                  status="{{ isSubmitted && form.controls.external_ear.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Oído Medio</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="middle_ear" middle_ear id="middle_ear" name="middle_ear"
-                  status="{{ isSubmitted && form.controls.middle_ear.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Oído Interno</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="inner_ear" inner_ear id="inner_ear" name="inner_ear"
-                  status="{{ isSubmitted && form.controls.inner_ear.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-              <div class="col col-lg-12">
-                <hr />
-              </div>
-
-
-              <div class="col col-lg-12">
-                <label class="form-text text-muted font-weight-bold center">Observaciones:</label>
-
-                <textarea class="form-text col col-lg-12 detail" id="observations" nbInput fullWidth
-                  formControlName="observations" analisys onpaste="return false" rows="3" cols="70"
-                  status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-              </div>
-
-            </div>
-          </fieldset>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <button nbButton status="danger" class="ml-1 btn-save" (click)="save(4)" [disabled]="disabled"
-                  type="submit">GUARDAR</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
       </nb-accordion-item-body>
     </nb-accordion-item>
 
@@ -303,168 +54,9 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Lenguaje</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <div class="row">
 
-          <fieldset class="field_set">
-            <legend class="prue1 center">LINGÜÍSTICO</legend>
-            <div class="row justify-content-md">
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Fonético/Fonológico</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="phonetic_phonological" phonetic_phonological id="phonetic_phonological"
-                  name="phonetic_phonological"
-                  status="{{ isSubmitted && form.controls.phonetic_phonological.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Sintáctico</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="syntactic" syntactic id="syntactic" name="syntactic"
-                  status="{{ isSubmitted && form.controls.syntactic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Morfosintáctico</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="morphosyntactic" morphosyntactic id="morphosyntactic"
-                  name="morphosyntactic"
-                  status="{{ isSubmitted && form.controls.morphosyntactic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-              <div class="col col-lg-12">
-                <hr />
-              </div>
-
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Semántico</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="semantic" semantic id="semantic" name="semantic"
-                  status="{{ isSubmitted && form.controls.semantic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Pragmático</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="pragmatic" pragmatic id="pragmatic" name="pragmatic"
-                  status="{{ isSubmitted && form.controls.pragmatic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Observaciones</label>
-              </div>
-              <div class="col col-lg-2">
-                <textarea id="observations" nbInput fullWidth formControlName="observations" observations
-                  onpaste="return false" rows="4" cols="50"
-                  status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-              </div>
-            </div>
-
-          </fieldset>
-
-          <fieldset class="field_set">
-            <legend class="prue1 center">PSICOLINGÜÍSTICO</legend>
-            <div class="row justify-content-md">
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Recepción</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="reception" reception id="reception" name="reception"
-                  status="{{ isSubmitted && form.controls.reception.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Codificación</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="coding" coding id="coding" name="coding"
-                  status="{{ isSubmitted && form.controls.coding.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Decodificación</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="decoding" decoding id="decoding" name="decoding"
-                  status="{{ isSubmitted && form.controls.decoding.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-              
-            <div class="container">
-              
-                <div class="col col-lg-12">
-                  <hr />
-                </div>
-              
-            </div>
-            
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Producción</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="production" production id="production" name="production"
-                  status="{{ isSubmitted && form.controls.production.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold text ">Observación</label>
-              </div>
-
-              <div class="row justify-content-md-center">
-                <div class="col col-lg-8">
-                  <textarea onpaste="return false" class="form-text col col-lg-12" id="observation" nbInput fullWidth
-                    formControlName="observations" observations rows="4" cols="50"
-                    status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-                </div>
-              </div>
-       
-            </div>
-
-          </fieldset>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <button nbButton status="danger" class="ml-1 btn-save" (click)="save(5)" [disabled]="disabled"
-                  type="submit">GUARDAR</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        <ngx-language-linguistic [record_id]="record_id"></ngx-language-linguistic>
+        
       </nb-accordion-item-body>
     </nb-accordion-item>
 
@@ -472,139 +64,9 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Comunicación</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <div class="row">
+        
+        <ngx-language-communication [record_id]="record_id"></ngx-language-communication>
 
-          <fieldset class="field_set">
-            <legend class="prue1 center">COMUNICACIÓN</legend>
-            <div class="row justify-content-md">
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Contacto Visual</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="eye_contact" eye_contact id="eye_contact" name="eye_contact"
-                  status="{{ isSubmitted && form.controls.eye_contact.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Normas De Cortesía</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="courtesy_rules" courtesy_rules id="courtesy_rules"
-                  name="courtesy_rules"
-                  status="{{ isSubmitted && form.controls.courtesy_rules.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Intención Comunicativa</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="communicative_intention" communicative_intention
-                  id="communicative_intention" name="communicative_intention"
-                  status="{{ isSubmitted && form.controls.communicative_intention.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-              <div class="col col-lg-12">
-                <hr />
-              </div>
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Propósito Comunicativo</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="communicative_purpose" communicative_purpose id="communicative_purpose"
-                  name="communicative_purpose"
-                  status="{{ isSubmitted && form.controls.communicative_purpose.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Modalidad Verbal Oral</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="oral_verb_modality" oral_verb_modality id="oral_verb_modality"
-                  name="oral_verb_modality"
-                  status="{{ isSubmitted && form.controls.oral_verb_modality.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Modalidad Verbal Escrita</label>
-              </div>
-
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="written_verb_modality" written_verb_modality id="written_verb_modality"
-                  name="nothing_orally"
-                  status="{{ isSubmitted && form.controls.written_verb_modality.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-              <div class="col col-lg-12">
-                <hr />
-              </div>
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Modalidad No Verbal- No Simbólica</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="nonsymbolic_nonverbal_modality" nonsymbolic_nonverbal_modality
-                  id="nonsymbolic_nonverbal_modality" name="nonsymbolic_nonverbal_modality"
-                  status="{{ isSubmitted && form.controls.nonsymbolic_nonverbal_modality.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Modalidad No Verbal - Simbólica</label>
-              </div>
-
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="symbolic_nonverbal_modality" symbolic_nonverbal_modality
-                  id="symbolic_nonverbal_modalityvvvvv" name="nothing_orally"
-                  status="{{ isSubmitted && form.controls.symbolic_nonverbal_modality.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Observaciones</label>
-              </div>
-              <div class="col col-lg-2">
-                <textarea id="observations" nbInput fullWidth formControlName="observations" observations
-                  onpaste="return false" rows="4" cols="50"
-                  status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-              </div>
-
-
-            </div>
-          </fieldset>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <button nbButton status="danger" class="ml-1 btn-save" (click)="save(6)" [disabled]="disabled"
-                  type="submit">GUARDAR</button>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
       </nb-accordion-item-body>
     </nb-accordion-item>
 
@@ -612,68 +74,9 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Cognitivo</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <div class="row">
+        
+        <ngx-language-cognitive [record_id]="record_id"></ngx-language-cognitive>
 
-          <fieldset class="field_set">
-            <legend class="prue1 center">COGNITIVO</legend>
-            <div class="row justify-content-md">
-              <div class="col col-lg-4">
-                <label class="form-text text-muted font-weight-bold">Memoria</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="memory" memory id="memory" name="memory"
-                  status="{{ isSubmitted && form.controls.memory.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-4">
-                <label class="form-text text-muted font-weight-bold">Atención</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="attention" attention id="attention" name="attention"
-                  status="{{ isSubmitted && form.controls.attention.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-
-              <div class="col col-lg-12">
-                <hr />
-              </div>
-
-              <div class="col col-lg-4">
-                <label class="form-text text-muted font-weight-bold">Concentración </label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="concentration" concentration id="concentration" name="concentration"
-                  status="{{ isSubmitted && form.controls.concentration.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Observaciones</label>
-              </div>
-              <div class="col col-lg-4">
-                <textarea id="observations" nbInput fullWidth formControlName="observations" observations
-                  onpaste="return false" rows="4" cols="50"
-                  status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-              </div>
-            </div>
-          </fieldset>
-
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <button nbButton status="danger" class="ml-1 btn-save" (click)="save(9)" [disabled]="disabled"
-                  type="submit">GUARDAR</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
       </nb-accordion-item-body>
     </nb-accordion-item>
 
@@ -681,74 +84,9 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Orofacial</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <div class="row">
-        <fieldset class="field_set">
-          <legend class="prue1 center">Hemicara Derecha</legend>
-          <div class="row">
-            <div class="col-md-6">
-              <label class="form-text text-muted font-weight-bold">Simetría</label>
-              <textarea id="right_hermiface_symmetry" nbInput fullWidth formControlName="right_hermiface_symmetry" jejunostomy
-                onpaste="return false" rows="4" cols="50"
-                status="{{ isSubmitted && form.controls.right_hermiface_symmetry.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-            </div>
-  
-            <div class="col-md-6">
-              <label class="form-text text-muted font-weight-bold">Tono</label>
-              <textarea id="right_hermiface_tone" nbInput fullWidth formControlName="right_hermiface_tone" right_hermiface_tone onpaste="return false"
-                rows="4" cols="50"
-                status="{{ isSubmitted && form.controls.right_hermiface_tone.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-            </div>
-  
-  
-  
-            <div class="col col-lg-12">
-              <label class="form-text text-muted font-weight-bold center">Sensibilidad</label>
-              <textarea id="right_hermiface_sensitivity" nbInput fullWidth formControlName="right_hermiface_sensitivity" right_hermiface_sensitivity
-                onpaste="return false" rows="3" cols="40"
-                status="{{ isSubmitted && form.controls.right_hermiface_sensitivity.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-            </div>
-  
-          </div>
-        </fieldset>
-        <fieldset class="field_set">
-          <legend class="prue1 center">Hemicara Izquierda</legend>
-          <div class="row">
-            <div class="col-md-6">
-              <label class="form-text text-muted font-weight-bold">Simetría</label>
-              <textarea id="left_hermiface_symmetry" nbInput fullWidth formControlName="left_hermiface_symmetry" left_hermiface_symmetry
-                onpaste="return false" rows="4" cols="50"
-                status="{{ isSubmitted && form.controls.left_hermiface_symmetry.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-            </div>
-  
-            <div class="col-md-6">
-              <label class="form-text text-muted font-weight-bold">Tono</label>
-              <textarea id="left_hermiface_tone" nbInput fullWidth formControlName="left_hermiface_tone" left_hermiface_tone   onpaste="return false"
-                rows="4" cols="50"
-                status="{{ isSubmitted && form.controls.left_hermiface_tone.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-            </div>
-  
-  
-  
-            <div class="col col-lg-12">
-              <label class="form-text text-muted font-weight-bold center">Sensibilidad</label>
-              <textarea id="left_hermiface_sensitivity" nbInput fullWidth formControlName="left_hermiface_sensitivity" left_hermiface_sensitivity
-                onpaste="return false" rows="3" cols="40"
-                status="{{ isSubmitted && form.controls.left_hermiface_sensitivity.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-            </div>
-  
-          </div>
+      
+        <ngx-language-orofacial [record_id]="record_id"></ngx-language-orofacial>
 
-        </fieldset>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <button nbButton status="danger" class="ml-1 btn-save" (click)="save(8)" [disabled]="disabled"
-                  type="submit">GUARDAR</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
       </nb-accordion-item-body>
     </nb-accordion-item>
 
@@ -756,90 +94,9 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Habla</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <div class="row ">
-          <fieldset class="field_set">
-            <legend class="prue1 center">Habla</legend>
-            <div class="row justify-content-md">
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Respiración </label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="breathing" breathing id="breathing" name="breathing" fullWidth
-                  status="{{ isSubmitted && form.controls.breathing.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Articulación</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="joint" joint id="joint" name="joint" fullWidth
-                  status="{{ isSubmitted && form.controls.joint.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
+        
+        <ngx-language-speech [record_id]="record_id"></ngx-language-speech>
 
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Resonancia </label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="resonance" resonance id="resonance" name="resonance" fullWidth
-                  status="{{ isSubmitted && form.controls.resonance.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-              <div class="col col-lg-12">
-                <hr />
-              </div>
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Fluidez </label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="fluency" fluency id="fluency" name="fluency" fullWidth
-                  status="{{ isSubmitted && form.controls.fluency.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Prosodia</label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="prosody" prosody id="prosody" name="prosody" fullWidth
-                  status="{{ isSubmitted && form.controls.prosody.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="Si">Si</nb-radio>
-                  <nb-radio value="No">No</nb-radio>
-                </nb-radio-group>
-              </div>
-
-              <div class="col col-lg-2">
-                <label class="form-text text-muted font-weight-bold">Observaciones</label>
-              </div>
-              <div class="col col-lg-2">
-                <textarea id="observations" nbInput fullWidth formControlName="observations" observations
-                  onpaste="return false" rows="3" cols="50"
-                  status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-              </div>
-            </div>
-
-          </fieldset>
-
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <button nbButton status="danger" class="ml-1 btn-save" (click)="save(9)" [disabled]="disabled"
-                  type="submit">GUARDAR</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
       </nb-accordion-item-body>
     </nb-accordion-item>
 
@@ -847,72 +104,9 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Pruebas Especificas</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <div class="row">
+        
+        <ngx-language-tests  [record_id]="record_id"></ngx-language-tests>
 
-
-          <div class="col-md-6">
-            <label class="form-text text-muted font-weight-bold">Escala De Hamilton/ Fast/Prueba De Los 7 MinuTos
-              (Cognición) </label>
-            <textarea id="hamilton_scale" nbInput fullWidth formControlName="hamilton_scale" hamilton_scale
-              onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.hamilton_scale.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-text text-muted font-weight-bold">Prueba De Boston / Mini Boston (Lenguaje
-              Adultos)</label>
-            <textarea id="boston_test" nbInput fullWidth formControlName="boston_test" boston_test
-              onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.boston_test.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-text text-muted font-weight-bold">Termal Y Merril/ Bhenale (Lenguaje Intantil) </label>
-            <textarea id="termal_merril" nbInput fullWidth formControlName="termal_merril" termal_merril
-              onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.termal_merril.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-text text-muted font-weight-bold">Prolec / Plon-R (Lectura Y Escritura)</label>
-            <textarea id="prolec_plon" nbInput fullWidth formControlName="prolec_plon" prolec_plon
-              onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.prolec_plon.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-text text-muted font-weight-bold">Ped /Guss (Deglución)</label>
-            <textarea id="ped_guss" nbInput fullWidth formControlName="ped_guss" ped_guss onpaste="return false"
-              rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.ped_guss.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-text text-muted font-weight-bold">Vhi /Grbas/Rasat (Voz)</label>
-            <textarea id="vhi_grbas" nbInput fullWidth formControlName="vhi_grbas" vhi_grbas onpaste="return false"
-              rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.vhi_grbas.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-text text-muted font-weight-bold">Pemo (Habla)</label>
-            <textarea id="pemo_speech" nbInput fullWidth formControlName="pemo_speech" pemo_speech
-              onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.pemo_speech.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </div>
-
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <button nbButton status="danger" class="ml-1 btn-save" (click)="save(10)" [disabled]="disabled"
-                  type="submit">GUARDAR</button>
-              </div>
-            </div>
-          </div>
-
-
-
-        </div>
       </nb-accordion-item-body>
     </nb-accordion-item>
 
@@ -928,15 +122,17 @@
 
 
 
-    <!-- Diagnostico Cif 14-->
+  <!-- Diagnostico Cif 14-->
     <nb-accordion-item>
       <nb-accordion-item-header>Diagnostico Cif</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <ngx-form-language-evo-diagnosis>
+        <ngx-form-language-evo-diagnosis *ngIf="cifdiagnosistl" [record_id]="record_id"
+        [data]="cifdiagnosistl">
         </ngx-form-language-evo-diagnosis>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
+
 
     <!-- Numero de Sesiones Mensuales E Intensidad Semana 15 -->
 
@@ -944,8 +140,8 @@
       <nb-accordion-item-header>Numero de Sesiones Mensuales E Intensidad Semana</nb-accordion-item-header>
       <nb-accordion-item-body>
 
-        <ngx-form-language-reg-sessions>
-        </ngx-form-language-reg-sessions>
+        <ngx-language-reg-sessions [type_record]="1"[record_id]="record_id">
+        </ngx-language-reg-sessions>
 
 
       </nb-accordion-item-body>

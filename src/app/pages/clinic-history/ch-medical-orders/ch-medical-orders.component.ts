@@ -55,11 +55,11 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[2],
         width: 'string',
       },
-      hourly_frequency: {
+      frequency: {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.value + '-' + row.hourly_frequency.name;
+          return value.name;
         },
       },
       observations: {

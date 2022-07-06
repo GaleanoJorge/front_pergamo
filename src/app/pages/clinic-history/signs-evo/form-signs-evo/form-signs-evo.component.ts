@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChVitalSignsService } from '../../../../business-controller/ch-vital-signs.service';
@@ -20,6 +20,7 @@ import { ParametersSignsService } from '../../../../business-controller/paramete
 export class FormsignsEvoComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
   @Input() record_id: any = null;
 
   public form: FormGroup;
@@ -392,8 +393,14 @@ export class FormsignsEvoComponent implements OnInit {
               this.loading = false;
             }
           });
+        
+        this.messageEvent.emit(true);
       }
+
+      
     }
+
+    
   }
   onChanges(event, id) {
     if (

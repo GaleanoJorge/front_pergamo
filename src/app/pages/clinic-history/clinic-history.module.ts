@@ -140,7 +140,7 @@ import { FormClinicHistoryLanguageComponent } from './clinic-history-language-li
 import { ClinicHistoryLanguageListComponent } from './clinic-history-language-list/clinic-history-language-list.component';
 import { ActionsLanguageComponent } from './clinic-history-language-list/actionslanguage.component';
 import { FormLanguageAssessmentComponent } from './language-assessment/form-language-assessment/form-language-assessment.component';
-import { LanguageAssessmentComponent } from './language-assessment/language-assessment.component';
+  
 import { LanguageListComponent } from './language-list/language-list.component';
 import { FormLanguageEvolutionComponent } from './language-evolution/form-language-evolution/form-language-evolution.component';
 import { RegularLanguageListComponent } from './regularlanguage-list/regularlanguage-list.component';
@@ -189,6 +189,36 @@ import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-t
 import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
+import { FormLanguageOstomiesComponent } from './language-ostomies/form-language-ostomies/form-language-ostomies.component';
+import { LanguageOstomiesComponent } from './language-ostomies/language-ostomies.component';
+import { FormLanguageSwallowingComponent } from './language-swallowing/form-language-swallowing/form-language-swallowing.component';
+import { LanguageSwallowingComponent } from './language-swallowing/language-swallowing.component';
+import { FormLanguageAlterationsComponent } from './language-alterations/form-language-alterations/form-language-alterations.component';
+import { LanguageAlterationsComponent } from './language-alterations/language-alterations.component';
+import { FormLanguageHearingComponent } from './language-hearing/form-language-hearing/form-language-hearing.component';
+import { LanguageHearingComponent } from './language-hearing/language-hearing.component';
+import { FormLanguageLinguisticComponent } from './language-linguistic/form-language-linguistic/form-language-linguistic.component';
+import { LanguageLinguisticComponent } from './language-linguistic/language-linguistic.component';
+import { LanguageCommunicationComponent } from './language-communication/language-communication.component';
+import { FormLanguageOrofacialComponent } from './language-orofacial/form-language-orofacial/form-language-orofacial.component';
+import { LanguageOrofacialComponent } from './language-orofacial/language-orofacial.component';
+import { FormLanguageSpeechComponent } from './language-speech/form-language-speech/form-language-speech.component';
+import { LanguageSpeechComponent } from './language-speech/language-speech.component';
+import { FormLanguageTestsComponent } from './language-tests/form-language-tests/form-language-tests.component';
+import { LanguageTestsComponent } from './language-tests/language-tests.component';
+import { FormLanguageCognitiveComponent } from './language-cognitive/form-language-cognitive/form-language-cognitive.component';
+import { LanguageCognitiveComponent } from './language-cognitive/language-cognitive.component';
+import { LanguageAssessmentComponent } from './language-assessment/language-assessment.component';
+import { LanguageAssessmentRegularComponent } from './language-assessment-regular/language-assessment-regular.component';
+import { LanguageRegSessionsComponent } from './language-reg-sessions/language-reg-sessions.component';
+import { FormChInabilityComponent } from './ch-inability/form-ch-inability/form-ch-inability.component';
+import { ChInabilityComponent } from './ch-inability/ch-inability.component';
+import { FormLanguageCommunicationComponent } from './language-communication/form-language-communication/form-language-communication.component';
+import { LanguageInterventionComponent } from './language-intervention/language-intervention.component';
+import { ChMedicalCertificateComponent } from './ch-medical-certificate/ch-medical-certificate.component';
+import { FormChMedicalCertificateComponent } from './ch-medical-certificate/form-ch-medical-certificate/form-ch-medical-certificate.component';
+import { LanguageConceptComponent } from './language-concept/language-concept.component';
+
 
 @NgModule({
   imports: [
@@ -414,9 +444,37 @@ import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.co
     FormLanguageInterventionComponent,
     FormLanguageEvoDiagnosisComponent,
     FormLanguageRegSessionsComponent,
+    LanguageRegSessionsComponent,
     FormLanguageTherapeuticGoalsComponent,
-  
-    
+    FormLanguageOstomiesComponent,
+    LanguageOstomiesComponent,
+    FormLanguageSwallowingComponent,
+    LanguageSwallowingComponent,
+    FormLanguageAlterationsComponent,
+    LanguageAlterationsComponent,
+    FormLanguageHearingComponent,
+    LanguageHearingComponent,
+    FormLanguageLinguisticComponent,
+    LanguageLinguisticComponent,
+    FormLanguageCommunicationComponent,
+    LanguageCommunicationComponent,
+    FormLanguageOrofacialComponent,
+    LanguageOrofacialComponent,
+    FormLanguageSpeechComponent,
+    LanguageSpeechComponent,
+    FormLanguageTestsComponent,
+    LanguageTestsComponent,
+    FormLanguageCognitiveComponent,
+    LanguageCognitiveComponent,
+    LanguageAssessmentRegularComponent,
+    FormChInabilityComponent,
+    ChInabilityComponent,
+    LanguageInterventionComponent,
+    ChMedicalCertificateComponent,
+    ChMedicalCertificateComponent,
+    FormChMedicalCertificateComponent,
+    LanguageConceptComponent,
+
 
   ],
 
