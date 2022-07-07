@@ -9,4 +9,6 @@ export class ProductSupplies extends MainClass {
   minimum_stock: number;
   maximum_stock: number;
   description:string;
+  product_dose_id:string;
+  dose:string;
 }

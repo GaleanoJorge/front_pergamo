@@ -6,6 +6,7 @@ import { ProductSubcategoryService } from '../../../../business-controller/produ
 import { ProductSuppliesService } from '../../../../business-controller/product-supplies.service';
 import { ProductGroupService } from '../../../../business-controller/product-group.service';
 import { SuppliesMeasureService } from '../../../../business-controller/supplies-measure.service';
+import { ProductDoseService } from '../../../../business-controller/product_dose.service';
 
 
 @Component({
@@ -33,6 +34,8 @@ export class FormProductSuppliesComponent implements OnInit {
   public subcategory: string;
   public size_supplies: string;
   public measure_supplies: string;
+  public product_dose: any[];
+  public showDose: boolean = false;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -42,7 +45,9 @@ export class FormProductSuppliesComponent implements OnInit {
     private ProductCategoryS: ProductCategoryService,
     private ProductSubcategoryS: ProductSubcategoryService,
     private ProductGroupS: ProductGroupService,
-    private SuppliesMeasureS: SuppliesMeasureService
+    private SuppliesMeasureS: SuppliesMeasureService,
+    private prodDoseS: ProductDoseService,
+
   ) {
   }
 
@@ -56,6 +61,8 @@ export class FormProductSuppliesComponent implements OnInit {
         stature: '',
         measure_supplies_measure_id: '',
         size_supplies_measure_id: '',
+        product_dose_id: '',
+        dose: '',
       };
     }
 
@@ -70,8 +77,11 @@ export class FormProductSuppliesComponent implements OnInit {
       product_subcategory_id: [],
       measure_supplies_measure_id: [],
       size_supplies_measure_id: [],
+      product_dose_id: [],
+      dose: [],
 
     });
+
 
     await this.ProductGroupS.GetCollection({
       id: 2,
@@ -87,8 +97,20 @@ export class FormProductSuppliesComponent implements OnInit {
       this.measure_supplies_measure = x;
     });
 
+    await this.prodDoseS.GetCollection().then(x => {
+      this.product_dose = x;
+    });
+
 
     this.onChanges();
+  }
+
+  onChange2(tipoId) {
+    if (tipoId == 2) {
+      this.showDose = true;
+    } else {
+      this.showDose = false;
+    }
   }
 
   selectsubcategory(event: Event) {
@@ -124,16 +146,17 @@ export class FormProductSuppliesComponent implements OnInit {
       this.loading = true;
       if (this.data.id) {
         this.ProductSuppliesS.Update({
-
           id: this.data.id,
           size: this.form.controls.size.value,
           measure: this.form.controls.measure.value,
           stature: this.form.controls.stature.value,
-          description: this.form.controls.measure.value != null ? this.form.controls.size.value == null ? this.subcategory + " " + this.form.controls.measure.value + " " + this.measure_supplies + " x " + this.form.controls.stature.value : this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies  : this.subcategory + " " + this.form.controls.stature.value,
+          description: this.form.controls.measure.value != null ? this.form.controls.size.value == null ? this.subcategory + " " + this.form.controls.measure.value + " " + this.measure_supplies + " x " + this.form.controls.stature.value : this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies : this.subcategory + " " + this.form.controls.stature.value,
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           size_supplies_measure_id: this.form.controls.size_supplies_measure_id.value,
           measure_supplies_measure_id: this.form.controls.measure_supplies_measure_id.value,
+          product_dose_id: this.form.controls.product_dose_id.value,
+          dose: this.form.controls.dose.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -151,9 +174,12 @@ export class FormProductSuppliesComponent implements OnInit {
           stature: this.form.controls.stature.value,
           size_supplies_measure_id: this.form.controls.size_supplies_measure_id.value,
           measure_supplies_measure_id: this.form.controls.measure_supplies_measure_id.value,
-          description: this.form.controls.measure.value != null ? this.form.controls.size.value == null ? this.subcategory + " " + this.form.controls.measure.value + " " + this.measure_supplies + " x " + this.form.controls.stature.value : this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies  : this.subcategory + " " + this.form.controls.stature.value,
+          description: this.form.controls.measure.value != null ? this.form.controls.size.value == null ? this.subcategory + " " + this.form.controls.measure.value + " " + this.measure_supplies + " x " + this.form.controls.stature.value : this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies : this.subcategory + " " + this.form.controls.stature.value,
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
+          product_dose_id: this.form.controls.product_dose_id.value,
+          dose: this.form.controls.dose.value,
+
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -191,6 +217,17 @@ export class FormProductSuppliesComponent implements OnInit {
       this.form.patchValue({
         product_subcategory_id: '',
       });
+    });
+  }
+
+  onChanges2() {
+    this.form.get('product_dose_id').valueChanges.subscribe(val => {
+      console.log(val);
+      if (val === '') {
+        this.product_dose = [];
+      } else {
+        this.GetCategories(val).then();
+      }
     });
   }
 
