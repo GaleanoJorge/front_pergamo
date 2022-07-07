@@ -94,7 +94,7 @@ export class FormProductSuppliesComponent implements OnInit {
   selectsubcategory(event: Event) {
     let Subcat = this.product_subcategory.find(x => x.id == event);
     this.subcategory = Subcat.name;
-    this.form.controls.description.setValue(this.subcategory);
+    // this.form.controls.description.setValue(this.subcategory);
   }
   selectSizesup(event: Event) {
     let SizeSup = this.size_supplies_measure.find(x => x.id == event);

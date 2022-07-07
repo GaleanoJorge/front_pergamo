@@ -12,6 +12,7 @@ export class CarePlanComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id;
+  @Input() type_record_id: any = null;
   @Input() user;
   linearMode = false;
   public messageError = null;

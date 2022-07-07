@@ -189,6 +189,10 @@ import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-t
 import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
+import { NursingPhysicalExamComponent } from './nursing-physical-exam/nursing-physical-exam.component';
+import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-nursing-physical-exam/form-nursing-physical-exam.component';
+import { InsumeRequestComponent } from './insume-request/insume-request.component';
+import { FormInsumeRequestComponent } from './insume-request/form-insume-request/form-insume-request.component';
 import { FormLanguageOstomiesComponent } from './language-ostomies/form-language-ostomies/form-language-ostomies.component';
 import { LanguageOstomiesComponent } from './language-ostomies/language-ostomies.component';
 import { FormLanguageSwallowingComponent } from './language-swallowing/form-language-swallowing/form-language-swallowing.component';
@@ -249,6 +253,12 @@ import { LanguageConceptComponent } from './language-concept/language-concept.co
     NbCheckboxModule,
   ],
   declarations: [
+    
+    InsumeRequestComponent,
+    FormInsumeRequestComponent,
+
+    NursingPhysicalExamComponent,
+    FormNursingPhysicalExamComponent,
 
     NursingProcedureComponent,
     FormNursingProcedureComponent,

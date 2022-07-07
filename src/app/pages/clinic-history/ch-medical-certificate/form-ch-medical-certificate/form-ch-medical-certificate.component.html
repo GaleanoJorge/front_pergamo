@@ -1,12 +1,20 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
   
-  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center" style="align-items: center;">
+    
     <div class="col-md-8">
       <label for="description" class="form-text text-muted font-weight-bold ">Certificación Medica</label>
       <textarea id="description" nbInput fullWidth formControlName="description" description onpaste="return false" rows="4"
         cols="50"
         status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+    </div>
+
+    <div class="col-md-1">
+      <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()" >
+        <nb-icon icon="mic-outline"></nb-icon>
+      </button>
+      <ngx-web-speach *ngIf="changes1" id="description" name="description"  (messageEvent)="receiveMessage($event)" entity="description" isactive="true"></ngx-web-speach>
     </div>
   </div>
   <div class="row">

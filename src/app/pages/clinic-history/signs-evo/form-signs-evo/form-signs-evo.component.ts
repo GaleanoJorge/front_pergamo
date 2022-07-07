@@ -160,7 +160,7 @@ export class FormsignsEvoComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      clock: [this.data.clock],
+      clock: [this.data.clock, Validators.compose([Validators.required])],
       cardiac_frequency: [this.data.cardiac_frequency,Validators.compose([Validators.required]),],
       respiratory_frequency: [this.data.respiratory_frequency, Validators.compose([Validators.required]),],
       temperature: [this.data.temperature,Validators.compose([Validators.required]),],
@@ -313,7 +313,7 @@ export class FormsignsEvoComponent implements OnInit {
             pupil_size_right: this.form.controls.pupil_size_right.value,
             left_reaction: this.form.controls.left_reaction.value,
             pupil_size_left: this.form.controls.pupil_size_left.value,
-            mydriatic: this.form.controls.mydriatic.value,
+            // mydriatic: this.form.controls.mydriatic.value,
             normal: this.form.controls.normal.value,
             lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
             fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,

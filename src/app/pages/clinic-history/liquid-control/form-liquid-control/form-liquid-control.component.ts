@@ -15,6 +15,7 @@ export class FormLiquidControlComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
 
@@ -114,7 +115,7 @@ export class FormLiquidControlComponent implements OnInit {
           ch_type_fluid_id: this.form.controls.ch_type_fluid_id.value,
           delivered_volume: this.form.controls.delivered_volume.value,
           bag_number: this.form.controls.bag_number.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -132,7 +133,7 @@ export class FormLiquidControlComponent implements OnInit {
           ch_type_fluid_id: this.form.controls.ch_type_fluid_id.value,
           delivered_volume: this.form.controls.delivered_volume.value,
           bag_number: this.form.controls.bag_number.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -152,6 +153,7 @@ export class FormLiquidControlComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
         });
+        this.messageEvent.emit(true);
       }
 
     }

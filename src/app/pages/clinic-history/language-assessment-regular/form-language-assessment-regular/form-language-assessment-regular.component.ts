@@ -26,9 +26,9 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public admissions_id;
-  public medical_diagnosis_id: any[]; 
+  public diagnosis_id: any[]; 
   public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
+
   public diagnosis: any[];
 
 
@@ -50,19 +50,19 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
 
     if (!this.data) {
       this.data = {
-        medical_diagnosis_id: '',
+        diagnosis_id: '',
         status_patient: '',
       };
     }
 
     this.form = this.formBuilder.group({
-      medical_diagnosis_id: [this.data.medical_diagnosis_id],
+      diagnosis_id: [this.data.diagnosis_id],
   
       status_patient: [this.data.status_patient],
     });
 
     this.DiagnosisS.GetCollection().then((x) => {
-      this.medical_diagnosis_id = x;
+      this.diagnosis_id = x;
     });
     
   }
@@ -76,7 +76,7 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
       if (this.data.id) {
         await this.TlTherapyLanguageRegularS.Update({
           id: this.data.id,
-          medical_diagnosis_id: this.form.controls.medical_diagnosis_id.value,
+          diagnosis_id: this.form.controls.diagnosis_id.value,
          
           status_patient: this.form.controls.status_patient.value,
 
@@ -95,7 +95,7 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
           });
       } else {
         await this.TlTherapyLanguageRegularS.Save({
-          medical_diagnosis_id: this.form.controls.medical_diagnosis_id.value,
+          diagnosis_id: this.form.controls.diagnosis_id.value,
           
           status_patient: this.form.controls.status_patient.value,
 
@@ -106,7 +106,7 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
             this.form.setValue({
-              medical_diagnosis_id: '',
+              diagnosis_id: '',
       
               status_patient: '',
             });
@@ -122,28 +122,17 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
     }
   }
 
-  // saveCode(e, valid): void {
-  //   var localidentify = this.diagnosis.find((item) => item.name == e);
+  saveCode(e): void {
+    var localidentify = this.diagnosis.find(item => item.name == e);
 
-  //   if (localidentify) {
-  //     if (valid == 1) {
-  //       this.diagnosis_medical = localidentify.id;
-  //     } else {
-  //       this.therapeutyc_diagnosis = localidentify.id;
-  //     }
-  //   } else {
-  //     if (valid == 1) {
-  //       this.diagnosis_medical = null;
-  //     } else {
-  //       this.therapeutyc_diagnosis = null;
-  //     }
-  //     this.toastService.warning(
-  //       '',
-  //       'Debe seleccionar un diagnostico de la lista'
-  //     );
-  //     this.form.controls.diagnosis_id.setErrors({ incorrect: true });
-  //   }
-  // }
+    if (localidentify) {
+      this.diagnosis_id = localidentify.id;
+    } else {
+      this.diagnosis_id = null;
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
+    }
+  }
 }
 
 

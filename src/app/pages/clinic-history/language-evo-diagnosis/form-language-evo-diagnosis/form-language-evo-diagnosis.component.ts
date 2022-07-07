@@ -50,10 +50,10 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit {
 
 
     this.form = this.formBuilder.group({
-      text: [this.data[0] ? this.data[0].text : this.data],
+      text: [this.data[0] ? this.data[0].text : this.data.text ],
     });
 
-    if (this.data[0].text != '') {   
+    if (this.data.text != '') {   
       this.form.controls.text.disable();
       this.disabled = true;
     } else { 

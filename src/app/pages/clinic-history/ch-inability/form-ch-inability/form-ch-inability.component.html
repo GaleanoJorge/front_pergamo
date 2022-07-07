@@ -3,7 +3,10 @@
     <fieldset class="field_set">
       <legend class="prue1 center">INCAPACIDAD MEDICA</legend>
       <div class="row justify-content-md-center">
+        <label for=" ch_contingency_code_id" class="form-text text-muted font-weight-bold" >¿Prorroga?</label>
 
+        <input type="checkbox" id="extension" formControlName="extension">
+      
 
         <div class="col-md-3 center">
           <label for=" ch_contingency_code_id" class="form-text text-muted font-weight-bold">Codigo Contigencia</label>
@@ -29,13 +32,14 @@
         </div>
       </div>
       <div class="row justify-content-md-center">
-        <div class="col-md-3 center">
-          <label for=" diagnosis_id" class="form-text text-muted font-weight-bold ">Diagnóstico Médico:</label>
-          <input fullWidth nbInput list="codes" id=" diagnosis_id" formControlName=" diagnosis_id" diagnosis_id
-            type="text" required
-            status="{{ isSubmitted && form.controls. diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+       
+        <div class=" col-md-3center">
+          <label for="diagnosis_id" class="font-weight-bold">Diagnóstico Médico:</label>
+          <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+            id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" 
+            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <datalist id="codes">
-            <option *ngFor="let item of  diagnosis_id" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+            <option *ngFor="let item of diagnosis_id" [value]="item.name">{{ item.code }} - {{item.name}} </option>
           </datalist>
         </div>
 
@@ -53,9 +57,10 @@
           </nb-select>
         </div>
 
-        
+
         <div class="col-md-3 center">
-          <label for=" ch_type_inability_id" class="form-text text-muted font-weight-bold ">Tipo de Procedimiento</label>
+          <label for=" ch_type_inability_id" class="form-text text-muted font-weight-bold ">Tipo de
+            Procedimiento</label>
           <nb-select [selected]="this.data.ch_type_procedure_id" formControlName="ch_type_procedure_id"
             id="ch_type_procedure_id" fullWidth
             status="{{ isSubmitted && form.controls.ch_type_procedure_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -69,14 +74,22 @@
 
       </div>
 
-    </fieldset>
-
-    <fieldset class="field_set">
-      <legend class="prue1 center">Observaciones del Profesional</legend>
-
-      <textarea id="observation" nbInput fullWidth formControlName="observation" analisys onpaste="return false"
-        rows="3" cols="50"
-        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      <div class="row justify-content-md-center" style="align-items: center;">
+    
+        <div class="col-md-8">
+          <label for="observation" class="form-text text-muted font-weight-bold ">Observación del Profesional</label>
+          <textarea id="observation" nbInput fullWidth formControlName="observation" observation onpaste="return false" rows="4"
+            cols="50"
+            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+    
+        <div class="col-md-1">
+          <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()" >
+            <nb-icon icon="mic-outline"></nb-icon>
+          </button>
+          <ngx-web-speach *ngIf="changes1" id="observation" name="observation"  (messageEvent)="receiveMessage($event)" entity="observation" isactive="true"></ngx-web-speach>
+        </div>
+      </div>
     </fieldset>
 
 

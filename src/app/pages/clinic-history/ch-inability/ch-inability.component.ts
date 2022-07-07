@@ -20,7 +20,7 @@ export class ChInabilityComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Codigo de Contingencia', 'Descripción', 'Evidencia',
+    'Codigo de Contingencia', 'Fecha de Inicio', 'Fecha Final', 'Diagnostico', 'Tipo de Incapacidad', 'Tipo de Procedimiento', 'Observación',
     
   ];
 

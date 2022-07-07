@@ -31,6 +31,9 @@ export class FormChMedicalCertificateComponent implements OnInit {
   public therapeutic_diagnosis_id: any[];
   public diagnosis_id;
   public diagnosis: any[];
+  public changes=false;
+  public changes1=false;
+
 
 
   constructor(
@@ -111,13 +114,22 @@ export class FormChMedicalCertificateComponent implements OnInit {
     }
   }
 
-  // saveCode(e): void {
-  //   var localidentify = this.diagnosis.find(item => item.name == e);
+  receiveMessage($event) {   
+    
+    if($event.isactive==false){
+      this.changes=false;
+      this.changes1=false;
+    }
+    if($event.entity){
+    this.form.get($event.entity).setValue(this.form.get($event.entity).value+' '+$event.text);
+    }
+  }
 
-  //   if (localidentify) {
-  //     this.diagnosis_id = localidentify.id;
-  //   } else {
-  //     this.diagnosis_id = null;
-  //   }
-  // }
+  changebuttom() {
+    this.changes=true;
+  }
+
+  changebuttom1() {
+    this.changes1=true;
+  }
 }

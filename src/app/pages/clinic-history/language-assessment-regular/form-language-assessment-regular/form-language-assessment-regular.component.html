@@ -2,12 +2,12 @@
   <div>
   <div class="row justify-content-md-center">
     <div class="col-md-8">
-      <label  for="medical_diagnosis_id" class="form-text text-muted font-weight-bold ">Diagnóstico Médico:</label>
-      <input  fullWidth nbInput list="codes"   id="medical_diagnosis_id" 
-      formControlName="medical_diagnosis_id" medical_diagnosis_id type="text" required
-      status="{{ isSubmitted && form.controls.medical_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      <label  for="diagnosis_id" class="form-text text-muted font-weight-bold ">Diagnóstico Médico:</label>
+      <input  fullWidth nbInput list="codes"  (change)="saveCode($event.target.value)"  id="diagnosis_id" 
+      formControlName="diagnosis_id" diagnosis_id type="text" required
+      status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
       <datalist id="codes">
-        <option *ngFor="let item of medical_diagnosis_id" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        <option *ngFor="let item of diagnosis_id" [value]="item.name">{{ item.code }} - {{item.name}} </option>
       </datalist>
     </div>
   </div>

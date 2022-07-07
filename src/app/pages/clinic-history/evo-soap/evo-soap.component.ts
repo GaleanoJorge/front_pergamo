@@ -19,7 +19,6 @@ export class EvoSoapComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Id',
     'Subjetivo',
     'Objetivo',
   ];
@@ -39,11 +38,11 @@ export class EvoSoapComponent implements OnInit {
     columns: {
       
       subjective: {
-        title: this.headerFields[1],
+        title: this.headerFields[0],
         width: 'string',
       },
       objective: {
-        title: this.headerFields[2],
+        title: this.headerFields[1],
         width: 'string',
       },
      

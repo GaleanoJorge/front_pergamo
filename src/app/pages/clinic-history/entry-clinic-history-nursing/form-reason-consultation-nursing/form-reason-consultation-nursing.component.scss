@@ -12,4 +12,20 @@ input[type=number]::-webkit-outer-spin-button {
 
 .center{
   text-align: center;
+  justify-content: center;
+}
+
+.field_set{
+  border: 1px solid #78dada;
+} 
+
+.prue1{
+  margin-left:1px;
+  background-color:#78dada; 
+  padding-left:1px;  
+   padding-right:10px; 
+    padding-bottom:1px; 
+    color:white; 
+    border:1px solid #eeece1;
+     font-size:20px
 }

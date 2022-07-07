@@ -72,6 +72,16 @@
             </nb-select>
           </div>
           <div class="col-md-6">
+            <label for="eps" class="form-text text-muted font-weight-bold">EPS / Asegurador:</label>
+            <nb-select  [selected]="this.data.eps" formControlName="eps" id="eps" fullWidth
+              status="{{ isSubmitted && form.controls.eps.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == this.data.eps }}" *ngFor="let item of eps"
+                [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col-md-6">
             <label for="contract" class="form-text text-muted font-weight-bold">Contrato:</label>
             <nb-select  [selected]="this.data.contract_id" formControlName="contract_id" id="contract_id" fullWidth
               status="{{ isSubmitted && form.controls.contract_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">

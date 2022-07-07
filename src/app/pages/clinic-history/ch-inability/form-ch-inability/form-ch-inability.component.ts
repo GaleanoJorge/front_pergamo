@@ -26,13 +26,15 @@ export class FormChInabilityComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  
   public admissions_id;
   public ch_contingency_code_id: any[];
   public ch_type_inability_id: any[];
   public ch_type_procedure_id: any[];
   public diagnosis_id: any[];
-  public previewFile = null;
+  public changes=false;
+  public diagnosis: any[] = [];
+  public changes1=false;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,6 +60,7 @@ export class FormChInabilityComponent implements OnInit {
         ch_type_inability_id: '',
         ch_type_procedure_id: '',
         observation: '',
+        total_days: '',
       };
     }
     
@@ -72,6 +75,7 @@ export class FormChInabilityComponent implements OnInit {
       ch_type_inability_id: [this.data[0] ? this.data[0].ch_type_inability_id : this.data.ch_type_inability_id,],
       ch_type_procedure_id: [this.data[0] ? this.data[0].ch_type_procedure_id : this.data.ch_type_procedure_id,],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
+      total_days: [this.data[0] ? this.data[0].total_days : this.data.total_days,],
       
 
     });
@@ -97,6 +101,8 @@ export class FormChInabilityComponent implements OnInit {
     });
   }
 
+ 
+
   async save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
@@ -114,6 +120,7 @@ export class FormChInabilityComponent implements OnInit {
           ch_type_inability_id: this.form.controls.ch_type_inability_id.value,
           ch_type_procedure_id: this.form.controls.ch_type_procedure_id.value,
           observation: this.form.controls.observation.value,
+          total_days: this.form.controls.total_days.value,
           type_record_id: 7,
           ch_record_id: this.record_id,
         }).then((x) => {
@@ -136,6 +143,7 @@ export class FormChInabilityComponent implements OnInit {
           ch_type_inability_id: this.form.controls.ch_type_inability_id.value,
           ch_type_procedure_id: this.form.controls.ch_type_procedure_id.value,
           observation: this.form.controls.observation.value,
+          total_days: this.form.controls.total_days.value,
           type_record_id: 7,
           ch_record_id: this.record_id,
         
@@ -152,6 +160,7 @@ export class FormChInabilityComponent implements OnInit {
               ch_type_inability_id: '',
               ch_type_procedure_id: '',
               observation: '',
+              total_days:'',
             });
             if (this.saved) {
               this.saved();
@@ -161,7 +170,39 @@ export class FormChInabilityComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
+          this.messageEvent.emit(true);
       }
+    }
+  }
+  receiveMessage($event) {   
+    
+    if($event.isactive==false){
+      this.changes=false;
+      this.changes1=false;
+    }
+    if($event.entity){
+    this.form.get($event.entity).setValue(this.form.get($event.entity).value+' '+$event.text);
+    }
+  }
+
+  changebuttom() {
+    this.changes=true;
+  }
+
+  changebuttom1() {
+    this.changes1=true;
+  }
+
+
+  saveCode(e): void {
+    var localidentify = this.diagnosis.find(item => item.name == e);
+
+    if (localidentify) {
+      this.diagnosis_id = localidentify.id;
+    } else {
+      this.diagnosis_id = null;
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
   
