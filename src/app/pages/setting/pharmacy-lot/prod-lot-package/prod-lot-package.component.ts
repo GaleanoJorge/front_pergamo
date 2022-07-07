@@ -95,7 +95,7 @@ export class ProdLotPackageComponent implements OnInit {
           }
         },
       },
-      amount: {
+      amount_provitional: {
         title: this.headerFields[2],
         type: 'string',
       },
