@@ -6,6 +6,7 @@ import { ActionsComponent } from './actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { UserChangeService } from '../../../business-controller/user-change.service';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class AdmissionsListComponent {
   public admissions:any[];
   public status;
   public all_changes:any[];
+  public own_user: any = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -98,7 +100,7 @@ export class AdmissionsListComponent {
     private deleteConfirmService: NbDialogService,
     public AdmissionsS: AdmissionsService,
     public userChangeS: UserChangeService,
-        
+    private authService: AuthService,
   ) {
 
   }
@@ -106,6 +108,7 @@ export class AdmissionsListComponent {
     await this.userChangeS.GetCollection().then(x =>{
       this.all_changes = x;
     });
+    this.own_user = this.authService.GetUser();
     
     }
 
@@ -114,7 +117,7 @@ export class AdmissionsListComponent {
   }
 
   ChangeState(data) {
-    this.userS.ChangeStatus(data.id).then((x) => {
+    this.userS.ChangeStatus(data.id, this.own_user.id).then((x) => {
       this.toastrService.success('', x.message);
       this.RefreshData();
     }).catch((x) => {
