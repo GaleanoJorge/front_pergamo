@@ -18,7 +18,7 @@ export class FormChInabilityComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
-  @Input() record_id: any;
+  @Input() record_id: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -30,9 +30,9 @@ export class FormChInabilityComponent implements OnInit {
   public ch_contingency_code_id: any[];
   public ch_type_inability_id: any[];
   public ch_type_procedure_id: any[];
-  public diagnosis_id: any[];
+  public diagnosis_id;
+  public diagnosis: any[];
   public changes=false;
-  public diagnosis: any[] = [];
   public changes1=false;
 
 
@@ -48,9 +48,10 @@ export class FormChInabilityComponent implements OnInit {
     private ChTypeProcedureS: ChTypeProcedureService,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.record_id = this.route.snapshot.params.id;
-    if (!this.data) {
+    
+    if (!this.data || this.data.length == 0) {
       this.data = {
         ch_contingency_code_id: '',
         extension: '',
@@ -71,7 +72,7 @@ export class FormChInabilityComponent implements OnInit {
       extension: [this.data[0] ? this.data[0].extension : this.data.extension,],
       initial_date: [this.data[0] ? this.data[0].initial_date : this.data.initial_date,],
       final_date: [this.data[0] ? this.data[0].final_date : this.data.final_date,],
-      diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id,],
+      diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
       ch_type_inability_id: [this.data[0] ? this.data[0].ch_type_inability_id : this.data.ch_type_inability_id,],
       ch_type_procedure_id: [this.data[0] ? this.data[0].ch_type_procedure_id : this.data.ch_type_procedure_id,],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
@@ -79,13 +80,9 @@ export class FormChInabilityComponent implements OnInit {
       
 
     });
-
-
     this.chRecord.GetCollection(this.record_id).then((x) => {
       this.admissions_id = x;
     });
-
-
     this.DiagnosisS.GetCollection().then((x) => {
       this.diagnosis_id = x;
     });
@@ -174,6 +171,16 @@ export class FormChInabilityComponent implements OnInit {
       }
     }
   }
+
+  saveCode(e): void {
+    var localidentify = this.diagnosis.find(item => item.name == e);
+
+    if (localidentify) {
+      this.diagnosis_id = localidentify.id;
+    } else {
+      this.diagnosis_id = null;
+    }
+  }
   receiveMessage($event) {   
     
     if($event.isactive==false){
@@ -194,17 +201,6 @@ export class FormChInabilityComponent implements OnInit {
   }
 
 
-  saveCode(e): void {
-    var localidentify = this.diagnosis.find(item => item.name == e);
-
-    if (localidentify) {
-      this.diagnosis_id = localidentify.id;
-    } else {
-      this.diagnosis_id = null;
-      this.toastService.warning('', 'Debe seleccionar un item de la lista');
-      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
-    }
-  }
-  
+ 
 
 }
