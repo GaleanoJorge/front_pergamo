@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 
 
 
@@ -37,7 +38,10 @@ export class BackgroundComponent implements OnInit {
 
       created_at: {
         title: this.headerFields[0],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.datePipe.transform2(value);
+        },
       },
       ch_type_background: {
         title: this.headerFields[1],
@@ -58,7 +62,8 @@ export class BackgroundComponent implements OnInit {
   };
 
   constructor(
-    public userChangeS: UserChangeService,
+    public userChangeS: UserChangeService,    
+    public datePipe: DateFormatPipe,
   ) {
   }
 

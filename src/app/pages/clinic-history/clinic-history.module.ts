@@ -182,7 +182,6 @@ import { FormaAuscultacionTherapyComponent } from './auscultacion-therapy/form-a
 import { FormaObjectivesTherapyComponent } from './objectives-therapy/form-objectives-therapy.component';
 import { FormaDiagnosticTherapyComponent } from './diagnostic-therapy/form-diagnostic-therapy.component';
 import { FormChOxygenTherapyComponent } from './oxygen-therapy/form-oxygen-therapy.component';
-import { FormRegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/form-regular-respiratory-therapy/form-regular-respiratory-therapy.component';
 import { RegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/regular-respiratory-therapy.component';
 import { FormSessionsTherapyComponent } from './sessions-therapy/form-sessions-therapy.component';
 import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-therapy.component';
@@ -194,6 +193,8 @@ import { NursingPhysicalExamComponent } from './nursing-physical-exam/nursing-ph
 import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-nursing-physical-exam/form-nursing-physical-exam.component';
 import { InsumeRequestComponent } from './insume-request/insume-request.component';
 import { FormInsumeRequestComponent } from './insume-request/form-insume-request/form-insume-request.component';
+import { SuppliesTherapyComponent } from './supplies-therapy/supplies-therapy.component';
+import { ReasonConsultationRespiratoryTherapyComponent } from './entry-respiratory-therapy/form-reason-consultation-respiratory-therapy/reason-consultation-respiratory-therapy.component';
 
 @NgModule({
   imports: [
@@ -273,6 +274,7 @@ import { FormInsumeRequestComponent } from './insume-request/form-insume-request
     FormAssessmentTherapyComponent,
     EntryRespiratoryTherapyComponent,
     FormReasonConsultationRespiratoryTherapyComponent,
+    ReasonConsultationRespiratoryTherapyComponent,
     ActionsRespiratoryTherapyComponent,
     ActionsRespiratoryTherapy2Component,
 
@@ -283,13 +285,13 @@ import { FormInsumeRequestComponent } from './insume-request/form-insume-request
     FormChOxygenTherapyComponent,
     OxygenTherapyComponent,
 
-    FormRegularRespiratoryTherapyComponent,
     RegularRespiratoryTherapyComponent,
     FormDiagnosisCifTherapyComponent,
     SessionsTherapyComponent,
 
     FormSessionsTherapyComponent,
     FormSuppliesTherapyComponent,
+    SuppliesTherapyComponent,
 
     SkinValorationComponent,
     FormSkinValorationComponent,

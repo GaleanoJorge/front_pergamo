@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChReasonConsultationService } from '../../../business-controller/ch-reason-consultation.service';
 import { ChPhysicalExamService } from '../../../business-controller/ch_physical_exam.service';
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
 import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.service';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { ChRespiratoryTherapyService } from '../../../business-controller/ch_respiratory_therapy.service';
 
 
 @Component({
@@ -25,13 +25,13 @@ export class RegularRespiratoryTherapyComponent implements OnInit {
   public title;
   public routes = [];
   public user_id;
-  public chreasonconsultation: any[];
+  public chrespiratoryconsultation: any[];
   public physical: any[];
   public chvitsigns: any[];
   public chdiagnosis: any[];
   public nameForm: String;
   public movieForm: String;
-
+  
 
   public record_id;
   public isSubmitted: boolean = false;
@@ -44,11 +44,11 @@ export class RegularRespiratoryTherapyComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private chreasonconsultS: ChReasonConsultationService,
+    private chrespiratoryconsultS: ChRespiratoryTherapyService,
     private chphysicalS: ChPhysicalExamService,
     private chvitalSignsS: ChVitalSignsService,
     private chdiagnosisS: ChDiagnosisService,
-    public userChangeS: UserChangeService,
+    public userChangeS: UserChangeService,    
 
 
   ) {
@@ -63,9 +63,10 @@ export class RegularRespiratoryTherapyComponent implements OnInit {
       };
     }
 
-    await this.chreasonconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chreasonconsultation = x;
+    await this.chrespiratoryconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.chrespiratoryconsultation = x;
     });
+      
     await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chvitsigns = x;
     });
@@ -76,19 +77,10 @@ export class RegularRespiratoryTherapyComponent implements OnInit {
       this.physical = x;
     });
 
-    this.form = this.formBuilder.group({
-      ch_entry_review_system_id: [this.data.ch_entry_review_system_id, Validators.compose([Validators.required])],//el que es ciclico
-      diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
-      ch_diagnosis_id: [this.data.ch_diagnosis_id, Validators.compose([Validators.required])],
-      ch_diagnosis_class_id: [this.data.ch_diagnosis_class_id, Validators.compose([Validators.required])],
-      ch_diagnosis_type_id: [this.data.ch_diagnosis_type_id, Validators.compose([Validators.required])],
-      ch_vital_hydration_id: [this.data.ch_vital_hydration_id, Validators.compose([Validators.required])],
-      ch_vital_ventilated_id: [this.data.ch_vital_ventilated_id, Validators.compose([Validators.required])],
-      ch_vital_temperature_id: [this.data.ch_vital_temperature_id, Validators.compose([Validators.required])],
-      ch_vital_neurological_id: [this.data.ch_vital_neurological_id, Validators.compose([Validators.required])],
-      ch_vital_signs_id: [this.data.ch_vital_signs_id, Validators.compose([Validators.required])],
-      ch_entry_id: [this.data.ch_entry_id, Validators.compose([Validators.required])],
+    
 
+    this.form = this.formBuilder.group({
+     
     });
   }
   async save() {
@@ -96,7 +88,7 @@ export class RegularRespiratoryTherapyComponent implements OnInit {
     if (!this.form.invalid && this.saveEntry) {
       this.loading = true;
       if (this.data.id) { }
-      await this.chreasonconsultS.Update({});
+      await this.chrespiratoryconsultS.Update({});
       await this.chvitalSignsS.Update({});
     }
   }

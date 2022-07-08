@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChAssessmentTherapyService } from '../../../business-controller/ch_assessment_therapy.service';
 import { ChAssSwingService } from '../../../business-controller/ch_ass_swing.service';
 import { ChAssFrequencyService } from '../../../business-controller/ch_ass_frequency.service';
@@ -9,6 +9,9 @@ import { ChAssCoughService } from '../../../business-controller/ch_ass_cough.ser
 import { ChAssChestTypeService } from '../../../business-controller/ch_ass_chest_type.service';
 import { ChAssChestSymmetryService } from '../../../business-controller/ch_ass_chest_symmetry.service';
 import { ChAssPatternService } from '../../../business-controller/ch_ass_pattern.service';
+import { ChSignsService } from '../../../business-controller/ch_signs.service';
+import { ChRtInspectionService } from '../../../business-controller/ch_rt_inspection.service';
+import { ChAuscultationService } from '../../../business-controller/ch_auscultation.service';
 
 
 
@@ -37,6 +40,9 @@ export class FormAssessmentTherapyComponent implements OnInit {
   public ch_ass_cough: any[];
   public ch_ass_chest_type: any[];
   public ch_ass_symmetry: any[];
+  public ch_signs: any[];
+  public ispectionTeraphyRespiratory: any[];
+  public auscultacionTeraphyRespiratory: any[];
 
 
   constructor(
@@ -49,11 +55,14 @@ export class FormAssessmentTherapyComponent implements OnInit {
     private ModeS: ChAssModeService,
     private CoughS: ChAssCoughService,
     private TypeS: ChAssChestTypeService,
-    private SymetryS: ChAssChestSymmetryService,
+    private SignsS:ChSignsService,
+    private SymetryS: ChAssChestSymmetryService,    
+    private IspectionS: ChRtInspectionService,    
+    private AuscultacionS: ChAuscultationService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if (!this.data || this.data.length == 0) {
       this.data = {
         ch_ass_pattern_id: '',
@@ -63,18 +72,41 @@ export class FormAssessmentTherapyComponent implements OnInit {
         ch_ass_cough_id: '',
         ch_ass_chest_type_id: '',
         ch_ass_symmetry_id: '',
+        ch_signs: [],
       };
     }
     this.form = this.formBuilder.group({
-      ch_ass_pattern_id: [this.data[0] ? this.data[0].ch_ass_pattern_id : this.data.ch_ass_pattern_id,],
-      ch_ass_swing_id: [this.data[0] ? this.data[0].ch_ass_swing_id : this.data.ch_ass_swing_id,],
-      ch_ass_frequency_id: [this.data[0] ? this.data[0].ch_ass_frequency_id : this.data.ch_ass_frequency_id,],
-      ch_ass_mode_id: [this.data[0] ? this.data[0].ch_ass_mode_id : this.data.ch_ass_mode_id,],
-      ch_ass_cough_id: [this.data[0] ? this.data[0].ch_ass_cough_id : this.data.ch_ass_cough_id,],
-      ch_ass_chest_type_id: [this.data[0] ? this.data[0].ch_ass_chest_type_id : this.data.ch_ass_chest_type_id,],
-      ch_ass_symmetry_id: [this.data[0] ? this.data[0].ch_ass_symmetry_id : this.data.ch_ass_symmetry_id,],
+      ch_ass_pattern_id: [this.data[0] ? this.data[0].ch_ass_pattern_id : this.data.ch_ass_pattern_id,Validators.compose([Validators.required])],
+      ch_ass_swing_id: [this.data[0] ? this.data[0].ch_ass_swing_id : this.data.ch_ass_swing_id,Validators.compose([Validators.required])],
+      ch_ass_frequency_id: [this.data[0] ? this.data[0].ch_ass_frequency_id : this.data.ch_ass_frequency_id,Validators.compose([Validators.required])],
+      ch_ass_mode_id: [this.data[0] ? this.data[0].ch_ass_mode_id : this.data.ch_ass_mode_id,Validators.compose([Validators.required])],
+      ch_ass_cough_id: [this.data[0] ? this.data[0].ch_ass_cough_id : this.data.ch_ass_cough_id,Validators.compose([Validators.required])],
+      ch_ass_chest_type_id: [this.data[0] ? this.data[0].ch_ass_chest_type_id : this.data.ch_ass_chest_type_id,Validators.compose([Validators.required])],
+      ch_ass_symmetry_id: [this.data[0] ? this.data[0].ch_ass_symmetry_id : this.data.ch_ass_symmetry_id,Validators.compose([Validators.required])],
+      ch_signs: [this.data[0] ? this.data[0].ch_signs : this.data.ch_signs, Validators.compose([Validators.required])],
     });
 
+    if (this.data.ch_ass_pattern_id != '') {
+      this.form.controls.ch_ass_pattern_id.disable();
+      this.form.controls.ch_ass_swing_id.disable();
+      this.form.controls.ch_ass_frequency_id.disable();
+      this.form.controls.ch_ass_mode_id.disable();
+      this.form.controls.ch_ass_cough_id.disable();
+      this.form.controls.ch_ass_chest_type_id.disable();
+      this.form.controls.ch_ass_symmetry_id.disable();
+      this.form.controls.ch_signs.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.ch_ass_pattern_id.enable();
+      this.form.controls.ch_ass_swing_id.enable();
+      this.form.controls.ch_ass_frequency_id.enable();
+      this.form.controls.ch_ass_mode_id.enable();
+      this.form.controls.ch_ass_cough_id.enable();
+      this.form.controls.ch_ass_chest_type_id.enable();
+      this.form.controls.ch_ass_symmetry_id.enable();
+      this.form.controls.ch_signs.enable();
+      this.disabled = false;
+    }
 
     this.PatternS.GetCollection().then(x => {
       this.ch_ass_pattern = x;
@@ -104,6 +136,18 @@ export class FormAssessmentTherapyComponent implements OnInit {
       this.ch_ass_symmetry = x;
     });
 
+    this.SignsS.GetCollection().then(x => {
+      this.ch_signs = x;
+    });
+
+    await this.IspectionS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.ispectionTeraphyRespiratory = x;
+    });
+
+    await this.AuscultacionS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.auscultacionTeraphyRespiratory = x;
+    });
+
   }
 
 
@@ -112,6 +156,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
+      
 
       if (this.data.id) {
         await this.AssS.Update({
@@ -125,6 +170,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
           ch_ass_symmetry_id: this.form.controls.ch_ass_symmetry_id.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
+          ch_signs: this.form.controls.ch_signs.value,
 
         }).then(x => {
           this.toastService.success('', x.message);
@@ -146,11 +192,13 @@ export class FormAssessmentTherapyComponent implements OnInit {
           ch_ass_symmetry_id: this.form.controls.ch_ass_symmetry_id.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
+          ch_signs: this.form.controls.ch_signs.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
           this.form.patchValue({ ch_ass_pattern_id: '', ch_ass_swing_id: '', ch_ass_frequency_id:'', ch_ass_mode_id:'', ch_ass_cough_id:'', ch_ass_chest_type_id:'',
-           ch_ass_symmetry_id:''});
+           ch_ass_symmetry_id:'',ch_signs: []});
+           
           if (this.saved) {
             this.saved();
           }
@@ -166,7 +214,11 @@ export class FormAssessmentTherapyComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
+
+  
 
 }
