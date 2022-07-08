@@ -22,7 +22,7 @@ export class AdmissionsPatientComponent implements OnInit {
   public messageError = null;
   public title;
   public subtitle = 'Por usuario';
-  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ruta','Ambito','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Fecha Ingreso','Fecha Egreso','Salida Medica'];
+  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ruta','Ambito','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Portafolio','Fecha Ingreso','Fecha Egreso','Salida Medica'];
   public routes = [];
   public course;
   public data= [];
@@ -37,6 +37,8 @@ export class AdmissionsPatientComponent implements OnInit {
   public bed_id;
   public pavilion;
   public patient;
+  public admission_route_id;
+  public admission_id;
 
 
 
@@ -65,6 +67,8 @@ export class AdmissionsPatientComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
+          this.admission_id=value[value.length - 1].id;
+          this.admission_route_id=value[value.length - 1].admission_route_id;
           this.ambit=value[value.length - 1].scope_of_attention.name;
           this.program=value[value.length - 1].program.name;
           if(value[value.length - 1].pavilion){
@@ -129,12 +133,19 @@ export class AdmissionsPatientComponent implements OnInit {
           return value.name;
         },
       },
-      entry_date: {
+      briefcase: {
         title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      entry_date: {
+        title: this.headerFields[10],
         type: 'date',
       },      
       discharge_date: {
-        title: this.headerFields[10],
+        title: this.headerFields[11],
         type: 'date',
         valuePrepareFunction: (value, row) => {
           if(value=='0000-00-00 00:00:00' && this.cont!=1){
@@ -147,7 +158,7 @@ export class AdmissionsPatientComponent implements OnInit {
         },
       },
       medical_date: {
-        title: this.headerFields[11],
+        title: this.headerFields[12],
         type: 'date',
       },     
     },
@@ -200,9 +211,11 @@ export class AdmissionsPatientComponent implements OnInit {
 
   NewAdmissions() {
     this.dialogFormService.open(FormPatientDataComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nuevo ingreso',
         user_id: this.patient_id,
+        admission_id:this.admission_id,
         saved: this.RefreshData.bind(this),
       },
     });

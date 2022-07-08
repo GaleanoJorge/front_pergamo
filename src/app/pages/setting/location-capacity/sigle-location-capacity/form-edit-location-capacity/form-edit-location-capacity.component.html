@@ -5,7 +5,7 @@
       <div class="row">
 
         <div class="col-md-12">
-          <label for="name" class="form-text text-muted font-weight-bold">{{this.data.locality? "LOCALIDAD" : "TELECONSULTA" }} :</label>
+          <label for="name" class="form-text text-muted font-weight-bold">{{this.data.locality? "COMUNA, LOCALIDAD O VEREDA" : "TELECONSULTA" }} :</label>
           <input disabled nbInput fullWidth id="name" [value]="this.data.locality? this.data.locality.name : this.data.phone_consult" name
             status= "{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>

@@ -340,6 +340,12 @@ import { FormFixedAccessoriesComponent } from './fixed-accessories/form-fixed-ac
 import { FormFixedInventaryComponent } from './fixed-inventary/form-fixed-inventary/form-fixed-inventary.component';
 import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component';
+import { MinimumSalaryComponent } from './minimum-salary/minimum-salary.component';
+import { FormMinimumSalaryComponent } from './minimum-salary/form-minimum-salary/form-minimum-salary.component';
+import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component';
+import { FormTaxValueUnitComponent } from './tax-value-unit/form-tax-value-unit/form-tax-value-unit.component';
+import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
+import { FormMunicipalityIcaComponent } from './municipality-ica/form-municipality-ica/form-municipality-ica.component';
 import { FormFixedRequestComponent } from './fixed-request/form-fixed-request/form-fixed-request.component';
 import { FixedRequestComponent } from './fixed-request/fixed-request.component';
 import { FixedInventaryAccesoriesComponent } from './fixed-inventary-accesories/fixed-inventary-accesories.component';
@@ -381,6 +387,7 @@ import { SelectSuppliesIncomeComponent } from './pharmacy-income-supplies/income
 import { ActionsSupComponent } from './pharmacy-income-supplies/actions.component';
 import { PharmacyIncomeSuppliesComponent } from './pharmacy-income-supplies/pharmacy-income-supplies.component';
 import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-supplies-package/amountDamagedSup.component';
+import { FormConfirmDisabledComponent } from './users/form-confirm-disabled/form-confirm-disabled.component';
 import { FormBillingRequestPharmacyComponent } from './billing-request-pharmacy/form-billing-request-pharmacy/form-billing-request-pharmacy.component';
 import { AmountBillingRequestPharmacyComponent } from './billing-request-pharmacy/prod-billing-request-pharmacy-package/amount-billing-request-pharmacy.component';
 import { ProdBillingRequestPharmacyPackageComponent } from './billing-request-pharmacy/prod-billing-request-pharmacy-package/prod-billing-request-pharmacy-package.component';
@@ -393,6 +400,7 @@ import { IvaBillingComponent } from './billing/prod-billing-package/iva-billing.
 import { IvaSuppliesComponent } from './billing/prod-supplies-package/iva-supplies.component';
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-most/billing-request-pharmacy-most.component';
+import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -565,6 +573,7 @@ import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-
     CompanyTypeComponent,
     FormCompanyTypeComponent,
     UsersComponent,
+    FormConfirmDisabledComponent,
     RolesComponent,
     FormTaxesComponent,
     FormCiiuGroupComponent,
@@ -762,6 +771,13 @@ import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-
     FormFixedInventaryComponent,
     ActionsInFixComponent,
     FormNomProductComponent,
+
+    MinimumSalaryComponent,
+    FormMinimumSalaryComponent,
+    TaxValueUnitComponent,
+    FormTaxValueUnitComponent,
+    MunicipalityIcaComponent,
+    FormMunicipalityIcaComponent,
     FormFixedRequestComponent,
     FixedRequestComponent,
     FixedInventaryAccesoriesComponent,
@@ -823,6 +839,7 @@ import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-
     BillingRequestPharmacyMostComponent,
 
 
+    tcRentabilityComponent
 
 
   ],

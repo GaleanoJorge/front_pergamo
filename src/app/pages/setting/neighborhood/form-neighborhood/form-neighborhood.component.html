@@ -27,7 +27,7 @@
 
 
         <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_region">
-          <label for="municipality" class="form-text text-muted font-weight-bold">MUNICIPIO:</label>
+          <label for="municipality" class="form-text text-muted font-weight-bold">PROVIDENCIA, VEREDA O MUNICIPIO:</label>
           <nb-select [selected]="this.data.municipality_id" id="municipality_id" (selectedChange)="onMunicipalityChange($event)"
           formControlName="municipality_id" fullWidth>
             <nb-option value="">Seleccione...</nb-option>
@@ -38,7 +38,7 @@
 
 
         <div class="col-12" *ngIf="selected_municipality">
-          <label for="locality" class="form-text text-muted font-weight-bold">LOCALIDAD:</label>
+          <label for="locality" class="form-text text-muted font-weight-bold">COMUNA, LOCALIDAD O VEREDA:</label>
           <nb-select [selected]="this.data.locality_id" (selectedChange)="onLocalityChange($event)"
             formControlName="locality_id" id="locality" fullWidth>
             <nb-option value="">Seleccione...</nb-option>
@@ -49,7 +49,7 @@
 
 
         <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_locality">
-          <label for="pad_risk" class="form-text text-muted font-weight-bold">TARIFA:</label>
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">ZONA:</label>
           <nb-select [selected]="this.data.pad_risk_id" formControlName="pad_risk_id" id="pad_risk" fullWidth>
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.pad_risk_id }}" *ngFor="let item of pad_risk" [value]="item.id">{{

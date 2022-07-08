@@ -20,7 +20,8 @@ export class ChHistoricScalesComponent implements OnInit {
   public messageError = null;
   public headerFields: any[] = ['Fecha', 'Total', 'Riesgo', 'Puntaje', 'Clasificación', 'Calificación',
     'Riesgo clínico', 'Respuesta clínica', 'Gravedad del cuadro', 'Resultado', 'Definición',
-    'Grado', 'Descipción', 'Intervención y seguimiento', 'Detalle', 'Interpretación'];
+    'Grado', 'Descripción', 'Intervención y seguimiento', 'Detalle', 'Interpretación'];
+
   public headerFieldsEsas: any[] = ['Fecha', 'Dolor', 'Cansancio', 'Náusea', 'Depresión',
     'Ansiedad', 'Somnolencia', 'Apetito', 'Bienestar', 'Falta de Aire', 'Dificultad para Dormir', 'Observación',];
   public headerFieldsPayette: any[] = ['Fecha', 'Calificación', 'Riesgo Nurticional', 'Recomendaciones'];
@@ -442,6 +443,46 @@ export class ChHistoricScalesComponent implements OnInit {
     },
   };
 
+  public settings_pps = {
+    columns: {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.datePipe.transform2(value);
+        },
+      },
+      score_value: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      score_title: {
+        title: this.headerFields[12],
+        type: 'string',
+      },
+
+    },
+  };
+
+  public settings_lawton = {
+    columns: {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.datePipe.transform2(value);
+        },
+      },
+      total: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      risk: {
+        title: this.headerFields[4],
+        type: 'string',
+      }
+    },
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -505,8 +546,15 @@ export class ChHistoricScalesComponent implements OnInit {
       this.settings = this.settings_jh_downton;
     } else if (this.path == 'ch_scale_screening') {
       this.settings = this.settings_2;
-    }
-  }
+    } else if (this.path == 'ch_scale_pps') {
+      this.settings = this.settings_pps;
+    } else if (this.path == 'ch_scale_braden') {
+      this.settings = this.settings_2;
+    } else if (this.path == 'ch_scale_lawton') {
+      this.settings = this.settings_lawton;
+}
+}
+
   RefreshData() {
     this.table.refresh();
   }

@@ -16,9 +16,9 @@ export class LocalityComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Localidades';
+  public title: string = 'Comunas, Localidades o Veredas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Municipio'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Providencia, Vereda o Municipio'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -73,7 +73,7 @@ export class LocalityComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Localidades',
+      name: 'Comunas, Localidades o Veredas',
       route: '../../setting/locality',
     },
   ];
@@ -97,7 +97,7 @@ export class LocalityComponent implements OnInit {
   NewLocality() {
     this.dialogFormService.open(FormLocalityComponent, {
       context: {
-        title: 'Crear nueva localidad',
+        title: 'Crear nueva Comuna, Localidad o Vereda',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -106,7 +106,7 @@ export class LocalityComponent implements OnInit {
   EditLocality(data) {
     this.dialogFormService.open(FormLocalityComponent, {
       context: {
-        title: 'Editar localidad',
+        title: 'Editar Comuna, Localidad o Vereda',
         data,
         saved: this.RefreshData.bind(this),
       },

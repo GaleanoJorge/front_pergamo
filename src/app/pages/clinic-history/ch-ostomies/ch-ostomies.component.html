@@ -1,0 +1,17 @@
+
+<ngx-form-ch-ostomies (messageEvent)="receiveMessage($event)"  [type_record]="type_record" [record_id]="record_id">
+</ngx-form-ch-ostomies>
+<label for="ch_ostomies" class="form-text text-muted font-weight-bold align">Ostomías</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table  pager="false" [title]="title" customData="ch_ostomies" [settings]="settings"
+      entity="ch_ostomies/by_record/{{record_id}}/{{this.type_record}}?pagination=false">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

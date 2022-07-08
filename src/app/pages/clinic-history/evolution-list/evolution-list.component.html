@@ -13,7 +13,7 @@
           <nb-step [stepControl]="nameForm" label="Ex Físico">
             <div class="row">
               <div class="col-md-12">
-                <ngx-physical-exam-evo [record_id]="record_id"></ngx-physical-exam-evo>
+                <ngx-nursing-physical-exam [record_id]="record_id" [type_record_id]="1" ></ngx-nursing-physical-exam> 
               </div>
             </div> 
           </nb-step>
@@ -37,7 +37,7 @@
           <nb-step [stepControl]="nameForm" label="AP/Recomendaciones">
             <div class="row">
               <div class="col-md-12">
-                <ngx-recommendations-evo [record_id]="record_id"></ngx-recommendations-evo>
+                <ngx-recommendations-evo [type_record]="3" [record_id]="record_id"></ngx-recommendations-evo>
 
               </div>
             </div> 

@@ -66,7 +66,7 @@ export class FormFailedComponent implements OnInit {
           descriptions: this.form.controls.descriptions.value,
           file_evidence: this.form.controls.file_evidence.value,
           ch_reason_id: this.form.controls.ch_reason_id.value,
-          type_record_id: 7,
+          type_record_id: 9,
           ch_record_id: this.record_id,
         }).then((x) => {
             this.toastService.success('', x.message);
@@ -83,7 +83,7 @@ export class FormFailedComponent implements OnInit {
           descriptions: this.form.controls.descriptions.value,
           file_evidence: this.form.controls.file_evidence.value,
           ch_reason_id: this.form.controls.ch_reason_id.value,
-          type_record_id: 7,
+          type_record_id: 9,
           ch_record_id: this.record_id,
         })
           .then((x) => {

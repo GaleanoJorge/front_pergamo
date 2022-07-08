@@ -1,0 +1,106 @@
+<form [formGroup]="form" [nbSpinner]="loading">
+  <div>
+    <fieldset class="field_set">
+
+      <legend class="prue1 center">PROCEDIMIENTOS DE ENFERMERIA</legend>
+
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-12">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-md-center" *ngIf="!loading">
+
+        <div class="col col-lg-6 checks">
+          <a>
+            <nb-card size="auto" status="{{this.form.controls.check1.value ? 'success' : 'basics'}}">
+              <nb-card-header>
+                <nb-checkbox formControlName="check1" check1 id="check1" (change)="saveCode($event,1)"
+                status="{{ isSubmitted && form.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></nb-checkbox>
+                {{nursing_procedure[0].name}}
+              </nb-card-header>
+              <nb-card-body *ngIf="this.form.controls.check1.value">
+                <b>Procedimiento:</b>
+                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"></textarea> 
+              </nb-card-body>
+            </nb-card>
+          </a>
+        </div>
+        <div class="col col-lg-6 checks">
+          <a>
+            <nb-card size="auto" status="{{this.form.controls.check2.value ? 'success' : 'basics'}}">
+              <nb-card-header>
+                <nb-checkbox formControlName="check2" check2 id="check2" (change)="saveCode($event,2)" 
+                status="{{ isSubmitted && form.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></nb-checkbox>
+                {{nursing_procedure[1].name}}
+              </nb-card-header>
+              <nb-card-body *ngIf="this.form.controls.check2.value">
+                <b>Procedimiento:</b>
+                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"></textarea> 
+                <br>
+              </nb-card-body>
+            </nb-card>
+          </a>
+        </div>
+        <div class="col col-lg-6 checks">
+          <a>
+            <nb-card size="auto" status="{{this.form.controls.check3.value ? 'success' : 'basics'}}">
+              <nb-card-header>
+                <nb-checkbox formControlName="check3" check3 id="check3" (change)="saveCode($event,3)"
+                status="{{ isSubmitted && form.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></nb-checkbox>
+                {{nursing_procedure[2].name}}
+              </nb-card-header>
+              <nb-card-body *ngIf="this.form.controls.check3.value" >
+                <b>Procedimiento:</b>
+                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"></textarea> 
+              </nb-card-body>
+            </nb-card>
+          </a>
+        </div>
+        <div class="col col-lg-6 checks">
+          <a>
+            <nb-card size="auto" status="{{this.form.controls.check4.value ? 'success' : 'basics'}}">
+              <nb-card-header>
+                <nb-checkbox formControlName="check4" check4 id="check4" (change)="saveCode($event,3)"
+                status="{{ isSubmitted && form.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></nb-checkbox>
+                {{nursing_procedure[3].name}}
+              </nb-card-header>
+              <nb-card-body *ngIf="this.form.controls.check4.value">
+                <b>Procedimiento:</b>
+                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"></textarea> 
+              </nb-card-body>
+            </nb-card>
+          </a>
+        </div>
+        <div class="col col-lg-6 checks">
+          <a>
+            <nb-card size="auto" status="{{this.form.controls.check5.value ? 'success' : 'basics'}}">
+              <nb-card-header>
+                <nb-checkbox formControlName="check5" check5 id="check5" (change)="saveCode($event,4)"
+                status="{{ isSubmitted && form.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></nb-checkbox>
+                {{nursing_procedure[4].name}}
+              </nb-card-header>
+              <nb-card-body *ngIf="this.form.controls.check5.value">
+                <b>Procedimiento:</b>
+                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"></textarea> 
+              </nb-card-body>
+            </nb-card>
+          </a>
+        </div>
+
+
+      </div>
+
+    </fieldset>
+
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="button" (click)="save()">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+</form>

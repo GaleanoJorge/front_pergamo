@@ -20,6 +20,7 @@ import { rowDataBound } from '@syncfusion/ej2/grids';
 import { type } from 'os';
 import { ActionsSemaphore2Component } from './actions-semaphore.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { RoleBusinessService } from '../../../business-controller/role-business.service';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -40,7 +41,7 @@ export class ManagementPlanComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = '';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Cantidad autorizada', 'Ejecutado','Incumplidas'];
+  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Consecutivo de admisión - Ambito - Programa', 'Ejecutado','Incumplidas'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -54,6 +55,9 @@ export class ManagementPlanComponent implements OnInit {
   public selectedOptions: any[] = [];
   public result: any = null;
   public settings;
+  public currentRoleId;
+  public roles;
+  public user_logged;
 
 
 
@@ -92,6 +96,13 @@ export class ManagementPlanComponent implements OnInit {
         },
         renderComponent: ActionsComponent,
       },
+      admissions: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.consecutive+' - '+ value.location[0].scope_of_attention.name+' - '+ value.location[0].program.name;
+        },
+      },
       type_of_attention: {
         title: this.headerFields[0],
         type: 'string',
@@ -115,13 +126,6 @@ export class ManagementPlanComponent implements OnInit {
           }else{
             return value;
           }
-        },
-      },
-      authorization: {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction(value) {
-          return value?.authorized_amount;
         },
       },
       assigned_user: {
@@ -204,6 +208,7 @@ export class ManagementPlanComponent implements OnInit {
     private managementPlanS: ManagementPlanService,
     private toastS: NbToastrService,
     private route: ActivatedRoute,
+    public roleBS: RoleBusinessService,
 
 
   ) {
@@ -224,8 +229,18 @@ export class ManagementPlanComponent implements OnInit {
 
 
   async ngOnInit() {
-    if (this.title == null) {
+    this.currentRoleId = localStorage.getItem('role_id');
+    this.user_id = this.route.snapshot.params.user;
+    await this.roleBS.GetCollection({ id: this.currentRoleId  }).then(x => {
+      this.roles = x;
+    }).catch(x => { });
+    this.user_logged= this.authService.GetUser().id;
+    if (this.roles[0].role_type_id != 2 && this.title==null) {
       this.title = "Agendamiento Plan de atención domiciliario";
+      this.entity="management_plan_by_patient/"+this.user_id+"/"+0;
+    }else{
+      this.title = "Servicios a Ejecutar";
+      this.entity="management_plan_by_patient/"+this.user_id+"/"+this.user_logged;
     }
     if (this.admissions) {
       this.admissions_id = this.admissions;

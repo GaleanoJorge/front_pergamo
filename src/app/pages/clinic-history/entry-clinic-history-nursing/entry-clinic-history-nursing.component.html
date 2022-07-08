@@ -2,11 +2,10 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper [linear]="linearMode">
+        <nb-stepper #stepper (stepChange)="saveMcEa()"  [linear]="linearMode">
           <nb-step [stepControl]="nameForm" label="Nota de ingreso">
 
-            <ngx-form-reason-consultation-nursing *ngIf="chreasonconsultation" [record_id]="record_id"
-              [data]="chreasonconsultation"></ngx-form-reason-consultation-nursing>
+            <ngx-form-reason-consultation-nursing  [record_id]="record_id"></ngx-form-reason-consultation-nursing>
 
           </nb-step>
 
@@ -14,7 +13,7 @@
 
             <div class="row">
               <div class="col-md-12">
-                <ngx-physical-exam [record_id]="record_id"></ngx-physical-exam>
+                <ngx-nursing-physical-exam [record_id]="record_id" [type_record_id]="1" [enfermery]="true"></ngx-nursing-physical-exam>
               </div>
             </div>
 

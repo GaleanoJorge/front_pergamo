@@ -6,6 +6,8 @@ import { ActionsBillingComponent } from './actions-billing.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { FormShowBillingPadComponent } from './form-show-billing-pad/form-show-billing-pad.component';
+import { CurrencyPipe } from '@angular/common';
+import { AdmissionsService } from '../../../business-controller/admissions.service';
 
 @Component({
   selector: 'ngx-billing-admission',
@@ -54,7 +56,7 @@ export class BillingAdmissionComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.total_value;
+          return this.currency.transform(row.total_value);
         }
       },
       status: {
@@ -77,14 +79,19 @@ export class BillingAdmissionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public datePipe: DateFormatPipe,
+    private currency: CurrencyPipe,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private AdmissionsS: AdmissionsService,
   ) {
   }
 
   ngOnInit(): void {
-    this.admission_id = this.route.snapshot.params.admissions_id;
+    this.admission_id = this.route.snapshot.params.id;
+    this.AdmissionsS.GetCollection({admissions_id: this.admission_id}).then(x => {
+      this.title = 'FACTURAS DE: ' + x[0]['nombre_completo'];
+    }).catch(x => {});
   }
 
   RefreshData() {

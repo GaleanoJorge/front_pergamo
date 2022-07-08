@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class="row justify-content-md-center" [nbSpinner]="loading" *ngIf="this.diagnosis">
+      <div class="col-md-6">
+        <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico Médico:</label>
+        <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="medical_diagnosis_id"
+          formControlName="medical_diagnosis_id" medical_diagnosis_id type="text" required
+          status="{{ isSubmitted && form.controls.medical_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        </datalist>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-text text-muted font-weight-bold">Diagnóstico Terápeutico CIF:</label>
+        <div class="row" style="align-items: center;">
+          <div class="col-md-11">
+            <textarea onpaste="return false" id="therapeutic_diagnosis" nbInput fullWidth
+              formControlName="therapeutic_diagnosis" therapeutic_diagnosis rows="2" cols="40"
+              status="{{ isSubmitted && form.controls.therapeutic_diagnosis.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          </div>
+          <div class="col-md-1">
+            <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()">
+              <nb-icon icon="mic-outline"></nb-icon>
+            </button>
+            <ngx-web-speach *ngIf="changes1" id="reason_consultation" name="reason_consultation"
+              (messageEvent)="receiveMessage($event)" entity="reason_consultation" isactive="true"></ngx-web-speach>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-text text-muted font-weight-bold">Motivo de consulta:</label>
+        <div class="row" style="align-items: center;">
+          <div class="col-md-11">
+            <textarea onpaste="return false" id="reason_consultation" nbInput fullWidth
+              formControlName="reason_consultation" reason_consultation rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          </div>
+          <div class="col-md-1">
+            <button *ngIf="!changes" type="button" nbButton ghost (click)="changebuttom()">
+              <nb-icon icon="mic-outline"></nb-icon>
+            </button>
+            <ngx-web-speach *ngIf="changes" id="current_illness" name="current_illness"
+              (messageEvent)="receiveMessage($event)" entity="current_illness" isactive="true"></ngx-web-speach>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+
+  </div>
+</form>

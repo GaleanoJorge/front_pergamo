@@ -1,0 +1,100 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <fieldset class="field_set">
+    <legend class="prue1 center">ALTERACIONES EN LA DEGLUCIÓN</legend>
+    <div class="row justify-content-md">
+      <div class="col col-lg-2">
+        <label class="form-text text-muted font-weight-bold">Disfagia para Solidos</label>
+      </div>
+      <div class="col col-lg-2">
+        <nb-radio-group formControlName="solid_dysphagia" solid_dysphagia id="solid_dysphagia"
+          name="solid_dysphagia"
+          status="{{ isSubmitted && form.controls.solid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-radio value="Si">Si</nb-radio>
+          <nb-radio value="No">No</nb-radio>
+        </nb-radio-group>
+      </div>
+      <div class="col col-lg-2">
+        <label class="form-text text-muted font-weight-bold">Disfagia para Líquidos Claros</label>
+      </div>
+      <div class="col col-lg-2">
+        <nb-radio-group formControlName="clear_liquid_dysphagia" clear_liquid_dysphagia
+          id="clear_liquid_dysphagia" name="clear_liquid_dysphagia"
+          status="{{ isSubmitted && form.controls.clear_liquid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-radio value="Si">Si</nb-radio>
+          <nb-radio value="No">No</nb-radio>
+        </nb-radio-group>
+      </div>
+
+      <div class="col col-lg-2">
+        <label class="form-text text-muted font-weight-bold">Disfagia para Líquidos
+          Espesos</label>
+      </div>
+      <div class="col col-lg-2">
+        <nb-radio-group formControlName="thick_liquid_dysphagia" thick_liquid_dysphagia
+          id="thick_liquid_dysphagia" name="thick_liquid_dysphagia"
+          status="{{ isSubmitted && form.controls.thick_liquid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-radio value="Si">Si</nb-radio>
+          <nb-radio value="No">No</nb-radio>
+        </nb-radio-group>
+      </div>
+
+      <div class="col col-lg-12">
+        <hr />
+      </div>
+
+      <div class="col col-lg-2">
+        <label class="form-text text-muted font-weight-bold">Sonda Nasogástrica</label>
+      </div>
+      <div class="col col-lg-2">
+        <nb-radio-group formControlName="nasogastric_tube" nasogastric_tube id="nasogastric_tube"
+          name="nasogastric_tube"
+          status="{{ isSubmitted && form.controls.nasogastric_tube.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-radio value="Si">Si</nb-radio>
+          <nb-radio value="No">No</nb-radio>
+        </nb-radio-group>
+      </div>
+
+
+      <div class="col col-lg-2">
+        <label class="form-text text-muted font-weight-bold">Gastrostomía</label>
+      </div>
+      <div class="col col-lg-2">
+        <nb-radio-group formControlName="gastrostomy" gastrostomy id="gastrostomy" name="gastrostomy"
+          status="{{ isSubmitted && form.controls.gastrostomy.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-radio value="Si">Si</nb-radio>
+          <nb-radio value="No">No</nb-radio>
+        </nb-radio-group>
+      </div>
+      <div class="col col-lg-2">
+        <label class="form-text text-muted font-weight-bold">Nada Vía Oral</label>
+      </div>
+
+      <div class="col col-lg-2">
+        <nb-radio-group formControlName="nothing_orally" nothing_orally id="nothing_orally" name="nothing_orally"
+          status="{{ isSubmitted && form.controls.nothing_orally.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-radio value="Si">Si</nb-radio>
+          <nb-radio value="No">No</nb-radio>
+        </nb-radio-group>
+      </div>
+    </div>
+
+    <div class="col col-lg-12">
+      <hr />
+    </div>
+
+    <label class="form-text text-muted font-weight-bold center">Observaciones</label>
+    <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+      onpaste="return false" rows="4" cols="50"
+      status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+  </fieldset>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save"  [disabled]="disabled"
+          type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

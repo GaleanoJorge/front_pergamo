@@ -1,0 +1,25 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+          <nb-step [stepControl]="nameForm" label="Aplicación de medicamentos">
+
+            <!-- <ngx-drug-application [record_id]="record_id" [type_record_id]="type_record_id"></ngx-drug-application> -->
+
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Pedido de Insumos">
+
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-insume-request [record_id]="record_id" [type_record_id]="type_record_id"></ngx-insume-request>
+              </div>
+            </div>
+
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>

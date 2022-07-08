@@ -38,6 +38,7 @@ import { LocationCapacityService } from '../../../business-controller/location-c
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 import { PatientService } from '../../../business-controller/patient.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { AuthService } from '../../../services/auth.service';
 
 
 
@@ -89,6 +90,7 @@ export class FormUsersComponent implements OnInit {
   public neighborhood_or_residence: any[] = [];
   public localities: any[] = [];
   public parentData;
+  public campusData;
 
   public sectionals: SectionalCouncil[] = [];
   public districts: District[] = [];
@@ -130,6 +132,7 @@ export class FormUsersComponent implements OnInit {
   public signatureImage;
   public currentImg;
   public roles;
+  public own_user: any = null;
 
 
 
@@ -160,6 +163,7 @@ export class FormUsersComponent implements OnInit {
     private locationCapacityS: LocationCapacityService,
     private dialogFormS: NbDialogService,
     public datePipe: DateFormatPipe,
+    private authService: AuthService,
 
   ) {
   }
@@ -178,15 +182,18 @@ export class FormUsersComponent implements OnInit {
     await this.roleBS.GetCollection({ id: this.role }).then(x => {
       this.roles = x;
     }).catch(x => { });
-    if (this.role == 7) {
-      this.GetAuxData(1)
-    } else if (this.role == 14) {
-      this.GetAuxData(2)
-    }
+
+    this.own_user = this.authService.GetUser();
+
     this.parentData = {
       selectedOptions: [],
       entity: 'residence/locationbyMunicipality',
       customData: 'locality'
+    };
+    this.campusData = {
+      selectedOptions: this.data != null ? this.data.users_campus : [],
+      entity: 'campus',
+      customData: 'campus'
     };
     if (this.data && this.data.file) {
       this.image = environment.storage + this.data.file;
@@ -205,6 +212,7 @@ export class FormUsersComponent implements OnInit {
     this.LoadForm(false).then();
     await Promise.all([
       this.GetAuxData(null),
+      this.GetAuxData(this.role == 7 ? 1 : this.role == 14 ? 2 : null),
     ]);
 
     this.course_id = this.route.snapshot.queryParams.course_id;
@@ -237,11 +245,11 @@ export class FormUsersComponent implements OnInit {
           this.cost_center = x.cost_center;
           this.type_professional = x.type_professional;
           this.contract_type = x.contract_type;
-          this.specialities = x.special_field;
+          this.specialities = x.specialty;
           this.inabilitys = x.inability;
           this.residences = x.residence;
         } else {
-          this.specialities = x.special_field;
+          this.specialities = x.specialty;
         }
         return Promise.resolve(true);
       });
@@ -259,7 +267,7 @@ export class FormUsersComponent implements OnInit {
     } else {
       this.activities_id = null;
       this.toastService.warning('', 'Debe seleccionar un item de la lista');
-      this.form.controls.activities_id.setErrors({'incorrect': true});
+      this.form.controls.activities_id.setErrors({ 'incorrect': true });
     }
   }
   returnProfession(n): string {
@@ -328,15 +336,15 @@ export class FormUsersComponent implements OnInit {
         ((this.GetData('is_disability') === '' || this.GetData('is_disability') === null/**  || !this.GetData('is_disability')*/) ? false : true),
         Validators.compose([Validators.required]),
       ],
+      is_street_dweller: [
+        ((this.GetData('is_street_dweller') === '' || this.GetData('is_street_dweller') === null/**  || !this.GetData('is_disability')*/) ? false : true),
+        Validators.compose([Validators.required]),
+      ],
       // disability: [
       //   this.GetData('disability'),
       // ],
       gender_type: [
         this.GetData('gender_type'),
-      ],
-      email: [
-        this.GetData('email'),
-        Validators.compose([Validators.required, Validators.email]),
       ],
       phone: [
         this.GetData('phone'),
@@ -461,6 +469,23 @@ export class FormUsersComponent implements OnInit {
     if (this.data) {
       this.age = this.data.age;
     }
+    if (this.role != 2) {
+      configForm = {
+        ...configForm,
+        email: [
+          this.GetData('email'),
+          Validators.compose([Validators.required, Validators.email]),
+        ],
+      }
+    } else {
+      configForm = {
+        ...configForm,
+        email: [
+          this.GetData('email'),
+
+        ],
+      }
+    }
     if (this.roles[0].role_type_id == 2) {
       configForm = {
         ...configForm,
@@ -494,6 +519,7 @@ export class FormUsersComponent implements OnInit {
       }
 
     }
+
 
 
     if (this.data && this.data.id) {
@@ -618,9 +644,11 @@ export class FormUsersComponent implements OnInit {
       var formData = new FormData();
       var data = this.form.controls;
 
+      formData.append('own_user', this.own_user.id);
       formData.append('status_id', data.status_id.value);
       formData.append('gender_id', data.gender_id.value);
       formData.append('is_disability', data.is_disability.value === true ? '1' : null);
+      formData.append('is_street_dweller', data.is_street_dweller.value === true ? '1' : null);
       formData.append('inability_id', data.inability_id.value);
       formData.append('gender_type', data.gender_id.value === 3 ? data.gender_type.value : '');
       formData.append('academic_level_id', data.academic_level_id.value);
@@ -661,12 +689,14 @@ export class FormUsersComponent implements OnInit {
       formData.append('marital_status_id', data.marital_status_id.value);
       formData.append('residence_address', this.residence);
       formData.append('neighborhood_or_residence_id', data.neighborhood_or_residence_id.value);
+      formData.append('campus_id', JSON.stringify(this.campusData.selectedOptions));
 
       // var role = Number(this.role);
       if (this.roleBS.roles[0].role_type_id == 2) {
         formData.append('assistance_id', this.data == null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
         formData.append('localities_id', JSON.stringify(this.parentData.selectedOptions));
+
         if (this.phone_consult) {
           formData.append('phone_consult', this.phone_consult_amount);
         }
@@ -675,12 +705,12 @@ export class FormUsersComponent implements OnInit {
         // formData.append('type_professional_id', data.type_professional_id.value);
         formData.append('attends_external_consultation', data.attends_external_consultation.value === true ? '1' : '0');
         formData.append('serve_multiple_patients', data.serve_multiple_patients.value === true ? '1' : '0');
-        formData.append('firm', this.signatureImage);
+        formData.append('firm_file', this.signatureImage);
         formData.append('PAD_service', data.PAD_service.value === true ? '1' : '0');
         // formData.append('PAD_patient_quantity', data.PAD_patient_quantity.value === false ? null : data.PAD_patient_quantity.value);
       }
 
-      if(this.isTH){
+      if (this.isTH) {
         formData.append('isTH', this.isTH);
 
       }
@@ -698,10 +728,10 @@ export class FormUsersComponent implements OnInit {
 
       if (this.specialitiesSelect.length > 0) {
         for (let assistanceSpecial of this.specialitiesSelect) {
-          formData.append('special_field[]', assistanceSpecial);
+          formData.append('specialty[]', assistanceSpecial);
         }
       } else {
-        formData.append('special_field', null);
+        formData.append('specialty', null);
       }
 
       try {
@@ -731,12 +761,12 @@ export class FormUsersComponent implements OnInit {
               await this.router.navigateByUrl(this.routeBack);
             else
               this.redirectTo = '/public/register/' + this.route.snapshot.params.role + '/success';
-              this.messageEvent.emit(true);
+            this.messageEvent.emit(true);
             // await this.router.navigateByUrl('/auth');
           } else {
             if (this.routeBack)
               await this.router.navigateByUrl(this.routeBack);
-              this.messageEvent.emit(true);
+            this.messageEvent.emit(true);
           }
         } else {
           await this.router.navigateByUrl(this.routeBack);
@@ -747,6 +777,7 @@ export class FormUsersComponent implements OnInit {
 
       } catch (x) {
         this.messageError = x;
+        this.toastService.warning('', "El número de documento ya se encuentra registrado.")
         this.isSubmitted = false;
         this.loading = false;
       }
@@ -856,15 +887,13 @@ export class FormUsersComponent implements OnInit {
       });
     });
 
-    this.form.get('ne')
-
     this.form.get('is_disability').valueChanges.subscribe(val => {
       if (val) {
         this.form.get('inability_id').setValidators(Validators.required);
-        this.form.get('inability_id').updateValueAndValidity();
+        //this.form.get('inability_id').updateValueAndValidity();
       } else {
-        this.form.get('inability_id').clearValidators();
-        this.form.get('inability_id').updateValueAndValidity();
+        this.form.get('inability_id').setValidators(null);
+
       }
     });
     // if (this.role == 3 || this.role==7) {
@@ -932,8 +961,8 @@ export class FormUsersComponent implements OnInit {
 
   ShowDialogSpecialities() {
     this.selected = [];
-    this.data?.assistance[0]?.special_field.forEach(element => {
-      this.selected.push(element.special_field_id);
+    this.data?.assistance[0]?.specialty.forEach(element => {
+      this.selected.push(element.specialty_id);
     });
 
 
@@ -1021,11 +1050,11 @@ export class FormUsersComponent implements OnInit {
     var day = today.getDate() - (age.getDate() + 1);
     if (m < 0) {
       year--;
-      if(year){
+      if (year) {
 
       }
       m = m + 12;
-    } 
+    }
     // else if (m == 0){
     //   if (day < 0){
     //     day = Math.abs(day);
@@ -1035,7 +1064,7 @@ export class FormUsersComponent implements OnInit {
     // }
     if (day < 0) {
       m--;
-      if(m < 0 ){
+      if (m < 0) {
         year--;
         m = m + 12;
       }
@@ -1070,5 +1099,9 @@ export class FormUsersComponent implements OnInit {
     } else {
       this.parentData.selectedOptions = $event;
     }
+  }
+
+  receiveCampusMessage($event) {
+    this.campusData.selectedOptions = $event;
   }
 }

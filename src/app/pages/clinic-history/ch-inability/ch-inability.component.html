@@ -1,0 +1,16 @@
+<ngx-form-ch-inability (messageEvent)="receiveMessage($event)">
+</ngx-form-ch-inability>
+<label class="form-text text-muted font-weight-bold align">Incapacidad</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table pager="false" [title]="title" customData="ch_inability" [settings]="settings"
+      entity="ch_inability/by_record/{{record_id}}/7">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

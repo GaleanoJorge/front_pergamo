@@ -137,7 +137,7 @@ import { ConciliationResponseService } from '../../../business-controller/concil
 </ng-template>
 <ng-template #detailAction>
     <div class="container-fluid">
-        <nb-card style="width: 450px; max-height: 800px; overflow: auto;">
+        <nb-card style="width: 100% ; height: 650px; overflow: auto;">
             <nb-card-header >Detalles de glosa</nb-card-header>
             <nb-card-body>
                 <div  *ngIf="gloss_response" >
@@ -421,7 +421,10 @@ export class Actions3Component implements ViewCell {
         this.arraylength = this.conciliation_response.length - 1;
         if (this.value.data.gloss_status_id == 7) {
           this.sustain = this.conciliation_response[0];
-        } else {
+        } else  if(this.value.data.gloss_status_id == 8 && this.conciliation_response.length == 1 ) {
+          this.sustain = null;
+          this.showConciliation=true;
+        } else if(this.value.data.gloss_status_id == 8 && this.conciliation_response.length == 2 ){
           this.sustain = this.conciliation_response[0];
           this.showConciliation=true;
         }

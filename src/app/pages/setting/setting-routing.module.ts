@@ -139,6 +139,10 @@ import { FixedTypeComponent } from './fixed-type/fixed-type.component';
 import { FixedLocationCampusComponent } from './fixed-location-campus/fixed-location-campus.component';
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
 import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories.component';
+import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
+import { MinimumSalaryComponent } from './minimum-salary/minimum-salary.component';
+import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component';
+import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
 import { FixedTabComponent } from './fixed-tab/fixed-tab.component';
 import { FormFixedRequestComponent } from './fixed-request/form-fixed-request/form-fixed-request.component';
 import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-requests.component';
@@ -148,6 +152,8 @@ import { ProductTabComponent } from './product-tab/product-tab.component';
 import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/billing-request-pharmacy.component';
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { FixedRequestComponent } from './fixed-request/fixed-request.component';
+import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+
 
 const routes: Routes = [{
   path: '',
@@ -191,11 +197,6 @@ const routes: Routes = [{
     {
       path: 'diet-consistency',
       component: DietConsistencyComponent,
-
-    },
-    {
-      path: 'diet-day',
-      component: DietDayComponent,
 
     },
     {
@@ -810,6 +811,18 @@ const routes: Routes = [{
       component: FixedAccessoriesComponent,
     },
     {
+      path: 'minimum-salary',
+      component: MinimumSalaryComponent,
+    },
+    {
+      path: 'tax-value-unit',
+      component: TaxValueUnitComponent,
+    },
+    {
+      path: 'municipality-ica',
+      component: MunicipalityIcaComponent,
+    },
+    {
       path: 'fixed-inventary',
       component: FixedTabComponent,
     },
@@ -828,6 +841,10 @@ const routes: Routes = [{
     {
       path: 'supplies-comm',
       component: SuppliesCommComponent,
+    },
+    {
+      path: 'tc-rentability',
+      component: tcRentabilityComponent,
     },
     {
       path: 'billing-request-pharmacy',

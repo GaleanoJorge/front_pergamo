@@ -1,0 +1,16 @@
+<ngx-form-drug-application (messageEvent)="receiveMessage($event)" [user]="this.user">
+</ngx-form-drug-application>
+<label class="form-text text-muted font-weight-bold align">FORMULACIONES</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table pager="false" [title]="title" customData="ch_formulation" [settings]="settings"
+      entity="ch_formulation/by_record/{{record_id}}/5">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

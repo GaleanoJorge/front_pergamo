@@ -2,7 +2,7 @@
   <div class="row" class="accordion">
     <nb-accordion multi>
     <!-- NORTON -->
-      <nb-accordion-item *ngIf="this.enfermery ? true : true">
+      <nb-accordion-item *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Norton
         </nb-accordion-item-header>
@@ -18,10 +18,10 @@
                 <nb-radio-group formControlName="physical_value" physical_value id="physical_value"
                   name="physical_value"
                   status="{{ isSubmitted && form.controls.physical_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value="4/Bueno">Bueno</nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value="3/Mediano">Mediano </nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value="2/Regular">Regular</nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,1,1)" value="1/Muy malo">Muy malo
+                  <nb-radio (valueChange)="calculate($event,1,1)" value="4/Bueno">Bueno</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,1,1)" value="3/Mediano">Mediano </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,1,1)" value="2/Regular">Regular</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,1,1)" value="1/Muy malo">Muy malo
                   </nb-radio>
                 </nb-radio-group>
               </div>
@@ -32,10 +32,10 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="mind_value" mind_value id="mind_value" name="mind_value"
                   status="{{ isSubmitted && form.controls.mind_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,2,1)" value="4/Alerta">Alerta</nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,2,1)" value="3/Apático">Apático </nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,2,1)" value="2/Confuso">Confuso</nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,2,1)" value="1/Estuporoso">Estuporoso
+                  <nb-radio (valueChange)="calculate($event,2,1)" value="4/Alerta">Alerta</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,2,1)" value="3/Apático">Apático </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,2,1)" value="2/Confuso">Confuso</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,2,1)" value="1/Estuporoso">Estuporoso
                   </nb-radio>
                 </nb-radio-group>
               </div>
@@ -47,14 +47,14 @@
                 <nb-radio-group formControlName="mobility_value" mobility_value id="mobility_value"
                   name="mobility_value"
                   status="{{ isSubmitted && form.controls.mobility_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,3,1)" value="4/Completa">Completa
+                  <nb-radio (valueChange)="calculate($event,3,1)" value="4/Completa">Completa
                   </nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,3,1)" value="3/Limitada Ligeramente">
+                  <nb-radio (valueChange)="calculate($event,3,1)" value="3/Limitada Ligeramente">
                     Limitada Ligeramente
                   </nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,3,1)" value="2/Muy Limitada">Muy Limitada
+                  <nb-radio (valueChange)="calculate($event,3,1)" value="2/Muy Limitada">Muy Limitada
                   </nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,3,1)" value="1/Inmóvil">Inmóvil</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,3,1)" value="1/Inmóvil">Inmóvil</nb-radio>
                 </nb-radio-group>
               </div>
 
@@ -74,12 +74,12 @@
                 <nb-radio-group formControlName="activity_value" activity_value id="activity_value"
                   name="activity_value"
                   status="{{ isSubmitted && form.controls.activity_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,4,1)" value="4/Ambulante">Ambulante
+                  <nb-radio (valueChange)="calculate($event,4,1)" value="4/Ambulante">Ambulante
                   </nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,4,1)" value="3/Camina con Ayuda">Camina con
+                  <nb-radio (valueChange)="calculate($event,4,1)" value="3/Camina con Ayuda">Camina con
                     Ayuda</nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,4,1)" value="2/Sentado">Sentado</nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,4,1)" value="1/Encamado">Encamado
+                  <nb-radio (valueChange)="calculate($event,4,1)" value="2/Sentado">Sentado</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,4,1)" value="1/Encamado">Encamado
                   </nb-radio>
                 </nb-radio-group>
               </div>
@@ -87,16 +87,16 @@
                 <label class="form-text text-muted font-weight-bold align">Incontinencia
                 </label>
               </div>
-              <div class="col col-lg-4">
+              <div class="col col-lg-2">
                 <nb-radio-group formControlName="incontinence_value" incontinence_value id="incontinence_value"
                   name="incontinence_value"
                   status="{{ isSubmitted && form.controls.incontinence_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,5,1)" value="4/Ninguna">Ninguna</nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,5,1)" value="3/Ocasional">Ocasional
+                  <nb-radio (valueChange)="calculate($event,5,1)" value="4/Ninguna">Ninguna</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,5,1)" value="3/Ocasional">Ocasional
                   </nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,5,1)" value="2/Urinaria o Fecal">Urinaria o
+                  <nb-radio (valueChange)="calculate($event,5,1)" value="2/Urinaria o Fecal">Urinaria o
                     Fecal</nb-radio>
-                  <nb-radio class="col-lg-3" (valueChange)="calculate($event,5,1)" value="1/Urinaria y Fecal">Urinaria y
+                  <nb-radio (valueChange)="calculate($event,5,1)" value="1/Urinaria y Fecal">Urinaria y
                     Fecal </nb-radio>
                 </nb-radio-group><br />
               </div>
@@ -132,7 +132,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-norton (messageEvent)="receiveMessage($event)">
+            <ngx-ch-scale-norton [refresh1]="refresh1">
 
             </ngx-ch-scale-norton>
 
@@ -141,7 +141,7 @@
       </nb-accordion-item>
 
     <!-- GLASGOW -->
-      <nb-accordion-item *ngIf="this.enfermery ? true : true">
+      <nb-accordion-item *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Glasgow
         </nb-accordion-item-header>
@@ -230,7 +230,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-glasgow>
+            <ngx-ch-scale-glasgow [refresh2]="refresh2">
 
             </ngx-ch-scale-glasgow>
 
@@ -239,7 +239,7 @@
       </nb-accordion-item>
  
     <!-- BARTHEL -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Barthel
         </nb-accordion-item-header>
@@ -469,7 +469,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-barthel>
+            <ngx-ch-scale-barthel [refresh3]="refresh3">
 
             </ngx-ch-scale-barthel>
 
@@ -478,7 +478,7 @@
       </nb-accordion-item>
 
     <!-- PAYETTE-->  
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Payette
         </nb-accordion-item-header>
@@ -652,8 +652,6 @@
                     id="classification" value='{{totalPayette}}' fullWidth disabled>
                   <input type="text" class="ImpPeq center" nbInput [value]="riskPayette" id="risk"
                     formControlName="riskPayette" fullWidth disabled />
-                </div>
-                <div class="col col-lg-6 d-flex">
                   <textarea class="form-text" [value]="recommendations" formControlName="recommendations"
                     id="recommendations" nbInput fullWidth rows="2" cols="2"
                     status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
@@ -671,14 +669,16 @@
               </div>
             </div>
 
-            <ngx-ch-scale-payette></ngx-ch-scale-payette>
+            <ngx-ch-scale-payette [refresh4]="refresh4">
+
+            </ngx-ch-scale-payette>
 
           </fieldset>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
     <!-- FRAGILIDAD -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Fragilidad
         </nb-accordion-item-header>
@@ -796,7 +796,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-fragility>
+            <ngx-ch-scale-fragility [refresh5]="refresh5">
 
             </ngx-ch-scale-fragility>
 
@@ -805,7 +805,7 @@
       </nb-accordion-item>
 
     <!-- NEWS -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala News
         </nb-accordion-item-header>
@@ -949,23 +949,21 @@
 
             <div class="container">
               <div class="row justify-content-md-center">
-                <div class="col col-lg-4 d-flex">
+                <div class="col col-lg-8 d-flex">
                   <label class="form-text text-muted font-weight-bold text-justify">Calificación
                   </label>
                   <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalNews"
                     id="qualification" value='{{totalNews}}' fullWidth disabled>
                   <input type="text" nbInput [value]="riskNews" class="ImpPeq center" formControlName="riskNews"
                     id="risk" fullWidth disabled />
-                </div>
-                <div class="col col-lg-4 d-flex">
-                  <textarea class="form-text" [value]="response" class="ImpPeq details" id="recommendations"
-                    formControlName="response" nbInput fullWidth formControlName="response" definition fullWidth
-                    rows="5" cols="10"
+                  <textarea class="form-text" [value]="response" class="ImpPeq details" id="recommendations" nbInput formControlName="response" definition
+                    rows="10" cols="10"
                     status="{{ isSubmitted && form.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                     disabled> </textarea>
                 </div>
               </div>
             </div>
+
             <div class="container">
               <div class="row">
                 <div class="col-md-12">
@@ -975,7 +973,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-news>
+            <ngx-ch-scale-news [refresh7]="refresh7">
 
             </ngx-ch-scale-news>
 
@@ -984,7 +982,7 @@
       </nb-accordion-item>
 
     <!-- PaP -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala PaP
         </nb-accordion-item-header>
@@ -1115,7 +1113,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-pap>
+            <ngx-ch-scale-pap [refresh8]="refresh8">
 
             </ngx-ch-scale-pap>
 
@@ -1124,7 +1122,7 @@
       </nb-accordion-item>
 
     <!-- HAMILTON -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Hamilton
         </nb-accordion-item-header>
@@ -1599,7 +1597,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-hamilton>
+            <ngx-ch-scale-hamilton [refresh9]="refresh9">
 
             </ngx-ch-scale-hamilton>
 
@@ -1608,7 +1606,7 @@
       </nb-accordion-item>
 
     <!-- CAM -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala CAM
         </nb-accordion-item-header>
@@ -1712,7 +1710,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-cam>
+            <ngx-ch-scale-cam [refresh10]="refresh10">
 
             </ngx-ch-scale-cam>
 
@@ -1722,7 +1720,7 @@
       </nb-accordion-item>
 
     <!-- FAC -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala FAC
         </nb-accordion-item-header>
@@ -1764,7 +1762,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-fac>
+            <ngx-ch-scale-fac [refresh11]="refresh11">
 
             </ngx-ch-scale-fac>
 
@@ -1773,7 +1771,7 @@
       </nb-accordion-item>
 
     <!-- CRUZ ROJA -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Cruz roja
         </nb-accordion-item-header>
@@ -1815,7 +1813,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-red-cross>
+            <ngx-ch-scale-red-cross [refresh12]="refresh12">
 
             </ngx-ch-scale-red-cross>
 
@@ -1824,7 +1822,7 @@
       </nb-accordion-item>
 
     <!--KARNOFSKY  -->    
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Karnofsky
         </nb-accordion-item-header>
@@ -1898,7 +1896,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-karnofsky>
+            <ngx-ch-scale-karnofsky [refresh13]="refresh13">
 
             </ngx-ch-scale-karnofsky>
           </fieldset>
@@ -1906,7 +1904,7 @@
       </nb-accordion-item>
 
     <!-- ECOG -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala ECOG
         </nb-accordion-item-header>
@@ -1948,7 +1946,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-ecog>
+            <ngx-ch-scale-ecog [refresh14]="refresh14">
 
             </ngx-ch-scale-ecog>
 
@@ -1957,7 +1955,7 @@
       </nb-accordion-item>
 
     <!-- NUTRICIONAL PEDIATRICO -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Nutricional Pediátrico
         </nb-accordion-item-header>
@@ -2082,7 +2080,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-pediatric-nutrition>
+            <ngx-ch-scale-pediatric-nutrition [refresh15]="refresh15">
 
             </ngx-ch-scale-pediatric-nutrition>
 
@@ -2091,7 +2089,7 @@
       </nb-accordion-item>
 
     <!-- ESAS -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala ESAS
         </nb-accordion-item-header>
@@ -2389,7 +2387,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-esas>
+            <ngx-ch-scale-esas [refresh16]="refresh16">
 
             </ngx-ch-scale-esas>
           </fieldset>
@@ -2397,7 +2395,7 @@
       </nb-accordion-item>
 
     <!--FLACC  -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala FLACC
         </nb-accordion-item-header>
@@ -2519,7 +2517,7 @@
 
             </div>
 
-            <ngx-ch-scale-flacc>
+            <ngx-ch-scale-flacc [refresh17]="refresh17">
 
             </ngx-ch-scale-flacc>
           </fieldset>
@@ -2527,7 +2525,7 @@
       </nb-accordion-item>
 
     <!-- PPI -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala PPI
         </nb-accordion-item-header>
@@ -2644,7 +2642,7 @@
 
             </div>
 
-            <ngx-ch-scale-ppi>
+            <ngx-ch-scale-ppi [refresh18]="refresh18">
 
             </ngx-ch-scale-ppi>
           </fieldset>
@@ -2653,7 +2651,7 @@
       </nb-accordion-item>
 
     <!-- ZARIT -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Zarit
         </nb-accordion-item-header>
@@ -3147,7 +3145,7 @@
 
             </div>
 
-            <ngx-ch-scale-zarit>
+            <ngx-ch-scale-zarit [refresh19]="refresh19">
 
             </ngx-ch-scale-zarit>
           </fieldset>
@@ -3155,7 +3153,7 @@
       </nb-accordion-item>
 
     <!-- DOLOR ADULTOS -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? true : false">
         <nb-accordion-item-header>
           Escala Dolor Adultos
         </nb-accordion-item-header>
@@ -3214,7 +3212,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-pain>
+            <ngx-ch-scale-pain [refresh20]="refresh20">
 
             </ngx-ch-scale-pain>
 
@@ -3223,7 +3221,7 @@
       </nb-accordion-item>
 
     <!-- WONG BAKER -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? true : false">
         <nb-accordion-item-header>
           Escala Wong Baker
         </nb-accordion-item-header>
@@ -3274,7 +3272,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-wong>
+            <ngx-ch-scale-wong [refresh21]="refresh21">
 
             </ngx-ch-scale-wong>
 
@@ -3284,7 +3282,7 @@
       </nb-accordion-item>
 
     <!-- PFEIFFER -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : true">
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala Pfeiffer
         </nb-accordion-item-header>
@@ -3295,7 +3293,8 @@
               <div class="col col-lg-12 center">
                 <nb-card>
                   <nb-card-body class="example-items-col">
-                    <nb-toggle labelPosition="start" value="" formControlName="studyValue" (change)="receiveMessage($event)" id="study_value" study_value>
+                    <nb-toggle labelPosition="start" formControlName="studyValue"
+                      (change)="receiveMessage($event)" id="study_value" study_value>
                       ¿Tiene estudios?
                     </nb-toggle>
                   </nb-card-body>
@@ -3480,14 +3479,14 @@
 
           </fieldset>
 
-          <ngx-ch-scale-pfeiffer>
+          <ngx-ch-scale-pfeiffer [refresh22]="refresh22">
 
           </ngx-ch-scale-pfeiffer>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
     <!-- J.H.DOWNTON -->
-      <nb-accordion-item *ngIf="this.enfermery ? true : true">
+      <nb-accordion-item *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : false">
         <nb-accordion-item-header>
           Escala J.H.Downton
         </nb-accordion-item-header>
@@ -3597,8 +3596,6 @@
                     </label>
                     <input type="text" readonly="readonly" class="ImpPeq center" id="total" value='{{totalJhDownton}}'
                       fullWidth disabled>
-                  </div>
-                  <div class="col-lg-3">
                     <input type="text" nbInput [value]="riskJhDownton" id="risk" fullWidth disabled />
                   </div>
                 </div>
@@ -3614,7 +3611,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-jh-downton>
+            <ngx-ch-scale-jh-downton [refresh23]="refresh23">
 
             </ngx-ch-scale-jh-downton>
           </fieldset>
@@ -3623,217 +3620,862 @@
       </nb-accordion-item>
 
       <!-- MINI TAMIZAJE-->
-      <nb-accordion-item>
-          <nb-accordion-item-header>
-            Mini-Tamizaje Nutricional Adultos
-          </nb-accordion-item-header>
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : false">
+        <nb-accordion-item-header>
+          Mini-Tamizaje Nutricional Adultos
+        </nb-accordion-item-header>
 
-          <nb-accordion-item-body>
-            <fieldset class="field_set">
-              <legend class="prue1 center">MINI - TAMIZAJE NUTRICIONAL ADULTOS</legend>
-              <div class="row justify-content-md">
-                <div class="col col-lg-4">
-                  <label class="form-text text-muted font-weight-light text-justify">Tiene alguna enfermedad o condición
-                    que le ha hecho cambiar la clase de comida o la cantidad de alimento que come.
-                  </label>
-                </div>
+        <nb-accordion-item-body>
+          <fieldset class="field_set">
+            <legend class="prue1 center">MINI - TAMIZAJE NUTRICIONAL ADULTOS</legend>
+            <div class="row justify-content-md">
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-light text-justify">Tiene alguna enfermedad o condición
+                  que le ha hecho cambiar la clase de comida o la cantidad de alimento que come.
+                </label>
+              </div>
 
-                <div class="col col-lg-2">
-                  <nb-radio-group formControlName="vOneScreening_value" v_one_value id="v_one_value" name="v_one_value"
+              <div class="col col-lg-2">
+                <nb-radio-group formControlName="vOneScreening_value" v_one_value id="v_one_value" name="v_one_value"
                   class="form-text text-muted detail"
                   status="{{ isSubmitted && form.controls.vOneScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-radio (valueChange)="calculate($event,1,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
-                </div>
+              </div>
 
-                <div class="col col-lg-4">
-                  <label class="form-text text-muted font-weight-light text-justify">Come menos de dos comidas al día.
-                  </label>
-                </div>
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-light text-justify">Come menos de dos comidas al día.
+                </label>
+              </div>
 
-                <div class="col col-lg-2">
-                  <nb-radio-group formControlName="vTwoScreening_value" v_two_value id="v_two_value" name="v_two_value"
+              <div class="col col-lg-2">
+                <nb-radio-group formControlName="vTwoScreening_value" v_two_value id="v_two_value" name="v_two_value"
                   class="form-text text-muted detail"
                   status="{{ isSubmitted && form.controls.vTwoScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-radio (valueChange)="calculate($event,2,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
-                </div>
-  
-                <div class="col col-lg-12">
-                  <hr />
-                </div>
-  
-                <div class="col col-lg-4">
-                  <label class="form-text text-muted font-weight-light text-justify">Come pocas frutas, vegetales o
-                    productos de leche.
-                  </label>
-                </div>
+              </div>
 
-                <div class="col col-lg-2">
-                  <nb-radio-group formControlName="vThreeScreening_value" v_three_value id="v_three_value"
+              <div class="col col-lg-12">
+                <hr />
+              </div>
+
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-light text-justify">Come pocas frutas, vegetales o
+                  productos de leche.
+                </label>
+              </div>
+
+              <div class="col col-lg-2">
+                <nb-radio-group formControlName="vThreeScreening_value" v_three_value id="v_three_value"
                   name="v_three_value" class="form-text text-muted detail"
                   status="{{ isSubmitted && form.controls.vThreeScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-radio (valueChange)="calculate($event,3,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
-                </div>
+              </div>
 
-                <div class="col col-lg-4">
-                  <label class="form-text text-muted font-weight-light text-justify">Toma tres o más bebidas de cerveza,
-                    licores o vino casi todos los días
-                  </label>
-                  </div>
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-light text-justify">Toma tres o más bebidas de cerveza,
+                  licores o vino casi todos los días
+                </label>
+              </div>
 
-                <div class="col col-lg-2">
-                  <nb-radio-group formControlName="vFourScreening_value" v_four_value id="v_four_value" name="v_four_value"
-                  class="form-text text-muted detail"
+              <div class="col col-lg-2">
+                <nb-radio-group formControlName="vFourScreening_value" v_four_value id="v_four_value"
+                  name="v_four_value" class="form-text text-muted detail"
                   status="{{ isSubmitted && form.controls.vFourScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-radio (valueChange)="calculate($event,4,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
-                </div>
-  
-                <div class="col col-lg-12">
-                  <hr />
-                </div>
-  
-                <div class="col col-lg-4">
-                  <label class="form-text text-muted font-weight-light text-justify">Tiene problemas con los dientes o la
-                    boca que le dificultan el comer.
-                  </label>
-                </div>
+              </div>
 
-                <div class="col col-lg-2">
-                  <nb-radio-group formControlName="vFiveScreening_value" v_five_value id="v_five_value" name="v_five_value"
-                  class="form-text text-muted detail"
+              <div class="col col-lg-12">
+                <hr />
+              </div>
+
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-light text-justify">Tiene problemas con los dientes o la
+                  boca que le dificultan el comer.
+                </label>
+              </div>
+
+              <div class="col col-lg-2">
+                <nb-radio-group formControlName="vFiveScreening_value" v_five_value id="v_five_value"
+                  name="v_five_value" class="form-text text-muted detail"
                   status="{{ isSubmitted && form.controls.vFiveScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-radio (valueChange)="calculate($event,5,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
-                </div>
+              </div>
 
-                <div class="col col-lg-4">
-                  <label class="form-text text-muted font-weight-light text-justify">No siempre tiene suficiente dinero
-                    para comprar los alimentos que necesita.
-                  </label>
-                </div>
-  
-                <div class="col col-lg-2">
-                  <nb-radio-group formControlName="vSixScreening_value" v_six_value id="v_six_value" name="v_six_value"
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-light text-justify">No siempre tiene suficiente dinero
+                  para comprar los alimentos que necesita.
+                </label>
+              </div>
+
+              <div class="col col-lg-2">
+                <nb-radio-group formControlName="vSixScreening_value" v_six_value id="v_six_value" name="v_six_value"
                   class="form-text text-muted detail"
                   status="{{ isSubmitted && form.controls.vSixScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-radio (valueChange)="calculate($event,6,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
-                </div>
-  
-                <div class="col col-lg-12">
-                  <hr />
-                </div>
-                <div class="col col-lg-4">
-                  <label class="form-text text-muted font-weight-light text-justify">Come a solas la mayor parte de las
-                    veces.
-                  </label>
-                </div>
+              </div>
 
-                <div class="col col-lg-2">
-                  <nb-radio-group formControlName="vSevenScreening_value" v_seven_value id="v_seven_value"
+              <div class="col col-lg-12">
+                <hr />
+              </div>
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-light text-justify">Come a solas la mayor parte de las
+                  veces.
+                </label>
+              </div>
+
+              <div class="col col-lg-2">
+                <nb-radio-group formControlName="vSevenScreening_value" v_seven_value id="v_seven_value"
                   name="v_seven_value" class="form-text text-muted detail"
                   status="{{ isSubmitted && form.controls.vSevenScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-radio (valueChange)="calculate($event,7,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,7,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
-                </div>
+              </div>
 
-                <div class="col col-lg-4">
-                  <label class="form-text text-muted font-weight-light text-justify">Toma al día tres o más medicinas
-                    diferentes, con o sin recetas.
-                  </label>
-                     </div>
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-light text-justify">Toma al día tres o más medicinas
+                  diferentes, con o sin recetas.
+                </label>
+              </div>
 
-                <div class="col col-lg-2">
-                  <nb-radio-group formControlName="vEightScreening_value" v_eight_value id="v_eight_value"
+              <div class="col col-lg-2">
+                <nb-radio-group formControlName="vEightScreening_value" v_eight_value id="v_eight_value"
                   class="d-flex text" name="v_eight_value" class="form-text text-muted detail"
                   status="{{ isSubmitted && form.controls.vEightScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-radio (valueChange)="calculate($event,8,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
-                </div>
-  
-                <div class="col col-lg-12">
-                  <hr />
-                </div>
-  
-                <div class="col col-lg-4">
-                  <label class="form-text text-muted font-weight-light text-justify">Ha perdido o ganado, sin querer, 4.5
-                    kg (10 lb) en los últimos 6 meses.
-                  </label>
-                </div>
-                <div class="col col-lg-2">
-                  <nb-radio-group formControlName="vNineScreening_value" v_nine_value id="v_nine_value" class="d-flex text"
-                  name="v_nine_value" class="form-text text-muted detail"
+              </div>
+
+              <div class="col col-lg-12">
+                <hr />
+              </div>
+
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-light text-justify">Ha perdido o ganado, sin querer, 4.5
+                  kg (10 lb) en los últimos 6 meses.
+                </label>
+              </div>
+              <div class="col col-lg-2">
+                <nb-radio-group formControlName="vNineScreening_value" v_nine_value id="v_nine_value"
+                  class="d-flex text" name="v_nine_value" class="form-text text-muted detail"
                   status="{{ isSubmitted && form.controls.vNineScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-radio (valueChange)="calculate($event,9,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,9,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
-                </div>
+              </div>
 
-                <div class="col col-lg-4">
-                  <label class="form-text text-muted font-weight-light text-justify">Físicamente no puede ir de compras,
-                    cocinar o alimentarse.
-                  </label>
-                </div>
-                
-                <div class="col col-lg-2">
-                  <nb-radio-group formControlName="vTenScreening_value" v_ten_value id="v_ten_value" class="d-flex text"
+              <div class="col col-lg-4">
+                <label class="form-text text-muted font-weight-light text-justify">Físicamente no puede ir de compras,
+                  cocinar o alimentarse.
+                </label>
+              </div>
+
+              <div class="col col-lg-2">
+                <nb-radio-group formControlName="vTenScreening_value" v_ten_value id="v_ten_value" class="d-flex text"
                   name="v_ten_value" class="form-text text-muted detail"
                   status="{{ isSubmitted && form.controls.vTenScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-radio (valueChange)="calculate($event,10,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,10,16)" value="0/No">No</nb-radio>
-                </nb-radio-group><br/>
-                </div>
-  
-                <div class="container">
-                  <div class="row justify-content-md-center">
-                    <div class="col col-lg-4">
-                      <hr />
-                    </div>
-                  </div>
-                </div>
-
+                </nb-radio-group><br />
               </div>
-  
+
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-6 d-flex">
-                    <label class="form-text text-muted font-weight-bold text-justify">Puntaje
-                    </label>
-                    <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalScreening"
-                      id="total" value='{{totalScreening}}' fullWidth disabled>
-                    <input type="text" nbInput [value]="riskScreening" formControlName="riskScreening"
-                      id="riskScreening" fullWidth disabled />
+                  <div class="col col-lg-4">
+                    <hr />
                   </div>
                 </div>
               </div>
-  
+
+            </div>
+
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-6 d-flex">
+                  <label class="form-text text-muted font-weight-bold text-justify">Puntaje
+                  </label>
+                  <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalScreening"
+                    id="total" value='{{totalScreening}}' fullWidth disabled>
+                  <input type="text" nbInput [value]="riskScreening" formControlName="riskScreening" id="riskScreening"
+                    fullWidth disabled />
+                </div>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" (click)="save(24)"
+                    type="submit">GUARDAR</button>
+                </div>
+              </div>
+            </div>
+
+            <ngx-ch-scale-screening [refresh24]="refresh24">
+
+            </ngx-ch-scale-screening>
+
+          </fieldset>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <!--PPS -->
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+        <nb-accordion-item-header>
+          Escala PPS
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <fieldset class="field_set col-lg-12">
+            <legend class="prue1 center">ESCALA PPS</legend>
+            <div class="row justify-content-md-center">
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(100)">
+                  <nb-card status="{{ isSelected==100 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>100%
+                      <nb-icon align-right *ngIf="isSelected==100" icon="checkmark-square-2-outline"></nb-icon>
+                      <nb-icon align-right *ngIf="isSelected!=100" icon="square-outline"></nb-icon>
+                    </nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Completa<br>
+                      <b>Actividad evidencia de enfermedad:</b> Actividad normal. Sin evidencia de enfermedad<br>
+                      <b>Autocuidado:</b> Completo<br>
+                      <b>Ingesta:</b> Normal<br>
+                      <b>Nivel de conciencia:</b> Normal<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(90)">
+                  <nb-card status="{{ isSelected==90 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>90%</nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Completa<br>
+                      <b>Actividad evidencia de enfermedad:</b> Actividad normal. Sin evidencia de enfermedad<br>
+                      <b>Autocuidado:</b> Completo<br>
+                      <b>Ingesta:</b> Normal<br>
+                      <b>Nivel de conciencia:</b> Normal<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(80)">
+                  <nb-card status="{{ isSelected==80 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>80%</nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Completa<br>
+                      <b>Actividad evidencia de enfermedad:</b> Actividad normal con esfuerzo. Alguna evidencia de
+                      enfermedad<br>
+                      <b>Autocuidado:</b> Completo<br>
+                      <b>Ingesta:</b> Normal o reducida<br>
+                      <b>Nivel de conciencia:</b> Normal<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(70)">
+                  <nb-card status="{{ isSelected==70 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>70%</nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Reducida<br>
+                      <b>Actividad evidencia de enfermedad:</b> Incapaz de realizar actividad laboral normal. Alguna
+                      evidencia de enfermedad<br>
+                      <b>Autocuidado:</b> Completo<br>
+                      <b>Ingesta:</b> Normal o reducida<br>
+                      <b>Nivel de conciencia:</b> Normal<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(60)">
+                  <nb-card status="{{ isSelected==60 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>60%</nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Reducida<br>
+                      <b>Actividad evidencia de enfermedad:</b> Incapaz de realizar tareas del hogar. Enfermedad
+                      significativa<br>
+                      <b>Autocuidado:</b> Precisa asistencia ocasional<br>
+                      <b>Ingesta:</b> Normal o reducida<br>
+                      <b>Nivel de conciencia:</b> Normal o sindrome confusional<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(50)">
+                  <nb-card status="{{ isSelected==50 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>50%</nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Vida principalmente cama / sillón<br>
+                      <b>Actividad evidencia de enfermedad:</b> Incapaz para realizar cualquier tipo de trabajo.
+                      Enfermedad extensa<br>
+                      <b>Autocuidado:</b> Precisa considerable asistencia<br>
+                      <b>Ingesta:</b> Normal o reducida<br>
+                      <b>Nivel de conciencia:</b> Normal o sindrome confusional<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(40)">
+                  <nb-card status="{{ isSelected==40 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>40%</nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Pasa la mayor parte del tiempo en cama<br>
+                      <b>Actividad evidencia de enfermedad:</b> Incapaz para realizar cualquier tipo de trabajo.
+                      Enfermedad extensa<br>
+                      <b>Autocuidado:</b> Precisa ayuda para casi todas las actividades<br>
+                      <b>Ingesta:</b> Normal o reducida<br>
+                      <b>Nivel de conciencia:</b> Normal o somnoliento o sindrome confusional<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(30)">
+                  <nb-card status="{{ isSelected==30 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>30%</nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Encamado<br>
+                      <b>Actividad evidencia de enfermedad:</b> Incapaz para realizar cualquier tipo de trabajo.
+                      Enfermedad extensa <br>
+                      <b>Autocuidado:</b> Totalmente dependiente<br>
+                      <b>Ingesta:</b> Reducida<br>
+                      <b>Nivel de conciencia:</b> Normal o somnoliento o sindrome confusional<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(20)">
+                  <nb-card status="{{ isSelected==20 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>20%</nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Encamado<br>
+                      <b>Actividad evidencia de enfermedad:</b> Incapaz para realizar cualquier tipo de trabajo.
+                      Enfermedad extensa<br>
+                      <b>Autocuidado:</b> Totalmente dependiente<br>
+                      <b>Ingesta:</b> Capaz sólo de beber a sorbos<br>
+                      <b>Nivel de conciencia:</b> Normal o somnoliento o sindrome confusional<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(10)">
+                  <nb-card status="{{ isSelected==10 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>10%</nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Encamado<br>
+                      <b>Actividad evidencia de enfermedad:</b> Incapaz para realizar cualquier tipo de trabajo.
+                      Enfermedad extensa<br>
+                      <b>Autocuidado:</b> Totalmente dependiente<br>
+                      <b>Ingesta:</b> Sólo cuidados de la boca<br>
+                      <b>Nivel de conciencia:</b> Somnoliento o coma<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+
+              <div class="col col-lg-3">
+                <a (click)="targeta(0)">
+                  <nb-card status="{{ isSelected==0 ? 'success' : 'basic'}}" size="tiny">
+                    <nb-card-header>0%</nb-card-header>
+                    <nb-card-body>
+                      <b>Deambulación:</b> Exitus<br>
+                    </nb-card-body>
+                  </nb-card>
+                </a>
+              </div>
+
+            </div>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" (click)="save(25)"
+                    type="submit">GUARDAR</button>
+                </div>
+              </div>
+            </div>
+
+            <ngx-ch-scale-pps [refresh25]="refresh25">
+
+            </ngx-ch-scale-pps>
+
+          </fieldset>
+
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <!-- BRADEN -->
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+        <nb-accordion-item-header>
+          Escala Braden
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <fieldset class="field_set">
+            <legend class="prue1 center">ESCALA BRADEN</legend>
+            <div class="row justify-content-md">
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold">Percepción Sensorial
+                </label>
+              </div>
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="sensoryBradenValue" physical_value id="sensory_value"
+                  name="sensory_value"
+                  status="{{ isSubmitted && form.controls.sensoryBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,1,17)" value="1/Completamente Limitada">Completamente
+                    Limitada</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,1,17)" value="2/Muy Limitada">Muy Limitada </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,1,17)" value="3/Ligeramente Limitada">Ligeramente Limitada
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,1,17)" value="4/Sin Limitación">Sin Limitación
+                  </nb-radio>
+                </nb-radio-group>
+              </div>
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Exposición a la Humedad
+                </label>
+              </div>
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="humidityBradenValue" mind_value id="humidity_value"
+                  name="humidity_value"
+                  status="{{ isSubmitted && form.controls.humidityBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,2,17)" value="1/Completamente Humeda">Completamente Humeda
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,2,17)" value="2/A Menudo Humeda">A Menudo Humeda</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,2,17)" value="3/Ocasionalmente Humeda">Ocasionalmente Humeda
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,2,17)" value="4/Raramente Humeda">Raramente Humeda
+                  </nb-radio>
+                </nb-radio-group>
+              </div>
+
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-12">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Actividad
+                </label>
+              </div>
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="activityBradenValue" activity_value id="activity_value"
+                  name="activity_value"
+                  status="{{ isSubmitted && form.controls.activityBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,3,17)" value="1/Encamado">Encamado
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,3,17)" value="2/En Silla">
+                    En Silla
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,3,17)" value="3/Deambula Ocasionalmente">Deambula
+                    Ocasionalmente
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,3,17)" value="4/Deambula Frecuentemente">Deambula
+                    Frecuentemente</nb-radio>
+                </nb-radio-group>
+              </div>
+
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Movilidad
+                </label>
+              </div>
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="mobilityBradenValue" mobility_value id="mobility_value"
+                  name="mobility_value"
+                  status="{{ isSubmitted && form.controls.mobilityBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,4,1)" value="1/Completamente Inmovil">Completamente Inmovil
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,4,17)" value="2/Muy Limitada">Muy Limitada</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,4,17)" value="3/Ligeramente Limitada">Ligeramente Limitada
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,4,17)" value="4/Sin Limitación">Sin Limitación
+                  </nb-radio>
+                </nb-radio-group>
+              </div>
+
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-12">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Nutrición
+                </label>
+              </div>
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="nutritionBradenValue" nutrition_value id="nutrition_value"
+                  name="nutrition_value"
+                  status="{{ isSubmitted && form.controls.nutritionBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,5,17)" value="1/Muy Pobre">Muy Pobre</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,5,17)" value="2/Pobremente Inadecuada">Pobremente Inadecuada
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,5,17)" value="3/Adecuada">Adecuada</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,5,17)" value="4/Excelente">Excelente</nb-radio>
+                </nb-radio-group><br />
+              </div>
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Roce y Peligro de Lesiones
+                </label>
+              </div>
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="lesionBradenValue" lesion_value id="lesion_value" name="lesion_value"
+                  status="{{ isSubmitted && form.controls.lesionBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,6,17)" value="1/Problema">Problema</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,6,17)" value="2/Problemas Potenciales">Problemas Potenciales
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,6,17)" value="3/No existe Problema Aparente ">No existe
+                    Problema Aparente </nb-radio>
+                </nb-radio-group><br />
+              </div>
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-4">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-4 d-flex">
+                    <label class="form-text text-muted font-weight-bold align">Total
+                    </label>
+                    <input type="text" formControlName="totalBraden" readonly="readonly" class="ImpPeq center"
+                      id="total" value='{{totalBraden}}' fullWidth disabled>
+                    <input type="text" nbInput formControlName="riskBraden" [value]="riskBraden" id="risk" fullWidth
+                      disabled />
+                  </div>
+                </div>
+              </div>
+
               <div class="container">
                 <div class="row">
                   <div class="col-md-12">
-                    <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" (click)="save(24)"
+                    <button nbButton status="danger" class="ml-1 btn-save" (click)="save(26)" [disabled]="disabled"
                       type="submit">GUARDAR</button>
                   </div>
                 </div>
               </div>
-  
-              <ngx-ch-scale-screening></ngx-ch-scale-screening>
-  
-            </fieldset>
-          </nb-accordion-item-body>
+            </div>
+
+            <ngx-ch-scale-braden [refresh26]="refresh26">
+
+            </ngx-ch-scale-braden>
+
+          </fieldset>
+        </nb-accordion-item-body>
       </nb-accordion-item>
 
-        
+      <!-- LAWTON -->
+      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+        <nb-accordion-item-header>
+          Escala Lawton
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <fieldset class="field_set">
+            <legend class="prue1 center">ESCALA LAWTON</legend>
+            <div class="row justify-content-md">
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold">Capacidad para usar el télefono
+                </label>
+              </div>
+
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="phone_value" phone_value id="phone_value" name="phone_value"
+                  status="{{ isSubmitted && form.controls.phone_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,1,18)"
+                    value="1/Utiliza el teléfono a iniciativa propia, busca y márca los números, etc">Utiliza el
+                    teléfono a iniciativa propia, busca y márca los números, etc</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,1,18)"
+                    value="1/Es capaz de marcar bien algunos números familiares">Es capaz de marcar bien algunos números
+                    familiares </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,1,18)"
+                    value="1/Es capaz de contestar al teléfono, pero no de marcar">Es capaz de contestar al teléfono,
+                    pero no de marcar</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,1,18)" value="0/No es capaz de usar el teléfono">No es capaz
+                    de usar el teléfono
+                  </nb-radio>
+                </nb-radio-group>
+              </div>
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Hacer compras
+                </label>
+              </div>
+
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="shopping_value" mind_value id="shopping_value" name="shopping_value"
+                  status="{{ isSubmitted && form.controls.shopping_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,2,18)"
+                    value="1/Realiza todas las compras necesarias independientemente">Realiza todas las compras
+                    necesarias independientemente</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,2,18)"
+                    value="0/Realiza independientemente pequeñas compras">Realiza independientemente pequeñas compras
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,2,18)"
+                    value="0/Necesita ir acompañado para hacer cualquier compra">Necesita ir acompañado para hacer
+                    cualquier compra</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,2,18)" value="0/Totalmente incapaz de comprar">Totalmente
+                    incapaz de comprar
+                  </nb-radio>
+                </nb-radio-group>
+              </div>
+
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-12">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Preparación de la comida
+                </label>
+              </div>
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="food_value" food_value id="food_value" name="food_value"
+                  status="{{ isSubmitted && form.controls.food_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,3,18)"
+                    value="1/Organiza, prepara y sirve las comidas por sí solo adecuadamente">Organiza, prepara y sirve
+                    las comidas por sí solo adecuadamente
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,3,18)"
+                    value="0/Prepara adecuadamente las comidas si se le proporcionan los ingredientes">
+                    Prepara adecuadamente las comidas si se le proporcionan los ingredientes
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,3,18)"
+                    value="0/Prepara, calienta y sirve las comidas, pero no sigue una dieta adecuada">Prepara, calienta
+                    y sirve las comidas, pero no sigue una dieta adecuada
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,3,18)"
+                    value="0/Necesita que le preparen y sirvan las comidas">Necesita que le preparen y sirvan las
+                    comidas</nb-radio>
+                </nb-radio-group>
+              </div>
+
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Cuidado de la casa
+                </label>
+              </div>
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="house_value" house_value id="house_value" name="house_value"
+                  status="{{ isSubmitted && form.controls.house_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,4,18)"
+                    value="1/Mantiene la casa solo o con ayuda ocasional (para trabajos pesados)">Mantiene la casa solo
+                    o con ayuda ocasional (para trabajos pesados)
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,4,18)"
+                    value="1/Realiza tareas ligeras, como lavar los platos o hacer las camas">Realiza tareas ligeras,
+                    como lavar los platos o hacer las camas</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,4,18)"
+                    value="1/Realiza tareas ligeras, pero no puede mantener un adecuado nivel de limpieza">Realiza
+                    tareas ligeras, pero no puede mantener un adecuado nivel de limpieza</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,4,18)"
+                    value="1/Necesita ayuda en todas las labores de la casa">Necesita ayuda en todas las labores de la casa</nb-radio> 
+                    <nb-radio (valueChange)="calculate($event,4,18)" value="0/No participa en ninguna labor de la casa">
+                      No participa en ninguna labor de la casa</nb-radio>
+                </nb-radio-group>
+              </div>
+
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-12">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Lavado de la ropa
+                </label>
+              </div>
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="clothing_value" clothing_value id="clothing_value"
+                  name="clothing_value"
+                  status="{{ isSubmitted && form.controls.clothing_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,5,18)" value="1/Lava por sí solo toda su ropa">Lava por sí
+                    solo toda su ropa</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,5,18)" value="1/Lava por sí solo pequeñas prendas">Lava por
+                    sí solo pequeñas prendas
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,5,18)"
+                    value="0/Todo el lavado de ropa debe ser realizado por otro">Todo el lavado de ropa debe ser
+                    realizado por otro</nb-radio>
+                </nb-radio-group>
+              </div>
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Uso de medios de transporte
+                </label>
+              </div>
+
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="transport_value" transport_value id="transport_value"
+                  name="transport_value"
+                  status="{{ isSubmitted && form.controls.transport_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,6,18)"
+                    value="1/Viaja solo en transporte público o conduce su propio coche">Viaja solo en transporte
+                    público o conduce su propio coche</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,6,18)"
+                    value="1/Es capaz de coger un taxi, pero no usa otro medio de transporte">Es capaz de coger un taxi,
+                    pero no usa otro medio de transporte
+                  </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,6,18)"
+                    value="1/Viaja en transporte público cuando va acompañado por otra persona">Viaja en transporte
+                    público cuando va acompañado por otra persona </nb-radio>
+                  <nb-radio (valueChange)="calculate($event,6,18)"
+                    value="0/Solo utiliza el taxi o el automóvil con ayuda de otros">Solo utiliza el taxi o el automóvil
+                    con ayuda de otros</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,6,18)" value="0/No viaja">No viaja</nb-radio>
+                </nb-radio-group>
+              </div>
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-12">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Responsabilidad respecto a su medicación
+                </label>
+              </div>
+
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="medicationValue" medication_value id="medication_value"
+                  name="medication_value"
+                  status="{{ isSubmitted && form.controls.medicationValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,7,18)"
+                    value="1/Es capaz de tomar su medicación a la hora y con la dosis correcta">Es capaz de tomar su
+                    medicación a la hora y con la dosis correcta</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,7,18)"
+                    value="0/Toma su medicación si la dosis le es preparada previamente">Toma su medicación si la dosis
+                    le es preparada previamente</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,7,18)" value="0/No es capaz de administrarse su medicación">
+                    No es capaz de administrarse su medicación </nb-radio>
+                </nb-radio-group>
+              </div>
+
+              <div class="col col-lg-2">
+                <label class="form-text text-muted font-weight-bold align">Manejo de asuntos económicos
+                </label>
+              </div>
+
+              <div class="col col-lg-4">
+                <nb-radio-group formControlName="finance_value" finance_value id="finance_value" name="finance_value"
+                  status="{{ isSubmitted && form.controls.finance_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-radio (valueChange)="calculate($event,8,18)"value="1/Se encarga de sus asuntos económicos por sí solo">Se encarga de sus asuntos económicos por
+                    sí solo</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,8,18)"
+                    value="1/Realiza las compras de cada día, pero necesita ayuda en las grandes compras, bancos">
+                    Realiza las compras de cada día, pero necesita ayuda en las grandes compras, bancos</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,8,18)" value="0/Incapaz de manejar dinero">Incapaz de
+                    manejar dinero </nb-radio>
+                </nb-radio-group>
+              </div>
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-4">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-4 d-flex">
+                    <label class="form-text text-muted font-weight-bold align">Total
+                    </label>
+                    <input type="text" formControlName="totalLawton" readonly="readonly" class="ImpPeq center"
+                      id="total" value='{{totalLawton}}' fullWidth disabled>
+                    <input type="text" nbInput formControlName="riskLawton" [value]="riskLawton" id="risk" fullWidth
+                      disabled />
+                  </div>
+                </div>
+              </div>
+
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <button nbButton status="danger" class="ml-1 btn-save" (click)="save(27)" [disabled]="disabled"
+                      type="submit">GUARDAR</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <ngx-ch-scale-lawton [refresh27]="refresh27">
+
+            </ngx-ch-scale-lawton>
+
+          </fieldset>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
     </nb-accordion>
+
   </div>
 </form>

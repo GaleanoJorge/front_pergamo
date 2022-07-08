@@ -375,9 +375,9 @@ v
       });
   }
 
-  GetUserChildrenById(id): Promise<any> {
-    var servObj = new ServiceObject("user/allChildrenOfParentUser", id);
-    return this.webAPI.GetAction(servObj)
+  GetUserChildrenById(params): Promise<any> {
+    var servObj = new ServiceObject("user/allChildrenOfParentUser", params.id);
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
@@ -390,8 +390,8 @@ v
       });
   }
 
-  ChangeStatus(id): Promise<any> {
-    let servObj = new ServiceObject(`user/${id}/changeStatus`);
+  ChangeStatus(id, own_user_id): Promise<any> {
+    let servObj = new ServiceObject(`user/${id}/changeStatus?own_user=${own_user_id}`);
 
     return this.webAPI.PatchAction(servObj)
       .then(x => {

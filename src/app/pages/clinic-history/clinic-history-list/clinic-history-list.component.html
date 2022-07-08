@@ -17,12 +17,12 @@
         <div *ngIf="this.show == 2">
           <ngx-back-list [data]="this.user">
           </ngx-back-list>
-        </div> 
+        </div>
       </nb-tab>
       <nb-tab tabTitle="EVOLUCIÓN">
         <div *ngIf="this.show == 3">
           <ngx-evolution-list></ngx-evolution-list>
-        </div> 
+        </div>
       </nb-tab>
       <nb-tab tabTitle="ESCALAS">
         <div *ngIf="this.show == 4">
@@ -32,31 +32,43 @@
       </nb-tab>
 
       <nb-tab tabTitle="FORMULACIÓN">
-         <div *ngIf="this.show == 5">
+        <div *ngIf="this.show == 5">
           <ngx-formulation [record_id]="record_id" [user]="user_id"></ngx-formulation>
-        </div> 
+        </div>
       </nb-tab>
       <nb-tab tabTitle="ORDEN MEDICAS">
         <div *ngIf="this.show == 6">
-          <ngx-orders-medical></ngx-orders-medical>
-        </div> 
-      </nb-tab>   
+          <ngx-orders-medical  [record_id]="record_id"></ngx-orders-medical>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="INCAPACIDAD">
+        <div *ngIf="this.show == 7">
+          <ngx-ch-inability [record_id]="record_id"></ngx-ch-inability>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="CERTIFICADO MEDICO">
+        <div *ngIf="this.show == 8">
+          <ngx-ch-medical-certificate  [record_id]="record_id"></ngx-ch-medical-certificate>
+        </div>
+      </nb-tab>
 
       <nb-tab tabTitle="FALLIDA">
-        <div *ngIf="this.show == 7">
+        <div *ngIf="this.show == 9">
           <ngx-failed [record_id]="record_id"></ngx-failed>
-        </div> 
+        </div>
       </nb-tab>
 
       <nb-tab tabTitle="SALIDA">
-        <div *ngIf="this.show == 8">
-          <ngx-patient-exit [record_id]="record_id"></ngx-patient-exit>
+        <div *ngIf="this.show == 10">
+          <ngx-form-patient-exit [record_id]="record_id"></ngx-form-patient-exit>
         </div>
       </nb-tab>
 
     </nb-tabset>
     <div style="text-align: center;">
-      <a (click)="finish()" nbButton>Finalizar registro</a>
+      <a (click)="close()" nbButton>Finalizar registro</a>
     </div>
   </div>
 

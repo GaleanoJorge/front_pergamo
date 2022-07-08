@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-3">
+        <label class="form-text text-muted font-weight-bold">Sesiones Mensuales</label>
+        <input type="number" onpaste="return false" id="month" nbInput fullWidth formControlName="month"
+          status="{{ isSubmitted && form.controls.month.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      </div>
+      <div class="col col-lg-3">
+        <label class="form-text text-muted font-weight-bold">Intensidad Semanal</label>
+        <input type="number" onpaste="return false" id="week" nbInput fullWidth formControlName="week"
+          status="{{ isSubmitted && form.controls.week.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-6">
+        <label for="month" class="form-text text-muted font-weight-bold">Recomendaciones</label>
+        <textarea onpaste="return false" id="recommendations" nbInput fullWidth formControlName="recommendations"
+          current_illness rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+  </div>
+
+</form>

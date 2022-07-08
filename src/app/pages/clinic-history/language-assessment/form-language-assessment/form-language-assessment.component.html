@@ -1,0 +1,45 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class="row justify-content-md-center">
+      <div class="col-md-6">
+        <label for="medical_diagnostic_id" class="form-text text-muted font-weight-bold ">DIAGNÓSTICO MÉDICO:</label>
+        <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
+          (change)="saveCode($event.target.value,1)" id="medical_diagnostic_id" formControlName="medical_diagnostic_id"
+          medical_diagnostic_id type="text" required
+          status="{{ isSubmitted && form.controls.medical_diagnostic_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
+          </option>
+        </datalist>
+      </div>
+
+      <div class="col-md-6 ">
+        <label for="therapeutic_diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNÓSTICO
+          TERAPÉUTICO:</label>
+        <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
+          (change)="saveCode($event.target.value,2)" id="therapeutic_diagnosis_id"
+          formControlName="therapeutic_diagnosis_id" therapeutic_diagnosis_id type="text" required
+          status="{{ isSubmitted && form.controls.therapeutic_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of therapeutic_diagnosis_id" [value]="item.name">{{ item.code }} - {{item.name}}
+          </option>
+        </datalist>
+      </div>
+
+    
+      <div class="col-md-12">
+        <label for="reason_consultation" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
+        <textarea id="reason_consultation" nbInput fullWidth formControlName="reason_consultation" current_illness
+          rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      </div>
+
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+</form>

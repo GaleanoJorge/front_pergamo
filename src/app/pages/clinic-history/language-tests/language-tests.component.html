@@ -1,0 +1,18 @@
+
+<ngx-form-language-tests (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+</ngx-form-language-tests>
+<label for="specific_tests_tl" class="form-text text-muted font-weight-bold align">Pruebas Especificas</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table  pager="false" [title]="title" customData="specific_tests_tl" [settings]="settings"
+      entity="specific_tests_tl/by_record/{{record_id}}/1?pagination=false">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
+

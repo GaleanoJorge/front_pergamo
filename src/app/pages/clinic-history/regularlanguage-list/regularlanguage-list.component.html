@@ -1,0 +1,83 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+           <nb-step [stepControl]="nameForm" label="Valoración">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-form-language-assessment-regular [record_id]="record_id" ></ngx-form-language-assessment-regular>
+              </div>
+             </div> 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Signos Vitales">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-signs-evo [record_id]="record_id"></ngx-signs-evo>
+              </div>
+            </div>
+          </nb-step>
+
+          
+          <nb-step [stepControl]="nameForm" label="Obj Terapeuticos">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-form-language-therapeutic-goals  ></ngx-form-language-therapeutic-goals>
+              </div>
+            </div>
+          </nb-step>
+
+
+          
+          <nb-step [stepControl]="nameForm" label="Intervención">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-language-intervention [record_id]="record_id" ></ngx-language-intervention> 
+               
+              </div>
+            </div>
+          </nb-step>
+          
+          <nb-step [stepControl]="nameForm" label="Materiales E Insumos">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-form-language-materialused [record_id]="record_id" ></ngx-form-language-materialused>
+
+              </div>
+            </div> 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Conceptos de Fonoaudiologia">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-language-concept  [record_id]="record_id"></ngx-language-concept>
+
+              </div>
+            </div> 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Diagnostico">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-form-language-evo-diagnosis *ngIf="cifdiagnosistl" [record_id]="record_id"
+                [data]="cifdiagnosistl" ></ngx-form-language-evo-diagnosis>
+
+              </div>
+            </div> 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Sesiones">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-language-reg-sessions [type_record]="3" [record_id]="record_id"></ngx-language-reg-sessions>
+
+              </div>
+            </div> 
+          </nb-step>
+
+        </nb-stepper>
+      </nb-card-body> 
+    </nb-card>
+  </div>
+</ngx-base-list>

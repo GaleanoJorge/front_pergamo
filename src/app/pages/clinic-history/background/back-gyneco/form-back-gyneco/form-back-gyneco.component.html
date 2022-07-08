@@ -162,7 +162,7 @@
 
 
     <div class="col-12 col-sm-12 col-md-3">
-      <label class="form-text text-muted font-weight-bold align">HIJOS NACIDOS MUERTOS</label>
+      <label class="form-text text-muted font-weight-bold align">HIJOS NACIDOS FALLECIDOS</label>
       <input nbInput type="number" fullWidth id="dead_sons" formControlName="dead_sons" dead_sons
         status="{{ isSubmitted && form.controls.dead_sons.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
@@ -174,14 +174,14 @@
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
-      <label class="form-text text-muted font-weight-bold align">HIJOS MUERTOS 1ERA SEMANA</label>
+      <label class="form-text text-muted font-weight-bold align">HIJOS FALLECIDOS 1ERA SEMANA</label>
       <input nbInput type="number" fullWidth id="sons_dead_first_week" formControlName="sons_dead_first_week"
         sons_dead_first_week
         status="{{ isSubmitted && form.controls.sons_dead_first_week.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
-      <label class="form-text text-muted font-weight-bold align">HIJOS MUERTOS DESPUES 1ERA SEMANA</label>
+      <label class="form-text text-muted font-weight-bold align">HIJOS FALLECIDOS DESPUES 1ERA SEMANA</label>
       <input nbInput type="number" fullWidth id="children_died_after_the_first_week"
         formControlName="children_died_after_the_first_week" children_died_after_the_first_week
         status="{{ isSubmitted && form.controls.children_died_after_the_first_week.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />

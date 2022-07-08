@@ -85,6 +85,7 @@ export class FormPhysicalExamEvoComponent implements OnInit {
           id: this.data.id,
           revision: this.form.controls.revision.value,
           type_ch_physical_exam_id: this.form.controls.type_ch_physical_exam_id.value,
+          description: this.form.controls.description.value,
           type_record_id: 3,
           ch_record_id: this.record_id,
 
@@ -102,6 +103,7 @@ export class FormPhysicalExamEvoComponent implements OnInit {
         await this.PhysicalExamS.Save({
           revision: this.form.controls.revision.value,
           type_ch_physical_exam_id: this.form.controls.type_ch_physical_exam_id.value,
+          description: this.form.controls.description.value,
           type_record_id: 3,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -135,11 +137,17 @@ export class FormPhysicalExamEvoComponent implements OnInit {
   }*/
 
   onDescriptionChange(event) {
-    this.type_ch_physical_exam_id.forEach(x => {
-      if (x.id == event) {
-        this.form.controls.description.setValue(x.description);
-      }
-    });
+
+    var localIdentify = this.type_ch_physical_exam.find(item => item.id == event);
+    if(localIdentify){
+      this.form.patchValue({
+        description: localIdentify.description
+      })
+    } else {
+      this.toastService.warning('','invalido');
+      this.form.controls.type_ch_physical_exam_id.setErrors({'incorrect': true});
+    }
+
   }
 
   

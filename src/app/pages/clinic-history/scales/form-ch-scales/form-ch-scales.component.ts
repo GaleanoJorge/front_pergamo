@@ -15,6 +15,8 @@ export class FormChScalesComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() enfermery: any = null;
+  @Input() respiratory: any = null;
+  @Input() nutrition: any = null;
   @Input() record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -25,6 +27,7 @@ export class FormChScalesComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
+  public isSelected: any = 200;
   public arrayDefinitionsFac =
     [
       {
@@ -109,10 +112,62 @@ export class FormChScalesComponent implements OnInit {
       }
     ]
 
+  public ppsObj;
+
+  public arrayDefinitionsPps =
+    [
+      {
+        id: 100,
+        text: 'Deambulación:Completa. Actividad evidencia de enfermedad:Actividad normal. Sin evidencia de enfermedad. Autocuidado:Completo Ingesta:Normal. Nivel de conciencia:Normal',
+
+      },
+      {
+        id: 90,
+        text: 'Deambulación:Completa Actividad evidencia de enfermedad: Actividad normal. Sin evidencia de enfermedad Autocuidado:Completo Ingesta:Normal. Nivel de conciencia:Normal',
+      },
+      {
+        id: 80,
+        text: 'Deambulación:Completa. Actividad evidencia de enfermedad: Actividad normal con esfuerzo. Alguna evidencia de enfermedad. Autocuidado: Completo. Ingesta:Normal o reducida. Nivel de conciencia:Normal',
+      },
+      {
+        id: 70,
+        text: 'Deambulación:Reducida. Actividad evidencia de enfermedad: Incapaz de realizar actividad laboral normal. Alguna evidencia de enfermedad. Autocuidado:Completo. Ingesta:Normal o reducida. Nivel de conciencia:Normal',
+      },
+      {
+        id: 60,
+        text: 'Deambulación:Reducida.Actividad evidencia de enfermedad: Incapaz de realizar tareas del hogar. Enfermedad significativa. Autocuidado:Precisa asistencia ocasional. Ingesta:Normal o reducida. Nivel de conciencia:Normal o sindrome confusional',
+      },
+      {
+        id: 50,
+        text: 'Deambulación:Vida principalmente cama / sillón. Actividad evidencia de enfermedad: Incapaz para realizar cualquier tipo de trabajo. Enfermedad extensa. Autocuidado:Precisa considerable asistencia. Ingesta:Normal o reducida. Nivel de conciencia:Normal o sindrome confusional',
+      },
+      {
+        id: 40,
+        text: 'Deambulación:Pasa la mayor parte del tiempo en cama. Actividad evidencia de enfermedad:Incapaz para realizar cualquier tipo de trabajo. Enfermedad extensa. Autocuidado:Precisa ayuda para casi todas las actividades. Ingesta:Normal o reducida. Nivel de conciencia:Normal o somnoliento o sindrome confusional',
+      },
+      {
+        id: 30,
+        text: 'Deambulación:Encamado. Actividad evidencia de enfermedad:Incapaz para realizar cualquier tipo de trabajo. Enfermedad extensa. Autocuidado:Totalmente dependiente. Ingesta: Reducida. Nivel de conciencia:Normal o somnoliento o sindrome confusional',
+      },
+      {
+        id: 20,
+        text: 'Deambulación:Encamado. Actividad evidencia de enfermedad:Incapaz para realizar cualquier tipo de trabajo. Enfermedad extensa. Autocuidado:Totalmente dependiente. Ingesta: Capaz sólo de beber a sorbos. Nivel de conciencia:Normal o somnoliento o sindrome confusional',
+      },
+      {
+        id: 10,
+        text: 'Deambulación:Encamado. Actividad evidencia de enfermedad:Incapaz para realizar cualquier tipo de trabajo. Enfermedad extensa. Autocuidado:Totalmente dependiente. Ingesta:Sólo cuidados de la boca. Nivel de conciencia:Somnoliento o coma',
+      },
+      {
+        id: 0,
+        text: 'Deambulación:Exitus',
+      }
+    ]
+
 
   public definitionFacText = '';
   public definitionCrossText = '';
   public definitionEcogText = '';
+  public definitionPpsText = '';
   public totalNorton = 0;
   public totalGlasgow = 0;
   public totalBarthel = 0;
@@ -129,6 +184,8 @@ export class FormChScalesComponent implements OnInit {
   public totalPfeiffer = 0;
   public totalJhDownton = 0;
   public totalScreening = 0;
+  public totalBraden = 0;
+  public totalLawton = 0;
   public num1 = 0;
   public num2 = 0;
   public num3 = 0;
@@ -151,6 +208,33 @@ export class FormChScalesComponent implements OnInit {
   public num20 = 0;
   public num21 = 0;
   public num22 = 0;
+
+  public refresh1 = false;
+  public refresh2 = false;
+  public refresh3 = false;
+  public refresh4 = false;
+  public refresh5 = false;
+  public refresh7 = false;
+  public refresh8 = false;
+  public refresh9 = false;
+  public refresh10 = false;
+  public refresh11 = false;
+  public refresh12 = false;
+  public refresh13 = false;
+  public refresh14 = false;
+  public refresh15 = false;
+  public refresh16 = false;
+  public refresh17 = false;
+  public refresh18 = false;
+  public refresh19 = false;
+  public refresh20 = false;
+  public refresh21 = false;
+  public refresh22 = false;
+  public refresh23 = false;
+  public refresh24 = false;
+  public refresh25 = false;
+  public refresh26 = false;
+  public refresh27 = false;
 
   public risk_norton: string = '';
 
@@ -190,6 +274,9 @@ export class FormChScalesComponent implements OnInit {
 
   public riskScreening: string = '';
 
+  public riskBraden: string = '';
+  
+  public riskLawton: string = '';
 
 
   constructor(
@@ -329,7 +416,7 @@ export class FormChScalesComponent implements OnInit {
       gradeEcog_value: [this.data.gradeEcog_value],
       definitionEcogText: [this.data.definitionEcogText],
 
-      //Escala tamizake Nutricional pediátrico
+      //Escala tamizaje Nutricional pediátrico
       score_one_value: [this.data.score_one_value],
       score_two_value: [this.data.score_two_value],
       score_three_value: [this.data.score_three_value],
@@ -440,6 +527,30 @@ export class FormChScalesComponent implements OnInit {
       totalScreening: [this.data.totalScreening],
       riskScreening: [this.data.riskScreening],
 
+      //Escala PPS
+      scorePps_value: [this.data.scorePps_value],
+
+      //Escala braden
+      sensoryBradenValue: [this.data.sensoryBradenValue],
+      humidityBradenValue: [this.data.humidityBradenValue],
+      activityBradenValue: [this.data.activityBradenValue],
+      mobilityBradenValue: [this.data.mobilityBradenValue],
+      nutritionBradenValue: [this.data.nutritionBradenValue],
+      lesionBradenValue: [this.data.lesionBradenValue],
+      totalBraden: [this.data.totalBraden],
+      riskBraden: [this.data.riskBraden],
+
+      //Escala Lawton
+      phone_value: [this.data.phone_value],
+      shopping_value: [this.data.shopping_value],
+      food_value: [this.data.food_value],
+      house_value: [this.data.house_value],
+      clothing_value: [this.data.clothing_value],
+      transport_value: [this.data.transport_value],
+      medicationValue: [this.data.medicationValue],
+      finance_value: [this.data.finance_value],
+      totalLawton: [this.data.totalLawton],
+      riskLawton: [this.data.riskLawton],
 
     });
     this.onChanges();
@@ -487,9 +598,19 @@ export class FormChScalesComponent implements OnInit {
         }
       }
     })
-
   }
 
+  targeta(e) {
+    var localidentify = this.arrayDefinitionsPps.find(item => item.id == e);
+    if (localidentify) {
+      this.isSelected = e;
+      this.ppsObj = localidentify;
+      console.log(this.ppsObj.id);
+    } else {
+      this.isSelected = 200;
+      this.ppsObj = null;
+    }
+  }
   separateText(val) {
     return val.split("/");
 
@@ -608,7 +729,7 @@ export class FormChScalesComponent implements OnInit {
         this.riskNews = 'Bajo';
         this.response = 'Continuar cuidados de enfermería Signos vitales cada 4-6 horas';
 
-      } else if (this.totalNews >= 3) {
+      } else if (this.num1 == 3 ||  this.num2 == 3 ||  this.num3 == 3 ||  this.num4 == 3 || this.num5 == 3 ||  this.num6 == 3 ||  this.num7 == 3 ||  this.num8 == 3 ) {
         this.riskNews = 'Bajo / Medio';
         this.response = 'Respuesta urgente en piso o ala* Signos vitales cada hora';
 
@@ -869,11 +990,11 @@ export class FormChScalesComponent implements OnInit {
       this.num3 = orden == 3 ? Number(texts[0]) : this.num3;
       this.num4 = orden == 4 ? Number(texts[0]) : this.num4;
       this.num5 = orden == 5 ? Number(texts[0]) : this.num5;
-      this.num5 = orden == 5 ? Number(texts[0]) : this.num5;
-      this.num7 = orden == 5 ? Number(texts[0]) : this.num7;
-      this.num8 = orden == 5 ? Number(texts[0]) : this.num8;
-      this.num9 = orden == 5 ? Number(texts[0]) : this.num9;
-      this.num10 = orden == 5 ? Number(texts[0]) : this.num10;
+      this.num6 = orden == 6 ? Number(texts[0]) : this.num6;
+      this.num7 = orden == 7 ? Number(texts[0]) : this.num7;
+      this.num8 = orden == 8 ? Number(texts[0]) : this.num8;
+      this.num9 = orden == 9 ? Number(texts[0]) : this.num9;
+      this.num10 = orden == 10 ? Number(texts[0]) : this.num10;
 
       this.totalScreening = this.num1 + this.num2 + this.num3 + this.num4 + this.num5 + this.num6 + this.num7 + this.num8 + this.num9 + this.num10;
 
@@ -889,7 +1010,56 @@ export class FormChScalesComponent implements OnInit {
 
       }
 
+    } else if (type == 17) {
+
+      this.num1 = orden == 1 ? Number(texts[0]) : this.num1;
+      this.num2 = orden == 2 ? Number(texts[0]) : this.num2;
+      this.num3 = orden == 3 ? Number(texts[0]) : this.num3;
+      this.num4 = orden == 4 ? Number(texts[0]) : this.num4;
+      this.num5 = orden == 5 ? Number(texts[0]) : this.num5;
+      this.num6 = orden == 6 ? Number(texts[0]) : this.num6;
+
+      this.totalBraden = this.num1 + this.num2 + this.num3 + this.num4 + this.num5 + this.num6;
+
+
+      if (this.totalBraden < 12) {
+        this.riskBraden = 'Riesgo Alto.';
+
+      } else if ((this.totalBraden > 13 && this.totalBraden < 15)) {
+        this.riskBraden = 'Riesgo Medio';
+
+      } else if ((this.totalBraden > 16 && this.totalBraden < 18)) {
+        this.riskBraden = 'Riesgo Bajo';
+
+      } else if ((this.totalBraden > 19)) {
+        this.riskBraden = 'Sin Riesgo';
+
+      }
+
+    } else if (type == 18) {
+
+      this.num1 = orden == 1 ? Number(texts[0]) : this.num1;
+      this.num2 = orden == 2 ? Number(texts[0]) : this.num2;
+      this.num3 = orden == 3 ? Number(texts[0]) : this.num3;
+      this.num4 = orden == 4 ? Number(texts[0]) : this.num4;
+      this.num5 = orden == 5 ? Number(texts[0]) : this.num5;
+      this.num6 = orden == 6 ? Number(texts[0]) : this.num6;
+      this.num7 = orden == 7 ? Number(texts[0]) : this.num7;
+      this.num8 = orden == 8 ? Number(texts[0]) : this.num8;
+
+      this.totalLawton = this.num1 + this.num2 + this.num3 + this.num4 + this.num5 + this.num6  + this.num7  + this.num8;
+
+
+      if (this.totalLawton == 0) {
+        this.riskLawton = 'Máxima dependencia';
+
+      } else if ((this.totalLawton == 8)) {
+        this.riskLawton = 'Independencia total';
+
+      }
+
     }
+
 
   }
 
@@ -900,6 +1070,7 @@ export class FormChScalesComponent implements OnInit {
   async save(escale_id) {
 
     if (escale_id == 1) {
+      this.refresh1=false;
       this.form.controls.physical_value.setValidators(Validators.compose([Validators.required]));
       var physical = this.separateText(this.form.controls.physical_value.value);
       this.form.controls.mind_value.setValidators(Validators.compose([Validators.required]));
@@ -937,9 +1108,10 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh1=true;
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
-          this.form.setValue({ physical_state: '', state_mind: '', mobility: '', activity: '', incontinence: '', total: '', risk: '' });
+          this.form.patchValue({ physical_value: '', mind_value: '', mobility_value: '', activity_value: '', incontinence_value: '', totalNorton: '', risk_norton: '' });
           if (this.saved) {
             this.saved();
           }
@@ -952,7 +1124,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 2) {
-
+      this.refresh2=false;	  
       this.form.controls.ocular_value.setValidators(Validators.compose([Validators.required]));
       var ocular = this.separateText(this.form.controls.ocular_value.value);
       this.form.controls.verbal_value.setValidators(Validators.compose([Validators.required]));
@@ -978,8 +1150,9 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh2=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ motor_value: '', verbal_value: '', ocular_value: '', totalGlasgow: '' });
+          this.form.patchValue({ ocular_value: '', verbal_value: '', motor_value: '', totalGlasgow: '' });
           if (this.saved) {
             this.saved();
           }
@@ -992,6 +1165,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 3) {
+      this.refresh3=false;
       this.form.controls.eat_value.setValidators(Validators.compose([Validators.required]));
       var eat = this.separateText(this.form.controls.eat_value.value);
       this.form.controls.move_value.setValidators(Validators.compose([Validators.required]));
@@ -1053,9 +1227,10 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh3=true;
           // var results = x.data.ch_scale_payette;
           this.toastService.success('', x.message);
-          this.form.setValue({ eat: '', move: '', cleanliness: '', toilet: '', shower: '', commute: '', stairs: '', dress: '', fecal: '', urine: '', score: '', classification: '' });
+          this.form.patchValue({ eat_value: '', move_value: '', cleanliness_value: '', toilet_value: '', shower_value: '', commute_value: '', stairs_value: '', dress_value: '', fecal_value: '', urine_value: '', totalBarthel: '', classBarthel: ''});
           if (this.saved) {
             this.saved();
           }
@@ -1067,6 +1242,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 4) {
+      this.refresh4=false;
       this.form.controls.qOnePayette_value.setValidators(Validators.compose([Validators.required]));
       var qOnePayette = this.separateText(this.form.controls.qOnePayette_value.value);
       this.form.controls.qTwoPayette_value.setValidators(Validators.compose([Validators.required]));
@@ -1130,8 +1306,9 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh1=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ question_one: '', question_two: '', question_three: '', question_four: '', question_five: '', question_six: '', question_seven: '', question_eight: '', question_nine: '', question_ten: '', classification: '', risk: '', recommendations: '', });
+          this.form.patchValue({ qOnePayette_value: '', qTwoPayette_value: '', qThreePayette_value: '', qFourPayette_value: '', qFivePayette_value: '', qSixPayette_value: '', qSevenPayette_value: '', qEightPayette_value: '', qNinePayette_value: '', qTenPayette_value: '', totalPayette: '', riskPayette: '', recommendations: '', });
           if (this.saved) {
             this.saved();
           }
@@ -1143,6 +1320,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 5) {
+      this.refresh5=false;
       this.form.controls.qOneFragility_value.setValidators(Validators.compose([Validators.required]));
       var qOneFragilitty = this.separateText(this.form.controls.qOneFragility_value.value);
       this.form.controls.qTwoFragility_value.setValidators(Validators.compose([Validators.required]));
@@ -1181,11 +1359,12 @@ export class FormChScalesComponent implements OnInit {
           q_six_detail: qSixFragilitty[1],
           total: this.totalFragility,
           classification: this.classFragility,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh5=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ question_one: '', qTwoFragility: '', question_two: '', question_three: '', question_four: '', question_five: '', question_six: '', total: '', classification: '', });
+          this.form.patchValue({ qOneFragility_value: '', qTwoFragility_value: '', qThreeFragility_value: '', qFourFragility_value: '', qFiveFragility_value: '', qSixFragility_value: '', totalFragility: '', classFragility: ''});
           if (this.saved) {
             this.saved()
 
@@ -1198,6 +1377,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 7) {
+      this.refresh7=false;
       this.form.controls.pOneNews_value.setValidators(Validators.compose([Validators.required]));
       var pOneNews = this.separateText(this.form.controls.pOneNews_value.value);
       this.form.controls.pTwoNews_value.setValidators(Validators.compose([Validators.required]));
@@ -1248,11 +1428,12 @@ export class FormChScalesComponent implements OnInit {
           qualification: this.totalNews,
           risk: this.riskNews,
           response: this.response,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh7=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ parameter_one: '', parameter_two: '', parameter_three: '', parameter_four: '', parameter_eight: '', parameter_six: '', parameter_five: '', parameter_seven: '', qualification: '', risk: '', response: '', });
+          this.form.patchValue({ pOneNews_value: '', pTwoNews_value: '', pThreeNews_value: '', pFourNews_value: '', pFiveNews_value: '', pSixNews_value: '', pSevenNews_value: '', pEightNews_value: '', totalNews: '', riskNews: '', response: '', });
           if (this.saved) {
             this.saved()
 
@@ -1265,6 +1446,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 8) {
+      this.refresh8=false;
       this.form.controls.vOnePap_value.setValidators(Validators.compose([Validators.required]));
       var vOnePap = this.separateText(this.form.controls.vOnePap_value.value);
       this.form.controls.vTwoPap_value.setValidators(Validators.compose([Validators.required]));
@@ -1303,11 +1485,12 @@ export class FormChScalesComponent implements OnInit {
           v_six_detail: vSixPap[1],
           total: this.totalPap,
           classification: this.classPap,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh8=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ variable_one: '', variable_two: '', variable_three: '', variable_four: '', variable_five: '', variable_six: '', total: '', classification: '', qualification: '' });
+          this.form.patchValue({ vOnePap_value: '', vTwoPap_value: '', vThreePap_value: '', vFourPap_value: '', vFivePap_value: '', vSixPap_value: '', totalPap: '', classPap: '' });
           if (this.saved) {
             this.saved()
 
@@ -1320,6 +1503,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 9) {
+      this.refresh9=false;
       this.form.controls.vOneHamilton_value.setValidators(Validators.compose([Validators.required]));
       var vOneHamilton = this.separateText(this.form.controls.vOneHamilton_value.value);
       this.form.controls.vTwoHamilton_value.setValidators(Validators.compose([Validators.required]));
@@ -1413,14 +1597,15 @@ export class FormChScalesComponent implements OnInit {
           v_seventeen_detail: vSeventeenHamilton[1],
           total: this.totalHamilton,
           qualification: this.classHamilton,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh9=true;
           this.toastService.success('', x.message);
-          this.form.setValue({
-            variable_one: '', variable_two: '', variable_three: '', variable_four: '', variable_five: '', variable_six: '', variable_seven: '',
-            variable_eigth: '', variable_nine: '', variable_ten: '', variable_eleven: '', variable_twelve: '', variable_thirteen: '', variable_fourteen: '',
-            variable_fifteen: '', variable_sixteen: '', variable_seventeen: '', total: '', qualification: ''
+          this.form.patchValue({
+            vOneHamilton_value: '', vTwoHamilton_value: '', vThreeHamilton_value: '', vFourHamilton_value: '', vFiveHamilton_value: '', vSixHamilton_value: '', vSevenHamilton_value: '',
+            vEightHamilton_value: '', vNineHamilton_value: '', vTenHamilton_value: '', vElevenHamilton_value: '', vTwelveHamilton_value: '', vThirteenHamilton_value: '', vFourteenHamilton_value: '',
+            vFifteenHamilton_value: '', vSixteenHamilton_value: '', vSeventeenHamilton_value: '', totalHamilton: '', classHamilton: ''
           });
           if (this.saved) {
             this.saved()
@@ -1434,6 +1619,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 10) {
+      this.refresh10=false;
       this.form.controls.mindCam_value.setValidators(Validators.compose([Validators.required]));
       var mindCam = this.separateText(this.form.controls.mindCam_value.value);
       this.form.controls.attentionCam_value.setValidators(Validators.compose([Validators.required]));
@@ -1460,11 +1646,12 @@ export class FormChScalesComponent implements OnInit {
           awareness_value: awarenessCam[0],
           awareness_detail: awarenessCam[1],
           result: this.resultCam,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh10=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ state_mind: '', attention: '', thought: '', awareness: '', result: '' });
+          this.form.patchValue({ mindCam_value: '', attentionCam_value: '', thoughtCam_value: '', awarenessCam_value: '', resultCam: '' });
           if (this.saved) {
             this.saved()
 
@@ -1477,6 +1664,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 11) {
+      this.refresh11=false;
       this.form.controls.level_value.setValidators(Validators.compose([Validators.required]));
       var level = this.separateText(this.form.controls.level_value.value);
       this.form.controls.definitionFacText.setValidators(Validators.compose([Validators.required]));
@@ -1487,11 +1675,12 @@ export class FormChScalesComponent implements OnInit {
           level_title: level[1],
           level_value: level[0],
           definition: this.definitionFacText,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh11=false;
           this.toastService.success('', x.message);
-          this.form.setValue({ level: '', definition: '' });
+          this.form.patchValue({ level_value: '', definitionFacText: '' });
           if (this.saved) {
             this.saved()
 
@@ -1504,6 +1693,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 12) {
+      this.refresh12=false;
       this.form.controls.grade_value.setValidators(Validators.compose([Validators.required]));
       var grade = this.separateText(this.form.controls.grade_value.value);
       this.form.controls.definitionCrossText.setValidators(Validators.compose([Validators.required]));
@@ -1514,11 +1704,12 @@ export class FormChScalesComponent implements OnInit {
           grade_title: grade[1],
           grade_value: grade[0],
           definition: this.definitionCrossText,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh12=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ grade: '', definition: '' });
+          this.form.patchValue({ grade_value: '', definitionCrossText: '' });
           if (this.saved) {
             this.saved()
 
@@ -1531,6 +1722,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 13) {
+      this.refresh13=false;
       this.form.controls.scoreKarnofsky_value.setValidators(Validators.compose([Validators.required]));
       var scoreKarnofsky = this.separateText(this.form.controls.scoreKarnofsky_value.value);
       this.loading = true;
@@ -1539,11 +1731,12 @@ export class FormChScalesComponent implements OnInit {
         await this.chScalesS.SaveKarnofsky({
           score_title: scoreKarnofsky[1],
           score_value: scoreKarnofsky[0],
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh13=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ scoreKarnofsky_value: '', });
+          this.form.patchValue({ scoreKarnofsky_value: '', });
           if (this.saved) {
             this.saved()
 
@@ -1556,6 +1749,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 14) {
+      this.refresh14=false;
       this.form.controls.gradeEcog_value.setValidators(Validators.compose([Validators.required]));
       var gradeEcog = this.separateText(this.form.controls.gradeEcog_value.value);
       this.form.controls.definitionEcogText.setValidators(Validators.compose([Validators.required]));
@@ -1566,11 +1760,12 @@ export class FormChScalesComponent implements OnInit {
           grade_title: gradeEcog[1],
           grade_value: gradeEcog[0],
           definition: this.definitionEcogText,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh14=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ grade_title: '', definition: '', });
+          this.form.patchValue({ gradeEcog_value: '', definitionEcogText: '', });
           if (this.saved) {
             this.saved()
 
@@ -1583,6 +1778,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 15) {
+      this.refresh15=false;
       this.form.controls.score_one_value.setValidators(Validators.compose([Validators.required]));
       var score_one = this.separateText(this.form.controls.score_one_value.value);
       this.form.controls.score_two_value.setValidators(Validators.compose([Validators.required]));
@@ -1613,11 +1809,12 @@ export class FormChScalesComponent implements OnInit {
           total: this.totalNPedriatic,
           risk: this.riskNPedriatic,
           classification: this.classNPedriatic,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh15=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ score_one: '', score_two: '', score_three: '', score_four: '', total: '', risk: '', classification: '', });
+          this.form.patchValue({ score_one: '', score_two: '', score_three: '', score_four: '', total: '', risk: '', classification: '', });
           if (this.saved) {
             this.saved()
 
@@ -1630,6 +1827,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 16) {
+      this.refresh16=false;
       this.form.controls.pain_value.setValidators(Validators.compose([Validators.required]));
       var pain = this.separateText(this.form.controls.pain_value.value);
       this.form.controls.tiredness_value.setValidators(Validators.compose([Validators.required]));
@@ -1676,11 +1874,12 @@ export class FormChScalesComponent implements OnInit {
           sleep_title: sleep[1],
           sleep_value: sleep[0],
           observation: this.form.controls.obsEsas.value,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh16=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ pain: '', tiredness: '', retching: '', depression: '', anxiety: '', drowsiness: '', appetite: '', welfare: '', breathing: '', sleep: '', observation: '' });
+          this.form.patchValue({ pain_value: '', tiredness_value: '', retching_value: '', depression_value: '', anxiety_value: '', drowsiness_value: '', appetite_value: '', welfare_value: '', breathing_value: '', sleep_value: '', obsEsas: '' });
           if (this.saved) {
             this.saved()
 
@@ -1693,6 +1892,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 17) {
+      this.refresh17=false;
       this.form.controls.face_value.setValidators(Validators.compose([Validators.required]));
       var face = this.separateText(this.form.controls.face_value.value);
       this.form.controls.legs_value.setValidators(Validators.compose([Validators.required]));
@@ -1726,11 +1926,12 @@ export class FormChScalesComponent implements OnInit {
           comfort_detail: comfort[1],
           total: this.totalFlacc,
           classification: this.classFlacc,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh17=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ face: '', legs: '', activity: '', crying: '', comfort: '', total: '', qualification: '' });
+          this.form.patchValue({ face: '', legs: '', activity: '', crying: '', comfort: '', total: '', qualification: '' });
           if (this.saved) {
             this.saved()
 
@@ -1743,6 +1944,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 18) {
+      this.refresh18=false;
       this.form.controls.pps_value.setValidators(Validators.compose([Validators.required]));
       var pps = this.separateText(this.form.controls.pps_value.value);
       this.form.controls.oral_value.setValidators(Validators.compose([Validators.required]));
@@ -1776,11 +1978,12 @@ export class FormChScalesComponent implements OnInit {
           delirium_detail: delirium[1],
           total: this.totalPpi,
           classification: this.classPpi,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh18=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ pps: '', oral: '', edema: '', dyspnoea: '', delirium: '', total: '', classification: '' });
+          this.form.patchValue({ pps_value: '', oral_value: '', edema_value: '', dyspnoea_value: '', delirium_value: '', totalPpi: '' ,classPpi: ''});
           if (this.saved) {
             this.saved()
 
@@ -1793,6 +1996,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 19) {
+      this.refresh19=false;
       this.form.controls.q_one_value.setValidators(Validators.compose([Validators.required]));
       var q_one = this.separateText(this.form.controls.q_one_value.value);
       this.form.controls.q_two_value.setValidators(Validators.compose([Validators.required]));
@@ -1911,11 +2115,12 @@ export class FormChScalesComponent implements OnInit {
           q_twenty_two_detail: q_twenty_two[1],
           total: this.totalZarit,
           classification: this.classZarit,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh19=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ q_one: '', q_two: '', q_three: '', q_four: '', q_five: '', q_six: '', q_seven: '', q_eight: '', q_nine: '', q_ten: '', q_eleven: '', q_twelve: '', q_thirteen: '', q_fourteen: '', q_fifteen: '', q_sixteen: '', q_seventeen: '', q_eighteen: '', q_nineteen: '', q_twenty: '', q_twenty_one: '', q_twenty_two: '', total: '', classification: '' });
+          this.form.patchValue({ q_one_value: '', q_two_value: '', q_three_value: '', q_four_value: '', q_five_value: '', q_six_value: '', q_seven_value: '', q_eight_value: '', q_nine_value: '', q_ten_value: '', q_eleven_value: '', q_twelve_value: '', q_thirteen_value: '', q_fourteen_value: '', q_fifteen_value: '', q_sixteen_value: '', q_seventeen_value: '', q_eighteen_value: '', q_nineteen_value: '', q_twenty_value: '', q_twenty_one_value: '', q_twenty_two_value: '', totalZarit: '', classZarit: '' });
           if (this.saved) {
             this.saved()
           }
@@ -1927,6 +2132,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 20) {
+      this.refresh20=false;
       this.form.controls.rangePain_value.setValidators(Validators.compose([Validators.required]));
       var rangePain = this.separateText(this.form.controls.rangePain_value.value);
       this.loading = true;
@@ -1935,11 +2141,12 @@ export class FormChScalesComponent implements OnInit {
         await this.chScalesS.SavePain({
           range_title: rangePain[1],
           range_value: rangePain[0],
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh20=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ range: '' });
+          this.form.patchValue({ rangePain_value: '' });
           if (this.saved) {
             this.saved()
 
@@ -1952,6 +2159,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 21) {
+      this.refresh21=false;
       this.form.controls.painWong_value.setValidators(Validators.compose([Validators.required]));
       var painWong = this.separateText(this.form.controls.painWong_value.value);
       this.loading = true;
@@ -1960,11 +2168,12 @@ export class FormChScalesComponent implements OnInit {
         await this.chScalesS.SaveWongBaker({
           pain_title: painWong[1],
           pain_value: painWong[0],
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh21=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ range: '' });
+          this.form.patchValue({ painWong_value: '' });
           if (this.saved) {
             this.saved()
 
@@ -1977,6 +2186,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 22) {
+      this.refresh22 =false;
       this.form.controls.studyValue.setValidators(Validators.compose([Validators.required]));
       this.form.controls.qOneValue.setValidators(Validators.compose([Validators.required]));
       var qOneValue = this.separateText(this.form.controls.qOneValue.value);
@@ -2005,8 +2215,8 @@ export class FormChScalesComponent implements OnInit {
       if (!this.form.invalid) {
         await this.chScalesS.SavePfeiffer({
           study_title: '¿Tiene estudios?',
-          study_value: qTwoValue[0],
-          study_detail: qTwoValue[0],
+          study_value: this.form.controls.studyValue.value==true?0:1,
+          study_detail: this.form.controls.studyValue.value==true?'SI':'NO',
           q_one_title: '¿Cuál es la fecha de hoy? (Día, Mes y Año)',
           q_one_value: qOneValue[0],
           q_one_detail: qOneValue[1],
@@ -2039,11 +2249,12 @@ export class FormChScalesComponent implements OnInit {
           q_ten_detail: qTenValue[1],
           total: this.totalPfeiffer,
           classification: this.classPfeiffer,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh22=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ range: '' });
+          this.form.patchValue({ studyValue:'', qOneValue:'', qTwoValue:'',  qThreeValue:'',  qFourValue:'', qFiveValue:'', qSixValue:'', qSevenValue:'',  qEightValue:'', qNineValue:'', qTenValue:'', totalPfeiffer:'', classPfeiffer:'' });
           if (this.saved) {
             this.saved()
 
@@ -2056,6 +2267,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 23) {
+      this.refresh23=false;
       this.form.controls.falls_value.setValidators(Validators.compose([Validators.required]));
       var falls = this.separateText(this.form.controls.falls_value.value);
       this.form.controls.medication_value.setValidators(Validators.compose([Validators.required]));
@@ -2088,12 +2300,13 @@ export class FormChScalesComponent implements OnInit {
           wandering_value: wandering[0],
           wandering_detail: wandering[1],
           total: this.totalJhDownton,
-          risk: this.riskJhDownton,
-          type_record_id: 1,
+          risk: this.riskJhDownton, 
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh23=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ range: '' });
+          this.form.patchValue({ falls_value: '', medication_value: '',  deficiency_value: '',  mental_value: '',  wandering_value: '',  totalJhDownton: '', riskJhDownton: ''});
           if (this.saved) {
             this.saved()
 
@@ -2103,9 +2316,10 @@ export class FormChScalesComponent implements OnInit {
           this.loading = false;
         });
       }
-    } 
+    }
 
     if (escale_id == 24) {
+      this.refresh24=false;
       this.form.controls.vOneScreening_value.setValidators(Validators.compose([Validators.required]));
       var vOneScreening = this.separateText(this.form.controls.vOneScreening_value.value);
       this.form.controls.vTwoScreening_value.setValidators(Validators.compose([Validators.required]));
@@ -2164,11 +2378,13 @@ export class FormChScalesComponent implements OnInit {
           v_ten_detail: vTenScreening[1],
           total: this.totalScreening,
           risk: this.riskScreening,
-          type_record_id: 1,
+          type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.refresh24=true;
           this.toastService.success('', x.message);
-          this.form.setValue({ range: '' });
+          this.form.patchValue({ vOneScreening_value: '', vTwoScreening_value : '', vThreeScreening_value : '', vFourScreening_value: '', vFiveScreening_value : '', vSixScreening_value: '', vSevenScreening_value: '', 
+          vEightScreening_value: '',  vNineScreening_value: '', vTenScreening_value: '', totalScreening: '', riskScreening: '' });
           if (this.saved) {
             this.saved()
 
@@ -2178,7 +2394,162 @@ export class FormChScalesComponent implements OnInit {
           this.loading = false;
         });
       }
-    } 
+    }
 
+    if (escale_id == 25) {
+      this.refresh25=false;
+      this.loading = true;
+      this.showTable = false;
+      if (this.ppsObj) {
+        await this.chScalesS.SavePps({
+          score_title: this.ppsObj.text,
+          score_value: this.ppsObj.id,
+          type_record_id: 4,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.refresh25=true;
+          this.toastService.success('', x.message);
+          this.form.patchValue({ range: '' });
+          if (this.saved) {
+            this.saved()
+
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      } else {
+        this.toastService.warning('', 'debe seleccionar un porcentaje de la lista');
+      }
+    }
+
+    if (escale_id == 26) {
+      this.refresh26=false;
+      this.form.controls.sensoryBradenValue.setValidators(Validators.compose([Validators.required]));
+      var sensory = this.separateText(this.form.controls.sensoryBradenValue.value);
+      this.form.controls.humidityBradenValue.setValidators(Validators.compose([Validators.required]));
+      var humidity = this.separateText(this.form.controls.humidityBradenValue.value);
+      this.form.controls.activityBradenValue.setValidators(Validators.compose([Validators.required]));
+      var activity = this.separateText(this.form.controls.activityBradenValue.value);
+      this.form.controls.mobilityBradenValue.setValidators(Validators.compose([Validators.required]));
+      var mobility = this.separateText(this.form.controls.mobilityBradenValue.value);
+      this.form.controls.nutritionBradenValue.setValidators(Validators.compose([Validators.required]));
+      var nutrition = this.separateText(this.form.controls.nutritionBradenValue.value);
+      this.form.controls.lesionBradenValue.setValidators(Validators.compose([Validators.required]));
+      var lesion = this.separateText(this.form.controls.lesionBradenValue.value);
+      this.form.controls.totalBraden.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.riskBraden.setValidators(Validators.compose([Validators.required]));
+      this.isSubmitted = true;
+      if (!this.form.invalid) {
+        this.loading = true;
+        this.showTable = false;
+        await this.chScalesS.SaveBraden({
+          sensory_title: 'Percepción Sensorial',
+          sensory_value: sensory[0],
+          sensory_detail: sensory[1],
+          humidity_title: 'Exposición a la Humedad',
+          humidity_value: humidity[0],
+          humidity_detail: humidity[1],
+          activity_title: 'Actividad',
+          activity_value: activity[0],
+          activity_detail: activity[1],
+          mobility_title: 'Movilidad',
+          mobility_value: mobility[0],
+          mobility_detail: mobility[1],
+          nutrition_title: 'Nutrición',
+          nutrition_value: nutrition[0],
+          nutrition_detail: nutrition[1],
+          lesion_title: 'Roce y Peligro de Lesiones',
+          lesion_value: lesion[0],
+          lesion_detail: lesion[1],
+          total: this.totalBraden,
+          risk: this.riskBraden,
+          type_record_id: 4,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.refresh26=true;
+          this.messageEvent.emit(true);
+          this.toastService.success('', x.message);
+          this.form.patchValue({ sensoryBradenValue: '', humidityBradenValue: '', activityBradenValue: '', mobilityBradenValue: '', nutritionBradenValue: '', lesionBradenValue: '', totalBraden: '', riskBraden:''});
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+
+        });
+      }
+    }
+
+    if (escale_id == 27) {
+      this.refresh27=false;
+      this.form.controls.phone_value.setValidators(Validators.compose([Validators.required]));
+      var phone = this.separateText(this.form.controls.phone_value.value);
+      this.form.controls.shopping_value.setValidators(Validators.compose([Validators.required]));
+      var shopping = this.separateText(this.form.controls.shopping_value.value);
+      this.form.controls.food_value.setValidators(Validators.compose([Validators.required]));
+      var food = this.separateText(this.form.controls.food_value.value);
+      this.form.controls.house_value.setValidators(Validators.compose([Validators.required]));
+      var house = this.separateText(this.form.controls.house_value.value);
+      this.form.controls.clothing_value.setValidators(Validators.compose([Validators.required]));
+      var clothing = this.separateText(this.form.controls.clothing_value.value);
+      this.form.controls.transport_value.setValidators(Validators.compose([Validators.required]));
+      var transport = this.separateText(this.form.controls.transport_value.value);
+      this.form.controls.medicationValue.setValidators(Validators.compose([Validators.required]));
+      var medicationLawton = this.separateText(this.form.controls.medicationValue.value);
+      this.form.controls.finance_value.setValidators(Validators.compose([Validators.required]));
+      var finance = this.separateText(this.form.controls.finance_value.value);
+      this.form.controls.totalLawton.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.riskLawton.setValidators(Validators.compose([Validators.required]));
+      this.isSubmitted = true;
+      if (!this.form.invalid) {
+        this.loading = true;
+        this.showTable = false;
+        await this.chScalesS.SaveLawton({
+          phone_title: 'Capacidad para usar el télefono',
+          phone_value: phone[0],
+          phone_detail: phone[1],
+          shopping_title: 'Hacer compras',
+          shopping_value: shopping[0],
+          shopping_detail: shopping[1],
+          food_title: 'Preparación de la comida',
+          food_value: food[0],
+          food_detail: food[1],
+          house_title: 'Cuidado de la casa',
+          house_value: house[0],
+          house_detail: house[1],
+          clothing_title: 'Lavado de la ropa',
+          clothing_value: clothing[0],
+          clothing_detail: clothing[1],
+          transport_title: 'Uso de medios de transporte',
+          transport_value: transport[0],
+          transport_detail: transport[1],
+          medication_title: 'Responsabilidad respecto a su medicación',
+          medication_value: medicationLawton[0],
+          medication_detail: medicationLawton[1],
+          finance_title: 'Manejo de asuntos económicos',
+          finance_value: finance[0],
+          finance_detail: finance[1],
+          total: this.totalLawton,
+          risk: this.riskLawton,
+          type_record_id: 4,
+          ch_record_id: this.record_id,
+        }).then(x => {
+          this.refresh27=true;
+          this.messageEvent.emit(true);
+          this.toastService.success('', x.message);
+          this.form.patchValue({ phone_value: '', shopping_value: '', food_value: '', house_value: '', clothing_value: '', transport_value: '', medicationValue: '', finance_value: '',  totalLawton: '',  riskLawton: ''  });
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+
+        });
+      }
+    }
   }
 }
+

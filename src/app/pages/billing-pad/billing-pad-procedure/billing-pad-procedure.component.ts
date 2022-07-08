@@ -7,8 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { SelectServiceBillingComponent } from './select-service-billing.component';
 import { FormBillingPadComponent } from './form-billing-pad/form-billing-pad.component';
-import { BillingPadService } from '../../../business-controller/bulling-pad.service';
+import { BillingPadService } from '../../../business-controller/billing-pad.service';
 import { AuthService } from '../../../services/auth.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-billing-pad-procedure',
@@ -24,7 +25,7 @@ export class BillingPadProcedureComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'PROCEDIMIENTOS';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS'];
+  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -58,7 +59,7 @@ export class BillingPadProcedureComponent implements OnInit {
     },
     columns: {
       select: {
-        title: this.headerFields[0],
+        title: 'SELECCIÓN',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           return {
@@ -84,7 +85,7 @@ export class BillingPadProcedureComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan) {
-            return row.assigned_management_plan.management_plan.procedure.name;
+            return row.services_briefcase.manual_price.procedure.name;
           } else if (row.manual_price) {
             return row.manual_price.name;
           }
@@ -94,23 +95,24 @@ export class BillingPadProcedureComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.currency.transform(row.services_briefcase.value);
+          if (row.manual_price){
+            return this.currency.transform(row.manual_price.value);
+          } else {
+            return this.currency.transform(row.services_briefcase.value);
+          }
         },
       },
-      // patients: {
-      //   title: this.headerFields[2],
-      //   type: 'string',
-      //   valuePrepareFunction: (value, row) => {
-      //     return row.patients.identification;
-      //   },
-      // },
-      // contract: {
-      //   title: this.headerFields[3],
-      //   type: 'string',
-      //   valuePrepareFunction: (value, row) => {
-      //     return row.contract.company.name;
-      //   },
-      // },
+      assigned_management_plan_id: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.assigned_management_plan != null){
+            return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+          } else {
+            return '';
+          }
+        }
+      },
     },
   };
 
@@ -129,6 +131,7 @@ export class BillingPadProcedureComponent implements OnInit {
     private toastS: NbToastrService,
     private BillingPadS: BillingPadService,
     private authService: AuthService,
+    public datePipe: DateFormatPipe,
   ) {
   }
 

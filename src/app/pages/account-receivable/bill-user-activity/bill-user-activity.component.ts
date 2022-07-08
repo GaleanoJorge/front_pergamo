@@ -84,11 +84,11 @@ export class BillUserActivityComponent implements OnInit {
         },
       },
 
-      value: {
+      tariff_id: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.currency.transform(value);
+          return this.currency.transform(row.tariff.amount);
         },
       },
       status: {

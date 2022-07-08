@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -19,13 +20,14 @@ export class FormBillingPadComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public auth_package_id;
-  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS'];
+  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
+    public datePipe: DateFormatPipe,
   ) {
   }
 
@@ -39,12 +41,23 @@ export class FormBillingPadComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.assigned_management_plan){
-            return row.assigned_management_plan.management_plan.procedure.name;
+          if (row.assigned_management_plan) {
+            return row.services_briefcase.manual_price.procedure.name;
           } else if (row.manual_price) {
             return row.manual_price.name;
           }
         },
+      },
+      assigned_management_plan_id: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.assigned_management_plan != null){
+            return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+          } else {
+            return '';
+          }
+        }
       },
     },
   };

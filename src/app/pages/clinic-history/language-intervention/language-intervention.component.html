@@ -1,0 +1,17 @@
+
+<ngx-form-language-intervention (messageEvent)="receiveMessage($event)" >
+</ngx-form-language-intervention>
+<label for="intervention_tl" class="form-text text-muted font-weight-bold align center">Intervensión</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table  pager="false" [title]="title" customData="intervention_tl" [settings]="settings"
+      entity="intervention_tl/by_record/{{record_id}}/3?pagination=false">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

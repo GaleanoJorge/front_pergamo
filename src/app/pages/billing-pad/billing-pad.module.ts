@@ -34,6 +34,12 @@ import { BillingPadProcedureComponent } from './billing-pad-procedure/billing-pa
 import { ActionsPadProcedureComponent } from './billing-pad-procedure/actions-pad-procedure.component';
 import { SelectServiceBillingComponent } from './billing-pad-procedure/select-service-billing.component';
 import { FormShowBillingPadComponent } from './billing-admission/form-show-billing-pad/form-show-billing-pad.component';
+import { BillingPgpComponent } from './billing-pgp/billing-pgp.component';
+import { ActionsBillingPgpComponent } from './billing-pgp/actions-billing-pgp.component';
+import { FormShowBillingPgpComponent } from './billing-pgp/form-show-billing-pgp/form-show-billing-pgp.component';
+import { FormCreateBillingPgpComponent } from './billing-pgp/form-create-billing-pgp/form-create-billing-pgp.component';
+import { BillingAdmissionsPadListComponent } from './billing-pad-admissions-list/billing-admissions-pad-list.component';
+import { ActionsAdmissionsListComponent } from './billing-pad-admissions-list/actions-admissions-list.component';
 
 @NgModule({
   imports: [
@@ -73,6 +79,12 @@ import { FormShowBillingPadComponent } from './billing-admission/form-show-billi
     ActionsPadProcedureComponent,
     SelectServiceBillingComponent,
     FormShowBillingPadComponent,
+    BillingPgpComponent,
+    ActionsBillingPgpComponent,
+    FormShowBillingPgpComponent,
+    FormCreateBillingPgpComponent,
+    BillingAdmissionsPadListComponent,
+    ActionsAdmissionsListComponent,
   ],
   providers: [
     DateFormatPipe,

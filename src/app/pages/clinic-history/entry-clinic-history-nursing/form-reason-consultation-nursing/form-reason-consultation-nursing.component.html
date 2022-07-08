@@ -1,47 +1,66 @@
-<form [formGroup]="form" (ngSubmit)="save()">
-  <div>
-    <div class="col-md-12">
-      <label for="position" class="form-text text-muted font-weight-bold">POSICIÓN:</label>
-      <nb-select [selected]="this.data.position" formControlName="position"
-        id="position" fullWidth title="Seleccione..."
-        status="{{ isSubmitted && form.controls.position.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-        <nb-option value="">Seleccione...</nb-option>
-        <nb-option value="DECÚBITO DORSAL">DECÚBITO DORSAL</nb-option>
-        <nb-option value="DECÚBITO LATERAL DERECHO">DECÚBITO LATERAL DERECHO</nb-option>
-        <nb-option value="DECÚBITO LATERAL IZQUIERDO">DECÚBITO LATERAL IZQUIERDO</nb-option>
-        <nb-option value="DECÚBITO SUPINO">DECÚBITO SUPINO</nb-option>
-        <nb-option value="FOWLER">FOWLER</nb-option>
-        <nb-option value="GINECOLÍGICA">GINECOLÍGICA</nb-option>
-        <nb-option value="PRONO">PRONO</nb-option>
-        <nb-option value="SEMIFOWLER">SEMIFOWLER</nb-option>
-        <nb-option value="TRENDELENBURG">TRENDELENBURG</nb-option>
-      </nb-select>
+<form [formGroup]="form">
+  <div class="center">
+    <fieldset class="field_set center">
+      <legend class="prue1">DIAGNÓSTICO CUTANEO</legend>
+
+      <div class="col-md-12">
+        <label for="patient_position_id" class="form-text text-muted font-weight-bold align">POSICIÓN:</label>
+        <nb-select [selected]="this.data.patient_position_id" formControlName="patient_position_id"
+          id="patient_position_id" fullWidth title="Seleccione..."
+          status="{{ isSubmitted && form.controls.patient_position_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.patient_position_id }}" *ngFor="let item of patient_positions"
+            [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-md-12">
+        <label for="hair_revision" class="form-text text-muted font-weight-bold align">CUERO CABELLUDO</label>
+  
+        <nb-radio-group formControlName="hair_revision" hair_revision id="hair_revision" class="d-flex text center"
+          fullWidth name="hair_revision"
+          status="{{ isSubmitted && form.controls.hair_revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
+          <nb-radio value="NORMAL">NORMAL</nb-radio>
+        </nb-radio-group>
+      </div>
+    </fieldset>
+
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-12">
+          <hr />
+        </div>
+      </div>
     </div>
 
-    <div class="col-md-12">
-      <label for="ostomy" class="form-text text-muted font-weight-bold">OSTOMIAS:</label>
-      <nb-select [selected]="this.data.ostomy" formControlName="ostomy"
-        id="ostomy" fullWidth title="Seleccione..."
-        status="{{ isSubmitted && form.controls.ostomy.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-        <nb-option value="">Seleccione...</nb-option>
-        <nb-option value="CITOSTOMÍA">CITOSTOMÍA</nb-option>
-        <nb-option value="COLONOSTOMÍA">COLONOSTOMÍA</nb-option>
-        <nb-option value="GASTROSTOMÍA">GASTROSTOMÍA</nb-option>
-        <nb-option value="ILEOSTOMÍA">ILEOSTOMÍA</nb-option>
-        <nb-option value="YEYUNOSTROMÍA">YEYUNOSTROMÍA</nb-option>
-        <nb-option value="OTRO">OTRO</nb-option>
-      </nb-select>
-    </div>
+    <fieldset class="field_set center">
+      <legend class="prue1">OSTOMIAS</legend>
 
-    <div class="col-md-12">
-      <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
-      <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="4"
-        cols="50"
-        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-    </div>
+      <div class="col-md-12">
+        <label for="ostomy_id" class="form-text text-muted font-weight-bold align">OSTOMIA:</label>
+        <nb-select [selected]="this.data.ostomy_id" formControlName="ostomy_id" id="ostomy_id" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.ostomy_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of ostomies" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-md-12">
+        <label for="observation" class="form-text text-muted font-weight-bold align">OBSERVACIONES:</label>
+        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      </div>
+    </fieldset>
+
+
 
     <div class="div-send">
-      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="button"
+        (click)="save()">GUARDAR</button>
     </div>
   </div>
 </form>

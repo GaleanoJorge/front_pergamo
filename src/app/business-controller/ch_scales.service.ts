@@ -399,6 +399,54 @@ export class ChScalesService {
       });
   }
 
+  SavePps(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_pps');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveBraden(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_braden');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  SaveLawton(ch_scales: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_scale_lawton');
+    servObj.data = ch_scales;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Update(ch_scales: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_scales', ch_scales.id);
     servObj.data = ch_scales;

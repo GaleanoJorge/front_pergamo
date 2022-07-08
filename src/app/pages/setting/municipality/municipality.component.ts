@@ -16,7 +16,7 @@ export class MunicipalityComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Ciudades';
+  public title: string = 'Providencias, Veredas o Municipios';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre', 'Departamento'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
@@ -73,7 +73,7 @@ export class MunicipalityComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Ciudades',
+      name: 'Providencias, Veredas o Municipios',
       route: '../../setting/municipality',
     },
   ];
@@ -97,7 +97,7 @@ export class MunicipalityComponent implements OnInit {
   NewMunicipality() {
     this.dialogFormService.open(FormMunicipalityComponent, {
       context: {
-        title: 'Crear nueva ciudad',
+        title: 'Crear nueva Providencia, Vereda o Municipio',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -106,7 +106,7 @@ export class MunicipalityComponent implements OnInit {
   EditMunicipality(data) {
     this.dialogFormService.open(FormMunicipalityComponent, {
       context: {
-        title: 'Editar ciudad',
+        title: 'Editar Providencia, Vereda o Municipio',
         data,
         saved: this.RefreshData.bind(this),
       },

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChRecommendationsEvoService } from '../../../../business-controller/ch-recommendations-evo.service';
 import { RecommendationsEvoService } from '../../../../business-controller/recommendations_evo.service';
 import { ChEvoSoapService } from '../../../../business-controller/ch-evo-soap.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'ngx-form-recommendations-evo',
@@ -14,6 +15,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record: any;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -80,7 +82,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
           analisys: this.form.controls.analisys.value,
           plan: this.form.controls.plan.value,
-          type_record_id: 3,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -99,7 +101,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
           analisys: this.form.controls.analisys.value,
           plan: this.form.controls.plan.value,
-          type_record_id: 3,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

@@ -17,6 +17,7 @@ export class BillingPadListComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public title: string = 'FACTURACIÓN POR PACIENTES';
+  public title_pgp: string = 'FACTURACIÓN CONTRATOS PGP';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'DOCUMENTO', 'EPS'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
@@ -44,6 +45,7 @@ export class BillingPadListComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return {
             'data': row,
+            'route': 1,
           };
         },
         renderComponent: ActionsStatusComponent,
@@ -64,6 +66,37 @@ export class BillingPadListComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.contract.company.name;
+        },
+      },
+    },
+  };
+
+  public settings2 = {
+    pager: {
+      display: true,
+      perPage: 10,
+    },
+    columns: {
+      actions: {
+        title: this.headerFields[0],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          return {
+            'data': row,
+            'route': 2,
+          };
+        },
+        renderComponent: ActionsStatusComponent,
+      },
+      name: {
+        title: this.headerFields[1],
+        type: 'string',
+      },
+      company_id: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.company.name;
         },
       },
     },
@@ -123,7 +156,9 @@ export class BillingPadListComponent implements OnInit {
   GetResponseParam() {
   }
 
-
+  tablock(e) {
+    
+  }
 
 
 }

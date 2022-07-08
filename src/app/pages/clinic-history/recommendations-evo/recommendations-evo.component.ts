@@ -13,6 +13,7 @@ export class RecommendationsEvoComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
+  @Input() type_record: any;
   linearMode = false;
   public messageError = null;
   public title;
@@ -22,7 +23,7 @@ export class RecommendationsEvoComponent implements OnInit {
   public chvitsigns: any[];
   public nameForm: String;
   public headerFields: any[] = [ 'Educación Paciente/Familiar',
-    'Nombre',
+    'Recomendación',
     'Análisis',
     'Plan (Diagnostico, Terapeutico, de seguimiento',
   ];

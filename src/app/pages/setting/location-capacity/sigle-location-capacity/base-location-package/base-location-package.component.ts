@@ -20,8 +20,8 @@ export class BaseLocationPackageComponent implements OnInit {
   public isSubmitted = false;
   public messageError: string = null;
   public title_base: string = 'CAPACIDAD INSTALADA BASE';
-  public subtitle_base: string = 'LOCALIDADES';
-  public headerFields_base: any[] = ['MES', 'LOCALIDAD', 'CAPACIDAD BASE'];
+  public subtitle_base: string = 'Comunas, Localidades o Veredas'.toUpperCase();;
+  public headerFields_base: any[] = ['MES', 'Comuna, Localidad o Vereda'.toUpperCase(), 'CAPACIDAD BASE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields_base[1]}`;
   public icon: string = 'nb-star';
   public assistance_id;

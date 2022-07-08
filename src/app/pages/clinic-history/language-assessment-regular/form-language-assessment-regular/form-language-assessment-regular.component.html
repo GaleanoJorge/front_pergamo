@@ -1,0 +1,75 @@
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class= "row justify-content-md-center">
+      <div class="col-md-8">
+        <div class="center">
+          <label for="diagnosis_id" class="font-weight-bold center">Diagnóstico Médico</label>
+          <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+            id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" required
+            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <datalist id="codes">
+            <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+          </datalist>
+        </div>
+      </div>
+    </div>
+   
+    <div  class="row justify-content-md-center">
+      <div class="col-md-12">
+        <div class="center">
+          <label  class="font-weight-bold center">Estado del Paciente</label>
+          <textarea id="status_patient" nbInput fullWidth formControlName="status_patient" current_illness onpaste="return false"
+            rows="3"
+            status="{{ isSubmitted && form.controls.status_patient.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" type="submit">GUARDAR</button>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="font-weight-bold ImpPeq"> </label>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+
+
+
+
+
+
+<!-- <form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      <label  for="diagnosis_id" class="form-text text-muted font-weight-bold ">Diagnóstico Médico:</label>
+      <input  fullWidth nbInput list="codes"  (change)="saveCode($event.target.value)"  id="diagnosis_id" 
+      formControlName="diagnosis_id" diagnosis_id type="text" required
+      status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      <datalist id="codes">
+        <option *ngFor="let item of diagnosis_id" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+      </datalist>
+    </div>
+  </div>
+ 
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      <label for="status_patient" class="form-text text-muted font-weight-bold ">Estado del Paciente:</label>
+      <textarea id="status_patient" nbInput fullWidth formControlName="status_patient" status_patient rows="4"
+        cols="50"
+        status="{{ isSubmitted && form.controls.status_patient.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+    </div>
+  </div>
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+  </div>
+</form> -->
