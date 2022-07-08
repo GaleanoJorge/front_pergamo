@@ -116,7 +116,6 @@
                 type="submit">GUARDAR</button>
             </div>
           </div>
-
         </nb-accordion-item-body>
       </nb-accordion-item>
 
@@ -125,7 +124,8 @@
           Inspección
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ngx-form-ispection-therapy [record_id]="record_id">
+          <ngx-form-ispection-therapy [record_id]="record_id"  *ngIf="ispectionTeraphyRespiratory" 
+          [data]="ispectionTeraphyRespiratory">
           </ngx-form-ispection-therapy>
         </nb-accordion-item-body>
       </nb-accordion-item>
@@ -135,7 +135,8 @@
           Auscultación
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ngx-form-auscultacion-therapy [record_id]="record_id">
+          <ngx-form-auscultacion-therapy [record_id]="record_id" *ngIf="auscultacionTeraphyRespiratory" 
+          [data]="auscultacionTeraphyRespiratory">
           </ngx-form-auscultacion-therapy>
         </nb-accordion-item-body>
       </nb-accordion-item>
