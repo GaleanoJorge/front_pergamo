@@ -93,4 +93,20 @@ export class BillingPadService {
         throw x.message;
       });
   }
+
+  GenerateFile(billing_pad: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad/generateBillingDat/'+billing_pad);
+    servObj.data = billing_pad;
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 }
