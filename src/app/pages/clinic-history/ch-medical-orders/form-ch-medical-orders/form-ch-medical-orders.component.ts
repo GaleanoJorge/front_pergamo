@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChEvoSoapService } from '../../../../business-controller/ch-evo-soap.service';
 import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { ActivatedRoute } from '@angular/router';
-import { HourlyFrequencyService } from '../../../../business-controller/hourly-frequency.service';
 import { ProductService } from '../../../../business-controller/product.service';
 import { ChMedicalOrdersService } from '../../../../business-controller/ch-medical-orders.service';
 import { ProcedureService } from '../../../../business-controller/procedure.service';
+import { FrequencyService } from '../../../../business-controller/frequency.service';
 
 @Component({
   selector: 'ngx-form-ch-medical-orders',
@@ -28,7 +28,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
   public record_id;
   public admissions_id;
   public procedure_id: any[];
-  public hourly_frequency_id: any[];
+  public frequency_id: any[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +36,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
     private toastService: NbToastrService,
     private chRecord: ChRecordService,
     private route: ActivatedRoute,
-    private HourlyFrequencyS: HourlyFrequencyService,
+    private FrequencyS: FrequencyService,
     private ProductS: ProcedureService,
     private ChMedicalOrdersS: ChMedicalOrdersService,
   ) {}
@@ -53,7 +53,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
         ambulatory_medical_order:'',
         procedure_id: '',
         amount: '',
-        hourly_frequency_id: '',
+        frequency_id: '',
         observations: '',
         
       };
@@ -62,15 +62,15 @@ export class FormChMedicalOrdersComponent implements OnInit {
     this.ProductS.GetCollection().then(x => {
       this.procedure_id = x;
     });
-    this.HourlyFrequencyS.GetCollection().then(x => {
-      this.hourly_frequency_id = x;
+    this.FrequencyS.GetCollection().then(x => {
+      this.frequency_id = x;
     });
 
     this.form = this.formBuilder.group({
       ambulatory_medical_order: [this.data.ambulatory_medical_order],
       procedure_id: [this.data.procedure_id],
       amount: [this.data.amount],
-      hourly_frequency_id: [this.data.hourly_frequency_id],
+      frequency_id: [this.data.frequency_id],
       observations: [this.data.observations],
      
     });
@@ -89,7 +89,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
             ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value,
             procedure_id: this.form.controls.procedure_id.value,
             amount: this.form.controls.amount.value,
-            hourly_frequency_id: this.form.controls.hourly_frequency_id.value,
+            frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
             type_record_id: 6,
             ch_record_id: this.record_id,
@@ -110,7 +110,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
             ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value,
             procedure_id: this.form.controls.procedure_id.value,
             amount: this.form.controls.amount.value,
-            hourly_frequency_id: this.form.controls.hourly_frequency_id.value,
+            frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
             type_record_id: 6,
             ch_record_id: this.record_id,

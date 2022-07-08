@@ -19,7 +19,7 @@ export class EntryClinicHistoryComponent implements OnInit {
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
-  //@Input() vital: any;
+
   linearMode = false;
   public messageError = null;
   public title;

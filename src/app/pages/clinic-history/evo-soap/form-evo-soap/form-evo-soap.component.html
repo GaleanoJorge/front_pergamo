@@ -1,18 +1,40 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
- 
+
     <div class="row">
-      <div class="col-md-6">
-        <label class="form-text text-muted font-weight-bold">SUBJETIVO </label>
-        <textarea id="subjective" nbInput fullWidth formControlName="subjective" subjective  onpaste="return false" rows="4" cols="50"
-          status="{{ isSubmitted && form.controls.subjective.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-      </div>
-      <div class="col-md-6">
-        <label class="form-text text-muted font-weight-bold">OBJETIVO</label>
-        <textarea id="objective" nbInput fullWidth formControlName="objective"  objective  onpaste="return false" rows="4" cols="50"
-          status="{{ isSubmitted && form.controls.objective.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-      </div>
+      <div class="col-md-12">
+        <label class="form-text text-muted font-weight-bold center">SUBJETIVO </label>
+        <div class="row" style="align-items: center;">
+          <div class="col-md-11">
+          <textarea id="subjective" nbInput fullWidth formControlName="subjective" subjective onpaste="return false"
+            rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.subjective.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+          <!-- <div class="col-md-1">
+            <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()">
+              <nb-icon icon="mic-outline"></nb-icon>
+            </button>
+            <ngx-web-speach *ngIf="changes1" id="subjective" name="subjective "
+              (messageEvent)="receiveMessage($event)" entity="subjective" isactive="true"></ngx-web-speach>
+          </div> -->
+        </div>
+        <label class="form-text text-muted font-weight-bold center">OBJETIVO </label>
+        <div class="row" style="align-items: center;">
+          <div class="col-md-11 center">
+          <textarea id="objetive" nbInput fullWidth formControlName="objetive" subjective onpaste="return false"
+            rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.objetive.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+          <!-- <div class="col-md-1">
+            <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()">
+              <nb-icon icon="mic-outline"></nb-icon>
+            </button>
+            <ngx-web-speach *ngIf="changes1" id="objetive" name="objetive "
+              (messageEvent)="receiveMessage($event)" entity="objetive" isactive="true"></ngx-web-speach>
+          </div> -->
+        </div>
     </div>
+  </div>
 
     <div class="row">
       <div class="col-md-12">

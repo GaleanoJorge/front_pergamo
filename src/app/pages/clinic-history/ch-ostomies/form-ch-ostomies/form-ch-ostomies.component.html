@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div >
+    <fieldset class="field_set center">
+      <legend class="prue1">OSTOMIAS</legend>
+
+      <div class="col-md-12">
+        <label for="ostomy_id" class="form-text text-muted font-weight-bold align">OSTOMIA:</label>
+        <nb-select [selected]="this.data.ostomy_id" formControlName="ostomy_id" id="ostomy_id" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.ostomy_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of ostomy_id" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-md-12">
+        <label for="observation" class="form-text text-muted font-weight-bold align">OBSERVACIONES:</label>
+        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      </div>
+    </fieldset>
+
+
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
+          type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

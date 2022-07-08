@@ -42,18 +42,19 @@ export class ChInterconsultationComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value.id + '-' + row.frequency.name;
+         
         },
       },
       amount: {
         title: this.headerFields[1],
         width: 'string',
       },
-      hourly_frequency: {
+      frequency: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.value + '-' + row.hourly_frequency.name;
+          return value.name;
         },
       },
       observations: {

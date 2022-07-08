@@ -7,22 +7,22 @@ import { TlTherapyLanguageRegular } from '../models/tl-therapy-language-regular'
   providedIn: 'root'
 })
 export class TlTherapyLanguageRegularService {
-  public therapy_concept_tl: TlTherapyLanguageRegular[] = [];
+  public tl_therapy_language_regular: TlTherapyLanguageRegular[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
   GetCollection(params = {}): Promise<TlTherapyLanguageRegular[]> {
-    let servObj = new ServiceObject(params ? 'therapy_concept_tl?pagination=false' : 'therapy_concept_tl');
+    let servObj = new ServiceObject(params ? 'tl_therapy_language_regular?pagination=false' : 'tl_therapy_language_regular');
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.therapy_concept_tl = <TlTherapyLanguageRegular[]>servObj.data.therapy_concept_tl;
+        this.tl_therapy_language_regular = <TlTherapyLanguageRegular[]>servObj.data.tl_therapy_language_regular;
 
-        return Promise.resolve(this.therapy_concept_tl);
+        return Promise.resolve(this.tl_therapy_language_regular);
       })
       .catch(x => {
         throw x.message;
@@ -30,9 +30,9 @@ export class TlTherapyLanguageRegularService {
   }
   
 
-  Save(therapy_concept_tl: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('therapy_concept_tl');
-    servObj.data = therapy_concept_tl;
+  Save(tl_therapy_language_regular: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('tl_therapy_language_regular');
+    servObj.data = tl_therapy_language_regular;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -46,9 +46,9 @@ export class TlTherapyLanguageRegularService {
       });
   }
 
-  Update(therapy_concept_tl: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('therapy_concept_tl', therapy_concept_tl.id);
-    servObj.data = therapy_concept_tl;
+  Update(tl_therapy_language_regular: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('tl_therapy_language_regular', tl_therapy_language_regular.id);
+    servObj.data = tl_therapy_language_regular;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -63,7 +63,7 @@ export class TlTherapyLanguageRegularService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('therapy_concept_tl', id);
+    let servObj = new ServiceObject('tl_therapy_language_regular', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

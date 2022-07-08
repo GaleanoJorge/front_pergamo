@@ -17,6 +17,7 @@ export class FormLanguageInterventionComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() record_id: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -24,9 +25,9 @@ export class FormLanguageInterventionComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public record_id;
+ 
   public admissions_id;
-  public text; 
+  public text: any[]; 
   public therapeutic_diagnosis_id: any[];
   public diagnosis_id;
   public diagnosis: any[];
@@ -54,6 +55,12 @@ export class FormLanguageInterventionComponent implements OnInit {
 
       };
     }
+    this.form = this.formBuilder.group({
+      text: [this.data.text, Validators.compose([Validators.required]),],
+      
+     
+    });
+
   }
 
   async save() {
@@ -99,6 +106,7 @@ export class FormLanguageInterventionComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
+          this.messageEvent.emit(true);
       }
     }
   }

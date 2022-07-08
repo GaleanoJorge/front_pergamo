@@ -64,7 +64,7 @@ export class FormDiagnosticEvoComponent implements OnInit {
       diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
       ch_diagnosis_type_id: [this.data.ch_diagnosis_type_id, Validators.compose([Validators.required])],
       ch_diagnosis_class_id: [this.data.ch_diagnosis_class_id, Validators.compose([Validators.required])],
-      diagnosis_observation: [this.data.diagnosis_observation, Validators.compose([Validators.required])],
+      diagnosis_observation: [this.data.diagnosis_observation,],
     });
   }
 

@@ -130,7 +130,7 @@
               status="{{ isSubmitted && form.controls.ch_vital_neurological_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
               placeholder="SELECCIONE...">
               <nb-option selected="{{ item.id == this.data.ch_vital_neurological_id }}"
-                *ngFor="let item of vital_neurological" [value]="item.id">
+                *ngFor="let item of ch_vital_neurological" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
           </fieldset>
@@ -146,7 +146,7 @@
               status="{{ isSubmitted && form.controls.ch_vital_hydration_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
               placeholder="SELECCIONE...">
               <nb-option selected="{{ item.id == this.data.ch_vital_hydration_id }}"
-                *ngFor="let item of vital_hydration" [value]="item.id">
+                *ngFor="let item of ch_vital_hydration" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
           </fieldset>
@@ -323,7 +323,7 @@
               status="{{ isSubmitted && form.controls.ch_vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
               placeholder="SELECCIONE...">
               <nb-option selected="{{ item.id == this.data.ch_vital_ventilated_id }}"
-                *ngFor="let item of vital_ventilated" [value]="item.id">
+                *ngFor="let item of ch_vital_ventilated" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
           </fieldset>

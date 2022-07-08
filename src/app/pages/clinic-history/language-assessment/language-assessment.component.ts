@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { UserBusinessService } from '../../../business-controller/user-business.service';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { UserChangeService } from '../../../business-controller/user-change.service';
 
 @Component({
   selector: 'ngx-language-assessment',
@@ -18,40 +19,35 @@ export class LanguageAssessmentComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = [
-    'Diagnóstico Médico',
-    'Diagnóstico Terapéutico',
-    'Motivo de la Consulta',
-  ];
-  
+  public headerFields: any[] = ['Diagnostico Medico', 'Diagnostico Terapeutico','Motivo de la Consulta'];
+  public movieForm: String;
+
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
-  
 
   public settings = {
     pager: {
       display: true,
-      perPage: 10,
+      perPage: 30,
     },
     columns: {
 
-      medical_diagnostic_id: {
+      medical_diagnostic: {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-      therapeutic_diagnosis_id: {
+      therapeutic_diagnosis: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
-       
       },
       reason_consultation: {
         title: this.headerFields[2],
@@ -61,7 +57,12 @@ export class LanguageAssessmentComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+
+  constructor(
+    public userChangeS: UserChangeService,
+  ) {
+
+  }
 
   async ngOnInit() {
 
@@ -76,4 +77,5 @@ export class LanguageAssessmentComponent implements OnInit {
       this.RefreshData();
     }
   }
+
 }

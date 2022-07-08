@@ -38,19 +38,31 @@
       </nb-tab>
       <nb-tab tabTitle="ORDEN MEDICAS">
         <div *ngIf="this.show == 6">
-          <ngx-orders-medical></ngx-orders-medical>
+          <ngx-orders-medical  [record_id]="record_id"></ngx-orders-medical>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="INCAPACIDAD">
+        <div *ngIf="this.show == 7">
+          <ngx-ch-inability [record_id]="record_id"></ngx-ch-inability>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="CERTIFICADO MEDICO">
+        <div *ngIf="this.show == 8">
+          <ngx-ch-medical-certificate  [record_id]="record_id"></ngx-ch-medical-certificate>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="FALLIDA">
-        <div *ngIf="this.show == 7">
+        <div *ngIf="this.show == 9">
           <ngx-failed [record_id]="record_id"></ngx-failed>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="SALIDA">
-        <div *ngIf="this.show == 8">
-          <ngx-patient-exit [record_id]="record_id"></ngx-patient-exit>
+        <div *ngIf="this.show == 10">
+          <ngx-form-patient-exit [record_id]="record_id"></ngx-form-patient-exit>
         </div>
       </nb-tab>
 
