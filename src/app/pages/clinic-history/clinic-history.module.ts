@@ -190,6 +190,10 @@ import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.componen
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
 import { FormNutritionBackgroundComponent } from './ch-nutrition-list/ch-nutrition-input/form-nutrition-background/form-nutrition-background.component';
+import { NursingPhysicalExamComponent } from './nursing-physical-exam/nursing-physical-exam.component';
+import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-nursing-physical-exam/form-nursing-physical-exam.component';
+import { InsumeRequestComponent } from './insume-request/insume-request.component';
+import { FormInsumeRequestComponent } from './insume-request/form-insume-request/form-insume-request.component';
 
 @NgModule({
   imports: [
@@ -220,6 +224,12 @@ import { FormNutritionBackgroundComponent } from './ch-nutrition-list/ch-nutriti
     NbCheckboxModule,
   ],
   declarations: [
+    
+    InsumeRequestComponent,
+    FormInsumeRequestComponent,
+
+    NursingPhysicalExamComponent,
+    FormNursingPhysicalExamComponent,
 
     NursingProcedureComponent,
     FormNursingProcedureComponent,

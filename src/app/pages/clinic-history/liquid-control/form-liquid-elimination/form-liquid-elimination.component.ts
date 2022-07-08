@@ -16,6 +16,8 @@ export class FormLiquidEliminationComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record_id: any = null;
+
   @Output() messageEvent = new EventEmitter<any>();
 
 
@@ -134,7 +136,7 @@ export class FormLiquidEliminationComponent implements OnInit {
           specific_name: this.form.controls.specific_name.value,
           delivered_volume: this.form.controls.delivered_volume.value,
           bag_number: this.form.controls.bag_number.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -153,10 +155,18 @@ export class FormLiquidEliminationComponent implements OnInit {
           specific_name: this.form.controls.specific_name.value,
           delivered_volume: this.form.controls.delivered_volume.value,
           bag_number: this.form.controls.bag_number.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.form.patchValue({
+            clock: '',
+            ch_route_fluid_id: '',
+            ch_type_fluid_id: '',
+            specific_name: '',
+            delivered_volume: '',
+            bag_number: '',
+          });
           if (this.saved) {
             this.saved();
           }
@@ -164,6 +174,7 @@ export class FormLiquidEliminationComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
         });
+        this.messageEvent.emit(true);
       }
 
     }

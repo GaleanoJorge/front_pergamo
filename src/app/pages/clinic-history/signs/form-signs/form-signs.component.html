@@ -2,7 +2,8 @@
   <div>
     <div>
       <div class="clock">
-        <input type="time" id="clock" formControlName="clock">
+        <input type="time" id="clock" nbInput formControlName="clock" 
+        status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
       </div>
     </div>
     <div class="row">

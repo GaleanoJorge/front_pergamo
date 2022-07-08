@@ -158,7 +158,7 @@ export class FormsignsComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      clock: [this.data[0] ? this.data[0].clock : this.data.clock],
+      clock: [this.data[0] ? this.data[0].clock : this.data.clock, Validators.compose([Validators.required])],
       cardiac_frequency: [this.data[0] ? this.data[0].cardiac_frequency : this.data.cardiac_frequency, Validators.compose([Validators.required])],
       respiratory_frequency: [this.data[0] ? this.data[0].respiratory_frequency : this.data.respiratory_frequency, Validators.compose([Validators.required])],
       temperature: [this.data[0] ? this.data[0].temperature : this.data.temperature],
@@ -186,6 +186,12 @@ export class FormsignsComponent implements OnInit {
       pupil_size_right: [this.data[0] ? this.data[0].pupil_size_right : this.data.pupil_size_right],
       left_reaction: [this.data[0] ? this.data[0].left_reaction : this.data.left_reaction],
       pupil_size_left: [this.data[0] ? this.data[0].pupil_size_left : this.data.pupil_size_left],
+      mydriatic: [this.data.mydriatic],
+      normal: [this.data.normal],
+      lazy_reaction_light: [this.data.lazy_reaction_light],
+      fixed_lazy_reaction: [this.data.fixed_lazy_reaction],
+      miotic_size: [this.data.miotic_size],
+
       ch_vital_hydration_id: [this.data[0] ? this.data[0].ch_vital_hydration_id : this.data.ch_vital_hydration_id],
       ch_vital_ventilated_id: [this.data[0] ? this.data[0].ch_vital_ventilated_id : this.data.ch_vital_ventilated_id],
       ch_vital_temperature_id: [this.data[0] ? this.data[0].ch_vital_temperature_id : this.data.ch_vital_temperature_id,Validators.compose([Validators.required])],
@@ -312,7 +318,7 @@ export class FormsignsComponent implements OnInit {
           chest_perimeter: this.form.controls.chest_perimeter.value,
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
-          mydriatic: this.form.controls.mydriatic.value,
+          // mydriatic: this.form.controls.mydriatic.value,
           normal: this.form.controls.normal.value,
           lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
           fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,
@@ -365,7 +371,7 @@ export class FormsignsComponent implements OnInit {
           chest_perimeter: this.form.controls.chest_perimeter.value,
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
-          mydriatic: this.form.controls.mydriatic.value,
+          // mydriatic: this.form.controls.mydriatic.value,
           normal: this.form.controls.normal.value,
           lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
           fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,
@@ -388,14 +394,8 @@ export class FormsignsComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
-          if (this.form.controls.has_caregiver.value == true) {
-            this.isSubmitted = true;
-            this.loading = true;
-          } else {
             this.isSubmitted = false;
             this.loading = false;
-          }
-
         });
       }
 

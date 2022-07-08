@@ -72,7 +72,7 @@ export class FormManagementPlanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.user);
+    // console.log(this.user);
     if (!this.data) {
       this.data = {
         id: '',

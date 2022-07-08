@@ -2,37 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { ChSkinValoration } from '../models/ch-skin-valoration';
+import { NursingTypePhysical } from '../models/nursing-type-physical';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChSkinValorationService {
-  public ch_skin_valoration: ChSkinValoration[] = [];
+export class NursingTypePhysicalService {
+  public nursing_type_physical: NursingTypePhysical[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<ChSkinValoration[]> {
-    let servObj = new ServiceObject(params ? 'ch_skin_valoration?pagination=false' : 'ch_skin_valoration');
-
-    return this.webAPI.GetAction(servObj, params)
-      .then(x => {
-        servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
-
-        this.ch_skin_valoration = <ChSkinValoration[]>servObj.data.ch_skin_valoration;
-
-        return Promise.resolve(this.ch_skin_valoration);
-      })
-      .catch(x => {
-        throw x.message;
-      });
-  }
-
-  ByRecord(record, type): Promise<ChSkinValoration[]> {
-    let servObj = new ServiceObject('ch_skin_valoration/by_record/' + record + '/' + type + '?pagination=false');
+  GetCollection(params = {}): Promise<NursingTypePhysical[]> {
+    let servObj = new ServiceObject(params ? 'nursing_type_physical?pagination=false' : 'nursing_type_physical');
 
     return this.webAPI.GetAction(servObj)
       .then(x => {
@@ -40,18 +22,18 @@ export class ChSkinValorationService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.ch_skin_valoration = <ChSkinValoration[]>servObj.data.ch_skin_valoration;
+        this.nursing_type_physical = <NursingTypePhysical[]>servObj.data.nursing_type_physical;
 
-        return Promise.resolve(this.ch_skin_valoration);
+        return Promise.resolve(this.nursing_type_physical);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(ch_skin_valoration: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_skin_valoration');
-    servObj.data = ch_skin_valoration;
+  Save(nursing_type_physical: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('nursing_type_physical');
+    servObj.data = nursing_type_physical;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -65,9 +47,9 @@ export class ChSkinValorationService {
       });
   }
 
-  Update(ch_skin_valoration: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_skin_valoration', ch_skin_valoration.id);
-    servObj.data = ch_skin_valoration;
+  Update(nursing_type_physical: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('nursing_type_physical', nursing_type_physical.id);
+    servObj.data = nursing_type_physical;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -82,7 +64,7 @@ export class ChSkinValorationService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_skin_valoration', id);
+    let servObj = new ServiceObject('nursing_type_physical', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

@@ -29,6 +29,23 @@ export class ChPhysicalExamService {
       });
   }
 
+  ByRecord(record,type): Promise<ChPhysicalExam[]> {
+    let servObj = new ServiceObject('ch_physical_exam/by_record/'+record+'/'+type+'/?pagination=false');
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.ch_physical_exam = <ChPhysicalExam[]>servObj.data.ch_physical_exam;
+
+        return Promise.resolve(this.ch_physical_exam);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(ch_physical_exam: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_physical_exam');
     servObj.data = ch_physical_exam;
