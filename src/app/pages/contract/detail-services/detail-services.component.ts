@@ -110,9 +110,9 @@ export class DetailServicesComponent implements OnInit {
         type: 'string',
         valuePrepareFunction(value, row) {
           if(row.manual_price.procedure==null){
-            return row.manual_price.name;
+            return row.manual_price.product.name;
           }else{
-            return row.manual_price.name;
+            return row.manual_price.procedure.name;
           }
         },
       },
