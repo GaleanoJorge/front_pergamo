@@ -31,7 +31,7 @@ export class RegularRespiratoryTherapyComponent implements OnInit {
   public chdiagnosis: any[];
   public nameForm: String;
   public movieForm: String;
-
+  
 
   public record_id;
   public isSubmitted: boolean = false;
@@ -48,7 +48,7 @@ export class RegularRespiratoryTherapyComponent implements OnInit {
     private chphysicalS: ChPhysicalExamService,
     private chvitalSignsS: ChVitalSignsService,
     private chdiagnosisS: ChDiagnosisService,
-    public userChangeS: UserChangeService,
+    public userChangeS: UserChangeService,    
 
 
   ) {
@@ -76,6 +76,8 @@ export class RegularRespiratoryTherapyComponent implements OnInit {
     await this.chphysicalS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.physical = x;
     });
+
+    
 
     this.form = this.formBuilder.group({
      
