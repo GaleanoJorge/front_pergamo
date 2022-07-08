@@ -22,7 +22,7 @@ export class FormSessionsTherapyComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
- 
+
 
 
   constructor(
@@ -43,11 +43,23 @@ export class FormSessionsTherapyComponent implements OnInit {
       };
     }
     this.form = this.formBuilder.group({
-      month: [this.data[0] ? this.data[0].month : this.data.month,Validators.compose([Validators.required])],
-      week: [this.data[0] ? this.data[0].week : this.data.week,Validators.compose([Validators.required])],
+      month: [this.data[0] ? this.data[0].month : this.data.month, Validators.compose([Validators.required])],
+      week: [this.data[0] ? this.data[0].week : this.data.week, Validators.compose([Validators.required])],
       recommendations: [this.data[0] ? this.data[0].recommendations : this.data.recommendations,]
-           
-    });    
+
+    });
+
+    if (this.data.month != '') {
+      this.form.controls.month.disable();
+      this.form.controls.week.disable();
+      this.form.controls.recommendations.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.month.enable();
+      this.form.controls.week.enable();
+      this.form.controls.recommendations.enable();
+      this.disabled = false;
+    }
 
   }
 
@@ -86,7 +98,7 @@ export class FormSessionsTherapyComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ month: '', week: '', recommendations: ''});
+          this.form.setValue({ month: '', week: '', recommendations: '' });
           if (this.saved) {
             this.saved();
           }
@@ -102,7 +114,7 @@ export class FormSessionsTherapyComponent implements OnInit {
         });
       }
 
-    } else{
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
