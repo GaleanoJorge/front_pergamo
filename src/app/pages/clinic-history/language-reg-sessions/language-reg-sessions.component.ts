@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-reg-sessions',
@@ -24,16 +25,13 @@ export class LanguageRegSessionsComponent implements OnInit {
     'Sesiones Mensuales',
     'Intensidad Semanal',
     'Recomendaciones/Educación',
- 
   ];
-  
+
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
-
-  
 
   public settings = {
     pager: {
@@ -56,21 +54,21 @@ export class LanguageRegSessionsComponent implements OnInit {
       weekly_intensity: {
         title: this.headerFields[2],
         width: 'string',
-       
       },
       recomendations: {
         title: this.headerFields[3],
         width: 'string',
       },
-      
     },
   };
-  datePipe: any;
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe,
+  ) {}
 
   async ngOnInit() {
-
+    console.log(this.type_record);
   }
 
   RefreshData() {
