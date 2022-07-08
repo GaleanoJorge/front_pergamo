@@ -16,6 +16,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  // @Input() regular: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -25,12 +26,13 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
   public showTable;
   public ch_external_cause: any[];
   public diagnosis: any[] = [];
-  public diagnosis_therapeutyc;
   public diagnosis_medical;
   public medical_diagnosis_id;
-  public therapeutic_diagnosis_id;
+  public therapeutic_diagnosis;
   public reason_consultation;
   public loadAuxData = true;
+  public changes = false;
+  public changes1 = false;
 
 
   constructor(
@@ -45,7 +47,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
     if (!this.data || this.data.length == 0) {
       this.data = {
         medical_diagnosis_id: '',
-        therapeutic_diagnosis_id: '',
+        therapeutic_diagnosis: '',
         reason_consultation: '',
       };
 
@@ -75,28 +77,28 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
 
     this.form = this.formBuilder.group({
       medical_diagnosis_id: [this.data[0] ? this.returnCode(this.data[0].medical_diagnosis_id) : this.data.medical_diagnosis_id,],
-      therapeutic_diagnosis_id: [this.data[0] ? this.returnCode(this.data[0].therapeutic_diagnosis_id) : this.data.therapeutic_diagnosis_id,Validators.compose([Validators.required])],
+      therapeutic_diagnosis: [this.data[0] ? this.data[0].therapeutic_diagnosis : this.data.therapeutic_diagnosis, Validators.compose([Validators.required])],
       reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation, Validators.compose([Validators.required])],
     });
 
     if (this.data.medical_diagnosis_id != '') {
       this.form.controls.medical_diagnosis_id.disable();
-      this.form.controls.therapeutic_diagnosis_id.disable();
+      this.form.controls.therapeutic_diagnosis.disable();
       this.form.controls.reason_consultation.disable();
       this.disabled = true;
     } else {
       this.form.controls.medical_diagnosis_id.enable();
-      this.form.controls.therapeutic_diagnosis_id.enable();
+      this.form.controls.therapeutic_diagnosis.enable();
       this.form.controls.reason_consultation.enable();
       this.disabled = false;
     }
 
   }
 
-  returnCode(diagnosis_id){
+  returnCode(diagnosis_id) {
     var localName = this.diagnosis.find(item => item.id == diagnosis_id);
     var nombre_diagnosis
-    if(localName){
+    if (localName) {
       nombre_diagnosis = localName.name;
     } else {
       nombre_diagnosis = ''
@@ -104,23 +106,18 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
     return nombre_diagnosis;
   }
 
-  saveCode(e, valid): void {
+  saveCode(e): void {
     var localidentify = this.diagnosis.find(item => item.name == e);
 
     if (localidentify) {
-      if (valid == 1) {
+      if (e) {
         this.diagnosis_medical = localidentify.id;
       } else {
-        this.diagnosis_therapeutyc = localidentify.id;
-      }
-    } else {
-      if (valid == 1) {
         this.diagnosis_medical = null;
-      } else {
-        this.diagnosis_therapeutyc = null;
+        this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+        this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
       }
-      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
-      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
+
     }
   }
 
@@ -134,7 +131,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
         await this.respiratoryS.Update({
           id: this.data.id,
           medical_diagnosis_id: this.diagnosis_medical,
-          therapeutic_diagnosis_id: this.diagnosis_therapeutyc,
+          therapeutic_diagnosis: this.form.controls.therapeutic_diagnosis.value,
           reason_consultation: this.form.controls.reason_consultation.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
@@ -151,13 +148,13 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
       } else {
         await this.respiratoryS.Save({
           medical_diagnosis_id: this.diagnosis_medical,
-          therapeutic_diagnosis_id: this.diagnosis_therapeutyc,
+          therapeutic_diagnosis: this.form.controls.therapeutic_diagnosis.value,
           reason_consultation: this.form.controls.reason_consultation.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
-          this.disabled=true;
+          this.disabled = true;
           if (this.saved) {
             this.saved();
           }
@@ -173,9 +170,29 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
         });
       }
 
-    } else{
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
+
+  receiveMessage($event) {
+
+    if ($event.isactive == false) {
+      this.changes = false;
+      this.changes1 = false;
+    }
+    if ($event.entity) {
+      this.form.get($event.entity).setValue(this.form.get($event.entity).value + ' ' + $event.text);
+    }
+  }
+
+  changebuttom() {
+    this.changes = true;
+  }
+
+  changebuttom1() {
+    this.changes1 = true;
+  }
+
 
 }
