@@ -28,7 +28,7 @@ export class FormIspectionTherapyComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
-    private IspectionS: ChRtInspectionService,
+    private IspectionS: ChRtInspectionService,    
 
   ) {
   }
@@ -38,8 +38,10 @@ export class FormIspectionTherapyComponent implements OnInit {
       this.data = {
         expansion: '',
         masses: '',
+        detail_masses: '',
         crepitations: '',
         fracturues: '',
+        detail_fracturues: '',
         airway: '',
 
       };
@@ -47,11 +49,33 @@ export class FormIspectionTherapyComponent implements OnInit {
     this.form = this.formBuilder.group({
       expansion: [this.data[0] ? this.data[0].expansion : this.data.expansion,Validators.compose([Validators.required])],
       masses: [this.data[0] ? this.data[0].masses : this.data.masses,Validators.compose([Validators.required])],
+      detail_masses: [this.data[0] ? this.data[0].detail_masses : this.data.detail_masses,],
       crepitations: [this.data[0] ? this.data[0].crepitations : this.data.crepitations,Validators.compose([Validators.required])],
       fracturues: [this.data[0] ? this.data[0].fracturues : this.data.fracturues,Validators.compose([Validators.required])],
+      detail_fracturues: [this.data[0] ? this.data[0].detail_fracturues : this.data.detail_fracturues,],
       airway: [this.data[0] ? this.data[0].airway : this.data.airway,Validators.compose([Validators.required])],
            
     });    
+
+    if (this.data.expansion != '') {
+      this.form.controls.expansion.disable();
+      this.form.controls.masses.disable();
+      this.form.controls.detail_masses.disable();
+      this.form.controls.crepitations.disable();
+      this.form.controls.fracturues.disable();
+      this.form.controls.detail_fracturues.disable();
+      this.form.controls.airway.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.expansion.enable();
+      this.form.controls.masses.enable();
+      this.form.controls.detail_masses.enable();
+      this.form.controls.crepitations.enable();
+      this.form.controls.fracturues.enable();
+      this.form.controls.detail_fracturues.enable();
+      this.form.controls.airway.enable();
+      this.disabled = false;
+    }
 
   }
 
@@ -67,8 +91,10 @@ export class FormIspectionTherapyComponent implements OnInit {
           id: this.data.id,
           expansion: this.form.controls.expansion.value,
           masses: this.form.controls.masses.value,
+          detail_masses: this.form.controls.detail_masses.value,
           crepitations: this.form.controls.crepitations.value,
           fracturues: this.form.controls.fracturues.value,
+          detail_fracturues: this.form.controls.detail_fracturues.value,
           airway: this.form.controls.airway.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
@@ -86,8 +112,10 @@ export class FormIspectionTherapyComponent implements OnInit {
         await this.IspectionS.Save({
           expansion: this.form.controls.expansion.value,
           masses: this.form.controls.masses.value,
+          detail_masses: this.form.controls.detail_masses.value,
           crepitations: this.form.controls.crepitations.value,
           fracturues: this.form.controls.fracturues.value,
+          detail_fracturues: this.form.controls.detail_fracturues.value,
           airway: this.form.controls.airway.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
