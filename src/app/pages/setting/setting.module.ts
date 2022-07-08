@@ -387,6 +387,7 @@ import { SelectSuppliesIncomeComponent } from './pharmacy-income-supplies/income
 import { ActionsSupComponent } from './pharmacy-income-supplies/actions.component';
 import { PharmacyIncomeSuppliesComponent } from './pharmacy-income-supplies/pharmacy-income-supplies.component';
 import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-supplies-package/amountDamagedSup.component';
+import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -808,7 +809,8 @@ import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-sup
     IncomeSuppliesPackageComponent,
     SelectSuppliesIncomeComponent,
     ActionsSupComponent,
-    PharmacyIncomeSuppliesComponent
+    PharmacyIncomeSuppliesComponent,
+    tcRentabilityComponent
 
 
   ],
