@@ -74,7 +74,7 @@ export class FormEvoSoapComponent implements OnInit {
           })
           .then((x) => {
             this.toastService.success('', x.message);
-            this.form.setValue({ subjective: '', objective: '', analisys:'', plan:''});
+            this.form.setValue({ subjective: '', objective: ''});
             if (this.saved) {
               this.saved();
             }
@@ -94,7 +94,7 @@ export class FormEvoSoapComponent implements OnInit {
           .then((x) => {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
-            this.form.setValue({ subjective: '', objective: '', analisys: '', plan:'' });
+            this.form.setValue({ subjective: '', objective: '' });
             if (this.saved) {
               this.saved();
             }

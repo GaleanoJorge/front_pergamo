@@ -10,13 +10,13 @@
             rows="4" cols="50"
             status="{{ isSubmitted && form.controls.subjective.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
         </div>
-          <div class="col-md-1">
+          <!-- <div class="col-md-1">
             <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()">
               <nb-icon icon="mic-outline"></nb-icon>
             </button>
             <ngx-web-speach *ngIf="changes1" id="subjective" name="subjective "
               (messageEvent)="receiveMessage($event)" entity="subjective" isactive="true"></ngx-web-speach>
-          </div>
+          </div> -->
         </div>
         <label class="form-text text-muted font-weight-bold center">OBJETIVO </label>
         <div class="row" style="align-items: center;">
@@ -25,13 +25,13 @@
             rows="4" cols="50"
             status="{{ isSubmitted && form.controls.objetive.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
         </div>
-          <div class="col-md-1">
+          <!-- <div class="col-md-1">
             <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()">
               <nb-icon icon="mic-outline"></nb-icon>
             </button>
             <ngx-web-speach *ngIf="changes1" id="objetive" name="objetive "
               (messageEvent)="receiveMessage($event)" entity="objetive" isactive="true"></ngx-web-speach>
-          </div>
+          </div> -->
         </div>
     </div>
   </div>
