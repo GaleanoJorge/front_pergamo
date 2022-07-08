@@ -1,5 +1,93 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <div class="row">
+  <div >
+
+    <!-- <fieldset class="field_set">
+      <legend class="prue1 center">LINGÜÍSTICO</legend>
+      <div class="row justify-content-md">
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Fonético/Fonológico</label>
+        </div>
+        <div class="col col-lg-3">
+          <nb-radio-group formControlName="phonetic_phonological" phonetic_phonological id="phonetic_phonological"
+            name="phonetic_phonological"
+            status="{{ isSubmitted && form.controls.phonetic_phonological.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio value="Si">Si</nb-radio>
+            <nb-radio value="No">No</nb-radio>
+          </nb-radio-group>
+        </div>
+
+        
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Sintáctico</label>
+        </div>
+        <div class="col col-lg-3">
+          <nb-radio-group formControlName="syntactic" syntactic id="syntactic" name="syntactic"
+            status="{{ isSubmitted && form.controls.syntactic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio value="Si">Si</nb-radio>
+            <nb-radio value="No">No</nb-radio>
+          </nb-radio-group>
+        </div>
+
+        <div class="col col-lg-12">
+          <hr />
+        </div>
+
+
+
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Morfosintáctico</label>
+        </div>
+        <div class="col col-lg-3">
+          <nb-radio-group formControlName="morphosyntactic" morphosyntactic id="morphosyntactic"
+            name="morphosyntactic"
+            status="{{ isSubmitted && form.controls.morphosyntactic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio value="Si">Si</nb-radio>
+            <nb-radio value="No">No</nb-radio>
+          </nb-radio-group>
+        </div>
+
+        
+
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Semántico</label>
+        </div>
+        <div class="col col-lg-3">
+          <nb-radio-group formControlName="semantic" semantic id="semantic" name="semantic"
+            status="{{ isSubmitted && form.controls.semantic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio value="Si">Si</nb-radio>
+            <nb-radio value="No">No</nb-radio>
+          </nb-radio-group>
+        </div>
+
+        <div class="col col-lg-12">
+          <hr />
+        </div>
+
+
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Pragmático</label>
+        </div>
+        <div class="col col-lg-3">
+          <nb-radio-group formControlName="pragmatic" pragmatic id="pragmatic" name="pragmatic"
+            status="{{ isSubmitted && form.controls.pragmatic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio value="Si">Si</nb-radio>
+            <nb-radio value="No">No</nb-radio>
+          </nb-radio-group>
+        </div>
+
+
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Observaciones</label>
+        </div>
+        <div class="col col-lg-3">
+          <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+            onpaste="return false" rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+      </div>
+
+    </fieldset> -->
+
 
     <fieldset class="field_set">
       <legend class="prue1 center">LINGÜÍSTICO</legend>
@@ -19,66 +107,58 @@
           <label class="form-text text-muted font-weight-bold">Sintáctico</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="syntactic" syntactic id="syntactic" name="syntactic"
+          <nb-radio-group formControlName="syntactic" syntactic
+            id="syntactic" name="syntactic"
             status="{{ isSubmitted && form.controls.syntactic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
         </div>
-
-
+  
         <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold">Morfosintáctico</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="morphosyntactic" morphosyntactic id="morphosyntactic"
-            name="morphosyntactic"
+          <nb-radio-group formControlName="morphosyntactic" morphosyntactic
+            id="morphosyntactic" name="morphosyntactic"
             status="{{ isSubmitted && form.controls.morphosyntactic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
         </div>
-
+  
         <div class="col col-lg-12">
           <hr />
         </div>
-
-
-        <div class="col col-lg-2">
+  
+        <div class="col col-lg-3">
           <label class="form-text text-muted font-weight-bold">Semántico</label>
         </div>
-        <div class="col col-lg-2">
-          <nb-radio-group formControlName="semantic" semantic id="semantic" name="semantic"
+        <div class="col col-lg-3">
+          <nb-radio-group formControlName="semantic" semantic id="semantic"
+            name="semantic"
             status="{{ isSubmitted && form.controls.semantic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
         </div>
-
-
-        <div class="col col-lg-2">
+  
+  
+        <div class="col col-lg-3">
           <label class="form-text text-muted font-weight-bold">Pragmático</label>
         </div>
-        <div class="col col-lg-2">
+        <div class="col col-lg-3">
           <nb-radio-group formControlName="pragmatic" pragmatic id="pragmatic" name="pragmatic"
             status="{{ isSubmitted && form.controls.pragmatic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
         </div>
-
-
-        <div class="col col-lg-2">
-          <label class="form-text text-muted font-weight-bold">Observaciones</label>
-        </div>
-        <div class="col col-lg-2">
-          <textarea id="observations" nbInput fullWidth formControlName="observations" observations
-            onpaste="return false" rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-        </div>
+        
       </div>
-
+  
     </fieldset>
+
 
     <fieldset class="field_set">
       <legend class="prue1 center">PSICOLINGÜÍSTICO</legend>

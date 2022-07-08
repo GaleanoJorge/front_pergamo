@@ -222,6 +222,8 @@ import { LanguageInterventionComponent } from './language-intervention/language-
 import { ChMedicalCertificateComponent } from './ch-medical-certificate/ch-medical-certificate.component';
 import { FormChMedicalCertificateComponent } from './ch-medical-certificate/form-ch-medical-certificate/form-ch-medical-certificate.component';
 import { LanguageConceptComponent } from './language-concept/language-concept.component';
+import { FormChOstomiesComponent } from './ch-ostomies/form-ch-ostomies/form-ch-ostomies.component';
+import { ChOstomiesComponent } from './ch-ostomies/ch-ostomies.component';
 
 
 @NgModule({
@@ -484,6 +486,8 @@ import { LanguageConceptComponent } from './language-concept/language-concept.co
     ChMedicalCertificateComponent,
     FormChMedicalCertificateComponent,
     LanguageConceptComponent,
+    FormChOstomiesComponent,
+    ChOstomiesComponent,
 
 
   ],

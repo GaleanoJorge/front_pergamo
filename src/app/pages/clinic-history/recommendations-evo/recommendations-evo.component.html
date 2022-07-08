@@ -9,7 +9,7 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table pager="false" [title]="title" customData="ch_recommendations_evo" [settings]="settings"
-      entity="ch_recommendations_evo/by_record/{{record_id}}/3">
+      entity="ch_recommendations_evo/by_record/{{record_id}}/{{this.type_record}}">
       <div actions>
         <div class="actions">
         </div>
