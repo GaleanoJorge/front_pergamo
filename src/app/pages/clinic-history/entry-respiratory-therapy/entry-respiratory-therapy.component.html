@@ -2,17 +2,16 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper [linear]="linearMode"> -->
-        <!-- <nb-stepper orientation="vertical" #stepper [linear]="linearMode">  -->
+        <nb-stepper #stepper [linear]="linearMode">
           <nb-step [stepControl]="nameForm" label="Valoración">
-            <ngx-form-reason-consultation-respiratory-therapy  *ngIf="chrespiratoryconsultation" [record_id]="record_id"
-            [data]="chrespiratoryconsultation">
+            <ngx-form-reason-consultation-respiratory-therapy *ngIf="chrespiratoryconsultation" [record_id]="record_id"
+              [data]="chrespiratoryconsultation">
             </ngx-form-reason-consultation-respiratory-therapy>
 
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Antecedentes">
-                <ngx-back-list></ngx-back-list>
+            <ngx-back-list></ngx-back-list>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
@@ -20,11 +19,13 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Destete de oxigeno">
-            <ngx-form-oxygen-therapy [record_id]="record_id"></ngx-form-oxygen-therapy>
+            <ngx-form-oxygen-therapy *ngIf="teraphyRespiratory" [record_id]="record_id" 
+            [data]="teraphyRespiratory">
+            </ngx-form-oxygen-therapy>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Valoración Terapeutica">
-            <ngx-form-assessment-therapy [record_id]="record_id"></ngx-form-assessment-therapy>
+            <ngx-form-assessment-therapy [record_id]="record_id" ></ngx-form-assessment-therapy>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Objetivos">
@@ -36,11 +37,12 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Sesiones">
-            <ngx-form-sessions-therapy [record_id]="record_id"></ngx-form-sessions-therapy>
+            <ngx-form-sessions-therapy [record_id]="record_id" *ngIf="suppliesTeraphyRespiratory" 
+            [data]="suppliesTeraphyRespiratory"></ngx-form-sessions-therapy>
           </nb-step>
 
 
-          
+
 
 
           <nb-step [hidden]="true">

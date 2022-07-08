@@ -7,6 +7,9 @@ import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.se
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ChRespiratoryTherapyService } from '../../../business-controller/ch_respiratory_therapy.service';
+import { ChOxygenTherapyService } from '../../../business-controller/ch_oxygen_therapy.service';
+import { ChAssessmentTherapyService } from '../../../business-controller/ch_assessment_therapy.service';
+import { ChRtSessionsService } from '../../../business-controller/ch_rt_sessions.service';
 
 
 @Component({
@@ -31,6 +34,10 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   public chdiagnosis: any[];
   public nameForm: String;
   public movieForm: String;
+  public teraphyRespiratory: any[];
+  public assTherapyRespiratory: any[];
+  public suppliesTeraphyRespiratory: any[];
+
 
 
   public record_id;
@@ -45,10 +52,11 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private chrespiratoryconsultS: ChRespiratoryTherapyService,
-    private chphysicalS: ChPhysicalExamService,
     private chvitalSignsS: ChVitalSignsService,
-    private chdiagnosisS: ChDiagnosisService,
     public userChangeS: UserChangeService,
+    public ChOxygenTherapyS: ChOxygenTherapyService,    
+    private RtSessionsS: ChRtSessionsService,
+    // public AssS: ChAssessmentTherapyService,
 
 
   ) {
@@ -66,10 +74,22 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
     await this.chrespiratoryconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chrespiratoryconsultation = x;
     });
-   
+
+    await this.ChOxygenTherapyS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.teraphyRespiratory = x;
+    });
+
+    await this.RtSessionsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.suppliesTeraphyRespiratory = x;
+    });
+
+    // await this.AssS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.assTherapyRespiratory = x;
+    // });
+
 
     this.form = this.formBuilder.group({
-   
+
 
     });
   }
@@ -80,22 +100,10 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
       if (this.data.id) { }
       await this.chrespiratoryconsultS.Update({});
       await this.chvitalSignsS.Update({});
+      await this.ChOxygenTherapyS.Update({});      
+      await this.RtSessionsS.Update({});
+      // await this.AssS.Update({});
     }
-  }
-
-  saveMcEa() {
-  }
-
-  saveRxSystem() {
-  }
-
-  saveExFisic() {
-  }
-
-  saveVitalSgns() {
-  }
-  
-  saveDiagnostic() {
   }
 
   receiveMessage($event) {
