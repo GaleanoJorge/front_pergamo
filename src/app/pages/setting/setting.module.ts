@@ -400,6 +400,7 @@ import { IvaBillingComponent } from './billing/prod-billing-package/iva-billing.
 import { IvaSuppliesComponent } from './billing/prod-supplies-package/iva-supplies.component';
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-most/billing-request-pharmacy-most.component';
+import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -838,6 +839,7 @@ import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-
     BillingRequestPharmacyMostComponent,
 
 
+    tcRentabilityComponent
 
 
   ],
