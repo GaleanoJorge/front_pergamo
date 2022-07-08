@@ -79,6 +79,7 @@ export class ProductPresentationComponent implements OnInit {
 
   NewProductPresentation() {
     this.dialogFormService.open(FormProductPresentationComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nueva Forma farmaceutica',
         saved: this.RefreshData.bind(this),
@@ -88,6 +89,7 @@ export class ProductPresentationComponent implements OnInit {
 
   EditProductPresentation(data) {
     this.dialogFormService.open(FormProductPresentationComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar Forma farmaceutica',
         data,

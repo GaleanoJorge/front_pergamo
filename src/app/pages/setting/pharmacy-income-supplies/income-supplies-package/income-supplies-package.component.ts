@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { PharmacyRequestShippingService } from '../../../../business-controller/pharmacy-request-shipping.service';
 import { SelectSuppliesIncomeComponent } from './select-supplies-income.component';
-import { AmountSupComeComponent } from './amountSupCome.component'; 
+import { AmountSupComeComponent } from './amountSupCome.component';
 import { AmountDamagedSupComponent } from './amountDamagedSup.component';
 
 @Component({
@@ -24,7 +24,7 @@ export class IncomeSuppliesPackageComponent implements OnInit {
   public form: FormGroup;
   public title = 'INSUMOS';
   public subtitle = '';
-  public headerFields: any[] = ['INSUMO COMERCIAL', 'INSUMO GENERICO', 'CANTIDAD A RECIBIR', 'CANTIDAD CON DAÑOS', 'CANTIDAD ENVIADA'];
+  public headerFields: any[] = ['INSUMO COMERCIAL', 'INSUMO GENERICO', 'LOTE', 'CANTIDAD A RECIBIR', 'CANTIDAD CON DAÑOS', 'CANTIDAD ENVIADA'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -81,15 +81,22 @@ export class IncomeSuppliesPackageComponent implements OnInit {
           return row.pharmacy_product_request.product_supplies.description;
         },
       },
+      lot: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.pharmacy_lot_stock.lot;
+        },
+      },
       amount_provition: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         type: 'string',
         // valuePrepareFunction: (value, row) => {
         //   return row.pharmacy_product_request.product_generic.description;
         // },
       },
       amount: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -109,7 +116,7 @@ export class IncomeSuppliesPackageComponent implements OnInit {
       },
 
       amount_damaged: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;

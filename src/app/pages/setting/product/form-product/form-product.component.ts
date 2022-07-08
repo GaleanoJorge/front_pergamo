@@ -31,6 +31,7 @@ export class FormProductComponent implements OnInit {
   public invima_status: any[];
   public storage_conditions: any[];
   public packing: any[];
+  public showReg: boolean = false;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -112,11 +113,23 @@ export class FormProductComponent implements OnInit {
     await this.packingS.GetCollection().then(x => {
       this.packing = x;
     });
+
+    this.form.get("regulated_drug").valueChanges.subscribe(val => {
+      if (val == 0) {
+        this.showReg = false;
+      } else {
+        this.showReg = true;
+      }
+    });
+
   }
 
   close() {
     this.dialogRef.close();
   }
+
+
+
 
   save() {
     this.isSubmitted = true;

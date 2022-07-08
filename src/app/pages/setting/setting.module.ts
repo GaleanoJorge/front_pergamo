@@ -388,6 +388,18 @@ import { ActionsSupComponent } from './pharmacy-income-supplies/actions.componen
 import { PharmacyIncomeSuppliesComponent } from './pharmacy-income-supplies/pharmacy-income-supplies.component';
 import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-supplies-package/amountDamagedSup.component';
 import { FormConfirmDisabledComponent } from './users/form-confirm-disabled/form-confirm-disabled.component';
+import { FormBillingRequestPharmacyComponent } from './billing-request-pharmacy/form-billing-request-pharmacy/form-billing-request-pharmacy.component';
+import { AmountBillingRequestPharmacyComponent } from './billing-request-pharmacy/prod-billing-request-pharmacy-package/amount-billing-request-pharmacy.component';
+import { ProdBillingRequestPharmacyPackageComponent } from './billing-request-pharmacy/prod-billing-request-pharmacy-package/prod-billing-request-pharmacy-package.component';
+import { SelectProductBillingRequestPharmacyComponent } from './billing-request-pharmacy/prod-billing-request-pharmacy-package/select-prod-billing-request-pharmacy.component';
+import { AmountSuppliesRequestComponent } from './billing-request-pharmacy/prod-supplies-request-package/amount-supplies-request.component';
+import { ProdSuppliesRequestPackageComponent } from './billing-request-pharmacy/prod-supplies-request-package/prod-supplies-request-package.component';
+import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/billing-request-pharmacy.component';
+import { SelectProductSuppliesRequestComponent } from './billing-request-pharmacy/prod-supplies-request-package/select-prod-supplies-request.component';
+import { IvaBillingComponent } from './billing/prod-billing-package/iva-billing.component';
+import { IvaSuppliesComponent } from './billing/prod-supplies-package/iva-supplies.component';
+import { BillingTabComponent } from './billing-tab/billing-tab.component';
+import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-most/billing-request-pharmacy-most.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -679,12 +691,14 @@ import { FormConfirmDisabledComponent } from './users/form-confirm-disabled/form
 
     BillingComponent,
     FormBillingComponent,
+    BillingTabComponent,
     ActionsComponent,
     ProdBillingPackageComponent,
     SelectProductBillingComponent,
     AmountBillingComponent,
     AmountUnitBillingComponent,
-
+    IvaBillingComponent,
+    IvaSuppliesComponent,
     PharmacyStockComponent,
     FormPharmacyStockComponent,
 
@@ -811,6 +825,20 @@ import { FormConfirmDisabledComponent } from './users/form-confirm-disabled/form
     SelectSuppliesIncomeComponent,
     ActionsSupComponent,
     PharmacyIncomeSuppliesComponent,
+
+    FormBillingRequestPharmacyComponent,
+    AmountBillingRequestPharmacyComponent,
+    ProdBillingRequestPharmacyPackageComponent,
+    SelectProductBillingRequestPharmacyComponent,
+    AmountSuppliesRequestComponent,
+    ProdSuppliesRequestPackageComponent,
+    SelectProductSuppliesRequestComponent,
+    BillingRequestPharmacyComponent,
+
+    BillingRequestPharmacyMostComponent,
+
+
+
 
   ],
   providers: [

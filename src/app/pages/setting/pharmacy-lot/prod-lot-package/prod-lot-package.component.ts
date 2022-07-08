@@ -26,7 +26,7 @@ export class ProdLotPackageComponent implements OnInit {
   public form: FormGroup;
   public title = 'Selección de medicamentos: ';
   public subtitle = 'medicamentos a ingresar: ';
-  public headerFields: any[] = ['Medicamentos e insumos', 'Descripción generico', 'Cantidad ordenada', 'Cantidad ingresar', 'Lote', 'Fecha vencimiento'];
+  public headerFields: any[] = ['Medicamentos e insumos', 'Descripción generico', 'Cantidad ordenada', 'Iva', 'Cantidad ingresar', 'Lote', 'Fecha vencimiento'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -95,12 +95,16 @@ export class ProdLotPackageComponent implements OnInit {
           }
         },
       },
-      amount: {
+      amount_provitional: {
         title: this.headerFields[2],
         type: 'string',
       },
-      amount_total: {
+      iva: {
         title: this.headerFields[3],
+        type: 'string',
+      },
+      amount_total: {
+        title: this.headerFields[4],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -120,7 +124,7 @@ export class ProdLotPackageComponent implements OnInit {
       },
 
       lot: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -141,7 +145,7 @@ export class ProdLotPackageComponent implements OnInit {
 
 
       expiration_date: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -181,7 +185,7 @@ export class ProdLotPackageComponent implements OnInit {
     this.entity = this.parentData.entity;
     this.customData = this.parentData.customData;
 
-    await this.billingS.GetCollection().then(x => {
+    await this.billingS.GetCollection({type_billing_evidence_id: 1}).then(x => {
       this.billing_id = x;
     });
 
@@ -310,7 +314,7 @@ export class ProdLotPackageComponent implements OnInit {
 
   ChangeBilling(event) {
     if (event != "") {
-      this.entity = 'billing_stock?billing_id=' + event;
+      this.entity = `billing_stock?billing_id=${event}`;
       this.customData = 'billing_stock';
       if (!this.show) {
         this.show = true;

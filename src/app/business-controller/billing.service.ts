@@ -16,7 +16,7 @@ export class BillingService {
   GetCollection(params = {}): Promise<Billing[]> {
     let servObj = new ServiceObject(params ? 'billing?pagination=false' : 'billing');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

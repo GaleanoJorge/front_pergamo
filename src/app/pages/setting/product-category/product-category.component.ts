@@ -79,6 +79,7 @@ export class ProductCategoryComponent implements OnInit {
 
   NewProductCategory() {
     this.dialogFormService.open(FormProductCategoryComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nueva Categoria del producto',
         saved: this.RefreshData.bind(this),
@@ -88,6 +89,7 @@ export class ProductCategoryComponent implements OnInit {
 
   EditProductCategory(data) {
     this.dialogFormService.open(FormProductCategoryComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar Categoria del producto',
         data,

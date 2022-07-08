@@ -1,0 +1,15 @@
+<ngx-base-list [messageError]="messageError">
+
+
+  <div content>
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="ORDEN DE COMPRA">
+        <ngx-billing></ngx-billing>
+      </nb-tab>
+
+      <nb-tab tabTitle="SOLICITUDES A COMPRAS">
+        <ngx-billing-request-pharmacy-most></ngx-billing-request-pharmacy-most>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</ngx-base-list>

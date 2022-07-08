@@ -35,7 +35,7 @@ export class FormNomProductComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
-        product_sub_category_id: '',
+        product_subcategory_id: '',
       };
     }
 
@@ -46,7 +46,7 @@ export class FormNomProductComponent implements OnInit {
     
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
-      product_sub_category_id: [this.data.product_sub_category_id, Validators.compose([Validators.required])],
+      product_subcategory_id: [this.data.product_subcategory_id, Validators.compose([Validators.required])],
     });
 
     this.ProductCategoryS.GetCollection().then(x => {
@@ -71,7 +71,7 @@ export class FormNomProductComponent implements OnInit {
         this.NomProductS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
-          product_sub_category_id: this.form.controls.product_sub_category_id.value,
+          product_subcategory_id: this.form.controls.product_subcategory_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -85,7 +85,7 @@ export class FormNomProductComponent implements OnInit {
       } else {
         this.NomProductS.Save({
           name: this.form.controls.name.value,
-          product_sub_category_id: this.form.controls.product_sub_category_id.value,
+          product_subcategory_id: this.form.controls.product_subcategory_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

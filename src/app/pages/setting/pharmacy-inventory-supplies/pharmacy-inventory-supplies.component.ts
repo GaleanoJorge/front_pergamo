@@ -108,6 +108,7 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyInventorySuppliesComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'ENVIAR MEDICAMENTO',
         data: data,
@@ -118,6 +119,7 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
   }
   NewDev(data) {
     this.dialogFormService.open(FormPharmacyInventorySuppliesComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'MEDICAMENTOS DEVUELTOS',
         data: data,

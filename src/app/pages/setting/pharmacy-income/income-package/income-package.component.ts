@@ -24,7 +24,7 @@ export class IncomePackageComponent implements OnInit {
   public form: FormGroup;
   public title = 'MEDICAMENTOS';
   public subtitle = '';
-  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'CANTIDAD A RECIBIR', 'CANTIDAD CON DAÑOS', 'CANTIDAD ENVIADA'];
+  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'LOTE','CANTIDAD A RECIBIR', 'CANTIDAD CON DAÑOS', 'CANTIDAD ENVIADA'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -81,15 +81,23 @@ export class IncomePackageComponent implements OnInit {
           return row.pharmacy_product_request.product_generic.description;
         },
       },
+      
       amount_provition: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         type: 'string',
         // valuePrepareFunction: (value, row) => {
         //   return row.pharmacy_product_request.product_generic.description;
         // },
       },
-      amount: {
+      lot: {
         title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.pharmacy_lot_stock.lot;
+        },
+      },
+      amount: {
+        title: this.headerFields[3],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -109,7 +117,7 @@ export class IncomePackageComponent implements OnInit {
       },
 
       amount_damaged: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
