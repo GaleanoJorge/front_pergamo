@@ -25,44 +25,41 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public admissions_id;
-  public diagnosis_id: any[]; 
-  public therapeutic_diagnosis_id: any[];
-
+  public diagnosis_id;
   public diagnosis: any[];
+  public diagnosis_type: any[];
+  public diagnosis_class: any[];
 
 
   constructor(
-    private formBuilder: FormBuilder,
-    private DiagnosisS: DiagnosisService,
     private toastService: NbToastrService,
-    private chRecord: ChRecordService,
+    private formBuilder: FormBuilder,
+    private diagnosisS: DiagnosisService,
     private TlTherapyLanguageRegularS: TlTherapyLanguageRegularService,
-    private route: ActivatedRoute
-  ) {}
+  ) {
+  }
 
-  ngOnInit(): void {
-    this.record_id = this.route.snapshot.params.id;
-
-    this.chRecord.GetCollection(this.record_id).then((x) => {
-      this.admissions_id = x;
-    });
-
-    if (!this.data) {
+  async ngOnInit(): Promise<void> {
+    if (!this.data || this.data.length == 0) {
       this.data = {
+        
         diagnosis_id: '',
         status_patient: '',
       };
-    }
+    };
+
+    this.diagnosisS.GetCollection().then(x => {
+      this.diagnosis = x;
+    });
+    
 
     this.form = this.formBuilder.group({
-      diagnosis_id: [this.data.diagnosis_id],
-  
-      status_patient: [this.data.status_patient],
+      diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
+      status_patient: [this.data.status_patient, ],
     });
 
-    this.DiagnosisS.GetCollection().then((x) => {
-      this.diagnosis_id = x;
+    this.diagnosisS.GetCollection().then(x => {
+      this.diagnosis = x;
     });
     
   }
@@ -75,49 +72,38 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
 
       if (this.data.id) {
         await this.TlTherapyLanguageRegularS.Update({
+          diagnosis_id: this.diagnosis_id,
           id: this.data.id,
-          diagnosis_id: this.form.controls.diagnosis_id.value,
-         
+          ch_diagnosis_type_id: this.form.controls.ch_diagnosis_type_id.value,
           status_patient: this.form.controls.status_patient.value,
-
           type_record_id: 3,
           ch_record_id: this.record_id,
-        })
-          .then((x) => {
-            this.toastService.success('', x.message);
-            if (this.saved) {
-              this.saved();
-            }
-          })
-          .catch((x) => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
+        }).then(x => {
+          this.toastService.success('', x.message);
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
       } else {
         await this.TlTherapyLanguageRegularS.Save({
-          diagnosis_id: this.form.controls.diagnosis_id.value,
-          
+          diagnosis_id: this.diagnosis_id,
           status_patient: this.form.controls.status_patient.value,
-
           type_record_id: 3,
           ch_record_id: this.record_id,
-        })
-          .then((x) => {
-            this.toastService.success('', x.message);
-            this.messageEvent.emit(true);
-            this.form.setValue({
-              diagnosis_id: '',
-      
-              status_patient: '',
-            });
-            if (this.saved) {
-              this.saved();
-            }
-          })
-          .catch((x) => {
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.setValue({ diagnosis_id: '', status_patient: ''});
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
             this.isSubmitted = false;
             this.loading = false;
-          });
+        });
       }
     }
   }
@@ -129,10 +115,6 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
       this.diagnosis_id = localidentify.id;
     } else {
       this.diagnosis_id = null;
-      this.toastService.warning('', 'Debe seleccionar un item de la lista');
-      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
 }
-
-
