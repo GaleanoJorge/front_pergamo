@@ -79,6 +79,7 @@ export class ProductGroupComponent implements OnInit {
 
   NewProductGroup() {
     this.dialogFormService.open(FormProductGroupComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nuevo Grupo del producto',
         saved: this.RefreshData.bind(this),
@@ -88,6 +89,7 @@ export class ProductGroupComponent implements OnInit {
 
   EditProductGroup(data) {
     this.dialogFormService.open(FormProductGroupComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar Grupo del producto',
         data,

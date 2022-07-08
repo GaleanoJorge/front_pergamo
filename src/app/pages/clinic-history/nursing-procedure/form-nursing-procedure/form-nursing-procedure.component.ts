@@ -17,6 +17,7 @@ export class FormNursingProcedureComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -132,8 +133,8 @@ export class FormNursingProcedureComponent implements OnInit {
   async save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-      this.loading = true;
-      this.showTable = false;
+      // this.loading = true;
+      // this.showTable = false;
 
       if (this.data.id) {
         await this.chNursingProcedureS.Update({
@@ -141,7 +142,7 @@ export class FormNursingProcedureComponent implements OnInit {
           // diagnosis_id: this.diagnosis_id,
           nursing_procedure_id: this.procedure_id,
           observation: this.form.controls.description.value,
-          type_record_id: 7,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then((x) => {
           this.toastService.success('', x.message);
@@ -158,13 +159,12 @@ export class FormNursingProcedureComponent implements OnInit {
           // diagnosis_id: this.diagnosis_id,
           nursing_procedure_id: this.procedure_id,
           observation: this.form.controls.description.value,
-          type_record_id: 7,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         })
           .then((x) => {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
-            this.loading = false;
             this.form.setValue({
               check1: false,
               check2: false,

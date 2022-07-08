@@ -1,0 +1,107 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <fieldset class="field_set">
+      <legend class="prue1 center">INCAPACIDAD MEDICA</legend>
+      <div class="row justify-content-md-center">
+        <label for=" ch_contingency_code_id" class="form-text text-muted font-weight-bold" >¿Prorroga?</label>
+
+        <input type="checkbox" id="extension" formControlName="extension">
+      
+
+        <div class="col-md-3 center">
+          <label for=" ch_contingency_code_id" class="form-text text-muted font-weight-bold">Codigo Contigencia</label>
+          <nb-select [selected]="this.data.ch_contingency_code_id" formControlName="ch_contingency_code_id"
+            id="ch_contingency_code_id"
+            status="{{ isSubmitted && form.controls.ch_contingency_code_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option selected="{{ item.id == this.data.ch_contingency_code_id }}"
+              *ngFor="let item of ch_contingency_code_id" [value]="item.name">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col col-lg-3 center">
+          <label class="form-text text-muted font-weight-bold">Fecha Inicial de la Incapacidad</label>
+          <input type="date" id="initial_date" formControlName="initial_date">
+
+        </div>
+
+        <div class="col col-lg-3 center">
+          <label class="form-text text-muted font-weight-bold">Fecha Final de la Incapacidad</label>
+          <input type="date" id="final_date" formControlName="final_date">
+
+        </div>
+      </div>
+      <div class="row justify-content-md-center">
+
+
+        <div class="col-md-3 center">
+          
+          <label  for="diagnosis_id" class="form-text text-muted font-weight-bold ">Diagnóstico Médico</label>
+          <nb-select [selected]="this.data.diagnosis_id" formControlName="diagnosis_id" id="diagnosis_id" fullWidth
+            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option selected="{{ item.id == this.data.diagnosis_id }}" *ngFor="let item of diagnosis_id"
+              [value]="item.id">
+              {{ item.code }} - {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      
+
+        <div class="col-md-3 center">
+
+          <label for=" ch_type_inability_id" class="form-text text-muted font-weight-bold ">Tipo de Incapacidad:</label>
+
+          <nb-select [selected]="this.data.ch_type_inability_id" formControlName="ch_type_inability_id"
+            id="ch_type_inability_id" fullWidth
+            status="{{ isSubmitted && form.controls.ch_type_inability_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option selected="{{ item.id == data.ch_type_inability_id }}" *ngFor="let item of ch_type_inability_id"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div class="col-md-3 center">
+          <label for=" ch_type_inability_id" class="form-text text-muted font-weight-bold ">Tipo de
+            Procedimiento</label>
+          <nb-select [selected]="this.data.ch_type_procedure_id" formControlName="ch_type_procedure_id"
+            id="ch_type_procedure_id" fullWidth
+            status="{{ isSubmitted && form.controls.ch_type_procedure_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option selected="{{ item.id == data.ch_type_procedure_id }}" *ngFor="let item of ch_type_procedure_id"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+      </div>
+
+      <div class="row justify-content-md-center" style="align-items: center;">
+    
+        <div class="col-md-8">
+          <label for="observation" class="form-text text-muted font-weight-bold ">Observación del Profesional</label>
+          <textarea id="observation" nbInput fullWidth formControlName="observation" observation onpaste="return false" rows="4"
+            cols="50"
+            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+    
+        <div class="col-md-1">
+          <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()" >
+            <nb-icon icon="mic-outline"></nb-icon>
+          </button>
+          <ngx-web-speach *ngIf="changes1" id="observation" name="observation"  (messageEvent)="receiveMessage($event)" entity="observation" isactive="true"></ngx-web-speach>
+        </div>
+      </div>
+    </fieldset>
+
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -5,7 +5,7 @@
         <nb-stepper #stepper [linear]="linearMode">
           <nb-step [stepControl]="nameForm" label="Aplicación de medicamentos">
 
-            <ngx-drug-application [record_id]="record_id"></ngx-drug-application>
+            <!-- <ngx-drug-application [record_id]="record_id" [type_record_id]="type_record_id"></ngx-drug-application> -->
 
           </nb-step>
 
@@ -13,7 +13,7 @@
 
             <div class="row">
               <div class="col-md-12">
-                <ngx-drug-application [record_id]="record_id"></ngx-drug-application>
+                <ngx-insume-request [record_id]="record_id" [type_record_id]="type_record_id"></ngx-insume-request>
               </div>
             </div>
 

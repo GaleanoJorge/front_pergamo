@@ -19,7 +19,7 @@ export class PharmacyIncomeComponent implements OnInit {
 
   public title: string = 'ACEPTAR O DEVOLVER MEDICAMENTOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
+  public headerFields: any[] = ['IDENTIFICADOR', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public validator ;
@@ -94,6 +94,7 @@ export class PharmacyIncomeComponent implements OnInit {
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyIncomeComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Aceptar Medicamento',
         data,
@@ -104,6 +105,7 @@ export class PharmacyIncomeComponent implements OnInit {
 
   DeletePharInventary(data) {
     this.dialogFormService.open(ConfirmDialogComponent, {
+      closeOnBackdropClick: false,
       context: {
         name: data.firstname,
         data: data,

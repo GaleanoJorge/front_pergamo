@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ChRtInspectionService } from '../../../business-controller/ch_rt_inspection.service';
+import { ChSuppliesTherapyService } from '../../../business-controller/ch_supplies_therapy.Service';
+import { ProductSuppliesService } from '../../../business-controller/product-supplies.service';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class FormSuppliesTherapyComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -22,13 +24,16 @@ export class FormSuppliesTherapyComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public checked: boolean;
+  public suppliesP: any[] = [];
+  public product;
  
 
 
   constructor(
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
-    private IspectionS: ChRtInspectionService,
+    private SuppliesS: ChSuppliesTherapyService,
+    private productS : ProductSuppliesService,
 
   ) {
   }
@@ -36,20 +41,23 @@ export class FormSuppliesTherapyComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        expansion: '',
-        masses: '',
-        crepitations: '',
-        fracturues: '',
-        airway: '',
+        product_id: '',
+        amount: '',
+        justification: '',
 
       };
     }
+
+   this.productS.GetCollection().then(x => {
+      this.suppliesP = x;
+    });
+  
+
     this.form = this.formBuilder.group({
-      expansion: [this.data[0] ? this.data[0].expansion : this.data.expansion,],
-      masses: [this.data[0] ? this.data[0].masses : this.data.masses,],
-      crepitations: [this.data[0] ? this.data[0].crepitations : this.data.crepitations,],
-      fracturues: [this.data[0] ? this.data[0].fracturues : this.data.fracturues,],
-      airway: [this.data[0] ? this.data[0].airway : this.data.airway,],
+      product_id: [this.data[0] ? this.data[0].product_id : this.data.product_id,],
+      amount: [this.data[0] ? this.data[0].amount : this.data.amount,],
+      justification: [this.data[0] ? this.data[0].justification : this.data.justification,],
+    
            
     });    
 
@@ -59,6 +67,18 @@ export class FormSuppliesTherapyComponent implements OnInit {
       this.checked = checked;
     }
 
+    saveCode(e): void {
+      var localidentify = this.suppliesP.find(item => item.size == e);
+  
+      if (localidentify) {
+        this.product = localidentify.id;
+      } else {
+        this.product = null;
+        this.form.controls.product.setErrors({ 'incorrect': true });
+        this.toastService.warning('', 'Debe seleccionar un item de la lista');
+      }
+    }
+    
 
   async save() {
     this.isSubmitted = true;
@@ -67,13 +87,11 @@ export class FormSuppliesTherapyComponent implements OnInit {
       this.showTable = false;
 
       if (this.data.id) {
-        await this.IspectionS.Update({
+        await this.SuppliesS.Update({
           id: this.data.id,
-          expansion: this.form.controls.expansion.value,
-          masses: this.form.controls.masses.value,
-          crepitations: this.form.controls.crepitations.value,
-          fracturues: this.form.controls.fracturues.value,
-          airway: this.form.controls.airway.value,
+          product_id: this.product,
+          amount: this.form.controls.amount.value,
+          justification: this.form.controls.justification.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
 
@@ -87,16 +105,16 @@ export class FormSuppliesTherapyComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.IspectionS.Save({
-          expansion: this.form.controls.expansion.value,
-          masses: this.form.controls.masses.value,
-          crepitations: this.form.controls.crepitations.value,
-          fracturues: this.form.controls.fracturues.value,
-          airway: this.form.controls.airway.value,
+        await this.SuppliesS.Save({
+          product_id: this.product,
+          amount: this.form.controls.amount.value,
+          justification: this.form.controls.justification.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.setValue({  product_id: '', amount: '',  justification:''});
           if (this.saved) {
             this.saved();
           }

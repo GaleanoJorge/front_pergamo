@@ -1,13 +1,13 @@
 <nb-tabset class="tabset">
   <nb-tab tabTitle="Administrados">
     <div>
-      <ngx-form-liquid-control (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id">
+      <ngx-form-liquid-control (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id" [type_record_id]="this.type_record_id">
       </ngx-form-liquid-control>
     </div>
   </nb-tab>
   <nb-tab tabTitle="Eliminados">
     <div>
-      <ngx-form-liquid-elimination (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id">
+      <ngx-form-liquid-elimination (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id" [type_record_id]="this.type_record_id">
       </ngx-form-liquid-elimination>
     </div>
   </nb-tab>
@@ -52,7 +52,7 @@
                         <label for="urine_waste" disabled class="form-text text-muted font-weight-bold align">GASTO
                           URINARIO</label>
 
-                        <input type="text" disabled id="urine_waste" formControlName="urine_waste" id="urine_waste"
+                        <input type="text" disabled id="urine_waste" disabled formControlName="urine_waste" id="urine_waste"
                           urine_waste nbInput fullWidth
                           status="{{ isSubmitted && form.controls.urine_waste.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                       </div>

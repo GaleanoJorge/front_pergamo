@@ -4,7 +4,7 @@ export class ChInterconsultation extends MainClass{
     id: number;
     special_field_id: number;
     amount: number;
-    hourly_frequency_id: number;
+    frequency_id: number;
     observations: string;
     type_record_id: number;
     ch_record_id: number;

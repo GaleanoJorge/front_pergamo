@@ -8,6 +8,7 @@ import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.se
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { CifDiagnosisTlService } from '../../../business-controller/cif-diagnosis-tl.service';
 
 @Component({
   selector: 'ngx-language-list',
@@ -18,6 +19,7 @@ export class LanguageListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() record_id;
   @Output() messageEvent = new EventEmitter<any>();
 
   //@Input() vital: any;
@@ -26,7 +28,7 @@ export class LanguageListComponent implements OnInit {
   public title;
   public routes = [];
   public user_id;
-  public chreasonconsultation: any[];
+  public cifdiagnosistl: any[];
   public physical: any[];
   public chvitsigns: any[];
   public chdiagnosis: any[];
@@ -36,7 +38,7 @@ export class LanguageListComponent implements OnInit {
   
 
 
-  public record_id;
+ 
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
@@ -47,7 +49,7 @@ export class LanguageListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private chreasonconsultS: ChReasonConsultationService,
+    private CifDiagnosisTlS: CifDiagnosisTlService,
     private chphysicalS: ChPhysicalExamService,
     private chvitalSignsS: ChVitalSignsService,
     private chdiagnosisS: ChDiagnosisService,
@@ -73,8 +75,8 @@ export class LanguageListComponent implements OnInit {
       };
     }
 
-    await this.chreasonconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chreasonconsultation = x;
+    await this.CifDiagnosisTlS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.cifdiagnosistl = x;
     });
     await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chvitsigns = x;
@@ -106,7 +108,7 @@ export class LanguageListComponent implements OnInit {
     if (!this.form.invalid && this.saveEntry) {
       this.loading = true;
       if (this.data.id) { }
-      await this.chreasonconsultS.Update({});
+      await this.CifDiagnosisTlS.Update({});
       await this.chvitalSignsS.Update({});
     }
   }

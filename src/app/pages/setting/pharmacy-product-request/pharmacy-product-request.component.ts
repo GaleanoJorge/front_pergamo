@@ -21,7 +21,7 @@ export class PharmacyProductRequestComponent implements OnInit {
 
   public title: string = 'LISTA DE MEDICAMENTOS O INSUMOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'PRODUCTO', 'CANTIDAD', 'SOLICITADO A'];
+  public headerFields: any[] = ['IDENTIFICADOR', 'PRODUCTO', 'CANTIDAD', 'SOLICITADO A'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -79,6 +79,7 @@ export class PharmacyProductRequestComponent implements OnInit {
 
   NewPharmacy() {
     this.dialogFormService.open(FormPharmacyProductRequestComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nueva factura',
         saved: this.RefreshData.bind(this),
@@ -94,6 +95,7 @@ export class PharmacyProductRequestComponent implements OnInit {
 
   EditPharmacy(data) {
     this.dialogFormService.open(FormPharmacyProductRequestComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar factura',
         data,

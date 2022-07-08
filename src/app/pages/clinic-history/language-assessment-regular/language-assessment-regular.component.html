@@ -1,0 +1,21 @@
+<ngx-form-language-assessment-regular (messageEvent)="receiveMessage($event)">
+</ngx-form-language-assessment-regular>
+<div class="row">
+  <div class="col-md-12">
+    <label class="font-weight-bold ImpPeq center">DIAGNOSTICOS DE INGRESO
+    </label>
+  </div>
+</div>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table pager="false" [title]="title" customData="tl_therapy_language_regular" [settings]="settings"
+      entity="tl_therapy_language_regular/by_record/{{record_id}}/3">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

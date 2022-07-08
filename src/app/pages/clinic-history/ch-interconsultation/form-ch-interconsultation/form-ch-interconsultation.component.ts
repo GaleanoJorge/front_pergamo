@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChEvoSoapService } from '../../../../business-controller/ch-evo-soap.service';
 import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { ActivatedRoute } from '@angular/router';
-import { HourlyFrequencyService } from '../../../../business-controller/hourly-frequency.service';
 import { SpecialFieldService } from '../../../../business-controller/special-field.service';
 import { ChInterconsultationService } from '../../../../business-controller/ch-interconsultation.service';
 import { SpecialtyService } from '../../../../business-controller/specialty.service';
+import { FrequencyService } from '../../../../business-controller/frequency.service';
 
 @Component({
   selector: 'ngx-form-ch-interconsultation',
@@ -19,6 +19,8 @@ export class FormChInterconsultationComponent implements OnInit {
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
+
+  
   public form: FormGroup;
   public isSubmitted: boolean = false;
   public saved: any = null;
@@ -28,14 +30,14 @@ export class FormChInterconsultationComponent implements OnInit {
   public record_id;
   public admissions_id;
   public specialty_id: any[];
-  public hourly_frequency_id: any[];
+  public frequency_id: any[];
 
   constructor(
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private chRecord: ChRecordService,
     private route: ActivatedRoute,
-    private HourlyFrequencyS: HourlyFrequencyService,
+    private FrequencyS: FrequencyService,
     private SpecialtyS: SpecialtyService,
     private ChInterconsultationS: ChInterconsultationService
   ) {}
@@ -51,7 +53,7 @@ export class FormChInterconsultationComponent implements OnInit {
       this.data = {
         specialty_id: '',
         amount: '',
-        hourly_frequency_id: '',
+        frequency_id: '',
         observations: '',
       };
     };
@@ -59,14 +61,14 @@ export class FormChInterconsultationComponent implements OnInit {
     this.SpecialtyS.GetCollection().then(x => {
       this.specialty_id = x;
     });
-    this.HourlyFrequencyS.GetCollection().then(x => {
-      this.hourly_frequency_id = x;
+    this.FrequencyS.GetCollection().then(x => {
+      this.frequency_id = x;
     });
 
     this.form = this.formBuilder.group({
       specialty_id: [this.data.specialty_id],
       amount: [this.data.amount],
-      hourly_frequency_id: [this.data.hourly_frequency_id],
+      frequency_id: [this.data.frequency_id],
       observations: [this.data.observations],
 
     });
@@ -85,7 +87,7 @@ export class FormChInterconsultationComponent implements OnInit {
             id: this.data.id,
             specialty_id: this.form.controls.specialty_id.value,
             amount: this.form.controls.amount.value,
-            hourly_frequency_id: this.form.controls.hourly_frequency_id.value,
+            frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
             type_record_id: 6,
             ch_record_id: this.record_id,
@@ -105,7 +107,7 @@ export class FormChInterconsultationComponent implements OnInit {
           .Save({
             specialty_id: this.form.controls.specialty_id.value,
             amount: this.form.controls.amount.value,
-            hourly_frequency_id: this.form.controls.hourly_frequency_id.value,
+            frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
             type_record_id: 6,
             ch_record_id: this.record_id,
@@ -114,7 +116,7 @@ export class FormChInterconsultationComponent implements OnInit {
           .then((x) => {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
-            this.form.setValue({ specialty_id: '', amount: '', hourly_frequency_id: '', observations:'' });
+            this.form.setValue({ specialty_id: '', amount: '', frequency_id: '', observations:'' });
             if (this.saved) {
               this.saved();
             }

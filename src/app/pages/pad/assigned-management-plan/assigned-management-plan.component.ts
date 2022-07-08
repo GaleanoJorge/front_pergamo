@@ -213,7 +213,9 @@ export class AssignedManagementPlanComponent implements OnInit {
     }
     this.user = this.authService.GetUser();
     if(this.user.roles[0].role_type_id==2){
-      this.user_logged= this.authService.GetUser().id;
+      // this.user_logged= this.authService.GetUser().id;
+      this.user_logged=0;
+
     }else{
       this.user_logged=0;
     }

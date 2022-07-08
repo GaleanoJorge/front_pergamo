@@ -26,11 +26,9 @@ export class FormLanguageMaterialusedComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public admissions_id;
-  public medical_diagnostic_id: any[]; 
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
-  public materialused;
+
+  
+ 
 
 
   constructor(
@@ -46,14 +44,14 @@ export class FormLanguageMaterialusedComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.record_id = this.route.snapshot.params.id;
+    this.record_id = this.route.snapshot.params.id;
 
-    // this.chRecord.GetCollection(this.record_id).then((x) => {
-    //   this.admissions_id = x;
-    // });
+    this.chRecord.GetCollection(this.record_id).then((x) => {
+      this.admissions_id = x;
+    });
     if (!this.data || this.data.length == 0) {
       this.data = {
-        materialused: [], 
+        materialused: [],
 
       };
     }
@@ -70,6 +68,7 @@ export class FormLanguageMaterialusedComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
+      
       if (this.data.id) {
         await this.InputMaterialsUsedTlS.Update({
           id: this.data.id,

@@ -23,6 +23,8 @@ export class FormEvoSoapComponent implements OnInit {
   public showTable;
   public record_id;
   public admissions_id;
+  public changes=false;
+  public changes1=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -72,7 +74,7 @@ export class FormEvoSoapComponent implements OnInit {
           })
           .then((x) => {
             this.toastService.success('', x.message);
-            this.form.setValue({ subjective: '', objective: '', analisys:'', plan:''});
+            this.form.setValue({ subjective: '', objective: ''});
             if (this.saved) {
               this.saved();
             }
@@ -86,14 +88,13 @@ export class FormEvoSoapComponent implements OnInit {
           .Save({
             subjective: this.form.controls.subjective.value,
             objective: this.form.controls.objective.value,
-            
             type_record_id: 3,
             ch_record_id: this.record_id,
           })
           .then((x) => {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
-            this.form.setValue({ subjective: '', objective: '', analisys: '', plan:'' });
+            this.form.setValue({ subjective: '', objective: '' });
             if (this.saved) {
               this.saved();
             }
@@ -105,4 +106,23 @@ export class FormEvoSoapComponent implements OnInit {
       }
     }
   }
+  receiveMessage($event) {   
+    
+    if($event.isactive==false){
+      this.changes=false;
+      this.changes1=false;
+    }
+    if($event.entity){
+    this.form.get($event.entity).setValue(this.form.get($event.entity).value+' '+$event.text);
+    }
+  }
+
+  changebuttom() {
+    this.changes=true;
+  }
+
+  changebuttom1() {
+    this.changes1=true;
+  }
+
 }

@@ -19,7 +19,7 @@ export class FixedRequestComponent implements OnInit {
 
   public title: string = 'LISTA DE MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'ELEMENTO', 'CANTIDAD', 'SOLICITADO A'];
+  public headerFields: any[] = ['IDENTIFICADOR', 'ELEMENTO', 'CANTIDAD', 'SOLICITADO A'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];

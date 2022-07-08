@@ -42,12 +42,20 @@ export class FormChOxygenTherapyComponent implements OnInit {
       };
     }
 
-
-
     this.form = this.formBuilder.group({
       revision: [this.data[0] ? this.data[0].revision : this.data.revision,],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
     });
+
+    if (this.data.revision != '') {
+      this.form.controls.revision.disable();
+      this.form.controls.observation.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.revision.enable();
+      this.form.controls.observation.enable();
+      this.disabled = false;
+    }
 
   }
 
@@ -83,7 +91,7 @@ export class FormChOxygenTherapyComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ revision: '', observation: '',});
+          this.form.setValue({ revision: '', observation: ''});
           if (this.saved) {
             this.saved();
           }

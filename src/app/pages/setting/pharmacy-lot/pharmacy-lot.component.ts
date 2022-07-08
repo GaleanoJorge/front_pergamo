@@ -80,6 +80,7 @@ export class PharmacyLotComponent implements OnInit {
 
   NewPharmacy() {
     this.dialogFormService.open(FormPharmacyLotComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nuevo lote',
         saved: this.RefreshData.bind(this),
@@ -95,6 +96,7 @@ export class PharmacyLotComponent implements OnInit {
 
   EditPharmacy(data) {
     this.dialogFormService.open(FormPharmacyLotComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar factura',
         data,

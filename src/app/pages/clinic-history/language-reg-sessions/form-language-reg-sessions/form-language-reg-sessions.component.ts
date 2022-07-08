@@ -14,6 +14,8 @@ export class FormLanguageRegSessionsComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() record_id: any = null;
+  @Input() type_record: any;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -21,7 +23,7 @@ export class FormLanguageRegSessionsComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public record_id;
+ 
   public admissions_id;
 
 
@@ -51,9 +53,10 @@ export class FormLanguageRegSessionsComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      monthly_sessions: [this.data.monthly_sessions],
-      weekly_intensity: [this.data.weekly_intensity],
-      recomendations:[this.data.recomendations],
+      monthly_sessions: [this.data[0] ? this.data[0].monthly_sessions : this.data.monthly_sessions,],
+      weekly_intensity: [this.data[0] ? this.data[0].weekly_intensity : this.data.weekly_intensity,],
+      recomendations: [this.data[0] ? this.data[0].recomendations : this.data.recomendations,],
+     
      
     });
   }
@@ -71,7 +74,7 @@ export class FormLanguageRegSessionsComponent implements OnInit {
             monthly_sessions: this.form.controls.monthly_sessions.value,
             weekly_intensity: this.form.controls.weekly_intensity.value,
             recomendations: this.form.controls.recomendations.value,
-            type_record_id: 1,
+            type_record_id: this.type_record,
             ch_record_id: this.record_id,
           })
           .then((x) => {
@@ -91,7 +94,7 @@ export class FormLanguageRegSessionsComponent implements OnInit {
             monthly_sessions: this.form.controls.monthly_sessions.value,
             weekly_intensity: this.form.controls.weekly_intensity.value,
             recomendations: this.form.controls.recomendations.value,
-            type_record_id: 3,
+            type_record_id: this.type_record,
             ch_record_id: this.record_id,
           })
           .then((x) => {

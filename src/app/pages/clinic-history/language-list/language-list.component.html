@@ -20,7 +20,7 @@
           </nb-step>
 
 
-          <nb-step  [stepControl]="nameForm"  *ngIf= "this.data.gender_id==1" label="Ginecoobstreticos">
+          <nb-step *ngIf= "this.data.gender_id==1" [stepControl]="nameForm"   label="Ginecoobstreticos">
             <div class="row">
               <div class="col-md-12">
                 <ngx-back-gyneco [record_id]="record_id"></ngx-back-gyneco>
@@ -42,8 +42,8 @@
           <nb-step [stepControl]="nameForm" label="Evolución">
             <div class="row">
               <div class="col-md-12">
-                <ngx-form-language-evolution ></ngx-form-language-evolution> 
-                <!-- [record_id]="record_id" -->
+                <ngx-form-language-evolution [record_id]="record_id"></ngx-form-language-evolution> 
+                
               </div>
             </div>
           </nb-step>

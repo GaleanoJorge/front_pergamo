@@ -1,0 +1,18 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card>
+    <nb-card-body>
+      <fieldset class="field_set">
+        <legend class="prue1 center">Antecedentes</legend>
+        <div class="row">
+
+          <div class="col-12 col-sm-12 col-md-12">
+            <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+              entity="ch_background/getByPatient/{{this.data.id}}?pagination=true" customData='ch_background' [messageToltip]="messageToltip">
+            </ngx-base-table>
+          </div>
+
+        </div>
+      </fieldset>
+    </nb-card-body>
+  </nb-card>
+</form>

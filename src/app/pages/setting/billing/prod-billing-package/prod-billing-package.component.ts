@@ -7,6 +7,7 @@ import { SelectProductBillingComponent } from './select-prod-billing.component';
 import { AmountBillingComponent } from './amount-billing.component';
 import { AmountUnitBillingComponent } from './amount-unit-billing.component';
 import { BillingStockService } from '../../../../business-controller/billing-stock.service';
+import { IvaBillingComponent } from './iva-billing.component';
 
 @Component({
   selector: 'ngx-prod-billing-package',
@@ -24,7 +25,7 @@ export class ProdBillingPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Selección de medicamentos: ';
   public subtitle = 'medicamentos a comprar: ';
-  public headerFields: any[] = ['Medicamento', 'Descripción generico', 'Cantidad ordenada', 'Valor por unidad'];
+  public headerFields: any[] = ['Medicamento', 'Descripción generico', 'Cantidad ordenada', 'Valor por unidad', 'Iva'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -124,6 +125,27 @@ export class ProdBillingPackageComponent implements OnInit {
         },
         renderComponent: AmountUnitBillingComponent,
       },
+
+
+      iva: {
+        title: this.headerFields[4],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          var amo;
+          this.parentData.selectedOptions.forEach(x => {
+            if (x.product_id == row.id) {
+              amo = x.iva;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': !this.selectedOptions2.includes(row.id),
+            'iva': amo ? amo : '',
+            'onchange': (input, row: any) => this.onIvaChange(input, row),
+          };
+        },
+        renderComponent: IvaBillingComponent,
+      },
     },
   };
 
@@ -163,6 +185,7 @@ export class ProdBillingPackageComponent implements OnInit {
         product_id: row.id,
         amount: 0,
         amount_unit: 0,
+        iva: 0,
       };
       this.emit.push(diet);
     } else {
@@ -208,6 +231,21 @@ export class ProdBillingPackageComponent implements OnInit {
     this.selectedOptions = mientras;
     this.messageEvent.emit(this.selectedOptions);
   }
+
+
+  onIvaChange(input, row) {
+    var i = 0;
+    var mientras = this.selectedOptions;
+    this.selectedOptions.forEach(element => {
+      if (element.product_id == row.id) {
+        mientras[i].iva = input.target.value;
+      }
+      i++
+    });
+    this.selectedOptions = mientras;
+    this.messageEvent.emit(this.selectedOptions);
+  }
+
 
   ChangeManual(inscriptionstatus) {
     this.inscriptionstatus = inscriptionstatus;

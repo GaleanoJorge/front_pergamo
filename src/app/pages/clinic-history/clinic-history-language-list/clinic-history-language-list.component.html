@@ -10,7 +10,7 @@
 
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show == 1">
-          <ngx-language-list [data]="null">
+          <ngx-language-list [record_id]="this.record_id">
           </ngx-language-list>
         </div>
       </nb-tab>
@@ -23,7 +23,7 @@
 
     </nb-tabset>
     <div style="text-align: center;">
-      <a (click)="finish()" nbButton>Finalizar registro</a>
+      <a (click)="close()" nbButton>Finalizar registro</a>
     </div>
   </div>
 

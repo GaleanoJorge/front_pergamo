@@ -11,6 +11,7 @@ import { RoleAttentionService } from '../../../../business-controller/role-atten
 import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
 import { ProductGenericService } from '../../../../business-controller/product-generic.service';
 import { AdministrationRouteService } from '../../../../business-controller/administration-route.service';
+import { AdmissionsService } from '../../../../business-controller/admissions.service';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class FormManagementPlanComponent implements OnInit {
   public route_of_administration;
   public localidentify;
   public showUser=true;
+  public admissions;
   
   //   this.status = x;
 
@@ -64,12 +66,13 @@ export class FormManagementPlanComponent implements OnInit {
     private roleAttentionS: RoleAttentionService,
     private ProductGenS: ProductGenericService,
     private AdministrationRouteS: AdministrationRouteService,
-    private serviceBriefcaseS: ServicesBriefcaseService
+    private serviceBriefcaseS: ServicesBriefcaseService,
+    private admissionsS: AdmissionsService,
   ) {
   }
 
   ngOnInit(): void {
-    console.log(this.user);
+    // console.log(this.user);
     if (!this.data) {
       this.data = {
         id: '',
@@ -84,6 +87,7 @@ export class FormManagementPlanComponent implements OnInit {
         blend: '',
         administration_time: '',
         start_hours: '',
+        admissions_id: '',
       };
     } else {
       this.getRoleByAttention(this.data.type_of_attention_id).then(x => {
@@ -111,6 +115,9 @@ export class FormManagementPlanComponent implements OnInit {
     });
     this.typeOfAttentionS.GetCollection().then(x => {
       this.type_of_attention = x;
+    });
+    this.admissionsS.GetByPacient(this.user.id,1).then(x => {
+      this.admissions = x;
     });
     this.frequencyS.GetCollection().then(x => {
       this.frequency = x;
@@ -143,6 +150,7 @@ export class FormManagementPlanComponent implements OnInit {
         number_doses: [this.data.number_doses],
         dosage_administer: [this.data.dosage_administer],
         product_gen: [this.data.product_gen],
+        admissions_id: [this.data.admissions_id],
         }
         this.form = this.formBuilder.group(this.configForm);
       this.onChanges();
@@ -420,7 +428,7 @@ export class FormManagementPlanComponent implements OnInit {
           quantity: this.form.controls.quantity.value,
           specialty_id: this.form.controls.specialty_id.value,
           assigned_user_id: this.form.controls.assigned_user_id.value,
-          admissions_id: this.admissions_id,
+          admissions_id: this.form.controls.admissions_id.value,
           procedure_id: this.procedure_id,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,
@@ -458,7 +466,7 @@ export class FormManagementPlanComponent implements OnInit {
           quantity: this.form.controls.quantity.value,
           specialty_id: this.form.controls.specialty_id.value,
           assigned_user_id: this.form.controls.assigned_user_id.value,
-          admissions_id: this.admissions_id,
+          admissions_id: this.form.controls.admissions_id.value,
           procedure_id: this.procedure_id,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,

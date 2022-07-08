@@ -79,6 +79,7 @@ export class ProductGenericComponent implements OnInit {
 
   NewProductGeneric() {
     this.dialogFormService.open(FormProductGenericComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear producto generico',
         saved: this.RefreshData.bind(this),
@@ -88,6 +89,7 @@ export class ProductGenericComponent implements OnInit {
 
   EditProductGeneric(data) {
     this.dialogFormService.open(FormProductGenericComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar producto generico',
         data,

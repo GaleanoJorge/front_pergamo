@@ -24,6 +24,9 @@ export class FormCarePlanComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user: any = null;
+  @Input() record_id;
+  @Input() type_record_id: any = null;
+
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -32,7 +35,6 @@ export class FormCarePlanComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public record_id;
   public admissions_id;
   public management_plan_id: any[];
   public administration_route_id: any[];
@@ -204,7 +206,6 @@ export class FormCarePlanComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.record_id = this.route.snapshot.params.id;
     if (!this.data) {
       this.data = {
         check1: '',
@@ -375,7 +376,7 @@ export class FormCarePlanComponent implements OnInit {
         await this.carePlanS.Update({
           id: this.data.id,
           care_plans: JSON.stringify(this.care_plans_ids),
-          type_record_id: 5,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         })
           .then((x) => {
@@ -392,7 +393,7 @@ export class FormCarePlanComponent implements OnInit {
       } else {
         await this.carePlanS.Save({
           care_plans: JSON.stringify(this.care_plans_ids),
-          type_record_id: 5,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then((x) => {
           this.toastService.success('', x.message);

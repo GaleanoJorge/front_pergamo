@@ -1,7 +1,7 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="management_plan_by_admissions/{{admissions_id}}"
+    <ngx-base-table *ngIf="roles" [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
       customData="management_plan" [messageToltip]="messageToltip">
       <div title *ngIf="user && medical==false">
         <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}}</p>

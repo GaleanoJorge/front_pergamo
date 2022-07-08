@@ -17,6 +17,7 @@ export class FormLanguageConceptComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() record_id: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -24,7 +25,7 @@ export class FormLanguageConceptComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public record_id;
+
   public admissions_id;
   public text: any[]; 
   public therapeutic_diagnosis_id: any[];
@@ -57,7 +58,7 @@ export class FormLanguageConceptComponent implements OnInit {
 
 
     this.form = this.formBuilder.group({
-      text: [this.data.text],
+      text: [this.data.text, Validators.compose([Validators.required]),],
       
      
     });
@@ -105,6 +106,7 @@ export class FormLanguageConceptComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
+          this.messageEvent.emit(true);
       }
     }
   }

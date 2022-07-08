@@ -1,12 +1,13 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { BillingStockService } from '../../../../business-controller/billing-stock.service';
 import { AmountSuppliesComponent } from './amount-supplies.component';
 import { AmountUnitSuppliesComponent } from './amount-unit-supplies.component';
 import { SelectProductSuppliesComponent } from './select-prod-supplies.component';
+import { IvaSuppliesComponent } from './iva-supplies.component';
 
 @Component({
   selector: 'ngx-prod-supplies-package',
@@ -24,31 +25,19 @@ export class ProdSuppliesPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Selección de insumos: ';
   public subtitle = 'Insumos a comprar: ';
-  public headerFields: any[] = ['Insumo comercial', 'Descripción generico', 'Cantidad ordenada', 'Valor por unidad'];
+  public headerFields: any[] = ['Insumo comercial', 'Descripción generico', 'Cantidad ordenada', 'Valor por unidad', 'Iva'];
   public routes = [];
-  public row;
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
   public emit: any[] = [];
-  public data = [];
   public dialog;
   public inscriptionstatus = 0;
-  public selectedRows: any;
-  public inscriptionId;
-  public campus;
   public entity;
   public customData;
 
-  public manual_price: any[] = [];
-  public package: any[] = [];
-  public type_briefcase: any[] = [];
   public component_package_id: number;
-  public filter: any[] = [];
-  public units: any[] = [];
-  public filter2;
   public done = false;
   public settings;
-
 
   public settings_supplies = {
     columns: {
@@ -124,6 +113,26 @@ export class ProdSuppliesPackageComponent implements OnInit {
         },
         renderComponent: AmountUnitSuppliesComponent,
       },
+
+      iva: {
+        title: this.headerFields[4],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          var amo;
+          this.parentData.selectedOptions1.forEach(x => {
+            if (x.product_supplies_com_id == row.id) {
+              amo = x.iva;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': !this.selectedOptions2.includes(row.id),
+            'iva': amo ? amo : '',
+            'onchange': (input, row: any) => this.onIvaChange(input, row),
+          };
+        },
+        renderComponent: IvaSuppliesComponent,
+      },
     },
   };
 
@@ -136,24 +145,12 @@ export class ProdSuppliesPackageComponent implements OnInit {
   ) {
   }
 
-
   ngOnInit(): void {
     this.component_package_id = this.route.snapshot.params.id;
     this.selectedOptions = this.parentData.parentData;
     this.settings = this.settings_supplies;
     this.entity = this.parentData.entity;
     this.customData = this.parentData.customData;
-
-    this.routes = [
-      {
-        name: 'Insumos',
-        route: '../../component',
-      },
-      {
-        name: 'Paquete de Insumos',
-        route: '../../contract/briefcase',
-      },
-    ];
   }
 
   eventSelections(event, row) {
@@ -163,6 +160,7 @@ export class ProdSuppliesPackageComponent implements OnInit {
         product_supplies_com_id: row.id,
         amount: 0,
         amount_unit: 0,
+        iva: 0,
       };
       this.emit.push(diet);
     } else {
@@ -202,6 +200,19 @@ export class ProdSuppliesPackageComponent implements OnInit {
     this.selectedOptions.forEach(element => {
       if (element.product_supplies_com_id == row.id) {
         mientras[i].amount_unit = input.target.valueAsNumber;
+      }
+      i++
+    });
+    this.selectedOptions = mientras;
+    this.messageEvent.emit(this.selectedOptions);
+  }
+
+  onIvaChange(input, row) {
+    var i = 0;
+    var mientras = this.selectedOptions;
+    this.selectedOptions.forEach(element => {
+      if (element.product_supplies_com_id == row.id) {
+        mientras[i].iva = input.target.value;
       }
       i++
     });

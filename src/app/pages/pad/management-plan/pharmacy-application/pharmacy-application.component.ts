@@ -5,6 +5,7 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { Actions3Component } from './actions.component';
 import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
 import { AdmissionsService } from '../../../../business-controller/admissions.service';
+import { AuthService } from '../../../../services/auth.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class PharmacyApplicationComponent {
   public datain;
   public admissions:any[];
   public status;
+  public own_user: any = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -88,11 +90,12 @@ export class PharmacyApplicationComponent {
     private toastrService: NbToastrService,
     private deleteConfirmService: NbDialogService,
     public AdmissionsS: AdmissionsService,
+    private authService: AuthService,
   ) {
 
   }
   async ngOnInit() {
-
+    this.own_user = this.authService.GetUser();
   
   }
 
@@ -101,7 +104,7 @@ export class PharmacyApplicationComponent {
   }
 
   ChangeState(data) {
-    this.userS.ChangeStatus(data.id).then((x) => {
+    this.userS.ChangeStatus(data.id, this.own_user.id).then((x) => {
       this.toastrService.success('', x.message);
       this.RefreshData();
     }).catch((x) => {

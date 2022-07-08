@@ -31,6 +31,24 @@ export class ChLiquidControlService {
       });
   }
 
+  GetByRecord(record_id?): Promise<ChLiquidControl[]> {
+    let servObj = new ServiceObject(record_id ? 'ch_liquid_control/by_record/'+record_id+'?pagination=false' : 'ch_liquid_control');
+
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.ch_liquid_control = <ChLiquidControl[]>servObj.data.ch_liquid_control;
+
+        return Promise.resolve(this.ch_liquid_control);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(ch_liquid_control: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_liquid_control');
     servObj.data = ch_liquid_control;

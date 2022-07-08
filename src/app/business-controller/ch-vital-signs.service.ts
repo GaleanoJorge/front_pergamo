@@ -21,7 +21,25 @@ export class ChVitalSignsService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.ch_vital_signs = <ChVitalSigns[]>servObj.data.ChVitalSigns;
+        this.ch_vital_signs = <ChVitalSigns[]>servObj.data.ch_vital_signs;
+
+        return Promise.resolve(this.ch_vital_signs);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetByRecord(record_id): Promise<ChVitalSigns[]> {
+    let servObj = new ServiceObject(record_id ? 'ch_vital_signs/byrecord/'+record_id+'?pagination=false' : 'ch_vital_signs');
+
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.ch_vital_signs = <ChVitalSigns[]>servObj.data.ch_vital_signs;
 
         return Promise.resolve(this.ch_vital_signs);
       })

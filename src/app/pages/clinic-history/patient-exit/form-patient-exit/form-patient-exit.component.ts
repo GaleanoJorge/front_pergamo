@@ -112,7 +112,7 @@ export class FormPatientExitComponent implements OnInit {
           death_certificate_number: this.form.controls.death_certificate_number.value,
           relations_diagnosis_id: this.form.controls.relations_diagnosis_id.value,
           reason_exit_id: this.form.controls.reason_exit_id.value,
-          type_record_id: 8,
+          type_record_id: 10,
           ch_record_id: this.record_id,
         }).then((x) => {
             this.toastService.success('', x.message);
@@ -137,7 +137,7 @@ export class FormPatientExitComponent implements OnInit {
           death_certificate_number: this.form.controls.death_certificate_number.value,
           relations_diagnosis_id: this.form.controls.relations_diagnosis_id.value,
           reason_exit_id: this.form.controls.reason_exit_id.value,
-          type_record_id: 8,
+          type_record_id: 10,
           ch_record_id: this.record_id,
         })
           .then((x) => {

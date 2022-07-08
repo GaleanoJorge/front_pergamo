@@ -207,6 +207,7 @@ export class FormProductGenericComponent implements OnInit {
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           product_dose_id: this.form.controls.product_dose_id.value,
+          dose: this.form.controls.dose.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -231,6 +232,7 @@ export class FormProductGenericComponent implements OnInit {
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           product_dose_id: this.form.controls.product_dose_id.value,
+          dose: this.form.controls.dose.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

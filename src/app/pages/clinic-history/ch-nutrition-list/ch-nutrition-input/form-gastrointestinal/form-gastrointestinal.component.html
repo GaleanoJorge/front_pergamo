@@ -24,11 +24,11 @@
           </div>
 
           <div class="col-12 col-sm-12 col-md-9">
-            <label *ngIf="showVomit" class="form-text text-muted font-weight-bold text ">Cantidad de
+            <label *ngIf="showVomit" for="amount_of_vomit" class="form-text text-muted font-weight-bold text ">Cantidad de
               episodios eméticos:</label>
-            <textarea *ngIf="showVomit" id="amount_of_vomit" nbInput fullWidth
-              formControlName="amount_of_vomit" amount_of_vomit onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.amount_of_vomit.errors ? 'danger' : isSubmitted ? 'success' : null }}"> </textarea>
+            <input *ngIf="showVomit" nbInput fullWidth id="amount_of_vomit" amount_of_vomit
+              formControlName="amount_of_vomit" type="number" onpaste="return false"
+              status="{{ isSubmitted && form.controls.amount_of_vomit.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
           </div>
 
           <div class="col-12 col-sm-12 col-md-3">

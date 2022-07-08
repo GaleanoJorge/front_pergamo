@@ -87,7 +87,7 @@ export class FormFoodHistoryComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      name: {
+      observation: {
         title: 'Diagnóstico',
         type: 'string',
       },

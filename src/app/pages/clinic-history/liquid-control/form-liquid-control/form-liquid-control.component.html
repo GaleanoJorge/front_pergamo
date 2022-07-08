@@ -72,6 +72,45 @@
       <div class="col-md-12">
         <div class="center">
           <fieldset class="field_set center">
+            <legend class="prue1">NUTRICIÓN PARENTERAL</legend>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <label for="clock" class="form-text text-muted font-weight-bold align">HORA DE ADMINISTRACIÓN</label>
+                <input type="time" nbInput id="clock" formControlName="clock" clock fullWidth
+                  status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              </div>
+
+              <div class="col-md-6">
+                <label for="ch_type_fluid_id"  class="form-text text-muted font-weight-bold align">ADMINISTRACIÓN</label>
+                <nb-select formControlName="ch_type_fluid_id" id="ch_type_fluid_id" fullWidth
+                  status="{{ isSubmitted && form.controls.ch_type_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option selected="2"
+                  *ngFor="let item of ch_types" [value]="item.id">
+                  {{ item.name }}</nb-option>
+                </nb-select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="delivered_volume" class="form-text text-muted font-weight-bold align">VOLUMEN
+                  ADMINISTRADO</label>
+                <input type="number" placeholder="CC" id="delivered_volume" formControlName="delivered_volume"
+                  id="delivered_volume" delivered_volume nbInput fullWidth
+                  status="{{ isSubmitted && form.controls.delivered_volume.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              </div>
+
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="this.form.controls.ch_route_fluid_id.value == 3">
+      <div class="col-md-12">
+        <div class="center">
+          <fieldset class="field_set center">
             <legend class="prue1">NUTRICIÓN V.O.</legend>
 
             <div class="row">
@@ -111,7 +150,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="this.form.controls.ch_route_fluid_id.value == 3">
+    <div class="row" *ngIf="this.form.controls.ch_route_fluid_id.value == 4">
       <div class="col-md-12">
         <div class="center">
           <fieldset class="field_set center">

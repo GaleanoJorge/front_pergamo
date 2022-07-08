@@ -1,6 +1,11 @@
-<ngx-form-language-assessment (messageEvent)="receiveMessage($event)">
+<ngx-form-language-assessment (messageEvent)="receiveMessage($event)" [record_id]="record_id" >
 </ngx-form-language-assessment>
-<label class="form-text text-muted font-weight-bold align">Registro de Ingreso Terapia de Lenguaje</label>
+<div class="row">
+  <div class="col-md-12 center">
+    <label class="font-weight-bold ImpPeq center">DIAGNOSTICOS DE INGRESO
+    </label>
+  </div>
+</div>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table pager="false" [title]="title" customData="tl_therapy_language" [settings]="settings"

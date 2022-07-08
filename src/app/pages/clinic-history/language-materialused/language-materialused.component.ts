@@ -42,19 +42,30 @@ export class LanguageMaterialusedComponent implements OnInit {
       biosecurity_elements: {
         title: this.headerFields[0],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
       },
       didactic_materials: {
         title: this.headerFields[1],
         width: 'string',
-       
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
       },
       liquid_food: {
         title: this.headerFields[2],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
       },
       stationery: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
       },
      
     },

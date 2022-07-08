@@ -7,7 +7,7 @@
         <div class="row" style="align-items: center;">
           <div class="col-md-11">
             <textarea id="reason_consultation" nbInput fullWidth formControlName="reason_consultation"
-              reason_consultation onpaste="return false" rows="4" cols="50"
+              reason_consultation onpaste="return false" minlength="20"  rows="4" cols="50"
               status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
           </div>
           <div class="col-md-1">
