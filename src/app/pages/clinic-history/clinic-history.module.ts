@@ -182,7 +182,6 @@ import { FormaAuscultacionTherapyComponent } from './auscultacion-therapy/form-a
 import { FormaObjectivesTherapyComponent } from './objectives-therapy/form-objectives-therapy.component';
 import { FormaDiagnosticTherapyComponent } from './diagnostic-therapy/form-diagnostic-therapy.component';
 import { FormChOxygenTherapyComponent } from './oxygen-therapy/form-oxygen-therapy.component';
-import { FormRegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/form-regular-respiratory-therapy/form-regular-respiratory-therapy.component';
 import { RegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/regular-respiratory-therapy.component';
 import { FormSessionsTherapyComponent } from './sessions-therapy/form-sessions-therapy.component';
 import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-therapy.component';
@@ -190,6 +189,7 @@ import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.componen
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
 import { SuppliesTherapyComponent } from './supplies-therapy/supplies-therapy.component';
+import { ReasonConsultationRespiratoryTherapyComponent } from './entry-respiratory-therapy/form-reason-consultation-respiratory-therapy/reason-consultation-respiratory-therapy.component';
 
 @NgModule({
   imports: [
@@ -263,6 +263,7 @@ import { SuppliesTherapyComponent } from './supplies-therapy/supplies-therapy.co
     FormAssessmentTherapyComponent,
     EntryRespiratoryTherapyComponent,
     FormReasonConsultationRespiratoryTherapyComponent,
+    ReasonConsultationRespiratoryTherapyComponent,
     ActionsRespiratoryTherapyComponent,
     ActionsRespiratoryTherapy2Component,
 
@@ -273,7 +274,6 @@ import { SuppliesTherapyComponent } from './supplies-therapy/supplies-therapy.co
     FormChOxygenTherapyComponent,
     OxygenTherapyComponent,
 
-    FormRegularRespiratoryTherapyComponent,
     RegularRespiratoryTherapyComponent,
     FormDiagnosisCifTherapyComponent,
     SessionsTherapyComponent,
