@@ -3,6 +3,7 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGroup } from '@angular/forms';
 import { ActionsStatusComponent } from './actions-status.component';
+import { BillingPadService } from '../../../business-controller/billing-pad.service';
 
 @Component({
   selector: 'ngx-billing-pad-list',
@@ -113,11 +114,10 @@ export class BillingPadListComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastS: NbToastrService,
+    private BillingPadS: BillingPadService,
   ) {
   }
   public form: FormGroup;
-  public ResponseGlossForm: FormGroup;
-  public RadicationGlossForm: FormGroup;
   public status;
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
@@ -158,6 +158,10 @@ export class BillingPadListComponent implements OnInit {
 
   tablock(e) {
     
+  }
+
+  generate() {
+    this.BillingPadS.GenerateFile(1).then(x => {});
   }
 
 
