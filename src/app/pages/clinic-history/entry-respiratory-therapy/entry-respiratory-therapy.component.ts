@@ -10,6 +10,7 @@ import { ChRespiratoryTherapyService } from '../../../business-controller/ch_res
 import { ChOxygenTherapyService } from '../../../business-controller/ch_oxygen_therapy.service';
 import { ChAssessmentTherapyService } from '../../../business-controller/ch_assessment_therapy.service';
 import { ChRtSessionsService } from '../../../business-controller/ch_rt_sessions.service';
+import { ChSuppliesTherapyService } from '../../../business-controller/ch_supplies_therapy.Service';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   public teraphyRespiratory: any[];
   public assTherapyRespiratory: any[];
   public suppliesTeraphyRespiratory: any[];
+  public sessionsTeraphyRespiratory: any[];
 
 
 
@@ -55,7 +57,8 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
     private chvitalSignsS: ChVitalSignsService,
     public userChangeS: UserChangeService,
     public ChOxygenTherapyS: ChOxygenTherapyService,    
-    private RtSessionsS: ChRtSessionsService,
+    private RtSessionsS: ChRtSessionsService,    
+    private SuppliesS: ChSuppliesTherapyService,
     // public AssS: ChAssessmentTherapyService,
 
 
@@ -80,6 +83,10 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
     });
 
     await this.RtSessionsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.sessionsTeraphyRespiratory = x;
+    });
+
+    await this.SuppliesS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.suppliesTeraphyRespiratory = x;
     });
 
@@ -102,6 +109,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
       await this.chvitalSignsS.Update({});
       await this.ChOxygenTherapyS.Update({});      
       await this.RtSessionsS.Update({});
+      await this.SuppliesS.Update({});
       // await this.AssS.Update({});
     }
   }

@@ -57,9 +57,22 @@ export class FormSuppliesTherapyComponent implements OnInit {
       product_id: [this.data[0] ? this.data[0].product_id : this.data.product_id,],
       amount: [this.data[0] ? this.data[0].amount : this.data.amount,],
       justification: [this.data[0] ? this.data[0].justification : this.data.justification,],
-    
-           
+               
     });    
+
+
+    
+    if (this.data.product_id != '') {
+      this.form.controls.product_id.disable();
+      this.form.controls.amount.disable();
+      this.form.controls.justification.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.product_id.enable();
+      this.form.controls.amount.enable();
+      this.form.controls.justification.enable();
+      this.disabled = false;
+    }
 
     }
 
