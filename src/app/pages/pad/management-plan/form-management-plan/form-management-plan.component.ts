@@ -341,6 +341,7 @@ export class FormManagementPlanComponent implements OnInit {
 
     return await this.userAssigned.UserByRoleLocation(locality_id, this.phone_consult ? 2 : 1, {
       roles: JSON.stringify(this.roles),
+      type_of_attention: this.data.type_of_attention_id
     }).then(x => {
       this.assigned_user = x;
       return Promise.resolve(true);
