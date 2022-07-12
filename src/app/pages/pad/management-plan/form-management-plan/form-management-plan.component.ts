@@ -49,6 +49,7 @@ export class FormManagementPlanComponent implements OnInit {
   public localidentify;
   public showUser=true;
   public admissions;
+  public tipo_de_atencion;
   
   //   this.status = x;
 
@@ -327,7 +328,7 @@ export class FormManagementPlanComponent implements OnInit {
 
   async getRoleByAttention(type_of_attention_id) {
     if (!type_of_attention_id || type_of_attention_id === '') return Promise.resolve(false);
-
+    this.tipo_de_atencion = type_of_attention_id;
     return await this.roleAttentionS.GetCollection({
       type_of_attention_id: type_of_attention_id
     }).then(x => {
@@ -341,7 +342,7 @@ export class FormManagementPlanComponent implements OnInit {
 
     return await this.userAssigned.UserByRoleLocation(locality_id, this.phone_consult ? 2 : 1, {
       roles: JSON.stringify(this.roles),
-      type_of_attention: this.data.type_of_attention_id
+      type_of_attention: this.tipo_de_atencion,
     }).then(x => {
       this.assigned_user = x;
       return Promise.resolve(true);
