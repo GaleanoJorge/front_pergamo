@@ -211,8 +211,8 @@ export class FormUsersComponent implements OnInit {
     this.currentRoleId = localStorage.getItem('role_id');
     this.LoadForm(false).then();
     await Promise.all([
-      this.GetAuxData(null),
       this.GetAuxData(this.role == 7 ? 1 : this.role == 14 ? 2 : null),
+      // this.GetAuxData(),
     ]);
 
     this.course_id = this.route.snapshot.queryParams.course_id;
@@ -229,8 +229,8 @@ export class FormUsersComponent implements OnInit {
 
   GetAuxData($type_professional_id?, $search?) {
     return this.userBS.GetFormAuxData(this.data ? false : true,
-      this.data == null && !$type_professional_id ? null : $type_professional_id == null && this.data.assistance && this.data.assistance.length > 0 ? this.data.assistance[0].type_professional_id : $type_professional_id, $search).then(x => {
-        if (!$type_professional_id) {
+      $type_professional_id , $search).then(x => {
+
           this.identification_types = x.identificationTypes;
           this.countries = x.countries;
           this.genders = x.genders;
@@ -248,9 +248,8 @@ export class FormUsersComponent implements OnInit {
           this.specialities = x.specialty;
           this.inabilitys = x.inability;
           this.residences = x.residence;
-        } else {
           this.specialities = x.specialty;
-        }
+        
         return Promise.resolve(true);
       });
   }
@@ -892,7 +891,8 @@ export class FormUsersComponent implements OnInit {
         this.form.get('inability_id').setValidators(Validators.required);
         //this.form.get('inability_id').updateValueAndValidity();
       } else {
-        this.form.get('inability_id').setValidators(null);
+        this.form.controls.inability_id.clearValidators();
+        this.form.controls.inability_id.setErrors(null);
 
       }
     });
