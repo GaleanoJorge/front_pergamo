@@ -11,9 +11,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./form-evo-soap.component.scss'],
 })
 export class FormEvoSoapComponent implements OnInit {
+
   @Input() title: string;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() record_id: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -21,14 +23,20 @@ export class FormEvoSoapComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public record_id;
+ 
   public admissions_id;
+  public therapeutic_diagnosis_id: any[];
+  public diagnosis_id;
+  public diagnosis: any[];
   public changes=false;
   public changes1=false;
 
+
+
   constructor(
+
     private formBuilder: FormBuilder,
-    private evoSoapS: ChEvoSoapService,
+    private ChEvoSoapS: ChEvoSoapService,
     private toastService: NbToastrService,
     private chRecord: ChRecordService,
     private route: ActivatedRoute
@@ -45,15 +53,16 @@ export class FormEvoSoapComponent implements OnInit {
       this.data = {
         subjective: '',
         objective: '',
-        
+
       };
     }
-
     this.form = this.formBuilder.group({
-      subjective: [this.data.subjective, Validators.compose([Validators.required])],
-      objective: [this.data.objective, Validators.compose([Validators.required])],
+      subjective: [this.data.subjective, Validators.compose([Validators.required]),],
+      objective: [this.data.objective, Validators.compose([Validators.required]),],
+      
      
     });
+
   }
 
   async save() {
@@ -63,18 +72,16 @@ export class FormEvoSoapComponent implements OnInit {
       this.showTable = false;
 
       if (this.data.id) {
-        await this.evoSoapS
+        await this.ChEvoSoapS
           .Update({
             id: this.data.id,
             subjective: this.form.controls.subjective.value,
             objective: this.form.controls.objective.value,
-         
             type_record_id: 3,
             ch_record_id: this.record_id,
           })
           .then((x) => {
             this.toastService.success('', x.message);
-            this.form.setValue({ subjective: '', objective: ''});
             if (this.saved) {
               this.saved();
             }
@@ -84,7 +91,7 @@ export class FormEvoSoapComponent implements OnInit {
             this.loading = false;
           });
       } else {
-        await this.evoSoapS
+        await this.ChEvoSoapS
           .Save({
             subjective: this.form.controls.subjective.value,
             objective: this.form.controls.objective.value,
@@ -94,7 +101,7 @@ export class FormEvoSoapComponent implements OnInit {
           .then((x) => {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
-            this.form.setValue({ subjective: '', objective: '' });
+            this.form.setValue({ subjective: '', objective:''});
             if (this.saved) {
               this.saved();
             }
@@ -103,26 +110,43 @@ export class FormEvoSoapComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
+          this.messageEvent.emit(true);
       }
     }
   }
-  receiveMessage($event) {   
-    
-    if($event.isactive==false){
-      this.changes=false;
-      this.changes1=false;
-    }
-    if($event.entity){
-    this.form.get($event.entity).setValue(this.form.get($event.entity).value+' '+$event.text);
-    }
-  }
 
-  changebuttom() {
-    this.changes=true;
-  }
-
-  changebuttom1() {
-    this.changes1=true;
-  }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
