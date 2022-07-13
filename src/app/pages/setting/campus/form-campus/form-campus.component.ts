@@ -40,6 +40,8 @@ export class FormCampusComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
+        address: '',
+        enable_code: '',
         region_id: '',
       };
     }
@@ -53,6 +55,8 @@ export class FormCampusComponent implements OnInit {
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
       region_id: [this.data.region_id, Validators.compose([Validators.required])],
+      address: [this.data.address, Validators.compose([Validators.required])],
+      enable_code: [this.data.enable_code, Validators.compose([Validators.required])],
     });
     this.regionS.GetCollection().then(x => {
 
@@ -78,6 +82,8 @@ export class FormCampusComponent implements OnInit {
           id: this.data.id,
           name: this.form.controls.name.value,
           region_id: this.form.controls.region_id.value,
+          enable_code: this.form.controls.enable_code.value,
+          address: this.form.controls.address.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -93,6 +99,8 @@ export class FormCampusComponent implements OnInit {
         this.campusS.Save({
           name: this.form.controls.name.value,
           region_id: this.form.controls.region_id.value,
+          enable_code: this.form.controls.enable_code.value,
+          address: this.form.controls.address.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
