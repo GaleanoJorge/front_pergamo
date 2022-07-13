@@ -103,13 +103,12 @@ export class FormChOstomiesComponent implements OnInit {
         await this.ChOstomiesS.Save({
           ostomy_id: this.form.controls.ostomy_id.value,
           observation: this.form.controls.observation.value,
-         
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ });
+          this.form.setValue({ostomy_id:'',observation:'' });
           if (this.saved) {
             this.saved();
           }
