@@ -42,7 +42,7 @@ export class ChInterconsultationComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.id + '-' + row.frequency.name;
+          return value.id + '-' + row.specialty.name;
          
         },
       },
