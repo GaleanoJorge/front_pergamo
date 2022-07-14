@@ -45,6 +45,7 @@ export class ChNutritionListComponent implements OnInit {
   public loading: boolean = false;
   public currentRole: any;
   public show: any;
+  public signatureImage: string;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -100,11 +101,24 @@ export class ChNutritionListComponent implements OnInit {
   close() {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
+        signature: true, 
         title: 'Finalizar registro.',
         delete: this.finish.bind(this),
+        showImage: this.showImage.bind(this),
+        // save: this.saveSignature.bind(this),
         textConfirm:'Finalizar registro'
       },
     });
+  }
+
+  showImage(data) {
+    this.signatureImage = data;
+  }
+
+  async saveSignature() {
+    var formData = new FormData();
+    formData.append('firm_file', this.signatureImage);
+    console.log(this.signatureImage);
   }
   
   async finish() {
