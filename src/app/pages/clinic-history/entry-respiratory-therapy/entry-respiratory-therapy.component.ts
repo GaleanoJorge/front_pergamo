@@ -1,14 +1,11 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChPhysicalExamService } from '../../../business-controller/ch_physical_exam.service';
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
-import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.service';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ChRespiratoryTherapyService } from '../../../business-controller/ch_respiratory_therapy.service';
 import { ChOxygenTherapyService } from '../../../business-controller/ch_oxygen_therapy.service';
-import { ChAssessmentTherapyService } from '../../../business-controller/ch_assessment_therapy.service';
 import { ChRtSessionsService } from '../../../business-controller/ch_rt_sessions.service';
 import { ChSuppliesTherapyService } from '../../../business-controller/ch_supplies_therapy.Service';
 
