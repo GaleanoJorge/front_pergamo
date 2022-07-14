@@ -1,11 +1,19 @@
-<nb-card size="tiny">
+<nb-card size="height">
   <nb-card-header>
     <span class="h5">{{ title }} {{ name }}</span>
   </nb-card-header>
   <nb-card-body>
-    {{ body }}
-  </nb-card-body>
+    <div>
+      {{ body }}
+    </div>
 
+    <label for="firm" *ngIf="signature" class="form-text text-muted font-weight-bold">Firma:</label>
+      <ng-signature-pad *ngIf="signature"  [emitOnDragEnd]="true" [showDoneButton]="false"
+      clearButtonText="Borrar" format="base64" (done)="showImage($event)">
+    </ng-signature-pad>
+
+  </nb-card-body>
+  
   <nb-card-footer class="d-flex justify-content-end">
     <button nbButton ghost type="button" (click)="close()">Cancelar</button>
     <button nbButton status="danger" class="ml-1" type="button" (click)="DeleteAction()" [disabled]="loading">{{ textConfirm }}</button>
