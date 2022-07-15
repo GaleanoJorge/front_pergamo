@@ -2,16 +2,16 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper [linear]="linearMode"> -->
+        <nb-stepper #stepper [linear]="linearMode"> 
         <!-- <nb-stepper orientation="vertical" #stepper [linear]="linearMode">  -->
           <nb-step [stepControl]="nameForm" label="Valoración">
-            <ngx-reason-consultation-respiratory-therapy  [record_id]="record_id">
+            <ngx-reason-consultation-respiratory-therapy  [record_id]="record_id" [type_record]="3">
             </ngx-reason-consultation-respiratory-therapy>
 
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Antecedentes">
-                <ngx-back-list></ngx-back-list>
+                <ngx-back-list [record_id]="record_id"></ngx-back-list>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
@@ -19,15 +19,15 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Destete de oxigeno">
-            <ngx-oxygen-therapy [record_id]="record_id"></ngx-oxygen-therapy>
+            <ngx-oxygen-therapy [record_id]="record_id" [type_record]="3"></ngx-oxygen-therapy>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Pedido de insumos">
-            <ngx-supplies-therapy [record_id]="record_id"></ngx-supplies-therapy>
+            <ngx-supplies-therapy [record_id]="record_id" [type_record]="3"></ngx-supplies-therapy>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Sesiones">
-            <ngx-sessions-therapy [record_id]="record_id"></ngx-sessions-therapy>
+            <ngx-sessions-therapy [record_id]="record_id" [type_record]="3"></ngx-sessions-therapy>
           </nb-step>
 
           <nb-step [hidden]="true">
