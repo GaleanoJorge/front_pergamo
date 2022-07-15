@@ -152,6 +152,7 @@ import { ProductTabComponent } from './product-tab/product-tab.component';
 import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/billing-request-pharmacy.component';
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+import { AssistanceStockComponent } from './assistance-stock/assistance-stock.component';
 
 const routes: Routes = [{
   path: '',
@@ -847,6 +848,10 @@ const routes: Routes = [{
     {
       path: 'billing-request-pharmacy',
       component: BillingRequestPharmacyComponent,
+    },
+    {
+      path: 'assistance-stock',
+      component: AssistanceStockComponent,
     }
   ],
 }];
