@@ -401,6 +401,12 @@ import { IvaSuppliesComponent } from './billing/prod-supplies-package/iva-suppli
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-most/billing-request-pharmacy-most.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+import { AssistanceStockComponent } from './assistance-stock/assistance-stock.component';
+import { FormAssistanceStockComponent } from './assistance-stock/form-assistance-stock/form-assistance-stock.component';
+import { AssistanceStockReqComponent } from './assistance-stock/form-assistance-stock/assistance-stock-req.component';
+import { ActionsStockComponent } from './assistance-stock/actions.component';
+import { FormInsumeRequestComponent } from '../clinic-history/insume-request/form-insume-request/form-insume-request.component';
+import { InsumeRequestComponent } from '../clinic-history/insume-request/insume-request.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -431,6 +437,10 @@ import { tcRentabilityComponent } from './tc-rentability/tc-rentability.componen
     NbAccordionModule,
   ],
   declarations: [
+    ActionsStockComponent,
+    AssistanceStockReqComponent,
+    AssistanceStockComponent,
+    FormAssistanceStockComponent,
     AuthStatusComponent,
     FormAuthStatusComponent,
     ActionsCDComponent,
