@@ -2,82 +2,39 @@ import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core'
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGroup } from '@angular/forms';
-import { ActionsAdmissionsListComponent } from './actions-admissions-list.component';
+import { ActionsBillingPadBriefcaseComponent } from './actions-billing-pad-briefcase.component';
 import { FormShowBillingPadComponent } from '../billing-admission/form-show-billing-pad/form-show-billing-pad.component';
 import { ActivatedRoute } from '@angular/router';
-import { BriefcaseService } from '../../../business-controller/briefcase.service';
+import { ContractService } from '../../../business-controller/contract.service';
 
 @Component({
-  selector: 'ngx-billing-admissions-pad-list',
-  templateUrl: './billing-admissions-pad-list.component.html',
-  styleUrls: ['./billing-admissions-pad-list.component.scss'],
+  selector: 'ngx-billing-pad-briefcase',
+  templateUrl: './billing-pad-briefcase.component.html',
+  styleUrls: ['./billing-pad-briefcase.component.scss'],
 })
-export class BillingAdmissionsPadListComponent implements OnInit {
+export class BillingPadBriefcaseComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-  @Input() title: string;
-  @Input() is_pgp: boolean;
-  @Input() route: number = null;
+  @Input() is_pgp: any = '<>';
+  @Input() route: number;
   @Input() entity: string;
   @Input() billing_pad_pgp_id: number = null;
 
+  public title: string = 'PORTAFOLIOS';
   public isSubmitted = false;
   public loading: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'DOCUMENTO', 'EPS'];
+  public headerFields: any[] = ['ACCIONES', 'NOMBRE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
   public arrayBuffer: any;
-  public user;
+  public contract_id;
   public dialog;
   public currentRole;
-  public settings;
-  public briefcase_id;
 
-
-  public settings1 = {
-    pager: {
-      display: true,
-      perPage: 10,
-    },
-    columns: {
-      actions: {
-        title: this.headerFields[0],
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          return {
-            'data': row,
-            'route': this.route,
-            'billing_pad_pgp': this.billing_pad_pgp_id,
-            'show': this.ShowProcedures.bind(this),
-          };
-        },
-        renderComponent: ActionsAdmissionsListComponent,
-      },
-      nombre_completo: {
-        title: this.headerFields[1],
-        type: 'string',
-      },
-      patients: {
-        title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.patients.identification;
-        },
-      },
-      contract: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.contract.company.name;
-        },
-      },
-    },
-  };
-
-  public settings2 = {
+  public settings = {
     pager: {
       display: true,
       perPage: 10,
@@ -92,18 +49,11 @@ export class BillingAdmissionsPadListComponent implements OnInit {
             'route': this.route,
           };
         },
-        renderComponent: ActionsAdmissionsListComponent,
+        renderComponent: ActionsBillingPadBriefcaseComponent,
       },
       name: {
         title: this.headerFields[1],
         type: 'string',
-      },
-      company_id: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.company.name;
-        },
       },
     },
   };
@@ -117,7 +67,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private BriefcaseS: BriefcaseService,
+    private ContractS: ContractService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastS: NbToastrService,
@@ -135,21 +85,17 @@ export class BillingAdmissionsPadListComponent implements OnInit {
 
 
   async ngOnInit() {
-    if (this.route != null) {
-      if (this.route == 2) {
-        this.settings = this.settings2;
-      } else {
-        this.settings = this.settings1;
+    this.contract_id = this.activatedRoute.snapshot.params.contract_id;
+    this.ContractS.GetCollection({ id: this.contract_id }).then(x => {
+      if(x.length > 0){
+        this.title = 'PORTAFOLIOS DEL CONTRATO ' + x[0].name.toUpperCase();
       }
-    } else {
-      this.briefcase_id = this.activatedRoute.snapshot.params.briefcase_id;
-      this.settings = this.settings1;
-      this.route = 1;
-      this.entity = 'billing_pad/getEnabledAdmissions/0';
-      this.BriefcaseS.GetCollection({id: this.briefcase_id}).then(x => {
-        this.title = 'ADMISIONES DEL PORTAFOLIO ' + x[0].name.toUpperCase();
-      });
-    }
+    });
+    // if (this.route == 1) {
+    //   this.settings = this.settings1;
+    // } else if (this.route == 2) {
+    //   this.settings = this.settings2;
+    // }
   }
 
 
@@ -180,7 +126,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
   }
 
   tablock(e) {
-    
+
   }
 
   ShowProcedures(data) {

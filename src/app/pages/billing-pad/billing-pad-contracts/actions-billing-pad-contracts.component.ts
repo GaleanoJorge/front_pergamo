@@ -6,17 +6,14 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
 @Component({
     template: `
     <div class="d-flex justify-content-center">
-      <button *ngIf="value.data.billing_pad_status_id != 2" nbTooltip="PROCEDIMIENTOS" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/billing-pad/billing-pad-procedure/' + value.data.admissions_id + '/' + value.data.id">
-        <nb-icon icon="archive-outline"></nb-icon>
-      </button>
-      <button *ngIf="value.data.billing_pad_status_id == 2" nbTooltip="VER FACTURACIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data)">
-          <nb-icon icon="eye-outline"></nb-icon>
-      </button>
+      <a nbTooltip="Portafolios" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/billing-pad/billing-pad-briefcase/' + value.data.id">
+        <nb-icon icon="options-2-outline"></nb-icon>
+      </a>
     </div>
   `,
-    styleUrls: ['./billing-admission.component.scss'],
+    styleUrls: ['./billing-pad-contracts.component.scss'],
 })
-export class ActionsBillingComponent implements ViewCell {
+export class ActionsBillingPadContracsComponent implements ViewCell {
     @Input() value: any;    // This hold the cell value
     @Input() rowData: any;  // This holds the entire row object
 

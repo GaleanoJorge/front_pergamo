@@ -160,9 +160,9 @@ export class BillingPadListComponent implements OnInit {
     
   }
 
-  generate() {
-    this.BillingPadS.GenerateFile(1).then(x => {});
-  }
+  // generate() {
+  //   this.BillingPadS.GenerateFile(1).then(x => {});
+  // }
 
 
 }
