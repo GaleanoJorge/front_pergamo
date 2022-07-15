@@ -8,6 +8,7 @@ import { ChRespiratoryTherapyService } from '../../../business-controller/ch_res
 import { ChOxygenTherapyService } from '../../../business-controller/ch_oxygen_therapy.service';
 import { ChRtSessionsService } from '../../../business-controller/ch_rt_sessions.service';
 import { ChSuppliesTherapyService } from '../../../business-controller/ch_supplies_therapy.Service';
+import { ChAssessmentTherapyService } from '../../../business-controller/ch_assessment_therapy.service';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   public nameForm: String;
   public movieForm: String;
   public teraphyRespiratory: any[];
-  public assTherapyRespiratory: any[];
+  //public assRespiratory: any[];
   public suppliesTeraphyRespiratory: any[];
   public sessionsTeraphyRespiratory: any[];
 
@@ -56,7 +57,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
     public ChOxygenTherapyS: ChOxygenTherapyService,    
     private RtSessionsS: ChRtSessionsService,    
     private SuppliesS: ChSuppliesTherapyService,
-    // public AssS: ChAssessmentTherapyService,
+    //public AssS: ChAssessmentTherapyService,
 
 
   ) {
@@ -88,7 +89,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
     });
 
     // await this.AssS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-    //   this.assTherapyRespiratory = x;
+    // this.assRespiratory = x;
     // });
 
 
