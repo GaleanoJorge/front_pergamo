@@ -1,0 +1,165 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="col col-lg-12 asds">
+    <label for="right" class="row justify-content-center"> Presenta Dificultad para Participar de Actividades:</label>
+  </div> 
+
+  <hr/>   
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="community_text" class=" form-text text-muted font-weight-bold justify-content-center "> Comunidad</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="community" smoke id="community" class="d-flex text" name="community"
+        status="{{ isSubmitted && form.controls.community.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="relatives_text" class=" form-text text-muted font-weight-bold justify-content-center "> Familiares</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="relatives" smoke id="relatives" class="d-flex text" name="relatives"
+        status="{{ isSubmitted && form.controls.relatives.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="friends_text" class=" form-text text-muted font-weight-bold justify-content-center "> Compañeros y Amigos</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="friends" smoke id="friends" class="d-flex text" name="friends"
+        status="{{ isSubmitted && form.controls.friends.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="Health_text" class=" form-text text-muted font-weight-bold justify-content-center "> Cuidado de la Propia Salud</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="health" smoke id="health" class="d-flex text" name="health"
+        status="{{ isSubmitted && form.controls.health.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="shopping_text" class=" form-text text-muted font-weight-bold justify-content-center "> Compras</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="shopping" smoke id="shopping" class="d-flex text" name="shopping"
+        status="{{ isSubmitted && form.controls.shopping.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="foods_text" class=" form-text text-muted font-weight-bold justify-content-center "> Preparacion de Alimentos</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="foods" smoke id="foods" class="d-flex text" name="foods"
+        status="{{ isSubmitted && form.controls.foods.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="bathe_text" class=" form-text text-muted font-weight-bold justify-content-center "> Bañarse</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="bathe" smoke id="bathe" class="d-flex text" name="bathe"
+        status="{{ isSubmitted && form.controls.bathe.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="dress_text" class=" form-text text-muted font-weight-bold justify-content-center "> Vestirse</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="dress" smoke id="dress" class="d-flex text" name="dress"
+        status="{{ isSubmitted && form.controls.dress.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="animals_text" class=" form-text text-muted font-weight-bold justify-content-center "> Cuidado de Animales</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="animals" smoke id="animals" class="d-flex text" name="animals"
+        status="{{ isSubmitted && form.controls.animals.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <div class="div-send">
+    <button nbButton status="danger" class="ml-FUNCIONAL btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+  </div>
+    
+
+</form>

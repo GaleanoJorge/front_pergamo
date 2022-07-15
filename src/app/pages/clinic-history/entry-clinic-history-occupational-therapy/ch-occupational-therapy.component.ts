@@ -7,6 +7,9 @@ import { ChEOccHistoryOTService } from '../../../business-controller/ch_e_occ_hi
 import { ChEValorationOTService } from '../../../business-controller/ch_e_valoration_o_t.service';
 import { ChEPastOTService } from '../../../business-controller/ch_e_past_o_t.service';
 import { ChEDailyActivitiesOTService } from '../../../business-controller/ch_e_daily_activities_o_t.service';
+import { ChRNValorationOTService } from '../../../business-controller/ch_r_n_valoration_o_t.service';
+import { ChRNTherapeuticObjOTService } from '../../../business-controller/ch_r_n_therapeutic_obj_o_t.service';
+import { ChRNMaterialsOTService } from '../../../business-controller/ch_r_n_materials_o_t.service';
 
 
 @Component({
@@ -30,6 +33,9 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public chocuupationalhistory: any[];
   public chdailyactivities: any[];
   public chreasonconsultation: any[];
+  public chrnvaloration: any[];
+  public rntherapeutic: any[];
+  public chrnmaterials: any[];
   public physical: any[];
   public chvitsigns: any[];
   public chdiagnosis: any[];
@@ -53,6 +59,9 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
     private ChEPastOTService: ChEPastOTService,
     private ChEDailyActivitiesOTService: ChEDailyActivitiesOTService,
     public userChangeS: UserChangeService,
+    private ChRNValorationOTS: ChRNValorationOTService,
+    private ChRNTherapeuticObjOTS: ChRNTherapeuticObjOTService,
+    private ChRNMaterialsOTService: ChRNMaterialsOTService,
 
 
   ) {
@@ -66,9 +75,14 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
         ch_diagnosis_id: '',
       };
     }
-
+    
     await this.ChEValorationOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chvaloration = x;
+      
+    });
+
+    await this.ChRNValorationOTS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.chrnvaloration = x;
       
     });
     await this.ChEOccHistoryOTServiceS.GetCollection({ ch_record_id: this.record_id }).then(x => {
@@ -85,11 +99,24 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
     });
 
 
+
+    await this.ChRNTherapeuticObjOTS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.rntherapeutic = x;
+      
+    });
+
+    await this.ChRNMaterialsOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.chrnmaterials = x;
+      
+    });
+
+
     this.form = this.formBuilder.group({
       ch_e_occ_history_o_t_id: [this.data.ch_e_occ_history_o_t_id, Validators.compose([Validators.required])],
       ch_e_valoration_o_t: [this.data.ch_e_valoration_o_t, Validators.compose([Validators.required])],
-      ch_e_past_o_t: [this.data.ch_e_valoration_o_t, Validators.compose([Validators.required])],
-      ch_e_daily_activities_o_t: [this.data.ch_e_valoration_o_t, Validators.compose([Validators.required])],
+      ch_e_past_o_t: [this.data.ch_e_past_o_t, Validators.compose([Validators.required])],
+      ch_e_daily_activities_o_t: [this.data.ch_e_daily_activities_o_t, Validators.compose([Validators.required])],
+      ch_r_n_materials_o_t: [this.data.ch_r_n_materials_o_t, Validators.compose([Validators.required])],
 
     });
   }
@@ -102,6 +129,9 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
       await this.ChEOccHistoryOTServiceS.Update({});
       await this.ChEPastOTService.Update({});
       await this.ChEDailyActivitiesOTService.Update({});
+      await this.ChRNValorationOTS.Update({});
+      await this.ChRNTherapeuticObjOTS.Update({});
+      await this.ChRNMaterialsOTService.Update({});
 
 
     }

@@ -1,0 +1,252 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+      <div class="col-md-FUNCIONALSEMI FUNCIONAL">
+        <hr/>
+
+        <div class="row justify-content-center">      
+    
+          <div class="col col-lg-4">
+            
+              <label class="form-text text-muted font-weight-bold justify-content-center"> PATRONES </label>
+    
+          </div>
+    
+          <div class="col col-lg-4">
+    
+              <label class="form-text text-muted font-weight-bold justify-content-center"> DERECHA</label>
+    
+          </div>  
+      
+          <div class="col col-lg-4">
+    
+              <label class="form-text text-muted font-weight-bold justify-content-center"> IZQUIERDA</label>
+    
+          </div>
+        </div>
+    
+        <hr/>
+      </div>
+    
+    
+    
+        <div class="row justify-content-center">
+    
+          <div class="col col-lg-SEMI FUNCIONAL">
+            <label class="form-text text-muted font-weight-bold justify-content-center"> Mano - Cabeza</label>
+          </div> 
+    
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.head_right" formControlName="head_right" id="head_right" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.head_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>  
+      
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.head_left" formControlName="head_left" id="head_left" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.head_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>
+        </div>
+    
+        <br/>
+    
+        <div class="row justify-content-center">
+    
+          <div class="col col-lg-SEMI FUNCIONAL">
+            <label class="form-text text-muted font-weight-bold justify-content-center"> Mano - Boca</label>
+          </div> 
+    
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.mouth_right" formControlName="mouth_right" id="mouth_right" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.mouth_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>  
+      
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.mouth_left" formControlName="mouth_left" id="mouth_left" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.mouth_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>
+        </div>
+    
+        <br/>
+    
+        <div class="row justify-content-center">
+    
+          <div class="col col-lg-SEMI FUNCIONAL">
+            <label class="form-text text-muted font-weight-bold justify-content-center"> Mano - Hombro</label>
+          </div> 
+    
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.shoulder_right" formControlName="shoulder_right" id="shoulder_right" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.shoulder_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>  
+      
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.shoulder_left" formControlName="shoulder_left" id="shoulder_left" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.shoulder_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>
+        </div>
+    
+        <br/>
+    
+        <div class="row justify-content-center">
+    
+          <div class="col col-lg-SEMI FUNCIONAL">
+            <label class="form-text text-muted font-weight-bold justify-content-center"> Mano - Espalda</label>
+          </div> 
+    
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.back_right" formControlName="back_right" id="back_right" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.back_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>  
+      
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.back_left" formControlName="back_left" id="back_left" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.back_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>
+        </div>
+    
+        <br/>
+    
+        <div class="row justify-content-center">
+    
+          <div class="col col-lg-SEMI FUNCIONAL">
+            <label class="form-text text-muted font-weight-bold justify-content-center"> Mano - Cintura</label>
+          </div> 
+    
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.waist_right" formControlName="waist_right" id="waist_right" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.waist_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>  
+      
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.waist_left" formControlName="waist_left" id="waist_left" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.waist_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>
+        </div>
+    
+        <br/>
+    
+        <div class="row justify-content-center">
+    
+          <div class="col col-lg-SEMI FUNCIONAL">
+            <label class="form-text text-muted font-weight-bold justify-content-center"> Mano - Rodilla</label>
+          </div> 
+    
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.knee_right" formControlName="knee_right" id="knee_right" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.knee_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>  
+      
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.knee_left" formControlName="knee_left" id="knee_left" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.knee_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>
+        </div>
+    
+        <br/>
+    
+        <div class="row justify-content-center">
+    
+          <div class="col col-lg-SEMI FUNCIONAL">
+            <label class="form-text text-muted font-weight-bold justify-content-center"> Mano - Pie</label>
+          </div> 
+    
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.foot_right" formControlName="foot_right" id="foot_right" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.foot_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>  
+      
+          <div class="col col-lg-5">
+            <nb-select [selected]="this.data.foot_left" formControlName="foot_left" id="foot_left" fullWidth
+              title="Seleccione..."
+              status="{{ isSubmitted && form.controls.foot_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+              <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+              <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="div-send">
+          <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        </div>
+    
+
+</form>

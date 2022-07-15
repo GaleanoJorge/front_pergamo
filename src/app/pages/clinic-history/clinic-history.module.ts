@@ -128,13 +128,6 @@ import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursi
 import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
 import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
 import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
-import { ActionoOcupationalTherapyComponent } from './entry-clinic-history-occupational-therapy/actions.component';
-import { FormEntryDailyActivitiesOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-daily-activities-ot/form-entry-daily-activities-ot.component';
-import { FormEntryMotorSkillsOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-skills-ot.component';
-import { FormEntryOccupatHistoryValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-occupat-history-ot/form-entry-occupat-history-valoration-ot.component';
-import { FormEntryPastOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-past-ot/form-entry-past-ot.component';
-import { FormEntryValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-valoration-ot/form-entry-valoration-ot.component';
-import { FormEntryOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-ot.component';
 
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { ChNutritionInputComponent } from './ch-nutrition-list/ch-nutrition-input/ch-nutrition-input.component';
@@ -197,23 +190,32 @@ import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-t
 import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
-import { FormRegularNoteValorationOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-ot/form-regular-note-valoration-ot/form-regular-note-valoration-ot.component';
-import { FormRegularNoteTherapeuticGoalOT } from './entry-clinic-history-occupational-therapy/form-regular-note-ot/form-regular-note-therapeutic-goals-ot/form-regular-note-therapeutic-goals-ot.component';
-import { FormRegularNoteMaterialsSuppliesOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-ot/form-regular-note-materials-supplies-ot/form-regular-note-materials-supplies-ot.component';
-import { FormRegularNoteWeekOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-ot/form-regular-note-week-ot/form-regular-note-week-ot.component';
-import { FormRegularNoteOTComponent } from './entry-clinic-history-occupational-therapy/form-regular-note-ot/form-regular-note-ot.component';
-import { FormEntryMotorFunPatOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-fun-pat-ot/form-entry-motor-fun-pat-ot.component';
-import { FormEntryMotorIntPatOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-int-pat-ot/form-entry-motor-int-pat-ot.component';
-import { FormEntryMotorMovPatOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-mov-pat-ot/form-entry-motor-mov-pat-ot.component';
-import { FormEntryMotorThermalOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-thermal-ot/form-entry-motor-thermal-ot.component';
-import { FormEntryMotorDisAuditorylOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-dis-auditory-ot/form-entry-motor-dis-auditory-ot.component';
-import { FormEntryMotorDisTactilelOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-dis-tactile-ot/form-entry-motor-dis-tactile-ot.component';
-import { FormEntryMotorAcuityOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-acuity-ot/form-entry-motor-acuity-ot.component';
-import { FormEntryMotorComponentOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-component-ot/form-entry-motor-component-ot.component';
-import { FormEntryMotorTestlOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-test-ot/form-entry-motor-test-ot.component';
-import { FormEntryMotorCommunicationOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-communication-ot/form-entry-motor-communication-ot.component';
-import { FormEntryMotorAssessmentOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-assessment-ot/form-entry-motor-assessment-ot.component';
-import { FormEntryMotorWeeklyIntOTComponent } from './entry-clinic-history-occupational-therapy/form-entry-consultation-occupational-therapy/form-entry-motor-skills-ot/form-entry-motor-weekly-int-ot/form-entry-motor-weekly-int-ot.component';
+import { FormEntryMotorFunPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-fun-pat-ot/form-entry-motor-fun-pat-ot.component';
+import { FormEntryMotorIntPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-int-pat-ot/form-entry-motor-int-pat-ot.component';
+import { FormEntryMotorMovPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-mov-pat-ot/form-entry-motor-mov-pat-ot.component';
+import { FormEntryMotorThermalOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-thermal-ot/form-entry-motor-thermal-ot.component';
+import { FormEntryMotorDisAuditorylOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-dis-auditory-ot/form-entry-motor-dis-auditory-ot.component';
+import { FormEntryMotorAcuityOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-acuity-ot/form-entry-motor-acuity-ot.component';
+import { FormEntryMotorAssessmentOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-assessment-ot/form-entry-motor-assessment-ot.component';
+import { FormEntryMotorCommunicationOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-communication-ot/form-entry-motor-communication-ot.component';
+import { FormEntryMotorComponentOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-component-ot/form-entry-motor-component-ot.component';
+import { FormEntryMotorDisTactilelOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-dis-tactile-ot/form-entry-motor-dis-tactile-ot.component';
+import { FormEntryMotorTestOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-test-ot/form-entry-motor-test-ot.component';
+import { FormEntryMotorWeeklyIntOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-weekly-int-ot/form-entry-motor-weekly-int-ot.component';
+import { EntryFormDailyActivitiesOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-daily-activities/entry-form-daily-activities-ot.component';
+import { EntryFormMotorSkillsOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/entry-form-motor-skills-ot.component';
+import { EntryFormOccupatHistoryValorationOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-occupat-history/entry-form-occupat-history-valoration-ot.component';
+import { EntryFormPastOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-past/entry-form-past-ot.component';
+import { EntryFormValorationOtComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-valoration-ot/entry-form-valoration-ot.component';
+import { FormRNValorationOtComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-valoration-ot/form-r-n-valoration-ot/form-r-n-valoration-ot.component';
+import { RNValorationOtComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-valoration-ot/r-n-valoration-ot.component';
+import { Actions31Component } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-valoration-ot/actions.component';
+import { RNTheraputicObjOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-therapeutic-obj-ot/r-n-therapeutic_obj-ot.component';
+import { FormRNTherapeuticObjOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-therapeutic-obj-ot/form-r-n-therapeutic-obj-ot/form-r-n-therapeutic-obj-ot.component';
+import { FormRNMaterialsOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-metarials-ot/form-r-n-materials-ot/form-r-n-materials-ot.component';
+import { RNMaterialsOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-metarials-ot/r-n-materials-ot.component';
+
+
 
 @NgModule({
   imports: [
@@ -284,35 +286,34 @@ import { FormEntryMotorWeeklyIntOTComponent } from './entry-clinic-history-occup
 
     ClinicHistoryOccupationalTherapy,
 
-    FormEntryDailyActivitiesOTComponent,
-    FormEntryMotorSkillsOTComponent,
+    EntryFormDailyActivitiesOTComponent,
+    EntryFormMotorSkillsOTComponent,
 
-       FormEntryMotorFunPatOTComponent,
-       FormEntryMotorIntPatOTComponent,
-       FormEntryMotorMovPatOTComponent,
-       FormEntryMotorThermalOTComponent,
-       FormEntryMotorDisAuditorylOTComponent,
-       FormEntryMotorDisTactilelOTComponent,
-       FormEntryMotorAcuityOTComponent,
-       FormEntryMotorComponentOTComponent,
-       FormEntryMotorTestlOTComponent,
-       FormEntryMotorCommunicationOTComponent,
-       FormEntryMotorAssessmentOTComponent,
-       FormEntryMotorWeeklyIntOTComponent,
+    FormEntryMotorFunPatOTComponent,
+    FormEntryMotorIntPatOTComponent,
+    FormEntryMotorMovPatOTComponent,
+    FormEntryMotorThermalOTComponent,
+    FormEntryMotorDisAuditorylOTComponent,
+    FormEntryMotorDisTactilelOTComponent,
+    FormEntryMotorAcuityOTComponent,
+    FormEntryMotorComponentOTComponent,
+    FormEntryMotorTestOTComponent,
+    FormEntryMotorCommunicationOTComponent,
+    FormEntryMotorAssessmentOTComponent,
+    FormEntryMotorWeeklyIntOTComponent,
 
-    FormEntryOccupatHistoryValorationOTComponent,
-    FormEntryPastOTComponent,
-    FormEntryValorationOTComponent,
-    FormEntryOTComponent,
+    EntryFormOccupatHistoryValorationOTComponent,
+    EntryFormPastOTComponent,
+    FormRNValorationOtComponent,
+    EntryFormValorationOtComponent,
+    RNValorationOtComponent,
+    FormRNTherapeuticObjOTComponent,
+    RNTheraputicObjOTComponent,
+    FormRNMaterialsOTComponent,
+    RNMaterialsOTComponent,
 
+    ClinicHistoryOccupationalTherapy,
 
-    FormRegularNoteOTComponent,
-    FormRegularNoteValorationOTComponent,
-    FormRegularNoteTherapeuticGoalOT,
-    FormRegularNoteMaterialsSuppliesOTComponent,
-    FormRegularNoteWeekOTComponent,
-
-    ActionoOcupationalTherapyComponent,
     RespiratoryTherapyListComponent,
     FormRespiratoryTherapyComponent,
     FormAssessmentTherapyComponent,
@@ -364,7 +365,7 @@ import { FormEntryMotorWeeklyIntOTComponent } from './entry-clinic-history-occup
     SystemExamComponent,
     Actions7Component,
 
-    
+
 
     FormBackgroundComponent,
     BackgroundComponent,
@@ -473,8 +474,8 @@ import { FormEntryMotorWeeklyIntOTComponent } from './entry-clinic-history-occup
     FormLanguageEvoDiagnosisComponent,
     FormLanguageRegSessionsComponent,
     FormLanguageTherapeuticGoalsComponent,
-  
-    
+    Actions31Component,
+
 
   ],
 

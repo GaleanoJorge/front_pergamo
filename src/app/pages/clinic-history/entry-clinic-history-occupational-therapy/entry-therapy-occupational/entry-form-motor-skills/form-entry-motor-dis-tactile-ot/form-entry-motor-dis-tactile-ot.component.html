@@ -1,0 +1,40 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="row justify-content-center">
+  
+    <div class="col col-lg-6 asds">
+      <label for="right" class=" form-text text-muted font-weight-bold justify-content-center "> Derecha</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="right" smoke id="right" class="d-flex text" name="right"
+        status="{{ isSubmitted && form.controls.right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="left" class=" form-text text-muted font-weight-bold justify-content-center "> Izquierda</label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="left" smoke id="left" class="d-flex text" name="left"
+        status="{{ isSubmitted && form.controls.left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <div class="div-send">
+    <button nbButton status="danger" class="ml-Siempre btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+  </div>
+    
+
+</form>
