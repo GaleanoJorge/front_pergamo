@@ -23,9 +23,12 @@
       </div>
       <div actions>
         <div class="actions">
+
+          <button nbButton status="danger" [routerLink]="'/pages/setting/assistance-stock'" [queryParams]="{unit: dynamicQueryParameter}">Mi inventario</button>
+
         </div>
-        <div class="actions" style="margin-top:1em;">
-        </div>
+        <!-- <div class="actions" style="margin-top:1em;">
+        </div> -->
       </div>
     </ngx-base-table>
   </div>
