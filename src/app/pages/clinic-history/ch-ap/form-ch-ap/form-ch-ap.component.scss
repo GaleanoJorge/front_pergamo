@@ -1,0 +1,30 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.btn-save{
+  margin-top: 8PX;
+
+    float: RIGHT;
+}
+
+.align{
+
+  margin-top: 8PX;
+  text-align: center;
+
+
+}
+.text{
+  margin: 10PX;
+  text-align: center;
+  justify-content: center;
+}
+.field_set{
+  border: 1px solid #78dada;
+  }
+
+
+

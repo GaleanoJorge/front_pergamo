@@ -226,6 +226,8 @@ import { FormChMedicalCertificateComponent } from './ch-medical-certificate/form
 import { LanguageConceptComponent } from './language-concept/language-concept.component';
 import { FormChOstomiesComponent } from './ch-ostomies/form-ch-ostomies/form-ch-ostomies.component';
 import { ChOstomiesComponent } from './ch-ostomies/ch-ostomies.component';
+import { ChApComponent } from './ch-ap/ch-ap.component';
+import { FormChApComponent } from './ch-ap/form-ch-ap/form-ch-ap.component';
 
 
 @NgModule({
@@ -492,6 +494,9 @@ import { ChOstomiesComponent } from './ch-ostomies/ch-ostomies.component';
     LanguageConceptComponent,
     FormChOstomiesComponent,
     ChOstomiesComponent,
+    ChApComponent,
+    FormChApComponent,
+   
 
 
   ],
