@@ -8,6 +8,7 @@ import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.se
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { inputs } from '@syncfusion/ej2-angular-filemanager/src/file-manager/filemanager.component';
 
 @Component({
   selector: 'ngx-back-list',
@@ -18,6 +19,7 @@ export class BackListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   //@Input() vital: any;
@@ -34,8 +36,6 @@ export class BackListComponent implements OnInit {
   public movieForm: String;
   public admissions_id;
 
-
-  public record_id;
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
