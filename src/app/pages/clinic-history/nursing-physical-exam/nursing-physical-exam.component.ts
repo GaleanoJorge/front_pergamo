@@ -45,7 +45,7 @@ export class NursingPhysicalExamComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name + '-' + row.description;
+          return value.name + ' - Observación: ' + row.description;
         },
       },
       revision: {
