@@ -19,7 +19,7 @@
           <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
         </nb-radio-group>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12" *ngIf="this.form.controls.revision.value =='SI'" >
         <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
         <textarea id="observation" nbInput fullWidth formControlName="observation" observation  onpaste="return false" rows="4" cols="50"
           status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
