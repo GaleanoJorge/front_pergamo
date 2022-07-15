@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChInabilityService } from '../../../../business-controller/ch-inability.service';
-import { ChReasonService } from '../../../../business-controller/ch-reason.service';
 import { ActivatedRoute } from '@angular/router';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { ChRecordService } from '../../../../business-controller/ch_record.service';
@@ -72,7 +71,7 @@ export class FormChInabilityComponent implements OnInit {
       extension: [this.data[0] ? this.data[0].extension : this.data.extension,],
       initial_date: [this.data[0] ? this.data[0].initial_date : this.data.initial_date,],
       final_date: [this.data[0] ? this.data[0].final_date : this.data.final_date,],
-      diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
+      diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id,],
       ch_type_inability_id: [this.data[0] ? this.data[0].ch_type_inability_id : this.data.ch_type_inability_id,],
       ch_type_procedure_id: [this.data[0] ? this.data[0].ch_type_procedure_id : this.data.ch_type_procedure_id,],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
@@ -84,7 +83,7 @@ export class FormChInabilityComponent implements OnInit {
       this.admissions_id = x;
     });
     this.DiagnosisS.GetCollection().then((x) => {
-      this.diagnosis_id = x;
+      this.diagnosis= x;
     });
 
     this.ChContingencyCodeS.GetCollection().then((x) => {
@@ -96,9 +95,30 @@ export class FormChInabilityComponent implements OnInit {
     this.ChTypeProcedureS.GetCollection().then((x) => {
       this.ch_type_procedure_id = x;
     });
+
+    this.form.get('initial_date').valueChanges.subscribe(val => {
+      this.calculateDays();
+    });
+    this.form.get('final_date').valueChanges.subscribe(val => {
+      this.calculateDays();
+    });
   }
 
- 
+  calculateDays() {
+    if (this.form.controls.initial_date.value != '' && this.form.controls.final_date.value != '') {
+      var date_start: string = this.form.controls.initial_date.value + '';
+      var date_finish: string = this.form.controls.final_date.value + '';
+      var fechaInicio = date_start.split("-");
+      var fechaFin = date_finish.split("-");
+      var fechadesde = new Date(+fechaInicio[0], +fechaInicio[1], +fechaInicio[2]).getTime();
+      var fechahasta = new Date(+fechaFin[0], +fechaFin[1], +fechaFin[2]).getTime(); 
+      
+      var dias = ((fechahasta - fechadesde)/(1000 * 60 * 60 * 24))+1;
+  
+      this.form.patchValue({total_days: dias});
+      
+    }
+  }
 
   async save() {
     this.isSubmitted = true;
@@ -113,7 +133,7 @@ export class FormChInabilityComponent implements OnInit {
           extension: this.form.controls.extension.value,
           initial_date: this.form.controls.initial_date.value,
           final_date: this.form.controls.final_date.value,
-          diagnosis_id: this.form.controls.diagnosis_id.value,
+          diagnosis_id: this.diagnosis_id,
           ch_type_inability_id: this.form.controls.ch_type_inability_id.value,
           ch_type_procedure_id: this.form.controls.ch_type_procedure_id.value,
           observation: this.form.controls.observation.value,
@@ -136,7 +156,7 @@ export class FormChInabilityComponent implements OnInit {
           extension: this.form.controls.extension.value,
           initial_date: this.form.controls.initial_date.value,
           final_date: this.form.controls.final_date.value,
-          diagnosis_id: this.form.controls.diagnosis_id.value,
+          diagnosis_id: this.diagnosis_id,
           ch_type_inability_id: this.form.controls.ch_type_inability_id.value,
           ch_type_procedure_id: this.form.controls.ch_type_procedure_id.value,
           observation: this.form.controls.observation.value,
@@ -172,6 +192,17 @@ export class FormChInabilityComponent implements OnInit {
     }
   }
 
+  returnCode(diagnosis_id){
+    var localName = this.diagnosis.find(item => item.id == diagnosis_id);
+    var nombre_diagnosis
+    if(localName){
+      nombre_diagnosis = localName.name;
+    } else {
+      nombre_diagnosis = ''
+    }
+    return nombre_diagnosis;
+  }
+
   saveCode(e): void {
     var localidentify = this.diagnosis.find(item => item.name == e);
 
@@ -200,7 +231,5 @@ export class FormChInabilityComponent implements OnInit {
     this.changes1=true;
   }
 
-
- 
 
 }
