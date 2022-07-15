@@ -10,14 +10,14 @@
 
             <div class="row justify-content-md-center">
               <div class="col col-lg-4">
-                <label class="form-text text-muted font-weight-bold">Especialidad:</label>
-                <nb-select [selected]="this.data.specialty_id" formControlName="specialty_id" id="specialty_id"
-                  status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-option value="">SELECCIONE...</nb-option>
-                  <nb-option selected="{{ item.id == this.data.specialty_id }}" *ngFor="let item of specialty_id"
-                    [value]="item.id">
-                    {{ item.id }}-{{ item.name }}</nb-option>
-                </nb-select>
+                <label for="specialty_id" class="form-text text-muted font-weight-bold">Especialidad:</label>
+
+                <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+                id="specialty_id" formControlName="specialty_id" specialty_id type="text" required
+                status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <datalist id="codes">
+                <option *ngFor="let item of specialty" [value]="item.name">{{ item.id }} - {{item.name}} </option>
+              </datalist>
               </div>
 
               <div class="col col-lg-4">
