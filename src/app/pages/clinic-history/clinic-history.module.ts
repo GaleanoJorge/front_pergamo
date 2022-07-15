@@ -226,6 +226,7 @@ import { FormChMedicalCertificateComponent } from './ch-medical-certificate/form
 import { LanguageConceptComponent } from './language-concept/language-concept.component';
 import { FormChOstomiesComponent } from './ch-ostomies/form-ch-ostomies/form-ch-ostomies.component';
 import { ChOstomiesComponent } from './ch-ostomies/ch-ostomies.component';
+import { ActionsAplicationsComponent } from './drug-application/actions.component';
 
 
 @NgModule({
@@ -257,6 +258,8 @@ import { ChOstomiesComponent } from './ch-ostomies/ch-ostomies.component';
     NbCheckboxModule,
   ],
   declarations: [
+
+    ActionsAplicationsComponent,
     
     InsumeRequestComponent,
     FormInsumeRequestComponent,
@@ -498,6 +501,9 @@ import { ChOstomiesComponent } from './ch-ostomies/ch-ostomies.component';
 
 
   providers: [DateFormatPipe],
-  exports: [],
+  exports: [
+    InsumeRequestComponent,
+    FormInsumeRequestComponent
+  ],
 })
 export class ClinicHistoryModule { }
