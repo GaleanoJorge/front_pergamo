@@ -214,6 +214,8 @@ import { RNTheraputicObjOTComponent } from './entry-clinic-history-occupational-
 import { FormRNTherapeuticObjOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-therapeutic-obj-ot/form-r-n-therapeutic-obj-ot/form-r-n-therapeutic-obj-ot.component';
 import { FormRNMaterialsOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-metarials-ot/form-r-n-materials-ot/form-r-n-materials-ot.component';
 import { RNMaterialsOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-metarials-ot/r-n-materials-ot.component';
+import { ForRNmWeeklyOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/form-r-n-weekly-ot/form-r-n-weekly-ot.component';
+import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/r-n-weekly-ot.component';
 
 
 
@@ -311,6 +313,9 @@ import { RNMaterialsOTComponent } from './entry-clinic-history-occupational-ther
     RNTheraputicObjOTComponent,
     FormRNMaterialsOTComponent,
     RNMaterialsOTComponent,
+    ForRNmWeeklyOTComponent,
+    RNWeeklyOtComponent,
+
 
     ClinicHistoryOccupationalTherapy,
 
