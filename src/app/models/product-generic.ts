@@ -23,4 +23,5 @@ export class ProductGeneric extends MainClass {
   minimum_stock: number;
   maximum_stock: number;
   consignment: number;
+  multidose_concentration_id: number;
 }

@@ -13,6 +13,7 @@ import { AdministrationRouteService } from '../../../../business-controller/admi
 import { ProductConcentrationService } from '../../../../business-controller/product-concentration.service';
 import { ProductDoseService } from '../../../../business-controller/product_dose.service';
 import { NomProductService } from '../../../../business-controller/nom-product.service';
+import { MultidoseConcentrationService } from '../../../../business-controller/multidose-concentration.service';
 
 
 @Component({
@@ -41,15 +42,17 @@ export class FormProductGenericComponent implements OnInit {
   public product_group: any[];
   public product_category: any[];
   public product_dose: any[];
+  public multidose_concentration: any[];
   public showMedicine: boolean = false;
   public showPbs: boolean = false;
-  public showDose: boolean = false;
   public showInsumo: boolean = false;
   public subcategory: string;
+  public dose: string;
   public nomProduct: string;
   public drugconcentration: string;
   public measurementunits: string;
   public productpresentation: string;
+  public multidoseconcentration: string;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -67,6 +70,7 @@ export class FormProductGenericComponent implements OnInit {
     private ProductSubcategoryS: ProductSubcategoryService,
     private NomProductS: NomProductService,
     private prodDoseS: ProductDoseService,
+    private MultidoseConcentrationS: MultidoseConcentrationService,
   ) {
   }
 
@@ -106,6 +110,7 @@ export class FormProductGenericComponent implements OnInit {
       product_subcategory_id: [],
       product_dose_id: [],
       dose: [],
+      multidose_concentration_id: [],
     });
 
     this.form.controls.description.disable();
@@ -135,6 +140,9 @@ export class FormProductGenericComponent implements OnInit {
     await this.ProductConcentrationS.GetCollection().then(x => {
       this.drug_concentration = x;
     });
+    await this.MultidoseConcentrationS.GetCollection().then(x => {
+      this.multidose_concentration = x;
+    });
 
     this.onChanges();
     this.onChanges1();
@@ -162,6 +170,12 @@ export class FormProductGenericComponent implements OnInit {
     this.form.controls.description.setValue(this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation);
   }
 
+  selectmulticoncen(event: Event) {
+    let concentration = this.multidose_concentration.find(x => x.id == event);
+    this.multidoseconcentration = concentration.name;
+    this.form.controls.description.setValue(this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation + " - " + this.form.controls.dose.value + " " + this.multidoseconcentration);
+  }
+
   close() {
     this.dialogRef.close();
   }
@@ -180,13 +194,6 @@ export class FormProductGenericComponent implements OnInit {
       this.showPbs = false;
     }
   }
-  onChange2(tipoId) {
-    if (tipoId == 2) {
-      this.showDose = true;
-    } else {
-      this.showDose = false;
-    }
-  }
 
   save() {
     this.isSubmitted = true;
@@ -198,7 +205,7 @@ export class FormProductGenericComponent implements OnInit {
           drug_concentration_id: this.form.controls.drug_concentration_id.value,
           measurement_units_id: this.form.controls.measurement_units_id.value,
           product_presentation_id: this.form.controls.product_presentation_id.value,
-          description: this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation,
+          description: this.form.controls.dose.value != null ? this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation + "  -  " + this.form.controls.dose.value + " " + this.multidoseconcentration : this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation,
           pbs_type_id: this.form.controls.pbs_type_id.value,
           nom_product_id: this.form.controls.nom_product_id.value,
           administration_route_id: this.form.controls.administration_route_id.value,
@@ -208,6 +215,7 @@ export class FormProductGenericComponent implements OnInit {
           maximum_stock: this.form.controls.maximum_stock.value,
           product_dose_id: this.form.controls.product_dose_id.value,
           dose: this.form.controls.dose.value,
+          multidose_concentration_id: this.form.controls.multidose_concentration_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -223,7 +231,7 @@ export class FormProductGenericComponent implements OnInit {
           drug_concentration_id: this.form.controls.drug_concentration_id.value,
           measurement_units_id: this.form.controls.measurement_units_id.value,
           product_presentation_id: this.form.controls.product_presentation_id.value,
-          description: this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation,
+          description: this.form.controls.dose.value != null ? this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation + "  -  " + this.form.controls.dose.value + " " + this.multidoseconcentration : this.nomProduct + " " + this.drugconcentration + " " + this.measurementunits + " " + this.productpresentation,
           pbs_type_id: this.form.controls.pbs_type_id.value,
           nom_product_id: this.form.controls.nom_product_id.value,
           administration_route_id: this.form.controls.administration_route_id.value,
@@ -233,6 +241,7 @@ export class FormProductGenericComponent implements OnInit {
           maximum_stock: this.form.controls.maximum_stock.value,
           product_dose_id: this.form.controls.product_dose_id.value,
           dose: this.form.controls.dose.value,
+          multidose_concentration_id: this.form.controls.multidose_concentration_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
