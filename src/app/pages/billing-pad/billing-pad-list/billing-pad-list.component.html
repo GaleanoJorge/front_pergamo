@@ -2,7 +2,7 @@
   <div content>
     <nb-tabset class="tabset" (changeTab)="tablock($event)">
       <nb-tab tabTitle="NO PGP">
-        <ngx-billing-admissions-pad-list [entity]="'billing_pad/getEnabledAdmissions/0'" [title]="this.title" [is_pgp]="false" [route]="1"></ngx-billing-admissions-pad-list>
+        <ngx-billing-pad-contracts [route]="1"></ngx-billing-pad-contracts>
       </nb-tab>
       <nb-tab tabTitle="PGP">
         <ngx-billing-admissions-pad-list [entity]="'billing_pad/getPgpContracts/5'" [title]="this.title_pgp" [is_pgp]="false" [route]="2"></ngx-billing-admissions-pad-list>

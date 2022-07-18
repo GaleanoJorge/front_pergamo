@@ -5,15 +5,15 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    entity="billing_pad/?admission_id={{admission_id}}"
+                    entity="billing_pad/?admission_id={{admission_id}}&descendente=true"
                     customData='billing_pad'
                     [messageToltip]="messageToltip"
                     >
-      <!-- <div actions>
+      <div actions>
         <div class="actions">
-          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewBillingAdmission()">Crear</button>
+          <button nbButton *ngIf="this.create_new_billing" status="danger" (click)="NewBillingAdmission()">Nueva factura</button>
         </div>
-      </div> -->
+      </div>
     </ngx-base-table>
 
   </div>

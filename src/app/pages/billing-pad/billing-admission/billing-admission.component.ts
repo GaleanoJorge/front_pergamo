@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormShowBillingPadComponent } from './form-show-billing-pad/form-show-billing-pad.component';
 import { CurrencyPipe } from '@angular/common';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { BillingPadService } from '../../../business-controller/billing-pad.service';
 
 @Component({
   selector: 'ngx-billing-admission',
@@ -25,6 +26,8 @@ export class BillingAdmissionComponent implements OnInit {
   public icon: string = 'nb-star';
   public data = [];
   public admission_id;
+  public done: boolean = false;
+  public create_new_billing: boolean = false;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -37,6 +40,14 @@ export class BillingAdmissionComponent implements OnInit {
         title: 'ACCIONES',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          if (!this.done) {
+            if(row.billing_pad_status_id == 2) {
+              this.create_new_billing = true;
+            } else {
+              this.create_new_billing = false;
+            }
+            this.done = true;
+          }
           return {
             'data': row,
             'show': this.ShowBillingAdmission.bind(this),
@@ -80,6 +91,7 @@ export class BillingAdmissionComponent implements OnInit {
     private route: ActivatedRoute,
     public datePipe: DateFormatPipe,
     private currency: CurrencyPipe,
+    private BillingPadS: BillingPadService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -89,9 +101,9 @@ export class BillingAdmissionComponent implements OnInit {
 
   ngOnInit(): void {
     this.admission_id = this.route.snapshot.params.id;
-    this.AdmissionsS.GetCollection({admissions_id: this.admission_id}).then(x => {
+    this.AdmissionsS.GetCollection({ admissions_id: this.admission_id }).then(x => {
       this.title = 'FACTURAS DE: ' + x[0]['nombre_completo'];
-    }).catch(x => {});
+    });
   }
 
   RefreshData() {
@@ -99,14 +111,13 @@ export class BillingAdmissionComponent implements OnInit {
     this.table.refresh();
   }
 
-  // NewBillingAdmission() {
-  //   this.dialogFormService.open(FormBillingAdmissionComponent, {
-  //     context: {
-  //       title: 'Crear nuevo día de dietas',
-  //       saved: this.RefreshData.bind(this),
-  //     },
-  //   });
-  // }
+  NewBillingAdmission() {
+    this.BillingPadS.NewBilling({ admissions_id: this.admission_id }).then(x => {
+      this.toastrService.success('', x.message);
+      this.RefreshData();
+      this.create_new_billing = false;
+    });
+  }
 
   ShowBillingAdmission(data) {
     this.dialogFormService.open(FormShowBillingPadComponent, {
