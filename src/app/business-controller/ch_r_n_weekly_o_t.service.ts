@@ -1,19 +1,19 @@
 import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
-import { ChEMWeeklyOT } from '../models/ch_r_n_weekly_o_t';
+import { ChRNWeeklyOT } from '../models/ch_r_n_weekly_o_t';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChEMWeeklyOTService {
-  public ch_r_n_weekly_o_t: ChEMWeeklyOT[] = [];
+export class ChRNWeeklyOTService {
+  public ch_r_n_weekly_o_t: ChRNWeeklyOT[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<ChEMWeeklyOT[]> {
+  GetCollection(params = {}): Promise<ChRNWeeklyOT[]> {
     let servObj = new ServiceObject(params ? 'ch_r_n_weekly_o_t?pagination=false' : 'ch_r_n_weekly_o_t');
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
@@ -21,7 +21,7 @@ export class ChEMWeeklyOTService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.ch_r_n_weekly_o_t = <ChEMWeeklyOT[]>servObj.data.ch_r_n_weekly_o_t;
+        this.ch_r_n_weekly_o_t = <ChRNWeeklyOT[]>servObj.data.ch_r_n_weekly_o_t;
 
         return Promise.resolve(this.ch_r_n_weekly_o_t);
       })
