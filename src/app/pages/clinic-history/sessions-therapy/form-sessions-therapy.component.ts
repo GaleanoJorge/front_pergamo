@@ -14,6 +14,7 @@ export class FormSessionsTherapyComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -76,7 +77,7 @@ export class FormSessionsTherapyComponent implements OnInit {
           month: this.form.controls.month.value,
           week: this.form.controls.week.value,
           recommendations: this.form.controls.recommendations.value,
-          type_record_id: 1,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -93,7 +94,7 @@ export class FormSessionsTherapyComponent implements OnInit {
           month: this.form.controls.month.value,
           week: this.form.controls.week.value,
           recommendations: this.form.controls.recommendations.value,
-          type_record_id: 1,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

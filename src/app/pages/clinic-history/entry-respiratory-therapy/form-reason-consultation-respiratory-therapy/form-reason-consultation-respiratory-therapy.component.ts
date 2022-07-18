@@ -3,6 +3,8 @@ import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { ChRespiratoryTherapyService } from '../../../../business-controller/ch_respiratory_therapy.service';
+import { ChRecordService } from '../../../../business-controller/ch_record.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -15,8 +17,9 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() record_id: any = null;
-  // @Input() regular: any = null;
+  @Input() record_id: any = null;  
+  @Input() type_record: any = null;
+
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -34,10 +37,9 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
   public changes = false;
   public changes1 = false;
 
-
   constructor(
     private formBuilder: FormBuilder,
-    private toastService: NbToastrService,
+    private toastService: NbToastrService,    
     private diagnosisS: DiagnosisService,
     private respiratoryS: ChRespiratoryTherapyService,
   ) {
@@ -133,7 +135,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
           medical_diagnosis_id: this.diagnosis_medical,
           therapeutic_diagnosis: this.form.controls.therapeutic_diagnosis.value,
           reason_consultation: this.form.controls.reason_consultation.value,
-          type_record_id: 1,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -150,7 +152,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
           medical_diagnosis_id: this.diagnosis_medical,
           therapeutic_diagnosis: this.form.controls.therapeutic_diagnosis.value,
           reason_consultation: this.form.controls.reason_consultation.value,
-          type_record_id: 1,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

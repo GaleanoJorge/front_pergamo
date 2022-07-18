@@ -12,6 +12,7 @@ import { ChAssPatternService } from '../../../business-controller/ch_ass_pattern
 import { ChSignsService } from '../../../business-controller/ch_signs.service';
 import { ChRtInspectionService } from '../../../business-controller/ch_rt_inspection.service';
 import { ChAuscultationService } from '../../../business-controller/ch_auscultation.service';
+import { ChDiagnosticAidsService } from '../../../business-controller/ch_diagnostic_aids.service';
 
 
 
@@ -43,6 +44,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
   public ch_signs: any[];
   public ispectionTeraphyRespiratory: any[];
   public auscultacionTeraphyRespiratory: any[];
+  public diagnosticTeraphyRespiratory: any[];
 
 
   constructor(
@@ -57,6 +59,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
     private TypeS: ChAssChestTypeService,
     private SignsS:ChSignsService,
     private SymetryS: ChAssChestSymmetryService,    
+    private DiagnosticS: ChDiagnosticAidsService,    
     private IspectionS: ChRtInspectionService,    
     private AuscultacionS: ChAuscultationService,
   ) {
@@ -140,6 +143,10 @@ export class FormAssessmentTherapyComponent implements OnInit {
       this.ch_signs = x;
     });
 
+    await this.DiagnosticS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.diagnosticTeraphyRespiratory = x;
+    });
+
     await this.IspectionS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.ispectionTeraphyRespiratory = x;
     });
@@ -147,6 +154,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
     await this.AuscultacionS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.auscultacionTeraphyRespiratory = x;
     });
+
 
   }
 

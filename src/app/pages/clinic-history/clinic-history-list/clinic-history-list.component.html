@@ -25,8 +25,8 @@
         </div>
       </nb-tab>
       <nb-tab tabTitle="ESCALAS">
-        <div *ngIf="this.show == 4">
-          <ngx-form-ch-scales [record_id]="record_id">
+        <div *ngIf="this.show == 4 && this.user">
+          <ngx-form-ch-scales [medical]="true" [record_id]="record_id" [age]="user">
           </ngx-form-ch-scales>
         </div>
       </nb-tab>

@@ -16,8 +16,10 @@ export class FormChScalesComponent implements OnInit {
   @Input() data: any = null;
   @Input() enfermery: any = null;
   @Input() respiratory: any = null;
+  @Input() medical: any = null;
   @Input() nutrition: any = null;
   @Input() record_id: any = null;
+  @Input() age: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
 
@@ -28,6 +30,7 @@ export class FormChScalesComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public isSelected: any = 200;
+  public ageScale: number;
   public arrayDefinitionsFac =
     [
       {
@@ -292,6 +295,7 @@ export class FormChScalesComponent implements OnInit {
       this.data = {
       };
     }
+    this.ageScale = this.getAge(this.age.brithday);
     this.form = this.formBuilder.group({
 
       //Escala Norton Form
@@ -1162,7 +1166,7 @@ export class FormChScalesComponent implements OnInit {
           this.loading = false;
         });
       }
-    }
+    } 
 
     if (escale_id == 3) {
       this.refresh3=false;
@@ -2550,6 +2554,13 @@ export class FormChScalesComponent implements OnInit {
         });
       }
     }
+  }
+
+  getAge(birthday: string): number {
+    var date = new Date(birthday);
+    var ageDifMs = Date.now() - date.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
 }
 

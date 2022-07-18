@@ -13,7 +13,8 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 })
 export class ReasonConsultationRespiratoryTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-  @Input() record_id;
+  @Input() record_id = null; 
+  @Input() type_record: any = null;
   
   linearMode = true;
   public messageError = null;

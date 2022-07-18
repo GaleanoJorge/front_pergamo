@@ -47,6 +47,16 @@ export class FormaDiagnosticTherapyComponent implements OnInit {
            
     });    
 
+    if (this.data.aids != '') {
+      this.form.controls.aids.disable();
+      this.form.controls.observation.disable();
+      this.disabled = true;
+    } else {
+      this.form.controls.aids.enable();
+      this.form.controls.observation.enable();
+      this.disabled = false;
+    }
+
   }
 
 

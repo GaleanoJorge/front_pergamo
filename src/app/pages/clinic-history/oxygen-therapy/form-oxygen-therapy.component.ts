@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, } from '@angular/core';
-import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NbToastrService } from '@nebular/theme';
 import { ChOxygenTherapyService } from '../../../business-controller/ch_oxygen_therapy.service';
 
 
@@ -15,7 +15,9 @@ export class FormChOxygenTherapyComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+
 
 
   public form: FormGroup;
@@ -70,7 +72,7 @@ export class FormChOxygenTherapyComponent implements OnInit {
           id: this.data.id,
           revision: this.form.controls.revision.value,
           observation: this.form.controls.observation.value,
-          type_record_id: 1,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -86,7 +88,7 @@ export class FormChOxygenTherapyComponent implements OnInit {
         await this.OxygenS.Save({
           revision: this.form.controls.revision.value,
           observation: this.form.controls.observation.value,
-          type_record_id: 1,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

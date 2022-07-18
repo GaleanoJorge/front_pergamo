@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { FormGroup } from '@angular/forms';
 
 
 
@@ -17,6 +16,8 @@ export class SessionsTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
+  @Input() type_record: any = null;
+
   linearMode = false;
   public messageError = null;
   public title: string = '';

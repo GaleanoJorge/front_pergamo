@@ -44,6 +44,7 @@ export class FormsignsComponent implements OnInit {
   public selectedItemsList = [];
   public checkedIDs = [];
   public checkboxesDataList: any[] = [];
+  public geteratedIMC = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,27 +66,27 @@ export class FormsignsComponent implements OnInit {
       {
         id: 'mydriatic',
         label: 'MINDRIÁTICA',
-        isChecked: true,
+        isChecked: false,
       },
       {
         id: 'normal',
         label: 'NORMAL',
-        isChecked: true,
+        isChecked: false,
       },
       {
         id: 'lazy_reaction_light',
         label: 'REACCIÓN PERESOZA ( A LA LUZ)',
-        isChecked: true,
+        isChecked: false,
       },
       {
         id: 'fixed_lazy_reaction',
         label: 'REACCIÓN PERESOZA',
-        isChecked: true,
+        isChecked: false,
       },
       {
         id: 'miotic_size',
         label: 'TAMAÑO MIÓTICA',
-        isChecked: true,
+        isChecked: false,
       },
     ];
     if (!this.data || this.data.length == 0) {
@@ -276,11 +277,11 @@ export class FormsignsComponent implements OnInit {
       this.disabled = false;
     }
 
-    this.fetchSelectedItems();
-    this.fetchCheckedIDs();
+    this.fetchSelectedItems(null);
+    this.fetchCheckedIDs(null);
   }
-  changeSelection() {
-    this.fetchSelectedItems()
+  changeSelection($event) {
+    this.fetchSelectedItems($event);
   }
 
   async save() {
@@ -317,6 +318,7 @@ export class FormsignsComponent implements OnInit {
           chest_perimeter: this.form.controls.chest_perimeter.value,
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
+          pupil: JSON.stringify(this.checkboxesDataList),
           // mydriatic: this.form.controls.mydriatic.value,
           // normal: this.form.controls.normal.value,
           // lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
@@ -362,7 +364,7 @@ export class FormsignsComponent implements OnInit {
           size: this.form.controls.size.value,
           weight: this.form.controls.weight.value,
           glucometry: this.form.controls.glucometry.value,
-          body_mass_index: this.form.controls.body_mass_index.value,
+          body_mass_index: this.geteratedIMC,
           pulmonary_systolic: this.form.controls.pulmonary_systolic.value,
           pulmonary_diastolic: this.form.controls.pulmonary_diastolic.value,
           pulmonary_half: this.form.controls.pulmonary_half.value,
@@ -371,6 +373,8 @@ export class FormsignsComponent implements OnInit {
           chest_perimeter: this.form.controls.chest_perimeter.value,
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
+          pupil: JSON.stringify(this.checkboxesDataList),
+
           // mydriatic: this.form.controls.mydriatic.value,
           // normal: this.form.controls.normal.value,
           // lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
@@ -420,24 +424,20 @@ export class FormsignsComponent implements OnInit {
     ) {
       var sys = this.form.controls.pressure_systolic.value;
       var dias = this.form.controls.pressure_diastolic.value;
-      this.form.controls.pressure_half.setValue((sys + 2 * dias) / 3);
+      this.form.controls.pressure_half.setValue((sys + 2 * dias)/ 3);
     } else {
       this.form.controls.pressure_half.setValue('');
     }
   }
   onChangesIMC(event, id) {
-    if (
-      this.form.controls.size.value &&
-      this.form.controls.size.value != '' &&
-      this.form.controls.weight.value &&
-      this.form.controls.weight.value != ''
-    ) {
-      var size = this.form.controls.size.value;
-      var weight = this.form.controls.weight.value;
-      this.form.controls.body_mass_index.setValue(weight / (size * size));
+
+    if (this.form.controls.weight.value != '' && this.form.controls.size.value != '') {
+      this.geteratedIMC = (this.form.controls.weight.value / 
+      ((this.form.controls.size.value / 100) * (this.form.controls.size.value / 100))).toFixed(2);
     } else {
-      this.form.controls.body_mass_index.setValue('');
+      this.geteratedIMC = null;
     }
+
   }
 
   async onChange() {
@@ -481,12 +481,17 @@ export class FormsignsComponent implements OnInit {
       };
   });
 }
-fetchSelectedItems() {
-  this.selectedItemsList = this.checkboxesDataList.filter((value, index) => {
-    return value.isChecked;
-  });
+fetchSelectedItems($event) {
+  var i = 0;
+
+  this.checkboxesDataList.forEach((item) => {
+    if(item.label== $event.item){
+      this.checkboxesDataList[i].isChecked= !$event.value;
+    }
+    i++;
+  })
 }
-fetchCheckedIDs() {
+fetchCheckedIDs($event) {
   this.checkedIDs = []
   this.checkboxesDataList.forEach((value, index) => {
     if (value.isChecked) {
