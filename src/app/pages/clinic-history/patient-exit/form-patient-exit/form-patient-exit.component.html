@@ -5,18 +5,18 @@
       <legend class="prue1  center ">SALIDA DEL PACIENTE</legend>
       <div class="row justify-content-md-center">
         <div class="col col-lg-2">
-        <label class="form-text text-muted font-weight-bold">Estado de Salida</label>
+          <label class="form-text text-muted font-weight-bold">Estado de Salida</label>
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="exit_status" exit_status id="exit_status" class="d-flex text center"
-            name="exit_status" 
+            name="exit_status"
             status="{{ isSubmitted && form.controls.exit_status.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio value="1">Vivo</nb-radio>
             <nb-radio value="2">Fallecido</nb-radio>
           </nb-radio-group>
         </div>
       </div>
-      
+
       <div class="col col-lg-12">
         <hr />
       </div>
@@ -77,46 +77,62 @@
         </div>
       </div>
 
-      <!-- <div class="container">
-        <div class="row justify-content-md-center">
-          <div class="col col-lg-12">
-            <hr />
-          </div>
-        </div>
-      </div> -->
+
       <div *ngIf="this.form.controls.exit_status.value=='1'">
-        <div class="row justify-content-md-center" >
+        <div class="row justify-content-md-center">
           <div class="col col-lg-3">
-            <label class="form-text text-muted font-weight-bold">DX Ingreso:</label>
+
+
+            <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold ">DX Ingreso:</label>
+            <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes2"
+              id="ch_diagnosis_id" formControlName="ch_diagnosis_id" ch_diagnosis_id type="text" required
+              status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <datalist id="codes2">
+              <option selected="{{ item.id == this.data.ch_diagnosis_id }}" *ngFor="let item of ch_diagnosis"
+                [value]="item.name">
+                {{ item.diagnosis_id }} - {{ item.diagnosis.name }}
+              </option>
+            </datalist>
+          </div>
+
+
+
+
+          <!-- <label class="form-text text-muted font-weight-bold">DX Ingreso:</label>
             <nb-select [selected]="this.data.ch_diagnosis_id" formControlName="ch_diagnosis_id" id="ch_diagnosis_id"
               status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.ch_diagnosis_id }}" *ngFor="let item of ch_diagnosis_id"
-                [value]="item.id">
-                {{ item.diagnosis_id }}</nb-option>
+                [value]="item.name">
+                {{ item.diagnosis_id }} - {{ item.diagnosis.name }}</nb-option>
             </nb-select>
-          </div>
-          <div class="col col-lg-3">
-            <label class="form-text text-muted font-weight-bold">Dx Salida:</label>
-            <nb-select [selected]="this.data.exit_diagnosis_id" formControlName="exit_diagnosis_id" id="exit_diagnosis_id"
+          </div> -->
+
+
+          <div class="col-md-4">
+            <label for="exit_diagnosis_id" class="form-text text-muted font-weight-bold ">DX Salida</label>
+            <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
+              (change)="saveCode($event.target.value,1)" id="exit_diagnosis_id" formControlName="exit_diagnosis_id"
+              exit_diagnosis_id type="text" required
               status="{{ isSubmitted && form.controls.exit_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.exit_diagnosis_id }}" *ngFor="let item of exit_diagnosis_id"
-                [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
+            <datalist id="codes">
+              <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
+              </option>
+            </datalist>
           </div>
-          <div class="col col-lg-3">
-            <label class="form-text text-muted font-weight-bold">Dx Relacionados de Salida:</label>
-            <nb-select [selected]="this.data.relations_diagnosis_id" formControlName="relations_diagnosis_id"
-              id="relations_diagnosis_id"
+
+          <div class="col-md-4 ">
+            <label for="relations_diagnosis_id" class="form-text text-muted font-weight-bold">DX Relacionado</label>
+            <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
+              (change)="saveCode($event.target.value,2)" id="relations_diagnosis_id"
+              formControlName="relations_diagnosis_id" relations_diagnosis_id type="text" required
               status="{{ isSubmitted && form.controls.relations_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.relations_diagnosis_id }}"
-                *ngFor="let item of relations_diagnosis_id" [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
+            <datalist id="codes">
+              <option *ngFor="let item of relations_diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
+              </option>
+            </datalist>
           </div>
+
           <div class="col col-lg-3">
             <label class="form-text text-muted font-weight-bold">Motivo de salida:</label>
             <nb-select [selected]="this.data.reason_exit_id" formControlName="reason_exit_id" id="reason_exit_id"
@@ -127,20 +143,18 @@
                 {{ item.name }}</nb-option>
             </nb-select>
           </div>
-        
-        
+
+
         </div>
       </div>
 
     </fieldset>
 
 
-
-
-
     <div class="row">
       <div class="col-md-12">
-        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="button"
+          (click)="save()">GUARDAR</button>
       </div>
     </div>
 

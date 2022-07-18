@@ -1,81 +1,56 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
     <label class="form-text text-muted font-weight-bold align"></label>
-    <fieldset class="field_set center">
-      <legend class="prue1">AP</legend>
-      <div class="row center">
-        <div class="col-md-6">
-
-          <label class="form-text text-muted font-weight-bold">ANÁLISIS</label>
-          <textarea id="analisys" nbInput fullWidth formControlName="analisys" analisys  onpaste="return false" rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.analisys.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-        </div>
-        <div class="col-md-6">
-          <label class="form-text text-muted font-weight-bold">PLAN(diagnóstico, terapeutico, de
-            seguimiento)</label>
-          <textarea id="plan" nbInput fullWidth formControlName="plan" plan  onpaste="return false" rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.plan.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-        </div>
-      </div>
-    </fieldset>
-
- 
 
     <fieldset class="field_set">
       <legend class="prue1  center ">RECOMENDACIONES</legend>
-      <div class="row justify-content-md center">
-        <div class="col col-lg-6">
-      <label class="form-text text-muted font-weight-bold">Educación al paciente/familiar</label>
-    </div>
-  
-      <div class="col col-lg-2">
-        <nb-radio-group formControlName="patient_family_education" patient_family_education id="patient_family_education" class="d-flex text center" name="patient_family_education"
-          status="{{ isSubmitted && form.controls.patient_family_education.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-radio value="Si">Si</nb-radio>
-          <nb-radio value="No">No</nb-radio>
-        </nb-radio-group>
-      </div> 
-    </div>
 
-    <div class="col col-lg-12">
-      <hr />
-    </div>
-
-
-      <div class="row justify-content-md center">
-        <div class="col col-lg-2">
-          <label class="form-text text-muted font-weight-bold">Recomendación:</label>
-        </div>
-        <div class="col col-lg-3">
-          <nb-select  [selected]="this.data.recommendations_evo_id" formControlName="recommendations_evo_id"
-            id="recommendations_evo_id" (selectedChange)="onDescriptionChange($event)"
-            status="{{ isSubmitted && form.controls.recommendations_evo_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">SELECCIONE...</nb-option>
-            <nb-option selected="{{ item.id == this.data.recommendations_evo_id }}"
-              *ngFor="let item of recommendations_evo_id" [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
-
-        
-          <div class="col col-lg-2">
-            <label class="form-text text-muted font-weight-bold">Descripción:</label>
-          </div> 
-            <div class="col col-lg-3">
-
-            
-            <textarea class="form-text col col-lg-12 detail" id="description" nbInput fullWidth
-              formControlName="description" analisys onpaste="return false" rows="3" cols="70"
-              status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-md-auto">
+            <nb-radio-group formControlName="patient_family_education" patient_family_education
+              id="patient_family_education" class="d-flex text center" name="patient_family_education"
+              status="{{ isSubmitted && form.controls.patient_family_education.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="Si">Educación al paciente/familiar</nb-radio>
+            </nb-radio-group>
           </div>
-        
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-md-8 center">
+            <label for=" recommendations_evo_id " class="form-text text-muted font-weight-bold">Recomendación:</label>
+            <nb-select [selected]="this.data.recommendations_evo_id" formControlName="recommendations_evo_id"
+              id="recommendations_evo_id" (selectedChange)="onDescriptionChange($event)"
+              status="{{ isSubmitted && form.controls.recommendations_evo_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.recommendations_evo_id }}"
+                *ngFor="let item of recommendations_evo_id" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-md-center mt-3" style="align-items: center;">
+
+        <div class="col-md-10">
+          <label for="description" class="form-text text-muted font-weight-bold center">Descripción</label>
+          <textarea id="description" nbInput fullWidth formControlName="description" description onpaste="return false"
+            rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+
       </div>
     </fieldset>
 
     <div class="row">
       <div class="col-md-12">
-        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="button"
+          (click)="save()">GUARDAR</button>
       </div>
     </div>
   </div>
+
 </form>

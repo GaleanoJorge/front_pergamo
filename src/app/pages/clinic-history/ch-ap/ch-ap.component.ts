@@ -4,14 +4,15 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'ngx-ch-interconsultation',
-  templateUrl: './ch-interconsultation.component.html',
-  styleUrls: ['./ch-interconsultation.component.scss'],
+  selector: 'ngx-ch-ap',
+  templateUrl: './ch-ap.component.html',
+  styleUrls: ['./ch-ap.component.scss'],
 })
-export class ChInterconsultationComponent implements OnInit {
+export class ChApComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
+  @Input() type_record: any;
   linearMode = false;
   public messageError = null;
   public title;
@@ -19,17 +20,15 @@ export class ChInterconsultationComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Especialidad',
-    'Cantidad',
-    'Frecuencia',
-    'Observaciones',
+    'Análisis',
+    'Plan (Diagnostico, Terapeutico, de seguimiento)',
   ];
   
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
   public saveEntry: any = 0;
-  public loading: boolean = false; 
+  public loading: boolean = false;
   
 
   public settings = {
@@ -38,30 +37,15 @@ export class ChInterconsultationComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      specialty: {
+      
+      analisys: {
         title: this.headerFields[0],
         width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.id + '-' + row.specialty.name;
-         
-        },
       },
-      amount: {
+      plan: {
         title: this.headerFields[1],
         width: 'string',
       },
-      frequency: {
-        title: this.headerFields[2],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.name;
-        },
-      },
-      observations: {
-        title: this.headerFields[3],
-        width: 'string',
-      },
-      
      
     },
   };

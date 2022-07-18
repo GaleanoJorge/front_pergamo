@@ -1,21 +1,22 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChEvoSoapService } from '../../../../business-controller/ch-evo-soap.service';
 import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { ActivatedRoute } from '@angular/router';
+import { ChApService } from '../../../../business-controller/ch-ap.service';
 
 @Component({
-  selector: 'ngx-form-evo-soap',
-  templateUrl: './form-evo-soap.component.html',
-  styleUrls: ['./form-evo-soap.component.scss'],
+  selector: 'ngx-form-ch-ap',
+  templateUrl: './form-ch-ap.component.html',
+  styleUrls: ['./form-ch-ap.component.scss'],
 })
-export class FormEvoSoapComponent implements OnInit {
-
+export class FormChApComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() type_record: any;
+  @Input() record_id: any;
   @Output() messageEvent = new EventEmitter<any>();
-  @Input() record_id: any = null;
+
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -23,20 +24,13 @@ export class FormEvoSoapComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
- 
   public admissions_id;
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
   public changes=false;
   public changes1=false;
 
-
-
   constructor(
-
     private formBuilder: FormBuilder,
-    private ChEvoSoapS: ChEvoSoapService,
+    private ChApS: ChApService,
     private toastService: NbToastrService,
     private chRecord: ChRecordService,
     private route: ActivatedRoute
@@ -51,18 +45,17 @@ export class FormEvoSoapComponent implements OnInit {
 
     if (!this.data) {
       this.data = {
-        subjective: '',
-        objective: '',
-
+        analisys: '',
+        plan: '',
+        
       };
     }
+
     this.form = this.formBuilder.group({
-      subjective: [this.data.subjective, Validators.compose([Validators.required]),],
-      objective: [this.data.objective, Validators.compose([Validators.required]),],
-      
+      analisys: [this.data.analisys, Validators.compose([Validators.required])],
+      plan: [this.data.plan, Validators.compose([Validators.required])],
      
     });
-
   }
 
   async save() {
@@ -72,16 +65,18 @@ export class FormEvoSoapComponent implements OnInit {
       this.showTable = false;
 
       if (this.data.id) {
-        await this.ChEvoSoapS
+        await this.ChApS
           .Update({
             id: this.data.id,
-            subjective: this.form.controls.subjective.value,
-            objective: this.form.controls.objective.value,
-            type_record_id: 3,
+            analisys: this.form.controls.analisys.value,
+            plan: this.form.controls.plan.value,
+         
+            type_record_id: this.type_record,
             ch_record_id: this.record_id,
           })
           .then((x) => {
             this.toastService.success('', x.message);
+            this.form.setValue({ analisys: '', plan: ''});
             if (this.saved) {
               this.saved();
             }
@@ -91,17 +86,17 @@ export class FormEvoSoapComponent implements OnInit {
             this.loading = false;
           });
       } else {
-        await this.ChEvoSoapS
+        await this.ChApS
           .Save({
-            subjective: this.form.controls.subjective.value,
-            objective: this.form.controls.objective.value,
-            type_record_id: 3,
+            analisys: this.form.controls.analisys.value,
+            plan: this.form.controls.plan.value,
+            type_record_id: this.type_record,
             ch_record_id: this.record_id,
           })
           .then((x) => {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
-            this.form.setValue({ subjective: '', objective:''});
+            this.form.setValue({ analisys: '', plan: '' });
             if (this.saved) {
               this.saved();
             }
@@ -110,43 +105,9 @@ export class FormEvoSoapComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
-          this.messageEvent.emit(true);
       }
     }
   }
-
+  
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

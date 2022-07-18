@@ -29,8 +29,9 @@ export class FormChInterconsultationComponent implements OnInit {
   public showTable;
   public record_id;
   public admissions_id;
-  public specialty_id: any[];
+  public specialty_id;
   public frequency_id: any[];
+  public specialty: any[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,14 +60,14 @@ export class FormChInterconsultationComponent implements OnInit {
     };
 
     this.SpecialtyS.GetCollection().then(x => {
-      this.specialty_id = x;
+      this.specialty= x;
     });
     this.FrequencyS.GetCollection().then(x => {
       this.frequency_id = x;
     });
 
     this.form = this.formBuilder.group({
-      specialty_id: [this.data.specialty_id],
+      specialty_id: [this.data[0] ? this.data[0].specialty_id : this.data.specialty_id,],
       amount: [this.data.amount],
       frequency_id: [this.data.frequency_id],
       observations: [this.data.observations],
@@ -82,10 +83,9 @@ export class FormChInterconsultationComponent implements OnInit {
       this.showTable = false;
 
       if (this.data.id) {
-        await this.ChInterconsultationS
-          .Update({
+        await this.ChInterconsultationS.Update({
             id: this.data.id,
-            specialty_id: this.form.controls.specialty_id.value,
+            specialty_id: this.specialty_id,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
@@ -105,7 +105,7 @@ export class FormChInterconsultationComponent implements OnInit {
       } else {
         await this.ChInterconsultationS
           .Save({
-            specialty_id: this.form.controls.specialty_id.value,
+            specialty_id: this.specialty_id,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
@@ -125,7 +125,28 @@ export class FormChInterconsultationComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
+          this.messageEvent.emit(true);
       }
+    }
+  }
+  returnCode(specialty_id){
+    var localName = this.specialty.find(item => item.id == specialty_id);
+    var nombre_specialty
+    if(localName){
+      nombre_specialty = localName.name;
+    } else {
+      nombre_specialty = ''
+    }
+    return nombre_specialty;
+  }
+
+  saveCode(e): void {
+    var localidentify = this.specialty.find(item => item.name == e);
+
+    if (localidentify) {
+      this.specialty_id = localidentify.id;
+    } else {
+      this.specialty_id = null;
     }
   }
 }

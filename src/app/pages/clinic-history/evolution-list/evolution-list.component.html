@@ -13,7 +13,7 @@
           <nb-step [stepControl]="nameForm" label="Ex Físico">
             <div class="row">
               <div class="col-md-12">
-                <ngx-nursing-physical-exam [record_id]="record_id" [type_record_id]="1" ></ngx-nursing-physical-exam> 
+                <ngx-nursing-physical-exam [record_id]="record_id" [type_record_id]="3" ></ngx-nursing-physical-exam> 
               </div>
             </div> 
           </nb-step>
@@ -34,7 +34,27 @@
             </div>
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="AP/Recomendaciones">
+          <nb-step [stepControl]="nameForm" label="Ostomías">
+            
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-ch-ostomies [type_record]="3" [record_id]="record_id"></ngx-ch-ostomies> 
+              </div>
+            </div>
+            
+
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="AP">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-ch-ap [type_record]="3" [record_id]="record_id"></ngx-ch-ap>
+
+              </div>
+            </div> 
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Recomendaciones">
             <div class="row">
               <div class="col-md-12">
                 <ngx-recommendations-evo [type_record]="3" [record_id]="record_id"></ngx-recommendations-evo>
@@ -42,11 +62,12 @@
               </div>
             </div> 
           </nb-step>
+          
 
           <nb-step [stepControl]="nameForm" label="Dietas">
              <div class="row">
               <div class="col-md-12">
-                <ngx-diets-evo [record_id]="record_id"></ngx-diets-evo>
+                <ngx-diets-evo [type_record]="3" [record_id]="record_id"></ngx-diets-evo>
 
               </div>
             </div> 

@@ -16,6 +16,7 @@ export class FormDietsEvoComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record: any;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -57,8 +58,8 @@ export class FormDietsEvoComponent implements OnInit {
     });
    
     this.form = this.formBuilder.group({
-      enterally_diet_id: [this.data.enterally_diet_id, Validators.compose([Validators.required])],
-      diet_consistency_id: [this.data.diet_consistency_id, Validators.compose([Validators.required])],
+      enterally_diet_id: [this.data.enterally_diet_id ],
+      diet_consistency_id: [this.data.diet_consistency_id,Validators.compose([Validators.required])],
       observation: [this.data.observation, Validators.compose([Validators.required])],
     });
   }
@@ -75,11 +76,11 @@ export class FormDietsEvoComponent implements OnInit {
           enterally_diet_id: this.form.controls.enterally_diet_id.value,
           diet_consistency_id: this.form.controls.diet_consistency_id.value,
           observation: this.form.controls.observation.value,
-          type_record_id: 3,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
-          this.form.setValue({ diet_component: '', diet_consistency: '',});
+          this.form.setValue({ diet_component: '', diet_consistency: '', observation: ''});
           if (this.saved) {
             this.saved();
           }
@@ -92,7 +93,7 @@ export class FormDietsEvoComponent implements OnInit {
           enterally_diet_id: this.form.controls.enterally_diet_id.value,
           diet_consistency_id: this.form.controls.diet_consistency_id.value,
           observation: this.form.controls.observation.value,
-          type_record_id: 3,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
