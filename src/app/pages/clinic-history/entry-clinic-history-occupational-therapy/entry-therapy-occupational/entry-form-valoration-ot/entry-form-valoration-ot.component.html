@@ -1,0 +1,26 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class="col col-lg-12">
+      <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNOSTICO MEDICO:</label>
+      <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="ch_diagnosis_id"
+        formControlName="ch_diagnosis_id" ch_diagnosis_id type="text" required
+        status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      <datalist id="codes">
+        <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+      </datalist>
+    </div>
+
+    <br />
+
+    <div class="col col-lg-12">
+      <label for="recomendations" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
+      <textarea id="recomendations" nbInput fullWidth formControlName="recomendations" recomendations rows="3"
+        cols="50"
+        status="{{ isSubmitted && form.controls.recomendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+  </div>
+</form>

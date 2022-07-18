@@ -1,0 +1,435 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="col-md-FUNCIONALSEMI FUNCIONAL">
+    <hr/>
+
+    <div class="row justify-content-center">      
+
+      <div class="col-md-4">
+        
+          <label for="position" class="form-text text-muted font-weight-bold justify-content-center"> ALCANCES </label>
+
+      </div>
+
+      <div class="col col-lg-4">
+
+          <label for="position" class="form-text text-muted font-weight-bold justify-content-center"> DERECHA</label>
+
+      </div>  
+  
+      <div class="col col-lg-4">
+
+          <label for="position" class="form-text text-muted font-weight-bold justify-content-center"> IZQUIERDA</label>
+
+      </div>
+    </div>
+
+    <hr/>
+  </div>
+
+  
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="up" class="form-text text-muted font-weight-bold justify-content-center"> Alcance Arriba</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.up_right" formControlName="up_right" id="up_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.up_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.up_left" formControlName="up_left" id="up_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.up_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="side" class="form-text text-muted font-weight-bold justify-content-center"> Alcance al Lado</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.side_right" formControlName="side_right" id="side_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.side_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.side_left" formControlName="side_left" id="side_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.side_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="backend" class="form-text text-muted font-weight-bold justify-content-center"> Alcance Atras</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.backend_right" formControlName="backend_right" id="backend_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.backend_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.backend_left" formControlName="backend_left" id="backend_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.backend_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="frontend" class="form-text text-muted font-weight-bold justify-content-center"> Alcance al Frente</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.frontend_right" formControlName="frontend_right" id="frontend_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.frontend_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.frontend_left" formControlName="frontend_left" id="frontend_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.frontend_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="down" class="form-text text-muted font-weight-bold justify-content-center"> Alcance Abajo</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.down_right" formControlName="down_right" id="down_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.down_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.down_left" formControlName="down_left" id="down_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.down_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="col-md-FUNCIONALSEMI FUNCIONAL">
+
+    <hr/>
+    <div class="row justify-content-center">      
+      
+      <div class="col col-lg-4">
+        
+          <label class="form-text text-muted font-weight-bold justify-content-center"> AGARRES </label>
+
+      </div>
+
+      <div class="col col-lg-4">
+
+          <label class="form-text text-muted font-weight-bold justify-content-center"> DERECHA</label>
+
+      </div>  
+  
+      <div class="col col-lg-4">
+
+          <label class="form-text text-muted font-weight-bold justify-content-center"> IZQUIERDA</label>
+
+      </div>
+    </div>
+
+    <hr/>
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="full_hand" class="form-text text-muted font-weight-bold justify-content-center"> Agarre a Mano Llena</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.full_hand_right" formControlName="full_hand_right" id="full_hand_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.full_hand_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.full_hand_left" formControlName="full_hand_left" id="full_hand_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.full_hand_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+  
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="cylindric" class="form-text text-muted font-weight-bold justify-content-center"> Agarre Cilindrico</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.cylindric_right" formControlName="cylindric_right" id="cylindric_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.cylindric_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.cylindric_left" formControlName="cylindric_left" id="cylindric_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.cylindric_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="hooking" class="form-text text-muted font-weight-bold justify-content-center"> Agarre Enganche</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.hooking_right" formControlName="hooking_right" id="hooking_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.hooking_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.hooking_left" formControlName="hooking_left" id="hooking_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.hooking_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="fine_clamp" class="form-text text-muted font-weight-bold justify-content-center"> Pinza Fina</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.fine_clamp_right" formControlName="fine_clamp_right" id="fine_clamp_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.fine_clamp_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.fine_clamp_left" formControlName="fine_clamp_left" id="fine_clamp_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.fine_clamp_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="tripod" class="form-text text-muted font-weight-bold justify-content-center"> Pinza Tripode</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.tripod_right" formControlName="tripod_right" id="tripod_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.tripod_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.tripod_left" formControlName="tripod_left" id="tripod_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.tripod_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="opposition" class="form-text text-muted font-weight-bold justify-content-center"> Oposicion</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.opposition_right" formControlName="opposition_right" id="opposition_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.opposition_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.opposition_left" formControlName="opposition_left" id="opposition_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.opposition_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-SEMI FUNCIONAL">
+      <label for="coil" class="form-text text-muted font-weight-bold justify-content-center"> Enroscar</label>
+    </div> 
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.coil_right" formControlName="coil_right" id="coil_right" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.coil_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>  
+
+    <div class="col col-lg-5">
+      <nb-select [selected]="this.data.coil_left" formControlName="coil_left" id="coil_left" fullWidth
+        title="Seleccione..."
+        status="{{ isSubmitted && form.controls.coil_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option value="FUNCIONAL">FUNCIONAL</nb-option>
+        <nb-option value="SEMI FUNCIONAL">SEMI FUNCIONAL</nb-option>
+        <nb-option value="NO FUNCIONAL">NO FUNCIONAL</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <div class="div-send">
+    <button nbButton status="danger" class="ml-FUNCIONAL btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+  </div>
+    
+
+</form>

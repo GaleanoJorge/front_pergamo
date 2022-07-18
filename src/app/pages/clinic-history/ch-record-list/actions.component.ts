@@ -31,6 +31,10 @@ import { AuthService } from '../../../services/auth.service';
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
+    <button nbTooltip="Historia Clinica Terapia Ocupacional" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/entry-clinic-history-occupational-therapy/' + value.data.id + '/'+ value.assigned" >
+      <nb-icon icon="file-add-outline"></nb-icon>
+    </button>
+
     <button *ngIf="value.data.status=='ACTIVO' && 
     (this.rowData.ch_type_id == 3)" nbTooltip="Historia Clinica de Nutrición" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>

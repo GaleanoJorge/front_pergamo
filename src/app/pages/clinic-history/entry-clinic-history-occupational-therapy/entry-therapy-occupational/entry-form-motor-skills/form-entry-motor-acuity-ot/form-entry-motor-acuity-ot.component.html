@@ -1,0 +1,114 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="row justify-content-center">
+  
+    <div class="col col-lg-6 asds">
+      <label for="follow_up_text" class="form-text text-muted font-weight-bold justify-content-center"> Logra contacto y segumiento visual </label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="follow_up" smoke id="follow_up" class="d-flex text" name="follow_up"
+        status="{{ isSubmitted && form.controls.follow_up.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="object_identify_text" class="form-text text-muted font-weight-bold justify-content-center"> Identificación de objetos </label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="object_identify" smoke id="object_identify" class="d-flex text" name="object_identify"
+        status="{{ isSubmitted && form.controls.object_identify.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="figures_text" class="form-text text-muted font-weight-bold justify-content-center"> Figuras superpuestas </label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="figures" smoke id="figures" class="d-flex text" name="figures"
+        status="{{ isSubmitted && form.controls.figures.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="color_design_text" class="form-text text-muted font-weight-bold justify-content-center"> Diseño de bloques de colores </label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="color_design" smoke id="color_design" class="d-flex text" name="color_design"
+        status="{{ isSubmitted && form.controls.color_design.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="categorization_text" class="form-text text-muted font-weight-bold justify-content-center"> Categorización </label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="categorization" smoke id="categorization" class="d-flex text" name="categorization"
+        status="{{ isSubmitted && form.controls.categorization.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <br/>
+
+  <div class="row justify-content-center">
+
+    <div class="col col-lg-6 asds">
+      <label for="special_relation_text" class="form-text text-muted font-weight-bold justify-content-center"> Relación Espacial Entre el Paciente y los Objetos del Espacio </label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="special_relation" smoke id="special_relation" class="d-flex text" name="special_relation"
+        status="{{ isSubmitted && form.controls.special_relation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>   
+  </div>
+
+  <div class="div-send">
+    <button nbButton status="danger" class="ml-FUNCIONAL btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+  </div>
+    
+
+</form>

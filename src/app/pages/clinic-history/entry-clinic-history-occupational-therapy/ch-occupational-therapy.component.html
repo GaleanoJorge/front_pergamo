@@ -1,0 +1,101 @@
+
+
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <nb-card>
+        <nb-card-body>
+  
+          <nb-tabset class="tabset">
+            <nb-tab tabTitle="INGRESO">
+  
+  
+              <nb-stepper #stepper [linear]="linearMode">
+  
+                <nb-step label='Valoracion Terapeutica'>
+                  <ngx-entry-form-valoration-ot [type_record_id]="1" *ngIf="chvaloration" [data]="chvaloration" [record_id]="record_id">
+                  </ngx-entry-form-valoration-ot>
+                </nb-step>
+  
+  
+                <nb-step label="Signos Vitales">
+  
+                  <ngx-form-signs [record_id]="record_id"></ngx-form-signs>
+  
+                </nb-step>
+  
+                <nb-step label='Historia Ocupacional'>
+                  <ngx-entry-form-occupat-history-valoration-ot [type_record_id]="1" *ngIf="chocuupationalhistory" [record_id]="record_id"
+                    [data]="chocuupationalhistory"></ngx-entry-form-occupat-history-valoration-ot>
+                </nb-step>
+  
+                <nb-step label='Antecedentes Ocupacionales'>
+                  <ngx-entry-form-past-ot [type_record_id]="1" *ngIf="chpast" [record_id]="record_id" [data]="chpast"></ngx-entry-form-past-ot>
+                </nb-step>
+  
+                <nb-step label='Actividades Vida Diaria'>
+                  <ngx-entry-form-daily-activities-ot [type_record_id]="1" *ngIf="chdailyactivities" [record_id]="record_id"
+                    [data]="chdailyactivities"></ngx-entry-form-daily-activities-ot>
+                </nb-step>
+  
+                <nb-step label='Habilidades Motoras'>
+                  <ngx-entry-form-motor-skills-ot [type_record_id]="1" [record_id]="record_id">
+  
+                  </ngx-entry-form-motor-skills-ot>
+                </nb-step>
+  
+              </nb-stepper>
+  
+            </nb-tab>
+  
+  
+            <nb-tab tabTitle="NOTA REGULAR">
+  
+  
+              <nb-stepper #stepper [linear]="linearMode">
+  
+                <nb-step label='Valoracion Terapeutica'>
+                  <ngx-r-n-valoration-ot [type_record_id]="3" *ngIf="chrnvaloration" [record_id]="record_id" [data]="chrnvaloration">
+                  </ngx-r-n-valoration-ot>
+                </nb-step>
+  
+  
+                <nb-step label="Signos Vitales">
+  
+                  <ngx-form-signs></ngx-form-signs>
+  
+  
+                </nb-step>
+  
+                <nb-step label='Objetivos Teraputicos'>
+                  <ngx-r-n-therapeutic-obj-ot [type_record_id]="3" *ngIf="rntherapeutic"  [record_id]="record_id"  [data]="rntherapeutic">
+  
+                  </ngx-r-n-therapeutic-obj-ot>
+                </nb-step>
+  
+                  
+                <nb-step label='Materiales e Insumos Utilizados'>
+                  <ngx-r-n-materials-ot [type_record_id]="3" *ngIf="chrnmaterials"  [record_id]="record_id"  [data]="chrnmaterials">
+  
+                  </ngx-r-n-materials-ot>
+                </nb-step>  
+  
+  
+                <!-- <nb-step label='Numero De Sesiones Mensuales e Intensidad Semanal'>
+                  <ngx-r-n-materials-ot [record_id]="record_id">
+  
+                  </ngx-r-n-materials-ot>
+  
+                </nb-step> -->
+  
+              </nb-stepper>
+  
+  
+            </nb-tab>
+          </nb-tabset>
+  
+  
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </ngx-base-list>
+
