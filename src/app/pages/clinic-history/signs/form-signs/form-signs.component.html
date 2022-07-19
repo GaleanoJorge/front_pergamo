@@ -38,7 +38,8 @@
               <nb-select [selected]="this.data.ch_vital_temperature_id" formControlName="ch_vital_temperature_id"
                 id="ch_vital_temperature_id"
                 status="{{ isSubmitted && form.controls.ch_vital_temperature_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-                placeholder="SELECCIONE...">
+                >
+                <nb-option value="">SELECCIONE...</nb-option>
                 <nb-option selected="{{ item.id == this.data.ch_vital_temperature_id }}"
                   *ngFor="let item of vital_temperature" [value]="item.id">
                   {{ item.name }}</nb-option>
@@ -126,7 +127,7 @@
             <nb-select [selected]="this.data.ch_vital_neurological_id" formControlName="ch_vital_neurological_id"
               id="ch_vital_neurological_id"
               status="{{ isSubmitted && form.controls.ch_vital_neurological_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-              placeholder="SELECCIONE...">
+              >
               <nb-option selected="{{ item.id == this.data.ch_vital_neurological_id }}"
                 *ngFor="let item of vital_neurological" [value]="item.id">
                 {{ item.name }}</nb-option>
@@ -142,7 +143,7 @@
             <nb-select [selected]="this.data.ch_vital_hydration_id" formControlName="ch_vital_hydration_id"
               id="ch_vital_hydration_id"
               status="{{ isSubmitted && form.controls.ch_vital_hydration_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-              placeholder="SELECCIONE...">
+              >
               <nb-option selected="{{ item.id == this.data.ch_vital_hydration_id }}"
                 *ngFor="let item of vital_hydration" [value]="item.id">
                 {{ item.name }}</nb-option>
@@ -312,8 +313,8 @@
             <legend class="prue1">MODO VENTILATORIO</legend>
             <nb-select [selected]="this.data.vital_ventilated_id" formControlName="vital_ventilated_id"
               id="vital_ventilated_id"
-              status="{{ isSubmitted && form.controls.vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-              placeholder="SELECCIONE...">
+              status="{{ isSubmitted && form.controls.vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.vital_ventilated_id }}" *ngFor="let item of vital_ventilated"
                 [value]="item.id">
                 {{ item.name }}</nb-option>
@@ -322,13 +323,14 @@
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-auto">
         <div class="center">
           <fieldset class="field_set">
             <legend class="prue1">TIPO DE OXIGENO</legend>
             <nb-select [selected]="this.data.oxygen_type_id" formControlName="oxygen_type_id" id="oxygen_type_id"
               status="{{ isSubmitted && form.controls.oxygen_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-              placeholder="SELECCIONE...">
+              >
+              <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.oxygen_type_id }}" *ngFor="let item of oxygen_type"
                 [value]="item.id">
                 {{ item.name }}</nb-option>
@@ -344,7 +346,8 @@
             <nb-select [selected]="this.data.liters_per_minute_id" formControlName="liters_per_minute_id"
               id="liters_per_minute_id"
               status="{{ isSubmitted && form.controls.liters_per_minute_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-              placeholder="SELECCIONE...">
+              >
+              <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.liters_per_minute_id }}"
                 *ngFor="let item of liters_per_minute" [value]="item.id">
                 {{ item.name }}</nb-option>
@@ -360,7 +363,8 @@
             <nb-select [selected]="this.data.parameters_signs_id" formControlName="parameters_signs_id"
               id="parameters_signs_id"
               status="{{ isSubmitted && form.controls.parameters_signs_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-              placeholder="SELECCIONE...">
+              >
+              <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.parameters_signs_id }}" *ngFor="let item of parameters_signs"
                 [value]="item.id">
                 {{ item.name }}</nb-option>
