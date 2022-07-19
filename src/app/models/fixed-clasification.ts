@@ -6,4 +6,5 @@ export class FixedClasification extends MainClass {
   id: number;
   name: string;
   fixed_code_id: number;
+  fixed_type_id: number;
 }
