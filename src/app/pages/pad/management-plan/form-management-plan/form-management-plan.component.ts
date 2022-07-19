@@ -144,7 +144,7 @@ export class FormManagementPlanComponent implements OnInit {
         preparation: [this.data.preparation],
         route_of_administration: [this.data.route_of_administration],
         blend: [this.data.blend],
-        observation: [this.data.observation],
+        observation: [!this.data.observation ? " • TENER EN CUENTA LOS 10 CORRECTOS DE LA ADMINISTRACION DE MEDICAMENTOS \n • TENER EN CUENTA LOS 5 MOMENTOS DEL LAVADO DE MANOS (SEGÚN PROTOCOLO DE LA OMS) \n• ESTABLECER MEDIANTE ENTREVISTA ANTECEDENTES Y SINTOMATOLOGIA ACTUAL DEL PACIENTE EN CASA \n• CONTROLAR SIGNOS VITALES ANTES Y DESPUES DE LA ADMINISTRACION DEL MEDICAMENTO (TENER EN CUENTA TAQUICARDIA, HIPOTENSION O DISTERMIAS PERSISTENTES) \n• VALORACION DIARIA DEL ESTADO DE CONCIENCIA (ESCALA DE GLASGOW) \n• EVALUAR LA INGESTA Y PERDIDA DE LIQUIDOS DEL PACIENTE CON ANAMNESIS (SED PERMANETE, DISMINUCION O AUMENTO DE LA DIURESIS,    CANSANCION Y ALTERACION DEL ESTADO DE CONCIENCIA) \n• REALIZAR SEGUIMIENTO A CULTIVOS Y EXAMENES DE LABORATORIO  \n• INFORMAR SOBRE LOS MEDIOS DE COMUNICACION DEL PACIENTE CON LA IPS O PERSONAL LAS 24 HORAS":this.data.observation],
         administration_time: [this.data.administration_time,],
         start_hours: [this.data.start_hours],
         number_doses: [this.data.number_doses],
