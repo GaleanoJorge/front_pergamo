@@ -7,6 +7,8 @@ import { BillingAdmissionComponent } from './billing-admission/billing-admission
 import { BillingPadListComponent } from './billing-pad-list/billing-pad-list.component';
 import { BillingPadProcedureComponent } from './billing-pad-procedure/billing-pad-procedure.component';
 import { BillingPgpComponent } from './billing-pgp/billing-pgp.component';
+import { BillingPadBriefcaseComponent } from './billing-pad-briefcase/billing-pad-briefcase.component';
+import { BillingAdmissionsPadListComponent } from './billing-pad-admissions-list/billing-admissions-pad-list.component';
 
 
 const routes: Routes = [{
@@ -28,6 +30,14 @@ const routes: Routes = [{
     {
       path: 'billing-pgp/:contract_id',
       component: BillingPgpComponent,
+    },
+    {
+      path: 'billing-pad-briefcase/:contract_id',
+      component: BillingPadBriefcaseComponent,
+    },
+    {
+      path: 'billing-pad-admissions/:briefcase_id',
+      component: BillingAdmissionsPadListComponent,
     },
   ],
 }];

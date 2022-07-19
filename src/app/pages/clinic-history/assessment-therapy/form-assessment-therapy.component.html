@@ -146,7 +146,8 @@
           Ayudas diagnósticas
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ngx-form-diagnostic-therapy [record_id]="record_id">
+          <ngx-form-diagnostic-therapy [record_id]="record_id" *ngIf="diagnosticTeraphyRespiratory" 
+          [data]="diagnosticTeraphyRespiratory">
           </ngx-form-diagnostic-therapy>
         </nb-accordion-item-body>
       </nb-accordion-item>

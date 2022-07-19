@@ -9,6 +9,18 @@
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
             />
         </div>
+        <div class="col-8">
+          <label for="address" class="form-text text-muted font-weight-bold">Dirección:</label>
+          <input nbInput fullWidth id="address" formControlName="address" address
+            status="{{ isSubmitted && form.controls.address.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            />
+        </div>
+        <div class="col-8">
+          <label for="enable_code" class="form-text text-muted font-weight-bold">Código de habilitación:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="enable_code" formControlName="enable_code" enable_code
+            status="{{ isSubmitted && form.controls.enable_code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            />
+        </div>
         <div class="col-12 mt-1">
           <label for="sectional" class="form-text text-muted font-weight-bold">Región:</label>
           <nb-select [selected]="this.data.region_id" formControlName="region_id" id="region" fullWidth

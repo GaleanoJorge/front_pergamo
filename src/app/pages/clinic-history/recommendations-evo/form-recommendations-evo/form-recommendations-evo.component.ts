@@ -45,8 +45,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
         patient_family_education:'',
         recommendations_evo_id: '',
         description: '',
-        analisys: '',
-        plan: '',
+       
         
       };
     };
@@ -63,8 +62,8 @@ export class FormRecommendationsEvoComponent implements OnInit {
       patient_family_education: [this.data.patient_family_education],
       recommendations_evo_id: [this.data.recommendations_evo_id, Validators.compose([Validators.required])],
       description: [this.data.description],
-      analisys: [this.data.analisys, Validators.compose([Validators.required])],
-      plan: [this.data.plan, Validators.compose([Validators.required])],
+      observation: [this.data.observation],
+   
  
     });
   }
@@ -80,8 +79,9 @@ export class FormRecommendationsEvoComponent implements OnInit {
           id: this.data.id,
           patient_family_education: this.form.controls.patient_family_education.value,
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
-          analisys: this.form.controls.analisys.value,
-          plan: this.form.controls.plan.value,
+          description: this.form.controls.description.value,
+          observation: this.form.controls.observation.value,
+      
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -99,8 +99,9 @@ export class FormRecommendationsEvoComponent implements OnInit {
           id: this.data.id, 
           patient_family_education: this.form.controls.patient_family_education.value,
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
-          analisys: this.form.controls.analisys.value,
-          plan: this.form.controls.plan.value,
+          description: this.form.controls.description.value,
+          observation: this.form.controls.observation.value,
+       
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {

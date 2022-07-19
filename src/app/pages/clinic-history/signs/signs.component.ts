@@ -62,7 +62,7 @@ export class SignsListComponent implements OnInit {
         title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       oxigen_saturation: {
@@ -97,14 +97,14 @@ export class SignsListComponent implements OnInit {
         title: this.headerFields[12],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       ch_vital_hydration: {
         title: this.headerFields[13],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       pupil_size_right: {
@@ -127,28 +127,28 @@ export class SignsListComponent implements OnInit {
         title: this.headerFields[18],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       oxygen_type: {
         title: this.headerFields[19],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       liters_per_minute: {
         title: this.headerFields[20],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       parameters_signs: {
         title: this.headerFields[21],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       

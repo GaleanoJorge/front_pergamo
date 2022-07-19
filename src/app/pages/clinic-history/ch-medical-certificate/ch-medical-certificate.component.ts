@@ -19,7 +19,7 @@ export class ChMedicalCertificateComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Certificación Medica',
+    'Certificado Medico',
     
   ];
   

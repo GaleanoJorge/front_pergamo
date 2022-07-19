@@ -4,6 +4,8 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { FormGroup } from '@angular/forms';
 import { ActionsAdmissionsListComponent } from './actions-admissions-list.component';
 import { FormShowBillingPadComponent } from '../billing-admission/form-show-billing-pad/form-show-billing-pad.component';
+import { ActivatedRoute } from '@angular/router';
+import { BriefcaseService } from '../../../business-controller/briefcase.service';
 
 @Component({
   selector: 'ngx-billing-admissions-pad-list',
@@ -14,7 +16,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() title: string;
   @Input() is_pgp: boolean;
-  @Input() route: number;
+  @Input() route: number = null;
   @Input() entity: string;
   @Input() billing_pad_pgp_id: number = null;
 
@@ -32,6 +34,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
   public dialog;
   public currentRole;
   public settings;
+  public briefcase_id;
 
 
   public settings1 = {
@@ -113,6 +116,8 @@ export class BillingAdmissionsPadListComponent implements OnInit {
   ];
 
   constructor(
+    private activatedRoute: ActivatedRoute,
+    private BriefcaseS: BriefcaseService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastS: NbToastrService,
@@ -130,10 +135,20 @@ export class BillingAdmissionsPadListComponent implements OnInit {
 
 
   async ngOnInit() {
-    if (this.route == 1) {
+    if (this.route != null) {
+      if (this.route == 2) {
+        this.settings = this.settings2;
+      } else {
+        this.settings = this.settings1;
+      }
+    } else {
+      this.briefcase_id = this.activatedRoute.snapshot.params.briefcase_id;
       this.settings = this.settings1;
-    } else if (this.route == 2) {
-      this.settings = this.settings2;
+      this.route = 1;
+      this.entity = 'billing_pad/getEnabledAdmissions/0';
+      this.BriefcaseS.GetCollection({id: this.briefcase_id}).then(x => {
+        this.title = 'ADMISIONES DEL PORTAFOLIO ' + x[0].name.toUpperCase();
+      });
     }
   }
 

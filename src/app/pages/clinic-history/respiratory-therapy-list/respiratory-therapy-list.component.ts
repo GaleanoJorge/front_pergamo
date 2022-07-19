@@ -4,12 +4,12 @@ import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core'
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { Location } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { FormRespiratoryTherapyComponent } from './form-respiratory-therapy/form-respiratory-therapy.component';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -46,6 +46,7 @@ export class RespiratoryTherapyListComponent implements OnInit {
   public loading: boolean = false;
   public currentRole: any;
   public show: any;
+  public signatureImage: string;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -212,12 +213,26 @@ export class RespiratoryTherapyListComponent implements OnInit {
   close() {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
+        signature: true, 
         title: 'Finalizar registro.',
         delete: this.finish.bind(this),
+        showImage: this.showImage.bind(this),
+        // save: this.saveSignature.bind(this),
         textConfirm:'Finalizar registro'
       },
     });
   }
+
+  showImage(data) {
+    this.signatureImage = data;
+  }
+
+  async saveSignature() {
+    var formData = new FormData();
+    formData.append('firm_file', this.signatureImage);
+    console.log(this.signatureImage);
+  }
+
 
   async finish() {
 

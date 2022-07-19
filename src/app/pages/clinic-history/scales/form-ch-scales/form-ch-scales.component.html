@@ -1,8 +1,9 @@
 <form [formGroup]="form">
   <div class="row" class="accordion">
     <nb-accordion multi>
-    <!-- NORTON -->
-      <nb-accordion-item *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- NORTON -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false :  this.medical ? true : false">
         <nb-accordion-item-header>
           Escala Norton
         </nb-accordion-item-header>
@@ -111,11 +112,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-4 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold align">Total
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" formControlName="totalNorton" readonly="readonly" class="ImpPeq center"
-                      id="total" value='{{totalNorton}}' fullWidth disabled>
+                      id="total" value='{{totalNorton}}'  disabled>
+                  </div>
+                  <div class="col col-lg-3">
                     <input type="text" nbInput formControlName="risk_norton" [value]="risk_norton" id="risk" fullWidth
                       disabled />
                   </div>
@@ -140,8 +145,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- GLASGOW -->
-      <nb-accordion-item *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- GLASGOW -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
         <nb-accordion-item-header>
           Escala Glasgow
         </nb-accordion-item-header>
@@ -209,11 +215,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-4 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold align">Total
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" formControlName="totalGlasgow" totalGlasgow readonly="readonly"
                       class="ImpPeq center" id="total" value='{{totalGlasgow}}' fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-light center ">/ 15
                     </label>
                   </div>
@@ -237,9 +247,10 @@
           </fieldset>
         </nb-accordion-item-body>
       </nb-accordion-item>
- 
-    <!-- BARTHEL -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+
+      <!-- BARTHEL -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true && this.ageScale>10 : false">
         <nb-accordion-item-header>
           Escala Barthel
         </nb-accordion-item-header>
@@ -448,11 +459,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-4 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold align">Puntaje
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" readonly="readonly" formControlName="totalBarthel" class="ImpPeq center"
                       id="score" value='{{totalBarthel}}' fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" nbInput formControlName="classBarthel" [value]="classBarthel" id="classification"
                       fullWidth disabled />
                   </div>
@@ -477,8 +492,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- PAYETTE-->  
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : false">
+      <!-- PAYETTE-->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : this.medical ? true && this.ageScale>60 : false">
         <nb-accordion-item-header>
           Escala Payette
         </nb-accordion-item-header>
@@ -511,8 +527,12 @@
                 </nb-radio-group>
               </div>
 
-              <div class="col col-lg-12">
-                <hr />
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-6">
+                    <hr />
+                  </div>
+                </div>
               </div>
 
               <div class="col col-lg-4">
@@ -543,8 +563,12 @@
                 </nb-radio-group>
               </div>
 
-              <div class="col col-lg-12">
-                <hr />
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-6">
+                    <hr />
+                  </div>
+                </div>
               </div>
 
               <div class="col col-lg-4">
@@ -575,9 +599,14 @@
                 </nb-radio-group>
               </div>
 
-              <div class="col col-lg-12">
-                <hr />
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-6">
+                    <hr />
+                  </div>
+                </div>
               </div>
+
               <div class="col col-lg-4">
                 <label class="form-text text-muted font-weight-light text-justify">¿La persona come
                   habitualmente fruta o jugo de frutas?
@@ -605,8 +634,12 @@
                 </nb-radio-group>
               </div>
 
-              <div class="col col-lg-12">
-                <hr />
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-6">
+                    <hr />
+                  </div>
+                </div>
               </div>
 
               <div class="col col-lg-4">
@@ -645,15 +678,21 @@
 
             <div class="container">
               <div class="row justify-content-md-center">
-                <div class="col col-lg-4 d-flex">
-                  <label class="form-text text-muted font-weight-bold text-justify">Calificación
+                <div class="col-md-auto">
+                  <label class="form-text text-muted font-weight-bold">Calificación
                   </label>
-                  <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalPayette"
+                </div>
+                <div class="col-md-auto">
+                  <input type="text" readonly="readonly" class="ImpPeq" formControlName="totalPayette"
                     id="classification" value='{{totalPayette}}' fullWidth disabled>
-                  <input type="text" class="ImpPeq center" nbInput [value]="riskPayette" id="risk"
+                </div>
+                <div class="col-md-auto">
+                  <input type="text" class="ImpPeq" nbInput [value]="riskPayette" id="risk"
                     formControlName="riskPayette" fullWidth disabled />
-                  <textarea class="form-text" [value]="recommendations" formControlName="recommendations"
-                    id="recommendations" nbInput fullWidth rows="2" cols="2"
+                </div>
+                <div class="col col-lg-4">
+                  <textarea [value]="recommendations" formControlName="recommendations" id="recommendations" nbInput
+                    fullWidth rows="2" cols="2"
                     status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                     disabled> </textarea>
                 </div>
@@ -677,8 +716,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- FRAGILIDAD -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : false">
+      <!-- FRAGILIDAD -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : this.medical ? true && this.ageScale>65 : false">
         <nb-accordion-item-header>
           Escala Fragilidad
         </nb-accordion-item-header>
@@ -711,6 +751,15 @@
                   <nb-radio (valueChange)="calculate($event,2,5)" value="0/No">No</nb-radio>
                 </nb-radio-group><br />
               </div>
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-6">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
               <div class="col col-lg-4">
                 <label class="form-text text-muted font-weight-light text-justify">¿Es incapaz de caminar
                   una manzana?
@@ -737,9 +786,19 @@
                   <nb-radio (valueChange)="calculate($event,4,5)" value="0/No">No</nb-radio>
                 </nb-radio-group><br />
               </div>
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-6">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
               <div class="col col-lg-4">
                 <label class="form-text text-muted font-weight-light   text-justify">¿La persona ha vivido
-                  recientemente algún acontecimiento que le ha afectado profundamente(enfermedad personal, pérdida de un
+                  recientemente algún acontecimiento que le ha afectado profundamente(enfermedad personal, pérdida de
+                  un
                   familiar)?
                 </label>
               </div>
@@ -775,11 +834,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-4 d-flex">
-                    <label class="form-text text-muted font-weight-bold text-justify">Puntaje
+                  <div class="col-md-auto">
+                    <label class="form-text text-muted font-weight-bold">Puntaje
                     </label>
-                    <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalFragility"
-                      id="total" value='{{totalFragility}}' fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
+                    <input type="text" readonly="readonly" class="ImpPeq" formControlName="totalFragility" id="total"
+                      value='{{totalFragility}}' fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" nbInput [value]="classFragility" formControlName="classFragility"
                       id="classification" fullWidth disabled />
                   </div>
@@ -804,8 +867,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- NEWS -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- NEWS -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
         <nb-accordion-item-header>
           Escala News
         </nb-accordion-item-header>
@@ -840,9 +904,15 @@
                   <nb-radio (valueChange)="calculate($event,2,6)" value="0/≤ 96">≤ 96</nb-radio>
                 </nb-radio-group><br />
               </div>
-              <div class="col col-lg-12">
-                <hr />
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-6">
+                    <hr />
+                  </div>
+                </div>
               </div>
+
 
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold align">SpO2 en caso de EPOC
@@ -878,9 +948,14 @@
                 </nb-radio-group><br />
               </div>
 
-              <div class="col col-lg-12">
-                <hr />
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-6">
+                    <hr />
+                  </div>
+                </div>
               </div>
+
 
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold   align">Temperatura
@@ -911,8 +986,12 @@
                 </nb-radio-group><br />
               </div>
 
-              <div class="col-lg-12">
-                <hr />
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-6">
+                    <hr />
+                  </div>
+                </div>
               </div>
 
               <div class="col col-lg-3">
@@ -949,15 +1028,21 @@
 
             <div class="container">
               <div class="row justify-content-md-center">
-                <div class="col col-lg-8 d-flex">
-                  <label class="form-text text-muted font-weight-bold text-justify">Calificación
+                <div class="col-md-auto">
+                  <label class="form-text text-muted font-weight-bold">Calificación
                   </label>
-                  <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalNews"
-                    id="qualification" value='{{totalNews}}' fullWidth disabled>
-                  <input type="text" nbInput [value]="riskNews" class="ImpPeq center" formControlName="riskNews"
-                    id="risk" fullWidth disabled />
-                  <textarea class="form-text" [value]="response" class="ImpPeq details" id="recommendations" nbInput formControlName="response" definition
-                    rows="10" cols="10"
+                </div>
+                <div class="col-md-auto">
+                  <input type="text" readonly="readonly" class="ImpPeq" formControlName="totalNews" id="qualification"
+                    value='{{totalNews}}' fullWidth disabled>
+                </div>
+                <div class="col col-lg-2">
+                  <input type="text" nbInput [value]="riskNews" class="ImpPeq" formControlName="riskNews" id="risk"
+                    fullWidth disabled />
+                </div>
+                <div class="col col-lg-4">
+                  <textarea [value]="response" id="recommendations" fullWidth nbInput formControlName="response" definition
+                    rows="4" cols="70"
                     status="{{ isSubmitted && form.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                     disabled> </textarea>
                 </div>
@@ -981,8 +1066,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- PaP -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- PaP -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala PaP
         </nb-accordion-item-header>
@@ -1091,11 +1177,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-6 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold text-justify">Puntaje
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" readonly="readonly" class="ImpPeq center" id="total" formControlName="totalPap"
                       value='{{totalPap}}' fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" nbInput [value]="classPap" id="classification" formControlName="classPap"
                       fullWidth rows="2" cols="2" disabled />
                   </div>
@@ -1121,8 +1211,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- HAMILTON -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- HAMILTON -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala Hamilton
         </nb-accordion-item-header>
@@ -1576,11 +1667,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-6 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold text-justify">Puntaje
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalHamilton"
                       id="total" value='{{totalHamilton}}' fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" nbInput [value]="classHamilton" formControlName="classHamilton"
                       id="qualification" fullWidth disabled />
                   </div>
@@ -1605,8 +1700,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- CAM -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- CAM -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala CAM
         </nb-accordion-item-header>
@@ -1689,7 +1785,7 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-2 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold text-justify">Resultado
                     </label>
                   </div>
@@ -1719,8 +1815,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- FAC -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- FAC -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true && this.ageScale>10 : false">
         <nb-accordion-item-header>
           Escala FAC
         </nb-accordion-item-header>
@@ -1744,7 +1841,7 @@
               <div class="row justify-content-md-center">
                 <div class="col col-lg-10 ">
                   <label class="form-text text-muted font-weight-bold">Definición</label>
-                  <textarea class="form-text col col-lg-10 detail" id="definition" nbInput fullWidth
+                  <textarea  id="definition" nbInput fullWidth
                     formControlName="definitionFacText" [value]="this.definitionFacText" definitionFac rows="3"
                     cols="70"
                     status="{{ isSubmitted && form.controls.definitionFacText.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
@@ -1770,8 +1867,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- CRUZ ROJA -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- CRUZ ROJA -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true && this.ageScale>10: false">
         <nb-accordion-item-header>
           Escala Cruz roja
         </nb-accordion-item-header>
@@ -1795,7 +1893,7 @@
               <div class="row justify-content-md-center">
                 <div class="col col-lg-10">
                   <label class="form-text text-muted font-weight-bold text ">Definición</label>
-                  <textarea class="form-text col col-lg-10 detail" id="definition" nbInput fullWidth
+                  <textarea id="definition" nbInput fullWidth
                     formControlName="definitionCrossText" [value]="this.definitionCrossText" definitionCross rows="3"
                     cols="70"
                     status="{{ isSubmitted && form.controls.definitionCrossText.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
@@ -1821,8 +1919,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!--KARNOFSKY  -->    
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!--KARNOFSKY  -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true && this.ageScale>16 : false">
         <nb-accordion-item-header>
           Escala Karnofsky
         </nb-accordion-item-header>
@@ -1877,10 +1976,12 @@
 
             <div class="container">
               <div class="row justify-content-md-center">
-                <div class="col col-md-6 d-flex">
+                <div class="col-md-auto">
                   <label class="form-text text-muted font-weight-bold align">Puntaje
                   </label>
-                  <input type="text" readonly="readonly" nbInput formControlName="scoreKarnofsky_value"
+                </div>
+                <div class="col-md-auto">
+                  <input type="text" readonly="readonly" fullWidth nbInput formControlName="scoreKarnofsky_value"
                     value='{{this.form.controls.scoreKarnofsky_value.value}}' id="score_title" disabled />
                 </div>
               </div>
@@ -1903,8 +2004,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- ECOG -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- ECOG -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
         <nb-accordion-item-header>
           Escala ECOG
         </nb-accordion-item-header>
@@ -1928,7 +2030,7 @@
               <div class="row justify-content-md-center">
                 <div class="col col-lg-10">
                   <label class="form-text text-muted font-weight-bold text ">Definición</label>
-                  <textarea class="form-text col col-lg-10 detail" id="definition" nbInput fullWidth
+                  <textarea id="definition" nbInput fullWidth
                     formControlName="definitionEcogText" [value]="this.definitionEcogText" definitionEcog rows="3"
                     cols="70"
                     status="{{ isSubmitted && form.controls.definitionEcogText.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
@@ -1954,8 +2056,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- NUTRICIONAL PEDIATRICO -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : false">
+      <!-- NUTRICIONAL PEDIATRICO -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : this.medical ? true && this.ageScale<15 : false">
         <nb-accordion-item-header>
           Escala Nutricional Pediátrico
         </nb-accordion-item-header>
@@ -2055,13 +2158,19 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-8 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold ">Total
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalNPedriatic"
                       id="total" value='{{totalNPedriatic}}' fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" class="ImpPeq center" nbInput [value]="riskNPedriatic" id="risk" fullWidth
                       disabled />
+                  </div>
+                  <div class="col-md-auto">
                     <textarea [value]="classNPedriatic" id="classification" nbInput fullWidth
                       formControlName="classNPedriatic" classNPedriatic rows="3" cols="50"
                       status="{{ isSubmitted && form.controls.classNPedriatic.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
@@ -2088,8 +2197,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- ESAS -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- ESAS -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala ESAS
         </nb-accordion-item-header>
@@ -2370,13 +2480,11 @@
             <div class="row justify-content-md-center">
               <div class="col col-lg-6">
                 <label class="form-text text-muted font-weight-bold text ">Observación</label>
-                <textarea onpaste="return false" class="form-text col col-lg-12" id="observation" nbInput fullWidth
-                  formControlName="obsEsas" obsEsas rows="4" cols="50"
+                <textarea onpaste="return false" id="observation" nbInput fullWidth formControlName="obsEsas" obsEsas
+                  rows="4" cols="50"
                   status="{{ isSubmitted && form.controls.obsEsas.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
               </div>
             </div>
-
-
 
             <div class="container">
               <div class="row">
@@ -2394,8 +2502,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!--FLACC  -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!--FLACC  -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala FLACC
         </nb-accordion-item-header>
@@ -2496,11 +2605,15 @@
               </div>
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-4 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold text-justify">Total
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" readonly="readonly" class="ImpPeq center" id="total" value='{{totalFlacc}}'
                       fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" nbInput [value]="classFlacc" id="classification" fullWidth disabled />
                   </div>
                 </div>
@@ -2524,8 +2637,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- PPI -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- PPI -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala PPI
         </nb-accordion-item-header>
@@ -2621,11 +2735,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-6 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold text-justify">Total
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" readonly="readonly" class="ImpPeq center" id="total" value='{{totalPpi}}'
                       fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" nbInput [value]="classPpi" id="classification" fullWidth disabled />
                   </div>
                 </div>
@@ -2650,8 +2768,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- ZARIT -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- ZARIT -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
         <nb-accordion-item-header>
           Escala Zarit
         </nb-accordion-item-header>
@@ -3124,11 +3243,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-4 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold text-justify">Total
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" readonly="readonly" class="ImpPeq center" id="total" value='{{totalZarit}}'
                       fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" nbInput [value]="classZarit" id="classification" fullWidth disabled />
                   </div>
                 </div>
@@ -3152,8 +3275,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- DOLOR ADULTOS -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? true : false">
+      <!-- DOLOR ADULTOS -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? true && this.ageScale>7 : this.medical ? false : false ">
         <nb-accordion-item-header>
           Escala Dolor Adultos
         </nb-accordion-item-header>
@@ -3194,11 +3318,13 @@
 
             <div class="container">
               <div class="row justify-content-md-center">
-                <div class="col col-md-4 d-flex">
-                  <label class="form-text text-muted font-weight-bold align">Clasificación
+                <div class="col-md-auto">
+                  <label class="form-text text-muted font-weight-bold">Clasificación
                   </label>
-                  <input type="text" name="range_title" class="center" nbInput
-                    value="{{this.form.controls.rangePain_value.value}}" id="range_title" fullWidth disabled />
+                </div>
+                <div class="col-md-auto">
+                  <input type="text" name="range_title" nbInput value="{{this.form.controls.rangePain_value.value}}"
+                    id="range_title" fullWidth disabled />
                 </div>
               </div>
             </div>
@@ -3220,8 +3346,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- WONG BAKER -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? true : false">
+      <!-- WONG BAKER -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? true && this.ageScale<7 : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala Wong Baker
         </nb-accordion-item-header>
@@ -3254,10 +3381,12 @@
 
             <div class="container">
               <div class="row justify-content-md-center">
-                <div class="col col-md-4 d-flex">
-                  <label class="form-text text-muted font-weight-bold align">Clasificación
+                <div class="col-md-auto">
+                  <label class="form-text text-muted font-weight-bold">Clasificación
                   </label>
-                  <input type="text" nbInput class="ImpPeq center" value='{{this.form.controls.painWong_value.value}}'
+                </div>
+                <div class="col-md-auto">
+                  <input type="text" nbInput class="ImpPeq" value='{{this.form.controls.painWong_value.value}}'
                     id="pain_title" fullWidth disabled />
                 </div>
               </div>
@@ -3281,8 +3410,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- PFEIFFER -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- PFEIFFER -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala Pfeiffer
         </nb-accordion-item-header>
@@ -3293,8 +3423,8 @@
               <div class="col col-lg-12 center">
                 <nb-card>
                   <nb-card-body class="example-items-col">
-                    <nb-toggle labelPosition="start" formControlName="studyValue"
-                      (change)="receiveMessage($event)" id="study_value" study_value>
+                    <nb-toggle labelPosition="center" formControlName="studyValue" (change)="receiveMessage($event)"
+                      id="study_value" study_value>
                       ¿Tiene estudios?
                     </nb-toggle>
                   </nb-card-body>
@@ -3457,12 +3587,18 @@
 
             <div class="container">
               <div class="row justify-content-md-center">
-                <div class="col col-lg-6 d-flex">
+                <div class="col-md-auto">
                   <label class="form-text text-muted font-weight-bold text-justify">Total
                   </label>
-                  <input type="text" class="ImpPeq center" nbInput [value]="totalPfeiffer" id="total" disabled />
-                  <label class="form-text text-muted font-weight-bold text-justify">Calificación
+                </div>
+                <div class="col-md-auto">
+                  <input type="text" class="ImpPeq" nbInput [value]="totalPfeiffer" id="total" disabled />
+                </div>
+                <div class="col-md-auto">
+                  <label class="form-text text-muted font-weight-bold">Calificación
                   </label>
+                </div>
+                <div class="col-md-auto">
                   <input type="text" nbInput [value]="classPfeiffer" id="classification" fullWidth disabled />
                 </div>
               </div>
@@ -3485,8 +3621,9 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-    <!-- J.H.DOWNTON -->
-      <nb-accordion-item *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : false">
+      <!-- J.H.DOWNTON -->
+      <nb-accordion-item
+        *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala J.H.Downton
         </nb-accordion-item-header>
@@ -3591,11 +3728,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-2 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold align">Total
                     </label>
-                    <input type="text" readonly="readonly" class="ImpPeq center" id="total" value='{{totalJhDownton}}'
+                  </div>
+                  <div class="col-md-auto">
+                    <input type="text" readonly="readonly" class="ImpPeq" id="total" value='{{totalJhDownton}}'
                       fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" nbInput [value]="riskJhDownton" id="risk" fullWidth disabled />
                   </div>
                 </div>
@@ -3620,7 +3761,8 @@
       </nb-accordion-item>
 
       <!-- MINI TAMIZAJE-->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : false">
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : this.medical ? true && this.ageScale>15 && this.ageScale<59 : false">
         <nb-accordion-item-header>
           Mini-Tamizaje Nutricional Adultos
         </nb-accordion-item-header>
@@ -3804,13 +3946,17 @@
 
             <div class="container">
               <div class="row justify-content-md-center">
-                <div class="col col-lg-6 d-flex">
+                <div class="col-md-auto">
                   <label class="form-text text-muted font-weight-bold text-justify">Puntaje
                   </label>
+                </div>
+                <div class="col-md-auto">
                   <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalScreening"
                     id="total" value='{{totalScreening}}' fullWidth disabled>
-                  <input type="text" nbInput [value]="riskScreening" formControlName="riskScreening" id="riskScreening"
-                    fullWidth disabled />
+                </div>
+                <div class="col col-lg-4">
+                  <textarea id="riskScreening" nbInput fullWidth formControlName="riskScreening"
+                    [value]="this.riskScreening" riskScreening rows="3" cols="70" disabled> </textarea>
                 </div>
               </div>
             </div>
@@ -3833,7 +3979,8 @@
       </nb-accordion-item>
 
       <!--PPS -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala PPS
         </nb-accordion-item-header>
@@ -4046,7 +4193,8 @@
       </nb-accordion-item>
 
       <!-- BRADEN -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
         <nb-accordion-item-header>
           Escala Braden
         </nb-accordion-item-header>
@@ -4189,11 +4337,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-4 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold align">Total
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" formControlName="totalBraden" readonly="readonly" class="ImpPeq center"
                       id="total" value='{{totalBraden}}' fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" nbInput formControlName="riskBraden" [value]="riskBraden" id="risk" fullWidth
                       disabled />
                   </div>
@@ -4219,7 +4371,8 @@
       </nb-accordion-item>
 
       <!-- LAWTON -->
-      <nb-accordion-item *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : false">
+      <nb-accordion-item
+        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala Lawton
         </nb-accordion-item-header>
@@ -4327,9 +4480,10 @@
                     value="1/Realiza tareas ligeras, pero no puede mantener un adecuado nivel de limpieza">Realiza
                     tareas ligeras, pero no puede mantener un adecuado nivel de limpieza</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,18)"
-                    value="1/Necesita ayuda en todas las labores de la casa">Necesita ayuda en todas las labores de la casa</nb-radio> 
-                    <nb-radio (valueChange)="calculate($event,4,18)" value="0/No participa en ninguna labor de la casa">
-                      No participa en ninguna labor de la casa</nb-radio>
+                    value="1/Necesita ayuda en todas las labores de la casa">Necesita ayuda en todas las labores de la
+                    casa</nb-radio>
+                  <nb-radio (valueChange)="calculate($event,4,18)" value="0/No participa en ninguna labor de la casa">
+                    No participa en ninguna labor de la casa</nb-radio>
                 </nb-radio-group>
               </div>
 
@@ -4425,7 +4579,8 @@
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="finance_value" finance_value id="finance_value" name="finance_value"
                   status="{{ isSubmitted && form.controls.finance_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio (valueChange)="calculate($event,8,18)"value="1/Se encarga de sus asuntos económicos por sí solo">Se encarga de sus asuntos económicos por
+                  <nb-radio (valueChange)="calculate($event,8,18)"
+                    value="1/Se encarga de sus asuntos económicos por sí solo">Se encarga de sus asuntos económicos por
                     sí solo</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,18)"
                     value="1/Realiza las compras de cada día, pero necesita ayuda en las grandes compras, bancos">
@@ -4445,11 +4600,15 @@
 
               <div class="container">
                 <div class="row justify-content-md-center">
-                  <div class="col col-lg-4 d-flex">
+                  <div class="col-md-auto">
                     <label class="form-text text-muted font-weight-bold align">Total
                     </label>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" formControlName="totalLawton" readonly="readonly" class="ImpPeq center"
                       id="total" value='{{totalLawton}}' fullWidth disabled>
+                  </div>
+                  <div class="col-md-auto">
                     <input type="text" nbInput formControlName="riskLawton" [value]="riskLawton" id="risk" fullWidth
                       disabled />
                   </div>

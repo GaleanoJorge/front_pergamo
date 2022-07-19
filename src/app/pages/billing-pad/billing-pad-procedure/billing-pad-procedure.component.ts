@@ -21,6 +21,7 @@ export class BillingPadProcedureComponent implements OnInit {
 
   public isSubmitted = false;
   public loading: boolean = false;
+  public show_info: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
   public title: string = 'PROCEDIMIENTOS';
@@ -42,6 +43,7 @@ export class BillingPadProcedureComponent implements OnInit {
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
   public saved: any = null;
+  public billing: any = null;
   public admission_id;
   public billing_id;
   public user_id;
@@ -95,7 +97,7 @@ export class BillingPadProcedureComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.manual_price){
+          if (row.manual_price) {
             return this.currency.transform(row.manual_price.value);
           } else {
             return this.currency.transform(row.services_briefcase.value);
@@ -106,7 +108,7 @@ export class BillingPadProcedureComponent implements OnInit {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.assigned_management_plan != null){
+          if (row.assigned_management_plan != null) {
             return this.datePipe.transform3(row.assigned_management_plan.execution_date);
           } else {
             return '';
@@ -144,6 +146,13 @@ export class BillingPadProcedureComponent implements OnInit {
     this.entity = 'billing_pad/getAuthorizedProcedures/' + this.admission_id + '?billing_id=' + this.billing_id;
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
+
+    this.BillingPadS.GetCollection({ id: this.billing_id }).then(x => {
+      if (x != null) {
+        this.billing = x[0];
+        this.show_info = true;
+      }
+    });
   }
 
 

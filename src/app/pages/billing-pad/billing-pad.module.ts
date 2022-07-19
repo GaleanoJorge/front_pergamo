@@ -40,6 +40,10 @@ import { FormShowBillingPgpComponent } from './billing-pgp/form-show-billing-pgp
 import { FormCreateBillingPgpComponent } from './billing-pgp/form-create-billing-pgp/form-create-billing-pgp.component';
 import { BillingAdmissionsPadListComponent } from './billing-pad-admissions-list/billing-admissions-pad-list.component';
 import { ActionsAdmissionsListComponent } from './billing-pad-admissions-list/actions-admissions-list.component';
+import { BillingPadContracsComponent } from './billing-pad-contracts/billing-pad-contracts.component';
+import { ActionsBillingPadContracsComponent } from './billing-pad-contracts/actions-billing-pad-contracts.component';
+import { BillingPadBriefcaseComponent } from './billing-pad-briefcase/billing-pad-briefcase.component';
+import { ActionsBillingPadBriefcaseComponent } from './billing-pad-briefcase/actions-billing-pad-briefcase.component';
 
 @NgModule({
   imports: [
@@ -85,6 +89,10 @@ import { ActionsAdmissionsListComponent } from './billing-pad-admissions-list/ac
     FormCreateBillingPgpComponent,
     BillingAdmissionsPadListComponent,
     ActionsAdmissionsListComponent,
+    BillingPadContracsComponent,
+    ActionsBillingPadContracsComponent,
+    BillingPadBriefcaseComponent,
+    ActionsBillingPadBriefcaseComponent,
   ],
   providers: [
     DateFormatPipe,

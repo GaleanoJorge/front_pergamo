@@ -9,7 +9,6 @@ export class ChRtInspection extends MainClass {
     fracturues:string;
     detail_fracturues:string;
     airway:string;
-    pain:string;
     type_record_id: number;
     ch_record_id: number;
 }

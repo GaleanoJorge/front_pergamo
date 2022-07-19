@@ -47,6 +47,22 @@ export class BillingPadService {
       });
   }
 
+  NewBilling(billing_pad: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad/newBillingPad');
+    servObj.data = billing_pad;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   GeneratePgpBilling(billing_pad: any, contract_id: number): Promise<ServiceObject> {
     let servObj = new ServiceObject('billing_pad/generatePgpBilling', contract_id);
     servObj.data = billing_pad;
@@ -82,6 +98,22 @@ export class BillingPadService {
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('billing_pad', id);
     return this.webAPI.DeleteAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GenerateFile(billing_pad: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad/generateBillingDat/'+billing_pad);
+    servObj.data = billing_pad;
+    return this.webAPI.GetAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

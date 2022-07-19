@@ -1,9 +1,9 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
-  <div content>
+  <div content *ngIf="this.show_info">
     <ngx-base-table [title]="title" pager="false" [subtitle]="subtitle" [settings]="settings"
       [entity]="entity" customData="billing_pad" [messageToltip]="messageToltip">
       <div actions>
-        <div class="actions">
+        <div class="actions" *ngIf="this.billing.billing_pad_status_id != 2">
           <button nbButton status="danger" (click)="SaveBilling()">Facturar</button>
         </div>
         <div class="actions" style="margin-top:1em;">

@@ -24,8 +24,7 @@ export class RecommendationsEvoComponent implements OnInit {
   public nameForm: String;
   public headerFields: any[] = [ 'Educación Paciente/Familiar',
     'Recomendación',
-    'Análisis',
-    'Plan (Diagnostico, Terapeutico, de seguimiento',
+  
   ];
   public movieForm: String;
 
@@ -54,14 +53,6 @@ export class RecommendationsEvoComponent implements OnInit {
         },
       },
 
-      analisys: {
-        title: this.headerFields[2],
-        width: 'string',
-      },
-      plan: {
-        title: this.headerFields[3],
-        width: 'string',
-      },
     },
   };
 

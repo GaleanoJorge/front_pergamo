@@ -1,0 +1,36 @@
+
+<div class="row justify-content-center">
+
+
+  <div class="col col-lg-12">
+
+    <ngx-form-r-n-materials-ot (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+    </ngx-form-r-n-materials-ot>    
+
+  </div>
+
+  <div class="col col-lg-12">
+
+    <label class="form-text text-muted font-weight-bold">REGISTROS NOTA REGULAR</label>
+    <ngx-base-list [messageError]="messageError" [routes]="routes">
+      <div content>
+        <ngx-base-table pager="false" [title]="title" customData="ch_r_n_materials_o_t" [settings]="settings"
+          entity="ch_r_n_materials_o_t/by_record/{{record_id}}/3">
+          <div actions>
+            <div class="actions">
+            </div>
+            <div class="actions" style="margin-top:1em;">
+            </div>
+          </div>
+        </ngx-base-table>
+      </div>
+    </ngx-base-list>
+
+  </div>
+
+
+
+
+
+</div>
+

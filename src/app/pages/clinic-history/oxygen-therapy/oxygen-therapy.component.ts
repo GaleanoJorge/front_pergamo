@@ -15,6 +15,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 export class OxygenTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
+  @Input() type_record: any = null;
   
   linearMode = true;
   public messageError = null;

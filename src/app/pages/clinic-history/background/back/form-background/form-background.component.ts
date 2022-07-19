@@ -72,7 +72,7 @@ export class FormBackgroundComponent implements OnInit {
           revision: this.form.controls.revision.value,
           observation: this.form.controls.observation.value,
           ch_type_background_id: this.form.controls.ch_type_background_id.value,
-          type_record_id: 1,
+          type_record_id: 2,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -89,7 +89,7 @@ export class FormBackgroundComponent implements OnInit {
           revision: this.form.controls.revision.value,
           observation: this.form.controls.observation.value,
           ch_type_background_id: this.form.controls.ch_type_background_id.value,
-          type_record_id: 1,
+          type_record_id: 2,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
