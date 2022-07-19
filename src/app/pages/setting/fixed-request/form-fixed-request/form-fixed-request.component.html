@@ -1,133 +1,84 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class="row">
 
-  <nb-accordion>
-    <nb-accordion-item>
-      <nb-accordion-item-header>ACTIVOS</nb-accordion-item-header>
-      <nb-accordion-item-body>
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="fixed_type" class="form-text text-muted font-weight-bold">SOLICITAR A:</label>
-            <nb-select [selected]="this.data.fixed_type_id" formControlName="fixed_type_id" id="fixed_type_id" fullWidth
-              status="{{ isSubmitted && form.controls.fixed_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option selected="{{ item.id == data.fixed_type_id }}" *ngFor="let item of fixed_type_id"
-                [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
-          </div>
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="fixed_type" class="form-text text-muted font-weight-bold">SOLICITAR A:</label>
+        <nb-select [selected]="this.data.fixed_type_id" formControlName="fixed_type_id" id="fixed_type_id" fullWidth
+          status="{{ isSubmitted && form.controls.fixed_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.fixed_type_id }}" *ngFor="let item of fixed_type_id"
+            [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
 
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="fixed_assets" class="form-text text-muted font-weight-bold">ACTIVOS FIJO A SOLICITAR:</label>
-            <nb-select [selected]="this.data.fixed_assets_id" formControlName="fixed_assets_id" id="fixed_assets_id"
-              fullWidth
-              status="{{ isSubmitted && form.controls.fixed_assets_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option selected="{{ item.id == data.fixed_assets_id }}" *ngFor="let item of fixed_assets_id"
-                [value]="item.id">
-                {{ item.description }}</nb-option>
-            </nb-select>
-          </div>
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="fixed_assets" class="form-text text-muted font-weight-bold">ACTIVOS FIJO A SOLICITAR:</label>
+        <nb-select [selected]="this.data.fixed_assets_id" formControlName="fixed_assets_id" id="fixed_assets_id"
+          fullWidth
+          status="{{ isSubmitted && form.controls.fixed_assets_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.fixed_assets_id }}" *ngFor="let item of fixed_assets_id"
+            [value]="item.id">
+            {{ item.description }}</nb-option>
+        </nb-select>
+      </div>
 
-
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="fixed_location_campus" class="form-text text-muted font-weight-bold">LOCALIZACIÓN DONDE ESTARA
-              EL ACTIVO:</label>
-            <nb-select [selected]="this.data.fixed_location_campus_id" formControlName="fixed_location_campus_id"
-              id="fixed_location_campus_id" fullWidth
-              status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option selected="{{ item.id == data.fixed_location_campus_id }}"
-                *ngFor="let item of fixed_location_campus_id" [value]="item.id">
-                {{ item.campus.name }} - {{ item.flat.name }} - {{ item.fixed_area_campus.name }}</nb-option>
-            </nb-select>
-          </div>
-
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="request_amount" class="form-text text-muted font-weight-bold">CANTIDAD A SOLICITAR:</label>
-            <input type="number" min="0" pattern="^[0-9]+" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="request_amount"
-              formControlName="request_amount" request_amount
-              status="{{ isSubmitted && form.controls.request_amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-          </div>
-
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <button nbButton status="danger" class="ml-1 btn-save" (click)="save(1)" [disabled]="disabled"
-                  type="submit">GUARDAR</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nb-accordion-item-body>
-    </nb-accordion-item>
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="fixed_accessories" class="form-text text-muted font-weight-bold">ACCESORIO A SOLICITAR:</label>
+        <nb-select [selected]="this.data.fixed_accessories_id" formControlName="fixed_accessories_id"
+          id="fixed_assfixed_accessories_idets_id" fullWidth
+          status="{{ isSubmitted && form.controls.fixed_accessories_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.fixed_accessories_id }}" *ngFor="let item of fixed_accessories_id"
+            [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
 
 
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="fixed_location_campus" class="form-text text-muted font-weight-bold">LOCALIZACIÓN DONDE ESTARA
+          EL ACTIVO:</label>
+        <nb-select [selected]="this.data.fixed_location_campus_id" formControlName="fixed_location_campus_id"
+          id="fixed_location_campus_id" fullWidth
+          status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.fixed_location_campus_id }}"
+            *ngFor="let item of fixed_location_campus_id" [value]="item.id">
+            {{ item.campus.name }} - {{ item.flat.name }} - {{ item.fixed_area_campus.name }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="request_amount" class="form-text text-muted font-weight-bold">CANTIDAD A SOLICITAR:</label>
+        <input type="number" min="0" pattern="^[0-9]+" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth
+          id="request_amount" formControlName="request_amount" request_amount
+          status="{{ isSubmitted && form.controls.request_amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold">PERSONA QUE ESTARÁ A CARGO DEL ACTIVO:</label>
+        <nb-select [selected]="this.data.responsible_user_id" formControlName="responsible_user_id"
+          id="responsible_user_id" fullWidth
+          status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.responsible_user_id }}" *ngFor="let item of responsible_user"
+            [value]="item.id">
+            {{ item.nombre_completo }}</nb-option>
+        </nb-select>
+      </div>
 
 
 
+    </div>
+    <div class="div-send">
+      <label></label>
+      <button [disabled]="disabled" type="submit" nbButton status="success">SOLICITAR</button>
+    </div>
 
+  </div>
 
-    <nb-accordion-item>
-      <nb-accordion-item-header>ACCESORIOS</nb-accordion-item-header>
-      <nb-accordion-item-body>
-        <div class="row">
-
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="fixed_type" class="form-text text-muted font-weight-bold">SOLICITAR A:</label>
-            <nb-select [selected]="this.data.fixed_type_id" formControlName="fixed_type_id" id="fixed_type_id" fullWidth
-              status="{{ isSubmitted && form.controls.fixed_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option selected="{{ item.id == data.fixed_type_id }}" *ngFor="let item of fixed_type_id"
-                [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
-          </div>
-
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="fixed_accessories" class="form-text text-muted font-weight-bold">ACCESORIO A SOLICITAR:</label>
-            <nb-select [selected]="this.data.fixed_accessories_id" formControlName="fixed_accessories_id"
-              id="fixed_assfixed_accessories_idets_id" fullWidth
-              status="{{ isSubmitted && form.controls.fixed_accessories_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option selected="{{ item.id == data.fixed_accessories_id }}" *ngFor="let item of fixed_accessories_id"
-                [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
-          </div>
-
-
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="fixed_location_campus" class="form-text text-muted font-weight-bold">LOCALIZACIÓN DONDE ESTARA
-              EL
-              ACCESORIO:</label>
-            <nb-select [selected]="this.data.fixed_location_campus_id" formControlName="fixed_location_campus_id"
-              id="fixed_location_campus_id" fullWidth
-              status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option selected="{{ item.id == data.fixed_location_campus_id }}"
-                *ngFor="let item of fixed_location_campus_id" [value]="item.id">
-                {{ item.campus.name }} - {{ item.flat.name }} - {{ item.fixed_area_campus.name }}</nb-option>
-            </nb-select>
-          </div>
-
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="request_amount" class="form-text text-muted font-weight-bold">CANTIDAD A SOLICITAR:</label>
-            <input type="number" min="0" pattern="^[0-9]+" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="request_amount"
-              formControlName="request_amount" request_amount
-              status="{{ isSubmitted && form.controls.request_amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-          </div>
-
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-
-                <button nbButton status="danger" class="ml-1 btn-save" (click)="save(2)" [disabled]="disabled"
-                  type="submit">GUARDAR</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nb-accordion-item-body>
-    </nb-accordion-item>
-  </nb-accordion>
 </form>

@@ -144,8 +144,7 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="product_dose" class="form-text text-muted font-weight-bold">Dosís del producto:</label>
-          <nb-select (selectedChange)="onChange2($event)" formControlName="product_dose_id" id="product_dose_id"
-            fullWidth
+          <nb-select formControlName="product_dose_id" id="product_dose_id" fullWidth
             status="{{ isSubmitted && form.controls.product_dose_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.product_dose_id }}" *ngFor="let item of product_dose"
@@ -154,20 +153,35 @@
           </nb-select>
         </div>
 
-        <div *ngIf="showDose" class="col-12 col-sm-12 col-md-4">
+        <div class="col-12 col-sm-12 col-md-4">
           <label for="dose" class="form-text text-muted font-weight-bold">Cantidad en dosís del producto:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="dose" formControlName="dose"
-            dose type="number" min="0" pattern="^[0-9]+" />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="dose" formControlName="dose" dose
+            type="number" min="0" pattern="^[0-9]+" />
         </div>
+
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="multidose_concentration_id" class="form-text text-muted font-weight-bold">Medida:</label>
+          <nb-select (selectedChange)="selectmulticoncen($event)" formControlName="multidose_concentration_id" id="multidose_concentration_id" fullWidth>
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.multidose_concentration_id }}"
+              *ngFor="let item of multidose_concentration" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="minimum_stock" class="form-text text-muted font-weight-bold">Stock minimo:</label>
-          <input nbInput fullWidth type="number" min="0" pattern="^[0-9]+" id="minimum_stock" formControlName="minimum_stock" minimum_stock
+          <input nbInput fullWidth type="number" min="0" pattern="^[0-9]+" id="minimum_stock"
+            formControlName="minimum_stock" minimum_stock
             status="{{ isSubmitted && form.controls.minimum_stock.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="maximum_stock" class="form-text text-muted font-weight-bold">Stock maximo:</label>
-          <input nbInput fullWidth type="number" min="0" pattern="^[0-9]+" id="maximum_stock" formControlName="maximum_stock" maximum_stock
+          <input nbInput fullWidth type="number" min="0" pattern="^[0-9]+" id="maximum_stock"
+            formControlName="maximum_stock" maximum_stock
             status="{{ isSubmitted && form.controls.maximum_stock.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
       </div>

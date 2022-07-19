@@ -15,9 +15,8 @@ export class FixedRequestComponent implements OnInit {
   @Input() parentData: any;
   public isSubmitted = false;
   public messageError = null;
-  @Output() messageEvent = new EventEmitter<any>();
 
-  public title: string = 'LISTA DE MEDICAMENTOS SOLICITADOS';
+  public title: string = 'LISTA DE ACTIVOS SOLICITADOS';
   public subtitle: string = '';
   public headerFields: any[] = ['IDENTIFICADOR', 'ELEMENTO', 'CANTIDAD', 'SOLICITADO A'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
@@ -40,18 +39,27 @@ export class FixedRequestComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.description;
+          if (value == null) {
+            return row.fixed_accessories.name;
+          } else {
+            return row.fixed_assets.description;
+
+          }
         },
       },
-      amount: {
+      request_amount: {
         title: this.headerFields[2],
         type: 'string',
-      }, 
-      campus: {
-        title: this.headerFields[5],
+      },
+      fixed_accessories: {
+        title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.campus.name;
+          if (value == null) {  
+            return row.fixed_assets.fixed_type_role.fixed_type.name;
+          } else {
+            return row.fixed_accessories.fixed_type_role.fixed_type.name;
+          }
         },
       },
     },

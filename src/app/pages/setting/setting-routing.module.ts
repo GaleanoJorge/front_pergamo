@@ -151,9 +151,11 @@ import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
 import { ProductTabComponent } from './product-tab/product-tab.component';
 import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/billing-request-pharmacy.component';
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
+import { FixedRequestComponent } from './fixed-request/fixed-request.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
 import { BillingPadPrefixComponent } from './billing-pad-prefix/billing-pad-prefix.component';
 import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billing-pad-consecutive.component';
+
 
 const routes: Routes = [{
   path: '',
@@ -828,7 +830,7 @@ const routes: Routes = [{
     },
     {
       path: 'fixed-request',
-      component: FormFixedRequestComponent,
+      component: FixedRequestComponent,
     },
     {
       path: 'fixed-access-requests',
