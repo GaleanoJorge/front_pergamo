@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChVitalSignsService } from '../../../../business-controller/ch-vital-signs.service';
@@ -20,6 +20,7 @@ export class FormsignsComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -160,7 +161,7 @@ export class FormsignsComponent implements OnInit {
     // });
 
     this.form = this.formBuilder.group({
-      clock: [this.data[0] ? this.data[0].clock : this.data.clock],
+      clock: [this.data[0] ? this.data[0].clock : this.data.clock, Validators.compose([Validators.required])],
       cardiac_frequency: [this.data[0] ? this.data[0].cardiac_frequency : this.data.cardiac_frequency, Validators.compose([Validators.required])],
       respiratory_frequency: [this.data[0] ? this.data[0].respiratory_frequency : this.data.respiratory_frequency, Validators.compose([Validators.required])],
       temperature: [this.data[0] ? this.data[0].temperature : this.data.temperature],
@@ -277,12 +278,12 @@ export class FormsignsComponent implements OnInit {
       this.disabled = false;
     }
 
-    this.fetchSelectedItems(null);
-    this.fetchCheckedIDs(null);
+    // this.fetchSelectedItems(null);
+    // this.fetchCheckedIDs(null);
   }
-  changeSelection($event) {
-    this.fetchSelectedItems($event);
-  }
+  // changeSelection($event) {
+  //   this.fetchSelectedItems($event);
+  // }
 
   async save() {
     this.isSubmitted = true;
@@ -319,11 +320,6 @@ export class FormsignsComponent implements OnInit {
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
           pupil: JSON.stringify(this.checkboxesDataList),
-          // mydriatic: this.form.controls.mydriatic.value,
-          // normal: this.form.controls.normal.value,
-          // lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
-          // fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,
-          // miotic_size: this.form.controls.miotic_size.value,
           observations_glucometry: this.form.controls.observations_glucometry.value,
           left_reaction: this.form.controls.left_reaction.value,
           pupil_size_left: this.form.controls.pupil_size_left.value,
@@ -374,12 +370,6 @@ export class FormsignsComponent implements OnInit {
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
           pupil: JSON.stringify(this.checkboxesDataList),
-
-          // mydriatic: this.form.controls.mydriatic.value,
-          // normal: this.form.controls.normal.value,
-          // lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
-          // fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,
-          // miotic_size: this.form.controls.miotic_size.value,
           observations_glucometry: this.form.controls.observations_glucometry.value,
           left_reaction: this.form.controls.left_reaction.value,
           pupil_size_left: this.form.controls.pupil_size_left.value,
@@ -395,9 +385,48 @@ export class FormsignsComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.patchValue({ clock:'',
+            cardiac_frequency:'',
+            respiratory_frequency:'',
+            temperature:'',
+            oxigen_saturation:'',
+            intracranial_pressure:'',
+            cerebral_perfusion_pressure:'',
+            intra_abdominal:'',
+            pressure_systolic:'',
+            pressure_diastolic:'',
+            pressure_half:'',
+            pulse:'',
+            venous_pressure:'',
+            size:'',
+            weight:'',
+            glucometry:'',
+            body_mass_index:'',
+            pulmonary_systolic:'',
+            pulmonary_diastolic:'',
+            pulmonary_half:'',
+            head_circunference:'',
+            abdominal_perimeter:'',
+            chest_perimeter:'',
+            right_reaction:'',
+            pupil_size_right:'',
+            pupil:'',
+            observations_glucometry:'',
+            left_reaction:'',
+            pupil_size_left:'',
+            ch_vital_hydration_id:'',
+            vital_ventilated_id:'',
+            ch_vital_temperature_id:'',
+            ch_vital_neurological_id:'',
+            oxygen_type_id:'',
+            liters_per_minute_id:'',
+            parameters_signs_id:'',
+            has_oxigen:'',});
           if (this.saved) {
             this.saved();
           }
+          
         }).catch(x => {
           if (this.form.controls.has_caregiver.value == true) {
             this.isSubmitted = true;
@@ -484,12 +513,15 @@ export class FormsignsComponent implements OnInit {
 fetchSelectedItems($event) {
   var i = 0;
 
-  this.checkboxesDataList.forEach((item) => {
-    if(item.label== $event.item){
-      this.checkboxesDataList[i].isChecked= !$event.value;
-    }
-    i++;
-  })
+  if ($event.item) {
+    this.checkboxesDataList.forEach((item) => {
+      if (item.label == $event.item) {
+        this.checkboxesDataList[i].isChecked = !$event.value;
+      }
+      i++;
+    })
+
+  }
 }
 fetchCheckedIDs($event) {
   this.checkedIDs = []

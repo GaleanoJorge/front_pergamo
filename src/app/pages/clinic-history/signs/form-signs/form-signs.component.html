@@ -189,7 +189,7 @@
             <ul>
               <li class="hgf" *ngFor="let item of checkboxesDataList">
                 <nb-checkbox [checked]="item.isChecked"
-                  (change)="changeSelection({ value: item.isChecked, item: item.label})" status="basic"> {{item.label}}
+                  (change)="fetchSelectedItems({ value: item.isChecked, item: item.label})" status="basic"> {{item.label}}
                 </nb-checkbox>
               </li>
             </ul>
