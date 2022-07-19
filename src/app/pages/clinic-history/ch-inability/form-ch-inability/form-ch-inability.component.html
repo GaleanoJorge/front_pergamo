@@ -5,8 +5,14 @@
 
       <div class="row justify-content-md-center">
         <div class="col-md-12 center">
-        <label for=" extension" class="form-text text-muted font-weight-bold">¿Prorroga?</label>
-        <input type="checkbox" id="extension" formControlName="extension">
+
+          <nb-radio-group formControlName="extension" revision id="extension"
+          class="d-flex text" name="extension">
+          <nb-radio value="Si">¿Prorroga?</nb-radio>
+        </nb-radio-group>
+
+        <!-- <label for=" extension" class="form-text text-muted font-weight-bold">¿Prorroga?</label>
+        <input type="checkbox" id="extension" formControlName="extension"> -->
       </div>
     </div>
 
@@ -66,7 +72,7 @@
 
         <div class="col-md-3 center">
 
-          <label for=" ch_type_inability_id" class="form-text text-muted font-weight-bold ">Tipo de Incapacidad:</label>
+          <label for=" ch_type_inability_id" class="form-text text-muted font-weight-bold ">Tipo de Incapacidad</label>
 
           <nb-select [selected]="this.data.ch_type_inability_id" formControlName="ch_type_inability_id"
             id="ch_type_inability_id" fullWidth

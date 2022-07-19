@@ -86,7 +86,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
-          this.form.setValue({ recommendations_evo: ''});
+          this.form.setValue({ patient_family_education:'', recommendations_evo_id: '', description:'', });
           if (this.saved) {
             this.saved();
           }
@@ -101,20 +101,25 @@ export class FormRecommendationsEvoComponent implements OnInit {
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
           description: this.form.controls.description.value,
           observation: this.form.controls.observation.value,
-       
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ recommendations_evo_id: '', });
+          this.form.setValue({ patient_family_education:'', recommendations_evo_id: '', description:'', });
           if (this.saved) {
             this.saved();
           }
         }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
             this.isSubmitted = false;
             this.loading = false;
+          }
         });
+        this.messageEvent.emit(true);
       }
     }
   }
