@@ -65,8 +65,8 @@ export class FormChOstomiesComponent implements OnInit {
       };
     }
     this.form = this.formBuilder.group({
-      ostomy_id: [this.data[0] ? this.data[0].ostomy_id : this.data.ostomy_id,],
-      observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
+      ostomy_id: [this.data[0] ? this.data[0].ostomy_id : this.data.ostomy_id,Validators.compose([Validators.required])],
+      observation: [this.data[0] ? this.data[0].observation : this.data.observation,Validators.compose([Validators.required])],
      
     });    
     this.OstomyS.GetCollection().then(x => {
