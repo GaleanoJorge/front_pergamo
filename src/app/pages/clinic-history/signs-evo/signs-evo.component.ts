@@ -221,18 +221,12 @@ export class SignsEvoComponent implements OnInit {
       record_id: this.route.snapshot.params.id,
     };
   }
- 
-  receiveMessage(event) {
-
-  }
 
   ngOnInit(): void {
     this.record_id = this.route.snapshot.params.id;
   }
 
-  RefreshData() {
-    this.table.refresh();
-  }
+  
 
   NewChVitalSigns() {
     this.chvitalSignsS.Save({
@@ -247,5 +241,15 @@ export class SignsEvoComponent implements OnInit {
       this.isSubmitted = false;
       this.loading = false;
     });
+  }
+  
+  RefreshData() {
+    this.table.refresh();
+  }
+  
+  receiveMessage($event) {
+    if($event==true){
+      this.RefreshData();
+    }
   }
 }
