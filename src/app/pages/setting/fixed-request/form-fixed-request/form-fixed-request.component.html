@@ -15,13 +15,13 @@
 
       <div class="col-12 col-sm-12 col-md-6">
         <label for="fixed_assets" class="form-text text-muted font-weight-bold">ACTIVOS FIJO A SOLICITAR:</label>
-        <nb-select [selected]="this.data.fixed_assets_id" formControlName="fixed_assets_id" id="fixed_assets_id"
+        <nb-select [selected]="this.data.fixed_nom_product_id" formControlName="fixed_nom_product_id" id="fixed_nom_product_id"
           fullWidth
-          status="{{ isSubmitted && form.controls.fixed_assets_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.fixed_nom_product_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
           <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == data.fixed_assets_id }}" *ngFor="let item of fixed_assets_id"
+          <nb-option selected="{{ item.id == data.fixed_nom_product_id }}" *ngFor="let item of fixed_nom_product_id"
             [value]="item.id">
-            {{ item.description }}</nb-option>
+            {{ item.name }}</nb-option>
         </nb-select>
       </div>
 

@@ -56,9 +56,9 @@ export class FixedRequestComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (value == null) {  
-            return row.fixed_assets.fixed_type_role.fixed_type.name;
+            return row.fixed_assets.fixed_type.name;
           } else {
-            return row.fixed_accessories.fixed_type_role.fixed_type.name;
+            return row.fixed_accessories.fixed_type.name;
           }
         },
       },
