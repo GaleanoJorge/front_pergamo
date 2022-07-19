@@ -401,6 +401,8 @@ import { IvaSuppliesComponent } from './billing/prod-supplies-package/iva-suppli
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-most/billing-request-pharmacy-most.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+import { FixedFormNomProductComponent } from './fixed-nom-product/form-fixed-nom-product/form-fixed-nom-product.component';
+import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -835,13 +837,11 @@ import { tcRentabilityComponent } from './tc-rentability/tc-rentability.componen
     ProdSuppliesRequestPackageComponent,
     SelectProductSuppliesRequestComponent,
     BillingRequestPharmacyComponent,
-
     BillingRequestPharmacyMostComponent,
+    tcRentabilityComponent,
 
-
-    tcRentabilityComponent
-
-
+    FixedFormNomProductComponent,
+    FixedNomProductComponent
   ],
   providers: [
     DateFormatPipe,
