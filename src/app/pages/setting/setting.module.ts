@@ -401,6 +401,10 @@ import { IvaSuppliesComponent } from './billing/prod-supplies-package/iva-suppli
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-most/billing-request-pharmacy-most.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+import { BillingPadPrefixComponent } from './billing-pad-prefix/billing-pad-prefix.component';
+import { FormBillingPadPrefixComponent } from './billing-pad-prefix/form-billing-pad-prefix/form-billing-pad-prefix.component';
+import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billing-pad-consecutive.component';
+import { FormBillingPadConsecutiveComponent } from './billing-pad-consecutive/form-billing-pad-consecutive/form-billing-pad-consecutive.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -839,9 +843,12 @@ import { tcRentabilityComponent } from './tc-rentability/tc-rentability.componen
     BillingRequestPharmacyMostComponent,
 
 
-    tcRentabilityComponent
+    tcRentabilityComponent,
 
-
+    BillingPadPrefixComponent,
+    FormBillingPadPrefixComponent,
+    BillingPadConsecutiveComponent,
+    FormBillingPadConsecutiveComponent,
   ],
   providers: [
     DateFormatPipe,
