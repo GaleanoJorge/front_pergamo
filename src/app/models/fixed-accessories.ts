@@ -5,7 +5,8 @@ import { MainClass } from './main-class';
 export class FixedAccessories extends MainClass {
   id: number;
   name: string;
-  amount: number;
+  amount_total: number;
+  actual_amount: number;
   fixed_type_id: number;
   campus_id: number;
 }

@@ -26,6 +26,8 @@ export class FormFixedAccessoriesComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public campus_id: any[];
+  public fixed_type_id: any[];
+
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -41,18 +43,25 @@ export class FormFixedAccessoriesComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
-        amount: '',
+        amount_total: '',
+        fixed_type_id: '',
+
       };
     }
 
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
-      amount: [this.data.name, Validators.compose([Validators.required])],
+      amount_total: [this.data.name, Validators.compose([Validators.required])],
       campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
+      fixed_type_id: [this.data.fixed_type_id, Validators.compose([Validators.required])],
+
     });
 
     await this.CampusS.GetCollection().then(x => {
       this.campus_id = x;
+    });
+    await this.FixedTypeS.GetCollection({}).then(x => {
+      this.fixed_type_id = x;
     });
   }
 
@@ -68,9 +77,9 @@ export class FormFixedAccessoriesComponent implements OnInit {
         this.FixedAccessoriesS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
-          amount: this.form.controls.amount.value,
+          amount_total: this.form.controls.amount_total.value,
           campus_id: this.form.controls.campus_id.value,
-          fixed_type_role_id: 1,
+          fixed_type_id: this.form.controls.fixed_type_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -85,9 +94,9 @@ export class FormFixedAccessoriesComponent implements OnInit {
       else {
         this.FixedAccessoriesS.Save({
           name: this.form.controls.name.value,
-          amount: this.form.controls.amount.value,
+          amount_total: this.form.controls.amount_total.value,
           campus_id: this.form.controls.campus_id.value,
-          fixed_type_role_id: 1,
+          fixed_type_id: this.form.controls.fixed_type_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
