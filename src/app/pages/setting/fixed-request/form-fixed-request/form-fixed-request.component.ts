@@ -5,6 +5,7 @@ import { FixedAccessoriesService } from '../../../../business-controller/fixed-a
 import { FixedAddService } from '../../../../business-controller/fixed-add.service';
 import { FixedAssetsService } from '../../../../business-controller/fixed-assets.service';
 import { FixedLocationCampusService } from '../../../../business-controller/fixed-location-campus.service';
+import { FixedNomProductService } from '../../../../business-controller/fixed-nom-product.service';
 import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 
@@ -30,6 +31,8 @@ export class FormFixedRequestComponent implements OnInit {
   public fixed_accessories_id: any[];
   public fixed_location_campus_id: any[];
   public responsible_user: any[];
+  public fixed_nom_product_id: any[];
+
 
 
   constructor(
@@ -41,6 +44,7 @@ export class FormFixedRequestComponent implements OnInit {
     private FixedAccessoriesS: FixedAccessoriesService,
     private FixedLocationCampusS: FixedLocationCampusService,
     private UserRoleBusinessS: UserBusinessService,
+    private FixedNomProductS: FixedNomProductService
 
   ) {
   }
@@ -66,6 +70,7 @@ export class FormFixedRequestComponent implements OnInit {
       responsible_user_id: [this.data.responsible_user_id, Validators.compose([Validators.required])],
     });
 
+
     await this.FixedTypeS.GetCollection().then(x => {
       this.fixed_type_id = x;
     });
@@ -82,7 +87,14 @@ export class FormFixedRequestComponent implements OnInit {
     await this.UserRoleBusinessS.GetCollection().then(x => {
       this.responsible_user = x;
     });
+
+    await this.FixedNomProductS.GetCollection().then(x => {
+      this.fixed_nom_product_id = x;
+    });
+
+ 
   }
+
 
   async save() {
     this.isSubmitted = true;
@@ -100,6 +112,7 @@ export class FormFixedRequestComponent implements OnInit {
           fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
           status: 'SOLICITADO',
           responsible_user_id: this.form.controls.responsible_user_id.value,
+          fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           if (this.saved) {
@@ -119,11 +132,13 @@ export class FormFixedRequestComponent implements OnInit {
           fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
           status: 'SOLICITADO',
           responsible_user_id: this.form.controls.responsible_user_id.value,
-          observation: ''
+          observation: '',
+          fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
+
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ fixed_type_id: '', fixed_assets_id: '', fixed_accessories_id: '', request_amount: '', fixed_location_campus_id: '', responsible_user_id: '' });
+          this.form.setValue({ fixed_type_id: '',fixed_nom_product_id:'', fixed_assets_id: '', fixed_accessories_id: '', request_amount: '', fixed_location_campus_id: '', responsible_user_id: '' });
           if (this.saved) {
             this.saved();
           }
@@ -134,4 +149,15 @@ export class FormFixedRequestComponent implements OnInit {
       }
     }
   }
+
+
+  // GetCategories(fixed_type_id, job = false) {
+  //   if (!fixed_type_id || fixed_type_id === '') return Promise.resolve(false);
+  //   return this.FixedNomProductS.GetProductCategoryByGroup(fixed_type_id).then(x => {
+  //     this.fixed_nom_product_id = x;
+  //     return Promise.resolve(true);
+  //   });
+  // }
 }
+
+

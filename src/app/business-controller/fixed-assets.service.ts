@@ -63,6 +63,24 @@ export class FixedAssetsService {
       });
   }
 
+
+  updateInventoryByLot(fixed_assets: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('fixed_assets/updateInventoryByLot', fixed_assets.id);
+    servObj.data = fixed_assets;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('fixed_assets', id);
     return this.webAPI.DeleteAction(servObj)
@@ -72,6 +90,25 @@ export class FixedAssetsService {
           throw new Error(servObj.message);
 
         return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+
+  GetPharmacyByUserId(id, params = {}): Promise<FixedAssets[]> {
+    let servObj = new ServiceObject('fixed_assets/pharmacies/' + id);
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.fixed_assets = <FixedAssets[]>servObj.data.fixed_assets;
+
+        return Promise.resolve(this.fixed_assets);
       })
       .catch(x => {
         throw x.message;

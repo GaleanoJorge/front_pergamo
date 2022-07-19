@@ -405,6 +405,8 @@ import { BillingPadPrefixComponent } from './billing-pad-prefix/billing-pad-pref
 import { FormBillingPadPrefixComponent } from './billing-pad-prefix/form-billing-pad-prefix/form-billing-pad-prefix.component';
 import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billing-pad-consecutive.component';
 import { FormBillingPadConsecutiveComponent } from './billing-pad-consecutive/form-billing-pad-consecutive/form-billing-pad-consecutive.component';
+import { FixedFormNomProductComponent } from './fixed-nom-product/form-fixed-nom-product/form-fixed-nom-product.component';
+import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -839,8 +841,8 @@ import { FormBillingPadConsecutiveComponent } from './billing-pad-consecutive/fo
     ProdSuppliesRequestPackageComponent,
     SelectProductSuppliesRequestComponent,
     BillingRequestPharmacyComponent,
-
     BillingRequestPharmacyMostComponent,
+    tcRentabilityComponent,
 
 
     tcRentabilityComponent,
@@ -849,6 +851,8 @@ import { FormBillingPadConsecutiveComponent } from './billing-pad-consecutive/fo
     FormBillingPadPrefixComponent,
     BillingPadConsecutiveComponent,
     FormBillingPadConsecutiveComponent,
+    FixedFormNomProductComponent,
+    FixedNomProductComponent
   ],
   providers: [
     DateFormatPipe,

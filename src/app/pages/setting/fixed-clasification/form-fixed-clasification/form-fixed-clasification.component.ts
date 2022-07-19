@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductGroupService} from '../../../../business-controller/product-group.service';
 import { FixedClasificationService } from '../../../../business-controller/fixed-clasification.service';
 import { FixedCodeService } from '../../../../business-controller/fixed-code.service';
+import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class FormFixedClasificationComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public fixed_code:any[];
+  public fixed_type:any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -31,6 +33,7 @@ export class FormFixedClasificationComponent implements OnInit {
     private FixedClasificationS: FixedClasificationService,
     private FixedCodeS: FixedCodeService,
     private toastService: NbToastrService,
+    private FixedTypeS: FixedTypeService
   ) {
   }
 
@@ -39,16 +42,21 @@ export class FormFixedClasificationComponent implements OnInit {
       this.data = {
         name: '',
         fixed_code_id: '',
+        fixed_type_id: '',
       };
     }
 
     this.form = this.formBuilder.group({      
       name: [this.data.name, Validators.compose([Validators.required])],
       fixed_code_id: [this.data.fixed_code_id, Validators.compose([Validators.required])],
+      fixed_type_id: [this.data.fixed_type_id, Validators.compose([Validators.required])],
     });
 
     this.FixedCodeS.GetCollection().then(x => {
       this.fixed_code=x;
+    });
+    this.FixedTypeS.GetCollection().then(x => {
+      this.fixed_type=x;
     });
   }
   
@@ -65,6 +73,7 @@ export class FormFixedClasificationComponent implements OnInit {
           id: this.data.id,
           name: this.form.controls.name.value,
           fixed_code_id: this.form.controls.fixed_code_id.value,
+          fixed_type_id: this.form.controls.fixed_type_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -79,6 +88,7 @@ export class FormFixedClasificationComponent implements OnInit {
         this.FixedClasificationS.Save({
           name: this.form.controls.name.value,
           fixed_code_id: this.form.controls.fixed_code_id.value,
+          fixed_type_id: this.form.controls.fixed_type_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

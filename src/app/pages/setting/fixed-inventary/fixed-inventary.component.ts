@@ -16,7 +16,7 @@ export class FixedInventaryComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'DISPONIBILIDAD';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'Descripción', 'Marca', 'Sede'];
+  public headerFields: any[] = ['ID', 'Descripción', 'Marca', 'Modelo', 'Serial', 'Sede'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -47,18 +47,27 @@ export class FixedInventaryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-
       description: {
         title: this.headerFields[1],
         type: 'string',
+        
       },
-
       mark: {
         title: this.headerFields[2],
         type: 'string',
       },
-      campus: {
+
+      model: {
         title: this.headerFields[3],
+        type: 'string',
+      },
+
+      serial: {
+        title: this.headerFields[4],
+        type: 'string',
+      },
+      campus: {
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.campus.name;

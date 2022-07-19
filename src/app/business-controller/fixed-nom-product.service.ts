@@ -46,6 +46,23 @@ export class FixedNomProductService {
       });
   }
 
+  GetProductByGroup(fixed_type_id): Promise<FixedNomProduct[]> {
+    let servObj = new ServiceObject('FixedNomProduct/byGroup',fixed_type_id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.fixed_nom_product = <FixedNomProduct[]>servObj.data.fixed_nom_product;
+        return Promise.resolve(this.fixed_nom_product);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+
   Save(fixed_nom_product: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('fixed_nom_product');
     servObj.data = fixed_nom_product;

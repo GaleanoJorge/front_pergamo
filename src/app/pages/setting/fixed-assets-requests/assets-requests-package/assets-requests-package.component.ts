@@ -2,10 +2,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
-import { PharmacyRequestShippingService } from '../../../../business-controller/pharmacy-request-shipping.service';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { AssetsSelectRequestsComponent } from './assets-select-requests.component';
-import { FixedLoanService } from '../../../../business-controller/fixed-loan.service';
+import { FixedAddService } from '../../../../business-controller/fixed-add.service';
 
 @Component({
   selector: 'ngx-assets-requests-package',
@@ -41,8 +40,6 @@ export class AssetsRequestsPackageComponent implements OnInit {
   public component_package_id: number;
   public done = false;
   public settings;
-  public pharmacy_request_shipping;
-  public show: boolean = false;
 
   public settings_supplies = {
     columns: {
@@ -91,7 +88,7 @@ export class AssetsRequestsPackageComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     private e: ElementRef,
-    private FixedLoanS: FixedLoanService,
+    private FixedAddS: FixedAddService
   ) {
   }
 
@@ -109,11 +106,8 @@ export class AssetsRequestsPackageComponent implements OnInit {
     if (event) {
       this.selectedOptions2.push(row.id);
       var diet = {
-        fixed_loan_id: row.id,
-        fixed_add_id: row.fixed_add_id,
+        fixed_assets_id: row.id,
         amount: 0,
-        amount_damaged: 0,
-        amount_provition: row.amount_provition,
       };
       this.emit.push(diet);
     } else {
@@ -122,7 +116,7 @@ export class AssetsRequestsPackageComponent implements OnInit {
       i !== -1 && this.selectedOptions2.splice(i, 1);
       var j = 0;
       this.selectedOptions.forEach(element => {
-        if (this.selectedOptions2.includes(element.pharmacy_request_shipping)) {
+        if (this.selectedOptions2.includes(element.fixed_assets_id)) {
           this.emit.push(element);
         }
         j++;
@@ -154,7 +148,7 @@ export class AssetsRequestsPackageComponent implements OnInit {
       this.selectedOptions.forEach(element => {
         dta.component_package_id = this.component_package_id;
         dta.component_id = element.id;
-        this.FixedLoanS.Save(dta).then(x => {
+        this.FixedAddS.Save(dta).then(x => {
         }).catch(x => {
           err++;
         });

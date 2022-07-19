@@ -52,7 +52,6 @@ import { ProductSubcategoryComponent } from './product-subcategory/product-subca
 import { ProductComponent } from './product/product.component';
 import { InvimaStatusComponent } from './invima-status/invima-status.component';
 import { StorageConditionsComponent } from './storage-conditions/storage-conditions.component';
-import { RiskComponent } from './risk/risk.component';
 import { ProductGenericComponent } from './product-generic/product-generic.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { DistrictComponent } from './district/district.component';
@@ -119,9 +118,7 @@ import { LocationCapacityComponent } from './location-capacity/location-capacity
 import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
 import { AuthStatusComponent } from './auth-status/auth-status.component';
 import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
-import { BillingComponent } from './billing/billing.component';
 import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
-import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
 import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
 import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
 import { TcBillingComponent } from './tc-billing/tc-billing.component';
@@ -139,12 +136,10 @@ import { FixedTypeComponent } from './fixed-type/fixed-type.component';
 import { FixedLocationCampusComponent } from './fixed-location-campus/fixed-location-campus.component';
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
 import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories.component';
-import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 import { MinimumSalaryComponent } from './minimum-salary/minimum-salary.component';
 import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component';
 import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
 import { FixedTabComponent } from './fixed-tab/fixed-tab.component';
-import { FormFixedRequestComponent } from './fixed-request/form-fixed-request/form-fixed-request.component';
 import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-requests.component';
 import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
 import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
@@ -155,6 +150,7 @@ import { FixedRequestComponent } from './fixed-request/fixed-request.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
 import { BillingPadPrefixComponent } from './billing-pad-prefix/billing-pad-prefix.component';
 import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billing-pad-consecutive.component';
+import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.component';
 
 
 const routes: Routes = [{
@@ -803,6 +799,10 @@ const routes: Routes = [{
     {
       path: 'fixed-type',
       component: FixedTypeComponent,
+    },
+    {
+      path: 'fixed-nom-product',
+      component: FixedNomProductComponent,
     },
     {
       path: 'fixed-location-campus',

@@ -17,7 +17,7 @@ export class FixedInventaryAccesoriesComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'INVENTARIO DE ACCESORIOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'Descripción', 'Cantidad', 'Sede'];
+  public headerFields: any[] = ['ID', 'Descripción', 'Cantidad inicial', 'Cantidad total', 'Sede'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -53,12 +53,16 @@ export class FixedInventaryAccesoriesComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      amount: {
+      amount_total: {
         title: this.headerFields[2],
+        type: 'string', 
+      },
+      actual_amount: {
+        title: this.headerFields[3],
         type: 'string',
       },
       campus: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.campus.name;
