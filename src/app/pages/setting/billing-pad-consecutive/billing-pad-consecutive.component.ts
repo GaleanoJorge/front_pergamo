@@ -65,7 +65,7 @@ export class BillingPadConsecutiveComponent implements OnInit {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if (value == null) {
+          if (value == 0) {
             return "-";
           } else {
             return value;

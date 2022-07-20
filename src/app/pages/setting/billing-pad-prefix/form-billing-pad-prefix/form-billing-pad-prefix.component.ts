@@ -64,6 +64,7 @@ export class FormBillingPadPrefixComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
+          this.toastService.danger(x, 'ERROR');
           this.isSubmitted = false;
           this.loading = false;
         });
@@ -78,6 +79,7 @@ export class FormBillingPadPrefixComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
+          this.toastService.danger(x, 'ERROR');
           this.isSubmitted = false;
           this.loading = false;
         });
