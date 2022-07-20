@@ -1,9 +1,9 @@
 <ngx-base-list
   [messageError]="messageError">
   <div content >
-    <ngx-base-table 
+    <ngx-base-table *ngIf="this.rendersettings"
                     [title]="title"
-                    [settings]="settings"
+                    [settings]="rendersettings"
                     [entity]="this.parentData.entity"
                     [customData]="this.parentData.customData">
       <div actions>
