@@ -6,4 +6,6 @@ export class ProcedurePackage extends MainClass {
   id: number;
   procedure_package_id: number;
   procedure_id: number;
+  product_id: number;
+  supplies_id: number;
 }
