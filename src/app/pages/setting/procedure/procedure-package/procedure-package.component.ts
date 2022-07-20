@@ -7,7 +7,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { numeric } from '@rxweb/reactive-form-validators';
 import { multicast } from 'rxjs/operators';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { THIS_EXPR, variable } from '@angular/compiler/src/output/output_ast';
 import { SelectProcedureComponent } from './select-procedure.component';
 import { AmountProcedureComponent } from './amount-procedure-package.component';
 import { DynamicProcedurePackageComponent } from './dynamic-procedure-package.component';
@@ -24,6 +24,7 @@ export class ProcedurePackageComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<any>();
   @Input() parentData: any = [];
   @Input() show: any;
+  @Input() type: any;
   public messageError = null;
 
 
@@ -52,6 +53,7 @@ export class ProcedurePackageComponent implements OnInit {
   public filter: any[] = [];
   public filter2;
   public done = false;
+  public rendersettings: any = null;
 
 
 
@@ -96,12 +98,119 @@ export class ProcedurePackageComponent implements OnInit {
         title: this.headerFields[4],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          var amo;
+          this.selectedOptions.forEach(x => {
+            if (x.id == row.id) {
+              amo = x.min_quantity;
+            } else if (x.procedure_id == row.id) {
+              amo = x.min_quantity;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+            'amount': amo ? amo : '',
+            'onchange': (input, row: any) => this.onAmountChange(input, row),
+          };
+        },
+        renderComponent: AmountProcedureComponent,
+      },
+      max_quantity: {
+        title: this.headerFields[5],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          var amo;
+          this.selectedOptions.forEach(x => {
+            if (x.id == row.id) {
+              amo = x.max_quantity;
+            } else if (x.procedure_id == row.id) {
+              amo = x.max_quantity;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+            'amount': amo ? amo : '',
+            'onchange': (input, row: any) => this.onMaxAmountChange(input, row),
+          };
+        },
+        renderComponent: AmountProcedureComponent,
+      },
+      dynamic: {
+        title: this.headerFields[6],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          var amo;
+          this.selectedOptions.forEach(x => {
+            if (x.id == row.id) {
+              amo = x.dynamic_charge;
+            } else if (x.procedure_id == row.id) {
+              amo = x.dynamic_charge;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+            'amount': amo == 1 ? true : false,
+            'onchange': (input, row: any) => this.onDynamicChange(input, row),
+          };
+        },
+        renderComponent: DynamicProcedurePackageComponent,
+      },
+    },
+  };
+
+
+  public settingsP = {
+    columns: {
+      select: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          if (!this.done) {
+            this.selectedOptions = this.parentData.selectedOptions;
+            this.emit = this.parentData.selectedOptions;
+            this.parentData.selectedOptions.forEach(x => {
+              this.selectedOptions2.push(x.product_id);
+            });
+            this.done = true;
+          }
+          return {
+            'data': row,
+            'show': this.show,
+            'valid': (!this.selectedOptions2.includes(row.id)) ? false : true,
+            'selection': (event, row: any) => this.eventSelections(event, row),
+          };
+        },
+        renderComponent: SelectProcedureComponent,
+      },
+      code_atc: {
+        title: 'Código',
+        type: 'string',
+      },
+      description: {
+        title: 'Descripción',
+        type: 'string',
+      },
+      pbs_type_id: {
+        title: 'PBS',
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value == 3 ? 'CONDICIONADO' : value == 2 ? 'NO PBS' : 'PBS'
+        }
+      },
+      min_quantity: {
+        title: this.headerFields[4],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
           // if(this.selectedOptions2.includes(row.id)){
           //   var localidentify = this.selectedOptions.find(item => item.procedure_id == row.id)
           // }
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.procedure_id == row.id) {
+            if (x.id == row.id) {
+              amo = x.min_quantity;
+            } else if (x.product_id == row.id) {
               amo = x.min_quantity;
             }
           });
@@ -136,7 +245,9 @@ export class ProcedurePackageComponent implements OnInit {
           // };
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.procedure_id == row.id) {
+            if (x.id == row.id) {
+              amo = x.max_quantity;
+            } else if (x.product_id == row.id) {
               amo = x.max_quantity;
             }
           });
@@ -164,7 +275,136 @@ export class ProcedurePackageComponent implements OnInit {
           // };
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.procedure_id == row.id) {
+            if (x.id == row.id) {
+              amo = x.dynamic_charge;
+            } else if (x.product_id == row.id) {
+              amo = x.dynamic_charge;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+            'amount': amo == 1 ? true : false,
+            'onchange': (input, row: any) => this.onDynamicChange(input, row),
+          };
+        },
+        renderComponent: DynamicProcedurePackageComponent,
+      },
+    },
+  };
+
+  public settingsI = {
+    //selectMode: 'multi',
+
+    columns: {
+      select: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          if (!this.done) {
+            this.selectedOptions = this.parentData.selectedOptions;
+            this.emit = this.parentData.selectedOptions;
+            this.parentData.selectedOptions.forEach(x => {
+              this.selectedOptions2.push(x.supplies_id);
+            });
+            this.done = true;
+          }
+          return {
+            'data': row,
+            'show': this.show,
+            'valid': (!this.selectedOptions2.includes(row.id)) ? false : true,
+            'selection': (event, row: any) => this.eventSelections(event, row),
+          };
+        },
+        renderComponent: SelectProcedureComponent,
+      },
+      description: {
+        title: 'Descripción',
+        type: 'string',
+      },
+      stature: {
+        title: 'Tamaño',
+        type: 'string',
+      },
+      min_quantity: {
+        title: this.headerFields[4],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // if(this.selectedOptions2.includes(row.id)){
+          //   var localidentify = this.selectedOptions.find(item => item.procedure_id == row.id)
+          // }
+          var amo;
+          this.selectedOptions.forEach(x => {
+            if (x.id == row.id) {
+              amo = x.min_quantity;
+            } else if (x.supplies_id == row.id) {
+              amo = x.min_quantity;
+            }
+          });
+          // return {
+          //   'data': row,
+          //   'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+          //   'amount': this.selectedOptions2.includes(row.id) ? localidentify.min_quantity : '',
+          //   'onchange': (input, row: any) => this.onAmountChange(input, row),
+          // };
+          return {
+            'data': row,
+            'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+            'amount': amo ? amo : '',
+            'onchange': (input, row: any) => this.onAmountChange(input, row),
+          };
+        },
+        renderComponent: AmountProcedureComponent,
+      },
+      max_quantity: {
+        title: this.headerFields[5],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+
+          // if(this.selectedOptions2.includes(row.id)){
+          //   var localidentify = this.selectedOptions.find(item => item.procedure_id == row.id)
+          // }
+          // return {
+          //   'data': row,
+          //   'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+          //   'amount': this.selectedOptions2.includes(row.id) ? localidentify.max_quantity :'',
+          //   'onchange': (input, row: any) => this.onMaxAmountChange(input, row),
+          // };
+          var amo;
+          this.selectedOptions.forEach(x => {
+            if (x.id == row.id) {
+              amo = x.max_quantity;
+            } else if (x.supplies_id == row.id) {
+              amo = x.min_quantity;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+            'amount': amo ? amo : '',
+            'onchange': (input, row: any) => this.onMaxAmountChange(input, row),
+          };
+        },
+        renderComponent: AmountProcedureComponent,
+      },
+      dynamic: {
+        title: this.headerFields[6],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // if(this.selectedOptions2.includes(row.id)){
+          //   var localidentify = this.selectedOptions.find(item => item.procedure_id == row.id)
+          // }
+          // return {
+          //   'data': row,
+          //   'enabled': (!this.show) ? !this.selectedOptions2.includes(row.id) : true,
+          //   'amount': this.selectedOptions2.includes(row.id) ? localidentify.dynamic == 1 ? false : true : false,
+          //   'onchange': (input, row: any) => this.onDynamicChange(input, row),
+          // };
+          var amo;
+          this.selectedOptions.forEach(x => {
+            if (x.id == row.id) {
+              amo = x.dynamic_charge;
+            } else if (x.supplies_id == row.id) {
               amo = x.dynamic_charge;
             }
           });
@@ -194,7 +434,15 @@ export class ProcedurePackageComponent implements OnInit {
 
   ngOnInit(): void {
     this.procedure_package_id = this.route.snapshot.params.id;
-    
+    if (this.type == 1) {
+      this.rendersettings = this.settings;
+    } else if (this.type == 2) {
+      this.rendersettings = this.settingsP;
+    } else if (this.type == 3) {
+      this.rendersettings = this.settingsI
+    }
+
+
 
     /*this.procedurePackageS.GetByPackage(this.procedure_package_id).then(x => {
       this.package=x;
@@ -217,21 +465,49 @@ export class ProcedurePackageComponent implements OnInit {
   eventSelections(event, row) {
     if (event) {
       this.selectedOptions2.push(row.id);
-      var procedure_package = {
-        procedure_id: row.id,
-        max_quantity: null,
-        min_quantity: null,
-        dynamic_charge: false,
+      var element_package;
+      if (this.type == 1) {
+        element_package = {
+          procedure_id: row.id,
+          max_quantity: null,
+          min_quantity: null,
+          dynamic_charge: false,
+        }
+      } else if (this.type == 2) {
+        element_package = {
+          product_id: row.id,
+          max_quantity: null,
+          min_quantity: null,
+          dynamic_charge: false,
+        }
+      } else if (this.type == 3) {
+        element_package = {
+          supplies_id: row.id,
+          max_quantity: null,
+          min_quantity: null,
+          dynamic_charge: false,
+        }
       }
-      this.emit.push(procedure_package);
+
+      this.emit.push(element_package);
     } else {
       this.emit = [];
       let i = this.selectedOptions2.indexOf(row.id);
       i !== -1 && this.selectedOptions2.splice(i, 1);
       var j = 0;
       this.selectedOptions.forEach(element => {
-        if (this.selectedOptions2.includes(element.procedure_id)) {
-          this.emit.push(element);
+        if (this.type == 1) {
+          if (this.selectedOptions2.includes(element.procedure_id)) {
+            this.emit.push(element);
+          }
+        } else if (this.type == 2) {
+          if (this.selectedOptions2.includes(element.product_id)) {
+            this.emit.push(element);
+          }
+        } else if (this.type == 3) {
+          if (this.selectedOptions2.includes(element.supplies_id)) {
+            this.emit.push(element);
+          }
         }
         j++;
       });
@@ -245,9 +521,22 @@ export class ProcedurePackageComponent implements OnInit {
     var i = 0;
     var mientras = this.selectedOptions;
     this.selectedOptions.forEach(element => {
-      if (element.procedure_id == row.id) {
-        mientras[i].dynamic_charge = input.target.checked;
+      if (this.type == 1) {
+        if (element.procedure_id == row.id) {
+          mientras[i].dynamic_charge = input.target.checked;
+        }
+      } else if (this.type == 2) {
+        if (element.product_id == row.id) {
+          mientras[i].dynamic_charge = input.target.checked;
+        }
+      } else if (this.type == 3) {
+        if (element.supplies_id == row.id) {
+          mientras[i].dynamic_charge = input.target.checked;
+        }
       }
+      // if (element.id == row.id) {
+      //   mientras[i].dynamic_charge = input.target.checked;
+      // }
       i++
     });
     this.selectedOptions = mientras;
@@ -258,9 +547,22 @@ export class ProcedurePackageComponent implements OnInit {
     var i = 0;
     var mientras = this.selectedOptions;
     this.selectedOptions.forEach(element => {
-      if (element.procedure_id == row.id) {
-        mientras[i].min_quantity = input.target.valueAsNumber;
+      if (this.type == 1) {
+        if (element.procedure_id == row.id) {
+          mientras[i].min_quantity = input.target.valueAsNumber;
+        }
+      } else if (this.type == 2) {
+        if (element.product_id == row.id) {
+          mientras[i].min_quantity = input.target.valueAsNumber;
+        }
+      } else if (this.type == 3) {
+        if (element.supplies_id == row.id) {
+          mientras[i].min_quantity = input.target.valueAsNumber;
+        }
       }
+      // if (element.id == row.id) {
+      //   mientras[i].min_quantity = input.target.valueAsNumber;
+      // }
       i++
     });
     this.selectedOptions = mientras;
@@ -271,13 +573,38 @@ export class ProcedurePackageComponent implements OnInit {
     var i = 0;
     var mientras = this.selectedOptions;
     this.selectedOptions.forEach(element => {
-      if (element.procedure_id == row.id) {
-        if (mientras[i].min_quantity >= input.target.valueAsNumber) {
-          this.toastS.warning('El valor máximo no puede exceder el valor mínimo', 'Valor invalido');
-        } else {
-          mientras[i].max_quantity = input.target.valueAsNumber;
+      if (this.type == 1) {
+        if (element.procedure_id == row.id) {
+          if (mientras[i].min_quantity > input.target.valueAsNumber) {
+            this.toastS.warning('El valor máximo no puede exceder el valor mínimo', 'Valor invalido');
+          } else {
+            mientras[i].max_quantity = input.target.valueAsNumber;
+          }
+        }
+      } else if (this.type == 2) {
+        if (element.product_id == row.id) {
+          if (mientras[i].min_quantity > input.target.valueAsNumber) {
+            this.toastS.warning('El valor máximo no puede exceder el valor mínimo', 'Valor invalido');
+          } else {
+            mientras[i].max_quantity = input.target.valueAsNumber;
+          }
+        }
+      } else if (this.type == 3) {
+        if (element.supplies_id == row.id) {
+          if (mientras[i].min_quantity > input.target.valueAsNumber) {
+            this.toastS.warning('El valor máximo no puede exceder el valor mínimo', 'Valor invalido');
+          } else {
+            mientras[i].max_quantity = input.target.valueAsNumber;
+          }
         }
       }
+      // if (element.id == row.id) {
+      //   if (mientras[i].min_quantity > input.target.valueAsNumber) {
+      //     this.toastS.warning('El valor máximo no puede exceder el valor mínimo', 'Valor invalido');
+      //   } else {
+      //     mientras[i].max_quantity = input.target.valueAsNumber;
+      //   }
+      // }
       i++
     });
     this.selectedOptions = mientras;
@@ -439,7 +766,7 @@ export class ProcedurePackageComponent implements OnInit {
     var contador = 0;
     var err = 0;
     if (!this.selectedOptions.length) {
-      this.toastS.danger(null, 'Debe seleccionar al menos un Menú');
+      this.toastS.danger(null, 'Debe seleccionar al menos un item');
     }
     else {
       var dta = {

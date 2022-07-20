@@ -48,6 +48,7 @@ export class FormReasonConsultationNursingComponent implements OnInit {
     if (!this.data || this.data.length == 0) {
       this.data = {
         patient_position_id: '',
+        observation_position: '',
         ostomy_id: '',
         observation: '',
         hair_revision:''
@@ -77,6 +78,9 @@ export class FormReasonConsultationNursingComponent implements OnInit {
       hair_revision: [
         this.data[0] ? this.data[0].hair_revision : this.data.hair_revision,
       ],
+      observation_position: [
+        this.data[0] ? this.data[0].observation_position : this.data.hair_revision,
+      ],
     });
   }
 
@@ -90,6 +94,7 @@ export class FormReasonConsultationNursingComponent implements OnInit {
          this.chNursingEntryS.Update({
           id: this.data.id,
           patient_position_id: this.form.controls.patient_position_id.value,
+          observation_position: this.form.controls.observation_position.value,
           ostomy_id: this.form.controls.ostomy_id.value,
           observation: this.form.controls.observation.value,
           hair_revision: this.form.controls.hair_revision.value,
@@ -108,6 +113,7 @@ export class FormReasonConsultationNursingComponent implements OnInit {
       } else {
          this.chNursingEntryS.Save({
           patient_position_id: this.form.controls.patient_position_id.value,
+          observation_position: this.form.controls.observation_position.value,
           ostomy_id: this.form.controls.ostomy_id.value,
           observation: this.form.controls.observation.value,
           hair_revision: this.form.controls.hair_revision.value,

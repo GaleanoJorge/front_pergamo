@@ -26,7 +26,7 @@ export class ProcedurePackage2Component implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Información de paquete';
   public subtitle;
-  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento', 'Cantidad mínima', 'Cantidad máxima', 'Valor dinámico'];
+  public headerFields: any[] = ['ID', 'Cod-ATC', 'Cups', 'Nombre del procedimiento/insumo/medicamento', 'Cantidad mínima', 'Cantidad máxima', 'Valor dinámico'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -50,17 +50,38 @@ export class ProcedurePackage2Component implements OnInit {
         type: 'string',
       },
       'procedure.code': {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value, data) => {
+          if (data.product) {
+            return data.product.code_atc;
+          } else {
+            return 'No aplica';
+          }
+        },
+      },
+      'procedure.cups': {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, data) => {
-          return data.procedure.code;
+          if (data.procedure) {
+            return data.procedure.code;
+          } else {
+            return 'No aplica';
+          }
         },
       },
       'procedure.name': {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, data) => {
-          return data.procedure.name;
+          if (data.procedure) {
+            return data.procedure.name;
+          } else if (data.product) {
+            return data.product.description;
+          } else if (data.supplies) {
+            return data.supplies.description;
+          }
         },
       },
       min_quantity: {
@@ -111,7 +132,7 @@ export class ProcedurePackage2Component implements OnInit {
 
 
   ngOnInit(): void {
-    if(this.route.snapshot.params.id){
+    if (this.route.snapshot.params.id) {
       this.procedure_package_id = this.route.snapshot.params.id;
     };
 

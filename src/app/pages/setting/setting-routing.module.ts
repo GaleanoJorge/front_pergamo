@@ -152,6 +152,8 @@ import { BillingPadPrefixComponent } from './billing-pad-prefix/billing-pad-pref
 import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billing-pad-consecutive.component';
 import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.component';
 
+import { AssistanceStockComponent } from './assistance-stock/assistance-stock.component';
+import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
 
 const routes: Routes = [{
   path: '',
@@ -548,6 +550,10 @@ const routes: Routes = [{
       component: ProcedureMassiveComponent,
     },
     {
+      path: 'insume-massive/:id',
+      component: InsumeMassiveComponent,
+    },
+    {
       path: 'manual-price/:id',
       component: ManualPriceComponent,
     },
@@ -859,6 +865,10 @@ const routes: Routes = [{
     {
       path: 'billing-pad-consecutive',
       component: BillingPadConsecutiveComponent,
+    },
+    {
+      path: 'assistance-stock',
+      component: AssistanceStockComponent,
     }
   ],
 }];

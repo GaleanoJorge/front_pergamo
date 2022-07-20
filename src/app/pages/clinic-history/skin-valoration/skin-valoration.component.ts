@@ -22,7 +22,7 @@ export class SkinValorationComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'DIAGNOSTICO', 'ZONA EXAMINADA', 'EXUDADO', 'TIPO DE EXUDADO', 'SIGNOS DE INFECCIÓN', 'PIEL CIRCUNCIDANTE', 'ESTADO DE LA PIEL'
+    'DIAGNOSTICO', 'ZONA EXAMINADA', 'EXUDADO', 'TIPO DE EXUDADO', 'SIGNOS DE INFECCIÓN', 'PIEL CIRCUNDANTE', 'ESTADO DE LA PIEL'
   ];
 
   public isSubmitted: boolean = false;

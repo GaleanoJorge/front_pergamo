@@ -407,6 +407,15 @@ import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billin
 import { FormBillingPadConsecutiveComponent } from './billing-pad-consecutive/form-billing-pad-consecutive/form-billing-pad-consecutive.component';
 import { FixedFormNomProductComponent } from './fixed-nom-product/form-fixed-nom-product/form-fixed-nom-product.component';
 import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.component';
+import { AssistanceStockComponent } from './assistance-stock/assistance-stock.component';
+import { FormAssistanceStockComponent } from './assistance-stock/form-assistance-stock/form-assistance-stock.component';
+import { AssistanceStockReqComponent } from './assistance-stock/form-assistance-stock/assistance-stock-req.component';
+import { ActionsStockComponent } from './assistance-stock/actions.component';
+import { FormInsumeRequestComponent } from '../clinic-history/insume-request/form-insume-request/form-insume-request.component';
+import { InsumeRequestComponent } from '../clinic-history/insume-request/insume-request.component';
+import { ActionsComponentInsume } from './manual/insume-massive/actions.component';
+import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
+import { FormManualInsumeComponent } from './manual/form-manual-insume/form-manual-insume.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -437,6 +446,13 @@ import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.
     NbAccordionModule,
   ],
   declarations: [
+    ActionsComponentInsume,
+    InsumeMassiveComponent,
+    FormManualInsumeComponent,
+    ActionsStockComponent,
+    AssistanceStockReqComponent,
+    AssistanceStockComponent,
+    FormAssistanceStockComponent,
     AuthStatusComponent,
     FormAuthStatusComponent,
     ActionsCDComponent,

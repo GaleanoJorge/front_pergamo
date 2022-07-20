@@ -127,7 +127,6 @@ import { FormReasonConsultationNursingComponent } from './entry-clinic-history-n
 import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
 import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
 import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
-import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
 
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { ChNutritionInputComponent } from './ch-nutrition-list/ch-nutrition-input/ch-nutrition-input.component';
@@ -229,7 +228,6 @@ import { FormChOstomiesComponent } from './ch-ostomies/form-ch-ostomies/form-ch-
 import { ChOstomiesComponent } from './ch-ostomies/ch-ostomies.component';
 import { ChApComponent } from './ch-ap/ch-ap.component';
 import { FormChApComponent } from './ch-ap/form-ch-ap/form-ch-ap.component';
-import { FormEntryMotorFunPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-fun-pat-ot/form-entry-motor-fun-pat-ot.component';
 import { FormEntryMotorIntPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-int-pat-ot/form-entry-motor-int-pat-ot.component';
 import { FormEntryMotorMovPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-mov-pat-ot/form-entry-motor-mov-pat-ot.component';
 import { FormEntryMotorThermalOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-thermal-ot/form-entry-motor-thermal-ot.component';
@@ -256,6 +254,9 @@ import { RNMaterialsOTComponent } from './entry-clinic-history-occupational-ther
 import { ForRNmWeeklyOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/form-r-n-weekly-ot/form-r-n-weekly-ot.component';
 import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/r-n-weekly-ot.component';
 
+import { ActionsAplicationsComponent } from './drug-application/actions.component';
+import { FormEntryMotorFunPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-fun-pat-ot/form-entry-motor-fun-pat-ot.component';
+import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
 
 
 @NgModule({
@@ -287,6 +288,8 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
     NbCheckboxModule,
   ],
   declarations: [
+
+    ActionsAplicationsComponent,
     
     InsumeRequestComponent,
     FormInsumeRequestComponent,
@@ -361,8 +364,6 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
     ForRNmWeeklyOTComponent,
     RNWeeklyOtComponent,
 
-
-    ClinicHistoryOccupationalTherapy,
 
     RespiratoryTherapyListComponent,
     FormRespiratoryTherapyComponent,
@@ -567,6 +568,9 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
 
 
   providers: [DateFormatPipe],
-  exports: [],
+  exports: [
+    InsumeRequestComponent,
+    FormInsumeRequestComponent
+  ],
 })
 export class ClinicHistoryModule { }

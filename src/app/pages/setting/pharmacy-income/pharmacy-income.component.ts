@@ -38,6 +38,7 @@ export class PharmacyIncomeComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditInv.bind(this),
+            // 'delete': this.DeletePharInventary.bind(this),
           };
         },
         renderComponent: ActionsIncoComponent,
