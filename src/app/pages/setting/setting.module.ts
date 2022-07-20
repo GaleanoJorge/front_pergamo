@@ -407,6 +407,9 @@ import { AssistanceStockReqComponent } from './assistance-stock/form-assistance-
 import { ActionsStockComponent } from './assistance-stock/actions.component';
 import { FormInsumeRequestComponent } from '../clinic-history/insume-request/form-insume-request/form-insume-request.component';
 import { InsumeRequestComponent } from '../clinic-history/insume-request/insume-request.component';
+import { ActionsComponentInsume } from './manual/insume-massive/actions.component';
+import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
+import { FormManualInsumeComponent } from './manual/form-manual-insume/form-manual-insume.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -437,6 +440,9 @@ import { InsumeRequestComponent } from '../clinic-history/insume-request/insume-
     NbAccordionModule,
   ],
   declarations: [
+    ActionsComponentInsume,
+    InsumeMassiveComponent,
+    FormManualInsumeComponent,
     ActionsStockComponent,
     AssistanceStockReqComponent,
     AssistanceStockComponent,
