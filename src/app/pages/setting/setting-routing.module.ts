@@ -153,6 +153,7 @@ import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/bill
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
 import { AssistanceStockComponent } from './assistance-stock/assistance-stock.component';
+import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
 
 const routes: Routes = [{
   path: '',
@@ -547,6 +548,10 @@ const routes: Routes = [{
     {
       path: 'product-massive/:id',
       component: ProcedureMassiveComponent,
+    },
+    {
+      path: 'insume-massive/:id',
+      component: InsumeMassiveComponent,
     },
     {
       path: 'manual-price/:id',
