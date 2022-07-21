@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChVitalSignsService } from '../../../../business-controller/ch-vital-signs.service';
@@ -6,10 +6,10 @@ import { ChVitalHydrationService } from '../../../../business-controller/ch-vita
 import { ChVitalNeurologicalService } from '../../../../business-controller/ch-vital-neurological.service';
 import { ChVitalVentilatedService } from '../../../../business-controller/ch-vital-ventilated.service';
 import { ChVitalTemperatureService } from '../../../../business-controller/ch-vital-temperature.service';
-import { CurrencyPipe } from '@angular/common';
 import { OxygenTypeService } from '../../../../business-controller/oxygen_type.service';
 import { LitersPerMinuteService } from '../../../../business-controller/liters_per_minute.service';
 import { ParametersSignsService } from '../../../../business-controller/parameters-signs.service';
+
 
 @Component({
   selector: 'ngx-form-signs-evo',
@@ -19,8 +19,8 @@ import { ParametersSignsService } from '../../../../business-controller/paramete
 export class FormsignsEvoComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
-  @Output() messageEvent = new EventEmitter<any>();
   @Input() record_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -33,7 +33,7 @@ export class FormsignsEvoComponent implements OnInit {
   public vital_temperature: any[];
   public vital_ventilated: any[];
   public oxygen_type: any[];
-  public liters_per_minute: any[]; 
+  public liters_per_minute: any[];
   public parameters_signs: any[];
   public chvitsigns: any[];
   public pressure_half: any[];
@@ -42,11 +42,10 @@ export class FormsignsEvoComponent implements OnInit {
   public weight;
   public size;
   public body_mass_index;
-  public selectedItemsList  = [];
+  public selectedItemsList = [];
   public checkedIDs = [];
   public checkboxesDataList: any[] = [];
-
-
+  public geteratedIMC = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,39 +55,39 @@ export class FormsignsEvoComponent implements OnInit {
     private chvitalNeurologicalS: ChVitalNeurologicalService,
     private chvitalTemperatureS: ChVitalTemperatureService,
     private chvitalVentilatedS: ChVitalVentilatedService,
-    private currency: CurrencyPipe,
     private OxygenTypeS: OxygenTypeService,
     private LitersPerMinuteS: LitersPerMinuteService,
     private ParametersSignsS: ParametersSignsService,
-    
-  ) {}
+
+  ) {
+  }
 
   async ngOnInit(): Promise<void> {
     this.checkboxesDataList = [
       {
         id: 'mydriatic',
         label: 'MINDRIÁTICA',
-        isChecked: true,
+        isChecked: false,
       },
       {
         id: 'normal',
         label: 'NORMAL',
-        isChecked: true,
+        isChecked: false,
       },
       {
         id: 'lazy_reaction_light',
         label: 'REACCIÓN PERESOZA ( A LA LUZ)',
-        isChecked: true,
+        isChecked: false,
       },
       {
         id: 'fixed_lazy_reaction',
         label: 'REACCIÓN PERESOZA',
-        isChecked: true,
+        isChecked: false,
       },
       {
         id: 'miotic_size',
         label: 'TAMAÑO MIÓTICA',
-        isChecked: true,
+        isChecked: false,
       },
     ];
     if (!this.data || this.data.length == 0) {
@@ -127,7 +126,7 @@ export class FormsignsEvoComponent implements OnInit {
         abdominal_perimeter: '',
         chest_perimeter: '',
         ch_vital_hydration_id: '',
-        ch_vital_ventilated_id: '',
+        vital_ventilated_id: '',
         ch_vital_temperature_id: '',
         ch_vital_neurological_id: '',
         oxygen_type_id: '',
@@ -149,7 +148,7 @@ export class FormsignsEvoComponent implements OnInit {
       this.vital_temperature = x;
     });
     // this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
-    //   this.vital_ventilated = x;
+    //   this.ch_vital_ventilated = x;
     // });
     // this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
     //   this.oxygen_type = x;
@@ -162,7 +161,7 @@ export class FormsignsEvoComponent implements OnInit {
     // });
 
     this.form = this.formBuilder.group({
-      clock: [this.data[0] ? this.data[0].clock : this.data.clock],
+      clock: [this.data[0] ? this.data[0].clock : this.data.clock, Validators.compose([Validators.required])],
       cardiac_frequency: [this.data[0] ? this.data[0].cardiac_frequency : this.data.cardiac_frequency, Validators.compose([Validators.required])],
       respiratory_frequency: [this.data[0] ? this.data[0].respiratory_frequency : this.data.respiratory_frequency, Validators.compose([Validators.required])],
       temperature: [this.data[0] ? this.data[0].temperature : this.data.temperature],
@@ -191,7 +190,7 @@ export class FormsignsEvoComponent implements OnInit {
       left_reaction: [this.data[0] ? this.data[0].left_reaction : this.data.left_reaction],
       pupil_size_left: [this.data[0] ? this.data[0].pupil_size_left : this.data.pupil_size_left],
       ch_vital_hydration_id: [this.data[0] ? this.data[0].ch_vital_hydration_id : this.data.ch_vital_hydration_id],
-      ch_vital_ventilated_id: [this.data[0] ? this.data[0].ch_vital_ventilated_id : this.data.ch_vital_ventilated_id],
+      vital_ventilated_id: [this.data[0] ? this.data[0].vital_ventilated_id : this.data.vital_ventilated_id],
       ch_vital_temperature_id: [this.data[0] ? this.data[0].ch_vital_temperature_id : this.data.ch_vital_temperature_id, Validators.compose([Validators.required])],
       ch_vital_neurological_id: [this.data[0] ? this.data[0].ch_vital_neurological_id : this.data.ch_vital_neurological_id],
       oxygen_type_id: [this.data[0] ? this.data[0].oxygen_type_id : this.data.oxygen_type_id],
@@ -203,87 +202,8 @@ export class FormsignsEvoComponent implements OnInit {
     });
 
     this.onChange();
+
   
-
-    if (this.data.cardiac_frequency != '') {
-      this.form.controls.clock.disable();
-      this.form.controls.cardiac_frequency.disable();
-      this.form.controls.respiratory_frequency.disable();
-      this.form.controls.temperature.disable();
-      this.form.controls.oxigen_saturation.disable();
-      this.form.controls.intracranial_pressure.disable();
-      this.form.controls.cerebral_perfusion_pressure.disable();
-      this.form.controls.intra_abdominal.disable();
-      this.form.controls.pressure_systolic.disable();
-      this.form.controls.pressure_diastolic.disable();
-      this.form.controls.pressure_half.disable();
-      this.form.controls.pulse.disable();
-      this.form.controls.venous_pressure.disable();
-      this.form.controls.size.disable();
-      this.form.controls.weight.disable();
-      this.form.controls.glucometry.disable();
-      this.form.controls.body_mass_index.disable();
-      this.form.controls.pulmonary_systolic.disable();
-      this.form.controls.pulmonary_diastolic.disable();
-      this.form.controls.pulmonary_half.disable();
-      this.form.controls.head_circunference.disable();
-      this.form.controls.abdominal_perimeter.disable();
-      this.form.controls.chest_perimeter.disable();
-      this.form.controls.right_reaction.disable();
-      this.form.controls.pupil_size_right.disable();
-      this.form.controls.left_reaction.disable();
-      this.form.controls.pupil_size_left.disable();
-      this.form.controls.ch_vital_hydration_id.disable();
-      this.form.controls.ch_vital_ventilated_id.disable();
-      this.form.controls.ch_vital_temperature_id.disable();
-      this.form.controls.ch_vital_neurological_id.disable();
-      this.form.controls.oxygen_type_id.disable();
-      this.form.controls.liters_per_minute_id.disable();
-      this.form.controls.parameters_signs_id.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.clock.enable();
-      this.form.controls.cardiac_frequency.enable();
-      this.form.controls.respiratory_frequency.enable();
-      this.form.controls.temperature.enable();
-      this.form.controls.oxigen_saturation.enable();
-      this.form.controls.intracranial_pressure.enable();
-      this.form.controls.cerebral_perfusion_pressure.enable();
-      this.form.controls.intra_abdominal.enable();
-      this.form.controls.pressure_systolic.enable();
-      this.form.controls.pressure_diastolic.enable();
-      this.form.controls.pressure_half.enable();
-      this.form.controls.pulse.enable();
-      this.form.controls.venous_pressure.enable();
-      this.form.controls.size.enable();
-      this.form.controls.weight.enable();
-      this.form.controls.glucometry.enable();
-      this.form.controls.body_mass_index.enable();
-      this.form.controls.pulmonary_systolic.enable();
-      this.form.controls.pulmonary_diastolic.enable();
-      this.form.controls.pulmonary_half.enable();
-      this.form.controls.head_circunference.enable();
-      this.form.controls.abdominal_perimeter.enable();
-      this.form.controls.chest_perimeter.enable();
-      this.form.controls.right_reaction.enable();
-      this.form.controls.pupil_size_right.enable();
-      this.form.controls.left_reaction.enable();
-      this.form.controls.pupil_size_left.enable();
-      this.form.controls.ch_vital_hydration_id.enable();
-      this.form.controls.ch_vital_ventilated_id.enable();
-      this.form.controls.ch_vital_temperature_id.enable();
-      this.form.controls.ch_vital_neurological_id.enable();
-      this.form.controls.oxygen_type_id.enable();
-      this.form.controls.liters_per_minute_id.enable();
-      this.form.controls.parameters_signs_id.enable();
-      this.disabled = false;
-    }
-
-    this.fetchSelectedItems();
-    this.fetchCheckedIDs();
-  }
-  changeSelection() {
-    this.fetchSelectedItems()
   }
 
   async save() {
@@ -320,16 +240,12 @@ export class FormsignsEvoComponent implements OnInit {
           chest_perimeter: this.form.controls.chest_perimeter.value,
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
-          // mydriatic: this.form.controls.mydriatic.value,
-          // normal: this.form.controls.normal.value,
-          // lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
-          // fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,
-          // miotic_size: this.form.controls.miotic_size.value,
+          pupil: JSON.stringify(this.checkboxesDataList),
           observations_glucometry: this.form.controls.observations_glucometry.value,
           left_reaction: this.form.controls.left_reaction.value,
           pupil_size_left: this.form.controls.pupil_size_left.value,
           ch_vital_hydration_id: this.form.controls.ch_vital_hydration_id.value,
-          ch_vital_ventilated_id: this.form.controls.ch_vital_ventilated_id.value,
+          ch_vital_ventilated_id: this.form.controls.vital_ventilated_id.value,
           ch_vital_temperature_id: this.form.controls.ch_vital_temperature_id.value,
           ch_vital_neurological_id: this.form.controls.ch_vital_neurological_id.value,
           oxygen_type_id: this.form.controls.oxygen_type_id.value,
@@ -365,7 +281,7 @@ export class FormsignsEvoComponent implements OnInit {
           size: this.form.controls.size.value,
           weight: this.form.controls.weight.value,
           glucometry: this.form.controls.glucometry.value,
-          body_mass_index: this.form.controls.body_mass_index.value,
+          body_mass_index: this.geteratedIMC,
           pulmonary_systolic: this.form.controls.pulmonary_systolic.value,
           pulmonary_diastolic: this.form.controls.pulmonary_diastolic.value,
           pulmonary_half: this.form.controls.pulmonary_half.value,
@@ -374,29 +290,66 @@ export class FormsignsEvoComponent implements OnInit {
           chest_perimeter: this.form.controls.chest_perimeter.value,
           right_reaction: this.form.controls.right_reaction.value,
           pupil_size_right: this.form.controls.pupil_size_right.value,
-          // mydriatic: this.form.controls.mydriatic.value,
-          // normal: this.form.controls.normal.value,
-          // lazy_reaction_light: this.form.controls.lazy_reaction_light.value,
-          // fixed_lazy_reaction: this.form.controls.fixed_lazy_reaction.value,
-          // miotic_size: this.form.controls.miotic_size.value,
+          pupil: JSON.stringify(this.checkboxesDataList),
           observations_glucometry: this.form.controls.observations_glucometry.value,
           left_reaction: this.form.controls.left_reaction.value,
           pupil_size_left: this.form.controls.pupil_size_left.value,
           ch_vital_hydration_id: this.form.controls.ch_vital_hydration_id.value,
-          ch_vital_ventilated_id: this.form.controls.ch_vital_ventilated_id.value,
+          ch_vital_ventilated_id: this.form.controls.vital_ventilated_id.value,
           ch_vital_temperature_id: this.form.controls.ch_vital_temperature_id.value,
           ch_vital_neurological_id: this.form.controls.ch_vital_neurological_id.value,
           oxygen_type_id: this.form.controls.oxygen_type_id.value,
           liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
           parameters_signs_id: this.form.controls.parameters_signs_id.value,
           has_oxigen: this.form.controls.has_oxigen.value,
-          type_record_id: 1,
+          type_record_id: 3,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.patchValue({
+            clock: '',
+            cardiac_frequency: '',
+            respiratory_frequency: '',
+            temperature: '',
+            oxigen_saturation: '',
+            intracranial_pressure: '',
+            cerebral_perfusion_pressure: '',
+            intra_abdominal: '',
+            pressure_systolic: '',
+            pressure_diastolic: '',
+            pressure_half: '',
+            pulse: '',
+            venous_pressure: '',
+            size: '',
+            weight: '',
+            glucometry: '',
+            body_mass_index: '',
+            pulmonary_systolic: '',
+            pulmonary_diastolic: '',
+            pulmonary_half: '',
+            head_circunference: '',
+            abdominal_perimeter: '',
+            chest_perimeter: '',
+            right_reaction: '',
+            pupil_size_right: '',
+            pupil: '',
+            observations_glucometry: '',
+            left_reaction: '',
+            pupil_size_left: '',
+            ch_vital_hydration_id: '',
+            vital_ventilated_id: '',
+            ch_vital_temperature_id: '',
+            ch_vital_neurological_id: '',
+            oxygen_type_id: '',
+            liters_per_minute_id: '',
+            parameters_signs_id: '',
+            has_oxigen: '',
+          });
           if (this.saved) {
             this.saved();
           }
+
         }).catch(x => {
           if (this.form.controls.has_caregiver.value == true) {
             this.isSubmitted = true;
@@ -409,10 +362,10 @@ export class FormsignsEvoComponent implements OnInit {
         });
       }
 
-    } else{
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
-  
+
   }
   onChanges(event, id) {
     if (
@@ -429,18 +382,14 @@ export class FormsignsEvoComponent implements OnInit {
     }
   }
   onChangesIMC(event, id) {
-    if (
-      this.form.controls.size.value &&
-      this.form.controls.size.value != '' &&
-      this.form.controls.weight.value &&
-      this.form.controls.weight.value != ''
-    ) {
-      var size = this.form.controls.size.value;
-      var weight = this.form.controls.weight.value;
-      this.form.controls.body_mass_index.setValue(weight / (size * size));
+
+    if (this.form.controls.weight.value != '' && this.form.controls.size.value != '') {
+      this.geteratedIMC = (this.form.controls.weight.value /
+        ((this.form.controls.size.value / 100) * (this.form.controls.size.value / 100))).toFixed(2);
     } else {
-      this.form.controls.body_mass_index.setValue('');
+      this.geteratedIMC = null;
     }
+
   }
 
   async onChange() {
@@ -451,12 +400,12 @@ export class FormsignsEvoComponent implements OnInit {
         this.oxygen_type = [];
         this.liters_per_minute = [];
 
-        this.form.controls.ch_vital_ventilated_id.clearValidators();
+        this.form.controls.vital_ventilated_id.clearValidators();
         this.form.controls.oxygen_type_id.clearValidators();
         this.form.controls.liters_per_minute_id.clearValidators();
         this.form.controls.parameters_signs_id.clearValidators();
 
-        this.form.controls.ch_vital_ventilated_id.setErrors(null);
+        this.form.controls.vital_ventilated_id.setErrors(null);
         this.form.controls.oxygen_type_id.setErrors(null);
         this.form.controls.liters_per_minute_id.setErrors(null);
         this.form.controls.parameters_signs_id.setErrors(null);
@@ -476,26 +425,33 @@ export class FormsignsEvoComponent implements OnInit {
           this.parameters_signs = x;
         });
 
-        this.form.controls.ch_vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.oxygen_type_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
-  
+
       };
-  });
-}
-fetchSelectedItems() {
-  this.selectedItemsList = this.checkboxesDataList.filter((value, index) => {
-    return value.isChecked;
-  });
-}
-fetchCheckedIDs() {
-  this.checkedIDs = []
-  this.checkboxesDataList.forEach((value, index) => {
-    if (value.isChecked) {
-      this.checkedIDs.push(value.id);
+    });
+  }
+  fetchSelectedItems($event) {
+    var i = 0;
+    if ($event.item) {
+      this.checkboxesDataList.forEach((item) => {
+        if (item.label == $event.item) {
+          this.checkboxesDataList[i].isChecked = !$event.value;
+        }
+        i++;
+      })
+
     }
-  });
-}
+  }
+  fetchCheckedIDs($event) {
+    this.checkedIDs = []
+    this.checkboxesDataList.forEach((value, index) => {
+      if (value.isChecked) {
+        this.checkedIDs.push(value.id);
+      }
+    });
+  }
 
 }
