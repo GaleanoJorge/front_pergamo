@@ -1033,15 +1033,15 @@
                   </label>
                 </div>
                 <div class="col-md-auto">
-                  <input type="text" readonly="readonly" class="ImpPeq" formControlName="totalNews" id="qualification"
+                  <input type="text" readonly="readonly" class="ImpPeq center" formControlName="totalNews" id="totalNews"
                     value='{{totalNews}}' fullWidth disabled>
                 </div>
                 <div class="col col-lg-2">
-                  <input type="text" nbInput [value]="riskNews" class="ImpPeq" formControlName="riskNews" id="risk"
+                  <input type="text" nbInput [value]="riskNews" class="ImpPeq center" formControlName="riskNews" id="riskNews"
                     fullWidth disabled />
                 </div>
                 <div class="col col-lg-4">
-                  <textarea [value]="response" id="recommendations" fullWidth nbInput formControlName="response" definition
+                  <textarea [value]="response" id="response" fullWidth nbInput formControlName="response" definition
                     rows="4" cols="70"
                     status="{{ isSubmitted && form.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
                     disabled> </textarea>
