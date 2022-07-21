@@ -47,7 +47,7 @@ export class RNWeeklyOtComponent implements OnInit {
       },
 
       recomendations: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
       },
     },

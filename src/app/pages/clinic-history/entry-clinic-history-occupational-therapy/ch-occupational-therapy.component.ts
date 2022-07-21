@@ -10,6 +10,8 @@ import { ChEDailyActivitiesOTService } from '../../../business-controller/ch_e_d
 import { ChRNValorationOTService } from '../../../business-controller/ch_r_n_valoration_o_t.service';
 import { ChRNTherapeuticObjOTService } from '../../../business-controller/ch_r_n_therapeutic_obj_o_t.service';
 import { ChRNMaterialsOTService } from '../../../business-controller/ch_r_n_materials_o_t.service';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -27,7 +29,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public messageError = null;
   public title;
   public routes = [];
-  public user_id;
+  public user;
   public chvaloration: any[];
   public chpast: any[];
   public chocuupationalhistory: any[];
@@ -59,10 +61,11 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
     private ChEPastOTService: ChEPastOTService,
     private ChEDailyActivitiesOTService: ChEDailyActivitiesOTService,
     public userChangeS: UserChangeService,
+    private chRecord: ChRecordService,
     private ChRNValorationOTS: ChRNValorationOTService,
     private ChRNTherapeuticObjOTS: ChRNTherapeuticObjOTService,
     private ChRNMaterialsOTService: ChRNMaterialsOTService,
-
+    public datePipe: DateFormatPipe,
 
   ) {
 
@@ -70,6 +73,11 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
 
   async ngOnInit() {
     this.record_id = this.route.snapshot.params.id;
+    this.chRecord.GetCollection({
+      record_id: this.record_id
+    }).then(x => {
+      this.user = x[0]['admissions']['patients'];
+    });
     if (!this.data) {
       this.data = {
         ch_diagnosis_id: '',
