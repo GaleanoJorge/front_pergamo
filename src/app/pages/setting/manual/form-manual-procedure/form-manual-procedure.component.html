@@ -48,9 +48,15 @@
             <nb-option *ngFor="let item of price_type" [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>
         </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label class="form-text text-muted font-weight-bold">Descripción:</label>
+          <textarea id="description" nbInput fullWidth formControlName="description" description
+            onpaste="return false" rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
       </div>
       <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable">
-        <nb-tabset class="tabset" (changeTab)="tablock($event)">
+        <nb-tabset class="tabset" (changeTab)="tablock($event)" fullWidth>
           <nb-tab tabTitle="PROCEDIMIENTOS" style="padding: initial;">
             <div>
               <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable"

@@ -96,6 +96,7 @@ export class FormManualProcedureComponent implements OnInit {
         price_type_id: '',
         procedure_id: '',
         manual_procedure_type_id: '',
+        description: ''
       };
       this.parentData.entity = 'procedure_bypackage?procedure=true';
       this.parentData.customData = 'procedure_package';
@@ -130,6 +131,7 @@ export class FormManualProcedureComponent implements OnInit {
       price_type_id: [this.data.price_type_id, Validators.compose([Validators.required])],
       procedure_id: [this.data.procedure_id],
       manual_procedure_type_id: [this.data.manual_procedure_type_id, Validators.compose([Validators.required])],
+      description: [this.data.description],
     });
 
 
@@ -265,6 +267,7 @@ export class FormManualProcedureComponent implements OnInit {
           price_type_id: this.form.controls.price_type_id.value,
           procedure_id: this.procedure_id,
           manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
+          description: this.form.controls.description.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -300,6 +303,7 @@ export class FormManualProcedureComponent implements OnInit {
           price_type_id: this.form.controls.price_type_id.value,
           procedure_id: this.procedure_id,
           manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
+          description: this.form.controls.description.value,
         }).then(async x => {
           this.toastService.success('', x.message);
           this.close();
