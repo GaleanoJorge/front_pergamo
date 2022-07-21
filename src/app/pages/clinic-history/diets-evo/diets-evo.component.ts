@@ -41,14 +41,23 @@ export class DietsEvoComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
+          if(value){
           return value.name;
+            }else{
+              return 'NO APLICA'
+            }
         },
       },
       enterally_diet: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
+          if(value){
           return value.name;
+          }else{
+            return 'NO APLICA'
+          }
+
         },
       },
       observation: {

@@ -32,7 +32,9 @@
         <div class="row justify-content-md-center">
           <div class="col col-lg-3">
             <label class="form-text text-muted font-weight-bold">Fecha y Hora de Muerte</label>
-            <input type="datetime-local" id="date_time" formControlName="date_time">
+
+            <input type="datetime-local" nbInput fullWidth id="date_time" formControlName="date_time" date_time
+            status="{{ isSubmitted && form.controls.date_time.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
 
           </div>
 
@@ -132,7 +134,7 @@
               formControlName="relations_diagnosis_id" relations_diagnosis_id type="text" required
               status="{{ isSubmitted && form.controls.relations_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <datalist id="codes">
-              <option *ngFor="let item of relations_diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
+              <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
               </option>
             </datalist>
           </div>

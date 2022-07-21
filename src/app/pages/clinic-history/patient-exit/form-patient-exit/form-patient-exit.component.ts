@@ -85,8 +85,6 @@ export class FormPatientExitComponent implements OnInit {
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
   
-
-    this.record_id = this.route.snapshot.params.id;
     if (!this.data) {
       this.data = {
         exit_status: '',
@@ -242,7 +240,7 @@ saveCode(e, valid): void {
       this.relations_diagnosis = localidentify.id;
     }
   } else {
-    if (valid==1){
+    if (valid==2){
       this.exit_diagnosis = null;
     } else {
       this.relations_diagnosis = null;

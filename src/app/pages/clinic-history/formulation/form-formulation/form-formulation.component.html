@@ -19,7 +19,7 @@
               </div>
             </div>
             <div class="row justify-content-md-center">
-             
+
               <div class="col col-lg-3" *ngIf="show==true">
                 <label class="form-text text-muted font-weight-bold">Medicamento</label>
                 <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value)"
@@ -33,7 +33,8 @@
 
               <div class="col col-lg-3" *ngIf="show==false">
                 <label class="form-text text-muted font-weight-bold">Medicamento</label>
-                <input type="text" list="codes1" class="data-list" id="product_id" formControlName="product_id" product_id required fullWidth nbInput
+                <input type="text" list="codes1" class="data-list" id="product_id" formControlName="product_id"
+                  product_id required fullWidth nbInput
                   status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                 <datalist id="codes1">
                   <option *ngFor="let item of product_gen" [value]="item.id">{{item.description}}
@@ -44,7 +45,7 @@
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold">Dosis a administrar</label>
                 <input type="number" placeholder="DOSIS" class="Box" id="dose" formControlName="dose" required nbInput
-                   (change)="onChangesFormulation($event, 1)"
+                  (change)="onChangesFormulation($event, 1)"
                   status="{{ isSubmitted && form.controls.dose.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               </div>
 
@@ -76,19 +77,19 @@
                   <nb-option value="">SELECCIONE...</nb-option>
                   <nb-option selected="{{ item.id == this.data.hourly_frequency_id }}"
                     *ngFor="let item of hourly_frequency_id" [value]="item.id">
-                    {{ item.value }}</nb-option>
+                    {{ item.value }} - {{ item.name }}</nb-option>
                 </nb-select>
               </div>
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold">Días de Tratamiento</label>
-                <input type="number" class="Box" id="treatment_days" formControlName="treatment_days" required nbInput
-                   (change)="onChangesFormulation($event, 3)"
+                <input type="number" class="Box" id="treatment_days" formControlName="treatment_days"  nbInput
+                  (change)="onChangesFormulation($event, 3)"
                   status="{{ isSubmitted && form.controls.treatment_days.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               </div>
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold">Cant. Solic.</label>
-                <input type="number" class="Box" disabled="true" id="outpatient_formulation"
-                  formControlName="outpatient_formulation">
+                <input type="number" class="Box"  disabled="true" id="outpatient_formulation"
+                fullWidth formControlName="outpatient_formulation">
               </div>
             </div>
 
@@ -101,19 +102,31 @@
             </div>
 
             <div class="row justify-content-md-center">
-              <div class="col col-lg-4">
-                <li><a href="https://mipres.sispro.gov.co/" target ="_self">Crear MIPRES</a></li>
+              <div class="col col-lg-2">
+                <button type="button" class="btn btn-info"><a class="btn" href="https://mipres.sispro.gov.co/"
+                    target="_blank">Crear MIPRES</a></button>
               </div>
 
 
-
-              <div class="col col-lg-4">
+              <div class="col col-lg-2">
                 <label class="form-text text-muted font-weight-bold">N° de Mipres</label>
-                <input type="number" class="Box" id="number_mipres" formControlName="number_mipres" required
-                  nbInput ngModel
-                  status="{{ isSubmitted && form.controls.number_mipres.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               </div>
-            </div> 
+              <div class="col col-lg-2">
+
+                <input type="number" id="number_mipres" formControlName="number_mipres" nbInput>
+
+              </div>
+            </div>
+            <div class="row justify-content-md-center">
+              <div class="col-md-10">
+
+                <label class="form-text text-muted font-weight-bold">Observaciones</label>
+                <textarea id="observation" nbInput fullWidth formControlName="observation" observation
+                  onpaste="return false" rows="3" cols="40"
+                  status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+
+            </div>
+          </div>
 
 
           </fieldset>
@@ -121,28 +134,13 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="row justify-content-md-center">
-        <div class="col col-lg-12">
-          <hr />
-        </div>
-      </div>
-    </div>
 
 
 
 
 
-    <div class="col-md-12">
-      <div class="center">
-        <fieldset class="field_set">
-          <legend class="prue1">Observaciones</legend>
-          <textarea id="observation" nbInput fullWidth formControlName="observation" observation onpaste="return false"
-            rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-        </fieldset>
-      </div>
-    </div>
+
+
 
     <div class="row">
       <div class="col-md-12">
