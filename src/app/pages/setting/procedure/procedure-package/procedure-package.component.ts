@@ -100,9 +100,7 @@ export class ProcedurePackageComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.id == row.id) {
-              amo = x.min_quantity;
-            } else if (x.procedure_id == row.id) {
+            if (x.procedure_id == row.id) {
               amo = x.min_quantity;
             }
           });
@@ -121,9 +119,7 @@ export class ProcedurePackageComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.id == row.id) {
-              amo = x.max_quantity;
-            } else if (x.procedure_id == row.id) {
+            if (x.procedure_id == row.id) {
               amo = x.max_quantity;
             }
           });
@@ -142,9 +138,7 @@ export class ProcedurePackageComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.id == row.id) {
-              amo = x.dynamic_charge;
-            } else if (x.procedure_id == row.id) {
+            if (x.procedure_id == row.id) {
               amo = x.dynamic_charge;
             }
           });
@@ -208,9 +202,7 @@ export class ProcedurePackageComponent implements OnInit {
           // }
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.id == row.id) {
-              amo = x.min_quantity;
-            } else if (x.product_id == row.id) {
+            if (x.product_id == row.id) {
               amo = x.min_quantity;
             }
           });
@@ -245,9 +237,7 @@ export class ProcedurePackageComponent implements OnInit {
           // };
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.id == row.id) {
-              amo = x.max_quantity;
-            } else if (x.product_id == row.id) {
+            if (x.product_id == row.id) {
               amo = x.max_quantity;
             }
           });
@@ -275,9 +265,7 @@ export class ProcedurePackageComponent implements OnInit {
           // };
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.id == row.id) {
-              amo = x.dynamic_charge;
-            } else if (x.product_id == row.id) {
+            if (x.product_id == row.id) {
               amo = x.dynamic_charge;
             }
           });
@@ -335,9 +323,7 @@ export class ProcedurePackageComponent implements OnInit {
           // }
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.id == row.id) {
-              amo = x.min_quantity;
-            } else if (x.supplies_id == row.id) {
+            if (x.supplies_id == row.id) {
               amo = x.min_quantity;
             }
           });
@@ -372,9 +358,7 @@ export class ProcedurePackageComponent implements OnInit {
           // };
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.id == row.id) {
-              amo = x.max_quantity;
-            } else if (x.supplies_id == row.id) {
+            if (x.supplies_id == row.id) {
               amo = x.min_quantity;
             }
           });
@@ -402,9 +386,7 @@ export class ProcedurePackageComponent implements OnInit {
           // };
           var amo;
           this.selectedOptions.forEach(x => {
-            if (x.id == row.id) {
-              amo = x.dynamic_charge;
-            } else if (x.supplies_id == row.id) {
+            if (x.supplies_id == row.id) {
               amo = x.dynamic_charge;
             }
           });
