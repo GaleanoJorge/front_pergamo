@@ -1,0 +1,35 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.btn-save{
+  margin-top: 8PX;
+
+    float: RIGHT;
+}
+
+.prue1 {
+  margin-left: 1px;
+  background-color: #78dada;
+  padding-left: 1px;
+  padding-right: 10px;
+  padding-bottom: 1px;
+  color: white;
+  border: 1px solid #eeece1;
+  font-size: 20px;
+  padding: 8px;
+
+}
+.center {
+  text-align: center;
+}
+
+.field_set {
+  border: 1px solid #78dada;
+}
+
+.checks {
+  text-align: justify;
+}
