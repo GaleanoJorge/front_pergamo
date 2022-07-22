@@ -156,8 +156,11 @@ export class FormManualProcedureComponent implements OnInit {
           }
         });
         this.parentData.selectedOptions = this.manual_procedure_type;
+        this.selectedOptions= this.manual_procedure_type;
         this.parentDataProduct.selectedOptions = this.manual_product_type;
+        this.selectedOptionsP = this.manual_product_type;
         this.parentDataInsume.selectedOptions = this.manual_insume_type;
+        this.selectedOptionsI = this.manual_insume_type;
         this.showTable = true;
       } else {
         this.showTable = false;
@@ -295,6 +298,7 @@ export class FormManualProcedureComponent implements OnInit {
                   supplies_id: this.selectedOptionsI ? JSON.stringify(this.selectedOptionsI) : null,
                   product_id: this.selectedOptionsP ? JSON.stringify(this.selectedOptionsP) : null,
                 }).then(x => {
+                  this.toastService.success('', 'Paquete actualizado exitosamente');
                 }).catch(x => {
                   err++;
                 });
