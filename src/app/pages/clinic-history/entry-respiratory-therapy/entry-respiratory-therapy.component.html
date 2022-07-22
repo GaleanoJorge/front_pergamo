@@ -4,9 +4,8 @@
       <nb-card-body>
         <nb-stepper #stepper [linear]="linearMode">
           <nb-step [stepControl]="nameForm" label="Valoración">
-            <ngx-form-reason-consultation-respiratory-therapy *ngIf="chrespiratoryconsultation" [record_id]="record_id" [type_record]="1"
-              [data]="chrespiratoryconsultation">
-            </ngx-form-reason-consultation-respiratory-therapy>
+            <ngx-reason-consultation-respiratory-therapy  [record_id]="record_id" [type_record]="1">
+            </ngx-reason-consultation-respiratory-therapy>
 
           </nb-step>
 
@@ -15,8 +14,9 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
-            <ngx-form-signs [record_id]="record_id" ></ngx-form-signs>
+            <ngx-form-signs  [record_id]="record_id" ></ngx-form-signs>
           </nb-step>
+          <!-- *ngIf="vitalsigns" [data]="vitalsigns"  -->
 
           <nb-step [stepControl]="nameForm" label="Destete de oxigeno">
             <ngx-form-oxygen-therapy *ngIf="teraphyRespiratory" [record_id]="record_id" [type_record]="1"
@@ -29,7 +29,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Objetivos">
-            <ngx-form-objectives-therapy [record_id]="record_id" ></ngx-form-objectives-therapy>
+            <ngx-objectives-therapy [record_id]="record_id" [type_record]="1"></ngx-objectives-therapy>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Pedido de insumos">

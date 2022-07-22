@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ChObjectivesTherapyService } from '../../../business-controller/ch_objectives_therapy.service';
+import { ChObjectivesTherapyService } from '../../../../business-controller/ch_objectives_therapy.service';
 
 
 @Component({
@@ -15,6 +15,7 @@ export class FormaObjectivesTherapyComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;  
+  @Input() type_record: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -150,7 +151,7 @@ export class FormaObjectivesTherapyComponent implements OnInit {
           train: this.data.check8,
           headline: this.data.check9,
           look_out: this.data.check10,
-          type_record_id: 1,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -174,7 +175,7 @@ export class FormaObjectivesTherapyComponent implements OnInit {
           train: this.form.controls.check8.value ? this.arrayObjectives[7].description : null,
           headline: this.form.controls.check9.value ? this.arrayObjectives[8].description : null,
           look_out: this.form.controls.check10.value ? this.arrayObjectives[9].description : null,
-          type_record_id: 1,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

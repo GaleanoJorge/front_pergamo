@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
-    <div class="row justify-content-md-center" [nbSpinner]="loading" *ngIf="this.diagnosis">
+    <div class="row justify-content-md-center" *ngIf="this.diagnosis">
       <div class="col-md-6">
         <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico Médico:</label>
         <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="medical_diagnosis_id"
