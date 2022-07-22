@@ -2,7 +2,7 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper  orientation="vertical">
+        <nb-stepper #stepper  >
           <nb-step label="Antropometría">
             <ngx-form-anthropometry (messageEvent)="receiveMessage($event)" [data]="this.data"  [record_id]="this.record_id" [route]="1"></ngx-form-anthropometry>
           </nb-step>
