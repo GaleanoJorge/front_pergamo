@@ -39,7 +39,7 @@
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="value" class="form-text text-muted font-weight-bold">Precio:</label>
-          <input nbInput fullWidth id="value" formControlName="value" value
+          <input nbInput type="number" fullWidth id="value" formControlName="value" value
             status="{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">

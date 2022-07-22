@@ -256,102 +256,121 @@ export class FormManualProcedureComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
 
-      if (this.data.id) {
-        this.ManualPriceS.Update({
-          id: this.data.id,
-          own_code: this.form.controls.own_code.value,
-          homologous_id: this.form.controls.homologous_id.value,
-          name: this.form.controls.name.value,
-          manual_id: this.manual_id,
-          value: this.form.controls.value.value,
-          price_type_id: this.form.controls.price_type_id.value,
-          procedure_id: this.procedure_id,
-          manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
-          description: this.form.controls.description.value,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          var err = 0;
-          if (this.saved) {
-            this.saved();
-          }
-          if (!this.selectedOptions.length && !this.selectedOptionsP && !this.selectedOptionsI) {
-            this.toastS.danger(null, 'Debe seleccionar al menos un Procedimiento');
-          }
-          else {
-            this.procedurePackageS.Update({
-              id: this.data.id,
-              procedure_id: JSON.stringify(this.selectedOptions),
-              product_id: JSON.stringify(this.selectedOptionsP),
-              supplies_id: JSON.stringify(this.selectedOptionsI),
-            }).then(x => {
-            }).catch(x => {
-              err++;
-            });
-          }
-        }).catch(x => {
+      if (this.form.controls.manual_procedure_type_id.value == 3) {
+        if (!this.selectedOptions.length && !this.selectedOptionsP.length && !this.selectedOptionsI.length) {
+          this.toastS.danger('', 'Debe seleccionar al menos un Procedimiento producto o insumo');
           this.isSubmitted = false;
           this.loading = false;
-        });
-      } else {
-        this.ManualPriceS.Save({
-          own_code: this.form.controls.own_code.value,
-          homologous_id: this.form.controls.homologous_id.value,
-          name: this.form.controls.name.value,
-          manual_id: this.manual_id,
-          value: this.form.controls.value.value,
-          price_type_id: this.form.controls.price_type_id.value,
-          procedure_id: this.procedure_id,
-          manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
-          description: this.form.controls.description.value,
-        }).then(async x => {
-          this.toastService.success('', x.message);
-          this.close();
-          var id = x.data.manual_price.id;
-          var contador = 0;
-          var err = 0;
-          if (this.saved) {
-            this.saved();
-          }
-          if (!this.selectedOptions.length) {
-            this.toastS.danger(null, 'Debe seleccionar al menos un Procedimiento');
-          }
-          else {
-            // var dta = {
-            //   procedure_package_id: null,
-            //   procedure_id: null,
-            // };
-
-            // dta.procedure_package_id = id;
-            // dta.procedure_id = JSON.stringify(element);
-            await this.procedurePackageS.Save({
-              procedure_package_id: id,
-              procedure_id: this.selectedOptions.length ? JSON.stringify(this.selectedOptions) : null,
-              supplies_id: this.selectedOptionsI.length ? JSON.stringify(this.selectedOptionsI) : null,
-              product_id: this.selectedOptionsP.length ? JSON.stringify(this.selectedOptionsP) : null,
+        } else {
+          if (this.data.id) {
+            this.ManualPriceS.Update({
+              id: this.data.id,
+              own_code: this.form.controls.own_code.value,
+              homologous_id: this.form.controls.homologous_id.value,
+              name: this.form.controls.name.value,
+              manual_id: this.manual_id,
+              value: this.form.controls.value.value,
+              price_type_id: this.form.controls.price_type_id.value,
+              procedure_id: this.procedure_id,
+              manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
+              description: this.form.controls.description.value,
             }).then(x => {
               this.toastService.success('', x.message);
+              this.close();
+              var err = 0;
+              if (this.saved) {
+                this.saved();
+              }
+              if (!this.selectedOptions.length && !this.selectedOptionsP.length && !this.selectedOptionsI.length) {
+                this.toastS.danger(null, 'Debe seleccionar al menos un Procedimiento');
+              }
+              else {
+                this.procedurePackageS.Update({
+                  id: this.data.id,
+                  procedure_id: this.selectedOptions.length ? JSON.stringify(this.selectedOptions) : null,
+                  supplies_id: this.selectedOptionsI.length ? JSON.stringify(this.selectedOptionsI) : null,
+                  product_id: this.selectedOptionsP.length ? JSON.stringify(this.selectedOptionsP) : null,
+                }).then(x => {
+                }).catch(x => {
+                  err++;
+                });
+              }
             }).catch(x => {
-              err++;
+              this.isSubmitted = false;
+              this.loading = false;
             });
-            contador++;
-
-            if (contador > 0) {
-              this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
-            } else if (err > 0) {
-              this.toastS.danger(null, 'No se actualizaron ' + contador + ' elemetos');
+          } else {
+            this.ManualPriceS.Save({
+              own_code: this.form.controls.own_code.value,
+              homologous_id: this.form.controls.homologous_id.value,
+              name: this.form.controls.name.value,
+              manual_id: this.manual_id,
+              value: this.form.controls.value.value,
+              price_type_id: this.form.controls.price_type_id.value,
+              procedure_id: this.procedure_id,
+              manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
+              description: this.form.controls.description.value,
+              procedures_id: this.selectedOptions.length ? JSON.stringify(this.selectedOptions) : null,
+              supplies_id: this.selectedOptionsI.length ? JSON.stringify(this.selectedOptionsI) : null,
+              product_id: this.selectedOptionsP.length ? JSON.stringify(this.selectedOptionsP) : null,
+            }).then(async x => {
+              this.toastService.success('', x.message);
+              this.close();
+              if (this.saved) {
+                this.saved();
+              }
+            }).catch(x => {
+              this.isSubmitted = false;
+              this.loading = false;
+            });
+          }
+        }
+      } else {
+        if (this.data.id) {
+          this.ManualPriceS.Update({
+            id: this.data.id,
+            own_code: this.form.controls.own_code.value,
+            homologous_id: this.form.controls.homologous_id.value,
+            name: this.form.controls.name.value,
+            manual_id: this.manual_id,
+            value: this.form.controls.value.value,
+            price_type_id: this.form.controls.price_type_id.value,
+            procedure_id: this.procedure_id,
+            manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
+            description: this.form.controls.description.value,
+          }).then(x => {
+            this.toastService.success('', x.message);
+            this.close();
+            if (this.saved) {
+              this.saved();
             }
-            this.selectedOptions = [];
-          }
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        } else {
+          this.ManualPriceS.Save({
+            own_code: this.form.controls.own_code.value,
+            homologous_id: this.form.controls.homologous_id.value,
+            name: this.form.controls.name.value,
+            manual_id: this.manual_id,
+            value: this.form.controls.value.value,
+            price_type_id: this.form.controls.price_type_id.value,
+            procedure_id: this.procedure_id,
+            manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
+            description: this.form.controls.description.value,
+          }).then(async x => {
+            this.toastService.success('', x.message);
+            this.close();
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        }
       }
-
     }
   }
 
