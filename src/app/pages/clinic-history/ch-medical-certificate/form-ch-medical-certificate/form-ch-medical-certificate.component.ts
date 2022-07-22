@@ -113,23 +113,4 @@ export class FormChMedicalCertificateComponent implements OnInit {
       }
     }
   }
-
-  receiveMessage($event) {   
-    
-    if($event.isactive==false){
-      this.changes=false;
-      this.changes1=false;
-    }
-    if($event.entity){
-    this.form.get($event.entity).setValue(this.form.get($event.entity).value+' '+$event.text);
-    }
-  }
-
-  changebuttom() {
-    this.changes=true;
-  }
-
-  changebuttom1() {
-    this.changes1=true;
-  }
 }
