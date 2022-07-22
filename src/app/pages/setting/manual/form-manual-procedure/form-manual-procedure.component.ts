@@ -262,7 +262,7 @@ export class FormManualProcedureComponent implements OnInit {
 
       if (this.form.controls.manual_procedure_type_id.value == 3) {
         if (!this.selectedOptions.length && !this.selectedOptionsP.length && !this.selectedOptionsI.length) {
-          this.toastS.danger('', 'Debe seleccionar al menos un Procedimiento producto o insumo');
+          this.toastS.warning('', 'Debe seleccionar al menos un procedimiento producto o insumo');
           this.isSubmitted = false;
           this.loading = false;
         } else {
@@ -286,7 +286,7 @@ export class FormManualProcedureComponent implements OnInit {
                 this.saved();
               }
               if (!this.selectedOptions.length && !this.selectedOptionsP.length && !this.selectedOptionsI.length) {
-                this.toastS.danger(null, 'Debe seleccionar al menos un Procedimiento');
+                this.toastS.warning('', 'Debe seleccionar al menos un procedimiento producto o insumo');
               }
               else {
                 this.procedurePackageS.Update({
