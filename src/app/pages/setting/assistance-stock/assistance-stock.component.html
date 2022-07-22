@@ -1,0 +1,35 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content *ngIf="entity">
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="RECIBIDOS">
+        <ngx-base-table [title]="title" 
+                        [subtitle]="subtitle" [settings]="settings"
+                        [entity]="entity"
+                        customData='pharmacy_product_request'
+                        [messageToltip]="messageToltip"
+                        >
+          <div actions>
+            <div class="actions">
+              <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacyStock()">CREAR</button>
+            </div>
+          </div>
+        </ngx-base-table>
+      </nb-tab>
+
+      <nb-tab tabTitle="POR ACEPTAR">
+        <ngx-assistance-stock-req> 
+        </ngx-assistance-stock-req>
+      </nb-tab>
+
+      <nb-tab tabTitle="SOLICITAR">
+        <ngx-insume-request> 
+        </ngx-insume-request>
+      </nb-tab>
+      
+    </nb-tabset>
+
+
+  </div>
+</ngx-base-list>

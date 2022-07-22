@@ -20,7 +20,7 @@ export class CampusComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Sedes';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Dirección', 'Código habilitación', 'Prefijo facturación', 'Región', 'Municipio'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -53,6 +53,36 @@ export class CampusComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
+      address: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
+      enable_code: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      billing_pad_prefix_id: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.billing_pad_prefix.name;
+        }
+      },
+      region_id: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.region.name;
+        }
+      },
+      municipality_id: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.municipality.name;
+        }
+      },
+
       // status_id: {
       //   title: 'Estado',
       //   type: 'custom',

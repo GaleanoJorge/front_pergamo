@@ -218,7 +218,8 @@ export class FormSkinValorationComponent implements OnInit {
       }
       this.loading = false;
     });
-    this.onChange();
+    // this.onChange();
+    this.loading = false;
 
     return Promise.resolve(true);
   }
@@ -485,7 +486,7 @@ export class FormSkinValorationComponent implements OnInit {
       ],
     });
 
-    // this.onChange();
+    this.onChange();
 
   }
 
@@ -773,7 +774,6 @@ export class FormSkinValorationComponent implements OnInit {
         this.form.controls.surrounding_skin9.setValidators(Validators.compose([Validators.required]));
       }
     });
-    this.loading = false;
   }
 
   saveCode(e): void {
@@ -838,7 +838,7 @@ export class FormSkinValorationComponent implements OnInit {
             contador++;
             this.toastService.success('', x.message);
             this.disabled = true;
-            this.loading = true;
+            this.loading = false;
           })
             .catch((x) => {
               err++;

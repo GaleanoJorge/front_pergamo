@@ -37,22 +37,58 @@
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-          <div class="col-12 col-sm-12 col-md-4">
-            <label for="value" class="form-text text-muted font-weight-bold">Precio:</label>
-            <input nbInput fullWidth id="value" formControlName="value" value
-              status="{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
-          </div>
-          <div class="col-12 col-sm-12 col-md-4">
-            <label class="form-text text-muted font-weight-bold">Tipo de precio:</label>
-            <nb-select placeholder="Asignar un tipo de precio" formControlName="price_type_id">
-              <nb-option *ngFor="let item of price_type" [value]="item.id">{{ item.name }}</nb-option>
-            </nb-select>
-          </div>
-    </div>
-    <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable" style="margin-top: 10px;">
-      <ngx-procedure-package (messageEvent)="receiveMessage($event)" [parentData]="parentData" 
-      [show]="showSelect"></ngx-procedure-package>
-    </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="value" class="form-text text-muted font-weight-bold">Precio:</label>
+          <input nbInput fullWidth id="value" formControlName="value" value
+            status="{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label class="form-text text-muted font-weight-bold">Tipo de precio:</label>
+          <nb-select placeholder="Asignar un tipo de precio" formControlName="price_type_id">
+            <nb-option *ngFor="let item of price_type" [value]="item.id">{{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label class="form-text text-muted font-weight-bold">Descripción:</label>
+          <textarea id="description" nbInput fullWidth formControlName="description" description
+            onpaste="return false" rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        </div>
+      </div>
+      <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable">
+        <nb-tabset class="tabset" (changeTab)="tablock($event)" fullWidth>
+          <nb-tab tabTitle="PROCEDIMIENTOS" style="padding: initial;">
+            <div>
+              <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable"
+                style="margin-top: 10px;">
+                <ngx-procedure-package (messageEvent)="receiveMessage($event,1)" [type]="1" [parentData]="parentData"
+                  [show]="showSelect"></ngx-procedure-package>
+              </div>
+            </div>
+          </nb-tab>
+
+          <nb-tab tabTitle="MEDICAMENTOS" style="padding: initial;">
+            <div>
+              <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable"
+                style="margin-top: 10px;">
+                <ngx-procedure-package (messageEvent)="receiveMessage($event,2)" [type]="2"
+                  [parentData]="parentDataProduct" [show]="showSelect"></ngx-procedure-package>
+              </div>
+            </div>
+          </nb-tab>
+
+          <nb-tab tabTitle="INSUMOS" style="padding: initial;">
+            <div>
+              <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable"
+                style="margin-top: 10px;">
+                <ngx-procedure-package (messageEvent)="receiveMessage($event,3)" [type]="3"
+                  [parentData]="parentDataInsume" [show]="showSelect"></ngx-procedure-package>
+              </div>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </div>
+
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
       <button nbButton (click)="close()" type="button">Cancelar</button>

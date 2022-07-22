@@ -1,6 +1,12 @@
 <ngx-form-nursing-physical-exam (messageEvent)="receiveMessage($event)" [record_id]="record_id" [type_record_id]="type_record_id" [enfermery]="this.enfermery">
 </ngx-form-nursing-physical-exam>
-<label for="ch_external_cause" class="form-text text-muted font-weight-bold align">REVISIÓN ESTADO FÍSICO</label>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-10">
+      <hr />
+    </div>
+  </div>
+</div>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table pager="false" [title]="title" customData="ch_physical_exam" [settings]="settings"

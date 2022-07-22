@@ -23,7 +23,8 @@
               </nb-card-header>
               <nb-card-body *ngIf="this.form.controls.check1.value">
                 <b>Procedimiento:</b>
-                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"></textarea> 
+                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"
+                status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></textarea> 
               </nb-card-body>
             </nb-card>
           </a>
@@ -38,7 +39,8 @@
               </nb-card-header>
               <nb-card-body *ngIf="this.form.controls.check2.value">
                 <b>Procedimiento:</b>
-                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"></textarea> 
+                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"
+                status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></textarea> 
                 <br>
               </nb-card-body>
             </nb-card>
@@ -54,7 +56,8 @@
               </nb-card-header>
               <nb-card-body *ngIf="this.form.controls.check3.value" >
                 <b>Procedimiento:</b>
-                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"></textarea> 
+                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"
+                status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></textarea> 
               </nb-card-body>
             </nb-card>
           </a>
@@ -63,13 +66,14 @@
           <a>
             <nb-card size="auto" status="{{this.form.controls.check4.value ? 'success' : 'basics'}}">
               <nb-card-header>
-                <nb-checkbox formControlName="check4" check4 id="check4" (change)="saveCode($event,3)"
+                <nb-checkbox formControlName="check4" check4 id="check4" (change)="saveCode($event,4)"
                 status="{{ isSubmitted && form.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></nb-checkbox>
                 {{nursing_procedure[3].name}}
               </nb-card-header>
               <nb-card-body *ngIf="this.form.controls.check4.value">
                 <b>Procedimiento:</b>
-                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"></textarea> 
+                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"
+                status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></textarea> 
               </nb-card-body>
             </nb-card>
           </a>
@@ -78,13 +82,14 @@
           <a>
             <nb-card size="auto" status="{{this.form.controls.check5.value ? 'success' : 'basics'}}">
               <nb-card-header>
-                <nb-checkbox formControlName="check5" check5 id="check5" (change)="saveCode($event,4)"
+                <nb-checkbox formControlName="check5" check5 id="check5" (change)="saveCode($event,5)"
                 status="{{ isSubmitted && form.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></nb-checkbox>
                 {{nursing_procedure[4].name}}
               </nb-card-header>
               <nb-card-body *ngIf="this.form.controls.check5.value">
                 <b>Procedimiento:</b>
-                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"></textarea> 
+                <textarea nbInput formControlName="description" id="description" description fullWidth placeholder="Textarea"
+                status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"></textarea> 
               </nb-card-body>
             </nb-card>
           </a>

@@ -40,12 +40,19 @@ export class FormManualProcedureComponent implements OnInit {
   public status: any[];
   public procedure_cups: any[];
   public manual_procedure_type: any[] = null;
+  public manual_insume_type: any[] = null;
+  public manual_product_type: any[] = null;
   public showSelect: Boolean = false;
   public price_type: any[] = [];
   public procedure_id;
   public showTable;
   public selectedOptions: any[];
+  public selectedOptionsI: any[];
+  public selectedOptionsP: any[];
   public parentData;
+  public parentDataInsume;
+  public parentDataProduct;
+  public showtab;
 
 
 
@@ -69,6 +76,16 @@ export class FormManualProcedureComponent implements OnInit {
       entity: '',
       customData: '',
     };
+    this.parentDataInsume = {
+      selectedOptions: [],
+      entity: '',
+      customData: '',
+    };
+    this.parentDataProduct = {
+      selectedOptions: [],
+      entity: '',
+      customData: '',
+    };
     if (!this.data) {
       this.data = {
         own_code: '',
@@ -79,12 +96,25 @@ export class FormManualProcedureComponent implements OnInit {
         price_type_id: '',
         procedure_id: '',
         manual_procedure_type_id: '',
+        description: ''
       };
-      this.parentData.entity = 'procedure_bypackage';
+      this.parentData.entity = 'procedure_bypackage?procedure=true';
       this.parentData.customData = 'procedure_package';
+
+      this.parentDataInsume.entity = 'procedure_bypackage?insume=true';
+      this.parentDataInsume.customData = 'procedure_package';
+
+      this.parentDataProduct.entity = 'procedure_bypackage?product=true';
+      this.parentDataProduct.customData = 'procedure_package';
     } else {
-      this.parentData.entity = 'procedure_bypackage';
+      this.parentData.entity = 'procedure_bypackage?procedure=true';
       this.parentData.customData = 'procedure_package';
+
+      this.parentDataInsume.entity = 'procedure_bypackage?insume=true';
+      this.parentDataInsume.customData = 'procedure_package';
+
+      this.parentDataProduct.entity = 'procedure_bypackage?product=true';
+      this.parentDataProduct.customData = 'procedure_package';
     }
 
     // this.statusBS.GetCollection().then(x => {
@@ -101,6 +131,7 @@ export class FormManualProcedureComponent implements OnInit {
       price_type_id: [this.data.price_type_id, Validators.compose([Validators.required])],
       procedure_id: [this.data.procedure_id],
       manual_procedure_type_id: [this.data.manual_procedure_type_id, Validators.compose([Validators.required])],
+      description: [this.data.description],
     });
 
 
@@ -113,10 +144,20 @@ export class FormManualProcedureComponent implements OnInit {
     await this.procedurePackageS.GetCollection({ procedure_package_id: this.data.id }).then(x => {
       if (x.length > 0 || this.data.manual_procedure_type_id == 3) {
         this.manual_procedure_type = [];
+        this.manual_insume_type = []
+        this.manual_product_type = []
         x.forEach(element => {
-          this.manual_procedure_type.push(element);
+          if (element.procedure_id) {
+            this.manual_procedure_type.push(element);
+          } else if (element.product_id) {
+            this.manual_product_type.push(element);
+          } else if (element.supplies_id) {
+            this.manual_insume_type.push(element);
+          }
         });
         this.parentData.selectedOptions = this.manual_procedure_type;
+        this.parentDataProduct.selectedOptions = this.manual_product_type;
+        this.parentDataInsume.selectedOptions = this.manual_insume_type;
         this.showTable = true;
       } else {
         this.showTable = false;
@@ -127,8 +168,33 @@ export class FormManualProcedureComponent implements OnInit {
     });
   }
 
-  receiveMessage($event) {
-    this.selectedOptions = $event;
+  receiveMessage($event, e) {
+
+    if (e == 1) {
+      this.selectedOptions = $event;
+    } else if (e == 2) {
+      this.selectedOptionsP = $event
+    } else if (e == 3) {
+      this.selectedOptionsI = $event
+    }
+  }
+
+  tablock(e) {
+    console.log(e.tabTitle);
+    switch (e.tabTitle) {
+      case "PROCEDIMIENTOS": {
+        this.showtab = 1;
+        break;
+      }
+      case "MEDICAMENTOS": {
+        this.showtab = 2;
+        break;
+      }
+      case "INSUMOS": {
+        this.showtab = 3;
+        break;
+      }
+    }
   }
 
   onChange(tipoId) {
@@ -201,6 +267,7 @@ export class FormManualProcedureComponent implements OnInit {
           price_type_id: this.form.controls.price_type_id.value,
           procedure_id: this.procedure_id,
           manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
+          description: this.form.controls.description.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -208,13 +275,15 @@ export class FormManualProcedureComponent implements OnInit {
           if (this.saved) {
             this.saved();
           }
-          if (!this.selectedOptions.length) {
+          if (!this.selectedOptions.length && !this.selectedOptionsP && !this.selectedOptionsI) {
             this.toastS.danger(null, 'Debe seleccionar al menos un Procedimiento');
           }
           else {
             this.procedurePackageS.Update({
               id: this.data.id,
               procedure_id: JSON.stringify(this.selectedOptions),
+              product_id: JSON.stringify(this.selectedOptionsP),
+              supplies_id: JSON.stringify(this.selectedOptionsI),
             }).then(x => {
             }).catch(x => {
               err++;
@@ -234,7 +303,8 @@ export class FormManualProcedureComponent implements OnInit {
           price_type_id: this.form.controls.price_type_id.value,
           procedure_id: this.procedure_id,
           manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
-        }).then(x => {
+          description: this.form.controls.description.value,
+        }).then(async x => {
           this.toastService.success('', x.message);
           this.close();
           var id = x.data.manual_price.id;
@@ -251,18 +321,21 @@ export class FormManualProcedureComponent implements OnInit {
             //   procedure_package_id: null,
             //   procedure_id: null,
             // };
-            this.selectedOptions.forEach(element => {
-              // dta.procedure_package_id = id;
-              // dta.procedure_id = JSON.stringify(element);
-              this.procedurePackageS.Save({
-                procedure_package_id: id,
-                procedure_id: JSON.stringify(element),
-              }).then(x => {
-              }).catch(x => {
-                err++;
-              });
-              contador++;
+
+            // dta.procedure_package_id = id;
+            // dta.procedure_id = JSON.stringify(element);
+            await this.procedurePackageS.Save({
+              procedure_package_id: id,
+              procedure_id: this.selectedOptions.length ? JSON.stringify(this.selectedOptions) : null,
+              supplies_id: this.selectedOptionsI.length ? JSON.stringify(this.selectedOptionsI) : null,
+              product_id: this.selectedOptionsP.length ? JSON.stringify(this.selectedOptionsP) : null,
+            }).then(x => {
+              this.toastService.success('', x.message);
+            }).catch(x => {
+              err++;
             });
+            contador++;
+
             if (contador > 0) {
               this.toastS.success(null, 'Se actualizaron ' + contador + ' elemetos');
             } else if (err > 0) {

@@ -51,7 +51,7 @@ export class FixedAccessoriesComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      amount: {
+      amount_total: {
         title: this.headerFields[2],
         type: 'string',
       },

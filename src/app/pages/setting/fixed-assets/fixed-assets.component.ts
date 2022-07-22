@@ -47,9 +47,12 @@ export class FixedAssetsComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      description: {
+      fixed_nom_product: {
         title: this.headerFields[1],
-        type: 'string',
+        type: 'string', 
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
         
       },
       mark: {

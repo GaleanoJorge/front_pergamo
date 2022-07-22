@@ -1,7 +1,7 @@
 <form [formGroup]="form">
   <div class="center">
     <fieldset class="field_set center">
-      <legend class="prue1">DIAGNÓSTICO CUTANEO</legend>
+      <legend class="prue1"></legend>
 
       <div class="col-md-12">
         <label for="patient_position_id" class="form-text text-muted font-weight-bold align">POSICIÓN:</label>
@@ -24,6 +24,11 @@
           <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
           <nb-radio value="NORMAL">NORMAL</nb-radio>
         </nb-radio-group>
+      </div>
+      <div class="col-md-12">
+        <label for="observation_position" class="form-text text-muted font-weight-bold align">OBSERVACIONES:</label>
+        <textarea id="observation_position" nbInput fullWidth formControlName="observation_position" current_illness rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.observation_position.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
       </div>
     </fieldset>
 
