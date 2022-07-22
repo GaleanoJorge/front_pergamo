@@ -27,10 +27,11 @@ export class FormFoodHistoryComponent implements OnInit {
   public isSubmitted: boolean = false;
   public show_alergy: boolean = false;
   public saved: any = null;
+  public ch_nutrition_food_history: any = null;
   public loading: boolean = false;
   public is_allergic = [
-    {id: true, name: 'Si'},
-    {id: false, name: 'NO'},
+    { id: true, name: 'Si' },
+    { id: false, name: 'NO' },
   ];
   public appetite = [
     { id: 'AUMENTADO', name: 'AUMENTADO' },
@@ -88,7 +89,7 @@ export class FormFoodHistoryComponent implements OnInit {
     },
     columns: {
       observation: {
-        title: 'Diagnóstico',
+        title: 'Antecedentes',
         type: 'string',
       },
     },
@@ -115,14 +116,44 @@ export class FormFoodHistoryComponent implements OnInit {
     });
 
     this.form.get('is_allergic').valueChanges.subscribe(val => {
-      if (val == 'SI') {
+      if (val) {
         this.show_alergy = true;
         this.form.controls.allergy.setValidators([Validators.required]);
         this.form.controls.allergy.updateValueAndValidity();
       } else {
         this.show_alergy = false;
+        this.form.patchValue({ allergy: '' });
         this.form.controls.allergy.setValidators([]);
         this.form.controls.allergy.updateValueAndValidity();
+      }
+    });
+
+    this.ChNutritionFoodHistoryS.GetCollection({
+      type_record_id: this.route,
+      ch_record_id: this.record_id,
+    }).then(x => {
+      this.ch_nutrition_food_history = x;
+      if (this.ch_nutrition_food_history.id) {
+        this.form.patchValue({ description: this.ch_nutrition_food_history.description });
+        this.form.patchValue({ appetite: this.ch_nutrition_food_history.appetite });
+        this.form.patchValue({ intake: this.ch_nutrition_food_history.intake });
+        this.form.patchValue({ swallowing: this.ch_nutrition_food_history.swallowing });
+        this.form.patchValue({ diet_type: JSON.parse(this.ch_nutrition_food_history.diet_type) });
+        this.form.patchValue({ parenteral_nutrition: this.ch_nutrition_food_history.parenteral_nutrition });
+        this.form.patchValue({ intake_control: this.ch_nutrition_food_history.intake_control });
+        if (this.ch_nutrition_food_history.is_allergic == 1) {
+          this.show_alergy = true;
+          this.form.patchValue({ allergy: this.ch_nutrition_food_history.allergy });
+          this.form.patchValue({ is_allergic: true });
+          this.form.controls.allergy.setValidators([Validators.required]);
+          this.form.controls.allergy.updateValueAndValidity();
+        } else {
+          this.show_alergy = false;
+          this.form.patchValue({ allergy: '' });
+          this.form.patchValue({ is_allergic: false });
+          this.form.controls.allergy.setValidators([]);
+          this.form.controls.allergy.updateValueAndValidity();
+        }
       }
     });
   }
@@ -132,25 +163,50 @@ export class FormFoodHistoryComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       this.messageError = null;
-      this.ChNutritionFoodHistoryS.Save({
-        ch_record_id: this.record_id,
-        type_record_id: this.route,
-        description: this.form.controls.description.value,
-        is_allergic: this.form.controls.is_allergic.value,
-        allergy: this.form.controls.allergy.value,
-        appetite: this.form.controls.appetite.value,
-        intake: this.form.controls.intake.value,
-        swallowing: this.form.controls.swallowing.value,
-        diet_type: JSON.stringify(this.form.controls.diet_type.value),
-        parenteral_nutrition: this.form.controls.parenteral_nutrition.value,
-        intake_control: this.form.controls.intake_control.value,
-      }).then(x => {
-        this.saved = x;
-        this.toastService.success('Registro guardado correctamente', 'Correcto');
-      }).catch(x => {
-        this.loading = false;
-        this.toastService.danger(x, 'Error');
-      });
+      if (this.ch_nutrition_food_history.id) {
+        this.ChNutritionFoodHistoryS.Update({
+          id: this.ch_nutrition_food_history.id,
+          ch_record_id: this.record_id,
+          type_record_id: this.route,
+          is_allergic: this.form.controls.is_allergic.value,
+          allergy: this.form.controls.allergy.value,
+          description: this.form.controls.description.value,
+          appetite: this.form.controls.appetite.value,
+          intake: this.form.controls.intake.value,
+          swallowing: this.form.controls.swallowing.value,
+          diet_type: JSON.stringify(this.form.controls.diet_type.value),
+          parenteral_nutrition: this.form.controls.parenteral_nutrition.value,
+          intake_control: this.form.controls.intake_control.value,
+        }).then(x => {
+          this.saved = x;
+          this.ch_nutrition_food_history = x;
+          this.toastService.success('Registro actualizado correctamente', 'Correcto');
+        }).catch(x => {
+          this.loading = false;
+          this.toastService.danger(x, 'Error');
+        });
+      } else {
+        this.ChNutritionFoodHistoryS.Save({
+          ch_record_id: this.record_id,
+          type_record_id: this.route,
+          is_allergic: this.form.controls.is_allergic.value,
+          allergy: this.form.controls.allergy.value,
+          description: this.form.controls.description.value,
+          appetite: this.form.controls.appetite.value,
+          intake: this.form.controls.intake.value,
+          swallowing: this.form.controls.swallowing.value,
+          diet_type: JSON.stringify(this.form.controls.diet_type.value),
+          parenteral_nutrition: this.form.controls.parenteral_nutrition.value,
+          intake_control: this.form.controls.intake_control.value,
+        }).then(x => {
+          this.saved = x;
+          this.ch_nutrition_food_history = x;
+          this.toastService.success('Registro guardado correctamente', 'Correcto');
+        }).catch(x => {
+          this.loading = false;
+          this.toastService.danger(x, 'Error');
+        });
+      }
     }
   }
 
