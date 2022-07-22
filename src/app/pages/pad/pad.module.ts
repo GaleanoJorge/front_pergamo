@@ -39,6 +39,12 @@ import { ActionsSemaphoreComponent } from './assigned-management-plan/actions-se
 import { ActionsSemaphore2Component } from './management-plan/actions-semaphore.component';
 import { PharmacyApplicationComponent } from './management-plan/pharmacy-application/pharmacy-application.component';
 import { Actions3Component } from './management-plan/pharmacy-application/actions.component';
+import { FormConsentsInformedComponent } from './consents-informed/form-consents-informed/form-consents-informed.component';
+import { ConsentsInformedComponent } from './consents-informed/consents-informed.component';
+import { ActionsCIComponent } from './consents-informed/actions.component';
+import { SignaturePadModule } from '@ng-plus/signature-pad';
+
+
 
 
 
@@ -65,6 +71,7 @@ import { Actions3Component } from './management-plan/pharmacy-application/action
     PadRoutingModule,
     NbAlertModule,
     PagesModule,
+    SignaturePadModule,
     NbDialogModule.forRoot(),
     NbCheckboxModule,
     Ng2SmartTableModule,
@@ -76,13 +83,16 @@ import { Actions3Component } from './management-plan/pharmacy-application/action
     PadComponent,
     PharmacyApplicationComponent,
     PadListComponent,
+    ConsentsInformedComponent,
     FormPadComponent,
     ManagementPlanComponent,
     FormManagementPlanComponent,
+    FormConsentsInformedComponent,
     FormAssignedManagementPlanComponent,
     Actions2Component,
     Actions3Component,
     Actions4Component,
+    ActionsCIComponent,
     ActionsSemaphoreComponent,
     ActionsSemaphore2Component,
     ActionsComponent,
@@ -90,7 +100,7 @@ import { Actions3Component } from './management-plan/pharmacy-application/action
   ],
   providers: [
     DateFormatPipe,
-    CurrencyPipe
+    CurrencyPipe,
   ],
   exports: [ ManagementPlanComponent ]
 })
