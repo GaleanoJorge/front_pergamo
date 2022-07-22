@@ -46,9 +46,9 @@ export class FormManualProcedureComponent implements OnInit {
   public price_type: any[] = [];
   public procedure_id;
   public showTable;
-  public selectedOptions: any[];
-  public selectedOptionsI: any[];
-  public selectedOptionsP: any[];
+  public selectedOptions: any[] = [];
+  public selectedOptionsI: any[] = [];
+  public selectedOptionsP: any[] = [];
   public parentData;
   public parentDataInsume;
   public parentDataProduct;
@@ -201,7 +201,9 @@ export class FormManualProcedureComponent implements OnInit {
     if (tipoId == 2) {
       this.showSelect = true;
       this.showTable = false;
-      this.selectedOptions = undefined;
+      this.selectedOptions = [];
+      this.selectedOptions = [];
+      this.selectedOptions = [];
       this.form.controls.homologous_id.disable();
       this.form.controls.own_code.enable();
       this.form.controls.name.enable();
@@ -217,7 +219,9 @@ export class FormManualProcedureComponent implements OnInit {
     } else if (tipoId == 1) {
       this.showSelect = true;
       this.showTable = false;
-      this.selectedOptions = undefined;
+      this.selectedOptions = [];
+      this.selectedOptions = [];
+      this.selectedOptions = [];
       this.form.controls.homologous_id.disable();
       this.form.controls.own_code.disable();
       this.form.controls.name.disable();
@@ -287,9 +291,9 @@ export class FormManualProcedureComponent implements OnInit {
               else {
                 this.procedurePackageS.Update({
                   id: this.data.id,
-                  procedure_id: this.selectedOptions.length ? JSON.stringify(this.selectedOptions) : null,
-                  supplies_id: this.selectedOptionsI.length ? JSON.stringify(this.selectedOptionsI) : null,
-                  product_id: this.selectedOptionsP.length ? JSON.stringify(this.selectedOptionsP) : null,
+                  procedure_id: this.selectedOptions ? JSON.stringify(this.selectedOptions) : null,
+                  supplies_id: this.selectedOptionsI ? JSON.stringify(this.selectedOptionsI) : null,
+                  product_id: this.selectedOptionsP ? JSON.stringify(this.selectedOptionsP) : null,
                 }).then(x => {
                 }).catch(x => {
                   err++;
@@ -310,9 +314,9 @@ export class FormManualProcedureComponent implements OnInit {
               procedure_id: this.procedure_id,
               manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
               description: this.form.controls.description.value,
-              procedures_id: this.selectedOptions.length ? JSON.stringify(this.selectedOptions) : null,
-              supplies_id: this.selectedOptionsI.length ? JSON.stringify(this.selectedOptionsI) : null,
-              product_id: this.selectedOptionsP.length ? JSON.stringify(this.selectedOptionsP) : null,
+              procedures_id: this.selectedOptions ? JSON.stringify(this.selectedOptions) : null,
+              supplies_id: this.selectedOptionsI ? JSON.stringify(this.selectedOptionsI) : null,
+              product_id: this.selectedOptionsP ? JSON.stringify(this.selectedOptionsP) : null,
             }).then(async x => {
               this.toastService.success('', x.message);
               this.close();
