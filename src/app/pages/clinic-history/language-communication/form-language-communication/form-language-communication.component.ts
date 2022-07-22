@@ -29,10 +29,7 @@ export class FormLanguageCommunicationComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public admissions_id;
-  public medical_diagnostic_id: any[]; 
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
+
  
 
 
@@ -129,7 +126,8 @@ export class FormLanguageCommunicationComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ materialused: [], });
+          this.form.setValue({ eye_contact:'', courtesy_rules:'', communicative_intention:'', communicative_purpose:'',
+          oral_verb_modality:'', written_verb_modality:'', nonsymbolic_nonverbal_modality:'',  symbolic_nonverbal_modality:'', observations:''});
           if (this.saved) {
             this.saved();
           }
