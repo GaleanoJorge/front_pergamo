@@ -26,7 +26,7 @@ export class ProcedurePackage2Component implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Información de paquete';
   public subtitle;
-  public headerFields: any[] = ['ID', 'Cod-ATC', 'Cups', 'Nombre del procedimiento/insumo/medicamento', 'Cantidad mínima', 'Cantidad máxima', 'Valor dinámico'];
+  public headerFields: any[] = ['ID', 'Cod-ATC', 'Cups', 'Nombre', 'Cantidad mínima', 'Cantidad máxima', 'Valor dinámico'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -49,6 +49,19 @@ export class ProcedurePackage2Component implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
+      'type': {
+        title: 'Tipo',
+        type: 'string',
+        valuePrepareFunction: (value, data) => {
+          if (data.procedure) {
+            return 'Procedimiento';
+          } else if (data.product) {
+            return 'Medicamento';
+          } else if (data.supplies) {
+            return 'Insumo';
+          }
+        },
+      },
       'procedure.code': {
         title: this.headerFields[1],
         type: 'string',
@@ -56,7 +69,7 @@ export class ProcedurePackage2Component implements OnInit {
           if (data.product) {
             return data.product.code_atc;
           } else {
-            return 'No aplica';
+            return '--';
           }
         },
       },
@@ -67,7 +80,7 @@ export class ProcedurePackage2Component implements OnInit {
           if (data.procedure) {
             return data.procedure.code;
           } else {
-            return 'No aplica';
+            return '--';
           }
         },
       },
