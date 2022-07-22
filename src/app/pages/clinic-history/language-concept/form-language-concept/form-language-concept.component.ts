@@ -25,17 +25,13 @@ export class FormLanguageConceptComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-
   public admissions_id;
-  public text: any[]; 
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
+ 
   
 
   constructor(
 
     private formBuilder: FormBuilder,
-    private DiagnosisS: DiagnosisService,
     private toastService: NbToastrService,
     private chRecord: ChRecordService,
     private TherapyConceptTlS: TherapyConceptTlService,
@@ -111,13 +107,5 @@ export class FormLanguageConceptComponent implements OnInit {
     }
   }
 
-  // saveCode(e): void {
-  //   var localidentify = this.diagnosis.find(item => item.name == e);
-
-  //   if (localidentify) {
-  //     this.diagnosis_id = localidentify.id;
-  //   } else {
-  //     this.diagnosis_id = null;
-  //   }
-  // }
+  
 }

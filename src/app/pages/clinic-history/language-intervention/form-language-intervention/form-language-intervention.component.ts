@@ -25,12 +25,8 @@ export class FormLanguageInterventionComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
- 
   public admissions_id;
-  public text: any[]; 
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
+
 
 
   constructor(
@@ -111,13 +107,5 @@ export class FormLanguageInterventionComponent implements OnInit {
     }
   }
 
-  // saveCode(e): void {
-  //   var localidentify = this.diagnosis.find(item => item.name == e);
-
-  //   if (localidentify) {
-  //     this.diagnosis_id = localidentify.id;
-  //   } else {
-  //     this.diagnosis_id = null;
-  //   }
-  // }
+ 
 }

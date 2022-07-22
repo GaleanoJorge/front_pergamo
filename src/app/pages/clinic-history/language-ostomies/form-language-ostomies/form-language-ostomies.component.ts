@@ -1,12 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChEvoSoapService } from '../../../../business-controller/ch-evo-soap.service';
 import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { ActivatedRoute } from '@angular/router';
-import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
-import { TlTherapyLanguageService } from '../../../../business-controller/tl-therapy-language.service';
-import { InputMaterialsUsedTlService } from '../../../../business-controller/input-materials-used-tl.service';
 import { OstomiesTlService } from '../../../../business-controller/ostomies-tl.service';
 
 @Component({
@@ -27,11 +23,6 @@ export class FormLanguageOstomiesComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public admissions_id;
-  public medical_diagnostic_id: any[]; 
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
- 
 
 
   constructor(
@@ -104,7 +95,7 @@ export class FormLanguageOstomiesComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ });
+          this.form.setValue({ jejunostomy:'', colostomy:'', observations:''  });
           if (this.saved) {
             this.saved();
           }

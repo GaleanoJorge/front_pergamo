@@ -23,11 +23,7 @@ export class FormLanguageAlterationsComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public admissions_id;
-  public medical_diagnostic_id: any[]; 
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
- 
+
 
 
   constructor(
@@ -104,7 +100,7 @@ export class FormLanguageAlterationsComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ materialused: [], });
+          this.form.setValue({bell_alteration:'',  tone_alteration:'',  intensity_alteration:'', observations:''});
           if (this.saved) {
             this.saved();
           }

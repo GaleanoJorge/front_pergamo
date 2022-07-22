@@ -68,20 +68,6 @@
           </div>
 
 
-
-
-
-          <!-- <div class="col col-lg-3">
-            <label class="form-text text-muted font-weight-bold">Causa de la Muerte:</label>
-            <nb-select [selected]="this.data.death_diagnosis_id" formControlName="death_diagnosis_id"
-              id="death_diagnosis_id"
-              status="{{ isSubmitted && form.controls.death_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.death_diagnosis_id }}"
-                *ngFor="let item of death_diagnosis_id" [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
-          </div> -->
           <div class="col col-lg-3">
             <label class="form-text text-muted font-weight-bold">Medico que Firma Certificado de Defunción</label>
             <input type="text" class="Box" id="medical_signature" formControlName="medical_signature" required nbInput
@@ -108,9 +94,7 @@
               id="ch_diagnosis_id" formControlName="ch_diagnosis_id" ch_diagnosis_id type="text" required
               status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <datalist id="codes2">
-              <option selected="{{ item.id == this.data.ch_diagnosis_id }}" *ngFor="let item of ch_diagnosis"
-                [value]="item.name">
-                {{ item.diagnosis_id }} - {{ item.diagnosis.name }}
+              <option  *ngFor="let item of ch_diagnosis" [value]="item.diagnosis.name">{{ item.diagnosis_id }} - {{ item.diagnosis.name }}
               </option>
             </datalist>
           </div>
