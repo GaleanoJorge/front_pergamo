@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChScalesService } from '../../../../business-controller/ch_scales.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -278,7 +279,7 @@ export class FormChScalesComponent implements OnInit {
   public riskScreening: string = '';
 
   public riskBraden: string = '';
-  
+
   public riskLawton: string = '';
 
 
@@ -728,22 +729,42 @@ export class FormChScalesComponent implements OnInit {
       if (this.totalNews == 0) {
         this.riskNews = 'Bajo';
         this.response = 'Continuar cuidados de enfermería Signos vitales cada 12 horas';
+        this.form.patchValue({
+          response: this.response,
+          riskNews: this.riskNews,
+        });
 
       } else if (this.totalNews >= 1 && this.totalNews <= 4) {
         this.riskNews = 'Bajo';
         this.response = 'Continuar cuidados de enfermería Signos vitales cada 4-6 horas';
+        this.form.patchValue({
+          response: this.response,
+          riskNews: this.riskNews,
+        });
 
-      } else if (this.num1 == 3 ||  this.num2 == 3 ||  this.num3 == 3 ||  this.num4 == 3 || this.num5 == 3 ||  this.num6 == 3 ||  this.num7 == 3 ||  this.num8 == 3 ) {
+      } else if (this.num1 == 3 || this.num2 == 3 || this.num3 == 3 || this.num4 == 3 || this.num5 == 3 || this.num6 == 3 || this.num7 == 3 || this.num8 == 3) {
         this.riskNews = 'Bajo / Medio';
-        this.response = 'Respuesta urgente en piso o ala* Signos vitales cada hora';
+        this.response = 'Respuesta urgente en piso o sala* Signos vitales cada hora';
+        this.form.patchValue({
+          response: this.response,
+          riskNews: this.riskNews,
+        });
 
       } else if (this.totalNews >= 5 && this.totalNews <= 6) {
         this.riskNews = 'Medio';
-        this.response = 'Respuesta urgente en piso o ala* Signos vitales cada hora';
+        this.response = 'Respuesta urgente en piso o sala* Signos vitales cada hora';
+        this.form.patchValue({
+          response: this.response,
+          riskNews: this.riskNews,
+        });
 
       } else {
         this.riskNews = 'Alto';
         this.response = 'Respuesta emergente** Monitoreo continuo de signos vitales';
+                this.form.patchValue({
+                  response: this.response,
+                  riskNews: this.riskNews,
+        });
       }
     } else if (type == 7) {
       this.num1 = orden == 1 ? Number(texts[0]) : this.num1;
@@ -1051,7 +1072,7 @@ export class FormChScalesComponent implements OnInit {
       this.num7 = orden == 7 ? Number(texts[0]) : this.num7;
       this.num8 = orden == 8 ? Number(texts[0]) : this.num8;
 
-      this.totalLawton = this.num1 + this.num2 + this.num3 + this.num4 + this.num5 + this.num6  + this.num7  + this.num8;
+      this.totalLawton = this.num1 + this.num2 + this.num3 + this.num4 + this.num5 + this.num6 + this.num7 + this.num8;
 
 
       if (this.totalLawton == 0) {
@@ -1074,7 +1095,7 @@ export class FormChScalesComponent implements OnInit {
   async save(escale_id) {
 
     if (escale_id == 1) {
-      this.refresh1=false;
+      this.refresh1 = false;
       this.form.controls.physical_value.setValidators(Validators.compose([Validators.required]));
       var physical = this.separateText(this.form.controls.physical_value.value);
       this.form.controls.mind_value.setValidators(Validators.compose([Validators.required]));
@@ -1085,8 +1106,8 @@ export class FormChScalesComponent implements OnInit {
       var activity = this.separateText(this.form.controls.activity_value.value);
       this.form.controls.incontinence_value.setValidators(Validators.compose([Validators.required]));
       var incontinence = this.separateText(this.form.controls.incontinence_value.value);
-      this.form.controls.totalNorton.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.risk_norton.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalNorton.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.risk_norton.setValidators(Validators.compose([Validators.required]));
       this.isSubmitted = true;
       if (!this.form.invalid) {
         this.loading = true;
@@ -1112,10 +1133,20 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh1=true;
+          this.refresh1 = true;
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ physical_value: '', mind_value: '', mobility_value: '', activity_value: '', incontinence_value: '', totalNorton: '', risk_norton: '' });
+          this.form.controls.physical_value.clearValidators();
+          this.form.controls.mind_value.clearValidators();
+          this.form.controls.mobility_value.clearValidators();
+          this.form.controls.activity_value.clearValidators();
+          this.form.controls.incontinence_value.clearValidators();
+          this.form.controls.physical_value.setErrors(null);
+          this.form.controls.mind_value.setErrors(null);
+          this.form.controls.mobility_value.setErrors(null);
+          this.form.controls.activity_value.setErrors(null);
+          this.form.controls.incontinence_value.setErrors(null);
           if (this.saved) {
             this.saved();
           }
@@ -1124,18 +1155,20 @@ export class FormChScalesComponent implements OnInit {
           this.loading = false;
 
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 2) {
-      this.refresh2=false;	  
+      this.refresh2 = false;
       this.form.controls.ocular_value.setValidators(Validators.compose([Validators.required]));
       var ocular = this.separateText(this.form.controls.ocular_value.value);
       this.form.controls.verbal_value.setValidators(Validators.compose([Validators.required]));
       var verbal = this.separateText(this.form.controls.verbal_value.value);
       this.form.controls.motor_value.setValidators(Validators.compose([Validators.required]));
       var motor = this.separateText(this.form.controls.motor_value.value);
-      this.form.controls.totalGlasgow.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalGlasgow.setValidators(Validators.compose([Validators.required]));
       this.isSubmitted = true;
       if (!this.form.invalid) {
         this.loading = true;
@@ -1154,9 +1187,15 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh2=true;
+          this.refresh2 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ ocular_value: '', verbal_value: '', motor_value: '', totalGlasgow: '' });
+          this.form.controls.ocular_value.clearValidators();
+          this.form.controls.verbal_value.clearValidators();
+          this.form.controls.motor_value.clearValidators();
+          this.form.controls.ocular_value.setErrors(null);
+          this.form.controls.verbal_value.setErrors(null);
+          this.form.controls.motor_value.setErrors(null);
           if (this.saved) {
             this.saved();
           }
@@ -1165,11 +1204,13 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
-    } 
+    }
 
     if (escale_id == 3) {
-      this.refresh3=false;
+      this.refresh3 = false;
       this.form.controls.eat_value.setValidators(Validators.compose([Validators.required]));
       var eat = this.separateText(this.form.controls.eat_value.value);
       this.form.controls.move_value.setValidators(Validators.compose([Validators.required]));
@@ -1190,8 +1231,8 @@ export class FormChScalesComponent implements OnInit {
       var fecal = this.separateText(this.form.controls.fecal_value.value);
       this.form.controls.urine_value.setValidators(Validators.compose([Validators.required]));
       var urine = this.separateText(this.form.controls.urine_value.value);
-      this.form.controls.totalBarthel.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.classBarthel.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalBarthel.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.classBarthel.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1231,10 +1272,31 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh3=true;
+          this.refresh3 = true;
           // var results = x.data.ch_scale_payette;
           this.toastService.success('', x.message);
-          this.form.patchValue({ eat_value: '', move_value: '', cleanliness_value: '', toilet_value: '', shower_value: '', commute_value: '', stairs_value: '', dress_value: '', fecal_value: '', urine_value: '', totalBarthel: '', classBarthel: ''});
+          this.form.patchValue({ eat_value: '', move_value: '', cleanliness_value: '', toilet_value: '', shower_value: '', commute_value: '', stairs_value: '', dress_value: '', fecal_value: '', urine_value: '', totalBarthel: '', classBarthel: '' });
+          this.form.controls.eat_value.clearValidators();
+          this.form.controls.move_value.clearValidators();
+          this.form.controls.cleanliness_value.clearValidators();
+          this.form.controls.toilet_value.clearValidators();
+          this.form.controls.shower_value.clearValidators();
+          this.form.controls.commute_value.clearValidators();
+          this.form.controls.stairs_value.clearValidators();
+          this.form.controls.dress_value.clearValidators();
+          this.form.controls.fecal_value.clearValidators();
+          this.form.controls.urine_value.clearValidators();
+          this.form.controls.eat_value.setErrors(null);
+          this.form.controls.move_value.setErrors(null);
+          this.form.controls.cleanliness_value.setErrors(null);
+          this.form.controls.toilet_value.setErrors(null);
+          this.form.controls.shower_value.setErrors(null);
+          this.form.controls.commute_value.setErrors(null);
+          this.form.controls.stairs_value.setErrors(null);
+          this.form.controls.dress_value.setErrors(null);
+          this.form.controls.fecal_value.setErrors(null);
+          this.form.controls.urine_value.setErrors(null);
+
           if (this.saved) {
             this.saved();
           }
@@ -1242,11 +1304,14 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
+
     }
 
     if (escale_id == 4) {
-      this.refresh4=false;
+      this.refresh4 = false;
       this.form.controls.qOnePayette_value.setValidators(Validators.compose([Validators.required]));
       var qOnePayette = this.separateText(this.form.controls.qOnePayette_value.value);
       this.form.controls.qTwoPayette_value.setValidators(Validators.compose([Validators.required]));
@@ -1267,9 +1332,9 @@ export class FormChScalesComponent implements OnInit {
       var qNinePayette = this.separateText(this.form.controls.qNinePayette_value.value);
       this.form.controls.qTenPayette_value.setValidators(Validators.compose([Validators.required]));
       var qTenPayette = this.separateText(this.form.controls.qTenPayette_value.value);
-      this.form.controls.totalPayette.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.riskPayette.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.recommendations.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalPayette.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.riskPayette.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.recommendations.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1310,9 +1375,31 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh1=true;
+          this.refresh1 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ qOnePayette_value: '', qTwoPayette_value: '', qThreePayette_value: '', qFourPayette_value: '', qFivePayette_value: '', qSixPayette_value: '', qSevenPayette_value: '', qEightPayette_value: '', qNinePayette_value: '', qTenPayette_value: '', totalPayette: '', riskPayette: '', recommendations: '', });
+          this.form.controls.qOnePayette_value.clearValidators();
+          this.form.controls.qTwoPayette_value.clearValidators();
+          this.form.controls.qThreePayette_value.clearValidators();
+          this.form.controls.qFourPayette_value.clearValidators();
+          this.form.controls.qFivePayette_value.clearValidators();
+          this.form.controls.qSixPayette_value.clearValidators();
+          this.form.controls.qSevenPayette_value.clearValidators();
+          this.form.controls.qEightPayette_value.clearValidators();
+          this.form.controls.qNinePayette_value.clearValidators();
+          this.form.controls.qTenPayette_value.clearValidators();
+
+          this.form.controls.qTwoPayette_value.setErrors(null);
+          this.form.controls.qOnePayette_value.setErrors(null);
+          this.form.controls.qThreePayette_value.setErrors(null);
+          this.form.controls.qFourPayette_value.setErrors(null);
+          this.form.controls.qFivePayette_value.setErrors(null);
+          this.form.controls.qSixPayette_value.setErrors(null);
+          this.form.controls.qSevenPayette_value.setErrors(null);
+          this.form.controls.qEightPayette_value.setErrors(null);
+          this.form.controls.qNinePayette_value.setErrors(null);
+          this.form.controls.qTenPayette_value.setErrors(null);
+
           if (this.saved) {
             this.saved();
           }
@@ -1324,7 +1411,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 5) {
-      this.refresh5=false;
+      this.refresh5 = false;
       this.form.controls.qOneFragility_value.setValidators(Validators.compose([Validators.required]));
       var qOneFragilitty = this.separateText(this.form.controls.qOneFragility_value.value);
       this.form.controls.qTwoFragility_value.setValidators(Validators.compose([Validators.required]));
@@ -1337,8 +1424,8 @@ export class FormChScalesComponent implements OnInit {
       var qFiveFragilitty = this.separateText(this.form.controls.qFiveFragility_value.value);
       this.form.controls.qSixFragility_value.setValidators(Validators.compose([Validators.required]));
       var qSixFragilitty = this.separateText(this.form.controls.qSixFragility_value.value);
-      this.form.controls.totalFragility.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.classFragility.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalFragility.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.classFragility.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1366,9 +1453,23 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh5=true;
+          this.refresh5 = true;
           this.toastService.success('', x.message);
-          this.form.patchValue({ qOneFragility_value: '', qTwoFragility_value: '', qThreeFragility_value: '', qFourFragility_value: '', qFiveFragility_value: '', qSixFragility_value: '', totalFragility: '', classFragility: ''});
+          this.form.patchValue({ qOneFragility_value: '', qTwoFragility_value: '', qThreeFragility_value: '', qFourFragility_value: '', qFiveFragility_value: '', qSixFragility_value: '', totalFragility: '', classFragility: '' });
+          this.form.controls.qOneFragility_value.clearValidators();
+          this.form.controls.qTwoFragility_value.clearValidators();
+          this.form.controls.qThreeFragility_value.clearValidators();
+          this.form.controls.qFourFragility_value.clearValidators();
+          this.form.controls.qFiveFragility_value.clearValidators();
+          this.form.controls.qSixFragility_value.clearValidators();
+
+          this.form.controls.qOneFragility_value.setErrors(null);
+          this.form.controls.qTwoFragility_value.setErrors(null);
+          this.form.controls.qThreeFragility_value.setErrors(null);
+          this.form.controls.qFourFragility_value.setErrors(null);
+          this.form.controls.qFiveFragility_value.setErrors(null);
+          this.form.controls.qSixFragility_value.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -1378,10 +1479,13 @@ export class FormChScalesComponent implements OnInit {
           this.loading = false;
         });
       }
+      else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+      }
     }
 
     if (escale_id == 7) {
-      this.refresh7=false;
+      this.refresh7 = false;
       this.form.controls.pOneNews_value.setValidators(Validators.compose([Validators.required]));
       var pOneNews = this.separateText(this.form.controls.pOneNews_value.value);
       this.form.controls.pTwoNews_value.setValidators(Validators.compose([Validators.required]));
@@ -1398,9 +1502,9 @@ export class FormChScalesComponent implements OnInit {
       var pSevenNews = this.separateText(this.form.controls.pSevenNews_value.value);
       this.form.controls.pEightNews_value.setValidators(Validators.compose([Validators.required]));
       var pEightNews = this.separateText(this.form.controls.pEightNews_value.value);
-      this.form.controls.totalNews.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.riskNews.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.response.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalNews.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.riskNews.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.response.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1435,9 +1539,27 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh7=true;
+          this.refresh7 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ pOneNews_value: '', pTwoNews_value: '', pThreeNews_value: '', pFourNews_value: '', pFiveNews_value: '', pSixNews_value: '', pSevenNews_value: '', pEightNews_value: '', totalNews: '', riskNews: '', response: '', });
+          this.form.controls.pOneNews_value.clearValidators();
+          this.form.controls.pTwoNews_value.clearValidators();
+          this.form.controls.pThreeNews_value.clearValidators();
+          this.form.controls.pFourNews_value.clearValidators();
+          this.form.controls.pFiveNews_value.clearValidators();
+          this.form.controls.pSixNews_value.clearValidators();
+          this.form.controls.pSevenNews_value.clearValidators();
+          this.form.controls.pEightNews_value.clearValidators();
+
+          this.form.controls.pTwoNews_value.setErrors(null);
+          this.form.controls.pOneNews_value.setErrors(null);
+          this.form.controls.pThreeNews_value.setErrors(null);
+          this.form.controls.pFourNews_value.setErrors(null);
+          this.form.controls.pFiveNews_value.setErrors(null);
+          this.form.controls.pSixNews_value.setErrors(null);
+          this.form.controls.pSevenNews_value.setErrors(null);
+          this.form.controls.pEightNews_value.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -1446,11 +1568,14 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
+
     }
 
     if (escale_id == 8) {
-      this.refresh8=false;
+      this.refresh8 = false;
       this.form.controls.vOnePap_value.setValidators(Validators.compose([Validators.required]));
       var vOnePap = this.separateText(this.form.controls.vOnePap_value.value);
       this.form.controls.vTwoPap_value.setValidators(Validators.compose([Validators.required]));
@@ -1463,8 +1588,8 @@ export class FormChScalesComponent implements OnInit {
       var vFivePap = this.separateText(this.form.controls.vFivePap_value.value);
       this.form.controls.vSixPap_value.setValidators(Validators.compose([Validators.required]));
       var vSixPap = this.separateText(this.form.controls.vSixPap_value.value);
-      this.form.controls.totalPap.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.classPap.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalPap.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.classPap.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1492,9 +1617,23 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh8=true;
+          this.refresh8 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ vOnePap_value: '', vTwoPap_value: '', vThreePap_value: '', vFourPap_value: '', vFivePap_value: '', vSixPap_value: '', totalPap: '', classPap: '' });
+          this.form.controls.vOnePap_value.clearValidators();
+          this.form.controls.vTwoPap_value.clearValidators();
+          this.form.controls.vThreePap_value.clearValidators();
+          this.form.controls.vFourPap_value.clearValidators();
+          this.form.controls.vFivePap_value.clearValidators();
+          this.form.controls.vSixPap_value.clearValidators();
+
+          this.form.controls.vOnePap_value.setErrors(null);
+          this.form.controls.vTwoPap_value.setErrors(null);
+          this.form.controls.vThreePap_value.setErrors(null);
+          this.form.controls.vFourPap_value.setErrors(null);
+          this.form.controls.vFivePap_value.setErrors(null);
+          this.form.controls.vSixPap_value.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -1503,11 +1642,14 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
+
     }
 
     if (escale_id == 9) {
-      this.refresh9=false;
+      this.refresh9 = false;
       this.form.controls.vOneHamilton_value.setValidators(Validators.compose([Validators.required]));
       var vOneHamilton = this.separateText(this.form.controls.vOneHamilton_value.value);
       this.form.controls.vTwoHamilton_value.setValidators(Validators.compose([Validators.required]));
@@ -1542,8 +1684,8 @@ export class FormChScalesComponent implements OnInit {
       var vSixteenHamilton = this.separateText(this.form.controls.vSixteenHamilton_value.value);
       this.form.controls.vSeventeenHamilton_value.setValidators(Validators.compose([Validators.required]));
       var vSeventeenHamilton = this.separateText(this.form.controls.vSeventeenHamilton_value.value);
-      this.form.controls.totalHamilton.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.classHamilton.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalHamilton.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.classHamilton.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1604,13 +1746,48 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh9=true;
+          this.refresh9 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({
             vOneHamilton_value: '', vTwoHamilton_value: '', vThreeHamilton_value: '', vFourHamilton_value: '', vFiveHamilton_value: '', vSixHamilton_value: '', vSevenHamilton_value: '',
             vEightHamilton_value: '', vNineHamilton_value: '', vTenHamilton_value: '', vElevenHamilton_value: '', vTwelveHamilton_value: '', vThirteenHamilton_value: '', vFourteenHamilton_value: '',
             vFifteenHamilton_value: '', vSixteenHamilton_value: '', vSeventeenHamilton_value: '', totalHamilton: '', classHamilton: ''
           });
+          this.form.controls.vOneHamilton_value.clearValidators();
+          this.form.controls.vTwoHamilton_value.clearValidators();
+          this.form.controls.vThreeHamilton_value.clearValidators();
+          this.form.controls.vFourHamilton_value.clearValidators();
+          this.form.controls.vFiveHamilton_value.clearValidators();
+          this.form.controls.vSixHamilton_value.clearValidators();
+          this.form.controls.vSevenHamilton_value.clearValidators();
+          this.form.controls.vEightHamilton_value.clearValidators();
+          this.form.controls.vNineHamilton_value.clearValidators();
+          this.form.controls.vTenHamilton_value.clearValidators();
+          this.form.controls.vElevenHamilton_value.clearValidators();
+          this.form.controls.vTwelveHamilton_value.clearValidators();
+          this.form.controls.vThirteenHamilton_value.clearValidators();
+          this.form.controls.vFourteenHamilton_value.clearValidators();
+          this.form.controls.vFifteenHamilton_value.clearValidators();
+          this.form.controls.vSixteenHamilton_value.clearValidators();
+          this.form.controls.vSeventeenHamilton_value.clearValidators();
+
+          this.form.controls.vOneHamilton_value.setErrors(null);
+          this.form.controls.vTwoHamilton_value.setErrors(null);
+          this.form.controls.vThreeHamilton_value.setErrors(null);
+          this.form.controls.vFourHamilton_value.setErrors(null);
+          this.form.controls.vFiveHamilton_value.setErrors(null);
+          this.form.controls.vSixHamilton_value.setErrors(null);
+          this.form.controls.vSevenHamilton_value.setErrors(null);
+          this.form.controls.vEightHamilton_value.setErrors(null);
+          this.form.controls.vNineHamilton_value.setErrors(null);
+          this.form.controls.vTenHamilton_value.setErrors(null);
+          this.form.controls.vElevenHamilton_value.setErrors(null);
+          this.form.controls.vTwelveHamilton_value.setErrors(null);
+          this.form.controls.vThirteenHamilton_value.setErrors(null);
+          this.form.controls.vFourteenHamilton_value.setErrors(null);
+          this.form.controls.vFifteenHamilton_value.setErrors(null);
+          this.form.controls.vSixteenHamilton_value.setErrors(null);
+          this.form.controls.vSeventeenHamilton_value.setErrors(null);
           if (this.saved) {
             this.saved()
 
@@ -1619,11 +1796,13 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 10) {
-      this.refresh10=false;
+      this.refresh10 = false;
       this.form.controls.mindCam_value.setValidators(Validators.compose([Validators.required]));
       var mindCam = this.separateText(this.form.controls.mindCam_value.value);
       this.form.controls.attentionCam_value.setValidators(Validators.compose([Validators.required]));
@@ -1653,9 +1832,21 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh10=true;
+          this.refresh10 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ mindCam_value: '', attentionCam_value: '', thoughtCam_value: '', awarenessCam_value: '', resultCam: '' });
+          this.form.controls.mindCam_value.clearValidators();
+          this.form.controls.attentionCam_value.clearValidators();
+          this.form.controls.thoughtCam_value.clearValidators();
+          this.form.controls.awarenessCam_value.clearValidators();
+          this.form.controls.resultCam.clearValidators();
+
+          this.form.controls.mindCam_value.setErrors(null);
+          this.form.controls.attentionCam_value.setErrors(null);
+          this.form.controls.thoughtCam_value.setErrors(null);
+          this.form.controls.awarenessCam_value.setErrors(null);
+          this.form.controls.resultCam.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -1664,11 +1855,14 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
+
     }
 
     if (escale_id == 11) {
-      this.refresh11=false;
+      this.refresh11 = false;
       this.form.controls.level_value.setValidators(Validators.compose([Validators.required]));
       var level = this.separateText(this.form.controls.level_value.value);
       this.form.controls.definitionFacText.setValidators(Validators.compose([Validators.required]));
@@ -1682,9 +1876,15 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh11=false;
+          this.refresh11 = false;
           this.toastService.success('', x.message);
           this.form.patchValue({ level_value: '', definitionFacText: '' });
+          this.form.controls.level_value.clearValidators();
+          this.form.controls.definitionFacText.clearValidators();
+
+          this.form.controls.level_value.setErrors(null);
+          this.form.controls.definitionFacText.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -1693,14 +1893,17 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
+
     }
 
     if (escale_id == 12) {
-      this.refresh12=false;
+      this.refresh12 = false;
       this.form.controls.grade_value.setValidators(Validators.compose([Validators.required]));
       var grade = this.separateText(this.form.controls.grade_value.value);
-      this.form.controls.definitionCrossText.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.definitionCrossText.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1711,9 +1914,13 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh12=true;
+          this.refresh12 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ grade_value: '', definitionCrossText: '' });
+          this.form.controls.grade_value.clearValidators();
+          this.form.controls.grade_value.setErrors(null);
+
+
           if (this.saved) {
             this.saved()
 
@@ -1722,11 +1929,14 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
+
     }
 
     if (escale_id == 13) {
-      this.refresh13=false;
+      this.refresh13 = false;
       this.form.controls.scoreKarnofsky_value.setValidators(Validators.compose([Validators.required]));
       var scoreKarnofsky = this.separateText(this.form.controls.scoreKarnofsky_value.value);
       this.loading = true;
@@ -1738,9 +1948,13 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh13=true;
+          this.refresh13 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ scoreKarnofsky_value: '', });
+          this.form.controls.scoreKarnofsky_value.clearValidators();
+          this.form.controls.scoreKarnofsky_value.setErrors(null);
+
+
           if (this.saved) {
             this.saved()
 
@@ -1749,14 +1963,16 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 14) {
-      this.refresh14=false;
+      this.refresh14 = false;
       this.form.controls.gradeEcog_value.setValidators(Validators.compose([Validators.required]));
       var gradeEcog = this.separateText(this.form.controls.gradeEcog_value.value);
-      this.form.controls.definitionEcogText.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.definitionEcogText.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1767,9 +1983,12 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh14=true;
+          this.refresh14 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ gradeEcog_value: '', definitionEcogText: '', });
+          this.form.controls.gradeEcog_value.clearValidators();
+          this.form.controls.gradeEcog_value.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -1778,11 +1997,13 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 15) {
-      this.refresh15=false;
+      this.refresh15 = false;
       this.form.controls.score_one_value.setValidators(Validators.compose([Validators.required]));
       var score_one = this.separateText(this.form.controls.score_one_value.value);
       this.form.controls.score_two_value.setValidators(Validators.compose([Validators.required]));
@@ -1791,9 +2012,9 @@ export class FormChScalesComponent implements OnInit {
       var score_three = this.separateText(this.form.controls.score_three_value.value);
       this.form.controls.score_four_value.setValidators(Validators.compose([Validators.required]));
       var score_four = this.separateText(this.form.controls.score_four_value.value);
-      this.form.controls.totalNPedriatic.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.riskNPedriatic.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.classNPedriatic.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalNPedriatic.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.riskNPedriatic.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.classNPedriatic.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1816,9 +2037,18 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh15=true;
+          this.refresh15 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ score_one: '', score_two: '', score_three: '', score_four: '', total: '', risk: '', classification: '', });
+          this.form.controls.score_one_value.clearValidators();
+          this.form.controls.score_two_value.clearValidators();
+          this.form.controls.score_three_value.clearValidators();
+          this.form.controls.score_four_value.clearValidators();
+
+          this.form.controls.score_one_value.setErrors(null);
+          this.form.controls.score_two_value.setErrors(null);
+          this.form.controls.score_three_value.setErrors(null);
+          this.form.controls.score_four_value.setErrors(null);
           if (this.saved) {
             this.saved()
 
@@ -1827,11 +2057,13 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 16) {
-      this.refresh16=false;
+      this.refresh16 = false;
       this.form.controls.pain_value.setValidators(Validators.compose([Validators.required]));
       var pain = this.separateText(this.form.controls.pain_value.value);
       this.form.controls.tiredness_value.setValidators(Validators.compose([Validators.required]));
@@ -1881,9 +2113,34 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh16=true;
+          this.refresh16 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ pain_value: '', tiredness_value: '', retching_value: '', depression_value: '', anxiety_value: '', drowsiness_value: '', appetite_value: '', welfare_value: '', breathing_value: '', sleep_value: '', obsEsas: '' });
+
+          this.form.controls.pain_value.clearValidators();
+          this.form.controls.tiredness_value.clearValidators();
+          this.form.controls.retching_value.clearValidators();
+          this.form.controls.depression_value.clearValidators();
+          this.form.controls.anxiety_value.clearValidators();
+          this.form.controls.drowsiness_value.clearValidators();
+          this.form.controls.appetite_value.clearValidators();
+          this.form.controls.welfare_value.clearValidators();
+          this.form.controls.breathing_value.clearValidators();
+          this.form.controls.sleep_value.clearValidators();
+          this.form.controls.obsEsas.clearValidators();
+
+          this.form.controls.pain_value.setErrors(null);
+          this.form.controls.tiredness_value.setErrors(null);
+          this.form.controls.retching_value.setErrors(null);
+          this.form.controls.depression_value.setErrors(null);
+          this.form.controls.anxiety_value.setErrors(null);
+          this.form.controls.drowsiness_value.setErrors(null);
+          this.form.controls.appetite_value.setErrors(null);
+          this.form.controls.welfare_value.setErrors(null);
+          this.form.controls.breathing_value.setErrors(null);
+          this.form.controls.sleep_value.setErrors(null);
+          this.form.controls.obsEsas.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -1892,11 +2149,13 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 17) {
-      this.refresh17=false;
+      this.refresh17 = false;
       this.form.controls.face_value.setValidators(Validators.compose([Validators.required]));
       var face = this.separateText(this.form.controls.face_value.value);
       this.form.controls.legs_value.setValidators(Validators.compose([Validators.required]));
@@ -1907,8 +2166,8 @@ export class FormChScalesComponent implements OnInit {
       var crying = this.separateText(this.form.controls.crying_value.value);
       this.form.controls.comfort_value.setValidators(Validators.compose([Validators.required]));
       var comfort = this.separateText(this.form.controls.comfort_value.value);
-      this.form.controls.totalFlacc.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.classFlacc.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalFlacc.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.classFlacc.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1933,9 +2192,22 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh17=true;
+          this.refresh17 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ face: '', legs: '', activity: '', crying: '', comfort: '', total: '', qualification: '' });
+          this.form.controls.face_value.clearValidators();
+          this.form.controls.legs_value.clearValidators();
+          this.form.controls.activityFlacc_value.clearValidators();
+          this.form.controls.crying_value.clearValidators();
+          this.form.controls.comfort_value.clearValidators();
+
+          this.form.controls.face_value.setErrors(null);
+          this.form.controls.legs_value.setErrors(null);
+          this.form.controls.activityFlacc_value.setErrors(null);
+          this.form.controls.crying_value.setErrors(null);
+          this.form.controls.comfort_value.setErrors(null);
+
+
           if (this.saved) {
             this.saved()
 
@@ -1944,11 +2216,14 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
+
     }
 
     if (escale_id == 18) {
-      this.refresh18=false;
+      this.refresh18 = false;
       this.form.controls.pps_value.setValidators(Validators.compose([Validators.required]));
       var pps = this.separateText(this.form.controls.pps_value.value);
       this.form.controls.oral_value.setValidators(Validators.compose([Validators.required]));
@@ -1959,8 +2234,8 @@ export class FormChScalesComponent implements OnInit {
       var dyspnoea = this.separateText(this.form.controls.dyspnoea_value.value);
       this.form.controls.delirium_value.setValidators(Validators.compose([Validators.required]));
       var delirium = this.separateText(this.form.controls.delirium_value.value);
-      this.form.controls.totalPpi.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.classPpi.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.totalPpi.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.classPpi.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1985,9 +2260,22 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh18=true;
+          this.refresh18 = true;
           this.toastService.success('', x.message);
-          this.form.patchValue({ pps_value: '', oral_value: '', edema_value: '', dyspnoea_value: '', delirium_value: '', totalPpi: '' ,classPpi: ''});
+          this.form.patchValue({ pps_value: '', oral_value: '', edema_value: '', dyspnoea_value: '', delirium_value: '', totalPpi: '', classPpi: '' });
+          this.form.controls.pps_value.clearValidators();
+          this.form.controls.oral_value.clearValidators();
+          this.form.controls.edema_value.clearValidators();
+          this.form.controls.dyspnoea_value.clearValidators();
+          this.form.controls.delirium_value.clearValidators();
+
+          this.form.controls.pps_value.setErrors(null);
+          this.form.controls.oral_value.setErrors(null);
+          this.form.controls.edema_value.setErrors(null);
+          this.form.controls.dyspnoea_value.setErrors(null);
+          this.form.controls.delirium_value.setErrors(null);
+
+
           if (this.saved) {
             this.saved()
 
@@ -1996,11 +2284,13 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 19) {
-      this.refresh19=false;
+      this.refresh19 = false;
       this.form.controls.q_one_value.setValidators(Validators.compose([Validators.required]));
       var q_one = this.separateText(this.form.controls.q_one_value.value);
       this.form.controls.q_two_value.setValidators(Validators.compose([Validators.required]));
@@ -2045,8 +2335,8 @@ export class FormChScalesComponent implements OnInit {
       var q_twenty_one = this.separateText(this.form.controls.q_twenty_one_value.value);
       this.form.controls.q_twenty_two_value.setValidators(Validators.compose([Validators.required]));
       var q_twenty_two = this.separateText(this.form.controls.q_twenty_two_value.value);
-      this.form.controls.totalZarit.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.classZarit.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalZarit.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.classZarit.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -2122,9 +2412,56 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh19=true;
+          this.refresh19 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ q_one_value: '', q_two_value: '', q_three_value: '', q_four_value: '', q_five_value: '', q_six_value: '', q_seven_value: '', q_eight_value: '', q_nine_value: '', q_ten_value: '', q_eleven_value: '', q_twelve_value: '', q_thirteen_value: '', q_fourteen_value: '', q_fifteen_value: '', q_sixteen_value: '', q_seventeen_value: '', q_eighteen_value: '', q_nineteen_value: '', q_twenty_value: '', q_twenty_one_value: '', q_twenty_two_value: '', totalZarit: '', classZarit: '' });
+          this.form.controls.q_one_value.clearValidators();
+          this.form.controls.q_two_value.clearValidators();
+          this.form.controls.q_three_value.clearValidators();
+          this.form.controls.q_four_value.clearValidators();
+          this.form.controls.q_five_value.clearValidators();
+          this.form.controls.q_six_value.clearValidators();
+          this.form.controls.q_seven_value.clearValidators();
+          this.form.controls.q_eight_value.clearValidators();
+          this.form.controls.q_nine_value.clearValidators();
+          this.form.controls.q_ten_value.clearValidators();
+          this.form.controls.q_eleven_value.clearValidators();
+          this.form.controls.q_twelve_value.clearValidators();
+          this.form.controls.q_thirteen_value.clearValidators();
+          this.form.controls.q_fourteen_value.clearValidators();
+          this.form.controls.q_fifteen_value.clearValidators();
+          this.form.controls.q_sixteen_value.clearValidators();
+          this.form.controls.q_seventeen_value.clearValidators();
+          this.form.controls.q_eighteen_value.clearValidators();
+          this.form.controls.q_nineteen_value.clearValidators();
+          this.form.controls.q_twenty_value.clearValidators();
+          this.form.controls.q_twenty_one_value.clearValidators();
+          this.form.controls.q_twenty_two_value.clearValidators();
+
+          this.form.controls.q_one_value.setErrors(null);
+          this.form.controls.q_two_value.setErrors(null);
+          this.form.controls.q_three_value.setErrors(null);
+          this.form.controls.q_four_value.setErrors(null);
+          this.form.controls.q_five_value.setErrors(null);
+          this.form.controls.q_six_value.setErrors(null);
+          this.form.controls.q_seven_value.setErrors(null);
+          this.form.controls.q_eight_value.setErrors(null);
+          this.form.controls.q_nine_value.setErrors(null);
+          this.form.controls.q_ten_value.setErrors(null);
+          this.form.controls.q_eleven_value.setErrors(null);
+          this.form.controls.q_twelve_value.setErrors(null);
+          this.form.controls.q_thirteen_value.setErrors(null);
+          this.form.controls.q_fourteen_value.setErrors(null);
+          this.form.controls.q_fifteen_value.setErrors(null);
+          this.form.controls.q_sixteen_value.setErrors(null);
+          this.form.controls.q_seventeen_value.setErrors(null);
+          this.form.controls.q_eighteen_value.setErrors(null);
+          this.form.controls.q_nineteen_value.setErrors(null);
+          this.form.controls.q_twenty_value.setErrors(null);
+          this.form.controls.q_twenty_one_value.setErrors(null);
+          this.form.controls.q_twenty_two_value.setErrors(null);
+
+
           if (this.saved) {
             this.saved()
           }
@@ -2132,11 +2469,13 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 20) {
-      this.refresh20=false;
+      this.refresh20 = false;
       this.form.controls.rangePain_value.setValidators(Validators.compose([Validators.required]));
       var rangePain = this.separateText(this.form.controls.rangePain_value.value);
       this.loading = true;
@@ -2148,9 +2487,12 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh20=true;
+          this.refresh20 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ rangePain_value: '' });
+          this.form.controls.rangePain_value.clearValidators();
+          this.form.controls.rangePain_value.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -2159,11 +2501,13 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 21) {
-      this.refresh21=false;
+      this.refresh21 = false;
       this.form.controls.painWong_value.setValidators(Validators.compose([Validators.required]));
       var painWong = this.separateText(this.form.controls.painWong_value.value);
       this.loading = true;
@@ -2175,9 +2519,12 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh21=true;
+          this.refresh21 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ painWong_value: '' });
+          this.form.controls.painWong_value.clearValidators();
+          this.form.controls.painWong_value.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -2186,11 +2533,13 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 22) {
-      this.refresh22 =false;
+      this.refresh22 = false;
       this.form.controls.studyValue.setValidators(Validators.compose([Validators.required]));
       this.form.controls.qOneValue.setValidators(Validators.compose([Validators.required]));
       var qOneValue = this.separateText(this.form.controls.qOneValue.value);
@@ -2212,15 +2561,15 @@ export class FormChScalesComponent implements OnInit {
       var qNineValue = this.separateText(this.form.controls.qNineValue.value);
       this.form.controls.qTenValue.setValidators(Validators.compose([Validators.required]));
       var qTenValue = this.separateText(this.form.controls.qTenValue.value);
-      this.form.controls.totalPfeiffer.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.classPfeiffer.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.totalPfeiffer.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.classPfeiffer.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
         await this.chScalesS.SavePfeiffer({
           study_title: '¿Tiene estudios?',
-          study_value: this.form.controls.studyValue.value==true?0:1,
-          study_detail: this.form.controls.studyValue.value==true?'SI':'NO',
+          study_value: this.form.controls.studyValue.value == true ? 0 : 1,
+          study_detail: this.form.controls.studyValue.value == true ? 'SI' : 'NO',
           q_one_title: '¿Cuál es la fecha de hoy? (Día, Mes y Año)',
           q_one_value: qOneValue[0],
           q_one_detail: qOneValue[1],
@@ -2256,9 +2605,33 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh22=true;
+          this.refresh22 = true;
           this.toastService.success('', x.message);
-          this.form.patchValue({ studyValue:'', qOneValue:'', qTwoValue:'',  qThreeValue:'',  qFourValue:'', qFiveValue:'', qSixValue:'', qSevenValue:'',  qEightValue:'', qNineValue:'', qTenValue:'', totalPfeiffer:'', classPfeiffer:'' });
+          this.form.patchValue({ studyValue: '', qOneValue: '', qTwoValue: '', qThreeValue: '', qFourValue: '', qFiveValue: '', qSixValue: '', qSevenValue: '', qEightValue: '', qNineValue: '', qTenValue: '', totalPfeiffer: '', classPfeiffer: '' });
+          this.form.controls.studyValue.clearValidators();
+          this.form.controls.qOneValue.clearValidators();
+          this.form.controls.qTwoValue.clearValidators();
+          this.form.controls.qThreeValue.clearValidators();
+          this.form.controls.qFourValue.clearValidators();
+          this.form.controls.qFiveValue.clearValidators();
+          this.form.controls.qSixValue.clearValidators();
+          this.form.controls.qSevenValue.clearValidators();
+          this.form.controls.qEightValue.clearValidators();
+          this.form.controls.qNineValue.clearValidators();
+          this.form.controls.qTenValue.clearValidators();
+
+          this.form.controls.studyValue.setErrors(null);
+          this.form.controls.qOneValue.setErrors(null);
+          this.form.controls.qTwoValue.setErrors(null);
+          this.form.controls.qThreeValue.setErrors(null);
+          this.form.controls.qFourValue.setErrors(null);
+          this.form.controls.qFiveValue.setErrors(null);
+          this.form.controls.qSixValue.setErrors(null);
+          this.form.controls.qSevenValue.setErrors(null);
+          this.form.controls.qEightValue.setErrors(null);
+          this.form.controls.qNineValue.setErrors(null);
+          this.form.controls.qTenValue.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -2267,11 +2640,14 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
+
     }
 
     if (escale_id == 23) {
-      this.refresh23=false;
+      this.refresh23 = false;
       this.form.controls.falls_value.setValidators(Validators.compose([Validators.required]));
       var falls = this.separateText(this.form.controls.falls_value.value);
       this.form.controls.medication_value.setValidators(Validators.compose([Validators.required]));
@@ -2304,13 +2680,25 @@ export class FormChScalesComponent implements OnInit {
           wandering_value: wandering[0],
           wandering_detail: wandering[1],
           total: this.totalJhDownton,
-          risk: this.riskJhDownton, 
+          risk: this.riskJhDownton,
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh23=true;
+          this.refresh23 = true;
           this.toastService.success('', x.message);
-          this.form.patchValue({ falls_value: '', medication_value: '',  deficiency_value: '',  mental_value: '',  wandering_value: '',  totalJhDownton: '', riskJhDownton: ''});
+          this.form.patchValue({ falls_value: '', medication_value: '', deficiency_value: '', mental_value: '', wandering_value: '', totalJhDownton: '', riskJhDownton: '' });
+          this.form.controls.falls_value.clearValidators();
+          this.form.controls.medication_value.clearValidators();
+          this.form.controls.deficiency_value.clearValidators();
+          this.form.controls.mental_value.clearValidators();
+          this.form.controls.wandering_value.clearValidators();
+
+          this.form.controls.falls_value.setErrors(null);
+          this.form.controls.medication_value.setErrors(null);
+          this.form.controls.deficiency_value.setErrors(null);
+          this.form.controls.mental_value.setErrors(null);
+          this.form.controls.wandering_value.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -2319,11 +2707,14 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
+
     }
 
     if (escale_id == 24) {
-      this.refresh24=false;
+      this.refresh24 = false;
       this.form.controls.vOneScreening_value.setValidators(Validators.compose([Validators.required]));
       var vOneScreening = this.separateText(this.form.controls.vOneScreening_value.value);
       this.form.controls.vTwoScreening_value.setValidators(Validators.compose([Validators.required]));
@@ -2344,8 +2735,8 @@ export class FormChScalesComponent implements OnInit {
       var vNineScreening = this.separateText(this.form.controls.vNineScreening_value.value);
       this.form.controls.vTenScreening_value.setValidators(Validators.compose([Validators.required]));
       var vTenScreening = this.separateText(this.form.controls.vTenScreening_value.value);
-      this.form.controls.totalScreening.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.riskScreening.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.totalScreening.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.riskScreening.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -2385,10 +2776,34 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh24=true;
+          this.refresh24 = true;
           this.toastService.success('', x.message);
-          this.form.patchValue({ vOneScreening_value: '', vTwoScreening_value : '', vThreeScreening_value : '', vFourScreening_value: '', vFiveScreening_value : '', vSixScreening_value: '', vSevenScreening_value: '', 
-          vEightScreening_value: '',  vNineScreening_value: '', vTenScreening_value: '', totalScreening: '', riskScreening: '' });
+          this.form.patchValue({
+            vOneScreening_value: '', vTwoScreening_value: '', vThreeScreening_value: '', vFourScreening_value: '', vFiveScreening_value: '', vSixScreening_value: '', vSevenScreening_value: '',
+            vEightScreening_value: '', vNineScreening_value: '', vTenScreening_value: '', totalScreening: '', riskScreening: ''
+          });
+          this.form.controls.vOneScreening_value.clearValidators();
+          this.form.controls.vTwoScreening_value.clearValidators();
+          this.form.controls.vThreeScreening_value.clearValidators();
+          this.form.controls.vFourScreening_value.clearValidators();
+          this.form.controls.vFiveScreening_value.clearValidators();
+          this.form.controls.vSixScreening_value.clearValidators();
+          this.form.controls.vSevenScreening_value.clearValidators();
+          this.form.controls.vEightScreening_value.clearValidators();
+          this.form.controls.vNineScreening_value.clearValidators();
+          this.form.controls.vTenScreening_value.clearValidators();
+
+          this.form.controls.vOneScreening_value.setErrors(null);
+          this.form.controls.vTwoScreening_value.setErrors(null);
+          this.form.controls.vThreeScreening_value.setErrors(null);
+          this.form.controls.vFourScreening_value.setErrors(null);
+          this.form.controls.vFiveScreening_value.setErrors(null);
+          this.form.controls.vSixScreening_value.setErrors(null);
+          this.form.controls.vSevenScreening_value.setErrors(null);
+          this.form.controls.vEightScreening_value.setErrors(null);
+          this.form.controls.vNineScreening_value.setErrors(null);
+          this.form.controls.vTenScreening_value.setErrors(null);
+
           if (this.saved) {
             this.saved()
 
@@ -2397,11 +2812,13 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 25) {
-      this.refresh25=false;
+      this.refresh25 = false;
       this.loading = true;
       this.showTable = false;
       if (this.ppsObj) {
@@ -2411,7 +2828,7 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh25=true;
+          this.refresh25 = true;
           this.toastService.success('', x.message);
           this.form.patchValue({ range: '' });
           if (this.saved) {
@@ -2428,7 +2845,7 @@ export class FormChScalesComponent implements OnInit {
     }
 
     if (escale_id == 26) {
-      this.refresh26=false;
+      this.refresh26 = false;
       this.form.controls.sensoryBradenValue.setValidators(Validators.compose([Validators.required]));
       var sensory = this.separateText(this.form.controls.sensoryBradenValue.value);
       this.form.controls.humidityBradenValue.setValidators(Validators.compose([Validators.required]));
@@ -2441,8 +2858,8 @@ export class FormChScalesComponent implements OnInit {
       var nutrition = this.separateText(this.form.controls.nutritionBradenValue.value);
       this.form.controls.lesionBradenValue.setValidators(Validators.compose([Validators.required]));
       var lesion = this.separateText(this.form.controls.lesionBradenValue.value);
-      this.form.controls.totalBraden.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.riskBraden.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.totalBraden.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.riskBraden.setValidators(Validators.compose([Validators.required]));
       this.isSubmitted = true;
       if (!this.form.invalid) {
         this.loading = true;
@@ -2471,10 +2888,24 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh26=true;
+          this.refresh26 = true;
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
-          this.form.patchValue({ sensoryBradenValue: '', humidityBradenValue: '', activityBradenValue: '', mobilityBradenValue: '', nutritionBradenValue: '', lesionBradenValue: '', totalBraden: '', riskBraden:''});
+          this.form.patchValue({ sensoryBradenValue: '', humidityBradenValue: '', activityBradenValue: '', mobilityBradenValue: '', nutritionBradenValue: '', lesionBradenValue: '', totalBraden: '', riskBraden: '' });
+          this.form.controls.sensoryBradenValue.clearValidators();
+          this.form.controls.humidityBradenValue.clearValidators();
+          this.form.controls.activityBradenValue.clearValidators();
+          this.form.controls.mobilityBradenValue.clearValidators();
+          this.form.controls.nutritionBradenValue.clearValidators();
+          this.form.controls.lesionBradenValue.clearValidators();
+
+          this.form.controls.sensoryBradenValue.setErrors(null);
+          this.form.controls.humidityBradenValue.setErrors(null);
+          this.form.controls.activityBradenValue.setErrors(null);
+          this.form.controls.mobilityBradenValue.setErrors(null);
+          this.form.controls.nutritionBradenValue.setErrors(null);
+          this.form.controls.lesionBradenValue.setErrors(null);
+
           if (this.saved) {
             this.saved();
           }
@@ -2483,11 +2914,13 @@ export class FormChScalesComponent implements OnInit {
           this.loading = false;
 
         });
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
     if (escale_id == 27) {
-      this.refresh27=false;
+      this.refresh27 = false;
       this.form.controls.phone_value.setValidators(Validators.compose([Validators.required]));
       var phone = this.separateText(this.form.controls.phone_value.value);
       this.form.controls.shopping_value.setValidators(Validators.compose([Validators.required]));
@@ -2504,8 +2937,8 @@ export class FormChScalesComponent implements OnInit {
       var medicationLawton = this.separateText(this.form.controls.medicationValue.value);
       this.form.controls.finance_value.setValidators(Validators.compose([Validators.required]));
       var finance = this.separateText(this.form.controls.finance_value.value);
-      this.form.controls.totalLawton.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.riskLawton.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.totalLawton.setValidators(Validators.compose([Validators.required]));
+      //this.form.controls.riskLawton.setValidators(Validators.compose([Validators.required]));
       this.isSubmitted = true;
       if (!this.form.invalid) {
         this.loading = true;
@@ -2540,10 +2973,28 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh27=true;
+          this.refresh27 = true;
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
-          this.form.patchValue({ phone_value: '', shopping_value: '', food_value: '', house_value: '', clothing_value: '', transport_value: '', medicationValue: '', finance_value: '',  totalLawton: '',  riskLawton: ''  });
+          this.form.patchValue({ phone_value: '', shopping_value: '', food_value: '', house_value: '', clothing_value: '', transport_value: '', medicationValue: '', finance_value: '', totalLawton: '', riskLawton: '' });
+          this.form.controls.phone_value.clearValidators();
+          this.form.controls.shopping_value.clearValidators();
+          this.form.controls.food_value.clearValidators();
+          this.form.controls.house_value.clearValidators();
+          this.form.controls.clothing_value.clearValidators();
+          this.form.controls.transport_value.clearValidators();
+          this.form.controls.medicationValue.clearValidators();
+          this.form.controls.finance_value.clearValidators();
+
+          this.form.controls.phone_value.setErrors(null);
+          this.form.controls.shopping_value.setErrors(null);
+          this.form.controls.food_value.setErrors(null);
+          this.form.controls.house_value.setErrors(null);
+          this.form.controls.clothing_value.setErrors(null);
+          this.form.controls.transport_value.setErrors(null);
+          this.form.controls.medicationValue.setErrors(null);
+          this.form.controls.finance_value.setErrors(null);
+
           if (this.saved) {
             this.saved();
           }
@@ -2552,7 +3003,10 @@ export class FormChScalesComponent implements OnInit {
           this.loading = false;
 
         });
+      }else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
+
     }
   }
 
