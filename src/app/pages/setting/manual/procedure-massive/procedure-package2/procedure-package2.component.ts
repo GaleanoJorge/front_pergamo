@@ -26,7 +26,7 @@ export class ProcedurePackage2Component implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Información de paquete';
   public subtitle;
-  public headerFields: any[] = ['ID', 'Cod-ATC', 'Cups', 'Nombre', 'Cantidad mínima', 'Cantidad máxima', 'Valor dinámico'];
+  public headerFields: any[] = ['ID', 'Cod-ATC', 'Cups', 'Descripción', 'Cantidad mínima', 'Cantidad máxima', 'Valor dinámico'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
