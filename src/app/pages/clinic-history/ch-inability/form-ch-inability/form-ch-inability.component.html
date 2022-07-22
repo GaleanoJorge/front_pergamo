@@ -6,15 +6,13 @@
       <div class="row justify-content-md-center">
         <div class="col-md-12 center">
 
-          <nb-radio-group formControlName="extension" revision id="extension"
-          class="d-flex text" name="extension">
-          <nb-radio value="Si">¿Prorroga?</nb-radio>
-        </nb-radio-group>
+          <nb-radio-group formControlName="extension" revision id="extension" class="d-flex text" name="extension">
+            <nb-radio value="Si">¿Prorroga?</nb-radio>
+          </nb-radio-group>
 
-        <!-- <label for=" extension" class="form-text text-muted font-weight-bold">¿Prorroga?</label>
-        <input type="checkbox" id="extension" formControlName="extension"> -->
+
+        </div>
       </div>
-    </div>
 
       <div class="col col-lg-12">
         <hr />
@@ -25,24 +23,24 @@
 
         <div class="col col-lg-3 center">
           <label class="form-text text-muted font-weight-bold">Fecha Inicial de la Incapacidad</label>
-       
+
           <input type="date" nbInput fullWidth id="initial_date" formControlName="initial_date" initial_date
-          status="{{ isSubmitted && form.controls.initial_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.initial_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
 
         </div>
 
         <div class="col col-lg-3 center">
           <label class="form-text text-muted font-weight-bold">Fecha Final de la Incapacidad</label>
-      
+
           <input type="date" nbInput fullWidth id="final_date" formControlName="final_date" final_date
-          status="{{ isSubmitted && form.controls.final_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.final_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
 
         </div>
 
         <div class="col col-lg-3 center">
           <label class="form-text text-muted font-weight-bold ">Días Incapacidad</label>
-          <input type="text" disabled="true" placeholder="Cant.Días"  id="total_days"
-            formControlName="total_days" nbInput>
+          <input type="text" disabled="true" placeholder="Cant.Días" id="total_days" formControlName="total_days"
+            nbInput>
         </div>
       </div>
 
