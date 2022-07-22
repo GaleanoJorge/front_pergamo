@@ -23,11 +23,6 @@ export class FormLanguageSwallowingComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public admissions_id;
-  public medical_diagnostic_id: any[]; 
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
- 
 
 
   constructor(
@@ -115,7 +110,8 @@ export class FormLanguageSwallowingComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ materialused: [], });
+          this.form.setValue({ solid_dysphagia:'', clear_liquid_dysphagia:'', thick_liquid_dysphagia:'', nasogastric_tube:'',
+          gastrostomy:'', nothing_orally:'', observations:'' });
           if (this.saved) {
             this.saved();
           }
