@@ -1,14 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
-// import { ChReasonConsultationService } from '../../../../business-controller/ch-reason-consultation.service';
-// import { ChExternalCauseService } from '../../../../business-controller/ch-external-cause.service';
 import { OstomyService } from '../../../../business-controller/ostomy.service';
-// import { Ostomy } from '../../../../models/ostomy';
 import { PatientPositionService } from '../../../../business-controller/patient-position.service';
-// import { PatientPosition } from '../../../../models/patient-position';
-// import { ChNursingEntry } from '../../../../models/ch-nursing-entry';
-import { ChNursingEntryService } from '../../../../business-controller/ch-nursing-entry.service';
+import { ChPositionService } from '../../../../business-controller/ch_position.service';
 
 
 
@@ -22,7 +17,9 @@ export class FormReasonConsultationNursingComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record: any = null;
 
+  public formPosition: FormGroup;
   public form: FormGroup;
   public isSubmitted: boolean = false;
   public saved: any = null;
@@ -39,7 +36,7 @@ export class FormReasonConsultationNursingComponent implements OnInit {
     private toastService: NbToastrService,
     private ostomyS: OstomyService,
     private patientPositionS: PatientPositionService,
-    private chNursingEntryS: ChNursingEntryService,
+    private chNursingEntryS: ChPositionService,
 
   ) {
   }
@@ -48,16 +45,10 @@ export class FormReasonConsultationNursingComponent implements OnInit {
     if (!this.data || this.data.length == 0) {
       this.data = {
         patient_position_id: '',
-        observation_position: '',
-        ostomy_id: '',
+        hair_revision:'',
         observation: '',
-        hair_revision:''
       };
     }
-
-    this.ostomyS.GetCollection().then(x => {
-      this.ostomies = x;
-    });
 
     this.patientPositionS.GetCollection().then(x => {
       this.patient_positions = x;
