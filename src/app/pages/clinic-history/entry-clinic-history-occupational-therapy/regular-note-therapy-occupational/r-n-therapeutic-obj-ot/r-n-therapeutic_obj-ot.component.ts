@@ -20,7 +20,7 @@ export class RNTheraputicObjOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Concepto Ocupacional', 'Nota1', 'Nota2', 'Nota3', 'Nota4', 'Nota5', 'Nota5', 'Nota7', 'Nota8', 'Nota9', 'Nota10'];
+  public headerFields: any[] = ['Concepto Ocupacional', 'Objetivo1', 'Objetivo2', 'Objetivo3', 'Objetivo4', 'Objetivo5', 'Objetivo5', 'Objetivo7', 'Objetivo8', 'Objetivo9', 'Objetivo10'];
 
   public form: FormGroup;
   public all_changes: any[];
