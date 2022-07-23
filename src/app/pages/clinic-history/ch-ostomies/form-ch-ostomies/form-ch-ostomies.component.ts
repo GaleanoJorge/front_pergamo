@@ -95,6 +95,10 @@ export class FormChOstomiesComponent implements OnInit {
           if (this.saved) {
             this.saved();
           }
+          this.form.patchValue({
+            ostomy_id: '',
+            observation: '',
+          });
         }).catch(x => {
           this.isSubmitted = false;
           this.loading = false;
@@ -109,19 +113,16 @@ export class FormChOstomiesComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ });
+          this.form.patchValue({
+            ostomy_id: '',
+            observation: '',
+          });
           if (this.saved) {
             this.saved();
           }
         }).catch(x => {
-          if (this.form.controls.has_caregiver.value == true) {
-            this.isSubmitted = true;
-            this.loading = true;
-          } else {
             this.isSubmitted = false;
             this.loading = false;
-          }
-
         });
         this.messageEvent.emit(true);
       }
