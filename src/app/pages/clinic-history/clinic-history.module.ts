@@ -258,6 +258,12 @@ import { ActionsAplicationsComponent } from './drug-application/actions.componen
 import { FormEntryMotorFunPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-fun-pat-ot/form-entry-motor-fun-pat-ot.component';
 import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
 import { ObjectivesTherapyComponent } from './objectives-therapy/objectives-therapy.component';
+import { FormChPositionComponent } from './ch-position/form-ch-position/form-ch-position.component';
+import { ChPositionComponent } from './ch-position/ch-position.component';
+import { ChOxigenComponent } from './ch-oxigen/ch-oxigen.component';
+import { FormChOxigenComponent } from './ch-oxigen/form-ch-oxigen/form-ch-oxigen.component';
+import { ChHairValorationComponent } from './ch-hair-valoration/ch-hair-valoration.component';
+import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair-valoration/form-ch-hair-valoration.component';
 
 
 @NgModule({
@@ -289,6 +295,14 @@ import { ObjectivesTherapyComponent } from './objectives-therapy/objectives-ther
     NbCheckboxModule,
   ],
   declarations: [
+    ChOxigenComponent,
+    FormChOxigenComponent,
+
+    ChHairValorationComponent,
+    FormChHairValorationComponent,
+
+    ChPositionComponent,
+    FormChPositionComponent,
 
     ActionsAplicationsComponent,
 
@@ -571,8 +585,8 @@ import { ObjectivesTherapyComponent } from './objectives-therapy/objectives-ther
 
   providers: [DateFormatPipe],
   exports: [
-    InsumeRequestComponent,
-    FormInsumeRequestComponent
+    // InsumeRequestComponent,
+    // FormInsumeRequestComponent,
   ],
 })
 export class ClinicHistoryModule { }

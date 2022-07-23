@@ -138,6 +138,13 @@ export class FormNursingPhysicalExamComponent implements OnInit {
       if(x.length > 0){
         this.data = x
         this.disabled = true
+        this.form.controls.description1.disable();
+        this.form.controls.description2.disable();
+        this.form.controls.description3.disable();
+        this.form.controls.description4.disable();
+        this.form.controls.description5.disable();
+        this.form.controls.description6.disable();
+        this.form.controls.description7.disable();
       }
     });
 

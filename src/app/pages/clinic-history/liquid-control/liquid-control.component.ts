@@ -24,7 +24,7 @@ export class LiquidControlComponent implements OnInit {
 
   linearMode = true;
   public messageError = null;
-  public title: string = 'CONTROL DE FLUIDOS';
+  public title: string = 'CONTROL DE LÍQUIDOS';
   public subtitle: string = 'INGRESADOS/ELIMINADOS';
   public headerFields: any[] = ['FLUIDO', 'ELEMENTO', 'TIPO DE FLUIDO', 'CANTIDAD (CC)', 'ADICIONAL', 'HORA DEL EVENTO'];
   public routes = [];

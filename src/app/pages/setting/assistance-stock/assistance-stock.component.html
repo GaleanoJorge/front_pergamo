@@ -12,7 +12,7 @@
                         >
           <div actions>
             <div class="actions">
-              <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacyStock()">CREAR</button>
+              <!-- <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacyStock()">CREAR</button> -->
             </div>
           </div>
         </ngx-base-table>
@@ -23,8 +23,9 @@
         </ngx-assistance-stock-req>
       </nb-tab>
 
-      <nb-tab tabTitle="SOLICITAR">
-        <ngx-insume-request> 
+      <nb-tab tabTitle="SOLICITAdo">
+        <ngx-insume-request 
+        [messageError]="null"> 
         </ngx-insume-request>
       </nb-tab>
       
