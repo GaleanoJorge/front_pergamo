@@ -3,13 +3,15 @@
     <nb-card>
       <nb-card-body>
         <nb-stepper #stepper [linear]="linearMode">
-          <nb-step [stepControl]="nameForm" label="Aplicación de medicamentos">
+          <nb-step [stepControl]="nameForm" label="Aplicación de medicamentos" style="
+          margin: 0 4rem;">
 
             <ngx-drug-application [record_id]="record_id" [type_record_id]="type_record_id"></ngx-drug-application>
 
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="Pedido de Insumos">
+          <nb-step [stepControl]="nameForm" label="Pedido de Insumos" style="
+          margin: 0 4rem;">
 
             <div class="row">
               <div class="col-md-12">
