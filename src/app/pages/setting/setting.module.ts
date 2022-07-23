@@ -416,6 +416,7 @@ import { InsumeRequestComponent } from '../clinic-history/insume-request/insume-
 import { ActionsComponentInsume } from './manual/insume-massive/actions.component';
 import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
 import { FormManualInsumeComponent } from './manual/form-manual-insume/form-manual-insume.component';
+import { TcCollectionComponent } from './tc-collection/tc-collection.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -745,6 +746,7 @@ import { FormManualInsumeComponent } from './manual/form-manual-insume/form-manu
     TcBillingComponent,
     TcRadicationComponent,
     TcHumanTalentComponent,
+    TcCollectionComponent,
 
     PharmacyLotComponent,
     FormPharmacyLotComponent,
