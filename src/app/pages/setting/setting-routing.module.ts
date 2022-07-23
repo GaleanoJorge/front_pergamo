@@ -154,6 +154,7 @@ import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.
 
 import { AssistanceStockComponent } from './assistance-stock/assistance-stock.component';
 import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
+import { TcCollectionComponent } from './tc-collection/tc-collection.component';
 
 const routes: Routes = [{
   path: '',
@@ -781,6 +782,10 @@ const routes: Routes = [{
     {
       path: 'tc-human-talent',
       component: TcHumanTalentComponent,
+    },
+    {
+      path: 'tc-collection',
+      component: TcCollectionComponent,
     },
     {
       path: 'fixed-area-campus',
