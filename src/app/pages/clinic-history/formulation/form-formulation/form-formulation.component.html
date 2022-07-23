@@ -8,7 +8,7 @@
           <fieldset class="field_set">
             <legend class="prue1">FORMULA MEDICA</legend>
 
-            <nb-checkbox formControlName="medical_formula" (checkedChange)="eventSelections($event)">¿Formula
+            <nb-checkbox formControlName="medical_formula" medical_formula id="medical_formula" (checkedChange)="eventSelections($event)">¿Formula
               Ambulatoria?</nb-checkbox>
 
             <div class="container">
@@ -20,9 +20,9 @@
             </div>
             <div class="row justify-content-md-center">
              
-              <div class="col col-lg-3" *ngIf="show==true">
+              <div class="col col-lg-3" *ngIf="show==true && product_gen">
                 <label class="form-text text-muted font-weight-bold">Medicamento</label>
-                <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value)"
+                <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value, 1)"
                   id="product_gen" formControlName="product_gen" product_gen fullWidth nbInput
                   status="{{ isSubmitted && form.controls.product_gen.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                 <datalist id="codes1">
@@ -33,19 +33,24 @@
 
               <div class="col col-lg-3" *ngIf="show==false">
                 <label class="form-text text-muted font-weight-bold">Medicamento</label>
-                <input type="text" list="codes1" class="data-list" id="product_id" formControlName="product_id" product_id required fullWidth nbInput
+                <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value, 2)" id="product_id" formControlName="product_id" product_id  fullWidth nbInput
                   status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                 <datalist id="codes1">
-                  <option *ngFor="let item of product_gen" [value]="item.id">{{item.description}}
+                  <option *ngFor="let item of product_gen" [value]="item.description">{{item.description}}
                   </option>
                 </datalist>
               </div>
 
               <div class="col col-lg-3">
-                <label class="form-text text-muted font-weight-bold">Dosis a administrar</label>
-                <input type="number" placeholder="DOSIS" class="Box" id="dose" formControlName="dose" required nbInput
-                   (change)="onChangesFormulation($event, 1)"
+                <label class="form-text text-muted font-weight-bold">Dosis por frecuencia</label>
+                <input type="number" placeholder="DOSIS" class="Box" id="dose" formControlName="dose" dose nbInput
                   status="{{ isSubmitted && form.controls.dose.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              </div>
+
+              <div class="col col-lg-3">
+                <label class="form-text text-muted font-weight-bold">Dosis a administrar por enfermera</label>
+                <input  placeholder="DOSIS" class="Box" id="dose_apply" formControlName="dose_apply" dose_apply nbInput
+                  status="{{ isSubmitted && form.controls.dose_apply.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               </div>
 
               <div class="col col-lg-3">
@@ -59,14 +64,7 @@
                     {{ item.name }}</nb-option>
                 </nb-select>
               </div>
-            </div>
-            <div class="container">
-              <div class="row justify-content-md-center">
-                <div class="col col-lg-12">
-                  <hr />
-                </div>
-              </div>
-            </div>
+            </div> 
             <div class="row justify-content-md-center">
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold">Frecuencia Horaria</label>
