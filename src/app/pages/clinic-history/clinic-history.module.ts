@@ -227,6 +227,12 @@ import { LanguageConceptComponent } from './language-concept/language-concept.co
 import { FormChOstomiesComponent } from './ch-ostomies/form-ch-ostomies/form-ch-ostomies.component';
 import { ChOstomiesComponent } from './ch-ostomies/ch-ostomies.component';
 import { ActionsAplicationsComponent } from './drug-application/actions.component';
+import { FormChPositionComponent } from './ch-position/form-ch-position/form-ch-position.component';
+import { ChPositionComponent } from './ch-position/ch-position.component';
+import { ChOxigenComponent } from './ch-oxigen/ch-oxigen.component';
+import { FormChOxigenComponent } from './ch-oxigen/form-ch-oxigen/form-ch-oxigen.component';
+import { ChHairValorationComponent } from './ch-hair-valoration/ch-hair-valoration.component';
+import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair-valoration/form-ch-hair-valoration.component';
 
 
 @NgModule({
@@ -258,11 +264,16 @@ import { ActionsAplicationsComponent } from './drug-application/actions.componen
     NbCheckboxModule,
   ],
   declarations: [
+    ChOxigenComponent,
+    FormChOxigenComponent,
+
+    ChHairValorationComponent,
+    FormChHairValorationComponent,
+
+    ChPositionComponent,
+    FormChPositionComponent,
 
     ActionsAplicationsComponent,
-    
-    InsumeRequestComponent,
-    FormInsumeRequestComponent,
 
     NursingPhysicalExamComponent,
     FormNursingPhysicalExamComponent,
@@ -502,8 +513,8 @@ import { ActionsAplicationsComponent } from './drug-application/actions.componen
 
   providers: [DateFormatPipe],
   exports: [
-    InsumeRequestComponent,
-    FormInsumeRequestComponent
+    // InsumeRequestComponent,
+    // FormInsumeRequestComponent,
   ],
 })
 export class ClinicHistoryModule { }
