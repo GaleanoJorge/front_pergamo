@@ -167,7 +167,6 @@ import { FormCarePlanComponent } from './care-plan/form-care-plan/form-care-plan
 import { LiquidControlComponent } from './liquid-control/liquid-control.component';
 import { FormLiquidControlComponent } from './liquid-control/form-liquid-control/form-liquid-control.component';
 import { FormLiquidEliminationComponent } from './liquid-control/form-liquid-elimination/form-liquid-elimination.component';
-import { NursingProcedure } from '../../models/nursing-procedure';
 import { NursingProcedureComponent } from './nursing-procedure/nursing-procedure.component';
 import { FormNursingProcedureComponent } from './nursing-procedure/form-nursing-procedure/form-nursing-procedure.component';
 import { FormRespiratoryTherapyComponent } from './respiratory-therapy-list/form-respiratory-therapy/form-respiratory-therapy.component';
@@ -191,8 +190,6 @@ import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.co
 import { FormNutritionBackgroundComponent } from './ch-nutrition-list/ch-nutrition-input/form-nutrition-background/form-nutrition-background.component';
 import { NursingPhysicalExamComponent } from './nursing-physical-exam/nursing-physical-exam.component';
 import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-nursing-physical-exam/form-nursing-physical-exam.component';
-import { InsumeRequestComponent } from './insume-request/insume-request.component';
-import { FormInsumeRequestComponent } from './insume-request/form-insume-request/form-insume-request.component';
 import { SuppliesTherapyComponent } from './supplies-therapy/supplies-therapy.component';
 import { ReasonConsultationRespiratoryTherapyComponent } from './entry-respiratory-therapy/form-reason-consultation-respiratory-therapy/reason-consultation-respiratory-therapy.component';
 import { FormLanguageOstomiesComponent } from './language-ostomies/form-language-ostomies/form-language-ostomies.component';
@@ -305,9 +302,6 @@ import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair
     FormChPositionComponent,
 
     ActionsAplicationsComponent,
-
-    InsumeRequestComponent,
-    FormInsumeRequestComponent,
 
     NursingPhysicalExamComponent,
     FormNursingPhysicalExamComponent,
