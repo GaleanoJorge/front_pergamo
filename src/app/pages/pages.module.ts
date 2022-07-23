@@ -47,6 +47,8 @@ import { BillingPadComponent } from './billing-pad/billing-pad.component';
 import { UsersCampusComponent } from './components/form-users/users-campus/users-campus.component';
 import { SelectUsersCampusComponent } from './components/form-users/users-campus/select-user-campus.component';
 import { WebSpeachComponent } from './components/web-speach/web-speach.component';
+import { InsumeRequestComponent } from './clinic-history/insume-request/insume-request.component';
+import { FormInsumeRequestComponent } from './clinic-history/insume-request/form-insume-request/form-insume-request.component';
 
 
 
@@ -83,6 +85,8 @@ import { WebSpeachComponent } from './components/web-speach/web-speach.component
     NbRadioModule,
   ],
   declarations: [
+    InsumeRequestComponent,
+    FormInsumeRequestComponent,
     PagesComponent,
     BreadcrumbComponent,
     GraphicsComponent,
@@ -121,6 +125,8 @@ import { WebSpeachComponent } from './components/web-speach/web-speach.component
     WorkLocationPackageComponent,
     UsersCampusComponent,
     WebSpeachComponent,
+    InsumeRequestComponent,
+    FormInsumeRequestComponent,
   ],
   providers: [PermissionsGuard],
 })
