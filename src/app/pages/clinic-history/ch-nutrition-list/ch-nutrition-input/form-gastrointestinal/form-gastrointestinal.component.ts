@@ -26,6 +26,7 @@ export class FormGastrointestinalComponent implements OnInit {
   public messageError = null;
   public ch_nutrition_gastrointestinal = null;
   public showVomit = false;
+  public botton_title: string = 'Guardar';
   public bowel_habit = [
     { id: 'LÍQUIDA', name: 'LÍQUIDA' },
     { id: 'BLANDA', name: 'BLANDA' },
@@ -71,10 +72,10 @@ export class FormGastrointestinalComponent implements OnInit {
       type_record_id: this.route,
       ch_record_id: this.record_id,
     }).then(x => {
-      this.ch_nutrition_gastrointestinal = x;
-      if (this.ch_nutrition_gastrointestinal.id) {
+      this.ch_nutrition_gastrointestinal = x[0];
+      if (this.ch_nutrition_gastrointestinal != null) {
         this.form.patchValue({ bowel_habit: this.ch_nutrition_gastrointestinal.bowel_habit });
-        this.form.patchValue({ nausea: this.ch_nutrition_gastrointestinal.nausea });
+        this.form.patchValue({ nausea: this.ch_nutrition_gastrointestinal.nausea == 1 ? true : false });
         this.form.patchValue({ observations: this.ch_nutrition_gastrointestinal.observations });
         if (this.ch_nutrition_gastrointestinal.vomit == 0) {
           this.form.patchValue({ vomit: false });
@@ -86,6 +87,7 @@ export class FormGastrointestinalComponent implements OnInit {
           this.form.controls.amount_of_vomit.setValidators([Validators.required]);
           this.form.controls.amount_of_vomit.updateValueAndValidity();
         }
+        this.botton_title = 'Actualizar';
       }
     });
   }
@@ -95,7 +97,7 @@ export class FormGastrointestinalComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       this.messageError = null;
-      if (this.ch_nutrition_gastrointestinal.id) {
+      if (this.ch_nutrition_gastrointestinal != null) {
         this.ChNutritionGastrointestinalS.Update({
           id: this.ch_nutrition_gastrointestinal.id,
           ch_record_id: this.record_id,
@@ -107,7 +109,9 @@ export class FormGastrointestinalComponent implements OnInit {
           observations: this.form.controls.observations.value,
         }).then(x => {
           this.saved = x;
-          this.ch_nutrition_gastrointestinal = x;
+          this.loading = false;
+          this.ch_nutrition_gastrointestinal = x.data.ch_nutrition_gastrointestinal;
+          this.botton_title = 'Actualizar';
           this.toastService.success('Registro actualizado correctamente', 'Correcto');
         }).catch(x => {
           this.loading = false;
@@ -124,7 +128,9 @@ export class FormGastrointestinalComponent implements OnInit {
           observations: this.form.controls.observations.value,
         }).then(x => {
           this.saved = x;
-          this.ch_nutrition_gastrointestinal = x;
+          this.loading = false;
+          this.ch_nutrition_gastrointestinal = x.data.ch_nutrition_gastrointestinal;
+          this.botton_title = 'Actualizar';
           this.toastService.success('Registro guardado correctamente', 'Correcto');
         }).catch(x => {
           this.loading = false;

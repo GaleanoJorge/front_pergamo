@@ -33,6 +33,8 @@ export class FormParenteralNutritionComponent implements OnInit {
   public total_dextrose_volume = 0.00;
   public total_lipid_volume = 0.00;
   public total_calories = 0.00;
+  public ch_nutrition_parenteral = null;
+  public botton_title: string = 'Guardar';
   public amino_acid_volume = [
     { id: 8.5, name: '8.5%' },
     { id: 10, name: '10%' },
@@ -69,6 +71,31 @@ export class FormParenteralNutritionComponent implements OnInit {
       ce_se: [''],
       dextrose_volume: [''],
       lipid_volume: [''],
+    });
+
+    this.ChNutritionParentalNutritionS.GetCollection({
+      type_record_id: this.route,
+      ch_record_id: this.record_id,
+    }).then(x => {
+      this.ch_nutrition_parenteral = x[0];
+      if (this.ch_nutrition_parenteral != null) {
+        this.total_grams_of_protein = this.ch_nutrition_parenteral.total_grams_of_protein;
+        this.grams_of_nitrogen = this.ch_nutrition_parenteral.grams_of_nitrogen;
+        this.total_carbohydrates = this.ch_nutrition_parenteral.total_carbohydrates;
+        this.total_grams_of_lipids = this.ch_nutrition_parenteral.total_grams_of_lipids;
+        this.total_amino_acid_volume = this.ch_nutrition_parenteral.total_amino_acid_volume;
+        this.total_dextrose_volume = this.ch_nutrition_parenteral.total_dextrose_volume;
+        this.total_lipid_volume = this.ch_nutrition_parenteral.total_lipid_volume;
+        this.total_calories = this.ch_nutrition_parenteral.total_calories;
+        this.form.patchValue({ protein_contributions: this.ch_nutrition_parenteral.protein_contributions}); 
+        this.form.patchValue({ carbohydrate_contribution: this.ch_nutrition_parenteral.carbohydrate_contribution}); 
+        this.form.patchValue({ lipid_contribution: this.ch_nutrition_parenteral.lipid_contribution}); 
+        this.form.patchValue({ amino_acid_volume: this.ch_nutrition_parenteral.amino_acid_volume}); 
+        this.form.patchValue({ ce_se: this.ch_nutrition_parenteral.ce_se}); 
+        this.form.patchValue({ dextrose_volume: this.ch_nutrition_parenteral.dextrose_volume}); 
+        this.form.patchValue({ lipid_volume: this.ch_nutrition_parenteral.lipid_volume}); 
+        this.botton_title = 'Actualizar';
+      }
     });
   }
 
@@ -123,31 +150,66 @@ export class FormParenteralNutritionComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       this.messageError = null;
-      this.ChNutritionParentalNutritionS.Save({
-        ch_record_id: this.record_id,
-        type_record_id: this.route,
-        protein_contributions: this.form.controls.protein_contributions.value,
-        carbohydrate_contribution: this.form.controls.carbohydrate_contribution.value,
-        lipid_contribution: this.form.controls.lipid_contribution.value,
-        amino_acid_volume: this.form.controls.amino_acid_volume.value,
-        ce_se: this.form.controls.ce_se.value,
-        dextrose_volume: this.form.controls.dextrose_volume.value,
-        lipid_volume: this.form.controls.lipid_volume.value,
-        total_grams_of_protein: this.total_grams_of_protein,
-        grams_of_nitrogen: this.grams_of_nitrogen,
-        total_carbohydrates: this.total_carbohydrates,
-        total_grams_of_lipids: this.total_grams_of_lipids,
-        total_amino_acid_volume: this.total_amino_acid_volume,
-        total_dextrose_volume: this.total_dextrose_volume,
-        total_lipid_volume: this.total_lipid_volume,
-        total_calories: this.total_calories,
-      }).then(x => {
-        this.saved = x;
-        this.toastService.success('Registro guardado correctamente', 'Correcto');
-      }).catch(x => {
-        this.loading = false;
-        this.toastService.danger(x, 'Error');
-      });
+      if (this.ch_nutrition_parenteral != null) {
+        this.ChNutritionParentalNutritionS.Update({
+          id: this.ch_nutrition_parenteral.id, 
+          ch_record_id: this.record_id,
+          type_record_id: this.route,
+          protein_contributions: this.form.controls.protein_contributions.value,
+          carbohydrate_contribution: this.form.controls.carbohydrate_contribution.value,
+          lipid_contribution: this.form.controls.lipid_contribution.value,
+          amino_acid_volume: this.form.controls.amino_acid_volume.value,
+          ce_se: this.form.controls.ce_se.value,
+          dextrose_volume: this.form.controls.dextrose_volume.value,
+          lipid_volume: this.form.controls.lipid_volume.value,
+          total_grams_of_protein: this.total_grams_of_protein,
+          grams_of_nitrogen: this.grams_of_nitrogen,
+          total_carbohydrates: this.total_carbohydrates,
+          total_grams_of_lipids: this.total_grams_of_lipids,
+          total_amino_acid_volume: this.total_amino_acid_volume,
+          total_dextrose_volume: this.total_dextrose_volume,
+          total_lipid_volume: this.total_lipid_volume,
+          total_calories: this.total_calories,
+        }).then(x => {
+          this.saved = x;
+          this.loading = false;
+          this.ch_nutrition_parenteral = x.data.ch_nutrition_parenteral;
+          this.botton_title = 'Actualizar';
+          this.toastService.success('Registro actualizado correctamente', 'Correcto');
+        }).catch(x => {
+          this.loading = false;
+          this.toastService.danger(x, 'Error');
+        });
+      } else {
+        this.ChNutritionParentalNutritionS.Save({
+          ch_record_id: this.record_id,
+          type_record_id: this.route,
+          protein_contributions: this.form.controls.protein_contributions.value,
+          carbohydrate_contribution: this.form.controls.carbohydrate_contribution.value,
+          lipid_contribution: this.form.controls.lipid_contribution.value,
+          amino_acid_volume: this.form.controls.amino_acid_volume.value,
+          ce_se: this.form.controls.ce_se.value,
+          dextrose_volume: this.form.controls.dextrose_volume.value,
+          lipid_volume: this.form.controls.lipid_volume.value,
+          total_grams_of_protein: this.total_grams_of_protein,
+          grams_of_nitrogen: this.grams_of_nitrogen,
+          total_carbohydrates: this.total_carbohydrates,
+          total_grams_of_lipids: this.total_grams_of_lipids,
+          total_amino_acid_volume: this.total_amino_acid_volume,
+          total_dextrose_volume: this.total_dextrose_volume,
+          total_lipid_volume: this.total_lipid_volume,
+          total_calories: this.total_calories,
+        }).then(x => {
+          this.saved = x;
+          this.loading = false;
+          this.ch_nutrition_parenteral = x.data.ch_nutrition_parenteral;
+          this.botton_title = 'Actualizar';
+          this.toastService.success('Registro guardado correctamente', 'Correcto');
+        }).catch(x => {
+          this.loading = false;
+          this.toastService.danger(x, 'Error');
+        });
+      }
     }
   }
 
