@@ -34,6 +34,7 @@ export class LiquidControlComponent implements OnInit {
   public saved: any = null;
   public isSubmitted = false;
   public form: FormGroup;
+  public show;
 
   public calulateLiquidControl: any[] = [];
   public vital_signs: any[] = [];
@@ -259,6 +260,19 @@ export class LiquidControlComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+    }
+  }
+
+  tablock(e) {
+    switch (e.tabTitle) {
+      case "Administrados": {
+        this.show = 1;
+        break;
+      }
+      case "Eliminados": {
+        this.show = 2;
+        break;
+      }
     }
   }
 
