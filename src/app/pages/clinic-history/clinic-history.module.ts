@@ -257,6 +257,7 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
 import { ActionsAplicationsComponent } from './drug-application/actions.component';
 import { FormEntryMotorFunPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-fun-pat-ot/form-entry-motor-fun-pat-ot.component';
 import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
+import { Actions25Component } from './failed/actions25.component';
 
 
 @NgModule({
@@ -487,6 +488,7 @@ import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupat
 
     FormFailedComponent,
     FailedComponent,
+    Actions25Component,
 
     FormPatientExitComponent,
     PatientExitComponent,

@@ -3,6 +3,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { Actions25Component } from './actions25.component';
 
 @Component({
   selector: 'ngx-failed',
@@ -49,10 +50,16 @@ export class FailedComponent implements OnInit {
       
       file_evidence: {
         title: this.headerFields[2],
-        width: 'string',
-        
-       }
-    },
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: Actions25Component,
+    }
+  }
   };
 
   constructor(
@@ -72,6 +79,5 @@ export class FailedComponent implements OnInit {
       this.RefreshData();
     }
   }
-
  
 }

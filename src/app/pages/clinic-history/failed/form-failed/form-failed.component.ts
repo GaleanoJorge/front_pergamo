@@ -24,6 +24,8 @@ export class FormFailedComponent implements OnInit {
   public admissions_id;
   public ch_reason_id: any[];
   public previewFile = null;
+  public messageError = null;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,57 +56,102 @@ export class FormFailedComponent implements OnInit {
     });
   }
 
+
+
   async save() {
     this.isSubmitted = true;
-    if (!this.form.invalid) {
-      this.loading = true;
-      this.showTable = false;
+    
 
-      if (this.data.id) {
-        await this.ChFailedS.Update({
-          id: this.data.id,
-          descriptions: this.form.controls.descriptions.value,
-          file_evidence: this.form.controls.file_evidence.value,
-          ch_reason_id: this.form.controls.ch_reason_id.value,
-          type_record_id: 9,
-          ch_record_id: this.record_id,
-        }).then((x) => {
-            this.toastService.success('', x.message);
-            if (this.saved) {
-              this.saved();
-            }
-          })
-          .catch((x) => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
+    if (!this.form.invalid){
+ 
+    this.loading = true;
+    
+
+    var formData = new FormData();
+    var data = this.form.controls;
+    formData.append('file_evidence', this.form.value.file_evidence);
+    formData.append('descriptions', data.descriptions.value);
+    formData.append('ch_reason_id', data.ch_reason_id.value);
+    formData.append('type_record_id', '9');
+    formData.append('ch_record_id', this.record_id);
+    
+
+    try {
+      let response;
+      if (this.data?.id) {
+        response = await this.ChFailedS.Update(formData, this.data.id);
       } else {
-        await this.ChFailedS.Save({
-          descriptions: this.form.controls.descriptions.value,
-          file_evidence: this.form.controls.file_evidence.value,
-          ch_reason_id: this.form.controls.ch_reason_id.value,
-          type_record_id: 9,
-          ch_record_id: this.record_id,
-        })
-          .then((x) => {
-            this.toastService.success('', x.message);
-            this.messageEvent.emit(true);
-            this.form.setValue({
-              descriptions: '',
-              file_evidence: '',
-              ch_reason_id: '',
-            });
-            if (this.saved) {
-              this.saved();
-            }
-          })
-          .catch((x) => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
+        response = await this.ChFailedS.Save(formData);
       }
+      this.toastService.success('', response.message);
+      this.messageError = null;
+      this.saved();
+      if (this.saved) {
+        this.saved();
+      }
+    } catch (response) {
+      this.messageError = response;
+      this.isSubmitted = false;
+      this.loading = false;
+      throw new Error(response);
     }
+  }else{
+    this.toastService.warning('', "Debe diligenciar los campos obligatorios");
   }
+  }
+
+
+  // async save() {
+  //   this.isSubmitted = true;
+  //   if (!this.form.invalid) {
+  //     this.loading = true;
+  //     this.showTable = false;
+
+  //     if (this.data.id) {
+  //       await this.ChFailedS.Update({
+  //         id: this.data.id,
+  //         descriptions: this.form.controls.descriptions.value,
+  //         file_evidence: this.form.controls.file_evidence.value,
+  //         ch_reason_id: this.form.controls.ch_reason_id.value,
+  //         type_record_id: 9,
+  //         ch_record_id: this.record_id,
+  //       }).then((x) => {
+  //           this.toastService.success('', x.message);
+  //           if (this.saved) {
+  //             this.saved();
+  //           }
+  //         })
+  //         .catch((x) => {
+  //           this.isSubmitted = false;
+  //           this.loading = false;
+  //         });
+  //     } else {
+  //       await this.ChFailedS.Save({
+  //         descriptions: this.form.controls.descriptions.value,
+  //         file_evidence: this.form.controls.file_evidence.value,
+  //         ch_reason_id: this.form.controls.ch_reason_id.value,
+  //         type_record_id: 9,
+  //         ch_record_id: this.record_id,
+  //       })
+  //         .then((x) => {
+  //           this.toastService.success('', x.message);
+  //           this.messageEvent.emit(true);
+  //           this.form.setValue({
+  //             descriptions: '',
+  //             file_evidence: '',
+  //             ch_reason_id: '',
+  //           });
+  //           if (this.saved) {
+  //             this.saved();
+  //           }
+  //         })
+  //         .catch((x) => {
+  //           this.isSubmitted = false;
+  //           this.loading = false;
+  //         });
+  //     }
+  //   }
+  // }
   async changeImage(files, option) {
     if (!files.length) return false;
 
@@ -113,7 +160,7 @@ export class FormFailedComponent implements OnInit {
     switch (option) {
       case 1:
         this.form.patchValue({
-          file: files[0],
+          file_evidence: files[0],
         });
         break;
     }
