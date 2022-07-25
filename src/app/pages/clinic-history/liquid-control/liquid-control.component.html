@@ -1,18 +1,16 @@
-<nb-tabset class="tabset">
+<nb-tabset class="tabset" (changeTab)="tablock($event)" >
   <nb-tab tabTitle="Administrados">
-    <div>
+    <div *ngIf="this.show == 1">
       <ngx-form-liquid-control (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id" [type_record_id]="this.type_record_id">
       </ngx-form-liquid-control>
     </div>
   </nb-tab>
   <nb-tab tabTitle="Eliminados">
-    <div>
+    <div *ngIf="this.show == 2">
       <ngx-form-liquid-elimination (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id" [type_record_id]="this.type_record_id">
       </ngx-form-liquid-elimination>
     </div>
   </nb-tab>
-
-
 </nb-tabset>
 
 <label class="form-text text-muted font-weight-bold align"> </label>
