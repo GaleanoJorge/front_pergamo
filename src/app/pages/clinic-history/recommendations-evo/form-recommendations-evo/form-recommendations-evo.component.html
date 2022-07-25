@@ -22,7 +22,7 @@
           <div class="col-md-8 center">
             <label for=" recommendations_evo_id " class="form-text text-muted font-weight-bold">RECOMENDACIÓN</label>
             <nb-select [selected]="this.data.recommendations_evo_id" formControlName="recommendations_evo_id"
-              id="recommendations_evo_id" (selectedChange)="onDescriptionChange($event)"
+              id="recommendations_evo_id"  fullWidth (selectedChange)="onDescriptionChange($event)"
               status="{{ isSubmitted && form.controls.recommendations_evo_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.recommendations_evo_id }}"
@@ -36,10 +36,10 @@
       <div class="row justify-content-md-center mt-3" style="align-items: center;">
 
         <div class="col-md-10">
-          <label for="description" class="form-text text-muted font-weight-bold center">DESCRIPCIÓN</label>
-          <textarea id="description" nbInput fullWidth formControlName="description" description onpaste="return false"
+          <label for="observation" class="form-text text-muted font-weight-bold center">OBSERVACIONES</label>
+          <textarea id="observation"  nbInput fullWidth formControlName="observation" observation onpaste="return false"
             rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
         </div>
 
       </div>
