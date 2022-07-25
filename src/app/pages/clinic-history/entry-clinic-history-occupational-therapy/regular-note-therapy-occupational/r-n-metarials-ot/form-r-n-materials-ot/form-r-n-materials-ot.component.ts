@@ -26,43 +26,43 @@ export class FormRNMaterialsOTComponent implements OnInit {
   public arrayObjectives = [
     {
       id: 1,
-      description: "Ficha Cognitiva"
+      description: "Fortalecer musculatura respiratoria para mejorar niveles de oxigenación"
     },
     {
       id: 2,
-      description: "Colores"
+      description: "Promover y vigilar decanulación traqueal"
     },
     {
       id: 3,
-      description: "Elementos de proteccion personal"
+      description: "Titulacion de flujo de oxigenoterapia en cumplimiento a metas de oximetrias"
     },
     {
       id: 4,
-      description: "Pelotas"
+      description: "Mejorar/mantener cualidades fisicas de musculatura respiratoria"
     },
     {
       id: 5,
-      description: "Material de papeleria(marcadores, cartulina, hojas)"
+      description: "Reeducacion de patron ventilatorio"
     },
     {
       id: 6,
-      description: "Material didactico"
+      description: "Mantener/ reeducar cinetica diafragmatica y costal"
     },
     {
       id: 7,
-      description: "Computador"
+      description: "Controlar la hiperventilacion y fatiga muscular"
     },
     {
       id: 8,
-      description: "Plastilina"
+      description: "Entrenar uso de inhaloterapia / farmacoterapia de acuerdo a prescripción medica"
     },
     {
       id: 9,
-      description: "Colbon"
+      description: "Titular parametros ventilatorios en relación a dinamica ventilatoria"
     },
     {
       id: 10,
-      description: "Arcilla"
+      description: "Vigilar presencia de signos de dificultad respiratoria"
     }
 
   ]
