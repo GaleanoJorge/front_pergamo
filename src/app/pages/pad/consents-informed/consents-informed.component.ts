@@ -2,31 +2,30 @@ import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core'
 import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from './actions.component';
+import { ActionsCIComponent } from './actions.component';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { FormManagementPlanComponent } from './form-management-plan/form-management-plan.component';
+import { FormConsentsInformedComponent } from './form-consents-informed/form-consents-informed.component';
 import * as XLSX from 'ts-xlsx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
-import { ManagementPlanService } from '../../../business-controller/management-plan.service';
+import { ConsentsInformedService } from '../../../business-controller/consents-informed.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { TypeChPhysicalExam } from '../../../models/ch-type-ch-physical-exam';
 import { PatientService } from '../../../business-controller/patient.service';
 import { type } from 'os';
-import { ActionsSemaphore2Component } from './actions-semaphore.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 
 @Component({
   selector: 'ngx-management-pad',
-  templateUrl: './management-plan.component.html',
-  styleUrls: ['./management-plan.component.scss'],
+  templateUrl: './consents-informed.component.html',
+  styleUrls: ['./consents-informed.component.scss'],
 })
-export class ManagementPlanComponent implements OnInit {
+export class ConsentsInformedComponent implements OnInit {
 
 
   @Input() admissions: any = null;
@@ -57,6 +56,7 @@ export class ManagementPlanComponent implements OnInit {
   public currentRoleId;
   public roles;
   public user_logged;
+  public admission_id;
 
 
 
@@ -68,16 +68,6 @@ export class ManagementPlanComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      semaphore: {
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          // DATA FROM HERE GOES TO renderComponent
-          return {
-            'data': row,
-          };
-        },
-        renderComponent: ActionsSemaphore2Component,
-      },
       actions: {
         title: 'Acciones',
         type: 'custom',
@@ -86,76 +76,27 @@ export class ManagementPlanComponent implements OnInit {
           return {
             'data': row,
             'user': this.user,
-            'edit': this.EditManagementPlan.bind(this),
+            'edit': this.EditConsentsInformed.bind(this),
             'assignedUser': this.AssignedUser.bind(this),
-            'delete': this.DeleteConfirmManagementPlan.bind(this),
+            'delete': this.DeleteConfirmConsentsInformed.bind(this),
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionsCIComponent,
       },
-      admissions: {
+      type_consents: {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction(value) {
-          return value?.consecutive+' - '+ value.location[0].scope_of_attention.name+' - '+ value.location[0].program.name;
-        },
-      },
-      type_of_attention: {
-        title: this.headerFields[0],
-        type: 'string',
-        valuePrepareFunction(value) {
           return value?.name;
-        },
-      },
-      frequency: {
-        title: this.headerFields[1],
-        type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
-        },
-      },
-      quantity: {
-        title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction(value,row) {
-          if(row.type_of_attention_id==17){
-            return row.number_doses;
-          }else{
-            return value;
-          }
         },
       },
       assigned_user: {
-        title: this.headerFields[3],
+        title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction(value) {
-          if (value) {
-            return value?.firstname + ' ' + value.lastname;
-          } else {
-            return 'Sin asignación';
-          }
-        },
-      },
-      not_executed: {
-        title: this.headerFields[5],
-        type: 'string',
-        valuePrepareFunction(value, row) {
-          if (value == -1) {
-            return '--';
-          } else {
-            return row.created - value;
-          }
-        },
-      },
-      incumplidas: {
-        title: this.headerFields[6],
-        type: 'string',
-        valuePrepareFunction(value, row) {
-         
-            return  value;
-          
+          return value?.firstname+ ' ' +value.lastname ;
         },
       },
     },
@@ -204,7 +145,7 @@ export class ManagementPlanComponent implements OnInit {
 
     private authService: AuthService,
     private dialogService: NbDialogService,
-    private managementPlanS: ManagementPlanService,
+    private ConsentsInformedS: ConsentsInformedService,
     private toastS: NbToastrService,
     private route: ActivatedRoute,
     public roleBS: RoleBusinessService,
@@ -213,8 +154,8 @@ export class ManagementPlanComponent implements OnInit {
   ) {
   }
   public form: FormGroup;
-  public ResponseManagementPlanForm: FormGroup;
-  public RadicationManagementPlanForm: FormGroup;
+  public ResponseConsentsInformedForm: FormGroup;
+  public RadicationConsentsInformedForm: FormGroup;
   public status;
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
@@ -230,17 +171,14 @@ export class ManagementPlanComponent implements OnInit {
   async ngOnInit() {
     this.currentRoleId = localStorage.getItem('role_id');
     this.user_id = this.route.snapshot.params.user;
+    this.admission_id = this.route.snapshot.params.id;
     await this.roleBS.GetCollection({ id: this.currentRoleId  }).then(x => {
       this.roles = x;
     }).catch(x => { });
     this.user_logged= this.authService.GetUser().id;
-    if (this.roles[0].role_type_id != 2 && this.title==null) {
-      this.title = "Agendamiento Plan de atención domiciliario";
-      this.entity="management_plan_by_patient/"+this.user_id+"/"+0;
-    }else{
-      this.title = "Servicios a Ejecutar";
-      this.entity="management_plan_by_patient/"+this.user_id+"/"+this.user_logged;
-    }
+      this.title = "Consentimientos Informados";
+      this.entity="consents_informed_by_admissions/"+this.admission_id;
+   
     if (this.admissions) {
       this.admissions_id = this.admissions;
       this.settings = this.settings2;
@@ -278,8 +216,8 @@ export class ManagementPlanComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewManagementPlan() {
-    this.dialogFormService.open(FormManagementPlanComponent, {
+  NewConsentsInformed() {
+    this.dialogFormService.open(FormConsentsInformedComponent, {
       context: {
         title: 'Crear plan de manejo',
         assigned: true,
@@ -292,7 +230,7 @@ export class ManagementPlanComponent implements OnInit {
   }
 
   AssignedUser(data) {
-    this.dialogFormService.open(FormManagementPlanComponent, {
+    this.dialogFormService.open(FormConsentsInformedComponent, {
       context: {
         title: 'Asignar personal asistencial',
         data,
@@ -305,8 +243,8 @@ export class ManagementPlanComponent implements OnInit {
     });
   }
 
-  EditManagementPlan(data) {
-    this.dialogFormService.open(FormManagementPlanComponent, {
+  EditConsentsInformed(data) {
+    this.dialogFormService.open(FormConsentsInformedComponent, {
       context: {
         title: 'Editar plan de manejo',
         data,
@@ -316,18 +254,18 @@ export class ManagementPlanComponent implements OnInit {
   }
 
 
-  DeleteConfirmManagementPlan(data) {
+  DeleteConfirmConsentsInformed(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
         name: data.name,
         data: data,
-        delete: this.DeleteManagementPlan.bind(this),
+        delete: this.DeleteConsentsInformed.bind(this),
       },
     });
   }
 
-  DeleteManagementPlan(data) {
-    return this.managementPlanS.Delete(data.id).then(x => {
+  DeleteConsentsInformed(data) {
+    return this.ConsentsInformedS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {

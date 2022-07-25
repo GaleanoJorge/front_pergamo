@@ -261,6 +261,7 @@ import { ChOxigenComponent } from './ch-oxigen/ch-oxigen.component';
 import { FormChOxigenComponent } from './ch-oxigen/form-ch-oxigen/form-ch-oxigen.component';
 import { ChHairValorationComponent } from './ch-hair-valoration/ch-hair-valoration.component';
 import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair-valoration/form-ch-hair-valoration.component';
+import { Actions25Component } from './failed/actions25.component';
 
 
 @NgModule({
@@ -497,6 +498,7 @@ import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair
 
     FormFailedComponent,
     FailedComponent,
+    Actions25Component,
 
     FormPatientExitComponent,
     PatientExitComponent,

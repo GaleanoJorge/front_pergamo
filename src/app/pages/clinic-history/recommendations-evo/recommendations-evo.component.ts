@@ -23,7 +23,7 @@ export class RecommendationsEvoComponent implements OnInit {
   public chvitsigns: any[];
   public nameForm: String;
   public headerFields: any[] = [ 'Educación Paciente/Familiar',
-    'Recomendación',
+    'Recomendación', 'Observación',
   
   ];
   public movieForm: String;
@@ -49,8 +49,17 @@ export class RecommendationsEvoComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name + '-' + row.recommendations_evo.description;
+          if(value){
+            return value.name ; 
+            }else{
+              return 'NO APLICA'
+            }
+          
         },
+      },
+      observations: {
+        title: this.headerFields[2],
+        width: 'string',
       },
 
     },

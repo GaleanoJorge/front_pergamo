@@ -1,0 +1,29 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+
+    <ngx-base-table *ngIf="roles" [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+      customData="consents_informed" [messageToltip]="messageToltip">
+      <div title *ngIf="user && medical==false">
+        <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}}</p>
+        <p class="parrafo"*ngIf="user"><b>NOMBRE:</b>  {{user.nombre_completo}}</p>
+        <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}}</p>
+        <p class="parrafo" *ngIf="user"><b>EDAD:</b> {{user.age}}</p>
+        <p class="parrafo" *ngIf="user"><b>GÉNERO:</b> {{user.gender.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions[0].contract.company.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions[0].contract.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions[0].briefcase.name}}</p>
+        <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability}}</p>
+        <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES</p>
+      </div>
+      <div actions>
+        <div class="actions">
+
+          <button nbButton status="danger" (click)="NewConsentsInformed()">Crear</button>
+
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
