@@ -693,7 +693,7 @@ export class FormUsersComponent implements OnInit {
 
       // var role = Number(this.role);
       if (this.roleBS.roles[0].role_type_id == 2) {
-        formData.append('assistance_id', this.data == null ? null : this.data.assistance[0].id);
+        formData.append('assistance_id', this.data.assistance[0] == null ? null : this.data.assistance[0].id);
         formData.append('medical_record', data.medical_record.value);
         formData.append('localities_id', JSON.stringify(this.parentData.selectedOptions));
 
