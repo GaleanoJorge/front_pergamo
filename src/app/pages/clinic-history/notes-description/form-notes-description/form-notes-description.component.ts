@@ -22,6 +22,7 @@ export class FormNotesDescriptionComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
 
@@ -56,21 +57,16 @@ export class FormNotesDescriptionComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        patient_position_id: '',
-        ostomy_id: '',
-        hair_revision: '',
         has_oxigen: false,
-        oxygen_type_id: '',
-        liters_per_minute_id: '',
-        change_position_id: '',
+        patient_position_id: '',
         patient_dry: '',
         unit_arrangement: '',
       };
     }
 
-    this.ostomyS.GetCollection().then(x => {
-      this.ostomies = x;
-    });
+    // this.ostomyS.GetCollection().then(x => {
+    //   this.ostomies = x;
+    // });
 
     this.patientPositionS.GetCollection().then(x => {
       this.patient_positions = x;
@@ -84,29 +80,11 @@ export class FormNotesDescriptionComponent implements OnInit {
     // });
 
     this.form = this.formBuilder.group({
-      patient_position_id: [
-        this.data[0] ? this.data[0].patient_position_id : this.data.patient_position_id,
-        Validators.compose([Validators.required])
-      ],
-      ostomy_id: [
-        this.data[0] ? this.data[0].ostomy_id : this.data.ostomy_id,
-        Validators.compose([Validators.required])
-      ],
-      hair_revision: [
-        this.data[0] ? this.data[0].hair_revision : this.data.hair_revision,
-        Validators.compose([Validators.required])
-      ],
       has_oxigen: [
         this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen,
       ],
-      oxygen_type_id: [
-        this.data[0] ? this.data[0].oxygen_type_id : this.data.oxygen_type_id
-      ],
-      liters_per_minute_id: [
-        this.data[0] ? this.data[0].liters_per_minute_id : this.data.liters_per_minute_id
-      ],
-      change_position_id: [
-        this.data[0] ? this.data[0].change_position_id : this.data.change_position_id,
+      patient_position_id: [
+        this.data[0] ? this.data[0].patient_position_id : this.data.patient_position_id,
         Validators.compose([Validators.required])
       ],
       patient_dry: [
@@ -120,19 +98,6 @@ export class FormNotesDescriptionComponent implements OnInit {
 
     });
 
-    this.onChange();
-
-    // if (this.data.reason_consultation != '') {
-    //   this.form.controls.reason_consultation.disable();
-    //   this.form.controls.current_illness.disable();
-    //   this.form.controls.ch_external_cause_id.disable();
-    //   this.disabled = true;
-    // } else {
-    //   this.form.controls.reason_consultation.enable();
-    //   this.form.controls.current_illness.enable();
-    //   this.form.controls.ch_external_cause_id.enable();
-    //   this.disabled = false;
-    // }
   }
 
   async save() {
@@ -145,15 +110,9 @@ export class FormNotesDescriptionComponent implements OnInit {
         await this.ChNotesDescriptionS.Update({
           id: this.data.id,
           patient_position_id: this.form.controls.patient_position_id.value,
-          ostomy_id: this.form.controls.ostomy_id.value,
-          hair_revision: this.form.controls.hair_revision.value,
-          has_oxigen: this.form.controls.has_oxigen.value,
-          oxygen_type_id: this.form.controls.oxygen_type_id.value,
-          liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
-          change_position_id: this.form.controls.change_position_id.value,
           patient_dry: this.form.controls.patient_dry.value,
           unit_arrangement: this.form.controls.unit_arrangement.value,
-          type_record_id: 3,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -167,22 +126,19 @@ export class FormNotesDescriptionComponent implements OnInit {
       } else {
         await this.ChNotesDescriptionS.Save({
           patient_position_id: this.form.controls.patient_position_id.value,
-          ostomy_id: this.form.controls.ostomy_id.value,
-          hair_revision: this.form.controls.hair_revision.value,
-          has_oxigen: this.form.controls.has_oxigen.value,
-          oxygen_type_id: this.form.controls.oxygen_type_id.value,
-          liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
-          change_position_id: this.form.controls.change_position_id.value,
           patient_dry: this.form.controls.patient_dry.value,
           unit_arrangement: this.form.controls.unit_arrangement.value,
-          type_record_id: 3,
+          type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          if (this.saved) {
-            this.saved();
-          }
+          this.form.patchValue({
+            patient_position_id: '',
+            patient_dry: '',
+            unit_arrangement: '',
+          });
+
         }).catch(x => {
             this.isSubmitted = true;
             this.loading = true;
@@ -192,33 +148,4 @@ export class FormNotesDescriptionComponent implements OnInit {
 
     }
   }
-
-  async onChange() {
-
-    this.form.get('has_oxigen').valueChanges.subscribe(val => {
-      if (val === false) {
-        this.oxygen_type = [];
-        this.liters_per_minute = [];
-
-        this.form.controls.oxygen_type_id.clearValidators();
-        this.form.controls.patient_position_id.setErrors(null);
-
-        this.form.controls.liters_per_minute_id.clearValidators();
-        this.form.controls.liters_per_minute_id.setErrors(null);
-      } else {
-
-        this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
-          this.oxygen_type = x;
-        });
-        this.LitersPerMinuteS.GetCollection({ status_id: 1 }).then(x => {
-          this.liters_per_minute = x;
-        });
-        this.form.controls.oxygen_type_id.setValidators(Validators.compose([Validators.required]));
-        this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
-        console.log('pone campos obligatorios')
-      };
-
-    });
-  }
-
 }

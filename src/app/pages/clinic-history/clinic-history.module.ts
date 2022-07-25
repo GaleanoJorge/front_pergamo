@@ -127,7 +127,6 @@ import { FormReasonConsultationNursingComponent } from './entry-clinic-history-n
 import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
 import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
 import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
-import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
 
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { ChNutritionInputComponent } from './ch-nutrition-list/ch-nutrition-input/ch-nutrition-input.component';
@@ -141,7 +140,7 @@ import { FormClinicHistoryLanguageComponent } from './clinic-history-language-li
 import { ClinicHistoryLanguageListComponent } from './clinic-history-language-list/clinic-history-language-list.component';
 import { ActionsLanguageComponent } from './clinic-history-language-list/actionslanguage.component';
 import { FormLanguageAssessmentComponent } from './language-assessment/form-language-assessment/form-language-assessment.component';
-  
+
 import { LanguageListComponent } from './language-list/language-list.component';
 import { FormLanguageEvolutionComponent } from './language-evolution/form-language-evolution/form-language-evolution.component';
 import { RegularLanguageListComponent } from './regularlanguage-list/regularlanguage-list.component';
@@ -168,7 +167,6 @@ import { FormCarePlanComponent } from './care-plan/form-care-plan/form-care-plan
 import { LiquidControlComponent } from './liquid-control/liquid-control.component';
 import { FormLiquidControlComponent } from './liquid-control/form-liquid-control/form-liquid-control.component';
 import { FormLiquidEliminationComponent } from './liquid-control/form-liquid-elimination/form-liquid-elimination.component';
-import { NursingProcedure } from '../../models/nursing-procedure';
 import { NursingProcedureComponent } from './nursing-procedure/nursing-procedure.component';
 import { FormNursingProcedureComponent } from './nursing-procedure/form-nursing-procedure/form-nursing-procedure.component';
 import { FormRespiratoryTherapyComponent } from './respiratory-therapy-list/form-respiratory-therapy/form-respiratory-therapy.component';
@@ -180,7 +178,7 @@ import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/resp
 import { FormAssessmentTherapyComponent } from './assessment-therapy/form-assessment-therapy.component';
 import { FormIspectionTherapyComponent } from './ispection-therapy/form-ispection-therapy.component';
 import { FormaAuscultacionTherapyComponent } from './auscultacion-therapy/form-auscultacion-therapy.component';
-import { FormaObjectivesTherapyComponent } from './objectives-therapy/form-objectives-therapy.component';
+import { FormaObjectivesTherapyComponent } from './objectives-therapy/form-objectives-therapy/form-objectives-therapy.component';
 import { FormaDiagnosticTherapyComponent } from './diagnostic-therapy/form-diagnostic-therapy.component';
 import { FormChOxygenTherapyComponent } from './oxygen-therapy/form-oxygen-therapy.component';
 import { RegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/regular-respiratory-therapy.component';
@@ -192,8 +190,6 @@ import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.co
 import { FormNutritionBackgroundComponent } from './ch-nutrition-list/ch-nutrition-input/form-nutrition-background/form-nutrition-background.component';
 import { NursingPhysicalExamComponent } from './nursing-physical-exam/nursing-physical-exam.component';
 import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-nursing-physical-exam/form-nursing-physical-exam.component';
-import { InsumeRequestComponent } from './insume-request/insume-request.component';
-import { FormInsumeRequestComponent } from './insume-request/form-insume-request/form-insume-request.component';
 import { SuppliesTherapyComponent } from './supplies-therapy/supplies-therapy.component';
 import { ReasonConsultationRespiratoryTherapyComponent } from './entry-respiratory-therapy/form-reason-consultation-respiratory-therapy/reason-consultation-respiratory-therapy.component';
 import { FormLanguageOstomiesComponent } from './language-ostomies/form-language-ostomies/form-language-ostomies.component';
@@ -229,7 +225,6 @@ import { FormChOstomiesComponent } from './ch-ostomies/form-ch-ostomies/form-ch-
 import { ChOstomiesComponent } from './ch-ostomies/ch-ostomies.component';
 import { ChApComponent } from './ch-ap/ch-ap.component';
 import { FormChApComponent } from './ch-ap/form-ch-ap/form-ch-ap.component';
-import { FormEntryMotorFunPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-fun-pat-ot/form-entry-motor-fun-pat-ot.component';
 import { FormEntryMotorIntPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-int-pat-ot/form-entry-motor-int-pat-ot.component';
 import { FormEntryMotorMovPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-mov-pat-ot/form-entry-motor-mov-pat-ot.component';
 import { FormEntryMotorThermalOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-thermal-ot/form-entry-motor-thermal-ot.component';
@@ -256,6 +251,16 @@ import { RNMaterialsOTComponent } from './entry-clinic-history-occupational-ther
 import { ForRNmWeeklyOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/form-r-n-weekly-ot/form-r-n-weekly-ot.component';
 import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/r-n-weekly-ot.component';
 
+import { ActionsAplicationsComponent } from './drug-application/actions.component';
+import { FormEntryMotorFunPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-fun-pat-ot/form-entry-motor-fun-pat-ot.component';
+import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
+import { ObjectivesTherapyComponent } from './objectives-therapy/objectives-therapy.component';
+import { FormChPositionComponent } from './ch-position/form-ch-position/form-ch-position.component';
+import { ChPositionComponent } from './ch-position/ch-position.component';
+import { ChOxigenComponent } from './ch-oxigen/ch-oxigen.component';
+import { FormChOxigenComponent } from './ch-oxigen/form-ch-oxigen/form-ch-oxigen.component';
+import { ChHairValorationComponent } from './ch-hair-valoration/ch-hair-valoration.component';
+import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair-valoration/form-ch-hair-valoration.component';
 
 
 @NgModule({
@@ -287,9 +292,16 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
     NbCheckboxModule,
   ],
   declarations: [
-    
-    InsumeRequestComponent,
-    FormInsumeRequestComponent,
+    ChOxigenComponent,
+    FormChOxigenComponent,
+
+    ChHairValorationComponent,
+    FormChHairValorationComponent,
+
+    ChPositionComponent,
+    FormChPositionComponent,
+
+    ActionsAplicationsComponent,
 
     NursingPhysicalExamComponent,
     FormNursingPhysicalExamComponent,
@@ -362,8 +374,6 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
     RNWeeklyOtComponent,
 
 
-    ClinicHistoryOccupationalTherapy,
-
     RespiratoryTherapyListComponent,
     FormRespiratoryTherapyComponent,
     FormAssessmentTherapyComponent,
@@ -377,6 +387,7 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
     FormaAuscultacionTherapyComponent,
     FormaDiagnosticTherapyComponent,
     FormaObjectivesTherapyComponent,
+    ObjectivesTherapyComponent,
     FormChOxygenTherapyComponent,
     OxygenTherapyComponent,
 
@@ -559,7 +570,7 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
     ChOstomiesComponent,
     ChApComponent,
     FormChApComponent,
-   
+
     Actions31Component,
 
 
@@ -567,6 +578,9 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
 
 
   providers: [DateFormatPipe],
-  exports: [],
+  exports: [
+    // InsumeRequestComponent,
+    // FormInsumeRequestComponent,
+  ],
 })
 export class ClinicHistoryModule { }

@@ -43,6 +43,7 @@ export class ManualComponent implements OnInit {
             'clone': this.CloneManual.bind(this),
             'procedure': (row) => this.router.navigate([`/pages/setting/procedure-massive/${row.id}`]),
             'product': (row) => this.router.navigate([`/pages/setting/product-massive/${row.id}`]),
+            'insume': (row) => this.router.navigate([`/pages/setting/insume-massive/${row.id}`]),
             'procedurelist': (row) => this.router.navigate([`/pages/setting/manual-price/${row.id}`])
           };
         },

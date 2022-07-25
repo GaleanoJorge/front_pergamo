@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
@@ -19,6 +19,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
   @Input() data: any = null;
   @Input() record_id: any = null;  
   @Input() type_record: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
 
   public form: FormGroup;
@@ -83,18 +84,6 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
       reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation, Validators.compose([Validators.required])],
     });
 
-    if (this.data.medical_diagnosis_id != '') {
-      this.form.controls.medical_diagnosis_id.disable();
-      this.form.controls.therapeutic_diagnosis.disable();
-      this.form.controls.reason_consultation.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.medical_diagnosis_id.enable();
-      this.form.controls.therapeutic_diagnosis.enable();
-      this.form.controls.reason_consultation.enable();
-      this.disabled = false;
-    }
-
   }
 
   returnCode(diagnosis_id) {
@@ -156,6 +145,8 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.patchValue({ medical_diagnosis_id: '', therapeutic_diagnosis: '', reason_consultation: '' });
           this.disabled = true;
           if (this.saved) {
             this.saved();

@@ -31,6 +31,22 @@ export class FixedClasificationService {
       });
   }
 
+  GetProductCategoryByGroup(fixed_type_id): Promise<FixedClasification[]> {
+    let servObj = new ServiceObject('FixedClasification/byGroup',fixed_type_id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.fixed_clasification = <FixedClasification[]>servObj.data.fixed_clasification;
+        return Promise.resolve(this.fixed_clasification);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(fixed_clasification: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('fixed_clasification');
     servObj.data = fixed_clasification;

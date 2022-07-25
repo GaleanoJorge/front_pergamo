@@ -46,11 +46,7 @@ export class FormLanguageAssessmentComponent implements OnInit {
 
 
  async ngOnInit() {
-    // this.record_id = this.route.snapshot.params.id;
-
-    // this.chRecord.GetCollection(this.record_id).then((x) => {
-    //   this.admissions_id = x;
-    // });
+  
     if (!this.data || this.data.length == 0) {
       this.data = {
         medical_diagnostic_id: '',
@@ -85,18 +81,6 @@ export class FormLanguageAssessmentComponent implements OnInit {
       therapeutic_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].therapeutic_diagnosis_id ): this.data.therapeutic_diagnosis_id,Validators.compose([Validators.required]),],
       reason_consultation: [this.data[0] ? this.returnCode( this.data[0].reason_consultation) : this.data.reason_consultation,],
     });
-
-    // if (this.data.medical_diagnostic_id != '') {
-    //   this.form.controls.medical_diagnostic_id.disable();
-    //   this.form.controls.therapeutic_diagnosis_id.disable();
-    //   this.form.controls.reason_consultation.disable();
-    //   this.disabled = true;
-    // } else {
-    //   this.form.controls.diagnosis_id.enable();
-    //   this.form.controls.therapeutic_diagnosis_id.enable();
-    //   this.form.controls.reason_consultation.enable();
-    //   this.disabled = false;
-    // }
 
   }
 
@@ -164,6 +148,8 @@ export class FormLanguageAssessmentComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.setValue({ medical_diagnostic_id: '', therapeutic_diagnosis_id:'', reason_consultation:''});
           if (this.saved) {
             this.saved();
           }
@@ -184,111 +170,4 @@ export class FormLanguageAssessmentComponent implements OnInit {
   }
 
 }
-
-
-// ngOnInit(): void {
-//   this.record_id = this.route.snapshot.params.id;
-
-//   this.chRecord.GetCollection(this.record_id).then((x) => {
-//     this.admissions_id = x;
-//   });
-//   if (!this.data || this.data.length == 0) {
-//     this.data = {
-//       medical_diagnostic_id: '',
-//       therapeutic_diagnosis_id: '',
-//       reason_consultation: '',
-      
-//     };
-//   }
-  
-  
-//   this.DiagnosisS.GetCollection({ status_id: 1 }).then(x => {
-//     this.medical_diagnostic_id = x;
-//   });
-
-//   this.DiagnosisS.GetCollection().then(x => {
-//     this.diagnosis = x;
-//   });
-
-
-//   this.form = this.formBuilder.group({
-//     medical_diagnostic_id: [this.data[0] ? this.data[0].medical_diagnostic_id : this.data.medical_diagnostic_id,],
-//     therapeutic_diagnosis_id: [this.data[0] ? this.data[0].therapeutic_diagnosis_id : this.data.therapeutic_diagnosis_id,],
-//     reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation,],
-//   });
-
-// }
-
-// saveCode(e, valid): void {
-//   var localidentify = this.diagnosis.find(item => item.name == e);
-
-//   if (localidentify) {
-//     if (valid==1){
-//       this.diagnosis_medical = localidentify.id;
-//     } else {
-//       this.therapeutyc_diagnosis = localidentify.id;
-//     }
-//   } else {
-//     if (valid==1){
-//       this.diagnosis_medical = null;
-//     } else {
-//       this.therapeutyc_diagnosis = null;
-//     }
-//     this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
-//     this.form.controls.diagnosis_id.setErrors({'incorrect': true});
-//   }
-// }
-
-// async save() {
-//   this.isSubmitted = true;
-//   if (!this.form.invalid) {
-//     this.loading = true;
-//     this.showTable = false;
-
-//     if (this.data.id) {
-//       await this.TlTherapyLanguageS.Update({
-//         id: this.data.id,
-//         medical_diagnosis_id: this.diagnosis_medical,
-//         therapeutic_diagnosis_id: this.therapeutyc_diagnosis,
-//         reason_consultation: this.form.controls.reason_consultation.value,
-//         type_record_id: 1,
-//         ch_record_id: this.record_id,
-
-//       }).then(x => {
-//         this.toastService.success('', x.message);
-//         if (this.saved) {
-//           this.saved();
-//         }
-//       }).catch(x => {
-//         this.isSubmitted = false;
-//         this.loading = false;
-//       });
-//     } else {
-//       await this.TlTherapyLanguageS.Save({
-//         medical_diagnosis_id: this.diagnosis_medical,
-//         therapeutic_diagnosis_id: this.therapeutyc_diagnosis,
-//         reason_consultation: this.form.controls.reason_consultation.value,
-//         type_record_id: 1,
-//         ch_record_id: this.record_id,
-//       }).then(x => {
-//         this.toastService.success('', x.message);
-//         if (this.saved) {
-//           this.saved();
-//         }
-//       }).catch(x => {
-//         if (this.form.controls.has_caregiver.value == true) {
-//           this.isSubmitted = true;
-//           this.loading = true;
-//         } else {
-//           this.isSubmitted = false;
-//           this.loading = false;
-//         }
-
-//       });
-//     }
-
-//   }
-// }
-
-// }
 

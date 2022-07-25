@@ -20,7 +20,7 @@ export class ChInabilityComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Codigo de Contingencia', 'Fecha de Inicio', 'Fecha Final', 'Diagnostico', 'Tipo de Incapacidad', 'Tipo de Procedimiento', 'Observación',
+    'Prorroga', 'Codigo de Contingencia', 'Fecha de Inicio', 'Fecha Final', 'Cant de Días','Diagnostico', 'Tipo de Incapacidad', 'Tipo de Procedimiento', 'Observación',
     
   ];
 
@@ -35,17 +35,17 @@ export class ChInabilityComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      ch_contingency_code: {
+      extension: {
         title: this.headerFields[0],
+        type: 'string',
+        },
+      ch_contingency_code: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-      extension: {
-        title: this.headerFields[1],
-        type: 'string',
-        },
       
         initial_date: {
         title: this.headerFields[2],
@@ -57,29 +57,33 @@ export class ChInabilityComponent implements OnInit {
         width: 'string',
         
        },
-       diagnosis: {
+       total_days: {
         title: this.headerFields[4],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.name;
+        type: 'string',
         },
-      },
-      ch_type_inability: {
+       diagnosis: {
         title: this.headerFields[5],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-      ch_type_procedure: {
+      ch_type_inability: {
         title: this.headerFields[6],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-      observation: {
+      ch_type_procedure: {
         title: this.headerFields[7],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
+      },
+      observation: {
+        title: this.headerFields[8],
         width: 'string',
         
        },

@@ -150,21 +150,18 @@
         <div *ngIf="showReg" class="col-12 col-sm-12 col-md-6">
           <label for="value_circular" class="form-text text-muted font-weight-bold">Valor de regulación:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="value_circular"
-            formControlName="value_circular" value_circular type="number" min="0" pattern="^[0-9]+"
-            status="{{ isSubmitted && form.controls.value_circular.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            formControlName="value_circular" value_circular type="number" min="0" pattern="^[0-9]+" />
         </div>
 
         <div *ngIf="showReg" class="col-12 col-sm-12 col-md-6">
           <label for="circular" class="form-text text-muted font-weight-bold">Circular:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="circular"
-            formControlName="circular" circular
-            status="{{ isSubmitted && form.controls.circular.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            formControlName="circular" circular />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="high_price" class="form-text text-muted font-weight-bold">¿Es de alto costo?:</label>
-          <nb-radio-group formControlName="high_price" high_price id="high_price" name="high_price" class="d-flex"
-            status="{{ isSubmitted && form.controls.high_price.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-radio-group formControlName="high_price" high_price id="high_price" name="high_price" class="d-flex">
             <nb-radio [value]="0">No es de alto costo</nb-radio>
             <nb-radio [value]="1">Si es de alto costo</nb-radio>
           </nb-radio-group>
@@ -172,8 +169,7 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="maximum_dose" class="form-text text-muted font-weight-bold">Dosis maxima:</label>
-          <input nbInput fullWidth id="maximum_dose" formControlName="maximum_dose" maximum_dose
-            status="{{ isSubmitted && form.controls.maximum_dose.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input nbInput fullWidth id="maximum_dose" formControlName="maximum_dose" maximum_dose />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
@@ -184,8 +180,7 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="contraindications" class="form-text text-muted font-weight-bold">Contraindicaciones:</label>
-          <input nbInput fullWidth id="contraindications" formControlName="contraindications" contraindications
-            status="{{ isSubmitted && form.controls.contraindications.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input nbInput fullWidth id="contraindications" formControlName="contraindications" contraindications />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">

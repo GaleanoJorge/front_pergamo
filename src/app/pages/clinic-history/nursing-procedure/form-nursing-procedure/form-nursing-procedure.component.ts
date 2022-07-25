@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
+import { NbIconConfig, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChFailedService } from '../../../../business-controller/ch-failed.service';
 import { ChReasonService } from '../../../../business-controller/ch-reason.service';
@@ -28,10 +28,12 @@ export class FormNursingProcedureComponent implements OnInit {
   public showTable;
   public admissions_id;
   public ch_reason_id: any[];
-  public diagnosis: any [] = [];
-  public nursing_procedure: any [] = [];
+  public diagnosis: any[] = [];
+  public nursing_procedure: any[] = [];
   public procedure_id: any;
   public previewFile = null;
+  public iconConfig: NbIconConfig = { icon: 'alert-circle-outline', pack: 'eva' };
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,7 +58,7 @@ export class FormNursingProcedureComponent implements OnInit {
         description: '',
       };
     }
-    
+
     this.nursingProcedureS.GetCollection().then(x => {
       this.nursing_procedure = x;
       this.loading = false;
@@ -89,7 +91,7 @@ export class FormNursingProcedureComponent implements OnInit {
       ],
     });
 
-    
+
     // this.ChReasonS.GetCollection().then((x) => {
     //   this.ch_reason_id = x;
     // });
@@ -102,7 +104,71 @@ export class FormNursingProcedureComponent implements OnInit {
   }
 
   saveCode(event, identificator): void {
-    if(event.target.checked){
+    if (event.target.checked) {
+      switch (identificator) {
+        case 1: {
+          this.form.patchValue({
+            check2: false,
+            check3: false,
+            check4: false,
+            check5: false,
+            description: '',
+          });
+          break;
+        }
+        case 2: {
+          this.form.patchValue({
+            check1: false,
+            check3: false,
+            check4: false,
+            check5: false,
+            description: '',
+          });
+          break;
+        }
+        case 3: {
+          this.form.patchValue({
+            check1: false,
+            check2: false,
+            check4: false,
+            check5: false,
+            description: '',
+          });
+          break;
+        }
+        case 4: {
+          this.form.patchValue({
+            check1: false,
+            check2: false,
+            check3: false,
+            check5: false,
+            description: '',
+          });
+          break;
+
+        }
+        case 5: {
+          this.form.patchValue({
+            check1: false,
+            check2: false,
+            check3: false,
+            check4: false,
+            description: '',
+          });
+          break;
+        }
+        default: {
+          this.form.patchValue({
+            check1: false,
+            check2: false,
+            check3: false,
+            check4: false,
+            check5: false,
+            description: '',
+          });
+          break;
+        }
+      }
       var localidentify = this.nursing_procedure.find(item => item.id == identificator);
     } else {
       this.form.patchValue({
@@ -120,13 +186,14 @@ export class FormNursingProcedureComponent implements OnInit {
       this.form.patchValue({
         description: localidentify.description,
       })
+      this.form.controls.description.setErrors({'incorrect': true})
     } else {
       this.procedure_id = null;
-      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
+      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista',this.iconConfig);
       this.form.patchValue({
         description: '',
       })
-      this.form.setErrors({'incorrect': true});
+      this.form.setErrors({ 'incorrect': true });
     }
   }
 

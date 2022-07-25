@@ -3,7 +3,7 @@ import { SectionalCouncilService } from '../../../business-controller/sectional-
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { Actions4Component } from './actions.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import * as XLSX from 'ts-xlsx';
@@ -33,7 +33,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Ejecución Plan de manejo';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de inicio', 'Fecha Final','Fecha de ejecución'];
+  public headerFields: any[] = ['Fecha de inicio', 'Fecha Final', 'Fecha de ejecución'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -41,13 +41,15 @@ export class AssignedManagementPlanComponent implements OnInit {
   public file: File;
   public management_id;
   public user_id;
-  public user=null;
+  public user = null;
   public dialog;
   public currentRole;
   public settings;
   public selectedOptions: any[] = [];
   public result: any = null;
-  
+
+  public dynamicQueryParameter;
+
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -77,7 +79,7 @@ export class AssignedManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'user':this.user,
+            'user': this.user,
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
             'edit': this.EditAssigned.bind(this),
@@ -125,7 +127,7 @@ export class AssignedManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'user':this.user,
+            'user': this.user,
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
             'edit': this.EditAssigned.bind(this),
@@ -182,6 +184,7 @@ export class AssignedManagementPlanComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     private route: ActivatedRoute,
+    private router: Router,
 
   ) {
   }
@@ -196,20 +199,21 @@ export class AssignedManagementPlanComponent implements OnInit {
   public management;
   public semaphore;
 
-  
 
 
 
 
-  async ngOnInit() { 
+
+  async ngOnInit() {
+    this.dynamicQueryParameter=this.router.url;
     this.management_id = this.route.snapshot.params.management_id;
-    await this.ManagementS.GetCollection({management_id:this.management_id}).then(x => {
-      this.management=x;
+    await this.ManagementS.GetCollection({ management_id: this.management_id }).then(x => {
+      this.management = x;
     });
-    if(this.management[0].type_of_attention_id==17){
-      this.settings= this.settings2;
-    }else{
-      this.settings= this.settings1;
+    if (this.management[0].type_of_attention_id == 17) {
+      this.settings = this.settings2;
+    } else {
+      this.settings = this.settings1;
     }
     this.user = this.authService.GetUser();
     if(this.user.roles[0].role_type_id==2){
@@ -219,12 +223,12 @@ export class AssignedManagementPlanComponent implements OnInit {
     }else{
       this.user_logged=0;
     }
-    
+
     this.user_id = this.route.snapshot.params.user;
 
     await this.patientBS.GetUserById(this.user_id).then(x => {
-      this.user=x;
-      this.entity="assigned_management_plan/"+this.management_id+"/"+this.user_logged+"?patient="+this.user.admissions[0].id;
+      this.user = x;
+      this.entity = "assigned_management_plan/" + this.management_id + "/" + this.user_logged + "?patient=" + this.user.admissions[0].id;
     });
   }
 
@@ -234,16 +238,16 @@ export class AssignedManagementPlanComponent implements OnInit {
     var start = new Date(data.start_date).getTime();
     var execution = new Date(data.execution_date).getTime();
 
-  
+
 
     if (today < start) {
-      this.semaphore = 1; 
+      this.semaphore = 1;
     } else if (today <= finish && today >= start && isNaN(execution)) {
-      this.semaphore = 2; 
-    }  else if (isNaN(execution) && today > finish) {
-      this.semaphore = 4; 
-    } else if (execution!=NaN) {
-      this.semaphore = 3; 
+      this.semaphore = 2;
+    } else if (isNaN(execution) && today > finish) {
+      this.semaphore = 4;
+    } else if (execution != NaN) {
+      this.semaphore = 3;
     }
     return this.semaphore
   }
@@ -260,8 +264,8 @@ export class AssignedManagementPlanComponent implements OnInit {
       context: {
         title: 'Editar agendamiento',
         data,
-        phone_consult:this.management[0].phone_consult,
-        user:this.user,
+        phone_consult: this.management[0].phone_consult,
+        user: this.user,
         saved: this.RefreshData.bind(this),
       },
     });

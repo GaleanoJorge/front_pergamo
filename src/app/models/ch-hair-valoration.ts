@@ -1,11 +1,9 @@
 import { MainClass } from './main-class';
 
-export class ChNursingEntry extends MainClass{
+export class ChHairValoration extends MainClass{
     id: number;
-    patient_position_id: number;
-    ostomy_id: number;
-    observation: string;
     hair_revision: string;
+    observation: string;
     type_record_id: number;
     ch_record_id: number;
 }

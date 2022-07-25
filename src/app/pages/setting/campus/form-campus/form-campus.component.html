@@ -1,32 +1,62 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card size="small" style="max-width: 400px">
+  <nb-card size="small" style="max-width: 800px">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-8">
+        <div class="col-12 col-sm-12 col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
-            />
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-8">
+        <div class="col-12 col-sm-12 col-md-12">
           <label for="address" class="form-text text-muted font-weight-bold">Dirección:</label>
           <input nbInput fullWidth id="address" formControlName="address" address
-            status="{{ isSubmitted && form.controls.address.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
-            />
+            status="{{ isSubmitted && form.controls.address.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-8">
+        <div class="col-12 col-sm-12 col-md-12">
           <label for="enable_code" class="form-text text-muted font-weight-bold">Código de habilitación:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="enable_code" formControlName="enable_code" enable_code
-            status="{{ isSubmitted && form.controls.enable_code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
-            />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="enable_code"
+            formControlName="enable_code" enable_code
+            status="{{ isSubmitted && form.controls.enable_code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
-        <div class="col-12 mt-1">
-          <label for="sectional" class="form-text text-muted font-weight-bold">Región:</label>
-          <nb-select [selected]="this.data.region_id" formControlName="region_id" id="region" fullWidth
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="billing_pad_prefix" class="form-text text-muted font-weight-bold">CONSECUTIVO DE FACTURA:</label>
+          <nb-select formControlName="billing_pad_prefix_id" (selectedChange)="onCountryChange($event)"
+            id="billing_pad_prefix_id" fullWidth
+            status="{{ isSubmitted && form.controls.billing_pad_prefix_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of billing_pad_prefix" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="country" class="form-text text-muted font-weight-bold">PAÍS:</label>
+          <nb-select formControlName="country_id" (selectedChange)="onCountryChange($event)" id="country_id" fullWidth
+            status="{{ isSubmitted && form.controls.country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of country" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="region" class="form-text text-muted font-weight-bold">DEPARTAMENTO:</label>
+          <nb-select formControlName="region_id" id="region_id" (selectedChange)="onRegionChange($event)" fullWidth
             status="{{ isSubmitted && form.controls.region_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.region_id }}" *ngFor="let item of region" [value]="item.id">
+            <nb-option *ngFor="let item of region" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="municipality" class="form-text text-muted font-weight-bold">PROVIDENCIA, VEREDA O
+            MUNICIPIO:</label>
+          <nb-select formControlName="municipality_id" id="municipality_id"
+            (selectedChange)="onMunicipalityChange($event)" fullWidth
+            status="{{ isSubmitted && form.controls.municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of municipality" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>

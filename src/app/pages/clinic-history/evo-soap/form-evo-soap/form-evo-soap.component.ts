@@ -23,13 +23,8 @@ export class FormEvoSoapComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
- 
   public admissions_id;
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
-  public changes=false;
-  public changes1=false;
+ 
 
 
 

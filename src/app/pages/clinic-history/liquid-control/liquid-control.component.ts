@@ -24,7 +24,7 @@ export class LiquidControlComponent implements OnInit {
 
   linearMode = true;
   public messageError = null;
-  public title: string = 'CONTROL DE FLUIDOS';
+  public title: string = 'CONTROL DE LÍQUIDOS';
   public subtitle: string = 'INGRESADOS/ELIMINADOS';
   public headerFields: any[] = ['FLUIDO', 'ELEMENTO', 'TIPO DE FLUIDO', 'CANTIDAD (CC)', 'ADICIONAL', 'HORA DEL EVENTO'];
   public routes = [];
@@ -65,13 +65,13 @@ export class LiquidControlComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if (row.ch_route_fluid.type == 0) {
             // this.admin = this.admin + row.delivered_volume;
-            return 'INGRESA'
+            return 'ADMINISTRADO'
           } else {
             // if(row.ch_route_fluid.name == "DIURESIS"){
             //   this.Diur = this.Diur + row.delivered_volume;
             // }
             // this.admin = this.admin + row.delivered_volume;
-            return 'ELIMINA'
+            return 'ELIMINADO'
           }
         },
       },
@@ -164,6 +164,7 @@ export class LiquidControlComponent implements OnInit {
   }
 
   async liquidCalculator() {
+    const destroyByClick = true;
     var diur = 0;
     var admin = 0;
     var eliminate = 0;
@@ -183,7 +184,7 @@ export class LiquidControlComponent implements OnInit {
         });
       } else {
         this.calulateLiquidControl = null;
-        this.toastService.warning('', 'Se deben agregar registros para calcular datos hídricos')
+        this.toastService.info('', 'Se deben agregar registros para calcular datos hídricos', { destroyByClick })
       }
     });
 
@@ -192,7 +193,7 @@ export class LiquidControlComponent implements OnInit {
         this.vital_signs = x;
       } else {
         this.vital_signs = null;
-        this.toastService.warning('', 'Se deben diligenciar los signos vitales para hídricos')
+        this.toastService.info('', 'Se deben diligenciar los signos vitales para calcular valores hídricos', { destroyByClick })
       }
     });
     if (this.calulateLiquidControl && this.vital_signs) {
@@ -222,24 +223,24 @@ export class LiquidControlComponent implements OnInit {
 
       //Gasto Urinario
       this.urinalWaste = this.vital_signs[0].weight / this.hour / diur;
-      if(this.urinalWaste <= 0.3){
+      if (this.urinalWaste <= 0.3) {
         adicional = 'ANURIA';
-      } else if(this.urinalWaste > 0.3 && this.urinalWaste <= 0.7 ) {
+      } else if (this.urinalWaste > 0.3 && this.urinalWaste <= 0.7) {
         adicional = 'OLIGURIA';
-      } else if (this.urinalWaste > 0.7 && this.urinalWaste <= 1 ) {
+      } else if (this.urinalWaste > 0.7 && this.urinalWaste <= 1) {
         adicional = 'NORMAL';
       } else {
-        adicional = 'pailander'
+        adicional = 'NO APLICA'
       }
 
       //Balance hídrico
       this.hidricBalance = admin - eliminate;
       this.form.patchValue({
-        urine_waste: this.urinalWaste == Infinity ? 'Faltan datos': this.urinalWaste.toFixed(3)+ ' : ' + adicional,
-        urine_balance:  this.hidricBalance,
+        urine_waste: this.urinalWaste == Infinity ? 'Faltan datos' : this.urinalWaste.toFixed(3) + ' : ' + adicional,
+        urine_balance: this.hidricBalance,
       });
 
-      // max.setHours(this.calulateLiquidControl[0].clock.substring(0, 1), this.calulateLiquidControl[0].clock.substring(3, 4));
+      // max.setHours(this.calulateLiquidControl[0].clock .substring(0, 1), this.calulateLiquidControl[0].clock.substring(3, 4));
 
     } else {
 

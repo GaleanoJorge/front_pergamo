@@ -26,8 +26,8 @@ export class FormAnthropometryComponent implements OnInit {
   public loading: boolean = false;
   public messageError = null;
   public is_functional = [
-    {id: true, name: 'Si'},
-    {id: false, name: 'NO'},
+    { id: true, name: 'Si' },
+    { id: false, name: 'NO' },
   ];
   public geteratedIMC = null;
   public estimated_weight = null;
@@ -35,6 +35,7 @@ export class FormAnthropometryComponent implements OnInit {
   public total_energy_expenditure = null;
   public classification = null;
   public age = null;
+  public ch_nutrition_anthropometry = null;
 
 
   constructor(
@@ -56,12 +57,38 @@ export class FormAnthropometryComponent implements OnInit {
       abdominal_perimeter: ['', Validators.required],
       hip_perimeter: ['', Validators.required],
     });
+
+    this.ChNutritionAnthropometryS.GetCollection({
+      type_record_id: this.route,
+      ch_record_id: this.record_id,
+    }).then(x => {
+      this.ch_nutrition_anthropometry = x;
+      if (this.ch_nutrition_anthropometry.id) {
+        this.geteratedIMC = this.ch_nutrition_anthropometry.geteratedIMC;
+        this.classification = this.ch_nutrition_anthropometry.classification;
+        this.estimated_weight = this.ch_nutrition_anthropometry.estimated_weight;
+        this.estimated_size = this.ch_nutrition_anthropometry.estimated_size;
+        this.total_energy_expenditure = this.ch_nutrition_anthropometry.total_energy_expenditure;
+        this.form.patchValue({ is_functional: this.ch_nutrition_anthropometry.is_functional });
+        this.form.patchValue({ weight: this.ch_nutrition_anthropometry.weight });
+        this.form.patchValue({ size: this.ch_nutrition_anthropometry.size });
+        this.form.patchValue({ arm_circunferency: this.ch_nutrition_anthropometry.arm_circunferency });
+        this.form.patchValue({ calf_circumference: this.ch_nutrition_anthropometry.calf_circumference });
+        this.form.patchValue({ knee_height: this.ch_nutrition_anthropometry.knee_height });
+        this.form.patchValue({ abdominal_perimeter: this.ch_nutrition_anthropometry.abdominal_perimeter });
+        this.form.patchValue({ hip_perimeter: this.ch_nutrition_anthropometry.hip_perimeter });
+        this.messageEvent.emit({
+          name: 'weight',
+          value: this.form.controls.weight.value
+        });
+      }
+    });
   }
 
   onInputChanges(event) {
     if (this.form.controls.weight.value != '' && this.form.controls.size.value != '') {
-      this.geteratedIMC = (this.form.controls.weight.value / 
-      ((this.form.controls.size.value / 100) * (this.form.controls.size.value / 100))).toFixed(2);
+      this.geteratedIMC = (this.form.controls.weight.value /
+        ((this.form.controls.size.value / 100) * (this.form.controls.size.value / 100))).toFixed(2);
       this.classification = this.getClassification(this.geteratedIMC);
     } else {
       this.geteratedIMC = null;
@@ -172,29 +199,57 @@ export class FormAnthropometryComponent implements OnInit {
       });
       this.loading = true;
       this.messageError = null;
-      this.ChNutritionAnthropometryS.Save({
-        ch_record_id: this.record_id,
-        type_record_id: this.route,
-        is_functional: this.form.controls.is_functional.value,
-        weight: this.form.controls.weight.value,
-        size: this.form.controls.size.value,
-        arm_circunferency: this.form.controls.arm_circunferency.value,
-        calf_circumference: this.form.controls.calf_circumference.value,
-        knee_height: this.form.controls.knee_height.value,
-        abdominal_perimeter: this.form.controls.abdominal_perimeter.value,
-        hip_perimeter: this.form.controls.hip_perimeter.value,
-        geteratedIMC: this.geteratedIMC,
-        classification: this.classification,
-        estimated_weight: this.estimated_weight,
-        estimated_size: this.estimated_size,
-        total_energy_expenditure: this.total_energy_expenditure,
-      }).then(x => {
-        this.saved = x;
-        this.toastService.success('Registro guardado correctamente', 'Correcto');
-      }).catch(x => {
-        this.loading = false;
-        this.toastService.danger(x, 'Error');
-      });
+      if (this.ch_nutrition_anthropometry.id) {
+        this.ChNutritionAnthropometryS.Update({
+          id: this.ch_nutrition_anthropometry.id,
+          ch_record_id: this.record_id,
+          type_record_id: this.route,
+          is_functional: this.form.controls.is_functional.value,
+          weight: this.form.controls.weight.value,
+          size: this.form.controls.size.value,
+          arm_circunferency: this.form.controls.arm_circunferency.value,
+          calf_circumference: this.form.controls.calf_circumference.value,
+          knee_height: this.form.controls.knee_height.value,
+          abdominal_perimeter: this.form.controls.abdominal_perimeter.value,
+          hip_perimeter: this.form.controls.hip_perimeter.value,
+          geteratedIMC: this.geteratedIMC,
+          classification: this.classification,
+          estimated_weight: this.estimated_weight,
+          estimated_size: this.estimated_size,
+          total_energy_expenditure: this.total_energy_expenditure,
+        }).then(x => {
+          this.saved = x;
+          this.toastService.success('Registro actualizado correctamente', 'Correcto');
+        }).catch(x => {
+          this.loading = false;
+          this.toastService.danger(x, 'Error');
+        });
+      } else {
+        this.ChNutritionAnthropometryS.Save({
+          ch_record_id: this.record_id,
+          type_record_id: this.route,
+          is_functional: this.form.controls.is_functional.value,
+          weight: this.form.controls.weight.value,
+          size: this.form.controls.size.value,
+          arm_circunferency: this.form.controls.arm_circunferency.value,
+          calf_circumference: this.form.controls.calf_circumference.value,
+          knee_height: this.form.controls.knee_height.value,
+          abdominal_perimeter: this.form.controls.abdominal_perimeter.value,
+          hip_perimeter: this.form.controls.hip_perimeter.value,
+          geteratedIMC: this.geteratedIMC,
+          classification: this.classification,
+          estimated_weight: this.estimated_weight,
+          estimated_size: this.estimated_size,
+          total_energy_expenditure: this.total_energy_expenditure,
+        }).then(x => {
+          this.saved = x;
+          this.ch_nutrition_anthropometry = x;
+          this.toastService.success('Registro guardado correctamente', 'Correcto');
+        }).catch(x => {
+          this.loading = false;
+          this.toastService.danger(x, 'Error');
+        });
+      }
     }
   }
 

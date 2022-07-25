@@ -15,6 +15,7 @@ export class FormPharmacyIncomeComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() parentData: any;
+  @Input() type: boolean = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -40,11 +41,19 @@ export class FormPharmacyIncomeComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    this.parentData = {
-      selectedOptions: [],
-      entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + true,
-      customData: 'pharmacy_request_shipping',
-    };
+    if(this.type == true || this.type == false){
+      this.parentData = {
+        selectedOptions: [],
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + this.type,
+        customData: 'pharmacy_request_shipping',
+      };
+    } else {
+      this.parentData = {
+        selectedOptions: [],
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + true,
+        customData: 'pharmacy_request_shipping',
+      };
+    }
     if (!this.data) {
       this.data = {
         amount_damaged: '',

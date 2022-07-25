@@ -131,10 +131,10 @@
           <hr />
         </div>
   
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold">Semántico</label>
         </div>
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <nb-radio-group formControlName="semantic" semantic id="semantic"
             name="semantic"
             status="{{ isSubmitted && form.controls.semantic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -144,10 +144,10 @@
         </div>
   
   
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold">Pragmático</label>
         </div>
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <nb-radio-group formControlName="pragmatic" pragmatic id="pragmatic" name="pragmatic"
             status="{{ isSubmitted && form.controls.pragmatic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -216,16 +216,24 @@
           </nb-radio-group>
         </div>
 
-        <div class="col col-lg-2">
+        <!-- <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold text ">Observación</label>
         </div>
 
         <div class="row justify-content-md-center">
-          <div class="col col-lg-8">
+          <div class="col col-lg-6">
             <textarea onpaste="return false" class="form-text col col-lg-12" id="observation" nbInput fullWidth
-              formControlName="observations" observations rows="4" cols="50"
+              formControlName="observations" observations rows="3" cols="50"
               status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
           </div>
+        </div> -->
+        <div class="col col-lg-2">
+          <label class="form-text text-muted font-weight-bold center">Observaciones</label>
+        </div>
+        <div class="col col-lg-4">
+          <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+            onpaste="return false" rows="3" cols="50"
+            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
         </div>
  
       </div>

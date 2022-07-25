@@ -24,7 +24,7 @@ export class IncomePackageComponent implements OnInit {
   public form: FormGroup;
   public title = 'MEDICAMENTOS';
   public subtitle = '';
-  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'LOTE','CANTIDAD A RECIBIR', 'CANTIDAD CON DAÑOS', 'CANTIDAD ENVIADA'];
+  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'LOTE', 'CANTIDAD A RECIBIR', 'CANTIDAD CON DAÑOS', 'CANTIDAD ENVIADA'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -71,17 +71,26 @@ export class IncomePackageComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot_stock.billing_stock.product.name;
+          if (row.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_lot_stock.billing_stock.product.name;
+          } else {
+            return row.pharmacy_lot_stock.billing_stock.product_supplies_com.name;
+          }
+
         },
       },
       product_generic: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.pharmacy_product_request.product_generic.description;
+          if (row.pharmacy_product_request.product_generic) {
+            return row.pharmacy_product_request.product_generic.description;
+          } else {
+            return row.pharmacy_product_request.product_supplies.description;
+          }
         },
       },
-      
+
       amount_provition: {
         title: this.headerFields[5],
         type: 'string',

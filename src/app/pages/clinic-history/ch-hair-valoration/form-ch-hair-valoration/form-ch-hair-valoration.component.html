@@ -1,0 +1,34 @@
+<form [formGroup]="form">
+  <div >
+    <fieldset class="field_set center">
+      <legend class="prue1">VALORACIÓN CAPILAR</legend>
+
+      <div class="col-md-12">
+        <label for="hair_revision" class="form-text text-muted font-weight-bold align">CUERO CABELLUDO</label>
+  
+        <nb-radio-group formControlName="hair_revision" hair_revision id="hair_revision" class="d-flex text center"
+          fullWidth name="hair_revision"
+          status="{{ isSubmitted && form.controls.hair_revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
+          <nb-radio value="NORMAL">NORMAL</nb-radio>
+        </nb-radio-group>
+      </div>
+      <div class="col-md-12">
+        <label for="observation" class="form-text text-muted font-weight-bold align">OBSERVACIONES:</label>
+        <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      </div>
+    </fieldset>
+
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
+          type="button" (click)="save()">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

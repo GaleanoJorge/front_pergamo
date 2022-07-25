@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FixedLocationCampusService } from '../../../../business-controller/fixed-location-campus.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 import { FixedAddService } from '../../../../business-controller/fixed-add.service';
+import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
 
 @Component({
   selector: 'ngx-form-fixed-inventary-accesories',
@@ -39,20 +40,21 @@ export class FormFixedInventaryAccesoriesComponent implements OnInit {
         fixed_location_campus_id: '',
         responsible_user_id: '',
         observation: '',
-        request_amount: '',
+        amount_provition: '',
       };
     }
     this.form = this.formBuilder.group({
       fixed_location_campus_id: [this.data.fixed_location_campus_id, Validators.compose([Validators.required])],
       responsible_user_id: [this.data.responsible_user_id, Validators.compose([Validators.required])],
       observation: [this.data.observation, Validators.compose([Validators.required])],
-      request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
+      amount_provition: [this.data.amount_provition, Validators.compose([Validators.required])],
 
     });
 
     await this.FixedLocationCampusS.GetCollection({}).then(x => {
       this.fixed_location_campus_id = x;
     });
+
 
     await this.RoleBusinessS.GetCollection().then(x => {
       this.responsible_user_id = x;
@@ -67,13 +69,14 @@ export class FormFixedInventaryAccesoriesComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       if (this.data.id) {
-        this.FixedAddS.Save({
+        this.FixedAddS.updateInventoryByLot({
+          id: -1,
           fixed_accessories_id: this.data.id,
           fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
           responsible_user_id: this.form.controls.responsible_user_id.value,
           observation: this.form.controls.observation.value,
-          request_amount: this.form.controls.request_amount.value,
-          status: 'ENVIADO',
+          amount_provition: this.form.controls.amount_provition.value,
+          status: 'ENVIADO', 
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

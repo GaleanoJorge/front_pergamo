@@ -63,7 +63,7 @@ export class FixedLoanService {
       });
   }
 
-  Update(fixed_loan: any): Promise<ServiceObject> {
+  Update(fixed_loan: any, id = null): Promise<ServiceObject> {
     let servObj = new ServiceObject('fixed_loan', fixed_loan.id);
     servObj.data = fixed_loan;
     return this.webAPI.PutAction(servObj)

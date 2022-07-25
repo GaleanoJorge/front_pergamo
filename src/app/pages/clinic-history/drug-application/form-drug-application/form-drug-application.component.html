@@ -1,31 +1,26 @@
-<form [formGroup]="form" (ngSubmit)="save()">
-  <div>
+<form [formGroup]="form">
+  <nb-card class="rounded_card">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
 
-    <label class="form-text text-muted font-weight-bold align"></label>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="center">
-          <fieldset class="field_set">
-            <legend class="prue1">APLICACIÓN DE MEDICAMENTOS</legend>
-            <div class="row justify-content-md-center">
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="exit_status" exit_status id="exit_status" class="d-flex text center"
-                  name="exit_status"
-                  status="{{ isSubmitted && form.controls.exit_status.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-                  <nb-radio value="1">APLICADO</nb-radio>
-                  <nb-radio value="2">NO APLICADO</nb-radio>
-                </nb-radio-group>
-              </div>
-            </div>
+      <label class="form-text text-muted font-weight-bold align"></label>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="center">
+            <fieldset class="field_set">
+              <legend class="prue1">{{label}}</legend>
 
-            <label class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
-            <textarea id="observation" nbInput fullWidth formControlName="observation" observation
-              onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-          </fieldset>
+              <label class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
+              <textarea id="observation" nbInput fullWidth formControlName="observation" observation
+                onpaste="return false" rows="4" cols="50"
+                status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            </fieldset>
+          </div>
         </div>
       </div>
-    </div>
+
+    </nb-card-body>
+
 
     <div class="container">
       <div class="row justify-content-md-center">
@@ -37,9 +32,12 @@
 
     <div class="row">
       <div class="col-md-12">
-        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="isSubmitted" type="button"
+          (click)="save()">REGISTAR</button>
+        <button nbButton status="basic" class="ml-1 btn-save" [disabled]="isSubmitted" type="button"
+          (click)="close()">CANCELAR</button>
       </div>
     </div>
 
-  </div>
+  </nb-card>
 </form>
