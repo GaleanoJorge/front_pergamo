@@ -60,6 +60,7 @@ export class FormUsersComponent implements OnInit {
   @Input() isTeacher = null;
   @Input() isStudent = null;
   @Input() isTH = null;
+  @Input() edit_own_info: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
 

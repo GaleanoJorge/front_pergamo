@@ -681,7 +681,7 @@
             </nb-select>
           </div>
         </div>
-        <div class="col-md-12" *ngIf="this.role!=2">
+        <div class="col-md-12" *ngIf="this.role!=2 && !edit_own_info">
           <div style="margin-top: 10px;">
             <ngx-users-campus (messageEvent)="receiveCampusMessage($event)" [campusData]="campusData">
             </ngx-users-campus>
