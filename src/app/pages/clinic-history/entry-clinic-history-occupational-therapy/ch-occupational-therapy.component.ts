@@ -10,6 +10,13 @@ import { ChEDailyActivitiesOTService } from '../../../business-controller/ch_e_d
 import { ChRNValorationOTService } from '../../../business-controller/ch_r_n_valoration_o_t.service';
 import { ChRNTherapeuticObjOTService } from '../../../business-controller/ch_r_n_therapeutic_obj_o_t.service';
 import { ChRNMaterialsOTService } from '../../../business-controller/ch_r_n_materials_o_t.service';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { Location } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -27,7 +34,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public messageError = null;
   public title;
   public routes = [];
-  public user_id;
+  public user;
   public chvaloration: any[];
   public chpast: any[];
   public chocuupationalhistory: any[];
@@ -41,6 +48,11 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public chdiagnosis: any[];
   public nameForm: String;
   public movieForm: String;
+  public show: any;
+  public signatureImage: string;
+  public currentRole: any;
+  public own_user;
+  public saved: any = null;
 
 
   public record_id;
@@ -59,10 +71,16 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
     private ChEPastOTService: ChEPastOTService,
     private ChEDailyActivitiesOTService: ChEDailyActivitiesOTService,
     public userChangeS: UserChangeService,
+    private chRecord: ChRecordService,
     private ChRNValorationOTS: ChRNValorationOTService,
     private ChRNTherapeuticObjOTS: ChRNTherapeuticObjOTService,
     private ChRNMaterialsOTService: ChRNMaterialsOTService,
-
+    public datePipe: DateFormatPipe,
+    private admissionsS: AdmissionsService,
+    private deleteConfirmService: NbDialogService,
+    private toastService: NbToastrService,
+    private location: Location,
+    private authService: AuthService,
 
   ) {
 
@@ -70,6 +88,12 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
 
   async ngOnInit() {
     this.record_id = this.route.snapshot.params.id;
+    this.own_user = this.authService.GetUser();
+    this.chRecord.GetCollection({
+      record_id: this.record_id
+    }).then(x => {
+      this.user = x[0]['admissions']['patients'];
+    });
     if (!this.data) {
       this.data = {
         ch_diagnosis_id: '',
@@ -120,27 +144,103 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
 
     });
   }
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid && this.saveEntry) {
       this.loading = true;
       if (this.data.id) { }
-      await this.ChEValorationOTService.Update({});
-      await this.ChEOccHistoryOTServiceS.Update({});
-      await this.ChEPastOTService.Update({});
-      await this.ChEDailyActivitiesOTService.Update({});
-      await this.ChRNValorationOTS.Update({});
-      await this.ChRNTherapeuticObjOTS.Update({});
-      await this.ChRNMaterialsOTService.Update({});
+      this.ChEValorationOTService.Update({});
+      this.ChEOccHistoryOTServiceS.Update({});
+      this.ChEPastOTService.Update({});
+      this.ChEDailyActivitiesOTService.Update({});
+      this.ChRNValorationOTS.Update({});
+      this.ChRNTherapeuticObjOTS.Update({});
+      this.ChRNMaterialsOTService.Update({});
 
 
     }
   }
 
+  close() {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        //signature: true, 
+        title: 'Finalizar registro.',
+        delete: this.finish.bind(this),
+        //showImage: this.showImage.bind(this),
+        // save: this.saveSignature.bind(this),
+        textConfirm:'Finalizar registro'
+      },
+    });
+  }
+
+  showImage(data) {
+    this.signatureImage = data;
+  }
+
+  // async saveSignature() {
+  //   var formData = new FormData();
+  //   formData.append('firm_file', this.signatureImage);
+  //   console.log(this.signatureImage);
+  // }
+
+  async finish() {
+
+   await this.chRecord.Update({
+      id: this.record_id,
+      status: 'CERRADO',
+      user: this.user,
+      role: this.currentRole,
+      user_id: this.own_user.id,
+    }).then(x => {
+      this.toastService.success('', x.message);
+      this.location.back();
+      if (this.saved) {
+        this.saved();
+      }
+    }).catch(x => {
+      this.isSubmitted = false;
+      this.loading = false;
+    });
+  }
+
+  RefreshData() {
+
+    this.table.refresh();
+  }
+
+
+
+
+
   receiveMessage($event) {
     if ($event == true) {
       this.messageEvent.emit($event);
     }
+  }
+
+  tablock(e) {
+    switch (e.tabTitle) {
+      case "INGRESO": {
+        this.show = 1;
+        break;
+      }
+      case "NOTA REGULAR": {
+        this.show = 2;
+        break;
+      }
+    }
+  }
+
+ 
+
+  DeleteAdmissions(data) {
+    return this.admissionsS.Delete(data.id).then(x => {
+      this.table.refresh();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
   }
 }
 

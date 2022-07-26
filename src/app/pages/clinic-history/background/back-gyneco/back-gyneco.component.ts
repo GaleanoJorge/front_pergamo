@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -33,9 +34,12 @@ export class BackgGynecoComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-        id: {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.datePipe.transform2(value);
+        },
       },
       observation_breast_self_exam: {
         title: this.headerFields[1],
@@ -50,6 +54,7 @@ export class BackgGynecoComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe,
   ) {
   }
 

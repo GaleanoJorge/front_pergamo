@@ -15,6 +15,7 @@ export class EntryFormValorationOtComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() type_record_id;
   @Input() record_id: any = null;
 
   public form: FormGroup;

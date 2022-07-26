@@ -7,11 +7,11 @@ import {IdentificationTypeBusinessService} from '../../../../business-controller
 import { CompanyCategoryService} from '../../../../business-controller/company-category.service';
 import {CompanyTypeService} from '../../../../business-controller/company-type.service';
 import {CountryService} from '../../../../business-controller/country.service';
-import {RegionService} from '../../../../business-controller/region.service';
 import {IvaService} from '../../../../business-controller/iva.service';
 import {RetinerService} from '../../../../business-controller/retiner.service';
 import {CompanyKindpersonService} from '../../../../business-controller/company-kindperson.service';
 import {PaymentTermsService} from '../../../../business-controller/payment-terms.service';
+import { LocationBusinessService } from '../../../../business-controller/location-business.service';
 
 
 @Component({
@@ -39,7 +39,9 @@ export class FormCompanyComponent implements OnInit {
   public company_kindperson: any [];
   public payment_terms: any[];
   public showSelect: Boolean = false;
-
+  public consulto_done = false;
+  public region_changed = false;
+  public municipality: any;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -51,7 +53,7 @@ export class FormCompanyComponent implements OnInit {
     private CompanyCategoryS: CompanyCategoryService,
     private CompanyTypeS: CompanyTypeService,
     private CountryS: CountryService,
-    private RegionS: RegionService,
+    private locationBS: LocationBusinessService,
     private IvaS: IvaService,
     private RetinerS: RetinerService,
     private CompanyKindpersonS: CompanyKindpersonService,
@@ -86,6 +88,7 @@ export class FormCompanyComponent implements OnInit {
         opportunity: '',
         discount: '',
         payment_terms_id: '',
+        municipality_id: '',
 
       };   
     }
@@ -120,6 +123,8 @@ export class FormCompanyComponent implements OnInit {
       opportunity: [this.data.opportunity, Validators.compose([Validators.required])],
       discount: [this.data.discount, Validators.compose([Validators.required])],
       payment_terms_id: [this.data.payment_terms_id, Validators.compose([Validators.required])],
+      region_id: [this.data.region_id, Validators.compose([Validators.required])],
+      municipality_id: [this.data.municipality_id, Validators.compose([Validators.required])],
     });
 
     await this.IdentificationTypeS.GetCollection().then(x => {
@@ -135,9 +140,9 @@ export class FormCompanyComponent implements OnInit {
       this.country=x;
     });
 
-    await this.RegionS.GetCollection().then(x => {
-      this.city=x;
-    });
+    // await this.RegionS.GetCollection().then(x => {
+    //   this.city=x;
+    // });
     await this.IvaS.GetCollection().then(x => {
       this.iva=x;
     });
@@ -154,6 +159,41 @@ export class FormCompanyComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  onCountryChange(country_id) {
+    if (this.consulto_done) {
+      this.data.region_id = '';
+      this.form.controls.region_id.setValue('');
+      this.city = [];
+      this.data.municipality_id = '';
+      this.form.controls.municipality_id.setValue('');
+      this.municipality = [];
+    }
+    this.locationBS.GetPublicRegionByCountry(country_id).then(x => {
+      this.city = x;
+    });
+
+  }
+
+  onRegionChange(region_id) {
+    if (this.consulto_done) {
+      this.data.municipality_id = '';
+      this.form.controls.municipality_id.setValue('');
+      this.municipality = [];
+      this.region_changed = true;
+    }
+    this.locationBS.GetPublicMunicipalitiesByRegion(region_id).then(x => {
+      this.municipality = x;
+    });
+  }
+
+  onMunicipalityChange(municipality_id) {
+    if (this.consulto_done && !this.region_changed) {
+      // this.RefreshData();
+    }
+    this.region_changed = false;
+    this.consulto_done = true;
   }
 
   save() {
@@ -175,6 +215,7 @@ export class FormCompanyComponent implements OnInit {
           administrator: this.form.controls.administrator.value,
           country_id: this.form.controls.country_id.value,
           city_id: this.form.controls.city_id.value,
+          municipality_id: this.form.controls.municipality_id.value,
           address: this.form.controls.address.value,
           phone: this.form.controls.phone.value,
           web: this.form.controls.web.value,
@@ -213,6 +254,7 @@ export class FormCompanyComponent implements OnInit {
           administrator: this.form.controls.administrator.value,
           country_id: this.form.controls.country_id.value,
           city_id: this.form.controls.city_id.value,
+          municipality_id: this.form.controls.municipality_id.value,
           address: this.form.controls.address.value,
           phone: this.form.controls.phone.value,
           web: this.form.controls.web.value,

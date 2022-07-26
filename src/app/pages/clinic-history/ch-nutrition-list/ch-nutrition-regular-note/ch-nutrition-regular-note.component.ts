@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -13,6 +14,7 @@ export class ChNutritionRegularNoneComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user_id: any = null;
+  @Input() record_id: any = null;
 
   linearMode = false;
   public form: FormGroup;
@@ -24,11 +26,12 @@ export class ChNutritionRegularNoneComponent implements OnInit {
   public weight: any = null;
 
   constructor(
-
+    private route: ActivatedRoute,
   ) {
   }
 
   ngOnInit(): void {
+    this.record_id = this.route.snapshot.params.id;
   }
 
   receiveMessage(event) {

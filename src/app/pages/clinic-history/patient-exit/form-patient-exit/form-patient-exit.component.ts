@@ -29,16 +29,18 @@ export class FormPatientExitComponent implements OnInit {
   public showTable;
   public record_id;
   public admissions_id;
-  public death_diagnosis_id: any[];
+  public death_diagnosis_id;
   public ch_diagnosis: any[];
-  public exit_diagnosis_id: any[];
-  public relations_diagnosis_id: any[];
+  public exit_diagnosis_id;
+  public relations_diagnosis_id;
   public reason_exit: any[];
-  public show: boolean;
+  public show: boolean=false;
+  public show2: boolean=false;
   public show_death: boolean = false;
   public show_inputs: boolean = false;
   public diagnosis: any[] = [];
   public diagnosis_id;
+  public ch_diagnosis_id;
   public exit_diagnosis;
   public relations_diagnosis;
   public user_id;
@@ -46,6 +48,8 @@ export class FormPatientExitComponent implements OnInit {
   public own_user;
   public currentRole:any; 
   public exit;
+  public reason_exit_id;
+
   
 
   constructor(
@@ -72,18 +76,11 @@ export class FormPatientExitComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
     this.record_id = this.route.snapshot.params.id;
     this.currentRole = this.authService.GetRole();
     this.own_user = this.authService.GetUser();
-
-    this.chRecord.GetCollection({
-      record_id: this.record_id
-    }).then(x => {
-      this.user = x[0]['admissions']['patients'];
-      this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
-    });
   
     if (!this.data) {
       this.data = {
@@ -101,8 +98,8 @@ export class FormPatientExitComponent implements OnInit {
       };
     }
 
-    this.ReasonExitS.GetCollection().then(x => {
-      this.reason_exit = x;
+    this.ReasonExitS.GetCollection().then(y => {
+      this.reason_exit= y;
     });
 
     this.DiagnosisS.GetCollection().then(x => {
@@ -118,16 +115,15 @@ export class FormPatientExitComponent implements OnInit {
       legal_medicine_transfer: [this.data.legal_medicine_transfer],
       date_time: [this.data.date_time],
       death_diagnosis_id: [this.data.death_diagnosis_id],
-      ch_diagnosis_id: [this.data.ch_diagnosis_id],
+      ch_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].ch_diagnosis_id ): this.data.ch_diagnosis_id],
       medical_signature: [this.data.medical_signature],
       death_certificate_number: [this.data.death_certificate_number],
-      exit_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].exit_diagnosis_id ): this.data.exit_diagnosis_id,Validators.compose([Validators.required]),],
-      relations_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].relations_diagnosis_id ): this.data.relations_diagnosis_id,Validators.compose([Validators.required]),],
-     
-
+      exit_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].exit_diagnosis_id ): this.data.exit_diagnosis_id],
+      relations_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].relations_diagnosis_id ): this.data.relations_diagnosis_id],
       reason_exit_id: [this.data.reason_exit_id],
      
     });
+    this.onChanges();
   }
 
 
@@ -152,13 +148,13 @@ export class FormPatientExitComponent implements OnInit {
           reason_exit_id: this.form.controls.reason_exit_id.value,
           type_record_id: 10,
           ch_record_id: this.record_id,
-        }).then((x) => {
+        }).then(x => {
             this.toastService.success('', x.message);
             if (this.saved) {
               this.saved();
             }
           })
-          .catch((x) => {
+          .catch(x => {
             this.isSubmitted = false;
             this.loading = false;
           });
@@ -168,56 +164,101 @@ export class FormPatientExitComponent implements OnInit {
           exit_status: this.form.controls.exit_status.value,
           legal_medicine_transfer: this.form.controls.legal_medicine_transfer.value,
           date_time: this.form.controls.date_time.value,
-          death_diagnosis_id: this.form.controls.death_diagnosis_id.value,
-          ch_diagnosis_id: this.form.controls.ch_diagnosis_id,
+          death_diagnosis_id: this.death_diagnosis_id,
+          ch_diagnosis_id: this.ch_diagnosis_id,
           exit_diagnosis_id: this.exit_diagnosis_id,
           medical_signature: this.form.controls.medical_signature.value,
           death_certificate_number: this.form.controls.death_certificate_number.value,
           relations_diagnosis_id: this.relations_diagnosis_id,
-          reason_exit_id: this.form.controls.reason_exit_id.value,
+          reason_exit_id: this.reason_exit_id,
           type_record_id: 10,
           ch_record_id: this.record_id,
-        })
-          .then((x) => {
-            this.toastService.success('', x.message);
-            this.exit = this.finish.bind(this),
-            this.messageEvent.emit(true);
-            this.form.setValue({exit_status: '', legal_medicine_transfer: '', date_time: '', death_diagnosis_id: '', });
-            if (this.saved) {
-              this.saved();
-            }
+
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.setValue({ patient_family_education:'', recommendations_evo_id: '', description:'', });
+          if (this.saved) {
+            this.saved();
+          }
+        // })
+        //   .then(x => {
+        //     this.toastService.success('', x.message);
+        //     // this.exit = this.finish.bind(this),
+        //     this.messageEvent.emit(true);
+        //     this.form.setValue({exit_status: '', legal_medicine_transfer: '', date_time: '', death_diagnosis_id: '', });
+        //     if (this.saved) {
+        //       this.saved();
+        //     }
           })
           .catch((x) => {
             this.isSubmitted = false;
             this.loading = false;
           });
+          this.messageEvent.emit(true);
       }
     }
   }
- 
-  toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  })
 
-//   eventSelections(input) {
-//     if(input==true){
-//       this.show=false;
-     
-//    }
-// }
+  onChanges() {
+    this.form.get('exit_status').valueChanges.subscribe(val => {
+      if (val==1) {
+        this.show=true;
+        this.show2=false;
+        this.form.get('ch_diagnosis_id').setValidators(Validators.required);
+        this.form.get('exit_diagnosis_id').setValidators(Validators.required);
+        this.form.get('relations_diagnosis_id').setValidators(Validators.required);
+        this.form.get('reason_exit_id').setValidators(Validators.required);
+        this.form.controls.date_time.clearValidators();
+        this.form.controls.date_time.setErrors(null);
+        this.form.controls.legal_medicine_transfer.clearValidators();
+        this.form.controls.legal_medicine_transfer.setErrors(null);
+        this.form.controls.death_diagnosis_id.clearValidators();
+        this.form.controls.death_diagnosis_id.setErrors(null);
+        this.form.controls.medical_signature.clearValidators();
+        this.form.controls.medical_signature.setErrors(null);
+        this.form.controls.death_certificate_number.clearValidators();
+        this.form.controls.death_certificate_number.setErrors(null);
+      } else {
+        this.show=false;
+        this.show2=true;
+        this.form.get('date_time').setValidators(Validators.required);
+        this.form.get('legal_medicine_transfer').setValidators(Validators.required);
+        this.form.get('death_diagnosis_id').setValidators(Validators.required);
+        this.form.get('medical_signature').setValidators(Validators.required);
+        this.form.get('death_certificate_number').setValidators(Validators.required);
+        this.form.controls.ch_diagnosis_id.clearValidators();
+        this.form.controls.ch_diagnosis_id.setErrors(null);
+        this.form.controls.exit_diagnosis_id.clearValidators();
+        this.form.controls.exit_diagnosis_id.setErrors(null);
+        this.form.controls.relations_diagnosis_id.clearValidators();
+        this.form.controls.relations_diagnosis_id.setErrors(null);
+        this.form.controls.reason_exit_id.clearValidators();
+        this.form.controls.reason_exit_id.setErrors(null);
 
-async ShowDeath(e) {
-  if (e == 1) {
-    this.show_death = true;
-    this.show_inputs = true;
-  } else {
-    this.show_inputs = false;
-    this.show_death = false;
+      }
+    });
+
+
   }
-}
+
+ 
+  // toBase64 = file => new Promise((resolve, reject) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => resolve(reader.result);
+  //   reader.onerror = error => reject(error);
+  // })
+
+// async ShowDeath(e) {
+//   if (e == 1) {
+//     this.show_death = true;
+//     this.show_inputs = true;
+//   } else {
+//     this.show_inputs = false;
+//     this.show_death = false;
+//   }
+// }
 
 returnCode(diagnosis_id){
   var localName = this.diagnosis.find(item => item.id == diagnosis_id);
@@ -235,39 +276,65 @@ saveCode(e, valid): void {
 
   if (localidentify) {
     if (valid==1){
-      this.exit_diagnosis = localidentify.id;
-    } else {
-      this.relations_diagnosis = localidentify.id;
+      this.exit_diagnosis_id = localidentify.id;
+    } else if(valid==2) {
+      this.relations_diagnosis_id = localidentify.id;
+    }else if(valid==3){
+      this.death_diagnosis_id = localidentify.id;
+    }else if(valid==4){
+      var localidentify = this.ch_diagnosis.find(item => item.diagnosis.name == e);
+      this.ch_diagnosis_id = localidentify.id;
     }
   } else {
-    if (valid==2){
+    if (valid==1){
       this.exit_diagnosis = null;
-    } else {
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.exit_diagnosis_id.setErrors({'incorrect': true});
+    } else if(valid==2) {
       this.relations_diagnosis = null;
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.relations_diagnosis_id.setErrors({'incorrect': true});
+    }else if(valid==3){
+      this.death_diagnosis_id = null;
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.death_diagnosis_id.setErrors({'incorrect': true});
+    }else{
+      this.ch_diagnosis_id = null;
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.ch_diagnosis_id.setErrors({'incorrect': true});
     }
-    this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
-    this.form.controls.diagnosis_id.setErrors({'incorrect': true});
+   
   }
 }
 
-async finish() {
 
-  await this.chRecord.Update({
-    id: this.record_id,
-    status: 'CERRADO',
-    user: this.user,
-    role: this.currentRole,
-    user_id: this.own_user.id,
-  }).then(x => {
-    this.toastService.success('', x.message);
-    this.location.back();
-    if (this.saved) {
-      this.saved();
-    }
-  }).catch(x => {
-    this.isSubmitted = false;
-    this.loading = false;
-  });
+saveCodeR(e): void {
+  var localidentify = this.reason_exit.find(item => item.name == e);
+
+  if (localidentify) {
+    this.reason_exit_id = localidentify.id;
+  } else {
+    this.reason_exit_id = null;
+  }
 }
+// async finish() {
+
+//   await this.chRecord.Update({
+//     id: this.record_id,
+//     status: 'CERRADO',
+//     user: this.user,
+//     role: this.currentRole,
+//     user_id: this.own_user.id,
+//   }).then(x => {
+//     this.toastService.success('', x.message);
+//     this.location.back();
+//     if (this.saved) {
+//       this.saved();
+//     }
+//   }).catch(x => {
+//     this.isSubmitted = false;
+//     this.loading = false;
+//   });
+// }
 
 }

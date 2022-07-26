@@ -28,6 +28,8 @@ export class FormNutritionBackgroundComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
+  public botton_title: string = 'Guardar';
+  public ch_nutrition_interpretation = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -70,6 +72,17 @@ export class FormNutritionBackgroundComponent implements OnInit {
     this.form = this.formBuilder.group({
       observation: ['', Validators.required],
     });
+
+    this.ChNutritionAnalysisAndInterpretationS.GetCollection({
+      type_record_id: this.route,
+      ch_record_id: this.record_id,
+    }).then(x => {
+      this.ch_nutrition_interpretation = x[0];
+      if (this.ch_nutrition_interpretation != null) {
+        this.form.patchValue({ observation: this.ch_nutrition_interpretation.observation });
+        this.botton_title = 'Actualizar';
+      }
+    });
   }
 
   save() {
@@ -77,17 +90,38 @@ export class FormNutritionBackgroundComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       this.messageError = null;
-      this.ChNutritionAnalysisAndInterpretationS.Save({
-        ch_record_id: this.record_id,
-        type_record_id: this.route,
-        observation: this.form.controls.observation.value,
-      }).then(x => {
-        this.saved = x;
-        this.toastService.success('Registro guardado correctamente', 'Correcto');
-      }).catch(x => {
-        this.loading = false;
-        this.toastService.danger(x, 'Error');
-      });
+      if (this.ch_nutrition_interpretation != null) {
+        this.ChNutritionAnalysisAndInterpretationS.Update({
+          id: this.ch_nutrition_interpretation.id,
+          ch_record_id: this.record_id,
+          type_record_id: this.route,
+          observation: this.form.controls.observation.value,
+        }).then(x => {
+          this.saved = x;
+          this.loading = false;
+          this.ch_nutrition_interpretation = x.data.ch_nutrition_interpretation;
+          this.botton_title = 'Actualizar';
+          this.toastService.success('Registro actualizado correctamente', 'Correcto');
+        }).catch(x => {
+          this.loading = false;
+          this.toastService.danger(x, 'Error');
+        });
+      } else {
+        this.ChNutritionAnalysisAndInterpretationS.Save({
+          ch_record_id: this.record_id,
+          type_record_id: this.route,
+          observation: this.form.controls.observation.value,
+        }).then(x => {
+          this.saved = x;
+          this.loading = false;
+          this.ch_nutrition_interpretation = x.data.ch_nutrition_interpretation;
+          this.botton_title = 'Actualizar';
+          this.toastService.success('Registro guardado correctamente', 'Correcto');
+        }).catch(x => {
+          this.loading = false;
+          this.toastService.danger(x, 'Error');
+        });
+      }
     }
   }
 

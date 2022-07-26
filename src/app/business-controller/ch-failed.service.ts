@@ -45,20 +45,35 @@ export class ChFailedService {
       });
   }
 
-  Update(ch_failed: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_failed', ch_failed.id);
+  // Update(ch_failed: any): Promise<ServiceObject> {
+  //   let servObj = new ServiceObject('ch_failed', ch_failed.id);
+  //   servObj.data = ch_failed;
+  //   return this.webAPI.PutAction(servObj)
+  //     .then(x => {
+  //       servObj = <ServiceObject>x;
+  //       if (!servObj.status)
+  //         throw new Error(servObj.message);
+
+  //       return Promise.resolve(servObj);
+  //     })
+  //     .catch(x => {
+  //       throw x.message;
+  //     });
+  // }
+
+  Update(ch_failed: any, id = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('file_contract', (ch_failed.id ? ch_failed.id : id));
     servObj.data = ch_failed;
-    return this.webAPI.PutAction(servObj)
+    return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
-          throw new Error(servObj.message);
-
+          throw new Error(servObj.message)
         return Promise.resolve(servObj);
       })
       .catch(x => {
         throw x.message;
-      });
+      })
   }
 
   Delete(id): Promise<ServiceObject> {

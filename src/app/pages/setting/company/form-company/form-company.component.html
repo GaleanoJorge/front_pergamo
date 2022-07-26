@@ -53,7 +53,7 @@
         </div>
         <div class="col-md-12">
           <label for="country" class="form-text text-muted font-weight-bold">Pais:</label>
-          <nb-select [selected]="this.data.country_id" formControlName="country_id" id="country_id" fullWidth
+          <nb-select [selected]="this.data.country_id" formControlName="country_id" (selectedChange)="onCountryChange($event)" id="country_id" fullWidth
             status="{{ isSubmitted && form.controls.country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.country_id }}" *ngFor="let item of country" [value]="item.id">
@@ -61,11 +61,22 @@
           </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="city" class="form-text text-muted font-weight-bold">Providencia, Vereda o Municipio:</label>
-          <nb-select [selected]="this.data.city_id" formControlName="city_id" id="city_id" fullWidth
+          <label for="city" class="form-text text-muted font-weight-bold">Departamento:</label>
+          <nb-select [selected]="this.data.city_id" formControlName="city_id" (selectedChange)="onRegionChange($event)" id="city_id" fullWidth
             status="{{ isSubmitted && form.controls.city_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.city_id }}" *ngFor="let item of city" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="municipality" class="form-text text-muted font-weight-bold">PROVIDENCIA, VEREDA O
+            MUNICIPIO:</label>
+          <nb-select formControlName="municipality_id" id="municipality_id"
+            (selectedChange)="onMunicipalityChange($event)" fullWidth
+            status="{{ isSubmitted && form.controls.municipality_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of municipality" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>

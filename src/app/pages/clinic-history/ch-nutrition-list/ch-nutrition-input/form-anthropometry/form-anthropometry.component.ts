@@ -23,6 +23,7 @@ export class FormAnthropometryComponent implements OnInit {
   public rips_typefile: any[];
   public isSubmitted: boolean = false;
   public saved: any = null;
+  public botton_title: string = 'Guardar';
   public loading: boolean = false;
   public messageError = null;
   public is_functional = [
@@ -62,14 +63,14 @@ export class FormAnthropometryComponent implements OnInit {
       type_record_id: this.route,
       ch_record_id: this.record_id,
     }).then(x => {
-      this.ch_nutrition_anthropometry = x;
-      if (this.ch_nutrition_anthropometry.id) {
+      this.ch_nutrition_anthropometry = x[0];
+      if (this.ch_nutrition_anthropometry != null) {
         this.geteratedIMC = this.ch_nutrition_anthropometry.geteratedIMC;
         this.classification = this.ch_nutrition_anthropometry.classification;
         this.estimated_weight = this.ch_nutrition_anthropometry.estimated_weight;
         this.estimated_size = this.ch_nutrition_anthropometry.estimated_size;
         this.total_energy_expenditure = this.ch_nutrition_anthropometry.total_energy_expenditure;
-        this.form.patchValue({ is_functional: this.ch_nutrition_anthropometry.is_functional });
+        this.form.patchValue({ is_functional: this.ch_nutrition_anthropometry.is_functional == 1 ? true : false });
         this.form.patchValue({ weight: this.ch_nutrition_anthropometry.weight });
         this.form.patchValue({ size: this.ch_nutrition_anthropometry.size });
         this.form.patchValue({ arm_circunferency: this.ch_nutrition_anthropometry.arm_circunferency });
@@ -81,6 +82,7 @@ export class FormAnthropometryComponent implements OnInit {
           name: 'weight',
           value: this.form.controls.weight.value
         });
+        this.botton_title = 'Actualizar';
       }
     });
   }
@@ -199,7 +201,7 @@ export class FormAnthropometryComponent implements OnInit {
       });
       this.loading = true;
       this.messageError = null;
-      if (this.ch_nutrition_anthropometry.id) {
+      if (this.ch_nutrition_anthropometry != null) {
         this.ChNutritionAnthropometryS.Update({
           id: this.ch_nutrition_anthropometry.id,
           ch_record_id: this.record_id,
@@ -219,6 +221,9 @@ export class FormAnthropometryComponent implements OnInit {
           total_energy_expenditure: this.total_energy_expenditure,
         }).then(x => {
           this.saved = x;
+          this.loading = false;
+          this.ch_nutrition_anthropometry = x.data.ch_nutrition_anthropometry;
+          this.botton_title = 'Actualizar';
           this.toastService.success('Registro actualizado correctamente', 'Correcto');
         }).catch(x => {
           this.loading = false;
@@ -243,7 +248,9 @@ export class FormAnthropometryComponent implements OnInit {
           total_energy_expenditure: this.total_energy_expenditure,
         }).then(x => {
           this.saved = x;
-          this.ch_nutrition_anthropometry = x;
+          this.loading = false;
+          this.ch_nutrition_anthropometry = x.data.ch_nutrition_anthropometry;
+          this.botton_title = 'Actualizar';
           this.toastService.success('Registro guardado correctamente', 'Correcto');
         }).catch(x => {
           this.loading = false;

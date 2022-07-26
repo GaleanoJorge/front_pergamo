@@ -29,6 +29,7 @@ export class FormFoodHistoryComponent implements OnInit {
   public saved: any = null;
   public ch_nutrition_food_history: any = null;
   public loading: boolean = false;
+  public botton_title: string = 'Guardar';
   public is_allergic = [
     { id: true, name: 'Si' },
     { id: false, name: 'NO' },
@@ -132,8 +133,8 @@ export class FormFoodHistoryComponent implements OnInit {
       type_record_id: this.route,
       ch_record_id: this.record_id,
     }).then(x => {
-      this.ch_nutrition_food_history = x;
-      if (this.ch_nutrition_food_history.id) {
+      this.ch_nutrition_food_history = x[0];
+      if (this.ch_nutrition_food_history != null) {
         this.form.patchValue({ description: this.ch_nutrition_food_history.description });
         this.form.patchValue({ appetite: this.ch_nutrition_food_history.appetite });
         this.form.patchValue({ intake: this.ch_nutrition_food_history.intake });
@@ -154,6 +155,7 @@ export class FormFoodHistoryComponent implements OnInit {
           this.form.controls.allergy.setValidators([]);
           this.form.controls.allergy.updateValueAndValidity();
         }
+        this.botton_title = 'Actualizar';
       }
     });
   }
@@ -163,7 +165,7 @@ export class FormFoodHistoryComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       this.messageError = null;
-      if (this.ch_nutrition_food_history.id) {
+      if (this.ch_nutrition_food_history != null) {
         this.ChNutritionFoodHistoryS.Update({
           id: this.ch_nutrition_food_history.id,
           ch_record_id: this.record_id,
@@ -179,7 +181,9 @@ export class FormFoodHistoryComponent implements OnInit {
           intake_control: this.form.controls.intake_control.value,
         }).then(x => {
           this.saved = x;
-          this.ch_nutrition_food_history = x;
+          this.ch_nutrition_food_history = x.data.ch_nutrition_food_history;
+          this.botton_title = 'Actualizar';
+          this.loading = false;
           this.toastService.success('Registro actualizado correctamente', 'Correcto');
         }).catch(x => {
           this.loading = false;
@@ -200,7 +204,9 @@ export class FormFoodHistoryComponent implements OnInit {
           intake_control: this.form.controls.intake_control.value,
         }).then(x => {
           this.saved = x;
-          this.ch_nutrition_food_history = x;
+          this.ch_nutrition_food_history = x.data.ch_nutrition_food_history;
+          this.botton_title = 'Actualizar';
+          this.loading = false;
           this.toastService.success('Registro guardado correctamente', 'Correcto');
         }).catch(x => {
           this.loading = false;
