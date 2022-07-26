@@ -3,10 +3,12 @@
     <ngx-base-table [title]="title" pager="false" [subtitle]="subtitle" [settings]="settings"
       [entity]="entity" customData="billing_pad" [messageToltip]="messageToltip">
       <div actions>
-        <div class="actions" *ngIf="this.billing.billing_pad_status_id != 2">
-          <button nbButton status="danger" (click)="SaveBilling()">Facturar</button>
+        <div class="actions" *ngIf="this.billing.billing_pad_status_id != 2 && this.adm == null">
+          <button nbButton class="mr-1" status="danger" (click)="SaveBilling()">Facturar</button>
+          <button nbButton status="danger" (click)="ShowPreBilling($event)">Pre factura</button>
         </div>
-        <div class="actions" style="margin-top:1em;">
+        <div class="actions"  *ngIf="this.total_pre_billing">
+          VALOR TOTAL PREFACTURA: {{this.currency.transform(this.total_pre_billing)}}  
         </div>
       </div>
     </ngx-base-table>

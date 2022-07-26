@@ -18,6 +18,10 @@ input[type=number] { -moz-appearance:textfield; }
   margin-right: 5px;
 }
 
+.mr-1 {
+  margin-right: 5px;
+}
+
 .file-select::before {
   background-color: #54bcc1;
   color: white;
