@@ -112,10 +112,6 @@ export class InsumeMassiveComponent implements OnInit {
 
   async ngOnInit() {
     this.manual_id= this.route.snapshot.params.id,
-    this.InscriptionForm = this.formBuilder.group({
-      value: ['', Validators.compose([Validators.required])],
-      price_type_id: ['', Validators.compose([Validators.required])],
-  });
   
       this.routes = [
         {
@@ -124,10 +120,6 @@ export class InsumeMassiveComponent implements OnInit {
         },
       ];
 
-  
-    this.PriceTypeS.GetCollection().then(x => {
-      this.price_type=x;
-    });
     await this.ManualS.GetCollection().then(x => {
       this.manual=x;
     });
@@ -161,49 +153,7 @@ export class InsumeMassiveComponent implements OnInit {
   ConfirmAction(dialog: TemplateRef<any>) {
     this.dialog = this.dialogService.open(dialog);
   }
-/*  dataUserRole($event,data){
-    if($event==true && !this.selectedOptions.includes(data)){
-      var role_id=data;
-      var role_filter = role_id.courses.filter(course => course.pivot.course_id==this.route.snapshot.params.course_id);
-      role_filter.user_role_group_id= role_id.user_role_group_id;
-      role_filter.email=role_id.email;
-      role_filter.name=role_id.nombre_completo;
-      this.selectedOptions.push(role_filter);
-    }else{
-      var i = this.selectedOptions.indexOf( data );
-      this.selectedOptions.splice( i, 1 );
-    }
-  }*/
-  saveGroup() {
-    if (!this.selections) {
-      this.dialog = this.dialog.close();
-      this.toastService.danger(null, 'Debe seleccionar al menos un medicamento');
-    } else if(!this.InscriptionForm.controls.value.value){
-      this.toastService.danger(null, 'Debe agregar un precio');
-    }else if(!this.InscriptionForm.controls.price_type_id.value){
-      this.toastService.danger(null, 'Debe seleccionar un Tipo');
-    }
-    else{
-      this.dialog = this.dialog.close();
-      this.ManualPriceS.Save({
-        manual_id: this.route.snapshot.params.id,
-        procedure_id: this.selections,
-        value: this.InscriptionForm.controls.value.value,
-        price_type_id: this.InscriptionForm.controls.price_type_id.value,
-      }).then(x => {
-        this.toastService.success('', x.message);
-        this.dialog.close();
-        if (this.saved) {
-          this.saved();
-        }
-      }).catch(x => {
-        this.isSubmitted = false;
-        this.loading = false;
-      });
-    this.RefreshData();
-    this.selections=[];
-  } 
-  }
+
 
   DeleteConfirmManualPrice(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
