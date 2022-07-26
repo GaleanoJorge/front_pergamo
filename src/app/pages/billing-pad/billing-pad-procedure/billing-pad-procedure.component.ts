@@ -187,7 +187,7 @@ export class BillingPadProcedureComponent implements OnInit {
     if (this.adm == null) {
       this.routes = [
         {
-          name: 'Autorizaciones',
+          name: 'Procedimientos',
           route: './',
         },
       ];

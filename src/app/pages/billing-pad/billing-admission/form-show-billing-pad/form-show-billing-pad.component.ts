@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ActionsPadProcedureComponent } from '../../billing-pad-procedure/actions-pad-procedure.component';
 import { FormBillingPadComponent } from '../../billing-pad-procedure/form-billing-pad/form-billing-pad.component';
 import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
+import { CurrencyPipe } from '@angular/common';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class FormShowBillingPadComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     public datePipe: DateFormatPipe,
+    private currency: CurrencyPipe,
   ) {
   }
 
@@ -60,6 +62,17 @@ export class FormShowBillingPadComponent implements OnInit {
             return row.assigned_management_plan.management_plan.procedure.name;
           } else if (row.manual_price) {
             return row.manual_price.name;
+          }
+        },
+      },
+      value: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.manual_price) {
+            return this.currency.transform(row.manual_price.value);
+          } else {
+            return this.currency.transform(row.services_briefcase.value);
           }
         },
       },
