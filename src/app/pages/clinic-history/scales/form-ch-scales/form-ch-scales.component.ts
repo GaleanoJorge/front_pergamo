@@ -296,7 +296,7 @@ export class FormChScalesComponent implements OnInit {
       this.data = {
       };
     }
-    this.ageScale = this.getAge(this.age.brithday);
+    this.ageScale = this.getAge(this.age.birthday);
     this.form = this.formBuilder.group({
 
       //Escala Norton Form
