@@ -71,10 +71,12 @@ export class DetailServicesComponent implements OnInit {
         valuePrepareFunction(value, row) {
           if(row.manual_price.manual_procedure_type_id==3){
             return row.manual_price.own_code;          
-          }else if(row.manual_price.procedure==null){
+          }else if(row.manual_price.procedure){
+            return row.manual_price.procedure.code;
+          }else if(row.manual_price.product){
             return row.manual_price.product.code_atc;
-          }else{
-            return row.manual_price.own_code;
+          } else if(row.manual_price.insume){
+            return '--';
           }
         },
       },
@@ -84,10 +86,12 @@ export class DetailServicesComponent implements OnInit {
         valuePrepareFunction(value, row) {
           if(row.manual_price.manual_procedure_type_id==3){
             return row.manual_price.own_code;
-          }else if(row.manual_price.procedure==null){
-            return row.manual_price.product.code_atc;
-          }else{
+          }else if(row.manual_price.procedure){
             return row.manual_price.homologous_id;
+          }else if(row.manual_price.product){
+            return row.manual_price.product.nom_product_id;
+          } else if(row.manual_price.insume){
+            return '--';
           }
         },
       },
@@ -97,11 +101,12 @@ export class DetailServicesComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if(value.manual_procedure_type_id==3){
             return 'Procedimiento-paquete'
-          }else if(value.procedure==null){
-            return 'Medicamento'
-          }
-          else{
+          }else if(value.procedure){
             return value.procedure.procedure_category.name;
+          }else if(value.product){
+            return 'Medicamento'
+          }else if(value.insume){
+            return 'Insumo'
           }
         },
       },
@@ -109,10 +114,14 @@ export class DetailServicesComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if(row.manual_price.procedure==null){
-            return row.manual_price.product.name;
-          }else{
+          if(row.manual_price.procedure ){
             return row.manual_price.procedure.name;
+          }else if(row.manual_price.product){
+            return row.manual_price.product.description;
+          }else if(row.manual_price.insume){
+            return row.manual_price.insume.description;
+          } else {
+            return row.manual_price.name
           }
         },
       },

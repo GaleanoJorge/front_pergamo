@@ -38,7 +38,7 @@ export class FormManualInsumeComponent implements OnInit {
   public product_supplies: any[];
   public showSelect: Boolean = false;
   public price_type: any[] = [];
-  public product_id;
+  public supplies_id;
 
 
 
@@ -81,11 +81,6 @@ export class FormManualInsumeComponent implements OnInit {
       product_id: [this.data.procedure_id],
     });
 
-
-    await this.ProcedureTypeS.GetCollection().then(x => {
-      x.shift();
-      this.procedure_type = x;
-    });
     await this.ProductSupS.GetCollection().then(x => {
       this.product_supplies = x;
     });
@@ -103,8 +98,8 @@ export class FormManualInsumeComponent implements OnInit {
 
   public saveCode(e): void {
     var filter = this.product_supplies.filter(insume => insume.description == e.target.value);
-    this.product_id = filter[0].id;
-    console.log(this.product_id);
+    this.supplies_id = filter[0].id;
+    console.log(this.supplies_id);
     this.form.controls.name.setValue(e.target.value);
 
   }
@@ -127,7 +122,7 @@ export class FormManualInsumeComponent implements OnInit {
           manual_id: this.manual_id,
           value: this.form.controls.value.value,
           price_type_id: this.form.controls.price_type_id.value,
-          product_id: this.product_id,
+          supplies_id: this.supplies_id,
           manual_procedure_type_id: 2,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -145,7 +140,7 @@ export class FormManualInsumeComponent implements OnInit {
           manual_id: this.manual_id,
           value: this.form.controls.value.value,
           price_type_id: this.form.controls.price_type_id.value,
-          product_id: this.product_id,
+          supplies_id: this.supplies_id,
           manual_procedure_type_id: 2,
         }).then(x => {
           this.toastService.success('', x.message);
