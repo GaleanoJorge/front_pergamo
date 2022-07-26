@@ -417,6 +417,12 @@ import { ActionsComponentInsume } from './manual/insume-massive/actions.componen
 import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
 import { FormManualInsumeComponent } from './manual/form-manual-insume/form-manual-insume.component';
 import { TcCollectionComponent } from './tc-collection/tc-collection.component';
+import { FormPharmacyRequestPatientComponent } from './pharmacy-request-patient/form-pharmacy-request-patient/form-pharmacy-request-patient.component';
+import { AmountShippingPatientComponent } from './pharmacy-request-patient/prod-shipping-patient-package/amount-shipping-patient.component';
+import { ProdShippingPatientPackageComponent } from './pharmacy-request-patient/prod-shipping-patient-package/prod-shipping-patient-package.component';
+import { SelectProductPatientShippingComponent } from './pharmacy-request-patient/prod-shipping-patient-package/select-prod-patient-shipping.component';
+import { ActionsSendPatientComponent } from './pharmacy-request-patient/actions.component';
+import { PharmacyRequestPatientComponent } from './pharmacy-request-patient/pharmacy-request-patient.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -870,7 +876,15 @@ import { TcCollectionComponent } from './tc-collection/tc-collection.component';
     BillingPadConsecutiveComponent,
     FormBillingPadConsecutiveComponent,
     FixedFormNomProductComponent,
-    FixedNomProductComponent
+    FixedNomProductComponent,
+
+
+    FormPharmacyRequestPatientComponent,
+    AmountShippingPatientComponent,
+    ProdShippingPatientPackageComponent,
+    SelectProductPatientShippingComponent,
+    ActionsSendPatientComponent,
+    PharmacyRequestPatientComponent
   ],
   providers: [
     DateFormatPipe,

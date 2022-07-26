@@ -105,12 +105,12 @@ export class FormProductGenericComponent implements OnInit {
       administration_route_id: [this.data.administration_route_id],
       special_controller_medicine: [this.data.special_controller_medicine],
       code_atc: [this.data.code_atc],
-      product_group_id: [],
-      product_category_id: [],
-      product_subcategory_id: [],
-      product_dose_id: [],
-      dose: [],
-      multidose_concentration_id: [],
+      product_group_id: [this.data.product_group_id],
+      product_category_id: [this.data.product_category_id],
+      product_subcategory_id: [this.data.product_subcategory_id],
+      product_dose_id: [this.data.product_dose_id],
+      dose: [this.data.dose],
+      multidose_concentration_id: [this.data.multidose_concentration_id],
     });
 
     this.form.controls.description.disable();

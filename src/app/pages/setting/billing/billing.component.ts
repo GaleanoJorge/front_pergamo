@@ -80,6 +80,7 @@ export class BillingComponent implements OnInit {
 
   NewBilling() {
     this.dialogFormService.open(FormBillingComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear orden de compra',
         saved: this.RefreshData.bind(this),
