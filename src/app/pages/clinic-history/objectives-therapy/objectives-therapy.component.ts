@@ -33,8 +33,8 @@ export class ObjectivesTherapyComponent implements OnInit {
       display: true,
       perPage: 30,
     },
-
-    columnss: {
+    
+    columns: {
       created_at: {
         title: this.headerFields[0],
         type: 'string',
@@ -46,20 +46,6 @@ export class ObjectivesTherapyComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
       },
-    },
-
-    columns: {
-      created_at: {
-        title: this.headerFields[0],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
-        },
-      },
-      // strengthen: {
-      //   title: this.headerFields[1],
-      //   width: 'string',
-      // },
       promote: {
         title: this.headerFields[1],
         width: 'string',
