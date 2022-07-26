@@ -152,6 +152,9 @@ import { ProductTabComponent } from './product-tab/product-tab.component';
 import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/billing-request-pharmacy.component';
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+import { MedicalDiaryComponent } from './medical-diary/medical-diary.component';
+import { MedicalComponent } from './medical-diary/medical/medical.component';
+import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/form-medical-diary.component';
 
 const routes: Routes = [{
   path: '',
@@ -160,6 +163,16 @@ const routes: Routes = [{
     {
       path: 'coverage',
       component: CoverageComponent,
+
+    },
+    {
+      path: 'medical-diary',
+      component: MedicalDiaryComponent,
+
+    },
+    {
+      path: 'medical-diary/medical/:id/:user',
+      component: MedicalComponent,
 
     },
     {

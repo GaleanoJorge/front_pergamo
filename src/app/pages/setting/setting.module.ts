@@ -401,6 +401,12 @@ import { IvaSuppliesComponent } from './billing/prod-supplies-package/iva-suppli
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-most/billing-request-pharmacy-most.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+import { MedicalDiaryComponent } from './medical-diary/medical-diary.component';
+import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/form-medical-diary.component';
+import { MedicalComponent } from './medical-diary/medical/medical.component';
+import { ActionsMedicalDiaryComponent } from './medical-diary/actions.component';
+import { ActionsMedicalComponent } from './medical-diary/medical/actions.component';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -450,6 +456,9 @@ import { tcRentabilityComponent } from './tc-rentability/tc-rentability.componen
     PolicyTypeComponent,
     FormBedComponent,
     BedComponent,
+    MedicalComponent,
+    ActionsMedicalDiaryComponent,
+    ActionsMedicalComponent,
     RolesPermissionsComponent,
     FormObservationNoveltyComponent,
     ObservationNoveltyComponent,
@@ -488,6 +497,8 @@ import { tcRentabilityComponent } from './tc-rentability/tc-rentability.componen
     ActionsProcedureComponent,
     FormCoverageComponent,
     FormFirmsComponent,
+    MedicalDiaryComponent,
+    FormMedicalDiaryComponent,
     ProcedurePackageComponent,
     ProcedurePackage2Component,
     FormInsuranceCarrierComponent,
