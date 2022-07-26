@@ -1,0 +1,46 @@
+ <div class="row" class="accordion">
+    <nb-accordion multi>
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Valoración Terapéutica
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-ass-therapy-respiratory [record_id]="record_id">
+          </ngx-ass-therapy-respiratory>         
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Inspección
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-ispection-therapy [record_id]="record_id" [data]="data">
+          </ngx-ispection-therapy>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Auscultación
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-auscultacion-therapy [record_id]="record_id">
+          </ngx-auscultacion-therapy>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Ayudas diagnósticas
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-diagnostic-therapy [record_id]="record_id">
+          </ngx-diagnostic-therapy>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+
+
+    </nb-accordion>
+  </div>
