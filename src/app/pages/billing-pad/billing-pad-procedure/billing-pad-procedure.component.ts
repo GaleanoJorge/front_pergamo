@@ -276,7 +276,7 @@ export class BillingPadProcedureComponent implements OnInit {
         this.RefreshData();
       }).catch(x => {
         this.loading = false;
-        this.messageError = x.error.message;
+        this.messageError = x;
       });
     } else {
       this.toastS.warning('Seleccione al menos un procedimiento', 'Aviso');
