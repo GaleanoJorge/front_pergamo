@@ -8,7 +8,7 @@ export class ChFormulation extends MainClass{
     treatment_days: number;
     outpatient_formulation: string;
     observation: string;
-    dose_apply: string;
+    dose: string;
     type_record_id: number;
     ch_record_id: number;
 }

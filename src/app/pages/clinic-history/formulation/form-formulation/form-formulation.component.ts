@@ -2,16 +2,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChFormulationService } from '../../../../business-controller/ch-formulation.service';
-import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductGenericService } from '../../../../business-controller/product-generic.service';
 import { AdministrationRouteService } from '../../../../business-controller/administration-route.service';
 import { HourlyFrequencyService } from '../../../../business-controller/hourly-frequency.service';
-import { ManagementPlanService } from '../../../../business-controller/management-plan.service';
 import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
 import { PatientService } from '../../../../business-controller/patient.service';
-import { ProductDoseService } from '../../../../business-controller/product_dose.service';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
+import { AuthService } from '../../../../services/auth.service';
+import { UserChangeService } from '../../../../business-controller/user-change.service';
 
 @Component({
   selector: 'ngx-form-formulation',
@@ -43,10 +42,9 @@ export class FormFormulationComponent implements OnInit {
   public user2;
   public show: boolean = true;
   public input: boolean = false;
-
-
+  public all_changes: any[];
+  public own_user: any = null;
   public loadAuxData;
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,6 +57,8 @@ export class FormFormulationComponent implements OnInit {
     private patienBS: PatientService,
     private ProductGS: ProductGenericService,
     private PharmacyProductRequestS: PharmacyProductRequestService,
+    public userChangeS: UserChangeService,
+    private authService: AuthService,
   ) {
   }
 
@@ -69,16 +69,14 @@ export class FormFormulationComponent implements OnInit {
         product_id: '',
         administration_route_id: '',
         hourly_frequency_id: '',
-        medical_formula: '',
         treatment_days: '',
         outpatient_formulation: '',
         dose: '',
         observation: '',
         number_mipres: '',
-        dose_apply: '',
-
       };
     };
+
 
     this.loadForm(false).then();
     await Promise.all([
@@ -105,19 +103,21 @@ export class FormFormulationComponent implements OnInit {
       this.product_gen = x;
     });
 
+    await this.userChangeS.GetCollection().then(x => {
+      this.all_changes = x;
+    });
+    this.own_user = this.authService.GetUser();
+
     return Promise.resolve(true);
   }
 
-
   async loadForm(force = true) {
     if (this.loadAuxData && force) return false;
-
     this.form = this.formBuilder.group({
       medical_formula: [this.data.medical_formula],
       product_gen: [this.product_gen,],
       product_id: [this.data.product_id,],
       dose: [this.data.dose, Validators.compose([Validators.required])],
-      dose_apply: [this.data.dose_apply],
       administration_route_id: [this.data.administration_route_id, Validators.compose([Validators.required])],
       hourly_frequency_id: [this.data.hourly_frequency_id, Validators.compose([Validators.required])],
       treatment_days: [this.data.treatment_days, Validators.compose([Validators.required])],
@@ -136,9 +136,8 @@ export class FormFormulationComponent implements OnInit {
       await this.ChFormulationS.Save({
         administration_route_id: this.form.controls.administration_route_id.value,
         dose: this.form.controls.dose.value,
-        dose_apply: this.form.controls.dose_apply.value,
         hourly_frequency_id: this.form.controls.hourly_frequency_id.value,
-        medical_formula: this.form.controls.medical_formula.value,
+        // medical_formula: this.form.controls.medical_formula.value,
         number_mipres: this.form.controls.number_mipres.value,
         observation: this.form.controls.observation.value,
         outpatient_formulation: this.form.controls.outpatient_formulation.value,
@@ -146,13 +145,14 @@ export class FormFormulationComponent implements OnInit {
         treatment_days: this.form.controls.treatment_days.value,
         type_record_id: 5,
         ch_record_id: this.record_id,
+        services_briefcase_id: this.product_id,
       })
         .then((x) => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
           this.form.setValue({
-            product_generic_id: '', dose_apply: '', administration_route_id: '', hourly_frequency_id: '', medical_formula: '',
-            treatment_days: '', outpatient_formulation: '', dose: '', observation: '', number_mipres: ''
+            product_generic_id: '', dose: '', administration_route_id: '', hourly_frequency_id: '', medical_formula: '',
+            treatment_days: '', outpatient_formulation: '', observation: '', number_mipres: ''
           });
           if (this.saved) {
             this.saved();
@@ -167,16 +167,16 @@ export class FormFormulationComponent implements OnInit {
         services_briefcase_id: this.product_id,
         request_amount: this.form.controls.outpatient_formulation.value,
         observation: this.form.controls.observation.value,
-        admissions_id: this.user2.admissions,
-        status: 'SOLICITADO',
-        own_pharmacy_stock_id: this.data.id,
+        admissions_id: this.user2.admissions[0].id,
+        status: 'PATIENT',
+        user_request_pad_id: this.own_user.id,
       })
         .then((x) => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
           this.form.setValue({
             product_generic_id: '', request_amount: '', observation: '', status: '',
-            own_pharmacy_stock_id: ''
+            user_request_pad_id: ''
           });
           if (this.saved) {
             this.saved();
@@ -191,25 +191,19 @@ export class FormFormulationComponent implements OnInit {
 
 
   onChangesFormulation(event, id) {
-
     var presentmedic;
     var dose = this.form.controls.dose.value;
     var hourly_frequency_id = this.hourly_frequency_id.find(item => item.id == this.form.controls.hourly_frequency_id.value).value;
     var treatment_days = this.form.controls.treatment_days.value;
-
-
     this.localidentify = this.product_gen.find(item => item.id == this.product_id);
     if (this.localidentify.manual_price) {
       presentmedic = this.getConcentration(this.localidentify.manual_price.product.drug_concentration.value);
     } else {
       presentmedic = this.getConcentration(this.localidentify.drug_concentration.value);
     }
-
     var operate = dose * (24 / hourly_frequency_id) * treatment_days;
-    // var operate = (dose / presentmedic) * (24 / hourly_frequency_id) * treatment_days;
     this.form.controls.outpatient_formulation.setValue(operate);
   }
-
 
   getConcentration(value: string) {
     var rr = 0;
@@ -253,10 +247,10 @@ export class FormFormulationComponent implements OnInit {
 
   saveCode1(e, identificator): void {
     this.identificator = identificator;
-    if (this.identificator == 2) {
-      this.localidentify = this.product_gen.find(item => item.description == e);
-    } else {
+    if (this.identificator == 1) {
       this.localidentify = this.product_gen.find(item => item.manual_price.name == e);
+    } else {
+      this.localidentify = this.product_gen.find(item => item.description == e);
     }
 
     if (this.localidentify) {
@@ -276,7 +270,7 @@ export class FormFormulationComponent implements OnInit {
       this.patienBS.GetUserById(this.user).then(x => {
         this.user2 = x;
       });
-      this.servicesBriefcaseS.GetByBriefcase({type:'2'},this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
+      this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
         this.product_gen = x;
       });
     } else {
@@ -291,7 +285,7 @@ export class FormFormulationComponent implements OnInit {
 
 
 
-      
+
 
     }
   }
