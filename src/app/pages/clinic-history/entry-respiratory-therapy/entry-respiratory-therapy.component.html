@@ -14,7 +14,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
-            <ngx-form-signs  [record_id]="record_id" ></ngx-form-signs>
+            <ngx-signs  [record_id]="record_id" ></ngx-signs>
           </nb-step>
           <!-- *ngIf="vitalsigns" [data]="vitalsigns"  -->
 
@@ -25,11 +25,11 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Valoración Terapeutica">
-            <ngx-form-assessment-therapy [record_id]="record_id"></ngx-form-assessment-therapy>
+            <ngx-form-assessment-therapy [record_id]="record_id" [data]="data"></ngx-form-assessment-therapy>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Objetivos">
-            <ngx-objectives-therapy [record_id]="record_id" [type_record]="1"></ngx-objectives-therapy>
+            <ngx-objectives-therapy [record_id]="record_id"></ngx-objectives-therapy>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Pedido de insumos">

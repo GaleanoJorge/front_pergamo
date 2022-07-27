@@ -1,8 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="row justify-content-md-center">
     <div class="col col-lg-6"> <label class="form-text text-muted font-weight-bold align">PARACLÍNICOS</label>
-      <nb-select multiple formControlName="aids" id="aids" fullWidth placeholder="Seleccione..."
-        status="{{ isSubmitted && form.controls.aids.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+      <nb-select formControlName="paraclinical" id="paraclinical" fullWidth placeholder="Seleccione..."
+        status="{{ isSubmitted && form.controls.paraclinical.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="">SELECCIONE...</nb-option>
         <nb-option value="RADIOGRAFIA">RADIOGRAFIA</nb-option>
         <nb-option value="ESPIROMETRIA">ESPIROMETRIA</nb-option>
         <nb-option value="GASES ARTERIALES">GASES ARTERIALES</nb-option>
@@ -22,9 +23,12 @@
     </div>
   </div>
 
-
-  <div class="div-send">
-    <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
   </div>
 
 </form>

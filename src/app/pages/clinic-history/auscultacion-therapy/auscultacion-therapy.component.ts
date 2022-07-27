@@ -5,11 +5,11 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
-  selector: 'ngx-objectives-therapy',
-  templateUrl: './objectives-therapy.component.html',
-  styleUrls: ['./objectives-therapy.component.scss'],
+  selector: 'ngx-auscultacion-therapy',
+  templateUrl: './auscultacion-therapy.component.html',
+  styleUrls: ['./auscultacion-therapy.component.scss'],
 })
-export class ObjectivesTherapyComponent implements OnInit {
+export class AuscultacionTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() type_record: any = null;
@@ -18,7 +18,7 @@ export class ObjectivesTherapyComponent implements OnInit {
   public messageError = null;
   public title: string = '';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha', 'Objetivos'];
+  public headerFields: any[] = ['Fecha', 'Ausultación', 'Observación'];
   public routes = [];
   public data = [];
   public loading: boolean = false;
@@ -33,34 +33,24 @@ export class ObjectivesTherapyComponent implements OnInit {
       display: true,
       perPage: 30,
     },
-    
+
     columns: {
       created_at: {
         title: this.headerFields[0],
         type: 'string',
-        valuePrepareFunction: (value) => {
+        valuePrepareFunction: (value, row) => {
           return this.datePipe.transform2(value);
         },
       },
-
-      strengthen: {
+      auscultation: {
         title: this.headerFields[1],
         width: 'string',
-        valuePrepareFunction: (value, row) => {
-          return (row.strengthen != null ? row.strengthen  + ' - ' : "") 
-          + (row.promote != null ?  row.promote  + ' -  ' : "")
-          + (row.title != null ?  row.title  + ' -  ' : "")
-          + (row.streimprovegthen != null ?  row.streimprovegthen  + ' - ' : "")
-          + (row.re_education != null ?  row.re_education  + ' - ' : "")
-          + (row.hold != null ?  row.hold  + ' - ' : "")
-          + (row.check != null ?  row.check  + ' - ' : "")
-          + (row.train != null ?  row.train  + ' - ': "")
-          + (row.headline != null ?  row.headline  + ' - ': "")
-          + (row.look_out != null ?  row.look_out: "")
-          ;
-        },
-    },
-    },
+      },
+      observation: {
+        title: this.headerFields[2],
+        width: 'string',
+      },
+    }
   };
 
 

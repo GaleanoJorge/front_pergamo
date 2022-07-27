@@ -1,4 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-lg-12">
+      <ngx-form-ch-scales [respiratory]="true" [record_id]="record_id"  [age]="user"></ngx-form-ch-scales>
+    </div>
+  </div>
+</div>
+
 <form [formGroup]="form" (ngSubmit)="save()">
+  
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col col-lg-6">
@@ -51,15 +60,7 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="row justify-content-md-center">
-        <div class="col col-lg-6">
-          <hr />
-        </div>
-      </div>
-    </div>
-
-    <div class="row justify-content-md-center">
+     <div class="row justify-content-md-center">
       <div class="col col-lg-6" *ngIf="this.form.controls.masses.value == 'PRESENTE' ">
         <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN MASAS</label>
         <textarea onpaste="return false" class="form-text col col-lg-12" id="detail_masses" nbInput fullWidth
@@ -85,22 +86,6 @@
       </div>
     </div>
 
-    <div class="row justify-content-md-center">
-      <div class="col col-lg-6">
-        <hr />
-      </div>
-    </div>
-  </div>
 
+ 
 
-
-  <div class="container">
-    <div class="row">
-      <div class="col col-lg-12">
-        <ngx-form-ch-scales [respiratory]="true"></ngx-form-ch-scales>
-      </div>
-    </div>
-  </div>
-
-
-</form>

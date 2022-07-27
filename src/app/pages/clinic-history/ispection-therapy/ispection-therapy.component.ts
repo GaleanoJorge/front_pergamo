@@ -5,22 +5,25 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
-  selector: 'ngx-objectives-therapy',
-  templateUrl: './objectives-therapy.component.html',
-  styleUrls: ['./objectives-therapy.component.scss'],
+  selector: 'ngx-ispection-therapy',
+  templateUrl: './ispection-therapy.component.html',
+  styleUrls: ['./ispection-therapy.component.scss'],
 })
-export class ObjectivesTherapyComponent implements OnInit {
+export class IspectionTherapyComponent implements OnInit {
+
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() type_record: any = null;
+  @Input() data: any = null;
+  
+
 
   linearMode = true;
   public messageError = null;
   public title: string = '';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha', 'Objetivos'];
+  public headerFields: any[] = ['Fecha', 'Expansión toráxica','Masas','Observación Masas','Crepitaciones','Fracturas','Observación Fracturas','Via Aerea artificial'];
   public routes = [];
-  public data = [];
   public loading: boolean = false;
   public saved: any = null;
   public isSubmitted = false;
@@ -38,28 +41,38 @@ export class ObjectivesTherapyComponent implements OnInit {
       created_at: {
         title: this.headerFields[0],
         type: 'string',
-        valuePrepareFunction: (value) => {
+        valuePrepareFunction: (value, row) => {
           return this.datePipe.transform2(value);
         },
       },
-
-      strengthen: {
+      expansion: {
         title: this.headerFields[1],
         width: 'string',
-        valuePrepareFunction: (value, row) => {
-          return (row.strengthen != null ? row.strengthen  + ' - ' : "") 
-          + (row.promote != null ?  row.promote  + ' -  ' : "")
-          + (row.title != null ?  row.title  + ' -  ' : "")
-          + (row.streimprovegthen != null ?  row.streimprovegthen  + ' - ' : "")
-          + (row.re_education != null ?  row.re_education  + ' - ' : "")
-          + (row.hold != null ?  row.hold  + ' - ' : "")
-          + (row.check != null ?  row.check  + ' - ' : "")
-          + (row.train != null ?  row.train  + ' - ': "")
-          + (row.headline != null ?  row.headline  + ' - ': "")
-          + (row.look_out != null ?  row.look_out: "")
-          ;
-        },
-    },
+      },
+      masses: {
+        title: this.headerFields[2],
+        width: 'string',
+      },
+      detail_masses: {
+        title: this.headerFields[3],
+        width: 'string',
+      },
+      crepitations: {
+        title: this.headerFields[4],
+        width: 'string',
+      },
+      fracturues: {
+        title: this.headerFields[5],
+        width: 'string',
+      },
+      detail_fracturues: {
+        title: this.headerFields[6],
+        width: 'string',
+      },
+      airway: {
+        title: this.headerFields[7],
+        width: 'string',
+      },
     },
   };
 

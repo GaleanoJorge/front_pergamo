@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChRtInspectionService } from '../../../business-controller/ch_rt_inspection.service';
+import { ChRtInspectionService } from '../../../../business-controller/ch_rt_inspection.service';
 
 
 @Component({
@@ -13,7 +13,8 @@ export class FormIspectionTherapyComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() record_id: any = null;
+  @Input() user: any = null;
+  @Input() record_id: any = null;  
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;

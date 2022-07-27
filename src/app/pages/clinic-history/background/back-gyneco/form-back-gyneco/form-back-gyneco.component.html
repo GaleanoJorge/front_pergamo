@@ -188,19 +188,19 @@
     </div>
 
     
-    <div class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3 mt-5">
       <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="misbirth_unstudied"
         formControlName="misbirth_unstudied" misbirth_unstudied
         status="{{ isSubmitted && form.controls.misbirth_unstudied.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         ABORTOS ESPONTÁNEOS</nb-checkbox>
     </div>
-    <div class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3 mt-3">
       <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="background_twins" formControlName="background_twins"
         background_twins
         status="{{ isSubmitted && form.controls.background_twins.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         ANTECEDENTES GEMELARES</nb-checkbox>
     </div>
-    <div class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-12 col-md-3 mt-3">
       <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="last_planned_pregnancy" formControlName="last_planned_pregnancy"
       last_planned_pregnancy
         status="{{ isSubmitted && form.controls.last_planned_pregnancy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
