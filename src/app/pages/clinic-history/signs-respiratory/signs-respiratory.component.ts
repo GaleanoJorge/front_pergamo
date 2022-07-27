@@ -1,5 +1,5 @@
 import { UserBusinessService } from '../../../business-controller/user-business.service';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
@@ -13,13 +13,13 @@ export class SignsRespiratoryComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() type_record: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   linearMode = true;
   public messageError = null;
   public title: string = '';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha', 'Aleteo nasal ', 'Cianosis Distal',  'Cianosis Generalizada', 'Cianosis Peribucal',
-  'Cianosis Periorbital', 'Ninguno', 'Uso de musculos Intercostales','Uso de musculos supraclaviculares' ];
+  public headerFields: any[] = ['Fecha', 'Signos de dificltad respiratoria' ];
   public routes = [];
   public data = [];
   public loading: boolean = false;
@@ -46,40 +46,17 @@ export class SignsRespiratoryComponent implements OnInit {
       fluter: {
         title: this.headerFields[1],
         width: 'string',
-      },
-      distal: {
-        title: this.headerFields[2],
-        width: 'string',
-        
-      },
-      widespread: {
-        title: this.headerFields[3],
-        width: 'string',
-        
-      },
-      peribucal: {
-        title: this.headerFields[4],
-        width: 'string',
-        
-      },
-      periorbitary: {
-        title: this.headerFields[5],
-        width: 'string',
-        
-      },
-      none: {
-        title: this.headerFields[6],
-        width: 'string',
-        
-      },
-      intercostal: {
-        title: this.headerFields[7],
-        width: 'string',
-        
-      },
-      aupraclavicular: {
-        title: this.headerFields[8],
-        width: 'string',
+        valuePrepareFunction: (value, row) => {
+          return (row.fluter != null ? row.fluter  + ' - ' : "") 
+          + (row.distal != null ? row.distal  + ' - ' : "")
+          + (row.widespread != null ? row.widespread  + ' - ' : "")
+          + (row.peribucal != null ? row.peribucal  + ' - ' : "")
+          + (row.periorbitary != null ? row.periorbitary  + ' - ' : "")
+          + (row.none != null ? row.none  + ' - ' : "")
+          + (row.intercostal != null ? row.intercostal  + ' - ' : "")
+          + (row.aupraclavicular != null ? row.aupraclavicular: "")
+          ;
+        },
     },
   }
   };
@@ -101,6 +78,7 @@ export class SignsRespiratoryComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      this.messageEvent.emit(true);
     }
   }
 }
