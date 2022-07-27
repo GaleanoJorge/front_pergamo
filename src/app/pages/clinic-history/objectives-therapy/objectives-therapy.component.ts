@@ -38,50 +38,28 @@ export class ObjectivesTherapyComponent implements OnInit {
       created_at: {
         title: this.headerFields[0],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
+        valuePrepareFunction: (value) => {
           return this.datePipe.transform2(value);
         },
       },
+
       strengthen: {
         title: this.headerFields[1],
         width: 'string',
-      },
-      promote: {
-        title: this.headerFields[1],
-        width: 'string',
-      },
-      title: {
-        title: this.headerFields[1],
-        width: 'string',
-      },
-      streimprovegthen: {
-        title: this.headerFields[1],
-        width: 'string',
-      },
-      re_education: {
-        title: this.headerFields[1],
-        width: 'string',
-      },
-      hold: {
-        title: this.headerFields[1],
-        width: 'string',
-      },
-      check: {
-        title: this.headerFields[1],
-        width: 'string',
-      },
-      train: {
-        title: this.headerFields[1],
-        width: 'string',
-      },
-      headline: {
-        title: this.headerFields[1],
-        width: 'string',
-      },
-      look_out: {
-        title: this.headerFields[1],
-        width: 'string',
-      },
+        valuePrepareFunction: (value, row) => {
+          return (row.strengthen != null ? row.strengthen  + ' - ' : "") 
+          + (row.promote != null ?  row.promote  + ' -  ' : "")
+          + (row.title != null ?  row.title  + ' -  ' : "")
+          + (row.streimprovegthen != null ?  row.streimprovegthen  + ' - ' : "")
+          + (row.re_education != null ?  row.re_education  + ' - ' : "")
+          + (row.hold != null ?  row.hold  + ' - ' : "")
+          + (row.check != null ?  row.check  + ' - ' : "")
+          + (row.train != null ?  row.train  + ' - ': "")
+          + (row.headline != null ?  row.headline  + ' - ': "")
+          + (row.look_out != null ?  row.look_out: "")
+          ;
+        },
+    },
     },
   };
 
