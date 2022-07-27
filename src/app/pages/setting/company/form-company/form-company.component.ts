@@ -1,16 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {NbDialogRef, NbToastrService} from '@nebular/theme';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import {CompanyService} from '../../../../business-controller/company.service';
-import {IdentificationTypeBusinessService} from '../../../../business-controller/identification-type-business.service';
-import { CompanyCategoryService} from '../../../../business-controller/company-category.service';
-import {CompanyTypeService} from '../../../../business-controller/company-type.service';
-import {CountryService} from '../../../../business-controller/country.service';
-import {IvaService} from '../../../../business-controller/iva.service';
-import {RetinerService} from '../../../../business-controller/retiner.service';
-import {CompanyKindpersonService} from '../../../../business-controller/company-kindperson.service';
-import {PaymentTermsService} from '../../../../business-controller/payment-terms.service';
+import { CompanyService } from '../../../../business-controller/company.service';
+import { IdentificationTypeBusinessService } from '../../../../business-controller/identification-type-business.service';
+import { CompanyCategoryService } from '../../../../business-controller/company-category.service';
+import { CompanyTypeService } from '../../../../business-controller/company-type.service';
+import { CountryService } from '../../../../business-controller/country.service';
+import { IvaService } from '../../../../business-controller/iva.service';
+import { RetinerService } from '../../../../business-controller/retiner.service';
+import { CompanyKindpersonService } from '../../../../business-controller/company-kindperson.service';
+import { PaymentTermsService } from '../../../../business-controller/payment-terms.service';
 import { LocationBusinessService } from '../../../../business-controller/location-business.service';
 
 
@@ -29,14 +29,14 @@ export class FormCompanyComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public identification_type: any [];
-  public company_category: any [];
-  public company_type: any [];
-  public country: any [];
-  public city: any [];
-  public iva: any [];
-  public retiner: any [];
-  public company_kindperson: any [];
+  public identification_type: any[];
+  public company_category: any[];
+  public company_type: any[];
+  public country: any[];
+  public city: any[];
+  public iva: any[];
+  public retiner: any[];
+  public company_kindperson: any[];
   public payment_terms: any[];
   public showSelect: Boolean = false;
   public consulto_done = false;
@@ -49,7 +49,7 @@ export class FormCompanyComponent implements OnInit {
     // private statusBS: StatusBusinessService,
     private CompanyS: CompanyService,
     private toastService: NbToastrService,
-    private  IdentificationTypeS: IdentificationTypeBusinessService,
+    private IdentificationTypeS: IdentificationTypeBusinessService,
     private CompanyCategoryS: CompanyCategoryService,
     private CompanyTypeS: CompanyTypeService,
     private CountryS: CountryService,
@@ -90,15 +90,22 @@ export class FormCompanyComponent implements OnInit {
         payment_terms_id: '',
         municipality_id: '',
 
-      };   
+      };
+    } else {
+      this.locationBS.GetPublicRegionByCountry(this.data.country_id).then(x => {
+        this.city = x;
+      });
+      this.locationBS.GetPublicMunicipalitiesByRegion(this.data.city_id).then(x => {
+        this.municipality = x;
+      });
     }
 
     // this.statusBS.GetCollection().then(x => {
     //   this.status = x;
     // });
-    
-    
-    this.form = this.formBuilder.group({      
+
+
+    this.form = this.formBuilder.group({
       identification_type_id: [this.data.identification_type_id, Validators.compose([Validators.required])],
       identification: [this.data.identification, Validators.compose([Validators.required])],
       verification: [this.data.verification, Validators.compose([Validators.required])],
@@ -123,37 +130,34 @@ export class FormCompanyComponent implements OnInit {
       opportunity: [this.data.opportunity, Validators.compose([Validators.required])],
       discount: [this.data.discount, Validators.compose([Validators.required])],
       payment_terms_id: [this.data.payment_terms_id, Validators.compose([Validators.required])],
-      region_id: [this.data.region_id, Validators.compose([Validators.required])],
       municipality_id: [this.data.municipality_id, Validators.compose([Validators.required])],
     });
 
     await this.IdentificationTypeS.GetCollection().then(x => {
-      this.identification_type=x;
+      this.identification_type = x;
     });
     await this.CompanyCategoryS.GetCollection().then(x => {
-      this.company_category=x;
+      this.company_category = x;
     });
     await this.CompanyTypeS.GetCollection().then(x => {
-      this.company_type=x;
+      this.company_type = x;
     });
     await this.CountryS.GetCollection().then(x => {
-      this.country=x;
+      this.country = x;
     });
 
-    // await this.RegionS.GetCollection().then(x => {
-    //   this.city=x;
-    // });
+
     await this.IvaS.GetCollection().then(x => {
-      this.iva=x;
+      this.iva = x;
     });
     await this.RetinerS.GetCollection().then(x => {
-      this.retiner=x;
+      this.retiner = x;
     });
     await this.CompanyKindpersonS.GetCollection().then(x => {
-      this.company_kindperson=x;
+      this.company_kindperson = x;
     });
     await this.PaymentTermsS.GetCollection().then(x => {
-      this.payment_terms=x;
+      this.payment_terms = x;
     });
   }
 
@@ -163,8 +167,8 @@ export class FormCompanyComponent implements OnInit {
 
   onCountryChange(country_id) {
     if (this.consulto_done) {
-      this.data.region_id = '';
-      this.form.controls.region_id.setValue('');
+      this.data.city_id = '';
+      this.form.controls.city_id.setValue('');
       this.city = [];
       this.data.municipality_id = '';
       this.form.controls.municipality_id.setValue('');
@@ -176,14 +180,14 @@ export class FormCompanyComponent implements OnInit {
 
   }
 
-  onRegionChange(region_id) {
+  onRegionChange(city_id) {
     if (this.consulto_done) {
       this.data.municipality_id = '';
       this.form.controls.municipality_id.setValue('');
       this.municipality = [];
       this.region_changed = true;
     }
-    this.locationBS.GetPublicMunicipalitiesByRegion(region_id).then(x => {
+    this.locationBS.GetPublicMunicipalitiesByRegion(city_id).then(x => {
       this.municipality = x;
     });
   }
@@ -243,7 +247,7 @@ export class FormCompanyComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        
+
         this.CompanyS.Save({
           identification_type_id: this.form.controls.identification_type_id.value,
           identification: this.form.controls.identification.value,
