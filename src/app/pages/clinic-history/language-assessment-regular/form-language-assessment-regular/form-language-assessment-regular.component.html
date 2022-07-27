@@ -7,7 +7,7 @@
           <label for="diagnosis_id" class="font-weight-bold center">Diagnóstico Médico</label>
           <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
             id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" required
-            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">
             <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
           </datalist>
@@ -21,7 +21,7 @@
           <label  class="font-weight-bold center">Estado del Paciente</label>
           <textarea id="status_patient" nbInput fullWidth formControlName="status_patient" current_illness onpaste="return false"
             rows="3"
-            status="{{ isSubmitted && form.controls.status_patient.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.status_patient.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
       </div>
     </div>

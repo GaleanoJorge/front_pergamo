@@ -9,7 +9,7 @@
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="external_ear" external_ear id="external_ear" name="external_ear"
-            status="{{ isSubmitted && form.controls.external_ear.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.external_ear.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -19,7 +19,7 @@
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="middle_ear" middle_ear id="middle_ear" name="middle_ear"
-            status="{{ isSubmitted && form.controls.middle_ear.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.middle_ear.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -30,7 +30,7 @@
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="inner_ear" inner_ear id="inner_ear" name="inner_ear"
-            status="{{ isSubmitted && form.controls.inner_ear.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.inner_ear.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -46,7 +46,7 @@
 
           <textarea class="form-text col col-lg-12 detail" id="observations" nbInput fullWidth
             formControlName="observations" analisys onpaste="return false" rows="3" cols="70"
-            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
 
       </div>

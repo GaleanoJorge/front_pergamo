@@ -8,7 +8,7 @@
   
         <nb-radio-group formControlName="hair_revision" hair_revision id="hair_revision" class="d-flex text center"
           fullWidth name="hair_revision"
-          status="{{ isSubmitted && form.controls.hair_revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.hair_revision.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
           <nb-radio value="NORMAL">NORMAL</nb-radio>
         </nb-radio-group>
@@ -16,7 +16,7 @@
       <div class="col-md-12">
         <label for="observation" class="form-text text-muted font-weight-bold align">OBSERVACIONES:</label>
         <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"
-          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
     </fieldset>
 

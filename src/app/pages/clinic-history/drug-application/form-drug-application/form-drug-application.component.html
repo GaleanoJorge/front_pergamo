@@ -13,7 +13,7 @@
               <label class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
               <textarea id="observation" nbInput fullWidth formControlName="observation" observation
                 onpaste="return false" rows="4" cols="50"
-                status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+                status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
             </fieldset>
           </div>
         </div>

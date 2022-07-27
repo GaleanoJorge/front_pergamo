@@ -5,7 +5,7 @@
         <label for="product" class="form-text text-muted font-weight-bold">Producto</label>
         <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="product_id"
           formControlName="product_id" product_id type="text" required
-          status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <datalist id="codes">
           <option *ngFor="let item of suppliesP" [value]="item.size">{{ item.size }} - {{item.measure}} </option>
         </datalist>
@@ -14,7 +14,7 @@
       <div class="col col-lg-2">
         <label class="form-text text-muted font-weight-bold align">Cantidad</label>
         <input type="number" id="amount" formControlName="amount" required nbInput ngModel
-          status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
       </div>
 
     </div>
@@ -24,7 +24,7 @@
         <label class="form-text text-muted font-weight-bold">Justificación</label>
         <textarea onpaste="return false" id="justification" nbInput fullWidth formControlName="justification"
           current_illness rows="4" cols="50"
-          status="{{ isSubmitted && form.controls.justification.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          status="{{ isSubmitted && form.controls.justification.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
     </div>
 

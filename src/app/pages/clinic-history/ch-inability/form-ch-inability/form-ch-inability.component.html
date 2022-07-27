@@ -25,7 +25,7 @@
           <label class="form-text text-muted font-weight-bold">Fecha Inicial de la Incapacidad</label>
 
           <input type="date" nbInput fullWidth id="initial_date" formControlName="initial_date" initial_date
-            status="{{ isSubmitted && form.controls.initial_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.initial_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
 
         </div>
 
@@ -33,7 +33,7 @@
           <label class="form-text text-muted font-weight-bold">Fecha Final de la Incapacidad</label>
 
           <input type="date" nbInput fullWidth id="final_date" formControlName="final_date" final_date
-            status="{{ isSubmitted && form.controls.final_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.final_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
 
         </div>
 
@@ -51,7 +51,7 @@
           <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico Médico</label>
           <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
             id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" required
-            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">
             <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
           </datalist>
@@ -64,7 +64,7 @@
           <label for=" ch_contingency_code_id" class="form-text text-muted font-weight-bold">Codigo Contigencia</label>
           <nb-select [selected]="this.data.ch_contingency_code_id" formControlName="ch_contingency_code_id"
             id="ch_contingency_code_id" fullWidth
-            status="{{ isSubmitted && form.controls.ch_contingency_code_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.ch_contingency_code_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">SELECCIONE...</nb-option>
             <nb-option selected="{{ item.id == this.data.ch_contingency_code_id }}"
               *ngFor="let item of ch_contingency_code_id" [value]="item.id">
@@ -80,7 +80,7 @@
 
           <nb-select [selected]="this.data.ch_type_inability_id" formControlName="ch_type_inability_id"
             id="ch_type_inability_id" fullWidth
-            status="{{ isSubmitted && form.controls.ch_type_inability_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.ch_type_inability_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">SELECCIONE...</nb-option>
             <nb-option selected="{{ item.id == data.ch_type_inability_id }}" *ngFor="let item of ch_type_inability_id"
               [value]="item.id">
@@ -94,7 +94,7 @@
             Procedimiento</label>
           <nb-select [selected]="this.data.ch_type_procedure_id" formControlName="ch_type_procedure_id"
             id="ch_type_procedure_id" fullWidth
-            status="{{ isSubmitted && form.controls.ch_type_procedure_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.ch_type_procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">SELECCIONE...</nb-option>
             <nb-option selected="{{ item.id == data.ch_type_procedure_id }}" *ngFor="let item of ch_type_procedure_id"
               [value]="item.id">
@@ -109,7 +109,7 @@
           <label for="observation" class="form-text text-muted font-weight-bold ">Observación del Profesional</label>
           <textarea id="observation" nbInput fullWidth formControlName="observation" observation onpaste="return false"
             rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
 
         <div class="col-md-1">

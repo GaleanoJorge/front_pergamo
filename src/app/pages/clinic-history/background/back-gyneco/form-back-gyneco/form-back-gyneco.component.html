@@ -4,7 +4,7 @@
       <label class="form-text text-muted font-weight-bold">ESTADO</label>
       <nb-radio-group formControlName="pregnancy_status" pregnancy_status id="pregnancy_status" class="d-flex text"
         name="pregnancy_status"
-        status="{{ isSubmitted && form.controls.pregnancy_status.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.pregnancy_status.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-radio value="EMBARAZADA">EMBARAZADA</nb-radio>
         <nb-radio value="NO EMBARAZADA">NO EMBARAZADA</nb-radio>
       </nb-radio-group>
@@ -12,12 +12,12 @@
     <div class="col-12 col-sm-12 col-md-4">
       <label class="form-text text-muted font-weight-bold">EDAD GESTACIONAL (EN SEMANAS)</label>
       <input nbInput type="number" fullWidth id="gestational_age" formControlName="gestational_age" gestational_age
-        status="{{ isSubmitted && form.controls.date_childbirth.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.date_childbirth.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-4">
       <label for="date_childbirth" class="form-text text-muted font-weight-bold">FECHA PROB. PARTO</label>
       <input nbInput type="date" fullWidth id="date_childbirth" formControlName="date_childbirth" date_childbirth
-        status="{{ isSubmitted && form.controls.date_childbirth.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.date_childbirth.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
   </div>
 
@@ -25,19 +25,19 @@
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align ">MENARQUIA (AÑOS)</label>
       <input nbInput type="number" fullWidth id="menarche_years" formControlName="menarche_years" menarche_years
-        status="{{ isSubmitted && form.controls.menarche_years.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.menarche_years.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">FUR</label>
       <input nbInput type="date" fullWidth id="last_menstruation" formControlName="last_menstruation" last_menstruation
-        status="{{ isSubmitted && form.controls.last_menstruation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.last_menstruation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">TIPO:</label>
       <nb-select [selected]="this.data.ch_type_gynecologists_id" formControlName="ch_type_gynecologists_id"
         id="ch_type_gynecologists_id" fullWidth
-        status="{{ isSubmitted && form.controls.ch_type_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ch_type_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option selected="{{ item.id == data.ch_type_gynecologists_id }}" *ngFor="let item of ch_type_gynecologists"
           [value]="item.id">
@@ -48,28 +48,28 @@
       <label class="form-text text-muted font-weight-bold align">CADA</label>
       <input nbInput type="number" fullWidth id="time_menstruation" formControlName="time_menstruation"
         time_menstruation
-        status="{{ isSubmitted && form.controls.time_menstruation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.time_menstruation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">DURACIÓN</label>
       <input nbInput type="number" fullWidth id="duration_menstruation" formControlName="duration_menstruation"
         duration_menstruation
-        status="{{ isSubmitted && form.controls.duration_menstruation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.duration_menstruation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">FUC</label>
       <input nbInput type="date" fullWidth id="date_last_cytology" formControlName="date_last_cytology"
         date_last_cytology
-        status="{{ isSubmitted && form.controls.date_last_cytology.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.date_last_cytology.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">RESULTADO CITOLOGÍA</label>
       <nb-select [selected]="this.data.ch_rst_cytology_gyneco_id" formControlName="ch_rst_cytology_gyneco_id"
         id="ch_rst_cytology_gyneco_id" fullWidth
-        status="{{ isSubmitted && form.controls.ch_rst_cytology_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ch_rst_cytology_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option selected="{{ item.id == data.ch_rst_cytology_gyneco_id }}" *ngFor="let item of ch_rst_cytology_gyneco"
           [value]="item.id">
@@ -80,13 +80,13 @@
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">BIOPSIA</label>
       <input nbInput type="date" fullWidth id="date_biopsy" formControlName="date_biopsy" date_biopsy
-        status="{{ isSubmitted && form.controls.date_biopsy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.date_biopsy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">RESULTADO BIOPSIA</label>
       <nb-select [selected]="this.data.ch_rst_biopsy_gyneco_id" formControlName="ch_rst_biopsy_gyneco_id"
         id="ch_rst_biopsy_gyneco_id" fullWidth
-        status="{{ isSubmitted && form.controls.ch_rst_biopsy_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ch_rst_biopsy_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option selected="{{ item.id == data.ch_rst_biopsy_gyneco_id }}" *ngFor="let item of ch_rst_biopsy_gyneco"
           [value]="item.id">
@@ -96,14 +96,14 @@
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">MAMOGRAFÍA</label>
       <input nbInput type="date" fullWidth id="date_mammography" formControlName="date_mammography" date_mammography
-        status="{{ isSubmitted && form.controls.date_mammography.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.date_mammography.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">RESULTADO MAMOGRAFÍA</label>
       <nb-select [selected]="this.data.ch_rst_mammography_gyneco_id" formControlName="ch_rst_mammography_gyneco_id"
         id="ch_rst_mammography_gyneco_id" fullWidth
-        status="{{ isSubmitted && form.controls.ch_rst_mammography_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ch_rst_mammography_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option selected="{{ item.id == data.ch_rst_mammography_gyneco_id }}" *ngFor="let item of ch_rst_mammography_gyneco"
           [value]="item.id">
@@ -113,13 +113,13 @@
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">COLPOSCOPIA</label>
       <input nbInput type="date" fullWidth id="date_colposcipia" formControlName="date_colposcipia" date_colposcipia
-        status="{{ isSubmitted && form.controls.date_colposcipia.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.date_colposcipia.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">RESULTADO COLPOSCOPIA</label>
       <nb-select [selected]="this.data.ch_rst_colposcipia_gyneco_id" formControlName="ch_rst_colposcipia_gyneco_id"
         id="ch_rst_colposcipia_gyneco_id" fullWidth
-        status="{{ isSubmitted && form.controls.ch_rst_colposcipia_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ch_rst_colposcipia_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option selected="{{ item.id == data.ch_rst_colposcipia_gyneco_id }}" *ngFor="let item of ch_rst_colposcipia_gyneco"
           [value]="item.id">
@@ -129,99 +129,99 @@
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">TOTAL GESTAS PREVIAS</label>
       <input nbInput type="number" fullWidth id="total_feats" formControlName="total_feats" total_feats
-        status="{{ isSubmitted && form.controls.total_feats.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.total_feats.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">PARTOS</label>
       <input nbInput type="number" fullWidth id="childbirth_number" formControlName="childbirth_number"
         childbirth_number
-        status="{{ isSubmitted && form.controls.childbirth_number.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.childbirth_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">CESÁREA</label>
       <input nbInput type="number" fullWidth id="caesarean_operation" formControlName="caesarean_operation"
         caesarean_operation
-        status="{{ isSubmitted && form.controls.caesarean_operation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.caesarean_operation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">ABORTOS</label>
       <input nbInput type="number" fullWidth id="misbirth" formControlName="misbirth" misbirth
-        status="{{ isSubmitted && form.controls.misbirth.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.misbirth.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">MOLAS</label>
       <input nbInput type="number" fullWidth id="molar_pregnancy" formControlName="molar_pregnancy" molar_pregnancy
-        status="{{ isSubmitted && form.controls.molar_pregnancy.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.molar_pregnancy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">ECTÓPICOS</label>
       <input nbInput type="number" fullWidth id="ectopic" formControlName="ectopic" ectopic
-        status="{{ isSubmitted && form.controls.ectopic.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.ectopic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
 
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">HIJOS NACIDOS FALLECIDOS</label>
       <input nbInput type="number" fullWidth id="dead_sons" formControlName="dead_sons" dead_sons
-        status="{{ isSubmitted && form.controls.dead_sons.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.dead_sons.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">HIJOS VIVEN</label>
       <input nbInput type="number" fullWidth id="living_sons" formControlName="living_sons" living_sons
-        status="{{ isSubmitted && form.controls.living_sons.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.living_sons.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">HIJOS FALLECIDOS 1ERA SEMANA</label>
       <input nbInput type="number" fullWidth id="sons_dead_first_week" formControlName="sons_dead_first_week"
         sons_dead_first_week
-        status="{{ isSubmitted && form.controls.sons_dead_first_week.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.sons_dead_first_week.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">HIJOS FALLECIDOS DESPUES 1ERA SEMANA</label>
       <input nbInput type="number" fullWidth id="children_died_after_the_first_week"
         formControlName="children_died_after_the_first_week" children_died_after_the_first_week
-        status="{{ isSubmitted && form.controls.children_died_after_the_first_week.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.children_died_after_the_first_week.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
 
     
     <div class="col-12 col-sm-12 col-md-3">
       <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="misbirth_unstudied"
         formControlName="misbirth_unstudied" misbirth_unstudied
-        status="{{ isSubmitted && form.controls.misbirth_unstudied.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.misbirth_unstudied.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         ABORTOS ESPONTÁNEOS</nb-checkbox>
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="background_twins" formControlName="background_twins"
         background_twins
-        status="{{ isSubmitted && form.controls.background_twins.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.background_twins.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         ANTECEDENTES GEMELARES</nb-checkbox>
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="last_planned_pregnancy" formControlName="last_planned_pregnancy"
       last_planned_pregnancy
-        status="{{ isSubmitted && form.controls.last_planned_pregnancy.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.last_planned_pregnancy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         ULTIMO EMBARAZO PLANEADO</nb-checkbox>
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">FECHA ÚLTIMO PARTO</label>
       <input nbInput type="date" fullWidth id="date_of_last_childbirth" formControlName="date_of_last_childbirth"
         date_of_last_childbirth
-        status="{{ isSubmitted && form.controls.date_of_last_childbirth.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.date_of_last_childbirth.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">ÚLTIMO PESO</label>
       <input nbInput type="number" fullWidth id="last_weight" formControlName="last_weight" last_weight
-        status="{{ isSubmitted && form.controls.last_weight.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.last_weight.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">MÉTODO FRACASO</label>
       <nb-select [selected]="this.data.ch_failure_method_gyneco_id" formControlName="ch_failure_method_gyneco_id"
         id="ch_failure_method_gyneco_id" fullWidth
-        status="{{ isSubmitted && form.controls.ch_failure_method_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ch_failure_method_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option selected="{{ item.id == data.ch_failure_method_gyneco_id }}" *ngFor="let item of ch_failure_method_gyneco"
           [value]="item.id">
@@ -232,7 +232,7 @@
       <label class="form-text text-muted font-weight-bold">PLANIFICA</label>
       <nb-select [selected]="this.data.ch_planning_gynecologists_id" formControlName="ch_planning_gynecologists_id"
         id="ch_planning_gynecologists_id" fullWidth
-        status="{{ isSubmitted && form.controls.ch_planning_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ch_planning_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option selected="{{ item.id == data.ch_planning_gynecologists_id }}" *ngFor="let item of ch_planning_gynecologists"
           [value]="item.id">
@@ -244,7 +244,7 @@
         PLANIFICACIÓN</label>
       <nb-select [selected]="this.data.ch_method_planning_gyneco_id" formControlName="ch_method_planning_gyneco_id"
         id="ch_method_planning_gyneco_id" fullWidth
-        status="{{ isSubmitted && form.controls.ch_method_planning_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ch_method_planning_gyneco_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option selected="{{ item.id == data.ch_method_planning_gyneco_id }}" *ngFor="let item of ch_method_planning_gyneco"
           [value]="item.id">
@@ -254,18 +254,18 @@
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">DESDE</label>
       <input nbInput type="date" fullWidth id="since_planning" formControlName="since_planning" since_planning
-        status="{{ isSubmitted && form.controls.since_planning.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.since_planning.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold align">NRO COMPAÑEROS SEXUALES</label>
       <input nbInput type="number" fullWidth id="sexual_partners" formControlName="sexual_partners" sexual_partners
-        status="{{ isSubmitted && form.controls.sexual_partners.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.sexual_partners.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">AUTO ÉXAMEN SENO</label>
       <nb-select [selected]="this.data.ch_exam_gynecologists_id" formControlName="ch_exam_gynecologists_id"
         id="ch_exam_gynecologists_id" fullWidth
-        status="{{ isSubmitted && form.controls.ch_exam_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ch_exam_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option selected="{{ item.id == data.ch_exam_gynecologists_id }}" *ngFor="let item of ch_exam_gynecologists"
           [value]="item.id">
@@ -276,19 +276,19 @@
       <label class="form-text text-muted font-weight-bold align">CADA</label>
       <input nbInput type="number" fullWidth id="time_exam_breast_self" formControlName="time_exam_breast_self"
         time_exam_breast_self
-        status="{{ isSubmitted && form.controls.time_exam_breast_self.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+        status="{{ isSubmitted && form.controls.time_exam_breast_self.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold text ">OBSERVACIONES</label>
       <textarea id="observation_breast_self_exam" nbInput fullWidth formControlName="observation_breast_self_exam"
         observation_breast_self_exam onpaste="return false"
-        status="{{ isSubmitted && form.controls.observation_breast_self_exam.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        status="{{ isSubmitted && form.controls.observation_breast_self_exam.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold">FLUJO</label>
       <nb-select [selected]="this.data.ch_flow_gynecologists_id" formControlName="ch_flow_gynecologists_id"
         id="ch_flow_gynecologists_id" fullWidth
-        status="{{ isSubmitted && form.controls.ch_flow_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ch_flow_gynecologists_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option selected="{{ item.id == data.ch_flow_gynecologists_id }}" *ngFor="let item of ch_flow_gynecologists"
           [value]="item.id">
@@ -298,7 +298,7 @@
     <div class="col-12 col-sm-12 col-md-3">
       <label class="form-text text-muted font-weight-bold text ">OBSERVACIONES</label>
       <textarea id="observation_flow" nbInput fullWidth formControlName="observation_flow" observation_flow onpaste="return false"
-        status="{{ isSubmitted && form.controls.observation_flow.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        status="{{ isSubmitted && form.controls.observation_flow.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
   </div>
 

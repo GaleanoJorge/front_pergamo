@@ -8,7 +8,7 @@
       <div class="col col-lg-2">
         <nb-radio-group formControlName="solid_dysphagia" solid_dysphagia id="solid_dysphagia"
           name="solid_dysphagia"
-          status="{{ isSubmitted && form.controls.solid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.solid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
           <nb-radio value="No">No</nb-radio>
         </nb-radio-group>
@@ -19,7 +19,7 @@
       <div class="col col-lg-2">
         <nb-radio-group formControlName="clear_liquid_dysphagia" clear_liquid_dysphagia
           id="clear_liquid_dysphagia" name="clear_liquid_dysphagia"
-          status="{{ isSubmitted && form.controls.clear_liquid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.clear_liquid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
           <nb-radio value="No">No</nb-radio>
         </nb-radio-group>
@@ -32,7 +32,7 @@
       <div class="col col-lg-2">
         <nb-radio-group formControlName="thick_liquid_dysphagia" thick_liquid_dysphagia
           id="thick_liquid_dysphagia" name="thick_liquid_dysphagia"
-          status="{{ isSubmitted && form.controls.thick_liquid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.thick_liquid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
           <nb-radio value="No">No</nb-radio>
         </nb-radio-group>
@@ -48,7 +48,7 @@
       <div class="col col-lg-2">
         <nb-radio-group formControlName="nasogastric_tube" nasogastric_tube id="nasogastric_tube"
           name="nasogastric_tube"
-          status="{{ isSubmitted && form.controls.nasogastric_tube.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.nasogastric_tube.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
           <nb-radio value="No">No</nb-radio>
         </nb-radio-group>
@@ -60,7 +60,7 @@
       </div>
       <div class="col col-lg-2">
         <nb-radio-group formControlName="gastrostomy" gastrostomy id="gastrostomy" name="gastrostomy"
-          status="{{ isSubmitted && form.controls.gastrostomy.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.gastrostomy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
           <nb-radio value="No">No</nb-radio>
         </nb-radio-group>
@@ -71,7 +71,7 @@
 
       <div class="col col-lg-2">
         <nb-radio-group formControlName="nothing_orally" nothing_orally id="nothing_orally" name="nothing_orally"
-          status="{{ isSubmitted && form.controls.nothing_orally.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.nothing_orally.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
           <nb-radio value="No">No</nb-radio>
         </nb-radio-group>
@@ -85,7 +85,7 @@
     <label class="form-text text-muted font-weight-bold center">Observaciones</label>
     <textarea id="observations" nbInput fullWidth formControlName="observations" observations
       onpaste="return false" rows="4" cols="50"
-      status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
   </fieldset>
 
   <div class="container">

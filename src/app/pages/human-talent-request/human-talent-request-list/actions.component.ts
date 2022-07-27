@@ -26,7 +26,7 @@ import { HumanTalentRequestService } from '../../../business-controller/human-ta
                       <div class="col-md-12">
                       <label for="observation" class="form-text text-muted font-weight-bold">Observación:</label>
                           <input type="text" nbInput fullWidth id="observation" formControlName="observation" observation
-                              status="{{ isSubmitted && Form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                              status="{{ isSubmitted && Form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                       </div>
                   </div>
                   <div class="div-send">

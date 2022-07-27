@@ -37,7 +37,7 @@
   
           <div class="col-md-12">
             <nb-radio-group [disabled]="this.disabled" formControlName="revision1" revision1 id="revision1" class="d-flex text" name="revision1"
-              status="{{ isSubmitted && form.controls.revision1.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.revision1.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
               <nb-radio value="NORMAL">NORMAL</nb-radio>
             </nb-radio-group>
@@ -47,7 +47,7 @@
             <label class="form-text text-muted font-weight-bold text ">DESCRIPCIÓN:</label>
             <textarea [disabled]="this.disabled" id="description1" (selectedChange)="onDescriptionChange($event)" nbInput fullWidth
               formControlName="description1" description1 onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.description1.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              status="{{ isSubmitted && form.controls.description1.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
         </fieldset>
       </div>
@@ -58,7 +58,7 @@
   
           <div class="col-md-12">
             <nb-radio-group [disabled]="this.disabled" formControlName="revision2" revision2 id="revision2" class="d-flex text" name="revision2"
-              status="{{ isSubmitted && form.controls.revision2.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.revision2.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
               <nb-radio value="NORMAL">NORMAL</nb-radio>
             </nb-radio-group>
@@ -68,7 +68,7 @@
             <label class="form-text text-muted font-weight-bold text ">DESCRIPCIÓN:</label>
             <textarea [disabled]="this.disabled" id="description2" (selectedChange)="onDescriptionChange($event)" nbInput fullWidth
               formControlName="description2" description2 onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.description2.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              status="{{ isSubmitted && form.controls.description2.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
         </fieldset>
       </div>
@@ -79,7 +79,7 @@
   
           <div class="col-md-12">
             <nb-radio-group [disabled]="this.disabled" formControlName="revision3" revision3 id="revision3" class="d-flex text" name="revision3"
-              status="{{ isSubmitted && form.controls.revision3.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.revision3.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
               <nb-radio value="NORMAL">NORMAL</nb-radio>
             </nb-radio-group>
@@ -89,7 +89,7 @@
             <label class="form-text text-muted font-weight-bold text ">DESCRIPCIÓN:</label>
             <textarea [disabled]="this.disabled" id="description3" nbInput fullWidth
               formControlName="description3" description3 onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.description3.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              status="{{ isSubmitted && form.controls.description3.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
         </fieldset>
       </div>
@@ -100,7 +100,7 @@
   
           <div class="col-md-12">
             <nb-radio-group [disabled]="this.disabled" formControlName="revision4" revision4 id="revision4" class="d-flex text" name="revision4"
-              status="{{ isSubmitted && form.controls.revision4.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.revision4.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
               <nb-radio value="NORMAL">NORMAL</nb-radio>
             </nb-radio-group>
@@ -110,7 +110,7 @@
             <label class="form-text text-muted font-weight-bold text ">DESCRIPCIÓN:</label>
             <textarea [disabled]="this.disabled" id="description4" (selectedChange)="onDescriptionChange($event)" nbInput fullWidth
               formControlName="description4" description4 onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.description4.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              status="{{ isSubmitted && form.controls.description4.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
         </fieldset>
       </div>
@@ -121,7 +121,7 @@
   
           <div class="col-md-12">
             <nb-radio-group [disabled]="this.disabled" formControlName="revision5" revision5 id="revision5" class="d-flex text" name="revision5"
-              status="{{ isSubmitted && form.controls.revision5.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.revision5.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
               <nb-radio value="NORMAL">NORMAL</nb-radio>
             </nb-radio-group>
@@ -131,7 +131,7 @@
             <label class="form-text text-muted font-weight-bold text ">DESCRIPCIÓN:</label>
             <textarea [disabled]="this.disabled" id="description5" (selectedChange)="onDescriptionChange($event)" nbInput fullWidth
               formControlName="description5" description5 onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.description5.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              status="{{ isSubmitted && form.controls.description5.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
         </fieldset>
       </div>
@@ -142,7 +142,7 @@
   
           <div class="col-md-12">
             <nb-radio-group [disabled]="this.disabled" formControlName="revision6" revision6 id="revision6" class="d-flex text" name="revision6"
-              status="{{ isSubmitted && form.controls.revision6.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.revision6.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
               <nb-radio value="NORMAL">NORMAL</nb-radio>
             </nb-radio-group>
@@ -152,7 +152,7 @@
             <label class="form-text text-muted font-weight-bold text ">DESCRIPCIÓN:</label>
             <textarea [disabled]="this.disabled" id="description6" (selectedChange)="onDescriptionChange($event)" nbInput fullWidth
               formControlName="description6" description6 onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.description6.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              status="{{ isSubmitted && form.controls.description6.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
         </fieldset>
       </div>
@@ -163,7 +163,7 @@
   
           <div class="col-md-12">
             <nb-radio-group [disabled]="this.disabled" formControlName="revision7" revision7 id="revision7" class="d-flex text" name="revision7"
-              status="{{ isSubmitted && form.controls.revision7.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.revision7.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
               <nb-radio value="NORMAL">NORMAL</nb-radio>
             </nb-radio-group>
@@ -173,7 +173,7 @@
             <label class="form-text text-muted font-weight-bold text ">DESCRIPCIÓN:</label>
             <textarea [disabled]="this.disabled" id="description7" (selectedChange)="onDescriptionChange($event)" nbInput fullWidth
               formControlName="description7" description7 onpaste="return false" rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.description7.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              status="{{ isSubmitted && form.controls.description7.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
         </fieldset>
       </div>

@@ -47,7 +47,7 @@
         <div class="col-12 col-sm-12 col-md-12" *ngIf="selected_municipality">
           <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
       </div>
 

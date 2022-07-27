@@ -5,7 +5,7 @@
         <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico Médico:</label>
         <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="medical_diagnosis_id"
           formControlName="medical_diagnosis_id" medical_diagnosis_id type="text" required
-          status="{{ isSubmitted && form.controls.medical_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.medical_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <datalist id="codes">
           <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
         </datalist>
@@ -17,7 +17,7 @@
           <div class="col-md-11">
             <textarea onpaste="return false" id="therapeutic_diagnosis" nbInput fullWidth
               formControlName="therapeutic_diagnosis" therapeutic_diagnosis rows="2" cols="40"
-              status="{{ isSubmitted && form.controls.therapeutic_diagnosis.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              status="{{ isSubmitted && form.controls.therapeutic_diagnosis.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
           <div class="col-md-1">
             <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()">
@@ -35,7 +35,7 @@
           <div class="col-md-11">
             <textarea onpaste="return false" id="reason_consultation" nbInput fullWidth
               formControlName="reason_consultation" reason_consultation rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
           <div class="col-md-1">
             <button *ngIf="!changes" type="button" nbButton ghost (click)="changebuttom()">

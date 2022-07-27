@@ -10,7 +10,7 @@
     <div class="row justify-content-md-center">
       <div class="col align-self-center">
         <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
-          status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="APLICA">APLICA</nb-radio>
           <nb-radio value="NO APLICA">NO APLICA</nb-radio>
         </nb-radio-group>
@@ -27,7 +27,7 @@
       <div class="col-md-6">
         <textarea onpaste="return false" id="observation" nbInput fullWidth formControlName="observation" observation
           rows="4" cols="6"
-          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
     </div>
 

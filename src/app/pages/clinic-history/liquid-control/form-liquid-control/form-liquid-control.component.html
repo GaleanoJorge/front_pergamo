@@ -9,7 +9,7 @@
             <legend class="prue1">TIPO DE ADMINISTRACIÓN</legend>
             <div class="col-md-12">
               <nb-select formControlName="ch_route_fluid_id" id="ch_route_fluid_id" fullWidth
-                status="{{ isSubmitted && form.controls.ch_route_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                status="{{ isSubmitted && form.controls.ch_route_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                 <nb-option value="">Seleccione...</nb-option>
                 <nb-option selected="{{ item.id == data.ch_route_fluid_id }}"
                   *ngFor="let item of ch_routes" [value]="item.id">
@@ -40,13 +40,13 @@
               <div class="col-md-6">
                 <label for="clock" class="form-text text-muted font-weight-bold align">HORA DE ADMINISTRACIÓN</label>
                 <input type="time" nbInput id="clock" formControlName="clock" clock fullWidth
-                  status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               </div>
 
               <div class="col-md-6">
                 <label for="ch_type_fluid_id"  class="form-text text-muted font-weight-bold align">ADMINISTRACIÓN</label>
                 <nb-select formControlName="ch_type_fluid_id" id="ch_type_fluid_id" fullWidth
-                  status="{{ isSubmitted && form.controls.ch_type_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.ch_type_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">Seleccione...</nb-option>
                   <nb-option selected="{{ item.id == data.ch_type_fluid_id }}"
                   *ngFor="let item of ch_types" [value]="item.id">
@@ -59,7 +59,7 @@
                   ADMINISTRADO</label>
                 <input type="number" placeholder="CC" id="delivered_volume" formControlName="delivered_volume"
                   id="delivered_volume" delivered_volume nbInput fullWidth
-                  status="{{ isSubmitted && form.controls.delivered_volume.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.delivered_volume.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               </div>
 
             </div>
@@ -79,13 +79,13 @@
               <div class="col-md-6">
                 <label for="clock" class="form-text text-muted font-weight-bold align">HORA DE ADMINISTRACIÓN</label>
                 <input type="time" nbInput id="clock" formControlName="clock" clock fullWidth
-                  status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               </div>
 
               <div class="col-md-6">
                 <label for="ch_type_fluid_id"  class="form-text text-muted font-weight-bold align">ADMINISTRACIÓN</label>
                 <nb-select formControlName="ch_type_fluid_id" id="ch_type_fluid_id" fullWidth
-                  status="{{ isSubmitted && form.controls.ch_type_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.ch_type_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">Seleccione...</nb-option>
                   <nb-option selected="2"
                   *ngFor="let item of ch_types" [value]="item.id">
@@ -98,7 +98,7 @@
                   ADMINISTRADO</label>
                 <input type="number" placeholder="CC" id="delivered_volume" formControlName="delivered_volume"
                   id="delivered_volume" delivered_volume nbInput fullWidth
-                  status="{{ isSubmitted && form.controls.delivered_volume.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.delivered_volume.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               </div>
 
             </div>
@@ -119,13 +119,13 @@
                 <label for="clock" class="form-text text-muted font-weight-bold align">HORA DE ADMINISTRACIÓN</label>
 
                 <input type="time" nbInput id="clock" formControlName="clock" clock fullWidth
-                  status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               </div>
               
               <div class="col-md-6">
                 <label for="ch_type_fluid_id"  class="form-text text-muted font-weight-bold align">ADMINISTRACIÓN</label>
                 <nb-select formControlName="ch_type_fluid_id" id="ch_type_fluid_id" fullWidth
-                  status="{{ isSubmitted && form.controls.ch_type_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.ch_type_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">Seleccione...</nb-option>
                   <nb-option selected="{{ item.id == data.ch_type_fluid_id }}"
                   *ngFor="let item of ch_types" [value]="item.id">
@@ -140,7 +140,7 @@
 
                 <input type="number" placeholder="CC" id="delivered_volume" formControlName="delivered_volume"
                   id="delivered_volume" delivered_volume nbInput fullWidth
-                  status="{{ isSubmitted && form.controls.delivered_volume.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.delivered_volume.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               </div>
             </div>
 
@@ -160,14 +160,14 @@
               <div class="col-md-6">
                 <label for="clock" class="form-text text-muted font-weight-bold align">HORA DE ADMINISTRACIÓN</label>
                 <input type="time" nbInput id="clock" formControlName="clock" clock fullWidth
-                  status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
 
               </div>
 
               <div class="col-md-6">
                 <label for="ch_type_fluid_id"  class="form-text text-muted font-weight-bold align">ADMINISTRACIÓN</label>
                 <nb-select formControlName="ch_type_fluid_id" id="ch_type_fluid_id" fullWidth
-                  status="{{ isSubmitted && form.controls.ch_type_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.ch_type_fluid_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">Seleccione...</nb-option>
                   <nb-option selected="{{ item.id == data.ch_type_fluid_id }}"
                   *ngFor="let item of ch_types" [value]="item.id">
@@ -180,7 +180,7 @@
                   ADMINISTRADO</label>
                 <input type="number" placeholder="CC" id="delivered_volume" formControlName="delivered_volume"
                   id="delivered_volume" delivered_volume nbInput fullWidth
-                  status="{{ isSubmitted && form.controls.delivered_volume.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.delivered_volume.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
 
               </div>
 
@@ -188,7 +188,7 @@
                 <label for="bag_number" class="form-text text-muted font-weight-bold align">CÓDIGO DE BOLSA</label>
                 <input type="text" minlength="1" maxlength="8" placeholder="Código #######" id="bag_number"
                   formControlName="bag_number" id="bag_number" bag_number nbInput fullWidth
-                  status="{{ isSubmitted && form.controls.bag_number.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.bag_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
 
               </div>
             </div>
@@ -207,27 +207,27 @@
           <label for="breakfast">Nutrición enteral</label>
           <input type="number" placeholder="CC" class="ImpPeq" id="cardiac_frequency" formControlName="breakfast"
             id="breakfast" breakfast nbInput
-            status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
 
           <label for="snack">Nutrición enteral</label>
           <input type="number" placeholder="CC" class="ImpPeq" id="cardiac_frequency" formControlName="snack" id="snack"
             snack nbInput
-            status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
 
           <label for="lunch">Nutrición enteral</label>
           <input type="number" placeholder="CC" class="ImpPeq" id="cardiac_frequency" formControlName="lunch" id="lunch"
             lunch nbInput
-            status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
 
           <label for="dinner">Nutrición enteral</label>
           <input type="number" placeholder="CC" class="ImpPeq" id="cardiac_frequency" formControlName="dinner"
             id="dinner" dinner nbInput
-            status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
 
           <label for="others_food">Nutrición enteral</label>
           <input type="number" placeholder="CC" class="ImpPeq" id="cardiac_frequency" formControlName="others_food"
             id="others_food" others_food nbInput
-            status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         </fieldset>
       </div>
     </div> -->

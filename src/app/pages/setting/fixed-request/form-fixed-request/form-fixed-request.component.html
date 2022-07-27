@@ -5,7 +5,7 @@
       <div class="col-12 col-sm-12 col-md-6">
         <label for="fixed_type" class="form-text text-muted font-weight-bold">SOLICITAR A:</label>
         <nb-select [selected]="this.data.fixed_type_id" formControlName="fixed_type_id" id="fixed_type_id" fullWidth
-          status="{{ isSubmitted && form.controls.fixed_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.fixed_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.fixed_type_id }}" *ngFor="let item of fixed_type_id"
             [value]="item.id">
@@ -17,7 +17,7 @@
         <label for="fixed_assets" class="form-text text-muted font-weight-bold">ACTIVOS FIJO A SOLICITAR:</label>
         <nb-select [selected]="this.data.fixed_nom_product_id" formControlName="fixed_nom_product_id" id="fixed_nom_product_id"
           fullWidth
-          status="{{ isSubmitted && form.controls.fixed_nom_product_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.fixed_nom_product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.fixed_nom_product_id }}" *ngFor="let item of fixed_nom_product_id"
             [value]="item.id">
@@ -29,7 +29,7 @@
         <label for="fixed_accessories" class="form-text text-muted font-weight-bold">ACCESORIO A SOLICITAR:</label>
         <nb-select [selected]="this.data.fixed_accessories_id" formControlName="fixed_accessories_id"
           id="fixed_assfixed_accessories_idets_id" fullWidth
-          status="{{ isSubmitted && form.controls.fixed_accessories_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.fixed_accessories_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.fixed_accessories_id }}" *ngFor="let item of fixed_accessories_id"
             [value]="item.id">
@@ -43,7 +43,7 @@
           EL ACTIVO:</label>
         <nb-select [selected]="this.data.fixed_location_campus_id" formControlName="fixed_location_campus_id"
           id="fixed_location_campus_id" fullWidth
-          status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.fixed_location_campus_id }}"
             *ngFor="let item of fixed_location_campus_id" [value]="item.id">
@@ -55,14 +55,14 @@
         <label for="request_amount" class="form-text text-muted font-weight-bold">CANTIDAD A SOLICITAR:</label>
         <input type="number" min="0" pattern="^[0-9]+" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth
           id="request_amount" formControlName="request_amount" request_amount
-          status="{{ isSubmitted && form.controls.request_amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          status="{{ isSubmitted && form.controls.request_amount.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
       </div>
 
       <div class="col-12 col-sm-12 col-md-6">
         <label class="form-text text-muted font-weight-bold">PERSONA QUE ESTARÁ A CARGO DEL ACTIVO:</label>
         <nb-select [selected]="this.data.responsible_user_id" formControlName="responsible_user_id"
           id="responsible_user_id" fullWidth
-          status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
 
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.responsible_user_id }}" *ngFor="let item of responsible_user"

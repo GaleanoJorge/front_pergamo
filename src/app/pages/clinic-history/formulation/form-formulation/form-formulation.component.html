@@ -25,7 +25,7 @@
                 <label class="form-text text-muted font-weight-bold">Medicamento</label>
                 <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value, 1)"
                   id="product_gen" formControlName="product_gen" product_gen fullWidth nbInput
-                  status="{{ isSubmitted && form.controls.product_gen.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.product_gen.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                 <datalist id="codes1">
                   <option *ngFor="let item of product_gen" [value]="item.manual_price.name">{{item.manual_price.name}}
                   </option>
@@ -36,7 +36,7 @@
                 <label class="form-text text-muted font-weight-bold">Medicamento</label>
                 <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value, 2)"
                   id="product_id" formControlName="product_id" prduct_oid fullWidth nbInput
-                  status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                 <datalist id="codes1">
                   <option *ngFor="let item of product_gen" [value]="item.description">{{item.description}}
                   </option>
@@ -46,14 +46,14 @@
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold">Dosis por frecuencia</label>
                 <input type="number" placeholder="DOSIS" class="Box" id="dose" formControlName="dose" dose nbInput
-                  status="{{ isSubmitted && form.controls.dose.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.dose.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               </div>
 
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold">Vía de Admin.</label>
                 <nb-select [selected]="this.data.administration_route_id" formControlName="administration_route_id"
                   id="administration_route_id"
-                  status="{{ isSubmitted && form.controls.administration_route_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.administration_route_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">SELECCIONE...</nb-option>
                   <nb-option selected="{{ item.id == this.data.administration_route_id }}"
                     *ngFor="let item of administration_route_id" [value]="item.id">
@@ -66,7 +66,7 @@
                 <label class="form-text text-muted font-weight-bold">Frecuencia Horaria</label>
                 <nb-select [selected]="this.data.hourly_frequency_id" formControlName="hourly_frequency_id"
                   id="hourly_frequency_id" (change)="onChangesFormulation($event, 2)"
-                  status="{{ isSubmitted && form.controls.hourly_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.hourly_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">SELECCIONE...</nb-option>
                   <nb-option selected="{{ item.id == this.data.hourly_frequency_id }}"
                     *ngFor="let item of hourly_frequency_id" [value]="item.id">
@@ -77,7 +77,7 @@
                 <label class="form-text text-muted font-weight-bold">Días de Tratamiento</label>
                 <input type="number" class="Box" id="treatment_days" formControlName="treatment_days" required nbInput
                   (change)="onChangesFormulation($event, 3)"
-                  status="{{ isSubmitted && form.controls.treatment_days.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.treatment_days.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               </div>
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold">Cant. Solic.</label>
@@ -116,7 +116,7 @@
                 <label class="form-text text-muted font-weight-bold">Observaciones</label>
                 <textarea id="observation" nbInput fullWidth formControlName="observation" observation
                   onpaste="return false" rows="3" cols="40"
-                  status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+                  status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
 
               </div>
             </div>
