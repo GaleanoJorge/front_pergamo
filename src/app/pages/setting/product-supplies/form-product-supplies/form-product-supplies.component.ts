@@ -69,16 +69,16 @@ export class FormProductSuppliesComponent implements OnInit {
     this.form = this.formBuilder.group({
       minimum_stock: [this.data.minimum_stock, Validators.compose([Validators.required])],
       maximum_stock: [this.data.maximum_stock, Validators.compose([Validators.required])],
-      size: [],
-      measure: [],
-      stature: [],
-      product_group_id: [],
-      product_category_id: [],
-      product_subcategory_id: [],
-      measure_supplies_measure_id: [],
-      size_supplies_measure_id: [],
-      product_dose_id: [],
-      dose: [],
+      size: [this.data.size],
+      measure: [this.data.measure],
+      stature: [this.data.stature],
+      product_group_id: [this.data.product_group_id],
+      product_category_id: [this.data.product_category_id],
+      product_subcategory_id: [this.data.product_subcategory_id],
+      measure_supplies_measure_id: [this.data.measure_supplies_measure_id],
+      size_supplies_measure_id: [this.data.size_supplies_measure_id],
+      product_dose_id: [this.data.product_dose_id],
+      dose: [this.data.dose],
 
     });
 
@@ -247,12 +247,4 @@ export class FormProductSuppliesComponent implements OnInit {
       return Promise.resolve(true);
     });
   }
-
-  // GetNomProd(product_subcategory_id, job = false) {
-  //   if (!product_subcategory_id || product_subcategory_id === '') return Promise.resolve(false);
-  //   return this.NomSuppliesS.GetProductSubcategoryByCategory(product_subcategory_id).then(x => {
-  //     this.product_subcategory = x;
-  //     return Promise.resolve(true);
-  //   });
-  // }
 }
