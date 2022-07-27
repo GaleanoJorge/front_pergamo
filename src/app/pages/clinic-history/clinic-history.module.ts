@@ -177,11 +177,6 @@ import { FormReasonConsultationRespiratoryTherapyComponent } from './entry-respi
 import { ActionsRespiratoryTherapyComponent } from './respiratory-therapy-list/actionsRespiratoryTherapy.component';
 import { ActionsRespiratoryTherapy2Component } from './entry-respiratory-therapy/actions.component';
 import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/respiratory-therapy-list.component';
-import { FormAssessmentTherapyComponent } from './assessment-therapy/form-assessment-therapy.component';
-import { FormIspectionTherapyComponent } from './ispection-therapy/form-ispection-therapy.component';
-import { FormaAuscultacionTherapyComponent } from './auscultacion-therapy/form-auscultacion-therapy.component';
-import { FormaObjectivesTherapyComponent } from './objectives-therapy/form-objectives-therapy.component';
-import { FormaDiagnosticTherapyComponent } from './diagnostic-therapy/form-diagnostic-therapy.component';
 import { FormChOxygenTherapyComponent } from './oxygen-therapy/form-oxygen-therapy.component';
 import { RegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/regular-respiratory-therapy.component';
 import { FormSessionsTherapyComponent } from './sessions-therapy/form-sessions-therapy.component';
@@ -255,6 +250,26 @@ import { FormRNMaterialsOTComponent } from './entry-clinic-history-occupational-
 import { RNMaterialsOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-metarials-ot/r-n-materials-ot.component';
 import { ForRNmWeeklyOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/form-r-n-weekly-ot/form-r-n-weekly-ot.component';
 import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/r-n-weekly-ot.component';
+import { FormSocialWorkComponent } from './ch-social-work/social-work-list/form-social-work/form-social-work.component';
+import { SocialWorkListComponent } from './ch-social-work/social-work-list/social-work-list.component';
+import { EntrySocialWorkComponent } from './ch-social-work/entry-social-work/entry-social-work.component';
+import { ReasonConsultationSocialWorkComponent } from './ch-social-work/entry-social-work/form-reason-consultation-social-work/reason-consultation-social-work.component';
+import { FormReasonConsultationSocialWorkComponent } from './ch-social-work/entry-social-work/form-reason-consultation-social-work/form-reason-consultation-social-work.component';
+import { FormaObjectivesTherapyComponent } from './objectives-therapy/form-objectives-therapy/form-objectives-therapy.component';
+import { ObjectivesTherapyComponent } from './objectives-therapy/objectives-therapy.component';
+import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
+import { AuscultacionTherapyComponent } from './auscultacion-therapy/auscultacion-therapy.component';
+import { FormAuscultacionTherapyComponent } from './auscultacion-therapy/form-auscultacion-therapy/form-auscultacion-therapy.component';
+import { FormaDiagnosticTherapyComponent } from './diagnostic-therapy/form-diagnostic-therapy/form-diagnostic-therapy.component';
+import { FormAssessmentTherapyComponent } from './assessment-therapy/form-assessment-therapy/form-assessment-therapy.component';
+import { FormAssTherapyRespiratoryComponent } from './ass-therapy-respiratory/form-ass-therapy-respiratory/form-ass-therapy-respiratory.component';
+import { AssTherapyRespiratoryComponent } from './ass-therapy-respiratory/ass-therapy-respiratory.component';
+import { SignsRespiratoryComponent } from './signs-respiratory/signs-respiratory.component';
+import { IspectionTherapyComponent } from './ispection-therapy/ispection-therapy.component';
+import { FormIspectionTherapyComponent } from './ispection-therapy/from-inspection-therapy/form-ispection-therapy.component';
+import { FormSwNursingServiceComponent } from './ch-social-work/sw-nursing-service/form-sw-nursing-service.component';
+import { FormSwFamilyComponent } from './ch-social-work/sw-family/form-sw-family/form-sw-family.component';
+import { SwFamilyComponent } from './ch-social-work/sw-family/sw-family.component';
 
 
 
@@ -361,12 +376,23 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
     ForRNmWeeklyOTComponent,
     RNWeeklyOtComponent,
 
-
     ClinicHistoryOccupationalTherapy,
-
+    
+    FormSocialWorkComponent,
+    SocialWorkListComponent,
+    EntrySocialWorkComponent,
+    ReasonConsultationSocialWorkComponent,
+    FormReasonConsultationSocialWorkComponent,
+    FormSwFamilyComponent,
+    SwFamilyComponent,
+    FormSwNursingServiceComponent,
+      
     RespiratoryTherapyListComponent,
     FormRespiratoryTherapyComponent,
     FormAssessmentTherapyComponent,
+    FormAssTherapyRespiratoryComponent,
+    AssTherapyRespiratoryComponent,
+    SignsRespiratoryComponent,
     EntryRespiratoryTherapyComponent,
     FormReasonConsultationRespiratoryTherapyComponent,
     ReasonConsultationRespiratoryTherapyComponent,
@@ -374,9 +400,13 @@ import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy
     ActionsRespiratoryTherapy2Component,
 
     FormIspectionTherapyComponent,
-    FormaAuscultacionTherapyComponent,
+    IspectionTherapyComponent,
+    FormAuscultacionTherapyComponent,
+    AuscultacionTherapyComponent,
     FormaDiagnosticTherapyComponent,
+    DiagnosticTherapyComponent,
     FormaObjectivesTherapyComponent,
+    ObjectivesTherapyComponent,
     FormChOxygenTherapyComponent,
     OxygenTherapyComponent,
 
