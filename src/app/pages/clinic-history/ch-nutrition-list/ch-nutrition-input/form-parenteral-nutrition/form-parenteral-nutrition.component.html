@@ -11,7 +11,7 @@
             <input nbInput fullWidth id="protein_contributions" name formControlName="protein_contributions"
               placeholder="gramos / Kilogramos (g/Kg)" type="number" (change)="onInputChanges($event)"
               onpaste="return false"
-              status="{{ isSubmitted && form.controls.protein_contributions.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+              status="{{ isSubmitted && form.controls.protein_contributions.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
 
           <div class="col-12 col-sm-12 col-md-4">
@@ -44,7 +44,7 @@
             <input nbInput fullWidth id="carbohydrate_contribution" name formControlName="carbohydrate_contribution"
               placeholder="miligramos / Kilogramos / minutos (mg/Kg/min)" type="number"
               (change)="onInputChanges($event)" onpaste="return false"
-              status="{{ isSubmitted && form.controls.carbohydrate_contribution.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+              status="{{ isSubmitted && form.controls.carbohydrate_contribution.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
 
           <div class="col-12 col-sm-12 col-md-6">
@@ -64,7 +64,7 @@
             <input nbInput fullWidth id="lipid_contribution" name formControlName="lipid_contribution"
               placeholder="gramos / Kilogramos (g/Kg)" type="number" (change)="onInputChanges($event)"
               onpaste="return false"
-              status="{{ isSubmitted && form.controls.lipid_contribution.errors ? 'danger' : isSubmitted ? 'success' : null }}" />
+              status="{{ isSubmitted && form.controls.lipid_contribution.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
 
           <div class="col-12 col-sm-12 col-md-6">
@@ -87,7 +87,7 @@
                 <div class="col-12 col-sm-12 col-md-4">
                   <nb-select formControlName="amino_acid_volume" id="amino_acid_volume" fullWidth
                     (selectedChange)="onInputChanges($event)"
-                    status="{{ isSubmitted && form.controls.amino_acid_volume.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+                    status="{{ isSubmitted && form.controls.amino_acid_volume.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                     <nb-option value="">Seleccione...</nb-option>
                     <nb-option *ngFor="let item of amino_acid_volume" [value]="item.id">
                       {{ item.name }}</nb-option>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-12 col-sm-12 col-md-4">
                   <nb-select formControlName="ce_se" id="ce_se" fullWidth
-                    status="{{ isSubmitted && form.controls.ce_se.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+                    status="{{ isSubmitted && form.controls.ce_se.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                     <nb-option value="">Seleccione...</nb-option>
                     <nb-option *ngFor="let item of ce_se" [value]="item.id">
                       {{ item.name }}</nb-option>
@@ -117,7 +117,7 @@
                 <div class="col-12 col-sm-12 col-md-6">
                   <nb-select formControlName="dextrose_volume" id="dextrose_volume" fullWidth
                     (selectedChange)="onInputChanges($event)"
-                    status="{{ isSubmitted && form.controls.dextrose_volume.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+                    status="{{ isSubmitted && form.controls.dextrose_volume.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                     <nb-option value="">Seleccione...</nb-option>
                     <nb-option *ngFor="let item of dextrose_volume" [value]="item.id">
                       {{ item.name }}</nb-option>
@@ -137,7 +137,7 @@
                 <div class="col-12 col-sm-12 col-md-6">
                   <nb-select formControlName="lipid_volume" id="lipid_volume" fullWidth
                     (selectedChange)="onInputChanges($event)"
-                    status="{{ isSubmitted && form.controls.lipid_volume.errors ? 'danger' : isSubmitted ? 'success' : null }}">
+                    status="{{ isSubmitted && form.controls.lipid_volume.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                     <nb-option value="">Seleccione...</nb-option>
                     <nb-option *ngFor="let item of lipid_volume" [value]="item.id">
                       {{ item.name }}</nb-option>
