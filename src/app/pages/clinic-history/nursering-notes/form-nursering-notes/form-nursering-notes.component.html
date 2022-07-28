@@ -6,7 +6,7 @@
       <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
       <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="4"
         cols="50"
-        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="row">

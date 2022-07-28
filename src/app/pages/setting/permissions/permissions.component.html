@@ -30,7 +30,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Nombre del permiso:</small>
                             <input type="text" nbInput fullWidth fieldSize="medium"
-                                status="{{ isSubmitted && permissionForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && permissionForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 placeholder="Nombre" formControlName="name" required name minlength="5">
                             <div *ngIf="permissionForm.controls.name.errors && isSubmitted ">
                                 <small *ngIf="permissionForm.controls.name.errors.required">Ingrese el nombre del
@@ -42,7 +42,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Clase del permiso:</small>
                             <input type="text" nbInput fullWidth fieldSize="medium"
-                                status="{{ isSubmitted && permissionForm.controls.class.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && permissionForm.controls.class.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 placeholder="Clase" formControlName="class" required class minlength="5">
                             <div *ngIf="permissionForm.controls.class.errors && isSubmitted ">
                                 <small *ngIf="permissionForm.controls.class.errors.required">Ingrese la clase del
@@ -54,7 +54,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Icono del permiso:</small>
                             <input type="text" nbInput fullWidth fieldSize="medium"
-                                status="{{ isSubmitted && permissionForm.controls.icon.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && permissionForm.controls.icon.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 placeholder="Icono" formControlName="icon" required name minlength="5">
                             <div *ngIf="permissionForm.controls.icon.errors && isSubmitted ">
                                 <small *ngIf="permissionForm.controls.icon.errors.required">Ingrese el icono del
@@ -66,7 +66,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Acción del permiso:</small>
                             <input type="text" nbInput fullWidth fieldSize="medium"
-                                status="{{ isSubmitted && permissionForm.controls.action.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && permissionForm.controls.action.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 placeholder="Acción" formControlName="action" required name minlength="5">
                             <div *ngIf="permissionForm.controls.action.errors && isSubmitted ">
                                 <small *ngIf="permissionForm.controls.action.errors.required">Ingrese la acción del

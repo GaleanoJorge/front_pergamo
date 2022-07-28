@@ -30,7 +30,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
                           <div class="col-md-12">
                             <label for="factor" class="form-text text-muted font-weight-bold">Signo:</label>
                             <nb-select formControlName="factor_sign" id="factor_sign" fullWidth
-                              status="{{ isSubmitted && form.controls.factor_sign.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                              status="{{ isSubmitted && form.controls.factor_sign.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                               <nb-option value="">Seleccione...</nb-option>
                               <nb-option [value]="0">+</nb-option>
                               <nb-option [value]="1">-</nb-option>
@@ -39,7 +39,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
                           <div class="col-md-12">
                             <label for="factor" class="form-text text-muted font-weight-bold">Factor en porcentaje:</label>
                             <input nbInput fullWidth id="factor" formControlName="factor" factor
-                              status="{{ isSubmitted && form.controls.factor.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                              status="{{ isSubmitted && form.controls.factor.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                           </div>
                         </div>
                               <div class="div-send">

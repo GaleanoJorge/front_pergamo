@@ -14,22 +14,22 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 export class SignsEvoComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
-  
+
   linearMode = true;
   public messageError = null;
   public title: string = '';
   public subtitle: string = '';
-  public headerFields: any[] = ['Hora de Registro','Fr. Cardiaca','Fr. Respiratoria','Temp','Via de Toma','SatO2','Talla','Peso','IMC','Sistolica','Diastolica','Media',
-  'Est. Neurologico','Est.Hidratación','Reacción Dcha.','Tamaño Dcha.','Reacción Izqda.','Tamaño Izqda.','Modo Ventilatorio','Tipo de Oxigeno','Lts por Mints.','Parametros','Sistolica Pulmonar','Diastolica Pulmonar','Media Pulomonar',
-  'Cefálico','Abdominal','Toracico','Pulso','PVC','PIC','PPC','PIA','Glucometria','Observaciones'];
+  public headerFields: any[] = ['Hora de Registro', 'Fr. Cardiaca', 'Fr. Respiratoria', 'Temp', 'Via de Toma', 'SatO2', 'Talla', 'Peso', 'IMC', 'Sistolica', 'Diastolica', 'Media',
+    'Est. Neurologico', 'Est.Hidratación', 'Reacción Dcha.', 'Tamaño Dcha.', 'Reacción Izqda.', 'Tamaño Izqda.', 'Modo Ventilatorio', 'Tipo de Oxigeno', 'Lts por Mints.', 'Parametros', 'Sistolica Pulmonar', 'Diastolica Pulmonar', 'Media Pulomonar',
+    'Cefálico', 'Abdominal', 'Toracico', 'Pulso', 'PVC', 'PIC', 'PPC', 'PIA', 'Glucometria', 'Observaciones'];
   public routes = [];
   public data = [];
   public loading: boolean = false;
   public saved: any = null;
-  public isSubmitted = false; 
+  public isSubmitted = false;
   public all_changes: any[];
   public saveEntry: any = 0;
-  
+
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -62,7 +62,7 @@ export class SignsEvoComponent implements OnInit {
         title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       oxigen_saturation: {
@@ -97,14 +97,14 @@ export class SignsEvoComponent implements OnInit {
         title: this.headerFields[12],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       ch_vital_hydration: {
         title: this.headerFields[13],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       pupil_size_right: {
@@ -127,75 +127,75 @@ export class SignsEvoComponent implements OnInit {
         title: this.headerFields[18],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       oxygen_type: {
         title: this.headerFields[19],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       liters_per_minute: {
         title: this.headerFields[20],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
       parameters_signs: {
         title: this.headerFields[21],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value?.name;
         },
       },
-      
-      pulmonary_systolic: {  
+
+      pulmonary_systolic: {
         title: this.headerFields[22],
         width: 'string',
       },
-      pulmonary_diastolic: {  
+      pulmonary_diastolic: {
         title: this.headerFields[23],
         width: 'string',
       },
 
-      pulmonary_half: {  
+      pulmonary_half: {
         title: this.headerFields[24],
         width: 'string',
       },
-      head_circunference: {  
+      head_circunference: {
         title: this.headerFields[25],
         width: 'string',
       },
-      abdominal_perimeter: {  
+      abdominal_perimeter: {
         title: this.headerFields[26],
         width: 'string',
       },
-      chest_perimeter: {  
+      chest_perimeter: {
         title: this.headerFields[27],
         width: 'string',
       },
 
-      pulse: {  
+      pulse: {
         title: this.headerFields[28],
         width: 'string',
       },
 
-      intracranial_pressure: {  
+      intracranial_pressure: {
         title: this.headerFields[29],
         width: 'string',
-      },    
-      cerebral_perfusion_pressure: {  
+      },
+      cerebral_perfusion_pressure: {
         title: this.headerFields[30],
         width: 'string',
       },
-      intra_abdominal: {  
+      intra_abdominal: {
         title: this.headerFields[31],
         width: 'string',
       },
-      glucometry: {  
+      glucometry: {
         title: this.headerFields[32],
         width: 'string',
       },
@@ -214,7 +214,7 @@ export class SignsEvoComponent implements OnInit {
 
   ) {
 
-       
+
   }
   GetParams() {
     return {
@@ -226,7 +226,7 @@ export class SignsEvoComponent implements OnInit {
     this.record_id = this.route.snapshot.params.id;
   }
 
-  
+
 
   NewChVitalSigns() {
     this.chvitalSignsS.Save({
@@ -242,13 +242,13 @@ export class SignsEvoComponent implements OnInit {
       this.loading = false;
     });
   }
-  
+
   RefreshData() {
     this.table.refresh();
   }
-  
+
   receiveMessage($event) {
-    if($event==true){
+    if ($event == true) {
       this.RefreshData();
     }
   }

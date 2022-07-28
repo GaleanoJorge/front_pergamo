@@ -6,11 +6,11 @@
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
             />
             <label for="value" class="form-text text-muted font-weight-bold">Valor:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="value" formControlName="value" name
-            status="{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            status="{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
             />
         </div>
       </div>

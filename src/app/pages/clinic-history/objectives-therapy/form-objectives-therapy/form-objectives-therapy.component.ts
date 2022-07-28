@@ -151,7 +151,7 @@ export class FormaObjectivesTherapyComponent implements OnInit {
           train: this.data.check8,
           headline: this.data.check9,
           look_out: this.data.check10,
-          type_record_id: this.type_record,
+          type_record_id: 1,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -175,7 +175,7 @@ export class FormaObjectivesTherapyComponent implements OnInit {
           train: this.form.controls.check8.value ? this.arrayObjectives[7].description : null,
           headline: this.form.controls.check9.value ? this.arrayObjectives[8].description : null,
           look_out: this.form.controls.check10.value ? this.arrayObjectives[9].description : null,
-          type_record_id: this.type_record,
+          type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

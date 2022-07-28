@@ -6,18 +6,18 @@
         <div class="col-md-12">
           <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
           <input nbInput fullWidth id="code" formControlName="code" code
-            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
              />
         </div>
         <div class="col-md-12">
           <label for="campus" class="form-text text-muted font-weight-bold">Sede:</label>
           <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
-          status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus" [value]="item.id">
             {{ item.name }}</nb-option>

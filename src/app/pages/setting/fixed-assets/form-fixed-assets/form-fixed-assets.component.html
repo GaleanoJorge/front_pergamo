@@ -6,7 +6,7 @@
         <div class="col-12 col-sm-12 col-md-4">
           <label for="fixed_type_id" class="form-text text-muted font-weight-bold">Tipo:</label>
           <nb-select (selectedChange)="onChange($event)" formControlName="fixed_type_id" id="fixed_type_id" fullWidth
-            status="{{ isSubmitted && form.controls.fixed_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.fixed_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.fixed_type_id }}" *ngFor="let item of fixed_type" [value]="item.id">
               {{item.name}}</nb-option>
@@ -16,7 +16,7 @@
           <label for="fixed_clasification" class="form-text text-muted font-weight-bold">Clasificación:</label>
           <nb-select [selected]="this.data.fixed_clasification_id" formControlName="fixed_clasification_id"
             id="fixed_clasification_id" fullWidth
-            status="{{ isSubmitted && form.controls.fixed_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.fixed_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.fixed_clasification_id }}" *ngFor="let item of fixed_clasification"
               [value]="item.id">
@@ -27,7 +27,7 @@
           <label for="fixed_property" class="form-text text-muted font-weight-bold">Propio / Arrendado:</label>
           <nb-select (selectedChange)="onChange1($event)" formControlName="fixed_property_id" id="fixed_property_id"
             fullWidth
-            status="{{ isSubmitted && form.controls.fixed_property_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.fixed_property_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.fixed_property_id }}" *ngFor="let item of fixed_property"
               [value]="item.id">
@@ -48,29 +48,29 @@
           <label for="plaque" class="form-text text-muted font-weight-bold">Placa:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="plaque" formControlName="plaque"
             plaque
-            status="{{ isSubmitted && form.controls.plaque.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.plaque.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="model" class="form-text text-muted font-weight-bold">Modelo:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="model" formControlName="model"
-            model status="{{ isSubmitted && form.controls.model.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            model status="{{ isSubmitted && form.controls.model.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="mark" class="form-text text-muted font-weight-bold">Marca:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="mark" formControlName="mark" mark
-            status="{{ isSubmitted && form.controls.mark.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.mark.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="serial" class="form-text text-muted font-weight-bold">Serial:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="serial" formControlName="serial"
             serial
-            status="{{ isSubmitted && form.controls.serial.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.serial.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="fixed_nom_product" class="form-text text-muted font-weight-bold">descripción:</label>
           <nb-select [selected]="this.data.fixed_nom_product_id" formControlName="fixed_nom_product_id"
             id="fixed_nom_product_id" fullWidth
-            status="{{ isSubmitted && form.controls.fixed_nom_product_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.fixed_nom_product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
 
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.fixed_nom_product_id }}" *ngFor="let item of fixed_nom_product"
@@ -82,18 +82,18 @@
           <label for="detail_description" class="form-text text-muted font-weight-bold">Detalle descripción:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="detail_description"
             formControlName="detail_description" detail_description
-            status="{{ isSubmitted && form.controls.detail_description.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.detail_description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="color" class="form-text text-muted font-weight-bold">Color:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="color" formControlName="color"
-            color status="{{ isSubmitted && form.controls.color.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            color status="{{ isSubmitted && form.controls.color.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="fixed_condition" class="form-text text-muted font-weight-bold">Condición del activo:</label>
           <nb-select (selectedChange)="onChange2($event)" formControlName="fixed_condition_id" id="fixed_condition_id"
             fullWidth
-            status="{{ isSubmitted && form.controls.fixed_condition_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.fixed_condition_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.fixed_condition_id }}" *ngFor="let item of fixed_condition"
               [value]="item.id">
@@ -104,7 +104,7 @@
           <label for="obs_property" class="form-text text-muted font-weight-bold">Observacion del daño:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="obs_property"
             formControlName="obs_property" obs_property
-            status="{{ isSubmitted && form.controls.obs_property.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.obs_property.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         
 
@@ -122,39 +122,39 @@
             calibración:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="calibration_certificate"
             formControlName="calibration_certificate" calibration_certificate
-            status="{{ isSubmitted && form.controls.calibration_certificate.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.calibration_certificate.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="health_register" class="form-text text-muted font-weight-bold">Registro sanitario:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="health_register"
             formControlName="health_register" health_register
-            status="{{ isSubmitted && form.controls.health_register.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.health_register.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="warranty" class="form-text text-muted font-weight-bold">Garantia:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="warranty"
             formControlName="warranty" warranty
-            status="{{ isSubmitted && form.controls.warranty.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.warranty.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="cv" class="form-text text-muted font-weight-bold">Hoja de vida:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="cv" formControlName="cv" cv
-            status="{{ isSubmitted && form.controls.cv.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.cv.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold align">Ultimo mantenimiento:</label>
           <input nbInput type="date" fullWidth id="last_maintenance" formControlName="last_maintenance" last_maintenance
-            status="{{ isSubmitted && form.controls.last_maintenance.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.last_maintenance.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold align">Ultimo mantenimiento:</label>
           <input nbInput type="date" fullWidth id="last_pame" formControlName="last_pame" last_pame
-            status="{{ isSubmitted && form.controls.last_pame.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.last_pame.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
@@ -162,20 +162,20 @@
             realizar:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="interventions_carriet"
             formControlName="interventions_carriet" interventions_carriet
-            status="{{ isSubmitted && form.controls.interventions_carriet.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.interventions_carriet.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="type" class="form-text text-muted font-weight-bold">Tipo:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="type" formControlName="type" type
-            status="{{ isSubmitted && form.controls.type.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.type.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="mobile_fixed" class="form-text text-muted font-weight-bold">Movil/Fijo:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="mobile_fixed"
             formControlName="mobile_fixed" mobile_fixed
-            status="{{ isSubmitted && form.controls.mobile_fixed.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.mobile_fixed.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
@@ -183,7 +183,7 @@
             riesgo:</label>
           <nb-select [selected]="this.data.clasification_risk_id" formControlName="clasification_risk_id"
             id="clasification_risk_id" fullWidth
-            status="{{ isSubmitted && form.controls.clasification_risk_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.clasification_risk_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.clasification_risk_id }}" *ngFor="let item of clasification_risk_id"
               [value]="item.id">
@@ -196,7 +196,7 @@
             biomedica:</label>
           <nb-select [selected]="this.data.biomedical_classification_id" formControlName="biomedical_classification_id"
             id="biomedical_classification_id" fullWidth
-            status="{{ isSubmitted && form.controls.biomedical_classification_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.biomedical_classification_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.biomedical_classification_id }}"
               *ngFor="let item of biomedical_classification_id" [value]="item.id">
@@ -208,34 +208,34 @@
           <label for="code_ecri" class="form-text text-muted font-weight-bold">Codigó ECRI:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="code_ecri"
             formControlName="code_ecri" code_ecri
-            status="{{ isSubmitted && form.controls.code_ecri.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.code_ecri.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="form_acquisition" class="form-text text-muted font-weight-bold">Forma de adquisición:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="form_acquisition"
             formControlName="form_acquisition" form_acquisition
-            status="{{ isSubmitted && form.controls.form_acquisition.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.form_acquisition.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold align">Fecha de adquisición:</label>
           <input nbInput type="date" fullWidth id="date_adquisicion" formControlName="date_adquisicion" date_adquisicion
-            status="{{ isSubmitted && form.controls.date_adquisicion.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.date_adquisicion.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold align">Fecha de garantia:</label>
           <input nbInput type="date" fullWidth id="date_warranty" formControlName="date_warranty" date_warranty
-            status="{{ isSubmitted && form.controls.date_warranty.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.date_warranty.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="cost" class="form-text text-muted font-weight-bold">Costo:</label>
           <input type="number" nbInput fullWidth id="cost" formControlName="cost" cost
-            status="{{ isSubmitted && form.controls.cost.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.cost.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
 
@@ -243,34 +243,34 @@
           <label for="useful_life" class="form-text text-muted font-weight-bold">Vida util(años):</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="useful_life"
             formControlName="useful_life" useful_life
-            status="{{ isSubmitted && form.controls.useful_life.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.useful_life.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="maker" class="form-text text-muted font-weight-bold">Fabricante:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="maker" formControlName="maker"
-            maker status="{{ isSubmitted && form.controls.maker.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            maker status="{{ isSubmitted && form.controls.maker.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="phone_maker" class="form-text text-muted font-weight-bold">Telefono del fabricante:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="phone_maker"
             formControlName="phone_maker" phone_maker
-            status="{{ isSubmitted && form.controls.phone_maker.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.phone_maker.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="email_maker" class="form-text text-muted font-weight-bold">Correo del fabricante:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="email_maker"
             formControlName="email_maker" email_maker
-            status="{{ isSubmitted && form.controls.email_maker.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.email_maker.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="power_supply" class="form-text text-muted font-weight-bold">Fuente de alimentación:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="power_supply"
             formControlName="power_supply" power_supply
-            status="{{ isSubmitted && form.controls.power_supply.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.power_supply.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
@@ -278,60 +278,60 @@
             predominante:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="predominant_technology"
             formControlName="predominant_technology" predominant_technology
-            status="{{ isSubmitted && form.controls.predominant_technology.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.predominant_technology.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="volt" class="form-text text-muted font-weight-bold">Voltaje:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="volt" formControlName="volt" volt
-            status="{{ isSubmitted && form.controls.volt.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.volt.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="stream" class="form-text text-muted font-weight-bold">Corriente:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="stream" formControlName="stream"
             stream
-            status="{{ isSubmitted && form.controls.stream.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.stream.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="power" class="form-text text-muted font-weight-bold">Potencia:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="power" formControlName="power"
-            power status="{{ isSubmitted && form.controls.power.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            power status="{{ isSubmitted && form.controls.power.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="frequency_rank" class="form-text text-muted font-weight-bold">Rango de frecuencia:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="frequency_rank"
             formControlName="frequency_rank" frequency_rank
-            status="{{ isSubmitted && form.controls.frequency_rank.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.frequency_rank.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="temperature_rank" class="form-text text-muted font-weight-bold">Rango de temperatura:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="temperature_rank"
             formControlName="temperature_rank" temperature_rank
-            status="{{ isSubmitted && form.controls.temperature_rank.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.temperature_rank.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="humidity_rank" class="form-text text-muted font-weight-bold">Rango de humedad:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="humidity_rank"
             formControlName="humidity_rank" humidity_rank
-            status="{{ isSubmitted && form.controls.humidity_rank.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.humidity_rank.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="manuals" class="form-text text-muted font-weight-bold">Manuales:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="manuals"
             formControlName="manuals" manuals
-            status="{{ isSubmitted && form.controls.manuals.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.manuals.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="guide" class="form-text text-muted font-weight-bold">Guias:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="guide" formControlName="guide"
-            guide status="{{ isSubmitted && form.controls.guide.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            guide status="{{ isSubmitted && form.controls.guide.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
@@ -339,7 +339,7 @@
             mantenimiento:</label>
           <nb-select [selected]="this.data.periodicity_frequency_id" formControlName="periodicity_frequency_id"
             id="periodicity_frequency_id" fullWidth
-            status="{{ isSubmitted && form.controls.periodicity_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.periodicity_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.periodicity_frequency_id }}"
               *ngFor="let item of periodicity_frequency_id" [value]="item.id">
@@ -352,7 +352,7 @@
             calibración:</label>
           <nb-select [selected]="this.data.calibration_frequency_id" formControlName="calibration_frequency_id"
             id="calibration_frequency_id" fullWidth
-            status="{{ isSubmitted && form.controls.calibration_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.calibration_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.calibration_frequency_id }}"
               *ngFor="let item of calibration_frequency_id" [value]="item.id">
@@ -364,7 +364,7 @@
         <div class="col-12 col-sm-12 col-md-4">
           <label for="campus_id" class="form-text text-muted font-weight-bold">Enviar a la sede:</label>
           <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
-            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus_id" [value]="item.id">
               {{ item.name }}</nb-option>

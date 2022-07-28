@@ -22,7 +22,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Rol:</small>
                             <nb-select placeholder="Rol" size="medium" fullWidth formControlName="role"
-                                status="{{ isSubmitted && roleForm.controls.role.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && roleForm.controls.role.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 required role (selectedChange)="onMenuItemSelected($event)">
                                 <nb-option *ngFor="let role of roleBS.roles" [value]="role.id">{{role.name}}</nb-option>
                             </nb-select>
@@ -33,7 +33,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Permiso:</small>
                             <nb-select  size="medium" fullWidth formControlName="permission" multiple
-                            status="{{ isSubmitted && roleForm.controls.permission.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                            status="{{ isSubmitted && roleForm.controls.permission.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                             required permission>
                                 <nb-option *ngFor="let permission of permissionBS.permissions" [value]="permission.id">
                                     {{permission.name}}</nb-option>
@@ -46,7 +46,7 @@
                         <div class="col-12">
                             <small class="form-text text-muted">Item:</small>
                             <nb-select  size="medium" fullWidth formControlName="item" multiple
-                            status="{{ isSubmitted && roleForm.controls.item.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                            status="{{ isSubmitted && roleForm.controls.item.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                             required item>
                                 <nb-option *ngFor="let item of items" [value]="item.id">
                                     {{item.name}}</nb-option>

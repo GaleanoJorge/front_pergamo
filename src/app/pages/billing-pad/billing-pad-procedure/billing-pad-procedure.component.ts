@@ -17,6 +17,8 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
   styleUrls: ['./billing-pad-procedure.component.scss'],
 })
 export class BillingPadProcedureComponent implements OnInit {
+  @Input() adm: any = null;
+  @Input() bill: any = null;
 
 
   public isSubmitted = false;
@@ -24,7 +26,7 @@ export class BillingPadProcedureComponent implements OnInit {
   public show_info: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'PROCEDIMIENTOS';
+  public title: string = null;
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
@@ -44,9 +46,11 @@ export class BillingPadProcedureComponent implements OnInit {
   public objetion_response: any[] = null;
   public saved: any = null;
   public billing: any = null;
+  public total_pre_billing: number = null;
   public admission_id;
   public billing_id;
   public user_id;
+  public settings;
   public entity: string = '';
 
 
@@ -54,7 +58,7 @@ export class BillingPadProcedureComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
 
-  public settings = {
+  public settings1 = {
     pager: {
       display: true,
       perPage: 10,
@@ -118,12 +122,51 @@ export class BillingPadProcedureComponent implements OnInit {
     },
   };
 
-  public routes = [
-    {
-      name: 'Autorizaciones',
-      route: './',
+  public settings2 = {
+    pager: {
+      display: true,
+      perPage: 10,
     },
-  ];
+    columns: {
+      actions: {
+        title: this.headerFields[0],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          return {
+            'data': row,
+            'show': this.ShowPackageContent.bind(this),
+          };
+        },
+        renderComponent: ActionsPadProcedureComponent,
+      },
+      name: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.assigned_management_plan) {
+            return row.services_briefcase.manual_price.procedure.name;
+          } else if (row.manual_price) {
+            return row.manual_price.name;
+          }
+        },
+      },
+      value: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.manual_price) {
+            this.total_pre_billing += row.manual_price.value;
+            return this.currency.transform(row.manual_price.value);
+          } else {
+            this.total_pre_billing += row.services_briefcase.value;
+            return this.currency.transform(row.services_briefcase.value);
+          }
+        },
+      },
+    },
+  };
+
+  public routes = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -141,9 +184,25 @@ export class BillingPadProcedureComponent implements OnInit {
 
 
   async ngOnInit() {
-    this.admission_id = this.route.snapshot.params.admission_id;
-    this.billing_id = this.route.snapshot.params.billing_id;
-    this.entity = 'billing_pad/getAuthorizedProcedures/' + this.admission_id + '?billing_id=' + this.billing_id;
+    if (this.adm == null) {
+      this.routes = [
+        {
+          name: 'Procedimientos',
+          route: './',
+        },
+      ];
+      this.title = 'PROCEDIMIENTOS';
+      this.settings = this.settings1
+      this.admission_id = this.route.snapshot.params.admission_id;
+      this.billing_id = this.route.snapshot.params.billing_id;
+      this.entity = 'billing_pad/getAuthorizedProcedures/' + this.admission_id + '?billing_id=' + this.billing_id;
+    } else {
+      this.title = 'PREFACTURA';
+      this.settings = this.settings2
+      this.admission_id = this.adm;
+      this.billing_id = this.bill;
+      this.entity = 'billing_pad/getPreBillingProcedures/' + this.admission_id + '?billing_id=' + this.billing_id;
+    }
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
 
@@ -172,6 +231,16 @@ export class BillingPadProcedureComponent implements OnInit {
     // });
   }
 
+  ShowPreBilling(data) {
+    this.dialogFormService.open(BillingPadProcedureComponent, {
+      context: {
+        adm: this.admission_id,
+        bill: this.billing_id,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
   ShowPackageContent(data) {
     this.dialogFormService.open(FormBillingPadComponent, {
       context: {
@@ -181,7 +250,7 @@ export class BillingPadProcedureComponent implements OnInit {
       },
     });
   }
-
+  
   eventSelections(event, row) {
     if (event) {
       this.selectedOptions.push(row);
@@ -207,7 +276,7 @@ export class BillingPadProcedureComponent implements OnInit {
         this.RefreshData();
       }).catch(x => {
         this.loading = false;
-        this.messageError = x.error.message;
+        this.messageError = x;
       });
     } else {
       this.toastS.warning('Seleccione al menos un procedimiento', 'Aviso');

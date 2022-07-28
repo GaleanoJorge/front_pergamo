@@ -6,7 +6,7 @@
         <div class="col-md-12">
           <label for="company" class="form-text text-muted font-weight-bold">Compañia:</label>
           <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
-            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
               {{ item.name }}</nb-option>
@@ -15,7 +15,7 @@
         <div class="col-md-12">
           <label for="class" class="form-text text-muted font-weight-bold">Clase de clasificación industrial internacional uniforme:</label>
           <nb-select [selected]="this.data.class_id" formControlName="class_id" id="class_id" fullWidth
-            status="{{ isSubmitted && form.controls.class_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.class_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.class_id }}" *ngFor="let item of class" [value]="item.id">
               {{ item.name }}</nb-option>
@@ -24,7 +24,7 @@
         <div class="col-md-12">
           <label for="clasification" class="form-text text-muted font-weight-bold">Clasificación fiscal:</label>
           <nb-select [selected]="this.data.clasification_id" formControlName="clasification_id" id="clasification_id" fullWidth
-            status="{{ isSubmitted && form.controls.clasification_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.clasification_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.clasification_id }}" *ngFor="let item of clasification" [value]="item.id">
               {{ item.name }}</nb-option>

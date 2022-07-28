@@ -18,7 +18,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="physical_value" physical_value id="physical_value"
                   name="physical_value"
-                  status="{{ isSubmitted && form.controls.physical_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.physical_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,1)" value="4/Bueno">Bueno</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,1)" value="3/Mediano">Mediano </nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,1)" value="2/Regular">Regular</nb-radio>
@@ -32,7 +32,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="mind_value" mind_value id="mind_value" name="mind_value"
-                  status="{{ isSubmitted && form.controls.mind_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.mind_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,1)" value="4/Alerta">Alerta</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,1)" value="3/Apático">Apático </nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,1)" value="2/Confuso">Confuso</nb-radio>
@@ -47,7 +47,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="mobility_value" mobility_value id="mobility_value"
                   name="mobility_value"
-                  status="{{ isSubmitted && form.controls.mobility_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.mobility_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,1)" value="4/Completa">Completa
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,1)" value="3/Limitada Ligeramente">
@@ -74,7 +74,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="activity_value" activity_value id="activity_value"
                   name="activity_value"
-                  status="{{ isSubmitted && form.controls.activity_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.activity_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,1)" value="4/Ambulante">Ambulante
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,1)" value="3/Camina con Ayuda">Camina con
@@ -91,7 +91,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="incontinence_value" incontinence_value id="incontinence_value"
                   name="incontinence_value"
-                  status="{{ isSubmitted && form.controls.incontinence_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.incontinence_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,1)" value="4/Ninguna">Ninguna</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,1)" value="3/Ocasional">Ocasional
                   </nb-radio>
@@ -160,7 +160,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="motor_value" motor_value id="motor_value" name="motor_value"
-                  status="{{ isSubmitted && form.controls.motor_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.motor_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,2)" value="6/Obedece Ordenes">Obedece Ordenes </nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,2)" value="5/Localiza el Dolor">Localiza el Dolor
                   </nb-radio>
@@ -178,7 +178,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="verbal_value" verbal_value id="verbal_value" name="verbal_value"
-                  status="{{ isSubmitted && form.controls.verbal_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.verbal_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,2)" value="5/Orientado">Orientado</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,2)" value="4/Desorientado">Desorientado</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,2)" value="3/Lenguaje Inapropiado">Lenguaje Inapropiado
@@ -195,7 +195,7 @@
               </div>
               <div class="col-lg-2">
                 <nb-radio-group formControlName="ocular_value" ocular_value id="ocular_value" name="ocular_value"
-                  status="{{ isSubmitted && form.controls.ocular_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.ocular_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,2)" value="4/Espontanea">Espontanea</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,2)" value="3/A la orden verbal">A la orden verbal
                   </nb-radio>
@@ -263,7 +263,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="eat_value" eat_value id="eat_value" name="eat_value"
-                  status="{{ isSubmitted && form.controls.eat_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.eat_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,3)" value="0/Incapaz">Incapaz</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,3)" value="5/Necesita ayuda para cortar, extender mantequilla,
                   usar condimentos,etc.">Necesita ayuda para cortar, extender
@@ -280,7 +280,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="move_value" move_value id="move_value" name="move_value"
-                  status="{{ isSubmitted && form.controls.move_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.move_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,3)" value="0/Dependiente, no se mantiene sentado">
                     Dependiente, no se mantiene sentado
                   </nb-radio>
@@ -308,7 +308,7 @@
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="cleanliness_value" cleanliness_value id="cleanliness_value"
                   name="cleanliness_value"
-                  status="{{ isSubmitted && form.controls.cleanliness_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.cleanliness_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,3)" value="0/Dependiente">Dependiente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,3)" value="5/Independiente para lavarse la cara, las
                   manos y
@@ -325,7 +325,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="toilet_value" toilet_value id="toilet_value" name="toilet_value"
-                  status="{{ isSubmitted && form.controls.toilet_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.toilet_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,3)" value="0/Dependiente">Dependiente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,3)" value="5/Necesita alguna ayuda, pero puede hacer algo
                   solo">Necesita alguna ayuda, pero puede hacer algo
@@ -344,7 +344,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="shower_value" shower_value id="shower_value" name="shower_value"
-                  status="{{ isSubmitted && form.controls.shower_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.shower_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,3)" value="0/Dependiente">Dependiente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,3)" value="5/Independiente para bañarse o ducharse">
                     Independiente para bañarse o ducharse
@@ -356,7 +356,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="commute_value" commute_value id="commute_value" name="commute_value"
-                  status="{{ isSubmitted && form.controls.commute_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.commute_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,3)" value="0/Inmóvil">Inmóvil</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,3)" value="5/Independiente en silla de ruedas en 50 m">
                     Independiente en silla de ruedas en 50 m
@@ -383,7 +383,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="stairs_value" stairs_value id="stairs_value" name="stairs_value"
-                  status="{{ isSubmitted && form.controls.stairs_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.stairs_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,7,3)" value="0/Dependiente">Dependiente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,7,3)" value="5/Necesita ayuda física o verbal, puede llevar
                   cualquier tipo de muleta">Necesita ayuda física o verbal, puede llevar
@@ -398,7 +398,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="dress_value" dress_value id="dress_value" name="dress_value"
-                  status="{{ isSubmitted && form.controls.dress_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.dress_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,8,3)" value="0/Dependiente">Dependiente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,3)" value="5/Necesita ayuda, pero puede hacer la mitad
                   aproximadamente, sin ayuda">Necesita ayuda, pero puede hacer la mitad
@@ -418,7 +418,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="fecal_value" fecal_value id="fecal_value" name="fecal_value"
-                  status="{{ isSubmitted && form.controls.fecal_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.fecal_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,9,3)" value="0/Incontinente (o necesita que le suministren
                   enema)">Incontinente (o necesita que le suministren
                     enema)
@@ -434,7 +434,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="urine_value" urine_value id="urine_value" name="urine_value"
-                  status="{{ isSubmitted && form.controls.urine_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.urine_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,10,3)" value="0/Incontinente, o sondado incapaz de
                   cambiarse la
                   bolsa">Incontinente, o sondado incapaz de
@@ -509,7 +509,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qOnePayette_value" q_one_value id="q_one_value" name="q_one_value"
-                  status="{{ isSubmitted && form.controls.qOnePayette_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qOnePayette_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,4)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,4)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -521,7 +521,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qTwoPayette_value" q_two_value id="q_two_value" name="q_two_value"
-                  status="{{ isSubmitted && form.controls.qTwoPayette_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qTwoPayette_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,4)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,4)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -543,7 +543,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qThreePayette_value" q_three_value id="q_three_value"
                   name="q_three_value"
-                  status="{{ isSubmitted && form.controls.qThreePayette_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qThreePayette_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,4)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,4)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -556,7 +556,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qFourPayette_value" q_four_value id="q_four_value" name="q_four_value"
-                  status="{{ isSubmitted && form.controls.qFourPayette_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qFourPayette_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,4)" value="0/Buena">Buena</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,4)" value="1/Mediocre">Mediocre</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,4)" value="2/Mala">Mala</nb-radio>
@@ -578,7 +578,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qFivePayette_value" q_five_value id="q_five_value" name="q_five_value"
-                  status="{{ isSubmitted && form.controls.qFivePayette_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qFivePayette_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,4)" value="0/Con frecuencia">Con frecuencia</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,4)" value="1/A veces">A veces</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,4)" value="2/Nunca">Nunca</nb-radio>
@@ -593,7 +593,7 @@
 
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qSixPayette_value" q_six_value id="q_six_value" name="q_six_value"
-                  status="{{ isSubmitted && form.controls.qSixPayette_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qSixPayette_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,4)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,4)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -615,7 +615,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qSevenPayette_value" q_seven_value id="q_seven_value"
                   name="q_seven_value"
-                  status="{{ isSubmitted && form.controls.qSevenPayette_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qSevenPayette_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,7,4)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,7,4)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -628,7 +628,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qEightPayette_value" q_eight_value id="q_eight_value"
                   name="q_eight_value"
-                  status="{{ isSubmitted && form.controls.qEightPayette_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qEightPayette_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,8,4)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,4)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -649,7 +649,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qNinePayette_value" q_nine_value id="q_nine_value" name="q_nine_value"
-                  status="{{ isSubmitted && form.controls.qNinePayette_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qNinePayette_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,9,4)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,9,4)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -661,7 +661,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qTenPayette_value" q_ten_value id="q_ten_value" name="q_ten_value"
-                  status="{{ isSubmitted && form.controls.qTenPayette_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qTenPayette_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,10,4)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,10,4)" value="0/No">No</nb-radio>
                 </nb-radio-group><br />
@@ -693,7 +693,7 @@
                 <div class="col col-lg-4">
                   <textarea [value]="recommendations" formControlName="recommendations" id="recommendations" nbInput
                     fullWidth rows="2" cols="2"
-                    status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                    status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                     disabled> </textarea>
                 </div>
               </div>
@@ -733,7 +733,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qOneFragility_value" q_one_value id="q_one_value"
                   class="d-flex text center" name="q_one_value"
-                  status="{{ isSubmitted && form.controls.qOneFragility_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qOneFragility_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,5)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,5)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -746,7 +746,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qTwoFragility_value" q_two_value id="q_two_value" class="d-flex text"
                   name="q_two_value"
-                  status="{{ isSubmitted && form.controls.qTwoFragility_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qTwoFragility_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,5)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,5)" value="0/No">No</nb-radio>
                 </nb-radio-group><br />
@@ -768,7 +768,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qThreeFragility_value" q_three_value id="q_three_value"
                   class="d-flex text" name="q_three_value"
-                  status="{{ isSubmitted && form.controls.qThreeFragility_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qThreeFragility_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,5)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,5)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -781,7 +781,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qFourFragility_value" q_four_value id="q_four_value"
                   class="d-flex text" name="q_four_value"
-                  status="{{ isSubmitted && form.controls.qFourFragility_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qFourFragility_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,5)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,5)" value="0/No">No</nb-radio>
                 </nb-radio-group><br />
@@ -805,7 +805,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qFiveFragility_value" q_five_value id="q_five_value"
                   class="d-flex text" name="q_five_value"
-                  status="{{ isSubmitted && form.controls.qFiveFragility_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qFiveFragility_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,5)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,5)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -818,7 +818,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qSixFragility_value" q_six_value id="q_six_value" class="d-flex text"
                   name="q_six_value"
-                  status="{{ isSubmitted && form.controls.qSixFragility_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qSixFragility_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,5)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,5)" value="0/No">No</nb-radio>
                 </nb-radio-group><br />
@@ -883,7 +883,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="pOneNews_value" p_one_value id="p_one_value" name="p_one_value"
-                  status="{{ isSubmitted && form.controls.pOneNews_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.pOneNews_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,6)" value="3/≤ 8">≤ 8</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,6)" value="1/9-11">9-11</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,6)" value="0/12-20">12-20</nb-radio>
@@ -897,7 +897,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="pTwoNews_value" p_two_value id="p_two_value" name="parameter_two"
-                  status="{{ isSubmitted && form.controls.pTwoNews_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.pTwoNews_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,6)" value="3/≤ 91">≤ 91</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,6)" value="2/92-93">92-93</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,6)" value="1/94-95">94-95</nb-radio>
@@ -920,7 +920,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="pThreeNews_value" p_three_value id="p_three_value" name="p_three_value"
-                  status="{{ isSubmitted && form.controls.pThreeNews_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.pThreeNews_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,6)" value="3/≤ 83">≤ 83</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,6)" value="2/84-85">84-85</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,6)" value="1/86-87">86-87</nb-radio>
@@ -938,7 +938,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="pFourNews_value" p_four_value id="p_four_value" name="p_four_value"
-                  status="{{ isSubmitted && form.controls.pFourNews_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.pFourNews_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,6)" value="3/≤ 40">≤ 40</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,6)" value="1/41-50">41-50</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,6)" value="0/51-90">51-90</nb-radio>
@@ -963,7 +963,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="pEightNews_value" p_eight_value id="p_eight_value" name="p_eight_value"
-                  status="{{ isSubmitted && form.controls.pEightNews_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.pEightNews_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,8,6)" value="3/≤ 35.0">≤ 35.0</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,6)" value="1/35.1-36.0">35.1-36.0</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,6)" value="0/36.1-38.0">36.1-38.0</nb-radio>
@@ -978,7 +978,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="pSixNews_value" p_six_value id="p_six_value" name="p_six_value"
-                  status="{{ isSubmitted && form.controls.pSixNews_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.pSixNews_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,6)" value="3/≤ 90">≤ 90</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,6)" value="2/91-100">91-100</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,6)" value="1/101-110">101-110</nb-radio>
@@ -1000,7 +1000,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="pFiveNews_value" p_five_value id="p_five_value" name="p_five_value"
-                  status="{{ isSubmitted && form.controls.pFiveNews_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.pFiveNews_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,6)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,6)" value="0/Aire ambiente">Aire ambiente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,6)" value="3/≥ 220">≥ 220</nb-radio>
@@ -1013,7 +1013,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="pSevenNews_value" p_seven_value id="p_seven_value" name="p_seven_value"
-                  status="{{ isSubmitted && form.controls.pSevenNews_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.pSevenNews_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,7,6)" value="3/C, V, D, I">C, V, D, I</nb-radio>
                 </nb-radio-group><br />
               </div>
@@ -1043,7 +1043,7 @@
                 <div class="col col-lg-4">
                   <textarea [value]="response" id="response" fullWidth nbInput formControlName="response" definition
                     rows="4" cols="70"
-                    status="{{ isSubmitted && form.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                    status="{{ isSubmitted && form.controls.response.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                     disabled> </textarea>
                 </div>
               </div>
@@ -1082,7 +1082,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="vOnePap_value" variable_one id="variable_one" name="variable_one"
-                  status="{{ isSubmitted && form.controls.vOnePap_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vOnePap_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,7)" value="0/No">No</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,7)" value="1/Si">Si</nb-radio>
                 </nb-radio-group>
@@ -1093,7 +1093,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="vTwoPap_value" variable_two id="variable_two" name="variable_two"
-                  status="{{ isSubmitted && form.controls.vTwoPap_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vTwoPap_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,7)" value="0/No">No</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,7)" value="1.5/Si">Si</nb-radio>
                 </nb-radio-group><br />
@@ -1111,7 +1111,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="vThreePap_value" variable_three id="variable_three"
                   name="variable_three"
-                  status="{{ isSubmitted && form.controls.vThreePap_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vThreePap_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,7)" value="0/> 12/">> 12</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,7)" value="2/11 - 12">11 - 12</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,7)" value="2.5/9 - 10">9 - 10</nb-radio>
@@ -1127,7 +1127,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="vFourPap_value" variable_four id="variable_four" name="variable_four"
-                  status="{{ isSubmitted && form.controls.vFourPap_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vFourPap_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,7)" value="0/Normal, 4800-8500 cel/l">Normal, 4800-8500
                     cel/l</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,7)" value="0.5/Alto, 8501-11000 cel/l">Alto, 8501-11000
@@ -1146,7 +1146,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="vFivePap_value" variable_five id="variable_five" name="variable_five"
-                  status="{{ isSubmitted && form.controls.vFivePap_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vFivePap_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,7)" value="0/>= 50">>= 50</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,7)" value="0/30 - 40">30 - 40</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,7)" value="2.5/10 - 20">10 - 20</nb-radio>
@@ -1160,7 +1160,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="vSixPap_value" variable_six id="variable_six" name="variable_six"
-                  status="{{ isSubmitted && form.controls.vSixPap_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vSixPap_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,7)" value="0/Normal, 20-40%">Normal, 20-40%</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,7)" value="1/Alto, 12-19%">Alto, 12-19%</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,7)" value="2.5/Muy Alto,0-11%">Muy Alto,0-11%</nb-radio>
@@ -1227,7 +1227,7 @@
                 </label>
                 <nb-radio-group formControlName="vOneHamilton_value" v_one_value id="v_one_value" name="v_one_value"
                   class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vOneHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vOneHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,8)" value="0/Ausente">Ausente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,8)" value="1/stas sensaciones las expresa solamente si
                   le preguntan como se siente">Estas sensaciones las expresa solamente si
@@ -1253,7 +1253,7 @@
                 </label>
                 <nb-radio-group formControlName="vTwoHamilton_value" v_two_value id="v_two_value" name="v_two_value"
                   class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vTwoHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vTwoHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,8)" value="0/Ausente">Ausente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,8)" value="1/Se culpa a si mismo, cree haber decepcionado
                   a la gente">Se culpa a si mismo, cree haber decepcionado
@@ -1289,7 +1289,7 @@
                 <label class="form-text text-muted font-weight-bold text-justify">Suicidio</label>
                 <nb-radio-group formControlName="vThreeHamilton_value" v_three_value id="v_three_value"
                   name="v_three_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vThreeHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vThreeHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,8)" value="0/Ausente">Ausente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,8)" value="1/Le parece que la vida no vale la pena ser
                   vivida">Le parece que la vida no vale la pena ser
@@ -1312,7 +1312,7 @@
                 <label class="form-text text-muted font-weight-bold text-justify">Insomnio precoz</label>
                 <nb-radio-group formControlName="vFourHamilton_value" v_four_value id="v_four_value" name="v_four_value"
                   class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vFourHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vFourHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,8)" value="0/No tiene dificultad">No tiene dificultad
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,8)" value="1/Dificultad ocasional para dormir, por ej.
@@ -1337,7 +1337,7 @@
                 </label>
                 <nb-radio-group formControlName="vFiveHamilton_value" v_five_value id="v_five_value" name="v_five_value"
                   class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vFiveHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vFiveHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,8)" value="0/No hay dificultad">No hay dificultad
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,8)" value="1/Esta desvelado e inquieto o se despierta
@@ -1358,7 +1358,7 @@
                 </label>
                 <nb-radio-group formControlName="vSixHamilton_value" v_six_value id="v_six_value" name="v_six_value"
                   class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vSixHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vSixHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,8)" value="0/No hay dificultad">No hay dificultad
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,8)" value="1/Se despierta a primeras horas de la
@@ -1384,7 +1384,7 @@
                 </label>
                 <nb-radio-group formControlName="vSevenHamilton_value" v_seven_value id="v_seven_value"
                   name="v_seven_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vSevenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vSevenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,7,8)" value="0/No hay dificultad">No hay dificultad
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,7,8)" value="1/Ideas y sentimientos de incapacidad, fatiga
@@ -1416,7 +1416,7 @@
                 </label>
                 <nb-radio-group formControlName="vEightHamilton_value" v_eight_value id="v_eight_value"
                   class="d-flex text" name="v_eight_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vEightHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vEightHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,8,8)" value="0/Palabra y pensamiento normales">Palabra y
                     pensamiento normales</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,8)" value="1/Ligero retraso en el habla">Ligero retraso en
@@ -1443,7 +1443,7 @@
                 </label>
                 <nb-radio-group formControlName="vNineHamilton_value" v_nine_value id="v_nine_value" class="d-flex text"
                   name="v_nine_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vNineHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vNineHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,9,8)" value="0/Ninguna">Ninguna</nb-radio>
                   <nb-radio (valueChange)="calculate($event,9,8)" value="1/Juega con sus dedos">Juega con sus dedos
                   </nb-radio>
@@ -1467,7 +1467,7 @@
                   psíquica</label>
                 <nb-radio-group formControlName="vTenHamilton_value" v_ten_value id="v_ten_value" class="d-flex text"
                   name="v_ten_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vTenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vTenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,10,8)" value="0/No hay dificultad">No hay dificultad
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,10,8)" value="1/Tensión subjetiva e irritabilidad">Tensión
@@ -1501,7 +1501,7 @@
                 </label>
                 <nb-radio-group formControlName="vElevenHamilton_value" v_eleven_value id="v_eleven_value"
                   class="d-flex text" name="v_eleven_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vElevenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vElevenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,11,8)" value="0/Ausente">Ausente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,11,8)" value="1/Ligera">Ligera</nb-radio>
                   <nb-radio (valueChange)="calculate($event,11,8)" value="2/Moderada">Moderada</nb-radio>
@@ -1516,7 +1516,7 @@
                 </label>
                 <nb-radio-group formControlName="vTwelveHamilton_value" v_twelve_value id="v_twelve_value"
                   class="d-flex text" name="v_twelve_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vTwelveHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vTwelveHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,12,8)" value="0/Ninguno">Ninguno</nb-radio>
                   <nb-radio (valueChange)="calculate($event,12,8)" value="1/Pérdida del apetito, pero come sin
                   necesidad de que lo estimulen. Sensación de pesadez en el abdomen.">Pérdida del apetito, pero come
@@ -1548,7 +1548,7 @@
                 </label>
                 <nb-radio-group formControlName="vThirteenHamilton_value" v_thirteen_value id="v_thirteen_value"
                   class="d-flex text" name="v_thirteen_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vThirteenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vThirteenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,13,8)" value="0/Ninguno">Ninguno</nb-radio>
                   <nb-radio (valueChange)="calculate($event,13,8)" value="1/Pesadez en la extremidades, espalda o
                   cabeza. Dorsalgias, cefalalgias, mialgias.Fatigabilidad y pérdida de energía.">Pesadez en la
@@ -1571,7 +1571,7 @@
                 </label>
                 <nb-radio-group formControlName="vFourteenHamilton_value" v_fourteen_value id="v_fourteen_value"
                   class="d-flex text" name="v_fourteen_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vFourteenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vFourteenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,14,8)" value="0/Ausentes">Ausentes</nb-radio>
                   <nb-radio (valueChange)="calculate($event,14,8)" value="1/Débiles">Débiles</nb-radio>
                   <nb-radio (valueChange)="calculate($event,14,8)" value="2/Graves">Graves</nb-radio>
@@ -1593,7 +1593,7 @@
                 </label>
                 <nb-radio-group formControlName="vFifteenHamilton_value" v_fifteen_value id="v_fifteen_value"
                   class="d-flex text" name="v_fifteen_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vFifteenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vFifteenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,15,8)" value="0/Ausente">Ausente</nb-radio>
                   <nb-radio (valueChange)="calculate($event,15,8)" value="1/Preocupado de si mismo (corporalmente)">
                     Preocupado de si mismo (corporalmente)
@@ -1613,7 +1613,7 @@
                 </label>
                 <nb-radio-group formControlName="vSixteenHamilton_value" v_sixteen_value id="v_sixteen_value"
                   class="d-flex text" name="v_sixteen_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vSixteenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vSixteenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,16,8)" value="0/Pérdida de peso inferior a 500 gr. en una
                   semana">Pérdida de peso inferior a 500 gr. en una
                     semana
@@ -1641,7 +1641,7 @@
                 </label>
                 <nb-radio-group formControlName="vSeventeenHamilton_value" v_seventeen_value id="v_seventeen_value"
                   class="d-flex text" name="v_seventeen_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vSeventeenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vSeventeenHamilton_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,18,8)" value="0/Se da cuenta de que está deprimido y
                   enfermo.">Se da cuenta de que está deprimido y
                     enfermo.
@@ -1720,7 +1720,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="mindCam_value" mind_value id="mind_value" class="d-flex text center"
                   name="mind_value"
-                  status="{{ isSubmitted && form.controls.mindCam_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.mindCam_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,9)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,9)" value="2/No">No</nb-radio>
                 </nb-radio-group>
@@ -1734,7 +1734,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="attentionCam_value" attention_value id="attention_value"
                   class="d-flex text center" name="attention"
-                  status="{{ isSubmitted && form.controls.attentionCam_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.attentionCam_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,9)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,9)" value="2/No">No</nb-radio>
                 </nb-radio-group>
@@ -1754,7 +1754,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="thoughtCam_value" thought_value id="thought_value"
                   class="d-flex text center" name="thought_value"
-                  status="{{ isSubmitted && form.controls.thoughtCam_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.thoughtCam_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,9)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,9)" value="2/No">No</nb-radio>
                 </nb-radio-group>
@@ -1770,7 +1770,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="awarenessCam_value" awareness_value id="awareness_value"
                   class="d-flex text center" name="awareness_value"
-                  status="{{ isSubmitted && form.controls.awarenessCam_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.awarenessCam_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,9)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,9)" value="2/No">No</nb-radio>
                 </nb-radio-group>
@@ -1844,7 +1844,7 @@
                   <textarea  id="definition" nbInput fullWidth
                     formControlName="definitionFacText" [value]="this.definitionFacText" definitionFac rows="3"
                     cols="70"
-                    status="{{ isSubmitted && form.controls.definitionFacText.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                    status="{{ isSubmitted && form.controls.definitionFacText.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                     disabled> </textarea>
                 </div>
               </div>
@@ -1896,7 +1896,7 @@
                   <textarea id="definition" nbInput fullWidth
                     formControlName="definitionCrossText" [value]="this.definitionCrossText" definitionCross rows="3"
                     cols="70"
-                    status="{{ isSubmitted && form.controls.definitionCrossText.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                    status="{{ isSubmitted && form.controls.definitionCrossText.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                     disabled> </textarea>
                 </div>
               </div>
@@ -1931,7 +1931,7 @@
             <div class="row justify-content-md-center">
               <nb-radio-group class="form-text text-muted text-justify " formControlName="scoreKarnofsky_value"
                 score_value id="score" name="score_value"
-                status="{{ isSubmitted && form.controls.scoreKarnofsky_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                status="{{ isSubmitted && form.controls.scoreKarnofsky_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                 <nb-radio value="100/Normal, no quejas referidas, no evidencia de enfermedad.">Normal, no quejas
                   referidas, no evidencia de enfermedad. </nb-radio>
                 <nb-radio value="90/Capaz de desarrollar actividades normales, signos y síntomas leves de enfermedad.">
@@ -2033,7 +2033,7 @@
                   <textarea id="definition" nbInput fullWidth
                     formControlName="definitionEcogText" [value]="this.definitionEcogText" definitionEcog rows="3"
                     cols="70"
-                    status="{{ isSubmitted && form.controls.definitionEcogText.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                    status="{{ isSubmitted && form.controls.definitionEcogText.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                     disabled> </textarea>
                 </div>
               </div>
@@ -2071,7 +2071,7 @@
                   subyacente con riesgo de malnutrición?</label>
                 <nb-radio-group class="form-text text-muted" formControlName="score_one_value" score_one_value
                   id="score_one_value" name="score_one_value"
-                  status="{{ isSubmitted && form.controls.score_one_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.score_one_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,10)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,10)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -2107,7 +2107,7 @@
                 </label>
                 <nb-radio-group class="form-text text-muted" formControlName="score_two_value" score_two_value
                   id="score_two_value" name="score_two_value"
-                  status="{{ isSubmitted && form.controls.score_two_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.score_two_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,10)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,10)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -2130,7 +2130,7 @@
                 </label>
                 <nb-radio-group class="form-text text-muted" formControlName="score_three_value" score_three_value
                   id="score_three_value" name="score_three_value"
-                  status="{{ isSubmitted && form.controls.score_three_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.score_three_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,10)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,10)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -2143,7 +2143,7 @@
                 </label>
                 <nb-radio-group class="form-text text-muted" formControlName="score_four_value" score_four_value
                   id="score_four_value" name="score_four_value"
-                  status="{{ isSubmitted && form.controls.score_four_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.score_four_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,10)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,10)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -2173,7 +2173,7 @@
                   <div class="col-md-auto">
                     <textarea [value]="classNPedriatic" id="classification" nbInput fullWidth
                       formControlName="classNPedriatic" classNPedriatic rows="3" cols="50"
-                      status="{{ isSubmitted && form.controls.classNPedriatic.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                      status="{{ isSubmitted && form.controls.classNPedriatic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                       disabled> </textarea>
                   </div>
                 </div>
@@ -2482,7 +2482,7 @@
                 <label class="form-text text-muted font-weight-bold text ">Observación</label>
                 <textarea onpaste="return false" id="observation" nbInput fullWidth formControlName="obsEsas" obsEsas
                   rows="4" cols="50"
-                  status="{{ isSubmitted && form.controls.obsEsas.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+                  status="{{ isSubmitted && form.controls.obsEsas.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
               </div>
             </div>
 
@@ -2517,7 +2517,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="face_value" face_value id="face_value" name="face_value"
-                  status="{{ isSubmitted && form.controls.face_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.face_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,11)" value="0/Cara relajada. Expresión neutra">Cara
                     relajada. Expresión neutra</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,11)" value="1/Arruga la nariz">Arruga la nariz </nb-radio>
@@ -2529,7 +2529,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="legs_value" legs_value id="legs_value" name="legs_value"
-                  status="{{ isSubmitted && form.controls.legs_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.legs_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,11)" value="0/Relajadas">Relajadas</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,11)" value="1/Inquietas">Inquietas</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,11)" value="2/Golpea con los pies">Golpea con los pies
@@ -2552,7 +2552,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="activityFlacc_value" activityFlacc_value id="activityFlacc_value"
                   name="activityFlacc_value"
-                  status="{{ isSubmitted && form.controls.activityFlacc_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.activityFlacc_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,11)" value="0/Acostado y quieto">Acostado y quieto
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,11)" value="1/Se dobla sobre el abdomen encogiendo las
@@ -2567,7 +2567,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="crying_value" crying_value id="crying_value" name="crying_value"
-                  status="{{ isSubmitted && form.controls.crying_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.crying_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,11)" value="0/No llora">No llora</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,11)" value="1/Se queja, gime">Se queja, gime</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,11)" value="2/Llanto fuerte">Llanto fuerte</nb-radio>
@@ -2588,7 +2588,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="comfort_value" comfort_value id="comfort_value" name="comfort_value"
-                  status="{{ isSubmitted && form.controls.comfort_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.comfort_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,11)" value="0/Satisfecho">Satisfecho</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,11)" value="1/Puede distraerse">Puede distraerse
                   </nb-radio>
@@ -2652,7 +2652,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="pps_value" pps_value id="pps_value" name="pps_value"
-                  status="{{ isSubmitted && form.controls.pps_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.pps_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,12)" value="4/10 - 20">10 - 20</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,12)" value="2.5/30 - 50">30 - 50</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,12)" value="0/>= 60">>= 60</nb-radio>
@@ -2663,7 +2663,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="oral_value" oral_value id="oral_value" name="oral_value"
-                  status="{{ isSubmitted && form.controls.oral_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.oral_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,12)" value="0/Normal">Normal</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,12)" value="1/Moderadamente reducida">Moderadamente
                     reducida</nb-radio>
@@ -2686,7 +2686,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="edema_value" edema_value id="edema_value" name="edema_value"
-                  status="{{ isSubmitted && form.controls.edema_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.edema_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,12)" value="1/Presentes">Presentes</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,12)" value="0/Ausentes">Ausentes</nb-radio>
                 </nb-radio-group>
@@ -2698,7 +2698,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="dyspnoea_value" dyspnoea_value id="dyspnoea_value"
                   name="dyspnoea_value"
-                  status="{{ isSubmitted && form.controls.dyspnoea_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.dyspnoea_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,12)" value="3.5/Presentes">Presentes</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,12)" value="0/Ausentes">Ausentes</nb-radio>
                 </nb-radio-group>
@@ -2719,7 +2719,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="delirium_value" delirium_value id="delirium_value"
                   name="delirium_value"
-                  status="{{ isSubmitted && form.controls.delirium_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.delirium_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,12)" value="4.5/Presentes">Presentes</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,12)" value="0/Ausentes">Ausentes</nb-radio>
                 </nb-radio-group>
@@ -2787,7 +2787,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_one_value" q_one_value id="q_one_value" name="q_one_value"
-                  status="{{ isSubmitted && form.controls.q_one_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_one_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -2803,7 +2803,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_two_value" q_two_value id="q_two_value" name="q_two_value"
-                  status="{{ isSubmitted && form.controls.q_two_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_two_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -2828,7 +2828,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_three_value" q_three_value id="q_three_value" name="q_three_value"
-                  status="{{ isSubmitted && form.controls.q_three_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_three_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -2844,7 +2844,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_four_value" q_four_value id="q_four_value" name="q_four_value"
-                  status="{{ isSubmitted && form.controls.q_four_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_four_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -2869,7 +2869,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_five_value" q_five_value id="q_five_value" name="q_five_value"
-                  status="{{ isSubmitted && form.controls.q_five_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_five_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -2885,7 +2885,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_six_value" q_six_value id="q_six_value" name="q_six_value"
-                  status="{{ isSubmitted && form.controls.q_six_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_six_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -2909,7 +2909,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_seven_value" q_seven_value id="q_seven_value" name="q_seven_value"
-                  status="{{ isSubmitted && form.controls.q_seven_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_seven_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,7,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,7,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,7,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -2924,7 +2924,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_eight_value" q_eight_value id="q_eight_value" name="q_eight_value"
-                  status="{{ isSubmitted && form.controls.q_eight_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_eight_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,8,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -2950,7 +2950,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_nine_value" q_nine_value id="q_nine_value" name="q_nine_value"
-                  status="{{ isSubmitted && form.controls.q_nine_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_nine_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,9,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,9,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,9,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -2967,7 +2967,7 @@
               </div>
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_ten_value" q_ten_value id="q_ten_value" name="q_ten_value"
-                  status="{{ isSubmitted && form.controls.q_ten_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_ten_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,10,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,10,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,10,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -2992,7 +2992,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_eleven_value" q_eleven_value id="q_eleven_value"
                   name="q_eleven_value"
-                  status="{{ isSubmitted && form.controls.q_eleven_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_eleven_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,11,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,11,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,11,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3009,7 +3009,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_twelve_value" q_twelve_value id="q_twelve_value"
                   name="q_twelve_value"
-                  status="{{ isSubmitted && form.controls.q_twelve_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_twelve_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,12,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,12,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,12,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3035,7 +3035,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_thirteen_value" q_thirteen_value id="q_thirteen_value"
                   name="q_thirteen_value"
-                  status="{{ isSubmitted && form.controls.q_thirteen_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_thirteen_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,13,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,13,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,13,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3053,7 +3053,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_fourteen_value" q_fourteen_value id="q_fourteen_value"
                   name="q_fourteen_value"
-                  status="{{ isSubmitted && form.controls.q_fourteen_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_fourteen_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,14,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,14,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,14,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3079,7 +3079,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_fifteen_value" q_fifteen_value id="q_fifteen_value"
                   name="q_fifteen_value"
-                  status="{{ isSubmitted && form.controls.q_fifteen_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_fifteen_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,15,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,15,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,15,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3097,7 +3097,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_sixteen_value" q_sixteen_value id="q_sixteen_value"
                   name="q_sixteen_value"
-                  status="{{ isSubmitted && form.controls.q_sixteen_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_sixteen_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,16,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,16,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,16,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3123,7 +3123,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_seventeen_value" q_seventeen_value id="q_seventeen_value"
                   name="q_seventeen_value"
-                  status="{{ isSubmitted && form.controls.q_seventeen_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_seventeen_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,17,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,17,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,17,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3141,7 +3141,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_eighteen_value" q_eighteen_value id="q_eighteen_value"
                   name="q_eighteen_value"
-                  status="{{ isSubmitted && form.controls.q_eighteen_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_eighteen_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,18,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,18,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,18,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3167,7 +3167,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_nineteen_value" q_nineteen_value id="q_nineteen_value"
                   name="q_nineteen_value"
-                  status="{{ isSubmitted && form.controls.q_nineteen_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_nineteen_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,19,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,19,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,19,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3183,7 +3183,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_twenty_value" q_twenty_value id="q_twenty_value"
                   name="q_twenty_value"
-                  status="{{ isSubmitted && form.controls.q_twenty_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_twenty_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,20,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,20,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,20,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3208,7 +3208,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_twenty_one_value" q_twenty_one_value id="q_twenty_one_value"
                   name="q_twenty_one_value"
-                  status="{{ isSubmitted && form.controls.q_twenty_one_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_twenty_one_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,21,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,21,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,21,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3225,7 +3225,7 @@
               <div class="col col-lg-3">
                 <nb-radio-group formControlName="q_twenty_two_value" q_twenty_two_value id="q_twenty_two_value"
                   name="q_twenty_two_value"
-                  status="{{ isSubmitted && form.controls.q_twenty_two_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.q_twenty_two_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,22,13)" value="0/Nunca">Nunca</nb-radio>
                   <nb-radio (valueChange)="calculate($event,22,13)" value="1/Rara vez">Rara vez</nb-radio>
                   <nb-radio (valueChange)="calculate($event,22,13)" value="2/Algunas Veces">Algunas Veces</nb-radio>
@@ -3437,7 +3437,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qOneValue" q_one_value id="q_one_value" name="q_one_value"
-                  status="{{ isSubmitted && form.controls.qOneValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qOneValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,14)" value="0/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,14)" value="1/No">No</nb-radio>
                 </nb-radio-group>
@@ -3447,7 +3447,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qTwoValue" q_two_value id="q_two_value" name="q_two_value"
-                  status="{{ isSubmitted && form.controls.qTwoValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qTwoValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,14)" value="0/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,14)" value="1/No">No</nb-radio>
                 </nb-radio-group>
@@ -3467,7 +3467,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qThreeValue" q_three_value id="q_three_value" name="q_three_value"
-                  status="{{ isSubmitted && form.controls.qThreeValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qThreeValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,14)" value="0/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,14)" value="1/No">No</nb-radio>
                 </nb-radio-group>
@@ -3478,7 +3478,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qFourValue" q_four_value id="q_four_value" name="q_four_value"
-                  status="{{ isSubmitted && form.controls.qFourValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qFourValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,14)" value="0/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,14)" value="1/No">No</nb-radio>
                 </nb-radio-group>
@@ -3497,7 +3497,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qFiveValue" q_five_value id="q_five_value" name="q_five_value"
-                  status="{{ isSubmitted && form.controls.qFiveValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qFiveValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,14)" value="0/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,14)" value="1/No">No</nb-radio>
                 </nb-radio-group>
@@ -3507,7 +3507,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qSixValue" q_six_value id="q_six_value" name="q_six_value"
-                  status="{{ isSubmitted && form.controls.qSixValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qSixValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,14)" value="0/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,14)" value="1/No">No</nb-radio>
                 </nb-radio-group>
@@ -3527,7 +3527,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qSevenValue" q_seven_value id="q_seven_value" name="q_seven_value"
-                  status="{{ isSubmitted && form.controls.qSevenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qSevenValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,7,14)" value="0/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,7,14)" value="1/No">No</nb-radio>
                 </nb-radio-group>
@@ -3538,7 +3538,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qEightValue" q_eight_value id="q_eight_value" name="q_eight_value"
-                  status="{{ isSubmitted && form.controls.qEightValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qEightValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,8,14)" value="0/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,14)" value="1/No">No</nb-radio>
                 </nb-radio-group>
@@ -3557,7 +3557,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qNineValue" q_nine_value id="q_nine_value" name="q_nine_value"
-                  status="{{ isSubmitted && form.controls.qNineValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qNineValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,9,14)" value="0/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,9,14)" value="1/No">No</nb-radio>
                 </nb-radio-group>
@@ -3570,7 +3570,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="qTenValue" q_ten_value id="q_ten_value" name="q_ten_value"
-                  status="{{ isSubmitted && form.controls.qTenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.qTenValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,10,14)" value="0/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,10,14)" value="1/No">No</nb-radio>
                 </nb-radio-group>
@@ -3638,7 +3638,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="medication_value" medication_value id="medication_value"
                   class="text-aling" name="medication_value"
-                  status="{{ isSubmitted && form.controls.medication_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.medication_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,15)" value="0/Ninguna">Ninguna</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,15)" value="1/Tranquilizantes o sedantes">Tranquilizantes
                     o sedantes</nb-radio>
@@ -3659,7 +3659,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="deficiency_value" deficiency_value id="deficiency_value"
                   name="deficiency_value"
-                  status="{{ isSubmitted && form.controls.deficiency_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.deficiency_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,15)" value="0/Ninguno">Ninguno</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,15)" value="1/Alteraciones de la vista">Alteraciones de la
                     vista</nb-radio>
@@ -3678,7 +3678,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="wandering_value" wandering_value id="wandering_value"
                   name="wandering_value"
-                  status="{{ isSubmitted && form.controls.wandering_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.wandering_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,15)" value="0/Normal">Normal</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,15)" value="1/Segura con ayuda">Segura con ayuda
                   </nb-radio>
@@ -3701,7 +3701,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="mental_value" mental_value id="mental_value" name="mental_value"
-                  status="{{ isSubmitted && form.controls.mental_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.mental_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,15)" value="0/Orientado">Orientado</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,15)" value="1/Confuso">Confuso</nb-radio>
                 </nb-radio-group>
@@ -3712,7 +3712,7 @@
               </div>
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="falls_value" falls_value id="falls_value" name="falls_value"
-                  status="{{ isSubmitted && form.controls.falls_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.falls_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,15)" value="1/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,15)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -3780,7 +3780,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="vOneScreening_value" v_one_value id="v_one_value" name="v_one_value"
                   class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vOneScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vOneScreening_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -3794,7 +3794,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="vTwoScreening_value" v_two_value id="v_two_value" name="v_two_value"
                   class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vTwoScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vTwoScreening_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -3813,7 +3813,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="vThreeScreening_value" v_three_value id="v_three_value"
                   name="v_three_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vThreeScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vThreeScreening_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -3828,7 +3828,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="vFourScreening_value" v_four_value id="v_four_value"
                   name="v_four_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vFourScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vFourScreening_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -3847,7 +3847,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="vFiveScreening_value" v_five_value id="v_five_value"
                   name="v_five_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vFiveScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vFiveScreening_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -3862,7 +3862,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="vSixScreening_value" v_six_value id="v_six_value" name="v_six_value"
                   class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vSixScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vSixScreening_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -3880,7 +3880,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="vSevenScreening_value" v_seven_value id="v_seven_value"
                   name="v_seven_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vSevenScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vSevenScreening_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,7,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,7,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -3895,7 +3895,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="vEightScreening_value" v_eight_value id="v_eight_value"
                   class="d-flex text" name="v_eight_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vEightScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vEightScreening_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,8,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,8,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -3913,7 +3913,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="vNineScreening_value" v_nine_value id="v_nine_value"
                   class="d-flex text" name="v_nine_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vNineScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vNineScreening_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,9,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,9,16)" value="0/No">No</nb-radio>
                 </nb-radio-group>
@@ -3928,7 +3928,7 @@
               <div class="col col-lg-2">
                 <nb-radio-group formControlName="vTenScreening_value" v_ten_value id="v_ten_value" class="d-flex text"
                   name="v_ten_value" class="form-text text-muted detail"
-                  status="{{ isSubmitted && form.controls.vTenScreening_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.vTenScreening_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,10,16)" value="2/Si">Si</nb-radio>
                   <nb-radio (valueChange)="calculate($event,10,16)" value="0/No">No</nb-radio>
                 </nb-radio-group><br />
@@ -4194,7 +4194,7 @@
 
       <!-- BRADEN -->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
+        *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
         <nb-accordion-item-header>
           Escala Braden
         </nb-accordion-item-header>
@@ -4209,7 +4209,7 @@
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="sensoryBradenValue" physical_value id="sensory_value"
                   name="sensory_value"
-                  status="{{ isSubmitted && form.controls.sensoryBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.sensoryBradenValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,17)" value="1/Completamente Limitada">Completamente
                     Limitada</nb-radio>
                   <nb-radio (valueChange)="calculate($event,1,17)" value="2/Muy Limitada">Muy Limitada </nb-radio>
@@ -4226,7 +4226,7 @@
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="humidityBradenValue" mind_value id="humidity_value"
                   name="humidity_value"
-                  status="{{ isSubmitted && form.controls.humidityBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.humidityBradenValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,17)" value="1/Completamente Humeda">Completamente Humeda
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,2,17)" value="2/A Menudo Humeda">A Menudo Humeda</nb-radio>
@@ -4253,7 +4253,7 @@
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="activityBradenValue" activity_value id="activity_value"
                   name="activity_value"
-                  status="{{ isSubmitted && form.controls.activityBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.activityBradenValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,17)" value="1/Encamado">Encamado
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,3,17)" value="2/En Silla">
@@ -4275,7 +4275,7 @@
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="mobilityBradenValue" mobility_value id="mobility_value"
                   name="mobility_value"
-                  status="{{ isSubmitted && form.controls.mobilityBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.mobilityBradenValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,1)" value="1/Completamente Inmovil">Completamente Inmovil
                   </nb-radio>
                   <nb-radio (valueChange)="calculate($event,4,17)" value="2/Muy Limitada">Muy Limitada</nb-radio>
@@ -4303,7 +4303,7 @@
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="nutritionBradenValue" nutrition_value id="nutrition_value"
                   name="nutrition_value"
-                  status="{{ isSubmitted && form.controls.nutritionBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.nutritionBradenValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,17)" value="1/Muy Pobre">Muy Pobre</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,17)" value="2/Pobremente Inadecuada">Pobremente Inadecuada
                   </nb-radio>
@@ -4318,7 +4318,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="lesionBradenValue" lesion_value id="lesion_value" name="lesion_value"
-                  status="{{ isSubmitted && form.controls.lesionBradenValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.lesionBradenValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,17)" value="1/Problema">Problema</nb-radio>
                   <nb-radio (valueChange)="calculate($event,6,17)" value="2/Problemas Potenciales">Problemas Potenciales
                   </nb-radio>
@@ -4388,7 +4388,7 @@
 
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="phone_value" phone_value id="phone_value" name="phone_value"
-                  status="{{ isSubmitted && form.controls.phone_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.phone_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,1,18)"
                     value="1/Utiliza el teléfono a iniciativa propia, busca y márca los números, etc">Utiliza el
                     teléfono a iniciativa propia, busca y márca los números, etc</nb-radio>
@@ -4411,7 +4411,7 @@
 
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="shopping_value" mind_value id="shopping_value" name="shopping_value"
-                  status="{{ isSubmitted && form.controls.shopping_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.shopping_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,2,18)"
                     value="1/Realiza todas las compras necesarias independientemente">Realiza todas las compras
                     necesarias independientemente</nb-radio>
@@ -4442,7 +4442,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="food_value" food_value id="food_value" name="food_value"
-                  status="{{ isSubmitted && form.controls.food_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.food_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,3,18)"
                     value="1/Organiza, prepara y sirve las comidas por sí solo adecuadamente">Organiza, prepara y sirve
                     las comidas por sí solo adecuadamente
@@ -4468,7 +4468,7 @@
               </div>
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="house_value" house_value id="house_value" name="house_value"
-                  status="{{ isSubmitted && form.controls.house_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.house_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,4,18)"
                     value="1/Mantiene la casa solo o con ayuda ocasional (para trabajos pesados)">Mantiene la casa solo
                     o con ayuda ocasional (para trabajos pesados)
@@ -4504,7 +4504,7 @@
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="clothing_value" clothing_value id="clothing_value"
                   name="clothing_value"
-                  status="{{ isSubmitted && form.controls.clothing_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.clothing_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,5,18)" value="1/Lava por sí solo toda su ropa">Lava por sí
                     solo toda su ropa</nb-radio>
                   <nb-radio (valueChange)="calculate($event,5,18)" value="1/Lava por sí solo pequeñas prendas">Lava por
@@ -4524,7 +4524,7 @@
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="transport_value" transport_value id="transport_value"
                   name="transport_value"
-                  status="{{ isSubmitted && form.controls.transport_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.transport_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,6,18)"
                     value="1/Viaja solo en transporte público o conduce su propio coche">Viaja solo en transporte
                     público o conduce su propio coche</nb-radio>
@@ -4559,7 +4559,7 @@
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="medicationValue" medication_value id="medication_value"
                   name="medication_value"
-                  status="{{ isSubmitted && form.controls.medicationValue.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.medicationValue.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,7,18)"
                     value="1/Es capaz de tomar su medicación a la hora y con la dosis correcta">Es capaz de tomar su
                     medicación a la hora y con la dosis correcta</nb-radio>
@@ -4578,7 +4578,7 @@
 
               <div class="col col-lg-4">
                 <nb-radio-group formControlName="finance_value" finance_value id="finance_value" name="finance_value"
-                  status="{{ isSubmitted && form.controls.finance_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                  status="{{ isSubmitted && form.controls.finance_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-radio (valueChange)="calculate($event,8,18)"
                     value="1/Se encarga de sus asuntos económicos por sí solo">Se encarga de sus asuntos económicos por
                     sí solo</nb-radio>

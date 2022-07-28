@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="margin: 10px;max-width: 1000px;max-height: 800px;overflow: auto;">
+  <nb-card style="margin: 10px;max-width: 1000px;max-height: 700px;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
@@ -7,7 +7,7 @@
           <label class="form-text text-muted font-weight-bold">TIPO DE DOCUMENTO SOPORTE:</label>
           <nb-select [selected]="this.data.type_billing_evidence_id" formControlName="type_billing_evidence_id"
             id="type_billing_evidence_id" fullWidth
-            status="{{ isSubmitted && form.controls.type_billing_evidence_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.type_billing_evidence_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.type_billing_evidence_id }}"
               *ngFor="let item of type_billing_evidence" [value]="item.id">

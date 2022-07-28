@@ -7,7 +7,7 @@
         <label for="ostomy_id" class="form-text text-muted font-weight-bold align">OSTOMIA:</label>
         <nb-select [selected]="this.data.ostomy_id" formControlName="ostomy_id" id="ostomy_id" fullWidth
           title="Seleccione..."
-          status="{{ isSubmitted && form.controls.ostomy_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.ostomy_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option *ngFor="let item of ostomy_id" [value]="item.id">
             {{ item.name }}</nb-option>
@@ -17,7 +17,7 @@
       <div class="col-md-12">
         <label for="observation" class="form-text text-muted font-weight-bold align">OBSERVACIONES:</label>
         <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="4" cols="50"
-          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
     </fieldset>
 

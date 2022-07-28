@@ -51,7 +51,7 @@
           <label for="patient_position_id" class="form-text text-muted font-weight-bold align">CAMBIO DE POSICIÓN:</label>
           <nb-select [selected]="this.data.patient_position_id" formControlName="patient_position_id"
             id="patient_position_id" fullWidth title="Seleccione..."
-            status="{{ isSubmitted && form.controls.patient_position_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.patient_position_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.patient_position_id }}" *ngFor="let item of patient_positions"
               [value]="item.id">
@@ -62,7 +62,7 @@
           <label for="patient_dry" class="form-text text-muted font-weight-bold align">BAÑO DEL PACIENTE:</label>
           <nb-select [selected]="this.data.patient_dry" formControlName="patient_dry"
             id="patient_dry" fullWidth title="Seleccione..."
-            status="{{ isSubmitted && form.controls.patient_dry.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.patient_dry.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option value="EN CAMA">EN CAMA</nb-option>
             <nb-option value="EN DUCHA">EN DUCHA</nb-option>
@@ -72,7 +72,7 @@
           <label for="unit_arrangement" class="form-text text-muted font-weight-bold align">ARREGLO DE UNIDAD:</label>
           <nb-select [selected]="this.data.unit_arrangement" formControlName="unit_arrangement"
             id="unit_arrangement" fullWidth title="Seleccione..."
-            status="{{ isSubmitted && form.controls.unit_arrangement.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.unit_arrangement.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option value="CAMA ABIERTA">CAMA ABIERTA</nb-option>
             <nb-option value="CAMA CERRADA">CAMA CERRADA</nb-option>

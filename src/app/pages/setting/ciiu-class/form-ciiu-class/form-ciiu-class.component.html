@@ -6,18 +6,18 @@
         <div class="col-md-12">
           <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
           <input nbInput fullWidth id="code" formControlName="code" code
-            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
             />
         </div>
         <div class="col-md-12">
           <label for="group" class="form-text text-muted font-weight-bold">Grupo:</label>
           <nb-select [selected]="this.data.group_id" formControlName="group_id" id="group_id" fullWidth
-          status="{{ isSubmitted && form.controls.group_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.group_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.group_id }}" *ngFor="let item of group" [value]="item.id">
             {{ item.name }}</nb-option>

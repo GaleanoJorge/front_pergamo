@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1100px;max-height: 900px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6">
+            <label for="request_amount" class="form-text text-muted font-weight-bold">CANTIDAD SOLICITADA:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6">
+            <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="request_amount"
+              formControlName="request_amount" disabled="disabled" />
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+
+        <div *ngIf="show_table" class="col-12 col-sm-12">
+          <ngx-prod-shipping-patient-package (messageEvent)="receiveMessage($event)" [parentData]="parentData" [my_pharmacy_id]="my_pharmacy_id">
+          </ngx-prod-shipping-patient-package>
+        </div>
+
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">ENVIAR</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

@@ -59,18 +59,20 @@ export class FormDrugApplicationComponent implements OnInit {
   async ngOnInit() {
     if (!this.data) {
       this.data = {
+        clock: '',
         observation: '',
       };
     } else {
-      if(this.data.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product){
-        this.label = this.data.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.name.toUpperCase();
+      if (this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+        this.label = this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.name.toUpperCase();
       } else {
-        this.label = this.data.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.name.toUpperCase();
+        this.label = this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.name.toUpperCase();
       }
     }
-    
+
     this.form = this.formBuilder.group({
-      observation: [this.data.observation, Validators.compose([Validators.required])],
+      clock: [Validators.compose([Validators.required])],
+      observation: [Validators.compose([Validators.required])],
     });
 
     this.user_id = this.authS.GetUser().id;
@@ -81,8 +83,6 @@ export class FormDrugApplicationComponent implements OnInit {
         this.status_id = this.supplies_status.find(item => item.name == this.status);
       }
     });
-
-
   }
 
   async save() {
@@ -92,18 +92,19 @@ export class FormDrugApplicationComponent implements OnInit {
       if (this.data.id) {
         await this.assistanceSuppliesS.Update({
           id: this.data.id,
+          clock: this.form.controls.clock.value,
           observation: this.form.controls.observation.value,
           supplies_status_id: this.status_id.id,
           ch_record_id: this.record_id,
           type_record_id: this.type_record_id,
           user_incharge_id: this.user_id
         }).then((x) => {
-            this.toastService.success('', x.message);
-            if (this.saved) {
-              this.saved();
-            }
-            // this.close();
-          })
+          this.toastService.success('', x.message);
+          if (this.saved) {
+            this.saved();
+          }
+          // this.close();
+        })
           .catch(x => {
             this.isSubmitted = false;
             this.loading = false;
@@ -111,9 +112,10 @@ export class FormDrugApplicationComponent implements OnInit {
 
       } else {
         await this.assistanceSuppliesS.Save({
-          observation: this.form.controls.observation.value,
           ch_record_id: this.record_id,
           type_record_id: this.type_record_id,
+          clock: this.form.controls.clock.value,
+          observation: this.form.controls.observation.value,
         })
           .then((x) => {
             this.toastService.success('', x.message);

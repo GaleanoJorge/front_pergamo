@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormPharmacyInventoryComponent } from './form-pharmacy-inventory/form-pharmacy-inventory.component';
 import { ActionsInvComponent } from './actionsInv.component';
 import { AuthService } from '../../../services/auth.service';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { FormPharmacyReturnComponent } from '../pharmacy-return/form-pharmacy-return/form-pharmacy-return.component';
+import { FormPharmaInvPersonComponent } from './form-pharma-inv-person/form-pharma-inv-person.component';
 
 @Component({
   selector: 'ngx-pharmacy-inventory',
@@ -41,6 +42,7 @@ export class PharmacyInventoryComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditInv.bind(this),
+            'edit1': this.EditInvPerdon.bind(this),
           };
         },
         renderComponent: ActionsInvComponent,
@@ -61,7 +63,7 @@ export class PharmacyInventoryComponent implements OnInit {
       },
       amount_total: {
         title: this.headerFields[2],
-        type: 'string', 
+        type: 'string',
       },
       actual_amount: {
         title: this.headerFields[3],
@@ -69,11 +71,11 @@ export class PharmacyInventoryComponent implements OnInit {
       },
       lot: {
         title: this.headerFields[4],
-        type: 'string', 
+        type: 'string',
       },
       expiration_date: {
         title: this.headerFields[5],
-        type: 'string', 
+        type: 'string',
       }
     },
 
@@ -90,15 +92,20 @@ export class PharmacyInventoryComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private invS: PharmacyLotStockService,
     private authService: AuthService,
+    private toastService: NbToastrService,
   ) {
   }
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
-      this.my_pharmacy_id = x[0].id;
-      this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product='+ true;
-      this.title = 'INVENTARIO DE ' + x[0]['name'];
+      if (x.length > 0) {
+        this.my_pharmacy_id = x[0].id;
+        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product=' + true;
+        this.title = 'INVENTARIO DE ' + x[0]['name'];
+       } else {
+        this.toastService.info('Usuario sin farmacias asociadas', 'Información');
+       }
     });
   }
 
@@ -117,17 +124,28 @@ export class PharmacyInventoryComponent implements OnInit {
       },
     });
   }
+  EditInvPerdon(data) {
+    this.dialogFormService.open(FormPharmaInvPersonComponent, {
+      closeOnBackdropClick: false,
+      context: {
+        title: 'ENVIAR MEDICAMENTO',
+        data: data,
+        my_pharmacy_id: this.my_pharmacy_id,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
   NewDev(data) {
     this.dialogFormService.open(FormPharmacyReturnComponent, {
       closeOnBackdropClick: false,
       context: {
         title: 'MEDICAMENTOS DEVUELTOS',
         data: data,
-    //    my_pharmacy_id: this.my_pharmacy_id,
+        //    my_pharmacy_id: this.my_pharmacy_id,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
- 
+
 }

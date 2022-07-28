@@ -6,13 +6,13 @@
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
             />
         </div>
         <div class="col-md-12">
           <label for="fixed_clasification" class="form-text text-muted font-weight-bold">Tipo de activo:</label>
           <nb-select [selected]="this.data.fixed_clasification_id" formControlName="fixed_clasification_id" id="fixed_clasification_id" fullWidth
-            status="{{ isSubmitted && form.controls.fixed_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.fixed_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.fixed_clasification_id }}" *ngFor="let item of fixed_clasification" [value]="item.id">
               {{ item.name }}</nb-option>

@@ -14,6 +14,7 @@ export class FormAssistanceStockComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() type: any = null
 
   public form: FormGroup;
   public region_id: number;

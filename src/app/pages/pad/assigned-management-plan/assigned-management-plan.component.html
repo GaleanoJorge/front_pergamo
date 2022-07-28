@@ -23,7 +23,9 @@
       </div>
       <div actions>
         <div class="actions">
-
+          <div class="space">
+            <button nbButton status="danger" (click)="NewSolicitudFixed()">Solicitar act. Fijo</button>
+          </div>
           <button nbButton status="danger" [routerLink]="'/pages/setting/assistance-stock'" [queryParams]="{unit: dynamicQueryParameter}">Mi inventario</button>
 
         </div>

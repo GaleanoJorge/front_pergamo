@@ -5,7 +5,7 @@
       <div class="col align-self-center text">
         <nb-select [selected]="this.data.ch_type_background_id" formControlName="ch_type_background_id"
           id="ch_type_background_id"   fullWidth
-          status="{{ isSubmitted && form.controls.ch_type_background_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.ch_type_background_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.ch_type_background_id }}" *ngFor="let item of ch_type_background"
             [value]="item.id">
@@ -14,7 +14,7 @@
       </div>
       <div class="col-md-12">
         <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
-          status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="SI">SI</nb-radio>
           <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
         </nb-radio-group>
@@ -22,7 +22,7 @@
       <div class="col-md-12" *ngIf="this.form.controls.revision.value =='SI'" >
         <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
         <textarea id="observation" nbInput fullWidth formControlName="observation" observation  onpaste="return false" rows="4" cols="50"
-          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
     </div>
     <div class="row">

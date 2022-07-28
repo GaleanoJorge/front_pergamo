@@ -7,7 +7,7 @@
         <div class="col-md-12">
           <label for="campus" class="form-text text-muted font-weight-bold">SEDE:</label>
           <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
-            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus" [value]="item.id">
               {{ item.name }}</nb-option>

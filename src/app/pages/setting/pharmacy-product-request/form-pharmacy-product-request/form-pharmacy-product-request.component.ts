@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
-import { PharmacyRequestShippingService } from '../../../../business-controller/pharmacy-request-shipping.service';
 import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
 import { ProductGenericService } from '../../../../business-controller/product-generic.service';
 import { ProductSuppliesService } from '../../../../business-controller/product-supplies.service';
@@ -18,6 +17,8 @@ export class FormPharmacyProductRequestComponent implements OnInit {
   @Input() data: any = null;
   @Input() parentData: any;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() my_pharmacy_id: any = null;
+
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -32,11 +33,11 @@ export class FormPharmacyProductRequestComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private pharmaProdS: PharmacyProductRequestService,
-    private pharmaShippS: PharmacyRequestShippingService,
     private pharmaS: PharmacyStockService,
     private ProductGenericS: ProductGenericService,
     private toastService: NbToastrService,
-    private ProductSuppliesS: ProductSuppliesService
+    private ProductSuppliesS: ProductSuppliesService,
+
   ) {
   }
 
@@ -60,7 +61,7 @@ export class FormPharmacyProductRequestComponent implements OnInit {
     await this.ProductGenericS.GetCollection().then(x => {
       this.product_generic_id = x;
     });
-    await this.pharmaS.GetCollection().then(x => {
+    await this.pharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
       this.request_pharmacy_stock_id = x;
     });
     await this.ProductSuppliesS.GetCollection().then(x => {
@@ -81,7 +82,7 @@ export class FormPharmacyProductRequestComponent implements OnInit {
           status: 'SOLICITADO',
           product_generic_id: this.form.controls.product_generic_id.value,
           product_supplies_id: this.form.controls.product_supplies_id.value,
-          own_pharmacy_stock_id: 2,
+          own_pharmacy_stock_id: this.my_pharmacy_id,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -97,7 +98,7 @@ export class FormPharmacyProductRequestComponent implements OnInit {
           request_amount: this.form.controls.request_amount.value,
           status: 'SOLICITADO',
           product_generic_id: this.form.controls.product_generic_id.value,
-          own_pharmacy_stock_id: 2,
+          own_pharmacy_stock_id: this.my_pharmacy_id,
           product_supplies_id: this.form.controls.product_supplies_id.value,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
         }).then(x => {
