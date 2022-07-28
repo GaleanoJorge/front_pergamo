@@ -7,11 +7,11 @@ import { ChRouteFluidService } from '../../../../business-controller/ch-route-fl
 import { ChLiquidControlService } from '../../../../business-controller/ch-liquid-control.service';
 
 @Component({
-  selector: 'ngx-form-liquid-control',
-  templateUrl: './form-liquid-control.component.html',
-  styleUrls: ['./form-liquid-control.component.scss'],
+  selector: 'ngx-form-liquid-control-adm',
+  templateUrl: './form-liquid-control-adm.component.html',
+  styleUrls: ['./form-liquid-control-adm.component.scss'],
 })
-export class FormLiquidControlComponent implements OnInit {
+export class FormLiquidControlAdmComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
@@ -63,16 +63,21 @@ export class FormLiquidControlComponent implements OnInit {
     
     this.form = this.formBuilder.group({
       clock: [
-        this.data[0] ? this.data[0].clock : this.data.clock
+        this.data[0] ? this.data[0].clock : this.data.clock,
+        Validators.compose([Validators.required])
       ],
       ch_route_fluid_id: [
-        this.data[0] ? this.data[0].ch_route_fluid_id : this.data.ch_route_fluid_id
+        this.data[0] ? this.data[0].ch_route_fluid_id : this.data.ch_route_fluid_id,
+        Validators.compose([Validators.required])
+
       ],
       ch_type_fluid_id: [
-        this.data[0] ? this.data[0].ch_type_fluid_id : this.data.ch_type_fluid_id
+        this.data[0] ? this.data[0].ch_type_fluid_id : this.data.ch_type_fluid_id,
+        Validators.compose([Validators.required])
       ],
       delivered_volume: [
-        this.data[0] ? this.data[0].delivered_volume : this.data.delivered_volume
+        this.data[0] ? this.data[0].delivered_volume : this.data.delivered_volume,
+        Validators.compose([Validators.required])
       ],
       bag_number: [
         this.data[0] ? this.data[0].bag_number : this.data.bag_number

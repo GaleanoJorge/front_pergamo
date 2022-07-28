@@ -8,11 +8,11 @@ import { ChLiquidControlService } from '../../../../business-controller/ch-liqui
 
 
 @Component({
-  selector: 'ngx-form-liquid-elimination',
-  templateUrl: './form-liquid-elimination.component.html',
-  styleUrls: ['./form-liquid-elimination.component.scss'],
+  selector: 'ngx-form-liquid-control-del',
+  templateUrl: './form-liquid-control-del.component.html',
+  styleUrls: ['./form-liquid-control-del.component.scss'],
 })
-export class FormLiquidEliminationComponent implements OnInit {
+export class FormLiquidControlDelComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
@@ -62,19 +62,24 @@ export class FormLiquidEliminationComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       clock: [
-        this.data[0] ? this.data[0].clock : this.data.clock
+        this.data[0] ? this.data[0].clock : this.data.clock,
+        Validators.compose([Validators.required])
       ],
       ch_route_fluid_id: [
-        this.data[0] ? this.data[0].ch_rute_fluid_id : this.data.ch_rute_fluid_id
+        this.data[0] ? this.data[0].ch_rute_fluid_id : this.data.ch_rute_fluid_id,
+        Validators.compose([Validators.required])
       ],
       ch_type_fluid_id: [
-        this.data[0] ? this.data[0].ch_type_fluid_id : this.data.ch_type_fluid_id
+        this.data[0] ? this.data[0].ch_type_fluid_id : this.data.ch_type_fluid_id,
+        Validators.compose([Validators.required])
       ],
       specific_name: [
-        this.data[0] ? this.data[0].specific_name : this.data.specific_name
+        this.data[0] ? this.data[0].specific_name : this.data.specific_name,
+        Validators.compose([Validators.required])
       ],
       delivered_volume: [
-        this.data[0] ? this.data[0].delivered_volume : this.data.delivered_volume
+        this.data[0] ? this.data[0].delivered_volume : this.data.delivered_volume,
+        Validators.compose([Validators.required])
       ],
       bag_number: [
         this.data[0] ? this.data[0].bag_number : this.data.bag_number
