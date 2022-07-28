@@ -39,6 +39,8 @@ import { ActionsSemaphoreComponent } from './assigned-management-plan/actions-se
 import { ActionsSemaphore2Component } from './management-plan/actions-semaphore.component';
 import { PharmacyApplicationComponent } from './management-plan/pharmacy-application/pharmacy-application.component';
 import { Actions3Component } from './management-plan/pharmacy-application/actions.component';
+import { FixedPlanComponent } from './assigned-management-plan/fixed-plan/fixed-plan.component';
+import { FormFixedPlanComponent } from './assigned-management-plan/fixed-plan/form-fixed-plan/form-fixed-plan.component';
 
 
 
@@ -86,7 +88,9 @@ import { Actions3Component } from './management-plan/pharmacy-application/action
     ActionsSemaphoreComponent,
     ActionsSemaphore2Component,
     ActionsComponent,
-    AssignedManagementPlanComponent
+    AssignedManagementPlanComponent,
+    FormFixedPlanComponent,
+    FixedPlanComponent
   ],
   providers: [
     DateFormatPipe,
