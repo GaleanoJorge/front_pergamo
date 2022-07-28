@@ -172,11 +172,6 @@ import { FormReasonConsultationRespiratoryTherapyComponent } from './entry-respi
 import { ActionsRespiratoryTherapyComponent } from './respiratory-therapy-list/actionsRespiratoryTherapy.component';
 import { ActionsRespiratoryTherapy2Component } from './entry-respiratory-therapy/actions.component';
 import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/respiratory-therapy-list.component';
-import { FormAssessmentTherapyComponent } from './assessment-therapy/form-assessment-therapy.component';
-import { FormIspectionTherapyComponent } from './ispection-therapy/form-ispection-therapy.component';
-import { FormaAuscultacionTherapyComponent } from './auscultacion-therapy/form-auscultacion-therapy.component';
-import { FormaObjectivesTherapyComponent } from './objectives-therapy/form-objectives-therapy/form-objectives-therapy.component';
-import { FormaDiagnosticTherapyComponent } from './diagnostic-therapy/form-diagnostic-therapy.component';
 import { FormChOxygenTherapyComponent } from './oxygen-therapy/form-oxygen-therapy.component';
 import { RegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/regular-respiratory-therapy.component';
 import { FormSessionsTherapyComponent } from './sessions-therapy/form-sessions-therapy.component';
@@ -247,11 +242,21 @@ import { FormRNMaterialsOTComponent } from './entry-clinic-history-occupational-
 import { RNMaterialsOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-metarials-ot/r-n-materials-ot.component';
 import { ForRNmWeeklyOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/form-r-n-weekly-ot/form-r-n-weekly-ot.component';
 import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/r-n-weekly-ot.component';
+import { FormaObjectivesTherapyComponent } from './objectives-therapy/form-objectives-therapy/form-objectives-therapy.component';
+import { ObjectivesTherapyComponent } from './objectives-therapy/objectives-therapy.component';
+import { AuscultacionTherapyComponent } from './auscultacion-therapy/auscultacion-therapy.component';
+import { FormAuscultacionTherapyComponent } from './auscultacion-therapy/form-auscultacion-therapy/form-auscultacion-therapy.component';
+import { FormaDiagnosticTherapyComponent } from './diagnostic-therapy/form-diagnostic-therapy/form-diagnostic-therapy.component';
+import { FormAssessmentTherapyComponent } from './assessment-therapy/form-assessment-therapy/form-assessment-therapy.component';
+import { FormAssTherapyRespiratoryComponent } from './ass-therapy-respiratory/form-ass-therapy-respiratory/form-ass-therapy-respiratory.component';
+import { AssTherapyRespiratoryComponent } from './ass-therapy-respiratory/ass-therapy-respiratory.component';
+import { SignsRespiratoryComponent } from './signs-respiratory/signs-respiratory.component';
+import { IspectionTherapyComponent } from './ispection-therapy/ispection-therapy.component';
+import { FormIspectionTherapyComponent } from './ispection-therapy/from-inspection-therapy/form-ispection-therapy.component';
 
 import { ActionsAplicationsComponent } from './drug-application/actions.component';
 import { FormEntryMotorFunPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-fun-pat-ot/form-entry-motor-fun-pat-ot.component';
 import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
-import { ObjectivesTherapyComponent } from './objectives-therapy/objectives-therapy.component';
 import { FormChPositionComponent } from './ch-position/form-ch-position/form-ch-position.component';
 import { ChPositionComponent } from './ch-position/ch-position.component';
 import { ChOxigenComponent } from './ch-oxigen/ch-oxigen.component';
@@ -265,6 +270,7 @@ import { ActionsInsumeComponent } from './insume-application/actions.component';
 import { FormLiquidControlDelComponent } from './liquid-control/form-liquid-control-del/form-liquid-control-del.component';
 import { LiquidControlComponent } from './liquid-control/liquid-control.component';
 import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
+import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
 
 
 @NgModule({
@@ -382,10 +388,14 @@ import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-cont
     ForRNmWeeklyOTComponent,
     RNWeeklyOtComponent,
 
-
+    ClinicHistoryOccupationalTherapy,
+      
     RespiratoryTherapyListComponent,
     FormRespiratoryTherapyComponent,
     FormAssessmentTherapyComponent,
+    FormAssTherapyRespiratoryComponent,
+    AssTherapyRespiratoryComponent,
+    SignsRespiratoryComponent,
     EntryRespiratoryTherapyComponent,
     FormReasonConsultationRespiratoryTherapyComponent,
     ReasonConsultationRespiratoryTherapyComponent,
@@ -393,8 +403,11 @@ import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-cont
     ActionsRespiratoryTherapy2Component,
 
     FormIspectionTherapyComponent,
-    FormaAuscultacionTherapyComponent,
+    IspectionTherapyComponent,
+    FormAuscultacionTherapyComponent,
+    AuscultacionTherapyComponent,
     FormaDiagnosticTherapyComponent,
+    DiagnosticTherapyComponent,
     FormaObjectivesTherapyComponent,
     ObjectivesTherapyComponent,
     FormChOxygenTherapyComponent,

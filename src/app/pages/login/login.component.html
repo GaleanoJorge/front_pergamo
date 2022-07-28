@@ -19,7 +19,7 @@
           <div class="div-form-login">
             <small class="col-md-4 form-text text-muted">USUARIO</small>
             <input class="input-login input-login-style" type="username" nbInput fullWidth
-              status="{{ isSubmitted && loginForm.controls.username.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              status="{{ isSubmitted && loginForm.controls.username.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
               formControlName="username" required username minlength="5" autocomplete="on">
           </div>
           <div *ngIf="loginForm.controls.username.errors && isSubmitted ">
@@ -35,7 +35,7 @@
                 <nb-form-field class="w-100">
                   <input (change)="login()" class="input-login input-login-style password" [type]="getInputTypePassword()" nbInput fullWidth id="password"
                     formControlName="password" password
-                    status="{{ isSubmitted && loginForm.controls.password.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                    status="{{ isSubmitted && loginForm.controls.password.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
   
                   <button nbSuffix nbButton ghost (click)="toggleShowPassword()" type="button" class="btn-login">
                     <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'" pack="eva"

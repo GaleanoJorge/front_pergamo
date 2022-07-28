@@ -17,6 +17,9 @@ input[type=number] { -moz-appearance:textfield; }
   display: inline-block;
   margin-right: 5px;
 }
+.space {
+  margin-right: 5px;
+}
 
 .file-select::before {
   background-color: #54bcc1;

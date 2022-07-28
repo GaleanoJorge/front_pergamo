@@ -10,7 +10,8 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-12">
-          <ngx-income-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
+          <ngx-income-package (messageEvent)="receiveMessage($event)" [parentData]="parentData" >
+          <!-- <ngx-income-package (messageEvent)="receiveMessage($event)" [parentData]="parentData" [my_pharmacy_id]="my_pharmacy_id"> -->
           </ngx-income-package>
         </div>
         <div class="col-12 col-sm-12 col-md-12">
@@ -21,7 +22,7 @@
         <div class="col-12 col-sm-12 col-md-6">
           <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIÓN:</label>
           <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
 
       </div>

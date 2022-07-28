@@ -6,12 +6,12 @@
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-md-12">
           <label for="rips_typefile" class="form-text text-muted font-weight-bold">Tipo de archivo Rips:</label>
           <nb-select [selected]="this.data.rips_typefile_id" formControlName="rips_typefile_id" id="rips_typefile_id" fullWidth
-          status="{{ isSubmitted && form.controls.rips_typefile_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.rips_typefile_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == this.data.rips_typefile_id }}" *ngFor="let item of rips_typefile" [value]="item.id">
             {{ item.name }}</nb-option>

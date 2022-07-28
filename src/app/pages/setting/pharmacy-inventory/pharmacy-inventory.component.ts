@@ -6,6 +6,7 @@ import { ActionsInvComponent } from './actionsInv.component';
 import { AuthService } from '../../../services/auth.service';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { FormPharmacyReturnComponent } from '../pharmacy-return/form-pharmacy-return/form-pharmacy-return.component';
+import { FormPharmaInvPersonComponent } from './form-pharma-inv-person/form-pharma-inv-person.component';
 
 @Component({
   selector: 'ngx-pharmacy-inventory',
@@ -41,6 +42,7 @@ export class PharmacyInventoryComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditInv.bind(this),
+            'edit1': this.EditInvPerdon.bind(this),
           };
         },
         renderComponent: ActionsInvComponent,
@@ -113,6 +115,17 @@ export class PharmacyInventoryComponent implements OnInit {
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyInventoryComponent, {
+      closeOnBackdropClick: false,
+      context: {
+        title: 'ENVIAR MEDICAMENTO',
+        data: data,
+        my_pharmacy_id: this.my_pharmacy_id,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+  EditInvPerdon(data) {
+    this.dialogFormService.open(FormPharmaInvPersonComponent, {
       closeOnBackdropClick: false,
       context: {
         title: 'ENVIAR MEDICAMENTO',

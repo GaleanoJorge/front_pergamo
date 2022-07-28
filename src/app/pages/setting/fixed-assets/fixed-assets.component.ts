@@ -52,8 +52,7 @@ export class FixedAssetsComponent implements OnInit {
         type: 'string', 
         valuePrepareFunction: (value, row) => {
           return value.name;
-        },
-        
+        },   
       },
       mark: {
         title: this.headerFields[2],
@@ -98,7 +97,6 @@ export class FixedAssetsComponent implements OnInit {
   }
 
   RefreshData() {
-
     this.table.refresh();
   }
 
@@ -113,6 +111,7 @@ export class FixedAssetsComponent implements OnInit {
 
   EditFixedAssets(data) {
     this.dialogFormService.open(FormFixedAssetsComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar activos Fijos',
         data,
@@ -120,19 +119,6 @@ export class FixedAssetsComponent implements OnInit {
       },
     });
   }
-
-  // ChangeState(data) {
-  //   // data.status_id = data.status_id === 1 ? 2 : 1;
-
-  //   this.toastrService.info('', 'Cambiando estado');
-
-  //   this.regionS.Update(data).then((x) => {
-  //     this.toastrService.success('', x.message);
-  //     this.table.refresh();
-  //   }).catch((x) => {
-  //     this.toastrService.danger(x.message);
-  //   });
-  // }
 
   DeleteConfirmFixedAssets(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
@@ -152,5 +138,4 @@ export class FixedAssetsComponent implements OnInit {
       throw x;
     });
   }
-
 }

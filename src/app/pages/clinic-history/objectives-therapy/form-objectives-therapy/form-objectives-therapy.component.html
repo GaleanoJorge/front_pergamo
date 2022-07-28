@@ -2,7 +2,19 @@
 
   <div class="row justify-content-md-center">
 
-    <div class="col col-lg-3 checks">
+    <!-- <div class="col col-lg-3 checks" *ngFor="let objectives of arrayObjectives">
+      <a>
+        <nb-card status="basic" accent="{{this.form.controls.check1.value ? 'success' : 'basic'}}" size="tiny">
+          <nb-card-header>
+            <nb-checkbox><b>Objetivo</b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{ objectives.description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div> -->
+
+    <div class="col col-lg-2 checks justify-content">
       <a>
         <nb-card status="basic" accent="{{this.form.controls.check1.value ? 'success' : 'basic'}}" size="tiny">
           <nb-card-header>
@@ -14,7 +26,7 @@
       </a>
     </div>
 
-    <div class="col col-lg-3 checks justify-content">
+    <div class="col col-lg-2 checks justify-content">
       <a>
         <nb-card status="basic" size="tiny" accent="{{this.form.controls.check2.value ? 'success' : 'basic'}}">
           <nb-card-header>
@@ -26,7 +38,7 @@
       </a>
     </div>
 
-    <div class="col col-lg-3 checks justify-content">
+    <div class="col col-lg-2 checks justify-content">
       <a>
         <nb-card status="basic" size="tiny" accent="{{this.form.controls.check3.value ? 'success' : 'basic'}}">
           <nb-card-header>
@@ -38,7 +50,7 @@
       </a>
     </div>
 
-    <div class="col col-lg-3 checks justify-content">
+    <div class="col col-lg-2 checks justify-content">
       <a>
         <nb-card status="basic" size="tiny" accent="{{this.form.controls.check4.value ? 'success' : 'basic'}}">
           <nb-card-header>
@@ -50,7 +62,7 @@
       </a>
     </div>
 
-    <div class="col col-lg-3 checks justify-content">
+    <div class="col col-lg-2 checks justify-content">
       <a>
         <nb-card status="basic" size="tiny" accent="{{this.form.controls.check5.value ? 'success' : 'basic'}}">
           <nb-card-header>
@@ -63,7 +75,7 @@
       </a>
     </div>
 
-    <div class="col col-lg-3 checks justify-content">
+    <div class="col col-lg-2 checks justify-content">
       <a>
         <nb-card status="basic" size="tiny" accent="{{this.form.controls.check6.value ? 'success' : 'basic'}}">
           <nb-card-header>
@@ -76,7 +88,7 @@
       </a>
     </div>
 
-    <div class="col col-lg-3 checks justify-content">
+    <div class="col col-lg-2 checks justify-content">
       <a>
         <nb-card status="basic" size="tiny" accent="{{this.form.controls.check7.value ? 'success' : 'basic'}}">
           <nb-card-header>
@@ -89,7 +101,7 @@
       </a>
     </div>
 
-    <div class="col col-lg-3 checks justify-content">
+    <div class="col col-lg-2 checks justify-content">
       <a>
         <nb-card status="basic" size="tiny" accent="{{this.form.controls.check8.value ? 'success' : 'basic'}}">
           <nb-card-header>
@@ -102,7 +114,7 @@
       </a>
     </div>
 
-    <div class="col col-lg-3 checks justify-content">
+    <div class="col col-lg-2 checks justify-content">
       <a>
         <nb-card status="basic" size="tiny" accent="{{this.form.controls.check9.value ? 'success' : 'basic'}}">
           <nb-card-header>
@@ -114,7 +126,7 @@
       </a>
     </div>
 
-    <div class="col col-lg-3 checks justify-content">
+    <div class="col col-lg-2 checks justify-content">
       <a>
         <nb-card status="basic" size="tiny" accent="{{this.form.controls.check10.value ? 'success' : 'basic'}}">
           <nb-card-header>
@@ -131,8 +143,9 @@
 
   <div class="row">
     <div class="col-md-12">
-      <button nbButton accent="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
     </div>
   </div>
-
 </form>

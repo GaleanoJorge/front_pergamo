@@ -1,10 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-lg-12">
+      <ngx-form-ch-scales [respiratory]="true" [record_id]="record_id"  [age]="user"></ngx-form-ch-scales>
+    </div>
+  </div>
+</div>
+
 <form [formGroup]="form" (ngSubmit)="save()">
+  
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold align">EXPANSIÓN TORÁXICA</label>
         <nb-select formControlName="expansion" id="expansion" fullWidth placeholder="Seleccione..."
-          status="{{ isSubmitted && form.controls.expansion.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.expansion.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="NORMO-EXPANDIBLE">NORMO-EXPANDIBLE</nb-option>
           <nb-option value="DISMINUIDA">DISMINUIDA</nb-option>
           <nb-option value="AUMENTADA">AUMENTADA</nb-option>
@@ -14,7 +23,7 @@
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold align">MASAS</label>
         <nb-select formControlName="masses" id="masses" fullWidth placeholder="Seleccione..."
-          status="{{ isSubmitted && form.controls.masses.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.masses.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="PRESENTE">PRESENTE</nb-option>
           <nb-option value="NO PRESENTE ">NO PRESENTE </nb-option>>
         </nb-select>
@@ -24,7 +33,7 @@
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold align">CREPITACIONES</label>
         <nb-select formControlName="crepitations" id="crepitations" fullWidth placeholder="Seleccione..."
-          status="{{ isSubmitted && form.controls.crepitations.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.crepitations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="PRESENTE">PRESENTE</nb-option>
           <nb-option value="NO PRESENTE ">NO PRESENTE </nb-option>>
         </nb-select>
@@ -33,7 +42,7 @@
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold align">FRACTURAS</label>
         <nb-select formControlName="fracturues" id="fracturues" fullWidth placeholder="Seleccione..."
-          status="{{ isSubmitted && form.controls.fracturues.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.fracturues.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="PRESENTE">PRESENTE</nb-option>
           <nb-option value="NO PRESENTE ">NO PRESENTE </nb-option>>
         </nb-select>
@@ -44,34 +53,26 @@
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold align">VIA AEREA ARTIFICAL</label>
         <nb-select formControlName="airway" id="airway" fullWidth placeholder="Seleccione..."
-          status="{{ isSubmitted && form.controls.airway.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.airway.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="TUBO ENDOTRAQUEAL">TUBO ENDOTRAQUEAL</nb-option>
           <nb-option value="TRAQUEOSTOMIA">TRAQUEOSTOMIA</nb-option>>
         </nb-select>
       </div>
     </div>
 
-    <div class="container">
-      <div class="row justify-content-md-center">
-        <div class="col col-lg-6">
-          <hr />
-        </div>
-      </div>
-    </div>
-
-    <div class="row justify-content-md-center">
+     <div class="row justify-content-md-center">
       <div class="col col-lg-6" *ngIf="this.form.controls.masses.value == 'PRESENTE' ">
         <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN MASAS</label>
         <textarea onpaste="return false" class="form-text col col-lg-12" id="detail_masses" nbInput fullWidth
           formControlName="detail_masses" detail_masses rows="4" cols="80"
-          status="{{ isSubmitted && form.controls.detail_masses.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          status="{{ isSubmitted && form.controls.detail_masses.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
 
       <div class="col col-lg-6" *ngIf="this.form.controls.fracturues.value == 'PRESENTE' ">
         <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN FRACTURAS</label>
         <textarea onpaste="return false" class="form-text col col-lg-12" id="detail_fracturues" nbInput fullWidth
           formControlName="detail_fracturues" detail_fracturues rows="4" cols="80"
-          status="{{ isSubmitted && form.controls.detail_fracturues.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          status="{{ isSubmitted && form.controls.detail_fracturues.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
     </div>
   </div>
@@ -85,22 +86,6 @@
       </div>
     </div>
 
-    <div class="row justify-content-md-center">
-      <div class="col col-lg-6">
-        <hr />
-      </div>
-    </div>
-  </div>
 
+ 
 
-
-  <div class="container">
-    <div class="row">
-      <div class="col col-lg-12">
-        <ngx-form-ch-scales [respiratory]="true"></ngx-form-ch-scales>
-      </div>
-    </div>
-  </div>
-
-
-</form>

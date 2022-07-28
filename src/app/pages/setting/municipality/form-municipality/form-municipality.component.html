@@ -6,17 +6,17 @@
         <div class="col-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-12">
           <label for="circuit_id" class="form-text text-muted font-weight-bold">Código:</label>
           <input type="number" nbInput fullWidth id="circuit_id" formControlName="circuit_id" circuit_id
-            status="{{ isSubmitted && form.controls.circuit_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.circuit_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-12">
           <label for="sectional" class="form-text text-muted font-weight-bold">Departamento:</label>
           <nb-select [selected]="this.data.region_id" formControlName="region_id" id="region" fullWidth
-            status="{{ isSubmitted && form.controls.region_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.region_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.region_id }}" *ngFor="let item of region"
                          [value]="item.id">{{ item.name }}</nb-option>

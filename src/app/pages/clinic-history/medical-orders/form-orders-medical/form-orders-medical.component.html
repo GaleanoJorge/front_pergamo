@@ -4,21 +4,21 @@
       <label for="ch_entry" class="form-text text-muted font-weight-bold">MOTIVO DE
         CONSULTA:</label>
       <textarea id="reason_consultation" nbInput fullWidth formControlName="reason_consultation" reason_consultation rows="4"
-        cols="50"  status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        cols="50"  status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="col-md-12">
       <label for="ch_entry" class="form-text text-muted font-weight-bold">ENFERMEDAD
         ACTUAL:</label>
       <textarea id="current_illness" nbInput fullWidth formControlName="current_illness" current_illness rows="4"
-        cols="50" status="{{ isSubmitted && form.controls.current_illness.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        cols="50" status="{{ isSubmitted && form.controls.current_illness.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="col-md-12">
       <label for="ch_external_cause" class="form-text text-muted font-weight-bold">CAUSA
         EXTERNA:</label>
       <nb-select [selected]="this.data.ch_external_cause_id" formControlName="ch_external_cause_id" id="ch_external_cause_id" fullWidth
-      status="{{ isSubmitted && form.controls.ch_external_cause_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+      status="{{ isSubmitted && form.controls.ch_external_cause_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
       <nb-option value="">Seleccione...</nb-option>
       <nb-option selected="{{ item.id == data.ch_external_cause_id }}" *ngFor="let item of ch_external_cause" [value]="item.id">
         {{ item.name }}</nb-option>

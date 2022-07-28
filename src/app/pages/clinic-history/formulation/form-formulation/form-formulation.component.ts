@@ -37,7 +37,7 @@ export class FormFormulationComponent implements OnInit {
   public outpatient_formulation;
   public product_gen: any[];
   public product_id;
-  public localidentify;
+  public product;
   public identificator;
   public user2;
   public show: boolean = true;
@@ -87,8 +87,11 @@ export class FormFormulationComponent implements OnInit {
   }
 
   async GetAuxData() {
-    await this.patienBS.GetUserById(this.user).then(x => {
+    await this.patienBS.GetUserById(this.user).then(async x => {
       this.user2 = x;
+      await this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
+        this.product_gen = x;
+      });
     });
 
     await this.AdministrationRouteS.GetCollection().then(x => {
@@ -99,9 +102,6 @@ export class FormFormulationComponent implements OnInit {
       this.hourly_frequency_id = x;
     });
 
-    await this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions.at(-1).briefcase_id).then(x => {
-      this.product_gen = x;
-    });
 
     await this.userChangeS.GetCollection().then(x => {
       this.all_changes = x;
@@ -193,15 +193,18 @@ export class FormFormulationComponent implements OnInit {
   onChangesFormulation(event, id) {
     var presentmedic;
     var dose = this.form.controls.dose.value;
-    var hourly_frequency_id = this.hourly_frequency_id.find(item => item.id == this.form.controls.hourly_frequency_id.value).value;
+    var hourly_frequency_id = this.form.controls.hourly_frequency_id.value != '' ? this.hourly_frequency_id.find(item => item.id == this.form.controls.hourly_frequency_id.value).value : 1;
     var treatment_days = this.form.controls.treatment_days.value;
-    this.localidentify = this.product_gen.find(item => item.id == this.product_id);
-    if (this.localidentify.manual_price) {
-      presentmedic = this.getConcentration(this.localidentify.manual_price.product.drug_concentration.value);
+    this.product = this.product_gen.find(item => item.id == this.product_id);
+    presentmedic = this.getConcentration(this.product.product_dose_id == 2 ? this.product.dose : this.product.drug_concentration.value);
+    if (this.product.product_dose_id == 2) {
+      var elementos_x_aplicacion = dose / presentmedic;
     } else {
-      presentmedic = this.getConcentration(this.localidentify.drug_concentration.value);
+      var elementos_x_aplicacion = Math.ceil(dose / presentmedic);
     }
-    var operate = dose * (24 / hourly_frequency_id) * treatment_days;
+
+
+    var operate = Math.ceil(elementos_x_aplicacion * (24 / hourly_frequency_id) * treatment_days);
     this.form.controls.outpatient_formulation.setValue(operate);
   }
 
@@ -248,13 +251,13 @@ export class FormFormulationComponent implements OnInit {
   saveCode1(e, identificator): void {
     this.identificator = identificator;
     if (this.identificator == 1) {
-      this.localidentify = this.product_gen.find(item => item.manual_price.name == e);
+      this.product = this.product_gen.find(item => item.manual_price.name == e);
     } else {
-      this.localidentify = this.product_gen.find(item => item.description == e);
+      this.product = this.product_gen.find(item => item.description == e);
     }
 
-    if (this.localidentify) {
-      this.product_id = this.localidentify.id;
+    if (this.product) {
+      this.product_id = this.product.id;
       this.form.controls.product_gen.setErrors(null);
     } else {
       this.product_id = null;
@@ -262,6 +265,7 @@ export class FormFormulationComponent implements OnInit {
       this.form.controls.product_gen.setErrors({ 'incorrect': true });
 
     }
+    this.onChangesFormulation(1, e)
   }
   eventSelections(input) {
     if (input == false) {
@@ -270,9 +274,11 @@ export class FormFormulationComponent implements OnInit {
       this.patienBS.GetUserById(this.user).then(x => {
         this.user2 = x;
       });
-      this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
-        this.product_gen = x;
-      });
+      if (this.user2 != null) {
+        this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
+          this.product_gen = x;
+        });
+      }
     } else {
       this.show = false;
       this.ProductGS.GetCollection().then(x => {

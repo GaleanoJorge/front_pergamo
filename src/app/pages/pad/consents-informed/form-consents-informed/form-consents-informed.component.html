@@ -8,7 +8,7 @@
           <label for="type_consents_id" class="form-text text-muted font-weight-bold">Concentimiento Informado:</label>
           <nb-select [selected]="this.data.type_consents_id" formControlName="type_consents_id" id="type_consents_id"
             fullWidth
-            status="{{ isSubmitted && form.controls.type_consents_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.type_consents_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.type_consents_id }}" *ngFor="let item of type_consents"
               [value]="item.id">
@@ -34,14 +34,14 @@
         <div class="col-12 col-sm-12 col-md-12">
           <label for="name_responsible" class="form-text text-muted font-weight-bold">Nombre de responsable:</label>
           <input nbInput fullWidth id="name_responsible" formControlName="name_responsible" name_responsible
-            status="{{ isSubmitted && form.controls.name_responsible.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.name_responsible.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-12">
           <label for="parent_responsible" class="form-text text-muted font-weight-bold">Parentesco de
             responsable:</label>
           <input nbInput fullWidth id="parent_responsible" formControlName="parent_responsible" parent_responsible
-            status="{{ isSubmitted && form.controls.parent_responsible.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.parent_responsible.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
 
@@ -50,7 +50,7 @@
             responsable:</label>
           <input nbInput fullWidth id="identification_responsible" formControlName="identification_responsible"
             identification_responsible
-            status="{{ isSubmitted && form.controls.identification_responsible.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.identification_responsible.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
 

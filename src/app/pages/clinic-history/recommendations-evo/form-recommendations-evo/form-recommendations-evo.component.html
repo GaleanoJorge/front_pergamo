@@ -10,7 +10,7 @@
           <div class="col-md-auto">
             <nb-radio-group formControlName="patient_family_education" patient_family_education
               id="patient_family_education" class="d-flex text center" name="patient_family_education"
-              status="{{ isSubmitted && form.controls.patient_family_education.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.patient_family_education.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-radio value="Si">Educación al paciente/familiar</nb-radio>
             </nb-radio-group>
           </div>
@@ -23,7 +23,7 @@
             <label for=" recommendations_evo_id " class="form-text text-muted font-weight-bold">RECOMENDACIÓN</label>
             <nb-select [selected]="this.data.recommendations_evo_id" formControlName="recommendations_evo_id"
               id="recommendations_evo_id"  fullWidth (selectedChange)="onDescriptionChange($event)"
-              status="{{ isSubmitted && form.controls.recommendations_evo_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.recommendations_evo_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.recommendations_evo_id }}"
                 *ngFor="let item of recommendations_evo_id" [value]="item.id">
@@ -39,7 +39,7 @@
           <label for="observation" class="form-text text-muted font-weight-bold center">OBSERVACIONES</label>
           <textarea id="observation"  nbInput fullWidth formControlName="observation" observation onpaste="return false"
             rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
 
       </div>

@@ -51,21 +51,21 @@ import { ConciliationResponseService } from '../../../business-controller/concil
                           <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
                           <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth
                               id="response" formControlName="response" response
-                              status="{{ isSubmitted && ResponseConciliationsForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                       </div>
                       <div class="col-md-12">
                           <label for="accepted_value" class="form-text text-muted font-weight-bold">Valor
                               aceptado:</label>
                           <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth
                               id="accepted_value" formControlName="accepted_value" accepted_value
-                              status="{{ isSubmitted && ResponseConciliationsForm.controls.accepted_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.accepted_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                       </div>
                       <div class="col-md-12">
                           <label for="value_not_accepted" class="form-text text-muted font-weight-bold">Valor No
                               aceptado:</label>
                           <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth
                               id="value_not_accepted" formControlName="value_not_accepted" value_not_accepted
-                              status="{{ isSubmitted && ResponseConciliationsForm.controls.value_not_accepted.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.value_not_accepted.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                       </div>
                       <div class="col-md-12">
                           <label for="objetion_code_response"
@@ -97,7 +97,7 @@ import { ConciliationResponseService } from '../../../business-controller/concil
                       </div> -->
                       <div class="col-md-12">
                           <input type="text" nbInput fullWidth id="file" formControlName="file" file
-                              status="{{ isSubmitted && ResponseConciliationsForm.controls.file.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.file.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                       </div>
                   </div>
                   <div class="div-send">
@@ -119,12 +119,12 @@ import { ConciliationResponseService } from '../../../business-controller/concil
                         <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
                         <input oninput="this.value = this.value.toUpperCase()" minlength="5" nbInput fullWidth
                             id="response" formControlName="response" response
-                            status="{{ isSubmitted && SustainGlossForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                            status="{{ isSubmitted && SustainGlossForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                     </div>
                     <div class="col-md-12">
                           <label for="file" class="form-text text-muted font-weight-bold">Codigo del acta:</label>
                           <input type="text" nbInput fullWidth id="file" formControlName="file" file
-                            status="{{ isSubmitted && SustainGlossForm.controls.file.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                            status="{{ isSubmitted && SustainGlossForm.controls.file.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                     </div>
                 </div>
                 <div class="div-send">

@@ -16,21 +16,10 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label class="form-text text-muted font-weight-bold">PERSONA RESPONSABLE:</label>
-          <nb-select [selected]="this.data.user_request_id" formControlName="user_request_id" id="user_request_id"
-            fullWidth>
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.user_request_id }}" *ngFor="let item of user_request_id"
-              [value]="item.id">
-              {{ item.nombre_completo }}</nb-option>
-          </nb-select>
-        </div>
-
-        <div class="col-12 col-sm-12 col-md-6">
           <label for="amount_provition" class="form-text text-muted font-weight-bold">CANTIDAD A ENVIAR:</label>
           <input type="number" min="0" pattern="^[0-9]+" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount_provition"
             formControlName="amount_provition" amount_provition
-            status="{{ isSubmitted && form.controls.amount_provition.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.amount_provition.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
       </div>
 

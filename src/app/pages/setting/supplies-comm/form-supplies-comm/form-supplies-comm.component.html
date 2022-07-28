@@ -7,13 +7,13 @@
         <div class="col-12 col-sm-12 col-md-6">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre insumo:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="factory" class="form-text text-muted font-weight-bold">Fabricante:</label>
           <nb-select [selected]="this.data.factory_id" formControlName="factory_id" id="factory_id" fullWidth
-            status="{{ isSubmitted && form.controls.factory_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.factory_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.factory_id }}" *ngFor="let item of factory" [value]="item.id">
               {{ item.name }}</nb-option>
@@ -23,7 +23,7 @@
         <div class="col-12 col-sm-12 col-md-6">
           <label class="form-text text-muted font-weight-bold">Empaque:</label>
           <nb-select [selected]="this.data.packing_id" formControlName="packing_id" id="packing_id" fullWidth
-            status="{{ isSubmitted && form.controls.packing_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.packing_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.packing_id }}" *ngFor="let item of packing" [value]="item.id">
               {{ item.name }}</nb-option>
@@ -34,26 +34,25 @@
           <label for="unit_packing" class="form-text text-muted font-weight-bold">Unidades por empaque:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="unit_packing"
             formControlName="unit_packing" unit_packing
-            status="{{ isSubmitted && form.controls.unit_packing.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.unit_packing.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="product_supplies" class="form-text text-muted font-weight-bold">Insumo Genérico:</label>
-          <nb-select [selected]="this.data.product_supplies_id" formControlName="product_supplies_id"
-            id="product_supplies_id" fullWidth
-            status="{{ isSubmitted && form.controls.product_supplies_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.product_supplies_id }}" *ngFor="let item of product_supplies"
-              [value]="item.id">
-              {{ item.description }}</nb-option>
-          </nb-select>
+          <label class="form-text text-muted font-weight-bold">Insumo Genérico:</label>
+          <input type="text" list="codes1" class="data-list" id="product_supplies_id"  (change)="saveCode($event.target.value)"
+            formControlName="product_supplies_id" product_supplies_id fullWidth nbInput
+            status="{{ isSubmitted && form.controls.product_supplies_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="codes1">
+            <option *ngFor="let item of product_supplies" [value]="item.description">{{item.description}}
+            </option>
+          </datalist>
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="invima_registration" class="form-text text-muted font-weight-bold">Registro invima:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="invima_registration"
             formControlName="invima_registration" invima_registration
-            status="{{ isSubmitted && form.controls.invima_registration.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.invima_registration.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
@@ -61,7 +60,7 @@
             invima:</label>
           <nb-select [selected]="this.data.invima_status_id" formControlName="invima_status_id" id="invima_status_id"
             fullWidth
-            status="{{ isSubmitted && form.controls.invima_status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.invima_status_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.invima_status_id }}" *ngFor="let item of invima_status"
               [value]="item.id">
@@ -73,7 +72,7 @@
           <div class="form-group">
             <label for="date_cum" class="form-text text-muted font-weight-bold">Fecha vencimiento:</label>
             <input type="date" nbInput fullWidth id="date_cum" formControlName="date_cum" date_cum
-              status="{{ isSubmitted && form.controls.date_cum.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+              status="{{ isSubmitted && form.controls.date_cum.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
         </div>
 
@@ -82,7 +81,7 @@
             sanitario:</label>
           <nb-select [selected]="this.data.sanitary_registration_id" formControlName="sanitary_registration_id"
             id="sanitary_registration_id" fullWidth
-            status="{{ isSubmitted && form.controls.sanitary_registration_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.sanitary_registration_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.sanitary_registration_id }}" *ngFor="let item of factory"
               [value]="item.id">
@@ -94,20 +93,20 @@
           <label for="refrigeration" class="form-text text-muted font-weight-bold">Vida utíl en meses:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput id="useful_life" fullWidth
             formControlName="useful_life" useful_life type="number" min="0" pattern="^[0-9]+"
-            status="{{ isSubmitted && form.controls.useful_life.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.useful_life.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="code_cum_file" class="form-text text-muted font-weight-bold">Código CUM expediente:</label>
           <input nbInput fullWidth id="code_cum_file" formControlName="code_cum_file" code_cum_file
-            status="{{ isSubmitted && form.controls.code_cum_file.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.code_cum_file.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="code_cum_consecutive" class="form-text text-muted font-weight-bold">Código CUM
             consecutivo:</label>
           <input nbInput fullWidth id="code_cum_consecutive" formControlName="code_cum_consecutive" code_cum_consecutive
-            status="{{ isSubmitted && form.controls.code_cum_consecutive.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.code_cum_consecutive.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
       </div>
 

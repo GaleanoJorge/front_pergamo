@@ -3,7 +3,7 @@
     <div>
       <div class="clock">
         <input type="time" id="clock" nbInput formControlName="clock"
-          status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
       </div>
     </div>
 
@@ -17,27 +17,27 @@
               <label class="form-text text-muted font-weight-bold align">FRECUENCIA CARDIACA</label>
               <input type="number" placeholder="FC" class="ImpPeq" id="cardiac_frequency"
                 formControlName="cardiac_frequency" nbInput something
-                status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                status="{{ isSubmitted && form.controls.cardiac_frequency.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             </div>
             <div class="col-md-auto">
               <label class="form-text text-muted font-weight-bold align">FRECUENCIA RESPIRATORIA</label>
               <input type="number" placeholder="FR" class="ImpPeq" id="respiratory_frequency"
                 formControlName="respiratory_frequency" nbInput
-                status="{{ isSubmitted && form.controls.respiratory_frequency.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                status="{{ isSubmitted && form.controls.respiratory_frequency.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             </div>
 
             <div class="col-md-auto">
               <label class="form-text text-muted font-weight-bold align">TEMPERATURA</label>
               <input type="number" placeholder="TEMP" class="space" id="temperature" formControlName="temperature"
                 nbInput
-                status="{{ isSubmitted && form.controls.temperature.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                status="{{ isSubmitted && form.controls.temperature.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             </div>
 
             <div class="col-md-auto">
               <label class="form-text text-muted font-weight-bold align">VIA DE TOMA</label>
               <nb-select [selected]="this.data.ch_vital_temperature_id" formControlName="ch_vital_temperature_id"
                 id="ch_vital_temperature_id"
-                status="{{ isSubmitted && form.controls.ch_vital_temperature_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                status="{{ isSubmitted && form.controls.ch_vital_temperature_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                 >
                 <nb-option value="">SELECCIONE...</nb-option>
                 <nb-option selected="{{ item.id == this.data.ch_vital_temperature_id }}"
@@ -50,7 +50,7 @@
               <label class="form-text text-muted font-weight-bold align">SATURACIÓN</label>
               <input type="number" placeholder="SAT.O2" class="space" id="oxigen_saturation"
                 formControlName="oxigen_saturation" nbInput
-                status="{{ isSubmitted && form.controls.oxigen_saturation.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                status="{{ isSubmitted && form.controls.oxigen_saturation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             </div>
 
           </div>
@@ -69,14 +69,14 @@
               <label class="form-text text-muted font-weight-bold align">TALLA</label>
               <input type="text" placeholder="cm" class="space3" id="size" formControlName="size" nbInput
                 (change)="onChangesIMC($event, 1)"
-                status="{{ isSubmitted && form.controls.size.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                status="{{ isSubmitted && form.controls.size.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             </div>
 
             <div class="col-md-auto">
               <label class="form-text text-muted font-weight-bold align">PESO</label>
               <input type="text" placeholder="Kg" class="space" id="weight" formControlName="weight" nbInput
                 (change)="onChangesIMC($event, 2)"
-                status="{{ isSubmitted && form.controls.weight.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                status="{{ isSubmitted && form.controls.weight.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             </div>
 
             <div class="col-md-auto">
@@ -100,13 +100,13 @@
               <label class="form-text text-muted font-weight-bold align">TENSIÓN ARTERIAL SISTÓLICA</label>
               <input type="number" placeholder="SISTÓLICA" class="space2" id="invoice_value"
                 formControlName="pressure_systolic" nbInput (change)="onChanges($event, 1)"
-                status="{{ isSubmitted && form.controls.pressure_systolic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                status="{{ isSubmitted && form.controls.pressure_systolic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             </div>
             <div class="col-md-3">
               <label class="form-text text-muted font-weight-bold align">TENSIÓN ARTERIAL DIASTÓLICA</label>
               <input type="number" placeholder="DIASTÓLICA" class="space2" id="ordered_quantity"
                 formControlName="pressure_diastolic" nbInput (change)="onChanges($event, 2)"
-                status="{{ isSubmitted && form.controls.pressure_diastolic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                status="{{ isSubmitted && form.controls.pressure_diastolic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             </div>
             <div class="col-md-3">
               <label class="form-text text-muted font-weight-bold align">MEDIA</label>
@@ -126,7 +126,7 @@
             <legend class="prue1">ESTADO NEUROLÓGICO</legend>
             <nb-select [selected]="this.data.ch_vital_neurological_id" formControlName="ch_vital_neurological_id"
               id="ch_vital_neurological_id"
-              status="{{ isSubmitted && form.controls.ch_vital_neurological_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              status="{{ isSubmitted && form.controls.ch_vital_neurological_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
               >
               <nb-option selected="{{ item.id == this.data.ch_vital_neurological_id }}"
                 *ngFor="let item of vital_neurological" [value]="item.id">
@@ -142,7 +142,7 @@
             <legend class="prue1">ESTADO HIDRATACIÓN</legend>
             <nb-select [selected]="this.data.ch_vital_hydration_id" formControlName="ch_vital_hydration_id"
               id="ch_vital_hydration_id"
-              status="{{ isSubmitted && form.controls.ch_vital_hydration_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              status="{{ isSubmitted && form.controls.ch_vital_hydration_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
               >
               <nb-option selected="{{ item.id == this.data.ch_vital_hydration_id }}"
                 *ngFor="let item of vital_hydration" [value]="item.id">
@@ -313,7 +313,7 @@
             <legend class="prue1">MODO VENTILATORIO</legend>
             <nb-select [selected]="this.data.vital_ventilated_id" formControlName="vital_ventilated_id"
               id="vital_ventilated_id"
-              status="{{ isSubmitted && form.controls.vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.vital_ventilated_id }}" *ngFor="let item of vital_ventilated"
                 [value]="item.id">
@@ -328,7 +328,7 @@
           <fieldset class="field_set">
             <legend class="prue1">TIPO DE OXIGENO</legend>
             <nb-select [selected]="this.data.oxygen_type_id" formControlName="oxygen_type_id" id="oxygen_type_id"
-              status="{{ isSubmitted && form.controls.oxygen_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              status="{{ isSubmitted && form.controls.oxygen_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
               >
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.oxygen_type_id }}" *ngFor="let item of oxygen_type"
@@ -345,7 +345,7 @@
             <legend class="prue1">LITROS POR MINUTOS</legend>
             <nb-select [selected]="this.data.liters_per_minute_id" formControlName="liters_per_minute_id"
               id="liters_per_minute_id"
-              status="{{ isSubmitted && form.controls.liters_per_minute_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              status="{{ isSubmitted && form.controls.liters_per_minute_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
               >
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.liters_per_minute_id }}"
@@ -362,7 +362,7 @@
             <legend class="prue1">PARAMETROS</legend>
             <nb-select [selected]="this.data.parameters_signs_id" formControlName="parameters_signs_id"
               id="parameters_signs_id"
-              status="{{ isSubmitted && form.controls.parameters_signs_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+              status="{{ isSubmitted && form.controls.parameters_signs_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
               >
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.parameters_signs_id }}" *ngFor="let item of parameters_signs"

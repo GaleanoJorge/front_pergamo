@@ -51,6 +51,10 @@ export class ServicesBriefcaseComponent implements OnInit {
 
   public settings = {
     selectMode: 'multi',
+    pager: {
+      display: true,
+      perPage: 20,
+    },
     columns: {
       /* check :{
          sort: false,

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChDiagnosticAidsService } from '../../../business-controller/ch_diagnostic_aids.service';
+import { ChDiagnosticAidsService } from '../../../../business-controller/ch_diagnostic_aids.service';
 
 
 @Component({
@@ -14,6 +14,7 @@ export class FormaDiagnosticTherapyComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  // @Input() type_record: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -22,7 +23,7 @@ export class FormaDiagnosticTherapyComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
- 
+
 
 
   constructor(
@@ -36,29 +37,17 @@ export class FormaDiagnosticTherapyComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        aids: [],
+        paraclinical: '',
         observation: '',
 
       };
     }
     this.form = this.formBuilder.group({
-      aids: [this.data[0] ? this.data[0].aids : this.data.aids,Validators.compose([Validators.required])],
+      paraclinical: [this.data[0] ? this.data[0].paraclinical : this.data.paraclinical, Validators.compose([Validators.required])],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
-           
-    });    
 
-    if (this.data.aids != '') {
-      this.form.controls.aids.disable();
-      this.form.controls.observation.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.aids.enable();
-      this.form.controls.observation.enable();
-      this.disabled = false;
-    }
-
+    });
   }
-
 
   async save() {
     this.isSubmitted = true;
@@ -69,7 +58,7 @@ export class FormaDiagnosticTherapyComponent implements OnInit {
       if (this.data.id) {
         await this.DiagnosticS.Update({
           id: this.data.id,
-          aids: this.form.controls.aids.value,
+          paraclinical: this.form.controls.paraclinical.value,
           observation: this.form.controls.observation.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
@@ -85,14 +74,14 @@ export class FormaDiagnosticTherapyComponent implements OnInit {
         });
       } else {
         await this.DiagnosticS.Save({
-          aids: this.form.controls.aids.value,
+          paraclinical: this.form.controls.paraclinical.value,
           observation: this.form.controls.observation.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ aids: [], observation: ''});
+          this.form.setValue({ paraclinical: '', observation: '' });
           if (this.saved) {
             this.saved();
           }
@@ -108,7 +97,7 @@ export class FormaDiagnosticTherapyComponent implements OnInit {
         });
       }
 
-    }else{
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }

@@ -46,19 +46,19 @@
               <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
               <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth id="response"
                 formControlName="response" response
-                status="{{ isSubmitted && ResponseGlossForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                status="{{ isSubmitted && ResponseGlossForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
             </div>
             <div class="col-md-12">
               <label for="accepted_value" class="form-text text-muted font-weight-bold">Valor aceptado:</label>
               <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth id="accepted_value"
                 formControlName="accepted_value" accepted_value
-                status="{{ isSubmitted && ResponseGlossForm.controls.accepted_value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                status="{{ isSubmitted && ResponseGlossForm.controls.accepted_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
             </div>
             <div class="col-md-12">
               <label for="value_not_accepted" class="form-text text-muted font-weight-bold">Valor No aceptado:</label>
               <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth
                 id="value_not_accepted" formControlName="value_not_accepted" value_not_accepted
-                status="{{ isSubmitted && ResponseGlossForm.controls.value_not_accepted.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                status="{{ isSubmitted && ResponseGlossForm.controls.value_not_accepted.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
             </div>
             <div class="col-md-12">
               <label for="objetion_code_response" class="form-text text-muted font-weight-bold">Descripción
@@ -82,7 +82,7 @@
               <label for="file" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
               <input oninput="this.value = this.value.toUpperCase()" minlength="3" nbInput fullWidth id="file"
                 formControlName="file" file
-                status="{{ isSubmitted && ResponseGlossForm.controls.file.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                status="{{ isSubmitted && ResponseGlossForm.controls.file.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
             </div>
             <!-- <div class="file-select-evicencias" id="src-file1">
               <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
@@ -130,7 +130,7 @@
                       <div class="col-md-12">
                           <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
                           <input oninput="this.value = this.value.toUpperCase()" minlength="10"  nbInput fullWidth id="observation" formControlName="observation" observation
-                              status="{{ isSubmitted && RadicationGlossForm.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                              status="{{ isSubmitted && RadicationGlossForm.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                       </div>
                       <div class="col-md-12">
                           <label for="observation" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>

@@ -7,7 +7,7 @@
         <div class="col-md-12">
           <label for="package_id" class="form-text text-muted font-weight-bold">Paquetes disponibles:</label>
           <nb-select [selected]="this.data.package_id" formControlName="package_id" id="package_id" fullWidth 
-            status="{{ isSubmitted && form.controls.package_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.package_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.package_id }}" *ngFor="let item of packages"
               [value]="item.id">

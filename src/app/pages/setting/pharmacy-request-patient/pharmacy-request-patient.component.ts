@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
+import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
+import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ActionsSendPatientComponent } from './actions.component';
@@ -22,6 +24,8 @@ export class PharmacyRequestPatientComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public user;
+  public my_pharmacy_id;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -79,10 +83,15 @@ export class PharmacyRequestPatientComponent implements OnInit {
   constructor(
     private dialogFormService: NbDialogService,
     private requesS: PharmacyProductRequestService,
+    private invS: PharmacyLotStockService,
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
+    this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
+      this.my_pharmacy_id = x[0].id;
+    });
   }
 
   RefreshData() {
@@ -100,7 +109,8 @@ export class PharmacyRequestPatientComponent implements OnInit {
       closeOnBackdropClick: false,
       context: {
         title: 'Enviar Medicamento',
-        data,
+        data: data,
+        my_pharmacy_id: this.my_pharmacy_id,
         saved: this.RefreshData.bind(this),
       },
     });

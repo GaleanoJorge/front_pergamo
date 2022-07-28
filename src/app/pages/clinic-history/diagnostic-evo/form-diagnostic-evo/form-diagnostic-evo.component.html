@@ -6,7 +6,7 @@
           <label for="diagnosis_id" class="font-weight-bold">DIAGNÓSTICO</label>
           <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO"  fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
             id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" required
-            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">
             <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
           </datalist>
@@ -27,7 +27,7 @@
             <label class="font-weight-bold ImpPeq">CLASE</label>
             <nb-select [selected]="this.data.ch_diagnosis_class_id" formControlName="ch_diagnosis_class_id"
               id="ch_diagnosis_class_id"
-              status="{{ isSubmitted && form.controls.ch_diagnosis_class_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.ch_diagnosis_class_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.ch_diagnosis_class_id }}"
                 *ngFor="let item of diagnosis_class" [value]="item.id">
@@ -36,7 +36,7 @@
             <label class="font-weight-bold ImpPeq">TIPO</label>
             <nb-select [selected]="this.data.ch_diagnosis_type_id" formControlName="ch_diagnosis_type_id"
               id="ch_diagnosis_type_id"
-              status="{{ isSubmitted && form.controls.ch_diagnosis_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.ch_diagnosis_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.ch_diagnosis_type_id }}" *ngFor="let item of diagnosis_type"
                 [value]="item.id">
@@ -57,7 +57,7 @@
           <label for="diagnosis_id" class="font-weight-bold">OBSERVACIÓN</label>
           <textarea id="diagnosis_observation" nbInput fullWidth formControlName="diagnosis_observation" current_illness
           onpaste="return false" rows="3"
-            status="{{ isSubmitted && form.controls.diagnosis_observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.diagnosis_observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
       </div>
     </div>

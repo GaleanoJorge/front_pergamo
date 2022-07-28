@@ -30,6 +30,7 @@ export class FormSuppliesCommComponent implements OnInit {
   public invima_status: any[];
   public storage_conditions: any[];
   public packing: any[];
+  public product_id ;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -97,6 +98,18 @@ export class FormSuppliesCommComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  saveCode(e): void {
+    var localidentify = this.product_supplies.find(item => item.description == e);
+
+    if (localidentify) {
+      this.product_id = localidentify.id;
+    } else {
+      this.product_id = null;
+      this.form.controls.product_supplies_id.setErrors({'incorrect': true });
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+    }
+  }
+
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
@@ -105,7 +118,7 @@ export class FormSuppliesCommComponent implements OnInit {
         this.ProductSuppliesComS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
-          product_supplies_id: this.form.controls.product_supplies_id.value,
+          product_supplies_id: this.product_id,
           factory_id: this.form.controls.factory_id.value,
           invima_registration: this.form.controls.invima_registration.value,
           invima_status_id: this.form.controls.invima_status_id.value,
@@ -130,7 +143,7 @@ export class FormSuppliesCommComponent implements OnInit {
 
         this.ProductSuppliesComS.Save({
           name: this.form.controls.name.value,
-          product_supplies_id: this.form.controls.product_supplies_id.value,
+          product_supplies_id: this.product_id,
           factory_id: this.form.controls.factory_id.value,
           invima_registration: this.form.controls.invima_registration.value,
           invima_status_id: this.form.controls.invima_status_id.value,

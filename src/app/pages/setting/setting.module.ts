@@ -423,6 +423,13 @@ import { ProdShippingPatientPackageComponent } from './pharmacy-request-patient/
 import { SelectProductPatientShippingComponent } from './pharmacy-request-patient/prod-shipping-patient-package/select-prod-patient-shipping.component';
 import { ActionsSendPatientComponent } from './pharmacy-request-patient/actions.component';
 import { PharmacyRequestPatientComponent } from './pharmacy-request-patient/pharmacy-request-patient.component';
+import { FixedAssetsRequestsPatientComponent } from './fixed-assets-requests-patient/fixed-assets-requests-patient.component';
+import { ActionsAssReqPatientComponent } from './fixed-assets-requests-patient/actions.component';
+import { FormFixedAssetsRequestsPatientComponent } from './fixed-assets-requests-patient/form-fixed-assets-requests-patient/form-fixed-assets-requests-patient.component';
+import { AssetsSelectRequestsPatientComponent } from './fixed-assets-requests-patient/assets-requests-patient-package/assets-select-requests-patient.component';
+import { AssetsRequestsPatientPackageComponent } from './fixed-assets-requests-patient/assets-requests-patient-package/assets-requests-patient-package.component';
+import { FormPharmaInvPersonComponent } from './pharmacy-inventory/form-pharma-inv-person/form-pharma-inv-person.component';
+import { FormPharmaInvSupPersonComponent } from './pharmacy-inventory-supplies/form-pharma-inv-sup-person/form-pharma-inv-sup-person.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -735,6 +742,7 @@ import { PharmacyRequestPatientComponent } from './pharmacy-request-patient/phar
     PharmacyInventoryComponent,
     FormPharmacyInventoryComponent,
     ActionsInvComponent,
+    FormPharmaInvPersonComponent,
 
     PharmacyProductRequestComponent,
     FormPharmacyProductRequestComponent,
@@ -847,7 +855,7 @@ import { PharmacyRequestPatientComponent } from './pharmacy-request-patient/phar
     ActionsInvSupComponent,
     PharmacyInventorySuppliesComponent,
     FormPharmacyInventorySuppliesComponent,
-
+    FormPharmaInvSupPersonComponent,
 
     FormPharmacyIncomeSuppliesComponent,
     AmountDamagedSupComponent,
@@ -884,7 +892,15 @@ import { PharmacyRequestPatientComponent } from './pharmacy-request-patient/phar
     ProdShippingPatientPackageComponent,
     SelectProductPatientShippingComponent,
     ActionsSendPatientComponent,
-    PharmacyRequestPatientComponent
+    PharmacyRequestPatientComponent,
+
+    AssetsRequestsPatientPackageComponent,
+    AssetsSelectRequestsPatientComponent,
+    FormFixedAssetsRequestsPatientComponent,
+    ActionsAssReqPatientComponent,
+    FixedAssetsRequestsPatientComponent
+
+
   ],
   providers: [
     DateFormatPipe,

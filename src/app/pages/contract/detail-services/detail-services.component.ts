@@ -114,15 +114,16 @@ export class DetailServicesComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if(row.manual_price.procedure ){
-            return row.manual_price.procedure.name;
-          }else if(row.manual_price.product){
-            return row.manual_price.product.description;
-          }else if(row.manual_price.insume){
-            return row.manual_price.insume.description;
-          } else {
-            return row.manual_price.name
-          }
+          // if(row.manual_price.procedure ){
+          //   return row.manual_price.procedure.name;
+          // }else if(row.manual_price.product){
+          //   return row.manual_price.product.description;
+          // }else if(row.manual_price.insume){
+          //   return row.manual_price.insume.description;
+          // } else {
+          //   return row.manual_price.name
+          // }
+          return row.manual_price.name
         },
       },
    
