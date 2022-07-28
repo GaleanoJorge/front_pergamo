@@ -3,9 +3,7 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
-import { UserBusinessService } from '../../../../business-controller/user-business.service';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
-import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'ngx-form-pharmacy-inventory-supplies',
@@ -24,10 +22,6 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
   public loading: boolean = false;
   public own_pharmacy_stock_id: any[];
   public selectedOptions: any[] = [];
-  public user_request_id: any[];
-  public all_changes: any[];
-  public own_user: any = null;
-
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -35,10 +29,7 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private perPharmaS: PharmacyStockService,
-    private toastS: NbToastrService,
-    private UserRoleBusinessS: UserBusinessService,
     public userChangeS: UserChangeService,
-    private authService: AuthService,
   ) {
   }
 
@@ -50,23 +41,12 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
     }
     this.form = this.formBuilder.group({
       own_pharmacy_stock_id: [this.data.own_pharmacy_stock_id, Validators.compose([Validators.required])],
-      user_request_id: [this.data.user_request_id, Validators.compose([Validators.required])],
       amount_provition: [this.data.amount_provition, Validators.compose([Validators.required])],
     });
 
     await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
       this.own_pharmacy_stock_id = x;
     });
-
-    await this.UserRoleBusinessS.GetCollection().then(x => {
-      this.user_request_id = x;
-    });
-
-    await this.userChangeS.GetCollection().then(x => {
-      this.all_changes = x;
-    });
-    this.own_user = this.authService.GetUser();
-
   }
   close() {
     this.dialogRef.close();
@@ -81,10 +61,9 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
           id: -1,
           pharmacy_lot_stock_id: this.data.id,
           amount_provition: this.form.controls.amount_provition.value,
-          user_request_id: this.form.controls.user_request_id.value,
           status: 'ENVIADO',
           product_supplies_id: this.data.billing_stock.product_supplies_com.product_supplies_id,
-          request_pharmacy_stock_id: this.own_user.id,
+          request_pharmacy_stock_id: this.my_pharmacy_id,
           own_pharmacy_stock_id: this.form.controls.own_pharmacy_stock_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
