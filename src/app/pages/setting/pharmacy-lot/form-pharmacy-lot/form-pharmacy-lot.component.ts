@@ -59,7 +59,7 @@ export class FormPharmacyLotComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       subtotal: [this.data.subtotal, Validators.compose([Validators.required])],
-      vat: [this.data.vat, Validators.compose([Validators.required])],
+      vat: [this.data.vat],
       total: [this.data.total, Validators.compose([Validators.required])],
       receipt_date: [this.data.receipt_date, Validators.compose([Validators.required])],
     });

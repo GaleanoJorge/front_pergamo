@@ -29,6 +29,19 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
+
+
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label class="form-text text-muted font-weight-bold">ASIGNAR USUARIO</label>
+          <nb-select multiple [selected]="this.data.user_id" formControlName="user_id" id="user_id" user_id fullWidth
+            status="{{ isSubmitted && form.controls.user_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+            placeholder="Seleccione...">
+            <nb-option selected="{{ item.id == data.user_id }}" *ngFor="let item of user_id"
+              [value]="item.id">
+              {{ item.nombre_completo }}</nb-option>
+          </nb-select>
+        </div>
       </div>
 
     </nb-card-body>

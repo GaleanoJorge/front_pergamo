@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
+import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
 import { AuthService } from '../../../../services/auth.service';
 
@@ -16,6 +17,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
   @Input() data: any = null;
   @Input() parentData: any;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() my_pharmacy_id: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -29,6 +31,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
   public show_table;
   public all_changes: any[];
   public own_user: any = null;
+  public own_pharmacy_stock_id: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -38,6 +41,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
     private authService: AuthService,
     private toastS: NbToastrService,
     public userChangeS: UserChangeService,
+    private perPharmaS: PharmacyStockService,
   ) {
   }
 
@@ -60,11 +64,9 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
     this.form = this.formBuilder.group({
       request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
     });
-
-    await this.userChangeS.GetCollection().then(x => {
-      this.all_changes = x;
+    await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
+      this.own_pharmacy_stock_id = x;
     });
-    this.own_user = this.authService.GetUser();
 
     return Promise.resolve(true);
   }
@@ -105,7 +107,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
             id: this.data.id,
             amount: total_sent,
             status: 'ENVIADO',
-            own_pharmacy_stock_id: this.own_user.id,
+            own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
           }).then(x => {
@@ -136,7 +138,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
           this.pharProdReqS.Save({
             amount: this.form.controls.amount.value,
             status: 'ENVIADO',
-            own_pharmacy_stock_id: this.own_user.id,
+            own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
           }).then(x => {
             this.toastService.success('', x.message);

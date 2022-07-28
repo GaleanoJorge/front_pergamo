@@ -45,6 +45,8 @@ import { ActionsCIComponent } from './consents-informed/actions.component';
 import { SignaturePadModule } from '@ng-plus/signature-pad';
 
 
+import { FixedPlanComponent } from './assigned-management-plan/fixed-plan/fixed-plan.component';
+import { FormFixedPlanComponent } from './assigned-management-plan/fixed-plan/form-fixed-plan/form-fixed-plan.component';
 
 
 
@@ -96,7 +98,9 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
     ActionsSemaphoreComponent,
     ActionsSemaphore2Component,
     ActionsComponent,
-    AssignedManagementPlanComponent
+    AssignedManagementPlanComponent,
+    FormFixedPlanComponent,
+    FixedPlanComponent
   ],
   providers: [
     DateFormatPipe,

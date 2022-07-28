@@ -32,6 +32,7 @@ export class FormProductComponent implements OnInit {
   public storage_conditions: any[];
   public packing: any[];
   public showReg: boolean = false;
+  public product_id ;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -128,6 +129,18 @@ export class FormProductComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  saveCode(e): void {
+    var localidentify = this.product_generic.find(item => item.description == e);
+
+    if (localidentify) {
+      this.product_id = localidentify.id;
+    } else {
+      this.product_id = null;
+      this.form.controls.product_generic_id.setErrors({'incorrect': true });
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+    }
+  }
+
 
 
 
@@ -140,7 +153,7 @@ export class FormProductComponent implements OnInit {
           id: this.data.id,
           name: this.form.controls.name.value,
           factory_id: this.form.controls.factory_id.value,
-          product_generic_id: this.form.controls.product_generic_id.value,
+          product_generic_id: this.product_id,
           invima_registration: this.form.controls.invima_registration.value,
           invima_status_id: this.form.controls.invima_status_id.value,
           sanitary_registration_id: this.form.controls.sanitary_registration_id.value,
@@ -175,7 +188,7 @@ export class FormProductComponent implements OnInit {
         this.ProductS.Save({
           name: this.form.controls.name.value,
           factory_id: this.form.controls.factory_id.value,
-          product_generic_id: this.form.controls.product_generic_id.value,
+          product_generic_id: this.product_id,
           invima_registration: this.form.controls.invima_registration.value,
           invima_status_id: this.form.controls.invima_status_id.value,
           sanitary_registration_id: this.form.controls.sanitary_registration_id.value,
