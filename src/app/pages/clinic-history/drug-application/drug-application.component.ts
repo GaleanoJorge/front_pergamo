@@ -20,7 +20,7 @@ export class DrugApplicationComponent implements OnInit {
   @Input() user;
   linearMode = false;
   public messageError = null;
-  public title = "GESTIÓN DE TUS INSUMOS Y MEDICAMENTOS";
+  public title;
   public routes = [];
   public user_id;
   public entity;
@@ -54,37 +54,37 @@ export class DrugApplicationComponent implements OnInit {
         },
         renderComponent: ActionsAplicationsComponent,
       },
-      'pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock': {
+      'pharmacy_request_shipping.pharmacy_lot_stock.billing_stock': {
         title: this.headerFields[7],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (row.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.name;
+          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.name;
           } else {
-            return row.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.name;
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.name;
           }
         },
 
       },
-      pharmacy_product_request: {
+      'description': {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (value.product_generic) {
-            return value.product_generic.description;
+          if (row.product_generic) {
+            return row.product_generic.description;
           } else {
-            return value.product_supplies.description;
+            return row.product_supplies.description;
           }
         },
       },
-      administration_route: {
+      'administration_route': {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (row.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.indications;
+          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.indications;
           } else {
-            return 'NO APLICA';
+            return '--';
           }
         },
       },
@@ -93,10 +93,10 @@ export class DrugApplicationComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (row.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.contraindications;
+          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.contraindications;
           } else {
-            return 'NO APLICA'
+            return '--'
           }
         },
       },
@@ -104,12 +104,20 @@ export class DrugApplicationComponent implements OnInit {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (row.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.refrigeration == 1 ? 'REFRIGERAR' : 'NO REFRIGERAR';
+          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.refrigeration == 1 ? 'REFRIGERAR' : 'NO REFRIGERAR';
           } else {
-            return 'NO APLICA'
+            return '--'
           }
         },
+      },
+      disponibles: {
+        title: 'DISPONIBLES',
+        width: 'string',
+      },
+      dañadas: {
+        title: 'DAÑADAS',
+        width: 'string',
       },
       // treatment_days: {
       //   title: this.headerFields[4],
@@ -136,7 +144,8 @@ export class DrugApplicationComponent implements OnInit {
   async ngOnInit() {
     this.user_id = this.AuthS.GetUser().id;
     if (this.user_id) {
-      this.entity = "assistance_supplies?user=" + this.user_id + "&status=1";
+      this.entity = "pharmacy_product_request_for_use?" + 'patient=' + this.record_id + '&product=' + true;
+      this.title = 'MEDICAMENTOS DISPONIBLES PARA PACIENTE'
     }
   }
 
