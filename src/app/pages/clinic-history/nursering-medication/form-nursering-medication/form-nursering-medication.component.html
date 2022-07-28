@@ -1,47 +1,22 @@
-<form [formGroup]="form" (ngSubmit)="save()">
-  <div>
-    <div class="col-md-12">
-      <label for="position" class="form-text text-muted font-weight-bold">POSICIÓN:</label>
-      <nb-select [selected]="this.data.position" formControlName="position"
-        id="position" fullWidth title="Seleccione..."
-        status="{{ isSubmitted && form.controls.position.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-        <nb-option value="">Seleccione...</nb-option>
-        <nb-option value="DECÚBITO DORSAL">DECÚBITO DORSAL</nb-option>
-        <nb-option value="DECÚBITO LATERAL DERECHO">DECÚBITO LATERAL DERECHO</nb-option>
-        <nb-option value="DECÚBITO LATERAL IZQUIERDO">DECÚBITO LATERAL IZQUIERDO</nb-option>
-        <nb-option value="DECÚBITO SUPINO">DECÚBITO SUPINO</nb-option>
-        <nb-option value="FOWLER">FOWLER</nb-option>
-        <nb-option value="GINECOLÍGICA">GINECOLÍGICA</nb-option>
-        <nb-option value="PRONO">PRONO</nb-option>
-        <nb-option value="SEMIFOWLER">SEMIFOWLER</nb-option>
-        <nb-option value="TRENDELENBURG">TRENDELENBURG</nb-option>
-      </nb-select>
-    </div>
-
-    <div class="col-md-12">
-      <label for="ostomy" class="form-text text-muted font-weight-bold">OSTOMIAS:</label>
-      <nb-select [selected]="this.data.ostomy" formControlName="ostomy"
-        id="ostomy" fullWidth title="Seleccione..."
-        status="{{ isSubmitted && form.controls.ostomy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-        <nb-option value="">Seleccione...</nb-option>
-        <nb-option value="CITOSTOMÍA">CITOSTOMÍA</nb-option>
-        <nb-option value="COLONOSTOMÍA">COLONOSTOMÍA</nb-option>
-        <nb-option value="GASTROSTOMÍA">GASTROSTOMÍA</nb-option>
-        <nb-option value="ILEOSTOMÍA">ILEOSTOMÍA</nb-option>
-        <nb-option value="YEYUNOSTROMÍA">YEYUNOSTROMÍA</nb-option>
-        <nb-option value="OTRO">OTRO</nb-option>
-      </nb-select>
-    </div>
-
-    <div class="col-md-12">
-      <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
-      <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="4"
-        cols="50"
-        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
-    </div>
-
-    <div class="div-send">
-      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
-    </div>
-  </div>
-</form>
+<div content>
+  <nb-card>
+    <nb-card-body>
+      <nb-tabset class="tabset" (changeTab)="tablock($event)">
+        <nb-tab tabTitle="Administrados" class="tabset">
+          <div *ngIf="this.show == 1">
+            <ngx-form-liquid-control (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id"
+              [type_record_id]="this.type_record_id">
+            </ngx-form-liquid-control>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="Eliminados" class="tabset">
+          <div *ngIf="this.show == 2">
+            <ngx-form-liquid-elimination (messageEvent)="receiveMessage($event)" [data]="null"
+              [record_id]="this.record_id" [type_record_id]="this.type_record_id">
+            </ngx-form-liquid-elimination>
+          </div>
+        </nb-tab>
+      </nb-tabset>
+    </nb-card-body>
+  </nb-card>
+</div>

@@ -164,9 +164,6 @@ import { NotesDescriptionComponent } from './notes-description/notes-description
 import { FormNotesDescriptionComponent } from './notes-description/form-notes-description/form-notes-description.component';
 import { CarePlanComponent } from './care-plan/care-plan.component';
 import { FormCarePlanComponent } from './care-plan/form-care-plan/form-care-plan.component';
-import { LiquidControlComponent } from './liquid-control/liquid-control.component';
-import { FormLiquidControlComponent } from './liquid-control/form-liquid-control/form-liquid-control.component';
-import { FormLiquidEliminationComponent } from './liquid-control/form-liquid-elimination/form-liquid-elimination.component';
 import { NursingProcedureComponent } from './nursing-procedure/nursing-procedure.component';
 import { FormNursingProcedureComponent } from './nursing-procedure/form-nursing-procedure/form-nursing-procedure.component';
 import { FormRespiratoryTherapyComponent } from './respiratory-therapy-list/form-respiratory-therapy/form-respiratory-therapy.component';
@@ -268,6 +265,12 @@ import { ChHairValorationComponent } from './ch-hair-valoration/ch-hair-valorati
 import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair-valoration/form-ch-hair-valoration.component';
 import { Actions25Component } from './failed/actions25.component';
 import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
+import { InsumeApplicationComponent } from './insume-application/insume-application.component';
+import { FormInsumeApplicationComponent } from './insume-application/form-insume-application/form-insume-application.component';
+import { ActionsInsumeComponent } from './insume-application/actions.component';
+import { FormLiquidControlDelComponent } from './liquid-control/form-liquid-control-del/form-liquid-control-del.component';
+import { LiquidControlComponent } from './liquid-control/liquid-control.component';
+import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
 
 
 @NgModule({
@@ -299,6 +302,11 @@ import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-ther
     NbCheckboxModule,
   ],
   declarations: [
+
+    InsumeApplicationComponent,
+    FormInsumeApplicationComponent,
+    ActionsInsumeComponent,
+
     ChOxigenComponent,
     FormChOxigenComponent,
 
@@ -317,8 +325,8 @@ import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-ther
     FormNursingProcedureComponent,
 
     LiquidControlComponent,
-    FormLiquidControlComponent,
-    FormLiquidEliminationComponent,
+    FormLiquidControlAdmComponent,
+    FormLiquidControlDelComponent,
 
     CarePlanComponent,
     FormCarePlanComponent,

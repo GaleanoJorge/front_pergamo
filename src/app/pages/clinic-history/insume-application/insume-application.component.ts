@@ -3,16 +3,16 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
-import { ActionsAplicationsComponent } from './actions.component';
+import { ActionsInsumeComponent } from './actions.component';
 import { NbDialogService } from '@nebular/theme';
-import { FormDrugApplicationComponent } from './form-drug-application/form-drug-application.component';
+import { FormDrugApplicationComponent } from '../drug-application/form-drug-application/form-drug-application.component';
 
 @Component({
-  selector: 'ngx-drug-application',
-  templateUrl: './drug-application.component.html',
-  styleUrls: ['./drug-application.component.scss'],
+  selector: 'ngx-insume-application',
+  templateUrl: './insume-application.component.html',
+  styleUrls: ['./insume-application.component.scss'],
 })
-export class DrugApplicationComponent implements OnInit {
+export class InsumeApplicationComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id;
@@ -52,7 +52,7 @@ export class DrugApplicationComponent implements OnInit {
             'refresh': this.RefreshData.bind(this),
           };
         },
-        renderComponent: ActionsAplicationsComponent,
+        renderComponent: ActionsInsumeComponent,
       },
       'pharmacy_request_shipping.pharmacy_lot_stock.billing_stock': {
         title: this.headerFields[7],
@@ -144,8 +144,8 @@ export class DrugApplicationComponent implements OnInit {
   async ngOnInit() {
     this.user_id = this.AuthS.GetUser().id;
     if (this.user_id) {
-      this.entity = "pharmacy_product_request_for_use?" + 'patient=' + this.record_id + '&product=' + true;
-      this.title = 'MEDICAMENTOS DISPONIBLES PARA PACIENTE'
+      this.entity = "pharmacy_product_request_for_use?" + 'patient=' + this.record_id + '&product=' + false;
+      this.title
     }
   }
 

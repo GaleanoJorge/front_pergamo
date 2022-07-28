@@ -27,9 +27,9 @@ import { date } from '@rxweb/reactive-form-validators';
  
 </div>
   `,
-  styleUrls: ['./drug-application.component.scss'],
+  styleUrls: ['./insume-application.component.scss'],
 })
-export class ActionsAplicationsComponent implements ViewCell {
+export class ActionsInsumeComponent implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
 

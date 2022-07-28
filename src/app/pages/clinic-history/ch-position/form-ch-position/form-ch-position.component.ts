@@ -31,17 +31,17 @@ export class FormChPositionComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public admissions_id;
-  public medical_diagnostic_id: any[]; 
+  public medical_diagnostic_id: any[];
   public therapeutic_diagnosis_id: any[];
   public diagnosis_id;
   public diagnosis: any[];
-  public ostomy_id: any[]=[];
-  public patient_positions: any[]=[];
+  public ostomy_id: any[] = [];
+  public patient_positions: any[] = [];
 
   public loadAuxData = true;
 
 
- 
+
 
 
   constructor(
@@ -51,10 +51,10 @@ export class FormChPositionComponent implements OnInit {
     private patientPositionS: PatientPositionService,
     private chRecord: ChRecordService,
     private ChPositionS: ChPositionService,
-   
+
     private route: ActivatedRoute
 
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
 
@@ -70,6 +70,7 @@ export class FormChPositionComponent implements OnInit {
     this.form = this.formBuilder.group({
       patient_position_id: [
         this.data[0] ? this.data[0].patient_position_id : this.data.patient_position_id,
+        Validators.compose([Validators.required])
       ],
       observation: [
         this.data[0] ? this.data[0].observation : this.data.observation,
@@ -93,7 +94,7 @@ export class FormChPositionComponent implements OnInit {
       this.patient_positions = x;
     });
 
-    if(this.type_record == 1){
+    if (this.type_record == 1) {
       await this.ChPositionS.ByRecord(this.record_id, this.type_record).then(x => {
         x;
         if (x.length > 0) {
@@ -134,7 +135,7 @@ export class FormChPositionComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
-      
+
       if (this.data.id) {
         await this.ChPositionS.Update({
           id: this.data.id,
@@ -162,7 +163,7 @@ export class FormChPositionComponent implements OnInit {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
           if (this.type_record == 1) {
-          this.form.controls.observation.disable();
+            this.form.controls.observation.disable();
             this.isSubmitted = true;
             this.disabled = true
           } else {
@@ -173,8 +174,8 @@ export class FormChPositionComponent implements OnInit {
             this.isSubmitted = false;
           }
         }).catch(x => {
-            this.isSubmitted = false;
-            this.loading = false;
+          this.isSubmitted = false;
+          this.loading = false;
         });
         // this.messageEvent.emit(true);
       }

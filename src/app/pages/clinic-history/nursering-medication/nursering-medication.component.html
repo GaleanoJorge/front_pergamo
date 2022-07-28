@@ -2,7 +2,19 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper [linear]="linearMode">
+        <nb-tabset class="tabset" (changeTab)="tablock($event)">
+          <nb-tab tabTitle="Aplicación">
+            <div *ngIf = "this.show == 1">
+              <ngx-drug-application [record_id]="record_id" [type_record_id]="type_record_id"></ngx-drug-application>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Pedidos">
+            <div *ngIf = "this.show == 2">
+              <ngx-insume-request [record_id]="record_id" [type_record_id]="type_record_id"></ngx-insume-request>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+        <!-- <nb-stepper #stepper [linear]="linearMode">
           <nb-step [stepControl]="nameForm" label="Aplicación de medicamentos" style="
           margin: 0 4rem;">
 
@@ -20,7 +32,7 @@
             </div>
 
           </nb-step>
-        </nb-stepper>
+        </nb-stepper> -->
       </nb-card-body>
     </nb-card>
   </div>
