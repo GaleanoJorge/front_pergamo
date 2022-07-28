@@ -19,8 +19,8 @@
                 </div>
               </div>
             </div>
-            <div class="row justify-content-md-center">
-
+            <!-- <div class="row justify-content-md-center"> -->
+            <div class="row">
               <div class="col col-lg-3" *ngIf="show==true && product_gen">
                 <label class="form-text text-muted font-weight-bold">Medicamento</label>
                 <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value, 1)"
@@ -43,16 +43,50 @@
                 </datalist>
               </div>
 
-              <div class="col col-lg-3">
-                <label class="form-text text-muted font-weight-bold">Dosis por frecuencia</label>
-                <input type="number" placeholder="DOSIS" class="Box" id="dose" formControlName="dose" dose nbInput
-                  status="{{ isSubmitted && form.controls.dose.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              </div>
+              <div class="col col-lg-6">
+                <label class="form-text text-muted font-weight-bold">{{this.product != null ?
+                  this.product.product_dose_id == 2 ? "Presentación" : "Concentración" : ""}}</label>
+                <div class="row justify-content-center">
+                  <div class="asd" *ngIf="this.product">
+                    {{ this.getConcentration(this.product.product_dose_id == 2 ? this.product.dose :
+                    this.product.drug_concentration.value)}}
+                  </div>
+                  <div *ngIf="this.product">
+                    {{ this.product.product_dose_id == 2 ? this.product.multidose_concentration.name :
+                    this.product.measurement_units.name}}
+                  </div>
+                </div>
 
+              </div>
+              <div class="col col-lg-3">
+                <div class="row">
+                  <label class="form-text text-muted font-weight-bold">Dosis por aplicación</label>
+                  <div class="asd">
+                    <input type="number" placeholder="DOSIS" class="Box" id="dose" formControlName="dose" dose nbInput
+                      (change)="onChangesFormulation($event, 3)"
+                      status="{{ isSubmitted && form.controls.dose.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  </div>
+                  <div class="aaa" *ngIf="this.product">
+                    {{ this.product.product_dose_id == 2 ? this.product.multidose_concentration.name :
+                    this.product.measurement_units.name}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12">
+                  <hr />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold">Vía de Admin.</label>
                 <nb-select [selected]="this.data.administration_route_id" formControlName="administration_route_id"
-                  id="administration_route_id"
+                  id="administration_route_id" (change)="onChangesFormulation($event, 3)"
                   status="{{ isSubmitted && form.controls.administration_route_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">SELECCIONE...</nb-option>
                   <nb-option selected="{{ item.id == this.data.administration_route_id }}"
@@ -60,17 +94,15 @@
                     {{ item.name }}</nb-option>
                 </nb-select>
               </div>
-            </div>
-            <div class="row justify-content-md-center">
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold">Frecuencia Horaria</label>
                 <nb-select [selected]="this.data.hourly_frequency_id" formControlName="hourly_frequency_id"
-                  id="hourly_frequency_id" (change)="onChangesFormulation($event, 2)"
+                  id="hourly_frequency_id" (selectedChange)="onChangesFormulation($event, 2)"
                   status="{{ isSubmitted && form.controls.hourly_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">SELECCIONE...</nb-option>
                   <nb-option selected="{{ item.id == this.data.hourly_frequency_id }}"
                     *ngFor="let item of hourly_frequency_id" [value]="item.id">
-                    {{ item.value }} - {{ item.name }}</nb-option>
+                    CADA {{ item.value }} - {{ item.name }}</nb-option>
                 </nb-select>
               </div>
               <div class="col col-lg-3">
@@ -81,8 +113,9 @@
               </div>
               <div class="col col-lg-3">
                 <label class="form-text text-muted font-weight-bold">Cant. Solic.</label>
-                <input type="number" class="Box" disabled="true" id="outpatient_formulation" fullWidth
-                  formControlName="outpatient_formulation">
+                <div>
+                  {{this.form.controls.outpatient_formulation.value}}
+                </div>
               </div>
             </div>
 
