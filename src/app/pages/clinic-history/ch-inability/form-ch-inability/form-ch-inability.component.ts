@@ -33,6 +33,7 @@ export class FormChInabilityComponent implements OnInit {
   public diagnosis: any[];
   public changes=false;
   public changes1=false;
+  public date;
 
 
   constructor(
@@ -102,7 +103,15 @@ export class FormChInabilityComponent implements OnInit {
     this.form.get('final_date').valueChanges.subscribe(val => {
       this.calculateDays();
     });
+
+
+    this.date = new Date();
+    this.date.setDate(this.date.getDate() + 180);
+    this.date = this.date.toISOString().split('T')[0];
   }
+
+
+
 
   calculateDays() {
     if (this.form.controls.initial_date.value != '' && this.form.controls.final_date.value != '') {
