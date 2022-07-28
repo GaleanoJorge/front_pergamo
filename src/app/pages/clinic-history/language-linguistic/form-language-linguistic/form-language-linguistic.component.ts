@@ -24,11 +24,6 @@ export class FormLanguageLinguisticComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public admissions_id;
-  public medical_diagnostic_id: any[]; 
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
- 
 
 
   constructor(
@@ -129,7 +124,8 @@ export class FormLanguageLinguisticComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ materialused: [], });
+          this.form.setValue({ phonetic_phonological:'', syntactic:'', morphosyntactic:'',
+          semantic:'', pragmatic:'',  reception:'', coding:'', decoding:'', production:'', observations:''  });
           if (this.saved) {
             this.saved();
           }

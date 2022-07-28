@@ -1,11 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChEvoSoapService } from '../../../../business-controller/ch-evo-soap.service';
 import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { ActivatedRoute } from '@angular/router';
-import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
-import { TlTherapyLanguageService } from '../../../../business-controller/tl-therapy-language.service';
 import { InputMaterialsUsedTlService } from '../../../../business-controller/input-materials-used-tl.service';
 
 @Component({

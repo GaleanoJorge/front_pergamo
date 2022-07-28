@@ -115,7 +115,7 @@ export class FormLanguageSpeechComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ materialused: [], });
+          this.form.setValue({ breathing: '',  joint:'', resonance:'', fluency:'', prosody:'', observations:'' });
           if (this.saved) {
             this.saved();
           }

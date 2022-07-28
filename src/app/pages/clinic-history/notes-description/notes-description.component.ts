@@ -62,64 +62,20 @@ export class NotesDescriptionComponent implements OnInit {
 
   public settings = {
     columns: {
-      actions: {
-        title: 'Acciones',
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          return {
-            'data': row,
-          };
-        },
-      },
+      // actions: {
+      //   title: 'Acciones',
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     return {
+      //       'data': row,
+      //     };
+      //   },
+      // },
       patient_position: {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
-        },
-      },
-      hair_revision: {
-        title: this.headerFields[1],
-        type: 'string',
-      },
-      ostomy: {
-        title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.name;
-        },
-      },
-      has_oxigen: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          if (value == 0) {
-            return 'NO APLICA';
-          } else {
-            return 'APLICA';
-          }
-        },
-      },
-      oxygen_type: {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          if (value) {
-            return value.name;
-          } else {
-            return 'NO APLICA';
-          }
-        },
-      },
-      liters_per_minute: {
-        title: this.headerFields[5],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          if (value) {
-            return value.name;
-          } else {
-            return 'NO APLICA';
-          }
         },
       },
       unit_arrangement: {
@@ -132,6 +88,7 @@ export class NotesDescriptionComponent implements OnInit {
       },
     },
   };
+  
   async ngOnInit() {
     // if (!this.data) {
     //   this.data = {

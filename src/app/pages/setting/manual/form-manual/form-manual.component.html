@@ -6,18 +6,18 @@
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" 
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
              />
         </div>
         <div class="col-md-12">
           <label for="year" class="form-text text-muted font-weight-bold">Año:</label>
           <input nbInput fullWidth id="year" formControlName="year" year
-            status="{{ isSubmitted && form.controls.year.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.year.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-md-12">
           <label for="type_manual" class="form-text text-muted font-weight-bold">Tipo de manual:</label>
           <nb-select [(selected)]="typemanual" formControlName="type_manual" id="type_manual" fullWidth
-            status="{{ isSubmitted && form.controls.type_manual.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.type_manual.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option  value="0">Procedimientos</nb-option>
             <nb-option  value="1">Medicamentos</nb-option>
@@ -27,7 +27,7 @@
         <div class="col-md-12">
           <label for="status" class="form-text text-muted font-weight-bold">Estado:</label>
           <nb-select [selected]="this.data.status_id" formControlName="status_id" id="status_id" fullWidth
-            status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.status_id }}" *ngFor="let item of status" [value]="item.id">
               {{ item.name }}</nb-option>

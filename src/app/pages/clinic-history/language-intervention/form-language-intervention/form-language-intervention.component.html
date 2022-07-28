@@ -6,7 +6,7 @@
       <label for="text" class="form-text text-muted font-weight-bold ">Intervención:</label>
       <textarea id="text" nbInput fullWidth formControlName="text" text onpaste="return false" rows="4"
         cols="50"
-        status="{{ isSubmitted && form.controls.text.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        status="{{ isSubmitted && form.controls.text.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
   </div>
   <div class="row">

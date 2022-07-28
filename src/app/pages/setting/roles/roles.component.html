@@ -30,7 +30,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Nombre del rol:</small>
                             <input type="text" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth fieldSize="medium"
-                                status="{{ isSubmitted && roleForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && roleForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 
                                 placeholder="Nombre" formControlName="name" required name minlength="5">
                             <div *ngIf="roleForm.controls.name.errors && isSubmitted ">
@@ -41,7 +41,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Estado del rol:</small>
                             <nb-select placeholder="Estado" size="medium" fullWidth formControlName="status"
-                                status="{{ isSubmitted && roleForm.controls.status.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && roleForm.controls.status.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 required status>
                                 <nb-option *ngFor="let status of statusBS.status" [value]="status.id">{{status.name}}
                                 </nb-option>
@@ -53,7 +53,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Tipo de rol:</small>
                             <nb-select placeholder="Tipo" size="medium" fullWidth formControlName="role_type"
-                                status="{{ isSubmitted && roleForm.controls.role_type.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && roleForm.controls.role_type.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 required role_type>
                                 <nb-option *ngFor="let role_type of RoleTypeS.role_type" [value]="role_type.id">{{role_type.name}}
                                 </nb-option>

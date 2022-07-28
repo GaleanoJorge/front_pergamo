@@ -4,51 +4,59 @@
       <legend class="prue1 center">FALLIDA</legend>
 
       <div class="row justify-content-md-center">
-        <div class="col col-lg-1">
-          <label class="form-text text-muted font-weight-bold">Motivo</label>
-        </div>
-          <div class="col col-lg-3">
-          <nb-select [selected]="this.data.ch_reason_id" formControlName="ch_reason_id"
-            id="ch_reason_id" 
-            status="{{ isSubmitted && form.controls.ch_reason_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">SELECCIONE...</nb-option>
-            <nb-option selected="{{ item.id == this.data.ch_reason_id }}"
-              *ngFor="let item of ch_reason_id" [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
+        <div class="col col-lg-2 mt-3 center">
 
-        <div class="col col-lg-1">
-        <label for="file" class="form-text text-muted font-weight-bold">
-          Subir documentos:
-        </label>
-      </div>
-        <div class="col col-lg-6">
-          <div class="form-group">
-            <div *ngIf="previewFile" class="container py-2">
-              <a [href]="previewFile" target="_blank">Ver documentos</a>
-            </div>
-            
-            <input accept="image/png, .jpeg, .jpg, image/gif" type="file" id="file_evidence" formControlName="file_evidence" nbInput fullWidth
-              (change)="changeImage($event.target.files, 1)" />
-          </div>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset class="field_set">
-      <legend class="prue1 center">OBSERVACIONES</legend>
-      
-      <textarea id="descriptions" nbInput fullWidth formControlName="descriptions" analisys onpaste="return false"  rows="3" cols="50"
-        status="{{ isSubmitted && form.controls.descriptions.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-    </fieldset>
+        <label class="form-text text-muted font-weight-bold center">Motivo</label>
 
 
-
-    <div class="row">
-      <div class="col-md-12">
-        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        <nb-select [selected]="this.data.ch_reason_id" formControlName="ch_reason_id" id="ch_reason_id"
+          status="{{ isSubmitted && form.controls.ch_reason_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">SELECCIONE...</nb-option>
+          <nb-option selected="{{ item.id == this.data.ch_reason_id }}" *ngFor="let item of ch_reason_id"
+            [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
       </div>
     </div>
+
+
+
+  <div class="row justify-content-md-center mt-3">
+    <div class="col col-lg-6">
+      <label for="file" class="form-text text-muted font-weight-bold center">
+        Subir documentos
+      </label>
+
+
+
+      <div class="form-group center">
+        <div *ngIf="previewFile" class="container py-2">
+          <a [href]="previewFile" target="_blank">Ver documentos</a>
+        </div>
+
+        <input accept="image/png, .jpeg, .jpg, image/gif" type="file" id="file_evidence" formControlName="file_evidence"
+          nbInput fullWidth (change)="changeImage($event.target.files, 1)" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      <label for="text" class="form-text text-muted font-weight-bold center ">Observación</label>
+
+      <textarea id="descriptions" nbInput fullWidth formControlName="descriptions" analisys onpaste="return false"
+        rows="3" cols="50"
+        status="{{ isSubmitted && form.controls.descriptions.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+    </div>
+  </div>
+  </fieldset>
+
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+  </div>
   </div>
 </form>

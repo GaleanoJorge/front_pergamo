@@ -10,7 +10,7 @@
             <label class="font-weight-bold ImpPeq">ORAL</label>
             <nb-select [selected]="this.data.diet_consistency_id" formControlName="diet_consistency_id"
               id="diet_consistency_id"
-              status="{{ isSubmitted && form.controls.diet_consistency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.diet_consistency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.diet_consistency_id }}"
                 *ngFor="let item of diet_consistency_id" [value]="item.id">
@@ -19,7 +19,7 @@
             <label class="font-weight-bold ImpPeq">ENTERAL</label>
             <nb-select [selected]="this.data.enterally_diet_id" formControlName="enterally_diet_id"
               id="enterally_diet_id"
-              status="{{ isSubmitted && form.controls.enterally_diet_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.enterally_diet_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.enterally_diet_id }}" *ngFor="let item of enterally_diet_id"
                 [value]="item.id">
@@ -29,7 +29,7 @@
             <label  class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
         <textarea id="observation" nbInput fullWidth formControlName="observation" observation onpaste="return false" rows="4"
           cols="50"
-          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </fieldset>
         </div>
       </div>

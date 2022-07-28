@@ -1,12 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChEvoSoapService } from '../../../../business-controller/ch-evo-soap.service';
 import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { ActivatedRoute } from '@angular/router';
-import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
-import { InputMaterialsUsedTlService } from '../../../../business-controller/input-materials-used-tl.service';
-import { OstomiesTlService } from '../../../../business-controller/ostomies-tl.service';
 import { OstomyService } from '../../../../business-controller/ostomy.service';
 import { ChOstomiesService } from '../../../../business-controller/ch-ostomies.service';
 
@@ -29,10 +25,6 @@ export class FormChOstomiesComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public admissions_id;
-  public medical_diagnostic_id: any[]; 
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
   public ostomy_id: any[]=[];
  
 
@@ -65,8 +57,8 @@ export class FormChOstomiesComponent implements OnInit {
       };
     }
     this.form = this.formBuilder.group({
-      ostomy_id: [this.data[0] ? this.data[0].ostomy_id : this.data.ostomy_id,],
-      observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
+      ostomy_id: [this.data[0] ? this.data[0].ostomy_id : this.data.ostomy_id,Validators.compose([Validators.required])],
+      observation: [this.data[0] ? this.data[0].observation : this.data.observation,Validators.compose([Validators.required])],
      
     });    
     this.OstomyS.GetCollection().then(x => {
@@ -95,6 +87,10 @@ export class FormChOstomiesComponent implements OnInit {
           if (this.saved) {
             this.saved();
           }
+          this.form.patchValue({
+            ostomy_id: '',
+            observation: '',
+          });
         }).catch(x => {
           this.isSubmitted = false;
           this.loading = false;
@@ -108,19 +104,16 @@ export class FormChOstomiesComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ostomy_id:'',observation:'' });
+          this.form.patchValue({
+            ostomy_id: '',
+            observation: '',
+          });
           if (this.saved) {
             this.saved();
           }
         }).catch(x => {
-          if (this.form.controls.has_caregiver.value == true) {
-            this.isSubmitted = true;
-            this.loading = true;
-          } else {
             this.isSubmitted = false;
             this.loading = false;
-          }
-
         });
         this.messageEvent.emit(true);
       }

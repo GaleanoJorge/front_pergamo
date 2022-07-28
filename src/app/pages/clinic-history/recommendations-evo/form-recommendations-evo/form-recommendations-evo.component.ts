@@ -3,7 +3,6 @@ import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChRecommendationsEvoService } from '../../../../business-controller/ch-recommendations-evo.service';
 import { RecommendationsEvoService } from '../../../../business-controller/recommendations_evo.service';
-import { ChEvoSoapService } from '../../../../business-controller/ch-evo-soap.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
@@ -34,7 +33,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ChRecommendationsEvoS: ChRecommendationsEvoService,
     private RecommendationsEvoS: RecommendationsEvoService,
-    private ChEvoSoapS: ChEvoSoapService,
+    
     
   ) {
   }
@@ -45,7 +44,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
         patient_family_education:'',
         recommendations_evo_id: '',
         description: '',
-       
+        observation:'',
         
       };
     };
@@ -53,16 +52,14 @@ export class FormRecommendationsEvoComponent implements OnInit {
     this.RecommendationsEvoS.GetCollection().then(x => {
       this.recommendations_evo_id = x; //variable que trae toda la info de la tabla
     });
-    this.ChEvoSoapS.GetCollection().then(x => {
-      this.ch_evo_soap_id = x;
-    });
+    
 
    
     this.form = this.formBuilder.group({
       patient_family_education: [this.data.patient_family_education],
-      recommendations_evo_id: [this.data.recommendations_evo_id, Validators.compose([Validators.required])],
+      recommendations_evo_id: [this.data.recommendations_evo_id,],
       description: [this.data.description],
-      observation: [this.data.observation],
+      observation: [this.data.observation,],
    
  
     });
@@ -79,14 +76,13 @@ export class FormRecommendationsEvoComponent implements OnInit {
           id: this.data.id,
           patient_family_education: this.form.controls.patient_family_education.value,
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
-          description: this.form.controls.description.value,
-          observation: this.form.controls.observation.value,
+          observations: this.form.controls.observation.value,
       
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
-          this.form.setValue({ recommendations_evo: ''});
+          this.form.setValue({ patient_family_education:'', recommendations_evo_id: '', description:'', });
           if (this.saved) {
             this.saved();
           }
@@ -99,22 +95,26 @@ export class FormRecommendationsEvoComponent implements OnInit {
           id: this.data.id, 
           patient_family_education: this.form.controls.patient_family_education.value,
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
-          description: this.form.controls.description.value,
-          observation: this.form.controls.observation.value,
-       
+          observations: this.form.controls.observation.value,
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ recommendations_evo_id: '', });
+          this.form.setValue({ patient_family_education:'', recommendations_evo_id: '', description:'', });
           if (this.saved) {
             this.saved();
           }
         }).catch(x => {
+          if (this.form.controls.has_caregiver.value == true) {
+            this.isSubmitted = true;
+            this.loading = true;
+          } else {
             this.isSubmitted = false;
             this.loading = false;
+          }
         });
+        this.messageEvent.emit(true);
       }
     }
   }
@@ -122,7 +122,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
   onDescriptionChange(event) {
     this.recommendations_evo_id.forEach(x => {
       if (x.id == event) {
-        this.form.controls.description.setValue(x.description);
+        this.form.controls.observation.setValue(x.description);
       }
     });
   }

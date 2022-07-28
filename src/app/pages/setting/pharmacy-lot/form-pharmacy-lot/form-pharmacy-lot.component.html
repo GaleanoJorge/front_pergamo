@@ -15,7 +15,7 @@
           <label for="subtotal" class="form-text text-muted font-weight-bold">SUB TOTAL $:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="subtotal"
             formControlName="subtotal" subtotal type="number" min="0" pattern="^[0-9]+"
-            status="{{ isSubmitted && form.controls.subtotal.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.subtotal.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
@@ -27,13 +27,13 @@
           <label for="total" class="form-text text-muted font-weight-bold">TOTAL $:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="total" formControlName="total"
           type="number" min="0" pattern="^[0-9]+" total
-            status="{{ isSubmitted && form.controls.total.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.total.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="receipt_date" class="form-text text-muted font-weight-bold">FECHA RECEPCIÓN DEL PRODUCTO:</label>
           <input type="date" nbInput fullWidth id="receipt_date" formControlName="receipt_date" receipt_date
-            status="{{ isSubmitted && form.controls.receipt_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.receipt_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
       </div>
 

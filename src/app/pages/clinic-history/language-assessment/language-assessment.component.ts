@@ -19,7 +19,7 @@ export class LanguageAssessmentComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Diagnostico Medico', 'Diagnostico Terapeutico','Motivo de la Consulta'];
+  public headerFields: any[] = ['Diagnóstico Médico', 'Diagnóstico terapéutico','Motivo de la Consulta'];
   public movieForm: String;
 
   public isSubmitted: boolean = false;

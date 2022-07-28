@@ -8,14 +8,14 @@
           <label for="amount" class="form-text text-muted font-weight-bold">CANTIDAD:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount" formControlName="amount"
             amount
-            status= "{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status= "{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div class="col-md-12">
           <label for="diet_supplies" class="form-text text-muted font-weight-bold">INSUMO:</label>
           <nb-select [selected]="this.data.diet_supplies_id" formControlName="diet_supplies_id" id="diet_supplies_id"
             fullWidth
-            status="{{ isSubmitted && form.controls.diet_supplies_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.diet_supplies_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.diet_supplies_id }}" *ngFor="let item of diet_supplies"
               [value]="item.id">
@@ -26,7 +26,7 @@
         <div class="col-md-12">
           <label for="company" class="form-text text-muted font-weight-bold">PROVEEDOR:</label>
           <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
-            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
               {{ item.name }}</nb-option>

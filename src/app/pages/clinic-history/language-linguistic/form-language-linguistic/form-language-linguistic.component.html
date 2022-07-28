@@ -10,7 +10,7 @@
         <div class="col col-lg-3">
           <nb-radio-group formControlName="phonetic_phonological" phonetic_phonological id="phonetic_phonological"
             name="phonetic_phonological"
-            status="{{ isSubmitted && form.controls.phonetic_phonological.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.phonetic_phonological.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -22,7 +22,7 @@
         </div>
         <div class="col col-lg-3">
           <nb-radio-group formControlName="syntactic" syntactic id="syntactic" name="syntactic"
-            status="{{ isSubmitted && form.controls.syntactic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.syntactic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -40,7 +40,7 @@
         <div class="col col-lg-3">
           <nb-radio-group formControlName="morphosyntactic" morphosyntactic id="morphosyntactic"
             name="morphosyntactic"
-            status="{{ isSubmitted && form.controls.morphosyntactic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.morphosyntactic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -53,7 +53,7 @@
         </div>
         <div class="col col-lg-3">
           <nb-radio-group formControlName="semantic" semantic id="semantic" name="semantic"
-            status="{{ isSubmitted && form.controls.semantic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.semantic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -69,7 +69,7 @@
         </div>
         <div class="col col-lg-3">
           <nb-radio-group formControlName="pragmatic" pragmatic id="pragmatic" name="pragmatic"
-            status="{{ isSubmitted && form.controls.pragmatic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.pragmatic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -82,7 +82,7 @@
         <div class="col col-lg-3">
           <textarea id="observations" nbInput fullWidth formControlName="observations" observations
             onpaste="return false" rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
       </div>
 
@@ -98,7 +98,7 @@
         <div class="col col-lg-2">
           <nb-radio-group formControlName="phonetic_phonological" phonetic_phonological id="phonetic_phonological"
             name="phonetic_phonological"
-            status="{{ isSubmitted && form.controls.phonetic_phonological.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.phonetic_phonological.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -109,7 +109,7 @@
         <div class="col col-lg-2">
           <nb-radio-group formControlName="syntactic" syntactic
             id="syntactic" name="syntactic"
-            status="{{ isSubmitted && form.controls.syntactic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.syntactic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -121,7 +121,7 @@
         <div class="col col-lg-2">
           <nb-radio-group formControlName="morphosyntactic" morphosyntactic
             id="morphosyntactic" name="morphosyntactic"
-            status="{{ isSubmitted && form.controls.morphosyntactic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.morphosyntactic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -131,25 +131,25 @@
           <hr />
         </div>
   
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold">Semántico</label>
         </div>
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <nb-radio-group formControlName="semantic" semantic id="semantic"
             name="semantic"
-            status="{{ isSubmitted && form.controls.semantic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.semantic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
         </div>
   
   
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold">Pragmático</label>
         </div>
-        <div class="col col-lg-3">
+        <div class="col col-lg-2">
           <nb-radio-group formControlName="pragmatic" pragmatic id="pragmatic" name="pragmatic"
-            status="{{ isSubmitted && form.controls.pragmatic.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.pragmatic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -168,7 +168,7 @@
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="reception" reception id="reception" name="reception"
-            status="{{ isSubmitted && form.controls.reception.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.reception.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -178,7 +178,7 @@
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="coding" coding id="coding" name="coding"
-            status="{{ isSubmitted && form.controls.coding.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.coding.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -190,7 +190,7 @@
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="decoding" decoding id="decoding" name="decoding"
-            status="{{ isSubmitted && form.controls.decoding.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.decoding.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -210,22 +210,30 @@
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="production" production id="production" name="production"
-            status="{{ isSubmitted && form.controls.production.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.production.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
         </div>
 
-        <div class="col col-lg-2">
+        <!-- <div class="col col-lg-2">
           <label class="form-text text-muted font-weight-bold text ">Observación</label>
         </div>
 
         <div class="row justify-content-md-center">
-          <div class="col col-lg-8">
+          <div class="col col-lg-6">
             <textarea onpaste="return false" class="form-text col col-lg-12" id="observation" nbInput fullWidth
-              formControlName="observations" observations rows="4" cols="50"
-              status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              formControlName="observations" observations rows="3" cols="50"
+              status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
+        </div> -->
+        <div class="col col-lg-2">
+          <label class="form-text text-muted font-weight-bold center">Observaciones</label>
+        </div>
+        <div class="col col-lg-4">
+          <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+            onpaste="return false" rows="3" cols="50"
+            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
  
       </div>

@@ -65,7 +65,7 @@ import { LocationService } from '../../../business-controller/location.service';
         <div class="col-md-12">
           <label for="admission_route" class="form-text text-muted font-weight-bold">Ruta de admisión:</label>
           <nb-select [selected]="this.data.admission_route_id" formControlName="admission_route_id" id="admission_route_id" fullWidth
-          status="{{ isSubmitted && form.controls.admission_route_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.admission_route_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == this.data.admission_route_id }}" *ngFor="let item of admission_route" [value]="item.id">
             {{ item.name }}</nb-option>
@@ -74,7 +74,7 @@ import { LocationService } from '../../../business-controller/location.service';
         <div class="col-md-12">
           <label for="scope_of_attention" class="form-text text-muted font-weight-bold">Ambito de atención:</label>
           <nb-select [selected]="this.data.scope_of_attention_id" formControlName="scope_of_attention_id" id="scope_of_attention_id" fullWidth
-          status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == this.data.scope_of_attention_id }}" *ngFor="let item of scope_of_attention" [value]="item.id">
             {{ item.name }}</nb-option>
@@ -83,7 +83,7 @@ import { LocationService } from '../../../business-controller/location.service';
         <div class="col-md-12">
           <label for="program" class="form-text text-muted font-weight-bold">Programa:</label>
           <nb-select [selected]="this.data.program_id" formControlName="program_id" id="program_id" fullWidth
-          status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == this.data.program_id }}" *ngFor="let item of program" [value]="item.id">
             {{ item.name }}</nb-option>
@@ -92,7 +92,7 @@ import { LocationService } from '../../../business-controller/location.service';
         <div class="col-md-12">
           <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
           <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
-          status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == this.data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
             {{ item.name }}</nb-option>
@@ -101,7 +101,7 @@ import { LocationService } from '../../../business-controller/location.service';
         <div class="col-md-12">
           <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
           <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
-          status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == this.data.pavilion_id }}" *ngFor="let item of pavilion" [value]="item.id">
             {{ item.name }}</nb-option>
@@ -110,7 +110,7 @@ import { LocationService } from '../../../business-controller/location.service';
         <div class="col-md-12">
           <label for="bed" class="form-text text-muted font-weight-bold">Cama / Consultorio:</label>
           <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
-          status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == this.data.bed_id }}" *ngFor="let item of bed" [value]="item.id">
             {{ item.name }}</nb-option>

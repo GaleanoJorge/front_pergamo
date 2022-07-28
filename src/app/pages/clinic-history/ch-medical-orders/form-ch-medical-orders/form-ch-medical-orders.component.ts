@@ -127,6 +127,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
+          this.messageEvent.emit(true);
       }
     }
   }

@@ -25,10 +25,6 @@ export class FormLanguageHearingComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public admissions_id;
-  public medical_diagnostic_id: any[]; 
-  public therapeutic_diagnosis_id: any[];
-  public diagnosis_id;
-  public diagnosis: any[];
  
 
 
@@ -106,7 +102,7 @@ export class FormLanguageHearingComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ materialused: [], });
+          this.form.setValue({ external_ear:'', middle_ear:'', inner_ear:'',  observations:'' });
           if (this.saved) {
             this.saved();
           }

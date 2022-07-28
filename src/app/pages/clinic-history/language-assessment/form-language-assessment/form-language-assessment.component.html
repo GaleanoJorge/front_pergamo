@@ -6,7 +6,7 @@
         <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
           (change)="saveCode($event.target.value,1)" id="medical_diagnostic_id" formControlName="medical_diagnostic_id"
           medical_diagnostic_id type="text" required
-          status="{{ isSubmitted && form.controls.medical_diagnostic_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.medical_diagnostic_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <datalist id="codes">
           <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
           </option>
@@ -19,7 +19,7 @@
         <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
           (change)="saveCode($event.target.value,2)" id="therapeutic_diagnosis_id"
           formControlName="therapeutic_diagnosis_id" therapeutic_diagnosis_id type="text" required
-          status="{{ isSubmitted && form.controls.therapeutic_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          status="{{ isSubmitted && form.controls.therapeutic_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <datalist id="codes">
           <option *ngFor="let item of therapeutic_diagnosis_id" [value]="item.name">{{ item.code }} - {{item.name}}
           </option>
@@ -31,7 +31,7 @@
         <label for="reason_consultation" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
         <textarea id="reason_consultation" nbInput fullWidth formControlName="reason_consultation" current_illness
           rows="4" cols="50"
-          status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
 
     </div>

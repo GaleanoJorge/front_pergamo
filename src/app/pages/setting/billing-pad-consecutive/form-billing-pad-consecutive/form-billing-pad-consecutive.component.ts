@@ -84,47 +84,50 @@ export class FormBillingPadConsecutiveComponent implements OnInit {
 
     if (!this.form.invalid) {
       this.loading = true;
-
-      if (this.data.id) {
-        this.BillingPadConsecutiveS.Update({
-          id: this.data.id,
-          status_id: this.form.controls.status_id.value,
-          resolution: this.form.controls.resolution.value,
-          expiracy_date: this.form.controls.expiracy_date.value,
-          final_consecutive: this.form.controls.final_consecutive.value,
-          initial_consecutive: this.form.controls.initial_consecutive.value,
-          billing_pad_prefix_id: this.form.controls.billing_pad_prefix_id.value,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.toastService.danger(x, 'ERROR');
-          this.isSubmitted = false;
-          this.loading = false;
-        });
+      if (+this.form.controls.final_consecutive.value <=  +this.form.controls.initial_consecutive.value) {
+        this.toastService.danger('El consecutivo final debe ser mayor que el consecutivo inicial', 'ERROR');
       } else {
-
-        this.BillingPadConsecutiveS.Save({
-          status_id: 1,
-          resolution: this.form.controls.resolution.value,
-          expiracy_date: this.form.controls.expiracy_date.value,
-          final_consecutive: this.form.controls.final_consecutive.value,
-          initial_consecutive: this.form.controls.initial_consecutive.value,
-          billing_pad_prefix_id: this.form.controls.billing_pad_prefix_id.value,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.toastService.danger(x, 'ERROR');
-          this.isSubmitted = false;
-          this.loading = false;
-        });
+        if (this.data.id) {
+          this.BillingPadConsecutiveS.Update({
+            id: this.data.id,
+            status_id: this.form.controls.status_id.value,
+            resolution: this.form.controls.resolution.value,
+            expiracy_date: this.form.controls.expiracy_date.value,
+            final_consecutive: this.form.controls.final_consecutive.value,
+            initial_consecutive: this.form.controls.initial_consecutive.value,
+            billing_pad_prefix_id: this.form.controls.billing_pad_prefix_id.value,
+          }).then(x => {
+            this.toastService.success('', x.message);
+            this.close();
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.toastService.danger(x, 'ERROR');
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        } else {
+  
+          this.BillingPadConsecutiveS.Save({
+            status_id: 1,
+            resolution: this.form.controls.resolution.value,
+            expiracy_date: this.form.controls.expiracy_date.value,
+            final_consecutive: this.form.controls.final_consecutive.value,
+            initial_consecutive: this.form.controls.initial_consecutive.value,
+            billing_pad_prefix_id: this.form.controls.billing_pad_prefix_id.value,
+          }).then(x => {
+            this.toastService.success('', x.message);
+            this.close();
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.toastService.danger(x, 'ERROR');
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        }
       }
 
     }

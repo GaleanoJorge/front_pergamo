@@ -41,6 +41,12 @@ import { PharmacyApplicationComponent } from './management-plan/pharmacy-applica
 import { Actions3Component } from './management-plan/pharmacy-application/actions.component';
 import { FixedPlanComponent } from './assigned-management-plan/fixed-plan/fixed-plan.component';
 import { FormFixedPlanComponent } from './assigned-management-plan/fixed-plan/form-fixed-plan/form-fixed-plan.component';
+import { FormConsentsInformedComponent } from './consents-informed/form-consents-informed/form-consents-informed.component';
+import { ConsentsInformedComponent } from './consents-informed/consents-informed.component';
+import { ActionsCIComponent } from './consents-informed/actions.component';
+import { SignaturePadModule } from '@ng-plus/signature-pad';
+
+
 
 
 
@@ -67,6 +73,7 @@ import { FormFixedPlanComponent } from './assigned-management-plan/fixed-plan/fo
     PadRoutingModule,
     NbAlertModule,
     PagesModule,
+    SignaturePadModule,
     NbDialogModule.forRoot(),
     NbCheckboxModule,
     Ng2SmartTableModule,
@@ -78,13 +85,16 @@ import { FormFixedPlanComponent } from './assigned-management-plan/fixed-plan/fo
     PadComponent,
     PharmacyApplicationComponent,
     PadListComponent,
+    ConsentsInformedComponent,
     FormPadComponent,
     ManagementPlanComponent,
     FormManagementPlanComponent,
+    FormConsentsInformedComponent,
     FormAssignedManagementPlanComponent,
     Actions2Component,
     Actions3Component,
     Actions4Component,
+    ActionsCIComponent,
     ActionsSemaphoreComponent,
     ActionsSemaphore2Component,
     ActionsComponent,
@@ -94,7 +104,7 @@ import { FormFixedPlanComponent } from './assigned-management-plan/fixed-plan/fo
   ],
   providers: [
     DateFormatPipe,
-    CurrencyPipe
+    CurrencyPipe,
   ],
   exports: [ ManagementPlanComponent ]
 })

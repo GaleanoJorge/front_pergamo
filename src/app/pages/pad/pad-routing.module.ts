@@ -7,6 +7,7 @@ import {PermissionsGuard} from '../../guards/permissions.guard';
 import { ManagementPlanComponent } from './management-plan/management-plan.component';
 import { AssignedManagementPlanComponent } from './assigned-management-plan/assigned-management-plan.component';
 import { PharmacyApplicationComponent } from './management-plan/pharmacy-application/pharmacy-application.component';
+import { ConsentsInformedComponent } from './consents-informed/consents-informed.component';
 
 
 const routes: Routes = [{
@@ -20,6 +21,10 @@ const routes: Routes = [{
     {
       path: 'management-plan/:id/:user',
       component: ManagementPlanComponent,
+    },
+    {
+      path: 'consents-informed/:id/:user',
+      component: ConsentsInformedComponent,
     },
     {
       path: 'assigned-management-plan/:management_id/:user',

@@ -7,7 +7,7 @@
           <div class="col-12 col-sm-12 col-md-3">
             <label for="name" class="form-text text-muted font-weight-bold">Paciente Funcional:</label>
             <nb-radio-group formControlName="is_functional" is_functional id="is_functional" class="d-flex" onpaste="return false"
-              status="{{ isSubmitted && form.controls.is_functional.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              status="{{ isSubmitted && form.controls.is_functional.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-radio *ngFor="let item of is_functional" [value]="item.id">{{ item.name }}</nb-radio>
             </nb-radio-group>
           </div>
@@ -109,7 +109,7 @@
       </fieldset>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">{{this.botton_title}}</button>
     </nb-card-footer>
   </nb-card>
 </form>

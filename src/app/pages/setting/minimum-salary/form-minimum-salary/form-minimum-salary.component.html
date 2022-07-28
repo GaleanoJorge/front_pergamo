@@ -6,12 +6,12 @@
         <div class="col-md-12">
           <label for="value" class="form-text text-muted font-weight-bold">VALOR:</label>
           <input type="number" nbInput fullWidth id="value" formControlName="value" value placeholder="$"
-            status= "{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status= "{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-md-12" *ngIf="!this.disable">
           <label for="year" class="form-text text-muted font-weight-bold">AÑO:</label>
           <input type="number" nbInput fullWidth id="year" formControlName="year" year
-            status= "{{ isSubmitted && form.controls.year.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status= "{{ isSubmitted && form.controls.year.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
       </div>
 

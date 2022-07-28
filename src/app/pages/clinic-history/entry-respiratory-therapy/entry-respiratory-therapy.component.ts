@@ -27,7 +27,8 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   public title;
   public routes = [];
   public user_id;
-  public chrespiratoryconsultation: any[];
+  // // public chrespiratoryconsultation: any[];
+  // public vitalsigns: any[];
   public physical: any[];
   public chvitsigns: any[];
   public chdiagnosis: any[];
@@ -72,9 +73,9 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
       };
     }
 
-    await this.chrespiratoryconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chrespiratoryconsultation = x;
-    });
+    // await this.chrespiratoryconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chrespiratoryconsultation = x;
+    // });
 
     await this.ChOxygenTherapyS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.teraphyRespiratory = x;
@@ -87,6 +88,11 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
     await this.SuppliesS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.suppliesTeraphyRespiratory = x;
     });
+
+
+    // await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.vitalsigns = x;
+    // }); 
 
     // await this.AssS.GetCollection({ ch_record_id: this.record_id }).then(x => {
     // this.assRespiratory = x;

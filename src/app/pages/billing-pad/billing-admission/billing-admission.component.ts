@@ -21,7 +21,7 @@ export class BillingAdmissionComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'FACTURAS';
   public subtitle: string = 'GESTIÓN';
-  public headerFields: any[] = ['MES', 'VALOR', 'ESTADO'];
+  public headerFields: any[] = ['MES', 'VALOR', 'ESTADO', 'NÚMERO DE FACTURA'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -41,7 +41,7 @@ export class BillingAdmissionComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           if (!this.done) {
-            if(row.billing_pad_status_id == 2) {
+            if (row.billing_pad_status_id == 2) {
               this.create_new_billing = true;
             } else {
               this.create_new_billing = false;
@@ -55,6 +55,17 @@ export class BillingAdmissionComponent implements OnInit {
           };
         },
         renderComponent: ActionsBillingComponent,
+      },
+      consecutive: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.billing_pad_consecutive != null) {
+            return row.billing_pad_prefix.name + row.consecutive;
+          } else {
+            return '-';
+          }
+        }
       },
       month: {
         title: this.headerFields[0],

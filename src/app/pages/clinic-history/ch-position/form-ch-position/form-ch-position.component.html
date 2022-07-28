@@ -1,0 +1,35 @@
+<form [formGroup]="form">
+  <div >
+    <fieldset class="field_set center">
+      <legend class="prue1">POSICIONES</legend>
+
+      <div class="col-md-12">
+        <label for="patient_position_id" class="form-text text-muted font-weight-bold align">POSICIÓN:</label>
+        <nb-select [disabled]="disabled" formControlName="patient_position_id" id="patient_position_id" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.patient_position_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of patient_positions" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-md-12">
+        <label for="observation" class="form-text text-muted font-weight-bold align">OBSERVACIONES:</label>
+        <textarea [disabled]="disabled" id="observation" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </fieldset>
+
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="isSubmitted"
+          type="button" (click)="save()">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

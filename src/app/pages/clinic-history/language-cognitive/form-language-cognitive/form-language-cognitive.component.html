@@ -9,7 +9,7 @@
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="memory" memory id="memory" name="memory"
-            status="{{ isSubmitted && form.controls.memory.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.memory.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -19,7 +19,7 @@
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="attention" attention id="attention" name="attention"
-            status="{{ isSubmitted && form.controls.attention.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.attention.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -30,7 +30,7 @@
         </div>
         <div class="col col-lg-2">
           <nb-radio-group formControlName="concentration" concentration id="concentration" name="concentration"
-            status="{{ isSubmitted && form.controls.concentration.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.concentration.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
           </nb-radio-group>
@@ -46,7 +46,7 @@
 
           <textarea class="form-text col col-lg-12 detail" id="observations" nbInput fullWidth
             formControlName="observations" analisys onpaste="return false" rows="3" cols="70"
-            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
 
       </div>
@@ -54,8 +54,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <button nbButton status="danger" class="ml-1 btn-save"  [disabled]="disabled"
-            type="submit">GUARDAR</button>
+          <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
           <label for="diet_consistency" class="form-text text-muted font-weight-bold">CONSISTENCIA DE DIETA:</label>
           <nb-select [selected]="this.data.diet_consistency_id" formControlName="diet_consistency_id"
             id="diet_consistency_id" fullWidth
-            status="{{ isSubmitted && form.controls.diet_consistency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.diet_consistency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.diet_consistency_id }}" *ngFor="let item of diet_consistency"
               [value]="item.id">

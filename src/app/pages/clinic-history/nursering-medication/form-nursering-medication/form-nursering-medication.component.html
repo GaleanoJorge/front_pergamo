@@ -4,7 +4,7 @@
       <label for="position" class="form-text text-muted font-weight-bold">POSICIÓN:</label>
       <nb-select [selected]="this.data.position" formControlName="position"
         id="position" fullWidth title="Seleccione..."
-        status="{{ isSubmitted && form.controls.position.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.position.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option value="DECÚBITO DORSAL">DECÚBITO DORSAL</nb-option>
         <nb-option value="DECÚBITO LATERAL DERECHO">DECÚBITO LATERAL DERECHO</nb-option>
@@ -22,7 +22,7 @@
       <label for="ostomy" class="form-text text-muted font-weight-bold">OSTOMIAS:</label>
       <nb-select [selected]="this.data.ostomy" formControlName="ostomy"
         id="ostomy" fullWidth title="Seleccione..."
-        status="{{ isSubmitted && form.controls.ostomy.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+        status="{{ isSubmitted && form.controls.ostomy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="">Seleccione...</nb-option>
         <nb-option value="CITOSTOMÍA">CITOSTOMÍA</nb-option>
         <nb-option value="COLONOSTOMÍA">COLONOSTOMÍA</nb-option>
@@ -37,7 +37,7 @@
       <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
       <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="4"
         cols="50"
-        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="div-send">

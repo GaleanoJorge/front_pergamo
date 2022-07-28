@@ -1,42 +1,19 @@
 <form [formGroup]="form" >
   <div>
     <fieldset class="field_set center">
-      <legend class="prue1">DIAGNÓSTICO CUTANEO</legend>
+      <ngx-ch-position [record_id]="record_id" [type_record]="type_record"></ngx-ch-position>
+    </fieldset>
 
-
-      <div class="col-md-12">
-        <label for="patient_position_id" class="form-text text-muted font-weight-bold align">POSICIÓN:</label>
-        <nb-select [selected]="this.data.patient_position_id" formControlName="patient_position_id"
-          id="patient_position_id" fullWidth title="Seleccione..."
-          status="{{ isSubmitted && form.controls.patient_position_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == data.patient_position_id }}" *ngFor="let item of patient_positions"
-            [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-12">
+          <hr />
+        </div>
       </div>
+    </div>
 
-      <div class="col-md-12">
-        <label for="hair_revision" class="form-text text-muted font-weight-bold align">CUERO CABELLUDO</label>
-
-        <nb-radio-group fullWidth formControlName="hair_revision" hair_revision id="hair_revision" class="d-flex text center"
-          name="hair_revision"
-          status="{{ isSubmitted && form.controls.hair_revision.errors ? 'danger' : isSubmitted ? 'success' : '' }}" style="justify-content: space-around;">
-          <nb-radio value="CON ALTERACIÓN">CON ALTERACIÓN</nb-radio>
-          <nb-radio value="NORMAL">NORMAL</nb-radio>
-        </nb-radio-group>
-      </div>
-
-      <div class="col-md-12">
-        <label for="ostomy_id" class="form-text text-muted font-weight-bold align">OSTOMIAS:</label>
-        <nb-select [selected]="this.data.ostomy_id" formControlName="ostomy_id" id="ostomy_id" fullWidth title="Seleccione..."
-          status="{{ isSubmitted && form.controls.ostomy_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == data.ostomy_id }}" *ngFor="let item of ostomies" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
-      </div>
-
+    <fieldset  class="field_set center">
+      <ngx-ch-hair-valoration [record_id]="record_id" [type_record]="type_record"></ngx-ch-hair-valoration>
     </fieldset>
 
     <div class="col-md-12">
@@ -55,31 +32,7 @@
     </div>
     
     <fieldset *ngIf="this.form.controls.has_oxigen.value" class="field_set center">
-      <legend class="prue1">OXIGENO</legend>
-      <div class="row">
-        <div class="col-md-6">
-          <label for="oxygen_type_id" class="form-text text-muted font-weight-bold align">TIPO DE OXÍGENO:</label>
-          <nb-select fullWidth [selected]="this.data.oxygen_type_id" formControlName="oxygen_type_id"
-            id="oxygen_type_id"
-            status="{{ isSubmitted && form.controls.oxygen_type_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">SELECCIONE...</nb-option>
-            <nb-option selected="{{ item.id == this.data.oxygen_type_id }}" *ngFor="let item of oxygen_type"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
-        <div class="col-md-6">
-          <label for="liters_per_minute_id" class="form-text text-muted font-weight-bold align">LITROS POR MINUTO:</label>
-          <nb-select fullWidth [selected]="this.data.liters_per_minute_id" formControlName="liters_per_minute_id"
-            id="liters_per_minute_id"
-            status="{{ isSubmitted && form.controls.liters_per_minute_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">SELECCIONE...</nb-option>
-            <nb-option selected="{{ item.id == this.data.liters_per_minute_id }}" *ngFor="let item of liters_per_minute"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
-      </div>
+      <ngx-ch-oxigen [record_id]="record_id" [type_record]="type_record"></ngx-ch-oxigen>
     </fieldset>
 
     
@@ -95,12 +48,12 @@
       <legend class="prue1">UNIDAD DEL PACIENTE</legend>
       <div class="row">
         <div class="col-md-6">
-          <label for="change_position_id" class="form-text text-muted font-weight-bold align">CAMBIO DE POSICIÓN:</label>
-          <nb-select [selected]="this.data.change_position_id" formControlName="change_position_id"
-            id="change_position_id" fullWidth title="Seleccione..."
-            status="{{ isSubmitted && form.controls.change_position_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+          <label for="patient_position_id" class="form-text text-muted font-weight-bold align">CAMBIO DE POSICIÓN:</label>
+          <nb-select [selected]="this.data.patient_position_id" formControlName="patient_position_id"
+            id="patient_position_id" fullWidth title="Seleccione..."
+            status="{{ isSubmitted && form.controls.patient_position_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.change_position_id }}" *ngFor="let item of patient_positions"
+            <nb-option selected="{{ item.id == data.patient_position_id }}" *ngFor="let item of patient_positions"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
@@ -109,7 +62,7 @@
           <label for="patient_dry" class="form-text text-muted font-weight-bold align">BAÑO DEL PACIENTE:</label>
           <nb-select [selected]="this.data.patient_dry" formControlName="patient_dry"
             id="patient_dry" fullWidth title="Seleccione..."
-            status="{{ isSubmitted && form.controls.patient_dry.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.patient_dry.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option value="EN CAMA">EN CAMA</nb-option>
             <nb-option value="EN DUCHA">EN DUCHA</nb-option>
@@ -119,7 +72,7 @@
           <label for="unit_arrangement" class="form-text text-muted font-weight-bold align">ARREGLO DE UNIDAD:</label>
           <nb-select [selected]="this.data.unit_arrangement" formControlName="unit_arrangement"
             id="unit_arrangement" fullWidth title="Seleccione..."
-            status="{{ isSubmitted && form.controls.unit_arrangement.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.unit_arrangement.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option value="CAMA ABIERTA">CAMA ABIERTA</nb-option>
             <nb-option value="CAMA CERRADA">CAMA CERRADA</nb-option>

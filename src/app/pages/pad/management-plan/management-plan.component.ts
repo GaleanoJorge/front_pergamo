@@ -16,7 +16,6 @@ import { ManagementPlanService } from '../../../business-controller/management-p
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { TypeChPhysicalExam } from '../../../models/ch-type-ch-physical-exam';
 import { PatientService } from '../../../business-controller/patient.service';
-import { rowDataBound } from '@syncfusion/ej2/grids';
 import { type } from 'os';
 import { ActionsSemaphore2Component } from './actions-semaphore.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';

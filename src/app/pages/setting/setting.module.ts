@@ -416,6 +416,7 @@ import { InsumeRequestComponent } from '../clinic-history/insume-request/insume-
 import { ActionsComponentInsume } from './manual/insume-massive/actions.component';
 import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
 import { FormManualInsumeComponent } from './manual/form-manual-insume/form-manual-insume.component';
+import { TcCollectionComponent } from './tc-collection/tc-collection.component';
 import { FormPharmacyRequestPatientComponent } from './pharmacy-request-patient/form-pharmacy-request-patient/form-pharmacy-request-patient.component';
 import { AmountShippingPatientComponent } from './pharmacy-request-patient/prod-shipping-patient-package/amount-shipping-patient.component';
 import { ProdShippingPatientPackageComponent } from './pharmacy-request-patient/prod-shipping-patient-package/prod-shipping-patient-package.component';
@@ -759,6 +760,7 @@ import { FormPharmaInvSupPersonComponent } from './pharmacy-inventory-supplies/f
     TcBillingComponent,
     TcRadicationComponent,
     TcHumanTalentComponent,
+    TcCollectionComponent,
 
     PharmacyLotComponent,
     FormPharmacyLotComponent,

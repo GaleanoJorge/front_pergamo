@@ -10,36 +10,35 @@
 
             <div class="row justify-content-md-center">
               <div class="col col-lg-4">
-                <label for="specialty_id" class="form-text text-muted font-weight-bold">Especialidad:</label>
+                <label for="specialty_id" class="form-text text-muted font-weight-bold">Especialidad</label>
 
-                <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
-                id="specialty_id" formControlName="specialty_id" specialty_id type="text" required
-                status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-              <datalist id="codes">
-                <option *ngFor="let item of specialty" [value]="item.name">{{ item.id }} - {{item.name}} </option>
-              </datalist>
+                <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes"
+                  (change)="saveCode($event.target.value)" id="specialty_id" formControlName="specialty_id" specialty_id
+                  type="text" required
+                  status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <datalist id="codes">
+                  <option *ngFor="let item of specialty" [value]="item.name">{{ item.id }} - {{item.name}} </option>
+                </datalist>
               </div>
 
               <div class="col col-lg-4">
                 <label class="form-text text-muted font-weight-bold">Cantidad</label>
-                <input type="number"  class="Box" id="amount" formControlName="amount" required
-                  nbInput ngModel
-                  status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                <input type="number" class="Box" id="amount" formControlName="amount" required nbInput ngModel
+                  status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               </div>
 
-        
+
               <div class="col col-lg-4">
                 <label class="form-text text-muted font-weight-bold">Frecuencia Horaria</label>
-                <nb-select [selected]="this.data.frequency_id" formControlName="frequency_id"
-                  id="frequency_id" ngModel 
-                  status="{{ isSubmitted && form.controls.frequency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                <nb-select [selected]="this.data.frequency_id" formControlName="frequency_id" id="frequency_id" ngModel
+                  status="{{ isSubmitted && form.controls.frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">SELECCIONE...</nb-option>
-                  <nb-option selected="{{ item.id == this.data.frequency_id }}"
-                    *ngFor="let item of frequency_id" [value]="item.id">
+                  <nb-option selected="{{ item.id == this.data.frequency_id }}" *ngFor="let item of frequency_id"
+                    [value]="item.id">
                     {{ item.name }}</nb-option>
                 </nb-select>
               </div>
-            
+
             </div>
           </fieldset>
         </div>
@@ -51,8 +50,9 @@
       <div class="center">
         <fieldset class="field_set">
           <legend class="prue1">OBSERVACIONES</legend>
-          <textarea id="observations" nbInput fullWidth formControlName="observations" observation onpaste="return false" rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          <textarea id="observations" nbInput fullWidth formControlName="observations" observation
+            onpaste="return false" rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </fieldset>
       </div>
     </div>

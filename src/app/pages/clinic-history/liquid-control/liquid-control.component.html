@@ -1,18 +1,16 @@
-<nb-tabset class="tabset">
+<nb-tabset class="tabset" (changeTab)="tablock($event)" >
   <nb-tab tabTitle="Administrados">
-    <div>
+    <div *ngIf="this.show == 1">
       <ngx-form-liquid-control (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id" [type_record_id]="this.type_record_id">
       </ngx-form-liquid-control>
     </div>
   </nb-tab>
   <nb-tab tabTitle="Eliminados">
-    <div>
+    <div *ngIf="this.show == 2">
       <ngx-form-liquid-elimination (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id" [type_record_id]="this.type_record_id">
       </ngx-form-liquid-elimination>
     </div>
   </nb-tab>
-
-
 </nb-tabset>
 
 <label class="form-text text-muted font-weight-bold align"> </label>
@@ -54,7 +52,7 @@
 
                         <input type="text" disabled id="urine_waste" disabled formControlName="urine_waste" id="urine_waste"
                           urine_waste nbInput fullWidth
-                          status="{{ isSubmitted && form.controls.urine_waste.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                          status="{{ isSubmitted && form.controls.urine_waste.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                       </div>
                     </div>
                   </div>
@@ -77,7 +75,7 @@
 
                         <input type="text" disabled id="urine_balance" formControlName="urine_balance"
                           id="urine_balance" urine_waste nbInput fullWidth
-                          status="{{ isSubmitted && form.controls.urine_balance.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                          status="{{ isSubmitted && form.controls.urine_balance.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                       </div>
                     </div>
                   </div>

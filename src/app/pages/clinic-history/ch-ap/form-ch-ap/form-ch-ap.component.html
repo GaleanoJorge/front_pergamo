@@ -8,13 +8,13 @@
 
           <label class="form-text text-muted font-weight-bold">ANÁLISIS</label>
           <textarea id="analisys" nbInput fullWidth formControlName="analisys" analisys  onpaste="return false" rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.analisys.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.analisys.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
         <div class="col-md-6">
           <label class="form-text text-muted font-weight-bold">PLAN(diagnóstico, terapeutico, de
             seguimiento)</label>
           <textarea id="plan" nbInput fullWidth formControlName="plan" plan  onpaste="return false" rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.plan.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+            status="{{ isSubmitted && form.controls.plan.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
       </div>
     

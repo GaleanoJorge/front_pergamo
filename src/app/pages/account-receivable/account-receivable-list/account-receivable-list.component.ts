@@ -267,7 +267,7 @@ export class AccountReceivableListComponent implements OnInit {
   }
 
   GenerateFile(data) {
-    this.AccountReceivableS.GenerateFile({ id: data.id }).then(x => {
+    this.AccountReceivableS.GenerateFile(data.id, { user_id: this.user.id }).then(x => {
       this.toastrService.success('Archivo generado con exito', 'Exito');
       window.open(x['url'], '_blank');
     }).catch(x => {

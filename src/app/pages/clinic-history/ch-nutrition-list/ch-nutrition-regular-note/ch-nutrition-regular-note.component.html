@@ -2,14 +2,14 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper  orientation="vertical">
+        <nb-stepper #stepper  >
           <nb-step label="Antropometría">
-            <ngx-form-anthropometry (messageEvent)="receiveMessage($event)" [data]="this.data" [route]="3"></ngx-form-anthropometry>
+            <ngx-form-anthropometry (messageEvent)="receiveMessage($event)" [data]="this.data" [record_id]="this.record_id" [route]="3"></ngx-form-anthropometry>
           </nb-step>
           
           <nb-step label="Cálculos de Nutrición Parenteral">
             <div *ngIf="this.weight">
-              <ngx-form-parenteral-nutrition [data]="this.data" [weight]="this.weight" [route]="3"></ngx-form-parenteral-nutrition>
+              <ngx-form-parenteral-nutrition [data]="this.data" [weight]="this.weight" [record_id]="this.record_id" [route]="3"></ngx-form-parenteral-nutrition>
             </div>
             <div *ngIf="!this.weight">
               Debes diligenciar y guardar Antropometría para acceder a este campo

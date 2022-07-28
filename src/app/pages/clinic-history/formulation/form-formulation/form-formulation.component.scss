@@ -17,6 +17,16 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 }
+
+.btn{
+  color: #ffff;
+  text-decoration: underline;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
 .text{
   margin: 10PX;
   text-align: center;
@@ -68,10 +78,19 @@ border: 1px solid #78dada;
 {
   outline: none; 
   border: none;
-  width: 100px;
-  margin: 10px;
+  width: 120px;
+  margin: 9px;
   border: none; 
   
 }
 
+
+.asd{
+  margin-right: 5px;
+}
+
+
+.aaa{
+  margin-top: 15px;
+}
 
