@@ -103,18 +103,18 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-3" *ngIf="medical==false">
+        <div class="col-12 col-sm-12 col-md-3" *ngIf="medical==0">
           <label for="start_date" class="form-text text-muted font-weight-bold">Fecha de inicio:</label>
           <input type="date" nbInput fullWidth id="start_date" formControlName="start_date" start_date
             status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && show">
           <label for="start_hours" class="form-text text-muted font-weight-bold">Hora de inicio:</label>
           <!-- <input type="time" nbInput fullWidth id="start_hours" formControlName="start_hours" start_hours
             status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : '' }}" /> -->
           <div class="row">
-            <div class="col-md-4" *ngIf="medical==false && show">
+            <div class="col-md-4" *ngIf="medical==0 && show">
               <nb-select [selected]="militat_hour_id" id="militat_hour_id" fullWidth
                 (selectedChange)="ChangeHour($event, 1)"
                 status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -125,7 +125,7 @@
               </nb-select>
             </div>
             :
-            <div class="col-md-4" *ngIf="medical==false && show">
+            <div class="col-md-4" *ngIf="medical==0 && show">
               <nb-select [selected]="militat_minut_id" id="militat_minut_id" fullWidth
                 (selectedChange)="ChangeHour($event, 2)"
                 status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
@@ -139,7 +139,7 @@
         </div>
 
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && !show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && !show">
           <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha de fin:</label>
           <input type="date" nbInput fullWidth id="finish_date" formControlName="finish_date" start_date
             status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
@@ -160,14 +160,14 @@
         </div>
 
 
-        <div class="col-12 col-sm-12 col-md-2" *ngIf="medical==false && !show">
+        <div class="col-12 col-sm-12 col-md-2" *ngIf="medical==0 && !show">
           <label for="quantity" class="form-text text-muted font-weight-bold">Teleconsulta:</label>
           <nb-toggle labelPosition="left" [checked]="phone_consult" (change)="phoneConsultChange($event)">
           </nb-toggle>
         </div>
 
         <div class="assigned ? col-12 col-sm-12 col-md-4: col-12 col-sm-12 col-md-12"
-          *ngIf="medical==false && showUser!=false">
+          *ngIf="medical==0 && showUser!=false">
           <label for="assigned_user_id" class="form-text text-muted font-weight-bold">Personal asistencial:</label>
           <nb-select [selected]="this.data.assigned_user_id" formControlName="assigned_user_id" id="assigned_user_id"
             fullWidth
@@ -185,17 +185,17 @@
       </div>
 
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-12" *ngIf="medical==false && assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="medical==0 && assigned!=false && show">
           <h6 style="margin-top: 10px;text-align: center;" for="preparation"
             class="form-text text-muted font-weight-bold">Recomendaciones para la aplicación de medicamentos:</h6>
         </div>
-        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==false && assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==0 && assigned!=false && show">
           <label for="preparation" class="form-text text-muted font-weight-bold">Preparación:</label>
           <input nbInput fullWidth id="preparation" formControlName="preparation" preparation
             status="{{ isSubmitted && form.controls.preparation.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && assigned!=false && show">
           <label for="administration_route" class="form-text text-muted font-weight-bold">Via des
             administración:</label>
           <nb-select [selected]="this.data.route_of_administration" formControlName="route_of_administration"
@@ -208,13 +208,13 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==false && assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==0 && assigned!=false && show">
           <label for="blend" class="form-text text-muted font-weight-bold">Mezcla:</label>
           <input nbInput fullWidth id="blend" formControlName="blend" blend
             status="{{ isSubmitted && form.controls.blend.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && assigned!=false && show">
           <label for="administration_time" class="form-text text-muted font-weight-bold">Tiempo de
             administración:</label>
           <input nbInput fullWidth id="administration_time" formControlName="administration_time" administration_time

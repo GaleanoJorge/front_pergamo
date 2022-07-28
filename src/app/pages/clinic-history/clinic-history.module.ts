@@ -86,7 +86,6 @@ import { Actions8Component } from './background/back/actions.component';
 import { FormFailedComponent } from './failed/form-failed/form-failed.component';
 import { FailedComponent } from './failed/failed.component';
 import { FormPatientExitComponent } from './patient-exit/form-patient-exit/form-patient-exit.component';
-import { PatientExitComponent } from './patient-exit/patient-exit.component';
 import { FormChMedicalOrdersComponent } from './ch-medical-orders/form-ch-medical-orders/form-ch-medical-orders.component';
 import { ChMedicalOrdersComponent } from './ch-medical-orders/ch-medical-orders.component';
 import { FormChInterconsultationComponent } from './ch-interconsultation/form-ch-interconsultation/form-ch-interconsultation.component';
@@ -501,7 +500,6 @@ import { Actions25Component } from './failed/actions25.component';
     Actions25Component,
 
     FormPatientExitComponent,
-    PatientExitComponent,
 
     FormChInterconsultationComponent,
     ChInterconsultationComponent,
