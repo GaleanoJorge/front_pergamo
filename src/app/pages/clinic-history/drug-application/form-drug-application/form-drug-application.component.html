@@ -9,14 +9,25 @@
           <div class="center">
             <fieldset class="field_set">
               <legend class="prue1">{{label}}</legend>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="clock" class="form-text text-muted font-weight-bold align">HORA DE ADMINISTRACIÓN</label>
+                  <input type="time" nbInput id="clock" formControlName="clock" clock fullWidth
+                    status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                </div>
+                <div class="col-md-12">
+                  <label class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
+                  <textarea id="observation" nbInput fullWidth formControlName="observation" observation
+                    onpaste="return false" rows="4" cols="50"
+                    status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+              </div>
 
-              <label class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
-              <textarea id="observation" nbInput fullWidth formControlName="observation" observation
-                onpaste="return false" rows="4" cols="50"
-                status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
-            </fieldset>
           </div>
+
+
+          </fieldset>
         </div>
+      </div>
       </div>
 
     </nb-card-body>
