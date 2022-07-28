@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
-import { PharmacyRequestShippingService } from '../../../../business-controller/pharmacy-request-shipping.service';
 import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
 import { ProductGenericService } from '../../../../business-controller/product-generic.service';
 import { ProductSuppliesService } from '../../../../business-controller/product-supplies.service';
@@ -34,12 +33,10 @@ export class FormPharmacyProductRequestComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private pharmaProdS: PharmacyProductRequestService,
-    private pharmaShippS: PharmacyRequestShippingService,
     private pharmaS: PharmacyStockService,
     private ProductGenericS: ProductGenericService,
     private toastService: NbToastrService,
     private ProductSuppliesS: ProductSuppliesService,
-    private perPharmaS: PharmacyStockService,
 
   ) {
   }
