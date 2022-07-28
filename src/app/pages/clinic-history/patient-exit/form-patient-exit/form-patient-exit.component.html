@@ -1,18 +1,43 @@
-<form [formGroup]="form" (ngSubmit)="save()">
-
-  <div>
-    <fieldset class="field_set center">
-      <legend class="prue1  center ">SALIDA DEL PACIENTE</legend>
-      <div class="row justify-content-md-center">
-        <div class="col col-lg-2">
-          <label class="form-text text-muted font-weight-bold">Estado de Salida</label>
-        </div>
-        <div class="col col-lg-2">
-          <nb-radio-group formControlName="exit_status" exit_status id="exit_status" class="d-flex text center"
-            name="exit_status"
+<fieldset class="field_set center">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <legend class="prue1  center">SALIDA DEL PACIENTE</legend>
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-2">
+        <label class="form-text text-muted font-weight-bold">Estado de Salida</label>
+        <nb-select formControlName="exit_status" id="exit_status" fullWidth
+          status="{{ isSubmitted && form.controls.exit_status.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">Vivo</nb-option>
+          <nb-option value="2">Fallecido</nb-option>
+        </nb-select>
+        <!-- <nb-radio-group formControlName="exit_status" exit_status id="exit_status" class="d-flex text center"
             status="{{ isSubmitted && form.controls.exit_status.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="1">Vivo</nb-radio>
             <nb-radio value="2">Fallecido</nb-radio>
+          </nb-radio-group> -->
+      </div>
+    </div>
+
+    <div class="col col-lg-12">
+      <hr />
+    </div>
+
+    <div *ngIf="show2">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Fecha y Hora de Muerte</label>
+
+          <input type="datetime-local" nbInput fullWidth id="date_time" formControlName="date_time" date_time
+            status="{{ isSubmitted && form.controls.date_time.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+
+        </div>
+
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Traslado a Medicina Legal</label>
+          <nb-radio-group formControlName="legal_medicine_transfer" legal_medicine_transfer id="legal_medicine_transfer"
+            class="d-flex text center" name="legal_medicine_transfer"
+            status="{{ isSubmitted && form.controls.legal_medicine_transfer.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-radio value="1">Si</nb-radio>
           </nb-radio-group>
         </div>
       </div>
@@ -21,120 +46,95 @@
         <hr />
       </div>
 
-      <div *ngIf="show2 && diagnosis.length > 0">
-        <div class="row justify-content-md-center">
-          <div class="col col-lg-3">
-            <label class="form-text text-muted font-weight-bold">Fecha y Hora de Muerte</label>
+      <div class="row justify-content-md-center">
 
             <input type="datetime-local" nbInput fullWidth id="date_time" formControlName="date_time" date_time
             status="{{ isSubmitted && form.controls.date_time.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
 
-          </div>
-
-          <div class="col col-lg-3">
-            <label class="form-text text-muted font-weight-bold">Traslado a Medicina Legal</label>
-            <nb-radio-group formControlName="legal_medicine_transfer" legal_medicine_transfer
-              id="legal_medicine_transfer" class="d-flex text center" name="legal_medicine_transfer"
-              status="{{ isSubmitted && form.controls.legal_medicine_transfer.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-radio value="1">Si</nb-radio>
-            </nb-radio-group>
-          </div>
+        <div class="col-md-3">
+          <label for="death_diagnosis_id" class="form-text text-muted font-weight-bold ">Causa de la Muerte</label>
+          <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
+            (change)="saveCode($event.target.value,3)" id="death_diagnosis_id" formControlName="death_diagnosis_id"
+            death_diagnosis_id type="text"
+            status="{{ isSubmitted && form.controls.death_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="codes">
+            <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
+            </option>
+          </datalist>
         </div>
 
-        <div class="col col-lg-12">
-          <hr />
+
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Medico que Firma Certificado de Defunción</label>
+          <input type="text" class="Box" id="medical_signature" formControlName="medical_signature" nbInput ngModel
+            status="{{ isSubmitted && form.controls.medical_signature.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         </div>
-
-        <div class="row justify-content-md-center">
-
-          
-          <div class="col-md-3">
-            <label for="death_diagnosis_id" class="form-text text-muted font-weight-bold ">Causa de la Muerte</label>
-            <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
-              (change)="saveCode($event.target.value,3)" id="death_diagnosis_id" formControlName="death_diagnosis_id"
-              death_diagnosis_id type="text" required
-              status="{{ isSubmitted && form.controls.death_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <datalist id="codes">
-              <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
-              </option>
-            </datalist>
-          </div>
-
-
-          <div class="col col-lg-3">
-            <label class="form-text text-muted font-weight-bold">Medico que Firma Certificado de Defunción</label>
-            <input type="text" class="Box" id="medical_signature" formControlName="medical_signature" required nbInput
-              ngModel
-              status="{{ isSubmitted && form.controls.medical_signature.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-          </div>
-          <div class="col col-lg-4">
-            <label class="form-text text-muted font-weight-bold">N° de Certificado de Defunción</label>
-            <input type="number" class="Box" id="death_certificate_number" formControlName="death_certificate_number"
-              required nbInput ngModel
-              status="{{ isSubmitted && form.controls.death_certificate_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-          </div>
+        <div class="col col-lg-4">
+          <label class="form-text text-muted font-weight-bold">N° de Certificado de Defunción</label>
+          <input type="number" class="Box" id="death_certificate_number" formControlName="death_certificate_number"
+            nbInput ngModel
+            status="{{ isSubmitted && form.controls.death_certificate_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         </div>
       </div>
+    </div>
 
 
-      <div *ngIf="show && diagnosis.length > 0">
-        <div class="row justify-content-md-center">
-          <div class="col col-lg-3">
+    <div *ngIf="show">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-3">
 
 
-            <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold ">DX Ingreso</label>
-            <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes2"
-              id="ch_diagnosis_id" formControlName="ch_diagnosis_id" ch_diagnosis_id type="text" required
-              (change)="saveCode($event.target.value,4)" status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <datalist id="codes2">
-              <option  *ngFor="let item of ch_diagnosis" [value]="item.diagnosis.name">{{ item.diagnosis_id }} - {{ item.diagnosis.name }}
-              </option>
-            </datalist>
-          </div>
+          <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold ">DX Ingreso</label>
+          <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes2"
+            id="ch_diagnosis_id" formControlName="ch_diagnosis_id" ch_diagnosis_id type="text"
+            (change)="saveCode($event.target.value,4)"
+            status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="codes2">
+            <option *ngFor="let item of ch_diagnosis" [value]="item.diagnosis.name">{{ item.diagnosis_id }} - {{
+              item.diagnosis.name }}
+            </option>
+          </datalist>
+        </div>
 
-          <div class="col-md-4">
-            <label for="exit_diagnosis_id" class="form-text text-muted font-weight-bold ">DX Salida</label>
-            <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
-              (change)="saveCode($event.target.value,1)" id="exit_diagnosis_id" formControlName="exit_diagnosis_id"
-              exit_diagnosis_id type="text" required
-              status="{{ isSubmitted && form.controls.exit_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <datalist id="codes">
-              <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
-              </option>
-            </datalist>
-          </div>
+        <div class="col-md-4">
+          <label for="exit_diagnosis_id" class="form-text text-muted font-weight-bold ">DX Salida</label>
+          <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
+            (change)="saveCode($event.target.value,1)" id="exit_diagnosis_id" formControlName="exit_diagnosis_id"
+            exit_diagnosis_id type="text"
+            status="{{ isSubmitted && form.controls.exit_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="codes">
+            <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
+            </option>
+          </datalist>
+        </div>
 
-          <div class="col-md-4 ">
-            <label for="relations_diagnosis_id" class="form-text text-muted font-weight-bold">DX Relacionado</label>
-            <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
-              (change)="saveCode($event.target.value,2)" id="relations_diagnosis_id"
-              formControlName="relations_diagnosis_id" relations_diagnosis_id type="text" required
-              status="{{ isSubmitted && form.controls.relations_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <datalist id="codes">
-              <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
-              </option>
-            </datalist>
-          </div>
+        <div class="col-md-4 ">
+          <label for="relations_diagnosis_id" class="form-text text-muted font-weight-bold">DX Relacionado</label>
+          <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
+            (change)="saveCode($event.target.value,2)" id="relations_diagnosis_id"
+            formControlName="relations_diagnosis_id" relations_diagnosis_id type="text"
+            status="{{ isSubmitted && form.controls.relations_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="codes">
+            <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
+            </option>
+          </datalist>
+        </div>
 
-          <div class="col col-lg-3">
-            <label class="form-text text-muted font-weight-bold">Motivo de salida</label>
-            
+        <div class="col col-lg-3">
+          <label class="form-text text-muted font-weight-bold">Motivo de salida</label>
 
-            <input disabled="{{ isSubmitted }}"  placeholder="SELECCIONE UN MOTIVO" fullWidth nbInput list="codes4"
-            (change)="saveCodeR($event.target.value)" id="reason_exit_id" formControlName="reason_exit_id" reason_exit_id
-            type="text" required
+
+          <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN MOTIVO" fullWidth nbInput list="codes4"
+            (change)="saveCodeR($event.target.value)" id="reason_exit_id" formControlName="reason_exit_id"
+            reason_exit_id type="text"
             status="{{ isSubmitted && form.controls.reason_exit_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes4">
             <option *ngFor="let item of reason_exit" [value]="item.name">{{item.name}} </option>
           </datalist>
 
-          </div>
         </div>
       </div>
-
-    </fieldset>
-
-
+    </div>
     <div class="row">
       <div class="col-md-12">
         <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="button"
@@ -142,5 +142,6 @@
       </div>
     </div>
 
-  </div>
-</form>
+
+  </form>
+</fieldset>

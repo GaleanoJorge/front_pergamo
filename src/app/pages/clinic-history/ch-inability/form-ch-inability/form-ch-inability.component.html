@@ -25,7 +25,8 @@
           <label class="form-text text-muted font-weight-bold">Fecha Inicial de la Incapacidad</label>
 
           <input type="date" nbInput fullWidth id="initial_date" formControlName="initial_date" initial_date
-            status="{{ isSubmitted && form.controls.initial_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            status="{{ isSubmitted && form.controls.initial_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" [max]="date" />
+
 
         </div>
 
@@ -33,7 +34,7 @@
           <label class="form-text text-muted font-weight-bold">Fecha Final de la Incapacidad</label>
 
           <input type="date" nbInput fullWidth id="final_date" formControlName="final_date" final_date
-            status="{{ isSubmitted && form.controls.final_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            status="{{ isSubmitted && form.controls.final_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" [max]="date" />
 
         </div>
 

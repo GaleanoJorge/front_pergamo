@@ -24,12 +24,12 @@ export class HumanTalentRequestListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Solicitudes de personal';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = [ 'TIPO DE PERSONAL A SOLICITAR','IDENTIFICACIÓN PACIENTE','NOMBRE PACIENTE','ZONA','BARRIO','FECHA DE SOLICITUD', 'ESTADO', 'OBSERVACIONES'];
+  public headerFields: any[] = ['TIPO DE PERSONAL A SOLICITAR', 'IDENTIFICACIÓN PACIENTE', 'NOMBRE PACIENTE', 'ZONA', 'BARRIO', 'FECHA DE SOLICITUD', 'ESTADO', 'OBSERVACIONES'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
   public roles = [];
-  public user;
+  public user: any = null;
   public currentRole;
   public role2;
   public id_htr;
@@ -47,14 +47,15 @@ export class HumanTalentRequestListComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
-          this.id_htr=row.id;
-          this.status=row.status;
+          this.id_htr = row.id;
+          this.status = row.status;
           return {
             'data': row,
             'edit': this.EditHumanTalentRequest.bind(this),
             'new': this.NewHumanTalentRequest.bind(this),
+            'update': this.UpdateRequest.bind(this),
             'saved': this.RefreshData.bind(this),
-            'status':this.status=='Creada'?0:1,
+            'status': row.status == 'Creada' ? 0 : row.status == 'Aprobada PAD' ? 1 : row.status == 'Rechazada PAD' ? 2 : row.status == 'Aprobada TH' ? 3 : 4 /*Rechazada TH*/,
 
           };
         },
@@ -64,7 +65,7 @@ export class HumanTalentRequestListComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          this.role2=row.role_id;
+          this.role2 = row.role_id;
           return value;
         },
       },
@@ -79,7 +80,7 @@ export class HumanTalentRequestListComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.admissions.patients.firstname +' '+ row.admissions.patients.lastname;
+          return row.admissions.patients.firstname + ' ' + row.admissions.patients.lastname;
         },
       },
       locality: {
@@ -109,7 +110,7 @@ export class HumanTalentRequestListComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return value;
         },
-        
+
       },
       observation: {
         title: this.headerFields[7],
@@ -138,11 +139,11 @@ export class HumanTalentRequestListComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private authService: AuthService,
 
-  
+
   ) {
   }
 
- async ngOnInit() {
+  async ngOnInit() {
     this.user = this.authService.GetUser();
     this.currentRole = this.authService.GetRole();
 
@@ -153,15 +154,26 @@ export class HumanTalentRequestListComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewHumanTalentRequest() {
+  NewHumanTalentRequest(data) {
     this.dialogFormService.open(FormUserComponent, {
       context: {
         title: 'Nuevo Personal',
-        role2: this.role2, 
-        isTH: this.id_htr, 
+        role2: data.role_id,
+        isTH: data.id,
         saved: this.RefreshData.bind(this),
       },
       dialogClass: 'scroll'
+    });
+  }
+
+  UpdateRequest(data, status) {
+    this.HumanTalentRequestS.Update({
+      id: data.id,
+      observation: '',
+      status: status,
+    }).then(x => {
+      this.toastrService.success(x.message, 'CORRECTO');
+      this.RefreshData();
     });
   }
 

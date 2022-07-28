@@ -137,7 +137,7 @@ export class FormFormulationComponent implements OnInit {
         administration_route_id: this.form.controls.administration_route_id.value,
         dose: this.form.controls.dose.value,
         hourly_frequency_id: this.form.controls.hourly_frequency_id.value,
-        // medical_formula: this.form.controls.medical_formula.value,
+        medical_formula: this.form.controls.medical_formula.value,
         number_mipres: this.form.controls.number_mipres.value,
         observation: this.form.controls.observation.value,
         outpatient_formulation: this.form.controls.outpatient_formulation.value,
