@@ -296,7 +296,11 @@ export class FormChScalesComponent implements OnInit {
       this.data = {
       };
     }
-    this.ageScale = this.getAge(this.age.brithday);
+    if(this.enfermery){
+
+    }else{
+      this.ageScale = this.getAge(this.age.birthday);
+    }
     this.form = this.formBuilder.group({
 
       //Escala Norton Form
@@ -2658,8 +2662,8 @@ export class FormChScalesComponent implements OnInit {
       var mental = this.separateText(this.form.controls.mental_value.value);
       this.form.controls.wandering_value.setValidators(Validators.compose([Validators.required]));
       var wandering = this.separateText(this.form.controls.wandering_value.value);
-      this.form.controls.totalJhDownton.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.riskJhDownton.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.totalJhDownton.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.riskJhDownton.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
