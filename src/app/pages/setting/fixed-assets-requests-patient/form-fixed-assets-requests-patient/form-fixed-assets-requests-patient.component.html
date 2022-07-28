@@ -1,0 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1500px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+          <ngx-assets-requests-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
+          </ngx-assets-requests-package>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label class="form-text text-muted font-weight-bold">PERSONA RESPONSABLE:</label>
+          <nb-select [selected]="this.data.responsible_user_id" formControlName="responsible_user_id"
+            id="responsible_user_id" fullWidth>
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.responsible_user_id }}" *ngFor="let item of responsible_user_id"
+              [value]="item.id">
+              {{ item.nombre_completo }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIÓN:</label>
+          <input type="text" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="observation"
+            formControlName="observation" observation />
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">ENVIAR</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
