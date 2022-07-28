@@ -1,5 +1,5 @@
 <div class="col-12 col-sm-12 col-md-12">
-  <ngx-form-pharmacy-product-request (messageEvent)="receiveMessage($event)">
+  <ngx-form-pharmacy-product-request (messageEvent)="receiveMessage($event)" [my_pharmacy_id]="my_pharmacy_id">
   </ngx-form-pharmacy-product-request>
 </div>
 <ngx-base-list [messageError]="messageError">
