@@ -21,7 +21,7 @@ export class AssistanceStockComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'LISTA DE ELEMENTOS EN POSECIÓN';
+  public title: string = 'LISTA DE ELEMENTOS A CARGO';
   public subtitle: string = '';
   public headerFields: any[] = ['ID', 'ESTADO', 'DESPACHA', 'RECIBIDOS', 'DESCRIPCIÓN', 'DAÑADOS', 'ENVIADOS'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
@@ -30,6 +30,7 @@ export class AssistanceStockComponent implements OnInit {
   public user_id;
   public data = [];
   public routes;
+  public show;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -188,6 +189,24 @@ export class AssistanceStockComponent implements OnInit {
     }).catch(x => {
       throw x;
     });
+  }
+
+  tablock(e) {
+    // console.log(e.tabTitle);
+    switch (e.tabTitle) {
+      case "RECIBIDOS": {
+        this.show = 1;
+        break;
+      }
+      case "POR ACEPTAR": {
+        this.show = 2;
+        break;
+      }
+      case "SOLICITUDES": {
+        this.show = 3;
+        break;
+      }
+    }
   }
 
 }

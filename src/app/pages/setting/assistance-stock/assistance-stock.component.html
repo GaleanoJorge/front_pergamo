@@ -1,34 +1,33 @@
-<ngx-base-list
-  [messageError]="messageError"
-  [routes]="routes">
+<ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content *ngIf="entity">
-    <nb-tabset fullWidth>
+    <nb-tabset fullWidth (changeTab)="tablock($event)">
       <nb-tab tabTitle="RECIBIDOS">
-        <ngx-base-table [title]="title" 
-                        [subtitle]="subtitle" [settings]="settings"
-                        [entity]="entity"
-                        customData='pharmacy_product_request'
-                        [messageToltip]="messageToltip"
-                        >
-          <div actions>
-            <div class="actions">
-              <!-- <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacyStock()">CREAR</button> -->
+        <div *ngIf="this.show == 1">
+          <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+            customData='pharmacy_product_request' [messageToltip]="messageToltip">
+            <div actions>
+              <div class="actions">
+                <!-- <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacyStock()">CREAR</button> -->
+              </div>
             </div>
-          </div>
-        </ngx-base-table>
+          </ngx-base-table>
+        </div>
       </nb-tab>
 
       <nb-tab tabTitle="POR ACEPTAR">
-        <ngx-assistance-stock-req> 
-        </ngx-assistance-stock-req>
+        <div *ngIf="this.show == 2">
+          <ngx-assistance-stock-req>
+          </ngx-assistance-stock-req>
+        </div>
       </nb-tab>
 
-      <nb-tab tabTitle="SOLICITAdo">
-        <ngx-insume-request 
-        [messageError]="null"> 
-        </ngx-insume-request>
+      <nb-tab tabTitle="SOLICITUDES">
+        <div *ngIf="this.show == 3">
+          <ngx-insume-request [messageError]="null">
+          </ngx-insume-request>
+        </div>
       </nb-tab>
-      
+
     </nb-tabset>
 
 
