@@ -223,8 +223,8 @@
 
         <div class="col-12 col-sm-12 col-md-12">
           <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
-          <input nbInput fullWidth id="observation" formControlName="observation" observation
-            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          <textarea nbInput fullWidth id="observation" formControlName="observation" observation
+            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"></textarea>
         </div>
 
 
