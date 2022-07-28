@@ -38,15 +38,14 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="product_supplies" class="form-text text-muted font-weight-bold">Insumo Genérico:</label>
-          <nb-select [selected]="this.data.product_supplies_id" formControlName="product_supplies_id"
-            id="product_supplies_id" fullWidth
+          <label class="form-text text-muted font-weight-bold">Insumo Genérico:</label>
+          <input type="text" list="codes1" class="data-list" id="product_supplies_id"  (change)="saveCode($event.target.value)"
+            formControlName="product_supplies_id" product_supplies_id fullWidth nbInput
             status="{{ isSubmitted && form.controls.product_supplies_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.product_supplies_id }}" *ngFor="let item of product_supplies"
-              [value]="item.id">
-              {{ item.description }}</nb-option>
-          </nb-select>
+          <datalist id="codes1">
+            <option *ngFor="let item of product_supplies" [value]="item.description">{{item.description}}
+            </option>
+          </datalist>
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
