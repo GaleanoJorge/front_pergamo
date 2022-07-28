@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { PharmacyLotStockService } from '../../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
+import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
 import { AuthService } from '../../../../services/auth.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class FormPharmacyIncomeComponent implements OnInit {
   @Input() data: any = null;
   @Input() parentData: any;
   @Input() type: boolean = null;
+  @Input() my_pharmacy_id: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -27,6 +29,8 @@ export class FormPharmacyIncomeComponent implements OnInit {
   public selectedOptions: any[] = [];
   public user;
   public show: boolean = false;
+  public own_pharmacy_stock_id: any[];
+
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -36,6 +40,8 @@ export class FormPharmacyIncomeComponent implements OnInit {
     private toastService: NbToastrService,
     private toastS: NbToastrService,
     private authService: AuthService,
+    private perPharmaS: PharmacyStockService,
+
   ) {
   }
 
@@ -64,6 +70,9 @@ export class FormPharmacyIncomeComponent implements OnInit {
     this.form = this.formBuilder.group({
       cantidad_enviada: [this.data.cantidad_enviada],
       observation: [this.data.observation],
+    });
+    await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
+      this.own_pharmacy_stock_id = x;
     });
   }
 
@@ -101,7 +110,8 @@ export class FormPharmacyIncomeComponent implements OnInit {
             id: this.data.id,
             observation: this.form.controls.observation.value,
             status: 'ACEPTADO',
-            own_pharmacy_stock_id: this.data.own_pharmacy_stock_id,
+            own_pharmacy_stock_id: this.my_pharmacy_id,
+            request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
           }).then(x => {
             this.toastService.success('', x.message);
@@ -119,6 +129,8 @@ export class FormPharmacyIncomeComponent implements OnInit {
           this.pharProdReqS.Save({
             observation: this.form.controls.observation.value,
             status: 'ACEPTADO',
+            own_pharmacy_stock_id: this.my_pharmacy_id,
+            request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
