@@ -8,11 +8,11 @@ import { HumanTalentRequestService } from '../../../business-controller/human-ta
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-  <button *ngIf="value.status!=1 " nbTooltip="Aprobar" nbTooltipPlacement="top" nbTooltipStatus="primary"   nbButton ghost (click)="value.new(value.data)">
+  <button *ngIf="value.status==0 || value.status==1" nbTooltip="Aprobar" nbTooltipPlacement="top" nbTooltipStatus="primary"   nbButton ghost (click)=" this.value.status == 0 ? value.update(value.data, 'Aprobada PAD') : value.new(value.data)">
   <nb-icon icon="checkmark-outline"></nb-icon>
 </button>
 
-<button *ngIf="value.status!=1" nbTooltip="Rechazar" nbTooltipPlacement="top" nbTooltipStatus="primary" (click)="ConfirmAction(confirmAction)"  nbButton ghost>
+<button *ngIf="value.status==0 || value.status==1" nbTooltip="Rechazar" nbTooltipPlacement="top" nbTooltipStatus="primary" (click)="ConfirmAction(confirmAction)"  nbButton ghost>
 <nb-icon icon="close-outline"></nb-icon>
 </button>
   </div>
@@ -90,7 +90,7 @@ console.log(this.value.status);
         this.humanTalentRequestS.Update({
           id: this.value.data.id,
           observation: this.Form.controls.observation.value,
-          status: 'Rechazado',
+          status: this.value.status == 0 ? 'Rechazada PAD' : 'Rechazada TH',
         }).then(x => {
           this.toastService.success('', x.message);
           this.dialog.close();
