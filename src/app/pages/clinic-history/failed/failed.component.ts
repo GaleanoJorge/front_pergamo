@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
@@ -14,6 +14,7 @@ export class FailedComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id;
+  @Output() messageEvent = new EventEmitter<any>();
   linearMode = false;
   public messageError = null;
   public title;
@@ -22,7 +23,7 @@ export class FailedComponent implements OnInit {
   public nameForm: String;
   public headerFields: any[] = [
     'Motivo', 'Descripción', 'Evidencia',
-    
+
   ];
 
   public isSubmitted: boolean = false;
@@ -43,11 +44,11 @@ export class FailedComponent implements OnInit {
           return value.name;
         },
       },
-        descriptions: {
+      descriptions: {
         title: this.headerFields[1],
         type: 'string',
-        },
-      
+      },
+
       file_evidence: {
         title: this.headerFields[2],
         type: 'custom',
@@ -58,26 +59,29 @@ export class FailedComponent implements OnInit {
           };
         },
         renderComponent: Actions25Component,
+      }
     }
-  }
   };
 
   constructor(
     public userChangeS: UserChangeService
-    ) {
-      
-    }
+  ) {
 
-  async ngOnInit() {}
+  }
+
+  async ngOnInit() { }
 
   RefreshData() {
     this.table.refresh();
   }
 
   receiveMessage($event) {
-    if ($event == true) {
-      this.RefreshData();
+    if ($event) {
+      if ($event.refresh == true) {
+        this.RefreshData();
+      }
+      this.messageEvent.emit({ is_failed: true });
     }
   }
- 
+
 }
