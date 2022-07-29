@@ -89,6 +89,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
     });

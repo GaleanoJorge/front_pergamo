@@ -70,10 +70,10 @@ export class DrugApplicationComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (row.product_generic) {
-            return row.product_generic.description;
+          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.product_generic.description;
           } else {
-            return row.product_supplies.description;
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.product_supplies.description;
           }
         },
       },

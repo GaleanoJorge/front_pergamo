@@ -17,6 +17,7 @@ export class FormInsumeRequestComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() parentData: any;
+  @Input() record_id: number;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -72,9 +73,10 @@ export class FormInsumeRequestComponent implements OnInit {
         await this.pharmaProdS.Update({
           id: this.data.id,
           request_amount: this.form.controls.request_amount.value,
-          status: 'SOLICITADO',
+          record_id: this.record_id,
+          status: 'PATIENT',
           product_supplies_id: this.form.controls.product_supplies_id.value,
-          own_pharmacy_stock_id: 2,
+
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -88,8 +90,7 @@ export class FormInsumeRequestComponent implements OnInit {
       } else {
         await this.pharmaProdS.Save({
           request_amount: this.form.controls.request_amount.value,
-          status: 'SOLICITADO',
-          own_pharmacy_stock_id: 2,
+          status: 'PATIENT',
           product_supplies_id: this.form.controls.product_supplies_id.value,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
         }).then(x => {
