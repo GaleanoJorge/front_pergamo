@@ -1,0 +1,21 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+    <div class="col-12 col-sm-12 col-md-6">
+      <label for="billing_id" class="form-text text-muted font-weight-bold">SELECCIONE ORDEN DE COMPRA:</label>
+      <nb-select id="billing_id" fullWidth (selectedChange)="ChangeBilling($event)">
+        <nb-option value="">Seleccione...</nb-option>
+        <nb-option *ngFor="let item of billing_id"
+          [value]="item.id">
+          {{ item.id }} - {{item.company.name}} </nb-option>
+      </nb-select>
+    </div>
+    <div  *ngIf="show">
+      <ngx-base-table [title]="title" [settings]="settings" [entity]="this.entity" [customData]="this.customData">
+        <div actions>
+          <div class="actions">
+          </div>
+        </div>
+      </ngx-base-table>
+    </div>
+  </div>
+</ngx-base-list>
