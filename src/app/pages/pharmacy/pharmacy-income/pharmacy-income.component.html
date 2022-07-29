@@ -1,0 +1,11 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+
+    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+      entity="pharmacy_product_request/?pagination=true&product={{validator}}&cantidad=0" customData='pharmacy_product_request'
+      [messageToltip]="messageToltip">
+      <div actions>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
