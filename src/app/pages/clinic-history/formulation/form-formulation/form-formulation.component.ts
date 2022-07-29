@@ -28,6 +28,7 @@ export class FormFormulationComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public disabled: boolean = false;
+  public show_all: boolean = false;
   public showTable;
   public record_id;
   public administration_route_id: any[];
@@ -90,7 +91,7 @@ export class FormFormulationComponent implements OnInit {
     await this.patienBS.GetUserById(this.user).then(async x => {
       this.user2 = x;
       await this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
-        this.product_gen = x;
+        this.product_gen = this.product_gen = this.readProductGen(x);
       });
     });
 
@@ -115,7 +116,7 @@ export class FormFormulationComponent implements OnInit {
     if (this.loadAuxData && force) return false;
     this.form = this.formBuilder.group({
       medical_formula: [this.data.medical_formula],
-      product_gen: [this.product_gen,],
+      product_gen: [this.product_gen != null ? this.product_gen['description'] : null,],
       product_id: [this.data.product_id,],
       dose: [this.data.dose, Validators.compose([Validators.required])],
       administration_route_id: [this.data.administration_route_id, Validators.compose([Validators.required])],
@@ -125,6 +126,7 @@ export class FormFormulationComponent implements OnInit {
       number_mipres: [this.data.number_mipres],
       observation: [this.data.observation],
     });
+    this.show_all = true;
   }
 
   async save() {
@@ -250,11 +252,12 @@ export class FormFormulationComponent implements OnInit {
 
   saveCode1(e, identificator): void {
     this.identificator = identificator;
-    if (this.identificator == 1) {
-      this.product = this.product_gen.find(item => item.manual_price.name == e);
-    } else {
-      this.product = this.product_gen.find(item => item.description == e);
-    }
+    // if (this.identificator == 1) {
+    //   this.product = this.product_gen.find(item => item.manual_price.name == e);
+    // } else {
+    //   this.product = this.product_gen.find(item => item.description == e);
+    // }
+    this.product = this.product_gen.find(item => item.description == e);
 
     if (this.product) {
       this.product_id = this.product.id;
@@ -267,6 +270,16 @@ export class FormFormulationComponent implements OnInit {
     }
     this.onChangesFormulation(1, e)
   }
+  readProductGen(x) {
+    var r = [];
+    var i = 0;
+          x.forEach(element => {
+            r[i] = element['manual_price']['product'];
+            i++;
+          });
+    return r;
+  }
+
   eventSelections(input) {
     if (input == false) {
       this.show = true;
@@ -276,7 +289,7 @@ export class FormFormulationComponent implements OnInit {
       });
       if (this.user2 != null) {
         this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
-          this.product_gen = x;
+          this.product_gen = this.readProductGen(x);
         });
       }
     } else {

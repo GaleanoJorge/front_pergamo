@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <div>
+  <div *ngIf="show_all">
 
     <label class="form-text text-muted font-weight-bold align"></label>
     <div class="row">
@@ -27,17 +27,17 @@
                   id="product_gen" formControlName="product_gen" product_gen fullWidth nbInput
                   status="{{ isSubmitted && form.controls.product_gen.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                 <datalist id="codes1">
-                  <option *ngFor="let item of product_gen" [value]="item.manual_price.name">{{item.manual_price.name}}
+                  <option *ngFor="let item of product_gen" [value]="item.description">{{item.description}}
                   </option>
                 </datalist>
               </div>
 
               <div class="col col-lg-3" *ngIf="show==false">
                 <label class="form-text text-muted font-weight-bold">Medicamento</label>
-                <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value, 2)"
+                <input type="text" list="codes2" class="data-list" (change)="saveCode1($event.target.value, 2)"
                   id="product_id" formControlName="product_id" prduct_oid fullWidth nbInput
                   status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                <datalist id="codes1">
+                <datalist id="codes2">
                   <option *ngFor="let item of product_gen" [value]="item.description">{{item.description}}
                   </option>
                 </datalist>
@@ -53,14 +53,14 @@
                   </div>
                   <div *ngIf="this.product">
                     {{ this.product.product_dose_id == 2 ? this.product.multidose_concentration.name :
-                    this.product.measurement_units.name}}
+                    this.product.measurement_units.code}}
                   </div>
                 </div>
 
               </div>
               <div class="col col-lg-3">
+                <label class="form-text text-muted font-weight-bold">Dosis por aplicación</label>
                 <div class="row">
-                  <label class="form-text text-muted font-weight-bold">Dosis por aplicación</label>
                   <div class="asd">
                     <input type="number" placeholder="DOSIS" class="Box" id="dose" formControlName="dose" dose nbInput
                       (change)="onChangesFormulation($event, 3)"
@@ -68,7 +68,7 @@
                   </div>
                   <div class="aaa" *ngIf="this.product">
                     {{ this.product.product_dose_id == 2 ? this.product.multidose_concentration.name :
-                    this.product.measurement_units.name}}
+                    this.product.measurement_units.code}}
                   </div>
                 </div>
               </div>
