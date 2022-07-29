@@ -7,9 +7,9 @@ import { FormAssistanceStockComponent } from './form-assistance-stock/form-assis
 import { PharmacyStockService } from '../../../business-controller/pharmacy-stock.service';
 import { AuthService } from '../../../services/auth.service';
 import { ActionsStockComponent } from './actions.component';
-import { FormPharmacyIncomeComponent } from '../pharmacy-income/form-pharmacy-income/form-pharmacy-income.component';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormPharmacyIncomeComponent } from '../../pharmacy/pharmacy-income/form-pharmacy-income/form-pharmacy-income.component';
 
 
 @Component({

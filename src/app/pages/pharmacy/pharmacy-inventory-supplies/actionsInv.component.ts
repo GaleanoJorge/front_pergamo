@@ -8,15 +8,13 @@ import {ViewCell} from 'ng2-smart-table';
         <nb-icon icon="shopping-bag-outline"></nb-icon>
       </button>
       <button nbTooltip="PERSONAL ASISTENCIAL" nbTooltipPlacement="top" nbTooltipStatus="primary"  ngxCheckPerms="update" nbButton ghost (click)="value.edit1(value.data)">
-        <nb-icon icon="person-outline"></nb-icon>
-      </button>
-      <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ngxCheckPerms="delete" ghost (click)="value.delete(value.data)">
-        <nb-icon icon="trash-2-outline"></nb-icon>
-      </button>
+      <nb-icon icon="person-outline"></nb-icon>
+    </button>
+     
     </div>
   `,
 })
-export class ActionsInvComponent implements ViewCell {
+export class ActionsInvSupComponent implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
 }

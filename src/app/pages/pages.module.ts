@@ -49,6 +49,9 @@ import { SelectUsersCampusComponent } from './components/form-users/users-campus
 import { WebSpeachComponent } from './components/web-speach/web-speach.component';
 import { InsumeRequestComponent } from './clinic-history/insume-request/insume-request.component';
 import { FormInsumeRequestComponent } from './clinic-history/insume-request/form-insume-request/form-insume-request.component';
+import { PharmacyModule } from './pharmacy/pharmacy.module';
+import { ProductTabComponent } from './pharmacy/product-tab/product-tab.component';
+import { PharmacyComponent } from './pharmacy/pharmacy.component';
 
 
 
@@ -109,6 +112,7 @@ import { FormInsumeRequestComponent } from './clinic-history/insume-request/form
     SelectUsersCampusComponent,
     UsersCampusComponent,
     WebSpeachComponent,
+    
   ],
   exports: [
     BreadcrumbComponent,
