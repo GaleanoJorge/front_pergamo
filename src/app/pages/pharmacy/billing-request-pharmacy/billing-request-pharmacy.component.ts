@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BillingService } from '../../../business-controller/billing.service';
 import { NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormBillingRequestPharmacyComponent } from './form-billing-request-pharmacy/form-billing-request-pharmacy.component';
@@ -41,7 +40,7 @@ export class BillingRequestPharmacyComponent implements OnInit {
             'delete': this.DeleteConfirmBilling.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        // renderComponent: ActionsComponent,
       },
       id: {
         title: this.headerFields[0],

@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
-import { BillingStockService } from '../../../../business-controller/billing-stock.service';
 import { SelectProductBillingRequestPharmacyComponent } from './select-prod-billing-request-pharmacy.component';
 import { AmountBillingRequestPharmacyComponent } from './amount-billing-request-pharmacy.component';
 import { BillingStockRequestService } from '../../../../business-controller/billing-stock-request.service';
@@ -19,7 +18,6 @@ export class ProdBillingRequestPharmacyPackageComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<any>();
   @Input() parentData: any = [];
   public messageError = null;
-
 
   public InscriptionForm: FormGroup;
   public title = 'Selección de medicamentos: ';
@@ -48,7 +46,6 @@ export class ProdBillingRequestPharmacyPackageComponent implements OnInit {
   public filter2;
   public done = false;
   public settings;
-
 
   public settings_supplies = {
     columns: {
