@@ -1,0 +1,26 @@
+<ngx-base-list [messageError]="messageError">
+
+
+  <div content>
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="MEDICAMENTOS EN STOCK">
+        <div *ngIf="entity">
+          <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+            customData='pharmacy_lot_stock' [messageToltip]="messageToltip">
+            <div actions>
+              <div class="actions">
+                <!-- <button nbButton status="danger" ngxCheckPerms="create" (click)="NewDev()">DEVOLUCIONES</button> -->
+
+                <!--        <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacyInventory()">Crear</button>-->
+              </div>
+            </div>
+          </ngx-base-table>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="ACEPTAR MEDICAMENTOS">
+        <ngx-pharmacy-income [parentData]="true"></ngx-pharmacy-income>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</ngx-base-list>
