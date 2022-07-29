@@ -106,6 +106,11 @@ const routes: Routes = [{
       redirectTo: 'dashboard',
       pathMatch: 'full',
     },
+    {
+      path: 'pharmacy',
+      loadChildren: () => import('./pharmacy/pharmacy.module')
+        .then(m => m.PharmacyModule),
+    }
   ],
 }];
 
