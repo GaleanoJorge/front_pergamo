@@ -1,0 +1,46 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1000px;max-height: 700px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6">
+          <label class="form-text text-muted font-weight-bold">TIPO DE DOCUMENTO SOPORTE:</label>
+          <nb-select [selected]="this.data.type_billing_evidence_id" formControlName="type_billing_evidence_id"
+            id="type_billing_evidence_id" fullWidth
+            status="{{ isSubmitted && form.controls.type_billing_evidence_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.type_billing_evidence_id }}"
+              *ngFor="let item of type_billing_evidence" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <ngx-prod-billing-request-pharmacy-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
+          </ngx-prod-billing-request-pharmacy-package>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <ngx-prod-supplies-request-package (messageEvent)="receiveMessage1($event)" [parentData]="parentData1">
+          </ngx-prod-supplies-request-package>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
