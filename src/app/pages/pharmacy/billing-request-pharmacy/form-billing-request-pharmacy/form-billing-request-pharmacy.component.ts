@@ -122,51 +122,6 @@ export class FormBillingRequestPharmacyComponent implements OnInit {
         this.isSubmitted = false;
         this.loading = false;
       });
-      // }
-      // if (this.selectedOptions || this.selectedOptions.length == 0) {
-      //   this.BillingRequestS.Save({
-      //     company_id: null,
-      //     pharmacy_stock_id: null,
-      //     type_billing_evidence_id: this.form.controls.type_billing_evidence_id.value,
-      //   }).then(x => {
-      //     this.toastService.success('', x.message);
-      //     this.close();
-      //     var id = x.data.billing.id;
-      //     var contador = 0;
-      //     var err = 0;
-      //     if (this.saved) {
-      //       this.saved();
-      //     }
-      //     if (!this.selectedOptions1.length) {
-      //       this.toastS.danger(null, 'Debe seleccionar al menos un insumo');
-      //     }
-      //     else {
-      //       this.BillingStockRequestS.Save({
-      //         billing_id: id,
-      //         product_supplies_id: JSON.stringify(this.selectedOptions1),
-      //         product_generic_id: null
-      //       }).then(x => {
-      //       }).catch(x => {
-      //         err++;
-      //         this.isSubmitted = false;
-      //         this.loading = false;
-      //       });
-      //       contador++;
-      //       if (contador > 0) {
-      //         this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
-      //       } else if (err > 0) {
-      //         this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
-      //       }
-      //       this.selectedOptions1 = [];
-      //     }
-      //     if (this.saved) {
-      //       this.saved();
-      //     }
-      //   }).catch(x => {
-      //     this.isSubmitted = false;
-      //     this.loading = false;
-      //   });
-      // }
     }
   }
 }

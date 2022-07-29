@@ -296,7 +296,8 @@ export class FormChScalesComponent implements OnInit {
       this.data = {
       };
     }
-    if(this.age != null) {
+    
+    if(this.age) {
       this.ageScale = this.getAge(this.age.birthday);
     }
     this.form = this.formBuilder.group({

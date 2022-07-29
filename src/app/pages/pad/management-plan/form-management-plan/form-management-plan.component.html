@@ -85,21 +85,21 @@
             status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ 1 == data.quantity }}" value="1">
-              1 HORA</nb-option>
+              CADA 1 HORA</nb-option>
             <nb-option selected="{{ 2 == data.quantity }}" value="2">
-              2 HORAS</nb-option>
+              CADA 2 HORAS</nb-option>
             <nb-option selected="{{ 3 == data.quantity }}" value="3">
-              3 HORAS</nb-option>
+              CADA 3 HORAS</nb-option>
             <nb-option selected="{{ 4 == data.quantity }}" value="4">
-              4 HORAS</nb-option>
+              CADA 4 HORAS</nb-option>
             <nb-option selected="{{ 6 == data.quantity }}" value="6">
-              6 HORAS</nb-option>
+              CADA 6 HORAS</nb-option>
             <nb-option selected="{{ 8 == data.quantity }}" value="8">
-              8 HORAS</nb-option>
+              CADA 8 HORAS</nb-option>
             <nb-option selected="{{ 12 == data.quantity }}" value="12">
-              12 HORAS</nb-option>
+              CADA 12 HORAS</nb-option>
             <nb-option selected="{{ 24 == data.quantity }}" value="24">
-              24 HORAS</nb-option>
+              CADA 24 HORAS</nb-option>
           </nb-select>
         </div>
 
@@ -154,9 +154,20 @@
 
         <div class="col-12 col-sm-12 col-md-4" *ngIf="show">
           <label for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a administrar:</label>
-          <input *ngIf="localidentify" placeholder="{{localidentify.manual_price.product.measurement_units.name}}"
-            type="number" nbInput fullWidth id="dosage_administer" formControlName="dosage_administer" dosage_administer
-            status="{{ isSubmitted && form.controls.dosage_administer.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+
+          <div class="row  ">
+            <div class="col-12 col-sm-12 col-md-8 asd">
+              <input *ngIf="localidentify" placeholder="{{this.localidentify.manual_price.product.product_dose_id == 2 ? this.localidentify.manual_price.product.multidose_concentration.name :
+              this.localidentify.manual_price.product.measurement_units.name}}" type="number" nbInput fullWidth
+                id="dosage_administer" formControlName="dosage_administer" dosage_administer
+                status="{{ isSubmitted && form.controls.dosage_administer.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-2 aaa" *ngIf="this.localidentify">
+              {{this.localidentify.manual_price.product.product_dose_id == 2 ?
+              this.localidentify.manual_price.product.multidose_concentration.name :
+              this.localidentify.manual_price.product.measurement_units.name}}
+            </div>
+          </div>
         </div>
 
 
