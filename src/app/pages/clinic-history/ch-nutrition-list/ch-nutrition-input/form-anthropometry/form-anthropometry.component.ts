@@ -169,6 +169,7 @@ export class FormAnthropometryComponent implements OnInit {
           (this.prov_size * c2) +
           (this.form.controls.abdominal_perimeter.value * c3) +
           (this.form.controls.hip_perimeter.value * c4)).toFixed(2);
+        this.prov_weight = this.estimated_weight;
 
       } else {
         this.estimated_weight = null;
@@ -188,6 +189,7 @@ export class FormAnthropometryComponent implements OnInit {
           c3 = 84.88;
         }
         this.estimated_size = ((c1 * this.form.controls.knee_height.value) - (c2 * this.age) + c3).toFixed(2);
+        this.prov_size = this.estimated_size;
       } else {
         this.estimated_size = null;
       }
