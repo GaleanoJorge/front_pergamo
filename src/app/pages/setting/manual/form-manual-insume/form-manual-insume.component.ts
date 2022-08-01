@@ -102,7 +102,7 @@ export class FormManualInsumeComponent implements OnInit {
     var filter = this.product_supplies.find(insume => insume.description == e.target.value);
     if (filter) {
       this.supplies_id = filter.id;
-      console.log(this.supplies_id);
+      // console.log(this.supplies_id);
       this.form.controls.name.setValue(e.target.value);
     } else {
       this.supplies_id = null;
