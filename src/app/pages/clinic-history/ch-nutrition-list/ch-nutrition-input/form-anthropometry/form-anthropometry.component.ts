@@ -128,7 +128,9 @@ export class FormAnthropometryComponent implements OnInit {
         this.form.patchValue({ knee_height: this.ch_nutrition_anthropometry.knee_height });
         this.form.patchValue({ abdominal_perimeter: this.ch_nutrition_anthropometry.abdominal_perimeter });
         this.form.patchValue({ hip_perimeter: this.ch_nutrition_anthropometry.hip_perimeter });
-        this.prov_weight = (this.form.controls.weight.value != null && this.form.controls.weight.value != '' && this.form.controls.weight.value > 0) ? this.form.controls.weight.value : (this.ch_nutrition_anthropometry.estimated_weight > 0) ? this.ch_nutrition_anthropometry.estimated_weight : 0;
+        this.prov_weight = (this.form.controls.weight.value != null && this.form.controls.weight.value != '' && this.form.controls.weight.value > 0) ?
+          this.form.controls.weight.value : (this.ch_nutrition_anthropometry.estimated_weight > 0) ?
+            this.ch_nutrition_anthropometry.estimated_weight : 0;
         this.messageEvent.emit({
           name: 'weight',
           value: this.prov_weight
@@ -144,12 +146,38 @@ export class FormAnthropometryComponent implements OnInit {
       this.prov_size = 0;
       this.prov_weight = 0;
 
-      this.prov_size = (this.form.controls.size.value != null && this.form.controls.size.value != '' && this.form.controls.size.value > 0) ? this.form.controls.size.value : (this.estimated_size > 0) ? this.estimated_size : 0;
-      this.prov_weight = (this.form.controls.weight.value != null && this.form.controls.weight.value != '' && this.form.controls.weight.value > 0) ? this.form.controls.weight.value : (this.estimated_weight > 0) ? this.estimated_weight : 0;
+      this.prov_size = this.validateSize();
+      this.prov_weight = this.validateWeight();
+
+
+      if (this.form.controls.knee_height.value != null &&
+        this.form.controls.knee_height.value != '' &&
+        this.form.controls.knee_height.value > 0) {
+        var c1 = 1;
+        var c2 = 1;
+        var c3 = 1;
+        if (this.data.gender_id == 2) {
+          c1 = 2.02;
+          c2 = 0.04;
+          c3 = 64.19;
+        } else if (this.data.gender_id == 1) {
+          c1 = 1.83;
+          c2 = 0.24;
+          c3 = 84.88;
+        }
+        this.estimated_size = ((c1 * this.form.controls.knee_height.value) - (c2 * this.age) + c3).toFixed(2);
+        this.prov_size = this.validateSize();
+      } else {
+        this.estimated_size = null;
+      }
 
       if (this.prov_size > 0 &&
-        (this.form.controls.abdominal_perimeter.value != null && this.form.controls.abdominal_perimeter.value != '' && this.form.controls.abdominal_perimeter.value > 0) &&
-        (this.form.controls.hip_perimeter.value != null && this.form.controls.hip_perimeter.value != '' && this.form.controls.hip_perimeter.value > 0)) {
+        (this.form.controls.abdominal_perimeter.value != null &&
+          this.form.controls.abdominal_perimeter.value != '' &&
+          this.form.controls.abdominal_perimeter.value > 0) &&
+        (this.form.controls.hip_perimeter.value != null &&
+          this.form.controls.hip_perimeter.value != '' &&
+          this.form.controls.hip_perimeter.value > 0)) {
         var c1 = 1;
         var c2 = 1;
         var c3 = 1;
@@ -169,27 +197,10 @@ export class FormAnthropometryComponent implements OnInit {
           (this.prov_size * c2) +
           (this.form.controls.abdominal_perimeter.value * c3) +
           (this.form.controls.hip_perimeter.value * c4)).toFixed(2);
+        this.prov_weight = this.validateWeight();
 
       } else {
         this.estimated_weight = null;
-      }
-
-      if (this.form.controls.knee_height.value != null && this.form.controls.knee_height.value != '' && this.form.controls.knee_height.value > 0) {
-        var c1 = 1;
-        var c2 = 1;
-        var c3 = 1;
-        if (this.data.gender_id == 2) {
-          c1 = 2.02;
-          c2 = 0.04;
-          c3 = 64.19;
-        } else if (this.data.gender_id == 1) {
-          c1 = 1.83;
-          c2 = 0.24;
-          c3 = 84.88;
-        }
-        this.estimated_size = ((c1 * this.form.controls.knee_height.value) - (c2 * this.age) + c3).toFixed(2);
-      } else {
-        this.estimated_size = null;
       }
 
       if (this.prov_size > 0 &&
@@ -227,6 +238,17 @@ export class FormAnthropometryComponent implements OnInit {
         this.classification = null;
       }
     }
+  }
+
+  validateSize() {
+    return (this.form.controls.size.value != null && this.form.controls.size.value != '' && this.form.controls.size.value > 0) ?
+      this.form.controls.size.value : (this.estimated_size > 0) ?
+        this.estimated_size : 0;
+  }
+  validateWeight() {
+    return (this.form.controls.weight.value != null && this.form.controls.weight.value != '' && this.form.controls.weight.value > 0) ?
+      this.form.controls.weight.value : (this.estimated_weight > 0) ?
+        this.estimated_weight : 0;
   }
 
   getClassification(imc: any) {

@@ -14,6 +14,7 @@ import { DiagnosisService } from '../../../../business-controller/diagnosis.serv
 import { BriefcaseService } from '../../../../business-controller/briefcase.service';
 import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
 import { CompanyService } from '../../../../business-controller/company.service';
+import { TypeBriefcaseService } from '../../../../business-controller/type-briefcase.service';
 
 
 
@@ -59,6 +60,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
    public admissions_id: number = 0;
   public saveFromAdmission = null;
   public isOpen = null;
+  public regime: any[];
   public route;
 
 
@@ -79,6 +81,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     private BriefcaseS: BriefcaseService,
     private ServiceBriefcaseS: ServicesBriefcaseService,
     private companyS: CompanyService,
+    private regimeS: TypeBriefcaseService,
   ) {
   }
 
@@ -92,6 +95,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         pavilion_id: '',
         bed_id: '',
         contract_id: '',
+        regime_id: '',
         briefcase_id: '',
         procedure_id: '',
         has_caregiver:false,
@@ -115,6 +119,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       briefcase_id: [this.data.briefcase_id, Validators.compose([Validators.required])],
       procedure_id: [this.data.procedure_id],
       has_caregiver: [this.data.has_caregiver, Validators.compose([Validators.required])],
+      regime_id: [this.data.regime_id, Validators.compose([Validators.required])],
       eps: [this.data.eps],
     });
 
@@ -129,9 +134,13 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.companyS.GetCollection({eps:0}).then(x => {
       this.eps = x;
     });
-    await this.DiagnosisS.GetCollection().then(x => {
+    this.DiagnosisS.GetCollection().then(x => {
       this.diagnosis = x;
       this.loading = false;
+    });
+
+    this.regimeS.GetCollection().then(x => {
+      this.regime = x;
     });
 
     this.onChanges();
@@ -159,6 +168,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           bed_id: this.form.controls.bed_id.value,
           contract_id: this.form.controls.contract_id.value,
           briefcase_id: this.form.controls.briefcase_id.value,
+          regime_id: this.form.controls.regime_id.value,
           procedure_id: this.form.controls.procedure_id.value,
           campus_id: this.campus_id,
           patient_id: this.user_id
@@ -192,6 +202,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
             scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
             program_id: this.form.controls.program_id.value,
             flat_id: this.form.controls.flat_id.value,
+            regime_id: this.form.controls.regime_id.value,
             pavilion_id: this.form.controls.pavilion_id.value,
             bed_id: this.form.controls.bed_id.value,
             contract_id: this.form.controls.contract_id.value,
@@ -216,6 +227,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
               this.stored();
             }
           }).catch(x => {
+            this.toastService.danger(null,"Ya se creo una admisión con el mismo programa");
             this.isSubmitted = false;
             this.loading = false;
           });

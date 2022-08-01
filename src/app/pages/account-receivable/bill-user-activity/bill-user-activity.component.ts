@@ -30,7 +30,7 @@ export class BillUserActivityComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Actividades realizadas: ';
   public subtitle = '';
-  public headerFields: any[] = ['PROCEDIMIENTO', 'VALOR','ESTADO'];
+  public headerFields: any[] = ['PROCEDIMIENTO', 'VALOR', 'ESTADO', 'OBSERVACIÓN'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -43,6 +43,7 @@ export class BillUserActivityComponent implements OnInit {
   public inscriptionId;
   public campus;
   public user;
+  public role_type;
   public entity: string;
 
   public package: any[] = [];
@@ -71,6 +72,7 @@ export class BillUserActivityComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'role_type': this.role_type,
             'refresh': this.RefreshData.bind(this),
           };
         },
@@ -95,6 +97,13 @@ export class BillUserActivityComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
+      observation: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value != null ? value : '';
+        }
+      },
     },
   };
 
@@ -107,15 +116,14 @@ export class BillUserActivityComponent implements OnInit {
     private billUserActivityS: BillUserActivityService,
     private authService: AuthService,
     private currency: CurrencyPipe,
-
   ) {
   }
 
 
   ngOnInit(): void {
     this.account = this.route.snapshot.params.id;
-
-
+    this.user = this.authService.GetUser();
+    this.role_type = this.user.roles[0].role_type_id;
     this.routes = [
       {
         name: 'Insumos',
