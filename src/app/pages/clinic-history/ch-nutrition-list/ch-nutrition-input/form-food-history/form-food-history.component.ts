@@ -49,6 +49,7 @@ export class FormFoodHistoryComponent implements OnInit {
   public swallowing = [
     { id: 'DEFICIENTE', name: 'DEFICIENTE' },
     { id: 'NORMAL', name: 'NORMAL' },
+    { id: 'AUMENTADO', name: 'AUMENTADO' },
   ];
   public parenteral_nutrition = [
     { id: 'PERIFÉRICA', name: 'PERIFÉRICA' },

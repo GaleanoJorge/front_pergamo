@@ -8,6 +8,9 @@ import { PriceTypeService } from '../../../../business-controller/price-type.ser
 import { ManualPriceService } from '../../../../business-controller/manual-price.service';
 import { ProcedurePackageComponent } from '../../procedure/procedure-package/procedure-package.component';
 import { ProcedurePackageService } from '../../../../business-controller/procedure-package.service';
+import { AdmissionRoute } from '../../../../models/admission-route';
+import { AdmissionsService } from '../../../../business-controller/admissions.service';
+import { PatientService } from '../../../../business-controller/patient.service';
 
 
 
@@ -45,14 +48,18 @@ export class FormManualProcedureComponent implements OnInit {
   public showSelect: Boolean = false;
   public price_type: any[] = [];
   public procedure_id;
+  public admissions_id;
   public showTable;
+  public showSelect3 = false;
   public selectedOptions: any[] = [];
   public selectedOptionsI: any[] = [];
   public selectedOptionsP: any[] = [];
+  public patient: any[] = [];
   public parentData;
   public parentDataInsume;
   public parentDataProduct;
   public showtab;
+  public patient_id;
 
 
 
@@ -67,6 +74,7 @@ export class FormManualProcedureComponent implements OnInit {
     private PriceTypeS: PriceTypeService,
     private procedurePackageS: ProcedurePackageService,
     private toastS: NbToastrService,
+    private patientS: PatientService,
   ) {
   }
 
@@ -92,6 +100,7 @@ export class FormManualProcedureComponent implements OnInit {
         homologous_id: '',
         name: '',
         manual_id: '',
+        patient_id: '',
         value: '',
         price_type_id: '',
         procedure_id: '',
@@ -130,11 +139,15 @@ export class FormManualProcedureComponent implements OnInit {
       value: [this.data.value, Validators.compose([Validators.required])],
       price_type_id: [this.data.price_type_id, Validators.compose([Validators.required])],
       procedure_id: [this.data.procedure_id],
+      patient_id: [this.data.patient_id],
       manual_procedure_type_id: [this.data.manual_procedure_type_id, Validators.compose([Validators.required])],
       description: [this.data.description],
     });
 
 
+    await this.patientS.GetByAdmission(1).then(x => {
+      this.patient = x;
+    });
     await this.ProcedureTypeS.GetCollection().then(x => {
       this.procedure_type = x;
     });
@@ -156,7 +169,7 @@ export class FormManualProcedureComponent implements OnInit {
           }
         });
         this.parentData.selectedOptions = this.manual_procedure_type;
-        this.selectedOptions= this.manual_procedure_type;
+        this.selectedOptions = this.manual_procedure_type;
         this.parentDataProduct.selectedOptions = this.manual_product_type;
         this.selectedOptionsP = this.manual_product_type;
         this.parentDataInsume.selectedOptions = this.manual_insume_type;
@@ -204,6 +217,8 @@ export class FormManualProcedureComponent implements OnInit {
     if (tipoId == 2) {
       this.showSelect = true;
       this.showTable = false;
+      this.showSelect3 = false;
+
       this.selectedOptions = [];
       this.selectedOptions = [];
       this.selectedOptions = [];
@@ -214,6 +229,8 @@ export class FormManualProcedureComponent implements OnInit {
       this.form.controls.name.setValue('');
     } else if (tipoId == 3) {
       this.showTable = true;
+      this.showSelect3 = false;
+
       this.showSelect = false;
       this.form.controls.own_code.enable();
       this.form.controls.name.enable();
@@ -221,6 +238,7 @@ export class FormManualProcedureComponent implements OnInit {
       this.form.controls.name.setValue('');
     } else if (tipoId == 1) {
       this.showSelect = true;
+      this.showSelect3 = false;
       this.showTable = false;
       this.selectedOptions = [];
       this.selectedOptions = [];
@@ -228,6 +246,14 @@ export class FormManualProcedureComponent implements OnInit {
       this.form.controls.homologous_id.disable();
       this.form.controls.own_code.disable();
       this.form.controls.name.disable();
+    } else if (tipoId == 4) {
+      this.showSelect = true;
+      this.showSelect3 = true;
+      this.showTable = false;
+      this.selectedOptions = [];
+      this.selectedOptions = [];
+      this.selectedOptions = [];
+
     }
 
     else {
@@ -245,6 +271,20 @@ export class FormManualProcedureComponent implements OnInit {
       this.form.controls.homologous_id.setValue(filter[0].code);
       this.form.controls.own_code.setValue(filter[0].code);
       this.form.controls.name.setValue(filter[0].name);
+    }
+  }
+
+  public saveCode2(e): void {
+
+    var filter = this.patient.filter(patient => patient.identification == e.target.value);
+    if (filter) {
+      this.patient_id = filter[0].id;
+
+    }
+
+    else {
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.patient_id.setErrors({ 'incorrect': true });
     }
   }
 
@@ -279,6 +319,7 @@ export class FormManualProcedureComponent implements OnInit {
               value: this.form.controls.value.value,
               price_type_id: this.form.controls.price_type_id.value,
               procedure_id: this.procedure_id,
+              patient_id: this.patient_id,
               manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
               description: this.form.controls.description.value,
             }).then(x => {
@@ -314,6 +355,7 @@ export class FormManualProcedureComponent implements OnInit {
               name: this.form.controls.name.value,
               manual_id: this.manual_id,
               value: this.form.controls.value.value,
+              patient_id: this.patient_id,
               price_type_id: this.form.controls.price_type_id.value,
               procedure_id: this.procedure_id,
               manual_procedure_type_id: this.form.controls.manual_procedure_type_id.value,
@@ -341,6 +383,7 @@ export class FormManualProcedureComponent implements OnInit {
             homologous_id: this.form.controls.homologous_id.value,
             name: this.form.controls.name.value,
             manual_id: this.manual_id,
+            patient_id: this.patient_id,
             value: this.form.controls.value.value,
             price_type_id: this.form.controls.price_type_id.value,
             procedure_id: this.procedure_id,
@@ -362,6 +405,7 @@ export class FormManualProcedureComponent implements OnInit {
             homologous_id: this.form.controls.homologous_id.value,
             name: this.form.controls.name.value,
             manual_id: this.manual_id,
+            patient_id: this.patient_id,
             value: this.form.controls.value.value,
             price_type_id: this.form.controls.price_type_id.value,
             procedure_id: this.procedure_id,

@@ -1,10 +1,10 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content *ngIf="user">
     <div title>
-      <p class="parrafo" *ngIf="user"><b>CÉDULA:  </b> {{user.identification}} </p>
-      <p class="parrafo" *ngIf="user"><b>NOMBRE:  </b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
+      <p class="parrafo" *ngIf="user"><b>CÉDULA: </b> {{user.identification}} </p>
+      <p class="parrafo" *ngIf="user"><b>NOMBRE: </b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
       <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}}</p>
-      <p class="parrafo" *ngIf="user"><b>EDAD:  </b> {{user.age}} </p>
+      <p class="parrafo" *ngIf="user"><b>EDAD: </b> {{user.age}} </p>
     </div>
     <nb-tabset fullWidth class="tabset" (changeTab)="tablock($event)">
 
@@ -14,7 +14,7 @@
           </ngx-ch-nutrition-input>
         </div>
       </nb-tab>
-      
+
       <nb-tab tabTitle="NOTA REGULAR">
         <div *ngIf="this.show == 2">
           <ngx-ch-nutrition-regular-note [data]="this.user" [record_id]="this.record_id">
@@ -24,7 +24,14 @@
 
       <nb-tab tabTitle="ESCALAS">
         <div *ngIf="this.show == 3">
-          <ngx-form-ch-scales [data]="this.user" [record_id]="this.record_id" [nutrition]="true"></ngx-form-ch-scales>
+          <ngx-form-ch-scales [data]="this.user" [record_id]="this.record_id" [nutrition]="true" [age]="user">
+          </ngx-form-ch-scales>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="FALLIDA">
+        <div *ngIf="this.show == 9">
+          <ngx-failed (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-failed>
         </div>
       </nb-tab>
 

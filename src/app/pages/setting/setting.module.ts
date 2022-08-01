@@ -272,23 +272,12 @@ import { FormFinancialDataComponent } from './users/form-financial-data/form-fin
 import { AuthStatusComponent } from './auth-status/auth-status.component';
 import { FormAuthStatusComponent } from './auth-status/form-auth-status/form-auth-status.component';
 import { FormEditLocationCapacityComponent } from './location-capacity/sigle-location-capacity/form-edit-location-capacity/form-edit-location-capacity.component';
-import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
-import { SelectProductShippingComponent } from './pharmacy-request/prod-shipping-package/select-prod-shipping.component';
-import { AmountShippingComponent } from './pharmacy-request/prod-shipping-package/amount-shipping.component';
 import { BillingComponent } from './billing/billing.component';
 import { FormBillingComponent } from './billing/form-billing/form-billing.component';
 import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
 import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
-import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
-import { FormPharmacyInventoryComponent } from './pharmacy-inventory/form-pharmacy-inventory/form-pharmacy-inventory.component';
-import { ActionsInvComponent } from './pharmacy-inventory/actionsInv.component';
-import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
-import { FormPharmacyProductRequestComponent } from './pharmacy-product-request/form-pharmacy-product-request/form-pharmacy-product-request.component';
-import { FormPharmacyRequestComponent } from './pharmacy-request/form-pharmacy-request/form-pharmacy-request.component';
-import { ActionsSendComponent } from './pharmacy-request/actions.component';
 import { PharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/pharmacy-update-max-min.component';
 import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
-import { ProdShippingPackageComponent } from './pharmacy-request/prod-shipping-package/prod-shipping-package.component';
 import { ProdBillingPackageComponent } from './billing/prod-billing-package/prod-billing-package.component';
 import { AmountBillingComponent } from './billing/prod-billing-package/amount-billing.component';
 import { SelectProductBillingComponent } from './billing/prod-billing-package/select-prod-billing.component';
@@ -297,28 +286,8 @@ import { DynamicProcedurePackageComponent } from './procedure/procedure-package/
 import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
 import { TcRadicationComponent } from './tc-radication/tc-radication.component';
 import { TcBillingComponent } from './tc-billing/tc-billing.component';
-import { PharmacyLotComponent } from './pharmacy-lot/pharmacy-lot.component';
-import { FormPharmacyLotComponent } from './pharmacy-lot/form-pharmacy-lot/form-pharmacy-lot.component';
-import { ProdLotPackageComponent } from './pharmacy-lot/prod-lot-package/prod-lot-package.component';
 import { AmountUnitBillingComponent } from './billing/prod-billing-package/amount-unit-billing.component';
-import { AmountComponent } from './pharmacy-lot/prod-lot-package/amount.component';
-import { LotComponent } from './pharmacy-lot/prod-lot-package/lot.component';
-import { DateComponent } from './pharmacy-lot/prod-lot-package/date.component';
-import { SelectPharmacyLotComponent } from './pharmacy-lot/prod-lot-package/select-prod-lot.component';
-import { FormPharmacyIncomeComponent } from './pharmacy-income/form-pharmacy-income/form-pharmacy-income.component';
-import { PharmacyIncomeComponent } from './pharmacy-income/pharmacy-income.component';
-import { ActionsIncoComponent } from './pharmacy-income/actions.component';
-import { AmountDamagedComponent } from './pharmacy-income/income-package/amountdamaged.component';
-import { AmountIncomeComponent } from './pharmacy-income/income-package/amountIncome.component';
-import { IncomePackageComponent } from './pharmacy-income/income-package/income-package.component';
-import { SelectIncomeComponent } from './pharmacy-income/income-package/select-income.component';
 import { BaseLocationPackageComponent } from './location-capacity/sigle-location-capacity/base-location-package/base-location-package.component';
-import { FormPharmacyReturnComponent } from './pharmacy-return/form-pharmacy-return/form-pharmacy-return.component';
-import { AmountReturnComponent } from './pharmacy-return/prod-return-package/amount-return.component';
-import { ProdReturnPackageComponent } from './pharmacy-return/prod-return-package/prod-return-package.component';
-import { SelectProductReturnComponent } from './pharmacy-return/prod-return-package/select-prod-return.component';
-import { ActionsReturnComponent } from './pharmacy-return/actions-return.component';
-import { PharmacyReturnComponent } from './pharmacy-return/pharmacy-return.component';
 import { NomProductComponent } from './nom-product/nom-product.component';
 import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom-product.component';
 import { FormFixedAreaCampusComponent } from './fixed-area-campus/form-fixed-area-campus/form-fixed-area-campus.component';
@@ -372,30 +341,11 @@ import { ProductSuppliesComponent } from './product-supplies/product-supplies.co
 import { FormProductSuppliesComponent } from './product-supplies/form-product-supplies/form-product-supplies.component';
 import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
 import { FormSuppliesCommComponent } from './supplies-comm/form-supplies-comm/form-supplies-comm.component';
-import { ProductTabComponent } from './product-tab/product-tab.component';
 import { AmountSuppliesComponent } from './billing/prod-supplies-package/amount-supplies.component';
 import { AmountUnitSuppliesComponent } from './billing/prod-supplies-package/amount-unit-supplies.component';
 import { ProdSuppliesPackageComponent } from './billing/prod-supplies-package/prod-supplies-package.component';
 import { SelectProductSuppliesComponent } from './billing/prod-supplies-package/select-prod-supplies.component';
-import { ActionsInvSupComponent } from './pharmacy-inventory-supplies/actionsInv.component';
-import { PharmacyInventorySuppliesComponent } from './pharmacy-inventory-supplies/pharmacy-inventory-supplies.component';
-import { FormPharmacyInventorySuppliesComponent } from './pharmacy-inventory-supplies/form-pharmacy-inventory-supplies/form-pharmacy-inventory-supplies.component';
-import { FormPharmacyIncomeSuppliesComponent } from './pharmacy-income-supplies/form-pharmacy-income-supplies/form-pharmacy-income-supplies.component';
-import { AmountSupComeComponent } from './pharmacy-income-supplies/income-supplies-package/amountSupCome.component';
-import { IncomeSuppliesPackageComponent } from './pharmacy-income-supplies/income-supplies-package/income-supplies-package.component';
-import { SelectSuppliesIncomeComponent } from './pharmacy-income-supplies/income-supplies-package/select-supplies-income.component';
-import { ActionsSupComponent } from './pharmacy-income-supplies/actions.component';
-import { PharmacyIncomeSuppliesComponent } from './pharmacy-income-supplies/pharmacy-income-supplies.component';
-import { AmountDamagedSupComponent } from './pharmacy-income-supplies/income-supplies-package/amountDamagedSup.component';
 import { FormConfirmDisabledComponent } from './users/form-confirm-disabled/form-confirm-disabled.component';
-import { FormBillingRequestPharmacyComponent } from './billing-request-pharmacy/form-billing-request-pharmacy/form-billing-request-pharmacy.component';
-import { AmountBillingRequestPharmacyComponent } from './billing-request-pharmacy/prod-billing-request-pharmacy-package/amount-billing-request-pharmacy.component';
-import { ProdBillingRequestPharmacyPackageComponent } from './billing-request-pharmacy/prod-billing-request-pharmacy-package/prod-billing-request-pharmacy-package.component';
-import { SelectProductBillingRequestPharmacyComponent } from './billing-request-pharmacy/prod-billing-request-pharmacy-package/select-prod-billing-request-pharmacy.component';
-import { AmountSuppliesRequestComponent } from './billing-request-pharmacy/prod-supplies-request-package/amount-supplies-request.component';
-import { ProdSuppliesRequestPackageComponent } from './billing-request-pharmacy/prod-supplies-request-package/prod-supplies-request-package.component';
-import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/billing-request-pharmacy.component';
-import { SelectProductSuppliesRequestComponent } from './billing-request-pharmacy/prod-supplies-request-package/select-prod-supplies-request.component';
 import { IvaBillingComponent } from './billing/prod-billing-package/iva-billing.component';
 import { IvaSuppliesComponent } from './billing/prod-supplies-package/iva-supplies.component';
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
@@ -417,19 +367,11 @@ import { ActionsComponentInsume } from './manual/insume-massive/actions.componen
 import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
 import { FormManualInsumeComponent } from './manual/form-manual-insume/form-manual-insume.component';
 import { TcCollectionComponent } from './tc-collection/tc-collection.component';
-import { FormPharmacyRequestPatientComponent } from './pharmacy-request-patient/form-pharmacy-request-patient/form-pharmacy-request-patient.component';
-import { AmountShippingPatientComponent } from './pharmacy-request-patient/prod-shipping-patient-package/amount-shipping-patient.component';
-import { ProdShippingPatientPackageComponent } from './pharmacy-request-patient/prod-shipping-patient-package/prod-shipping-patient-package.component';
-import { SelectProductPatientShippingComponent } from './pharmacy-request-patient/prod-shipping-patient-package/select-prod-patient-shipping.component';
-import { ActionsSendPatientComponent } from './pharmacy-request-patient/actions.component';
-import { PharmacyRequestPatientComponent } from './pharmacy-request-patient/pharmacy-request-patient.component';
 import { FixedAssetsRequestsPatientComponent } from './fixed-assets-requests-patient/fixed-assets-requests-patient.component';
 import { ActionsAssReqPatientComponent } from './fixed-assets-requests-patient/actions.component';
 import { FormFixedAssetsRequestsPatientComponent } from './fixed-assets-requests-patient/form-fixed-assets-requests-patient/form-fixed-assets-requests-patient.component';
 import { AssetsSelectRequestsPatientComponent } from './fixed-assets-requests-patient/assets-requests-patient-package/assets-select-requests-patient.component';
 import { AssetsRequestsPatientPackageComponent } from './fixed-assets-requests-patient/assets-requests-patient-package/assets-requests-patient-package.component';
-import { FormPharmaInvPersonComponent } from './pharmacy-inventory/form-pharma-inv-person/form-pharma-inv-person.component';
-import { FormPharmaInvSupPersonComponent } from './pharmacy-inventory-supplies/form-pharma-inv-sup-person/form-pharma-inv-sup-person.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -739,52 +681,15 @@ import { FormPharmaInvSupPersonComponent } from './pharmacy-inventory-supplies/f
     PharmacyStockComponent,
     FormPharmacyStockComponent,
 
-    PharmacyInventoryComponent,
-    FormPharmacyInventoryComponent,
-    ActionsInvComponent,
-    FormPharmaInvPersonComponent,
-
-    PharmacyProductRequestComponent,
-    FormPharmacyProductRequestComponent,
-
-    PharmacyRequestComponent,
-    FormPharmacyRequestComponent,
-    ActionsSendComponent,
-
     PharmacyUpdateMaxMinComponent,
     FormPharmacyUpdateMaxMinComponent,
 
-    ProdShippingPackageComponent,
-    SelectProductShippingComponent,
-    AmountShippingComponent,
     TcBillingComponent,
     TcRadicationComponent,
     TcHumanTalentComponent,
     TcCollectionComponent,
 
-    PharmacyLotComponent,
-    FormPharmacyLotComponent,
-    ProdLotPackageComponent,
-    SelectPharmacyLotComponent,
-    AmountComponent,
-    LotComponent,
-    DateComponent,
-
-    FormPharmacyIncomeComponent,
-    PharmacyIncomeComponent,
-    ActionsIncoComponent,
-    AmountDamagedComponent,
-    AmountIncomeComponent,
-    IncomePackageComponent,
-    SelectIncomeComponent,
     BaseLocationPackageComponent,
-
-    FormPharmacyReturnComponent,
-    AmountReturnComponent,
-    ProdReturnPackageComponent,
-    SelectProductReturnComponent,
-    ActionsReturnComponent,
-    PharmacyReturnComponent,
 
     NomProductComponent,
     FormNomProductComponent,
@@ -846,33 +751,13 @@ import { FormPharmaInvSupPersonComponent } from './pharmacy-inventory-supplies/f
 
     SuppliesCommComponent,
     FormSuppliesCommComponent,
-    ProductTabComponent,
 
     AmountSuppliesComponent,
     AmountUnitSuppliesComponent,
     ProdSuppliesPackageComponent,
     SelectProductSuppliesComponent,
-    ActionsInvSupComponent,
-    PharmacyInventorySuppliesComponent,
-    FormPharmacyInventorySuppliesComponent,
-    FormPharmaInvSupPersonComponent,
 
-    FormPharmacyIncomeSuppliesComponent,
-    AmountDamagedSupComponent,
-    AmountSupComeComponent,
-    IncomeSuppliesPackageComponent,
-    SelectSuppliesIncomeComponent,
-    ActionsSupComponent,
-    PharmacyIncomeSuppliesComponent,
 
-    FormBillingRequestPharmacyComponent,
-    AmountBillingRequestPharmacyComponent,
-    ProdBillingRequestPharmacyPackageComponent,
-    SelectProductBillingRequestPharmacyComponent,
-    AmountSuppliesRequestComponent,
-    ProdSuppliesRequestPackageComponent,
-    SelectProductSuppliesRequestComponent,
-    BillingRequestPharmacyComponent,
     BillingRequestPharmacyMostComponent,
     tcRentabilityComponent,
 
@@ -886,13 +771,6 @@ import { FormPharmaInvSupPersonComponent } from './pharmacy-inventory-supplies/f
     FixedFormNomProductComponent,
     FixedNomProductComponent,
 
-
-    FormPharmacyRequestPatientComponent,
-    AmountShippingPatientComponent,
-    ProdShippingPatientPackageComponent,
-    SelectProductPatientShippingComponent,
-    ActionsSendPatientComponent,
-    PharmacyRequestPatientComponent,
 
     AssetsRequestsPatientPackageComponent,
     AssetsSelectRequestsPatientComponent,

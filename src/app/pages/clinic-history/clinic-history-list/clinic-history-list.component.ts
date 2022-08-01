@@ -44,6 +44,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public loading: boolean = false;
   public currentRole: any;
   public show: any;
+  public is_failed: boolean = true;
   public signatureImage: string;
 
 
@@ -245,6 +246,7 @@ export class ClinicHistoryListComponent implements OnInit {
       user: this.user,
       role: this.currentRole,
       user_id: this.own_user.id,
+      is_failed: this.is_failed,
     }).then(x => {
       this.toastService.success('', x.message);
       this.location.back();
@@ -340,6 +342,12 @@ export class ClinicHistoryListComponent implements OnInit {
         this.show = 10;
         break;
       }
+    }
+  }
+
+  receiveMessage($event) {
+    if ($event.is_failed == true) {
+      this.is_failed = true;
     }
   }
 

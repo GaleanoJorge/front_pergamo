@@ -22,7 +22,7 @@ export class AdmissionsPatientComponent implements OnInit {
   public messageError = null;
   public title;
   public subtitle = 'Por usuario';
-  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ruta','Ambito','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Portafolio','Fecha Ingreso','Fecha Egreso','Salida Medica'];
+  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ruta','Ambito','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Portafolio','Regimen','Fecha Ingreso','Fecha Egreso','Salida Medica'];
   public routes = [];
   public course;
   public data= [];
@@ -140,12 +140,23 @@ export class AdmissionsPatientComponent implements OnInit {
           return value.name;
         },
       },
-      entry_date: {
+      regime: {
         title: this.headerFields[10],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      entry_date: {
+        title: this.headerFields[11],
         type: 'date',
       },      
+      medical_date: {
+        title: this.headerFields[13],
+        type: 'date',
+      },     
       discharge_date: {
-        title: this.headerFields[11],
+        title: this.headerFields[12],
         type: 'date',
         valuePrepareFunction: (value, row) => {
           if(value=='0000-00-00 00:00:00' && this.cont!=1){
@@ -157,10 +168,7 @@ export class AdmissionsPatientComponent implements OnInit {
           return value;
         },
       },
-      medical_date: {
-        title: this.headerFields[12],
-        type: 'date',
-      },     
+
     },
   };
 

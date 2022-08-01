@@ -1,11 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import { BillingStockService } from '../../../../business-controller/billing-stock.service';
 import { PharmacyLotStockService } from '../../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyLotService } from '../../../../business-controller/pharmacy-lot.service';
 import { AuthService } from '../../../../services/auth.service';
-
 
 @Component({
   selector: 'ngx-form-pharmacy-lot',
@@ -28,13 +26,11 @@ export class FormPharmacyLotComponent implements OnInit {
   public user;
   public show: boolean = false;
 
-
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private pharmalotS: PharmacyLotService,
     private pharmalotStockS: PharmacyLotStockService,
-    
     private toastService: NbToastrService,
     private toastS: NbToastrService,
     private authService: AuthService,
@@ -96,7 +92,6 @@ export class FormPharmacyLotComponent implements OnInit {
       }
       if (valid_values) {
         this.loading = true;
-
         if (this.data.id) {
           this.pharmalotS.Update({
             id: this.data.id,

@@ -38,6 +38,7 @@ import { SelectRentReliefPackageComponent } from './account-receivable-list/form
 import { AmountRentReliefPackageComponent } from './account-receivable-list/form-rent-relief/rent-relief-package/amount-rent-relief-package.component';
 import { FileRentReliefPackageComponent } from './account-receivable-list/form-rent-relief/rent-relief-package/file-rent-relief-package.component';
 import { FormConfirmPayComponent } from './account-receivable-list/form-confirm-pay/form-confirm-pay.component';
+import { FormRejectAccountComponent } from './account-receivable-list/form-rent-relief/form-reject-account/form-reject-account.component';
 
 
 
@@ -84,6 +85,7 @@ import { FormConfirmPayComponent } from './account-receivable-list/form-confirm-
     AmountRentReliefPackageComponent,
     FileRentReliefPackageComponent,
     FormConfirmPayComponent,
+    FormRejectAccountComponent,
   ],
   providers: [
     DateFormatPipe,

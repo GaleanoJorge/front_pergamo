@@ -17,6 +17,7 @@ export class FormFailedComponent implements OnInit {
   public form: FormGroup;
   public isSubmitted: boolean = false;
   public saved: any = null;
+  public ch_failed: any = null;
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
@@ -33,7 +34,7 @@ export class FormFailedComponent implements OnInit {
     private ChFailedS: ChFailedService,
     private ChReasonS: ChReasonService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.record_id = this.route.snapshot.params.id;
@@ -50,9 +51,21 @@ export class FormFailedComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      descriptions: [this.data.descriptions,Validators.compose([Validators.required]),],
-      file_evidence: [this.data.file_evidence,Validators.compose([Validators.required]),],
-      ch_reason_id: [this.data.ch_reason_id,Validators.compose([Validators.required]),],
+      descriptions: [this.data.descriptions, Validators.compose([Validators.required]),],
+      file_evidence: [this.data.file_evidence, Validators.compose([Validators.required]),],
+      ch_reason_id: [this.data.ch_reason_id, Validators.compose([Validators.required]),],
+    });
+
+    this.ChFailedS.GetCollection({
+      ch_record_id: this.record_id,
+    }).then(x => {
+      this.ch_failed = x[0];
+      if (this.ch_failed != null) {
+        this.form.patchValue({ descriptions: this.ch_failed.descriptions });
+        this.form.patchValue({ file_evidence: this.ch_failed.file_evidence });
+        this.form.patchValue({ ch_reason_id: this.ch_failed.ch_reason_id });
+        this.messageEvent.emit({ refresh: false });
+      }
     });
   }
 
@@ -60,44 +73,48 @@ export class FormFailedComponent implements OnInit {
 
   async save() {
     this.isSubmitted = true;
-    
 
-    if (!this.form.invalid){
- 
-    this.loading = true;
-    
 
-    var formData = new FormData();
-    var data = this.form.controls;
-    formData.append('file_evidence', this.form.value.file_evidence);
-    formData.append('descriptions', data.descriptions.value);
-    formData.append('ch_reason_id', data.ch_reason_id.value);
-    formData.append('type_record_id', '9');
-    formData.append('ch_record_id', this.record_id);
-    
+    if (!this.form.invalid) {
 
-    try {
-      let response;
-      if (this.data?.id) {
-        response = await this.ChFailedS.Update(formData, this.data.id);
-      } else {
-        response = await this.ChFailedS.Save(formData);
-      }
-      this.toastService.success('', response.message);
-      this.messageError = null;
-      this.saved();
-      if (this.saved) {
+      this.loading = true;
+
+
+      var formData = new FormData();
+      var data = this.form.controls;
+      formData.append('file_evidence', this.form.value.file_evidence);
+      formData.append('descriptions', data.descriptions.value);
+      formData.append('ch_reason_id', data.ch_reason_id.value);
+      formData.append('type_record_id', '9');
+      formData.append('ch_record_id', this.record_id);
+
+
+      try {
+        let response;
+        if (this.data?.id) {
+          response = await this.ChFailedS.Update(formData, this.data.id).then(x => {
+            this.messageEvent.emit({ refresh: true });
+          });
+        } else {
+          response = await this.ChFailedS.Save(formData).then(x => {
+            this.messageEvent.emit({ refresh: true });
+          });
+        }
+        this.toastService.success('', response.message);
+        this.messageError = null;
         this.saved();
+        if (this.saved) {
+          this.saved();
+        }
+      } catch (response) {
+        this.messageError = response;
+        this.isSubmitted = false;
+        this.loading = false;
+        throw new Error(response);
       }
-    } catch (response) {
-      this.messageError = response;
-      this.isSubmitted = false;
-      this.loading = false;
-      throw new Error(response);
+    } else {
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
-  }else{
-    this.toastService.warning('', "Debe diligenciar los campos obligatorios");
-  }
   }
 
 

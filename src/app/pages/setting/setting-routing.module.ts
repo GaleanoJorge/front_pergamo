@@ -117,15 +117,10 @@ import { TariffComponent } from './tariff/tariff.component';
 import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
 import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
 import { AuthStatusComponent } from './auth-status/auth-status.component';
-import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
 import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
-import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
-import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
 import { TcBillingComponent } from './tc-billing/tc-billing.component';
 import { TcRadicationComponent } from './tc-radication/tc-radication.component';
 import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
-import { PharmacyLotComponent } from './pharmacy-lot/pharmacy-lot.component';
-import { PharmacyIncomeComponent } from './pharmacy-income/pharmacy-income.component';
 import { NomProductComponent } from './nom-product/nom-product.component';
 import { FixedConditionComponent } from './fixed-condition/fixed-condition.component';
 import { FixedPropertyComponent } from './fixed-property/fixed-property.component';
@@ -143,15 +138,12 @@ import { FixedTabComponent } from './fixed-tab/fixed-tab.component';
 import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-requests.component';
 import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
 import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
-import { ProductTabComponent } from './product-tab/product-tab.component';
-import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/billing-request-pharmacy.component';
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { FixedRequestComponent } from './fixed-request/fixed-request.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
 import { BillingPadPrefixComponent } from './billing-pad-prefix/billing-pad-prefix.component';
 import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billing-pad-consecutive.component';
 import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.component';
-
 import { AssistanceStockComponent } from './assistance-stock/assistance-stock.component';
 import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
 import { TcCollectionComponent } from './tc-collection/tc-collection.component';
@@ -435,41 +427,10 @@ const routes: Routes = [{
 
     },
     {
-      path: 'pharmacy-lot',
-      component: PharmacyLotComponent,
-
-    },
-    {
       path: 'pharmacy-stock',
       component: PharmacyStockComponent,
 
     },
-    {
-      path: 'pharmacy-inventory',
-      component: ProductTabComponent,
-
-    },
-    {
-      path: 'pharmacy-product-request',
-      component: PharmacyProductRequestComponent,
-
-    },
-    {
-      path: 'pharmacy-request',
-      component: PharmacyRequestComponent,
-
-    },
-    {
-      path: 'pharmacy-update-max-min',
-      component: FormPharmacyUpdateMaxMinComponent,
-    }
-    ,
-    {
-      path: 'pharmacy-income',
-      component: PharmacyIncomeComponent,
-    }
-
-    ,
     {
       path: 'invima-status',
       component: InvimaStatusComponent,
@@ -858,10 +819,6 @@ const routes: Routes = [{
     {
       path: 'tc-rentability',
       component: tcRentabilityComponent,
-    },
-    {
-      path: 'billing-request-pharmacy',
-      component: BillingRequestPharmacyComponent,
     },
     {
       path: 'billing-pad-prefix',
