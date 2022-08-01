@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
 import {ViewCell} from 'ng2-smart-table';
 
 @Component({
@@ -15,7 +14,6 @@ export class ActionsComponentInsume implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
   constructor(
-    private dialogService: NbDialogService,
   ) {
   }
 }

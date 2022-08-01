@@ -1,7 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {ViewCell} from 'ng2-smart-table';
-import { ProcedurePackageService } from '../../../../business-controller/procedure-package.service';
-
 @Component({
   template: `
     <div class="d-flex justify-content-center">
@@ -24,10 +22,8 @@ import { ProcedurePackageService } from '../../../../business-controller/procedu
 export class ActionsComponentProcedure implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
-  public ProcedurePackage:any[];
 
   constructor(
-    private ProcedurePackageS: ProcedurePackageService,
   ) {
   }
 
