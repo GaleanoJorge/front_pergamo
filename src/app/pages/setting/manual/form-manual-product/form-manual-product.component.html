@@ -26,6 +26,13 @@
               <nb-option *ngFor="let item of price_type" [value]="item.id">{{ item.name }}</nb-option>
             </nb-select>
           </div>
+
+          <div class="col-12 col-sm-12 col-md-12">
+            <label class="form-text text-muted font-weight-bold">Descripción:</label>
+            <textarea id="description" nbInput fullWidth formControlName="description" description
+              rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">

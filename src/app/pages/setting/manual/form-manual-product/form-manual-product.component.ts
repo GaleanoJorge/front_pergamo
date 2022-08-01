@@ -63,6 +63,7 @@ export class FormManualProductComponent implements OnInit {
         value:'',
         price_type_id:'',
         product_id:'',
+        description: ''
       };   
     }
 
@@ -77,6 +78,7 @@ export class FormManualProductComponent implements OnInit {
       value: [this.data.value, Validators.compose([Validators.required])],
       price_type_id: [this.data.price_type_id, Validators.compose([Validators.required])],
       product_id: [this.data.procedure_id],
+      description: [this.data.description],
     });
 
 
@@ -100,10 +102,17 @@ export class FormManualProductComponent implements OnInit {
 }
 
 public saveCode(e): void {
-  var filter = this.product_gen.filter(product => product.description==e.target.value);
- this.product_id= filter[0].id;
- console.log(this.product_id);
-  this.form.controls.name.setValue(e.target.value);
+  var filter = this.product_gen.find(product => product.description==e.target.value);
+  if(filter){
+    this.product_id= filter.id;
+    // console.log(this.product_id);
+    this.form.controls.name.setValue(e.target.value);
+  } else {
+    this.product_id;
+    this.toastService.warning('', 'Debe seleccionar un item de la lista');
+    this.form.controls.name.setErrors({ 'incorrect': true });
+    this.form.controls.name.setValue('');
+  }
 
 }
 
@@ -127,6 +136,7 @@ public saveCode(e): void {
           price_type_id: this.form.controls.price_type_id.value,
           product_id: this.product_id,
           manual_procedure_type_id: 2,
+          description: this.form.controls.description.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -145,6 +155,7 @@ public saveCode(e): void {
           price_type_id: this.form.controls.price_type_id.value,
           product_id: this.product_id,
           manual_procedure_type_id: 2,
+          description: this.form.controls.description.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
