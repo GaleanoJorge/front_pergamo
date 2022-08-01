@@ -4,7 +4,7 @@
     <nb-card-body>
       <div class="row">
 
-        <div class="col-12 col-sm-12 col-md-6" *ngIf="assigned!=false">
+        <!-- <div class="col-12 col-sm-12 col-md-6" *ngIf="assigned!=false">
           <label for="admissions_id" class="form-text text-muted font-weight-bold">Admisiónes del paciente:</label>
           <nb-select [selected]="this.data.admissions_id" formControlName="admissions_id" id="admissions_id" fullWidth
             status="{{ isSubmitted && form.controls.admissions_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -13,7 +13,7 @@
               {{ item.consecutive}} - {{item.location[0].scope_of_attention.name}} - {{item.location[0].program.name }}
             </nb-option>
           </nb-select>
-        </div>
+        </div> -->
 
         <div class="col-12 col-sm-12 col-md-6" *ngIf="assigned!=false">
           <label for="type_of_attention" class="form-text text-muted font-weight-bold">Tipo de Atención:</label>

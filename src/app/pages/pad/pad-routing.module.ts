@@ -8,6 +8,7 @@ import { ManagementPlanComponent } from './management-plan/management-plan.compo
 import { AssignedManagementPlanComponent } from './assigned-management-plan/assigned-management-plan.component';
 import { PharmacyApplicationComponent } from './management-plan/pharmacy-application/pharmacy-application.component';
 import { ConsentsInformedComponent } from './consents-informed/consents-informed.component';
+import { AdmissionsPatientPadComponent } from './admissions-patient/admissions-patient.component';
 
 
 const routes: Routes = [{
@@ -33,6 +34,10 @@ const routes: Routes = [{
     {
       path: 'management-plan/pharmacy-application',
       component: PharmacyApplicationComponent,
+    },
+    {
+      path: 'admissions-patient-pad/:patient_id/:user_id',
+      component: AdmissionsPatientPadComponent,
     },
   ],
 }];
