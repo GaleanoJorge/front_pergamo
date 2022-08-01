@@ -78,14 +78,14 @@ export class EntryFormValorationOtComponent implements OnInit {
     }
   }
 
-  async save() {
+    save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
 
       if (this.data.id) {
-        await this.ChEValorationOTS.Update({
+          this.ChEValorationOTS.Update({
           id: this.data.id,
           ch_diagnosis_id: this.form.controls.ch_diagnosis_id.value,
           recomendations: this.form.controls.recomendations.value,
@@ -102,7 +102,7 @@ export class EntryFormValorationOtComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEValorationOTS.Save({
+          this.ChEValorationOTS.Save({
           ch_diagnosis_id: this.ch_diagnosis_id,
           recomendations: this.form.controls.recomendations.value,
           type_record_id: 1,

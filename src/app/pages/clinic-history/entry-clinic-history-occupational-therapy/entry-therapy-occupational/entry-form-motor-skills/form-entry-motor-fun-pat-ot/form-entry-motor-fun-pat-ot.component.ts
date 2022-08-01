@@ -109,13 +109,13 @@ export class FormEntryMotorFunPatOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSFunPatOTService.Update({
+          this.ChEMSFunPatOTService.Update({
           id: this.data.id,
           head_right: this.form.controls.head_right.value,
           head_left: this.form.controls.head_left.value,
@@ -144,7 +144,7 @@ export class FormEntryMotorFunPatOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSFunPatOTService.Save({
+          this.ChEMSFunPatOTService.Save({
           head_right: this.form.controls.head_right.value,
           head_left: this.form.controls.head_left.value,
           mouth_right: this.form.controls.mouth_right.value,

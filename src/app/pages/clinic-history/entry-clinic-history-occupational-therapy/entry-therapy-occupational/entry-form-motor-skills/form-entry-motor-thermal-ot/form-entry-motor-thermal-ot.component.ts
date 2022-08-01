@@ -66,13 +66,13 @@ export class FormEntryMotorThermalOTComponent implements OnInit {
      }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSThermalOTService.Update({
+          this.ChEMSThermalOTService.Update({
           id: this.data.id,
           heat: this.form.controls.heat.value,
           cold: this.form.controls.cold.value,
@@ -90,7 +90,7 @@ export class FormEntryMotorThermalOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSThermalOTService.Save({
+          this.ChEMSThermalOTService.Save({
           heat: this.form.controls.heat.value,
           cold: this.form.controls.cold.value,
 

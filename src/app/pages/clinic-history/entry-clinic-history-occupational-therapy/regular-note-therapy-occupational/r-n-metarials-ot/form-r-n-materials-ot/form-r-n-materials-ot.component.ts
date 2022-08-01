@@ -127,13 +127,13 @@ export class FormRNMaterialsOTComponent implements OnInit {
 
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
       if (this.data.id) {
-        await this.ChRNMaterialsOTService.Update({
+          this.ChRNMaterialsOTService.Update({
           id: this.data.id,
           check1_cognitive: this.form.controls.check1_cognitive.value ? this.arrayObjectives[0].description : null,
           check2_colors: this.form.controls.check2_colors.value ? this.arrayObjectives[1].description : null,
@@ -160,7 +160,7 @@ export class FormRNMaterialsOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChRNMaterialsOTService.Save({
+          this.ChRNMaterialsOTService.Save({
           check1_cognitive: this.form.controls.check1_cognitive.value ? this.arrayObjectives[0].description : null,
           check2_colors: this.form.controls.check2_colors.value ? this.arrayObjectives[1].description : null,
           check3_elements: this.form.controls.check3_elements.value ? this.arrayObjectives[2].description : null,

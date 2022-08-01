@@ -103,13 +103,13 @@ export class FormEntryMotorTestOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSTestOTService.Update({
+          this.ChEMSTestOTService.Update({
           id: this.data.id,
           appearance: this.form.controls.appearance.value,
           consent: this.form.controls.consent.value,
@@ -136,7 +136,7 @@ export class FormEntryMotorTestOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSTestOTService.Save({
+          this.ChEMSTestOTService.Save({
           appearance: this.form.controls.appearance.value,
           consent: this.form.controls.consent.value,
           Attention: this.form.controls.Attention.value,

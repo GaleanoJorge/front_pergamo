@@ -66,13 +66,13 @@ export class FormEntryMotorDisTactilelOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSDisTactileOTService.Update({
+          this.ChEMSDisTactileOTService.Update({
           id: this.data.id,
           right: this.form.controls.right.value,
           left: this.form.controls.left.value,
@@ -90,7 +90,7 @@ export class FormEntryMotorDisTactilelOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSDisTactileOTService.Save({
+          this.ChEMSDisTactileOTService.Save({
           right: this.form.controls.right.value,
           left: this.form.controls.left.value,
 

@@ -78,13 +78,13 @@ export class FormEntryMotorDisAuditorylOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSDisAuditoryOTService.Update({
+          this.ChEMSDisAuditoryOTService.Update({
           id: this.data.id,
           sound_sources: this.form.controls.sound_sources.value,
           auditory_hyposensitivity: this.form.controls.auditory_hyposensitivity.value,
@@ -105,7 +105,7 @@ export class FormEntryMotorDisAuditorylOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSDisAuditoryOTService.Save({
+          this.ChEMSDisAuditoryOTService.Save({
           sound_sources: this.form.controls.sound_sources.value,
           auditory_hyposensitivity: this.form.controls.auditory_hyposensitivity.value,
           auditory_hypersensitivity: this.form.controls.auditory_hypersensitivity.value,

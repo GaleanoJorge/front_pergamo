@@ -100,36 +100,36 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
       };
     }
     
-    await this.ChEValorationOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+     this.ChEValorationOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chvaloration = x;
       
     });
 
-    await this.ChRNValorationOTS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+     this.ChRNValorationOTS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chrnvaloration = x;
       
     });
-    await this.ChEOccHistoryOTServiceS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+     this.ChEOccHistoryOTServiceS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chocuupationalhistory = x;
       
     });
-    await this.ChEPastOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+     this.ChEPastOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chpast = x;
       
     });
-    await this.ChEDailyActivitiesOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+     this.ChEDailyActivitiesOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chdailyactivities = x;
       
     });
 
 
 
-    await this.ChRNTherapeuticObjOTS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+     this.ChRNTherapeuticObjOTS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.rntherapeutic = x;
       
     });
 
-    await this.ChRNMaterialsOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+     this.ChRNMaterialsOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.chrnmaterials = x;
       
     });

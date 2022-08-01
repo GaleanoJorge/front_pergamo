@@ -168,14 +168,14 @@ export class EntryFormPastOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
 
       if (this.data.id) {
-        await this.ChEPastOTServiceS.Update({
+          this.ChEPastOTServiceS.Update({
           id: this.data.id,
           family_base: this.form.controls.family_base.value,
           number_childrens: this.form.controls.number_childrens.value,
@@ -206,7 +206,7 @@ export class EntryFormPastOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEPastOTServiceS.Save({
+          this.ChEPastOTServiceS.Save({
           family_base: this.form.controls.family_base.value,
           number_childrens: this.form.controls.number_childrens.value,
           observation_family_struct: this.form.controls.observation_family_struct.value,
