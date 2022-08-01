@@ -16,7 +16,7 @@ import { ViewCell } from 'ng2-smart-table';
         <nb-icon icon="info-outline"></nb-icon>
       </a>
       <button *ngIf="this.rowData.description" nbButton ghost [nbPopover]="templateRef"  nbPopoverTrigger="hover">
-        <nb-icon icon="arrowhead-up-outline"></nb-icon>
+        <nb-icon icon="eye-outline"></nb-icon>
       </button>
     </div>
 
