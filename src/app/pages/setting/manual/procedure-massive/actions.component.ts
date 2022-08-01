@@ -22,6 +22,7 @@ import {ViewCell} from 'ng2-smart-table';
 export class ActionsComponentProcedure implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
+  public ProcedurePackage:any[];
 
   constructor(
   ) {
