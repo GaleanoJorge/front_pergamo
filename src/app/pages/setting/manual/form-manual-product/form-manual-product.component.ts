@@ -68,7 +68,7 @@ export class FormManualProductComponent implements OnInit {
         value:'',
         price_type_id:'',
         product_id:'',
-        description: ''
+        description: '',
         patient_id:'',
       };   
     }
