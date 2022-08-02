@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NbDialogRef, NbToastrService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BankService } from '../../../../business-controller/bank.service';
 import { AccountTypeService } from '../../../../business-controller/account-type.service';
@@ -8,6 +8,7 @@ import { SourceRetentionService } from '../../../../business-controller/source-r
 import { environment } from '../../../../../environments/environment.prod';
 import { TaxValueUnitService } from '../../../../business-controller/tax-value-unit.service';
 import { CurrencyPipe } from '@angular/common';
+import { FormRejectAccountComponent } from './form-reject-account/form-reject-account.component';
 
 
 @Component({
@@ -72,7 +73,7 @@ export class FormRentReliefComponent implements OnInit {
     private AccountTypeS: AccountTypeService,
     private AccountReceivableS: AccountReceivableService,
     private currency: CurrencyPipe,
-
+    private dialogFormService: NbDialogService,
   ) {
   }
 
@@ -120,7 +121,7 @@ export class FormRentReliefComponent implements OnInit {
   }
 
   applySourceRetention() {
-    this.gross_value_activities_format = this.currency.transform(this.source_retention.gross_value_activities);
+    this.gross_value_activities_format = this.source_retention.gross_value_activities ? this.currency.transform(this.source_retention.gross_value_activities) : this.currency.transform(0);
     this.salud_format = this.currency.transform(this.source_retention.salud);
     this.arl_format = this.currency.transform(this.source_retention.arl);
     this.pension_format = this.currency.transform(this.source_retention.pension);
@@ -185,6 +186,7 @@ export class FormRentReliefComponent implements OnInit {
         this.AccountReceivableS.Update({
           id: this.data.id,
           file_payment: this.data.file_payment,
+          observation: this.data.observation,
           gross_value_activities: this.data.gross_value_activities,
           net_value_activities: this.data.gross_value_activities - (this.source_retention.Retencion_por_aplicar + this.source_retention.Rete_ica),
           user_id: this.data.user_id,
@@ -203,6 +205,17 @@ export class FormRentReliefComponent implements OnInit {
       }
 
     }
+  }
+
+  RentAccountReceivable() {
+    this.dialogFormService.open(FormRejectAccountComponent, {
+      context: {
+        title: 'Rechazar cuenta de cobro',
+        data: this.data,
+        saved: this.saved.bind(this),
+        closeP: this.close.bind(this),
+      },
+    });
   }
 
 }

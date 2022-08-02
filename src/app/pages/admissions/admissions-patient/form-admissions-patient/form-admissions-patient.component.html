@@ -103,6 +103,15 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="regime" class="form-text text-muted font-weight-bold">Régimen:</label>
+          <nb-select [selected]="this.data.regime_id" formControlName="regime_id" id="regime_id" fullWidth
+            status="{{ isSubmitted && form.controls.regime_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.regime_id }}" *ngFor="let item of regime" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
         <div class="col-md-6" *ngIf="this.form.value.admission_route_id==1">
           <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimientos del portafolio:</label>
           <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth

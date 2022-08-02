@@ -2,12 +2,10 @@ import { AdmissionsService } from '../../../business-controller/admissions.servi
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import {Component, OnInit,Input,TemplateRef,ViewChild} from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { Actions2Component } from './actions.component';
-import { FormAdmissionsPatientComponent } from './form-admissions-patient/form-admissions-patient.component';
+import { ActionsPadComponent } from './actions.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { FormPatientDataComponent } from '../patient-data/form-admissions-patient/form-patient-data.component';
 import { Patient } from '../../../models/patient';
 import { PatientService } from '../../../business-controller/patient.service';
 
@@ -17,7 +15,7 @@ import { PatientService } from '../../../business-controller/patient.service';
   templateUrl: './admissions-patient.component.html',
   styleUrls: ['./admissions-patient.component.scss'],
 })
-export class AdmissionsPatientComponent implements OnInit {
+export class AdmissionsPatientPadComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public messageError = null;
   public title;
@@ -52,12 +50,12 @@ export class AdmissionsPatientComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditAdmissions.bind(this),
             'delete': this.DeleteConfirmAdmissions.bind(this),
             'refresh': this.RefreshData.bind(this),
+            'user_id': this.user_id,
           };
         },
-        renderComponent: Actions2Component,
+        renderComponent: ActionsPadComponent,
       },
       consecutive: {
         title: this.headerFields[0],
@@ -103,27 +101,6 @@ export class AdmissionsPatientComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
-        },
-      },
-      flat: {
-        title: this.headerFields[5],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.flat;
-        },
-      },
-      pavilion: {
-        title: this.headerFields[6],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.pavilion;
-        },
-      },
-      bed: {
-        title: this.headerFields[7],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.bed;
         },
       },
       contract: {
@@ -202,6 +179,7 @@ export class AdmissionsPatientComponent implements OnInit {
 
    ngOnInit(): void {
     this.patient_id= this.route.snapshot.params.patient_id;
+    this.user_id= this.route.snapshot.params.user_id;
 
 
     this.PatientBS.GetUserById(this.patient_id).then(x => {
@@ -217,27 +195,27 @@ export class AdmissionsPatientComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewAdmissions() {
-    this.dialogFormService.open(FormPatientDataComponent, {
-      closeOnBackdropClick: false,
-      context: {
-        title: 'Crear nuevo ingreso',
-        user_id: this.patient_id,
-        admission_id:this.admission_id,
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
+  // NewAdmissions() {
+  //   this.dialogFormService.open(FormPatientDataComponent, {
+  //     closeOnBackdropClick: false,
+  //     context: {
+  //       title: 'Crear nuevo ingreso',
+  //       user_id: this.patient_id,
+  //       admission_id:this.admission_id,
+  //       saved: this.RefreshData.bind(this),
+  //     },
+  //   });
+  // }
 
-  EditAdmissions(data) {
-    this.dialogFormService.open(FormAdmissionsPatientComponent, {
-      context: {
-        title: 'Editar tipo de ingreso',
-        data,
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
+  // EditAdmissions(data) {
+  //   this.dialogFormService.open(FormAdmissionsPatientComponent, {
+  //     context: {
+  //       title: 'Editar tipo de ingreso',
+  //       data,
+  //       saved: this.RefreshData.bind(this),
+  //     },
+  //   });
+  // }
 
   // ChangeState(data) {
   //   // data.status_id = data.status_id === 1 ? 2 : 1;

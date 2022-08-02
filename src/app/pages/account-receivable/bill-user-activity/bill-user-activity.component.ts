@@ -12,6 +12,7 @@ import { AuthService } from '../../../services/auth.service';
 import { CurrencyPipe } from '@angular/common';
 import { ActionsBillComponent } from './actions.component';
 import { BillUserActivityService } from '../../../business-controller/bill-user-activity.service';
+import { HumanTalentRequestObservationService } from '../../../business-controller/human-talent-request-observation.service';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class BillUserActivityComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Actividades realizadas: ';
   public subtitle = '';
-  public headerFields: any[] = ['PROCEDIMIENTO', 'VALOR','ESTADO'];
+  public headerFields: any[] = ['PROCEDIMIENTO', 'VALOR', 'ESTADO', 'OBSERVACIÓN'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -43,6 +44,7 @@ export class BillUserActivityComponent implements OnInit {
   public inscriptionId;
   public campus;
   public user;
+  public role_type;
   public entity: string;
 
   public package: any[] = [];
@@ -55,8 +57,7 @@ export class BillUserActivityComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-
-
+  public human_talent_request_observation: any = [];
 
 
   public settings = {
@@ -71,6 +72,8 @@ export class BillUserActivityComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'role_type': this.role_type,
+            'human_talent_request_observation': this.human_talent_request_observation,
             'refresh': this.RefreshData.bind(this),
           };
         },
@@ -95,6 +98,13 @@ export class BillUserActivityComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
+      observation: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value != null ? value : '';
+        }
+      },
     },
   };
 
@@ -107,15 +117,15 @@ export class BillUserActivityComponent implements OnInit {
     private billUserActivityS: BillUserActivityService,
     private authService: AuthService,
     private currency: CurrencyPipe,
-
+    private HumanTalentRequestObservationS: HumanTalentRequestObservationService,
   ) {
   }
 
 
   ngOnInit(): void {
     this.account = this.route.snapshot.params.id;
-
-
+    this.user = this.authService.GetUser();
+    this.role_type = this.user.roles[0].role_type_id;
     this.routes = [
       {
         name: 'Insumos',
@@ -126,6 +136,12 @@ export class BillUserActivityComponent implements OnInit {
         route: '../../contract/briefcase',
       },
     ];
+
+    this.HumanTalentRequestObservationS.GetCollection({
+      category: 3,
+    }).then(x => {
+      this.human_talent_request_observation = x;
+    });
   }
 
 

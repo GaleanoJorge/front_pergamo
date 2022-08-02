@@ -42,7 +42,7 @@ export class PatientService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.patients = <Patient[]>servObj.data.users;
+        this.patients = <Patient[]>servObj.data.patients;
         return Promise.resolve(this.patients);
       })
       .catch(x => {
