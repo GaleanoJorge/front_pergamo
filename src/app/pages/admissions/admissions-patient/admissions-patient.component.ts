@@ -144,7 +144,7 @@ export class AdmissionsPatientComponent implements OnInit {
         title: this.headerFields[10],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return value?.name;
         },
       },
       entry_date: {
