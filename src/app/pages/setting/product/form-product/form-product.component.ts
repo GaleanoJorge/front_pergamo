@@ -32,7 +32,7 @@ export class FormProductComponent implements OnInit {
   public storage_conditions: any[];
   public packing: any[];
   public showReg: boolean = false;
-  public product_id ;
+  public product_id;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -72,6 +72,7 @@ export class FormProductComponent implements OnInit {
         packing_id: '',
         refrigeration: '',
         useful_life: '',
+        code_cum: '',
       };
     }
     this.form = this.formBuilder.group({
@@ -97,6 +98,7 @@ export class FormProductComponent implements OnInit {
       packing_id: [this.data.packing_id, Validators.compose([Validators.required])],
       refrigeration: [this.data.refrigeration, Validators.compose([Validators.required])],
       useful_life: [this.data.useful_life, Validators.compose([Validators.required])],
+      code_cum: [this.data.code_cum, Validators.compose([Validators.required])],
     });
 
     await this.FactoryS.GetCollection().then(x => {
@@ -136,7 +138,7 @@ export class FormProductComponent implements OnInit {
       this.product_id = localidentify.id;
     } else {
       this.product_id = null;
-      this.form.controls.product_generic_id.setErrors({'incorrect': true });
+      this.form.controls.product_generic_id.setErrors({ 'incorrect': true });
       this.toastService.warning('', 'Debe seleccionar un item de la lista');
     }
   }
@@ -173,6 +175,7 @@ export class FormProductComponent implements OnInit {
           packing_id: this.form.controls.packing_id.value,
           refrigeration: this.form.controls.refrigeration.value,
           useful_life: this.form.controls.useful_life.value,
+          code_cum: this.form.controls.code_cum.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -208,6 +211,7 @@ export class FormProductComponent implements OnInit {
           packing_id: this.form.controls.packing_id.value,
           refrigeration: this.form.controls.refrigeration.value,
           useful_life: this.form.controls.useful_life.value,
+          code_cum: this.form.controls.code_cum.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
