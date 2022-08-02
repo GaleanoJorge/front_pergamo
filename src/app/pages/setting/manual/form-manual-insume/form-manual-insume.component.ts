@@ -8,7 +8,8 @@ import { PriceTypeService } from '../../../../business-controller/price-type.ser
 import { ManualPriceService } from '../../../../business-controller/manual-price.service';
 import { ProductGenericService } from '../../../../business-controller/product-generic.service';
 import { ProductSuppliesService } from '../../../../business-controller/product-supplies.service';
-
+import { PatientService } from '../../../../business-controller/patient.service';
+  
 
 @Component({
   selector: 'ngx-form-manual-insume',
@@ -39,20 +40,19 @@ export class FormManualInsumeComponent implements OnInit {
   public showSelect: Boolean = false;
   public price_type: any[] = [];
   public supplies_id;
+  public patient_id;
+  public patient: any[] = [];
 
 
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
-    // private statusBS: StatusBusinessService,
-    private ProcedureS: ProcedureService,
     private toastService: NbToastrService,
     private ManualPriceS: ManualPriceService,
-    private ProcedureTypeS: ProcedureTypeService,
     private PriceTypeS: PriceTypeService,
-    private ProductGenS: ProductGenericService,
     private ProductSupS: ProductSuppliesService,
+    private patientS: PatientService,
 
   ) {
   }
@@ -86,6 +86,9 @@ export class FormManualInsumeComponent implements OnInit {
     await this.ProductSupS.GetCollection().then(x => {
       this.product_supplies = x;
     });
+    await this.patientS.GetByAdmission(1).then(x => {
+      this.patient = x;
+    });
     this.PriceTypeS.GetCollection().then(x => {
       this.price_type = x;
     });
@@ -112,6 +115,19 @@ export class FormManualInsumeComponent implements OnInit {
     }
   }
 
+  public saveCode2(e): void {
+
+    var filter = this.patient.filter(patient => patient.identification == e.target.value);
+    if (filter) {
+      this.patient_id = filter[0].id;
+
+    }
+
+    else {
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.patient_id.setErrors({ 'incorrect': true });
+    }
+  }
 
   close() {
     this.dialogRef.close();
@@ -134,6 +150,7 @@ export class FormManualInsumeComponent implements OnInit {
           supplies_id: this.supplies_id,
           manual_procedure_type_id: 2,
           description: this.form.controls.description.value,
+          patient_id: this.patient_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -153,6 +170,7 @@ export class FormManualInsumeComponent implements OnInit {
           supplies_id: this.supplies_id,
           manual_procedure_type_id: 2,
           description: this.form.controls.description.value,
+          patient_id: this.patient_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

@@ -45,6 +45,8 @@ import { FormConsentsInformedComponent } from './consents-informed/form-consents
 import { ConsentsInformedComponent } from './consents-informed/consents-informed.component';
 import { ActionsCIComponent } from './consents-informed/actions.component';
 import { SignaturePadModule } from '@ng-plus/signature-pad';
+import { AdmissionsPatientPadComponent } from './admissions-patient/admissions-patient.component';
+import { ActionsPadComponent } from './admissions-patient/actions.component';
 
 
 
@@ -85,9 +87,11 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
     PadListComponent,
     ConsentsInformedComponent,
     FormPadComponent,
+    AdmissionsPatientPadComponent,
     ManagementPlanComponent,
     FormManagementPlanComponent,
     FormConsentsInformedComponent,
+    ActionsPadComponent,
     FormAssignedManagementPlanComponent,
     Actions2Component,
     Actions3Component,

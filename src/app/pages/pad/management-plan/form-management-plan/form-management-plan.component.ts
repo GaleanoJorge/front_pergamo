@@ -12,6 +12,7 @@ import { ServicesBriefcaseService } from '../../../../business-controller/servic
 import { ProductGenericService } from '../../../../business-controller/product-generic.service';
 import { AdministrationRouteService } from '../../../../business-controller/administration-route.service';
 import { AdmissionsService } from '../../../../business-controller/admissions.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -63,6 +64,7 @@ export class FormManagementPlanComponent implements OnInit {
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
+    private route: ActivatedRoute,
     private managementPlanS: ManagementPlanService,
     private typeOfAttentionS: TypeOfAttentionService,
     private frequencyS: FrequencyService,
@@ -92,7 +94,6 @@ export class FormManagementPlanComponent implements OnInit {
         blend: '',
         administration_time: '',
         start_hours: '',
-        admissions_id: '',
       };
       this.militat_hour_id = '00';
       this.militat_minut_id = '00';
@@ -177,7 +178,6 @@ export class FormManagementPlanComponent implements OnInit {
         number_doses: [this.data.number_doses],
         dosage_administer: [this.data.dosage_administer],
         product_gen: [this.data.product_gen],
-        admissions_id: [this.data.admissions_id],
       }
       this.form = this.formBuilder.group(this.configForm);
       this.onChanges();
@@ -201,7 +201,6 @@ export class FormManagementPlanComponent implements OnInit {
         number_doses: [this.data.number_doses],
         dosage_administer: [this.data.dosage_administer],
         product_gen: [this.data.product_gen],
-        admissions_id: [this.data.admissions_id],
       });
       this.isMedical = true;
       this.onChanges2();
@@ -466,7 +465,7 @@ export class FormManagementPlanComponent implements OnInit {
           quantity: this.form.controls.quantity.value,
           specialty_id: this.form.controls.specialty_id.value,
           assigned_user_id: this.form.controls.assigned_user_id.value,
-          admissions_id: this.form.controls.admissions_id.value,
+          admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,
@@ -504,7 +503,7 @@ export class FormManagementPlanComponent implements OnInit {
           quantity: this.form.controls.quantity.value,
           specialty_id: this.form.controls.specialty_id.value,
           assigned_user_id: this.form.controls.assigned_user_id.value,
-          admissions_id: this.form.controls.admissions_id.value,
+          admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,

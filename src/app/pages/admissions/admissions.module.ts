@@ -74,7 +74,7 @@ import { ActionsComponentED } from './patient-data/actionsED.component';
   providers: [
     DateFormatPipe,
   ],
-  exports: [],
+  exports: [AdmissionsPatientComponent],
 })
 export class AdmissionsModule {
 }

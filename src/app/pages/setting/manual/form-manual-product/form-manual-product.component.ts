@@ -7,7 +7,9 @@ import {ProcedureTypeService} from '../../../../business-controller/procedure-ty
 import { PriceTypeService } from '../../../../business-controller/price-type.service';
 import { ManualPriceService } from '../../../../business-controller/manual-price.service';
 import { ProductGenericService } from '../../../../business-controller/product-generic.service';
-
+import { PatientService } from '../../../../business-controller/patient.service';
+  
+  
 
 @Component({
   selector: 'ngx-form-manual-product',
@@ -38,6 +40,9 @@ export class FormManualProductComponent implements OnInit {
   public showSelect: Boolean = false;
   public price_type: any[] = [];
   public product_id;
+  public patient_id;
+  public patient: any[] = [];
+
 
 
 
@@ -51,7 +56,7 @@ export class FormManualProductComponent implements OnInit {
     private ProcedureTypeS: ProcedureTypeService,
     private PriceTypeS: PriceTypeService,
     private ProductGenS: ProductGenericService,
-
+    private patientS: PatientService,
   ) {
   }
 
@@ -64,6 +69,7 @@ export class FormManualProductComponent implements OnInit {
         price_type_id:'',
         product_id:'',
         description: ''
+        patient_id:'',
       };   
     }
 
@@ -79,6 +85,7 @@ export class FormManualProductComponent implements OnInit {
       price_type_id: [this.data.price_type_id, Validators.compose([Validators.required])],
       product_id: [this.data.procedure_id],
       description: [this.data.description],
+      patient_id: [this.data.patient_id],
     });
 
 
@@ -88,6 +95,9 @@ export class FormManualProductComponent implements OnInit {
     });
     await this.ProductGenS.GetCollection().then(x => {
       this.product_gen=x;
+    });
+    await this.patientS.GetByAdmission(1).then(x => {
+      this.patient = x;
     });
     this.PriceTypeS.GetCollection().then(x => {
       this.price_type=x;
@@ -120,6 +130,20 @@ public saveCode(e): void {
     this.dialogRef.close();
   }
 
+  public saveCode2(e): void {
+
+    var filter = this.patient.filter(patient => patient.identification == e.target.value);
+    if (filter) {
+      this.patient_id = filter[0].id;
+
+    }
+
+    else {
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.patient_id.setErrors({ 'incorrect': true });
+    }
+  }
+
   save() {
 
     this.isSubmitted = true;
@@ -137,6 +161,7 @@ public saveCode(e): void {
           product_id: this.product_id,
           manual_procedure_type_id: 2,
           description: this.form.controls.description.value,
+          patient_id: this.patient_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -156,6 +181,7 @@ public saveCode(e): void {
           product_id: this.product_id,
           manual_procedure_type_id: 2,
           description: this.form.controls.description.value,
+          patient_id: this.patient_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

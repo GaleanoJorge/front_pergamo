@@ -11,6 +11,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 import { AuthService } from '../../../services/auth.service';
 import { FormUserComponent } from '../../setting/users/form-user/form-user.component';
+import { HumanTalentRequestObservationService } from '../../../business-controller/human-talent-request-observation.service';
 
 
 @Component({
@@ -30,10 +31,9 @@ export class HumanTalentRequestListComponent implements OnInit {
   public data = [];
   public roles = [];
   public user: any = null;
+  public human_talent_request_observation: any = [];
   public currentRole;
   public role2;
-  public id_htr;
-  public status;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -47,19 +47,31 @@ export class HumanTalentRequestListComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
-          this.id_htr = row.id;
-          this.status = row.status;
           return {
             'data': row,
+            'role': this.currentRole,
             'edit': this.EditHumanTalentRequest.bind(this),
             'new': this.NewHumanTalentRequest.bind(this),
             'update': this.UpdateRequest.bind(this),
             'saved': this.RefreshData.bind(this),
+            'human_talent_request_observation': this.human_talent_request_observation,
             'status': row.status == 'Creada' ? 0 : row.status == 'Aprobada PAD' ? 1 : row.status == 'Rechazada PAD' ? 2 : row.status == 'Aprobada TH' ? 3 : 4 /*Rechazada TH*/,
 
           };
         },
         renderComponent: Actions2Component,
+      },
+      status: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if ( this.currentRole == 23 && value == 'Aprobada PAD') {
+            return 'En proceso';
+          } else {
+            return value;
+          }
+        },
+
       },
       name: {
         title: this.headerFields[0],
@@ -104,14 +116,6 @@ export class HumanTalentRequestListComponent implements OnInit {
           return this.datePipe.transform2(value);
         },
       },
-      status: {
-        title: this.headerFields[6],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value;
-        },
-
-      },
       observation: {
         title: this.headerFields[7],
         type: 'string',
@@ -138,7 +142,7 @@ export class HumanTalentRequestListComponent implements OnInit {
     public roleBS: RoleBusinessService,
     private deleteConfirmService: NbDialogService,
     private authService: AuthService,
-
+    private HumanTalentRequestObservationS: HumanTalentRequestObservationService,
 
   ) {
   }
@@ -146,7 +150,10 @@ export class HumanTalentRequestListComponent implements OnInit {
   async ngOnInit() {
     this.user = this.authService.GetUser();
     this.currentRole = this.authService.GetRole();
-
+    this.currentRole = 23;
+    this.HumanTalentRequestObservationS.GetCollection().then(x => {
+      this.human_talent_request_observation = x;
+    });
   }
 
   RefreshData() {
