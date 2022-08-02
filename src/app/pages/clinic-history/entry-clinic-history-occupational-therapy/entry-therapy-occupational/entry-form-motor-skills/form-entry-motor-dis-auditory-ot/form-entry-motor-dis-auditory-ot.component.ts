@@ -12,7 +12,7 @@ import { ChEMSDisAuditoryOTService } from '../../../../../../business-controller
   templateUrl: './form-entry-motor-dis-auditory-ot.component.html',
   styleUrls: ['./form-entry-motor-dis-auditory-ot.component.scss']
 })
-export class FormEntryMotorDisAuditorylOTComponent implements OnInit {
+export class FormEntryMotorDisAuditoryOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;

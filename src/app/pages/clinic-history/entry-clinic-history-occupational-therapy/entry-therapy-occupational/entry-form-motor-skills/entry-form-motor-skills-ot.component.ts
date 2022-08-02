@@ -48,6 +48,7 @@ export class EntryFormMotorSkillsOTComponent implements OnInit {
   public chcommunication: any[];
   public chassessment: any[];
   public chweekly: any[];
+  public show: any;
 
 
   constructor(
@@ -200,6 +201,20 @@ export class EntryFormMotorSkillsOTComponent implements OnInit {
 
     }
   }
+
+  // tablock(e) {
+  //   switch (e.tabTitle) {
+  //     case "INGRESO": {
+  //       this.show = 1;
+  //       break;
+  //     }
+  //     case "NOTA REGULAR": {
+  //       this.show = 2;
+  //       break;
+  //     }
+  //   }
+  // }
+
   receiveMessage($event) {
     if ($event == true) {
       this.messageEvent.emit($event);
