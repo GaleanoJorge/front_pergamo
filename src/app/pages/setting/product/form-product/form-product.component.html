@@ -39,8 +39,9 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label class="form-text text-muted font-weight-bold">Producto Genérico:</label>
-          <input type="text" list="codes1" class="data-list" id="product_generic_id" (change)="saveCode($event.target.value)"
-            formControlName="product_generic_id" product_generic_id fullWidth nbInput
+          <input type="text" list="codes1" class="data-list" id="product_generic_id"
+            (change)="saveCode($event.target.value)" formControlName="product_generic_id" product_generic_id fullWidth
+            nbInput
             status="{{ isSubmitted && form.controls.product_generic_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes1">
             <option *ngFor="let item of product_generic" [value]="item.description">{{item.description}}
@@ -122,6 +123,12 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
+          <label class="form-text text-muted font-weight-bold">Código unico de medicamento (cum):</label>
+          <input nbInput fullWidth id="code_cum" formControlName="code_cum" code_cum
+            status="{{ isSubmitted && form.controls.code_cum.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
           <label for="code_cum_file" class="form-text text-muted font-weight-bold">Expediente de registro
             sanitario:</label>
           <input nbInput fullWidth id="code_cum_file" formControlName="code_cum_file" code_cum_file
@@ -176,6 +183,7 @@
           <input nbInput fullWidth id="indications" formControlName="indications" indications
             status="{{ isSubmitted && form.controls.indications.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
+
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="contraindications" class="form-text text-muted font-weight-bold">Contraindicaciones:</label>
