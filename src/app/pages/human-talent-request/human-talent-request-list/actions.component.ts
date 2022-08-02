@@ -1,9 +1,7 @@
-import { Component, Input, Optional, TemplateRef } from '@angular/core';
-import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
-import { ThumbSettings } from '@syncfusion/ej2/charts';
+import { Component, Input, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ViewCell } from 'ng2-smart-table';
-import { HumanTalentRequestObservationService } from '../../../business-controller/human-talent-request-observation.service';
 import { HumanTalentRequestService } from '../../../business-controller/human-talent-request.service';
 
 
@@ -40,9 +38,8 @@ import { HumanTalentRequestService } from '../../../business-controller/human-ta
                         <div class="col-md-12">
                             <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIÓN:</label>
                             
-                            <input type="text" nbInput fullWidth id="observation" formControlName="observation"
-                                observation
-                                status="{{ isSubmitted && Form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                            <textarea cols="80" rows="4" nbInput formControlName="observation" id="observation" observation fullWidth placeholder="Observación"
+                              status="{{ isSubmitted && Form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"></textarea>
                         </div>
                     </div>
                     <div class="div-send">
@@ -97,7 +94,6 @@ export class Actions2Component implements ViewCell {
     private formBuilder: FormBuilder,
     private dialogService: NbDialogService,
     private toastService: NbToastrService,
-    private HumanTalentRequestObservationS: HumanTalentRequestObservationService,
 
   ) {
   }
@@ -110,7 +106,7 @@ export class Actions2Component implements ViewCell {
       this.value.status == 1 ? true : false;
 
     this.Form = this.formBuilder.group({
-      observation: [, Validators.compose([Validators.required])],
+      observation: ["", Validators.compose([Validators.required])],
     });
 
     this.human_talent_request_observation = this.value.human_talent_request_observation;
@@ -134,8 +130,8 @@ export class Actions2Component implements ViewCell {
     this.value.new(data);
   }
 
-  ChangeObservation($event) {
-    this.Form.patchValue({ observation: $event });
+  ChangeObservation($event: string) {
+    this.Form.patchValue({ observation: (this.Form.controls.observation.value == "" ? "" : this.Form.controls.observation.value + ", ") + $event });
   }
 
   saveGroup() {
