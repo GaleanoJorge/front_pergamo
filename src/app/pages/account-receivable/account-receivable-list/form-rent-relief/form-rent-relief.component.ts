@@ -121,7 +121,7 @@ export class FormRentReliefComponent implements OnInit {
   }
 
   applySourceRetention() {
-    this.gross_value_activities_format = this.currency.transform(this.source_retention.gross_value_activities);
+    this.gross_value_activities_format = this.source_retention.gross_value_activities ? this.currency.transform(this.source_retention.gross_value_activities) : this.currency.transform(0);
     this.salud_format = this.currency.transform(this.source_retention.salud);
     this.arl_format = this.currency.transform(this.source_retention.arl);
     this.pension_format = this.currency.transform(this.source_retention.pension);

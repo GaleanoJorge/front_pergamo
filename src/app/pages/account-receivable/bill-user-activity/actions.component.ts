@@ -31,10 +31,19 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
             <nb-card-body>
                 <form [formGroup]="Form" (ngSubmit)="ChangeAccountReceivable(1)">
                     <div>
+                        <div class="col-12 col-sm-12 col-md-12">
+                            <label for="human_talent_request_observation" class="form-text text-muted font-weight-bold">SELECCIONE OBSERVACIÓN:</label>
+                            <nb-select
+                                id="human_talent_request_observation_id" fullWidth (selectedChange)="ChangeObservation($event)">
+                                <nb-option>Seleccione...</nb-option>
+                                <nb-option *ngFor="let item of human_talent_request_observation" [value]="item.name">
+                                    {{ item.name }}</nb-option>
+                            </nb-select>
+                        </div>
                         <div class="col-md-12">
                             <label for="observation" class="form-text text-muted font-weight-bold">Observación:</label>
                             <textarea cols="80" rows="4" nbInput formControlName="observation" id="observation" observation fullWidth placeholder="Observación"
-                status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"></textarea>
+                              status="{{ isSubmitted && Form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"></textarea>
                         </div>
                     </div>
                     <div class="div-send">
@@ -76,7 +85,7 @@ export class ActionsBillComponent implements ViewCell {
   public loading: boolean = false;
   public dialog: any = null;
   public Form: FormGroup;
-
+  public human_talent_request_observation: any = [];
 
 
   constructor(
@@ -90,8 +99,10 @@ export class ActionsBillComponent implements ViewCell {
 
   async ngOnInit() {
     this.Form = this.formBuilder.group({
-      observation: [, Validators.compose([Validators.required])],
+      observation: ['', Validators.compose([Validators.required])],
     });
+
+    this.human_talent_request_observation = this.value.human_talent_request_observation;
   }
 
 
@@ -110,19 +121,32 @@ export class ActionsBillComponent implements ViewCell {
     });
   }
 
+  ChangeObservation($event: string) {
+    this.Form.patchValue({ observation: (this.Form.controls.observation.value == "" ? "" : this.Form.controls.observation.value + ", ") + $event });
+  }
+
   ConfirmAction(dialog: TemplateRef<any>, status?, id?) {
 
     this.dialog = this.dialogService.open(dialog);
 
   }
 
-  async ChangeAccountReceivable(dta: any) {
+  ChangeAccountReceivable(dta: any) {
     if (dta == 0) {
       var status2 = 'APROBADO'
+      this.save(status2);
     } else {
       var status2 = 'RECHAZADO'
-
+      this.isSubmitted = true;
+      if (!this.Form.invalid) {
+        this.save(status2);
+      }
     }
+
+
+  }
+
+  async save(status2: string) {
     await this.billUserActivityS.Update({
       id: this.value.data.id,
       status: status2,
@@ -138,7 +162,6 @@ export class ActionsBillComponent implements ViewCell {
       this.isSubmitted = false;
       this.loading = false;
     });
-
   }
 
 

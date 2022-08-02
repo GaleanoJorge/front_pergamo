@@ -12,6 +12,7 @@ import { AuthService } from '../../../services/auth.service';
 import { CurrencyPipe } from '@angular/common';
 import { ActionsBillComponent } from './actions.component';
 import { BillUserActivityService } from '../../../business-controller/bill-user-activity.service';
+import { HumanTalentRequestObservationService } from '../../../business-controller/human-talent-request-observation.service';
 
 
 @Component({
@@ -56,8 +57,7 @@ export class BillUserActivityComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-
-
+  public human_talent_request_observation: any = [];
 
 
   public settings = {
@@ -73,6 +73,7 @@ export class BillUserActivityComponent implements OnInit {
           return {
             'data': row,
             'role_type': this.role_type,
+            'human_talent_request_observation': this.human_talent_request_observation,
             'refresh': this.RefreshData.bind(this),
           };
         },
@@ -116,6 +117,7 @@ export class BillUserActivityComponent implements OnInit {
     private billUserActivityS: BillUserActivityService,
     private authService: AuthService,
     private currency: CurrencyPipe,
+    private HumanTalentRequestObservationS: HumanTalentRequestObservationService,
   ) {
   }
 
@@ -134,6 +136,12 @@ export class BillUserActivityComponent implements OnInit {
         route: '../../contract/briefcase',
       },
     ];
+
+    this.HumanTalentRequestObservationS.GetCollection({
+      category: 3,
+    }).then(x => {
+      this.human_talent_request_observation = x;
+    });
   }
 
 
