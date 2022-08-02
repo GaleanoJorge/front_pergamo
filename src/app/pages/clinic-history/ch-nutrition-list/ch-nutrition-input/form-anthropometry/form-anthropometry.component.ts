@@ -171,7 +171,7 @@ export class FormAnthropometryComponent implements OnInit {
         this.estimated_size = null;
       }
 
-      if (this.prov_size > 0 &&
+      if (this.estimated_size > 0 &&
         (this.form.controls.abdominal_perimeter.value != null &&
           this.form.controls.abdominal_perimeter.value != '' &&
           this.form.controls.abdominal_perimeter.value > 0) &&
@@ -194,7 +194,7 @@ export class FormAnthropometryComponent implements OnInit {
           c4 = 0.836;
         }
         this.estimated_weight = (-c1 +
-          (this.prov_size * c2) +
+          (this.estimated_size * c2) +
           (this.form.controls.abdominal_perimeter.value * c3) +
           (this.form.controls.hip_perimeter.value * c4)).toFixed(2);
         this.prov_weight = this.validateWeight();
