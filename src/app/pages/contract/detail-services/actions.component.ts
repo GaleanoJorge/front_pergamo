@@ -19,7 +19,24 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
       <a *ngIf="value.data.manual_price.manual_procedure_type_id==3 && value.role_permisos.includes(1)"  nbTooltip="Información del paquete" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/setting/manual/procedure-massive/procedure-package/' + value.data.manual_price.id">
         <nb-icon icon="info-outline"></nb-icon>
       </a>
+      <button *ngIf="value.data.manual_price.description" nbButton ghost [nbPopover]="templateRef"  nbPopoverTrigger="hover">
+      <nb-icon icon="eye-outline"></nb-icon>
+    </button>
     </div>
+
+
+<ng-template #templateRef>
+<div class="p-3 container-fluid">
+  <nb-card style="max-width: 430px;max-height: 500px;overflow: auto;">
+  <nb-card-header>Descripción</nb-card-header>
+    <nb-card-body>
+      <p>
+        {{value.data.manual_price.description}}     
+      </p>
+    </nb-card-body>
+  </nb-card>
+</div>
+</ng-template>
     <ng-template #confirmAction>
   <div class="container-fluid">
       <nb-card>
