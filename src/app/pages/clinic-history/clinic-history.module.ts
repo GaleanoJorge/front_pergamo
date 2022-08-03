@@ -270,6 +270,8 @@ import { ActionsInsumeComponent } from './insume-application/actions.component';
 import { FormLiquidControlDelComponent } from './liquid-control/form-liquid-control-del/form-liquid-control-del.component';
 import { LiquidControlComponent } from './liquid-control/liquid-control.component';
 import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
+import { EntryFormValorationFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/entry-form-valoration-ft/entry-form-valoration-ft.component';
+import { ClinicHistoryPhysicTherapy } from './entry-clinic-history-physical-therapy/ch-physic-therapy.component';
 
 
 @NgModule({
@@ -387,7 +389,11 @@ import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-cont
     ForRNmWeeklyOTComponent,
     RNWeeklyOtComponent,
 
+
+    EntryFormValorationFTComponent,
+
     ClinicHistoryOccupationalTherapy,
+    ClinicHistoryPhysicTherapy,
       
     RespiratoryTherapyListComponent,
     FormRespiratoryTherapyComponent,
