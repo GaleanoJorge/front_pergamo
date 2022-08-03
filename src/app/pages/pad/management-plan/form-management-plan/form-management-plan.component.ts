@@ -138,7 +138,7 @@ export class FormManagementPlanComponent implements OnInit {
     this.AdministrationRouteS.GetCollection().then(x => {
       this.route_of_administration = x;
     });
-    this.serviceBriefcaseS.GetByBriefcase({ type: '2' }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+    this.serviceBriefcaseS.GetByBriefcase({ type: '2',patient:this.user.id }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
       this.product_gen = x;
     });
     this.typeOfAttentionS.GetCollection().then(x => {
@@ -150,7 +150,7 @@ export class FormManagementPlanComponent implements OnInit {
     this.frequencyS.GetCollection().then(x => {
       this.frequency = x;
     });
-    this.serviceBriefcaseS.GetByBriefcase({ type: '1' }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+    this.serviceBriefcaseS.GetByBriefcase({ type: '3',patient:this.user.id }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
       this.procedure = x;
     });
     this.specialField.GetCollection({

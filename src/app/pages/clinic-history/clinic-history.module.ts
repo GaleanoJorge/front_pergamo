@@ -263,13 +263,14 @@ import { FormChOxigenComponent } from './ch-oxigen/form-ch-oxigen/form-ch-oxigen
 import { ChHairValorationComponent } from './ch-hair-valoration/ch-hair-valoration.component';
 import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair-valoration/form-ch-hair-valoration.component';
 import { Actions25Component } from './failed/actions25.component';
-import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
 import { InsumeApplicationComponent } from './insume-application/insume-application.component';
 import { FormInsumeApplicationComponent } from './insume-application/form-insume-application/form-insume-application.component';
 import { ActionsInsumeComponent } from './insume-application/actions.component';
 import { FormLiquidControlDelComponent } from './liquid-control/form-liquid-control-del/form-liquid-control-del.component';
 import { LiquidControlComponent } from './liquid-control/liquid-control.component';
 import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
+import { ConfirmDialogCHComponent } from './clinic-history-list/confirm-dialog/confirm-dialog.component';
+import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
 
 
 @NgModule({
@@ -386,7 +387,7 @@ import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-cont
     RNMaterialsOTComponent,
     ForRNmWeeklyOTComponent,
     RNWeeklyOtComponent,
-
+    ConfirmDialogCHComponent,
     ClinicHistoryOccupationalTherapy,
       
     RespiratoryTherapyListComponent,

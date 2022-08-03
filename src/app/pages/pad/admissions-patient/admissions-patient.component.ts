@@ -52,7 +52,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
             'data': row,
             'delete': this.DeleteConfirmAdmissions.bind(this),
             'refresh': this.RefreshData.bind(this),
-            'user_id': this.user_id,
+            'user_id': this.patient_id,
           };
         },
         renderComponent: ActionsPadComponent,

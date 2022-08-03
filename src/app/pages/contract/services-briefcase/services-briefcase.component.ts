@@ -28,7 +28,7 @@ export class ServicesBriefcaseComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title;
   public subtitle = 'Asignación catalogo de servicios: ';
-  public headerFields: any[] = ['Código', 'Manual', 'Código propio', 'Código homologo', 'Nombre Procedimiento-medicamento-insumo', 'Valor', 'Tipo de Valor', 'Tipo de manual', 'Tipo de procedimiento'];
+  public headerFields: any[] = ['Código', 'Manual', 'Código propio', 'Código homologo', 'Nombre Procedimiento-medicamento-insumo', 'Valor', 'Tipo de Valor', 'Tipo de manual', 'Tipo de procedimiento','Paciente a prestar'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -155,6 +155,17 @@ export class ServicesBriefcaseComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
+        },
+      },
+      patient_id: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(value==null){
+            return "Todos";
+          }else{
+          return row.patient.firstname + ' ' + row.patient.lastname;
+          }
         },
       },
     },

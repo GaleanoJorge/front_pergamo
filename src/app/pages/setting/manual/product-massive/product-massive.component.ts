@@ -29,7 +29,7 @@ export class ProductMassiveComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title ;
   public subtitle = '';
-  public headerFields: any[] =  ['id','Producto generico','Valor','Tipo de valor'];
+  public headerFields: any[] =  ['id','Producto generico','Valor','Tipo de valor', 'Descripción','Paciente a prestar'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}`;
   public routes = [];
   public row;
@@ -91,6 +91,29 @@ export class ProductMassiveComponent implements OnInit {
           return value.name;
         },
       },
+
+      description: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(value){
+          return value;
+          } else {
+          return "--";
+          }
+        },
+      },
+      patient_id: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(value==null){
+            return "Todos";
+          }else{
+          return row.patient.firstname + ' ' + row.patient.lastname;
+          }
+        }
+      },
     },
   };
 
@@ -147,6 +170,17 @@ export class ProductMassiveComponent implements OnInit {
     this.dialogFormService.open(FormManualProductComponent, {
       context: {
         title: 'Crear Medicamentos o insumos',
+        manual_id:this.manual_id,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
+  EditManualPrice(data) {
+    this.dialogFormService.open(FormManualProductComponent, {
+      context: {
+        title: 'Editar Medicamentos o insumos',
+        data: data,
         manual_id:this.manual_id,
         saved: this.RefreshData.bind(this),
       },

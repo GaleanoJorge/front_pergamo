@@ -10,6 +10,7 @@ import { Actions4Component } from './actions.component';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { Location } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { ConfirmDialogCHComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -44,8 +45,9 @@ export class ClinicHistoryListComponent implements OnInit {
   public loading: boolean = false;
   public currentRole: any;
   public show: any;
-  public is_failed: boolean = true;
+  public is_failed: any = true;
   public signatureImage: string;
+  public firm_file: string;
 
 
   toggleLinearMode() {
@@ -216,12 +218,13 @@ export class ClinicHistoryListComponent implements OnInit {
   }
 
   close() {
-    this.deleteConfirmService.open(ConfirmDialogComponent, {
+    this.deleteConfirmService.open(ConfirmDialogCHComponent, {
       context: {
         signature: true, 
         title: 'Finalizar registro.',
         delete: this.finish.bind(this),
         showImage: this.showImage.bind(this),
+        changeImage: this.changeImage.bind(this),
         // save: this.saveSignature.bind(this),
         textConfirm:'Finalizar registro'
       },
@@ -238,25 +241,58 @@ export class ClinicHistoryListComponent implements OnInit {
     console.log(this.signatureImage);
   }
 
-  async finish() {
+  // async finish(firm) {
 
-    await this.chRecord.Update({
-      id: this.record_id,
-      status: 'CERRADO',
-      user: this.user,
-      role: this.currentRole,
-      user_id: this.own_user.id,
-      is_failed: this.is_failed,
-    }).then(x => {
-      this.toastService.success('', x.message);
-      this.location.back();
+  //   await this.chRecord.Update({
+  //     id: this.record_id,
+  //     status: 'CERRADO',
+  //     user: this.user,
+  //     role: this.currentRole,
+  //     user_id: this.own_user.id,
+  //     is_failed: this.is_failed,
+  //   }).then(x => {
+  //     this.toastService.success('', x.message);
+  //     this.location.back();
+  //     if (this.saved) {
+  //       this.saved();
+  //     }
+  //   }).catch(x => {
+  //     this.isSubmitted = false;
+  //     this.loading = false;
+  //   });
+  // }
+
+
+  async finish(firm) {
+
+    var formData = new FormData();
+    formData.append('id', this.record_id,);
+    formData.append('status', 'CERRADO');
+    formData.append('user', this.user);
+    formData.append('role', this.currentRole);
+    formData.append('user_id', this.own_user.id);
+    formData.append('is_failed', this.is_failed);
+    formData.append('firm_file', firm);
+
+    try {
+
+      let response;
+    
+        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        this.location.back();
+      this.toastService.success('', response.message);
+      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
+      this.messageError = null;
       if (this.saved) {
         this.saved();
       }
-    }).catch(x => {
+    } catch (response) {
+      this.messageError = response;
       this.isSubmitted = false;
       this.loading = false;
-    });
+      throw new Error(response);
+    }
+  
   }
 
   RefreshData() {
@@ -350,6 +386,25 @@ export class ClinicHistoryListComponent implements OnInit {
       this.is_failed = true;
     }
   }
+
+  async changeImage(files, option) {
+    if (!files.length) return false;
+
+    const file = await this.toBase64(files[0]);
+
+    switch (option) {
+      case 1:
+        this.firm_file= files[0];
+        break;
+    }
+  }
+
+  toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  })
 
   DeleteConfirmAdmissions(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
