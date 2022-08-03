@@ -15,7 +15,7 @@ import { date } from '@rxweb/reactive-form-validators';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="value.currentRole!=2" nbTooltip="Admisiones" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/admissions-patient-pad/' + value.data.admissions[0].id+'/'+value.data.id">
+    <a *ngIf="value.currentRole!=2" nbTooltip="Admisiones" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/admissions-patient-pad/' + value.data.id+'/'+value.data.admissions[0].id">
       <nb-icon icon="menu-outline"></nb-icon>
     </a>
     <a *ngIf="value.currentRole==2" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/management-plan/' + value.data.admissions[0].id+'/'+value.data.id">

@@ -19,7 +19,7 @@ export class ManualComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Manuales Tarifarios';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre','Año'];
+  public headerFields: any[] = ['ID', 'Nombre','Año','Tipo de manual'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -56,6 +56,19 @@ export class ManualComponent implements OnInit {
       name: {
         title: this.headerFields[1],
         type: 'string',
+      },
+      type_manual: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(value == 1){
+            return "Medicamentos";
+          } else if(value == 2){
+            return "Insumos";
+          } else {
+            return "Procedimientos";
+          }
+        },
       },
       year: {
         title: this.headerFields[2],
