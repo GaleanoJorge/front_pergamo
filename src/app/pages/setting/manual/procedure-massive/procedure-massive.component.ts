@@ -111,10 +111,6 @@ export class ProcedureMassiveComponent implements OnInit {
           return value.name;
         },
       },
-      description: {
-        title: this.headerFields[6],
-        type: 'string',
-      }
     },
   };
 
