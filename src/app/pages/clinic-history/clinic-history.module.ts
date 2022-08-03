@@ -219,7 +219,7 @@ import { FormChApComponent } from './ch-ap/form-ch-ap/form-ch-ap.component';
 import { FormEntryMotorIntPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-int-pat-ot/form-entry-motor-int-pat-ot.component';
 import { FormEntryMotorMovPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-mov-pat-ot/form-entry-motor-mov-pat-ot.component';
 import { FormEntryMotorThermalOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-thermal-ot/form-entry-motor-thermal-ot.component';
-import { FormEntryMotorDisAuditorylOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-dis-auditory-ot/form-entry-motor-dis-auditory-ot.component';
+import { FormEntryMotorDisAuditoryOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-dis-auditory-ot/form-entry-motor-dis-auditory-ot.component';
 import { FormEntryMotorAcuityOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-acuity-ot/form-entry-motor-acuity-ot.component';
 import { FormEntryMotorAssessmentOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-assessment-ot/form-entry-motor-assessment-ot.component';
 import { FormEntryMotorCommunicationOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-communication-ot/form-entry-motor-communication-ot.component';
@@ -263,7 +263,6 @@ import { FormChOxigenComponent } from './ch-oxigen/form-ch-oxigen/form-ch-oxigen
 import { ChHairValorationComponent } from './ch-hair-valoration/ch-hair-valoration.component';
 import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair-valoration/form-ch-hair-valoration.component';
 import { Actions25Component } from './failed/actions25.component';
-import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
 import { InsumeApplicationComponent } from './insume-application/insume-application.component';
 import { FormInsumeApplicationComponent } from './insume-application/form-insume-application/form-insume-application.component';
 import { ActionsInsumeComponent } from './insume-application/actions.component';
@@ -271,6 +270,7 @@ import { FormLiquidControlDelComponent } from './liquid-control/form-liquid-cont
 import { LiquidControlComponent } from './liquid-control/liquid-control.component';
 import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
 import { ConfirmDialogCHComponent } from './clinic-history-list/confirm-dialog/confirm-dialog.component';
+import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
 
 
 @NgModule({
@@ -367,7 +367,7 @@ import { ConfirmDialogCHComponent } from './clinic-history-list/confirm-dialog/c
     FormEntryMotorIntPatOTComponent,
     FormEntryMotorMovPatOTComponent,
     FormEntryMotorThermalOTComponent,
-    FormEntryMotorDisAuditorylOTComponent,
+    FormEntryMotorDisAuditoryOTComponent,
     FormEntryMotorDisTactilelOTComponent,
     FormEntryMotorAcuityOTComponent,
     FormEntryMotorComponentOTComponent,

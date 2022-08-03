@@ -70,13 +70,13 @@ export class FormEntryMotorComponentOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSComponentOTService.Update({
+          this.ChEMSComponentOTService.Update({
           id: this.data.id,
           dynamic_balance: this.form.controls.dynamic_balance.value,
           static_balance: this.form.controls.static_balance.value,
@@ -95,7 +95,7 @@ export class FormEntryMotorComponentOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSComponentOTService.Save({
+          this.ChEMSComponentOTService.Save({
           dynamic_balance: this.form.controls.dynamic_balance.value,
           static_balance: this.form.controls.static_balance.value,
           observation_component: this.form.controls.observation_component.value,

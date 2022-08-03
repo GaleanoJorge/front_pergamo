@@ -10,7 +10,7 @@ import { ViewCell } from 'ng2-smart-table';
      [style]="this.semaphore == 1 ? 'background-color: #F1C40F;' : 
      this.semaphore == 2 ? 'background-color: #D35400;' : 
      this.semaphore == 3 ? 'background-color: #28B463;' : 
-     this.semaphore == 4 ? 'background-color: #C70039;' : 'background-color: #C70039'"
+     this.semaphore == 4 ? 'background-color: #C70039;' : 'background-color: #7A39BB'"
      nbTooltip="{{description}}" nbTooltipPlacement="top" nbTooltipStatus="primary">
     </div>
   </div>
@@ -41,6 +41,8 @@ export class ActionsSemaphoreComponent implements ViewCell {
       this.description = "Atendida";
     }else if (this.semaphore == 4) {
       this.description = "Incumplida";
+    }else if (this.semaphore == 5) {
+      this.description = "Por subsanar";
     }
 
   }

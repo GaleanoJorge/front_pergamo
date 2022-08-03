@@ -151,7 +151,9 @@ export class HumanTalentRequestListComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.currentRole = this.authService.GetRole();
     this.currentRole = 23;
-    this.HumanTalentRequestObservationS.GetCollection().then(x => {
+    this.HumanTalentRequestObservationS.GetCollection({
+      category: 1,
+    }).then(x => {
       this.human_talent_request_observation = x;
     });
   }

@@ -71,14 +71,14 @@ export class FormRNValorationOtComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
 
       if (this.data.id) {
-        await this.ChRNValorationOTS.Update({
+          this.ChRNValorationOTS.Update({
           id: this.data.id,
           ch_diagnosis_id: this.form.controls.ch_diagnosis_id.value,
           patient_state: this.form.controls.patient_state.value,
@@ -95,7 +95,7 @@ export class FormRNValorationOtComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChRNValorationOTS.Save({
+          this.ChRNValorationOTS.Save({
           ch_diagnosis_id: this.ch_diagnosis_id,
           patient_state: this.form.controls.patient_state.value,
           type_record_id: 3,

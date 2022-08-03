@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AccountReceivableService } from '../../../../../business-controller/account-receivable.service';
+import { HumanTalentRequestObservationService } from '../../../../../business-controller/human-talent-request-observation.service';
 
 
 @Component({
@@ -19,12 +20,14 @@ export class FormRejectAccountComponent implements OnInit {
   public saved: any = null;
   public closeP: any = null;
   public loading: boolean = false;
+  public human_talent_request_observation: any = [];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private AccountReceivableS: AccountReceivableService,
     private toastService: NbToastrService,
+    private HumanTalentRequestObservationS: HumanTalentRequestObservationService,
   ) {
   }
 
@@ -36,10 +39,19 @@ export class FormRejectAccountComponent implements OnInit {
     }
     
     this.form = this.formBuilder.group({      
-      observation: [this.data.observation, Validators.compose([Validators.required])],
+      observation: ['', Validators.compose([Validators.required])],
+    });
+
+    this.HumanTalentRequestObservationS.GetCollection({
+      category: 2,
+    }).then(x => {
+      this.human_talent_request_observation = x;
     });
   }
   
+  ChangeObservation($event: string) {
+    this.form.patchValue({ observation: (this.form.controls.observation.value == "" ? "" : this.form.controls.observation.value + ", ") + $event });
+  }
 
   close() {
     this.dialogRef.close();

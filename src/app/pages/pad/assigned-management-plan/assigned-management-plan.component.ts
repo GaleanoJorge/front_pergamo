@@ -241,10 +241,9 @@ export class AssignedManagementPlanComponent implements OnInit {
 
 
 
-
-
-
-    if (today < start) {
+    if(data.allow_redo == 1) {
+      this.semaphore = 5;
+    } else if (today < start) {
       this.semaphore = 1;
     } else if (today <= finish && today >= start && isNaN(execution)) {
       this.semaphore = 2;

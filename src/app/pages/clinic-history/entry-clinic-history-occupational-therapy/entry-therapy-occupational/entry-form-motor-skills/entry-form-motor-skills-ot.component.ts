@@ -48,6 +48,7 @@ export class EntryFormMotorSkillsOTComponent implements OnInit {
   public chcommunication: any[];
   public chassessment: any[];
   public chweekly: any[];
+  public show: any;
 
 
   constructor(
@@ -179,27 +180,41 @@ export class EntryFormMotorSkillsOTComponent implements OnInit {
 
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid && this.saveEntry) {
       this.loading = true;
       if (this.data.id) { }
 
-      await this.ChEMSFunPatOTService.Update({});
-      await this.ChEMSIntPatOTService.Update({});
-      await this.ChEMSMovPatOTService.Update({});
-      await this.ChEMSThermalOTService.Update({});
-      await this.ChEMSDisAuditoryOTService.Update({});
-      await this.ChEMSDisTactileOTService.Update({});
-      await this.ChEMSAcuityOTService.Update({});
-      await this.ChEMSComponentOTService.Update({});
-      await this.ChEMSTestOTService.Update({});
-      await this.ChEMSCommunicationOTService.Update({});
-      await this.ChEMSAssessmentOTService.Update({});
-      await this.ChEMSWeeklyOTService.Update({});
+     this.ChEMSFunPatOTService.Update({});
+     this.ChEMSIntPatOTService.Update({});
+     this.ChEMSMovPatOTService.Update({});
+     this.ChEMSThermalOTService.Update({});
+     this.ChEMSDisAuditoryOTService.Update({});
+     this.ChEMSDisTactileOTService.Update({});
+     this.ChEMSAcuityOTService.Update({});
+     this.ChEMSComponentOTService.Update({});
+     this.ChEMSTestOTService.Update({});
+     this.ChEMSCommunicationOTService.Update({});
+     this.ChEMSAssessmentOTService.Update({});
+     this.ChEMSWeeklyOTService.Update({});
 
     }
   }
+
+  // tablock(e) {
+  //   switch (e.tabTitle) {
+  //     case "INGRESO": {
+  //       this.show = 1;
+  //       break;
+  //     }
+  //     case "NOTA REGULAR": {
+  //       this.show = 2;
+  //       break;
+  //     }
+  //   }
+  // }
+
   receiveMessage($event) {
     if ($event == true) {
       this.messageEvent.emit($event);

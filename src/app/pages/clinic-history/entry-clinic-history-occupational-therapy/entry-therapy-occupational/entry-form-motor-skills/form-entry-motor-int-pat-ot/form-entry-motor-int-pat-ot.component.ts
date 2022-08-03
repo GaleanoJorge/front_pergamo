@@ -152,13 +152,13 @@ export class FormEntryMotorIntPatOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSIntPatOTService.Update({
+          this.ChEMSIntPatOTService.Update({
           id: this.data.id,
           up_right: this.form.controls.up_right.value,
           up_left: this.form.controls.up_left.value,
@@ -198,7 +198,7 @@ export class FormEntryMotorIntPatOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSIntPatOTService.Save({
+          this.ChEMSIntPatOTService.Save({
           up_right: this.form.controls.up_right.value,
           up_left: this.form.controls.up_left.value,
           side_right: this.form.controls.side_right.value,

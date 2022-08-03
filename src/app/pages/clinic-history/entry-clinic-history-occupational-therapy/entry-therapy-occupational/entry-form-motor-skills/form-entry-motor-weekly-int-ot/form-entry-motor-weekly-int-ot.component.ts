@@ -69,13 +69,13 @@ export class FormEntryMotorWeeklyIntOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSWeeklyOTService.Update({
+          this.ChEMSWeeklyOTService.Update({
           id: this.data.id,
           monthly_sessions: this.form.controls.monthly_sessions.value,
           weekly_intensity: this.form.controls.weekly_intensity.value,
@@ -94,7 +94,7 @@ export class FormEntryMotorWeeklyIntOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSWeeklyOTService.Save({
+          this.ChEMSWeeklyOTService.Save({
           monthly_sessions: this.form.controls.monthly_sessions.value,
           weekly_intensity: this.form.controls.weekly_intensity.value,
           recommendations: this.form.controls.recommendations.value,
