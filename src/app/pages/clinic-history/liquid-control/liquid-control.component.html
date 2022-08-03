@@ -85,16 +85,19 @@
         <nb-card-header> <b> FORMULAS DE CALCULO </b></nb-card-header>
         <nb-card-body>
           <div>
+            
             <div class="row">
               <div class="col-md-12">
                 <div class="center">
                   <div class="col-md-12">
                     <label for="urine_waste" disabled class="form-text text-muted font-weight-bold align">GASTO
                       URINARIO</label>
+                    <p class=""><b>FORMULA:</b> PESO / HORAS TRANSCURRIDAS / VOLUMEN TOTAL ELIMINADO POR DIURESIS </p>
 
-                    <input type="text" disabled id="urine_waste" disabled formControlName="urine_waste" id="urine_waste"
-                      urine_waste nbInput fullWidth
-                      status="{{ isSubmitted && form.controls.urine_waste.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                    <p class=""><b>ANURIA:</b> -0,3 </p>
+                    <p class=""><b>OLIGURIA:</b> 0,4 </p>
+                    <p class=""><b>NORMAL:</b> 0,8 - 1 </p>
+
                   </div>
                 </div>
               </div>
@@ -114,67 +117,15 @@
                   <div class="col-md-12">
                     <label for="urine_balance" class="form-text text-muted font-weight-bold align">BALANCE
                       HIDRICO</label>
-
-                    <input type="text" disabled id="urine_balance" formControlName="urine_balance" id="urine_balance"
-                      urine_waste nbInput fullWidth
-                      status="{{ isSubmitted && form.controls.urine_balance.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                    <p class=""><b>FORMULA:</b> ADMINISTRADOS - ELIMINADOS </p>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
-          </form>
         </nb-card-body>
       </nb-card>
-      </nb-card-front>
-      <nb-card-back>
-        <nb-card accent="success">
-          <nb-card-header> <b> FORMULAS DE CALCULO </b></nb-card-header>
-          <nb-card-body>
-            <div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="center">
-                    <div class="col-md-12">
-                      <label for="urine_waste" disabled class="form-text text-muted font-weight-bold align">GASTO
-                        URINARIO</label>
-                      <p class=""><b>FORMULA:</b> PESO / HORAS TRANSCURRIDAS / VOLUMEN TOTAL ELIMINADO POR DIURESIS </p>
-
-                      <p class=""><b>ANURIA:</b> -0,3 </p>
-                      <p class=""><b>OLIGURIA:</b> 0,4 </p>
-                      <p class=""><b>NORMAL:</b> 0,8 - 1 </p>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="container">
-                <div class="row justify-content-md-center">
-                  <div class="col col-lg-12">
-                    <hr />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="center">
-                    <div class="col-md-12">
-                      <label for="urine_balance" class="form-text text-muted font-weight-bold align">BALANCE
-                        HIDRICO</label>
-                      <p class=""><b>FORMULA:</b> ADMINISTRADOS - ELIMINADOS </p>
-
-
-
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nb-card-body>
-        </nb-card>
-      </nb-card-back>
+    </nb-card-back>
   </nb-flip-card>
 </div>
