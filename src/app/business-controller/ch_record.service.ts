@@ -79,6 +79,22 @@ export class ChRecordService {
       });
   }
 
+
+  UpdateCH(sect: any, id = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_record/update', (sect.id ? sect.id : id));
+    servObj.data = sect;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message)
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      })
+  }
+
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_record', id);
     return this.webAPI.DeleteAction(servObj)

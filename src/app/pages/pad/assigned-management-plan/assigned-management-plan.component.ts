@@ -235,9 +235,12 @@ export class AssignedManagementPlanComponent implements OnInit {
 
   statusSemaphor(data) {
     var today = new Date().getTime();
-    var finish = new Date(data.finish_date).getTime();
+    var finish = new Date(data.finish_date+" 24:00").getTime();
     var start = new Date(data.start_date).getTime();
     var execution = new Date(data.execution_date).getTime();
+
+
+
 
 
 

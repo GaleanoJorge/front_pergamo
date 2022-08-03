@@ -6,10 +6,7 @@ import { ProcedureService } from '../../../../business-controller/procedure.serv
 import { ProcedureTypeService } from '../../../../business-controller/procedure-type.service';
 import { PriceTypeService } from '../../../../business-controller/price-type.service';
 import { ManualPriceService } from '../../../../business-controller/manual-price.service';
-import { ProcedurePackageComponent } from '../../procedure/procedure-package/procedure-package.component';
 import { ProcedurePackageService } from '../../../../business-controller/procedure-package.service';
-import { AdmissionRoute } from '../../../../models/admission-route';
-import { AdmissionsService } from '../../../../business-controller/admissions.service';
 import { PatientService } from '../../../../business-controller/patient.service';
 
 

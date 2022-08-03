@@ -270,6 +270,7 @@ import { ActionsInsumeComponent } from './insume-application/actions.component';
 import { FormLiquidControlDelComponent } from './liquid-control/form-liquid-control-del/form-liquid-control-del.component';
 import { LiquidControlComponent } from './liquid-control/liquid-control.component';
 import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
+import { ConfirmDialogCHComponent } from './clinic-history-list/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -386,7 +387,7 @@ import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-cont
     RNMaterialsOTComponent,
     ForRNmWeeklyOTComponent,
     RNWeeklyOtComponent,
-
+    ConfirmDialogCHComponent,
     ClinicHistoryOccupationalTherapy,
       
     RespiratoryTherapyListComponent,

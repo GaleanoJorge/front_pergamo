@@ -30,7 +30,7 @@ export class InsumeMassiveComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title ;
   public subtitle = '';
-  public headerFields: any[] =  ['id','Producto generico','Valor','Tipo de valor'];
+  public headerFields: any[] =  ['id','Producto generico','Valor','Tipo de valor','Paciente a prestar'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}`;
   public routes = [];
   public row;
@@ -90,6 +90,17 @@ export class InsumeMassiveComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
+        },
+      },
+      patient_id: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(value==null){
+            return "Todos";
+          }else{
+          return row.patient.firstname + ' ' + row.patient.lastname;
+          }
         },
       },
     },

@@ -7,11 +7,6 @@
       {{ body }}
     </div>
 
-    <label for="firm" *ngIf="signature" class="form-text text-muted font-weight-bold">Firma:</label>
-      <ng-signature-pad *ngIf="signature"  [emitOnDragEnd]="true" [showDoneButton]="false"
-      clearButtonText="Borrar" format="base64" (done)="showImage($event)">
-    </ng-signature-pad>
-
   </nb-card-body>
   
   <nb-card-footer class="d-flex justify-content-end">

@@ -29,7 +29,7 @@ export class DetailServicesComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title ;
   public subtitle = 'Detalle del Portafolio de servicios: ';
-  public headerFields: any[] =  ['Código propio','Código homologo','Categoría','Nombre','Valor','Factor'];
+  public headerFields: any[] =  ['Código propio','Código homologo','Categoría','Nombre','Valor','Factor','Paciente a prestar'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -137,6 +137,17 @@ export class DetailServicesComponent implements OnInit {
       factor: {
         title: this.headerFields[5],
         type: 'string',
+      },
+      "manual_price.patient_id": {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(row.manual_price.patient_id==null){
+            return "Todos";
+          }else{
+          return row.manual_price.patient.firstname + ' ' + row.manual_price.patient.lastname;
+          }
+        },
       },
     },
   };

@@ -15,7 +15,7 @@
           </nb-select>
         </div> -->
 
-        <div class="col-12 col-sm-12 col-md-6" *ngIf="assigned!=false">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false">
           <label for="type_of_attention" class="form-text text-muted font-weight-bold">Tipo de Atención:</label>
           <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id"
             id="type_of_attention_id" fullWidth
@@ -27,7 +27,7 @@
           </nb-select>
         </div>
 
-        <div *ngIf="this.form.controls.type_of_attention_id.value==2" class="col-12 col-sm-12 col-md-4">
+        <div *ngIf="this.form.controls.type_of_attention_id.value==2" class="col-12 col-sm-12 col-md-12">
           <label for="specialty" class="form-text text-muted font-weight-bold">Especialidad:</label>
           <nb-select [selected]="this.data.specialty_id" formControlName="specialty_id" id="specialty_id" fullWidth
             status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
