@@ -24,7 +24,10 @@ export class FormAnthropometryComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public botton_title: string = 'Guardar';
+  public prov_weight: number = 0;
+  public prov_size: number = 0;
   public loading: boolean = false;
+  public calculate: boolean = false;
   public messageError = null;
   public is_functional = [
     { id: true, name: 'Si' },
@@ -59,6 +62,53 @@ export class FormAnthropometryComponent implements OnInit {
       hip_perimeter: ['', Validators.required],
     });
 
+    this.form.get('is_functional').valueChanges.subscribe(val => {
+      if (val) {
+        this.form.controls.weight.setValidators([Validators.required]);
+        this.form.controls.weight.updateValueAndValidity();
+        this.form.controls.size.setValidators([Validators.required]);
+        this.form.controls.size.updateValueAndValidity();
+
+        this.form.controls.arm_circunferency.setValidators([]);
+        this.form.controls.arm_circunferency.updateValueAndValidity();
+
+        this.form.controls.calf_circumference.setValidators([]);
+        this.form.controls.calf_circumference.updateValueAndValidity();
+
+        this.form.controls.knee_height.setValidators([]);
+        this.form.controls.knee_height.updateValueAndValidity();
+
+        this.form.controls.abdominal_perimeter.setValidators([]);
+        this.form.controls.abdominal_perimeter.updateValueAndValidity();
+
+        this.form.controls.hip_perimeter.setValidators([]);
+        this.form.controls.hip_perimeter.updateValueAndValidity();
+
+      } else {
+        this.form.controls.weight.setValidators([]);
+        this.form.controls.weight.updateValueAndValidity();
+        this.form.controls.size.setValidators([]);
+        this.form.controls.size.updateValueAndValidity();
+
+        this.form.controls.arm_circunferency.setValidators([Validators.required]);
+        this.form.controls.arm_circunferency.updateValueAndValidity();
+
+        this.form.controls.calf_circumference.setValidators([Validators.required]);
+        this.form.controls.calf_circumference.updateValueAndValidity();
+
+        this.form.controls.knee_height.setValidators([Validators.required]);
+        this.form.controls.knee_height.updateValueAndValidity();
+
+        this.form.controls.abdominal_perimeter.setValidators([Validators.required]);
+        this.form.controls.abdominal_perimeter.updateValueAndValidity();
+
+        this.form.controls.hip_perimeter.setValidators([Validators.required]);
+        this.form.controls.hip_perimeter.updateValueAndValidity();
+
+      }
+      this.onInputChanges(val);
+    });
+
     this.ChNutritionAnthropometryS.GetCollection({
       type_record_id: this.route,
       ch_record_id: this.record_id,
@@ -78,95 +128,127 @@ export class FormAnthropometryComponent implements OnInit {
         this.form.patchValue({ knee_height: this.ch_nutrition_anthropometry.knee_height });
         this.form.patchValue({ abdominal_perimeter: this.ch_nutrition_anthropometry.abdominal_perimeter });
         this.form.patchValue({ hip_perimeter: this.ch_nutrition_anthropometry.hip_perimeter });
+        this.prov_weight = (this.form.controls.weight.value != null && this.form.controls.weight.value != '' && this.form.controls.weight.value > 0) ?
+          this.form.controls.weight.value : (this.ch_nutrition_anthropometry.estimated_weight > 0) ?
+            this.ch_nutrition_anthropometry.estimated_weight : 0;
         this.messageEvent.emit({
           name: 'weight',
-          value: this.form.controls.weight.value
+          value: this.prov_weight
         });
         this.botton_title = 'Actualizar';
       }
+      this.calculate = true;
     });
   }
 
   onInputChanges(event) {
-    if (this.form.controls.weight.value != '' && this.form.controls.size.value != '') {
-      this.geteratedIMC = (this.form.controls.weight.value /
-        ((this.form.controls.size.value / 100) * (this.form.controls.size.value / 100))).toFixed(2);
-      this.classification = this.getClassification(this.geteratedIMC);
-    } else {
-      this.geteratedIMC = null;
-      this.classification = null;
-    }
+    if (this.calculate) {
+      this.prov_size = 0;
+      this.prov_weight = 0;
 
-    if (this.form.controls.size.value != '' &&
-      this.form.controls.abdominal_perimeter.value != '' &&
-      this.form.controls.hip_perimeter.value != '') {
-      var c1 = 1;
-      var c2 = 1;
-      var c3 = 1;
-      var c4 = 1;
-      if (this.data.gender_id == 2) {
-        c1 = 137.432;
-        c2 = 0.60035;
-        c3 = 0.785;
-        c4 = 0.392;
-      } else if (this.data.gender_id == 1) {
-        c1 = 110.924;
-        c2 = 0.4053;
-        c3 = 0.325;
-        c4 = 0.836;
+      this.prov_size = this.validateSize();
+      this.prov_weight = this.validateWeight();
+
+
+      if (this.form.controls.knee_height.value != null &&
+        this.form.controls.knee_height.value != '' &&
+        this.form.controls.knee_height.value > 0) {
+        var c1 = 1;
+        var c2 = 1;
+        var c3 = 1;
+        if (this.data.gender_id == 2) {
+          c1 = 2.02;
+          c2 = 0.04;
+          c3 = 64.19;
+        } else if (this.data.gender_id == 1) {
+          c1 = 1.83;
+          c2 = 0.24;
+          c3 = 84.88;
+        }
+        this.estimated_size = ((c1 * this.form.controls.knee_height.value) - (c2 * this.age) + c3).toFixed(2);
+        this.prov_size = this.validateSize();
+      } else {
+        this.estimated_size = null;
       }
-      this.estimated_weight = (-c1 +
-        (this.form.controls.size.value * c2) +
-        (this.form.controls.abdominal_perimeter.value * c3) +
-        (this.form.controls.hip_perimeter.value * c4)).toFixed(2);
 
-    } else {
-      this.estimated_weight = null;
-    }
+      if (this.estimated_size > 0 &&
+        (this.form.controls.abdominal_perimeter.value != null &&
+          this.form.controls.abdominal_perimeter.value != '' &&
+          this.form.controls.abdominal_perimeter.value > 0) &&
+        (this.form.controls.hip_perimeter.value != null &&
+          this.form.controls.hip_perimeter.value != '' &&
+          this.form.controls.hip_perimeter.value > 0)) {
+        var c1 = 1;
+        var c2 = 1;
+        var c3 = 1;
+        var c4 = 1;
+        if (this.data.gender_id == 2) {
+          c1 = 137.432;
+          c2 = 0.60035;
+          c3 = 0.785;
+          c4 = 0.392;
+        } else if (this.data.gender_id == 1) {
+          c1 = 110.924;
+          c2 = 0.4053;
+          c3 = 0.325;
+          c4 = 0.836;
+        }
+        this.estimated_weight = (-c1 +
+          (this.estimated_size * c2) +
+          (this.form.controls.abdominal_perimeter.value * c3) +
+          (this.form.controls.hip_perimeter.value * c4)).toFixed(2);
+        this.prov_weight = this.validateWeight();
 
-    if (this.form.controls.knee_height.value != '') {
-      var c1 = 1;
-      var c2 = 1;
-      var c3 = 1;
-      if (this.data.gender_id == 2) {
-        c1 = 2.02;
-        c2 = 0.04;
-        c3 = 64.19;
-      } else if (this.data.gender_id == 1) {
-        c1 = 1.83;
-        c2 = 0.24;
-        c3 = 84.88;
+      } else {
+        this.estimated_weight = null;
       }
-      this.estimated_size = ((c1 * this.form.controls.knee_height.value) - (c2 * this.age) + c3).toFixed(2);
-    } else {
-      this.estimated_size = null;
-    }
 
-    if (this.form.controls.size.value != '' &&
-      this.form.controls.weight.value != '') {
-      var c1 = 1;
-      var c2 = 1;
-      var c3 = 1;
-      var c4 = 1;
-      if (this.data.gender_id == 2) {
-        c1 = 66;
-        c2 = 13.7;
-        c3 = 5;
-        c4 = 6.8;
-      } else if (this.data.gender_id == 1) {
-        c1 = 655;
-        c2 = 9.6;
-        c3 = 1.8;
-        c4 = 4.7;
+      if (this.prov_size > 0 &&
+        this.prov_weight > 0) {
+        var c1 = 1;
+        var c2 = 1;
+        var c3 = 1;
+        var c4 = 1;
+        if (this.data.gender_id == 2) {
+          c1 = 66;
+          c2 = 13.7;
+          c3 = 5;
+          c4 = 6.8;
+        } else if (this.data.gender_id == 1) {
+          c1 = 655;
+          c2 = 9.6;
+          c3 = 1.8;
+          c4 = 4.7;
+        }
+        this.total_energy_expenditure = (c1 +
+          (this.prov_weight * c2) +
+          (this.prov_size * c3) -
+          (this.age * c4)).toFixed(2);
+
+      } else {
+        this.total_energy_expenditure = null;
       }
-      this.total_energy_expenditure = (c1 +
-        (this.form.controls.weight.value * c2) +
-        (this.form.controls.size.value * c3) -
-        (this.age * c4)).toFixed(2);
 
-    } else {
-      this.total_energy_expenditure = null;
+      if (this.prov_size > 0 && this.prov_weight > 0) {
+        this.geteratedIMC = (this.prov_weight /
+          ((this.prov_size / 100) * (this.prov_size / 100))).toFixed(2);
+        this.classification = this.getClassification(this.geteratedIMC);
+      } else {
+        this.geteratedIMC = null;
+        this.classification = null;
+      }
     }
+  }
+
+  validateSize() {
+    return (this.form.controls.size.value != null && this.form.controls.size.value != '' && this.form.controls.size.value > 0) ?
+      this.form.controls.size.value : (this.estimated_size > 0) ?
+        this.estimated_size : 0;
+  }
+  validateWeight() {
+    return (this.form.controls.weight.value != null && this.form.controls.weight.value != '' && this.form.controls.weight.value > 0) ?
+      this.form.controls.weight.value : (this.estimated_weight > 0) ?
+        this.estimated_weight : 0;
   }
 
   getClassification(imc: any) {
@@ -197,7 +279,7 @@ export class FormAnthropometryComponent implements OnInit {
     if (!this.form.invalid) {
       this.messageEvent.emit({
         name: 'weight',
-        value: this.form.controls.weight.value
+        value: this.prov_weight
       });
       this.loading = true;
       this.messageError = null;

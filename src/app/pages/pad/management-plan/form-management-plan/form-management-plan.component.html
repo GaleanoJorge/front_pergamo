@@ -4,7 +4,7 @@
     <nb-card-body>
       <div class="row">
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false">
+        <!-- <div class="col-12 col-sm-12 col-md-6" *ngIf="assigned!=false">
           <label for="admissions_id" class="form-text text-muted font-weight-bold">Admisiónes del paciente:</label>
           <nb-select [selected]="this.data.admissions_id" formControlName="admissions_id" id="admissions_id" fullWidth
             status="{{ isSubmitted && form.controls.admissions_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -13,9 +13,9 @@
               {{ item.consecutive}} - {{item.location[0].scope_of_attention.name}} - {{item.location[0].program.name }}
             </nb-option>
           </nb-select>
-        </div>
+        </div> -->
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false">
+        <div class="col-12 col-sm-12 col-md-6" *ngIf="assigned!=false">
           <label for="type_of_attention" class="form-text text-muted font-weight-bold">Tipo de Atención:</label>
           <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id"
             id="type_of_attention_id" fullWidth
@@ -37,7 +37,7 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false">
           <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimiento:</label>
           <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="procedure_id"
             formControlName="procedure_id" procedure_id type="text" required
@@ -85,36 +85,36 @@
             status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ 1 == data.quantity }}" value="1">
-              1 HORA</nb-option>
+              CADA 1 HORA</nb-option>
             <nb-option selected="{{ 2 == data.quantity }}" value="2">
-              2 HORAS</nb-option>
+              CADA 2 HORAS</nb-option>
             <nb-option selected="{{ 3 == data.quantity }}" value="3">
-              3 HORAS</nb-option>
+              CADA 3 HORAS</nb-option>
             <nb-option selected="{{ 4 == data.quantity }}" value="4">
-              4 HORAS</nb-option>
+              CADA 4 HORAS</nb-option>
             <nb-option selected="{{ 6 == data.quantity }}" value="6">
-              6 HORAS</nb-option>
+              CADA 6 HORAS</nb-option>
             <nb-option selected="{{ 8 == data.quantity }}" value="8">
-              8 HORAS</nb-option>
+              CADA 8 HORAS</nb-option>
             <nb-option selected="{{ 12 == data.quantity }}" value="12">
-              12 HORAS</nb-option>
+              CADA 12 HORAS</nb-option>
             <nb-option selected="{{ 24 == data.quantity }}" value="24">
-              24 HORAS</nb-option>
+              CADA 24 HORAS</nb-option>
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-3" *ngIf="medical==false">
+        <div class="col-12 col-sm-12 col-md-3" *ngIf="medical==0">
           <label for="start_date" class="form-text text-muted font-weight-bold">Fecha de inicio:</label>
           <input type="date" nbInput fullWidth id="start_date" formControlName="start_date" start_date
             status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && show">
           <label for="start_hours" class="form-text text-muted font-weight-bold">Hora de inicio:</label>
           <!-- <input type="time" nbInput fullWidth id="start_hours" formControlName="start_hours" start_hours
             status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" /> -->
           <div class="row">
-            <div class="col-md-4" *ngIf="medical==false && show">
+            <div class="col-md-4" *ngIf="medical==0 && show">
               <nb-select [selected]="militat_hour_id" id="militat_hour_id" fullWidth
                 (selectedChange)="ChangeHour($event, 1)"
                 status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -125,7 +125,7 @@
               </nb-select>
             </div>
             :
-            <div class="col-md-4" *ngIf="medical==false && show">
+            <div class="col-md-4" *ngIf="medical==0 && show">
               <nb-select [selected]="militat_minut_id" id="militat_minut_id" fullWidth
                 (selectedChange)="ChangeHour($event, 2)"
                 status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -139,7 +139,7 @@
         </div>
 
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && !show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && !show">
           <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha de fin:</label>
           <input type="date" nbInput fullWidth id="finish_date" formControlName="finish_date" start_date
             status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
@@ -154,20 +154,31 @@
 
         <div class="col-12 col-sm-12 col-md-4" *ngIf="show">
           <label for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a administrar:</label>
-          <input *ngIf="localidentify" placeholder="{{localidentify.manual_price.product.measurement_units.name}}"
-            type="number" nbInput fullWidth id="dosage_administer" formControlName="dosage_administer" dosage_administer
-            status="{{ isSubmitted && form.controls.dosage_administer.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+
+          <div class="row  ">
+            <div class="col-12 col-sm-12 col-md-8 asd">
+              <input *ngIf="localidentify" placeholder="{{this.localidentify.manual_price.product.product_dose_id == 2 ? this.localidentify.manual_price.product.multidose_concentration.name :
+              this.localidentify.manual_price.product.measurement_units.name}}" type="number" nbInput fullWidth
+                id="dosage_administer" formControlName="dosage_administer" dosage_administer
+                status="{{ isSubmitted && form.controls.dosage_administer.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-2 aaa" *ngIf="this.localidentify">
+              {{this.localidentify.manual_price.product.product_dose_id == 2 ?
+              this.localidentify.manual_price.product.multidose_concentration.name :
+              this.localidentify.manual_price.product.measurement_units.name}}
+            </div>
+          </div>
         </div>
 
 
-        <div class="col-12 col-sm-12 col-md-2" *ngIf="medical==false && !show">
+        <div class="col-12 col-sm-12 col-md-2" *ngIf="medical==0 && !show">
           <label for="quantity" class="form-text text-muted font-weight-bold">Teleconsulta:</label>
           <nb-toggle labelPosition="left" [checked]="phone_consult" (change)="phoneConsultChange($event)">
           </nb-toggle>
         </div>
 
         <div class="assigned ? col-12 col-sm-12 col-md-4: col-12 col-sm-12 col-md-12"
-          *ngIf="medical==false && showUser!=false">
+          *ngIf="medical==0 && showUser!=false">
           <label for="assigned_user_id" class="form-text text-muted font-weight-bold">Personal asistencial:</label>
           <nb-select [selected]="this.data.assigned_user_id" formControlName="assigned_user_id" id="assigned_user_id"
             fullWidth
@@ -185,17 +196,17 @@
       </div>
 
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-12" *ngIf="medical==false && assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="medical==0 && assigned!=false && show">
           <h6 style="margin-top: 10px;text-align: center;" for="preparation"
             class="form-text text-muted font-weight-bold">Recomendaciones para la aplicación de medicamentos:</h6>
         </div>
-        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==false && assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==0 && assigned!=false && show">
           <label for="preparation" class="form-text text-muted font-weight-bold">Preparación:</label>
           <input nbInput fullWidth id="preparation" formControlName="preparation" preparation
             status="{{ isSubmitted && form.controls.preparation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && assigned!=false && show">
           <label for="administration_route" class="form-text text-muted font-weight-bold">Via des
             administración:</label>
           <nb-select [selected]="this.data.route_of_administration" formControlName="route_of_administration"
@@ -208,13 +219,13 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==false && assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==0 && assigned!=false && show">
           <label for="blend" class="form-text text-muted font-weight-bold">Mezcla:</label>
           <input nbInput fullWidth id="blend" formControlName="blend" blend
             status="{{ isSubmitted && form.controls.blend.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==false && assigned!=false && show">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && assigned!=false && show">
           <label for="administration_time" class="form-text text-muted font-weight-bold">Tiempo de
             administración:</label>
           <input nbInput fullWidth id="administration_time" formControlName="administration_time" administration_time
@@ -223,8 +234,8 @@
 
         <div class="col-12 col-sm-12 col-md-12">
           <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
-          <input nbInput fullWidth id="observation" formControlName="observation" observation
-            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          <textarea nbInput fullWidth id="observation" formControlName="observation" observation
+            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"></textarea>
         </div>
 
 

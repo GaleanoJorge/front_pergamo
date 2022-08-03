@@ -1,16 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChPatientExitService } from '../../../../business-controller/ch-patient-exit.service';
 import { ReasonExitService } from '../../../../business-controller/reason-exit.service';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { ChDiagnosisService } from '../../../../business-controller/ch-diagnosis.service';
-import { ChRecordService } from '../../../../business-controller/ch_record.service';
-import { UserBusinessService } from '../../../../business-controller/user-business.service';
 import { AuthService } from '../../../../services/auth.service';
+import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { Location } from '@angular/common';
-import { exit } from 'process';
+import { AdmissionsService } from '../../../../business-controller/admissions.service';
+
+
+
 @Component({
   selector: 'ngx-form-patient-exit',
   templateUrl: './form-patient-exit.component.html',
@@ -60,11 +62,12 @@ export class FormPatientExitComponent implements OnInit {
     private DiagnosisS: DiagnosisService,
     private ChDiagnosisS: ChDiagnosisService,
     private route: ActivatedRoute,
-    private chRecord:ChRecordService,
-    private UserBS: UserBusinessService,
     private authService: AuthService, 
+    private chRecord: ChRecordService,
+    private admissionS: AdmissionsService,
     private location: Location,
-    
+    private router: Router,
+
   ) {
 
   }
@@ -76,7 +79,7 @@ export class FormPatientExitComponent implements OnInit {
     };
   }
 
-  ngOnInit() {
+  ngOnInit():void {
 
     this.record_id = this.route.snapshot.params.id;
     this.currentRole = this.authService.GetRole();
@@ -98,6 +101,23 @@ export class FormPatientExitComponent implements OnInit {
       };
     }
 
+    this.form = this.formBuilder.group({
+
+      exit_status: [this.data.exit_status,Validators.compose([Validators.required])],
+      legal_medicine_transfer: [this.data.legal_medicine_transfer],
+      date_time: [this.data.date_time],
+      death_diagnosis_id: [this.data.death_diagnosis_id],
+      ch_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].ch_diagnosis_id ): this.data.ch_diagnosis_id],
+      medical_signature: [this.data.medical_signature],
+      death_certificate_number: [this.data.death_certificate_number],
+      exit_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].exit_diagnosis_id ): this.data.exit_diagnosis_id],
+      relations_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].relations_diagnosis_id ): this.data.relations_diagnosis_id],
+      reason_exit_id: [this.data.reason_exit_id],
+     
+    });
+
+    this.onChanges();
+
     this.ReasonExitS.GetCollection().then(y => {
       this.reason_exit= y;
     });
@@ -110,20 +130,8 @@ export class FormPatientExitComponent implements OnInit {
     });
    
 
-    this.form = this.formBuilder.group({
-      exit_status: [this.data.exit_status,Validators.compose([Validators.required]),],
-      legal_medicine_transfer: [this.data.legal_medicine_transfer],
-      date_time: [this.data.date_time],
-      death_diagnosis_id: [this.data.death_diagnosis_id],
-      ch_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].ch_diagnosis_id ): this.data.ch_diagnosis_id],
-      medical_signature: [this.data.medical_signature],
-      death_certificate_number: [this.data.death_certificate_number],
-      exit_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].exit_diagnosis_id ): this.data.exit_diagnosis_id],
-      relations_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].relations_diagnosis_id ): this.data.relations_diagnosis_id],
-      reason_exit_id: [this.data.reason_exit_id],
-     
-    });
-    this.onChanges();
+
+
   }
 
 
@@ -176,6 +184,39 @@ export class FormPatientExitComponent implements OnInit {
 
         }).then(x => {
           this.toastService.success('', x.message);
+          this.chRecord.Update({
+            id: this.record_id,
+            status: 'CERRADO',
+            user: this.authService.GetUser().id,
+            role: this.currentRole,
+            user_id: this.own_user.id,
+          }).then(z => {
+            this.admissionS.Update({
+              id:  z.data.ch_record.admissions_id,
+              medical_date:new Date(),
+              user_medical_id:this.authService.GetUser().id,
+            }).then(y => {
+              this.location.back();
+              this.toastService.success('', y.message);
+
+              if (this.saved) {
+                this.saved();
+              }
+            }).catch(y => {
+              this.isSubmitted = false;
+              this.loading = false;
+            });
+           
+            this.location.back();
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(z => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+          this.router.navigateByUrl('/pages/pad/list');
+
           this.messageEvent.emit(true);
           this.form.setValue({ patient_family_education:'', recommendations_evo_id: '', description:'', });
           if (this.saved) {

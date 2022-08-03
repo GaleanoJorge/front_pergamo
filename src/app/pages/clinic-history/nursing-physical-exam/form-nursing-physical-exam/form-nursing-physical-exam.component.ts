@@ -133,9 +133,9 @@ export class FormNursingPhysicalExamComponent implements OnInit {
       // });
     });
 
-    await this.PhysicalExamS.ByRecord(this.record_id, this.type_record_id).then(x => { 
+    await this.PhysicalExamS.ByRecord(this.record_id, this.type_record_id).then(x => {
       x;
-      if(x.length > 0){
+      if (x.length > 0) {
         this.data = x
         this.disabled = true
         this.form.controls.description1.disable();
@@ -151,7 +151,7 @@ export class FormNursingPhysicalExamComponent implements OnInit {
     return Promise.resolve(true);
   }
 
-  async loadForm(force = true){
+  async loadForm(force = true) {
     if (this.loadAuxData && force) return false;
 
     this.form = this.formBuilder.group({
@@ -231,6 +231,7 @@ export class FormNursingPhysicalExamComponent implements OnInit {
             this.loading = false;
           });
       } else {
+        var mesagge;
         this.ArrayforSaving.forEach(async element => {
           await this.PhysicalExamS.Save({
             type_ch_physical_exam_id: element.id,
@@ -239,12 +240,13 @@ export class FormNursingPhysicalExamComponent implements OnInit {
             type_record_id: this.type_record_id,
             ch_record_id: this.record_id,
           }).then((x) => {
+            mesagge = x.message;
             contador++;
-            this.toastService.success('', x.message);
           }).catch((x) => {
             err++;
           });
         });
+        this.toastService.success('', mesagge + '' + contador);
         this.disabled = true;
         this.loading = false;
         this.messageEvent.emit(true);

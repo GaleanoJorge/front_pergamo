@@ -86,14 +86,14 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
 
       if (this.data.id) {
-        await this.ChEOccHistoryOTServiceS.Update({
+          this.ChEOccHistoryOTServiceS.Update({
           id: this.data.id,
           ocupation: this.form.controls.ocupation.value,
           enterprice_employee: this.form.controls.enterprice_employee.value,
@@ -117,7 +117,7 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEOccHistoryOTServiceS.Save({
+          this.ChEOccHistoryOTServiceS.Save({
           ocupation: this.form.controls.ocupation.value,
           enterprice_employee: this.form.controls.enterprice_employee.value,
           work_employee: this.form.controls.work_employee.value,

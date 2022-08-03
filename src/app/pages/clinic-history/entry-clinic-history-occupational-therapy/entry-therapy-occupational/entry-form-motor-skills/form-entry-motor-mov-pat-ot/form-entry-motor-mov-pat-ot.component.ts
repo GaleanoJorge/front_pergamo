@@ -186,13 +186,13 @@ export class FormEntryMotorMovPatOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSMovPatOTService.Update({
+          this.ChEMSMovPatOTService.Update({
           id: this.data.id,
           scroll_right: this.form.controls.scroll_right.value,
           scroll_left: this.form.controls.scroll_left.value,
@@ -240,7 +240,7 @@ export class FormEntryMotorMovPatOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSMovPatOTService.Save({
+          this.ChEMSMovPatOTService.Save({
           scroll_right: this.form.controls.scroll_right.value,
           scroll_left: this.form.controls.scroll_left.value,
           get_up_right: this.form.controls.get_up_right.value,

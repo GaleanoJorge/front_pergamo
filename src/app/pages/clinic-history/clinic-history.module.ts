@@ -86,7 +86,6 @@ import { Actions8Component } from './background/back/actions.component';
 import { FormFailedComponent } from './failed/form-failed/form-failed.component';
 import { FailedComponent } from './failed/failed.component';
 import { FormPatientExitComponent } from './patient-exit/form-patient-exit/form-patient-exit.component';
-import { PatientExitComponent } from './patient-exit/patient-exit.component';
 import { FormChMedicalOrdersComponent } from './ch-medical-orders/form-ch-medical-orders/form-ch-medical-orders.component';
 import { ChMedicalOrdersComponent } from './ch-medical-orders/ch-medical-orders.component';
 import { FormChInterconsultationComponent } from './ch-interconsultation/form-ch-interconsultation/form-ch-interconsultation.component';
@@ -164,9 +163,6 @@ import { NotesDescriptionComponent } from './notes-description/notes-description
 import { FormNotesDescriptionComponent } from './notes-description/form-notes-description/form-notes-description.component';
 import { CarePlanComponent } from './care-plan/care-plan.component';
 import { FormCarePlanComponent } from './care-plan/form-care-plan/form-care-plan.component';
-import { LiquidControlComponent } from './liquid-control/liquid-control.component';
-import { FormLiquidControlComponent } from './liquid-control/form-liquid-control/form-liquid-control.component';
-import { FormLiquidEliminationComponent } from './liquid-control/form-liquid-elimination/form-liquid-elimination.component';
 import { NursingProcedureComponent } from './nursing-procedure/nursing-procedure.component';
 import { FormNursingProcedureComponent } from './nursing-procedure/form-nursing-procedure/form-nursing-procedure.component';
 import { FormRespiratoryTherapyComponent } from './respiratory-therapy-list/form-respiratory-therapy/form-respiratory-therapy.component';
@@ -223,7 +219,7 @@ import { FormChApComponent } from './ch-ap/form-ch-ap/form-ch-ap.component';
 import { FormEntryMotorIntPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-int-pat-ot/form-entry-motor-int-pat-ot.component';
 import { FormEntryMotorMovPatOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-mov-pat-ot/form-entry-motor-mov-pat-ot.component';
 import { FormEntryMotorThermalOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-thermal-ot/form-entry-motor-thermal-ot.component';
-import { FormEntryMotorDisAuditorylOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-dis-auditory-ot/form-entry-motor-dis-auditory-ot.component';
+import { FormEntryMotorDisAuditoryOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-dis-auditory-ot/form-entry-motor-dis-auditory-ot.component';
 import { FormEntryMotorAcuityOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-acuity-ot/form-entry-motor-acuity-ot.component';
 import { FormEntryMotorAssessmentOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-assessment-ot/form-entry-motor-assessment-ot.component';
 import { FormEntryMotorCommunicationOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/entry-form-motor-skills/form-entry-motor-communication-ot/form-entry-motor-communication-ot.component';
@@ -268,6 +264,12 @@ import { ChHairValorationComponent } from './ch-hair-valoration/ch-hair-valorati
 import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair-valoration/form-ch-hair-valoration.component';
 import { Actions25Component } from './failed/actions25.component';
 import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
+import { InsumeApplicationComponent } from './insume-application/insume-application.component';
+import { FormInsumeApplicationComponent } from './insume-application/form-insume-application/form-insume-application.component';
+import { ActionsInsumeComponent } from './insume-application/actions.component';
+import { FormLiquidControlDelComponent } from './liquid-control/form-liquid-control-del/form-liquid-control-del.component';
+import { LiquidControlComponent } from './liquid-control/liquid-control.component';
+import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
 
 
 @NgModule({
@@ -299,6 +301,11 @@ import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-ther
     NbCheckboxModule,
   ],
   declarations: [
+
+    InsumeApplicationComponent,
+    FormInsumeApplicationComponent,
+    ActionsInsumeComponent,
+
     ChOxigenComponent,
     FormChOxigenComponent,
 
@@ -317,8 +324,8 @@ import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-ther
     FormNursingProcedureComponent,
 
     LiquidControlComponent,
-    FormLiquidControlComponent,
-    FormLiquidEliminationComponent,
+    FormLiquidControlAdmComponent,
+    FormLiquidControlDelComponent,
 
     CarePlanComponent,
     FormCarePlanComponent,
@@ -359,7 +366,7 @@ import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-ther
     FormEntryMotorIntPatOTComponent,
     FormEntryMotorMovPatOTComponent,
     FormEntryMotorThermalOTComponent,
-    FormEntryMotorDisAuditorylOTComponent,
+    FormEntryMotorDisAuditoryOTComponent,
     FormEntryMotorDisTactilelOTComponent,
     FormEntryMotorAcuityOTComponent,
     FormEntryMotorComponentOTComponent,
@@ -514,7 +521,6 @@ import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-ther
     Actions25Component,
 
     FormPatientExitComponent,
-    PatientExitComponent,
 
     FormChInterconsultationComponent,
     ChInterconsultationComponent,

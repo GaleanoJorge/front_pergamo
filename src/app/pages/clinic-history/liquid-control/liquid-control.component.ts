@@ -7,14 +7,14 @@ import { NbToastrService } from '@nebular/theme';
 import { VALUE } from '@syncfusion/ej2-angular-filemanager';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ChLiquidControlService } from '../../../business-controller/ch-liquid-control.service';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
+import { nullSafeIsEquivalent, THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { time } from '@rxweb/reactive-form-validators';
 
 @Component({
   selector: 'ngx-liquid-control',
   templateUrl: './liquid-control.component.html',
   styleUrls: ['./liquid-control.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LiquidControlComponent implements OnInit {
   @Input() record_id: any = null;
@@ -39,12 +39,14 @@ export class LiquidControlComponent implements OnInit {
   public calulateLiquidControl: any[] = [];
   public vital_signs: any[] = [];
   public hour;
+  public max_hour;
+  public min_hour;
   public urinalWaste;
   public hidricBalance;
   public Diur = 0;
   public admin = 0;
   public eliminate = 0;
-
+  public done = false;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -64,14 +66,21 @@ export class LiquidControlComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
+          if(!this.done){
+            this.min_hour = row.clock
+            this.max_hour = row.clock
+            this.done = true;
+          }else{
+            this.max_hour = row.clock
+          }
           if (row.ch_route_fluid.type == 0) {
-            // this.admin = this.admin + row.delivered_volume;
+            this.admin = this.admin + row.delivered_volume;
             return 'ADMINISTRADO'
           } else {
-            // if(row.ch_route_fluid.name == "DIURESIS"){
-            //   this.Diur = this.Diur + row.delivered_volume;
-            // }
-            // this.admin = this.admin + row.delivered_volume;
+            if(row.ch_route_fluid.name == "DIURESIS"){
+              this.Diur = this.Diur + row.delivered_volume;
+            }
+            this.eliminate = this.eliminate + row.delivered_volume;
             return 'ELIMINADO'
           }
         },
@@ -87,6 +96,7 @@ export class LiquidControlComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
+          this.liquidCalculator(row.weight);
           return value.name;
         },
       },
@@ -101,7 +111,7 @@ export class LiquidControlComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'NO APLICA';
+            return '--';
           }
 
         },
@@ -113,9 +123,8 @@ export class LiquidControlComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'NO APLICA';
+            return '--';
           }
-
         },
       },
     },
@@ -130,15 +139,15 @@ export class LiquidControlComponent implements OnInit {
 
   ) {
 
-    this.routes = [
-      {
-        name: 'Pacientes',
-        route: '../../list',
-      }, {
-        name: 'Registro Histotia Clinia',
-        route: '../../clinic-history/' + this.route.snapshot.params.user_id,
-      },
-    ];
+    // this.routes = [
+    //   {
+    //     name: 'Pacientes',
+    //     route: '../../list',
+    //   }, {
+    //     name: 'Registro Histotia Clinia',
+    //     route: '../../clinic-history/' + this.route.snapshot.params.user_id,
+    //   },
+    // ];
   }
   GetParams() {
     return {
@@ -161,48 +170,18 @@ export class LiquidControlComponent implements OnInit {
       urine_balance: [this.auxForm.urine_waste]
     });
 
-    this.liquidCalculator();
   }
 
-  async liquidCalculator() {
-    const destroyByClick = true;
-    var diur = 0;
-    var admin = 0;
-    var eliminate = 0;
+  async liquidCalculator(weight) {
+
     var adicional;
-    await this.liquidControlS.GetByRecord(this.record_id).then(x => {
-      if (x.length > 0) {
-        this.calulateLiquidControl = x;
-        this.calulateLiquidControl.forEach(element => {
-          if (element.ch_route_fluid.type == 0) {
-            admin = admin + element.delivered_volume;
-          } else {
-            if (element.ch_route_fluid.name == "DIURESIS") {
-              diur = diur + element.delivered_volume
-            }
-            eliminate = eliminate + element.delivered_volume;
-          }
-        });
-      } else {
-        this.calulateLiquidControl = null;
-        this.toastService.info('', 'Se deben agregar registros para calcular datos hídricos', { destroyByClick })
-      }
-    });
 
-    await this.chVitalSignS.GetByRecord(this.record_id).then(x => {
-      if (x.length > 0) {
-        this.vital_signs = x;
-      } else {
-        this.vital_signs = null;
-        this.toastService.info('', 'Se deben diligenciar los signos vitales para calcular valores hídricos', { destroyByClick })
-      }
-    });
-    if (this.calulateLiquidControl && this.vital_signs) {
-      let Maxhour = Number(this.calulateLiquidControl[0].clock.substring(0, 1));
-      let Maxmin = Number(this.calulateLiquidControl[0].clock.substring(3, 4));
+    if (this.done && weight) {
+      let Maxhour = Number(this.max_hour.substring(0, 1));
+      let Maxmin = Number(this.max_hour.substring(3, 4));
 
-      let Minhour = Number(this.calulateLiquidControl[this.calulateLiquidControl.length - 1].clock.substring(0, 1));
-      let Minmin = Number(this.calulateLiquidControl[this.calulateLiquidControl.length - 1].clock.substring(3, 4));
+      let Minhour = Number(this.min_hour.substring(0, 1));
+      let Minmin = Number(this.min_hour.substring(3, 4));
 
       var hour = Maxhour - Minhour;
       var min = Maxmin - Minmin;
@@ -223,7 +202,7 @@ export class LiquidControlComponent implements OnInit {
       }
 
       //Gasto Urinario
-      this.urinalWaste = this.vital_signs[0].weight / this.hour / diur;
+      this.urinalWaste = weight / this.hour / this.Diur;
       if (this.urinalWaste <= 0.3) {
         adicional = 'ANURIA';
       } else if (this.urinalWaste > 0.3 && this.urinalWaste <= 0.7) {
@@ -235,22 +214,26 @@ export class LiquidControlComponent implements OnInit {
       }
 
       //Balance hídrico
-      this.hidricBalance = admin - eliminate;
+      this.hidricBalance = this.admin - this.eliminate;
       this.form.patchValue({
         urine_waste: this.urinalWaste == Infinity ? 'Faltan datos' : this.urinalWaste.toFixed(3) + ' : ' + adicional,
         urine_balance: this.hidricBalance,
       });
 
-      // max.setHours(this.calulateLiquidControl[0].clock .substring(0, 1), this.calulateLiquidControl[0].clock.substring(3, 4));
 
     } else {
-
+      this.toastService.info('Se deben registrar valores hidricos y signos vitales para calculos hidricos','Información');
+      this.form.patchValue({
+        urine_waste: "--",
+        urine_balance: "--",
+      })
     }
-    this.table.refresh();
+    // this.table.refresh();
   }
 
   RefreshData() {
-    this.liquidCalculator();
+    this.table.refresh();
+    // this.liquidCalculator();
   }
 
   NewChVitalSigns() {

@@ -83,13 +83,13 @@ export class FormEntryMotorAcuityOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSAcuityOTService.Update({
+          this.ChEMSAcuityOTService.Update({
           id: this.data.id,
           follow_up: this.form.controls.follow_up.value,
           object_identify: this.form.controls.object_identify.value,
@@ -111,7 +111,7 @@ export class FormEntryMotorAcuityOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSAcuityOTService.Save({
+          this.ChEMSAcuityOTService.Save({
           follow_up: this.form.controls.follow_up.value,
           object_identify: this.form.controls.object_identify.value,
           figures: this.form.controls.figures.value,

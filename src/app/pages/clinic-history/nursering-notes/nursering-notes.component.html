@@ -4,28 +4,38 @@
       <nb-card-body>
         <nb-stepper #stepper [linear]="linearMode">
 
-          <nb-step [stepControl]="nameForm" label="Descripción Nota">
+          <nb-step label="Descripción Nota">
             <ngx-notes-description [record_id]="record_id" [type_record_id]="3"></ngx-notes-description>
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="Ex Físico">
-                <ngx-nursing-physical-exam [record_id]="record_id" [type_record_id]="3" [enfermery]="true"></ngx-nursing-physical-exam>     
+          <nb-step label="Ex Físico">
+            <ngx-nursing-physical-exam [record_id]="record_id" [type_record_id]="3" [enfermery]="true">
+            </ngx-nursing-physical-exam>
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="Signos Vitales">
-            <ngx-form-signs [record_id]="record_id"></ngx-form-signs> 
+          <nb-step label="Signos Vitales">
+            <ngx-signs-evo [record_id]="record_id"></ngx-signs-evo>
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="Procedimientos de enfermeria">
-            <ngx-nursing-procedure [record_id]="record_id" [type_record_id]="type_record_id"></ngx-nursing-procedure> 
+          <nb-step label="Procedimientos de enfermeria">
+            <ngx-nursing-procedure [record_id]="record_id" [type_record_id]="type_record_id"></ngx-nursing-procedure>
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="Plan de cuidados">
+          <nb-step label="Plan de cuidados">
             <ngx-care-plan [record_id]="record_id" [type_record_id]="type_record_id"></ngx-care-plan>
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="Control de líquidos">
-            <ngx-liquid-control [record_id]="record_id" [type_record_id]="type_record_id" ></ngx-liquid-control>
+          <nb-step label="Control de líquidos">
+            <ngx-liquid-control [record_id]="record_id" [type_record_id]="type_record_id"></ngx-liquid-control>
+          </nb-step>
+
+          <nb-step [hidden]="true">
+
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+
           </nb-step>
 
         </nb-stepper>

@@ -26,6 +26,13 @@
               <nb-option *ngFor="let item of price_type" [value]="item.id">{{ item.name }}</nb-option>
             </nb-select>
           </div>
+          <div class="col-12 col-sm-12 col-md-4">
+            <label class="form-text text-muted font-weight-bold">Paciente:</label>
+            <input type="text" list="codes2" class="data-list" (change)="saveCode2($event)" formControlName="patient_id">
+            <datalist id="codes2">
+              <option *ngFor="let item of patient" [value]="item.identification">{{item.identification}}-{{item.nombre_completo}}</option>
+            </datalist>
+          </div>
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">

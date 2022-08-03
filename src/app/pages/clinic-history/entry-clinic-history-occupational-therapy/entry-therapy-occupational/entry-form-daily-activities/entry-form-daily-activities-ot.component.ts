@@ -146,14 +146,14 @@ export class EntryFormDailyActivitiesOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
 
       if (this.data.id) {
-        await this.ChEDailyActivitiesOTService.Update({
+          this.ChEDailyActivitiesOTService.Update({
           id: this.data.id,
           cook: this.form.controls.cook.value,
           kids: this.form.controls.kids.value,
@@ -191,7 +191,7 @@ export class EntryFormDailyActivitiesOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEDailyActivitiesOTService.Save({
+          this.ChEDailyActivitiesOTService.Save({
           cook: this.form.controls.cook.value,
           kids: this.form.controls.kids.value,
           wash: this.form.controls.wash.value,

@@ -1,94 +1,42 @@
-<nb-tabset class="tabset" (changeTab)="tablock($event)" >
+<nb-tabset class="tabset" (changeTab)="tablock($event)">
   <nb-tab tabTitle="Administrados">
     <div *ngIf="this.show == 1">
-      <ngx-form-liquid-control (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id" [type_record_id]="this.type_record_id">
-      </ngx-form-liquid-control>
+      <ngx-form-liquid-control-adm (messageEvent)="receiveMessage($event)" [record_id]="this.record_id"
+        [type_record_id]="this.type_record_id">
+      </ngx-form-liquid-control-adm>
     </div>
   </nb-tab>
   <nb-tab tabTitle="Eliminados">
     <div *ngIf="this.show == 2">
-      <ngx-form-liquid-elimination (messageEvent)="receiveMessage($event)" [data]="null" [record_id]="this.record_id" [type_record_id]="this.type_record_id">
-      </ngx-form-liquid-elimination>
+      <ngx-form-liquid-control-del (messageEvent)="receiveMessage($event)" [record_id]="this.record_id"
+        [type_record_id]="this.type_record_id">
+      </ngx-form-liquid-control-del>
     </div>
   </nb-tab>
 </nb-tabset>
 
-<label class="form-text text-muted font-weight-bold align"> </label>
-
-<ngx-base-list [messageError]="messageError">
+<ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
-
-    <ngx-base-table [title]="title" [subtitle]="subtitle" customData="ch_liquid_control" [settings]="settings"
+    <ngx-base-table pager="false" [title]="title" customData="ch_liquid_control" [settings]="settings"
       entity="ch_liquid_control/by_record/{{record_id}}">
-      <div actions>
-        <div class="actions">
-        </div>
-        <div class="actions" style="margin-top:1em;">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-12">
+            <hr />
+          </div>
         </div>
       </div>
-
     </ngx-base-table>
 
-    <div class="container">
-      <div class="row justify-content-md-center">
-        <div class="col col-lg-12">
-          <hr />
-        </div>
-      </div>
-    </div>
-    <nb-flip-card>
-      <nb-card-front>
-        <nb-card accent="success">
-          <nb-card-header><b> BALANCE HÍDRICO </b></nb-card-header>
-          <nb-card-body>
-            <form [formGroup]="form">
-              <div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="center">
-                      <div class="col-md-12">
-                        <label for="urine_waste" disabled class="form-text text-muted font-weight-bold align">GASTO
-                          URINARIO</label>
-
-                        <input type="text" disabled id="urine_waste" disabled formControlName="urine_waste" id="urine_waste"
-                          urine_waste nbInput fullWidth
-                          status="{{ isSubmitted && form.controls.urine_waste.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="container">
-                  <div class="row justify-content-md-center">
-                    <div class="col col-lg-12">
-                      <hr />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="center">
-                      <div class="col-md-12">
-                        <label for="urine_balance" class="form-text text-muted font-weight-bold align">BALANCE
-                          HIDRICO</label>
-
-                        <input type="text" disabled id="urine_balance" formControlName="urine_balance"
-                          id="urine_balance" urine_waste nbInput fullWidth
-                          status="{{ isSubmitted && form.controls.urine_balance.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </nb-card-body>
-        </nb-card>
-      </nb-card-front>
-      <nb-card-back>
-        <nb-card accent="success">
-          <nb-card-header> <b> FORMULAS DE CALCULO </b></nb-card-header>
-          <nb-card-body>
+  </div>
+</ngx-base-list>
+<div content>
+  <nb-flip-card>
+    <nb-card-front>
+      <nb-card accent="success">
+        <nb-card-header><b> BALANCE HÍDRICO </b></nb-card-header>
+        <nb-card-body>
+          <form [formGroup]="form">
             <div>
               <div class="row">
                 <div class="col-md-12">
@@ -96,12 +44,10 @@
                     <div class="col-md-12">
                       <label for="urine_waste" disabled class="form-text text-muted font-weight-bold align">GASTO
                         URINARIO</label>
-                      <p class="" ><b>FORMULA:</b>  PESO / HORAS TRANSCURRIDAS / VOLUMEN TOTAL ELIMINADO POR DIURESIS </p>
 
-                      <p class="" ><b>ANURIA:</b>  -0,3 </p>
-                      <p class="" ><b>OLIGURIA:</b>   0,4 </p>
-                      <p class="" ><b>NORMAL:</b> 0,8 - 1 </p>
-                     
+                      <input type="text" disabled id="urine_waste" disabled formControlName="urine_waste"
+                        id="urine_waste" urine_waste nbInput fullWidth
+                        status="{{ isSubmitted && form.controls.urine_waste.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                     </div>
                   </div>
                 </div>
@@ -121,22 +67,67 @@
                     <div class="col-md-12">
                       <label for="urine_balance" class="form-text text-muted font-weight-bold align">BALANCE
                         HIDRICO</label>
-                      <p class="" ><b>FORMULA:</b>  ADMINISTRADOS - ELIMINADOS </p>
 
-                      
-
-
+                      <input type="text" disabled id="urine_balance" formControlName="urine_balance"
+                        id="urine_balance" urine_waste nbInput fullWidth
+                        status="{{ isSubmitted && form.controls.urine_balance.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </nb-card-body>
-        </nb-card>
-      </nb-card-back>
-    </nb-flip-card>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </nb-card-front>
+    <nb-card-back>
+      <nb-card accent="success">
+        <nb-card-header> <b> FORMULAS DE CALCULO </b></nb-card-header>
+        <nb-card-body>
+          <div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="center">
+                  <div class="col-md-12">
+                    <label for="urine_waste" disabled class="form-text text-muted font-weight-bold align">GASTO
+                      URINARIO</label>
+                    <p class=""><b>FORMULA:</b> PESO / HORAS TRANSCURRIDAS / VOLUMEN TOTAL ELIMINADO POR DIURESIS </p>
 
-  </div>
+                    <p class=""><b>ANURIA:</b> -0,3 </p>
+                    <p class=""><b>OLIGURIA:</b> 0,4 </p>
+                    <p class=""><b>NORMAL:</b> 0,8 - 1 </p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12">
+                  <hr />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="center">
+                  <div class="col-md-12">
+                    <label for="urine_balance" class="form-text text-muted font-weight-bold align">BALANCE
+                      HIDRICO</label>
+                    <p class=""><b>FORMULA:</b> ADMINISTRADOS - ELIMINADOS </p>
 
 
-</ngx-base-list>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </nb-card-back>
+  </nb-flip-card>
+</div>

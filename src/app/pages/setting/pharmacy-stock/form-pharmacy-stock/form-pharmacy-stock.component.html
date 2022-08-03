@@ -6,14 +6,12 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="name" class="form-text text-muted font-weight-bold">TIPO:</label>
-          <nb-select [selected]="this.data.type_pharmacy_stock_id" formControlName="type_pharmacy_stock_id"
-            id="type_pharmacy_stock_id" fullWidth
-            status="{{ isSubmitted && form.controls.type_pharmacy_stock_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.type_pharmacy_stock_id }}"
-              *ngFor="let item of type_pharmacy_stock_id" [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
+          <nb-select [selected]="this.data.type_pharmacy_stock_id" formControlName="type_pharmacy_stock_id" id="type_pharmacy_stock_id" fullWidth
+          status="{{ isSubmitted && form.controls.type_pharmacy_stock_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.type_pharmacy_stock_id }}" *ngFor="let item of type_pharmacy_stock_id" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">

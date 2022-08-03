@@ -128,13 +128,13 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
 
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
       if (this.data.id) {
-        await this.ChEMSAssessmentOTService.Update({
+          this.ChEMSAssessmentOTService.Update({
           id: this.data.id,
           occupational_con: this.form.controls.occupational_con.value,
           check1_hold: this.form.controls.check1_hold.value ? this.arrayObjectives[0].description : null,
@@ -162,7 +162,7 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSAssessmentOTService.Save({
+          this.ChEMSAssessmentOTService.Save({
           occupational_con: this.form.controls.occupational_con.value,
           check1_hold: this.form.controls.check1_hold.value ? this.arrayObjectives[0].description : null,
           check2_improve: this.form.controls.check2_improve.value ? this.arrayObjectives[1].description : null,

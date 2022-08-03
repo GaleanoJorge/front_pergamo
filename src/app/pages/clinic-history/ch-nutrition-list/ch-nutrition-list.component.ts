@@ -30,6 +30,7 @@ export class ChNutritionListComponent implements OnInit {
   public data = [];
   public user_id;
   public date_end: boolean = true;
+  public is_failed: boolean = true;
   public cont = 0;
   public ambit;
   public program;
@@ -129,6 +130,7 @@ export class ChNutritionListComponent implements OnInit {
       user: this.user,
       role: this.currentRole,
       user_id: this.own_user.id,
+      is_failed: this.is_failed,
     }).then(x => {
       this.toastService.success('', x.message);
       this.location.back();
@@ -173,10 +175,18 @@ export class ChNutritionListComponent implements OnInit {
         this.show = 3;
         break;
       }
+      case "FALLIDA": {
+        this.show = 9;
+        break;
+      }
     }
   }
 
- 
+  receiveMessage($event) {
+    if ($event.is_failed == true) {
+      this.is_failed = true;
+    }
+  }
 
   DeleteAdmissions(data) {
     return this.admissionsS.Delete(data.id).then(x => {

@@ -95,13 +95,13 @@ export class FormEntryMotorCommunicationOTComponent implements OnInit {
     }
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
-        await this.ChEMSCommunicationOTService.Update({
+          this.ChEMSCommunicationOTService.Update({
           id: this.data.id,
           community: this.form.controls.community.value,
           relatives: this.form.controls.relatives.value,
@@ -126,7 +126,7 @@ export class FormEntryMotorCommunicationOTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        await this.ChEMSCommunicationOTService.Save({
+          this.ChEMSCommunicationOTService.Save({
           community: this.form.controls.community.value,
           relatives: this.form.controls.relatives.value,
           friends: this.form.controls.friends.value,

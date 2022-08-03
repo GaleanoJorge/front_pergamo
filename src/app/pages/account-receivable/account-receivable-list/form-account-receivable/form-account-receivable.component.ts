@@ -101,7 +101,7 @@ export class FormAccountReceivableComponent implements OnInit {
       if (this.saved) {
         this.saved();
       }
-      if (this.capacity) {
+      if (this.data.status_bill_id != 5 && this.capacity) {
         this.capacity(this.data.assistance_id);
       }
     } catch (response) {

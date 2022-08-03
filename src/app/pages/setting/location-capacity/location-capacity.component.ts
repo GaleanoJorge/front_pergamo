@@ -19,7 +19,7 @@ export class LocationCapacityComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'PERSONAL ASISTENCIAL';
   public subtitle: string = 'PERSONAL';
-  public headerFields: any[] = ['ROL', 'NOMBRE'];
+  public headerFields: any[] = ['ROL', 'NOMBRE', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'SERVICIOS EJECUTADOS'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -53,9 +53,21 @@ export class LocationCapacityComponent implements OnInit {
           return value.firstname + ' ' + value.lastname;
         },
       },
+      total1: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
+      total2: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      total3: {
+        title: this.headerFields[4],
+        type: 'string',
+      },
     },
   };
-
+  
   public routes = [
     {
       name: 'Personal asistencial',

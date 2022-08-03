@@ -30,7 +30,7 @@ export class ManagementPlanComponent implements OnInit {
 
 
   @Input() admissions: any = null;
-  @Input() medical: boolean = false;
+  @Input() medical: number=0;
   @Input() patient: boolean = false;
   @Input() title: string = null;
   public isSubmitted = false;
@@ -235,8 +235,12 @@ export class ManagementPlanComponent implements OnInit {
     }).catch(x => { });
     this.user_logged= this.authService.GetUser().id;
     if (this.roles[0].role_type_id != 2 && this.title==null) {
+      this.admissions_id = this.route.snapshot.params.id;
       this.title = "Agendamiento Plan de atención domiciliario";
-      this.entity="management_plan_by_patient/"+this.user_id+"/"+0;
+      this.entity="management_plan_by_patient/"+this.user_id+"/"+0+"?admission_id="+this.admissions_id;
+    }else if(this.medical==1){
+      this.title = "Agendamiento Plan de atención domiciliario";
+      this.entity="management_plan_by_patient/"+this.patient+"/"+0;
     }else{
       this.title = "Servicios a Ejecutar";
       this.entity="management_plan_by_patient/"+this.user_id+"/"+this.user_logged;

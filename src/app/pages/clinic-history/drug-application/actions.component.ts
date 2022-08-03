@@ -15,13 +15,13 @@ import { date } from '@rxweb/reactive-form-validators';
 @Component({
   template: `
 <div class="d-flex justify-content-center">
-  <button nbTooltip="APLICADO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.used(value.data)">
+  <button *ngIf="this.rowData.disponibles != '0'" nbTooltip="APLICADO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.used(value.data)">
     <nb-icon icon="checkmark"></nb-icon>
   </button>
-  <button nbTooltip="DEVOLVER" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.returned(value.data)">
+  <!-- <button nbTooltip="DEVOLVER" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.returned(value.data)">
   <nb-icon icon="flip-2"></nb-icon>
-  </button>
-  <button nbTooltip="DAÑADO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.damaged(value.data)">
+  </button> -->
+  <button *ngIf="this.rowData.disponibles != '0'" nbTooltip="DAÑADO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.damaged(value.data)">
   <nb-icon icon="close"></nb-icon>
   </button>
  

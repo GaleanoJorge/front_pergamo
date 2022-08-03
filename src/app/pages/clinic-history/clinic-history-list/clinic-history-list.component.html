@@ -6,7 +6,7 @@
       <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday}} </p>
       <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
     </div>
-    <nb-tabset class="tabset" (changeTab)="tablock($event)">
+    <nb-tabset *ngIf="user" class="tabset" (changeTab)="tablock($event)">
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show == 1">
           <ngx-entry-clinic-history>
@@ -56,7 +56,7 @@
 
       <nb-tab tabTitle="FALLIDA">
         <div *ngIf="this.show == 9">
-          <ngx-failed [record_id]="record_id"></ngx-failed>
+          <ngx-failed (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-failed>
         </div>
       </nb-tab>
 
