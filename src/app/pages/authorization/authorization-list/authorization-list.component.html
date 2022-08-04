@@ -25,6 +25,25 @@
               <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date" formControlName="finish_date" finish_date
               />
             </div>
+            <!-- <div class="col-md-6">
+              <label for="admissions_id" class="form-text text-muted font-weight-bold">Admisiones:</label>
+              <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="admissions_id"
+                formControlName="admissions_id" admissions_id type="text" required
+                >
+              <datalist id="codes">
+                <option *ngFor="let item of admissions" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+              </datalist>
+            </div>
+
+            <div class="col-md-6">
+              <label for="admissions_id" class="form-text text-muted font-weight-bold">Admisiones:</label>
+              <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="admissions_id"
+                formControlName="admissions_id" admissions_id type="text" required
+                >
+              <datalist id="codes">
+                <option *ngFor="let item of admissions" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+              </datalist>
+            </div> -->
           </div>
 
           <div class="col-md-12 filter">
