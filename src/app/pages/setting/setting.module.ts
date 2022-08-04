@@ -370,11 +370,16 @@ import { ActionsAssReqPatientComponent } from './fixed-assets-requests-patient/a
 import { FormFixedAssetsRequestsPatientComponent } from './fixed-assets-requests-patient/form-fixed-assets-requests-patient/form-fixed-assets-requests-patient.component';
 import { AssetsSelectRequestsPatientComponent } from './fixed-assets-requests-patient/assets-requests-patient-package/assets-select-requests-patient.component';
 import { AssetsRequestsPatientPackageComponent } from './fixed-assets-requests-patient/assets-requests-patient-package/assets-requests-patient-package.component';
+import { FormFixedStockComponent } from './fixed-stock/form-fixed-stock/form-fixed-stock.component';
+import { FixedStockComponent } from './fixed-stock/fixed-stock.component';
 import { UserComponent } from './pharmacy-stock/user-package/user.component';
 import { UserPackageComponent } from './pharmacy-stock/user-package/user-package.component';
 import { ActionPharmaComponent } from './pharmacy-stock/actions.component';
 import { ServicesComponent } from './pharmacy-stock/services-package/services.component';
 import { ServicesPackageComponent } from './pharmacy-stock/services-package/services-package.component';
+import { UserFixedPackageComponent } from './fixed-stock/user-fixed-package/user-fixed-package.component';
+import { UserFixedComponent } from './fixed-stock/user-fixed-package/user-fixed.component';
+import { ActionFixedComponent } from './fixed-stock/actions.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -781,13 +786,19 @@ import { ServicesPackageComponent } from './pharmacy-stock/services-package/serv
     ActionsAssReqPatientComponent,
     FixedAssetsRequestsPatientComponent,
 
+    FormFixedStockComponent,
+    FixedStockComponent,
+
     UserPackageComponent,
     UserComponent,
     ActionPharmaComponent,
 
     ServicesPackageComponent,
-    ServicesComponent
+    ServicesComponent,
 
+    UserFixedComponent,
+    UserFixedPackageComponent,
+    ActionFixedComponent
 
   ],
   providers: [
