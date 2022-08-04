@@ -1,0 +1,28 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode"> 
+    
+          <nb-step [stepControl]="nameForm" label="Nota regular">
+            <ngx-sw-support-network [record_id]="record_id" [type_record]="3"></ngx-sw-support-network>
+          </nb-step>
+          
+          <nb-step [stepControl]="nameForm" label="Recomendaciones / Educación">
+            <ngx-form-ch-sw-education [record_id]="record_id"></ngx-form-ch-sw-education>
+          </nb-step>
+        
+         
+          <nb-step [hidden]="true">
+
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>
