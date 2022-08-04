@@ -18,7 +18,7 @@
         </div>
 
         <div *ngIf="show_table" class="col-12 col-sm-12">
-          <ngx-prod-shipping-patient-package (messageEvent)="receiveMessage($event)" [parentData]="parentData" [my_pharmacy_id]="my_pharmacy_id">
+          <ngx-prod-shipping-patient-package [title]="this.title" (messageEvent)="receiveMessage($event)" [parentData]="parentData" [my_pharmacy_id]="my_pharmacy_id">
           </ngx-prod-shipping-patient-package>
         </div>
 
