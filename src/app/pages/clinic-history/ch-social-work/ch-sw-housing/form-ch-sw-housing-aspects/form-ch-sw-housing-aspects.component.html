@@ -1,0 +1,95 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Aspectos de la vivienda</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Tenencia de vivienda</label>
+        <nb-select [selected]="this.data.ch_sw_housing_id" formControlName="ch_sw_housing_id" id="ch_sw_housing_id"
+          ch_sw_housing_id fullWidth
+          status="{{ isSubmitted && form.controls.ch_sw_housing_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          placeholder="Seleccione...">
+          <nb-option selected="{{ item.id == data.ch_sw_housing_id }}" *ngFor="let item of housing" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Tipo de vivienda</label>
+        <nb-select [selected]="this.data.ch_sw_housing_type_id" formControlName="ch_sw_housing_type_id"
+          id="ch_sw_housing_type_id" ch_sw_housing_type_id fullWidth
+          status="{{ isSubmitted && form.controls.ch_sw_housing_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          placeholder="Seleccione...">
+          <nb-option selected="{{ item.id == data.ch_sw_housing_type_id }}" *ngFor="let item of housingType"
+            [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-10">
+        <hr />
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+
+    <div class="col-md-2" *ngIf="this.form.controls.ch_sw_housing_type_id.value == 1">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold align">Número de Piso</label>
+        <input type="number" id="flat" class="ImpPeq"  formControlName="flat" required nbInput ngModel
+          status="{{ isSubmitted && form.controls.flat.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+      </div>
+    </div>
+
+
+    <div class="col-md-3">
+      <label class="form-text text-muted font-weight-bold align">Cuenta con ascensor</label>
+      <nb-radio-group formControlName="lift" lift id="lift" class="d-flex text" name="lift"
+        status="{{ isSubmitted && form.controls.lift.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="Si">Si</nb-radio>
+        <nb-radio value="No">No</nb-radio>
+      </nb-radio-group>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-text text-muted font-weight-bold align">Ubicación En Zona Critica</label>
+      <nb-radio-group formControlName="location" location id="location" class="d-flex text" name="location"
+        status="{{ isSubmitted && form.controls.location.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="Si">Si</nb-radio>
+        <nb-radio value="No">No</nb-radio>
+      </nb-radio-group>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-text text-muted font-weight-bold align">Acceso Vehicular Con Tracción Simple Hasta El
+        Domicilio</label>
+      <nb-radio-group formControlName="vehicle_access" vehicle_access id="vehicle_access" class="d-flex text"
+        name="vehicle_access"
+        status="{{ isSubmitted && form.controls.vehicle_access.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="Si">Si</nb-radio>
+        <nb-radio value="No">No</nb-radio>
+      </nb-radio-group>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>
