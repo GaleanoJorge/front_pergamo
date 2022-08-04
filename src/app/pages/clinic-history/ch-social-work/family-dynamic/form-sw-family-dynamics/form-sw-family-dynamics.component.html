@@ -1,0 +1,88 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Dinámica Familiar</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Comunicación
+          paciente</label>
+        <nb-select [selected]="this.data.ch_sw_communications_id" formControlName="ch_sw_communications_id"
+          id="ch_sw_communications_id" ch_sw_communications_id fullWidth
+          status="{{ isSubmitted && form.controls.ch_sw_communications_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          placeholder="Seleccione...">
+          <nb-option selected="{{ item.id == data.ch_sw_communications_id }}" *ngFor="let item of communication"
+            [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">OBSERVACIONES</label>
+        <textarea id="observations" nbInput fullWidth formControlName="observations" observations onpaste="return false"
+          status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">¿Quién toma las decisiones en el hogar?</label>
+        <nb-select [selected]="this.data.decisions_id" formControlName="decisions_id" id="decisions_id" decisions_id
+          fullWidth
+          status="{{ isSubmitted && form.controls.decisions_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          placeholder="Seleccione...">
+          <nb-option selected="{{ item.id == data.decisions_id }}" *ngFor="let item of decisions" [value]="item.id">
+            {{ item.relationship.name }} - {{ item.firstname }} {{ item.middlefirstname }} {{ item.lastname }} {{
+            item.middlelastname }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Autoridad del paciente</label>
+        <nb-select [selected]="this.data.authority_id" formControlName="authority_id" id="authority_id" authority_id
+          fullWidth
+          status="{{ isSubmitted && form.controls.authority_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          placeholder="Seleccione...">
+          <nb-option selected="{{ item.id == data.authority_id }}" *ngFor="let item of authority" [value]="item.id">
+            {{ item.relationship.name }} - {{ item.firstname }} {{ item.middlefirstname }} {{ item.lastname }} {{
+            item.middlelastname }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">Expresión del paciente</label>
+        <nb-select [selected]="this.data.ch_sw_expression_id" formControlName="ch_sw_expression_id"
+          id="ch_sw_expression_id" ch_sw_expression_id fullWidth
+          status="{{ isSubmitted && form.controls.ch_sw_expression_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          placeholder="Seleccione...">
+          <nb-option selected="{{ item.id == data.ch_sw_expression_id }}" *ngFor="let item of expression"
+            [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="div-send">
+          <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        </div>
+      </div>
+    </div>
+
+</form>
