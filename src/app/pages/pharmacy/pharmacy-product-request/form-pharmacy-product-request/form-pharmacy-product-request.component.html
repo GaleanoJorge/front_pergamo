@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
     <div class="row">
-
+<label>{{ title }}</label>
       <div class="col-12 col-sm-12 col-md-6">
         <label for="product_generic" class="form-text text-muted font-weight-bold">PRODUCTO GENÉRICO:</label>
         <nb-select [selected]="this.data.product_generic_id" formControlName="product_generic_id"
