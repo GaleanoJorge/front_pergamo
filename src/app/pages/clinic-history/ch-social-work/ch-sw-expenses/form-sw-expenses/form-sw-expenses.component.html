@@ -1,0 +1,134 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Egresos mensuales</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="feeding" class="form-text text-muted font-weight-bold">Alimentación</label>
+        <input type="number" nbInput fullWidth id="feeding" formControlName="feeding" feeding
+          (change)="onChangesTotal($event, 1)"
+          status="{{ isSubmitted && form.controls.feeding.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="gas" class="form-text text-muted font-weight-bold">Gas</label>
+        <input type="number" nbInput fullWidth id="gas" formControlName="gas" gas
+          (change)="onChangesTotal($event, 2)"
+          status="{{ isSubmitted && form.controls.gas.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="light" class="form-text text-muted font-weight-bold">Luz</label>
+        <input type="number" nbInput fullWidth id="light" formControlName="light" light
+          (change)="onChangesTotal($event, 3)"
+          status="{{ isSubmitted && form.controls.light.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="aqueduct" class="form-text text-muted font-weight-bold">Acueducto / Agua</label>
+        <input type="number" nbInput fullWidth id="aqueduct" formControlName="aqueduct" aqueduct
+          (change)="onChangesTotal($event, 4)"
+          status="{{ isSubmitted && form.controls.aqueduct.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="rent" class="form-text text-muted font-weight-bold">Renta / Arriendo</label>
+        <input type="number" nbInput fullWidth id="rent" formControlName="rent" rent
+          (change)="onChangesTotal($event, 5)"
+          status="{{ isSubmitted && form.controls.rent.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="transportation" class="form-text text-muted font-weight-bold">Transporte</label>
+        <input type="number" nbInput fullWidth id="transportation" formControlName="transportation" transportation
+          (change)="onChangesTotal($event, 6)"
+          status="{{ isSubmitted && form.controls.transportation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="recreation" class="form-text text-muted font-weight-bold">Recreación</label>
+        <input type="number" nbInput fullWidth id="recreation" formControlName="recreation" recreation
+          (change)="onChangesTotal($event, 4)"
+          status="{{ isSubmitted && form.controls.recreation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="education" class="form-text text-muted font-weight-bold">Educación</label>
+        <input type="number" nbInput fullWidth id="education" formControlName="education" education
+          (change)="onChangesTotal($event, 5)"
+          status="{{ isSubmitted && form.controls.education.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="medical" class="form-text text-muted font-weight-bold">Gastos médicos</label>
+        <input type="number" nbInput fullWidth id="medical" formControlName="medical" medical
+          (change)="onChangesTotal($event, 6)"
+          status="{{ isSubmitted && form.controls.medical.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="cell_phone" class="form-text text-muted font-weight-bold">Teléfono celular</label>
+        <input type="number" nbInput fullWidth id="cell_phone" formControlName="cell_phone" cell_phone
+          (change)="onChangesTotal($event, 4)"
+          status="{{ isSubmitted && form.controls.cell_phone.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="landline" class="form-text text-muted font-weight-bold">Teléfono fijo</label>
+        <input type="number" nbInput fullWidth id="landline" formControlName="landline" landline
+          (change)="onChangesTotal($event, 5)"
+          status="{{ isSubmitted && form.controls.landline.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-6">
+        <hr />
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold align">Total de Egresos</label>
+        <input type="text" nbInput fullWidth disabled="true" placeholder="total" id="total" formControlName="total"
+          nbInput [value]="this.expensesTotal">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>
