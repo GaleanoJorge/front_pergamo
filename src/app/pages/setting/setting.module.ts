@@ -407,8 +407,6 @@ import { AssetsRequestsPatientPackageComponent } from './fixed-assets-requests-p
     FormManualInsumeComponent,
     ActionsStockComponent,
     AssistanceStockReqComponent,
-    AssistanceStockComponent,
-    FormAssistanceStockComponent,
     AuthStatusComponent,
     FormAuthStatusComponent,
     ActionsCDComponent,
@@ -777,7 +775,6 @@ import { AssetsRequestsPatientPackageComponent } from './fixed-assets-requests-p
     FormFixedAssetsRequestsPatientComponent,
     ActionsAssReqPatientComponent,
     FixedAssetsRequestsPatientComponent
-
 
   ],
   providers: [
