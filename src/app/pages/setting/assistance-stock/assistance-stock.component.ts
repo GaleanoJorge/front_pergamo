@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -10,6 +10,9 @@ import { ActionsStockComponent } from './actions.component';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormPharmacyIncomeComponent } from '../../pharmacy/pharmacy-income/form-pharmacy-income/form-pharmacy-income.component';
+import { PatientService } from '../../../business-controller/patient.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { FormAssistanceReturnComponent } from './form-assistance-return/form-assistance-return.component';
 
 
 @Component({
@@ -19,11 +22,16 @@ import { FormPharmacyIncomeComponent } from '../../pharmacy/pharmacy-income/form
 })
 export class AssistanceStockComponent implements OnInit {
 
+  @Input() user: any = null;
+  @Input() admissions_id: any = null;
+  @Input() parentData: any = null;
+  @Input() type;
+
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'LISTA DE ELEMENTOS A CARGO';
+  public title: string = 'LISTA DE ELEMENTOS DEL PACIENTE';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'ESTADO', 'DESPACHA', 'RECIBIDOS', 'DESCRIPCIÓN', 'DAÑADOS', 'ENVIADOS'];
+  public headerFields: any[] = ['ID', 'ESTADO', 'PRODUCTO', 'DESCRIPCIÓN', 'INDICACIONES', 'CONTRAINDICACIONES', 'REFRIGERACIÓN', 'DISPONIBLES'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public entity: string = null;
@@ -36,8 +44,9 @@ export class AssistanceStockComponent implements OnInit {
   public settings = {
     pager: {
       display: true,
-      perPage: 10,
+      perPage: 30,
     },
+    
     columns: {
       actions: {
         title: 'Acciones',
@@ -45,8 +54,9 @@ export class AssistanceStockComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
+            'type': this.type,
             'edit': this.EditInv.bind(this),
+            'returned': this.Returned.bind(this),
             // 'delete': this.DeleteConfirmPharmacyStock.bind(this),
           };
         },
@@ -56,55 +66,71 @@ export class AssistanceStockComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      pharmacy_request_shipping: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          if (value?.pharmacy_lot_stock.billing_stock.product) {
-            return value?.pharmacy_lot_stock.billing_stock.product.name;
-          } else {
-            return value?.pharmacy_lot_stock.billing_stock.product_supplies_com.name;
-          }
-        }
-      },
-      'product_generic': {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          if (row.product_generic) { 
-            return row.product_generic.description;
-          } else {
-            return row.product_supplies.description;
-          }
-        }
-      },
-      'pharmacy_request_shipping.amount': {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.pharmacy_request_shipping?.amount;
-        },
-      },
-      'pharmacy_request_shipping.amount_damaged': {
-        title: this.headerFields[5],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.pharmacy_request_shipping?.amount_damaged;
-        },
-      },
-      'pharmacy_request_shipping.amount_provition': {
-        title: this.headerFields[6],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.pharmacy_request_shipping.amount_provition;
-        },
-      },
-      request_pharmacy_stock: {
+      'pharmacy_request_shipping.pharmacy_lot_stock.billing_stock': {
         title: this.headerFields[2],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.name + ': ' + value.campus.name;
-        }
+        valuePrepareFunction(value, row) {
+          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.name;
+          } else {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.name;
+          }
+        },
+      },
+      'description': {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.product_generic.description;
+          } else {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.product_supplies.description;
+          }
+        },
+      },
+      // 'pharmacy_request_shipping.amount': {
+      //   title: this.headerFields[3],
+      //   type: 'string',
+      //   valuePrepareFunction: (value, row) => {
+      //     return row.pharmacy_request_shipping?.amount;
+      //   },
+      // },
+      'administration_route': {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.indications;
+          } else {
+            return '--';
+          }
+        },
+      },
+      'pharmacy_product_request.pharmacy_request_shipping': {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.contraindications;
+          } else {
+            return '--'
+          }
+        },
+      },
+      'pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock': {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.refrigeration == 1 ? 'REFRIGERAR' : 'NO REFRIGERAR';
+          } else {
+            return '--'
+          }
+        },
+      },
+      disponibles: {
+        title: this.headerFields[7],
+        type: 'string',
       },
     },
   };
@@ -118,36 +144,22 @@ export class AssistanceStockComponent implements OnInit {
     private AuthS: AuthService,
     private requesS: PharmacyProductRequestService,
     private route: ActivatedRoute,
-
+    private patienBS: PatientService,
 
   ) {
   }
 
   ngOnInit(): void {
-    if (this.route.snapshot.queryParams.unit) {
-      this.routes = [
-        {
-          name: 'Anterior',
-          route: this.route.snapshot.queryParams.unit,
-        },
-        {
-          name: 'Mi inventario',
-          route: '../../setting/assistance-stock',
-        },
-      ];
+    if (this.type == 1) {
+      this.entity = 'pharmacy_product_request_for_use/?pagination=true&admissions=' + this.admissions_id + '&type=' + this.type;
+    } else if (this.type == 2) {
+      this.entity = 'pharmacy_product_request_for_use/?pagination=true&admissions=' + this.admissions_id + '&type=' + this.type;
     } else {
-      this.routes = [
-        {
-          name: 'Mi inventario',
-          route: '../../setting/assistance-stock',
-        },
-      ];
+      this.entity = 'pharmacy_product_request_for_use/?pagination=true&admissions=' + this.admissions_id + '&type=' + this.type;
     }
 
-    this.user_id = this.AuthS.GetUser().id;
-    if (this.user_id) {
-      this.entity = 'pharmacy_product_request/?pagination=true&user_id=' + this.user_id + '&status=ACEPTADO';
-    }
+
+
   }
 
   RefreshData() {
@@ -188,6 +200,21 @@ export class AssistanceStockComponent implements OnInit {
       return Promise.resolve(x.message);
     }).catch(x => {
       throw x;
+    });
+  }
+
+  Returned(data) {
+    // console.log('dañado');
+    this.dialogFormService.open(FormAssistanceReturnComponent, {
+      context: {
+        title: 'DEVOLVER ELEMENTO',
+        data: data,
+        status: 'EN DEVOLUCIÓN',
+        // record_id: this.record_id,
+        // type_record_id: this.type_record_id,
+        // close: this.close.bind(this),
+        saved: this.RefreshData.bind(this),
+      },
     });
   }
 
