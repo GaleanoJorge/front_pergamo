@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from '../sectional-council/actions.component';
+import { NbDialogService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { PharmacyStockService } from '../../../business-controller/pharmacy-stock.service';
 import { FormFixedStockComponent } from './form-fixed-stock/form-fixed-stock.component';
-
+import { UserFixedPackageComponent } from './user-fixed-package/user-fixed-package.component';
+import { ActionFixedComponent } from './actions.component';
 
 @Component({
   selector: 'ngx-fixed-stock',
@@ -39,9 +39,10 @@ export class FixedStockComponent implements OnInit {
             'data': row,
             'edit': this.EditPharmacyStock.bind(this),
             'delete': this.DeleteConfirmPharmacyStock.bind(this),
+            'user': this.UserAsigned.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionFixedComponent,
       },
       id: {
         title: this.headerFields[0],
@@ -89,7 +90,7 @@ export class FixedStockComponent implements OnInit {
     this.dialogFormService.open(FormFixedStockComponent, {
       closeOnBackdropClick: false,
       context: {
-        title: 'CRAR FARMACIA O BODEGA',
+        title: 'CREAR TIPO DE ACTIVO EN SEDE',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -99,7 +100,7 @@ export class FixedStockComponent implements OnInit {
     this.dialogFormService.open(FormFixedStockComponent, {
       closeOnBackdropClick: false,
       context: {
-        title: 'EDITAR FARMACIA O BODEGA',
+        title: 'EDITAR TIPO DE ACTIVO EN SEDE',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -115,6 +116,18 @@ export class FixedStockComponent implements OnInit {
       },
     });
   }
+
+  UserAsigned(data) {
+    this.dialogFormService.open(UserFixedPackageComponent, {
+      closeOnBackdropClick: false,
+      context: {
+        title: 'CREAR USUARIOS PARA ACTIVO FIJO',
+        data,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
 
   DeletePharmacyStock(data) {
     return this.PharmacyStockS.Delete(data.id).then(x => {
