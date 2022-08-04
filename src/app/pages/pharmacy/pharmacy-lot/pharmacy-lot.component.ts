@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
+import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { FormPharmacyLotComponent } from './form-pharmacy-lot/form-pharmacy-lot.component';
@@ -19,10 +20,13 @@ export class PharmacyLotComponent implements OnInit {
 
   public title: string = 'LOTES INGRESADOS EN ALMACEN';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'PRODUCTO - FABRICANTE', 'CANTIDAD REAL', 'LOTE', 'FECHA DE VENCIMIENTO'];
+  public headerFields: any[] = ['ID', 'FABRICANTE', 'VALOR FACTURA', 'FECHA RECEPCIÓN DEL PRODUCTO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public entity;
+  public user;
+  public my_pharmacy_id;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -41,24 +45,28 @@ export class PharmacyLotComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.billing_stock.product_id == null) {
-            return row.billing_stock.product_supplies_com.name + " - "+row.billing_stock.product_supplies_com.product_supplies.description;
+            return row.billing_stock.product_supplies_com.factory.name;
           } else {
-            return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
+            return row.billing_stock.product.factory.name;
           }
         },
       },
 
-      actual_amount: {
+      total: {
         title: this.headerFields[2],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.pharmacy_lot.total;
+
+        }
       },
-      lot: {
+      receipt_date: {
         title: this.headerFields[3],
         type: 'string',
-      },
-      expiration_date: {
-        title: this.headerFields[4],
-        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.pharmacy_lot.receipt_date;
+
+        }
       }
     },
   };
@@ -67,11 +75,18 @@ export class PharmacyLotComponent implements OnInit {
     private pharmacyS: PharmacyLotStockService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
-    console.log('algo');
+    this.user = this.authService.GetUser();
+    this.pharmacyS.GetPharmacyByUserId(this.user.id, {}).then(x => {
+      if (x.length > 0) {
+        this.my_pharmacy_id = x[0].id;
+        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product=' + true + '& islot=' + true;
+      }
+    });
   }
 
   RefreshData() {
