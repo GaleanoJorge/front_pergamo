@@ -1,0 +1,12 @@
+<ngx-form-reason-consultation-social-work [record_id]="record_id" (messageEvent)="receiveMessage($event)">
+</ngx-form-reason-consultation-social-work>
+<div class="center">
+  <label class="form-text text-muted font-weight-bold align center">Registro de Valoración</label>
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <ngx-base-table pager="false" class="table" [title]="title" [subtitle]="subtitle" customData="ch_respiratory_therapy"
+        [settings]="settings" entity="ch_respiratory_therapy/by_record/{{record_id}}/{{this.type_record}}">
+      </ngx-base-table>
+    </div>
+  </ngx-base-list>
+</div>

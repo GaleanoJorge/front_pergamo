@@ -1,16 +1,16 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import { PatientDataService } from '../../../../business-controller/patient-data.service';
-import { IdentificationTypeBusinessService } from '../../../../business-controller/identification-type-business.service';
-import { RelationshipService } from '../../../../business-controller/relationship.service';
-import { UserBusinessService } from '../../../../business-controller/user-business.service';
-import { MaritalStatusService } from '../../../../business-controller/marital_status.service';
-import { AcademicLevelService } from '../../../../business-controller/academic_level.service';
-import { StudyLevelStatusService } from '../../../../business-controller/study_level_status.service';
-import { ActivitiesService } from '../../../../business-controller/activities.service';
-import { ChSwFamilyService } from '../../../../business-controller/ch_sw_family.service';
+import { UserBusinessService } from '../../../../../business-controller/user-business.service';
+import { PatientDataService } from '../../../../../business-controller/patient-data.service';
+import { IdentificationTypeBusinessService } from '../../../../../business-controller/identification-type-business.service';
+import { RelationshipService } from '../../../../../business-controller/relationship.service';
+import { MaritalStatusService } from '../../../../../business-controller/marital_status.service';
+import { AcademicLevelService } from '../../../../../business-controller/academic_level.service';
+import { StudyLevelStatusService } from '../../../../../business-controller/study_level_status.service';
+import { ActivitiesService } from '../../../../../business-controller/activities.service';
+import { InabilityService } from '../../../../../business-controller/inability.service';
+import { ChSwFamilyService } from '../../../../../business-controller/ch-sw-family.service';
 
 
 @Component({
@@ -28,8 +28,7 @@ export class FormSwFamilyComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
-
-
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   // public status: Status[];
@@ -46,6 +45,8 @@ export class FormSwFamilyComponent implements OnInit {
   public activities: any[] = [];
   public loadAuxData = true;
   public activities_id;
+  public inabilitys: any[];
+  checked = false;
 
 
   constructor(
@@ -60,9 +61,14 @@ export class FormSwFamilyComponent implements OnInit {
     private maritalS: MaritalStatusService,
     private academyS: AcademicLevelService,
     private levelS: StudyLevelStatusService,
-    private activitiesS: ActivitiesService,
+    private activitiesS: ActivitiesService,    
     private familyS: ChSwFamilyService,
+    private inabilitysS: InabilityService,
   ) {
+  }
+
+  toggle(checked: boolean) {
+    this.checked = checked;
   }
 
   ngOnInit(): void {
@@ -78,14 +84,16 @@ export class FormSwFamilyComponent implements OnInit {
         landline: '',
         email: '',
         residence_address: '',
-        //is_disability: '',
+        is_disability: false,
         relationship_id: '',
         identification_type_id: '',
         marital_status_id: '',
         academic_level_id: '',
         study_level_status_id: '',
         activities_id: '',
-        //inability_id: ''
+        inability_id: '',
+        carer: '',
+
       };
     }
 
@@ -133,9 +141,10 @@ export class FormSwFamilyComponent implements OnInit {
       study_level_status_id: [this.data[0] ? this.data[0].study_level_status_id : this.data.study_level_status_id,],
       activities_id: [this.data[0] ? this.data[0].activities_id : this.data.activities_id,],
       inability_id: [this.data[0] ? this.data[0].inability_id : this.data.inability_id,],
+      carer: [this.data[0] ? this.data[0].carer : this.data.carer,],
     });
 
-    this.loadAuxData = false;
+    this.onChange();
 
   }
 
@@ -158,42 +167,13 @@ export class FormSwFamilyComponent implements OnInit {
 
     if (localidentify) {
       activities_name = localidentify.name;
-      this.activities_id = localidentify.id;
     } else {
       activities_name = null;
     }
     return activities_name;
   }
 
-
-  // async LoadForm(force = true) {
-  //   if (this.loadAuxData && force) return false;
-  //   if (this.data) {
-  //     const promises = [
-  //     ];
-
-  //     await Promise.all(promises);
-  //   }
-
-  //   let configForm: any = {
-
-  //     marital_status_id: [
-  //       this.GetData('marital_status_id'),
-  //       Validators.compose([Validators.required]),
-  //     ],
-  //     study_level_status_id: [
-  //       this.GetData('study_level_status_id'),
-  //       Validators.compose([Validators.required]),
-  //     ],
-  //     activities_id: [
-  //       this.returnProfession(this.GetData('activities_id')),
-  //       Validators.compose([Validators.required]),
-  //     ],
-
-  //   };
-  // }
-
-
+  
 
   save() {
     this.isSubmitted = true;
@@ -214,14 +194,15 @@ export class FormSwFamilyComponent implements OnInit {
           landline: this.form.controls.landline.value,
           email: this.form.controls.email.value,
           residence_address: this.form.controls.residence_address.value,
-          //is_disability: this.form.controls.is_disability.value,
-          relationship_id: this.form.controls.relationship_id,
+          is_disability: this.form.controls.is_disability.value,
+          relationship_id: this.form.controls.relationship_id.value,
           identification_type_id: this.form.controls.identification_type_id.value,
           marital_status_id: this.form.controls.marital_status_id.value,
           academic_level_id: this.form.controls.academic_level_id.value,
           study_level_status_id: this.form.controls.study_level_status_id.value,
-          activities_id: this.form.controls.activities_id.value,
-          //inability_id: this.form.controls.inability_id,
+          activities_id: this.activities_id,
+          inability_id: this.form.controls.inability_id.value,
+          carer: this.form.controls.carer.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -246,28 +227,25 @@ export class FormSwFamilyComponent implements OnInit {
           landline: this.form.controls.landline.value,
           email: this.form.controls.email.value,
           residence_address: this.form.controls.residence_address.value,
-          //is_disability: this.form.controls.is_disability.value,
-          relationship_id: this.form.controls.relationship_id,
+          is_disability: this.form.controls.is_disability.value,
+          relationship_id: this.form.controls.relationship_id.value,
           identification_type_id: this.form.controls.identification_type_id.value,
           marital_status_id: this.form.controls.marital_status_id.value,
           academic_level_id: this.form.controls.academic_level_id.value,
           study_level_status_id: this.form.controls.study_level_status_id.value,
-          activities_id: this.form.controls.activities_id.value,
-          //inability_id: this.form.controls.inability_id,
+          activities_id: this.activities_id,
+          inability_id: this.form.controls.inability_id.value,
+          carer: this.form.controls.carer.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
-          if (!x.data) {
-            this.toastService.warning('', x.message)
-            this.isSubmitted = false;
-            this.loading = false;
-          } else {
-            this.toastService.success('', x.message);
-            // this.close();
-            if (this.saved) {
-              this.saved();
-            }
-
+          this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.patchValue({ firstname:'', middlefirstname:'', lastname:'',middlelastname:'',range_age:'',identification:'',phone:'',
+            landline:'', email:'',residence_address:'', relationship_id:'',identification_type_id:'',marital_status_id:'',
+            academic_level_id:'', study_level_status_id:'', activities_id:'', inability_id:false, carer:'',});
+          if (this.saved) {
+            this.saved();
           }
         }).catch(x => {
           this.isSubmitted = false;
@@ -275,17 +253,49 @@ export class FormSwFamilyComponent implements OnInit {
         });
       }
 
+    }else {
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 
-  receiveMessage($event) {
-    if ($event[0] == true) {
-      this.save();
-    } else if ($event[1] == true) {
-      this.showTable = true;
-      this.savedUser = false;
-      this.admission_id = $event[2];
-    }
-  }
+  async onChange() {
+
+    this.form.get('is_disability').valueChanges.subscribe(val => {
+      if (val === false) {
+        this.inabilitys = [];
+
+        this.form.controls.inability_id.clearValidators();
+
+        this.form.controls.inability_id.setErrors(null);
+
+      } else {
+
+        this.inabilitysS.GetCollection({ status_id: 1 }).then(x => {
+          this.inabilitys = x;
+        });
+
+        this.form.controls.inability_id.setValidators(Validators.compose([Validators.required]));
+  
+      };
+  });
+}
+
+
+async checkedChange() {
+
+  this.form.get('carer').valueChanges.subscribe(val => {
+    if (val === false) {
+
+      this.form.controls.residence_address.clearValidators();
+
+      this.form.controls.residence_address.setErrors(null);
+
+    } else {
+
+      this.form.controls.residence_address.setValidators(Validators.compose([Validators.required]));
+
+    };
+});
+}
 
 }

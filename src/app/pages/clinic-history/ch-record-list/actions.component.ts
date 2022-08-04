@@ -18,14 +18,14 @@ import { AuthService } from '../../../services/auth.service';
   <div class="d-flex justify-content-center">
 
     <button *ngIf="value.data.status=='ACTIVO' && 
-      (this.rowData.ch_type_id == 1)" 
+      (this.rowData.ch_type_id == 5)" 
       nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" 
       nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
     <button *ngIf="value.data.status=='ACTIVO' && 
-      (this.rowData.ch_type_id == 2)"
+      (this.rowData.ch_type_id == 5)"
       nbTooltip="Historia Clinica de enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" 
       nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-nursing-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
@@ -36,15 +36,19 @@ import { AuthService } from '../../../services/auth.service';
     </button>
 
     <button *ngIf="value.data.status=='ACTIVO' && 
-    (this.rowData.ch_type_id == 3)" nbTooltip="Historia Clinica de Nutrición" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
+    (this.rowData.ch_type_id == 5)" nbTooltip="Historia Clinica de Nutrición" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 4)" nbTooltip="Historia Clinica de Terapia de Lenguaje" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-language-list/' + value.data.id + '/'+ value.assigned" >
+    <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 5)" nbTooltip="Historia Clinica de Terapia de Lenguaje" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-language-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
     <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 5)" nbTooltip="Historia Clinica de Terapia de Respiratoria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/respiratory-therapy-list/' + value.data.id + '/'+ value.assigned" >
+    <nb-icon icon="file-add-outline"></nb-icon>
+  </button>
+
+  <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 5)" nbTooltip="Historia Clinica de Trabajo Social" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-social-work/social-work-list/' + value.data.id + '/'+ value.assigned" >
     <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 

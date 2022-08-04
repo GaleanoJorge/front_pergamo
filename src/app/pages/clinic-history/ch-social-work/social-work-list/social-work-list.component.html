@@ -1,0 +1,32 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <div title *ngIf="user">
+      <p class="parrafo" *ngIf="user"><b>CÉDULA:  </b> {{user.identification}} </p>
+      <p class="parrafo" *ngIf="user"><b>NOMBRE:  </b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
+      <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:  </b> {{user.birthday}} </p>
+      <p class="parrafo" *ngIf="user"><b>EDAD:  </b> {{user.age}} </p>
+    </div>
+    <nb-tabset fullWidth class="tabset" (changeTab)="tablock($event)">
+
+      <nb-tab tabTitle="INGRESO">
+        <div *ngIf="this.show == 1">
+          <ngx-entry-social-work [data]="null" [record_id]="record_id">
+          </ngx-entry-social-work>
+        </div>
+      </nb-tab>
+      
+    <nb-tab tabTitle="REGULAR">
+      <div *ngIf="this.show == 2">
+          <ngx-regular-social-work   [data]="null" [record_id]="record_id">
+          </ngx-regular-social-work>
+        </div>
+      </nb-tab>
+
+     
+    </nb-tabset>
+    <div style="text-align: center;">
+      <a (click)="close()" nbButton>Finalizar registro</a>
+    </div>
+  </div>
+
+</ngx-base-list>

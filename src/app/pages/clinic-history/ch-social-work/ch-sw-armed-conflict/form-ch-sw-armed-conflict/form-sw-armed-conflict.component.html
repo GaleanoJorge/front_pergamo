@@ -1,0 +1,113 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Víctima de conflicto armado</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="relationship_id" class="form-text text-muted font-weight-bold">¿Es víctima del conflicto
+          armado?</label>
+        <nb-radio-group formControlName="victim" victim id="victim" class="d-flex text center" name="victim"
+          status="{{ isSubmitted && form.controls.victim.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-radio value="Si">Si</nb-radio>
+          <nb-radio value="No">No</nb-radio>
+        </nb-radio-group>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="this.form.controls.victim.value == 'Si'">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="victim_time" class="form-text text-muted font-weight-bold">¿Hace cuánto tiempo?</label>
+        <input type="number" nbInput fullWidth id="victim_time" formControlName="victim_time" victim_time
+          status="{{ isSubmitted && form.controls.victim_time.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="municipality_id" class="form-text text-muted font-weight-bold">
+          Ciudad de desplazamiento
+        </label>
+        <nb-select formControlName="municipality_id" id="municipality_id" fullWidth
+          status="{{ isSubmitted && form.controls.municipality_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of municipality" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="this.form.controls.victim.value == 'Si'">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="population_group_id" class="form-text text-muted font-weight-bold">
+          Grupo poblacional
+        </label>
+        <nb-select formControlName="population_group_id" id="population_group_id" fullWidth
+          status="{{ isSubmitted && form.controls.population_group_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of population" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="ethnicity_id" class="form-text text-muted font-weight-bold">
+          Grupo Étnico
+        </label>
+        <nb-select formControlName="ethnicity_id" id="ethnicity_id" fullWidth
+          status="{{ isSubmitted && form.controls.ethnicity_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of ethnicity" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-8">
+        <hr />
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="subsidies" class="form-text text-muted font-weight-bold">¿Recibe (Subsidios de protección social)
+          ayudas del estado?</label>
+        <nb-radio-group formControlName="subsidies" subsidies id="subsidies" class="d-flex text text-center"
+          name="subsidies"
+          status="{{ isSubmitted && form.controls.subsidies.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-radio value="Si">Si</nb-radio>
+          <nb-radio value="No">No</nb-radio>
+        </nb-radio-group>
+      </div>
+    </div>
+    <div class="col-md-6" *ngIf="this.form.controls.subsidies.value == 'Si'">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">¿Cuales?</label>
+        <textarea id="detail_subsidies" nbInput fullWidth formControlName="detail_subsidies" detail_subsidies
+          onpaste="return false" rows="2" cols="20"
+          status="{{ isSubmitted && form.controls.detail_subsidies.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

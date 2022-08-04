@@ -267,9 +267,36 @@ import { AssTherapyRespiratoryComponent } from './ass-therapy-respiratory/ass-th
 import { SignsRespiratoryComponent } from './signs-respiratory/signs-respiratory.component';
 import { IspectionTherapyComponent } from './ispection-therapy/ispection-therapy.component';
 import { FormIspectionTherapyComponent } from './ispection-therapy/from-inspection-therapy/form-ispection-therapy.component';
-import { FormSwNursingServiceComponent } from './ch-social-work/sw-nursing-service/form-sw-nursing-service.component';
 import { FormSwFamilyComponent } from './ch-social-work/sw-family/form-sw-family/form-sw-family.component';
 import { SwFamilyComponent } from './ch-social-work/sw-family/sw-family.component';
+import { FormSwNursingComponent } from './ch-social-work/sw-nursing/form-sw-nursing/form-sw-nursing.component';
+import { SwNursingComponent } from './ch-social-work/sw-nursing/sw-nursing.component';
+import { OccupationalHistoryComponent } from './ch-social-work/occupational-history/occupational-history.component';
+import { FormOccupationalHistoryComponent } from './ch-social-work/occupational-history/form-occupational history/form-occupational-history.component';
+import { SwFamilyDynamicsComponent } from './ch-social-work/family-dynamic/family-dynamics.component';
+import { FormSwRiskFactorsComponent, } from './ch-social-work/sw-risk-factors/form-sw-risk-factors/form-sw-risk-factors.component';
+import { SwRiskFactorsComponent } from './ch-social-work/sw-risk-factors/sw-risk-factors.component';
+import { FormChSwConditionHousingComponent } from './ch-social-work/sw-services-housing/form-sw-condition-housing/form-sw-condition-housing.component';
+import { ChSwConditionHousingComponent } from './ch-social-work/sw-services-housing/sw-condition-housing.component';
+import { FormChSwHygieneHousingComponent } from './ch-social-work/sw-hygiene-housing/form-sw-hygiene-housing/form-sw-hygiene-housing.component';
+import { ChSwHygieneHousingComponent } from './ch-social-work/sw-hygiene-housing/sw-hygiene-housing.component';
+import { FormChSwIncomeComponent } from './ch-social-work/ch-sw-income/form-sw-income/form-sw-income.component';
+import { ChSwIncomeComponent } from './ch-social-work/ch-sw-income/sw-income.component';
+import { FormChSwExpensesComponent } from './ch-social-work/ch-sw-expenses/form-sw-expenses/form-sw-expenses.component';
+import { ChSwExpensesComponent } from './ch-social-work/ch-sw-expenses/sw-expenses.component';
+import { FormChSwEconomicAspectsComponent } from './ch-social-work/ch-sw-economic-aspects/form-sw-economic-aspects/form-sw-economic-aspects.component';
+import { ChSwEconomicAspectsComponent } from './ch-social-work/ch-sw-economic-aspects/sw-economic-aspects.component';
+import { SwArmedConflictComponent } from './ch-social-work/ch-sw-armed-conflict/sw-armed-conflict.component';
+import { FormSwArmedConflictComponent } from './ch-social-work/ch-sw-armed-conflict/form-ch-sw-armed-conflict/form-sw-armed-conflict.component';
+import { FormSwSupportNetworkComponent } from './ch-social-work/ch-sw-support-network/form-sw-support-network/form-sw-support-network.component';
+import { FormChSwEducationComponent } from './ch-social-work/ch-sw-education/form-ch-sw-education/form-ch-sw-education.component';
+import { SwSupportNetworkComponent } from './ch-social-work/ch-sw-support-network/sw-support-network.component';
+import { RegularSocialWorkComponent } from './ch-social-work/regular-social-work/regular-social-work.component';
+import { ChSwHousingAspectsComponent } from './ch-social-work/ch-sw-housing/ch-sw-housing-aspects.component';
+import { FormChSwHousingAspectsComponent } from './ch-social-work/ch-sw-housing/form-ch-sw-housing-aspects/form-ch-sw-housing-aspects.component';
+import { SwHousingComponent } from './ch-social-work/sw-housing/sw-housing.component';
+import { FormSwFamilyDynamicsComponent } from './ch-social-work/family-dynamic/form-family-dynamics/form-family-dynamics.component';
+import { FormSwDiagnosisComponent } from './ch-social-work/ch-sw-diagnosis/form-sw-diagnosis/form-sw-diagnosis.component';
 
 
 
@@ -377,7 +404,8 @@ import { SwFamilyComponent } from './ch-social-work/sw-family/sw-family.componen
     RNWeeklyOtComponent,
 
     ClinicHistoryOccupationalTherapy,
-    
+
+    FormSwDiagnosisComponent,    
     FormSocialWorkComponent,
     SocialWorkListComponent,
     EntrySocialWorkComponent,
@@ -385,7 +413,34 @@ import { SwFamilyComponent } from './ch-social-work/sw-family/sw-family.componen
     FormReasonConsultationSocialWorkComponent,
     FormSwFamilyComponent,
     SwFamilyComponent,
-    FormSwNursingServiceComponent,
+    FormSwNursingComponent,
+    SwNursingComponent,
+    FormOccupationalHistoryComponent,
+    OccupationalHistoryComponent,
+    FormSwFamilyDynamicsComponent,
+    SwFamilyDynamicsComponent,
+    FormSwRiskFactorsComponent,
+    SwRiskFactorsComponent,
+    FormChSwHousingAspectsComponent,
+    ChSwHousingAspectsComponent,
+    FormChSwConditionHousingComponent,
+    ChSwConditionHousingComponent,
+    FormChSwHygieneHousingComponent,
+    ChSwHygieneHousingComponent,
+    FormChSwIncomeComponent,
+    ChSwIncomeComponent,
+    FormChSwExpensesComponent,
+    ChSwExpensesComponent,
+    FormChSwEconomicAspectsComponent,
+    ChSwEconomicAspectsComponent,
+    FormSwArmedConflictComponent,
+    SwArmedConflictComponent,
+    FormSwSupportNetworkComponent,
+    FormChSwEducationComponent,
+    SwSupportNetworkComponent,
+    RegularSocialWorkComponent,
+    SwHousingComponent,
+
       
     RespiratoryTherapyListComponent,
     FormRespiratoryTherapyComponent,
