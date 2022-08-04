@@ -17,6 +17,8 @@ import { FormInsumeRequestComponent } from './form-insume-request/form-insume-re
 export class InsumeRequestComponent implements OnInit {
   @Input() parentData: any;
   @Input() record_id: any;
+  @Input() user: any;
+  @Input() admissions_id: any;
   @Input() type_record_id: any;
   
   public isSubmitted = false;
@@ -60,7 +62,7 @@ export class InsumeRequestComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
+          return value?.name + ' - ' + row.request_pharmacy_stock?.campus.name;
         },
       }
     },
