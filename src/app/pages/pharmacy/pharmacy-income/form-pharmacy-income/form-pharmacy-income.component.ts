@@ -95,9 +95,6 @@ export class FormPharmacyIncomeComponent implements OnInit {
           if (element.amount == null || element.amount <= 0) {
             valid_values = false;
           }
-          if (element.amount_damaged == null || element.amount_damaged < 0) {
-            valid_values = false;
-          }
         });
         if (!valid_values) {
           this.toastS.danger('Debe ingresar una cantidad valida', 'Error');
