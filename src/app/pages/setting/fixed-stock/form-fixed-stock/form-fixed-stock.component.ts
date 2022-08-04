@@ -1,16 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
-import { FixedAccessoriesService } from '../../../../business-controller/fixed-accessories.service';
 import { CampusService } from '../../../../business-controller/campus.service';
+import { UserBusinessService } from '../../../../business-controller/user-business.service';
+import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
+import { FixedStockService } from '../../../../business-controller/fixed-stock.service';
 
 @Component({
-  selector: 'ngx-form-fixed-accessories',
-  templateUrl: './form-fixed-accessories.component.html',
-  styleUrls: ['./form-fixed-accessories.component.scss']
+  selector: 'ngx-form-fixed-stock',
+  templateUrl: './form-fixed-stock.component.html',
+  styleUrls: ['./form-fixed-stock.component.scss']
 })
-export class FormFixedAccessoriesComponent implements OnInit {
+export class FormFixedStockComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -26,35 +27,33 @@ export class FormFixedAccessoriesComponent implements OnInit {
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
+    private sedesS: CampusService,
     private FixedTypeS: FixedTypeService,
-    private FixedAccessoriesS: FixedAccessoriesService,
+    private FixedStockS: FixedStockService,
     private toastService: NbToastrService,
-    private CampusS: CampusService
+    private UserRoleBusinessS: UserBusinessService,
+
   ) {
   }
 
   async ngOnInit() {
     if (!this.data) {
       this.data = {
-        name: '',
-        amount_total: '',
         fixed_type_id: '',
+        campus_id: '',
 
       };
     }
 
     this.form = this.formBuilder.group({
-      name: [this.data.name, Validators.compose([Validators.required])],
-      amount_total: [this.data.name, Validators.compose([Validators.required])],
-      campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
       fixed_type_id: [this.data.fixed_type_id, Validators.compose([Validators.required])],
-
+      campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
     });
 
-    await this.CampusS.GetCollection().then(x => {
+    await this.sedesS.GetCollection().then(x => {
       this.campus_id = x;
     });
-    await this.FixedTypeS.GetCollection({}).then(x => {
+    await this.FixedTypeS.GetCollection().then(x => {
       this.fixed_type_id = x;
     });
   }
@@ -64,16 +63,16 @@ export class FormFixedAccessoriesComponent implements OnInit {
   }
 
   save() {
+
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
+
       if (this.data.id) {
-        this.FixedAccessoriesS.Update({
+        this.FixedStockS.Update({
           id: this.data.id,
-          name: this.form.controls.name.value,
-          amount_total: this.form.controls.amount_total.value,
-          campus_id: this.form.controls.campus_id.value,
           fixed_type_id: this.form.controls.fixed_type_id.value,
+          campus_id: this.form.controls.campus_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -84,13 +83,11 @@ export class FormFixedAccessoriesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
-      }
-      else {
-        this.FixedAccessoriesS.Save({
-          name: this.form.controls.name.value,
-          amount_total: this.form.controls.amount_total.value,
-          campus_id: this.form.controls.campus_id.value,
+      } else {
+
+        this.FixedStockS.Save({
           fixed_type_id: this.form.controls.fixed_type_id.value,
+          campus_id: this.form.controls.campus_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

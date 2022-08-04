@@ -95,7 +95,7 @@ export class FixedAccessoriesService {
   }
 
   GetPharmacyByUserId(id, params = {}): Promise<FixedAccessories[]> {
-    let servObj = new ServiceObject('pharmacy_lot_stock/pharmacies/' + id);
+    let servObj = new ServiceObject('fixed_accessories/pharmacies/' + id);
 
     return this.webAPI.GetAction(servObj, params)
       .then(x => {

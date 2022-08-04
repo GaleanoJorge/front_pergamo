@@ -66,11 +66,11 @@ export class FormFixedInventaryComponent implements OnInit {
         this.FixedAddS.updateInventoryByLot({
           id: -1,
           fixed_assets_id: this.data.id,
-          fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
-          responsible_user_id: this.form.controls.responsible_user_id.value,
-          observation: this.form.controls.observation.value,
-          status: 'ENVIADO',
           amount_provition: 1,
+          responsible_user_id: this.form.controls.responsible_user_id.value,
+          status: 'ENVIADO',
+          fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
+          observation: this.form.controls.observation.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

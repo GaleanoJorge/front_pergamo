@@ -209,7 +209,7 @@ export class FormFixedAssetsComponent implements OnInit {
   }
 
   onChange1(tipoId) {
-    if (tipoId == 2) {
+    if (tipoId == 3) {
       this.showProv = true;
     } else {
       this.showProv = false;

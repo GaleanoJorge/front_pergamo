@@ -7,6 +7,7 @@ export class FixedLoan extends MainClass {
   amount: number;
   amount_damaged: number;
   amount_provition: number;
+  amount_operation: number;
   fixed_add_id: number;
   responsible_user_id: number;
   observation: string;

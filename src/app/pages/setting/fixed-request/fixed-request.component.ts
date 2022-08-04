@@ -35,14 +35,14 @@ export class FixedRequestComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      fixed_assets: {
+      fixed_accessories: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (value == null) {
-            return row.fixed_accessories.name;
+            return row.fixed_nom_product.name;
           } else {
-            return row.fixed_assets.description;
+            return row.fixed_accessories.name;
 
           }
         },
@@ -51,15 +51,12 @@ export class FixedRequestComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
-      fixed_accessories: {
+      fixed_location_campus: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (value == null) {  
-            return row.fixed_assets.fixed_type.name;
-          } else {
-            return row.fixed_accessories.fixed_type.name;
-          }
+          return value.campus.name;
+
         },
       },
     },

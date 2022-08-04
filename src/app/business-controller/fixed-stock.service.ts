@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { FixedTypeRole } from '../models/fixed-type-role';
+import { FixedStock } from '../models/fixed-stock';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FixedTypeRoleService {
-  public fixed_type_role: FixedTypeRole[] = [];
+export class FixedStockService {
+  public fixed_stock: FixedStock[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<FixedTypeRole[]> {
-    let servObj = new ServiceObject(params ? 'fixed_type_role?pagination=false' : 'fixed_type_role');
+  GetCollection(params = {}): Promise<FixedStock[]> {
+    let servObj = new ServiceObject(params ? 'fixed_stock?pagination=false' : 'fixed_stock');
 
     return this.webAPI.GetAction(servObj)
       .then(x => {
@@ -22,18 +22,18 @@ export class FixedTypeRoleService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.fixed_type_role = <FixedTypeRole[]>servObj.data.fixed_type_role;
+        this.fixed_stock = <FixedStock[]>servObj.data.fixed_stock;
 
-        return Promise.resolve(this.fixed_type_role);
+        return Promise.resolve(this.fixed_stock);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(fixed_type_role: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_type_role');
-    servObj.data = fixed_type_role;
+  Save(fixed_stock: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('fixed_stock');
+    servObj.data = fixed_stock;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class FixedTypeRoleService {
       });
   }
 
-  Update(fixed_type_role: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_type_role', fixed_type_role.id);
-    servObj.data = fixed_type_role;
+  Update(fixed_stock: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('fixed_stock', fixed_stock.id);
+    servObj.data = fixed_stock;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +64,7 @@ export class FixedTypeRoleService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_type_role', id);
+    let servObj = new ServiceObject('fixed_stock', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
