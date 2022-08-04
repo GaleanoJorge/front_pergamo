@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { FixedAccessoriesService } from '../../../../business-controller/fixed-accessories.service';
 import { FixedAddService } from '../../../../business-controller/fixed-add.service';
-import { FixedAssetsService } from '../../../../business-controller/fixed-assets.service';
 import { FixedLocationCampusService } from '../../../../business-controller/fixed-location-campus.service';
 import { FixedNomProductService } from '../../../../business-controller/fixed-nom-product.service';
 import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
@@ -27,7 +26,6 @@ export class FormFixedRequestComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public fixed_type_id: any[];
-  public fixed_assets_id: any[];
   public fixed_accessories_id: any[];
   public fixed_location_campus_id: any[];
   public responsible_user: any[];
@@ -38,7 +36,6 @@ export class FormFixedRequestComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private FixedTypeS: FixedTypeService,
-    private FixedAssetsS: FixedAssetsService,
     private FixedAddS: FixedAddService,
     private toastService: NbToastrService,
     private FixedAccessoriesS: FixedAccessoriesService,
@@ -54,28 +51,25 @@ export class FormFixedRequestComponent implements OnInit {
       this.data = {
         fixed_type_id: '',
         fixed_accessories_id: '',
-        fixed_assets_id: '',
         fixed_location_campus_id: '',
         request_amount: '',
         responsible_user_id: '',
+        fixed_nom_product_id: '',
       };
     }
 
     this.form = this.formBuilder.group({
-      fixed_type_id: [this.data.fixed_type_id],
-      fixed_accessories_id: [this.data.fixed_accessories_id],
-      fixed_assets_id: [this.data.fixed_assets_id],
-      fixed_location_campus_id: [this.data.fixed_location_campus_id, Validators.compose([Validators.required])],
       request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
+      fixed_nom_product_id: [this.data.fixed_nom_product_id],
+      fixed_accessories_id: [this.data.fixed_accessories_id],
+      fixed_location_campus_id: [this.data.fixed_location_campus_id, Validators.compose([Validators.required])],
       responsible_user_id: [this.data.responsible_user_id, Validators.compose([Validators.required])],
+      fixed_type_id: [this.data.fixed_type_id],
     });
 
 
     await this.FixedTypeS.GetCollection().then(x => {
       this.fixed_type_id = x;
-    });
-    await this.FixedAssetsS.GetCollection().then(x => {
-      this.fixed_assets_id = x;
     });
     await this.FixedAccessoriesS.GetCollection().then(x => {
       this.fixed_accessories_id = x;
@@ -83,16 +77,12 @@ export class FormFixedRequestComponent implements OnInit {
     await this.FixedLocationCampusS.GetCollection().then(x => {
       this.fixed_location_campus_id = x;
     });
-
     await this.UserRoleBusinessS.GetCollection().then(x => {
       this.responsible_user = x;
     });
-
     await this.FixedNomProductS.GetCollection().then(x => {
       this.fixed_nom_product_id = x;
     });
-
- 
   }
 
 
@@ -105,14 +95,13 @@ export class FormFixedRequestComponent implements OnInit {
       if (this.data.id) {
         this.FixedAddS.Update({
           id: this.data.id,
-          fixed_type_id: this.form.controls.fixed_type_id.value,
-          fixed_assets_id: this.form.controls.fixed_assets_id.value,
-          fixed_accessories_id: this.form.controls.fixed_accessories_id.value,
           request_amount: this.form.controls.request_amount.value,
-          fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
-          status: 'SOLICITADO',
-          responsible_user_id: this.form.controls.responsible_user_id.value,
           fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
+          fixed_accessories_id: this.form.controls.fixed_accessories_id.value,
+          fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
+          responsible_user_id: this.form.controls.responsible_user_id.value,
+          fixed_type_id: this.form.controls.fixed_type_id.value,
+          status: 'SOLICITADO',
         }).then(x => {
           this.toastService.success('', x.message);
           if (this.saved) {
@@ -125,20 +114,17 @@ export class FormFixedRequestComponent implements OnInit {
       } else {
 
         this.FixedAddS.Save({
-          fixed_type_id: this.form.controls.fixed_type_id.value,
-          fixed_assets_id: this.form.controls.fixed_assets_id.value,
-          fixed_accessories_id: this.form.controls.fixed_accessories_id.value,
           request_amount: this.form.controls.request_amount.value,
-          fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
-          status: 'SOLICITADO',
-          responsible_user_id: this.form.controls.responsible_user_id.value,
-          observation: '',
           fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
-
+          fixed_accessories_id: this.form.controls.fixed_accessories_id.value,
+          fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
+          responsible_user_id: this.form.controls.responsible_user_id.value,
+          fixed_type_id: this.form.controls.fixed_type_id.value,
+          status: 'SOLICITADO',
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ fixed_type_id: '',fixed_nom_product_id:'', fixed_assets_id: '', fixed_accessories_id: '', request_amount: '', fixed_location_campus_id: '', responsible_user_id: '' });
+          this.form.setValue({ fixed_type_id: '',fixed_nom_product_id:'', fixed_accessories_id: '', request_amount: '', fixed_location_campus_id: '', responsible_user_id: '' });
           if (this.saved) {
             this.saved();
           }
@@ -149,15 +135,6 @@ export class FormFixedRequestComponent implements OnInit {
       }
     }
   }
-
-
-  // GetCategories(fixed_type_id, job = false) {
-  //   if (!fixed_type_id || fixed_type_id === '') return Promise.resolve(false);
-  //   return this.FixedNomProductS.GetProductCategoryByGroup(fixed_type_id).then(x => {
-  //     this.fixed_nom_product_id = x;
-  //     return Promise.resolve(true);
-  //   });
-  // }
 }
 
 
