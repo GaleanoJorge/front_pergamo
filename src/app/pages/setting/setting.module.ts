@@ -361,8 +361,6 @@ import { AssistanceStockComponent } from './assistance-stock/assistance-stock.co
 import { FormAssistanceStockComponent } from './assistance-stock/form-assistance-stock/form-assistance-stock.component';
 import { AssistanceStockReqComponent } from './assistance-stock/form-assistance-stock/assistance-stock-req.component';
 import { ActionsStockComponent } from './assistance-stock/actions.component';
-import { FormInsumeRequestComponent } from '../clinic-history/insume-request/form-insume-request/form-insume-request.component';
-import { InsumeRequestComponent } from '../clinic-history/insume-request/insume-request.component';
 import { ActionsComponentInsume } from './manual/insume-massive/actions.component';
 import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
 import { FormManualInsumeComponent } from './manual/form-manual-insume/form-manual-insume.component';
@@ -372,6 +370,11 @@ import { ActionsAssReqPatientComponent } from './fixed-assets-requests-patient/a
 import { FormFixedAssetsRequestsPatientComponent } from './fixed-assets-requests-patient/form-fixed-assets-requests-patient/form-fixed-assets-requests-patient.component';
 import { AssetsSelectRequestsPatientComponent } from './fixed-assets-requests-patient/assets-requests-patient-package/assets-select-requests-patient.component';
 import { AssetsRequestsPatientPackageComponent } from './fixed-assets-requests-patient/assets-requests-patient-package/assets-requests-patient-package.component';
+import { UserComponent } from './pharmacy-stock/user-package/user.component';
+import { UserPackageComponent } from './pharmacy-stock/user-package/user-package.component';
+import { ActionPharmaComponent } from './pharmacy-stock/actions.component';
+import { ServicesComponent } from './pharmacy-stock/services-package/services.component';
+import { ServicesPackageComponent } from './pharmacy-stock/services-package/services-package.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -774,7 +777,14 @@ import { AssetsRequestsPatientPackageComponent } from './fixed-assets-requests-p
     AssetsSelectRequestsPatientComponent,
     FormFixedAssetsRequestsPatientComponent,
     ActionsAssReqPatientComponent,
-    FixedAssetsRequestsPatientComponent
+    FixedAssetsRequestsPatientComponent,
+
+    UserPackageComponent,
+    UserComponent,
+    ActionPharmaComponent,
+
+    ServicesPackageComponent,
+    ServicesComponent
 
   ],
   providers: [

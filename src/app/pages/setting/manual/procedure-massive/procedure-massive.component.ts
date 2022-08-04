@@ -32,7 +32,7 @@ export class ProcedureMassiveComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title;
   public subtitle = '';
-  public headerFields: any[] = ['id', 'Código propio', 'Código Homologo', 'Nombre', 'Valor', 'Tipo de valor','Descripción','Paciente a prestar'];
+  public headerFields: any[] = ['id', 'Código propio', 'Código Homologo', 'Nombre', 'Valor', 'Tipo de valor','Paciente a prestar'];
   public routes = [];
   public row;
   public course;
@@ -111,12 +111,8 @@ export class ProcedureMassiveComponent implements OnInit {
           return value.name;
         },
       },
-      description: {
-        title: this.headerFields[6],
-        type: 'string',
-      },
       patient_id: {
-        title: this.headerFields[4],
+        title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if(value==null){

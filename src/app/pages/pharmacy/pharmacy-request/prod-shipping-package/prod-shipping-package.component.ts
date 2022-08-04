@@ -22,7 +22,7 @@ export class ProdShippingPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'MEDICAMENTO COMERCIAL: ';
   public subtitle = ' ';
-  public headerFields: any[] = ['PRODUCTO COMERCIAL', 'PRODUCTO GENERICO', 'CANTIDAD ACTUAL STOCK', 'CANTIDAD A ENVIAR', 'FECHA DE VENCIMIENTO'];
+  public headerFields: any[] = ['PRODUCTO COMERCIAL', 'PRODUCTO GENERICO', 'CANTIDAD ACTUAL STOCK', 'CANTIDAD A ENVIAR', 'LOTE', 'FECHA DE VENCIMIENTO'];
   public routes = [];
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
@@ -106,8 +106,12 @@ export class ProdShippingPackageComponent implements OnInit {
         },
         renderComponent: AmountShippingComponent,
       },
-      expiration_date: {
+      lot: {
         title: this.headerFields[4],
+        type: 'string',
+      },
+      expiration_date: {
+        title: this.headerFields[5],
         type: 'string',
       }
     },
