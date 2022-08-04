@@ -27,7 +27,7 @@ export class FormProductComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public factory: any[];
-  public product_generic: any[];
+  public product_generic: any[] = [];
   public invima_status: any[];
   public storage_conditions: any[];
   public packing: any[];
