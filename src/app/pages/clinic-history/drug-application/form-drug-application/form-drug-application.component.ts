@@ -105,7 +105,7 @@ export class FormDrugApplicationComponent implements OnInit {
           }
           // this.close();
         }).catch(x => {
-          this.toastService.danger('', x.message);
+          this.toastService.danger('', x);
           this.isSubmitted = false;
           this.loading = false;
         });
@@ -124,6 +124,7 @@ export class FormDrugApplicationComponent implements OnInit {
             }
           })
           .catch((x) => {
+            this.toastService.success('', x.message);
             this.isSubmitted = false;
             this.loading = false;
           });
