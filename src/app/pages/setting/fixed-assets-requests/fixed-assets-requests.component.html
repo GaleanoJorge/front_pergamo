@@ -1,11 +1,17 @@
-<div class="col-12 col-sm-12 col-md-12">
-  <!-- <ngx-form-pharmacy-product-request (messageEvent)="receiveMessage($event)">
-  </ngx-form-pharmacy-product-request> -->
-</div>
 <ngx-base-list [messageError]="messageError">
   <div content>
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-      entity="fixed_add/?pagination=true&insum={{validator}}" customData='fixed_add' [messageToltip]="messageToltip">
-    </ngx-base-table>
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="SEDE">
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+          entity="fixed_add/?pagination=true&insum={{validator}}&status=SOLICITADO" customData='fixed_add'
+          [messageToltip]="messageToltip">
+        </ngx-base-table>
+      </nb-tab>
+      <nb-tab tabTitle="PACIENTE">
+        <ngx-fixed-assets-requests-patient></ngx-fixed-assets-requests-patient>
+      </nb-tab>
+
+    </nb-tabset>
+
   </div>
 </ngx-base-list>

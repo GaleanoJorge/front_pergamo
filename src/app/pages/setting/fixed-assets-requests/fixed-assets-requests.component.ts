@@ -46,11 +46,11 @@ export class FixedAssetsRequestsComponent implements OnInit {
         },
         renderComponent: ActionsAssReqComponent,
       },
-      fixed_assets: {
+      fixed_nom_product: {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.description;
+          return value.name;
         },
       },
       request_amount: {
