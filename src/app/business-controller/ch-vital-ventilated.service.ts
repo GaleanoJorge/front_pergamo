@@ -15,7 +15,7 @@ export class ChVitalVentilatedService {
   GetCollection(params = {}): Promise<ChVitalVentilated[]> {
     let servObj = new ServiceObject(params ? 'ch_vital_ventilated?pagination=false' : 'ch_vital_ventilated');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
