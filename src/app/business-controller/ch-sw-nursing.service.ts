@@ -1,7 +1,7 @@
 import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
-import { ChSwNursing } from '../models/ch-swnursing';
+import { ChSwNursing } from '../models/ch-sw-nursing';
 
 
 @Injectable({
