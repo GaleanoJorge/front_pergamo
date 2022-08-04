@@ -153,7 +153,7 @@ export class HistoricAuthorizationListComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'NO APLICA';
+            return '--';
           }
         },
       },
