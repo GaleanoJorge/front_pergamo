@@ -63,9 +63,12 @@ export class AssetsRequestsPackageComponent implements OnInit {
         },
         renderComponent: AssetsSelectRequestsComponent,
       },
-      description: {
+      fixed_nom_product: {
         title: this.headerFields[0],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+       return value.name;
+        }
       
       },
       mark: {
