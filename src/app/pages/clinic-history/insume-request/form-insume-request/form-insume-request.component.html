@@ -19,7 +19,7 @@
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.product_supplies_id }}" *ngFor="let item of product_supplies_id"
             [value]="item.id">
-            {{ item.description }}</nb-option>
+            {{ item.manual_price.insume.description }}</nb-option>
         </nb-select>
       </div>
 

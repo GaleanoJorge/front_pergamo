@@ -15,16 +15,17 @@ import { date } from '@rxweb/reactive-form-validators';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-  <a *ngIf="value.data.id && value.user.id" nbTooltip="Ejecución plan de manejo"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/assigned-management-plan/' + value.data.id+'/'+value.user.id">
-  <nb-icon icon="menu-outline"></nb-icon>
-</a>
-<a *ngIf="value.data.admissions.id && value.user.id" nbTooltip="Consentimientos Informados" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/consents-informed/' + value.data.admissions.id+'/'+value.user.id">
-<nb-icon icon="file-text-outline"></nb-icon>
-</a>
-<a *ngIf="value.data.assigned_user_id==null" nbTooltip="Asignación de personal"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.assignedUser(value.data)">
-<nb-icon icon="person-add-outline"></nb-icon>
-</a>
-  </div>
+    <a *ngIf="value.data.id && value.user.id" nbTooltip="Ejecución plan de manejo"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/assigned-management-plan/' + value.data.id+'/'+value.user.id">
+     <nb-icon icon="menu-outline"></nb-icon>
+    </a>
+  <a *ngIf="value.data.admissions.id && value.user.id" nbTooltip="Consentimientos Informados" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/consents-informed/' + value.data.admissions.id+'/'+value.user.id">
+    <nb-icon icon="file-text-outline"></nb-icon>
+  </a>
+  <a *ngIf="value.data.assigned_user_id==null" nbTooltip="Asignación de personal"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.assignedUser(value.data)">
+    <nb-icon icon="person-add-outline"></nb-icon>
+  </a>
+
+</div>
   `,
   styleUrls: ['./management-plan.component.scss'],
 })

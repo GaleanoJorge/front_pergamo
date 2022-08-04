@@ -18,6 +18,8 @@ import { AuthPackageComponent } from './historic-authorization/auth-package/auth
 import { ActionsComponent } from './actions.component';
 import { AuthAsociatedPackageComponent } from './auth-asociated-package/auth-asociated-package.component';
 import { AuthPackageService } from '../../../business-controller/auth-package.service';
+import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { PatientService } from '../../../business-controller/patient.service';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -55,13 +57,16 @@ export class AuthorizationListComponent implements OnInit {
   public show;
   public checkbox: any[] = [];
   public all_Data: any[] = [];
-  public company: any[] = []
-  public contract: any[] = []
+  public company: any[] = [];
+  public contract: any[] = [];
+  public admissions: any[] = [];
   public filter =
     {
       eps_id: null,
       initial_date: null,
       final_date: null,
+      patient: null,
+      admissions: null,
     }
   public parentData: any;
 
@@ -87,61 +92,14 @@ export class AuthorizationListComponent implements OnInit {
     // private elementR: ElementRef,
     private windowService: NbWindowService,
     private authPackageS: AuthPackageService,
+    private admissionS: AdmissionsService,
+    private patientS: PatientService,
   ) {
   }
 
-  // disableCheck() {
-  //   this.all_Data = [];
-  //   this.checkbox = this.elementR.nativeElement.querySelectorAll(
-  //     'input[type=checkbox]'
-  //   );
-
-  //   this.checkbox.forEach((element, index) => {
-  //     let aux;
-  //     /* disable the select all checkbox */
-  //     if (index > 0) {
-  //       // this.all_Data.push(element);
-  //       aux = Object.assign({ auth_id: this.table.source.data[index - 1].id }, { indice: index });
-  //       this.all_Data.push(aux);
-  //       if (this.table.source.data[index - 1].assigned_management_plan.execution_date != "0000-00-00") {
-  //         this.renderer2.setAttribute(element, 'disabled', 'true');
-  //       }
-
-  //     }
-
-  //     /* disable the checkbox if set column is false */
-  //     // if (index > 1 ) {
-  //     //   this.renderer2.setAttribute(element, 'disabled', 'true');
-  //     // }
-  //   });
-  // }
-
-  // ngAfterViewInit() {
-  //   this.disableCheck();  
-  // }
   public settings = {
-    // pager: {
-    //   display: true,
-    //   perPage: 10,
-    // },
     selectMode: 'multi',
     columns: {
-      // actions: {
-      //   title: 'Acciones',
-      //   type: 'custom',
-      //   valuePrepareFunction: (value, row) => {
-      //     // DATA FROM HERE GOES TO renderComponent
-      //     return {
-      //       'data': row,
-      //       'edit': this.EditPadComplementary.bind(this),
-      //       'delete': this.DeleteConfirmPadComplementary.bind(this),
-      //       'confirm': this.ConfirmAction.bind(this),
-      //       'refresh': this.RefreshData.bind(this),
-      //       'currentRole': this.currentRole,
-      //     };
-      //   },
-      //   renderComponent: Actions2Component,
-      // },
       actions: {
         title: 'Acciones',
         type: 'custom',
@@ -258,8 +216,6 @@ export class AuthorizationListComponent implements OnInit {
   public saved: any = null;
 
 
-
-
   async ngOnInit() {
 
     this.parentData = {
@@ -276,6 +232,7 @@ export class AuthorizationListComponent implements OnInit {
       start_date: '',
       finish_date: '',
       state_gloss: '',
+      admissions_id: ''
     };
 
     this.form = this.formBuilder.group({
@@ -288,16 +245,23 @@ export class AuthorizationListComponent implements OnInit {
       finish_date: [
         this.data.finish_date,
       ],
+      admissions_id: [
+        this.data.admissions_id,
+      ],
     });
 
-    await this.authStatusS.GetCollection().then(x => {
+    this.authStatusS.GetCollection().then(x => {
       this.auth_status = x;
       this.auth_statusM = x;
       this.auth_statusM.pop();
     });
 
-    await this.companyS.GetCollection().then(x => {
+    this.companyS.GetCollection().then(x => {
       this.company = x;
+    });
+
+    this.admissionS.GetActiveAdmissions().then(x => {
+      this.admissions = x;
     });
 
     this.xlsForm = this.formBuilder.group({
@@ -424,6 +388,14 @@ export class AuthorizationListComponent implements OnInit {
     this.status = status;
     this.table.changeEntity(`authorization/byStatus/${this.status}`, 'authorization');
     this.entity = this.table.entity
+    this.form.patchValue({
+      company_id: null,
+      start_date: '',
+      finish_date: '',
+      state_gloss: '',
+      admissions_id: '',
+    });
+    this.toastS.warning('', 'Filtros limpiados');
     // this.RefreshData();
 
   }
@@ -544,6 +516,10 @@ export class AuthorizationListComponent implements OnInit {
     this.form.get('start_date').valueChanges.subscribe(val => {
       this.min_day = val;
       this.filter.initial_date = val;
+    });
+
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.filter.final_date = val;
     });
 
     this.form.get('finish_date').valueChanges.subscribe(val => {

@@ -415,8 +415,6 @@ import { ActionFixedComponent } from './fixed-stock/actions.component';
     FormManualInsumeComponent,
     ActionsStockComponent,
     AssistanceStockReqComponent,
-    AssistanceStockComponent,
-    FormAssistanceStockComponent,
     AuthStatusComponent,
     FormAuthStatusComponent,
     ActionsCDComponent,

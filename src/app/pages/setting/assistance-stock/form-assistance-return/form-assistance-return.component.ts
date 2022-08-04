@@ -17,11 +17,11 @@ import { AuthService } from '../../../../services/auth.service';
 import { RowHistoryFormat } from '@syncfusion/ej2/documenteditor';
 
 @Component({
-  selector: 'ngx-form-drug-application',
-  templateUrl: './form-drug-application.component.html',
-  styleUrls: ['./form-drug-application.component.scss'],
+  selector: 'ngx-form-assistance-return',
+  templateUrl: './form-assistance-return.component.html',
+  styleUrls: ['./form-assistance-return.component.scss'],
 })
-export class FormDrugApplicationComponent implements OnInit {
+export class FormAssistanceReturnComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;

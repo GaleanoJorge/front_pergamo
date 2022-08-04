@@ -52,6 +52,9 @@ import { FormInsumeRequestComponent } from './clinic-history/insume-request/form
 import { PharmacyModule } from './pharmacy/pharmacy.module';
 import { ProductTabComponent } from './pharmacy/product-tab/product-tab.component';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
+import { AssistanceStockComponent } from './setting/assistance-stock/assistance-stock.component';
+import { FormAssistanceStockComponent } from './setting/assistance-stock/form-assistance-stock/form-assistance-stock.component';
+import { FormAssistanceReturnComponent } from './setting/assistance-stock/form-assistance-return/form-assistance-return.component';
 
 
 
@@ -88,6 +91,9 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
     NbRadioModule,
   ],
   declarations: [
+    AssistanceStockComponent,
+    FormAssistanceStockComponent,
+    FormAssistanceReturnComponent,
     InsumeRequestComponent,
     FormInsumeRequestComponent,
     PagesComponent,
@@ -131,6 +137,9 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
     WebSpeachComponent,
     InsumeRequestComponent,
     FormInsumeRequestComponent,
+    AssistanceStockComponent,
+    FormAssistanceStockComponent,
+    FormAssistanceReturnComponent,
   ],
   providers: [PermissionsGuard],
 })
