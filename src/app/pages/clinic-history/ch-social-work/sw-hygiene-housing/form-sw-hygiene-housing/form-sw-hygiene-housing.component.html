@@ -1,0 +1,142 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Condición de higiene del Hogar</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Aseo</label>
+        <nb-select class="form-text" id="cleanliness" formControlName="cleanliness" fullWidth>
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adecuado">Adecuado</nb-option>
+          <nb-option value="Inadecuado">Inadecuado</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="obs_cleanliness" nbInput fullWidth formControlName="obs_cleanliness" obs_cleanliness
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.obs_cleanliness.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Iluminación</label>
+        <nb-select class="form-text" id="illumination" formControlName="illumination" fullWidth>
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adecuado">Adecuado</nb-option>
+          <nb-option value="Inadecuado">Inadecuado</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="obs_illumination" nbInput fullWidth formControlName="obs_illumination" obs_illumination
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.obs_illumination.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Ventilación</label>
+        <nb-select class="form-text" id="ventilation" formControlName="ventilation" fullWidth>
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adecuado">Adecuado</nb-option>
+          <nb-option value="Inadecuado">Inadecuado</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="obs_ventilation" nbInput fullWidth formControlName="obs_ventilation" obs_ventilation
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.obs_ventilation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Plagas</label>
+        <nb-select class="form-text" id="pests" formControlName="pests" fullWidth>
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adecuado">Adecuado</nb-option>
+          <nb-option value="Inadecuado">Inadecuado</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="obs_pests" nbInput fullWidth formControlName="obs_pests" obs_pests
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.obs_pests.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Sanitario</label>
+        <nb-select class="form-text" id="sanitary" formControlName="sanitary" fullWidth>
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adecuado">Adecuado</nb-option>
+          <nb-option value="Inadecuado">Inadecuado</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="obs_sanitary" nbInput fullWidth formControlName="obs_sanitary" obs_sanitary
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.obs_sanitary.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Lugar de basuras</label>
+        <nb-select class="form-text" id="trash" formControlName="trash" fullWidth>
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adecuado">Adecuado</nb-option>
+          <nb-option value="Inadecuado">Inadecuado</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="obs_trash" nbInput fullWidth formControlName="obs_trash" obs_trash
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.obs_trash.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>
