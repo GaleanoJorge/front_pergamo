@@ -7,6 +7,7 @@ import { AuthService } from '../../../services/auth.service';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { FormPharmacyReturnComponent } from '../pharmacy-return/form-pharmacy-return/form-pharmacy-return.component';
 import { FormPharmaInvPersonComponent } from './form-pharma-inv-person/form-pharma-inv-person.component';
+import { PharmacyStockService } from '../../../business-controller/pharmacy-stock.service';
 
 @Component({
   selector: 'ngx-pharmacy-inventory',
@@ -26,6 +27,8 @@ export class PharmacyInventoryComponent implements OnInit {
   public entity;
   public user;
   public my_pharmacy_id;
+  public pharmacy_stock;
+  public pharmacy;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -93,8 +96,12 @@ export class PharmacyInventoryComponent implements OnInit {
     private invS: PharmacyLotStockService,
     private authService: AuthService,
     private toastService: NbToastrService,
+    private perPharmaS: PharmacyStockService,
   ) {
   }
+
+ 
+  
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
@@ -107,11 +114,26 @@ export class PharmacyInventoryComponent implements OnInit {
         this.toastService.info('Usuario sin farmacias asociadas', 'Información');
        }
     });
+    await this.perPharmaS.GetCollection({ type:2 }).then(x => {
+      this.pharmacy_stock = x;
+    });
+
   }
 
   RefreshData() {
     this.table.refresh();
   }
+
+  ChangePharmacy(pharmacy) {
+    if(pharmacy==0){
+    this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + true, 'pharmacy_lot_stock');
+
+    }else{
+    this.pharmacy = pharmacy;
+    this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + true, 'pharmacy_lot_stock');
+    }
+    // this.RefreshData();
+}
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyInventoryComponent, {

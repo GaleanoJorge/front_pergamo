@@ -48,7 +48,7 @@ export class PharmacyStockService {
   }
 
   Update(pharmacy_stock: any, id = null): Promise<ServiceObject> {
-    let servObj = new ServiceObject('pharmacy_stock', id);
+    let servObj = new ServiceObject('pharmacy_stock', pharmacy_stock.id);
     servObj.data = pharmacy_stock;
     return this.webAPI.PutAction(servObj)
       .then(x => {

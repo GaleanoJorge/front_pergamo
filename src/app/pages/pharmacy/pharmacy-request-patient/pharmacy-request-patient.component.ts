@@ -92,6 +92,8 @@ export class PharmacyRequestPatientComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
+      this.title = 'SOLICITUDES DE MEDICAMENTOS A:  ' + x[0]['name'];
+
     });
   }
 

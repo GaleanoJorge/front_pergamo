@@ -46,6 +46,7 @@ export class ProdLotPackageComponent implements OnInit {
   public done = false;
   public settings;
   public billing_stock_id;
+  public pharmacy_stock_id;
   public show: boolean = false;
 
 
@@ -230,6 +231,9 @@ export class ProdLotPackageComponent implements OnInit {
   }
 
   onAmountChange(input, row) {
+    if(input.target.value>row.amount_provitional){
+      this.toastS.danger("","La cantidad ingresada no debe superar la cantidad ordenada")
+    }else{
     var i = 0;
     var mientras = this.selectedOptions;
     this.selectedOptions.forEach(element => {
@@ -240,6 +244,7 @@ export class ProdLotPackageComponent implements OnInit {
     });
     this.selectedOptions = mientras;
     this.messageEvent.emit(this.selectedOptions);
+  }
   }
 
   onLotChange(input, row) {
@@ -265,7 +270,10 @@ export class ProdLotPackageComponent implements OnInit {
       i++
     });
     this.selectedOptions = mientras;
-    this.messageEvent.emit(this.selectedOptions);
+    this.messageEvent.emit({
+      selected: this.selectedOptions,
+      pharmacy_id: this.pharmacy_stock_id,
+    });
   }
 
 
@@ -313,6 +321,14 @@ export class ProdLotPackageComponent implements OnInit {
   }
 
   ChangeBilling(event) {
+    var localidentify = this.billing_id.find(item => item.id == event);
+
+    if (localidentify) {
+      this.pharmacy_stock_id  = localidentify.pharmacy_stock_id;
+
+    } else {
+      this.pharmacy_stock_id=null;
+    }
     if (event != "") {
       this.entity = `billing_stock?billing_id=${event}`;
       this.customData = 'billing_stock';

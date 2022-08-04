@@ -26,4 +26,5 @@ export class Product extends MainClass {
   packing_id: number;
   refrigeration: string;
   useful_life: string;
+  code_cum: string;
 }

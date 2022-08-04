@@ -25,6 +25,7 @@ export class FormPharmacyLotComponent implements OnInit {
   public selectedOptions: any[] = [];
   public user;
   public show: boolean = false;
+  public pharmacy_stock_id;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -64,8 +65,10 @@ export class FormPharmacyLotComponent implements OnInit {
     this.dialogRef.close();
   }
   receiveMessage($event) {
-    this.selectedOptions = $event;
+    this.selectedOptions = $event.selected;
+    this.pharmacy_stock_id=$event.pharmacy_id;
   }
+
 
   save() {
     this.isSubmitted = true;
@@ -99,7 +102,7 @@ export class FormPharmacyLotComponent implements OnInit {
             vat: this.form.controls.vat.value,
             total: this.form.controls.total.value,
             receipt_date: this.form.controls.receipt_date.value,
-            pharmacy_stock_id: 1,
+            pharmacy_stock_id: this.pharmacy_stock_id,
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
@@ -137,7 +140,7 @@ export class FormPharmacyLotComponent implements OnInit {
             vat: this.form.controls.vat.value,
             total: this.form.controls.total.value,
             receipt_date: this.form.controls.receipt_date.value,
-            pharmacy_stock_id: 1,
+            pharmacy_stock_id: this.pharmacy_stock_id,
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
@@ -147,6 +150,7 @@ export class FormPharmacyLotComponent implements OnInit {
             this.pharmalotStockS.Save({
               pharmacy_lot_id: id,
               billing_stock_id: JSON.stringify(this.selectedOptions),
+            pharmacy_stock_id: this.pharmacy_stock_id,
             }).then(x => {
             }).catch(x => {
               err++;
