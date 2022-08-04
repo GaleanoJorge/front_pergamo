@@ -271,6 +271,8 @@ import { LiquidControlComponent } from './liquid-control/liquid-control.componen
 import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
 import { ConfirmDialogCHComponent } from './clinic-history-list/confirm-dialog/confirm-dialog.component';
 import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
+import { EntryFormValorationFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/entry-form-valoration-ft/entry-form-valoration-ft.component';
+import { ClinicHistoryPhysicTherapy } from './entry-clinic-history-physical-therapy/ch-physic-therapy.component';
 
 
 @NgModule({
@@ -388,7 +390,12 @@ import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-ther
     ForRNmWeeklyOTComponent,
     RNWeeklyOtComponent,
     ConfirmDialogCHComponent,
+
+
+    EntryFormValorationFTComponent,
+
     ClinicHistoryOccupationalTherapy,
+    ClinicHistoryPhysicTherapy,
       
     RespiratoryTherapyListComponent,
     FormRespiratoryTherapyComponent,
