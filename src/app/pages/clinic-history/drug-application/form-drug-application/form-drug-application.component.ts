@@ -71,8 +71,8 @@ export class FormDrugApplicationComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      clock: [Validators.compose([Validators.required])],
-      observation: [Validators.compose([Validators.required])],
+      clock: ['', Validators.compose([Validators.required])],
+      observation: ['', Validators.compose([Validators.required])],
     });
 
     this.user_id = this.authS.GetUser().id;
@@ -104,11 +104,11 @@ export class FormDrugApplicationComponent implements OnInit {
             this.saved();
           }
           // this.close();
-        })
-          .catch(x => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
+        }).catch(x => {
+          this.toastService.danger('', x.message);
+          this.isSubmitted = false;
+          this.loading = false;
+        });
 
       } else {
         await this.assistanceSuppliesS.Save({
