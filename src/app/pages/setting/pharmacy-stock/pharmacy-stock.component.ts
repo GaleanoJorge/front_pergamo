@@ -97,7 +97,7 @@ export class PharmacyStockComponent implements OnInit {
     this.dialogFormService.open(FormPharmacyStockComponent, {
       closeOnBackdropClick: false,
       context: {
-        title: 'CRAR FARMACIA O BODEGA',
+        title: 'CREAR FARMACIA O BODEGA',
          saved: this.RefreshData.bind(this),
       },
     });
