@@ -6,6 +6,8 @@ import { PharmacyRequestShippingService } from '../../../../business-controller/
 import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
 import { ProductGenericService } from '../../../../business-controller/product-generic.service';
 import { ProductSuppliesService } from '../../../../business-controller/product-supplies.service';
+import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'ngx-form-insume-request',
@@ -18,6 +20,8 @@ export class FormInsumeRequestComponent implements OnInit {
   @Input() data: any = null;
   @Input() parentData: any;
   @Input() record_id: number;
+  @Input() user: any;
+  @Input() admissions_id: number;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -28,6 +32,8 @@ export class FormInsumeRequestComponent implements OnInit {
   public showTable;
   public product_supplies_id: any[];
   public request_pharmacy_stock_id: any[];
+  public briefcase;
+  public user_pad;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +42,9 @@ export class FormInsumeRequestComponent implements OnInit {
     private pharmaS: PharmacyStockService,
     private ProductGenericS: ProductGenericService,
     private toastService: NbToastrService,
-    private ProductSuppliesS: ProductSuppliesService
+    private serviceBriefcaseS: ServicesBriefcaseService,
+    private ProductSuppliesS: ProductSuppliesService,
+    private authS: AuthService,
   ) {
   }
 
@@ -49,6 +57,8 @@ export class FormInsumeRequestComponent implements OnInit {
       };
     }
 
+    this.authS.GetUser();
+
     this.form = this.formBuilder.group({
       request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
       product_supplies_id: [this.data.product_supplies_id],
@@ -58,8 +68,30 @@ export class FormInsumeRequestComponent implements OnInit {
     await this.pharmaS.GetCollection().then(x => {
       this.request_pharmacy_stock_id = x;
     });
-    await this.ProductSuppliesS.GetCollection().then(x => {
-      this.product_supplies_id = x;
+    if(this.user){
+      var localidentify = this.user.admissions.find(item => item.id == this.admissions_id);
+      if(localidentify){
+
+        await this.serviceBriefcaseS.GetByBriefcase({ type: '3', patient:this.user.id }, localidentify.briefcase_id).then(x => {
+          this.product_supplies_id = x;
+        });
+      } else {
+        this.toastService.warning('','Error en admisión');
+      }
+    }
+
+    this.onChanges();
+
+  }
+
+  onChanges() {
+    this.form.get('product_supplies_id').valueChanges.subscribe(val => {
+      // console.log(val);
+      if (val === '') {
+      } else {
+        this.briefcase = this.product_supplies_id.find(item => item.id == val);
+      }
+
     });
   }
 
@@ -75,9 +107,9 @@ export class FormInsumeRequestComponent implements OnInit {
           request_amount: this.form.controls.request_amount.value,
           record_id: this.record_id,
           status: 'PATIENT',
-          product_supplies_id: this.form.controls.product_supplies_id.value,
-
+          product_supplies_id: this.briefcase.manual_price.insume.id,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
+          user_request_pad_id: this.authS.GetUser().id,
         }).then(x => {
           this.toastService.success('', x.message);
           if (this.saved) {
@@ -91,8 +123,11 @@ export class FormInsumeRequestComponent implements OnInit {
         await this.pharmaProdS.Save({
           request_amount: this.form.controls.request_amount.value,
           status: 'PATIENT',
-          product_supplies_id: this.form.controls.product_supplies_id.value,
+          services_briefcase_id: this.form.controls.product_supplies_id.value,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
+          product_supplies_id: this.briefcase.manual_price.insume.id,
+          admissions_id: this.admissions_id,
+          user_request_pad_id: this.authS.GetUser().id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
