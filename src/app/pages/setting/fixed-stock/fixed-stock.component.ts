@@ -1,26 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
+import { NbToastrService, NbDialogService } from '@nebular/theme';
+import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { FormPharmacyStockComponent } from './form-pharmacy-stock/form-pharmacy-stock.component';
 import { PharmacyStockService } from '../../../business-controller/pharmacy-stock.service';
-import { UserPackageComponent } from './user-package/user-package.component';
-import { ActionPharmaComponent } from './actions.component';
-import { ServicesPackageComponent } from './services-package/services-package.component';
+import { FormFixedStockComponent } from './form-fixed-stock/form-fixed-stock.component';
 
 
 @Component({
-  selector: 'ngx-pharmacy-stock',
-  templateUrl: './pharmacy-stock.component.html',
-  styleUrls: ['./pharmacy-stock.component.scss']
+  selector: 'ngx-fixed-stock',
+  templateUrl: './fixed-stock.component.html',
+  styleUrls: ['./fixed-stock.component.scss']
 })
-export class PharmacyStockComponent implements OnInit {
+export class FixedStockComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'CREAR BODEGA O FARMACIA';
+  public title: string = 'CREAR TIPO DE ACTIVOS EN SEDES';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'TIPO', 'NOMBRE', 'SEDE'];
+  public headerFields: any[] = ['ID', 'TIPO', 'SEDE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -41,29 +39,23 @@ export class PharmacyStockComponent implements OnInit {
             'data': row,
             'edit': this.EditPharmacyStock.bind(this),
             'delete': this.DeleteConfirmPharmacyStock.bind(this),
-            'user': this.UserAsigned.bind(this),
-            'services': this.ServicesAsigned.bind(this),
           };
         },
-        renderComponent: ActionPharmaComponent,
+        renderComponent: ActionsComponent,
       },
       id: {
         title: this.headerFields[0],
         type: 'string',
       },
-      type_pharmacy_stock: {
+      fixed_type: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      name: {
-        title: this.headerFields[2],
-        type: 'string',
-      },
       campus: {
-        title: this.headerFields[3],
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
@@ -75,7 +67,7 @@ export class PharmacyStockComponent implements OnInit {
   public routes = [
     {
       name: 'PharmacyStock',
-      route: '../../setting/pharmacy-stock',
+      route: '../../setting/fixed-stock',
     },
   ];
 
@@ -94,45 +86,22 @@ export class PharmacyStockComponent implements OnInit {
   }
 
   NewPharmacyStock() {
-    this.dialogFormService.open(FormPharmacyStockComponent, {
+    this.dialogFormService.open(FormFixedStockComponent, {
       closeOnBackdropClick: false,
       context: {
         title: 'CRAR FARMACIA O BODEGA',
-         saved: this.RefreshData.bind(this),
-      },
-    });
-  }
-
-  EditPharmacyStock(data) {
-    this.dialogFormService.open(FormPharmacyStockComponent, {
-      closeOnBackdropClick: false,
-      context: {
-        title: 'EDITAR FARMACIA O BODEGA',
-        data,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
-  UserAsigned(data) {
-    this.dialogFormService.open(UserPackageComponent, {
+  EditPharmacyStock(data) {
+    this.dialogFormService.open(FormFixedStockComponent, {
       closeOnBackdropClick: false,
       context: {
-        title: 'CREAR USUARIOS PARA FARMACIA O BODEGA',
+        title: 'EDITAR FARMACIA O BODEGA',
         data,
-           saved: this.RefreshData.bind(this),
-      },
-    });
-  }
-
-
-  ServicesAsigned(data) {
-    this.dialogFormService.open(ServicesPackageComponent, {
-      closeOnBackdropClick: false,
-      context: {
-        title: 'TIPOS DE SERVICIOS',
-        data: data,
-           saved: this.RefreshData.bind(this),
+        saved: this.RefreshData.bind(this),
       },
     });
   }
