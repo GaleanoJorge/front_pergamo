@@ -63,7 +63,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
             <nb-card-body>
                 <div>
                     <div class="col-md-12">
-                        <label for="observation" class="form-text text-muted font-weight-bold">¿Desea arpobar este servicio?</label>
+                        <label for="observation" class="form-text text-muted font-weight-bold">¿Desea aprobar este servicio?</label>
                     </div>
                 </div>
                 <div class="div-send">
