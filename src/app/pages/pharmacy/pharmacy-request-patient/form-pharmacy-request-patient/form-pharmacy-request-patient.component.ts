@@ -47,11 +47,11 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    if (this.data.product_generic_id != null) {
+    if (this.data.services_briefcase.manual_price.product_id != null) {
       this.title = 'MEDICAMENTO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.services_briefcase.manual_price.product_id + '&pharmacy_stock_id=' + this.data.request_pharmacy_stock_id+'&campus_id=' + this.data.admissions.campus_id,
+        entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.services_briefcase.manual_price.product_id + '&pharmacy_stock_id=' + this.my_pharmacy_id+'&campus_id=' + this.data.admissions.campus_id,
         customData: 'pharmacy_lot_stock',
       };
     }else{

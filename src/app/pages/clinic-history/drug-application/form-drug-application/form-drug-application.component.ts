@@ -126,6 +126,7 @@ export class FormDrugApplicationComponent implements OnInit {
             }
           })
           .catch((x) => {
+            this.toastService.success('', x.message);
             this.isSubmitted = false;
             this.loading = false;
           });

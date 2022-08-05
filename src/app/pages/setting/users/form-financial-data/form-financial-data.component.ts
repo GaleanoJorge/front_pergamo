@@ -88,6 +88,7 @@ export class FormFinancialDataComponent implements OnInit {
           user_id: this.dataUser.id
         }).then(x => {
           this.toastService.success('', x.message);
+          this.loading = false;
           this.close();
           if (this.saved) {
             this.saved();
@@ -106,6 +107,7 @@ export class FormFinancialDataComponent implements OnInit {
           user_id: this.dataUser.id
         }).then(x => {
           this.toastService.success('', x.message);
+          this.loading = false;
           this.close();
           if (this.saved) {
             this.saved();

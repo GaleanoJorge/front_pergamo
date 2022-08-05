@@ -48,6 +48,10 @@ import { AuthService } from '../../../services/auth.service';
     <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
+  <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 8)" nbTooltip="Historia Clinica de Trabajo Social" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-social-work/social-work-list/' + value.data.id + '/'+ value.assigned" >
+    <nb-icon icon="file-add-outline"></nb-icon>
+  </button>
+
     <button *ngIf="value.data.status=='CERRADO'" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
       <nb-icon icon="file-add"></nb-icon>
     </button>

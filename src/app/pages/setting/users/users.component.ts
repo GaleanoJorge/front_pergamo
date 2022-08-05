@@ -163,7 +163,7 @@ export class UsersComponent implements OnInit {
             context: {
                 title: 'Información Financiera',
                 dataUser,
-                //saved: this.RefreshData.bind(this),
+                saved: this.RefreshData.bind(this),
             },
         });
 

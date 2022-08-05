@@ -1,0 +1,63 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+
+          <nb-step [stepControl]="nameForm" label="Diagnóstico">
+            <ngx-form-sw-diagnosis [record_id]="record_id"></ngx-form-sw-diagnosis>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Familia">
+            <ngx-sw-family [record_id]="record_id"></ngx-sw-family>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="S.Enfermeria">
+            <ngx-sw-nursing [record_id]="record_id"></ngx-sw-nursing>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Hist. Ocupacional">
+            <ngx-occupational-history [record_id]="record_id"></ngx-occupational-history>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Dinámica Familiar">
+            <ngx-sw-family-dynamics [record_id]="record_id"></ngx-sw-family-dynamics>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Factores de Riesgo">
+            <ngx-sw-risk-factors [record_id]="record_id"></ngx-sw-risk-factors>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Vivienda">
+            <ngx-sw-housing [record_id]="record_id"></ngx-sw-housing>
+          </nb-step>
+         
+          <nb-step [stepControl]="nameForm" label="Económia">
+            <ngx-sw-economic-aspects [record_id]="record_id"></ngx-sw-economic-aspects>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Conflicto armado">
+            <ngx-sw-armed-conflict [record_id]="record_id"></ngx-sw-armed-conflict>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Red de apoyo">
+            <ngx-sw-support-network [record_id]="record_id" [type_record]="1"></ngx-sw-support-network>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Reco. / Educ.">
+            <ngx-form-ch-sw-education [record_id]="record_id"></ngx-form-ch-sw-education>
+          </nb-step>
+
+          <nb-step [hidden]="true">
+
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>

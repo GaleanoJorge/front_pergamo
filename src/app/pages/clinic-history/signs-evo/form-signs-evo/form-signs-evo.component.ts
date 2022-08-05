@@ -126,7 +126,7 @@ export class FormsignsEvoComponent implements OnInit {
         abdominal_perimeter: '',
         chest_perimeter: '',
         ch_vital_hydration_id: '',
-        vital_ventilated_id: '',
+        ch_vital_ventilated_id: '',
         ch_vital_temperature_id: '',
         ch_vital_neurological_id: '',
         oxygen_type_id: '',
@@ -190,7 +190,7 @@ export class FormsignsEvoComponent implements OnInit {
       left_reaction: [this.data[0] ? this.data[0].left_reaction : this.data.left_reaction],
       pupil_size_left: [this.data[0] ? this.data[0].pupil_size_left : this.data.pupil_size_left],
       ch_vital_hydration_id: [this.data[0] ? this.data[0].ch_vital_hydration_id : this.data.ch_vital_hydration_id],
-      vital_ventilated_id: [this.data[0] ? this.data[0].vital_ventilated_id : this.data.vital_ventilated_id],
+      ch_vital_ventilated_id: [this.data[0] ? this.data[0].ch_vital_ventilated_id : this.data.ch_vital_ventilated_id],
       ch_vital_temperature_id: [this.data[0] ? this.data[0].ch_vital_temperature_id : this.data.ch_vital_temperature_id, Validators.compose([Validators.required])],
       ch_vital_neurological_id: [this.data[0] ? this.data[0].ch_vital_neurological_id : this.data.ch_vital_neurological_id],
       oxygen_type_id: [this.data[0] ? this.data[0].oxygen_type_id : this.data.oxygen_type_id],
@@ -245,7 +245,7 @@ export class FormsignsEvoComponent implements OnInit {
           left_reaction: this.form.controls.left_reaction.value,
           pupil_size_left: this.form.controls.pupil_size_left.value,
           ch_vital_hydration_id: this.form.controls.ch_vital_hydration_id.value,
-          ch_vital_ventilated_id: this.form.controls.vital_ventilated_id.value,
+          ch_vital_ventilated_id: this.form.controls.ch_vital_ventilated_id.value,
           ch_vital_temperature_id: this.form.controls.ch_vital_temperature_id.value,
           ch_vital_neurological_id: this.form.controls.ch_vital_neurological_id.value,
           oxygen_type_id: this.form.controls.oxygen_type_id.value,
@@ -295,7 +295,7 @@ export class FormsignsEvoComponent implements OnInit {
           left_reaction: this.form.controls.left_reaction.value,
           pupil_size_left: this.form.controls.pupil_size_left.value,
           ch_vital_hydration_id: this.form.controls.ch_vital_hydration_id.value,
-          ch_vital_ventilated_id: this.form.controls.vital_ventilated_id.value,
+          ch_vital_ventilated_id: this.form.controls.ch_vital_ventilated_id.value,
           ch_vital_temperature_id: this.form.controls.ch_vital_temperature_id.value,
           ch_vital_neurological_id: this.form.controls.ch_vital_neurological_id.value,
           oxygen_type_id: this.form.controls.oxygen_type_id.value,
@@ -338,7 +338,7 @@ export class FormsignsEvoComponent implements OnInit {
             left_reaction: '',
             pupil_size_left: '',
             ch_vital_hydration_id: '',
-            vital_ventilated_id: '',
+            ch_vital_ventilated_id: '',
             ch_vital_temperature_id: '',
             ch_vital_neurological_id: '',
             oxygen_type_id: '',
@@ -400,12 +400,12 @@ export class FormsignsEvoComponent implements OnInit {
         this.oxygen_type = [];
         this.liters_per_minute = [];
 
-        this.form.controls.vital_ventilated_id.clearValidators();
+        this.form.controls.ch_vital_ventilated_id.clearValidators();
         this.form.controls.oxygen_type_id.clearValidators();
         this.form.controls.liters_per_minute_id.clearValidators();
         this.form.controls.parameters_signs_id.clearValidators();
 
-        this.form.controls.vital_ventilated_id.setErrors(null);
+        this.form.controls.ch_vital_ventilated_id.setErrors(null);
         this.form.controls.oxygen_type_id.setErrors(null);
         this.form.controls.liters_per_minute_id.setErrors(null);
         this.form.controls.parameters_signs_id.setErrors(null);
@@ -425,7 +425,7 @@ export class FormsignsEvoComponent implements OnInit {
           this.parameters_signs = x;
         });
 
-        this.form.controls.vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.ch_vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.oxygen_type_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
