@@ -76,7 +76,7 @@
                   status="{{ isSubmitted && form.controls.hourly_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                   <nb-option value="">SELECCIONE...</nb-option>
                   <nb-option selected="{{ item.id == this.data.hourly_frequency_id }}"
-                    *ngFor="let item of hourly_frequency_id" [value]="item.id">
+                    *ngFor="let item of hourly_frequency_id" [value]="item.name">
                     {{ item.value }} - {{ item.name }}</nb-option>
                 </nb-select>
               </div>

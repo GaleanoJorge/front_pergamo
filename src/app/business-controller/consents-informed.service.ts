@@ -31,6 +31,23 @@ export class ConsentsInformedService {
       });
   }
 
+  ViewCI(admission_id: any, params: any={}): any {
+    let servObj = new ServiceObject('viewCI/'+ admission_id);
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        //this.ch_record = <any[]>servObj.data.ch_record;
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(consents_informed: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('consents_informed');
     servObj.data = consents_informed;

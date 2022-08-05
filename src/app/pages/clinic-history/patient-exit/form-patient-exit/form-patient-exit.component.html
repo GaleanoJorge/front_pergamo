@@ -8,7 +8,7 @@
           <label class="form-text text-muted font-weight-bold">Estado de Salida</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="exit_status" exit_status id="exit_status" class="d-flex text center"
+          <nb-radio-group formControlName="exit_status" exit_status id="exit_status" class="d-flex text ml-3"
             name="exit_status"
             status="{{ isSubmitted && form.controls.exit_status.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
             <nb-radio value="1">Vivo</nb-radio>
