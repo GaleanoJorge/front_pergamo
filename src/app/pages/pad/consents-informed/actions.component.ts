@@ -1,25 +1,14 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { NbToastrService } from '@nebular/theme';
 import { ViewCell } from 'ng2-smart-table';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../../../environments/environment';
-import { GlossResponseService } from '../../../business-controller/gloss-response.service';
-import { ObjetionCodeResponseService } from '../../../business-controller/objetion-code-response.service';
-import { ObjetionResponseService } from '../../../business-controller/objetion-response.service';
-import { CurrencyPipe } from '@angular/common';
-import { GlossRadicationService } from '../../../business-controller/gloss-radication.service';
-import { GlossService } from '../../../business-controller/gloss.service';
-import { date } from '@rxweb/reactive-form-validators';
+import { ConsentsInformedService } from '../../../business-controller/consents-informed.service';
+
 
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-  <a nbTooltip="Ejecución plan de manejo"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/assigned-management-plan/' + value.data.id+'/'+value.user.id">
-  <nb-icon icon="menu-outline"></nb-icon>
-</a>
-<a *ngIf="value.data.assigned_user_id==null" nbTooltip="Asignación de personal"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.assignedUser(value.data)">
-<nb-icon icon="person-add-outline"></nb-icon>
+  <a nbTooltip="Descargar consentimiento"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewCI()" >
+  <nb-icon icon="file-text-outline"></nb-icon>
 </a>
   </div>
   `,
@@ -30,12 +19,32 @@ export class ActionsCIComponent implements ViewCell {
   @Input() rowData: any;  // This holds the entire row object
   public today;
   public show;
+  loading: boolean = false;
+  public isSubmitted: boolean = false;
+
 
   constructor(
+    private viewCIS: ConsentsInformedService,
+    private toastService: NbToastrService,
+
   ) {
   }
 
   async ngOnInit() {
   }
+
+  viewCI() {
+    this.viewCIS.ViewCI(this.value.admissions_id, {id: this.value.data.id}).then(x => {
+
+      //this.loadingDownload = false;
+      this.toastService.success('', x.message);
+      window.open(x.url, '_blank');
+
+    }).catch(x => {
+      this.isSubmitted = false;
+      this.loading = false;
+    });
+  }
+
 
 }
