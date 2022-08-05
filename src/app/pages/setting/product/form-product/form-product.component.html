@@ -123,7 +123,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label class="form-text text-muted font-weight-bold">Código unico de medicamento (cum):</label>
+          <label class="form-text text-muted font-weight-bold">Código unico de medicamento (CUM):</label>
           <input nbInput fullWidth id="code_cum" formControlName="code_cum" code_cum
             status="{{ isSubmitted && form.controls.code_cum.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
@@ -180,21 +180,18 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="indications" class="form-text text-muted font-weight-bold">Indicaciones:</label>
-          <input nbInput fullWidth id="indications" formControlName="indications" indications
-            status="{{ isSubmitted && form.controls.indications.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          <input nbInput fullWidth id="indications" formControlName="indications" indications/>
         </div>
 
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="contraindications" class="form-text text-muted font-weight-bold">Contraindicaciones:</label>
-          <input nbInput fullWidth id="contraindications" formControlName="contraindications" contraindications />
+          <label for="contraindications" class="form-text text-muted font-weight-bold">Contraindicaciones:</label> />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="applications" class="form-text text-muted font-weight-bold">Usos:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="applications"
-            formControlName="applications" applications
-            status="{{ isSubmitted && form.controls.applications.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            formControlName="applications" applications />
         </div>
       </div>
 
