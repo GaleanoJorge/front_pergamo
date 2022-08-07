@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
@@ -26,6 +27,7 @@ export class FormPharmacyLotComponent implements OnInit {
   public user;
   public show: boolean = false;
   public pharmacy_stock_id;
+  // public TotOperation;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -35,6 +37,7 @@ export class FormPharmacyLotComponent implements OnInit {
     private toastService: NbToastrService,
     private toastS: NbToastrService,
     private authService: AuthService,
+    private currency: CurrencyPipe,
   ) {
   }
 
@@ -60,13 +63,24 @@ export class FormPharmacyLotComponent implements OnInit {
       total: [this.data.total, Validators.compose([Validators.required])],
       receipt_date: [this.data.receipt_date, Validators.compose([Validators.required])],
     });
+    this.onchangeForm(1);
   }
   close() {
     this.dialogRef.close();
   }
   receiveMessage($event) {
     this.selectedOptions = $event.selected;
-    this.pharmacy_stock_id=$event.pharmacy_id;
+    this.pharmacy_stock_id = $event.pharmacy_id;
+  }
+  onchangeForm(event) {
+    var sub = this.form.controls.subtotal.value;
+    var vat = this.form.controls.vat.value;
+    if (vat == '') {
+     this.form.patchValue({total: sub});
+    } else {
+      var tot2 = sub + vat;
+     this.form.patchValue({total: tot2});
+    }
   }
 
 
@@ -150,7 +164,7 @@ export class FormPharmacyLotComponent implements OnInit {
             this.pharmalotStockS.Save({
               pharmacy_lot_id: id,
               billing_stock_id: JSON.stringify(this.selectedOptions),
-            pharmacy_stock_id: this.pharmacy_stock_id,
+              pharmacy_stock_id: this.pharmacy_stock_id,
             }).then(x => {
             }).catch(x => {
               err++;
@@ -173,4 +187,6 @@ export class FormPharmacyLotComponent implements OnInit {
       }
     }
   }
+
+
 }

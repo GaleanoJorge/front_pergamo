@@ -25,7 +25,9 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
   public icon: string = 'nb-star';
   public data = [];
   public validator ;
-
+  public user;
+  public my_pharmacy_id;
+  public entity;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -78,13 +80,21 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
   constructor(
     private dialogFormService: NbDialogService,
     private requesS: PharmacyProductRequestService,
-    private pharmalotStockS: PharmacyLotStockService,
+    private invS: PharmacyLotStockService,
     private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
     this.validator = this.parentData;
+    this.user = this.authService.GetUser();
+    this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
+      if (x.length > 0) {
+        this.my_pharmacy_id = x[0].id;
+        this.entity = 'pharmacy_product_request?pharmacy_lot_stock =' + x[0].id + '& product=' + true + '& status=ENVIADO' + '&product={{validator}}' + '&own_pharmacy_stock_id=' + x[0].id ;
+        this.title = 'ACEPTAR MEDICAMENTOS ENVIADOS A:  ' + x[0]['name'];
+      }
+    });
   }
 
   RefreshData() {
