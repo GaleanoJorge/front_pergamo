@@ -20,6 +20,7 @@ import { AuthAsociatedPackageComponent } from './auth-asociated-package/auth-aso
 import { AuthPackageService } from '../../../business-controller/auth-package.service';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { PatientService } from '../../../business-controller/patient.service';
+import { BriefcaseService } from '../../../business-controller/briefcase.service';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -31,7 +32,6 @@ export class AuthorizationListComponent implements OnInit {
 
   public isSubmitted = false;
   public loading: boolean = false;
-  public category_id: number = null;
   public messageError: string = null;
   public title: string = 'AUTORIZACIONES: PENDIENTES';
   public subtitle: string = 'Gestión';
@@ -59,14 +59,17 @@ export class AuthorizationListComponent implements OnInit {
   public all_Data: any[] = [];
   public company: any[] = [];
   public contract: any[] = [];
+  public briefcase: any [] = [];
   public admissions: any[] = [];
   public filter =
     {
       eps_id: null,
+      contract_id: null,
       initial_date: null,
       final_date: null,
-      patient: null,
-      admissions: null,
+      briefcase_id: null,
+      patient_id: null,
+      admissions_id: null,
     }
   public parentData: any;
 
@@ -94,11 +97,17 @@ export class AuthorizationListComponent implements OnInit {
     private authPackageS: AuthPackageService,
     private admissionS: AdmissionsService,
     private patientS: PatientService,
+    private ContractS: ContractService,
+    private briefcaseS:BriefcaseService,
   ) {
   }
 
   public settings = {
     selectMode: 'multi',
+    pager: {
+      display: true,
+      perPage: 30,
+    },
     columns: {
       actions: {
         title: 'Acciones',
@@ -232,7 +241,9 @@ export class AuthorizationListComponent implements OnInit {
       start_date: '',
       finish_date: '',
       state_gloss: '',
-      admissions_id: ''
+      briefcase_id: '',
+      contract_id: '',
+      admissions_id: '',
     };
 
     this.form = this.formBuilder.group({
@@ -244,6 +255,12 @@ export class AuthorizationListComponent implements OnInit {
       ],
       finish_date: [
         this.data.finish_date,
+      ],
+      briefcase_id: [
+        this.data.briefcase_id,
+      ],
+      contract_id: [
+        this.data.contract_id,
       ],
       admissions_id: [
         this.data.admissions_id,
@@ -258,10 +275,6 @@ export class AuthorizationListComponent implements OnInit {
 
     this.companyS.GetCollection().then(x => {
       this.company = x;
-    });
-
-    this.admissionS.GetActiveAdmissions().then(x => {
-      this.admissions = x;
     });
 
     this.xlsForm = this.formBuilder.group({
@@ -381,7 +394,7 @@ export class AuthorizationListComponent implements OnInit {
   FilterAuth() {
     // this.disableCheck();
     var entity = this.entity
-    this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}`, 'authorization');
+    this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&admissions_id=${this.filter.admissions_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}`, 'authorization');
   }
 
   FilterStatus(status) {
@@ -511,6 +524,30 @@ export class AuthorizationListComponent implements OnInit {
   onChanges() {
     this.form.get('company_id').valueChanges.subscribe(val => {
       this.filter.eps_id = val;
+      if(val == ''){
+        this.contract = [];
+        this.form.patchValue({
+          contract_id: ''
+        });
+      } else {
+        this.ContractS.GetCollection({company_id:val}).then(x => {
+          this.contract = x;
+        });
+      }
+    });
+
+    this.form.get('contract_id').valueChanges.subscribe(val => {
+      this.filter.contract_id = val;
+      if (val === '') {
+        this.briefcase = [];
+      } else {
+        this.briefcaseS.GetBriefcaseByContract(val).then(x => {
+          this.briefcase = x;
+        });
+      }
+      this.form.patchValue({
+        briefcase_id: '',
+      });
     });
 
     this.form.get('start_date').valueChanges.subscribe(val => {
@@ -522,8 +559,22 @@ export class AuthorizationListComponent implements OnInit {
       this.filter.final_date = val;
     });
 
-    this.form.get('finish_date').valueChanges.subscribe(val => {
+    this.form.get('briefcase_id').valueChanges.subscribe(val => {
       this.filter.final_date = val;
+      if (val === '') {
+        this.briefcase = [];
+      } else {
+        this.admissionS.GetByBriefcase(val).then(x => {
+          this.admissions = x;
+        });
+      }
+      this.form.patchValue({
+        admissions_id: '',
+      });
+    });
+
+    this.form.get('admissions_id').valueChanges.subscribe(val => {
+      this.filter.admissions_id = val;
     });
 
   }

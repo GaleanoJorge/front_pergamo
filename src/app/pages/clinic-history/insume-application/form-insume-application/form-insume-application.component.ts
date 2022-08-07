@@ -97,7 +97,9 @@ export class FormInsumeApplicationComponent implements OnInit {
           supplies_status_id: this.status_id.id,
           ch_record_id: this.record_id,
           type_record_id: this.type_record_id,
-          user_incharge_id: this.user_id
+          user_incharge_id: this.user_id,
+          insume_comercial: this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com_id ? this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com_id : null,
+          product_comercial: this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_id ? this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_id : null,
         }).then((x) => {
           this.toastService.success('', x.message);
           if (this.saved) {
@@ -129,6 +131,8 @@ export class FormInsumeApplicationComponent implements OnInit {
           });
       }
     }
+    this.isSubmitted = false;
+    this.loading = false;
   }
 
   close() {
