@@ -91,8 +91,8 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?pharmacy_lot_stock =' + x[0].id + '& product=' + true + '& status=ENVIADO' + '&product={{validator}}' + '&own_pharmacy_stock_id=' + x[0].id ;
-        this.title = 'ACEPTAR MEDICAMENTOS ENVIADOS A:  ' + x[0]['name'];
+        this.entity = 'pharmacy_product_request?pharmacy_lot_stock =' + x[0].id + '& product=' + 2 + '& status=ENVIADO'  + '&own_pharmacy_stock_id=' + x[0].id ;
+        this.title = 'ACEPTAR INSUMOS ENVIADOS A:  ' + x[0]['name'];
       }
     });
   }

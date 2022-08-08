@@ -1,7 +1,7 @@
 <ngx-base-list [messageError]="messageError">
   <div content>
 
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+    <ngx-base-table *ngIf="entity" [title]="title" [subtitle]="subtitle" [settings]="settings"
     [entity]="entity"
        customData='pharmacy_product_request'
       [messageToltip]="messageToltip">
