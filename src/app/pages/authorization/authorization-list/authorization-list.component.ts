@@ -163,42 +163,51 @@ export class AuthorizationListComponent implements OnInit {
         },
         renderComponent: ActionsAuthNumberComponent,
       },
-      identification_type: {
+      'identification_type': {
         title: this.headerFields[0],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.identification_type.name;
         },
       },
-      identification: {
+      'identification': {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.identification;
+        },
       },
       nombre_completo: {
         title: this.headerFields[2],
         type: 'string',
       },
-      email: {
+      'email': {
         title: this.headerFields[3],
         type: 'string',
-      },
-      residence_municipality: {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.email;
         },
       },
-      residence: {
+      'residence_municipality': {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.residence_municipality.name;
+        },
+      },
+      'residence': {
         title: this.headerFields[5],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.residence.name;
         },
       },
       residence_address: {
         title: this.headerFields[6],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.residence_address;
+        },
       },
       date: {
         title: this.headerFields[14],
