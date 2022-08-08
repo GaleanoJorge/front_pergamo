@@ -30,6 +30,7 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
     private toastService: NbToastrService,
     private perPharmaS: PharmacyStockService,
     public userChangeS: UserChangeService,
+    private toastS: NbToastrService,
   ) {
   }
 
@@ -52,11 +53,14 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
     this.dialogRef.close();
   }
   save() {
-
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       if (this.data.id) {
+        if (this.form.controls.amount_provition.value > this.data.actual_amount) {
+          this.loading = false;
+          this.toastS.danger('No puede enviar una cantidad mayor de la que posee en inventario', 'Error');
+        } else {
         this.pharProdReqS.updateInventoryByLot({
           id: -1,
           pharmacy_lot_stock_id: this.data.id,
@@ -76,6 +80,7 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
           this.loading = false;
         });
       }
+    }
     }
   }
 }

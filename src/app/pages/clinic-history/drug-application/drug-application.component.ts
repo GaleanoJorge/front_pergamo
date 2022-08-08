@@ -6,6 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ActionsAplicationsComponent } from './actions.component';
 import { NbDialogService } from '@nebular/theme';
 import { FormDrugApplicationComponent } from './form-drug-application/form-drug-application.component';
+import { FormDrugReturnedComponent } from '../../setting/assistance-stock/form-drug-returned/form-drug-returned.component';
 
 @Component({
   selector: 'ngx-drug-application',
@@ -48,7 +49,7 @@ export class DrugApplicationComponent implements OnInit {
             'data': row,
             'used': this.Aplication.bind(this),
             'damaged': this.Damaged.bind(this),
-            'returned': this.Returned.bind(this),
+            // 'returned': this.Returned.bind(this),
             'refresh': this.RefreshData.bind(this),
           };
         },
@@ -164,20 +165,19 @@ export class DrugApplicationComponent implements OnInit {
     });
   }
 
-  Returned(data) {
-    console.log('dañado');
-    this.dialog = this.dialogFormService.open(FormDrugApplicationComponent, {
-      context: {
-        title: 'DEVOLVER ELEMENTO',
-        data: data,
-        status: 'EN DEVOLUCIÓN',
-        record_id: this.record_id,
-        type_record_id: this.type_record_id,
-        // close: this.close.bind(this),
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
+  // Returned(data) {
+  //   console.log('dañado');
+  //   this.dialog = this.dialogFormService.open(FormDrugReturnedComponent, {
+  //     context: {
+  //       title: 'DEVOLVER ELEMENTO',
+  //       data: data,
+  //       record_id: this.record_id,
+  //       type_record_id: this.type_record_id,
+  //       // close: this.close.bind(this),
+  //       saved: this.RefreshData.bind(this),
+  //     },
+  //   });
+  // }
 
   close() {
     this.dialog.close();

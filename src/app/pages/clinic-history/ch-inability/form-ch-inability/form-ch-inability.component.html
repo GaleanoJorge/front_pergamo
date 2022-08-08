@@ -25,7 +25,8 @@
           <label class="form-text text-muted font-weight-bold">Fecha Inicial de la Incapacidad</label>
 
           <input type="date" nbInput fullWidth id="initial_date" formControlName="initial_date" initial_date
-            status="{{ isSubmitted && form.controls.initial_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" [max]="date" />
+            status="{{ isSubmitted && form.controls.initial_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+            [max]="date" />
 
 
         </div>
@@ -34,7 +35,8 @@
           <label class="form-text text-muted font-weight-bold">Fecha Final de la Incapacidad</label>
 
           <input type="date" nbInput fullWidth id="final_date" formControlName="final_date" final_date
-            status="{{ isSubmitted && form.controls.final_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}" [max]="date" />
+            status="{{ isSubmitted && form.controls.final_date.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+            [max]="date" />
 
         </div>
 
@@ -51,7 +53,8 @@
 
           <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico Médico</label>
           <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
-            id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" required
+            (ngModelChange)="this.searchDiagnostic($event)" id="diagnosis_id" formControlName="diagnosis_id"
+            diagnosis_id type="text" required
             status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">
             <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>

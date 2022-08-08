@@ -380,6 +380,7 @@ import { ServicesPackageComponent } from './pharmacy-stock/services-package/serv
 import { UserFixedPackageComponent } from './fixed-stock/user-fixed-package/user-fixed-package.component';
 import { UserFixedComponent } from './fixed-stock/user-fixed-package/user-fixed.component';
 import { ActionFixedComponent } from './fixed-stock/actions.component';
+import { FormDrugReturnedComponent } from './assistance-stock/form-drug-returned/form-drug-returned.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -620,6 +621,7 @@ import { ActionFixedComponent } from './fixed-stock/actions.component';
     GlossModalityComponent,
     FormGlossModalityComponent,
     GlossAmbitComponent,
+    FormDrugReturnedComponent,
     FormGlossAmbitComponent,
     GlossServiceComponent,
     FormGlossServiceComponent,

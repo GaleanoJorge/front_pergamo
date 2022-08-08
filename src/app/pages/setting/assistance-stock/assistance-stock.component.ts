@@ -13,6 +13,7 @@ import { FormPharmacyIncomeComponent } from '../../pharmacy/pharmacy-income/form
 import { PatientService } from '../../../business-controller/patient.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { FormAssistanceReturnComponent } from './form-assistance-return/form-assistance-return.component';
+import { FormDrugReturnedComponent } from './form-drug-returned/form-drug-returned.component';
 
 
 @Component({
@@ -54,6 +55,7 @@ export class AssistanceStockComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
+            'data': row,
             'type': this.type,
             'edit': this.EditInv.bind(this),
             'returned': this.Returned.bind(this),
@@ -205,10 +207,10 @@ export class AssistanceStockComponent implements OnInit {
 
   Returned(data) {
     // console.log('dañado');
-    this.dialogFormService.open(FormAssistanceReturnComponent, {
+    this.dialogFormService.open(FormDrugReturnedComponent, {
       context: {
         title: 'DEVOLVER ELEMENTO',
-        data: data,
+        data2: data,
         status: 'EN DEVOLUCIÓN',
         // record_id: this.record_id,
         // type_record_id: this.type_record_id,

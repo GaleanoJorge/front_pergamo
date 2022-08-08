@@ -1,10 +1,10 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
-    <div class="row justify-content-md-center" *ngIf="this.diagnosis">
+    <div class="row justify-content-md-center">
       <div class="col-md-6">
         <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico Médico:</label>
         <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="medical_diagnosis_id"
-          formControlName="medical_diagnosis_id" medical_diagnosis_id type="text" required
+          formControlName="medical_diagnosis_id" medical_diagnosis_id type="text" required  (ngModelChange)="this.searchDiagnostic($event)"
           status="{{ isSubmitted && form.controls.medical_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <datalist id="codes">
           <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>

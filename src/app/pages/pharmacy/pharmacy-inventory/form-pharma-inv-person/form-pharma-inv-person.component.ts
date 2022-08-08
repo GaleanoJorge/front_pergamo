@@ -33,6 +33,7 @@ export class FormPharmaInvPersonComponent implements OnInit {
     private toastService: NbToastrService,
     private UserRoleBusinessS: UserBusinessService,
     public userChangeS: UserChangeService,
+    private toastS: NbToastrService,
   ) {
   }
 
@@ -55,7 +56,7 @@ export class FormPharmaInvPersonComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  
+
   saveCode(e): void {
     var localidentify = this.user_request_id.find(item => item.nombre_completo == e);
 
@@ -63,7 +64,7 @@ export class FormPharmaInvPersonComponent implements OnInit {
       this.user_req_id = localidentify.id;
     } else {
       this.user_req_id = null;
-      this.form.controls.user_request_id.setErrors({'incorrect': true });
+      this.form.controls.user_request_id.setErrors({ 'incorrect': true });
       this.toastService.warning('', 'Debe seleccionar un item de la lista');
     }
   }
@@ -74,24 +75,29 @@ export class FormPharmaInvPersonComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       if (this.data.id) {
-        this.pharProdReqS.updateInventoryByLot({
-          id: -1,
-          pharmacy_lot_stock_id: this.data.id,
-          amount_provition: this.form.controls.amount_provition.value,
-          user_request_id: this.user_req_id,
-          status: 'ENVIADO',
-          product_generic_id: this.data.billing_stock.product.product_generic_id,
-          request_pharmacy_stock_id: this.my_pharmacy_id,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
+        if (this.form.controls.amount_provition.value > this.data.actual_amount) {
           this.loading = false;
-        });
+          this.toastS.danger('No puede enviar una cantidad mayor de la que posee en inventario', 'Error');
+        } else {
+          this.pharProdReqS.updateInventoryByLot({
+            id: -1,
+            pharmacy_lot_stock_id: this.data.id,
+            amount_provition: this.form.controls.amount_provition.value,
+            user_request_id: this.user_req_id,
+            status: 'ENVIADO',
+            product_generic_id: this.data.billing_stock.product.product_generic_id,
+            request_pharmacy_stock_id: this.my_pharmacy_id,
+          }).then(x => {
+            this.toastService.success('', x.message);
+            this.close();
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        }
       }
     }
   }
