@@ -55,7 +55,7 @@
           <label for="death_diagnosis_id" class="form-text text-muted font-weight-bold ">Causa de la Muerte</label>
           <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
             (change)="saveCode($event.target.value,3)" id="death_diagnosis_id" formControlName="death_diagnosis_id"
-            death_diagnosis_id type="text"
+            death_diagnosis_id type="text" (ngModelChange)="this.searchDiagnostic($event)"
             status="{{ isSubmitted && form.controls.death_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">
             <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}

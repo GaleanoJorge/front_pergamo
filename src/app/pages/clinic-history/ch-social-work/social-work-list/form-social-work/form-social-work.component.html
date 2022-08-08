@@ -26,10 +26,11 @@
           </nb-select>
         </div>
         <div class="col-md-6">
-          <label  for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico:</label>
-          <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="diagnosis_id" 
-          formControlName="diagnosis_id" diagnosis_id type="text" required
-          status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico:</label>
+          <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+            (ngModelChange)="this.searchDiagnostic($event)" id="diagnosis_id" formControlName="diagnosis_id"
+            diagnosis_id type="text" required
+            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">
             <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
           </datalist>
@@ -84,13 +85,14 @@
         <div class="col-md-6">
           <label for="has_caregiver" class="form-text text-muted font-weight-bold">¿Tiene algún acompañante/responsable?
           </label>
-          <nb-toggle formControlName="has_caregiver" has_caregiver (change)="showCaregiver()" >
+          <nb-toggle formControlName="has_caregiver" has_caregiver (change)="showCaregiver()">
           </nb-toggle>
         </div>
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" (click)="saveFromAdmission = '1'">Guardar admisión</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" (click)="saveFromAdmission = '1'">Guardar
+        admisión</button>
 
     </nb-card-footer>
     <nb-card-footer *ngIf="showTable" class="d-flex justify-content-end">

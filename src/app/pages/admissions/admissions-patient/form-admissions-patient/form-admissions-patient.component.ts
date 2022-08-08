@@ -57,7 +57,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public show_inputs: boolean = false;
   public diagnosis_id;
   public showTable;
-   public admissions_id: number = 0;
+  public admissions_id: number = 0;
   public saveFromAdmission = null;
   public isOpen = null;
   public regime: any[];
@@ -98,7 +98,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         regime_id: '',
         briefcase_id: '',
         procedure_id: '',
-        has_caregiver:false,
+        has_caregiver: false,
       };
     }
 
@@ -131,13 +131,13 @@ export class FormAdmissionsPatientComponent implements OnInit {
       this.flat = x;
     });
 
-    this.companyS.GetCollection({eps:0}).then(x => {
+    this.companyS.GetCollection({ eps: 0 }).then(x => {
       this.eps = x;
     });
-    this.DiagnosisS.GetCollection().then(x => {
-      this.diagnosis = x;
-      this.loading = false;
-    });
+    // this.DiagnosisS.GetCollection().then(x => {
+    //   this.diagnosis = x;
+    //   this.loading = false;
+    // });
 
     this.regimeS.GetCollection().then(x => {
       this.regime = x;
@@ -174,7 +174,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           patient_id: this.user_id
         }).then(x => {
           this.toastService.success('', x.message);
-          this.saved=true;
+          this.saved = true;
           if (this.form.controls.has_caregiver.value != true) {
             this.close();
           } else {
@@ -194,7 +194,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       } else {
         if (this.admissions_id == 0) {
           this.AdmissionsS.Save({
-            admission_id:this.admission_id,
+            admission_id: this.admission_id,
             briefcase_id: this.form.controls.briefcase_id.value,
             diagnosis_id: this.diagnosis_id,
             procedure_id: this.form.controls.procedure_id.value,
@@ -227,7 +227,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
               this.stored();
             }
           }).catch(x => {
-            this.toastService.danger(null,"Ya se creo una admisión con el mismo programa");
+            this.toastService.danger(null, "Ya se creo una admisión con el mismo programa");
             this.isSubmitted = false;
             this.loading = false;
           });
@@ -241,6 +241,30 @@ export class FormAdmissionsPatientComponent implements OnInit {
       }
     } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+    }
+  }
+
+  public diagnosticConut = 0;
+
+  searchDiagnostic($event) {
+    this.diagnosticConut++;
+    if (this.diagnosticConut == 3) {
+      this.diagnosticConut = 0;
+      if ($event.length >= 3) {
+        this.DiagnosisS.GetCollection({
+          search: $event,
+        }).then(x => {
+          this.diagnosis = x;
+          this.loading = false;
+        });
+      } else {
+        this.DiagnosisS.GetCollection({
+          search: '',
+        }).then(x => {
+          this.diagnosis = x;
+          this.loading = false;
+        });
+      }
     }
   }
   // async save() {
@@ -348,7 +372,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       if (val === '') {
         this.contract = [];
       } else {
-        this.ContractS.GetCollection({company_id:val}).then(x => {
+        this.ContractS.GetCollection({ company_id: val }).then(x => {
           this.contract = x;
         });
       }
@@ -356,15 +380,15 @@ export class FormAdmissionsPatientComponent implements OnInit {
         contract_id: '',
       });
     });
-   
+
 
 
     this.form.get('admission_route_id').valueChanges.subscribe(val => {
       // console.log(val);
-      this.route=val;
+      this.route = val;
       if (val === '') {
         this.scope_of_attention = [];
-      }else if(val==2){
+      } else if (val == 2) {
         this.form.controls.has_caregiver.setValue(true);
         this.form.controls.has_caregiver.disable();
         this.form.controls.procedure_id.clearValidators();
@@ -380,7 +404,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           this.form.controls.procedure_id.clearValidators();
           this.form.controls.procedure_id.setErrors(null);
         }
-        
+
       }
       this.GetScope(val).then();
       this.form.patchValue({
