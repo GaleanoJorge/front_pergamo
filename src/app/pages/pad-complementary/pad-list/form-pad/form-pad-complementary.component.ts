@@ -95,9 +95,9 @@ export class FormPadComplementaryComponent implements OnInit {
   }
 
   async GetAuxData() {
-    await this.DiagnosisS.GetCollection().then(x => {
-      this.diagnosis = x;
-    });
+    // await this.DiagnosisS.GetCollection().then(x => {
+    //   this.diagnosis = x;
+    // });
 
     await this.UserBS.ProfesionalsByCampus().then(x => {
       this.profesionals = x;
@@ -107,7 +107,27 @@ export class FormPadComplementaryComponent implements OnInit {
     return Promise.resolve(true);
   }
 
+  public diagnosticConut = 0;
 
+  searchDiagnostic($event) {
+    this.diagnosticConut++;
+    if (this.diagnosticConut == 3) {
+      this.diagnosticConut = 0;
+      if ($event.length >= 3) {
+        this.DiagnosisS.GetCollection({
+          search: $event,
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      } else {
+        this.DiagnosisS.GetCollection({
+          search: '',
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      }
+    }
+  }
 
   async loadForm(force = true) {
     if (this.loadAuxData && force) return false;

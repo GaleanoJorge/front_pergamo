@@ -83,9 +83,9 @@ export class FormChInabilityComponent implements OnInit {
     this.chRecord.GetCollection(this.record_id).then((x) => {
       this.admissions_id = x;
     });
-    this.DiagnosisS.GetCollection().then((x) => {
-      this.diagnosis= x;
-    });
+    // this.DiagnosisS.GetCollection().then((x) => {
+    //   this.diagnosis= x;
+    // });
 
     this.ChContingencyCodeS.GetCollection().then((x) => {
       this.ch_contingency_code_id = x;
@@ -110,7 +110,27 @@ export class FormChInabilityComponent implements OnInit {
     this.date = this.date.toISOString().split('T')[0];
   }
 
+  public diagnosticConut = 0;
 
+  searchDiagnostic($event) {
+    this.diagnosticConut++;
+    if (this.diagnosticConut == 3) {
+      this.diagnosticConut = 0;
+      if ($event.length >= 3) {
+        this.DiagnosisS.GetCollection({
+          search: $event,
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      } else {
+        this.DiagnosisS.GetCollection({
+          search: '',
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      }
+    }
+  }
 
 
   calculateDays() {

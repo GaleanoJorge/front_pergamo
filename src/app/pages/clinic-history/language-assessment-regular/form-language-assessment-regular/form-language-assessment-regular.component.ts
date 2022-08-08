@@ -34,7 +34,7 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
   constructor(
     private toastService: NbToastrService,
     private formBuilder: FormBuilder,
-    private diagnosisS: DiagnosisService,
+    private DiagnosisS: DiagnosisService,
     private TlTherapyLanguageRegularS: TlTherapyLanguageRegularService,
   ) {
   }
@@ -48,9 +48,9 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
       };
     };
 
-    this.diagnosisS.GetCollection().then(x => {
-      this.diagnosis = x;
-    });
+    // this.diagnosisS.GetCollection().then(x => {
+    //   this.diagnosis = x;
+    // });
     
 
     this.form = this.formBuilder.group({
@@ -58,10 +58,32 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
       status_patient: [this.data.status_patient, ],
     });
 
-    this.diagnosisS.GetCollection().then(x => {
-      this.diagnosis = x;
-    });
+    // this.diagnosisS.GetCollection().then(x => {
+    //   this.diagnosis = x;
+    // });
     
+  }
+
+  public diagnosticConut = 0;
+
+  searchDiagnostic($event) {
+    this.diagnosticConut++;
+    if (this.diagnosticConut == 3) {
+      this.diagnosticConut = 0;
+      if ($event.length >= 3) {
+        this.DiagnosisS.GetCollection({
+          search: $event,
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      } else {
+        this.DiagnosisS.GetCollection({
+          search: '',
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      }
+    }
   }
 
   async save() {

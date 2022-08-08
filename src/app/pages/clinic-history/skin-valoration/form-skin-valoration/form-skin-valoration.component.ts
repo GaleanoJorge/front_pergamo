@@ -198,9 +198,9 @@ export class FormSkinValorationComponent implements OnInit {
 
   async GetAuxData() {
 
-    await this.DiagnosisS.GetCollection().then(x => {
-      this.diagnosis = x;
-    });
+    // await this.DiagnosisS.GetCollection().then(x => {
+    //   this.diagnosis = x;
+    // });
 
     await this.skinStatusS.GetCollection().then(x => {
       this.skin_status = x;
@@ -222,6 +222,28 @@ export class FormSkinValorationComponent implements OnInit {
     this.loading = false;
 
     return Promise.resolve(true);
+  }
+
+  public diagnosticConut = 0;
+
+  searchDiagnostic($event) {
+    this.diagnosticConut++;
+    if (this.diagnosticConut == 3) {
+      this.diagnosticConut = 0;
+      if ($event.length >= 3) {
+        this.DiagnosisS.GetCollection({
+          search: $event,
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      } else {
+        this.DiagnosisS.GetCollection({
+          search: '',
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      }
+    }
   }
 
   async loadForm(force = true) {
