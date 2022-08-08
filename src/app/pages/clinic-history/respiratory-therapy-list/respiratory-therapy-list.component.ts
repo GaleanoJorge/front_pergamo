@@ -51,118 +51,6 @@ export class RespiratoryTherapyListComponent implements OnInit {
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
   }
-  // public settings = {
-  //   columns: {
-  //     actions: {
-  //       title: 'Acciones',
-  //       type: 'custom',
-  //       valuePrepareFunction: (value, row) => {
-  //         // DATA FROM HERE GOES TO renderComponent
-  //         return {
-  //           'data': row,
-  //           'edit': this.EditAdmissions.bind(this),
-  //           'delete': this.DeleteConfirmAdmissions.bind(this),
-  //           'refresh': this.RefreshData.bind(this),
-  //         };
-  //       },
-
-  //       renderComponent: ActionsNursingComponent,
-  //     },
-  //     toggleLinearMode() {
-  //       this.linearMode = !this.linearMode;
-  //     },
-  //     consecutive: {
-  //       title: this.headerFields[0],
-  //       width: '5%',
-  //     },
-  //     location: {
-  //       title: this.headerFields[1],
-  //       type: 'string',
-  //       valuePrepareFunction: (value, row) => {
-  //         this.ambit = value[value.length - 1].scope_of_attention.name;
-  //         this.program = value[value.length - 1].program.name;
-  //         if (value[value.length - 1].pavilion) {
-  //           this.flat = value[value.length - 1].flat.name;
-  //           this.pavilion = value[value.length - 1].pavilion.name;
-  //           this.bed = value[value.length - 1].bed.name;
-  //           this.bed_id = value[value.length - 1].bed.id;
-
-  //         }
-  //         return value[value.length - 1].admission_route.name;
-  //       },
-  //     },
-  //     scope_of_attention: {
-  //       title: this.headerFields[2],
-  //       type: 'string',
-  //       valuePrepareFunction: (value, row) => {
-  //         return this.ambit;
-  //       },
-  //     },
-  //     program: {
-  //       title: this.headerFields[3],
-  //       type: 'string',
-  //       valuePrepareFunction: (value, row) => {
-  //         return this.program;
-  //       },
-  //     },
-  //     campus: {
-  //       title: this.headerFields[4],
-  //       type: 'string',
-  //       valuePrepareFunction: (value, row) => {
-  //         return value.name;
-  //       },
-  //     },
-  //     flat: {
-  //       title: this.headerFields[5],
-  //       type: 'string',
-  //       valuePrepareFunction: (value, row) => {
-  //         return this.flat;
-  //       },
-  //     },
-  //     pavilion: {
-  //       title: this.headerFields[6],
-  //       type: 'string',
-  //       valuePrepareFunction: (value, row) => {
-  //         return this.pavilion;
-  //       },
-  //     },
-  //     bed: {
-  //       title: this.headerFields[7],
-  //       type: 'string',
-  //       valuePrepareFunction: (value, row) => {
-  //         return this.bed;
-  //       },
-  //     },
-  //     contract: {
-  //       title: this.headerFields[8],
-  //       type: 'string',
-  //       valuePrepareFunction: (value, row) => {
-  //         return value.name;
-  //       },
-  //     },
-  //     entry_date: {
-  //       title: this.headerFields[9],
-  //       type: 'date',
-  //     },
-  //     discharge_date: {
-  //       title: this.headerFields[10],
-  //       type: 'date',
-  //       valuePrepareFunction: (value, row) => {
-  //         if (value == '0000-00-00 00:00' && this.cont != 1) {
-  //           this.date_end = false;
-  //           this.cont = + 1;
-  //         } else if (this.cont == 0) {
-  //           this.date_end = true;
-  //         }
-  //         return value;
-  //       },
-  //     },
-  //     medical_date: {
-  //       title: this.headerFields[11],
-  //       type: 'date',
-  //     },
-  //   },
-  // };
 
   constructor(
     private route: ActivatedRoute,
@@ -210,6 +98,10 @@ export class RespiratoryTherapyListComponent implements OnInit {
     });
   }
 
+  public back(): void {
+    this.location.back();
+  }
+
   close() {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
@@ -232,7 +124,6 @@ export class RespiratoryTherapyListComponent implements OnInit {
     formData.append('firm_file', this.signatureImage);
     console.log(this.signatureImage);
   }
-
 
   async finish() {
 
@@ -279,19 +170,6 @@ export class RespiratoryTherapyListComponent implements OnInit {
     });
   }
 
-  // ChangeState(data) {
-  //   // data.status_id = data.status_id === 1 ? 2 : 1;
-
-  //   this.toastrService.info('', 'Cambiando estado');
-
-  //   this.regionS.Update(data).then((x) => {
-  //     this.toastrService.success('', x.message);
-  //     this.table.refresh();
-  //   }).catch((x) => {
-  //     this.toastrService.danger(x.message);
-  //   });
-  // }
-
   tablock(e) {
     console.log(e.tabTitle);
     switch (e.tabTitle) {
@@ -305,8 +183,6 @@ export class RespiratoryTherapyListComponent implements OnInit {
       }
     }
   }
-
- 
 
   DeleteAdmissions(data) {
     return this.admissionsS.Delete(data.id).then(x => {
