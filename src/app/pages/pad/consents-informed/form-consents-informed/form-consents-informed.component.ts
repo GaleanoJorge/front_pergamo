@@ -146,77 +146,66 @@ export class FormConsentsInformedComponent implements OnInit {
         this.document =
           'assets/pdf/F-PSI-04-CONSENTIMIENTO-INFORMADO-PSICOLOGIA.pdf';
           this.show2=true;
-          this.show3=false;
           this.show4=false;
           this.show5=false;
       } else if (val == 2) {
         this.document =
           'assets/pdf/F-ENF-31 CONSENTIMIENTO INFORMADO PROCEDIMIENTOS GENERALES ENFERMERIA.pdf';
           this.show2=true;
-          this.show3=false;
           this.show4=false;
           this.show5=false;
       } else if (val == 3) {
         this.document =
           'assets/pdf/F-PAD-09 FORMATO CONSENTIMIENTO INFORMADO ALTA VOLUNTARIA.pdf';
-          this.show4=true;
-          this.show3=false;
+          this.show4=false;
           this.show2=true;
           this.show5=false;
       } else if (val == 4) {
         this.document =
           'assets/pdf/F-PAD-10 FORMATO CONSENTIMIENTO INFORMADO TELETERAPIA.pdf';
-          this.show3=true;
           this.show2=true;
-          this.show4=true;
+          this.show4=false;
           this.show5=false;
       } else if (val == 5) {
         this.document =
           'assets/pdf/F-PAD-11 FORMATO CONSENTIMIENTO INFORMADO TERAPIA DE LENGUAJE.pdf';
           this.show2=true;
-          this.show3=false;
-          this.show4=true;
+          this.show4=false;
           this.show5=true;
       } else if (val == 6) {
         this.document =
           'assets/pdf/F-PAD-13 FORMATO CONSENTIMIENTO INFORMADO TERAPIA RESPIRATORIA.pdf';
           this.show2=true;
-          this.show3=false;
-          this.show4=true;
+          this.show4=false;
           this.show5=true;
       } else if (val == 7) {
         this.document =
           'assets/pdf/F-PAD-14 FORMATO CONSENTIMIENTO INFORMADO TERAPIA FISICA.pdf';
           this.show2=true;
-          this.show3=false;
-          this.show4=true;
+          this.show4=false;
           this.show5=true;
       } else if (val == 8) {
         this.document =
           'assets/pdf/F-PAD-15 FORMATO CONSENTIMIENTO INFORMADO TERAPIA OCUPACIONAL.pdf';
           this.show2=true; 
-          this.show3=false;
-          this.show4=true;
+          this.show4=false;
           this.show5=true; 
       } else if (val == 9) {
         this.document =
           'assets/pdf/F-PAD-16 FORMATO DE DISENTIMIENTO INFORMADO - PAD.pdf';
-          this.show4=true;
-          this.show3=false;
-          this.show2=true;
+          this.show4=false;
+          this.show2=false;
           this.show5=false;
       } else if (val == 10) {
         this.document =
           'assets/pdf/F-PAD-17 FORMATO DE AUTORIZACIÓN REGISTRO FOTOGRAFICO - AUDIOVISUAL.pdf';
-          this.show3=true;
-          this.show4=true;
+          this.show4=false;
           this.show2=true;
           this.show5=false;
       } else if (val == 11) {
         this.document =
           'assets/pdf/F-PAD-19 FORMATO CONSENTIMIENTO Y COMPROMISO - PAD.pdf';
           this.show2=true;
-          this.show3=false;
           this.show4=false;
           this.show5=false;
       }
