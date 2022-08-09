@@ -109,6 +109,8 @@ export class ContractListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var a = localStorage.getItem('permissions');
+    a = JSON.parse(a);
   }
 
   RefreshData() {
