@@ -174,7 +174,7 @@ export class FormFormulationComponent implements OnInit {
         });
       if (this.show) {
         await this.PharmacyProductRequestS.Save({
-          services_briefcase_id: this.product_id,
+          services_briefcase_id: this.service_briefcase_id,
           request_amount: this.form.controls.outpatient_formulation.value,
           observation: this.form.controls.observation.value,
           admissions_id: this.user2.admissions[0].id,
