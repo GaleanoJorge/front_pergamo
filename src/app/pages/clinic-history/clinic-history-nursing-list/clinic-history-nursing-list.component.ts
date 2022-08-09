@@ -3,13 +3,15 @@ import { UserBusinessService } from '../../../business-controller/user-business.
 import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { FormClinicHistoryNursingComponent } from './form-clinic-history-nursing/form-clinic-history-nursing.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router, RoutesRecognized } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActionsNursingComponent } from './actionsNursing.component';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { Location } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { filter, pairwise } from 'rxjs/operators';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -47,6 +49,8 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public currentRole: any;
   public show: any;
   public signatureImage: string;
+  public previousUrl: string;
+
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -63,7 +67,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     private toastService: NbToastrService,
     private location: Location,
     private authService: AuthService,
-
+    public datePipe: DateFormatPipe,
 
   ) {
     this.routes = [
@@ -98,19 +102,23 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     });
   }
 
+  public back(): void {
+    this.location.back();
+  }
+
   close() {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {
-        signature: true, 
+        signature: true,
         title: 'Finalizar registro.',
         delete: this.finish.bind(this),
         showImage: this.showImage.bind(this),
         // save: this.saveSignature.bind(this),
-        textConfirm:'Finalizar registro'
+        textConfirm: 'Finalizar registro'
       },
     });
   }
-  
+
   showImage(data) {
     this.signatureImage = data;
   }
@@ -120,8 +128,6 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     formData.append('firm_file', this.signatureImage);
     console.log(this.signatureImage);
   }
-
-
 
   async finish() {
 
@@ -193,8 +199,6 @@ export class ClinicHistoryNursingListComponent implements OnInit {
       }
     }
   }
-
- 
 
   DeleteAdmissions(data) {
     return this.admissionsS.Delete(data.id).then(x => {

@@ -15,6 +15,35 @@
                   {{ item.name }}</nb-option>
               </nb-select>
             </div>
+            <div class="col-md-4">
+              <label for="company" class="form-text text-muted font-weight-bold">Contratos de EPS:</label>
+              <nb-select formControlName="contract_id" id="contract_id" fullWidth
+                placeholder="TODOS LOS REGISTROS...">
+                <nb-option>TODOS LOS REGISTROS...</nb-option>
+                <nb-option *ngFor="let item of contract" [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+            <div class="col-md-4">
+              <label for="briefcase_id" class="form-text text-muted font-weight-bold">Portafolios de atención:</label>
+              <nb-select formControlName="briefcase_id" id="briefcase_id" fullWidth
+                status="{{ isSubmitted && form.controls.briefcase_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option value="">Seleccione...</nb-option>
+                <nb-option *ngFor="let item of briefcase"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+            <div class="col-md-4">
+              <label for="admissions_id" class="form-text text-muted font-weight-bold">Admisiónes del paciente:</label>
+              <nb-select [selected]="this.data.admissions_id" formControlName="admissions_id" id="admissions_id" fullWidth
+                status="{{ isSubmitted && form.controls.admissions_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option value="">Seleccione...</nb-option>
+                <nb-option selected="{{ item.id == data.admissions_id }}" *ngFor="let item of admissions" [value]="item.id">
+                  {{ item.consecutive}} - {{item.location[0].scope_of_attention.name}} - {{item.location[0].program.name }}
+                </nb-option>
+              </nb-select>
+            </div>
             <div class="col-md-4" >
               <label for="start_date" class="form-text text-muted font-weight-bold">Desde</label>
               <input class="inputdate" [max]="today" type="date" nbInput fieldSize="medium" fullWidth id="start_date" formControlName="start_date" start_date
@@ -25,6 +54,7 @@
               <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date" formControlName="finish_date" finish_date
               />
             </div>
+
             <!-- <div class="col-md-6">
               <label for="admissions_id" class="form-text text-muted font-weight-bold">Admisiones:</label>
               <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="admissions_id"
@@ -33,17 +63,7 @@
               <datalist id="codes">
                 <option *ngFor="let item of admissions" [value]="item.name">{{ item.code }} - {{item.name}} </option>
               </datalist>
-            </div>
-
-            <div class="col-md-6">
-              <label for="admissions_id" class="form-text text-muted font-weight-bold">Admisiones:</label>
-              <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="admissions_id"
-                formControlName="admissions_id" admissions_id type="text" required
-                >
-              <datalist id="codes">
-                <option *ngFor="let item of admissions" [value]="item.name">{{ item.code }} - {{item.name}} </option>
-              </datalist>
-            </div> -->
+            </div>-->
           </div>
 
           <div class="col-md-12 filter">
