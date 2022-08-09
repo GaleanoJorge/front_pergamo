@@ -43,14 +43,14 @@ export class InsumeRequestComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      product_generic: {
+      product_supplies: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (value == null) {
+          if (value) {
             return row.product_supplies.description;
           } else {
-            return row.product_generic.description;
+            return row.services_briefcase.manual_price.name;
           }
         },
       },
