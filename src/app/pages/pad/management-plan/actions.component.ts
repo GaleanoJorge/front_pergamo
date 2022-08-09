@@ -44,6 +44,7 @@ export class ActionsComponent implements ViewCell {
   }
 
   async ngOnInit() {
+    console.log(this.value);
   }
 
 }
