@@ -161,6 +161,10 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
     }
   }
 
+  public back(): void {
+    this.location.back();
+  }
+
   close() {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {

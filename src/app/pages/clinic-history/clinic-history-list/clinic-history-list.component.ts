@@ -3,7 +3,7 @@ import { UserBusinessService } from '../../../business-controller/user-business.
 import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { FormClinicHistoryComponent } from './form-clinic-history/form-clinic-history.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Actions4Component } from './actions.component';
@@ -11,6 +11,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 import { Location } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { ConfirmDialogCHComponent } from './confirm-dialog/confirm-dialog.component';
+import { filter, pairwise } from 'rxjs/operators';
 
 
 @Component({
@@ -48,123 +49,12 @@ export class ClinicHistoryListComponent implements OnInit {
   public is_failed: any = true;
   public signatureImage: string;
   public firm_file: string;
+  public previousUrl: string;
 
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
   }
-  public settings = {
-    columns: {
-      actions: {
-        title: 'Acciones',
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          // DATA FROM HERE GOES TO renderComponent
-          return {
-            'data': row,
-            'edit': this.EditAdmissions.bind(this),
-            'delete': this.DeleteConfirmAdmissions.bind(this),
-            'refresh': this.RefreshData.bind(this),
-          };
-        },
-
-        renderComponent: Actions4Component,
-      },
-      toggleLinearMode() {
-        this.linearMode = !this.linearMode;
-      },
-      consecutive: {
-        title: this.headerFields[0],
-        width: '5%',
-      },
-      location: {
-        title: this.headerFields[1],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          this.ambit = value[value.length - 1].scope_of_attention.name;
-          this.program = value[value.length - 1].program.name;
-          if (value[value.length - 1].pavilion) {
-            this.flat = value[value.length - 1].flat.name;
-            this.pavilion = value[value.length - 1].pavilion.name;
-            this.bed = value[value.length - 1].bed.name;
-            this.bed_id = value[value.length - 1].bed.id;
-
-          }
-          return value[value.length - 1].admission_route.name;
-        },
-      },
-      scope_of_attention: {
-        title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.ambit;
-        },
-      },
-      program: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.program;
-        },
-      },
-      campus: {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.name;
-        },
-      },
-      flat: {
-        title: this.headerFields[5],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.flat;
-        },
-      },
-      pavilion: {
-        title: this.headerFields[6],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.pavilion;
-        },
-      },
-      bed: {
-        title: this.headerFields[7],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.bed;
-        },
-      },
-      contract: {
-        title: this.headerFields[8],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.name;
-        },
-      },
-      entry_date: {
-        title: this.headerFields[9],
-        type: 'date',
-      },
-      discharge_date: {
-        title: this.headerFields[10],
-        type: 'date',
-        valuePrepareFunction: (value, row) => {
-          if (value == '0000-00-00 00:00' && this.cont != 1) {
-            this.date_end = false;
-            this.cont = + 1;
-          } else if (this.cont == 0) {
-            this.date_end = true;
-          }
-          return value;
-        },
-      },
-      medical_date: {
-        title: this.headerFields[11],
-        type: 'date',
-      },
-    },
-  };
 
   constructor(
     private route: ActivatedRoute,
@@ -178,7 +68,6 @@ export class ClinicHistoryListComponent implements OnInit {
     private location: Location,
     private authService: AuthService,
 
-
   ) {
     this.routes = [
       {
@@ -190,7 +79,10 @@ export class ClinicHistoryListComponent implements OnInit {
         route: '../../clinic-history/' + this.route.snapshot.params.user_id,
       },
     ];
+  }
 
+  public back(): void {
+    this.location.back();
   }
 
   GetParams() {
@@ -199,7 +91,7 @@ export class ClinicHistoryListComponent implements OnInit {
     };
   }
 
-  async ngOnInit() {
+  async ngOnInit() {  
     this.record_id = this.route.snapshot.params.id;
     this.currentRole = this.authService.GetRole();
     this.own_user = this.authService.GetUser();
@@ -240,28 +132,6 @@ export class ClinicHistoryListComponent implements OnInit {
     formData.append('firm_file', this.signatureImage);
     console.log(this.signatureImage);
   }
-
-  // async finish(firm) {
-
-  //   await this.chRecord.Update({
-  //     id: this.record_id,
-  //     status: 'CERRADO',
-  //     user: this.user,
-  //     role: this.currentRole,
-  //     user_id: this.own_user.id,
-  //     is_failed: this.is_failed,
-  //   }).then(x => {
-  //     this.toastService.success('', x.message);
-  //     this.location.back();
-  //     if (this.saved) {
-  //       this.saved();
-  //     }
-  //   }).catch(x => {
-  //     this.isSubmitted = false;
-  //     this.loading = false;
-  //   });
-  // }
-
 
   async finish(firm) {
 
