@@ -70,8 +70,6 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     public datePipe: DateFormatPipe,
 
   ) {
-    this.location.back()
-
     this.routes = [
       {
         name: 'Pacientes',
