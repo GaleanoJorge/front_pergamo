@@ -569,7 +569,7 @@ export class AuthorizationListComponent implements OnInit {
     });
 
     this.form.get('briefcase_id').valueChanges.subscribe(val => {
-      this.filter.final_date = val;
+      this.filter.briefcase_id = val;
       if (val === '') {
         this.briefcase = [];
       } else {
