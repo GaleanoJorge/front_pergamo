@@ -9,6 +9,9 @@ import { ObjetionResponseService } from '../../../../business-controller/objetio
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { AuthStatusService } from '../../../../business-controller/auth-status.service';
 import { AuthorizationService } from '../../../../business-controller/authorization.service';
+import { ActionsDocumentComponent } from '../actions2.component';
+import { ActionsAuthNumberComponent } from '../actions-auth-number.component';
+import { AuthService } from '../../../../services/auth.service';
 
 
 @Component({
@@ -24,7 +27,21 @@ export class HistoricAuthorizationListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'AUTORIZACIONES: PENDIENTES';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Providencia, Vereda o Municipio', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'ambito', 'Programa', 'Sede', 'Estado', 'Procedimiento', 'Número de autorización', 'Observación', 'Cantidad autorizada'];
+  public headerFields: any[] = [
+                              'Procedimiento',
+                              'Número de autorización', 
+                              'Tipo de documento', 
+                              'Número de documento', 
+                              'Nombre completo', 
+                              'Email', 
+                              'Providencia, Vereda o Municipio', 
+                              'Barrio', 
+                              'Dirección', 
+                              'Estado', 
+                              'Observación', 
+                              'Fecha de creación',
+                              'Evidencia',
+                            ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -37,6 +54,7 @@ export class HistoricAuthorizationListComponent implements OnInit {
   public currentRole;
   public showdiv: boolean = null;
   public show;
+  public done = true;
 
   public selectedOptions: any[] = [];
   public result: any = null;
@@ -47,71 +65,98 @@ export class HistoricAuthorizationListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
 
+  private readonly newProperty = 'custom';
+
   public settings = {
     pager: {
       display: true,
       perPage: 30,
     },
     columns: {
+      id: {
+        title: 'ID',
+        type: 'string',
+      },
       services_briefcase: {
-        title: this.headerFields[12],
+        title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction(value) {
           return value?.manual_price.name;
         },
       },
       auth_number: {
-        title: this.headerFields[13],
-        type: 'string',
+        title: this.headerFields[1],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          if (this.done) {
+
+            this.currentRole = this.authS.GetRole();
+            this.done = false
+          }
+          return {
+            'data': row,
+            'enabled': this.currentRole == 1 ? false : true,
+            'amount': row.auth_number,
+            'onchange': (input, row: any) => this.onAmountChange(input, row),
+          }
+        },
+        renderComponent: ActionsAuthNumberComponent,
       },
       'identification_type': {
-        title: this.headerFields[0],
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.identification_type.name;
         },
       },
       'identification': {
-        title: this.headerFields[1],
+        title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.identification;
         },
       },
       nombre_completo: {
-        title: this.headerFields[2],
+        title: this.headerFields[4],
         type: 'string',
       },
       'email': {
-        title: this.headerFields[3],
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.email;
         },
       },
       'residence_municipality': {
-        title: this.headerFields[4],
+        title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.residence_municipality.name;
         },
       },
       'residence': {
-        title: this.headerFields[5],
+        title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.residence.name;
         },
       },
       residence_address: {
-        title: this.headerFields[6],
+        title: this.headerFields[8],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.residence_address;
         },
       },
+      auth_status: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction(value) {
+          return value?.name
+        }
+      },
       observation: {
-        title: this.headerFields[14],
+        title: this.headerFields[10],
         type: 'string',
         valuePrepareFunction(value) {
           if (value) {
@@ -121,16 +166,20 @@ export class HistoricAuthorizationListComponent implements OnInit {
           }
         },
       },
-      auth_status: {
+      date: {
         title: this.headerFields[11],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name
-        }
       },
-      date: {
-        title: this.headerFields[14],
-        type: 'string',
+      'file_auth': {
+        title: this.headerFields[12],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsDocumentComponent,
       },
     },
   };
@@ -143,8 +192,7 @@ export class HistoricAuthorizationListComponent implements OnInit {
   ];
 
   constructor(
-    private dialogFormService: NbDialogService,
-    private deleteConfirmService: NbDialogService,
+    private authS: AuthService,
     private authStatusS: AuthStatusService,
     private authorizationS: AuthorizationService,
     private toastS: NbToastrService,
@@ -159,8 +207,6 @@ export class HistoricAuthorizationListComponent implements OnInit {
   public saved: any = null;
 
 
-
-
   async ngOnInit() {
     await this.authStatusS.GetCollection().then(x => {
       x.splice(0, 2);
@@ -168,96 +214,28 @@ export class HistoricAuthorizationListComponent implements OnInit {
     });
   }
 
-
   RefreshData() {
+    this.done = true;
     this.table.refresh();
   }
-
-  // reloadForm(tab) {
-
-
-  //   if (tab.tabTitle == 'A tramitar') {
-  //     this.showdiv = false;
-  //   } else {
-  //     this.showdiv = true;
-  //   }
-
-  // }
-
-  // onAmountChange(input, row) {
-
-  //   if (input.target.value != '') {
-  //     this.authorizationS.Update({
-  //       id: row.id,
-  //       auth_number: input.target.value,
-  //     }).then(x => {
-  //       this.toastS.success('', x.message);
-  //       this.RefreshData();
-  //     }).catch(x => {
-
-  //     });
-  //   }
-
-  // }
 
   ChangeGlossStatus(status) {
     this.status = status;
     this.table.changeEntity(`authorization/Historic/${this.status}`, 'authorization');
-    // this.RefreshData();
-
   }
 
-  // ConfirmAction(data) {
+  onAmountChange(input, row) {
 
-  //   this.dialogFormService.open(HistoricAuthorizationListComponent, {
-  //     context: {
-  //       title: 'FORMATO DE RECEPCION, SEGUIMIENTO Y CONTROL PLAN COMPLEMENTARIO',
-  //       admissions_id: data.admissions[data.admissions.length - 1].id,
-  //       saved: this.RefreshData.bind(this),
-  //     },
-  //   });
-  // }
+    if (input.target.value != '') {
+      this.authorizationS.Update({
+        id: row.id,
+        auth_number: input.target.value,
+      }).then(x => {
+        this.toastS.success('', x.message);
+        this.RefreshData();
+      }).catch(x => {
 
-  // SaveStatus(event?, data?) {
-  //   if (event == data.auth_status_id) {
-
-  //   } else {
-  //     this.authorizationS.Update({
-  //       id: data.id,
-  //       auth_status_id: event
-  //     }).then(x => {
-  //       this.toastS.success('', x.message);
-  //       this.RefreshData();
-  //     }).catch()
-  //   }
-  // }
-
-  // async EditPadComplementary(data) {
-
-  //   this.dialogFormService.open(HistoricAuthorizationListComponent, {
-  //     context: {
-  //       title: 'EDITAR FORMATO DE RECEPCION, SEGUIMIENTO Y CONTROL PLAN COMPLEMENTARIO',
-  //       data,
-  //       saved: this.RefreshData.bind(this),
-  //     },
-  //   });
-  // }
-
-
-  // DeleteConfirmPadComplementary(data) {
-  //   this.deleteConfirmService.open(ConfirmDialogComponent, {
-  //     context: {
-  //       name: data.name,
-  //       data: data,
-  //       delete: this.DeleteGloss.bind(this),
-  //     },
-  //   });
-  // }
-
-  // DeleteGloss(data) {
-  // }
-
-  GetResponseParam() {
+      });
+    }
   }
-
 }
