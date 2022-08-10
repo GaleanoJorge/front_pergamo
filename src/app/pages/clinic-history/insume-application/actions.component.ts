@@ -20,10 +20,10 @@ import { date } from '@rxweb/reactive-form-validators';
   </button>
   <!-- <button nbTooltip="DEVOLVER" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.returned(value.data)">
   <nb-icon icon="flip-2"></nb-icon>
-  </button> -->
+  </button> 
   <button *ngIf="this.rowData.disponibles != '0'" nbTooltip="DAÑADO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.damaged(value.data)">
   <nb-icon icon="close"></nb-icon>
-  </button>
+  </button> -->
  
 </div>
   `,

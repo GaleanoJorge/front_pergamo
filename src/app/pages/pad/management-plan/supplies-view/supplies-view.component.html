@@ -1,0 +1,53 @@
+<nb-card style="margin: 10px;max-width: 800px;max-height: 600px;overflow: auto;">
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+
+    <nb-tabset fullWidth (changeTab)="tablock($event)">
+
+      <nb-tab tabTitle="SUMINISTROS" >
+        <div *ngIf="this.show == 1">
+
+          <nb-stepper #stepper [linear]="false">
+            <nb-step label="Medicamentos" style="padding: initial;">
+              <ngx-assistance-stock [user]="this.user" [admissions_id]="this.admissions_id" [type]="1">
+              </ngx-assistance-stock>
+            </nb-step>
+
+            <nb-step label="Insumos" style="padding: initial;">
+              <ngx-assistance-stock [user]="this.user" [admissions_id]="this.admissions_id" [type]="2">
+              </ngx-assistance-stock>
+            </nb-step>
+
+            <nb-step label="Activos fijos" style="padding: initial;">
+              <!-- <ngx-assistance-stock [user]="this.user" [admissions_id]="this.admissions_id" [type]="3" ></ngx-assistance-stock> -->
+            </nb-step>
+          </nb-stepper>
+        </div>
+      </nb-tab>
+
+      <!-- <nb-tab tabTitle="INSUMOS">
+        <div *ngIf="this.show == 2">
+          <ngx-assistance-stock [user]="this.user" [admissions_id]="this.admissions_id" [type]="2">
+          </ngx-assistance-stock>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="ACTIVOS FIJOS">
+        <div *ngIf="this.show == 3">
+         <ngx-assistance-stock [user]="this.user" [admissions_id]="this.admissions_id" [type]="3" ></ngx-assistance-stock>
+        </div>
+      </nb-tab> -->
+
+      <nb-tab tabTitle="SOLICITUDES" style="padding: initial;">
+        <div *ngIf="this.show == 2">
+          <ngx-insume-request [user]="this.user" [admissions_id]="this.admissions_id"></ngx-insume-request>
+        </div>
+      </nb-tab>
+
+    </nb-tabset>
+
+  </nb-card-body>
+  <nb-card-footer class="d-flex justify-content-end">
+    <button nbButton (click)="close()" type="button">Cancelar</button>
+  </nb-card-footer>
+</nb-card>

@@ -38,7 +38,7 @@ export class FormulationComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.product;
+          return row.product_generic.description;
         },
 
       dose: {

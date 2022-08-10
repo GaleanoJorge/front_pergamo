@@ -380,6 +380,7 @@ import { ServicesPackageComponent } from './pharmacy-stock/services-package/serv
 import { UserFixedPackageComponent } from './fixed-stock/user-fixed-package/user-fixed-package.component';
 import { UserFixedComponent } from './fixed-stock/user-fixed-package/user-fixed.component';
 import { ActionFixedComponent } from './fixed-stock/actions.component';
+import { FormDrugReturnedComponent } from './assistance-stock/form-drug-returned/form-drug-returned.component';
 import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
 import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
 @NgModule({
@@ -417,8 +418,6 @@ import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/ser
     FormManualInsumeComponent,
     ActionsStockComponent,
     AssistanceStockReqComponent,
-    AssistanceStockComponent,
-    FormAssistanceStockComponent,
     AuthStatusComponent,
     FormAuthStatusComponent,
     ActionsCDComponent,
@@ -624,6 +623,7 @@ import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/ser
     GlossModalityComponent,
     FormGlossModalityComponent,
     GlossAmbitComponent,
+    FormDrugReturnedComponent,
     FormGlossAmbitComponent,
     GlossServiceComponent,
     FormGlossServiceComponent,

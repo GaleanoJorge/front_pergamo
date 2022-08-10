@@ -81,6 +81,7 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return {
             'data': row,
+            'route': 1,
             'show': this.ShowPackageContent.bind(this),
           };
         },
@@ -90,22 +91,14 @@ export class BillingPadProcedureComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.assigned_management_plan) {
-            return row.services_briefcase.manual_price.procedure.name;
-          } else if (row.manual_price) {
-            return row.manual_price.name;
-          }
+          return row.services_briefcase.manual_price.name;
         },
       },
       value: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.manual_price) {
-            return this.currency.transform(row.manual_price.value);
-          } else {
-            return this.currency.transform(row.services_briefcase.value);
-          }
+          return this.currency.transform(row.services_briefcase.value);
         },
       },
       assigned_management_plan_id: {
@@ -113,7 +106,11 @@ export class BillingPadProcedureComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan != null) {
-            return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+            if (row.assigned_management_plan.execution_date != "0000-00-00") {
+              return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+            } else {
+              return 'Sin ejecutar';
+            }
           } else {
             return '';
           }
@@ -134,6 +131,7 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return {
             'data': row,
+            'route': 2,
             'show': this.ShowPackageContent.bind(this),
           };
         },
@@ -143,25 +141,32 @@ export class BillingPadProcedureComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.assigned_management_plan) {
-            return row.services_briefcase.manual_price.procedure.name;
-          } else if (row.manual_price) {
-            return row.manual_price.name;
-          }
+          return row.services_briefcase.manual_price.name;
         },
       },
       value: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.manual_price) {
-            this.total_pre_billing += row.manual_price.value;
-            return this.currency.transform(row.manual_price.value);
-          } else {
-            this.total_pre_billing += row.services_briefcase.value;
-            return this.currency.transform(row.services_briefcase.value);
-          }
+          this.total_pre_billing += row.services_briefcase.value;
+          return this.currency.transform(row.services_briefcase.value);
         },
+      },
+      assigned_management_plan_id: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.assigned_management_plan != null) {
+            if (row.assigned_management_plan.execution_date != "0000-00-00") {
+              return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+            } else {
+              return 'Sin ejecutar';
+            }
+          } else {
+            return '';
+          }
+          
+        }
       },
     },
   };
@@ -241,11 +246,13 @@ export class BillingPadProcedureComponent implements OnInit {
     });
   }
 
-  ShowPackageContent(data) {
+  ShowPackageContent(data, route) {
     this.dialogFormService.open(FormBillingPadComponent, {
       context: {
         title: 'Contenido de Paquete',
-        data,
+        data: data,
+        route: route,
+        billing_id: this.billing_id,
         saved: this.RefreshData.bind(this),
       },
     });

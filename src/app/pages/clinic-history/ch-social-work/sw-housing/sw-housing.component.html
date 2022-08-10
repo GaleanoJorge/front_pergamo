@@ -1,0 +1,30 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-12">
+      <nb-accordion>
+        <nb-accordion-item>
+          <nb-accordion-item-header>Aspectos de la vivienda</nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <ngx-ch-sw-housing-aspects [record_id]="record_id"></ngx-ch-sw-housing-aspects>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+        <nb-accordion-item>
+          <nb-accordion-item-header>Condición Vivienda</nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <ngx-sw-condition-housing [record_id]="record_id"></ngx-sw-condition-housing>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+        <nb-accordion-item>
+          <nb-accordion-item-header>Condiciones Higiene Vivienda</nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <ngx-sw-hygiene-housing [record_id]="record_id"></ngx-sw-hygiene-housing>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+  </div>
+
+</form>

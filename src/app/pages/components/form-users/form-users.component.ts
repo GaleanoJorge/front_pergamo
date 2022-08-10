@@ -130,10 +130,11 @@ export class FormUsersComponent implements OnInit {
   public cardinality: any = null;
   public reference: any = null;
   public image;
-  public signatureImage;
+  public signatureImage = null;
   public currentImg;
   public roles;
   public own_user: any = null;
+  public int = 0;
 
 
 
@@ -230,33 +231,39 @@ export class FormUsersComponent implements OnInit {
 
   GetAuxData($type_professional_id?, $search?) {
     return this.userBS.GetFormAuxData(this.data ? false : true,
-      $type_professional_id , $search).then(x => {
+      $type_professional_id, $search).then(x => {
 
-          this.identification_types = x.identificationTypes;
-          this.countries = x.countries;
-          this.genders = x.genders;
-          this.ethnicitys = x.ethnicitys;
-          this.status = x.status;
-          this.academyLevels = x.academicLevels;
-          this.study_level_status = x.study_level_status;
-          this.activities = x.activities;
-          this.select_RH = x.select_RH;
-          this.population_group = x.population_group;
-          this.marital_status = x.marital_status;
-          this.cost_center = x.cost_center;
-          this.type_professional = x.type_professional;
-          this.contract_type = x.contract_type;
-          this.specialities = x.specialty;
-          this.inabilitys = x.inability;
-          this.residences = x.residence;
-          this.specialities = x.specialty;
-        
+        this.identification_types = x.identificationTypes;
+        this.countries = x.countries;
+        this.genders = x.genders;
+        this.ethnicitys = x.ethnicitys;
+        this.status = x.status;
+        this.academyLevels = x.academicLevels;
+        this.study_level_status = x.study_level_status;
+        this.activities = x.activities;
+        this.select_RH = x.select_RH;
+        this.population_group = x.population_group;
+        this.marital_status = x.marital_status;
+        this.cost_center = x.cost_center;
+        this.type_professional = x.type_professional;
+        this.contract_type = x.contract_type;
+        this.specialities = x.specialty;
+        this.inabilitys = x.inability;
+        this.residences = x.residence;
+        this.specialities = x.specialty;
+
         return Promise.resolve(true);
       });
   }
 
   showImage(data) {
-    this.signatureImage = data;
+    this.int++;
+    if (this.int == 1) {
+      this.signatureImage = null;
+    } else {
+      this.signatureImage = data;
+
+    }
   }
 
   saveCode(e): void {

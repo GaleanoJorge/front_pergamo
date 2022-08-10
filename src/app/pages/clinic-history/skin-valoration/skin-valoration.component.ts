@@ -64,7 +64,7 @@ export class SkinValorationComponent implements OnInit {
           if(value){
             return value;
           } else {
-            return 'NO APLICA';
+            return '--';
           }
         },
       },
@@ -75,7 +75,7 @@ export class SkinValorationComponent implements OnInit {
           if(value){
             return value;
           } else {
-            return 'NO APLICA';
+            return '--';
           }
         },
       },
@@ -86,7 +86,7 @@ export class SkinValorationComponent implements OnInit {
           if(value){
             return value;
           } else {
-            return 'NO APLICA';
+            return '--';
           }
         },
       },
@@ -97,7 +97,7 @@ export class SkinValorationComponent implements OnInit {
           if(value){
             return value;
           } else {
-            return 'NO APLICA';
+            return '--';
           }
         },
       }

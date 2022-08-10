@@ -84,7 +84,6 @@ export class AssignedManagementPlanComponent implements OnInit {
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
             'edit': this.EditAssigned.bind(this),
-
           };
         },
         renderComponent: Actions4Component,
@@ -206,7 +205,6 @@ export class AssignedManagementPlanComponent implements OnInit {
 
 
   async ngOnInit() {
-    this.dynamicQueryParameter=this.router.url;
     this.management_id = this.route.snapshot.params.management_id;
     await this.ManagementS.GetCollection({ management_id: this.management_id }).then(x => {
       this.management = x;

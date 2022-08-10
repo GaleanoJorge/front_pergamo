@@ -1,0 +1,10 @@
+<ngx-form-occupational-history (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+</ngx-form-occupational-history>
+<div class="center">
+  <label class="form-text text-muted font-weight-bold align center">Registros Historia Ocupacional</label>
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <ngx-base-table pager="false" class="table" [title]="title" [subtitle]="subtitle" customData="ch_sw_occupational_history"
+        [settings]="settings" entity="ch_sw_occupational_history/by_record/{{record_id}}/1">
+      </ngx-base-table>
+    </div>

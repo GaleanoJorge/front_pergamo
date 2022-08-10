@@ -70,7 +70,11 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.manual_price.name;
+          if(value != null){
+            return value.manual_price.name;
+          }else{
+            return row.product_supplies.description;
+          }
         },
       },
       request_amount: {

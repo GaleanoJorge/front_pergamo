@@ -38,8 +38,8 @@ export class ActionsComponent implements ViewCell {
   }
   ngOnInit() {
     
-    console.log(this.value);
-    console.log(this.rowData);
+    // console.log(this.value);
+    // console.log(this.rowData);
 
   }
 

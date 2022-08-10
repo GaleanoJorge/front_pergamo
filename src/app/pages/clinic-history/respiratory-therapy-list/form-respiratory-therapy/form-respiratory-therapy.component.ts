@@ -91,9 +91,9 @@ export class FormRespiratoryTherapyComponent implements OnInit {
     this.ContractS.GetCollection().then(x => {
       this.contract = x;
     });
-    this.DiagnosisS.GetCollection().then(x => {
-      this.diagnosis = x;
-    });
+    // this.DiagnosisS.GetCollection().then(x => {
+    //   this.diagnosis = x;
+    // });
 
 
 
@@ -113,6 +113,27 @@ export class FormRespiratoryTherapyComponent implements OnInit {
     this.onChanges();
   }
 
+  public diagnosticConut = 0;
+
+  searchDiagnostic($event) {
+    this.diagnosticConut++;
+    if (this.diagnosticConut == 3) {
+      this.diagnosticConut = 0;
+      if ($event.length >= 3) {
+        this.DiagnosisS.GetCollection({
+          search: $event,
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      } else {
+        this.DiagnosisS.GetCollection({
+          search: '',
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      }
+    }
+  }
 
   close() {
     this.dialogRef.close();
@@ -269,6 +290,8 @@ export class FormRespiratoryTherapyComponent implements OnInit {
       this.diagnosis_id = localidentify.id;
     } else {
       this.diagnosis_id = null;
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
 

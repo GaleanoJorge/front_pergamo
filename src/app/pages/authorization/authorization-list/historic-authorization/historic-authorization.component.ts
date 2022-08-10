@@ -53,98 +53,62 @@ export class HistoricAuthorizationListComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      // actions: {
-      //   title: 'Acciones',
-      //   type: 'custom',
-      //   valuePrepareFunction: (value, row) => {
-      //     // DATA FROM HERE GOES TO renderComponent
-      //     return {
-      //       'data': row,
-      //       'edit': this.EditPadComplementary.bind(this),
-      //       'delete': this.DeleteConfirmPadComplementary.bind(this),
-      //       'confirm': this.ConfirmAction.bind(this),
-      //       'refresh': this.RefreshData.bind(this),
-      //       'currentRole': this.currentRole,
-      //     };
-      //   },
-      //   renderComponent: Actions2Component,
-      // },
-      // select: {
-      //   title: this.headerFields[11],
-      //   type: 'string',
-      //   valuePrepareFunction: (value, row) => {
-      //     if (row.auth_status_id == 2) {
-      //       this.show = true;
-      //     } else {
-      //       this.show = false;
-      //     }
-      //     return {
-      //       'data': row,
-      //       'show': true,
-      //       'select': this.auth_status,
-      //       'status': (event, row: any) => this.SaveStatus(event, row),
-      //     };
-      //   },
-      //   renderComponent: ActionsStatusComponent,
-      // },
       services_briefcase: {
         title: this.headerFields[12],
         type: 'string',
         valuePrepareFunction(value) {
-          return value?.name;
+          return value?.manual_price.name;
         },
       },
       auth_number: {
         title: this.headerFields[13],
         type: 'string',
       },
-      authorized_amount: {
-        title: this.headerFields[15],
-        type: 'string',
-        valuePrepareFunction(value) {
-          if (value) {
-            return value
-          } else {
-            return '--';
-          }
-        },
-      },
-      identification_type: {
+      'identification_type': {
         title: this.headerFields[0],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.identification_type.name;
         },
       },
-      identification: {
+      'identification': {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.identification;
+        },
       },
       nombre_completo: {
         title: this.headerFields[2],
         type: 'string',
       },
-      email: {
+      'email': {
         title: this.headerFields[3],
         type: 'string',
-      },
-      residence_municipality: {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.email;
         },
       },
-      residence: {
+      'residence_municipality': {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.residence_municipality.name;
+        },
+      },
+      'residence': {
         title: this.headerFields[5],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.residence.name;
         },
       },
       residence_address: {
         title: this.headerFields[6],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.residence_address;
+        },
       },
       observation: {
         title: this.headerFields[14],
@@ -153,7 +117,7 @@ export class HistoricAuthorizationListComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'NO APLICA';
+            return '--';
           }
         },
       },
@@ -164,7 +128,10 @@ export class HistoricAuthorizationListComponent implements OnInit {
           return value?.name
         }
       },
-
+      date: {
+        title: this.headerFields[14],
+        type: 'string',
+      },
     },
   };
 

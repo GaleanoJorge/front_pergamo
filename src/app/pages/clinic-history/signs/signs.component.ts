@@ -6,6 +6,7 @@ import { Actions1Component } from './actions.component';
 import { ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { UserChangeService } from '../../../business-controller/user-change.service';
 
 @Component({
   selector: 'ngx-signs',
@@ -16,21 +17,36 @@ export class SignsListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   linearMode = true;
-  
   public messageError = null;
   public title: string = '';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de Registro','Hora de Registro','Fr. Cardiaca','Fr. Respiratoria','Temp','Via de Toma','SatO2','Talla','Peso','IMC','Sistolica','Diastolica','Media',
-  'Est. Neurologico','Est.Hidratación','Reacción Dcha.','Tamaño Dcha.','Reacción Izqda.','Tamaño Izqda.','Modo Ventilatorio','Tipo de Oxigeno','Lts por Mints.','Parametros','Sistolica Pulmonar','Diastolica Pulmonar','Media Pulomonar',
-  'Cefálico','Abdominal','Toracico','Pulso','PVC','PIC','PPC','PIA','Glucometria','Observaciones'];
+  public headerFields: any[] = [
+    
+    'Fecha de registro' ,'Hora de Registro', 'Fr. Cardiaca', 'Fr. Respiratoria', 'Temp', 'Via de Toma', 'SatO2',
+    'Talla', 'Peso', 'IMC', 'Sistolica', 'Diastolica','Media', 
+    
+    'Est. Neurologico', 'Est.Hidratación', 
+    
+    'Tamaño Izqda.', 'Tamaño Dcha.', 'Reacción Izqda.', 'Reacción Dcha.',  
+    
+    'Pupilas',
+
+    'Pulso', 'PVC', 'PIC', 'PPC', 'PIA', 'Glucometria', 'Observaciones',
+    
+    'Sistolica Pulmonar', 'Diastolica Pulmonar', 'Media Pulomonar',
+
+    'Cefálico', 'Abdominal', 'Toracico', 
+
+    'Tiene oxigeno', 'Modo Ventilatorio', 'Tipo de Oxigeno','Lts por Mints.', 'Parametros', ];
+
   public routes = [];
   public data = [];
   public loading: boolean = false;
   public saved: any = null;
-  public isSubmitted = false; 
+  public isSubmitted = false;
   public all_changes: any[];
   public saveEntry: any = 0;
-  
+
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -42,6 +58,7 @@ export class SignsListComponent implements OnInit {
     },
 
     columns: {
+
       created_at: {
         title: this.headerFields[0],
         type: 'string',
@@ -101,135 +118,302 @@ export class SignsListComponent implements OnInit {
         title: this.headerFields[12],
         width: 'string',
       },
+
       ch_vital_neurological: {
         title: this.headerFields[13],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value?.name;
-        },
+          if (value != null) {
+            return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
       ch_vital_hydration: {
         title: this.headerFields[14],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value?.name;
-        },
-      },
-      pupil_size_right: {
-        title: this.headerFields[15],
-        width: 'string',
-      },
-      right_reaction: {
-        title: this.headerFields[16],
-        width: 'string',
+          if (value) {
+            return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
       pupil_size_left: {
+        title: this.headerFields[15],
+        width: 'string', valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      pupil_size_right: {
+        title: this.headerFields[16],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+
+      left_reaction: {
         title: this.headerFields[17],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
-      left_reaction: {
+
+      right_reaction: {
         title: this.headerFields[18],
         width: 'string',
-      },
-      ch_vital_ventilated: {
-        title: this.headerFields[19],
-        width: 'string',
         valuePrepareFunction(value, row) {
-          return value?.name;
-        },
-      },
-      oxygen_type: {
-        title: this.headerFields[20],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value?.name;
-        },
-      },
-      liters_per_minute: {
-        title: this.headerFields[21],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value?.name;
-        },
-      },
-      parameters_signs: {
-        title: this.headerFields[22],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value?.name;
-        },
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
       
-      pulmonary_systolic: {  
-        title: this.headerFields[23],
+     
+      mydriatic: {
+        title: this.headerFields[19],
         width: 'string',
-      },
-      pulmonary_diastolic: {  
-        title: this.headerFields[24],
-        width: 'string',
-      },
+      valuePrepareFunction: (value, row) => {
+        if (value != null){
+        return (row.mydriatic != null ? row.mydriatic + ' - ' : "")
+          + (row.normal != null ? row.normal + ' - ' : "")
+          + (row.lazy_reaction_light != null ? row.lazy_reaction_light + ' - ' : "")
+          + (row.fixed_lazy_reaction != null ? row.fixed_lazy_reaction + ' - ' : "")
+          + (row.miotic_size != null ? row.miotic_size : "")
+          ;
+      } else {
+        return 'NO APLICA'
+      }
+    },
+  },
 
-      pulmonary_half: {  
-        title: this.headerFields[25],
-        width: 'string',
-      },
-      head_circunference: {  
-        title: this.headerFields[26],
-        width: 'string',
-      },
-      abdominal_perimeter: {  
+    pulse: {
+      title: this.headerFields[20],
+      width: 'string', valuePrepareFunction(value, row) {
+        if (value) {
+          return value;
+        } else {
+          return 'NO APLICA'
+        }
+      }
+    },
+
+    venous_pressure: {
+      title: this.headerFields[21],
+      width: 'string', valuePrepareFunction(value, row) {
+        if (value) {
+          return value;
+        } else {
+          return 'NO APLICA'
+        }
+      }
+    },
+
+
+    intracranial_pressure: {
+      title: this.headerFields[22],
+      width: 'string', valuePrepareFunction(value, row) {
+        if (value) {
+          return value;
+        } else {
+          return 'NO APLICA'
+        }
+      }
+    },
+    cerebral_perfusion_pressure: {
+      title: this.headerFields[23],
+      width: 'string', valuePrepareFunction(value, row) {
+        if (value) {
+          return value;
+        } else {
+          return 'NO APLICA'
+        }
+      }
+    },
+    intra_abdominal: {
+      title: this.headerFields[24],
+      width: 'string', valuePrepareFunction(value, row) {
+        if (value) {
+          return value;
+        } else {
+          return 'NO APLICA'
+        }
+      }
+    },
+    glucometry: {
+      title: this.headerFields[25],
+      width: 'string', valuePrepareFunction(value, row) {
+        if (value) {
+          return value;
+        } else {
+          return 'NO APLICA'
+        }
+      }
+    },
+    observations_glucometry: {
+      title: this.headerFields[26],
+      width: 'string', valuePrepareFunction(value, row) {
+        if (value) {
+          return value;
+        } else {
+          return 'NO APLICA'
+        }
+      }
+    },     
+
+      pulmonary_systolic: {
         title: this.headerFields[27],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
-      chest_perimeter: {  
+      pulmonary_diastolic: {
         title: this.headerFields[28],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
 
-      pulse: {  
+      pulmonary_half: {
         title: this.headerFields[29],
-        width: 'string',
+        width: 'string', valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
 
-      intracranial_pressure: {  
+
+      head_circunference: {
         title: this.headerFields[30],
-        width: 'string',
-      },    
-      cerebral_perfusion_pressure: {  
+        width: 'string', valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      abdominal_perimeter: {
         title: this.headerFields[31],
-        width: 'string',
+        width: 'string', valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
-      intra_abdominal: {  
+      chest_perimeter: {
         title: this.headerFields[32],
-        width: 'string',
+        width: 'string', valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
-      glucometry: {  
+
+     
+      has_oxigen: {
         title: this.headerFields[33],
         width: 'string',
+        valuePrepareFunction(value) {
+          if (value == 1) {
+            return 'Si';
+          } else {
+            return 'No'
+          }
+        },
       },
-      observations_glucometry: {
+      ch_vital_ventilated: {
         title: this.headerFields[34],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      oxygen_type: {
+        title: this.headerFields[35],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      liters_per_minute: {
+        title: this.headerFields[36],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      parameters_signs: {
+        title: this.headerFields[37],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
     },
   };
+
   constructor(
     private chvitalSignsS: ChVitalSignsService,
     private route: ActivatedRoute,
     private toastService: NbToastrService,
+    public userChangeS: UserChangeService,
     public datePipe: DateFormatPipe,
-
   ) {
 
-    this.routes = [
-      {
-        name: 'Pacientes',
-        route: '../../list',
-      }, {
-        name: 'Registro Histotia Clinia',
-        route: '../../clinic-history/' + this.route.snapshot.params.user_id,
-      },
-    ];
+
+
   }
   GetParams() {
     return {
@@ -241,9 +425,7 @@ export class SignsListComponent implements OnInit {
     this.record_id = this.route.snapshot.params.id;
   }
 
-  RefreshData() {
-    this.table.refresh();
-  }
+
 
   NewChVitalSigns() {
     this.chvitalSignsS.Save({
@@ -258,7 +440,10 @@ export class SignsListComponent implements OnInit {
       this.isSubmitted = false;
       this.loading = false;
     });
+  }
 
+  RefreshData() {
+    this.table.refresh();
   }
 
   receiveMessage($event) {
@@ -266,5 +451,4 @@ export class SignsListComponent implements OnInit {
       this.RefreshData();
     }
   }
-
 }

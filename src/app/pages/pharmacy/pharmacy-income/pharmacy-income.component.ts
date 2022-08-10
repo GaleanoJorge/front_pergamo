@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
+import { reorderBegin } from '@syncfusion/ej2/grids';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 import { AuthService } from '../../../services/auth.service';
@@ -57,7 +58,11 @@ export class PharmacyIncomeComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
+          if(value){
           return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
+          }else{
+            return row.user_request_pad.firstname+" "+ row.user_request_pad.lastname;
+          }
         },
       },
       product_generic: {
@@ -65,7 +70,11 @@ export class PharmacyIncomeComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.product_generic_id == null) {
+            if(row.services_briefcase){
+              return row.services_briefcase.manual_price.name;
+            }else{
             return row.product_supplies.description;
+            }
           } else {
             return row.product_generic.description;
           }
@@ -75,6 +84,15 @@ export class PharmacyIncomeComponent implements OnInit {
       request_amount: {
         title: this.headerFields[3],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value == null) {
+            return row.request_amount;
+          } else {
+            return value;
+          }
+
+        },
+        
       },
     },
   };

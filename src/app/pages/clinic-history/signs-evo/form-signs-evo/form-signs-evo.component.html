@@ -311,11 +311,11 @@
         <div class="center">
           <fieldset class="field_set">
             <legend class="prue1">MODO VENTILATORIO</legend>
-            <nb-select [selected]="this.data.vital_ventilated_id" formControlName="vital_ventilated_id"
-              id="vital_ventilated_id"
-              status="{{ isSubmitted && form.controls.vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-select [selected]="this.data.ch_vital_ventilated_id" formControlName="ch_vital_ventilated_id"
+              id="ch_vital_ventilated_id"
+              status="{{ isSubmitted && form.controls.ch_vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.vital_ventilated_id }}" *ngFor="let item of vital_ventilated"
+              <nb-option selected="{{ item.id == this.data.ch_vital_ventilated_id }}" *ngFor="let item of vital_ventilated"
                 [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>

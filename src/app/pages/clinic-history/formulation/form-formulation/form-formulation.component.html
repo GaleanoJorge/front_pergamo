@@ -4,13 +4,15 @@
     <label class="form-text text-muted font-weight-bold align"></label>
     <div class="row">
       <div class="col-md-12">
-        <div class="center">
+        <nb-card *ngIf="loading_screen" [nbSpinner]="true" nbSpinnerStatus="basic">
+          <nb-card-body></nb-card-body>
+        </nb-card>
+        <div class="center" *ngIf="!loading_screen">
           <fieldset class="field_set">
             <legend class="prue1">FORMULA MEDICA</legend>
 
             <nb-checkbox formControlName="medical_formula" medical_formula id="medical_formula"
-              (checkedChange)="eventSelections($event)">¿Formula
-              Ambulatoria?</nb-checkbox>
+              (checkedChange)="eventSelections($event)">¿Formula Ambulatoria?</nb-checkbox>
 
             <div class="container">
               <div class="row justify-content-md-center">
@@ -168,7 +170,7 @@
 
 
 
-    <div class="row">
+    <div class="row" *ngIf="!loading_screen">
       <div class="col-md-12">
         <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
       </div>

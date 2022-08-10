@@ -1,11 +1,11 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table *ngIf="roles" [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+    <ngx-base-table *ngIf="roles && user" [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
       customData="management_plan" [messageToltip]="messageToltip">
       <div title *ngIf="user && medical==false">
         <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}}</p>
-        <p class="parrafo"*ngIf="user"><b>NOMBRE:</b>  {{user.nombre_completo}}</p>
+        <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> {{user.nombre_completo}}</p>
         <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}}</p>
         <p class="parrafo" *ngIf="user"><b>EDAD:</b> {{user.age}}</p>
         <p class="parrafo" *ngIf="user"><b>GÉNERO:</b> {{user.gender.name}}</p>
@@ -17,11 +17,17 @@
       </div>
       <div actions>
         <div class="actions">
-
-          <button nbButton status="danger" (click)="NewManagementPlan()">Crear</button>
+          <div class="space">
+            <button nbButton status="danger" (click)="NewManagementPlan()">Crear</button>
+          </div>
 
         </div>
-        <div class="actions" style="margin-top:1em;">
+        <div class="actions" style="margin-top: 5px;">
+          <button nbButton status="info" (click)="suppliesView()">Suministros</button>
+          <!-- <a nbTooltip="Suministros" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost
+>
+            <nb-icon icon="car-outline"></nb-icon>
+          </a> -->
         </div>
       </div>
     </ngx-base-table>

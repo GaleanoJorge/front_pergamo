@@ -13,6 +13,8 @@ export class FormBillingPadComponent implements OnInit {
 
   @Input() title: string;
   @Input() data:any = null;
+  @Input() route:any = null;
+  @Input() billing_id:any = null;
 
   public form: FormGroup;
   public subtitle: string = 'Servicios';
@@ -41,19 +43,19 @@ export class FormBillingPadComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.assigned_management_plan) {
-            return row.services_briefcase.manual_price.procedure.name;
-          } else if (row.manual_price) {
-            return row.manual_price.name;
-          }
+          return row.services_briefcase.manual_price.name;
         },
       },
       assigned_management_plan_id: {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.assigned_management_plan != null){
-            return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+          if (row.assigned_management_plan != null) {
+            if (row.assigned_management_plan.execution_date != "0000-00-00") {
+              return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+            } else {
+              return 'Sin ejecutar';
+            }
           } else {
             return '';
           }

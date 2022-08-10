@@ -6,7 +6,7 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
 @Component({
     template: `
     <div class="d-flex justify-content-center">
-        <button *ngIf="value.data.auth_package" nbTooltip="VER CONTENIDO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data)">
+        <button *ngIf="value.data.auth_package" nbTooltip="VER CONTENIDO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data, value.route)">
             <nb-icon icon="eye-outline"></nb-icon>
         </button>
     </div>
