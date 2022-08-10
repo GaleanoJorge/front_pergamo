@@ -380,6 +380,8 @@ import { ServicesPackageComponent } from './pharmacy-stock/services-package/serv
 import { UserFixedPackageComponent } from './fixed-stock/user-fixed-package/user-fixed-package.component';
 import { UserFixedComponent } from './fixed-stock/user-fixed-package/user-fixed.component';
 import { ActionFixedComponent } from './fixed-stock/actions.component';
+import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
+import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -798,7 +800,10 @@ import { ActionFixedComponent } from './fixed-stock/actions.component';
 
     UserFixedComponent,
     UserFixedPackageComponent,
-    ActionFixedComponent
+    ActionFixedComponent,
+
+    ServicesFixedPackageComponent,
+    ServicesFixedComponent
 
   ],
   providers: [

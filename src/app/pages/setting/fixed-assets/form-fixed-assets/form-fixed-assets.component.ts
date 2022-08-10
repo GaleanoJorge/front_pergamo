@@ -12,6 +12,7 @@ import { FixedNomProductService } from '../../../../business-controller/fixed-no
 import { FrequencyService } from '../../../../business-controller/frequency.service';
 import { RiskService } from '../../../../business-controller/risk.service';
 import { BiomedicalClassificationService } from '../../../../business-controller/biomedical-classification.service';
+import { FixedStockService } from '../../../../business-controller/fixed-stock.service';
 
 
 @Component({
@@ -33,10 +34,10 @@ export class FormFixedAssetsComponent implements OnInit {
   public fixed_condition: any[];
   public fixed_nom_product: any[];
   public company: any[];
+  public fixed_stock: any[];
+  public fixed_type: any[];
   public showProv: boolean = false;
   public showCondi: boolean = false;
-  public campus_id: any[];
-  public fixed_type: any[];
   public showBiomed: boolean = false;
   public clasification_risk_id: any[];
   public biomedical_classification_id: any[];
@@ -52,7 +53,7 @@ export class FormFixedAssetsComponent implements OnInit {
     private FixedTypeS: FixedTypeService,
     private CompanyCategoryS: CompanyCategoryService,
     private FixedConditionS: FixedConditionService,
-    private CampusS: CampusService,
+    private FixedStockS: FixedStockService,
     private FixedNomProductS: FixedNomProductService,
     private FixedClasificationS: FixedClasificationService,
     private FrequencyS: FrequencyService,
@@ -74,7 +75,7 @@ export class FormFixedAssetsComponent implements OnInit {
         detail_description: '',
         color: '',
         fixed_condition_id: '',
-        campus_id: '',
+        fixed_stock_id: '',
 
         calibration_certificate: '',
         health_register: '',
@@ -127,7 +128,7 @@ export class FormFixedAssetsComponent implements OnInit {
       detail_description: [this.data.detail_description, Validators.compose([Validators.required])],
       color: [this.data.color, Validators.compose([Validators.required])],
       fixed_condition_id: [this.data.fixed_condition_id, Validators.compose([Validators.required])],
-      campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
+      fixed_stock_id: [this.data.fixed_stock_id, Validators.compose([Validators.required])],
       calibration_certificate: [this.data.calibration_certificate],
       health_register: [this.data.health_register],
       warranty: [this.data.warranty],
@@ -171,9 +172,6 @@ export class FormFixedAssetsComponent implements OnInit {
     this.CompanyCategoryS.GetCollection().then(x => {
       this.company = x;
     });
-    this.CampusS.GetCollection().then(x => {
-      this.campus_id = x;
-    });
     this.FixedTypeS.GetCollection().then(x => {
       this.fixed_type = x;
     });
@@ -190,6 +188,9 @@ export class FormFixedAssetsComponent implements OnInit {
       this.calibration_frequency_id = x;
     });
 
+    this.FixedStockS.GetCollection().then(x => {
+      this.fixed_stock = x;
+    });
 
     this.BiomedicalClassificationS.GetCollection().then(x => {
       this.biomedical_classification_id = x;
@@ -247,12 +248,9 @@ export class FormFixedAssetsComponent implements OnInit {
           color: this.form.controls.color.value,
           company_id: this.form.controls.company_id.value,
           fixed_condition_id: this.form.controls.fixed_condition_id.value,
-          amount_total: 1,
-          status: 'INGRESADO',
-          campus_id: this.form.controls.campus_id.value,
+          status_prod: 'INGRESADO',
           fixed_type_id: this.form.controls.fixed_type_id.value,
-
-
+          fixed_stock_id: this.form.controls.fixed_stock_id.value,
           calibration_certificate: this.form.controls.calibration_certificate.value,
           health_register: this.form.controls.health_register.value,
           warranty: this.form.controls.warranty.value,
@@ -311,10 +309,9 @@ export class FormFixedAssetsComponent implements OnInit {
           color: this.form.controls.color.value,
           company_id: this.form.controls.company_id.value,
           fixed_condition_id: this.form.controls.fixed_condition_id.value,
-          amount_total: 1,
-          status: 'INGRESADO',
-          campus_id: this.form.controls.campus_id.value,
+          status_prod: 'INGRESADO',
           fixed_type_id: this.form.controls.fixed_type_id.value,
+          fixed_stock_id: this.form.controls.fixed_stock_id.value,
 
           calibration_certificate: this.form.controls.calibration_certificate.value,
           health_register: this.form.controls.health_register.value,

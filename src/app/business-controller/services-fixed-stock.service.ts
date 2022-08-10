@@ -2,38 +2,38 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { FixedAssets } from '../models/fixed-assets';
+import { ServicesFixedStock } from '../models/services-fixed-stock';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FixedAssetsService {
-  public fixed_assets: FixedAssets[] = [];
+export class ServicesFixedStockService {
+  public services_fixed_stock: ServicesFixedStock[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<FixedAssets[]> {
-    let servObj = new ServiceObject(params ? 'fixed_assets?pagination=false' : 'fixed_assets');
+  GetCollection(params = {}): Promise<ServicesFixedStock[]> {
+    let servObj = new ServiceObject(params ? 'services_fixed_stock?pagination=false' : 'services_fixed_stock');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.fixed_assets = <FixedAssets[]>servObj.data.fixed_assets;
+        this.services_fixed_stock = <ServicesFixedStock[]>servObj.data.services_fixed_stock;
 
-        return Promise.resolve(this.fixed_assets);
+        return Promise.resolve(this.services_fixed_stock);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(fixed_assets: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_assets');
-    servObj.data = fixed_assets;
+  Save(services_fixed_stock: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('services_fixed_stock');
+    servObj.data = services_fixed_stock;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class FixedAssetsService {
       });
   }
 
-  Update(fixed_assets: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_assets', fixed_assets.id);
-    servObj.data = fixed_assets;
+  Update(services_fixed_stock: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('services_fixed_stock', services_fixed_stock.id);
+    servObj.data = services_fixed_stock;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -63,10 +63,9 @@ export class FixedAssetsService {
       });
   }
 
-
-  updateInventoryByLot(fixed_assets: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_assets/updateInventoryByLot', fixed_assets.id);
-    servObj.data = fixed_assets;
+  updateInventoryByLot(services_fixed_stock: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('services_fixed_stock/updateInventoryByLot', services_fixed_stock.id);
+    servObj.data = services_fixed_stock;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -80,9 +79,8 @@ export class FixedAssetsService {
       });
   }
 
-
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('fixed_assets', id);
+    let servObj = new ServiceObject('services_fixed_stock', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -96,8 +94,9 @@ export class FixedAssetsService {
       });
   }
 
-  getFixedByUserId(id, params = {}): Promise<FixedAssets[]> {
-    let servObj = new ServiceObject('fixed_assets/byUser/' + id);
+
+  GetPharmacyByUserId(id, params = {}): Promise<ServicesFixedStock[]> {
+    let servObj = new ServiceObject('fixed_assets/pharmacies/' + id);
 
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
@@ -105,9 +104,9 @@ export class FixedAssetsService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.fixed_assets = <FixedAssets[]>servObj.data.fixed_assets;
+        this.services_fixed_stock = <ServicesFixedStock[]>servObj.data.fixed_assets;
 
-        return Promise.resolve(this.fixed_assets);
+        return Promise.resolve(this.services_fixed_stock);
       })
       .catch(x => {
         throw x.message;

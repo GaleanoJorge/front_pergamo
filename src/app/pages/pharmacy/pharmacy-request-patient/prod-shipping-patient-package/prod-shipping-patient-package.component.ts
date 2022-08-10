@@ -153,7 +153,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
   }
 
   onAmountChange(input, row) {
-    if (row.request_amount > input.target.valueAsNumber) {
+    if (Number(row.request_amount) > Number(input.target.valueAsNumber)) {
       this.toastS.danger("", "La cantidad a entregar no debe superar la cantidad ordenada")
     } else {
       var i = 0;

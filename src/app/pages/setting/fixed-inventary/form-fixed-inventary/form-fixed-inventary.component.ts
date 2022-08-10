@@ -14,7 +14,7 @@ export class FormFixedInventaryComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() my_pharmacy_id: any = null;
+  @Input() my_fixed_id: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;

@@ -3,15 +3,16 @@ import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ServicesComponent } from './services.component';
 import { ServicesPharmacyStockService } from '../../../../business-controller/services-pharmacy-stock.service';
+import { ServicesFixedComponent } from './services-fixed.component';
+import { ServicesFixedStockService } from '../../../../business-controller/services-fixed-stock.service';
 
 @Component({
-  selector: 'ngx-services-package',
-  templateUrl: './services-package.component.html',
-  styleUrls: ['./services-package.component.scss'],
+  selector: 'ngx-services-fixed-package',
+  templateUrl: './services-fixed-package.component.html',
+  styleUrls: ['./services-fixed-package.component.scss'],
 })
-export class ServicesPackageComponent implements OnInit {
+export class ServicesFixedPackageComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   @Output() messageEvent = new EventEmitter<any>();
@@ -48,7 +49,7 @@ export class ServicesPackageComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           if (!this.done) {
-            this.data['services_pharmacy_stock'].forEach(x => {
+            this.data['services_fixed_stock'].forEach(x => {
               this.selectedOptions2.push(x.scope_of_attention_id);
             });
             this.selectedOptions = this.selectedOptions2;
@@ -60,7 +61,7 @@ export class ServicesPackageComponent implements OnInit {
             'selection': (event, row: any) => this.eventSelections(event, row),
           };
         },
-        renderComponent: ServicesComponent,
+        renderComponent: ServicesFixedComponent,
       },
       name: {
         title: this.headerFields[0],
@@ -73,7 +74,7 @@ export class ServicesPackageComponent implements OnInit {
   constructor(
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
-    private ServicesPharmacyStockS: ServicesPharmacyStockService,
+    private ServicesFixedStockS: ServicesFixedStockService,
     protected dialogRef: NbDialogRef<any>,
   ) {
   }
@@ -90,9 +91,6 @@ export class ServicesPackageComponent implements OnInit {
     }
     this.selectedOptions = this.selectedOptions2;
   }
-  // RefreshData() {
-  //   this.table.refresh();
-  // }
   close() {
     this.dialogRef.close();
   }
@@ -104,8 +102,8 @@ export class ServicesPackageComponent implements OnInit {
       this.toastS.danger(null, 'Debe seleccionar al menos un servicio');
     }
     else {
-      this.ServicesPharmacyStockS.Save({
-        pharmacy_stock_id: this.data['id'],
+      this.ServicesFixedStockS.Save({
+        fixed_stock_id: this.data['id'],
         services: JSON.stringify(this.selectedOptions),
       }).then(x => {
         this.toastS.success(x.message, 'Correcto');
