@@ -1,10 +1,12 @@
-<ngx-form-ch-ap  (messageEvent)="receiveMessage($event)" [type_record]="type_record">
-</ngx-form-ch-ap>
+<div *ngIf="has_input == false">
+  <ngx-form-ch-ap (messageEvent)="receiveMessage($event)" [type_record]="type_record">
+  </ngx-form-ch-ap>
+</div>
 <label class="form-text text-muted font-weight-bold align center">REGISTRO DE ANÁLISIS Y PLAN </label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table pager="false" [title]="title" customData="ch_ap" [settings]="settings"
-      entity="ch_ap/by_record/{{record_id}}/{{this.type_record}}">
+      entity="ch_ap/by_record/{{record_id}}/{{this.type_record}}?has_input={{has_input}}">
       <div actions>
         <div class="actions">
         </div>

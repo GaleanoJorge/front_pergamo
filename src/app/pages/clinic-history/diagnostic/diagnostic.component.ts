@@ -1,5 +1,5 @@
 import { UserBusinessService } from '../../../business-controller/user-business.service';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
@@ -13,6 +13,9 @@ export class DiagnosticListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
+  @Input() has_input: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
+  
   linearMode = false;
   public messageError = null;
   public title;
@@ -82,6 +85,7 @@ export class DiagnosticListComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      this.messageEvent.emit(true);
     }
   }
 
