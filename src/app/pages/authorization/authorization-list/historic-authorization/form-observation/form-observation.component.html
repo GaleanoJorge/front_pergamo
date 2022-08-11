@@ -4,13 +4,13 @@
     <nb-card-body>
 
 
-      <div *ngIf="!this.Managemen" class="col-md-12">
+      <div *ngIf="this.auth_status != 3" class="col-md-12">
         <label for="observation" class="form-text text-muted font-weight-bold">Obsevación:</label>
         <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="observation"
           formControlName="observation" observation
           status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
       </div>
-      <div *ngIf="this.Managemen">
+      <div *ngIf="this.auth_status == 3">
         <div>
           <div class="col-md-12" >
             <label for="auth_number" class="form-text text-muted font-weight-bold">Número de autorización:</label>
@@ -55,8 +55,7 @@
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
       <button nbButton (click)="close()" type="button">Cancelar</button>
-      <button nbButton *ngIf="!this.Managemen" status="danger"(click)="save()" type="button" disabled="{{ loading }}">Guardar</button>
-      <button nbButton *ngIf="this.Managemen" status="danger"(click)="save()" type="button" disabled="{{ loading }}">Guardar</button>
+      <button nbButton status="danger"(click)="save()" type="button" disabled="{{ loading }}">Guardar</button>
     </nb-card-footer>
   </nb-card>
 </form>
