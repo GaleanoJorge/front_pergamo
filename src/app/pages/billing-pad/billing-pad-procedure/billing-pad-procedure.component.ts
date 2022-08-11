@@ -47,8 +47,8 @@ export class BillingPadProcedureComponent implements OnInit {
   public objetion_response: any[] = null;
   public saved: any = null;
   public billing: any = null;
-  public total_pre_billing: number = null;
-  public total_billing: number = null;
+  public total_pre_billing: number = 0;
+  public total_billing: number = 0;
   public count_billing: number = 0;
   public admission_id;
   public billing_id;
@@ -303,7 +303,13 @@ export class BillingPadProcedureComponent implements OnInit {
 
 
 
-  GetResponseParam() {
+  generatePdf() {
+    this.BillingPadS.GeneratePdf({id: this.billing_id, billing_type: 'PREFACTURA'}).then(x => {
+      this.toastS.success('Archivo generado con exito', 'Exito');
+      window.open(x['url'], '_blank');
+    }).catch(x => {
+      this.toastS.danger('Error al generar archivo: ' + x, 'Error');
+    });
   }
 
 
