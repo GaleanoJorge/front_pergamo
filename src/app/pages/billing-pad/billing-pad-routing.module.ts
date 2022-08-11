@@ -39,6 +39,10 @@ const routes: Routes = [{
       path: 'billing-pad-admissions/:briefcase_id',
       component: BillingAdmissionsPadListComponent,
     },
+    {
+      path: 'billing-pad-by-patient/:briefcase_id',
+      component: BillingAdmissionsPadListComponent,
+    },
   ],
 }];
 
