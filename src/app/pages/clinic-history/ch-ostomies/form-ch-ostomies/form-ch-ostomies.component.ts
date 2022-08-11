@@ -88,6 +88,7 @@ export class FormChOstomiesComponent implements OnInit {
 
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
           if (this.saved) {
             this.saved();
           }
