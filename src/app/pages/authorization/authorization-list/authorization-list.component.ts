@@ -37,21 +37,21 @@ export class AuthorizationListComponent implements OnInit {
   public title: string = 'AUTORIZACIONES: PENDIENTES';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = [
-                                'Estado',
-                                'ID',
-                                'Procedimiento',
-                                'Número de autorización',
-                                'Tipo de documento',
-                                'Número de documento',
-                                'Nombre completo',
-                                'Email',
-                                'Providencia, Vereda o Municipio',
-                                'Barrio',
-                                'Dirección',
-                                'Fecha de creación',
-                                'Tipo de atención',
-                                'Fecha de ejecución',
-                              ];
+    'Estado',
+    'ID',
+    'Procedimiento',
+    'Número de autorización',
+    'Tipo de documento',
+    'Número de documento',
+    'Nombre completo',
+    'Email',
+    'Providencia, Vereda o Municipio',
+    'Barrio',
+    'Dirección',
+    'Fecha de creación',
+    'Tipo de atención',
+    'Fecha de ejecución',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public entity: string = 'authorization/byStatus/0';
@@ -96,6 +96,7 @@ export class AuthorizationListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @ViewChild('packagingTemplate', { read: TemplateRef }) packagingTemplate: TemplateRef<HTMLElement>;
   @ViewChild('packagingedit', { read: TemplateRef }) packagingedit: TemplateRef<HTMLElement>;
+  @ViewChild('packagingView', { read: TemplateRef }) packagingView: TemplateRef<HTMLElement>;
 
 
   public selectedMode: boolean = true;
@@ -134,7 +135,7 @@ export class AuthorizationListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditAdmissions.bind(this),
+            'edit': this.EditAuthPackage.bind(this),
             'view': this.ViewPackage.bind(this),
             'delete': this.DeleteConfirmAuth.bind(this),
             'refresh': this.RefreshData.bind(this),
@@ -187,14 +188,22 @@ export class AuthorizationListComponent implements OnInit {
         title: this.headerFields[13],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.execution_date != "0000-00-00" ? value.execution_date : '--';
+          if (value) {
+            return value.execution_date != "0000-00-00" ? value.execution_date : '--';
+          } else {
+            return '--';
+          }
         },
       },
       'type_of_attention': {
         title: this.headerFields[12],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.assigned_management_plan.management_plan.type_of_attention.name;
+          if (row.assigned_management_plan) {
+            return row.assigned_management_plan.management_plan.type_of_attention.name;
+          } else {
+            return '--';
+          }
         },
       },
       'identification_type': {
@@ -398,7 +407,7 @@ export class AuthorizationListComponent implements OnInit {
     this.dialog.close();
   }
 
-  EditAdmissions(data) {
+  EditAuthPackage(data) {
     this.data_aux = [];
     if (data) {
       this.parentData.entity = 'authorization/auth_byAdmission/' + data.admissions_id + '?edit=true&id=' + data.id;
@@ -415,13 +424,7 @@ export class AuthorizationListComponent implements OnInit {
       this.parentData.customData = 'authorization'
     };
 
-    this.dialogFormService.open(AuthAsociatedPackageComponent, {
-      context: {
-        title: 'Ver',
-        data,
-        show: true,
-        parentData: this.parentData,
-      },
+    this.dialog = this.dialogFormService.open(this.packagingView, {
     });
   }
 
@@ -522,12 +525,11 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
-
   authMassive() {
     // this.disableCheck();
     // this.dialogFormService.open(this.packagingTemplate);
     // this.GetResponseParam();
-    this.windowService.open(this.packagingTemplate, {
+    this.dialog = this.windowService.open(this.packagingTemplate, {
       hasBackdrop: false,
       closeOnEsc: false,
       context: {
@@ -685,7 +687,7 @@ export class AuthorizationListComponent implements OnInit {
   }
 
   async saveGroup() {
-    
+
     if (!this.formMassive.invalid) {
       if (this.selectedOptions.length > 0) {
         this.isSubmitted = true;
@@ -714,23 +716,11 @@ export class AuthorizationListComponent implements OnInit {
           this.close();
           this.RefreshData();
           this.formMassive.patchValue({
-            observation: [
-              '',
-            ],
-            auth_number: [
-              '',
-              Validators.compose([Validators.required]),
-            ],
-            copay: [
-              null,
-            ],
-            copay_value: [
-              '',
-            ],
-            file_auth: [
-              null,
-              Validators.compose([Validators.required])
-            ]
+            observation: '',
+            auth_number: '',
+            copay: null,
+            copay_value: '',
+            file_auth: null,
           });
         } catch (response) {
           this.messageError = response;
