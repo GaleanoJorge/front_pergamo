@@ -44,45 +44,34 @@ export class FormObservationComponent implements OnInit {
     }
 
     
+    this.form = this.formBuilder.group({
+      observation: [
+        this.data.observation,
+      ],
+      auth_number: [
+        this.data.auth_number,
+        Validators.compose([Validators.required]),
+      ],
+      copay: [
+        this.data.copay ? true : null,
+      ],
+      copay_value: [
+        this.data.copay_value,
+      ],
+      file_auth: [
+        null,
+      ]
+    });
+
     if (this.Managemen) {
       this.title = 'AUTORIZACIÓN PLAN DE MANEJO';
-      this.form = this.formBuilder.group({
-        observation: [
-          '',
-        ],
-        auth_number: [
-          '',
-          Validators.compose([Validators.required]),
-        ],
-        copay: [
-          null,
-        ],
-        copay_value: [
-          '',
-        ],
-        file_auth: [
-          null,
-        ]
-      });
+    } else if(this.auth_status == 3){
+      this.title = 'Autorizar paquete: ' + this.data.services_briefcase.manual_price.name;
     } else {
       this.title = this.auth_status == 4 ? 'OBSERVACIÓN MOTIVO DE CANCELACIÓN' : 'GESTIONAR ERRADA POR EPS';
-      this.form = this.formBuilder.group({
-        observation: [
-          '',
-        ],
-        auth_number: [
-          '',
-        ],
-        copay: [
-          null,
-        ],
-        copay_value: [
-          '',
-        ],
-        file_auth: [
-          null,
-        ]
-      });
+      this.form.controls.auth_number.clearValidators();
+      this.form.controls.auth_number.updateValueAndValidity();
+      this.form.controls.observation.setValidators(Validators.compose([Validators.required]));
     }
   }
 
