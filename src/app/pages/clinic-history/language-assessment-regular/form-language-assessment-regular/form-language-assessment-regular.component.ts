@@ -137,6 +137,8 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
       this.diagnosis_id = localidentify.id;
     } else {
       this.diagnosis_id = null;
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
 }

@@ -27,16 +27,20 @@ export class FormFormulationComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
+  public loading_screen: boolean = true;
   public disabled: boolean = false;
   public show_all: boolean = false;
   public showTable;
   public record_id;
   public administration_route_id: any[];
   public hourly_frequency_id: any[];
+  public service_briefcase_id: number;
   public dose;
   public treatment_days;
   public outpatient_formulation;
   public product_gen: any[];
+  public all_peoducts: any[] = null;
+  public briefcase_products: any[] = null;
   public product_id;
   public product;
   public identificator;
@@ -68,6 +72,7 @@ export class FormFormulationComponent implements OnInit {
     if (!this.data) {
       this.data = {
         product_id: '',
+        medical_formula: 0,
         administration_route_id: '',
         hourly_frequency_id: '',
         treatment_days: '',
@@ -91,7 +96,10 @@ export class FormFormulationComponent implements OnInit {
     await this.patienBS.GetUserById(this.user).then(async x => {
       this.user2 = x;
       await this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
-        this.product_gen = this.product_gen = this.readProductGen(x);
+        this.service_briefcase_id = x[0]['id'];
+        this.product_gen = this.readProductGen(x);
+        this.briefcase_products = this.readProductGen(x);
+        this.loading_screen = false;
       });
     });
 
@@ -115,7 +123,7 @@ export class FormFormulationComponent implements OnInit {
   async loadForm(force = true) {
     if (this.loadAuxData && force) return false;
     this.form = this.formBuilder.group({
-      medical_formula: [this.data.medical_formula],
+      medical_formula: [this.data.medical_formula == 0 ? false : true],
       product_gen: [this.product_gen != null ? this.product_gen['description'] : null,],
       product_id: [this.data.product_id,],
       dose: [this.data.dose, Validators.compose([Validators.required])],
@@ -147,7 +155,7 @@ export class FormFormulationComponent implements OnInit {
         treatment_days: this.form.controls.treatment_days.value,
         type_record_id: 5,
         ch_record_id: this.record_id,
-        services_briefcase_id: this.product_id,
+        services_briefcase_id: this.form.controls.medical_formula.value ? null : this.service_briefcase_id,
       })
         .then((x) => {
           this.toastService.success('', x.message);
@@ -164,16 +172,15 @@ export class FormFormulationComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
-    } if (this.input = true) {
-      await this.PharmacyProductRequestS.Save({
-        services_briefcase_id: this.product_id,
-        request_amount: this.form.controls.outpatient_formulation.value,
-        observation: this.form.controls.observation.value,
-        admissions_id: this.user2.admissions[0].id,
-        status: 'PATIENT',
-        user_request_pad_id: this.own_user.id,
-      })
-        .then((x) => {
+      if (this.show) {
+        await this.PharmacyProductRequestS.Save({
+          services_briefcase_id: this.service_briefcase_id,
+          request_amount: this.form.controls.outpatient_formulation.value,
+          observation: this.form.controls.observation.value,
+          admissions_id: this.user2.admissions[0].id,
+          status: 'PATIENT',
+          user_request_pad_id: this.own_user.id,
+        }).then((x) => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
           this.form.setValue({
@@ -184,11 +191,13 @@ export class FormFormulationComponent implements OnInit {
             this.saved();
           }
         })
-        .catch((x) => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
+          .catch((x) => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+      }
     }
+
   }
 
 
@@ -273,39 +282,44 @@ export class FormFormulationComponent implements OnInit {
   readProductGen(x) {
     var r = [];
     var i = 0;
-          x.forEach(element => {
-            r[i] = element['manual_price']['product'];
-            i++;
-          });
+    x.forEach(element => {
+      r[i] = element['manual_price']['product'];
+      i++;
+    });
     return r;
   }
 
   eventSelections(input) {
+    this.product_id = null
+    this.form.patchValue({ product_gen: '' });
     if (input == false) {
       this.show = true;
+      this.input = false;
       this.product_gen = null;
       this.patienBS.GetUserById(this.user).then(x => {
         this.user2 = x;
       });
       if (this.user2 != null) {
-        this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
-          this.product_gen = this.readProductGen(x);
-        });
+        if (this.briefcase_products == null) {
+          this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
+            this.product_gen = this.readProductGen(x);
+            this.briefcase_products = this.readProductGen(x);
+          });
+        } else {
+          this.product_gen = this.briefcase_products;
+        }
       }
     } else {
+      this.input = true;
       this.show = false;
-      this.ProductGS.GetCollection().then(x => {
-        this.product_gen = x;
-      });
-
-
-
-
-
-
-
-
-
+      if (this.all_peoducts == null) {
+        this.ProductGS.GetCollection().then(x => {
+          this.product_gen = x;
+          this.all_peoducts = x;
+        });
+      } else {
+        this.product_gen = this.all_peoducts;
+      }
     }
   }
 
