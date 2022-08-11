@@ -220,6 +220,7 @@ export class AdmissionsPatientComponent implements OnInit {
   NewAdmissions() {
     this.dialogFormService.open(FormPatientDataComponent, {
       closeOnBackdropClick: false,
+      closeOnEsc: false,
       context: {
         title: 'Crear nuevo ingreso',
         user_id: this.patient_id,
