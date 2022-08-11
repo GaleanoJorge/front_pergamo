@@ -1,22 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { DiagnosisService } from '../../../../../business-controller/diagnosis.service';
-import { ChEValorationFTService } from '../../../../../business-controller/ch_e_valoration_f_t.service';
-
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DiagnosisService } from '../../../../../../business-controller/diagnosis.service';
+import { ChEValorationFTService } from '../../../../../../business-controller/ch_e_valoration_f_t.service';
 
 @Component({
-  selector: 'ngx-entry-form-valoration-ft',
-  templateUrl: './entry-form-valoration-ft.component.html',
-  styleUrls: ['./entry-form-valoration-ft.component.scss']
+  selector: 'ngx-form-valoration-ft',
+  templateUrl: './form-valoration-ft.component.html',
+  styleUrls: ['./form-valoration-ft.component.scss']
 })
-export class EntryFormValorationFTComponent implements OnInit {
+export class FormValorationFTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() type_record_id;
   @Input() record_id: any = null;
+  @Input() type_record_id;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -24,47 +23,42 @@ export class EntryFormValorationFTComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public ch_external_cause: any[];
   public diagnosis: any[];
-
+  public ch_e_valoration_f_t: any[];
   public ch_diagnosis_id;
-
 
   constructor(
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private diagnosisS: DiagnosisService,
-    private ChEValorationFTSservice: ChEValorationFTService,
+    private ChEValorationFTService: ChEValorationFTService,
   ) {
   }
 
   ngOnInit(): void {
-    if (!this.data || this.data.length == 0) {
+    if (!this.data) {
       this.data = {
         ch_diagnosis_id: '',
-        recomendations: '',
+        patient_state: '',
       };
     }
+
+
+
+    this.form = this.formBuilder.group({
+
+      ch_diagnosis_id: [this.data[0] ? this.data[0].ch_diagnosis_id : this.data.ch_diagnosis_id, Validators.compose([Validators.required])],
+      patient_state: [this.data[0] ? this.data[0].patient_state : this.data.patient_state, Validators.compose([Validators.required])],
+      
+    });
 
     this.diagnosisS.GetCollection().then(x => {
       this.diagnosis = x;
     });
 
-
-    this.form = this.formBuilder.group({
-      ch_diagnosis_id: [this.data[0] ? this.data[0].ch_diagnosis_id : this.data.ch_diagnosis_id,],
-      recomendations: [this.data[0] ? this.data[0].recomendations : this.data.recomendations,],
+    this.ChEValorationFTService.GetCollection().then(x => {
+      this.ch_e_valoration_f_t = x;
     });
-
-    if (this.data.ch_diagnosis_id != '') {
-      this.form.controls.ch_diagnosis_id.disable();
-      this.form.controls.recomendations.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.ch_diagnosis_id.enable();
-      this.form.controls.recomendations.enable();
-      this.disabled = false;
-    }
   }
 
   saveCode(e): void {
@@ -78,17 +72,17 @@ export class EntryFormValorationFTComponent implements OnInit {
     }
   }
 
-    save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
 
       if (this.data.id) {
-          this.ChEValorationFTSservice.Update({
+          this.ChEValorationFTService.Update({
           id: this.data.id,
           ch_diagnosis_id: this.form.controls.ch_diagnosis_id.value,
-          recomendations: this.form.controls.recomendations.value,
+          patient_state: this.form.controls.patient_state.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
 
@@ -102,9 +96,9 @@ export class EntryFormValorationFTComponent implements OnInit {
           this.loading = false;
         });
       } else {
-          this.ChEValorationFTSservice.Save({
+          this.ChEValorationFTService.Save({
           ch_diagnosis_id: this.ch_diagnosis_id,
-          recomendations: this.form.controls.recomendations.value,
+          patient_state: this.form.controls.patient_state.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -117,8 +111,6 @@ export class EntryFormValorationFTComponent implements OnInit {
           this.loading = false;
         });
       }
-
     }
   }
-
 }

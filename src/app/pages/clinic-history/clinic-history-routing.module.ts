@@ -8,6 +8,7 @@ import { ClinicHistoryListComponent } from './clinic-history-list/clinic-history
 import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
 import { ClinicHistoryComponent } from './clinic-history.component';
 import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
+import { ClinicHistoryPhysicTherapy } from './entry-clinic-history-physical-therapy/ch-physic-therapy.component';
 import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
 import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/respiratory-therapy-list.component';
 import { FormChScalesComponent } from './scales/form-ch-scales/form-ch-scales.component';
@@ -37,6 +38,10 @@ const routes: Routes = [{
     {
       path: 'clinic-history-language-list/:id/:id2',
       component: ClinicHistoryLanguageListComponent,
+    },
+    {
+      path: 'clinic-history-physical-therapy-list/:id/:id2',
+      component: ClinicHistoryPhysicTherapy,
     },
     {
   

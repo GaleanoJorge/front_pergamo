@@ -13,40 +13,89 @@
       <nb-tabset class="tabset">
         <nb-tab tabTitle="INGRESO">
 
+          <nb-stepper #stepper [linear]="linearMode">
+
+            <nb-step label='Valoracion Terapeutica Fisica'>
+              <ngx-table-valoration-ft [type_record_id]="1" *ngIf="chftvaloration" [data]="chftvaloration" [record_id]="record_id">
+              </ngx-table-valoration-ft>
+            </nb-step>
+
+
+            <nb-step label="Signos Vitales">
+
+              <ngx-signs [record_id]="record_id"></ngx-signs>
+
+            </nb-step>
+
+            <nb-step label='Valoracion Terepeutica'>
+              <ngx-table-valoration-ther-ft [type_record_id]="1" [record_id]="record_id" [data]="chftvalorationTher"
+              [data]="chftvalorationTher" ></ngx-table-valoration-ther-ft>
+            </nb-step>           
+              
+            <nb-step label='Dolor'>
+              <ngx-table-pain-ft [type_record_id]="1"  [record_id]="record_id" [data]="chpain"></ngx-table-pain-ft>
+            </nb-step>
+
+            <nb-step label='Sistema Tegumentario'>
+              <ngx-table-sys-integumentary-ft [type_record_id]="1"  [record_id]="record_id" [data]="chsysintegumentary"></ngx-table-sys-integumentary-ft>
+            </nb-step>
+
+            <br/>
+
+            <nb-step label='Sistema Musculoesqueletico'>
+              <ngx-table-sys-musculoskeletal-ft [type_record_id]="1"  [record_id]="record_id" [data]="chsysmusculoskeletal"></ngx-table-sys-musculoskeletal-ft>
+            </nb-step>
+
+            <nb-step label='Fuerza Muscular'>
+              <ngx-table-muscular-strength-ft [type_record_id]="1"  [record_id]="record_id" [data]="chmuscularstrength"></ngx-table-muscular-strength-ft>
+            </nb-step>
+
+            <nb-step label='Sensibilidad'>
+              <ngx-table-sensibility-ft [type_record_id]="1"  [record_id]="record_id" [data]="chsensibility"></ngx-table-sensibility-ft>
+            </nb-step>
+
+          </nb-stepper>
+
+          <hr/>
+          <hr/>
 
           <nb-stepper #stepper [linear]="linearMode">
 
-            <nb-step label='Valoracion Terapeutica'>
-              <ngx-entry-form-valoration-ft [type_record_id]="1" *ngIf="chftvaloration" [data]="chftvaloration" [record_id]="record_id">
-              </ngx-entry-form-valoration-ft>
+            <nb-step label='Tono Muscular'>
+              <ngx-table-muscular-tone-ft [type_record_id]="1"  [record_id]="record_id" [data]="chmusculartone"></ngx-table-muscular-tone-ft>
             </nb-step>
 
-<!-- 
-            <nb-step label="Signos Vitales">
-
-              <ngx-form-signs [record_id]="record_id"></ngx-form-signs>
-
+            <nb-step label='Reflejos'>
+              <ngx-table-reflection_f_t [type_record_id]="1"  [record_id]="record_id" [data]="chreflection"></ngx-table-reflection_f_t>
             </nb-step>
 
-            <nb-step label='Historia Ocupacional'>
-              <ngx-entry-form-occupat-history-valoration-ot [type_record_id]="1" *ngIf="chocuupationalhistory" [record_id]="record_id"
-                [data]="chocuupationalhistory"></ngx-entry-form-occupat-history-valoration-ot>
+            <nb-step label='Flexibilidad'>
+              <ngx-table-flexibility-ft [type_record_id]="1"  [record_id]="record_id" [data]="chflexibility"></ngx-table-flexibility-ft>
             </nb-step>
 
-            <nb-step label='Antecedentes Ocupacionales'>
-              <ngx-entry-form-past-ot [type_record_id]="1" *ngIf="chpast" [record_id]="record_id" [data]="chpast"></ngx-entry-form-past-ot>
+            <nb-step label='Equilibrio'>
+              <ngx-table-balance-ft [type_record_id]="1"  [record_id]="record_id" [data]="chbalance"></ngx-table-balance-ft>
             </nb-step>
 
-            <nb-step label='Actividades Vida Diaria'>
-              <ngx-entry-form-daily-activities-ot [type_record_id]="1" *ngIf="chdailyactivities" [record_id]="record_id"
-                [data]="chdailyactivities"></ngx-entry-form-daily-activities-ot>
+            <nb-step label='Postura (Observacion)'>
+              <ngx-table-position-ft [type_record_id]="1"  [record_id]="record_id" [data]="chposition"></ngx-table-position-ft>
             </nb-step>
 
-            <nb-step label='Habilidades Motoras'>
-              <ngx-entry-form-motor-skills-ot [type_record_id]="1" [record_id]="record_id">
+            <nb-step label='Marcha'>
+              <ngx-table-march-ft [type_record_id]="1"  [record_id]="record_id" [data]="chmarch"></ngx-table-march-ft>
+            </nb-step>
 
-              </ngx-entry-form-motor-skills-ot>
-            </nb-step> -->
+            <nb-step label='Diagnostico CIF'>
+              <ngx-table-diagnosis-ft [type_record_id]="1"  [record_id]="record_id" [data]="chdiagnosis"></ngx-table-diagnosis-ft>
+            </nb-step>
+
+            <nb-step label='Objetivos Terapeuticos'>
+              <ngx-table-ther-goals-ft [type_record_id]="1"  [record_id]="record_id" [data]="chthergoals"></ngx-table-ther-goals-ft>
+            </nb-step>
+
+            <nb-step label='Sesiones Semanales'>
+              <ngx-table-weekly-ft [type_record_id]="1"  [record_id]="record_id" [data]="chweekly"></ngx-table-weekly-ft>
+            </nb-step>
 
           </nb-stepper>
 

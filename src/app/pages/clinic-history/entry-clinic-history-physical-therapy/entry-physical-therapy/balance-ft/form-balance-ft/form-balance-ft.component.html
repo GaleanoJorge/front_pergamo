@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="row justify-content-center">   
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">EQUILIBRIO ESTATICO:</label>
+        <nb-select [selected]="this.data.static" formControlName="static" id="static" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.static.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Conservado">Conservado</nb-option>
+          <nb-option value="Alterado">Alterado</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">EQUILIBRIO DINAMICO:</label>
+        <nb-select [selected]="this.data.dinamic" formControlName="dinamic" id="dinamic" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.dinamic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Conservado">Conservado</nb-option>
+          <nb-option value="Alterado">Alterado</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-12">
+        <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
+        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="3"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+</form>

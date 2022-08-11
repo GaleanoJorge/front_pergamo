@@ -48,6 +48,10 @@ import { AuthService } from '../../../services/auth.service';
     <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
+    <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 7)" nbTooltip="Historia Clinica de Terapia Física" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-physical-therapy-list/' + value.data.id + '/'+ value.assigned" >
+    <nb-icon icon="file-add-outline"></nb-icon>
+  </button>
+
     <button *ngIf="value.data.status=='CERRADO'" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
       <nb-icon icon="file-add"></nb-icon>
     </button>
