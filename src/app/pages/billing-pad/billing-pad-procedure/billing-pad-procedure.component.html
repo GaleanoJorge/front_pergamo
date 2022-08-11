@@ -1,27 +1,74 @@
-<ngx-base-list [messageError]="messageError" [routes]="routes">
-  <div content *ngIf="this.show_info">
-    <ngx-base-table [title]="title" pager="false" [subtitle]="subtitle" [settings]="settings"
-      [entity]="entity" customData="billing_pad" [messageToltip]="messageToltip">
-      <div actions>
-        <div class="actions" >
-          <button nbButton *ngIf="this.billing.billing_pad_status_id != 2 && this.adm == null" class="mr-1" status="danger" (click)="SaveBilling()">Facturar</button>
-          <button nbButton *ngIf="!this.total_pre_billing" status="danger" (click)="ShowPreBilling($event)">Pre factura</button>
-        </div>
-        <div class="actions"  *ngIf="this.total_pre_billing">
-          VALOR TOTAL PREFACTURA: {{this.currency.transform(this.total_pre_billing)}}  
-        </div>
+<nb-card>
+  <nb-card-header>{{this.title}} {{patient_name}}
+    <div >
+      VALOR FACTURAR: {{this.currency.transform(this.count_billing)}}
+    </div>
+    <div >
+      VALOR FACTURA: {{this.currency.transform(this.total_billing)}}
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ngx-base-list [messageError]="messageError" [routes]="routes">
+      <div content *ngIf="this.show_info">
+        <ngx-base-table pager="false" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+          customData="billing_pad" [messageToltip]="messageToltip">
+          <div actions>
+            <div class="actions">
+
+              <button nbButton *ngIf="this.billing.billing_pad_status_id != 2 && this.adm == null" class="mr-1"
+                status="danger" (click)="SaveBilling()">Facturar</button>
+              <button nbButton *ngIf="this.adm == null" status="danger" (click)="ShowPreBilling(prebilling)">Pre
+                factura</button>
+            </div>
+          </div>
+        </ngx-base-table>
+
+        <!-- <nb-tabset fullWidth (changeTab)="reloadForm($event)">
+          <nb-tab tabTitle="ADMISIONES">
+          </nb-tab>
+          <nb-tab tabTitle="FACTURAS">
+            <div *ngIf="screen == 2">
+              <ngx-historic-authorization (messageEvent)="null"></ngx-historic-authorization>
+            </div>
+          </nb-tab>
+        </nb-tabset> -->
+
       </div>
-    </ngx-base-table>
+    </ngx-base-list>
+  </nb-card-body>
+</nb-card>
 
-    <!-- <nb-tabset fullWidth (changeTab)="reloadForm($event)">
-      <nb-tab tabTitle="ADMISIONES">
-      </nb-tab>
-      <nb-tab tabTitle="FACTURAS">
-        <div *ngIf="screen == 2">
-          <ngx-historic-authorization (messageEvent)="null"></ngx-historic-authorization>
+<ng-template #prebilling>
+  <nb-card style="max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>PREFACTURA DE {{patient_name}}
+      <div>VALOR PREFACTURA: {{this.currency.transform(this.total_pre_billing)}}</div>
+    </nb-card-header>
+    <nb-card-body>
+      <ngx-base-list [messageError]="messageError">
+        <div content *ngIf="this.show_info">
+          <ngx-base-table pager="false" [subtitle]="subtitle" [settings]="settings2"
+            entity="billing_pad/getPreBillingProcedures/{{this.admission_id}}?billing_id={{this.billing_id}}"
+            customData="billing_pad" [messageToltip]="messageToltip">
+            <div actions>
+            </div>
+          </ngx-base-table>
+
+          <!-- <nb-tabset fullWidth (changeTab)="reloadForm($event)">
+            <nb-tab tabTitle="ADMISIONES">
+            </nb-tab>
+            <nb-tab tabTitle="FACTURAS">
+              <div *ngIf="screen == 2">
+                <ngx-historic-authorization (messageEvent)="null"></ngx-historic-authorization>
+              </div>
+            </nb-tab>
+          </nb-tabset> -->
+
         </div>
-      </nb-tab>
-    </nb-tabset> -->
+      </ngx-base-list>
+    </nb-card-body>
 
-  </div>
-</ngx-base-list>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
