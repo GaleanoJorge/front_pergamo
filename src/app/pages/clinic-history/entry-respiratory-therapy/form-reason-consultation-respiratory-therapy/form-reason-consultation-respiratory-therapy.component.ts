@@ -41,7 +41,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
   constructor(
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,    
-    private diagnosisS: DiagnosisService,
+    private DiagnosisS: DiagnosisService,
     private respiratoryS: ChRespiratoryTherapyService,
   ) {
   }
@@ -56,23 +56,45 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
 
     }
     this.loadForm(false).then();
-    await Promise.all([
-      this.GetAux(),
-    ]);
+    // await Promise.all([
+    //   this.GetAux(),
+    // ]);
     this.loadAuxData = false;
     this.loadForm();
 
 
   }
 
-  async GetAux() {
-    await this.diagnosisS.GetCollection().then(x => {
-      this.diagnosis = x;
-      this.loading = false;
-    });
+  public diagnosticConut = 0;
 
-    return Promise.resolve(true);
+  searchDiagnostic($event) {
+    this.diagnosticConut++;
+    if (this.diagnosticConut == 3) {
+      this.diagnosticConut = 0;
+      if ($event.length >= 3) {
+        this.DiagnosisS.GetCollection({
+          search: $event,
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      } else {
+        this.DiagnosisS.GetCollection({
+          search: '',
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      }
+    }
   }
+
+  // async GetAux() {
+  //   await this.diagnosisS.GetCollection().then(x => {
+  //     this.diagnosis = x;
+  //     this.loading = false;
+  //   });
+
+  //   return Promise.resolve(true);
+  // }
 
   async loadForm(force = true) {
     if (this.loadAuxData && force) return false;

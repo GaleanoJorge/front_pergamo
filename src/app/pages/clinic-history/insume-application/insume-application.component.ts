@@ -20,7 +20,7 @@ export class InsumeApplicationComponent implements OnInit {
   @Input() user;
   linearMode = false;
   public messageError = null;
-  public title;
+  public title = 'INSUMOS DISPONIBLES PARA PACIENTE';
   public routes = [];
   public user_id;
   public entity;

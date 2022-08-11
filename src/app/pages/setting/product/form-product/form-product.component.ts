@@ -27,12 +27,12 @@ export class FormProductComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public factory: any[];
-  public product_generic: any[];
+  public product_generic: any[] = [];
   public invima_status: any[];
   public storage_conditions: any[];
   public packing: any[];
   public showReg: boolean = false;
-  public product_id ;
+  public product_id;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -72,12 +72,13 @@ export class FormProductComponent implements OnInit {
         packing_id: '',
         refrigeration: '',
         useful_life: '',
+        code_cum: '',
       };
     }
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
       factory_id: [this.data.factory_id, Validators.compose([Validators.required])],
-      product_generic_id: [this.data.product_generic_id, Validators.compose([Validators.required])],
+      product_generic_id: [this.product_id, Validators.compose([Validators.required])],
       invima_registration: [this.data.invima_registration, Validators.compose([Validators.required])],
       invima_status_id: [this.data.invima_status_id, Validators.compose([Validators.required])],
       sanitary_registration_id: [this.data.sanitary_registration_id, Validators.compose([Validators.required])],
@@ -87,9 +88,9 @@ export class FormProductComponent implements OnInit {
       regulated_drug: [this.data.regulated_drug, Validators.compose([Validators.required])],
       high_price: [this.data.high_price],
       maximum_dose: [this.data.maximum_dose],
-      indications: [this.data.indications, Validators.compose([Validators.required])],
+      indications: [this.data.indications],
       contraindications: [this.data.contraindications],
-      applications: [this.data.applications, Validators.compose([Validators.required])],
+      applications: [this.data.applications],
       value_circular: [this.data.value_circular],
       circular: [this.data.circular],
       date_cum: [this.data.date_cum, Validators.compose([Validators.required])],
@@ -97,6 +98,7 @@ export class FormProductComponent implements OnInit {
       packing_id: [this.data.packing_id, Validators.compose([Validators.required])],
       refrigeration: [this.data.refrigeration, Validators.compose([Validators.required])],
       useful_life: [this.data.useful_life, Validators.compose([Validators.required])],
+      code_cum: [this.data.code_cum, Validators.compose([Validators.required])],
     });
 
     await this.FactoryS.GetCollection().then(x => {
@@ -136,7 +138,7 @@ export class FormProductComponent implements OnInit {
       this.product_id = localidentify.id;
     } else {
       this.product_id = null;
-      this.form.controls.product_generic_id.setErrors({'incorrect': true });
+      this.form.controls.product_generic_id.setErrors({ 'incorrect': true });
       this.toastService.warning('', 'Debe seleccionar un item de la lista');
     }
   }
@@ -173,6 +175,7 @@ export class FormProductComponent implements OnInit {
           packing_id: this.form.controls.packing_id.value,
           refrigeration: this.form.controls.refrigeration.value,
           useful_life: this.form.controls.useful_life.value,
+          code_cum: this.form.controls.code_cum.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -208,6 +211,7 @@ export class FormProductComponent implements OnInit {
           packing_id: this.form.controls.packing_id.value,
           refrigeration: this.form.controls.refrigeration.value,
           useful_life: this.form.controls.useful_life.value,
+          code_cum: this.form.controls.code_cum.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BackListComponent } from './background/back-list.component'; 
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { ChRecordListComponent } from './ch-record-list/ch-record-list.component';
+import { SocialWorkListComponent } from './ch-social-work/social-work-list/social-work-list.component';
 import { ClinicHistoryLanguageListComponent } from './clinic-history-language-list/clinic-history-language-list.component';
 import { ClinicHistoryListComponent } from './clinic-history-list/clinic-history-list.component';
 import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
@@ -63,6 +64,10 @@ const routes: Routes = [{
     {
       path: 'entry-clinic-history-occupational-therapy/:id/:id2',
       component: ClinicHistoryOccupationalTherapy,
+    },
+    {
+      path: 'ch-social-work/social-work-list/:id1/:id2',
+      component: SocialWorkListComponent,
     }
     
   ],

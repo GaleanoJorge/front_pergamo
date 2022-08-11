@@ -22,6 +22,7 @@ export class FixedFormNomProductComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public fixed_clasification: any[];
+  public product_id;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -52,6 +53,22 @@ export class FixedFormNomProductComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
+
+
+  
+  saveCode(e): void {
+    var localidentify = this.fixed_clasification.find(item => item.name == e);
+
+    if (localidentify) {
+      this.product_id = localidentify.id;
+    } else {
+      this.product_id = null;
+      this.form.controls.fixed_clasification_id.setErrors({'incorrect': true });
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+    }
+  }
+
+
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
@@ -60,7 +77,7 @@ export class FixedFormNomProductComponent implements OnInit {
         this.FixedNomProductS.Update({
           id: this.data.id,
           name: this.form.controls.name.value,
-          fixed_clasification_id: this.form.controls.fixed_clasification_id.value,
+          fixed_clasification_id: this.product_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -74,7 +91,7 @@ export class FixedFormNomProductComponent implements OnInit {
       } else {
         this.FixedNomProductS.Save({
           name: this.form.controls.name.value,
-          fixed_clasification_id: this.form.controls.fixed_clasification_id.value,
+          fixed_clasification_id: this.product_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

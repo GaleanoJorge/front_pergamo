@@ -12,17 +12,39 @@
               {{item.name}}</nb-option>
           </nb-select>
         </div>
-        <div class="col-12 col-sm-12 col-md-4">
+
+
+
+<!-- 
+        <div class="col-md-12">
+          <label class="form-text text-muted font-weight-bold">Tipo de activo:</label>
+          <input type="text" list="codes1" class="data-list" id="fixed_clasification_id"
+            (change)="saveCode($event.target.value)" formControlName="fixed_clasification_id" fixed_clasification_id
+            fullWidth nbInput
+            status="{{ isSubmitted && form.controls.fixed_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="codes1">
+            <option *ngFor="let item of fixed_clasification" [value]="item.name">{{ item.name }} 
+              <option *ngFor="let item of fixed_clasification" [value]="item.name">{{ item.name }}
+            </option>
+          </datalist>
+        </div> -->
+
+
+
+        <div class="col-12 col-sm-12 col-md-8">
           <label for="fixed_clasification" class="form-text text-muted font-weight-bold">Clasificación:</label>
           <nb-select [selected]="this.data.fixed_clasification_id" formControlName="fixed_clasification_id"
             id="fixed_clasification_id" fullWidth
             status="{{ isSubmitted && form.controls.fixed_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.fixed_clasification_id }}" *ngFor="let item of fixed_clasification"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
+              [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>
         </div>
+
+
+
+
         <div class="col-12 col-sm-12 col-md-4">
           <label for="fixed_property" class="form-text text-muted font-weight-bold">Propio / Arrendado:</label>
           <nb-select (selectedChange)="onChange1($event)" formControlName="fixed_property_id" id="fixed_property_id"

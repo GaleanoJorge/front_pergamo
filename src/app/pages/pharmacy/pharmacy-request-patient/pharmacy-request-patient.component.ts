@@ -70,7 +70,11 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.manual_price.name;
+          if(value != null){
+            return value.manual_price.name;
+          }else{
+            return row.product_supplies.description;
+          }
         },
       },
       request_amount: {
@@ -92,6 +96,8 @@ export class PharmacyRequestPatientComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
+      this.title = 'SOLICITUDES DE MEDICAMENTOS A:  ' + x[0]['name'];
+
     });
   }
 

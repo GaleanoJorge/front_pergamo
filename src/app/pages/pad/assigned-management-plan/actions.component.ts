@@ -18,10 +18,10 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="(today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17)||value.data.allow_redo == 1" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + value.user.admissions[0].id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
+    <a *ngIf="(today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17)||value.data.allow_redo == 1" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
     <nb-icon icon="folder-add-outline"></nb-icon>
     </a>
-    <a *ngIf=" firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + value.user.admissions[0].id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
+    <a *ngIf=" firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id  + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
   <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">

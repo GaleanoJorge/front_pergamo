@@ -150,7 +150,7 @@ export class FormManagementPlanComponent implements OnInit {
     this.frequencyS.GetCollection().then(x => {
       this.frequency = x;
     });
-    this.serviceBriefcaseS.GetByBriefcase({ type: '3',patient:this.user.id }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+    this.serviceBriefcaseS.GetByBriefcase({ type: '4',patient:this.user.id }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
       this.procedure = x;
     });
     this.specialField.GetCollection({

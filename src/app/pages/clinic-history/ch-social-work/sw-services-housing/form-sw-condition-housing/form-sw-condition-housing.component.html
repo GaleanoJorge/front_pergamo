@@ -1,0 +1,76 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Condición de de la vivienda</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold align center">Servicios de la vivienda</label>
+        <nb-select multiple [selected]="this.data.ch_sw_services_id" formControlName="ch_sw_services_id"
+          id="ch_sw_services_id" ch_sw_services_id fullWidth
+          status="{{ isSubmitted && form.controls.ch_sw_services_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          placeholder="Seleccione...">
+          <nb-option selected="{{ item.id == data.ch_sw_services_id }}" *ngFor="let item of services" [value]="item.name">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold align">Número de habitaciones</label>
+        <input type="number" id="num_rooms" class="ImpPeq" formControlName="num_rooms" required nbInput ngModel
+          status="{{ isSubmitted && form.controls.num_rooms.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold align">Personas por habitación</label>
+        <input type="number" id="persons_rooms" class="ImpPeq" formControlName="persons_rooms" required nbInput ngModel
+          status="{{ isSubmitted && form.controls.persons_rooms.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-2 justify-content-flex-start">
+      <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="rooms" formControlName="rooms" rooms
+        status="{{ isSubmitted && form.controls.rooms.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        Habitaciones</nb-checkbox>
+      </div>
+        <div class="col-md-2 justify-content-flex-start">
+      <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="living_room" formControlName="living_room" living_room
+        status="{{ isSubmitted && form.controls.living_room.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        Sala </nb-checkbox>
+      </div>
+      <div class="col-md-2 justify-content-flex-start">
+      <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="dinning_room" formControlName="dinning_room"
+        dinning_room
+        status="{{ isSubmitted && form.controls.dinning_room.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        Comedor</nb-checkbox>
+      </div>
+      <div class="col-md-2 justify-content-flex-start">
+      <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="kitchen" formControlName="kitchen" kitchen
+        status="{{ isSubmitted && form.controls.kitchen.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        Cocina </nb-checkbox>
+      </div>
+      <div class="col-md-2 justify-content-flex-start">
+      <nb-checkbox (checkedChange)="toggle($event)" fullWidth id="bath" formControlName="bath" bath
+        status="{{ isSubmitted && form.controls.bath.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        Baño</nb-checkbox>
+      </div>
+      
+    </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

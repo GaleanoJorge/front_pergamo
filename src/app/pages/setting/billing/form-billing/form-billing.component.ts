@@ -82,7 +82,7 @@ export class FormBillingComponent implements OnInit {
       this.company = x;
     });
 
-    this.pharStockS.GetCollection().then(x => {
+    this.pharStockS.GetCollection({type:1}).then(x => {
       this.pharmacy_stock = x;
     });
   }

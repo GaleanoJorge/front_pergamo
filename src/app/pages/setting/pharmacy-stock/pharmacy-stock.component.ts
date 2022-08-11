@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from '../sectional-council/actions.component';
+import { NbDialogService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormPharmacyStockComponent } from './form-pharmacy-stock/form-pharmacy-stock.component';
 import { PharmacyStockService } from '../../../business-controller/pharmacy-stock.service';
+import { UserPackageComponent } from './user-package/user-package.component';
+import { ActionPharmaComponent } from './actions.component';
+import { ServicesPackageComponent } from './services-package/services-package.component';
 
 
 @Component({
@@ -39,9 +41,11 @@ export class PharmacyStockComponent implements OnInit {
             'data': row,
             'edit': this.EditPharmacyStock.bind(this),
             'delete': this.DeleteConfirmPharmacyStock.bind(this),
+            'user': this.UserAsigned.bind(this),
+            'services': this.ServicesAsigned.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionPharmaComponent,
       },
       id: {
         title: this.headerFields[0],
@@ -93,8 +97,8 @@ export class PharmacyStockComponent implements OnInit {
     this.dialogFormService.open(FormPharmacyStockComponent, {
       closeOnBackdropClick: false,
       context: {
-        title: 'CRAR FARMACIA O BODEGA',
-        saved: this.RefreshData.bind(this),
+        title: 'CREAR FARMACIA O BODEGA',
+         saved: this.RefreshData.bind(this),
       },
     });
   }
@@ -106,6 +110,29 @@ export class PharmacyStockComponent implements OnInit {
         title: 'EDITAR FARMACIA O BODEGA',
         data,
         saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
+  UserAsigned(data) {
+    this.dialogFormService.open(UserPackageComponent, {
+      closeOnBackdropClick: false,
+      context: {
+        title: 'CREAR USUARIOS PARA FARMACIA O BODEGA',
+        data,
+           saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
+
+  ServicesAsigned(data) {
+    this.dialogFormService.open(ServicesPackageComponent, {
+      closeOnBackdropClick: false,
+      context: {
+        title: 'TIPOS DE SERVICIOS',
+        data: data,
+           saved: this.RefreshData.bind(this),
       },
     });
   }

@@ -121,6 +121,10 @@ export class ChNutritionListComponent implements OnInit {
     formData.append('firm_file', this.signatureImage);
     console.log(this.signatureImage);
   }
+
+  public back(): void {
+    this.location.back();
+  }
   
   async finish() {
 

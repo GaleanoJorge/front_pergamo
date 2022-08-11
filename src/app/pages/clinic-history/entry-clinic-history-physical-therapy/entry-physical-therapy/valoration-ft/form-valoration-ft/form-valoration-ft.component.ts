@@ -30,7 +30,7 @@ export class FormValorationFTComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
-    private diagnosisS: DiagnosisService,
+    private DiagnosisS: DiagnosisService,
     private ChEValorationFTService: ChEValorationFTService,
   ) {
   }
@@ -52,13 +52,31 @@ export class FormValorationFTComponent implements OnInit {
       
     });
 
-    this.diagnosisS.GetCollection().then(x => {
-      this.diagnosis = x;
-    });
-
     this.ChEValorationFTService.GetCollection().then(x => {
       this.ch_e_valoration_f_t = x;
     });
+  }
+
+  public diagnosticConut = 0;
+
+  searchDiagnostic($event) {
+    this.diagnosticConut++;
+    if (this.diagnosticConut == 3) {
+      this.diagnosticConut = 0;
+      if ($event.length >= 3) {
+        this.DiagnosisS.GetCollection({
+          search: $event,
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      } else {
+        this.DiagnosisS.GetCollection({
+          search: '',
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      }
+    }
   }
 
   saveCode(e): void {

@@ -6,18 +6,35 @@
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
-            />
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <label for="fixed_clasification" class="form-text text-muted font-weight-bold">Tipo de activo:</label>
           <nb-select [selected]="this.data.fixed_clasification_id" formControlName="fixed_clasification_id" id="fixed_clasification_id" fullWidth
             status="{{ isSubmitted && form.controls.fixed_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.fixed_clasification_id }}" *ngFor="let item of fixed_clasification" [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ item.fixed_code.name }} - {{ item.name }}</nb-option>
           </nb-select>
         </div>
+ -->
+
+        <div class="col-md-12">
+          <label class="form-text text-muted font-weight-bold">Tipo de activo:</label>
+          <input type="text" list="codes1" class="data-list" id="fixed_clasification_id"
+            (change)="saveCode($event.target.value)" formControlName="fixed_clasification_id" fixed_clasification_id
+            fullWidth nbInput
+            status="{{ isSubmitted && form.controls.fixed_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="codes1">
+            <!-- <option *ngFor="let item of fixed_clasification" [value]="item.name">{{ item.name }} -->
+              <option *ngFor="let item of fixed_clasification" [value]="item.name">{{ item.fixed_code.name }} - {{ item.name }}
+            </option>
+          </datalist>
+        </div>
+
+
+
+
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">

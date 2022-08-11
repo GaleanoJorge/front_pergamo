@@ -1,13 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FixedPropertyService } from '../../../../business-controller/fixed-property.service';
 import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
-import { FixedClasificationService } from '../../../../business-controller/fixed-clasification.service';
-import { FixedConditionService } from '../../../../business-controller/fixed-condition.service';
 import { FixedAccessoriesService } from '../../../../business-controller/fixed-accessories.service';
 import { CampusService } from '../../../../business-controller/campus.service';
-
 
 @Component({
   selector: 'ngx-form-fixed-accessories',
@@ -21,13 +17,11 @@ export class FormFixedAccessoriesComponent implements OnInit {
 
   public form: FormGroup;
   public region_id: number;
-  // public status: Status[];
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
   public campus_id: any[];
   public fixed_type_id: any[];
-
 
   constructor(
     protected dialogRef: NbDialogRef<any>,

@@ -27,11 +27,9 @@
         </div>
         <div class="col-md-6">
           <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico:</label>
-          <nb-card *ngIf="loading" [nbSpinner]="true" nbSpinnerStatus="basic">
-            <nb-card-body></nb-card-body>
-          </nb-card>
-          <input *ngIf="!loading" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
-            id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" required
+          <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+            (ngModelChange)="this.searchDiagnostic($event)" id="diagnosis_id" formControlName="diagnosis_id"
+            diagnosis_id type="text" required
             status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">
             <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { PharmacyLotStockService } from '../../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
+import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
 import { AuthService } from '../../../../services/auth.service';
 
 @Component({
@@ -15,6 +16,8 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() parentData: any;
+  @Input() my_pharmacy_id: any = null;
+  @Input() type: boolean = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -26,6 +29,7 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
   public selectedOptions: any[] = [];
   public user;
   public show: boolean = false;
+  public own_pharmacy_stock_id: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -35,17 +39,27 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
     private toastService: NbToastrService,
     private toastS: NbToastrService,
     private authService: AuthService,
+    private perPharmaS: PharmacyStockService,
 
   ) {
   }
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
+    if(this.type == true || this.type == false){
+
+    this.parentData = {
+      selectedOptions: [],
+      entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1='+ false + this.type,
+      customData: 'pharmacy_request_shipping',
+    };
+  }else {
     this.parentData = {
       selectedOptions: [],
       entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1='+ false,
       customData: 'pharmacy_request_shipping',
     };
+  }
     if (!this.data) {
       this.data = {
         amount_damaged: '',
@@ -57,6 +71,9 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
     this.form = this.formBuilder.group({
       cantidad_enviada: [this.data.cantidad_enviada],
       observation: [this.data.observation],
+    });
+    await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
+      this.own_pharmacy_stock_id = x;
     });
   }
 
@@ -77,9 +94,6 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
       } else {
         this.selectedOptions.forEach(element => {
           if (element.amount == null || element.amount <= 0) {
-            valid_values = false;
-          }
-          if (element.amount_damaged == null || element.amount_damaged < 0) {
             valid_values = false;
           }
         });

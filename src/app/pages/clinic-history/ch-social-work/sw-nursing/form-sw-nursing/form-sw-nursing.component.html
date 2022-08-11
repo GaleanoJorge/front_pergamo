@@ -1,0 +1,94 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Servicio de enfermeria</p>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="service" class="form-text text-muted font-weight-bold">¿Tiene servicio de enfermeria?
+          </label>
+          <nb-toggle class="center" formControlName="service" service>
+          </nb-toggle>        
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="this.form.controls.service.value ==1">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="firstname" class="form-text text-muted font-weight-bold">Primer nombre:</label>
+        <input oninput="this.value = this.value.toUpperCase().trim()" minlength="3" maxlength="20" nbInput fullWidth
+          id="firstname" formControlName="firstname" firstname
+          status="{{ isSubmitted && form.controls.firstname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="middlefirstname" class="form-text text-muted font-weight-bold">Segundo
+          nombre:</label>
+        <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="20" nbInput fullWidth
+          id="middlefirstname" formControlName="middlefirstname" middlefirstname
+          status="{{ isSubmitted && form.controls.middlefirstname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="lastname" class="form-text text-muted font-weight-bold">Primer
+          apellido:</label>
+        <input oninput="this.value = this.value.toUpperCase().trim()" minlength="3" maxlength="20" nbInput fullWidth
+          id="lastname" formControlName="lastname" lastname
+          status="{{ isSubmitted && form.controls.lastname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="middlelastname" class="form-text text-muted font-weight-bold">Segundo
+          apellido:</label>
+        <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="20" nbInput fullWidth
+          id="middlelastname" formControlName="middlelastname" middlelastname
+          status="{{ isSubmitted && form.controls.middlelastname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="phone" class="form-text text-muted font-weight-bold">Celular:</label>
+        <input oninput="this.value = this.value.slice(0,15)" nbInput min="10" max="15" type="number" fullWidth
+          id="phone" formControlName="phone" phone
+          status="{{ isSubmitted && form.controls.phone.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" />
+        <ng-container *ngIf="form.controls.phone.errors && form.controls.phone.touched">
+          <p class="caption status-danger" *ngIf="form.controls.phone.errors?.minlength">
+            El celular debe tener un mínimo de 10 caracteres
+          </p>
+          <p class="caption status-danger" *ngIf="form.controls.phone.errors?.maxlength">
+            El celular debe tener un máximo de 20 caracteres
+          </p>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+   
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

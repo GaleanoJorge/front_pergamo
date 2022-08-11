@@ -255,6 +255,10 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
     }
   }
 
+  public back(): void {
+    this.location.back();
+  }
+
   close() {
     this.deleteConfirmService.open(ConfirmDialogComponent, {
       context: {

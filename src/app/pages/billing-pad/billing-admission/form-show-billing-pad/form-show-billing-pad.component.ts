@@ -58,22 +58,14 @@ export class FormShowBillingPadComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.assigned_management_plan){
-            return row.assigned_management_plan.management_plan.procedure.name;
-          } else if (row.manual_price) {
-            return row.manual_price.name;
-          }
+          return row.services_briefcase.manual_price.name;
         },
       },
       value: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.manual_price) {
-            return this.currency.transform(row.manual_price.value);
-          } else {
-            return this.currency.transform(row.services_briefcase.value);
-          }
+          return this.currency.transform(row.services_briefcase.value);
         },
       },
       assigned_management_plan_id: {

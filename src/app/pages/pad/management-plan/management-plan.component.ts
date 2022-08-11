@@ -3,7 +3,7 @@ import { SectionalCouncilService } from '../../../business-controller/sectional-
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { ActionsComponent } from './actions.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormManagementPlanComponent } from './form-management-plan/form-management-plan.component';
@@ -20,6 +20,7 @@ import { type } from 'os';
 import { ActionsSemaphore2Component } from './actions-semaphore.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
+import { SuppliesView } from './supplies-view/supplies-view.component';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -57,7 +58,6 @@ export class ManagementPlanComponent implements OnInit {
   public currentRoleId;
   public roles;
   public user_logged;
-
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -208,7 +208,7 @@ export class ManagementPlanComponent implements OnInit {
     private toastS: NbToastrService,
     private route: ActivatedRoute,
     public roleBS: RoleBusinessService,
-
+    private router: Router,
 
   ) {
   }
@@ -315,6 +315,16 @@ export class ManagementPlanComponent implements OnInit {
         title: 'Editar plan de manejo',
         data,
         saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
+suppliesView() {
+    this.dialogFormService.open(SuppliesView, {
+      context: {
+        user: this.user,
+        title: 'Suministros del paciente',
+        admissions_id: this.admissions_id,
       },
     });
   }

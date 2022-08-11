@@ -1,11 +1,17 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
-    <div title *ngIf="user">
-      <p class="parrafo" *ngIf="user"><b>CÉDULA:  </b> {{user.identification}} </p>
-      <p class="parrafo" *ngIf="user"><b>NOMBRE:  </b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
-      <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:  </b> {{user.birthday}} </p>
-      <p class="parrafo" *ngIf="user"><b>EDAD:  </b> {{user.age}} </p>
+    <div class="row" *ngIf="user">
+      <div title *ngIf="user" class="col-md-6">
+        <p class="parrafo" *ngIf="user"><b>CÉDULA: </b> {{user.identification}} </p>
+        <p class="parrafo" *ngIf="user"><b>NOMBRE: </b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
+        <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO: </b> {{user.birthday}} </p>
+        <p class="parrafo" *ngIf="user"><b>EDAD: </b> {{user.age}} </p>
+      </div>
+      <div class="col-md-6 position">
+        <a nbButton (click)="back()">Volver</a>
+      </div>
     </div>
+
     <nb-tabset fullWidth class="tabset" (changeTab)="tablock($event)">
 
       <nb-tab tabTitle="INGRESO">

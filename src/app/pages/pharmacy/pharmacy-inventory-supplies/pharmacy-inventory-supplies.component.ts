@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormPharmacyInventorySuppliesComponent } from './form-pharmacy-inventory-supplies/form-pharmacy-inventory-supplies.component';
 import { AuthService } from '../../../services/auth.service';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { ActionsInvSupComponent } from './actionsInv.component';
 import { FormPharmaInvSupPersonComponent } from './form-pharma-inv-sup-person/form-pharma-inv-sup-person.component';
+import { PharmacyStockService } from '../../../business-controller/pharmacy-stock.service';
 
 @Component({
   selector: 'ngx-pharmacy-inventory-supplies',
@@ -25,6 +26,8 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
   public entity;
   public user;
   public my_pharmacy_id;
+  public pharmacy_stock;
+  public pharmacy;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -92,21 +95,41 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private invS: PharmacyLotStockService,
     private authService: AuthService,
+    private toastService: NbToastrService,
+    private perPharmaS: PharmacyStockService,
   ) {
   }
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
+      if (x.length > 0) {
       this.my_pharmacy_id = x[0].id;
       this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product='+ false;
       this.title = 'INVENTARIO DE ' + x[0]['name'];
+    } else {
+      this.toastService.info('Usuario sin farmacias asociadas', 'Información');
+     }
+    });
+    await this.perPharmaS.GetCollection({ type:2 }).then(x => {
+      this.pharmacy_stock = x;
     });
   }
 
   RefreshData() {
     this.table.refresh();
   }
+
+  ChangePharmacy(pharmacy) {
+    if(pharmacy==0){
+    this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + true, 'pharmacy_lot_stock');
+
+    }else{
+    this.pharmacy = pharmacy;
+    this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + true, 'pharmacy_lot_stock');
+    }
+    // this.RefreshData();
+}
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyInventorySuppliesComponent, {

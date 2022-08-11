@@ -6,6 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ActionsAplicationsComponent } from './actions.component';
 import { NbDialogService } from '@nebular/theme';
 import { FormDrugApplicationComponent } from './form-drug-application/form-drug-application.component';
+import { FormDrugReturnedComponent } from '../../setting/assistance-stock/form-drug-returned/form-drug-returned.component';
 
 @Component({
   selector: 'ngx-drug-application',
@@ -26,7 +27,7 @@ export class DrugApplicationComponent implements OnInit {
   public entity;
   public dialog
   public nameForm: String;
-  public headerFields: any[] = ['DESCRIPCIÓN', 'CONTRAINDICACIONES', 'INDICACIONES', 'REFRIGERACIÓN', 'Días De Tratamiento', 'Cant. Solic ', 'Observaciones', 'PRODUCTO', 'DOSIS'];
+  public headerFields: any[] = ['DESCRIPCIÓN', 'CONTRAINDICACIONES', 'INDICACIONES', 'REFRIGERACIÓN', 'DIAS DE TRATAMIENTO', 'CANT. SOLICITADA', 'OBSERVACIONES', 'PRODUCTO', 'DOSIS'];
   public saveEntry: any = 0;
   public isSubmitted: boolean = false;
   public form: FormGroup;
@@ -48,7 +49,7 @@ export class DrugApplicationComponent implements OnInit {
             'data': row,
             'used': this.Aplication.bind(this),
             'damaged': this.Damaged.bind(this),
-            'returned': this.Returned.bind(this),
+            // 'returned': this.Returned.bind(this),
             'refresh': this.RefreshData.bind(this),
           };
         },
@@ -56,7 +57,7 @@ export class DrugApplicationComponent implements OnInit {
       },
       'pharmacy_request_shipping.pharmacy_lot_stock.billing_stock': {
         title: this.headerFields[7],
-        width: 'string',
+        type: 'string',
         valuePrepareFunction(value, row) {
           if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
             return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.name;
@@ -64,11 +65,10 @@ export class DrugApplicationComponent implements OnInit {
             return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.name;
           }
         },
-
       },
       'description': {
         title: this.headerFields[0],
-        width: 'string',
+        type: 'string',
         valuePrepareFunction(value, row) {
           if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
             return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.product_generic.description;
@@ -79,7 +79,7 @@ export class DrugApplicationComponent implements OnInit {
       },
       'administration_route': {
         title: this.headerFields[2],
-        width: 'string',
+        type: 'string',
         valuePrepareFunction(value, row) {
           if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
             return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.indications;
@@ -91,7 +91,7 @@ export class DrugApplicationComponent implements OnInit {
 
       'pharmacy_product_request.pharmacy_request_shipping': {
         title: this.headerFields[1],
-        width: 'string',
+        type: 'string',
         valuePrepareFunction(value, row) {
           if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
             return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.contraindications;
@@ -102,7 +102,7 @@ export class DrugApplicationComponent implements OnInit {
       },
       'pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock': {
         title: this.headerFields[3],
-        width: 'string',
+        type: 'string',
         valuePrepareFunction(value, row) {
           if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
             return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.refrigeration == 1 ? 'REFRIGERAR' : 'NO REFRIGERAR';
@@ -113,24 +113,12 @@ export class DrugApplicationComponent implements OnInit {
       },
       disponibles: {
         title: 'DISPONIBLES',
-        width: 'string',
+        type: 'string',
       },
       dañadas: {
         title: 'DAÑADAS',
-        width: 'string',
+        type: 'string',
       },
-      // treatment_days: {
-      //   title: this.headerFields[4],
-      //   width: 'string',
-      // },
-      // outpatient_formulation: {
-      //   title: this.headerFields[5],
-      //   width: 'string',
-      // },
-      // observation: {
-      //   title: this.headerFields[6],
-      //   width: 'string',
-      // },
     },
   };
 
@@ -177,20 +165,19 @@ export class DrugApplicationComponent implements OnInit {
     });
   }
 
-  Returned(data) {
-    console.log('dañado');
-    this.dialog = this.dialogFormService.open(FormDrugApplicationComponent, {
-      context: {
-        title: 'DEVOLVER ELEMENTO',
-        data: data,
-        status: 'EN DEVOLUCIÓN',
-        record_id: this.record_id,
-        type_record_id: this.type_record_id,
-        // close: this.close.bind(this),
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
+  // Returned(data) {
+  //   console.log('dañado');
+  //   this.dialog = this.dialogFormService.open(FormDrugReturnedComponent, {
+  //     context: {
+  //       title: 'DEVOLVER ELEMENTO',
+  //       data: data,
+  //       record_id: this.record_id,
+  //       type_record_id: this.type_record_id,
+  //       // close: this.close.bind(this),
+  //       saved: this.RefreshData.bind(this),
+  //     },
+  //   });
+  // }
 
   close() {
     this.dialog.close();

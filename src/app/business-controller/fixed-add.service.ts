@@ -96,7 +96,7 @@ export class FixedAddService {
 
 
   GetPharmacyByUserId(id, params = {}): Promise<FixedAdd[]> {
-    let servObj = new ServiceObject('fixed_add/pharmacies/' + id);
+    let servObj = new ServiceObject('fixed_assets/pharmacies/' + id);
 
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
@@ -104,7 +104,7 @@ export class FixedAddService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.fixed_add = <FixedAdd[]>servObj.data.fixed_add;
+        this.fixed_add = <FixedAdd[]>servObj.data.fixed_assets;
 
         return Promise.resolve(this.fixed_add);
       })

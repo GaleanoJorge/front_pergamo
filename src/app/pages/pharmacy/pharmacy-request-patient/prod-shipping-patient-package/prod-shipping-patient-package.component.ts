@@ -17,12 +17,12 @@ export class ProdShippingPatientPackageComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<any>();
   @Input() parentData: any = [];
+  @Input() title: any = [];
   public messageError = null;
 
   public InscriptionForm: FormGroup;
-  public title = 'MEDICAMENTO COMERCIAL: ';
   public subtitle = ' ';
-  public headerFields: any[] = ['PRODUCTO COMERCIAL', 'PRODUCTO GENERICO', 'CANTIDAD ACTUAL STOCK', 'CANTIDAD A ENVIAR', 'FECHA DE VENCIMIENTO'];
+  public headerFields: any[] = ['PRODUCTO COMERCIAL', 'PRODUCTO GENERICO', 'CANTIDAD ACTUAL STOCK', 'CANTIDAD A ENVIAR', 'LOTE', 'FECHA DE VENCIMIENTO'];
   public routes = [];
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
@@ -65,14 +65,22 @@ export class ProdShippingPatientPackageComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
+          if(row.billing_stock.product){
+            return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
+          } else {
+            return row.billing_stock.product_supplies_com.name + ' - ' + row.billing_stock.product_supplies_com.factory.name;
+          }
         }
       },
       product_generic: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.billing_stock.product.product_generic.description;
+          if(row.billing_stock.product){
+            return row.billing_stock.product.product_generic.description;
+          } else {
+            return row.billing_stock.product_supplies_com.product_supplies.description;
+          }
         },
       },
       actual_amount: {
@@ -98,8 +106,12 @@ export class ProdShippingPatientPackageComponent implements OnInit {
         },
         renderComponent: AmountShippingPatientComponent,
       },
-      expiration_date: {
+      lot: {
         title: this.headerFields[4],
+        type: 'string',
+      },
+      expiration_date: {
+        title: this.headerFields[5],
         type: 'string',
       }
     },
@@ -149,16 +161,20 @@ export class ProdShippingPatientPackageComponent implements OnInit {
   }
 
   onAmountChange(input, row) {
-    var i = 0;
-    var mientras = this.selectedOptions;
-    this.selectedOptions.forEach(element => {
-      if (element.pharmacy_lot_stock_id == row.id) {
-        mientras[i].amount = input.target.valueAsNumber;
-      }
-      i++
-    });
-    this.selectedOptions = mientras;
-    this.messageEvent.emit(this.selectedOptions);
+    if (row.request_amount > input.target.valueAsNumber) {
+      this.toastS.danger("", "La cantidad a entregar no debe superar la cantidad ordenada")
+    } else {
+      var i = 0;
+      var mientras = this.selectedOptions;
+      this.selectedOptions.forEach(element => {
+        if (element.pharmacy_lot_stock_id == row.id) {
+          mientras[i].amount = input.target.valueAsNumber;
+        }
+        i++
+      });
+      this.selectedOptions = mientras;
+      this.messageEvent.emit(this.selectedOptions);
+    }
   }
 
   ChangeManual(inscriptionstatus) {

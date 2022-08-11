@@ -147,6 +147,7 @@ import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.
 import { AssistanceStockComponent } from './assistance-stock/assistance-stock.component';
 import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
 import { TcCollectionComponent } from './tc-collection/tc-collection.component';
+import { FixedStockComponent } from './fixed-stock/fixed-stock.component';
 
 const routes: Routes = [{
   path: '',
@@ -752,6 +753,12 @@ const routes: Routes = [{
       path: 'fixed-area-campus',
       component: FixedAreaCampusComponent,
     },
+    {
+      path: 'fixed-stock',
+      component: FixedStockComponent,
+    }
+
+    ,
     {
       path: 'fixed-code',
       component: FixedCodeComponent,

@@ -4,6 +4,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 input[type=number] { -moz-appearance:textfield; }
+
 .actions {
   display: flex;
   justify-content: flex-end;
@@ -12,12 +13,21 @@ input[type=number] { -moz-appearance:textfield; }
 .div-send {
   padding-top: 30px;
 }
+
+.space {
+  margin-right: 5px;
+}
+
 .file-select {
   position: relative;
   display: inline-block;
   margin-right: 5px;
 }
 
+.g svg g g{
+  height: 90px;
+  width: 90px;
+}
 .file-select::before {
   background-color: #54bcc1;
   color: white;

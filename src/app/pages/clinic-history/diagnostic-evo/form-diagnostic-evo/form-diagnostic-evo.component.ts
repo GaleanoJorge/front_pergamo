@@ -34,7 +34,7 @@ export class FormDiagnosticEvoComponent implements OnInit {
     private toastService: NbToastrService,
     private formBuilder: FormBuilder,
     private chDiagnosisS: ChDiagnosisService,
-    private diagnosisS: DiagnosisService,
+    private DiagnosisS: DiagnosisService,
     private diagnosisTypeS: ChDiagnosisTypeService,
     private diagnosisClassS: ChDiagnosisClassService,
   ) {
@@ -50,9 +50,9 @@ export class FormDiagnosticEvoComponent implements OnInit {
       };
     };
 
-    this.diagnosisS.GetCollection().then(x => {
-      this.diagnosis = x;
-    });
+    // this.diagnosisS.GetCollection().then(x => {
+    //   this.diagnosis = x;
+    // });
     this.diagnosisTypeS.GetCollection().then(x => {
       this.diagnosis_type = x;
     });
@@ -66,6 +66,28 @@ export class FormDiagnosticEvoComponent implements OnInit {
       ch_diagnosis_class_id: [this.data.ch_diagnosis_class_id, Validators.compose([Validators.required])],
       diagnosis_observation: [this.data.diagnosis_observation,],
     });
+  }
+
+  public diagnosticConut = 0;
+
+  searchDiagnostic($event) {
+    this.diagnosticConut++;
+    if (this.diagnosticConut == 3) {
+      this.diagnosticConut = 0;
+      if ($event.length >= 3) {
+        this.DiagnosisS.GetCollection({
+          search: $event,
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      } else {
+        this.DiagnosisS.GetCollection({
+          search: '',
+        }).then(x => {
+          this.diagnosis = x;
+        });
+      }
+    }
   }
 
   async save() {
@@ -123,6 +145,8 @@ export class FormDiagnosticEvoComponent implements OnInit {
       this.diagnosis_id = localidentify.id;
     } else {
       this.diagnosis_id = null;
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
 }

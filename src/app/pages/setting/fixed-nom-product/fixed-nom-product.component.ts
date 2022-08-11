@@ -17,7 +17,7 @@ export class FixedNomProductComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Nombre del Activo';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Clasificación'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -49,6 +49,13 @@ export class FixedNomProductComponent implements OnInit {
       name: {
         title: this.headerFields[1],
         type: 'string',
+      },
+      fixed_clasification: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.fixed_code.name + " - " +value.name;
+      },
       },
     },
   };

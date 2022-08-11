@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="pharmacy_stock" class="form-text text-muted font-weight-bold">ENVIAR A BODEGA:</label>
+          <label for="pharmacy_stock" class="form-text text-muted font-weight-bold">ENVIAR A ALMACEN:</label>
           <nb-select [selected]="this.data.pharmacy_stock_id" formControlName="pharmacy_stock_id" id="pharmacy_stock_id"
             fullWidth
             status="{{ isSubmitted && form.controls.pharmacy_stock_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">

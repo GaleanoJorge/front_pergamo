@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
+import { reorderBegin } from '@syncfusion/ej2/grids';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 import { AuthService } from '../../../services/auth.service';
@@ -27,6 +28,8 @@ export class PharmacyIncomeComponent implements OnInit {
   public validator;
   public user;
   public my_pharmacy_id;
+  public most: boolean = false;
+  public entity;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -55,7 +58,11 @@ export class PharmacyIncomeComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
+          if(value){
           return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
+          }else{
+            return row.user_request_pad.firstname+" "+ row.user_request_pad.lastname;
+          }
         },
       },
       product_generic: {
@@ -63,7 +70,11 @@ export class PharmacyIncomeComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.product_generic_id == null) {
+            if(row.services_briefcase){
+              return row.services_briefcase.manual_price.name;
+            }else{
             return row.product_supplies.description;
+            }
           } else {
             return row.product_generic.description;
           }
@@ -73,6 +84,15 @@ export class PharmacyIncomeComponent implements OnInit {
       cantidad_enviada: {
         title: this.headerFields[3],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value == null) {
+            return row.request_amount;
+          } else {
+            return value;
+          }
+
+        },
+        
       },
     },
   };
@@ -89,7 +109,11 @@ export class PharmacyIncomeComponent implements OnInit {
     this.validator = this.parentData;
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
-      this.my_pharmacy_id = x[0].id;
+      if (x.length > 0) {
+        this.my_pharmacy_id = x[0].id;
+        this.entity = 'pharmacy_product_request?pharmacy_lot_stock =' + x[0].id + '& product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + x[0].id ;
+        this.title = 'ACEPTAR MEDICAMENTOS ENVIADOS A:  ' + x[0]['name'];
+      }
     });
   }
 
