@@ -299,13 +299,54 @@ import { ActionsInsumeComponent } from './insume-application/actions.component';
 import { FormLiquidControlDelComponent } from './liquid-control/form-liquid-control-del/form-liquid-control-del.component';
 import { LiquidControlComponent } from './liquid-control/liquid-control.component';
 import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
+import { ClinicHistoryPhysicTherapy } from './entry-clinic-history-physical-therapy/ch-physic-therapy.component';
 import { ConfirmDialogCHComponent } from './clinic-history-list/confirm-dialog/confirm-dialog.component';
 import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
-import { EntryFormValorationFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/entry-form-valoration-ft/entry-form-valoration-ft.component';
-import { ClinicHistoryPhysicTherapy } from './entry-clinic-history-physical-therapy/ch-physic-therapy.component';
+import { FormValorationFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/valoration-ft/form-valoration-ft/form-valoration-ft.component';
+import { TableValorationFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/valoration-ft/table-valoration-ft.component';
+import { FormValorationTherFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/valoration-ther-ft/form-valoration-ther-ft/form-valoration-ther-ft.component';
+import { TableValorationTherFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/valoration-ther-ft/table-valoration-ther-ft.component';
+import { FormPainFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/pain-ft/form-pain-ft/form-pain-ft.component';
+import { TablePainFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/pain-ft/table-pain-ft.component';
+import { FormSysIntegumentaryComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/sys-integumentary-ft/form-sys-integumentary-ft/form-sys-integumentary-ft.component';
+import { TableSysIntegumentaryComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/sys-integumentary-ft/table-sys-integumentary-ft.component';
+import { FormSysMusculoskeletalFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/sys-musculoskeletal-ft/form-sys-musculoskeletal-ft/form-sys-musculoskeletal-ft.component';
+import { TableSysMusculoskeletalFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/sys-musculoskeletal-ft/table-sys-musculoskeletal-ft.component';
+import { FormMuscularStrengthFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/muscular-strength-ft/form-muscular-strength-ft/form-muscular-strength-ft.component';
+import { TableMuscularStrengthFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/muscular-strength-ft/table-muscular-strength-ft.component';
+import { FormSensibilityFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/sensibility-ft/form-sensibility-ft/form-sensibility-ft.component';
+import { TableSensibilityFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/sensibility-ft/table-sensibility-ft.component';
+import { FormMuscularToneFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/muscular-tone-ft/form-muscular-tone-ft/form-muscular-tone-ft.component';
+import { TableMuscularToneFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/muscular-tone-ft/table-muscular-tone-ft.component';
+import { FormReflectionFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/reflection_f_t/form-reflection_f_t/form-reflection_f_t.component';
+import { TableReflectionComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/reflection_f_t/table-reflection_f_t.component';
+import { FormFlexibilityFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/flexibility-ft/form-flexibility-ft/form-flexibility-ft.component';
+import { TableFlexibilityFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/flexibility-ft/table-flexibility-ft.component';
+import { FormBalanceFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/balance-ft/form-balance-ft/form-balance-ft.component';
+import { TableBalanceFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/balance-ft/table-flexibility-ft.component';
+import { FormPositionFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/position-ft/form-position-ft/form-position-ft.component';
+import { TablePositionFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/position-ft/table-position-ft.component';
+import { FormMarchFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/march-ft/form-march-ft/form-march-ft.component';
+import { TableMarchFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/march-ft/table-march-ft.component';
+import { FormDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/diagnosis-ft/form-diagnosis-ft/form-diagnosis-ft.component';
+import { TableDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/diagnosis-ft/table-diagnosis-ft.component';
+import { TableTherGoalsFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/ther-goals-ft/table-ther-goals-ft.component';
+import { FormTherGoalsFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/ther-goals-ft/form-ther-goals-ft/form-ther-goals-ft.component';
+import { FormWeeklyFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/weekly-ft/form-weekly-ft/form-weekly-ft.component';
+import { TableWeeklyFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/weekly-ft/table-weekly-ft.component';
+
+
 import { FormSocialWorkComponent } from './ch-social-work/social-work-list/form-social-work/form-social-work.component';
 import { SocialWorkListComponent } from './ch-social-work/social-work-list/social-work-list.component';
 import { EntrySocialWorkComponent } from './ch-social-work/entry-social-work/entry-social-work.component';
+import { FormRNTherGoalsFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-ther-goals-ft/form-nr-ther-goals-ft/form-nr-ther-goals-ft.component';
+import { TableRNTherGoalsFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-ther-goals-ft/table-nr-ther-goals-ft.component';
+import { FormNRValorationFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-valoration-ft/form-nr-valoration-ft/form-nr-valoration-ft.component';
+import { TableNRValorationFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-valoration-ft/table-nr-valoration-ft.component';
+import { FormNRWeeklyFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-weekly-ft/form-nr-weekly-ft/form-nr-weekly-ft.component';
+import { TableNRWeeklyFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-weekly-ft/table-nr-weekly-ft.component';
+import { FormNRDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-diagnosis-ft/form-nr-diagnosis-ft/form-nr-diagnosis-ft.component';
+import { TableNRDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-diagnosis-ft/table-nr-diagnosis-ft.component';
 
 
 @NgModule({
@@ -393,6 +434,8 @@ import { EntrySocialWorkComponent } from './ch-social-work/entry-social-work/ent
     ActionsNursingComponent,
     ActionsNursing2Component,
 
+    //ht ocupacional
+
     ClinicHistoryOccupationalTherapy,
 
     EntryFormDailyActivitiesOTComponent,
@@ -424,8 +467,57 @@ import { EntrySocialWorkComponent } from './ch-social-work/entry-social-work/ent
     RNWeeklyOtComponent,
     ConfirmDialogCHComponent,
 
+    //ht fisica
 
-    EntryFormValorationFTComponent,
+    ClinicHistoryPhysicTherapy,
+    
+    FormValorationFTComponent,
+    TableValorationFTComponent,
+    FormValorationTherFTComponent,
+    TableValorationTherFTComponent,
+    FormPainFTComponent,
+    TablePainFTComponent,
+    FormSysIntegumentaryComponent,
+    TableSysIntegumentaryComponent,
+    FormSysMusculoskeletalFTComponent,
+    TableSysMusculoskeletalFTComponent,
+    FormMuscularStrengthFTComponent,
+    TableMuscularStrengthFTComponent,
+    FormSensibilityFTComponent,
+    TableSensibilityFTComponent,
+    FormMuscularToneFTComponent,
+    TableMuscularToneFTComponent,
+    FormReflectionFTComponent,
+    TableReflectionComponent,
+    FormFlexibilityFTComponent,
+    TableFlexibilityFTComponent,
+    FormBalanceFTComponent,
+    TableBalanceFTComponent,
+    FormPositionFTComponent,
+    TablePositionFTComponent,
+    FormMarchFTComponent,
+    TableMarchFTComponent,
+    FormDiagnosisFTComponent,
+    TableDiagnosisFTComponent,
+    FormTherGoalsFTComponent,
+    TableTherGoalsFTComponent,
+    FormWeeklyFTComponent,
+    TableWeeklyFTComponent,
+
+    //ht fisica nota
+
+    FormRNTherGoalsFTComponent,
+    TableRNTherGoalsFTComponent,
+    FormNRValorationFTComponent,
+    TableNRValorationFTComponent,
+    FormNRWeeklyFTComponent,
+    TableNRWeeklyFTComponent,
+    FormNRDiagnosisFTComponent,
+    TableNRDiagnosisFTComponent,
+
+    
+
+    ConfirmDialogCHComponent,
 
     ClinicHistoryOccupationalTherapy,
     ClinicHistoryPhysicTherapy,
