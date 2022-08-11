@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="row justify-content-center">   
+
+      <div class="col col-lg-12">
+        <label class="form-text text-muted font-weight-bold">DIAGNOSTICO CIF:</label>
+        <textarea id="diagnosis" nbInput fullWidth formControlName="diagnosis" current_illness rows="3"
+          cols="50"
+          status="{{ isSubmitted && form.controls.diagnosis.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+</form>

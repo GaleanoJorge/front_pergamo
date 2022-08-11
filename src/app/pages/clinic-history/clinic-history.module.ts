@@ -339,6 +339,14 @@ import { TableWeeklyFTComponent } from './entry-clinic-history-physical-therapy/
 import { FormSocialWorkComponent } from './ch-social-work/social-work-list/form-social-work/form-social-work.component';
 import { SocialWorkListComponent } from './ch-social-work/social-work-list/social-work-list.component';
 import { EntrySocialWorkComponent } from './ch-social-work/entry-social-work/entry-social-work.component';
+import { FormRNTherGoalsFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-ther-goals-ft/form-nr-ther-goals-ft/form-nr-ther-goals-ft.component';
+import { TableRNTherGoalsFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-ther-goals-ft/table-nr-ther-goals-ft.component';
+import { FormNRValorationFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-valoration-ft/form-nr-valoration-ft/form-nr-valoration-ft.component';
+import { TableNRValorationFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-valoration-ft/table-nr-valoration-ft.component';
+import { FormNRWeeklyFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-weekly-ft/form-nr-weekly-ft/form-nr-weekly-ft.component';
+import { TableNRWeeklyFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-weekly-ft/table-nr-weekly-ft.component';
+import { FormNRDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-diagnosis-ft/form-nr-diagnosis-ft/form-nr-diagnosis-ft.component';
+import { TableNRDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-diagnosis-ft/table-nr-diagnosis-ft.component';
 
 
 @NgModule({
@@ -496,7 +504,16 @@ import { EntrySocialWorkComponent } from './ch-social-work/entry-social-work/ent
     FormWeeklyFTComponent,
     TableWeeklyFTComponent,
 
- 
+    //ht fisica nota
+
+    FormRNTherGoalsFTComponent,
+    TableRNTherGoalsFTComponent,
+    FormNRValorationFTComponent,
+    TableNRValorationFTComponent,
+    FormNRWeeklyFTComponent,
+    TableNRWeeklyFTComponent,
+    FormNRDiagnosisFTComponent,
+    TableNRDiagnosisFTComponent,
 
     
 
