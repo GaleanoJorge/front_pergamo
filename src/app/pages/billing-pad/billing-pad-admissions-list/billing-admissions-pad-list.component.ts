@@ -25,7 +25,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'DOCUMENTO', 'EPS'];
+  public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'DOCUMENTO', 'EPS', 'TIPO IDENTIFICACIÓN', 'PROGRAMA', 'CONTRATO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -56,9 +56,12 @@ export class BillingAdmissionsPadListComponent implements OnInit {
         },
         renderComponent: ActionsAdmissionsListComponent,
       },
-      nombre_completo: {
-        title: this.headerFields[1],
+      identification_type: {
+        title: this.headerFields[4],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.patients.identification_type.name;
+        },
       },
       patients: {
         title: this.headerFields[2],
@@ -67,11 +70,29 @@ export class BillingAdmissionsPadListComponent implements OnInit {
           return row.patients.identification;
         },
       },
-      contract: {
+      nombre_completo: {
+        title: this.headerFields[1],
+        type: 'string',
+      },
+      company: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.contract.company.name;
+        },
+      },
+      contract: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.contract.name;
+        },
+      },
+      location: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.location[0].program.name;
         },
       },
     },

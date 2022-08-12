@@ -25,6 +25,7 @@ export class BillingAdmissionComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public user: any;
   public admission_id;
   public done: boolean = false;
   public create_new_billing: boolean = false;
@@ -113,6 +114,8 @@ export class BillingAdmissionComponent implements OnInit {
   ngOnInit(): void {
     this.admission_id = this.route.snapshot.params.id;
     this.AdmissionsS.GetCollection({ admissions_id: this.admission_id }).then(x => {
+      this.user = x[0]['patients'];
+      this.user['nombre_completo'] = x[0]['nombre_completo'];
       this.title = 'FACTURAS DE: ' + x[0]['nombre_completo'];
     });
   }
@@ -131,13 +134,24 @@ export class BillingAdmissionComponent implements OnInit {
   }
 
   ShowBillingAdmission(data) {
-    this.dialogFormService.open(FormShowBillingPadComponent, {
-      context: {
-        title: 'Servicios facturados',
-        data,
-        saved: this.RefreshData.bind(this),
-      },
-    });
+    // this.dialogFormService.open(FormShowBillingPadComponent, {
+    //   context: {
+    //     title: 'Servicios facturados',
+    //     data,
+    //     saved: this.RefreshData.bind(this),
+    //   },
+    // });
+    this.BillingPadS.GeneratePdf({
+      id: data.id,
+      billing_type: 'FACTURA',
+      billing_id: data.id,
+      show: true,
+      admission_id: this.admission_id}).then(x => {
+        this.toastrService.success('Archivo generado con exito', 'Exito');
+        window.open(x['url'], '_blank');
+      }).catch(x => {
+        this.toastrService.danger('Error al generar archivo: ' + x, 'Error');
+      });
   }
 
   DeleteConfirmBillingAdmission(data) {
