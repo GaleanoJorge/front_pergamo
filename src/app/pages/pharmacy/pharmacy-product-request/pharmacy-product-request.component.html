@@ -4,7 +4,7 @@
 </div>
 <ngx-base-list [messageError]="messageError">
   <div content>
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="pharmacy_product_request/?pagination=true&status=SOLICITADO"
+    <ngx-base-table *ngIf="entity" [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
       customData='pharmacy_product_request' [messageToltip]="messageToltip">
       <div actions>
         <div class="actions">

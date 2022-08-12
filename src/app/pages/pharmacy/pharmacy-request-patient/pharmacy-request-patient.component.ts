@@ -26,6 +26,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
   public data = [];
   public user;
   public my_pharmacy_id;
+  public entity;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -96,6 +97,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
+      this.entity = 'pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + x[0].id ;
       this.title = 'SOLICITUDES DE MEDICAMENTOS A:  ' + x[0]['name'];
 
     });
