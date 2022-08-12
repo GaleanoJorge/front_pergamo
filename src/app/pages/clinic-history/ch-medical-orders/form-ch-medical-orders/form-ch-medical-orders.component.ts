@@ -39,7 +39,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
     private FrequencyS: FrequencyService,
     private ProductS: ProcedureService,
     private ChMedicalOrdersS: ChMedicalOrdersService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.record_id = this.route.snapshot.params.id;
@@ -50,12 +50,12 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
     if (!this.data) {
       this.data = {
-        ambulatory_medical_order:'',
+        ambulatory_medical_order: '',
         procedure_id: '',
         amount: '',
         frequency_id: '',
         observations: '',
-        
+
       };
     };
 
@@ -72,7 +72,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
       amount: [this.data.amount],
       frequency_id: [this.data.frequency_id],
       observations: [this.data.observations],
-     
+
     });
   }
 
@@ -86,7 +86,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
         await this.ChMedicalOrdersS
           .Update({
             id: this.data.id,
-            ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value,
+            ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? 'Sí' : null,
             procedure_id: this.form.controls.procedure_id.value,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
@@ -107,7 +107,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
       } else {
         await this.ChMedicalOrdersS
           .Save({
-            ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value,
+            ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? 'Sí' : null,
             procedure_id: this.form.controls.procedure_id.value,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
@@ -118,7 +118,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
           .then((x) => {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
-            this.form.setValue({ ambulatory_medical_order: '', procedure_id: '', amount: '', hourly_frequency:'',observations:'' });
+            this.form.setValue({ ambulatory_medical_order: '', procedure_id: '', amount: '', hourly_frequency: '', observations: '' });
             if (this.saved) {
               this.saved();
             }
@@ -127,7 +127,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
-          this.messageEvent.emit(true);
+        this.messageEvent.emit(true);
       }
     }
   }
