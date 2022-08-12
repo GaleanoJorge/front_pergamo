@@ -50,6 +50,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public show: any;
   public signatureImage: string;
   public previousUrl: string;
+  public has_input;
 
 
   toggleLinearMode() {
