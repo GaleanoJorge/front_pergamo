@@ -796,10 +796,8 @@
               </div>
 
               <div class="col col-lg-4">
-                <label class="form-text text-muted font-weight-light   text-justify">¿La persona ha vivido
-                  recientemente algún acontecimiento que le ha afectado profundamente(enfermedad personal, pérdida de
-                  un
-                  familiar)?
+                <label class="form-text text-muted font-weight-light  text-justify">¿Ha perdido más del 5%
+                  de su peso en los últimos 6 meses?
                 </label>
               </div>
               <div class="col col-lg-2">
@@ -810,19 +808,7 @@
                   <nb-radio (valueChange)="calculate($event,5,5)" value="0/No">No</nb-radio>
                 </nb-radio-group>
               </div>
-              <div class="col col-lg-4">
-                <label class="form-text text-muted font-weight-light   text-justify">¿Ha perdido más del 5%
-                  de su peso en los últimos 6 meses?
-                </label>
-              </div>
-              <div class="col col-lg-2">
-                <nb-radio-group formControlName="qSixFragility_value" q_six_value id="q_six_value" class="d-flex text"
-                  name="q_six_value"
-                  status="{{ isSubmitted && form.controls.qSixFragility_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                  <nb-radio (valueChange)="calculate($event,6,5)" value="1/Si">Si</nb-radio>
-                  <nb-radio (valueChange)="calculate($event,6,5)" value="0/No">No</nb-radio>
-                </nb-radio-group><br />
-              </div>
+              
 
               <div class="container">
                 <div class="row justify-content-md-center">
