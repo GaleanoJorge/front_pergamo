@@ -1,5 +1,5 @@
-<ngx-base-list [messageError]="messageError" [routes]="routes">
-  <div content>
+<!-- <ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content> -->
     <nb-card>
       <nb-card-body>
         <nb-stepper #stepper [linear]="linearMode">
@@ -14,7 +14,7 @@
           </nb-step>
 
           <nb-step label="Signos Vitales">
-            <ngx-signs-evo [record_id]="record_id"></ngx-signs-evo>
+            <ngx-signs-evo (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-signs-evo>
           </nb-step>
 
           <nb-step label="Procedimientos de enfermeria">
@@ -26,7 +26,9 @@
           </nb-step>
 
           <nb-step label="Control de líquidos">
-            <ngx-liquid-control [record_id]="record_id" [type_record_id]="type_record_id"></ngx-liquid-control>
+            <div *ngIf="this.showLiq">
+              <ngx-liquid-control  [record_id]="record_id" [type_record_id]="type_record_id"></ngx-liquid-control>
+            </div>
           </nb-step>
 
           <nb-step [hidden]="true">
@@ -41,5 +43,5 @@
         </nb-stepper>
       </nb-card-body>
     </nb-card>
-  </div>
-</ngx-base-list>
+  <!-- </div>
+</ngx-base-list> -->
