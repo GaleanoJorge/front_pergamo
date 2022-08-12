@@ -23,7 +23,7 @@ export class FixedInventaryComponent implements OnInit {
   public data = [];
   public entity;
   public user;
-  public showdiv: boolean = null;
+  public showdiv: Number = null;
   public my_fixed_id;
 
 
@@ -119,10 +119,10 @@ export class FixedInventaryComponent implements OnInit {
   }
 
   reloadForm(tab) {
-    if (tab.tabTitle == 'DISPONIBLE') {
-      this.showdiv = false;
+    if (tab.tabTitle == 'ASIGNADOS') {
+      this.showdiv = 1;
     } else {
-      this.showdiv = true;
+      this.showdiv = 2;
     }
   }
 

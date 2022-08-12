@@ -1,29 +1,29 @@
 <ngx-base-list [messageError]="messageError">
-
-
   <div content>
-    <nb-tabset fullWidth>
+    <nb-tabset fullWidth (changeTab)="reloadForm($event)">
       <nb-tab tabTitle="MEDICAMENTOS EN STOCK">
-        <div *ngIf="entity">
-          <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
-            customData='pharmacy_lot_stock' [messageToltip]="messageToltip">
-            <div actions>
-              <div class="actions">
-                <nb-select (selectedChange)="ChangePharmacy($event)" placeholder="Filtrar por Farmacia" [(selected)]="pharmacy">
-                  <nb-option value="0">Seleccione una farmacia</nb-option>
-                  <nb-option *ngFor="let item of pharmacy_stock" [value]="item.id">{{item.name}}</nb-option>
-              </nb-select>
-                <!-- <button nbButton status="danger" ngxCheckPerms="create" (click)="NewDev()">DEVOLUCIONES</button> -->
-
-                <!--        <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacyInventory()">Crear</button>-->
+        <div *ngIf="this.showdiv == 1">
+          <div *ngIf="entity">
+            <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+              customData='pharmacy_lot_stock' [messageToltip]="messageToltip">
+              <div actions>
+                <div class="actions">
+                  <nb-select (selectedChange)="ChangePharmacy($event)" placeholder="Filtrar por Farmacia"
+                    [(selected)]="pharmacy">
+                    <nb-option value="0">Seleccione una farmacia</nb-option>
+                    <nb-option *ngFor="let item of pharmacy_stock" [value]="item.id">{{item.name}}</nb-option>
+                  </nb-select>
+                </div>
               </div>
-            </div>
-          </ngx-base-table>
+            </ngx-base-table>
+          </div>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="ACEPTAR MEDICAMENTOS">
-        <ngx-pharmacy-income [parentData]="true"></ngx-pharmacy-income>
+        <div *ngIf="this.showdiv == 2">
+          <ngx-pharmacy-income [parentData]="true"></ngx-pharmacy-income>
+        </div>
       </nb-tab>
     </nb-tabset>
   </div>

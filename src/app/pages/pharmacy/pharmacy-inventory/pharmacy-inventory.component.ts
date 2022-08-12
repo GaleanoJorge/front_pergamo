@@ -29,6 +29,7 @@ export class PharmacyInventoryComponent implements OnInit {
   public my_pharmacy_id;
   public pharmacy_stock;
   public pharmacy;
+  public showdiv: Number = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -100,8 +101,8 @@ export class PharmacyInventoryComponent implements OnInit {
   ) {
   }
 
- 
-  
+
+
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
@@ -110,9 +111,9 @@ export class PharmacyInventoryComponent implements OnInit {
         this.my_pharmacy_id = x[0].id;
         this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product=' + true;
         this.title = 'INVENTARIO DE ' + x[0]['name'];
-       } else {
+      } else {
         this.toastService.info('Usuario sin farmacias asociadas', 'Información');
-       }
+      }
     });
     await this.perPharmaS.GetCollection({ type:2 }).then(x => {
       this.pharmacy_stock = x;
@@ -124,16 +125,24 @@ export class PharmacyInventoryComponent implements OnInit {
     this.table.refresh();
   }
 
+  reloadForm(tab) {
+    if (tab.tabTitle == 'MEDICAMENTOS EN STOCK') {
+      this.showdiv = 1;
+    } else {
+      this.showdiv = 2;
+    }
+  }
+  
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
-    this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + true, 'pharmacy_lot_stock');
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + true, 'pharmacy_lot_stock');
 
     }else{
-    this.pharmacy = pharmacy;
-    this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + true, 'pharmacy_lot_stock');
+      this.pharmacy = pharmacy;
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + true, 'pharmacy_lot_stock');
     }
     // this.RefreshData();
-}
+  }
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyInventoryComponent, {

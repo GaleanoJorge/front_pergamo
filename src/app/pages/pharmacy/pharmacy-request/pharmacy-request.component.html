@@ -1,22 +1,20 @@
 <ngx-base-list [messageError]="messageError">
   <div content>
-    <nb-tabset *ngIf="this.my_pharmacy_id" fullWidth>
+
+    <nb-tabset *ngIf="this.my_pharmacy_id" fullWidth (changeTab)="reloadForm($event)">
       <nb-tab tabTitle="FARMACIA">
-        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-          entity="pharmacy_product_request/?pagination=true&is=true&status=SOLICITADO&request_pharmacy_stock_id={{this.my_pharmacy_id}}" customData='pharmacy_product_request'
-          [messageToltip]="messageToltip">
-          <div actions>
-            <div class="actions">
-              <!-- <button nbButton status="danger" ngxCheckPerms="create" (click)="NewDev()">DEVOLUCIONES</button> -->
-            </div>
-          </div>
-        </ngx-base-table>
+        <div *ngIf="this.showdiv == 1">
+          <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+            entity="pharmacy_product_request/?pagination=true&status=SOLICITADO&request_pharmacy_stock_id={{this.my_pharmacy_id}}"
+            customData='pharmacy_product_request' [messageToltip]="messageToltip">
+          </ngx-base-table>
+        </div>
       </nb-tab>
       <nb-tab tabTitle="PACIENTE">
-       <ngx-pharmacy-request-patient></ngx-pharmacy-request-patient>
+        <div *ngIf="this.showdiv==2">
+          <ngx-pharmacy-request-patient></ngx-pharmacy-request-patient>
+        </div>
       </nb-tab>
-
     </nb-tabset>
-
   </div>
 </ngx-base-list>

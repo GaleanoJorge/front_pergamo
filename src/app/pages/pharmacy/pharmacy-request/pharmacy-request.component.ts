@@ -26,6 +26,7 @@ export class PharmacyRequestComponent implements OnInit {
   public data = [];
   public user;
   public my_pharmacy_id;
+  public showdiv: Number = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -93,6 +94,14 @@ export class PharmacyRequestComponent implements OnInit {
 
   RefreshData() {
     this.table.refresh();
+  }
+
+  reloadForm(tab) {
+    if (tab.tabTitle == 'FARMACIA') {
+      this.showdiv = 1;
+    } else {
+      this.showdiv = 2;
+    }
   }
 
   receiveMessage($event) {
