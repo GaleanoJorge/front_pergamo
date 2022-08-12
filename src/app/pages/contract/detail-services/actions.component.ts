@@ -95,7 +95,7 @@ export class Actions4Component implements ViewCell {
 
   });
 
-  console.log(this.value);
+  // console.log(this.value);
 
   }
   update(){
