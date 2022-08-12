@@ -44,6 +44,8 @@ export class ClinicHistoryListComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
+  public has_input: any = null; // ya existe registro de ingreso
+  public input_done: boolean = false; // ya se registró algo en el ingreso
   public currentRole: any;
   public show: any;
   public is_failed: any = true;
@@ -102,6 +104,10 @@ export class ClinicHistoryListComponent implements OnInit {
     await this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
+      if (this.has_input ==  true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
+        this.input_done = true;
+      }
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
@@ -112,17 +118,21 @@ export class ClinicHistoryListComponent implements OnInit {
   }
 
   close() {
-    this.deleteConfirmService.open(ConfirmDialogCHComponent, {
-      context: {
-        signature: true, 
-        title: 'Finalizar registro.',
-        delete: this.finish.bind(this),
-        showImage: this.showImage.bind(this),
-        changeImage: this.changeImage.bind(this),
-        // save: this.saveSignature.bind(this),
-        textConfirm:'Finalizar registro'
-      },
-    });
+    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
+      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
+        context: {
+          signature: true, 
+          title: 'Finalizar registro.',
+          delete: this.finish.bind(this),
+          showImage: this.showImage.bind(this),
+          changeImage: this.changeImage.bind(this),
+          // save: this.saveSignature.bind(this),
+          textConfirm:'Finalizar registro'
+        },
+      });
+    } else {
+      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
+    }
   }
 
 
@@ -303,5 +313,10 @@ export class ClinicHistoryListComponent implements OnInit {
     }).catch(x => {
       throw x;
     });
+  }
+
+  // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
+  inputMessage($event) {
+    this.input_done = true;
   }
 }

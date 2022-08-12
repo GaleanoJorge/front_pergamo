@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ChReasonConsultationService } from '../../../../business-controller/ch-reason-consultation.service';
@@ -25,6 +25,8 @@ export class FormReasonConsultationComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   languages: string[] = languages;
   currentLanguage: string = defaultLanguage;
@@ -42,8 +44,8 @@ export class FormReasonConsultationComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public ch_external_cause: any[];
-  public changes=false;
-  public changes1=false;
+  public changes = false;
+  public changes1 = false;
 
 
   constructor(
@@ -54,7 +56,7 @@ export class FormReasonConsultationComponent implements OnInit {
     private speechRecognizer: SpeechRecognizerService,
     private actionContext: ActionContext,
 
-    
+
   ) {
   }
 
@@ -66,11 +68,21 @@ export class FormReasonConsultationComponent implements OnInit {
         ch_external_cause_id: '',
       };
     }
-    
+
     this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
       this.ch_external_cause = x;
     });
 
+    if (this.has_input) {
+      this.reasonConsultationS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation,],
+          current_illness: [this.data[0] ? this.data[0].current_illness : this.data.current_illness,],
+          ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id,],
+        });
+      });
+    }
 
 
     this.form = this.formBuilder.group({
@@ -113,6 +125,7 @@ export class FormReasonConsultationComponent implements OnInit {
 
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
           if (this.saved) {
             this.saved();
           }
@@ -129,6 +142,7 @@ export class FormReasonConsultationComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
           if (this.saved) {
             this.saved();
           }
@@ -146,23 +160,23 @@ export class FormReasonConsultationComponent implements OnInit {
 
     }
   }
-  receiveMessage($event) {   
-    
-    if($event.isactive==false){
-      this.changes=false;
-      this.changes1=false;
+  receiveMessage($event) {
+
+    if ($event.isactive == false) {
+      this.changes = false;
+      this.changes1 = false;
     }
-    if($event.entity){
-    this.form.get($event.entity).setValue(this.form.get($event.entity).value+' '+$event.text);
+    if ($event.entity) {
+      this.form.get($event.entity).setValue(this.form.get($event.entity).value + ' ' + $event.text);
     }
   }
 
   changebuttom() {
-    this.changes=true;
+    this.changes = true;
   }
 
   changebuttom1() {
-    this.changes1=true;
+    this.changes1 = true;
   }
 
 

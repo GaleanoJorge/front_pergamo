@@ -28,6 +28,7 @@ export class BillingPadProcedureComponent implements OnInit {
   public messageError: string = null;
   public title: string = null;
   public subtitle: string = 'Gestión';
+  public patient_name: string = '';
   public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
@@ -47,6 +48,8 @@ export class BillingPadProcedureComponent implements OnInit {
   public saved: any = null;
   public billing: any = null;
   public total_pre_billing: number = null;
+  public total_billing: number = null;
+  public count_billing: number = 0;
   public admission_id;
   public billing_id;
   public user_id;
@@ -56,7 +59,7 @@ export class BillingPadProcedureComponent implements OnInit {
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-
+  // @ViewChild('prebilling', { read: TemplateRef }) prebilling: TemplateRef<HTMLElement>;
 
   public settings1 = {
     pager: {
@@ -98,6 +101,7 @@ export class BillingPadProcedureComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
+          this.total_billing += row.services_briefcase.value;
           return this.currency.transform(row.services_briefcase.value);
         },
       },
@@ -106,7 +110,7 @@ export class BillingPadProcedureComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan != null) {
-            if (row.assigned_management_plan.execution_date != "0000-00-00") {
+            if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
               return this.datePipe.transform3(row.assigned_management_plan.execution_date);
             } else {
               return 'Sin ejecutar';
@@ -157,7 +161,7 @@ export class BillingPadProcedureComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan != null) {
-            if (row.assigned_management_plan.execution_date != "0000-00-00") {
+            if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
               return this.datePipe.transform3(row.assigned_management_plan.execution_date);
             } else {
               return 'Sin ejecutar';
@@ -165,7 +169,7 @@ export class BillingPadProcedureComponent implements OnInit {
           } else {
             return '';
           }
-          
+
         }
       },
     },
@@ -175,7 +179,7 @@ export class BillingPadProcedureComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private currency: CurrencyPipe,
+    public currency: CurrencyPipe,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastS: NbToastrService,
@@ -196,13 +200,13 @@ export class BillingPadProcedureComponent implements OnInit {
           route: './',
         },
       ];
-      this.title = 'PROCEDIMIENTOS';
+      this.title = 'PROCEDIMIENTOS PRESTADOS A';
       this.settings = this.settings1
       this.admission_id = this.route.snapshot.params.admission_id;
       this.billing_id = this.route.snapshot.params.billing_id;
       this.entity = 'billing_pad/getAuthorizedProcedures/' + this.admission_id + '?billing_id=' + this.billing_id;
     } else {
-      this.title = 'PREFACTURA';
+      this.title = 'PREFACTURA DE';
       this.settings = this.settings2
       this.admission_id = this.adm;
       this.billing_id = this.bill;
@@ -214,6 +218,12 @@ export class BillingPadProcedureComponent implements OnInit {
     this.BillingPadS.GetCollection({ id: this.billing_id }).then(x => {
       if (x != null) {
         this.billing = x[0];
+        this.patient_name =
+          (x[0]['admissions']['patients']['firstname'] != null ? ' ' + x[0]['admissions']['patients']['firstname'] : '') +
+          (x[0]['admissions']['patients']['middlefirstname'] != null ? ' ' + x[0]['admissions']['patients']['middlefirstname'] : '') +
+          (x[0]['admissions']['patients']['lastname'] != null ? ' ' + x[0]['admissions']['patients']['lastname'] : '') +
+          (x[0]['admissions']['patients']['middlelastname'] != null ? ' ' + x[0]['admissions']['patients']['middlelastname'] : '')
+          ;
         this.show_info = true;
       }
     });
@@ -236,14 +246,12 @@ export class BillingPadProcedureComponent implements OnInit {
     // });
   }
 
-  ShowPreBilling(data) {
-    this.dialogFormService.open(BillingPadProcedureComponent, {
-      context: {
-        adm: this.admission_id,
-        bill: this.billing_id,
-        saved: this.RefreshData.bind(this),
-      },
-    });
+  ShowPreBilling(dialog: TemplateRef<any>) {
+    this.dialog = this.dialogFormService.open(dialog);
+  }
+
+  closeDialog() {
+    this.dialog.close();
   }
 
   ShowPackageContent(data, route) {
@@ -257,11 +265,13 @@ export class BillingPadProcedureComponent implements OnInit {
       },
     });
   }
-  
+
   eventSelections(event, row) {
     if (event) {
       this.selectedOptions.push(row);
+      this.count_billing += row.services_briefcase.value;
     } else {
+      this.count_billing -= row.services_briefcase.value;
       let i = this.selectedOptions.indexOf(row);
       i !== -1 && this.selectedOptions.splice(i, 1);
     }

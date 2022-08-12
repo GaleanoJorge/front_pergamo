@@ -4,17 +4,18 @@
       <nb-card-body>
         <nb-stepper #stepper [linear]="linearMode">
           <nb-step [stepControl]="nameForm" label="Valoración">
-
-            <ngx-form-reason-consultation *ngIf="chreasonconsultation" [record_id]="record_id"
-              [data]="chreasonconsultation"></ngx-form-reason-consultation>
+            <!-- yay -->
+            <ngx-form-reason-consultation [has_input]="has_input" (messageEvent)="receiveMessage($event)" *ngIf="chreasonconsultation"
+              [record_id]="record_id" [data]="chreasonconsultation"></ngx-form-reason-consultation>
 
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Rx Sistemas">
-            
+
             <div class="row">
               <div class="col-md-12">
-                <ngx-system-exam [record_id]="record_id"></ngx-system-exam> 
+                <!-- yay -->
+                <ngx-system-exam [has_input]="has_input" (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-system-exam>
               </div>
             </div>
 
@@ -24,21 +25,25 @@
 
             <div class="row">
               <div class="col-md-12">
-               <ngx-nursing-physical-exam [record_id]="record_id"  [type_record_id]="1"></ngx-nursing-physical-exam> 
+                <!-- yay -->
+                <ngx-nursing-physical-exam [has_input]="has_input" (messageEvent)="receiveMessage($event)" [record_id]="record_id"
+                  [type_record_id]="1"></ngx-nursing-physical-exam>
               </div>
             </div>
 
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
-            <ngx-signs [record_id]="record_id"></ngx-signs> 
+            <!-- yay -->
+            <ngx-signs [has_input]="has_input" (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-signs>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Diagnóstico">
-            
+
             <div class="row">
               <div class="col-md-12">
-                <ngx-diagnostic [record_id]="record_id"></ngx-diagnostic> 
+                <!-- yay -->
+                <ngx-diagnostic [has_input]="has_input" (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-diagnostic>
               </div>
             </div>
             <!--   <ngx-form-diagnostic></ngx-form-diagnostic>
@@ -48,42 +53,50 @@
 
           </nb-step>
           <nb-step [stepControl]="nameForm" label="Ostomías">
-            
+
             <div class="row">
               <div class="col-md-12">
-                <ngx-ch-ostomies [type_record]="1" [record_id]="record_id"></ngx-ch-ostomies> 
+                <!-- yay -->
+                <ngx-ch-ostomies [has_input]="has_input" (messageEvent)="receiveMessage($event)" [type_record]="1" [record_id]="record_id">
+                </ngx-ch-ostomies>
               </div>
             </div>
-            
+
 
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="AP">
             <div class="row">
               <div class="col-md-12">
-                <ngx-ch-ap [type_record]="1" [record_id]="record_id"></ngx-ch-ap>
-
+                <!-- yay -->
+                <ngx-ch-ap [has_input]="has_input" (messageEvent)="receiveMessage($event)" [type_record]="1" [record_id]="record_id">
+                </ngx-ch-ap>
+                
               </div>
-            </div> 
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Recomendaciones">
             <div class="row">
               <div class="col-md-12">
-                <ngx-recommendations-evo [type_record]="1" [record_id]="record_id"></ngx-recommendations-evo>
+                <!-- yay -->
+                <ngx-recommendations-evo [has_input]="has_input" (messageEvent)="receiveMessage($event)" [type_record]="1"
+                [record_id]="record_id"></ngx-recommendations-evo>
 
               </div>
-            </div> 
+            </div>
           </nb-step>
-          
+
 
           <nb-step [stepControl]="nameForm" label="Dietas">
-             <div class="row">
+            <div class="row">
               <div class="col-md-12">
-                <ngx-diets-evo [type_record]="1"  [record_id]="record_id"></ngx-diets-evo>
+                <!-- yay -->
+                <ngx-diets-evo [has_input]="has_input" (messageEvent)="receiveMessage($event)" [type_record]="1" [record_id]="record_id">
+                </ngx-diets-evo>
 
               </div>
-            </div> 
+            </div>
           </nb-step>
 
           <nb-step [hidden]="true">

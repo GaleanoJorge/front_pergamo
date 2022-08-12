@@ -1,0 +1,71 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">Tipo:</label>   
+        <nb-select multiple placeholder="Seleccion Multiple" status="success" formControlName="type" id="type" type fullWidth>
+              <nb-option value="Quemante">Quemante</nb-option>
+              <nb-option value="Punzante">Punzante</nb-option>
+              <nb-option value="Localizado">Localizado</nb-option>
+              <nb-option value="Opresivo">Opresivo</nb-option>
+            </nb-select>
+      </div>  
+
+        <div class="col col-lg-6">
+          <label class="form-text text-muted font-weight-bold">IRRADIADO:</label>
+          <textarea id="irradiated" nbInput fullWidth formControlName="irradiated" current_illness rows="1"
+            cols="50"
+            status="{{ isSubmitted && form.controls.irradiated.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+        </div>
+  
+        <div class="col col-lg-6">
+          <label class="form-text text-muted font-weight-bold">LOCALIZADO:</label>
+          <textarea id="located" nbInput fullWidth formControlName="located" current_illness rows="1"
+            cols="50"
+            status="{{ isSubmitted && form.controls.located.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+        </div>
+  
+  
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">INTENSIDAD:</label>
+        <nb-select [selected]="this.data.intensity" formControlName="intensity" id="intensity" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.intensity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">1</nb-option>
+          <nb-option value="2">2</nb-option>
+          <nb-option value="3">3</nb-option>
+          <nb-option value="4">4</nb-option>
+          <nb-option value="5">5</nb-option>
+          <nb-option value="6">6</nb-option>
+          <nb-option value="7">7</nb-option>
+          <nb-option value="8">8</nb-option>
+          <nb-option value="9">9</nb-option>
+          <nb-option value="10">10</nb-option>
+        </nb-select>
+      </div>
+
+    </div>
+
+    <div class="row justify-content-center">
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">FACTORES QUE EXACERVAN:</label>
+        <textarea id="exaccervating" nbInput fullWidth formControlName="exaccervating" current_illness rows="1"
+          cols="50"
+          status="{{ isSubmitted && form.controls.exaccervating.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">FACTORES QUE DISMINUYEN :</label>
+        <textarea id="decreated" nbInput fullWidth formControlName="decreated" current_illness rows="1"
+          cols="50"
+          status="{{ isSubmitted && form.controls.decreated.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+</form>

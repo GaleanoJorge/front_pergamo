@@ -1,5 +1,8 @@
-<ngx-form-nursing-physical-exam (messageEvent)="receiveMessage($event)" [record_id]="record_id" [type_record_id]="type_record_id" [enfermery]="this.enfermery">
-</ngx-form-nursing-physical-exam>
+<div *ngIf="has_input == false">
+  <ngx-form-nursing-physical-exam (messageEvent)="receiveMessage($event)" [record_id]="record_id"
+    [type_record_id]="type_record_id" [enfermery]="this.enfermery">
+  </ngx-form-nursing-physical-exam>
+</div>
 <div class="container">
   <div class="row justify-content-md-center">
     <div class="col col-lg-10">
@@ -10,7 +13,7 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table pager="false" [title]="title" customData="ch_physical_exam" [settings]="settings"
-      entity="ch_physical_exam/by_record/{{record_id}}/{{type_record_id}}/?pagination=false">
+      entity="ch_physical_exam/by_record/{{record_id}}/{{type_record_id}}/?pagination=false&has_input={{has_input}}">
       <div actions>
         <div class="actions">
         </div>
