@@ -304,7 +304,11 @@ export class BillingPadProcedureComponent implements OnInit {
 
 
   generatePdf() {
-    this.BillingPadS.GeneratePdf({id: this.billing_id, billing_type: 'PREFACTURA'}).then(x => {
+    this.BillingPadS.GeneratePdf({
+      id: this.billing_id,
+      billing_type: 'PREFACTURA',
+      selected_procedures: JSON.stringify(this.selectedOptions)
+    }).then(x => {
       this.toastS.success('Archivo generado con exito', 'Exito');
       window.open(x['url'], '_blank');
     }).catch(x => {
