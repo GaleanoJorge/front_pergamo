@@ -13,7 +13,7 @@ export class ConfirmDialogCHComponent implements OnInit {
   @Input() body: string = 'Este proceso es irreversible, ¿estas seguro?';
   @Input() name: string | null = null;
   @Input() delete: any = null;
-  @Input() changeImage: any = null;
+  @Input() changeImage;
   @Input() data: any = null;
   @Input() textConfirm = 'Eliminar';
   @Input() signature: boolean = false;
@@ -38,28 +38,28 @@ export class ConfirmDialogCHComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  async changeImage2(files, option) {
-    if (!files.length) return false;
+  // async changeImage2(files, option) {
+  //   if (!files.length) return false;
 
-    const file = await this.toBase64(files[0]);
+  //   const file = await this.toBase64(files[0]);
 
-    switch (option) {
-      case 1:
-        this.firm_file= files[0];
-        break;
-    }
-  }
+  //   switch (option) {
+  //     case 1:
+  //       this.firm_file= files[0];
+  //       break;
+  //   }
+  // }
 
-  toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  })
+  // toBase64 = file => new Promise((resolve, reject) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => resolve(reader.result);
+  //   reader.onerror = error => reject(error);
+  // })
 
 
   DeleteAction() {
-    if(this.firm_file){
+   
       this.close();
     this.loading = true;
     this.delete(this.firm_file).then((message) => {
@@ -69,8 +69,6 @@ export class ConfirmDialogCHComponent implements OnInit {
       this.loading = false;
       // this.toastrService.danger('', message);
     });
-  }else{
-    this.toastrService.danger('', "Debe agregar la firma como adjunto");
-  }
+  
   }
 }

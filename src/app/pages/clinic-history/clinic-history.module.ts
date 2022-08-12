@@ -306,6 +306,7 @@ import { ClinicHistoryPhysicTherapy } from './entry-clinic-history-physical-ther
 import { FormSocialWorkComponent } from './ch-social-work/social-work-list/form-social-work/form-social-work.component';
 import { SocialWorkListComponent } from './ch-social-work/social-work-list/social-work-list.component';
 import { EntrySocialWorkComponent } from './ch-social-work/entry-social-work/entry-social-work.component';
+import { SignaturePadModule } from '@ng-plus/signature-pad';
 
 
 @NgModule({
@@ -317,6 +318,7 @@ import { EntrySocialWorkComponent } from './ch-social-work/entry-social-work/ent
     NbTabsetModule,
     NbRouteTabsetModule,
     NbStepperModule,
+    SignaturePadModule,
     NbCardModule,
     NbButtonModule,
     NbListModule,

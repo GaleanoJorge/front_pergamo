@@ -50,6 +50,8 @@ export class ClinicHistoryListComponent implements OnInit {
   public signatureImage: string;
   public firm_file: string;
   public previousUrl: string;
+  public int;
+
 
 
   toggleLinearMode() {
@@ -123,9 +125,6 @@ export class ClinicHistoryListComponent implements OnInit {
     });
   }
 
-  showImage(data) {
-    this.signatureImage = data;
-  }
 
   async saveSignature() {
     var formData = new FormData();
@@ -142,7 +141,7 @@ export class ClinicHistoryListComponent implements OnInit {
     formData.append('role', this.currentRole);
     formData.append('user_id', this.own_user.id);
     formData.append('is_failed', this.is_failed);
-    formData.append('firm_file', firm);
+    formData.append('firm_file', this.signatureImage);
 
     try {
 
@@ -274,7 +273,18 @@ export class ClinicHistoryListComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
-  })
+  });
+
+
+  showImage(data) {
+    this.int++;
+    if (this.int == 1) {
+      this.signatureImage = null;
+    } else {
+      this.signatureImage = data;
+
+    }
+  }
 
   DeleteConfirmAdmissions(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {

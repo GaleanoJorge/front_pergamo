@@ -7,10 +7,10 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { Location } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { ChEValorationFTService } from '../../../business-controller/ch_e_valoration_f_t.service';
+import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -40,6 +40,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
 
 
   public record_id;
+  public int;
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
@@ -105,12 +106,12 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
   }
 
   close() {
-    this.deleteConfirmService.open(ConfirmDialogComponent, {
+    this.deleteConfirmService.open(ConfirmDialogCHComponent, {
       context: {
-        //signature: true, 
+        signature: true, 
         title: 'Finalizar registro.',
         delete: this.finish.bind(this),
-        //showImage: this.showImage.bind(this),
+        showImage: this.showImage.bind(this),
         // save: this.saveSignature.bind(this),
         textConfirm:'Finalizar registro'
       },
@@ -118,33 +119,49 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
   }
 
   showImage(data) {
-    this.signatureImage = data;
-  }
+    this.int++;
+    if (this.int == 1) {
+      this.signatureImage = null;
+    } else {
+      this.signatureImage = data;
 
+    }
+  }
   // async saveSignature() {
   //   var formData = new FormData();
   //   formData.append('firm_file', this.signatureImage);
   //   console.log(this.signatureImage);
   // }
 
-  async finish() {
+  async finish(firm) {
 
-   await this.chRecord.Update({
-      id: this.record_id,
-      status: 'CERRADO',
-      user: this.user,
-      role: this.currentRole,
-      user_id: this.own_user.id,
-    }).then(x => {
-      this.toastService.success('', x.message);
-      this.location.back();
+    var formData = new FormData();
+    formData.append('id', this.record_id,);
+    formData.append('status', 'CERRADO');
+    formData.append('user', this.user);
+    formData.append('role', this.currentRole);
+    formData.append('user_id', this.own_user.id);
+    formData.append('firm_file', this.signatureImage);
+
+    try {
+
+      let response;
+    
+        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        this.location.back();
+      this.toastService.success('', response.message);
+      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
+      this.messageError = null;
       if (this.saved) {
         this.saved();
       }
-    }).catch(x => {
+    } catch (response) {
+      this.messageError = response;
       this.isSubmitted = false;
       this.loading = false;
-    });
+      throw new Error(response);
+    }
+  
   }
 
   RefreshData() {

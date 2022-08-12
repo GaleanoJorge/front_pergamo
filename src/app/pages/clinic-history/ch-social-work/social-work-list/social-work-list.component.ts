@@ -9,8 +9,8 @@ import { AdmissionsService } from '../../../../business-controller/admissions.se
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { AuthService } from '../../../../services/auth.service';
-import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
 import { FormSocialWorkComponent } from './form-social-work/form-social-work.component';
+import { ConfirmDialogCHComponent } from '../../clinic-history-list/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -41,6 +41,7 @@ export class SocialWorkListComponent implements OnInit {
   public bed;
   public bed_id;
   public pavilion;
+  public int;
   public record_id;
   public isSubmitted: boolean = false;
   public saved: any = null;
@@ -104,7 +105,7 @@ export class SocialWorkListComponent implements OnInit {
   }
 
   close() {
-    this.deleteConfirmService.open(ConfirmDialogComponent, {
+    this.deleteConfirmService.open(ConfirmDialogCHComponent, {
       context: {
         signature: true, 
         title: 'Finalizar registro.',
@@ -117,7 +118,13 @@ export class SocialWorkListComponent implements OnInit {
   }
 
   showImage(data) {
-    this.signatureImage = data;
+    this.int++;
+    if (this.int == 1) {
+      this.signatureImage = null;
+    } else {
+      this.signatureImage = data;
+
+    }
   }
 
   async saveSignature() {
@@ -126,25 +133,37 @@ export class SocialWorkListComponent implements OnInit {
     console.log(this.signatureImage);
   }
 
-  async finish() {
+  async finish(firm) {
 
-    await this.chRecord.Update({
-      id: this.record_id,
-      status: 'CERRADO',
-      user: this.user,
-      role: this.currentRole,
-      user_id: this.own_user.id,
-    }).then(x => {
-      this.toastService.success('', x.message);
-      this.location.back();
+    var formData = new FormData();
+    formData.append('id', this.record_id,);
+    formData.append('status', 'CERRADO');
+    formData.append('user', this.user);
+    formData.append('role', this.currentRole);
+    formData.append('user_id', this.own_user.id);
+    formData.append('firm_file', this.signatureImage);
+
+    try {
+
+      let response;
+    
+        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        this.location.back();
+      this.toastService.success('', response.message);
+      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
+      this.messageError = null;
       if (this.saved) {
         this.saved();
       }
-    }).catch(x => {
+    } catch (response) {
+      this.messageError = response;
       this.isSubmitted = false;
       this.loading = false;
-    });
+      throw new Error(response);
+    }
+  
   }
+
 
   RefreshData() {
 
