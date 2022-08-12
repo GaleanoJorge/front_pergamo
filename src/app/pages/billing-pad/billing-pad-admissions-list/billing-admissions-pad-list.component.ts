@@ -147,7 +147,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
       this.route = 1;
       this.entity = 'billing_pad/getEnabledAdmissions/0';
       this.BriefcaseS.GetCollection({id: this.briefcase_id}).then(x => {
-        this.title = 'ADMISIONES DEL PORTAFOLIO ' + x[0].name.toUpperCase();
+        this.title = this.briefcase_id == 0 ? 'PACIENTES' : 'ADMISIONES DEL PORTAFOLIO ' + x[0].name.toUpperCase();
       });
     }
   }

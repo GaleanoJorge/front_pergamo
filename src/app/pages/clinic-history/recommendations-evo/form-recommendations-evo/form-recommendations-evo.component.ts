@@ -82,6 +82,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
           this.form.setValue({ patient_family_education:'', recommendations_evo_id: '', description:'', });
           if (this.saved) {
             this.saved();

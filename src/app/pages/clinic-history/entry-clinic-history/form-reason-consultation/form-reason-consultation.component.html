@@ -6,12 +6,12 @@
           CONSULTA:</label>
         <div class="row" style="align-items: center;">
           <div class="col-md-11">
-            <textarea id="reason_consultation" nbInput fullWidth formControlName="reason_consultation"
+            <textarea id="reason_consultation" nbInput disabled="this.has_input" fullWidth formControlName="reason_consultation"
               reason_consultation onpaste="return false" minlength="20"  rows="4" cols="50"
               status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
           <div class="col-md-1">
-            <button *ngIf="!changes1" type="button" nbButton ghost (click)="changebuttom1()" >
+            <button *ngIf="!changes1" type="button" nbButton [disabled]="this.has_input" ghost (click)="changebuttom1()" >
               <nb-icon icon="mic-outline"></nb-icon>
             </button>
             <ngx-web-speach *ngIf="changes1" id="reason_consultation" name="reason_consultation"  (messageEvent)="receiveMessage($event)" entity="reason_consultation" isactive="true"></ngx-web-speach>
@@ -25,11 +25,11 @@
         <div class="row" style="align-items: center;">
           <div class="col-md-11">
             <textarea id="current_illness" nbInput fullWidth formControlName="current_illness" current_illness
-              onpaste="return false" rows="4" cols="50"
+              onpaste="return false" rows="4" cols="50" disabled="this.has_input"
               status="{{ isSubmitted && form.controls.current_illness.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
           <div class="col-md-1" >
-            <button *ngIf="!changes" type="button" nbButton ghost (click)="changebuttom()" >
+            <button *ngIf="!changes" type="button" nbButton ghost [disabled]="this.has_input" (click)="changebuttom()" >
               <nb-icon icon="mic-outline"></nb-icon>
             </button>
             <ngx-web-speach *ngIf="changes" id="current_illness" name="current_illness" (messageEvent)="receiveMessage($event)" entity="current_illness" isactive="true"></ngx-web-speach>
@@ -41,7 +41,7 @@
         <label for="ch_external_cause" class="form-text text-muted font-weight-bold">CAUSA
           EXTERNA:</label>
         <nb-select [selected]="this.data.ch_external_cause_id" formControlName="ch_external_cause_id"
-          id="ch_external_cause_id" fullWidth
+          id="ch_external_cause_id" fullWidth [disabled]="this.has_input"
           status="{{ isSubmitted && form.controls.ch_external_cause_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option selected="{{ item.id == data.ch_external_cause_id }}" *ngFor="let item of ch_external_cause"
@@ -50,7 +50,7 @@
         </nb-select>
       </div>
 
-      <div class="div-send">
+      <div class="div-send" *ngIf="!has_input">
         <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
       </div>
     </div>

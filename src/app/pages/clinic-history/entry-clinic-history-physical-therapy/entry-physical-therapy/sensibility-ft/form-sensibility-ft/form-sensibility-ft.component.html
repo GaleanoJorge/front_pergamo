@@ -1,0 +1,52 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="row justify-content-center"> 
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">PROFUNDA:</label>
+        <nb-select [selected]="this.data.deep" formControlName="deep" id="deep" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.deep.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Conservado">Conservado</nb-option>
+          <nb-option value="Alterado">Alterado</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">SUPREFICIAL:</label>
+        <nb-select [selected]="this.data.superficial" formControlName="superficial" id="superficial" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.superficial.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Conservado">Conservado</nb-option>
+          <nb-option value="Alterado">Alterado</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">CORTICAL:</label>
+        <nb-select [selected]="this.data.cortical" formControlName="cortical" id="cortical" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.cortical.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Conservado">Conservado</nb-option>
+          <nb-option value="Alterado">Alterado</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
+        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="1"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+      
+
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+</form>
