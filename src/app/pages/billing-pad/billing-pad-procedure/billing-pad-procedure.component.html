@@ -1,9 +1,9 @@
 <nb-card>
   <nb-card-header>{{this.title}} {{patient_name}}
-    <div >
+    <div>
       VALOR FACTURAR: {{this.currency.transform(this.count_billing)}}
     </div>
-    <div >
+    <div>
       VALOR FACTURA: {{this.currency.transform(this.total_billing)}}
     </div>
   </nb-card-header>
@@ -16,10 +16,11 @@
             <div class="actions">
               <button nbButton *ngIf="this.billing.billing_pad_status_id != 2 && this.adm == null" class="mr-1"
                 status="danger" (click)="generatePdf()">PDF</button>
-              <button nbButton *ngIf="this.billing.billing_pad_status_id != 2 && this.adm == null" class="mr-1"
-                status="danger" (click)="SaveBilling()">Facturar</button>
-              <button nbButton *ngIf="this.adm == null" status="danger" (click)="ShowPreBilling(prebilling)">Pre
+              <button nbButton *ngIf="this.adm == null" status="danger" class="mr-1"
+                (click)="ShowPreBilling(prebilling)">Pre
                 factura</button>
+              <button nbButton *ngIf="this.billing.billing_pad_status_id != 2 && this.adm == null" class="mr-1"
+                status="danger" (click)="ShowPreBilling(confirm)">Facturar</button>
             </div>
           </div>
         </ngx-base-table>
@@ -69,6 +70,26 @@
     </nb-card-body>
 
     <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+<ng-template #confirm>
+  <nb-card style="max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>
+      GENERAR FACTURA
+    </nb-card-header>
+    <nb-card-body>
+      <ngx-base-list [messageError]="messageError">
+        <div content>
+          ¿ESTÁ SEGURO QUE DESEA GENERAR LA FACTURA?
+        </div>
+      </ngx-base-list>
+    </nb-card-body>
+
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="SaveBilling()" status="success" type="button">Aceptar</button>
       <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
     </nb-card-footer>
   </nb-card>
