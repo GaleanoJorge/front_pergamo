@@ -2373,7 +2373,7 @@ export class FormChScalesComponent implements OnInit {
           q_nine_detail: q_nine[1],
           q_ten_title: '¿Piensa que su salud ha empeorado debido a tener que cuidar a su familiar?',
           q_ten_value: q_ten[0],
-          q_ten_detail: q_ten[0],
+          q_ten_detail: q_ten[1],
           q_eleven_title: '¿Piensa que no tiene tanta intimidad como le gustaría debido al cuidado de su familiar?',
           q_eleven_value: q_eleven[0],
           q_eleven_detail: q_eleven[1],
