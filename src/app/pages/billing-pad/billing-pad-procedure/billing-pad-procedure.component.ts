@@ -231,6 +231,8 @@ export class BillingPadProcedureComponent implements OnInit {
 
 
   RefreshData() {
+    this.total_billing = 0;
+    this.count_billing = 0;
     this.table.refresh();
   }
 

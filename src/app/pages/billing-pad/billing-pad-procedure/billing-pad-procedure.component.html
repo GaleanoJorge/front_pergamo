@@ -14,11 +14,10 @@
           customData="billing_pad" [messageToltip]="messageToltip">
           <div actions>
             <div class="actions">
-              <button nbButton *ngIf="this.billing.billing_pad_status_id != 2 && this.adm == null" class="mr-1"
-                status="danger" (click)="generatePdf()">PDF</button>
+              <button nbButton *ngIf="this.adm == null" class="mr-1" status="danger"
+                (click)="generatePdf()">PDF</button>
               <button nbButton *ngIf="this.adm == null" status="danger" class="mr-1"
-                (click)="ShowPreBilling(prebilling)">Pre
-                factura</button>
+                (click)="ShowPreBilling(prebilling)">Pre factura</button>
               <button nbButton *ngIf="this.billing.billing_pad_status_id != 2 && this.adm == null" class="mr-1"
                 status="danger" (click)="ShowPreBilling(confirm)">Facturar</button>
             </div>
