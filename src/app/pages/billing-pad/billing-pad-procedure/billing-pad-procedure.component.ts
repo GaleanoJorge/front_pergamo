@@ -29,7 +29,7 @@ export class BillingPadProcedureComponent implements OnInit {
   public title: string = null;
   public subtitle: string = 'Gestión';
   public patient_name: string = '';
-  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN'];
+  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN', 'AUTORIZADO', 'FACTURA'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -170,6 +170,24 @@ export class BillingPadProcedureComponent implements OnInit {
             return '';
           }
 
+        }
+      },
+      auth_status_id: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value == 3) {
+            return 'Autorizado';
+          } else {
+            return 'Sin autorizar';
+          }
+        }
+      },
+      billing_pad_status: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+         return value;
         }
       },
     },

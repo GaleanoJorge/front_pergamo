@@ -84,7 +84,7 @@ export class FormShowBillingPadComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.billing_pad_pgp_id == null) {
-      this.entity = 'billing_pad/getAuthorizedProcedures/' + this.data.admissions_id + '?billing_id=' + this.data.id;
+      this.entity = 'billing_pad/getAuthorizedProcedures/' + this.data.admissions_id + '?billing_id=' + this.data.id+'&show=1';
     } else {
       this.entity = 'billing_pad/getAuthorizedProcedures/' + this.data.id + '?billing_pad_pgp_id=' + this.billing_pad_pgp_id;
     }
