@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,7 +16,9 @@ export class NursingPhysicalExamComponent implements OnInit {
   @Input() data: any = null;
   @Input() enfermery: any = null;
   @Input() record_id: any;
+  @Input() has_input: any = null;
   @Input() type_record_id: any;
+  @Output() messageEvent = new EventEmitter<any>();
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -75,6 +77,9 @@ export class NursingPhysicalExamComponent implements OnInit {
   receiveMessage($event) {
     if($event==true){
       this.RefreshData();
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
     }
   }
 }

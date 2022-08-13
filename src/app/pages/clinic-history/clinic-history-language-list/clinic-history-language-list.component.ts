@@ -4,12 +4,12 @@ import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core'
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { FormClinicHistoryLanguageComponent } from './form-clinic-history-language/form-clinic-history-language.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActionsLanguageComponent } from './actionslanguage.component';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { Location } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -35,6 +35,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   public ambit;
   public program;
   public flat;
+  public int;
   public user;
   public own_user;
   public bed;
@@ -104,9 +105,9 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   }
 
   close() {
-    this.deleteConfirmService.open(ConfirmDialogComponent, {
+    this.deleteConfirmService.open(ConfirmDialogCHComponent, {
       context: {
-        signature: true,
+        signature: true, 
         title: 'Finalizar registro.',
         delete: this.finish.bind(this),
         showImage: this.showImage.bind(this),
@@ -117,33 +118,49 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   }
 
   showImage(data) {
-    this.signatureImage = data;
-  }
+    this.int++;
+    if (this.int == 1) {
+      this.signatureImage = null;
+    } else {
+      this.signatureImage = data;
 
+    }
+  }
   async saveSignature() {
     var formData = new FormData();
     formData.append('firm_file', this.signatureImage);
     console.log(this.signatureImage);
   }
   
-  async finish() {
+  async finish(firm) {
 
-    await this.chRecord.Update({
-      id: this.record_id,
-      status: 'CERRADO',
-      user: this.user,
-      role: this.currentRole,
-      user_id: this.own_user.id,
-    }).then(x => {
-      this.toastService.success('', x.message);
-      this.location.back();
+    var formData = new FormData();
+    formData.append('id', this.record_id,);
+    formData.append('status', 'CERRADO');
+    formData.append('user', this.user);
+    formData.append('role', this.currentRole);
+    formData.append('user_id', this.own_user.id);
+    formData.append('firm_file', this.signatureImage);
+
+    try {
+
+      let response;
+    
+        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        this.location.back();
+      this.toastService.success('', response.message);
+      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
+      this.messageError = null;
       if (this.saved) {
         this.saved();
       }
-    }).catch(x => {
+    } catch (response) {
+      this.messageError = response;
       this.isSubmitted = false;
       this.loading = false;
-    });
+      throw new Error(response);
+    }
+  
   }
 
   RefreshData() {

@@ -1,5 +1,5 @@
 import { UserBusinessService } from '../../../business-controller/user-business.service';
-import { Component, OnInit, ViewChild,Input } from '@angular/core';
+import { Component, OnInit, ViewChild,Input, Output, EventEmitter } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
 import { Actions1Component } from './actions.component';
@@ -16,6 +16,9 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 export class SignsListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
+  @Input() has_input: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
+  
   linearMode = true;
   public messageError = null;
   public title: string = '';
@@ -449,6 +452,7 @@ export class SignsListComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      this.messageEvent.emit(true);
     }
   }
 }

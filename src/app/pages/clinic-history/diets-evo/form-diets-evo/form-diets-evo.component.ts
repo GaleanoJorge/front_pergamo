@@ -80,6 +80,7 @@ export class FormDietsEvoComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
           this.form.setValue({ diet_component: '', diet_consistency: '', observation: ''});
           if (this.saved) {
             this.saved();

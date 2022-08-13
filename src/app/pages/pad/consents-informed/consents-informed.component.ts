@@ -39,7 +39,7 @@ export class ConsentsInformedComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = '';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Consecutivo de admisión - Ambito - Programa', 'Ejecutado','Incumplidas'];
+  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Tipo de Consentimiento Informado', 'Ejecutado','Incumplidas'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -80,7 +80,7 @@ export class ConsentsInformedComponent implements OnInit {
             'assignedUser': this.AssignedUser.bind(this),
             'delete': this.DeleteConfirmConsentsInformed.bind(this),
             'refresh': this.RefreshData.bind(this),
-            'currentRole': this.currentRole,
+            'admissions_id': this.admission_id,
           };
         },
         renderComponent: ActionsCIComponent,

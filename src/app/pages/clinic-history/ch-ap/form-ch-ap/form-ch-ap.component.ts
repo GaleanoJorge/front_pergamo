@@ -76,6 +76,7 @@ export class FormChApComponent implements OnInit {
           })
           .then((x) => {
             this.toastService.success('', x.message);
+            this.messageEvent.emit(true);
             this.form.setValue({ analisys: '', plan: ''});
             if (this.saved) {
               this.saved();

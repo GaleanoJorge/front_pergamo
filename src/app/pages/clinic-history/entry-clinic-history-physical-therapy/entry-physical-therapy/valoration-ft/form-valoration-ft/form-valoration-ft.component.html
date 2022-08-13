@@ -1,5 +1,11 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div>
+
+    <div class="col col-lg-12">
+      <label class="form-text text-muted font-weight-bold" id="ch_e_valoration_f_t"> </label>
+      <option *ngFor="let item of ch_e_valoration_f_t" [value]="item.name">{{ item.code }}</option>
+    </div>
+    
     <div class="col col-lg-12">
       <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNOSTICO MEDICO:</label>
       <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="ch_diagnosis_id"
@@ -10,13 +16,10 @@
       </datalist>
     </div>
 
-    <br />
-
     <div class="col col-lg-12">
-      <label for="recomendations" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
-      <textarea id="recomendations" nbInput fullWidth formControlName="recomendations" recomendations rows="3"
-        cols="50"
-        status="{{ isSubmitted && form.controls.recomendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      <label for="patient_state" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
+      <textarea id="patient_state" nbInput fullWidth formControlName="patient_state" patient_state rows="3" cols="50"
+        status="{{ isSubmitted && form.controls.patient_state.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="div-send">

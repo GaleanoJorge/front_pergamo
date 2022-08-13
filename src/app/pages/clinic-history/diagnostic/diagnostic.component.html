@@ -1,5 +1,7 @@
-<ngx-form-diagnostic (messageEvent)="receiveMessage($event)" [record_id]="record_id">
-</ngx-form-diagnostic>
+<div *ngIf="has_input == false">
+  <ngx-form-diagnostic (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+  </ngx-form-diagnostic>
+</div>
 <div class="row">
   <div class="col-md-12">
     <label class="font-weight-bold ImpPeq"> </label>
@@ -8,7 +10,7 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table pager="false" [title]="title" customData="ch_diagnosis" [settings]="settings"
-      entity="ch_diagnosis/by_record/{{record_id}}/1?pagination=false">
+      entity="ch_diagnosis/by_record/{{record_id}}/1?pagination=false&has_input={{has_input}}">
       <div actions>
         <div class="actions">
         </div>
