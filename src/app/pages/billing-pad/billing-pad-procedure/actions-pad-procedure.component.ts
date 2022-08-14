@@ -6,6 +6,14 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
 @Component({
     template: `
     <div class="d-flex justify-content-center">
+    <div nbTooltip="{{this.tooltip}}" *ngIf="this.value.route == 2" class = "cuadro" 
+        [style]="this.semaphore == 0 ? 'background-color: #FF0000;' : 
+        this.semaphore == 1 ? 'background-color: #7A39BB;' : 
+        this.semaphore == 2 ? 'background-color: #44E431;' : 
+        this.semaphore == 3 ? 'background-color: #FBE336;' : 
+        'background-color: #C70039' "
+        >
+    </div>
         <button *ngIf="value.data.auth_package" nbTooltip="VER CONTENIDO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data, value.route)">
             <nb-icon icon="eye-outline"></nb-icon>
         </button>
@@ -20,6 +28,8 @@ export class ActionsPadProcedureComponent implements ViewCell {
 
     public dialog;
     public auth_status: any[] = [];
+    public semaphore: any;
+    public tooltip: any;
 
 
     constructor(
@@ -30,6 +40,26 @@ export class ActionsPadProcedureComponent implements ViewCell {
     }
 
     async ngOnInit() {
+        this.semaphore = this.getByStatus(this.value.data);
+        var a = 1;
+    }
+
+    getByStatus(data: any) {
+        var response = 0;
+        if (data.assigned_management_plan.execution_date == "0000-00-00 00:00:00") {
+            response = 0;
+            this.tooltip = 'Sin ejecutar';
+        } else if (data.billing_pad_status == 'FACTURADA') {
+            response = 2;
+            this.tooltip = 'Facturado';
+        } else if (data.auth_status_id != 3) {
+            response = 1;
+            this.tooltip = 'Sin autorizar';
+        } else {
+            response = 3;
+            this.tooltip = 'Por facturar';
+        }
+        return response;
     }
 
     ConfirmAction(dialog: TemplateRef<any>) {

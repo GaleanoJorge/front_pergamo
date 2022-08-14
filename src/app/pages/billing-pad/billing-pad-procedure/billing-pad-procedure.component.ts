@@ -29,12 +29,13 @@ export class BillingPadProcedureComponent implements OnInit {
   public title: string = null;
   public subtitle: string = 'Gestión';
   public patient_name: string = '';
-  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN'];
+  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN', 'AUTORIZADO', 'FACTURA'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
   public arrayBuffer: any;
   public user;
+  public user_data;
   public dialog;
   public currentRole;
   public selectedOptions: any[] = [];
@@ -47,8 +48,11 @@ export class BillingPadProcedureComponent implements OnInit {
   public objetion_response: any[] = null;
   public saved: any = null;
   public billing: any = null;
-  public total_pre_billing: number = null;
-  public total_billing: number = null;
+  public total_pre_billing: number = 0;
+  public total_already_billing: number = 0;
+  public total_pendding_billing: number = 0;
+  public total_pendding_auth: number = 0;
+  public total_billing: number = 0;
   public count_billing: number = 0;
   public admission_id;
   public billing_id;
@@ -153,6 +157,15 @@ export class BillingPadProcedureComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           this.total_pre_billing += row.services_briefcase.value;
+          if (row.billing_pad_status == 'FACTURADA') {
+            this.total_already_billing += row.services_briefcase.value;
+          }
+          if (row.auth_status_id != 3) {
+            this.total_pendding_auth += row.services_briefcase.value;
+          }
+          if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3 && row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
+            this.total_pendding_billing += row.services_briefcase.value;
+          }
           return this.currency.transform(row.services_briefcase.value);
         },
       },
@@ -170,6 +183,24 @@ export class BillingPadProcedureComponent implements OnInit {
             return '';
           }
 
+        }
+      },
+      auth_status_id: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value == 3) {
+            return 'Autorizado';
+          } else {
+            return 'Sin autorizar';
+          }
+        }
+      },
+      billing_consecutive: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+         return value;
         }
       },
     },
@@ -200,7 +231,7 @@ export class BillingPadProcedureComponent implements OnInit {
           route: './',
         },
       ];
-      this.title = 'PROCEDIMIENTOS PRESTADOS A';
+      this.title = 'POR FACTURAR DE';
       this.settings = this.settings1
       this.admission_id = this.route.snapshot.params.admission_id;
       this.billing_id = this.route.snapshot.params.billing_id;
@@ -212,11 +243,12 @@ export class BillingPadProcedureComponent implements OnInit {
       this.billing_id = this.bill;
       this.entity = 'billing_pad/getPreBillingProcedures/' + this.admission_id + '?billing_id=' + this.billing_id;
     }
-    this.user = this.authService.GetUser();
-    this.user_id = this.user.id;
+    this.user_data = this.authService.GetUser();
+    this.user_id = this.user_data.id;
 
     this.BillingPadS.GetCollection({ id: this.billing_id }).then(x => {
       if (x != null) {
+        this.user = x[0]['admissions']['patients'];
         this.billing = x[0];
         this.patient_name =
           (x[0]['admissions']['patients']['firstname'] != null ? ' ' + x[0]['admissions']['patients']['firstname'] : '') +
@@ -231,6 +263,8 @@ export class BillingPadProcedureComponent implements OnInit {
 
 
   RefreshData() {
+    this.total_billing = 0;
+    this.count_billing = 0;
     this.table.refresh();
   }
 
@@ -247,6 +281,10 @@ export class BillingPadProcedureComponent implements OnInit {
   }
 
   ShowPreBilling(dialog: TemplateRef<any>) {
+    this.total_pre_billing = 0;
+    this.total_already_billing = 0;
+    this.total_pendding_billing = 0;
+    this.total_pendding_auth = 0;
     this.dialog = this.dialogFormService.open(dialog);
   }
 
@@ -303,7 +341,17 @@ export class BillingPadProcedureComponent implements OnInit {
 
 
 
-  GetResponseParam() {
+  generatePdf() {
+    this.BillingPadS.GeneratePdf({
+      id: this.billing_id,
+      billing_type: 'PREFACTURA',
+      selected_procedures: JSON.stringify(this.selectedOptions)
+    }).then(x => {
+      this.toastS.success('Archivo generado con exito', 'Exito');
+      window.open(x['url'], '_blank');
+    }).catch(x => {
+      this.toastS.danger('Error al generar archivo: ' + x, 'Error');
+    });
   }
 
 

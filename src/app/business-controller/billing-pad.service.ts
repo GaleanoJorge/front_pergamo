@@ -125,4 +125,20 @@ export class BillingPadService {
         throw x.message;
       });
   }
+  
+  GeneratePdf(params: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad/generateBillingPdf/'+params.id);
+    servObj.data = params;
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 }
