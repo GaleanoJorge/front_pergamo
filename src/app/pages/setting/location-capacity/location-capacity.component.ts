@@ -42,9 +42,19 @@ export class LocationCapacityComponent implements OnInit {
         },
         renderComponent: ActionsLocationCapacityComponent,
       },
-      role_name: {
-        title: this.headerFields[0],
+      identification_type: {
+        title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.user.identification_type.name;
+        },
+      },
+      identification: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.user.identification;
+        },
       },
       user: {
         title: this.headerFields[1],
@@ -52,6 +62,10 @@ export class LocationCapacityComponent implements OnInit {
         valuePrepareFunction(value) {
           return value.firstname + ' ' + value.lastname;
         },
+      },
+      role_name: {
+        title: this.headerFields[0],
+        type: 'string',
       },
       total1: {
         title: this.headerFields[2],
