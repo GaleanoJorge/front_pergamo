@@ -6,6 +6,8 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 import { SelectProductPatientShippingComponent } from './select-prod-patient-shipping.component';
 import { AmountShippingPatientComponent } from './amount-shipping-patient.component';
+import { UserBusinessService } from '../../../../business-controller/user-business.service';
+import { UserResponsibleComponent } from './user-responsible.component';
 
 @Component({
   selector: 'ngx-prod-shipping-patient-package',
@@ -23,6 +25,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public subtitle = ' ';
   public headerFields: any[] = ['PRODUCTO COMERCIAL', 'PRODUCTO GENERICO', 'CANTIDAD ACTUAL STOCK', 'CANTIDAD A ENVIAR', 'LOTE', 'FECHA DE VENCIMIENTO'];
+  // public headerFields: any[] = ['PRODUCTO COMERCIAL', 'PRODUCTO GENERICO', 'CANTIDAD ACTUAL STOCK', 'CANTIDAD A ENVIAR', 'LOTE', 'FECHA DE VENCIMIENTO', 'USUARIO RESPONSABLE'];
   public routes = [];
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
@@ -34,6 +37,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
   public inscriptionId;
   public entity;
   public customData;
+  public user_request_id;
 
   public component_package_id: number;
   public done = false;
@@ -113,7 +117,26 @@ export class ProdShippingPatientPackageComponent implements OnInit {
       expiration_date: {
         title: this.headerFields[5],
         type: 'string',
-      }
+      },
+      // user_request: {
+      //   title: this.headerFields[11],
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     // this.disableCheck();
+      //     // if (row.auth_status_id == 2) {
+      //     //   this.show = true;
+      //     // } else {
+      //     //   this.show = false;
+      //     // }
+      //     return {
+      //       'data': row,
+      //       'show': true,
+      //       'select': this.user_request_id,
+      //       'status': (event, row: any) => this.SaveStatus(event, row),
+      //     };
+      //   },
+      //   renderComponent: UserResponsibleComponent,
+      // },
     },
   };
 
@@ -122,7 +145,9 @@ export class ProdShippingPatientPackageComponent implements OnInit {
     private pharProdReqS: PharmacyProductRequestService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
-    private e: ElementRef
+    private e: ElementRef,
+    // private UserRoleBusinessS: UserBusinessService,
+
   ) {
   }
 
@@ -132,6 +157,10 @@ export class ProdShippingPatientPackageComponent implements OnInit {
     this.settings = this.settings_supplies;
     this.entity = this.parentData.entity;
     this.customData = this.parentData.customData;
+
+    // this.UserRoleBusinessS.GetCollection().then(x => {
+    //   this.user_request_id = x;
+    // });
 
   }
 
@@ -161,7 +190,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
   }
 
   onAmountChange(input, row) {
-    if (row.request_amount > input.target.valueAsNumber) {
+    if (Number(row.request_amount) > Number(input.target.valueAsNumber)) {
       this.toastS.danger("", "La cantidad a entregar no debe superar la cantidad ordenada")
     } else {
       var i = 0;
@@ -176,6 +205,22 @@ export class ProdShippingPatientPackageComponent implements OnInit {
       this.messageEvent.emit(this.selectedOptions);
     }
   }
+
+
+  // SaveStatus(event?, data?) {
+  //   var i = 0;
+  //     var mientras = this.selectedOptions;
+  //     this.selectedOptions.forEach(element => {
+  //       if (element.pharmacy_lot_stock_id == data.id) {
+  //         mientras[i].user_request_id = data.target.value;
+  //       }
+  //       i++
+  //     });
+  //     this.selectedOptions = mientras;
+  //     this.messageEvent.emit(this.selectedOptions);
+
+  // }
+
 
   ChangeManual(inscriptionstatus) {
     this.inscriptionstatus = inscriptionstatus;

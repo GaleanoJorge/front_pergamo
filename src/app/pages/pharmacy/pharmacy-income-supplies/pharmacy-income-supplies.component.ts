@@ -15,15 +15,15 @@ import { FormPharmacyIncomeSuppliesComponent } from './form-pharmacy-income-supp
 })
 export class PharmacyIncomeSuppliesComponent implements OnInit {
   @Input() parentData: any;
+  @Input() data: any = [];
   public isSubmitted = false;
   public messageError = null;
 
   public title: string = 'ACEPTAR O DEVOLVER INSUMOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['IDENTIFICADOR', 'INSUMO ENVIADO POR', 'INSUMO GENERICO', 'CANTIDAD A RECIBIR'];
+  public headerFields: any[] = ['CONSECUTIVO', 'INSUMO ENVIADO POR', 'INSUMO GENERICO', 'CANTIDAD A RECIBIR'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
-  public data = [];
   public validator ;
   public user;
   public my_pharmacy_id;
@@ -91,7 +91,7 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?pharmacy_lot_stock =' + x[0].id + '& product=' + 2 + '& status=ENVIADO'  + '&own_pharmacy_stock_id=' + x[0].id ;
+        this.entity = 'pharmacy_product_request?product=' + 2 + '& status=ENVIADO'  + '&own_pharmacy_stock_id=' + x[0].id ;
         this.title = 'ACEPTAR INSUMOS ENVIADOS A:  ' + x[0]['name'];
       }
     });
@@ -112,7 +112,8 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
       closeOnBackdropClick: false,
       context: {
         title: 'Aceptar Insumo',
-        data,
+        data: data,
+        my_pharmacy_id: this.my_pharmacy_id,
         saved: this.RefreshData.bind(this),
       },
     });

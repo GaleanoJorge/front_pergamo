@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormFixedInventaryComponent } from './form-fixed-inventary/form-fixed-inventary.component';
 import { AuthService } from '../../../services/auth.service';
 import { ActionsInFixComponent } from './actionsInFix.component';
+import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
 
 @Component({
   selector: 'ngx-fixed-inventary',
@@ -22,7 +23,9 @@ export class FixedInventaryComponent implements OnInit {
   public data = [];
   public entity;
   public user;
-  public showdiv: boolean = null;
+  public showdiv: Number = null;
+  public my_fixed_id;
+
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -47,9 +50,12 @@ export class FixedInventaryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      description: {
+      fixed_nom_product: {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+        return value.name;
+        }
         
       },
       mark: {
@@ -66,11 +72,11 @@ export class FixedInventaryComponent implements OnInit {
         title: this.headerFields[4],
         type: 'string',
       },
-      campus: {
+      fixed_stock: {
         title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.campus.name;
+          return row.fixed_stock.campus.name;
         },
       },
     },
@@ -86,11 +92,26 @@ export class FixedInventaryComponent implements OnInit {
   constructor(
     private dialogFormService: NbDialogService,
     private authService: AuthService,
+    private FixedAssetsS: FixedAssetsService,
+    private toastService: NbToastrService,
+
   ) {
   }
 
   async ngOnInit() {
-    this.user = this.authService.GetUser();
+    this.user = this.authService.GetUser();   
+    this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
+      if (x.length > 0) {
+        this.my_fixed_id = x[0].id;
+        this.entity = 'fixed_assets?fixed_stock_id=' + x[0].id;
+        this.title = 'INVENTARIO DE:  ' + x[0]['fixed_stock']['fixed_type']['name'];
+      }else {
+        this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
+       }
+    });
+    
+    
+
   }
 
   RefreshData() {
@@ -98,10 +119,10 @@ export class FixedInventaryComponent implements OnInit {
   }
 
   reloadForm(tab) {
-    if (tab.tabTitle == 'DISPONIBLE') {
-      this.showdiv = false;
+    if (tab.tabTitle == 'ASIGNADOS') {
+      this.showdiv = 1;
     } else {
-      this.showdiv = true;
+      this.showdiv = 2;
     }
   }
 
@@ -110,6 +131,7 @@ export class FixedInventaryComponent implements OnInit {
       context: {
         title: 'ENVIAR ACTIVO',
         data: data,
+        my_fixed_id: this.my_fixed_id,
         saved: this.RefreshData.bind(this),
       },
     });

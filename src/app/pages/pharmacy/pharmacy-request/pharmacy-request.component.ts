@@ -20,12 +20,13 @@ export class PharmacyRequestComponent implements OnInit {
 
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['IDENTIFICADOR', 'NOMBRE-SEDE', 'PRODUCTO', 'CANTIDAD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'NOMBRE-SEDE', 'PRODUCTO', 'CANTIDAD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
   public user;
   public my_pharmacy_id;
+  public showdiv: Number = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -93,6 +94,14 @@ export class PharmacyRequestComponent implements OnInit {
 
   RefreshData() {
     this.table.refresh();
+  }
+
+  reloadForm(tab) {
+    if (tab.tabTitle == 'FARMACIA') {
+      this.showdiv = 1;
+    } else {
+      this.showdiv = 2;
+    }
   }
 
   receiveMessage($event) {

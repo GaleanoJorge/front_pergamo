@@ -6,6 +6,7 @@ import { PharmacyStockService } from '../../../business-controller/pharmacy-stoc
 import { FormFixedStockComponent } from './form-fixed-stock/form-fixed-stock.component';
 import { UserFixedPackageComponent } from './user-fixed-package/user-fixed-package.component';
 import { ActionFixedComponent } from './actions.component';
+import { ServicesFixedPackageComponent } from './services-fixed-package/services-fixed-package.component';
 
 @Component({
   selector: 'ngx-fixed-stock',
@@ -40,6 +41,7 @@ export class FixedStockComponent implements OnInit {
             'edit': this.EditPharmacyStock.bind(this),
             'delete': this.DeleteConfirmPharmacyStock.bind(this),
             'user': this.UserAsigned.bind(this),
+            'services': this.ServicesAsigned.bind(this),
           };
         },
         renderComponent: ActionFixedComponent,
@@ -116,6 +118,18 @@ export class FixedStockComponent implements OnInit {
       },
     });
   }
+
+  ServicesAsigned(data) {
+    this.dialogFormService.open(ServicesFixedPackageComponent, {
+      closeOnBackdropClick: false,
+      context: {
+        title: 'TIPOS DE SERVICIOS',
+        data: data,
+           saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
 
   UserAsigned(data) {
     this.dialogFormService.open(UserFixedPackageComponent, {

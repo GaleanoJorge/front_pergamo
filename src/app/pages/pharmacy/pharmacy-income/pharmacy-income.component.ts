@@ -22,7 +22,7 @@ export class PharmacyIncomeComponent implements OnInit {
 
   public title: string = 'ACEPTAR O DEVOLVER MEDICAMENTOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['IDENTIFICADOR', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
+  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public validator;
@@ -81,7 +81,7 @@ export class PharmacyIncomeComponent implements OnInit {
 
         },
       },
-      cantidad_enviada: {
+      request_amount: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
@@ -111,7 +111,7 @@ export class PharmacyIncomeComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?pharmacy_lot_stock =' + x[0].id + '& product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + x[0].id ;
+        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + x[0].id ;
         this.title = 'ACEPTAR MEDICAMENTOS ENVIADOS A:  ' + x[0]['name'];
       }
     });

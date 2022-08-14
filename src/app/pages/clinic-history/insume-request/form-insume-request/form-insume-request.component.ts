@@ -108,7 +108,7 @@ export class FormInsumeRequestComponent implements OnInit {
           record_id: this.record_id,
           status: 'PATIENT',
           product_supplies_id: this.briefcase.manual_price.insume.id,
-          request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
+          own_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
           user_request_pad_id: this.authS.GetUser().id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -124,7 +124,7 @@ export class FormInsumeRequestComponent implements OnInit {
           request_amount: this.form.controls.request_amount.value,
           status: 'PATIENT',
           services_briefcase_id: this.form.controls.product_supplies_id.value,
-          request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
+          own_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
           product_supplies_id: this.briefcase.manual_price.insume.id,
           admissions_id: this.admissions_id,
           user_request_pad_id: this.authS.GetUser().id,

@@ -28,6 +28,7 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
   public my_pharmacy_id;
   public pharmacy_stock;
   public pharmacy;
+  public showdiv: Number = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -66,7 +67,7 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
       },
       amount_total: {
         title: this.headerFields[2],
-        type: 'string', 
+        type: 'string',
       },
       actual_amount: {
         title: this.headerFields[3],
@@ -74,11 +75,11 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
       },
       lot: {
         title: this.headerFields[4],
-        type: 'string', 
+        type: 'string',
       },
       expiration_date: {
         title: this.headerFields[5],
-        type: 'string', 
+        type: 'string',
       }
     },
 
@@ -104,12 +105,12 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
-      this.my_pharmacy_id = x[0].id;
-      this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product='+ false;
-      this.title = 'INVENTARIO DE ' + x[0]['name'];
-    } else {
-      this.toastService.info('Usuario sin farmacias asociadas', 'Información');
-     }
+        this.my_pharmacy_id = x[0].id;
+        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product='+ false;
+        this.title = 'INVENTARIO DE ' + x[0]['name'];
+      } else {
+        this.toastService.info('Usuario sin farmacias asociadas', 'Información');
+      }
     });
     await this.perPharmaS.GetCollection({ type:2 }).then(x => {
       this.pharmacy_stock = x;
@@ -120,16 +121,23 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
     this.table.refresh();
   }
 
+  reloadForm(tab) {
+    if (tab.tabTitle == 'INSUMOS EN STOCK') {
+      this.showdiv = 1;
+    } else {
+      this.showdiv = 2;
+    }
+  }
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
-    this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + true, 'pharmacy_lot_stock');
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + true, 'pharmacy_lot_stock');
 
     }else{
-    this.pharmacy = pharmacy;
-    this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + true, 'pharmacy_lot_stock');
+      this.pharmacy = pharmacy;
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + true, 'pharmacy_lot_stock');
     }
     // this.RefreshData();
-}
+  }
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyInventorySuppliesComponent, {
@@ -161,11 +169,11 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
       context: {
         title: 'MEDICAMENTOS DEVUELTOS',
         data: data,
-    //    my_pharmacy_id: this.my_pharmacy_id,
+        //    my_pharmacy_id: this.my_pharmacy_id,
         saved: this.RefreshData.bind(this),
       },
     });
   }
 
- 
+
 }

@@ -383,6 +383,8 @@ import { ActionFixedComponent } from './fixed-stock/actions.component';
 import { FormDrugReturnedComponent } from './assistance-stock/form-drug-returned/form-drug-returned.component';
 import { RoleCheckComponent } from './users/role-package/role-check.component';
 import { RolePackageComponent } from './users/role-package/role-package.component';
+import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
+import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -802,7 +804,10 @@ import { RolePackageComponent } from './users/role-package/role-package.componen
 
     UserFixedComponent,
     UserFixedPackageComponent,
-    ActionFixedComponent
+    ActionFixedComponent,
+
+    ServicesFixedPackageComponent,
+    ServicesFixedComponent
 
   ],
   providers: [
