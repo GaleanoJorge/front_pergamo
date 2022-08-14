@@ -19,7 +19,7 @@ export class LocationCapacityComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'PERSONAL ASISTENCIAL';
   public subtitle: string = 'PERSONAL';
-  public headerFields: any[] = ['ROL', 'NOMBRE', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'SERVICIOS EJECUTADOS'];
+  public headerFields: any[] = ['ROL', 'NOMBRE', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'SERVICIOS EJECUTADOS', 'TIPO DE IDENTIFICACIÓN', 'IDENTIFICACIÓN'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -43,14 +43,14 @@ export class LocationCapacityComponent implements OnInit {
         renderComponent: ActionsLocationCapacityComponent,
       },
       identification_type: {
-        title: this.headerFields[1],
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.user.identification_type.name;
         },
       },
       identification: {
-        title: this.headerFields[1],
+        title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.user.identification;

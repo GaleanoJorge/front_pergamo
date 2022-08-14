@@ -6,6 +6,7 @@ import { ActionsAdmissionsListComponent } from './actions-admissions-list.compon
 import { FormShowBillingPadComponent } from '../billing-admission/form-show-billing-pad/form-show-billing-pad.component';
 import { ActivatedRoute } from '@angular/router';
 import { BriefcaseService } from '../../../business-controller/briefcase.service';
+import { ActionsSemaphoreAdmissionsListComponent } from './actions -semaphore-admissions-list.component';
 
 @Component({
   selector: 'ngx-billing-admissions-pad-list',
@@ -15,7 +16,7 @@ import { BriefcaseService } from '../../../business-controller/briefcase.service
 export class BillingAdmissionsPadListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() title: string;
-  @Input() is_pgp: boolean;
+  @Input() is_pgp: boolean = false;
   @Input() route: number = null;
   @Input() entity: string;
   @Input() billing_pad_pgp_id: number = null;
@@ -43,6 +44,16 @@ export class BillingAdmissionsPadListComponent implements OnInit {
       perPage: 10,
     },
     columns: {
+      semaphore: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsSemaphoreAdmissionsListComponent,
+      },
       actions: {
         title: this.headerFields[0],
         type: 'custom',
