@@ -352,7 +352,6 @@ export class FormChScalesComponent implements OnInit {
       qThreeFragility_value: [this.data.qThreeFragility_value],
       qFourFragility_value: [this.data.qFourFragility_value],
       qFiveFragility_value: [this.data.qFiveFragility_value],
-      qSixFragility_value: [this.data.qSixFragility_value],
       totalFragility: [this.data.totalFragility],
       classFragility: [this.data.classFragility],
 
@@ -1425,8 +1424,7 @@ export class FormChScalesComponent implements OnInit {
       var qFourFragilitty = this.separateText(this.form.controls.qFourFragility_value.value);
       this.form.controls.qFiveFragility_value.setValidators(Validators.compose([Validators.required]));
       var qFiveFragilitty = this.separateText(this.form.controls.qFiveFragility_value.value);
-      this.form.controls.qSixFragility_value.setValidators(Validators.compose([Validators.required]));
-      var qSixFragilitty = this.separateText(this.form.controls.qSixFragility_value.value);
+     
       // this.form.controls.totalFragility.setValidators(Validators.compose([Validators.required]));
       // this.form.controls.classFragility.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
@@ -1448,9 +1446,6 @@ export class FormChScalesComponent implements OnInit {
           q_five_title: '¿La persona ha vivido recientemente algún acontecimiento que le ha afectado profundamente(enfermedad personal, pérdida de un familiar)?',
           q_five_value: qFiveFragilitty[0],
           q_five_detail: qFiveFragilitty[1],
-          q_six_title: '¿Ha perdido más del 5% de su peso en los últimos 6 meses?',
-          q_six_value: qSixFragilitty[0],
-          q_six_detail: qSixFragilitty[1],
           total: this.totalFragility,
           classification: this.classFragility,
           type_record_id: 4,
@@ -1458,20 +1453,18 @@ export class FormChScalesComponent implements OnInit {
         }).then(x => {
           this.refresh5 = true;
           this.toastService.success('', x.message);
-          this.form.patchValue({ qOneFragility_value: '', qTwoFragility_value: '', qThreeFragility_value: '', qFourFragility_value: '', qFiveFragility_value: '', qSixFragility_value: '', totalFragility: '', classFragility: '' });
+          this.form.patchValue({ qOneFragility_value: '', qTwoFragility_value: '', qThreeFragility_value: '', qFourFragility_value: '', qFiveFragility_value: '', totalFragility: '', classFragility: '' });
           this.form.controls.qOneFragility_value.clearValidators();
           this.form.controls.qTwoFragility_value.clearValidators();
           this.form.controls.qThreeFragility_value.clearValidators();
           this.form.controls.qFourFragility_value.clearValidators();
           this.form.controls.qFiveFragility_value.clearValidators();
-          this.form.controls.qSixFragility_value.clearValidators();
 
           this.form.controls.qOneFragility_value.setErrors(null);
           this.form.controls.qTwoFragility_value.setErrors(null);
           this.form.controls.qThreeFragility_value.setErrors(null);
           this.form.controls.qFourFragility_value.setErrors(null);
           this.form.controls.qFiveFragility_value.setErrors(null);
-          this.form.controls.qSixFragility_value.setErrors(null);
 
           if (this.saved) {
             this.saved()
@@ -2373,7 +2366,7 @@ export class FormChScalesComponent implements OnInit {
           q_nine_detail: q_nine[1],
           q_ten_title: '¿Piensa que su salud ha empeorado debido a tener que cuidar a su familiar?',
           q_ten_value: q_ten[0],
-          q_ten_detail: q_ten[0],
+          q_ten_detail: q_ten[1],
           q_eleven_title: '¿Piensa que no tiene tanta intimidad como le gustaría debido al cuidado de su familiar?',
           q_eleven_value: q_eleven[0],
           q_eleven_detail: q_eleven[1],
