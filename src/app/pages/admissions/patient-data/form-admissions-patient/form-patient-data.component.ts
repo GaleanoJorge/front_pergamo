@@ -230,8 +230,8 @@ export class FormPatientDataComponent implements OnInit {
 
   save() {
     this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' + this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) ';
+    
     this.isSubmitted = true;
-
     if (!this.form.invalid) {
       this.loading = true;
 
@@ -298,6 +298,8 @@ export class FormPatientDataComponent implements OnInit {
         });
       }
 
+    } else {
+      this.toastService.warning('','Debe diligenciar los campos obligatorios')
     }
   }
 

@@ -22,8 +22,11 @@ import { UserCampusBusinessService } from '../../../business-controller/user-cam
         <nb-icon icon="inbox-outline"></nb-icon>
       </button>
       <a nbTooltip="Agregar Sede a usuario" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost (click)="open(dialog2)" >
-      <nb-icon icon="plus-circle"></nb-icon>
-    </a>
+        <nb-icon icon="plus-circle"></nb-icon>
+      </a>
+      <button nbTooltip="Agregar rol" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ngxCheckPerms="update" ghost (click)="value.role(value.data)">
+        <nb-icon icon="people-outline"></nb-icon>
+      </button>
     </div>
     <ng-template #dialog let-data let-ref="dialogRef">
       <nb-card>

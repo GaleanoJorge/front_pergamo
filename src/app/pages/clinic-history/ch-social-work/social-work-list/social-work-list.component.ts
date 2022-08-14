@@ -12,6 +12,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { FormSocialWorkComponent } from './form-social-work/form-social-work.component';
 import { ConfirmDialogCHComponent } from '../../clinic-history-list/confirm-dialog/confirm-dialog.component';
 
+import { DateFormatPipe } from '../../../../pipe/date-format.pipe'; 
 
 @Component({
   selector: 'ngx-social-work-list',
@@ -65,7 +66,7 @@ export class SocialWorkListComponent implements OnInit {
     private toastService: NbToastrService,
     private location: Location,
     private authService: AuthService,
-
+    public datePipe: DateFormatPipe
 
   ) {
     this.routes = [

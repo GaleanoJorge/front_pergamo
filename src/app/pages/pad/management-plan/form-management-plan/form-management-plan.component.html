@@ -74,7 +74,7 @@
 
         <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false">
           <label *ngIf="show" for="quantity" class="form-text text-muted font-weight-bold">Frecuencia Horaria
-            (HORAS):</label>
+            (Horas):</label>
           <label *ngIf="showTemp" for="quantity" class="form-text text-muted font-weight-bold">Turno:</label>
           <label *ngIf="!show && !showTemp" for="quantity" class="form-text text-muted font-weight-bold">Cantidad
             proyectada:</label>
@@ -207,8 +207,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && assigned!=false && show">
-          <label for="administration_route" class="form-text text-muted font-weight-bold">Via des
-            administración:</label>
+          <label for="administration_route" class="form-text text-muted font-weight-bold">Via de administración:</label>
           <nb-select [selected]="this.data.route_of_administration" formControlName="route_of_administration"
             id="route_of_administration" fullWidth
             status="{{ isSubmitted && form.controls.route_of_administration.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">

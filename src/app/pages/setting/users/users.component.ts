@@ -8,6 +8,7 @@ import { StatusFieldComponent } from '../../components/status-field/status-field
 import { ActionsUsersComponent } from './actions-users.component';
 import { FormConfirmDisabledComponent } from './form-confirm-disabled/form-confirm-disabled.component';
 import { FormFinancialDataComponent } from './form-financial-data/form-financial-data.component';
+import { RolePackageComponent } from './role-package/role-package.component';
 
 
 @Component({
@@ -50,6 +51,7 @@ export class UsersComponent implements OnInit {
                         'data': row,
                         'reset_password': this.UpdateResetPassword.bind(this),
                         'financialdata': this.NewFinancialData.bind(this),
+                        'role': this.AssingRole.bind(this),
                     };
                 },
                 renderComponent: ActionsUsersComponent,
@@ -155,7 +157,6 @@ export class UsersComponent implements OnInit {
                 desable: this.ChangeState.bind(this),
             },
         });
-
     }
 
     NewFinancialData(dataUser) {
@@ -166,7 +167,16 @@ export class UsersComponent implements OnInit {
                 saved: this.RefreshData.bind(this),
             },
         });
+    }
 
+    AssingRole(dataUser) {
+        this.dialogService.open(RolePackageComponent, {
+            context: {
+                title: 'Asociar roles a: ' + dataUser.nombre_completo,
+                data: dataUser,
+                saved: this.RefreshData.bind(this),
+            },
+        });
     }
 
 }

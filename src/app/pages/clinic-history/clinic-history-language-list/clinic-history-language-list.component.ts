@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/confirm-dialog.component';
 
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-clinic-history-language-list',
@@ -65,7 +66,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
     private toastService: NbToastrService,
     private location: Location,
     private authService: AuthService,
-
+    public datePipe: DateFormatPipe,
 
   ) {
     this.routes = [

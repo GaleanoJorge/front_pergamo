@@ -45,6 +45,22 @@ export class UserRoleBusinessService {
       });
   }
 
+  UpdateRoles(type_contract: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('storePackage', type_contract.id);
+    servObj.data = type_contract;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Delete(id, entity?): Promise<ServiceObject> {
     let service = entity ? entity : 'storeStudent';
     let servObj = new ServiceObject(service, id);

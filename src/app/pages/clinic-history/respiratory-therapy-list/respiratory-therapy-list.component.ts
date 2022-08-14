@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { FormRespiratoryTherapyComponent } from './form-respiratory-therapy/form-respiratory-therapy.component';
 import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/confirm-dialog.component';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -64,6 +65,7 @@ export class RespiratoryTherapyListComponent implements OnInit {
     private toastService: NbToastrService,
     private location: Location,
     private authService: AuthService,
+    public datePipe: DateFormatPipe,
 
 
   ) {

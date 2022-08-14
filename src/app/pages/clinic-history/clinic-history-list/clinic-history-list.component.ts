@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { ConfirmDialogCHComponent } from './confirm-dialog/confirm-dialog.component';
 import { filter, pairwise } from 'rxjs/operators';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -71,6 +72,7 @@ export class ClinicHistoryListComponent implements OnInit {
     private toastService: NbToastrService,
     private location: Location,
     private authService: AuthService,
+    private datePipe: DateFormatPipe,
 
   ) {
     this.routes = [
