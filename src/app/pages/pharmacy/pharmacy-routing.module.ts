@@ -4,6 +4,7 @@ import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/bill
 import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
 import { PharmacyLotComponent } from './pharmacy-lot/pharmacy-lot.component';
 import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
+import { PharmacyRequestPatientsComponent } from './pharmacy-request-patients/pharmacy-request-patients.component';
 import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
 import { PharmacyComponent } from './pharmacy.component';
 import { ProductTabComponent } from './product-tab/product-tab.component';
@@ -36,6 +37,10 @@ const routes: Routes = [{
       path: 'billing-request-pharmacy',
       component: BillingRequestPharmacyComponent,
     },
+    {
+      path: 'pharmacy-request-patients',
+      component: PharmacyRequestPatientsComponent,
+    }
   ],
 }];
 

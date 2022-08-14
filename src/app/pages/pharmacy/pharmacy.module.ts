@@ -85,6 +85,15 @@ import { ActionsReturnComponent } from './pharmacy-return/actions-return.compone
 import { PharmacyReturnComponent } from './pharmacy-return/pharmacy-return.component';
 import { ProductTabComponent } from './product-tab/product-tab.component';
 import { PharmacyComponent } from './pharmacy.component';
+import { UserResponsibleComponent } from './pharmacy-request-patient/prod-shipping-patient-package/user-responsible.component';
+import { ActionsPatientComponent } from './pharmacy-income-patient/actions.component';
+import { PharmacyRequestPatientsComponent } from './pharmacy-request-patients/pharmacy-request-patients.component';
+import { PharmacyIncomePatientComponent } from './pharmacy-income-patient/pharmacy-income-patient.component';
+import { IncomePackagePatientComponent } from './pharmacy-income-patient/income-patient-package/income-package-patient.component';
+import { SelectIncomePatientComponent } from './pharmacy-income-patient/income-patient-package/select-income-patient.component';
+import { AmountIncomePatientComponent } from './pharmacy-income-patient/income-patient-package/amountIncomePatient.component';
+import { AmountDamagedPatientComponent } from './pharmacy-income-patient/income-patient-package/amountdamagedPatient.component';
+import { FormPharmacyIncomePatientComponent } from './pharmacy-income-patient/form-pharmacy-income-patient/form-pharmacy-income-patient.component';
 
 @NgModule({
   imports: [
@@ -185,9 +194,18 @@ import { PharmacyComponent } from './pharmacy.component';
     SelectProductReturnComponent,
     ActionsReturnComponent,
     PharmacyReturnComponent,
-
+    UserResponsibleComponent,
     ProductTabComponent,
     PharmacyComponent,
+
+    ActionsPatientComponent,
+    PharmacyRequestPatientsComponent,
+    PharmacyIncomePatientComponent,
+    IncomePackagePatientComponent,
+    SelectIncomePatientComponent,
+    AmountIncomePatientComponent,
+    AmountDamagedPatientComponent,
+    FormPharmacyIncomePatientComponent,
 
   ],
 exports:[
@@ -260,7 +278,19 @@ exports:[
     ActionsReturnComponent,
     PharmacyReturnComponent,
 
-    ProductTabComponent
+    ProductTabComponent,
+    UserResponsibleComponent,
+    ActionsPatientComponent,
+    
+    PharmacyRequestPatientsComponent,
+    PharmacyIncomePatientComponent,
+    IncomePackagePatientComponent,
+    SelectIncomePatientComponent,
+    AmountIncomePatientComponent,
+    AmountDamagedPatientComponent,
+    FormPharmacyIncomePatientComponent,
+    
+
 ],
   providers: [
     DateFormatPipe,

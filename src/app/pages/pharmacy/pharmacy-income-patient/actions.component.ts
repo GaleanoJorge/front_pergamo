@@ -7,13 +7,14 @@ import { ViewCell } from 'ng2-smart-table';
       <button *ngIf="value.data.status!='ACEPTADO'" nbTooltip="ACEPTAR" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
         <nb-icon icon="arrowhead-up-outline"></nb-icon>
       </button>
-      <button nbTooltip="ELIMINAR" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
+
+      <!-- <button nbTooltip="ELIMINAR" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
-      </button>
+      </button> -->
     </div>
   `,
 })
-export class ActionsSupComponent implements ViewCell {
+export class ActionsPatientComponent implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
 

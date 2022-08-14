@@ -4,15 +4,14 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { PharmacyLotStockService } from '../../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
-import { UserChangeService } from '../../../../business-controller/user-change.service';
 import { AuthService } from '../../../../services/auth.service';
 
 @Component({
-  selector: 'ngx-form-pharmacy-return',
-  templateUrl: './form-pharmacy-return.component.html',
-  styleUrls: ['./form-pharmacy-return.component.scss']
+  selector: 'ngx-form-pharmacy-income-patient',
+  templateUrl: './form-pharmacy-income-patient.component.html',
+  styleUrls: ['./form-pharmacy-income-patient.component.scss']
 })
-export class FormPharmacyReturnComponent implements OnInit {
+export class FormPharmacyIncomePatientComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;

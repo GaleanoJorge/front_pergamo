@@ -3,18 +3,17 @@ import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
-import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
-import { AmountReturnComponent } from './amount-return.component';
-import { SelectProductReturnComponent } from './select-prod-return.component';
-import { AmountDamagedPharComponent } from './amount-damaged.component';
 import { PharmacyRequestShippingService } from '../../../../business-controller/pharmacy-request-shipping.service';
+import { SelectIncomePatientComponent } from './select-income-patient.component';
+import { AmountIncomePatientComponent } from './amountIncomePatient.component';
+import { AmountDamagedPatientComponent } from './amountdamagedPatient.component';
 
 @Component({
-  selector: 'ngx-prod-return-package',
-  templateUrl: './prod-return-package.component.html',
-  styleUrls: ['./prod-return-package.component.scss'],
+  selector: 'ngx-income-package-patient',
+  templateUrl: './income-package-patient.component.html',
+  styleUrls: ['./income-package-patient.component.scss'],
 })
-export class ProdReturnPackageComponent implements OnInit {
+export class IncomePackagePatientComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   @Output() messageEvent = new EventEmitter<any>();
@@ -66,7 +65,7 @@ export class ProdReturnPackageComponent implements OnInit {
             'selection': (event, row: any) => this.eventSelections(event, row),
           };
         },
-        renderComponent: SelectProductReturnComponent,
+        renderComponent: SelectIncomePatientComponent,
       },
       product: {
         title: this.headerFields[0],
@@ -123,7 +122,7 @@ export class ProdReturnPackageComponent implements OnInit {
             'onchange': (input, row: any) => this.onAmountChange(input, row),
           };
         },
-        renderComponent: AmountReturnComponent,
+        renderComponent: AmountIncomePatientComponent,
       },
 
       amount_damaged: {
@@ -143,7 +142,7 @@ export class ProdReturnPackageComponent implements OnInit {
             'onchange': (input, row: any) => this.onAmountDamagedChange(input, row),
           };
         },
-        renderComponent: AmountDamagedPharComponent,
+        renderComponent: AmountDamagedPatientComponent,
       },
     },
   };

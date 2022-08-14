@@ -1,26 +1,26 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
+import { reorderBegin } from '@syncfusion/ej2/grids';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { ActionsReturnComponent } from './actions-return.component';
-import { FormPharmacyReturnComponent } from './form-pharmacy-return/form-pharmacy-return.component';
+import { ActionsPatientComponent } from './actions.component';
+import { FormPharmacyIncomePatientComponent } from './form-pharmacy-income-patient/form-pharmacy-income-patient.component';
 
 @Component({
-  selector: 'ngx-pharmacy-return',
-  templateUrl: './pharmacy-return.component.html',
-  styleUrls: ['./pharmacy-return.component.scss']
+  selector: 'ngx-pharmacy-income-patient',
+  templateUrl: './pharmacy-income-patient.component.html',
+  styleUrls: ['./pharmacy-income-patient.component.scss']
 })
-export class PharmacyReturnComponent implements OnInit {
-  
+export class PharmacyIncomePatientComponent implements OnInit {
   @Input() parentData: any;
   @Input() data: any = [];
   public isSubmitted = false;
   public messageError = null;
 
-  public title: string = 'ACEPTAR O DEVOLVER MEDICAMENTOS';
+  public title: string = 'ACEPTAR DEVOLUCIONES DE MEDICAMENTOS';
   public subtitle: string = '';
   public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
@@ -48,7 +48,7 @@ export class PharmacyReturnComponent implements OnInit {
             // 'delete': this.DeletePharInventary.bind(this),
           };
         },
-        renderComponent: ActionsReturnComponent,
+        renderComponent: ActionsPatientComponent,
       },
       id: {
         title: this.headerFields[0],
@@ -128,7 +128,7 @@ export class PharmacyReturnComponent implements OnInit {
   }
 
   EditInv(data) {
-    this.dialogFormService.open(FormPharmacyReturnComponent, {
+    this.dialogFormService.open(FormPharmacyIncomePatientComponent, {
       closeOnBackdropClick: false,
       context: {
         title: 'Aceptar Medicamento',
