@@ -20,7 +20,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
 
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['IDENTIFICADOR', 'SOLICITANTE','PACIENTE', 'PRODUCTO', 'CANTIDAD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'SOLICITANTE','PACIENTE', 'PRODUCTO', 'CANTIDAD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];

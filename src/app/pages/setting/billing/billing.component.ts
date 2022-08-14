@@ -18,7 +18,7 @@ export class BillingComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Orden de compra';
   public subtitle: string = '';
-  public headerFields: any[] = ['Identificador', 'Proveedor', 'Enviada a'];
+  public headerFields: any[] = ['Consecutivo', 'Proveedor', 'Enviada a'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
