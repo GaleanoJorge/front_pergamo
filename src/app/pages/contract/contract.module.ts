@@ -18,6 +18,7 @@ import {
   NbIconModule,
   NbCheckboxModule,
   NbTooltipModule,
+  NbPopoverModule,
   NbRadioModule,
   NbDatepickerModule, NbSpinnerModule,
 } from '@nebular/theme';
@@ -71,6 +72,8 @@ import { ActionsFileComponent } from './file-contract/actions.component';
     NbIconModule,
     NbDatepickerModule,
     NbSpinnerModule,
+    NbPopoverModule,
+
   ],
   declarations: [
     PolicyComponent,

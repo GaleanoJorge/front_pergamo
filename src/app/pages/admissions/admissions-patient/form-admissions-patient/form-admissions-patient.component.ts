@@ -217,7 +217,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
               this.isSubmitted = true;
               this.loading = false;
               this.admission_id = x.data.admissions ? x.data.admissions.id : 0;
-              this.messageEvent.emit([false, true, this.admission_id]);
+              var loca = x.dataAux?.aux ? x.dataAux?.aux.location_unique : null;
+              this.messageEvent.emit([false, true, this.admission_id, loca]);
             }
 
             if (this.saved) {

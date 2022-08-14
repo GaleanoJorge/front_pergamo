@@ -28,7 +28,22 @@ export class AuthAsociatedPackageComponent implements OnInit {
 
   public InscriptionForm: FormGroup;
   public title = 'Asignación autorizaciones para paquete: ';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'ambito', 'Programa', 'Sede', 'Estado', 'Procedimiento', 'Número de autorización', 'Cantidad autorizada'];
+  public headerFields: any[] = [
+    'Estado',
+    'ID',
+    'Procedimiento',
+    'Número de autorización',
+    'Tipo de documento',
+    'Número de documento',
+    'Nombre completo',
+    'Email',
+    'Providencia, Vereda o Municipio',
+    'Barrio',
+    'Dirección',
+    'Fecha de creación',
+    'Tipo de atención',
+    'Fecha de ejecución',
+  ];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -84,57 +99,95 @@ export class AuthAsociatedPackageComponent implements OnInit {
           };
         },
         renderComponent: SelectAuthComponent,
+      },      id: {
+        title: this.headerFields[1],
+        type: 'string',
       },
-      auth_status: {
+      date: {
         title: this.headerFields[11],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
-        },
       },
       services_briefcase: {
-        title: this.headerFields[12],
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction(value) {
           return value?.manual_price.name;
         },
       },
-      identification_type: {
-        title: this.headerFields[0],
-        type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
-        },
-      },
-      identification: {
-        title: this.headerFields[1],
-        type: 'string',
-      },
-      nombre_completo: {
-        title: this.headerFields[2],
-        type: 'string',
-      },
-      email: {
+      auth_number: {
         title: this.headerFields[3],
         type: 'string',
-      },
-      residence_municipality: {
-        title: this.headerFields[4],
-        type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        valuePrepareFunction: (value, row) => {
+          return value ? value : '--'
         },
       },
-      residence: {
+      assigned_management_plan: {
+        title: this.headerFields[13],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(value){
+            return value.execution_date != "0000-00-00" ? value.execution_date : '--';
+          } else {
+            return '--';
+          }
+        },
+      },
+      'type_of_attention': {
+        title: this.headerFields[12],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if( row.assigned_management_plan){
+            return row.assigned_management_plan.management_plan.type_of_attention.name;
+          } else {
+            return '--';
+          }
+        },
+      },
+      'identification_type': {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.identification_type.name;
+        },
+      },
+      'identification': {
         title: this.headerFields[5],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.identification;
+        },
+      },
+      nombre_completo: {
+        title: this.headerFields[6],
+        type: 'string',
+      },
+      'email': {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.email;
+        },
+      },
+      'residence_municipality': {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.residence_municipality.name;
+        },
+      },
+      'residence': {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.residence.name;
         },
       },
       residence_address: {
-        title: this.headerFields[6],
+        title: this.headerFields[10],
         type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions.patients.residence_address;
+        },
       },
     },
   };

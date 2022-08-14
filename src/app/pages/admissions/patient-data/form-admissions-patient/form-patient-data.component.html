@@ -281,7 +281,7 @@
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end" style=" max-height: 300px; overflow: auto;">
-      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton *ngIf="!this.showCancel" (click)="close()" type="button">Cancelar</button>
       <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
     </nb-card-footer>
   </nb-card>
