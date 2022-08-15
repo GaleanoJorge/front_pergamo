@@ -68,7 +68,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
       };
     }
     this.form = this.formBuilder.group({
-      cantidad_enviada: [this.data.cantidad_enviada],
+      // cantidad_enviada: [this.data.cantidad_enviada],
       observation: [this.data.observation],
     });
     await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
@@ -106,7 +106,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
           this.pharProdReqS.updateInventoryByLot({
             id: this.data.id,
             observation: this.form.controls.observation.value,
-            status: 'ACEPTADO',
+            status: 'DAÑADO',
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
@@ -125,7 +125,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
         } else {
           this.pharProdReqS.Save({
             observation: this.form.controls.observation.value,
-            status: 'ACEPTADO',
+            status: 'DAÑADO',
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
           }).then(x => {

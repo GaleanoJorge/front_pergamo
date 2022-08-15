@@ -25,7 +25,7 @@ export class ProdReturnPackageComponent implements OnInit {
   public form: FormGroup;
   public title = 'MEDICAMENTOS';
   public subtitle = '';
-  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'LOTE', 'CANTIDAD A RECIBIR', 'CANTIDAD CON DAÑOS', 'CANTIDAD PENDIENTE POR RECIBIR'];
+  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'LOTE', 'DAÑADA'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -90,14 +90,8 @@ export class ProdReturnPackageComponent implements OnInit {
             return row.pharmacy_product_request.product_supplies.description;
           }
         },
-      },
+      
 
-      amount_operation: {
-        title: this.headerFields[5],
-        type: 'string',
-        // valuePrepareFunction: (value, row) => {
-        //   return row.pharmacy_product_request.product_generic.description;
-        // },
       },
       lot: {
         title: this.headerFields[2],
@@ -106,45 +100,29 @@ export class ProdReturnPackageComponent implements OnInit {
           return row.pharmacy_lot_stock.lot;
         },
       },
-      amount: {
-        title: this.headerFields[3],
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          var amo;
-          this.parentData.selectedOptions.forEach(x => {
-            if (x.pharmacy_request_shipping == row.id) {
-              amo = x.amount;
-            }
-          });
-          return {
-            'data': row,
-            'enabled': !this.selectedOptions2.includes(row.id),
-            'amount': amo ? amo : '',
-            'onchange': (input, row: any) => this.onAmountChange(input, row),
-          };
-        },
-        renderComponent: AmountReturnComponent,
-      },
-
       amount_damaged: {
-        title: this.headerFields[4],
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          var amo;
-          this.parentData.selectedOptions.forEach(x => {
-            if (x.pharmacy_request_shipping == row.id) {
-              amo = x.amount_damaged;
-            }
-          });
-          return {
-            'data': row,
-            'enabled': !this.selectedOptions2.includes(row.id),
-            'amount_damaged': amo ? amo : '',
-            'onchange': (input, row: any) => this.onAmountDamagedChange(input, row),
-          };
-        },
-        renderComponent: AmountDamagedPharComponent,
+        title: this.headerFields[3],
+        type: 'string',
       },
+      // amount: {
+      //   title: this.headerFields[4],
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     var amo;
+      //     this.parentData.selectedOptions.forEach(x => {
+      //       if (x.pharmacy_request_shipping == row.id) {
+      //         amo = x.amount;
+      //       }
+      //     });
+      //     return {
+      //       'data': row,
+      //       'enabled': !this.selectedOptions2.includes(row.id),
+      //       'amount': amo ? amo : '',
+      //       'onchange': (input, row: any) => this.onAmountChange(input, row),
+      //     };
+      //   },
+      //   renderComponent: AmountReturnComponent,
+      // },
     },
   };
 
@@ -173,9 +151,9 @@ export class ProdReturnPackageComponent implements OnInit {
       var diet = {
         pharmacy_request_shipping_id: row.id,
         pharmacy_lot_stock_id: row.pharmacy_lot_stock_id,
-        amount: 0,
-        amount_damaged: 0,
-        amount_provition: row.amount_provition,
+        // amount: 0,
+        // amount_damaged: 0,
+        // amount_provition: row.amount_provition,
       };
       this.emit.push(diet);
     } else {
@@ -195,40 +173,22 @@ export class ProdReturnPackageComponent implements OnInit {
     this.RefreshData();
   }
 
-  onAmountChange(input, row) {
-    if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
-      this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
-    } else {
-      var i = 0;
-      var mientras = this.selectedOptions;
-      this.selectedOptions.forEach(element => {
-        if (element.pharmacy_request_shipping_id == row.id) {
-          mientras[i].amount = input.target.valueAsNumber;
-        }
-        i++
-      });
-      this.selectedOptions = mientras;
-      this.messageEvent.emit(this.selectedOptions);
-    }
-  }
-
-  onAmountDamagedChange(input, row) {
-    if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
-      this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
-    } else {
-
-      var i = 0;
-      var mientras = this.selectedOptions;
-      this.selectedOptions.forEach(element => {
-        if (element.pharmacy_request_shipping_id == row.id) {
-          mientras[i].amount_damaged = input.target.valueAsNumber;
-        }
-        i++
-      });
-      this.selectedOptions = mientras;
-      this.messageEvent.emit(this.selectedOptions);
-    }
-  }
+  // onAmountChange(input, row) {
+  //   if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
+  //     this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
+  //   } else {
+  //     var i = 0;
+  //     var mientras = this.selectedOptions;
+  //     this.selectedOptions.forEach(element => {
+  //       if (element.pharmacy_request_shipping_id == row.id) {
+  //         mientras[i].amount = input.target.valueAsNumber;
+  //       }
+  //       i++
+  //     });
+  //     this.selectedOptions = mientras;
+  //     this.messageEvent.emit(this.selectedOptions);
+  //   }
+  // }
 
   ChangeManual(inscriptionstatus) {
     this.inscriptionstatus = inscriptionstatus;
