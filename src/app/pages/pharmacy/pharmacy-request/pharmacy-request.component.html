@@ -7,6 +7,16 @@
           <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
             entity="pharmacy_product_request/?pagination=true&status=SOLICITADO&request_pharmacy_stock_id={{this.my_pharmacy_id}}"
             customData='pharmacy_product_request' [messageToltip]="messageToltip">
+            <div actions>
+              <div class="actions">
+                <nb-select (selectedChange)="ChangePharmacy($event)" placeholder="Filtrar por Farmacia"
+                  [(selected)]="pharmacy">
+                  <nb-option value="0">Seleccione una farmacia</nb-option>
+                  <nb-option *ngFor="let item of pharmacy_stock" [value]="item.pharmacy_stock_id">
+                    {{item.pharmacy.name}}</nb-option>
+                </nb-select>
+              </div>
+            </div>
           </ngx-base-table>
         </div>
       </nb-tab>

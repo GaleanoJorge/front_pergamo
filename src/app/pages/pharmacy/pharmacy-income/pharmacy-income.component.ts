@@ -3,6 +3,7 @@ import { NbDialogService } from '@nebular/theme';
 import { reorderBegin } from '@syncfusion/ej2/grids';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
+import { UserPharmacyStockService } from '../../../business-controller/user-pharmacy-stock.service';
 import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -30,6 +31,7 @@ export class PharmacyIncomeComponent implements OnInit {
   public my_pharmacy_id;
   public most: boolean = false;
   public entity;
+  public pharmacy_stock;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -102,10 +104,11 @@ export class PharmacyIncomeComponent implements OnInit {
     private requesS: PharmacyProductRequestService,
     private invS: PharmacyLotStockService,
     private authService: AuthService,
+    private permisoPharmaS: UserPharmacyStockService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.validator = this.parentData;
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
@@ -115,6 +118,11 @@ export class PharmacyIncomeComponent implements OnInit {
         this.title = 'ACEPTAR MEDICAMENTOS ENVIADOS A:  ' + x[0]['name'];
       }
     });
+
+    await this.permisoPharmaS.GetPharmacyUserId(this.user.id).then(x => {
+      this.pharmacy_stock = x;
+    });
+
   }
 
   RefreshData() {
@@ -125,6 +133,18 @@ export class PharmacyIncomeComponent implements OnInit {
     if ($event == true) {
       this.RefreshData();
     }
+  }
+
+
+  ChangePharmacy(pharmacy) {
+    if(pharmacy==0){
+      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
+
+    }else{
+   
+      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+    }
+    // this.RefreshData();
   }
 
   EditInv(data) {

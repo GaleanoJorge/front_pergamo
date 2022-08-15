@@ -7,6 +7,7 @@ import { PharmacyLotStockService } from '../../../business-controller/pharmacy-l
 import { ActionsInvSupComponent } from './actionsInv.component';
 import { FormPharmaInvSupPersonComponent } from './form-pharma-inv-sup-person/form-pharma-inv-sup-person.component';
 import { PharmacyStockService } from '../../../business-controller/pharmacy-stock.service';
+import { UserPharmacyStockService } from '../../../business-controller/user-pharmacy-stock.service';
 
 @Component({
   selector: 'ngx-pharmacy-inventory-supplies',
@@ -97,7 +98,7 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
     private invS: PharmacyLotStockService,
     private authService: AuthService,
     private toastService: NbToastrService,
-    private perPharmaS: PharmacyStockService,
+    private permisoPharmaS: UserPharmacyStockService,
   ) {
   }
 
@@ -112,7 +113,7 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
         this.toastService.info('Usuario sin farmacias asociadas', 'Información');
       }
     });
-    await this.perPharmaS.GetCollection({ type:2 }).then(x => {
+    await this.permisoPharmaS.GetPharmacyUserId(this.user.id).then(x => {
       this.pharmacy_stock = x;
     });
   }
@@ -130,11 +131,11 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
   }
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
-      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + true, 'pharmacy_lot_stock');
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + false, 'pharmacy_lot_stock');
 
     }else{
       this.pharmacy = pharmacy;
-      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + true, 'pharmacy_lot_stock');
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + false, 'pharmacy_lot_stock');
     }
     // this.RefreshData();
   }

@@ -8,6 +8,7 @@ import { PharmacyLotStockService } from '../../../business-controller/pharmacy-l
 import { FormPharmacyReturnComponent } from '../pharmacy-return/form-pharmacy-return/form-pharmacy-return.component';
 import { FormPharmaInvPersonComponent } from './form-pharma-inv-person/form-pharma-inv-person.component';
 import { PharmacyStockService } from '../../../business-controller/pharmacy-stock.service';
+import { UserPharmacyStockService } from '../../../business-controller/user-pharmacy-stock.service';
 
 @Component({
   selector: 'ngx-pharmacy-inventory',
@@ -98,6 +99,7 @@ export class PharmacyInventoryComponent implements OnInit {
     private authService: AuthService,
     private toastService: NbToastrService,
     private perPharmaS: PharmacyStockService,
+    private permisoPharmaS: UserPharmacyStockService,
   ) {
   }
 
@@ -115,9 +117,18 @@ export class PharmacyInventoryComponent implements OnInit {
         this.toastService.info('Usuario sin farmacias asociadas', 'Información');
       }
     });
-    await this.perPharmaS.GetCollection({ type:2 }).then(x => {
+
+    // await this.perPharmaS.GetCollection({ type:2 }).then(x => {
+    //   this.pharmacy_stock = x;
+    // });
+
+
+    await this.permisoPharmaS.GetPharmacyUserId(this.user.id).then(x => {
       this.pharmacy_stock = x;
     });
+
+    
+
 
   }
 
