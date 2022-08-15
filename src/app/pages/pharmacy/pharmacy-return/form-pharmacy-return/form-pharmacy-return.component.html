@@ -4,15 +4,13 @@
     <nb-card-body>
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="cantidad_enviada" class="form-text text-muted font-weight-bold">CANTIDAD ENVIADA TOTAL:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput type="number" min="0" pattern="^[0-9]+" fullWidth id="cantidad_enviada"
-            formControlName="cantidad_enviada" disabled="disabled" />
+          <label class="form-text text-muted font-weight-bold">MEDICAMENTOS DEVUELTOS</label>
         </div>
 
         <div class="col-12 col-sm-12 col-md-12">
-          <ngx-income-package (messageEvent)="receiveMessage($event)" [parentData]="parentData" >
+          <ngx-prod-return-package (messageEvent)="receiveMessage($event)" [parentData]="parentData" >
           <!-- <ngx-income-package (messageEvent)="receiveMessage($event)" [parentData]="parentData" [my_pharmacy_id]="my_pharmacy_id"> -->
-          </ngx-income-package>
+          </ngx-prod-return-package>
         </div>
         <div class="col-12 col-sm-12 col-md-12">
           <label></label>
@@ -20,7 +18,7 @@
 
         
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIÓN:</label>
+          <label for="observation" class="form-text text-muted font-weight-bold">MOTIVO DE DEVOLUCIÓN:</label>
           <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"> </textarea>
         </div>
 

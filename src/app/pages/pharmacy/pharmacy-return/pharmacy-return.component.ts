@@ -14,15 +14,15 @@ import { FormPharmacyReturnComponent } from './form-pharmacy-return/form-pharmac
   styleUrls: ['./pharmacy-return.component.scss']
 })
 export class PharmacyReturnComponent implements OnInit {
-  
+
   @Input() parentData: any;
   @Input() data: any = [];
   public isSubmitted = false;
   public messageError = null;
 
-  public title: string = 'ACEPTAR O DEVOLVER MEDICAMENTOS';
+  public title: string = 'ACEPTAR DEVOLUCIONES DE MEDICAMENTOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
+  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO DEVUELTO POR', 'PRODUCTO GENERICO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public validator;
@@ -58,10 +58,10 @@ export class PharmacyReturnComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(value){
-          return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
-          }else{
-            return row.user_request_pad.firstname+" "+ row.user_request_pad.lastname;
+          if (value) {
+            return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
+          } else {
+            return row.user_request_pad.firstname + " " + row.user_request_pad.lastname;
           }
         },
       },
@@ -70,29 +70,16 @@ export class PharmacyReturnComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.product_generic_id == null) {
-            if(row.services_briefcase){
+            if (row.services_briefcase) {
               return row.services_briefcase.manual_price.name;
-            }else{
-            return row.product_supplies.description;
+            } else {
+              return row.product_supplies.description;
             }
           } else {
             return row.product_generic.description;
           }
 
         },
-      },
-      request_amount: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          if (value == null) {
-            return row.request_amount;
-          } else {
-            return value;
-          }
-
-        },
-        
       },
     },
   };
@@ -111,7 +98,7 @@ export class PharmacyReturnComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + x[0].id ;
+        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + x[0].id;
         this.title = 'MEDICAMENTOS DEVUELTOS A:  ' + x[0]['name'];
       }
     });

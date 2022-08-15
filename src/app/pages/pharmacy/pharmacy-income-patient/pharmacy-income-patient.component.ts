@@ -22,7 +22,7 @@ export class PharmacyIncomePatientComponent implements OnInit {
 
   public title: string = 'ACEPTAR DEVOLUCIONES DE MEDICAMENTOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO ENVIADO POR', 'PRODUCTO GENERICO', 'CANTIDAD A RECIBIR'];
+  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO DEVUELTO POR', 'PRODUCTO GENERICO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public validator;
@@ -80,18 +80,8 @@ export class PharmacyIncomePatientComponent implements OnInit {
           }
 
         },
-      },
-      request_amount: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          if (value == null) {
-            return row.request_amount;
-          } else {
-            return value;
-          }
-
-        },
+      
+  
         
       },
     },
@@ -111,7 +101,7 @@ export class PharmacyIncomePatientComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + x[0].id ;
+        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + x[0].id ;
         this.title = 'MEDICAMENTOS DEVUELTOS A:  ' + x[0]['name'];
       }
     });
