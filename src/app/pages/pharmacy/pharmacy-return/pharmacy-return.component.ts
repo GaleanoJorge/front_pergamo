@@ -98,7 +98,7 @@ export class PharmacyReturnComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + x[0].id;
+        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + x[0].id;
         this.title = 'MEDICAMENTOS DEVUELTOS A:  ' + x[0]['name'];
       }
     });
