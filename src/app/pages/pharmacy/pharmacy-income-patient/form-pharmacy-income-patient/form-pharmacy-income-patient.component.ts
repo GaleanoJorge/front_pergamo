@@ -92,7 +92,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
         this.toastS.danger('Debe seleccionar al menos un medicamento', 'Error');
       } else {
         this.selectedOptions.forEach(element => {
-          if (element.amount == null || element.amount <= 0) {
+          if (element.amount == null || element.amount <= 0 || element.amount_damaged <= 0) {
             valid_values = false;
           }
         });

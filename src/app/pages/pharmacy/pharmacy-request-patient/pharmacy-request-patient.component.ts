@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
+import { UserPharmacyStockService } from '../../../business-controller/user-pharmacy-stock.service';
 import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -27,6 +28,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
   public user;
   public my_pharmacy_id;
   public entity;
+  public pharmacy_stock;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -90,10 +92,11 @@ export class PharmacyRequestPatientComponent implements OnInit {
     private requesS: PharmacyProductRequestService,
     private invS: PharmacyLotStockService,
     private authService: AuthService,
+    private permisoPharmaS: UserPharmacyStockService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
@@ -101,7 +104,24 @@ export class PharmacyRequestPatientComponent implements OnInit {
       this.title = 'SOLICITUDES DE MEDICAMENTOS A:  ' + x[0]['name'];
 
     });
+
+    await this.permisoPharmaS.GetPharmacyUserId(this.user.id).then(x => {
+      this.pharmacy_stock = x;
+    });
   }
+
+
+
+ChangePharmacy(pharmacy) {
+  if(pharmacy==0){
+    this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
+
+  }else{
+
+    this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+  }
+  // this.RefreshData();
+}
 
   RefreshData() {
     this.table.refresh();

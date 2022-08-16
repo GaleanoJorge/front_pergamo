@@ -100,7 +100,7 @@ export class ProdReturnPackageComponent implements OnInit {
           return row.pharmacy_lot_stock.lot;
         },
       },
-      amount_damaged: {
+      amount_operation: {
         title: this.headerFields[3],
         type: 'string',
       },

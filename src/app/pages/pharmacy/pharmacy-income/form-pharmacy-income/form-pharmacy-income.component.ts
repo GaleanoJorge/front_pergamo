@@ -92,7 +92,8 @@ export class FormPharmacyIncomeComponent implements OnInit {
         this.toastS.danger('Debe seleccionar al menos un medicamento', 'Error');
       } else {
         this.selectedOptions.forEach(element => {
-          if (element.amount == null || element.amount <= 0) {
+          var total=element.amount + element.amount_damaged;
+          if (element.amount == null || total <= 0 ) {
             valid_values = false;
           }
         });
@@ -108,7 +109,7 @@ export class FormPharmacyIncomeComponent implements OnInit {
             observation: this.form.controls.observation.value,
             status: 'ACEPTADO',
             own_pharmacy_stock_id: this.my_pharmacy_id,
-            request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
+            request_pharmacy_stock_id: this.data.own_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
           }).then(x => {
             this.toastService.success('', x.message);
