@@ -29,7 +29,7 @@ export class BillingPadProcedureComponent implements OnInit {
   public title: string = null;
   public subtitle: string = 'Gestión';
   public patient_name: string = '';
-  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN', 'AUTORIZADO', 'FACTURA'];
+  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN', 'AUTORIZADO', 'FACTURA', 'VERIFICADO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -160,10 +160,12 @@ export class BillingPadProcedureComponent implements OnInit {
           if (row.billing_pad_status == 'FACTURADA') {
             this.total_already_billing += row.services_briefcase.value;
           }
-          if (row.auth_status_id != 3) {
+          if (row.auth_status_id != 3 || row.assigned_management_plan.approved == 0) {
             this.total_pendding_auth += row.services_briefcase.value;
           }
-          if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3 && row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
+          if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3 && 
+          row.assigned_management_plan.execution_date != "0000-00-00 00:00:00"
+          && row.assigned_management_plan.approved == 1) {
             this.total_pendding_billing += row.services_briefcase.value;
           }
           return this.currency.transform(row.services_briefcase.value);
@@ -193,6 +195,17 @@ export class BillingPadProcedureComponent implements OnInit {
             return 'Autorizado';
           } else {
             return 'Sin autorizar';
+          }
+        }
+      },
+      assigned_management_plan: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.assigned_management_plan.approved == 1) {
+            return 'Aprobado';
+          } else {
+            return 'Sin aprobar';
           }
         }
       },

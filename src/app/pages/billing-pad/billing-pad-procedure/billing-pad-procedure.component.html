@@ -65,7 +65,7 @@
     <nb-card-footer class="d-flex justify-content-end">
       <div class="vi">TOTAL PROYECTADO: {{this.currency.transform(this.total_pre_billing)}}</div>
       <div class="vi">TOTAL FACTURADO: {{this.currency.transform(this.total_already_billing)}}</div>
-      <div class="vi">PENDIENTE EJECUTAR/AUTORIZAR: {{this.currency.transform(this.total_pendding_auth)}}</div>
+      <div class="vi">PENDIENTE EJECUTAR/AUTORIZAR/APROBAR: {{this.currency.transform(this.total_pendding_auth)}}</div>
       <div class="vi">PENDIENTE FACTURAR: {{this.currency.transform(this.total_pendding_billing)}}</div>
       <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
     </nb-card-footer>

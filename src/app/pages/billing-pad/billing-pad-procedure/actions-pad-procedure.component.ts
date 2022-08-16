@@ -11,7 +11,7 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
         this.semaphore == 1 ? 'background-color: #7A39BB;' : 
         this.semaphore == 2 ? 'background-color: #44E431;' : 
         this.semaphore == 3 ? 'background-color: #FBE336;' : 
-        'background-color: #C70039' "
+        'background-color: #54bcc1' "
         >
     </div>
         <button *ngIf="value.data.auth_package" nbTooltip="VER CONTENIDO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data, value.route)">
@@ -55,6 +55,9 @@ export class ActionsPadProcedureComponent implements ViewCell {
         } else if (data.auth_status_id != 3) {
             response = 1;
             this.tooltip = 'Sin autorizar';
+        } else if (data.assigned_management_plan.approved != 1) {
+            response = 4;
+            this.tooltip = 'Sin aprobar';
         } else {
             response = 3;
             this.tooltip = 'Por facturar';

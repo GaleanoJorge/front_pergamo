@@ -16,7 +16,7 @@ export class BriefcaseService {
   GetCollection(params = {}): Promise<Briefcase[]> {
     let servObj = new ServiceObject(params ? 'briefcase?pagination=false' : 'briefcase');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
