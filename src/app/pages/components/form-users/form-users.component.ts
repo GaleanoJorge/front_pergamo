@@ -115,6 +115,7 @@ export class FormUsersComponent implements OnInit {
   public specialitiesSelect = [];
   public selected: any[];
   public activities_id;
+  public neighborhood_or_residence_id;
 
   public inabilitys: any[];
   public residences: any[];
@@ -695,7 +696,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('population_group_id', data.population_group_id.value);
       formData.append('marital_status_id', data.marital_status_id.value);
       formData.append('residence_address', this.residence);
-      formData.append('neighborhood_or_residence_id', data.neighborhood_or_residence_id.value);
+      formData.append('neighborhood_or_residence_id', this.neighborhood_or_residence_id);
       formData.append('campus_id', JSON.stringify(this.campusData.selectedOptions));
 
       // var role = Number(this.role);
@@ -849,6 +850,7 @@ export class FormUsersComponent implements OnInit {
         localities_id: [],
         neighborhood_or_residence_id: '',
       });
+      this.neighborhood_or_residence_id = '';
     });
 
     this.form.get('residence_region_id').valueChanges.subscribe(val => {
@@ -863,6 +865,7 @@ export class FormUsersComponent implements OnInit {
         localities_id: [],
         neighborhood_or_residence_id: '',
       });
+      this.neighborhood_or_residence_id = '';
     });
 
     this.form.get('residence_municipality_id').valueChanges.subscribe(val => {
@@ -892,6 +895,7 @@ export class FormUsersComponent implements OnInit {
       this.form.patchValue({
         neighborhood_or_residence_id: '',
       });
+      this.neighborhood_or_residence_id = '';
     });
 
     this.form.get('is_disability').valueChanges.subscribe(val => {
@@ -1111,5 +1115,17 @@ export class FormUsersComponent implements OnInit {
 
   receiveCampusMessage($event) {
     this.campusData.selectedOptions = $event;
+  }
+
+  save_neighborhood_or_residence(e) {
+    var localidentify = this.neighborhood_or_residence.find(item => item.name == e);
+
+    if (localidentify) {
+      this.neighborhood_or_residence_id = localidentify.id;
+    } else {
+      this.neighborhood_or_residence_id = null;
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+      this.form.controls.activities_id.setErrors({ 'incorrect': true });
+    }
   }
 }

@@ -420,12 +420,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="neighborhood_or_residence_id" class="form-text text-muted font-weight-bold">Barrio:</label>
-            <nb-select id="neighborhood_or_residence_id" fullWidth formControlName="neighborhood_or_residence_id"
-              neighborhood_or_residence_id
+            <input fullWidth nbInput list="codes2" (change)="save_neighborhood_or_residence($event.target.value)"
+              id="neighborhood_or_residence_id" formControlName="neighborhood_or_residence_id"
+              neighborhood_or_residence_id type="text" required
               status="{{ isSubmitted && form.controls.neighborhood_or_residence_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option *ngFor="let item of neighborhood_or_residence" [value]="item.id">{{ item.name }}</nb-option>
-            </nb-select>
+            <datalist id="codes2">
+              <option *ngFor="let item of neighborhood_or_residence" [value]="item.name">{{item.name}}</option>
+            </datalist>
           </div>
         </div>
       </div>
