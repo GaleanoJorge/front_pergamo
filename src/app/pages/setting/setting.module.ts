@@ -385,6 +385,12 @@ import { RoleCheckComponent } from './users/role-package/role-check.component';
 import { RolePackageComponent } from './users/role-package/role-package.component';
 import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
 import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
+import { MedicalDiaryComponent } from './medical-diary/medical-diary.component';
+import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/form-medical-diary.component';
+import { MedicalComponent } from './medical-diary/medical/medical.component';
+import { ActionsMedicalDiaryComponent } from './medical-diary/actions.component';
+import { ActionsMedicalComponent } from './medical-diary/medical/actions.component';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -441,6 +447,9 @@ import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/ser
     PolicyTypeComponent,
     FormBedComponent,
     BedComponent,
+    MedicalComponent,
+    ActionsMedicalDiaryComponent,
+    ActionsMedicalComponent,
     RolesPermissionsComponent,
     FormObservationNoveltyComponent,
     ObservationNoveltyComponent,
@@ -479,6 +488,8 @@ import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/ser
     ActionsProcedureComponent,
     FormCoverageComponent,
     FormFirmsComponent,
+    MedicalDiaryComponent,
+    FormMedicalDiaryComponent,
     ProcedurePackageComponent,
     ProcedurePackage2Component,
     FormInsuranceCarrierComponent,

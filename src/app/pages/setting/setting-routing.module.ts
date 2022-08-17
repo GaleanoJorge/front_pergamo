@@ -141,6 +141,9 @@ import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { FixedRequestComponent } from './fixed-request/fixed-request.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+import { MedicalDiaryComponent } from './medical-diary/medical-diary.component';
+import { MedicalComponent } from './medical-diary/medical/medical.component';
+import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/form-medical-diary.component';
 import { BillingPadPrefixComponent } from './billing-pad-prefix/billing-pad-prefix.component';
 import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billing-pad-consecutive.component';
 import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.component';
@@ -156,6 +159,16 @@ const routes: Routes = [{
     {
       path: 'coverage',
       component: CoverageComponent,
+
+    },
+    {
+      path: 'medical-diary',
+      component: MedicalDiaryComponent,
+
+    },
+    {
+      path: 'medical-diary/medical/:id/:user',
+      component: MedicalComponent,
 
     },
     {
