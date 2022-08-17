@@ -19,7 +19,7 @@ export class LanguageInterventionComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Intervensión',
+    'Intervención',
     
   ];
   

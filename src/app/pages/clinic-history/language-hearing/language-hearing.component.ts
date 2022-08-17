@@ -53,7 +53,7 @@ export class LanguageHearingComponent implements OnInit {
         width: 'string',
       },
       observations: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
      

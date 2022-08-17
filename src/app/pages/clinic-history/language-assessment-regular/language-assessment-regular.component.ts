@@ -19,7 +19,7 @@ export class LanguageAssessmentRegularComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Diagnostico Medico', 'Diagnostico Terapeutico','Motivo de la Consulta'];
+  public headerFields: any[] = ['Diagnostico Medico', 'Estado del Paciente'];
   public movieForm: String;
 
   public isSubmitted: boolean = false;
@@ -35,22 +35,15 @@ export class LanguageAssessmentRegularComponent implements OnInit {
     },
     columns: {
 
-      medical_diagnostic_id: {
+      diagnosis_id: {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-      therapeutic_diagnosis_id: {
+      status_patient: {
         title: this.headerFields[1],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.name;
-        },
-      },
-      reason_consultation: {
-        title: this.headerFields[2],
         width: 'string',
       },
      
