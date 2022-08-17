@@ -10,6 +10,7 @@ import { FormBillingPadComponent } from './form-billing-pad/form-billing-pad.com
 import { BillingPadService } from '../../../business-controller/billing-pad.service';
 import { AuthService } from '../../../services/auth.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-billing-pad-procedure',
@@ -230,6 +231,7 @@ export class BillingPadProcedureComponent implements OnInit {
     private BillingPadS: BillingPadService,
     private authService: AuthService,
     public datePipe: DateFormatPipe,
+    private location: Location,
   ) {
   }
 
@@ -319,13 +321,40 @@ export class BillingPadProcedureComponent implements OnInit {
 
   eventSelections(event, row) {
     if (event) {
-      this.selectedOptions.push(row);
+      var add = {
+        id: row.id,
+        services_briefcase:{
+          value: row.services_briefcase.value,
+          manual_price: {
+            homologous_id: row.services_briefcase.manual_price.homologous_id,
+            name: row.services_briefcase.manual_price.name,
+          },
+        },
+        supplies_com: row.supplies_com != undefined ? {
+          code_cum:  row.supplies_com.code_cum,
+        } : null,
+        product_com: row.product_com != undefined ? {
+          code_cum: row.product_com.code_cum,
+        } : null,
+        assigned_management_plan: row.assigned_management_plan != undefined ?  {
+          execution_date: row.assigned_management_plan.execution_date,
+          user: {
+            firstname: row.assigned_management_plan.user.firstname,
+            lastname: row.assigned_management_plan.user.lastname,
+          },
+        }:null,
+      }
+      this.selectedOptions.push(add);
       this.count_billing += row.services_briefcase.value;
     } else {
       this.count_billing -= row.services_briefcase.value;
       let i = this.selectedOptions.indexOf(row);
       i !== -1 && this.selectedOptions.splice(i, 1);
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   SaveBilling() {
@@ -339,6 +368,8 @@ export class BillingPadProcedureComponent implements OnInit {
         user_id: this.user_id,
       }).then(x => {
         this.loading = false;
+        this.closeDialog();
+        this.goBack();
         this.toastS.success('', x.message);
         this.selectedOptions = [];
         this.RefreshData();

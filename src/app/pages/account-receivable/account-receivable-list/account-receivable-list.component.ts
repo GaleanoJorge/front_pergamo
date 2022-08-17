@@ -25,9 +25,9 @@ export class AccountReceivableListComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Cuentas de Cobro';
+  public title: string = 'CUENTAS DE COBRO';
   public subtitle: string = 'Historial';
-  public headerFields: any[] = ['IDENTIFICACIÓN', 'NOMBRE', 'MES', 'VALOR BRUTO', 'VALOR NETO', 'ESTADO', 'CÁLCULO SEGURIDAD SOCIAL SUGERIDO DEL PRÓXIMO MES', 'OBSERVACIÓN'];
+  public headerFields: any[] = ['IDENTIFICACIÓN', 'NOMBRE', 'MES', 'VALOR BRUTO', 'VALOR NETO', 'ESTADO', 'CÁLCULO SEGURIDAD SOCIAL SUGERIDO DEL PRÓXIMO MES', 'OBSERVACIÓN', 'TIPO DE IDENTIFICACIÓN'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -36,6 +36,7 @@ export class AccountReceivableListComponent implements OnInit {
   public user;
   public currentRole;
   public settings;
+  public done = false;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings1 = {
@@ -62,24 +63,14 @@ export class AccountReceivableListComponent implements OnInit {
         },
         renderComponent: Actions2Component,
       },
-      'user.identification': {
-        title: this.headerFields[0],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.user.identification;
-        },
-      },
-      user: {
-        title: this.headerFields[1],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.firstname + ' ' + value.lastname;
-        },
-      },
       created_at: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
+          if (!this.done) {
+            this.title += ' DE: ' + row.user.firstname + ' ' + row.user.lastname;
+            this.done = true;
+          }
           return this.datePipe.getMonthPretty(value);
         },
       },
@@ -123,7 +114,7 @@ export class AccountReceivableListComponent implements OnInit {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction(value) {
-          return value != null? value : '';
+          return value != null ? value : '';
         }
       },
     },
@@ -153,6 +144,13 @@ export class AccountReceivableListComponent implements OnInit {
         },
         renderComponent: Actions2Component,
       },
+      'user.identification_type': {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.user.identification_type.name;
+        },
+      },
       'user.identification': {
         title: this.headerFields[0],
         type: 'string',
@@ -171,7 +169,7 @@ export class AccountReceivableListComponent implements OnInit {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction(value) {
-          return value != null? value : '';
+          return value != null ? value : '';
         }
       },
     },
