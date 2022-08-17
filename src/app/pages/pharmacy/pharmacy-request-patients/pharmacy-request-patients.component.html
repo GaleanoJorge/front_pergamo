@@ -1,0 +1,15 @@
+<ngx-base-list [messageError]="messageError">
+
+
+  <div content>
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="DISPENSACIÓN PACIENTE">
+        <ngx-pharmacy-request-patient></ngx-pharmacy-request-patient>
+      </nb-tab>
+
+      <nb-tab tabTitle="DEVOLUCIONES PACIENTE">
+        <ngx-pharmacy-income-patient></ngx-pharmacy-income-patient>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</ngx-base-list>

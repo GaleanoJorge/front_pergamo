@@ -10,7 +10,7 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
         <nb-icon icon="archive-outline"></nb-icon>
       </button>
       <button *ngIf="value.data.billing_pad_status_id == 2" nbTooltip="VER FACTURACIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data)">
-          <nb-icon icon="eye-outline"></nb-icon>
+          <nb-icon icon="file-text-outline"></nb-icon>
       </button>
     </div>
   `,

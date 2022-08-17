@@ -13,6 +13,10 @@ import { ViewCell } from 'ng2-smart-table';
       <button nbTooltip="Agregar usuario" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ngxCheckPerms="delete" ghost (click)="value.user(value.data)">
         <nb-icon icon="people-outline"></nb-icon>
       </button>
+      
+      <button nbTooltip="Agregar Servicios" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ngxCheckPerms="delete" ghost (click)="value.services(value.data)">
+        <nb-icon icon="copy-outline"></nb-icon>
+      </button>
 
       <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ngxCheckPerms="delete" ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>

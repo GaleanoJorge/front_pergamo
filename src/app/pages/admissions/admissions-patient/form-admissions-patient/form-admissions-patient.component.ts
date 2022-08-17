@@ -38,7 +38,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public savedUser: any = null;
-  public loading: boolean = true;
+  public loading: boolean = false;
   public coverage: any[];
   public admission_route: any[];
   public scope_of_attention: any[];
@@ -217,7 +217,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
               this.isSubmitted = true;
               this.loading = false;
               this.admission_id = x.data.admissions ? x.data.admissions.id : 0;
-              this.messageEvent.emit([false, true, this.admission_id]);
+              var loca = x.dataAux?.aux ? x.dataAux?.aux.location_unique : null;
+              this.messageEvent.emit([false, true, this.admission_id, loca]);
             }
 
             if (this.saved) {
@@ -255,14 +256,12 @@ export class FormAdmissionsPatientComponent implements OnInit {
           search: $event,
         }).then(x => {
           this.diagnosis = x;
-          this.loading = false;
         });
       } else {
         this.DiagnosisS.GetCollection({
           search: '',
         }).then(x => {
           this.diagnosis = x;
-          this.loading = false;
         });
       }
     }
@@ -478,6 +477,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
       this.diagnosis_id = localidentify.id;
     } else {
       this.diagnosis_id = null;
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
 

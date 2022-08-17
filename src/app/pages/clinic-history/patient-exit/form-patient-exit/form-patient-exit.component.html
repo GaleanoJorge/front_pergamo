@@ -48,9 +48,6 @@
 
       <div class="row justify-content-md-center">
 
-            <input type="datetime-local" nbInput fullWidth id="date_time" formControlName="date_time" date_time
-            status="{{ isSubmitted && form.controls.date_time.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
-
         <div class="col-md-3">
           <label for="death_diagnosis_id" class="form-text text-muted font-weight-bold ">Causa de la Muerte</label>
           <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
@@ -100,7 +97,7 @@
           <label for="exit_diagnosis_id" class="form-text text-muted font-weight-bold ">DX Salida</label>
           <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
             (change)="saveCode($event.target.value,1)" id="exit_diagnosis_id" formControlName="exit_diagnosis_id"
-            exit_diagnosis_id type="text"
+            exit_diagnosis_id type="text" (ngModelChange)="this.searchDiagnostic($event)"
             status="{{ isSubmitted && form.controls.exit_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">
             <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
@@ -111,7 +108,7 @@
         <div class="col-md-4 ">
           <label for="relations_diagnosis_id" class="form-text text-muted font-weight-bold">DX Relacionado</label>
           <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
-            (change)="saveCode($event.target.value,2)" id="relations_diagnosis_id"
+            (change)="saveCode($event.target.value,2)" id="relations_diagnosis_id" (ngModelChange)="this.searchDiagnostic($event)"
             formControlName="relations_diagnosis_id" relations_diagnosis_id type="text"
             status="{{ isSubmitted && form.controls.relations_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">

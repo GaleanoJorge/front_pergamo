@@ -1,40 +1,53 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="max-width: 600px; max-height: 600px;">
+  <nb-card style="max-width: 1400px;max-height: 1200px;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
 
-      <!--     <div class="col-md-12">
-          <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
-          <input nbInput fullWidth id="code" formControlName="code" code
-            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
-        </div> -->
-      <div *ngIf="!this.Managemen" class="col-md-12">
+
+      <div *ngIf="this.auth_status != 3" class="col-md-12">
         <label for="observation" class="form-text text-muted font-weight-bold">Obsevación:</label>
         <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="observation"
           formControlName="observation" observation
           status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
       </div>
-      <div *ngIf="this.Managemen">
-        <!-- <div >
-          <div class="col-md-12">
-            <label for="max_quantity" class="form-text text-muted font-weight-bold">Cantidad solicitada: </label>
-            <input type="text" nbInput [value]="max" fullWidth disabled />
-          </div>
-        </div> -->
-        <!-- <div >
-          <div class="col-md-12">
-            <label for="authorized_amount" class="form-text text-muted font-weight-bold">Cantidad autorizada:</label>
-            <input nbInput type="number" min="1" [max]="max" fullWidth id="authorized_amount"
-              formControlName="authorized_amount" authorized_amount
-              status="{{ isSubmitted && form.controls.authorized_amount.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
-          </div>
-        </div> -->
-        <div >
+      <div *ngIf="this.auth_status == 3">
+        <div>
           <div class="col-md-12" >
             <label for="auth_number" class="form-text text-muted font-weight-bold">Número de autorización:</label>
             <input nbInput type="text" fullWidth id="auth_number"
               formControlName="auth_number" auth_number
               status="{{ isSubmitted && form.controls.auth_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+          <div class="col-md-12">
+            <label for="observation" class="form-text text-muted font-weight-bold">Observación:</label>
+            <textarea cols="80" rows="4" nbInput formControlName="observation" id="observation" observation fullWidth placeholder="Observación"
+                  status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"></textarea> 
+          </div>
+          <div class="col-md-12">
+            <label for="copay" class="form-text text-muted font-weight-bold">¿Tiene Copago?
+            </label>
+            <nb-toggle formControlName="copay" copay >
+            </nb-toggle>
+          </div>
+          <div class="col-md-12" *ngIf="this.form.controls.copay.value">
+            <label for="copay_value" class="form-text text-muted font-weight-bold">Valor de copago:</label>
+            <input nbInput fullWidth id="copay_value"
+              formControlName="copay_value" copay_value type="number"
+              status="{{ isSubmitted && form.controls.copay_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="form-group">
+                <label for="file" class="form-text text-muted font-weight-bold">
+                  Subir documentos:
+                </label>
+                <div *ngIf="previewFile" class="container py-2">
+                  <a [href]="previewFile" target="_blank">Ver documentos</a>
+                </div>
+                <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file" nbInput fullWidth
+                  (change)="changeImage($event.target.files, 1)" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -42,7 +55,7 @@
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
       <button nbButton (click)="close()" type="button">Cancelar</button>
-      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+      <button nbButton status="danger"(click)="save()" type="button" disabled="{{ loading }}">Guardar</button>
     </nb-card-footer>
   </nb-card>
 </form>

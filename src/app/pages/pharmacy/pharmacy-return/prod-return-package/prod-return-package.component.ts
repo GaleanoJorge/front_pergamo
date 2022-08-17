@@ -6,6 +6,8 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 import { AmountReturnComponent } from './amount-return.component';
 import { SelectProductReturnComponent } from './select-prod-return.component';
+import { AmountDamagedPharComponent } from './amount-damaged.component';
+import { PharmacyRequestShippingService } from '../../../../business-controller/pharmacy-request-shipping.service';
 
 @Component({
   selector: 'ngx-prod-return-package',
@@ -19,11 +21,13 @@ export class ProdReturnPackageComponent implements OnInit {
   @Input() parentData: any = [];
   public messageError = null;
 
-  public InscriptionForm: FormGroup;
-  public title = '';
-  public subtitle = ' ';
-  public headerFields: any[] = ['PRODUCTO GENERICO', 'CANTIDAD A DEVOLVER'];
+
+  public form: FormGroup;
+  public title = 'MEDICAMENTOS';
+  public subtitle = '';
+  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'LOTE', 'DAÑADA'];
   public routes = [];
+  public row;
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
   public emit: any[] = [];
@@ -33,11 +37,14 @@ export class ProdReturnPackageComponent implements OnInit {
   public selectedRows: any;
   public inscriptionId;
   public entity;
+  public billing_id: any[];
   public customData;
 
   public component_package_id: number;
   public done = false;
   public settings;
+  public pharmacy_request_shipping;
+  public show: boolean = false;
 
   public settings_supplies = {
     columns: {
@@ -49,7 +56,7 @@ export class ProdReturnPackageComponent implements OnInit {
             this.selectedOptions = this.parentData.selectedOptions;
             this.emit = this.parentData.selectedOptions;
             this.parentData.selectedOptions.forEach(x => {
-              this.selectedOptions2.push(x.pharmacy_lot_stock_id);
+              this.selectedOptions2.push(x.pharmacy_request_shipping);
             });
             this.done = true;
           }
@@ -61,30 +68,75 @@ export class ProdReturnPackageComponent implements OnInit {
         },
         renderComponent: SelectProductReturnComponent,
       },
-      product_generic: {
+      product: {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.description;
+          if (row.pharmacy_lot_stock.billing_stock.product) {
+            return row.pharmacy_lot_stock.billing_stock.product.name;
+          } else {
+            return row.pharmacy_lot_stock.billing_stock.product_supplies_com.name;
+          }
+
         },
       },
-      request_amount: {
+      product_generic: {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.pharmacy_product_request.product_generic) {
+            return row.pharmacy_product_request.product_generic.description;
+          } else {
+            return row.pharmacy_product_request.product_supplies.description;
+          }
+        },
+      
+
       },
+      lot: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.pharmacy_lot_stock.lot;
+        },
+      },
+      amount_operation: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      // amount: {
+      //   title: this.headerFields[4],
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     var amo;
+      //     this.parentData.selectedOptions.forEach(x => {
+      //       if (x.pharmacy_request_shipping == row.id) {
+      //         amo = x.amount;
+      //       }
+      //     });
+      //     return {
+      //       'data': row,
+      //       'enabled': !this.selectedOptions2.includes(row.id),
+      //       'amount': amo ? amo : '',
+      //       'onchange': (input, row: any) => this.onAmountChange(input, row),
+      //     };
+      //   },
+      //   renderComponent: AmountReturnComponent,
+      // },
     },
   };
 
   constructor(
     private route: ActivatedRoute,
-    private pharProdReqS: PharmacyProductRequestService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
-    private e: ElementRef
+    private e: ElementRef,
+    private shippingS: PharmacyRequestShippingService,
   ) {
   }
 
-  ngOnInit(): void {
+
+  async ngOnInit(): Promise<void> {
     this.component_package_id = this.route.snapshot.params.id;
     this.selectedOptions = this.parentData.parentData;
     this.settings = this.settings_supplies;
@@ -97,8 +149,11 @@ export class ProdReturnPackageComponent implements OnInit {
     if (event) {
       this.selectedOptions2.push(row.id);
       var diet = {
-        pharmacy_lot_stock_id: row.id,
-        amount: 0,
+        pharmacy_request_shipping_id: row.id,
+        pharmacy_lot_stock_id: row.pharmacy_lot_stock_id,
+        // amount: 0,
+        // amount_damaged: 0,
+        // amount_provition: row.amount_provition,
       };
       this.emit.push(diet);
     } else {
@@ -107,7 +162,7 @@ export class ProdReturnPackageComponent implements OnInit {
       i !== -1 && this.selectedOptions2.splice(i, 1);
       var j = 0;
       this.selectedOptions.forEach(element => {
-        if (this.selectedOptions2.includes(element.pharmacy_lot_stock_id)) {
+        if (this.selectedOptions2.includes(element.pharmacy_request_shipping)) {
           this.emit.push(element);
         }
         j++;
@@ -116,6 +171,28 @@ export class ProdReturnPackageComponent implements OnInit {
     this.selectedOptions = this.emit;
     this.messageEvent.emit(this.selectedOptions);
     this.RefreshData();
+  }
+
+  // onAmountChange(input, row) {
+  //   if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
+  //     this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
+  //   } else {
+  //     var i = 0;
+  //     var mientras = this.selectedOptions;
+  //     this.selectedOptions.forEach(element => {
+  //       if (element.pharmacy_request_shipping_id == row.id) {
+  //         mientras[i].amount = input.target.valueAsNumber;
+  //       }
+  //       i++
+  //     });
+  //     this.selectedOptions = mientras;
+  //     this.messageEvent.emit(this.selectedOptions);
+  //   }
+  // }
+
+  ChangeManual(inscriptionstatus) {
+    this.inscriptionstatus = inscriptionstatus;
+    this.table.changeEntity(`inscriptionsByCourse/${this.inscriptionstatus}`);
   }
 
   RefreshData() {
@@ -139,7 +216,7 @@ export class ProdReturnPackageComponent implements OnInit {
       this.selectedOptions.forEach(element => {
         dta.component_package_id = this.component_package_id;
         dta.component_id = element.id;
-        this.pharProdReqS.Save(dta).then(x => {
+        this.shippingS.Save(dta).then(x => {
         }).catch(x => {
           err++;
         });

@@ -46,20 +46,20 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    if(this.type == true || this.type == false){
+    if (this.type == true || this.type == false) {
 
-    this.parentData = {
-      selectedOptions: [],
-      entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1='+ false + this.type,
-      customData: 'pharmacy_request_shipping',
-    };
-  }else {
-    this.parentData = {
-      selectedOptions: [],
-      entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1='+ false,
-      customData: 'pharmacy_request_shipping',
-    };
-  }
+      this.parentData = {
+        selectedOptions: [],
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + false + this.type,
+        customData: 'pharmacy_request_shipping',
+      };
+    } else {
+      this.parentData = {
+        selectedOptions: [],
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '&product1=' + false,
+        customData: 'pharmacy_request_shipping',
+      };
+    }
     if (!this.data) {
       this.data = {
         amount_damaged: '',
@@ -93,7 +93,7 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
         this.toastS.danger('Debe seleccionar al menos un medicamento', 'Error');
       } else {
         this.selectedOptions.forEach(element => {
-          if (element.amount == null || element.amount <= 0) {
+          if (element.amount == null || element.amount <= 0 || element.amount_damaged <= 0) {
             valid_values = false;
           }
         });
@@ -108,7 +108,8 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
             id: this.data.id,
             observation: this.form.controls.observation.value,
             status: 'ACEPTADO',
-            own_pharmacy_stock_id: this.data.own_pharmacy_stock_id,
+            own_pharmacy_stock_id: this.my_pharmacy_id,
+            request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
           }).then(x => {
             this.toastService.success('', x.message);
@@ -146,6 +147,8 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
           this.pharProdReqS.Save({
             observation: this.form.controls.observation.value,
             status: 'ACEPTADO',
+            own_pharmacy_stock_id: this.my_pharmacy_id,
+            request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();

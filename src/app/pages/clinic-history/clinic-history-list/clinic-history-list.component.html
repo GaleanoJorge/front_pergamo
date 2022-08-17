@@ -4,7 +4,7 @@
       <div class="col-md-6" title *ngIf="user">
         <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
         <p class="parrafo" *ngIf="user">NOMBRE: {{this.user.firstname + ' ' + this.user.lastname}}</p>
-        <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{user.birthday}} </p>
+        <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{this.datePipe.transform3(user.birthday)}} </p>
         <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
       </div>
       <div class="col-md-6 position">
@@ -14,7 +14,7 @@
     <nb-tabset *ngIf="user" class="tabset" (changeTab)="tablock($event)">
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show == 1">
-          <ngx-entry-clinic-history>
+          <ngx-entry-clinic-history (messageEvent)="inputMessage($event)" [has_input]="has_input">
           </ngx-entry-clinic-history>
         </div>
       </nb-tab>

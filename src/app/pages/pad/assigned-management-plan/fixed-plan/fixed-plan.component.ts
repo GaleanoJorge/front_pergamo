@@ -19,7 +19,7 @@ export class FixedPlanComponent implements OnInit {
 
   public title: string = 'LISTA DE ACTIVOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['IDENTIFICADOR', 'ELEMENTO', 'CANTIDAD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'ELEMENTO', 'CANTIDAD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];

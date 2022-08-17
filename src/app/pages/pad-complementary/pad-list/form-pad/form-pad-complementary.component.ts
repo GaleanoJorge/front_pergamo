@@ -189,7 +189,7 @@ export class FormPadComplementaryComponent implements OnInit {
       offer_hour: [
         this.data.offer_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].offer_hour : '',
         Validators.compose([Validators.required])
-        
+
       ],
       start_consult_hour: [
         this.data.start_consult_hour == '' ? '' : this.data.pac_monitoring.length > 0 ? this.data.pac_monitoring[0].start_consult_hour : '',
@@ -234,6 +234,8 @@ export class FormPadComplementaryComponent implements OnInit {
         this.diagnosis_id = localidentify.id;
       } else {
         this.diagnosis_id = null;
+        this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+        this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
       }
     } else {
       var localidentify = this.profesionals.find(item => item.nombre_completo == e);
@@ -242,6 +244,8 @@ export class FormPadComplementaryComponent implements OnInit {
         this.profesional_id = localidentify.id;
       } else {
         this.profesional_id = null;
+        this.toastService.warning('', 'Debe seleccionar un profesional de la lista');
+        this.form.controls.profesional_user_id.setErrors({ 'incorrect': true });
       }
     }
   }

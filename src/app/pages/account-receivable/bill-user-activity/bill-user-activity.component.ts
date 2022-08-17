@@ -31,7 +31,7 @@ export class BillUserActivityComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Actividades realizadas: ';
   public subtitle = '';
-  public headerFields: any[] = ['PROCEDIMIENTO', 'VALOR', 'ESTADO', 'OBSERVACIÓN'];
+  public headerFields: any[] = ['PROCEDIMIENTO', 'VALOR', 'ESTADO', 'OBSERVACIÓN', 'EJECUCIÓN', 'TIPO DE IDENTIFICACIÓN', 'IDENTIFICACIÓN', 'PACIENTE'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -79,11 +79,40 @@ export class BillUserActivityComponent implements OnInit {
         },
         renderComponent: ActionsBillComponent,
       },
+      identification_type: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.assigned_management_plan.management_plan.admissions.patients.identification_type.name;
+        },
+      },
+      identification: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.assigned_management_plan.management_plan.admissions.patients.identification;
+        },
+      },
+      patient: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          var pat = row.assigned_management_plan.management_plan.admissions.patients;
+          return pat.firstname + ' ' + (pat.middlefirstname ? pat.middlefirstname + ' ' : '') + pat.lastname + (pat.middlelastname ? ' ' + pat.middlelastname : '');
+        },
+      },
       procedure: {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.manual_price.name;
+        },
+      },
+      assigned_management_plan: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.execution_date;
         },
       },
 

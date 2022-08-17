@@ -225,7 +225,7 @@ export class ServicesBriefcaseComponent implements OnInit {
 
 
   GetDataSelect(select: any[]) {
-    console.log(select);
+    // console.log(select);
     this.selectedOptions = [];
     select.forEach(element => {
       var manual_price = element;

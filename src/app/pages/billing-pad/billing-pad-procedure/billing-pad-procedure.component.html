@@ -1,27 +1,93 @@
-<ngx-base-list [messageError]="messageError" [routes]="routes">
-  <div content *ngIf="this.show_info">
-    <ngx-base-table [title]="title" pager="false" [subtitle]="subtitle" [settings]="settings"
-      [entity]="entity" customData="billing_pad" [messageToltip]="messageToltip">
-      <div actions>
-        <div class="actions" >
-          <button nbButton *ngIf="this.billing.billing_pad_status_id != 2 && this.adm == null" class="mr-1" status="danger" (click)="SaveBilling()">Facturar</button>
-          <button nbButton *ngIf="!this.total_pre_billing" status="danger" (click)="ShowPreBilling($event)">Pre factura</button>
+<nb-card>
+  <nb-card-header>{{this.title}} {{patient_name}}
+  </nb-card-header>
+  <nb-card-body>
+    <ngx-base-list [messageError]="messageError" >
+      <div content *ngIf="this.show_info">
+        <ngx-base-table pager="false" [settings]="settings" [entity]="entity"
+        customData="billing_pad" [messageToltip]="messageToltip">
+        <div title *ngIf="user">
+          <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}}</p>
+          <!-- <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> {{user.nombre_completo}}</p> -->
+          <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}}</p>
+          <p class="parrafo" *ngIf="user"><b>EDAD:</b> {{user.age}}</p>
+          <p class="parrafo" *ngIf="user"><b>GÉNERO:</b> {{user.gender.name}}</p>
+          <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions[0].contract.company.name}}</p>
+          <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions[0].contract.name}}</p>
+          <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions[0].briefcase.name}}</p>
+          <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability}}</p>
+          <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES</p>
         </div>
-        <div class="actions"  *ngIf="this.total_pre_billing">
-          VALOR TOTAL PREFACTURA: {{this.currency.transform(this.total_pre_billing)}}  
-        </div>
+          <div actions>
+            <div class="actions">
+              <button nbButton *ngIf="this.adm == null" class="mr-1" status="danger"
+                (click)="generatePdf()">PDF</button>
+              <button nbButton *ngIf="this.adm == null" status="danger" class="mr-1"
+                (click)="ShowPreBilling(prebilling)">Proyección</button>
+              <button nbButton *ngIf="this.billing.billing_pad_status_id != 2 && this.adm == null" class="mr-1"
+                status="danger" (click)="ShowPreBilling(confirm)">Facturar</button>
+            </div>
+          </div>
+        </ngx-base-table>
+
       </div>
-    </ngx-base-table>
+    </ngx-base-list>
+  </nb-card-body>
+  <nb-card-footer class="d-flex justify-content-end">
+    <div class="vi">
+      VALOR FACTURAR: {{this.currency.transform(this.count_billing)}}
+    </div>
+    <div class="vi">
+      VALOR FACTURA: {{this.currency.transform(this.total_billing)}}
+    </div>
+  </nb-card-footer>
+</nb-card>
 
-    <!-- <nb-tabset fullWidth (changeTab)="reloadForm($event)">
-      <nb-tab tabTitle="ADMISIONES">
-      </nb-tab>
-      <nb-tab tabTitle="FACTURAS">
-        <div *ngIf="screen == 2">
-          <ngx-historic-authorization (messageEvent)="null"></ngx-historic-authorization>
+<ng-template #prebilling>
+  <nb-card style="max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>PROYECCIÓN DE DE {{patient_name}}
+
+    </nb-card-header>
+    <nb-card-body>
+      <ngx-base-list [messageError]="messageError">
+        <div content *ngIf="this.show_info">
+          <ngx-base-table pager="false" [subtitle]="subtitle" [settings]="settings2"
+            entity="billing_pad/getPreBillingProcedures/{{this.admission_id}}?billing_id={{this.billing_id}}"
+            customData="billing_pad" [messageToltip]="messageToltip">
+            <div actions>
+            </div>
+          </ngx-base-table>
+
         </div>
-      </nb-tab>
-    </nb-tabset> -->
+      </ngx-base-list>
+    </nb-card-body>
 
-  </div>
-</ngx-base-list>
+    <nb-card-footer class="d-flex justify-content-end">
+      <div class="vi">TOTAL PROYECTADO: {{this.currency.transform(this.total_pre_billing)}}</div>
+      <div class="vi">TOTAL FACTURADO: {{this.currency.transform(this.total_already_billing)}}</div>
+      <div class="vi">PENDIENTE EJECUTAR/AUTORIZAR/APROBAR: {{this.currency.transform(this.total_pendding_auth)}}</div>
+      <div class="vi">PENDIENTE FACTURAR: {{this.currency.transform(this.total_pendding_billing)}}</div>
+      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+<ng-template #confirm>
+  <nb-card style="max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>
+      GENERAR FACTURA
+    </nb-card-header>
+    <nb-card-body>
+      <ngx-base-list [messageError]="messageError">
+        <div content>
+          ¿ESTÁ SEGURO QUE DESEA GENERAR LA FACTURA?
+        </div>
+      </ngx-base-list>
+    </nb-card-body>
+
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="SaveBilling()" status="success" type="button">Aceptar</button>
+      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

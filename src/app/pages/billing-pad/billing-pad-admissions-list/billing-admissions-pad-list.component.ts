@@ -6,6 +6,7 @@ import { ActionsAdmissionsListComponent } from './actions-admissions-list.compon
 import { FormShowBillingPadComponent } from '../billing-admission/form-show-billing-pad/form-show-billing-pad.component';
 import { ActivatedRoute } from '@angular/router';
 import { BriefcaseService } from '../../../business-controller/briefcase.service';
+import { ActionsSemaphoreAdmissionsListComponent } from './actions -semaphore-admissions-list.component';
 
 @Component({
   selector: 'ngx-billing-admissions-pad-list',
@@ -15,7 +16,7 @@ import { BriefcaseService } from '../../../business-controller/briefcase.service
 export class BillingAdmissionsPadListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() title: string;
-  @Input() is_pgp: boolean;
+  @Input() is_pgp: boolean = false;
   @Input() route: number = null;
   @Input() entity: string;
   @Input() billing_pad_pgp_id: number = null;
@@ -25,7 +26,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'DOCUMENTO', 'EPS'];
+  public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'DOCUMENTO', 'EPS', 'TIPO IDENTIFICACIÓN', 'PROGRAMA', 'CONTRATO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -43,6 +44,16 @@ export class BillingAdmissionsPadListComponent implements OnInit {
       perPage: 10,
     },
     columns: {
+      semaphore: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsSemaphoreAdmissionsListComponent,
+      },
       actions: {
         title: this.headerFields[0],
         type: 'custom',
@@ -56,9 +67,12 @@ export class BillingAdmissionsPadListComponent implements OnInit {
         },
         renderComponent: ActionsAdmissionsListComponent,
       },
-      nombre_completo: {
-        title: this.headerFields[1],
+      identification_type: {
+        title: this.headerFields[4],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.patients.identification_type.name;
+        },
       },
       patients: {
         title: this.headerFields[2],
@@ -67,11 +81,29 @@ export class BillingAdmissionsPadListComponent implements OnInit {
           return row.patients.identification;
         },
       },
-      contract: {
+      nombre_completo: {
+        title: this.headerFields[1],
+        type: 'string',
+      },
+      company: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.contract.company.name;
+        },
+      },
+      contract: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.contract.name;
+        },
+      },
+      location: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.location[0].program.name;
         },
       },
     },
@@ -147,7 +179,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
       this.route = 1;
       this.entity = 'billing_pad/getEnabledAdmissions/0';
       this.BriefcaseS.GetCollection({id: this.briefcase_id}).then(x => {
-        this.title = 'ADMISIONES DEL PORTAFOLIO ' + x[0].name.toUpperCase();
+        this.title = this.briefcase_id == 0 ? 'PACIENTES' : 'ADMISIONES DEL PORTAFOLIO ' + x[0].name.toUpperCase();
       });
     }
   }

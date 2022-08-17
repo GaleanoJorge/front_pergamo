@@ -96,9 +96,8 @@ export class FixedAssetsService {
       });
   }
 
-
-  GetPharmacyByUserId(id, params = {}): Promise<FixedAssets[]> {
-    let servObj = new ServiceObject('fixed_assets/pharmacies/' + id);
+  getFixedByUserId(id, params = {}): Promise<FixedAssets[]> {
+    let servObj = new ServiceObject('fixed_assets/byUser/' + id);
 
     return this.webAPI.GetAction(servObj, params)
       .then(x => {

@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Patient } from '../../../models/patient';
 import { PatientService } from '../../../business-controller/patient.service';
+import { ActionsSemaphore2Component } from '../management-plan/actions-semaphore.component';
 
 
 @Component({
@@ -43,6 +44,16 @@ export class AdmissionsPatientPadComponent implements OnInit {
 
   public settings = {
     columns: {
+      semaphore: {
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsSemaphore2Component,
+      },
       actions: {
         title: 'Acciones',
         type: 'custom',

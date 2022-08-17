@@ -186,7 +186,7 @@ export class ProdLotPackageComponent implements OnInit {
     this.entity = this.parentData.entity;
     this.customData = this.parentData.customData;
 
-    await this.billingS.GetCollection({type_billing_evidence_id: 1}).then(x => {
+    await this.billingS.GetCollection({ type_billing_evidence_id: 1 }).then(x => {
       this.billing_id = x;
     });
 
@@ -231,20 +231,20 @@ export class ProdLotPackageComponent implements OnInit {
   }
 
   onAmountChange(input, row) {
-    if(input.target.value>row.amount_provitional){
-      this.toastS.danger("","La cantidad ingresada no debe superar la cantidad ordenada")
-    }else{
-    var i = 0;
-    var mientras = this.selectedOptions;
-    this.selectedOptions.forEach(element => {
-      if (element.billing_stock_id == row.id) {
-        mientras[i].amount_total = input.target.value;
-      }
-      i++
-    });
-    this.selectedOptions = mientras;
-    this.messageEvent.emit(this.selectedOptions);
-  }
+    // if (Number(input.target.value) > Number(row.amount_provitional)) {
+    //   this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad ordenada")
+    // } else {
+      var i = 0;
+      var mientras = this.selectedOptions;
+      this.selectedOptions.forEach(element => {
+        if (element.billing_stock_id == row.id) {
+          mientras[i].amount_total = input.target.value;
+        }
+        i++
+      });
+      this.selectedOptions = mientras;
+      this.messageEvent.emit(this.selectedOptions);
+    // }
   }
 
   onLotChange(input, row) {
@@ -324,10 +324,10 @@ export class ProdLotPackageComponent implements OnInit {
     var localidentify = this.billing_id.find(item => item.id == event);
 
     if (localidentify) {
-      this.pharmacy_stock_id  = localidentify.pharmacy_stock_id;
+      this.pharmacy_stock_id = localidentify.pharmacy_stock_id;
 
     } else {
-      this.pharmacy_stock_id=null;
+      this.pharmacy_stock_id = null;
     }
     if (event != "") {
       this.entity = `billing_stock?billing_id=${event}`;

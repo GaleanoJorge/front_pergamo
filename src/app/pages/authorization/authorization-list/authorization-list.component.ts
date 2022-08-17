@@ -21,6 +21,7 @@ import { AuthPackageService } from '../../../business-controller/auth-package.se
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { PatientService } from '../../../business-controller/patient.service';
 import { BriefcaseService } from '../../../business-controller/briefcase.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -35,7 +36,22 @@ export class AuthorizationListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'AUTORIZACIONES: PENDIENTES';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Providencia, Vereda o Municipio', 'Barrio', 'Dirección', 'Consecutivo de ingreso', 'Ambito', 'Programa', 'Sede', 'Estado', 'Procedimiento', 'Número de autorización', 'Fecha de creación'];
+  public headerFields: any[] = [
+    'Estado',
+    'ID',
+    'Procedimiento',
+    'Número de autorización',
+    'Tipo de documento',
+    'Número de documento',
+    'Nombre completo',
+    'Email',
+    'Providencia, Vereda o Municipio',
+    'Barrio',
+    'Dirección',
+    'Fecha de creación',
+    'Tipo de atención',
+    'Fecha de ejecución',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public entity: string = 'authorization/byStatus/0';
@@ -59,7 +75,7 @@ export class AuthorizationListComponent implements OnInit {
   public all_Data: any[] = [];
   public company: any[] = [];
   public contract: any[] = [];
-  public briefcase: any [] = [];
+  public briefcase: any[] = [];
   public admissions: any[] = [];
   public filter =
     {
@@ -72,12 +88,15 @@ export class AuthorizationListComponent implements OnInit {
       admissions_id: null,
     }
   public parentData: any;
+  public previewFile = null;
+
 
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @ViewChild('packagingTemplate', { read: TemplateRef }) packagingTemplate: TemplateRef<HTMLElement>;
   @ViewChild('packagingedit', { read: TemplateRef }) packagingedit: TemplateRef<HTMLElement>;
+  @ViewChild('packagingView', { read: TemplateRef }) packagingView: TemplateRef<HTMLElement>;
 
 
   public selectedMode: boolean = true;
@@ -98,7 +117,7 @@ export class AuthorizationListComponent implements OnInit {
     private admissionS: AdmissionsService,
     private patientS: PatientService,
     private ContractS: ContractService,
-    private briefcaseS:BriefcaseService,
+    private briefcaseS: BriefcaseService,
   ) {
   }
 
@@ -116,7 +135,7 @@ export class AuthorizationListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'edit': this.EditAdmissions.bind(this),
+            'edit': this.EditAuthPackage.bind(this),
             'view': this.ViewPackage.bind(this),
             'delete': this.DeleteConfirmAuth.bind(this),
             'refresh': this.RefreshData.bind(this),
@@ -125,11 +144,11 @@ export class AuthorizationListComponent implements OnInit {
         renderComponent: ActionsComponent,
       },
       select: {
-        title: this.headerFields[11],
+        title: this.headerFields[0],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // this.disableCheck();
-          if (row.auth_status_id == 2) {
+          if (row.auth_status_id == 2 || row.auth_status_id == 3) {
             this.show = true;
           } else {
             this.show = false;
@@ -143,77 +162,96 @@ export class AuthorizationListComponent implements OnInit {
         },
         renderComponent: ActionsStatusComponent,
       },
+      id: {
+        title: this.headerFields[1],
+        type: 'string',
+      },
+      date: {
+        title: this.headerFields[11],
+        type: 'string',
+      },
       services_briefcase: {
-        title: this.headerFields[12],
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction(value) {
           return value?.manual_price.name;
         },
       },
       auth_number: {
-        title: this.headerFields[13],
-        type: 'custom',
+        title: this.headerFields[3],
+        type: 'string',
         valuePrepareFunction: (value, row) => {
-          return {
-            'data': row,
-            'enabled': this.show ? false : true,
-            'amount': '',
-            'onchange': (input, row: any) => this.onAmountChange(input, row),
+          return value ? value : '--'
+        },
+      },
+      assigned_management_plan: {
+        title: this.headerFields[13],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value) {
+            return value.execution_date != "0000-00-00" ? value.execution_date : '--';
+          } else {
+            return '--';
           }
         },
-        renderComponent: ActionsAuthNumberComponent,
+      },
+      'type_of_attention': {
+        title: this.headerFields[12],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.assigned_management_plan) {
+            return row.assigned_management_plan.management_plan.type_of_attention.name;
+          } else {
+            return '--';
+          }
+        },
       },
       'identification_type': {
-        title: this.headerFields[0],
+        title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.identification_type.name;
         },
       },
       'identification': {
-        title: this.headerFields[1],
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.identification;
         },
       },
       nombre_completo: {
-        title: this.headerFields[2],
+        title: this.headerFields[6],
         type: 'string',
       },
       'email': {
-        title: this.headerFields[3],
+        title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.email;
         },
       },
       'residence_municipality': {
-        title: this.headerFields[4],
+        title: this.headerFields[8],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.residence_municipality.name;
         },
       },
       'residence': {
-        title: this.headerFields[5],
+        title: this.headerFields[9],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.residence.name;
         },
       },
       residence_address: {
-        title: this.headerFields[6],
+        title: this.headerFields[10],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions.patients.residence_address;
         },
       },
-      date: {
-        title: this.headerFields[14],
-        type: 'string',
-      },
-
     },
   };
 
@@ -226,6 +264,7 @@ export class AuthorizationListComponent implements OnInit {
 
 
   public form: FormGroup;
+  public formMassive: FormGroup;
   public xlsForm: FormGroup;
   public RadicationGlossForm: FormGroup;
   public status;
@@ -275,6 +314,28 @@ export class AuthorizationListComponent implements OnInit {
         this.data.admissions_id,
       ],
     });
+
+    this.formMassive = this.formBuilder.group({
+      observation: [
+        '',
+        // Validators.compose([Validators.required]),
+      ],
+      auth_number: [
+        '',
+        Validators.compose([Validators.required]),
+      ],
+      copay: [
+        null,
+        // Validators.compose([Validators.required]),
+      ],
+      copay_value: [
+        '',
+      ],
+      file_auth: [
+        null,
+        Validators.compose([Validators.required])
+      ]
+    })
 
     this.authStatusS.GetCollection().then(x => {
       this.auth_status = x;
@@ -334,7 +395,19 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
-  EditAdmissions(data) {
+  ConfirmActions(dialog: TemplateRef<any>) {
+    if (this.selectedOptions.length > 0) {
+      this.dialog = this.dialogFormService.open(dialog);
+    } else {
+      this.toastS.warning('', 'Debe seleccionar registros para autorizar masivamente')
+    }
+  }
+
+  close() {
+    this.dialog.close();
+  }
+
+  EditAuthPackage(data) {
     this.data_aux = [];
     if (data) {
       this.parentData.entity = 'authorization/auth_byAdmission/' + data.admissions_id + '?edit=true&id=' + data.id;
@@ -351,13 +424,7 @@ export class AuthorizationListComponent implements OnInit {
       this.parentData.customData = 'authorization'
     };
 
-    this.dialogFormService.open(AuthAsociatedPackageComponent, {
-      context: {
-        title: 'Ver',
-        data,
-        show: true,
-        parentData: this.parentData,
-      },
+    this.dialog = this.dialogFormService.open(this.packagingView, {
     });
   }
 
@@ -422,13 +489,15 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
-  ConfirmAction(data, Managemen?) {
+  ConfirmAction(data, Managemen?, type?) {
     var closeOnBackdropClick = false;
     this.dialogFormService.open(FormObservationComponent, {
       closeOnBackdropClick,
       context: {
         data: data,
         Managemen: Managemen,
+        title: type == 4 ? 'OBSERVACIÓN MOTIVO DE CANCELACIÓN' : type == 6 ? 'OBSERVACIÓN EMITIDA ERRADA' : 'AUTORIZAR',
+        auth_status: type,
         saved: this.RefreshData.bind(this),
       },
     });
@@ -456,12 +525,11 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
-
   authMassive() {
     // this.disableCheck();
     // this.dialogFormService.open(this.packagingTemplate);
     // this.GetResponseParam();
-    this.windowService.open(this.packagingTemplate, {
+    this.dialog = this.windowService.open(this.packagingTemplate, {
       hasBackdrop: false,
       closeOnEsc: false,
       context: {
@@ -472,7 +540,10 @@ export class AuthorizationListComponent implements OnInit {
 
   SaveStatus(event?, data?) {
 
-    if (event == data.auth_status_id) {
+    if (event == 3) {
+      this.ConfirmAction(data, data.assigned_management_plan, event);
+    }
+    else if (event == data.auth_status_id) {
 
     } else {
       switch (event) {
@@ -487,7 +558,6 @@ export class AuthorizationListComponent implements OnInit {
           break;
         }
         case 2: {
-
           this.authorizationS.Update({
             id: data.id,
             auth_status_id: event
@@ -497,23 +567,23 @@ export class AuthorizationListComponent implements OnInit {
           }).catch()
           break;
         }
-        case 3: {
-          if (data.assigned_management_plan) {
-            this.ConfirmAction(data, data.assigned_management_plan);
-          } else {
-            this.authorizationS.Update({
-              id: data.id,
-              auth_status_id: event
-            }).then(x => {
-              this.toastS.success('', x.message);
-              this.RefreshData();
-            }).catch()
-          }
+        case 4: {
+          this.ConfirmAction(data, null, event);
           break;
         }
-        default: {
-          this.ConfirmAction(data);
-
+        case 5: {
+          this.authorizationS.Update({
+            id: data.id,
+            auth_status_id: event
+          }).then(x => {
+            this.toastS.success('', x.message);
+            this.RefreshData();
+          }).catch()
+          break;
+        }
+        case 6: {
+          this.ConfirmAction(data, null, event);
+          break;
         }
       }
     }
@@ -533,13 +603,13 @@ export class AuthorizationListComponent implements OnInit {
   onChanges() {
     this.form.get('company_id').valueChanges.subscribe(val => {
       this.filter.eps_id = val;
-      if(val == ''){
+      if (val == '') {
         this.contract = [];
         this.form.patchValue({
           contract_id: ''
         });
       } else {
-        this.ContractS.GetCollection({company_id:val}).then(x => {
+        this.ContractS.GetCollection({ company_id: val }).then(x => {
           this.contract = x;
         });
       }
@@ -615,5 +685,77 @@ export class AuthorizationListComponent implements OnInit {
       }
     }
   }
+
+  async saveGroup() {
+
+    if (!this.formMassive.invalid) {
+      if (this.selectedOptions.length > 0) {
+        this.isSubmitted = true;
+        this.loading = true;
+
+        var formData = new FormData();
+        var data = this.formMassive.controls;
+        formData.append('file', this.formMassive.value.file_auth);
+        formData.append('observation', data.observation.value);
+        formData.append('auth_number', data.auth_number.value);
+        formData.append('copay', data.copay.value);
+        formData.append('copay_value', data.copay_value.value);
+        formData.append('authorizations', JSON.stringify(this.selectedOptions));
+
+        try {
+          let response;
+          if (this.data?.id) {
+            // response = await this.authorizationS.Update(formData, this.data.id);
+          } else {
+            response = await this.authorizationS.SaveGroup(formData);
+          }
+          this.toastS.success('', response.message);
+          this.messageError = null;
+          this.isSubmitted = false;
+          this.loading = false;
+          this.close();
+          this.RefreshData();
+          this.formMassive.patchValue({
+            observation: '',
+            auth_number: '',
+            copay: null,
+            copay_value: '',
+            file_auth: null,
+          });
+        } catch (response) {
+          this.messageError = response;
+          this.isSubmitted = false;
+          this.loading = false;
+          throw new Error(response);
+        }
+      } else {
+        this.toastS.warning('', "Debe seleccionar almenos un registro");
+      }
+    } else {
+      this.toastS.warning('', "Debe diligenciar los campos obligatorios");
+    }
+  }
+
+
+  async changeImage(files, option) {
+    if (!files.length) return false;
+
+    const file = await this.toBase64(files[0]);
+
+    switch (option) {
+      case 1:
+        this.formMassive.patchValue({
+          file_auth: files[0],
+        });
+        break;
+    }
+  }
+
+  toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  })
 }
 

@@ -14,7 +14,7 @@ import { ContractService } from '../../../business-controller/contract.service';
 })
 export class BillingPadBriefcaseComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-  @Input() is_pgp: any = '<>';
+  @Input() is_pgp: any = '!=';
   @Input() route: number;
   @Input() entity: string;
   @Input() billing_pad_pgp_id: number = null;
@@ -25,7 +25,7 @@ export class BillingPadBriefcaseComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ACCIONES', 'NOMBRE'];
+  public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'FACTURAS PENDIENTES'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -53,6 +53,10 @@ export class BillingPadBriefcaseComponent implements OnInit {
       },
       name: {
         title: this.headerFields[1],
+        type: 'string',
+      },
+      created_billings: {
+        title: this.headerFields[2],
         type: 'string',
       },
     },

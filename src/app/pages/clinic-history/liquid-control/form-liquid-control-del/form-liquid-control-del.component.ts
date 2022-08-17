@@ -75,7 +75,7 @@ export class FormLiquidControlDelComponent implements OnInit {
       ],
       specific_name: [
         this.data[0] ? this.data[0].specific_name : this.data.specific_name,
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ],
       delivered_volume: [
         this.data[0] ? this.data[0].delivered_volume : this.data.delivered_volume,
@@ -114,7 +114,15 @@ export class FormLiquidControlDelComponent implements OnInit {
         });
         this.GetTypesFluids(val);
       }
-    })
+    });
+    this.form.get('').valueChanges.subscribe(val => {
+      if(val == 29){
+        this.form.controls.specific_name.setValidators(Validators.compose([Validators.required]));
+      } else {
+        this.form.controls.specific_name.clearValidators();
+        this.form.controls.specific_name.updateValueAndValidity();
+      }
+    });
   }
 
   GetTypesFluids(route_id) {

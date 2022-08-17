@@ -34,7 +34,7 @@ export class PatientService {
   }
 
   GetByAdmission(identification: {}): Promise<Patient[]> {
-    console.log(identification);
+    // console.log(identification);
     var servObj = new ServiceObject("user/byAdmission/2");
     return this.webAPI.GetAction(servObj, identification)
       .then(x => {

@@ -17,7 +17,7 @@ export class BillingRequestPharmacyComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Solicitudes a compras';
   public subtitle: string = '';
-  public headerFields: any[] = ['Identificador', 'Producto solicitado', 'Cantidad'];
+  public headerFields: any[] = ['Consecutivo', 'Producto solicitado', 'Cantidad'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];

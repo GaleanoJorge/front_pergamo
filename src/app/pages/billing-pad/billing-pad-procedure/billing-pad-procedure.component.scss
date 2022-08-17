@@ -21,6 +21,11 @@ input[type=number] { -moz-appearance:textfield; }
 .mr-1 {
   margin-right: 5px;
 }
+.vi {
+  margin-right: 50px;
+  align-self: center;
+  font-weight: bold;
+}
 
 .file-select::before {
   background-color: #54bcc1;

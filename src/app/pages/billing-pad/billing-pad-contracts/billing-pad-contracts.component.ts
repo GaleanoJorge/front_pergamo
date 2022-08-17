@@ -12,7 +12,7 @@ import { FormShowBillingPadComponent } from '../billing-admission/form-show-bill
 })
 export class BillingPadContracsComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-  @Input() is_pgp: any = '<>';
+  @Input() is_pgp: any = '!=';
   @Input() route: number;
   @Input() entity: string;
   @Input() billing_pad_pgp_id: number = null;
@@ -23,7 +23,7 @@ export class BillingPadContracsComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'EPS'];
+  public headerFields: any[] = ['ACCIONES', 'NOMBRE', 'EPS', 'FACTURAS PENDIENTES'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -59,6 +59,10 @@ export class BillingPadContracsComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return row.company.name;
         },
+      },
+      created_billings: {
+        title: this.headerFields[3],
+        type: 'string',
       },
     },
   };

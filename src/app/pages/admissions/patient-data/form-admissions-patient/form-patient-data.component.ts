@@ -8,6 +8,7 @@ import { AffiliateTypeService } from '../../../../business-controller/affiliate-
 import { SpecialAttentionService } from '../../../../business-controller/special-attention.service';
 import { IdentificationTypeBusinessService } from '../../../../business-controller/identification-type-business.service';
 import { RelationshipService } from '../../../../business-controller/relationship.service';
+import { LocationService } from '../../../../business-controller/location.service';
 
 
 
@@ -45,6 +46,7 @@ export class FormPatientDataComponent implements OnInit {
   public cardinality: any = null;
   public reference: any = null;
   public image;
+  public showCancel = false;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -56,6 +58,7 @@ export class FormPatientDataComponent implements OnInit {
     private specialAttentionS: SpecialAttentionService,
     private identificationTypeBS: IdentificationTypeBusinessService,
     private relationshipS: RelationshipService,
+    private locationS: LocationService,
   ) {
   }
 
@@ -227,8 +230,8 @@ export class FormPatientDataComponent implements OnInit {
 
   save() {
     this.residence = this.form.controls.residence_address.value + ' ' + this.form.controls.street.value + ' # ' + this.form.controls.num1.value + ' - ' + this.form.controls.num2.value + ', ' + this.form.controls.residence_address_cardinality.value + ' ' + ' ( ' + this.form.controls.reference.value + ' ) ';
+    
     this.isSubmitted = true;
-
     if (!this.form.invalid) {
       this.loading = true;
 
@@ -295,6 +298,8 @@ export class FormPatientDataComponent implements OnInit {
         });
       }
 
+    } else {
+      this.toastService.warning('','Debe diligenciar los campos obligatorios')
     }
   }
 
@@ -305,6 +310,10 @@ export class FormPatientDataComponent implements OnInit {
       this.showTable=true;
       this.savedUser=false;
       this.admission_id=$event[2];
+      var loca = $event[3]
+      if(loca.admission_route_id == 2){
+        this.showCancel = true;
+      }
     }
   }
 

@@ -67,8 +67,11 @@ export class LiquidControlComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if(!this.done){
-            this.min_hour = row.clock
-            this.max_hour = row.clock
+            this.min_hour = row.clock;
+            this.max_hour = row.clock;
+            this.admin = 0;
+            this.Diur = 0;
+            this.eliminate = 0;
             this.done = true;
           }else{
             this.max_hour = row.clock
@@ -138,16 +141,6 @@ export class LiquidControlComponent implements OnInit {
     private chVitalSignS: ChVitalSignsService,
 
   ) {
-
-    // this.routes = [
-    //   {
-    //     name: 'Pacientes',
-    //     route: '../../list',
-    //   }, {
-    //     name: 'Registro Histotia Clinia',
-    //     route: '../../clinic-history/' + this.route.snapshot.params.user_id,
-    //   },
-    // ];
   }
   GetParams() {
     return {
@@ -177,11 +170,11 @@ export class LiquidControlComponent implements OnInit {
     var adicional;
 
     if (this.done && weight) {
-      let Maxhour = Number(this.max_hour.substring(0, 1));
-      let Maxmin = Number(this.max_hour.substring(3, 4));
+      let Maxhour = Number(this.max_hour.substring(0, 2));
+      let Maxmin = Number(this.max_hour.substring(3, 5));
 
-      let Minhour = Number(this.min_hour.substring(0, 1));
-      let Minmin = Number(this.min_hour.substring(3, 4));
+      let Minhour = Number(this.min_hour.substring(0, 2));
+      let Minmin = Number(this.min_hour.substring(3, 5));
 
       var hour = Maxhour - Minhour;
       var min = Maxmin - Minmin;
@@ -219,6 +212,7 @@ export class LiquidControlComponent implements OnInit {
         urine_waste: this.urinalWaste == Infinity ? 'Faltan datos' : this.urinalWaste.toFixed(3) + ' : ' + adicional,
         urine_balance: this.hidricBalance,
       });
+      this.toastService.primary('Calculados valores hidricos','Información');
 
 
     } else {
@@ -232,6 +226,7 @@ export class LiquidControlComponent implements OnInit {
   }
 
   RefreshData() {
+    this.done = false;
     this.table.refresh();
     // this.liquidCalculator();
   }

@@ -112,4 +112,24 @@ export class UserPharmacyStockService {
         throw x.message;
       });
   }
+
+
+
+  GetPharmacyUserId(id, params = {}): Promise<UserPharmacyStock[]> {
+    let servObj = new ServiceObject('user_pharmacy_stock/byuser/' + id);
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.user_pharmacy_stock = <UserPharmacyStock[]>servObj.data.user_pharmacy_stock;
+
+        return Promise.resolve(this.user_pharmacy_stock);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 }

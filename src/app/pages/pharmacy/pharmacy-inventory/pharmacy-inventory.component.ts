@@ -8,6 +8,7 @@ import { PharmacyLotStockService } from '../../../business-controller/pharmacy-l
 import { FormPharmacyReturnComponent } from '../pharmacy-return/form-pharmacy-return/form-pharmacy-return.component';
 import { FormPharmaInvPersonComponent } from './form-pharma-inv-person/form-pharma-inv-person.component';
 import { PharmacyStockService } from '../../../business-controller/pharmacy-stock.service';
+import { UserPharmacyStockService } from '../../../business-controller/user-pharmacy-stock.service';
 
 @Component({
   selector: 'ngx-pharmacy-inventory',
@@ -29,6 +30,7 @@ export class PharmacyInventoryComponent implements OnInit {
   public my_pharmacy_id;
   public pharmacy_stock;
   public pharmacy;
+  public showdiv: Number = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -97,11 +99,12 @@ export class PharmacyInventoryComponent implements OnInit {
     private authService: AuthService,
     private toastService: NbToastrService,
     private perPharmaS: PharmacyStockService,
+    private permisoPharmaS: UserPharmacyStockService,
   ) {
   }
 
- 
-  
+
+
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
@@ -110,13 +113,22 @@ export class PharmacyInventoryComponent implements OnInit {
         this.my_pharmacy_id = x[0].id;
         this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product=' + true;
         this.title = 'INVENTARIO DE ' + x[0]['name'];
-       } else {
+      } else {
         this.toastService.info('Usuario sin farmacias asociadas', 'Información');
-       }
+      }
     });
-    await this.perPharmaS.GetCollection({ type:2 }).then(x => {
+
+    // await this.perPharmaS.GetCollection({ type:2 }).then(x => {
+    //   this.pharmacy_stock = x;
+    // });
+
+
+    await this.permisoPharmaS.GetPharmacyUserId(this.user.id).then(x => {
       this.pharmacy_stock = x;
     });
+
+    
+
 
   }
 
@@ -124,16 +136,24 @@ export class PharmacyInventoryComponent implements OnInit {
     this.table.refresh();
   }
 
+  reloadForm(tab) {
+    if (tab.tabTitle == 'MEDICAMENTOS EN STOCK') {
+      this.showdiv = 1;
+    } else {
+      this.showdiv = 2;
+    }
+  }
+  
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
-    this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + true, 'pharmacy_lot_stock');
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + true, 'pharmacy_lot_stock');
 
     }else{
-    this.pharmacy = pharmacy;
-    this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + true, 'pharmacy_lot_stock');
+      this.pharmacy = pharmacy;
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + true, 'pharmacy_lot_stock');
     }
     // this.RefreshData();
-}
+  }
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyInventoryComponent, {

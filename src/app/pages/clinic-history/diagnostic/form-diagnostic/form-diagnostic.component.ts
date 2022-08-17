@@ -107,6 +107,7 @@ export class FormDiagnosticComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
           if (this.saved) {
             this.saved();
           }
@@ -144,6 +145,8 @@ export class FormDiagnosticComponent implements OnInit {
       this.diagnosis_id = localidentify.id;
     } else {
       this.diagnosis_id = null;
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
 }

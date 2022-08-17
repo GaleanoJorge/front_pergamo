@@ -185,6 +185,9 @@ export class IncomeSuppliesPackageComponent implements OnInit {
   }
 
   onAmountChange(input, row) {
+    if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
+      this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
+    } else {
     var i = 0;
     var mientras = this.selectedOptions;
     this.selectedOptions.forEach(element => {
@@ -196,8 +199,12 @@ export class IncomeSuppliesPackageComponent implements OnInit {
     this.selectedOptions = mientras;
     this.messageEvent.emit(this.selectedOptions);
   }
+}
 
   onAmountDamagedChange(input, row) {
+    if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
+      this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
+    } else {
     var i = 0;
     var mientras = this.selectedOptions;
     this.selectedOptions.forEach(element => {
@@ -209,6 +216,7 @@ export class IncomeSuppliesPackageComponent implements OnInit {
     this.selectedOptions = mientras;
     this.messageEvent.emit(this.selectedOptions);
   }
+}
 
   ChangeManual(inscriptionstatus) {
     this.inscriptionstatus = inscriptionstatus;

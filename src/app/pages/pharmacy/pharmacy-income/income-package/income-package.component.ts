@@ -24,7 +24,7 @@ export class IncomePackageComponent implements OnInit {
   public form: FormGroup;
   public title = 'MEDICAMENTOS';
   public subtitle = '';
-  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'LOTE', 'CANTIDAD A RECIBIR', 'CANTIDAD CON DAÑOS', 'CANTIDAD ENVIADA'];
+  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'LOTE', 'CANTIDAD A RECIBIR', 'CANTIDAD CON DAÑOS', 'CANTIDAD PENDIENTE POR RECIBIR'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -91,7 +91,7 @@ export class IncomePackageComponent implements OnInit {
         },
       },
 
-      amount_provition: {
+      amount_operation: {
         title: this.headerFields[5],
         type: 'string',
         // valuePrepareFunction: (value, row) => {
@@ -195,29 +195,38 @@ export class IncomePackageComponent implements OnInit {
   }
 
   onAmountChange(input, row) {
-    var i = 0;
-    var mientras = this.selectedOptions;
-    this.selectedOptions.forEach(element => {
-      if (element.pharmacy_request_shipping_id == row.id) {
-        mientras[i].amount = input.target.valueAsNumber;
-      }
-      i++
-    });
-    this.selectedOptions = mientras;
-    this.messageEvent.emit(this.selectedOptions);
+    if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
+      this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
+    } else {
+      var i = 0;
+      var mientras = this.selectedOptions;
+      this.selectedOptions.forEach(element => {
+        if (element.pharmacy_request_shipping_id == row.id) {
+          mientras[i].amount = input.target.valueAsNumber;
+        }
+        i++
+      });
+      this.selectedOptions = mientras;
+      this.messageEvent.emit(this.selectedOptions);
+    }
   }
 
   onAmountDamagedChange(input, row) {
-    var i = 0;
-    var mientras = this.selectedOptions;
-    this.selectedOptions.forEach(element => {
-      if (element.pharmacy_request_shipping_id == row.id) {
-        mientras[i].amount_damaged = input.target.valueAsNumber;
-      }
-      i++
-    });
-    this.selectedOptions = mientras;
-    this.messageEvent.emit(this.selectedOptions);
+    if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
+      this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
+    } else {
+
+      var i = 0;
+      var mientras = this.selectedOptions;
+      this.selectedOptions.forEach(element => {
+        if (element.pharmacy_request_shipping_id == row.id) {
+          mientras[i].amount_damaged = input.target.valueAsNumber;
+        }
+        i++
+      });
+      this.selectedOptions = mientras;
+      this.messageEvent.emit(this.selectedOptions);
+    }
   }
 
   ChangeManual(inscriptionstatus) {

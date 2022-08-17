@@ -381,6 +381,10 @@ import { UserFixedPackageComponent } from './fixed-stock/user-fixed-package/user
 import { UserFixedComponent } from './fixed-stock/user-fixed-package/user-fixed.component';
 import { ActionFixedComponent } from './fixed-stock/actions.component';
 import { FormDrugReturnedComponent } from './assistance-stock/form-drug-returned/form-drug-returned.component';
+import { RoleCheckComponent } from './users/role-package/role-check.component';
+import { RolePackageComponent } from './users/role-package/role-package.component';
+import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
+import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -411,6 +415,8 @@ import { FormDrugReturnedComponent } from './assistance-stock/form-drug-returned
     NbAccordionModule,
   ],
   declarations: [
+    RoleCheckComponent,
+    RolePackageComponent,
     ActionsComponentInsume,
     InsumeMassiveComponent,
     FormManualInsumeComponent,
@@ -798,7 +804,10 @@ import { FormDrugReturnedComponent } from './assistance-stock/form-drug-returned
 
     UserFixedComponent,
     UserFixedPackageComponent,
-    ActionFixedComponent
+    ActionFixedComponent,
+
+    ServicesFixedPackageComponent,
+    ServicesFixedComponent
 
   ],
   providers: [

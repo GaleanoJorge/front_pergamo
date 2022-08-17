@@ -1,4 +1,5 @@
 export class ServiceObject {
+  dataAux: any;
   constructor(public entity?: string, public id?: number, public data?: any, public attributes?: any) {
     this.entity = entity;
     this.id = id;

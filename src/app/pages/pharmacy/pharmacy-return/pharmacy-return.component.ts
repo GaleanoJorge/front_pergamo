@@ -14,18 +14,22 @@ import { FormPharmacyReturnComponent } from './form-pharmacy-return/form-pharmac
   styleUrls: ['./pharmacy-return.component.scss']
 })
 export class PharmacyReturnComponent implements OnInit {
+
   @Input() parentData: any;
+  @Input() data: any = [];
   public isSubmitted = false;
   public messageError = null;
 
-  public title: string = 'MEDICAMENTOS SOLICITADOS';
+  public title: string = 'ACEPTAR DEVOLUCIONES DE MEDICAMENTOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['IDENTIFICADOR', 'DEVUELVE NOMBRE-SEDE', 'PRODUCTO', 'CANTIDAD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO DEVUELTO POR', 'PRODUCTO GENERICO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
-  public data = [];
+  public validator;
   public user;
   public my_pharmacy_id;
+  public most: boolean = false;
+  public entity;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -41,6 +45,7 @@ export class PharmacyReturnComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditInv.bind(this),
+            // 'delete': this.DeletePharInventary.bind(this),
           };
         },
         renderComponent: ActionsReturnComponent,
@@ -49,23 +54,32 @@ export class PharmacyReturnComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      own_pharmacy_stock: {
+      request_pharmacy_stock: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name + ' - ' + row.own_pharmacy_stock.campus.name;
+          if (value) {
+            return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
+          } else {
+            return row.user_request_pad.firstname + " " + row.user_request_pad.lastname;
+          }
         },
       },
       product_generic: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.description;
+          if (row.product_generic_id == null) {
+            if (row.services_briefcase) {
+              return row.services_briefcase.manual_price.name;
+            } else {
+              return row.product_supplies.description;
+            }
+          } else {
+            return row.product_generic.description;
+          }
+
         },
-      },
-      request_amount: {
-        title: this.headerFields[3],
-        type: 'string',
       },
     },
   };
@@ -79,11 +93,14 @@ export class PharmacyReturnComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.validator = this.parentData;
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
-      this.my_pharmacy_id = x[0].id;
-      this.title = 'DEVOLVER MEDICAMENTOS :  ' + x[0]['name'];
-
+      if (x.length > 0) {
+        this.my_pharmacy_id = x[0].id;
+        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + x[0].id;
+        this.title = 'MEDICAMENTOS DEVUELTOS A:  ' + x[0]['name'];
+      }
     });
   }
 
@@ -99,8 +116,9 @@ export class PharmacyReturnComponent implements OnInit {
 
   EditInv(data) {
     this.dialogFormService.open(FormPharmacyReturnComponent, {
+      closeOnBackdropClick: false,
       context: {
-        title: '',
+        title: 'Aceptar Medicamento',
         data: data,
         my_pharmacy_id: this.my_pharmacy_id,
         saved: this.RefreshData.bind(this),
@@ -110,6 +128,7 @@ export class PharmacyReturnComponent implements OnInit {
 
   DeletePharInventary(data) {
     this.dialogFormService.open(ConfirmDialogComponent, {
+      closeOnBackdropClick: false,
       context: {
         name: data.firstname,
         data: data,
@@ -126,4 +145,5 @@ export class PharmacyReturnComponent implements OnInit {
       throw x;
     });
   }
+
 }

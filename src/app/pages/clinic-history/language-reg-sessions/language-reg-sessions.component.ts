@@ -68,7 +68,7 @@ export class LanguageRegSessionsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    console.log(this.type_record);
+    // console.log(this.type_record);
   }
 
   RefreshData() {

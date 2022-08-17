@@ -86,8 +86,8 @@ export class FormDrugApplicationComponent implements OnInit {
   }
 
   async save() {
-    this.isSubmitted = true;
     if (!this.form.invalid) {
+      this.isSubmitted = true;
       this.loading = true;
       if (this.data.id) {
         await this.assistanceSuppliesS.Update({

@@ -23,12 +23,13 @@ export class PharmacyProductRequestComponent implements OnInit {
 
   public title: string = 'LISTA DE MEDICAMENTOS O INSUMOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['IDENTIFICADOR', 'PRODUCTO', 'CANTIDAD', 'SOLICITADO A'];
+  public headerFields: any[] = ['CONSECUTIVO', 'PRODUCTO', 'CANTIDAD', 'SOLICITADO A'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
   public user;
   public my_pharmacy_id;
+  public entity;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -79,6 +80,7 @@ export class PharmacyProductRequestComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
+      this.entity= 'pharmacy_product_request/?pagination=true' + '&status=SOLICITADO' + '&own_pharmacy_stock_id='+x[0].id;
       this.title = 'SOLICITUDES REALIZADAS POR:  ' + x[0]['name'];
 
     });

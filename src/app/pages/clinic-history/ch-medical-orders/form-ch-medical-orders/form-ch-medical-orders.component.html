@@ -7,12 +7,8 @@
         <div class="center">
           <fieldset class="field_set">
             <legend class="prue1">ORDENES MEDICAS</legend>
-
-            <nb-radio-group formControlName="ambulatory_medical_order" revision id="ambulatory_medical_order"
-              class="d-flex text" name="ambulatory_medical_order">
-              <nb-radio value="Si">¿Orden Medica Ambulatoria?</nb-radio>
-            </nb-radio-group>
-
+            <nb-checkbox formControlName="ambulatory_medical_order" revision id="ambulatory_medical_order"
+              class="d-flex text" name="ambulatory_medical_order">¿Orden Medica Ambulatoria?</nb-checkbox>
             <div class="container">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12">
@@ -20,10 +16,11 @@
                 </div>
               </div>
             </div>
-            <div class="row justify-content-md-center">
-              <div class="col col-lg-4">
+            <div class="row" style="justify-content: space-around ;">
+              <div class="col-md-12">
                 <label class="form-text text-muted font-weight-bold">Procedimiento</label>
-                <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id"
+                <nb-select [selected]="this.data.procedure_id" fullWidth formControlName="procedure_id"
+                  id="procedure_id"
                   status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">SELECCIONE...</nb-option>
                   <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedure_id"
@@ -32,47 +29,39 @@
                 </nb-select>
               </div>
 
-              <div class="col col-lg-4">
+              <div class="col col-lg-6">
                 <label class="form-text text-muted font-weight-bold">Cantidad</label>
-                <input type="number" class="Box" id="amount" formControlName="amount" required
-                  nbInput ngModel
+                <input type="number" class="Box" id="amount" fullWidth formControlName="amount" required nbInput
                   status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               </div>
 
-        
-              <div class="col col-lg-4">
+
+              <div class="col col-lg-6">
                 <label class="form-text text-muted font-weight-bold">Frecuencia Horaria</label>
-                <nb-select [selected]="this.data.frequency_id" formControlName="frequency_id"
-                  id="frequency_id" ngModel 
+                <nb-select [selected]="this.data.frequency_id" fullWidth formControlName="frequency_id"
+                  id="frequency_id"
                   status="{{ isSubmitted && form.controls.frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">SELECCIONE...</nb-option>
-                  <nb-option selected="{{ item.id == this.data.frequency_id }}"
-                    *ngFor="let item of frequency_id" [value]="item.id">
+                  <nb-option selected="{{ item.id == this.data.frequency_id }}" *ngFor="let item of frequency_id"
+                    [value]="item.id">
                     {{ item.name }}</nb-option>
                 </nb-select>
               </div>
-            </div>
-            <div class="container">
-              <div class="row justify-content-md-center">
-                <div class="col col-lg-12">
-                  <hr />
-                </div>
+
+              <div class="col-md-12" style="margin-top:5px;">
+                <label class="form-text text-muted font-weight-bold">Observación</label>
+                <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+                  onpaste="return false" rows="4" cols="50"
+                  status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+
               </div>
+
             </div>
           </fieldset>
         </div>
       </div>
     </div>
 
-    <div class="col-md-12">
-      <div class="center">
-        <fieldset class="field_set">
-          <legend class="prue1">OBSERVACIONES</legend>
-          <textarea id="observations" nbInput fullWidth formControlName="observations" observations onpaste="return false" rows="4" cols="50"
-            status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
-        </fieldset>
-      </div>
-    </div>
 
     <div class="row">
       <div class="col-md-12">

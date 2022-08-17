@@ -159,7 +159,7 @@ export class FormChInabilityComponent implements OnInit {
         await this.ChInabilityS.Update({
           id: this.data.id,
           ch_contingency_code_id: this.form.controls.ch_contingency_code_id.value,
-          extension: this.form.controls.extension.value,
+          extension: this.form.controls.extension.value ? 'Si': null,
           initial_date: this.form.controls.initial_date.value,
           final_date: this.form.controls.final_date.value,
           diagnosis_id: this.diagnosis_id,
@@ -182,7 +182,7 @@ export class FormChInabilityComponent implements OnInit {
       } else {
         await this.ChInabilityS.Save({
           ch_contingency_code_id: this.form.controls.ch_contingency_code_id.value,
-          extension: this.form.controls.extension.value,
+          extension: this.form.controls.extension.value ? 'Si': null,
           initial_date: this.form.controls.initial_date.value,
           final_date: this.form.controls.final_date.value,
           diagnosis_id: this.diagnosis_id,
@@ -239,6 +239,8 @@ export class FormChInabilityComponent implements OnInit {
       this.diagnosis_id = localidentify.id;
     } else {
       this.diagnosis_id = null;
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      // this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
   receiveMessage($event) {   

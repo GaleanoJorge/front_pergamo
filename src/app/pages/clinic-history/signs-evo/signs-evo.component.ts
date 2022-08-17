@@ -1,5 +1,5 @@
 import { UserBusinessService } from '../../../business-controller/user-business.service';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
 import { Actions12Component } from './actions.component';
@@ -15,6 +15,8 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 export class SignsEvoComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
+  @Output() messageEvent = new EventEmitter<any>();
+
 
   linearMode = true;
   public messageError = null;
@@ -447,6 +449,7 @@ export class SignsEvoComponent implements OnInit {
 
   receiveMessage($event) {
     if ($event == true) {
+      this.messageEvent.emit($event);
       this.RefreshData();
     }
   }

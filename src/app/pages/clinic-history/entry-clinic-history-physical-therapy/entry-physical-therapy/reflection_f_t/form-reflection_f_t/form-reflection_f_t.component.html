@@ -1,0 +1,90 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="row justify-content-center"> 
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">BICIPITAL:</label>
+        <nb-select [selected]="this.data.bicipital" formControlName="bicipital" id="bicipital" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.bicipital.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Hiperreflexia">Hiperreflexia</nb-option>
+          <nb-option value="Hiporreflexia">Hiporreflexia</nb-option>
+          <nb-option value="Normoreflexia">Normoreflexia</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">ESTILO RADIAL:</label>
+        <nb-select [selected]="this.data.radial" formControlName="radial" id="radial" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.radial.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Hiperreflexia">Hiperreflexia</nb-option>
+          <nb-option value="Hiporreflexia">Hiporreflexia</nb-option>
+          <nb-option value="Normoreflexia">Normoreflexia</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">TRICIPITAL:</label>
+        <nb-select [selected]="this.data.triceps" formControlName="triceps" id="triceps" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.triceps.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Hiperreflexia">Hiperreflexia</nb-option>
+          <nb-option value="Hiporreflexia">Hiporreflexia</nb-option>
+          <nb-option value="Normoreflexia">Normoreflexia</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">PATELAR O ROTULIANO:</label>
+        <nb-select [selected]="this.data.patellar" formControlName="patellar" id="patellar" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.patellar.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Hiperreflexia">Hiperreflexia</nb-option>
+          <nb-option value="Hiporreflexia">Hiporreflexia</nb-option>
+          <nb-option value="Normoreflexia">Normoreflexia</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">AQUILIANO:</label>
+        <nb-select [selected]="this.data.aquilano" formControlName="aquilano" id="aquilano" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.aquilano.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Hiperreflexia">Hiperreflexia</nb-option>
+          <nb-option value="Hiporreflexia">Hiporreflexia</nb-option>
+          <nb-option value="Normoreflexia">Normoreflexia</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">PRESENCIA DE REFLEJOS PATOLOGICOS:</label>
+        <nb-select [selected]="this.data.reflexes" formControlName="reflexes" id="reflexes" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.reflexes.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">cual?:</label>
+        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="1"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+      
+
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+</form>

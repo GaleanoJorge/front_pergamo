@@ -12,25 +12,6 @@
               {{item.name}}</nb-option>
           </nb-select>
         </div>
-
-
-
-<!-- 
-        <div class="col-md-12">
-          <label class="form-text text-muted font-weight-bold">Tipo de activo:</label>
-          <input type="text" list="codes1" class="data-list" id="fixed_clasification_id"
-            (change)="saveCode($event.target.value)" formControlName="fixed_clasification_id" fixed_clasification_id
-            fullWidth nbInput
-            status="{{ isSubmitted && form.controls.fixed_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-          <datalist id="codes1">
-            <option *ngFor="let item of fixed_clasification" [value]="item.name">{{ item.name }} 
-              <option *ngFor="let item of fixed_clasification" [value]="item.name">{{ item.name }}
-            </option>
-          </datalist>
-        </div> -->
-
-
-
         <div class="col-12 col-sm-12 col-md-8">
           <label for="fixed_clasification" class="form-text text-muted font-weight-bold">Clasificación:</label>
           <nb-select [selected]="this.data.fixed_clasification_id" formControlName="fixed_clasification_id"
@@ -75,7 +56,8 @@
         <div class="col-12 col-sm-12 col-md-4">
           <label for="model" class="form-text text-muted font-weight-bold">Modelo:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="model" formControlName="model"
-            model status="{{ isSubmitted && form.controls.model.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            model
+            status="{{ isSubmitted && form.controls.model.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="mark" class="form-text text-muted font-weight-bold">Marca:</label>
@@ -109,7 +91,8 @@
         <div class="col-12 col-sm-12 col-md-4">
           <label for="color" class="form-text text-muted font-weight-bold">Color:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="color" formControlName="color"
-            color status="{{ isSubmitted && form.controls.color.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            color
+            status="{{ isSubmitted && form.controls.color.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="fixed_condition" class="form-text text-muted font-weight-bold">Condición del activo:</label>
@@ -128,7 +111,7 @@
             formControlName="obs_property" obs_property
             status="{{ isSubmitted && form.controls.obs_property.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
-        
+
 
 
 
@@ -271,7 +254,8 @@
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="maker" class="form-text text-muted font-weight-bold">Fabricante:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="maker" formControlName="maker"
-            maker status="{{ isSubmitted && form.controls.maker.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            maker
+            status="{{ isSubmitted && form.controls.maker.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
@@ -319,7 +303,8 @@
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="power" class="form-text text-muted font-weight-bold">Potencia:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="power" formControlName="power"
-            power status="{{ isSubmitted && form.controls.power.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            power
+            status="{{ isSubmitted && form.controls.power.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
@@ -353,7 +338,8 @@
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="guide" class="form-text text-muted font-weight-bold">Guias:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="guide" formControlName="guide"
-            guide status="{{ isSubmitted && form.controls.guide.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            guide
+            status="{{ isSubmitted && form.controls.guide.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
@@ -381,18 +367,16 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-
-
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="campus_id" class="form-text text-muted font-weight-bold">Enviar a la sede:</label>
-          <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
-            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <label for="fixed_stock_id" class="form-text text-muted font-weight-bold">Enviar a la sede:</label>
+          <nb-select (selectedChange)="onChange($event)" formControlName="fixed_stock_id" id="fixed_stock_id" fullWidth
+            status="{{ isSubmitted && form.controls.fixed_stock_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus_id" [value]="item.id">
-              {{ item.name }}</nb-option>
+            <nb-option selected="{{ item.id == data.fixed_stock_id }}" *ngFor="let item of fixed_stock"
+              [value]="item.id">
+              {{item.fixed_type.name}} - {{item.campus.name}}</nb-option>
           </nb-select>
         </div>
-
       </div>
 
     </nb-card-body>
