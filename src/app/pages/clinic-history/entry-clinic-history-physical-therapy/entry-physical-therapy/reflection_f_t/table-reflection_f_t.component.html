@@ -2,7 +2,7 @@
 <div class="row justify-content-center col col-lg-12">
    
 
-  <div>
+  <div *ngIf="has_input == false">
 
     <ngx-form-reflection_f_t (messageEvent)="receiveMessage($event)" [type_record_id]="1" [record_id]="record_id">
     </ngx-form-reflection_f_t>
@@ -17,7 +17,7 @@
   <ngx-base-list [messageError]="messageError" [routes]="routes">
     <div content>
       <ngx-base-table  pager="false" [title]="title" customData="ch_e_reflection_f_t" [settings]="settings"
-        entity="ch_e_reflection_f_t/by_record/{{record_id}}/1">
+        entity="ch_e_reflection_f_t/by_record/{{record_id}}/1?&has_input={{has_input}}">
         <div actions>
           <div class="actions">
           </div>

@@ -16,7 +16,7 @@ export class NursingPhysicalExamComponent implements OnInit {
   @Input() data: any = null;
   @Input() enfermery: any = null;
   @Input() record_id: any;
-  @Input() has_input: any = null;
+  @Input() has_input: boolean = false;
   @Input() type_record_id: any;
   @Output() messageEvent = new EventEmitter<any>();
 

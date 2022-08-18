@@ -84,7 +84,7 @@ export class FormValorationTherFTComponent implements OnInit {
     this.isSubmitted = true;
 
     if (!this.form.invalid) {
-      this.messageEvent.emit(true)
+      
       this.loading = true;
       this.showTable = false;
        if (this.data.id) {
@@ -100,6 +100,7 @@ export class FormValorationTherFTComponent implements OnInit {
           ch_record_id: this.record_id,
           
         }).then(x => {
+          this.messageEvent.emit(true)
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -119,6 +120,7 @@ export class FormValorationTherFTComponent implements OnInit {
           type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true)
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();

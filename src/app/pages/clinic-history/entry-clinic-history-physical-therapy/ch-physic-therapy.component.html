@@ -20,14 +20,14 @@
           <nb-stepper #stepper [linear]="linearMode">
 
             <nb-step label='Valoracion Terapeutica Fisica'>
-              <ngx-table-valoration-ft [type_record_id]="1" *ngIf="chftvaloration" [data]="chftvaloration" [record_id]="record_id">
+              <ngx-table-valoration-ft (messageEvent)="inputMessage($event)" [has_input]="has_input" [type_record_id]="1" *ngIf="chftvaloration" [data]="chftvaloration" [record_id]="record_id">
               </ngx-table-valoration-ft>
             </nb-step>
 
 
             <nb-step label="Signos Vitales">
 
-              <ngx-signs [record_id]="record_id"></ngx-signs>
+              <ngx-signs (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id"></ngx-signs>
 
             </nb-step>
 
