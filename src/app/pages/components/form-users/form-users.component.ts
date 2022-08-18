@@ -291,6 +291,19 @@ export class FormUsersComponent implements OnInit {
     return activities_name;
   }
 
+  return_neighborhood_or_residence(n): string {
+    var localidentify = this.neighborhood_or_residence.find(item => item.id == n);
+    var activities_name;
+
+    if (localidentify) {
+      activities_name = localidentify.name;
+      this.neighborhood_or_residence_id = localidentify.id;
+    } else {
+      activities_name = null;
+    }
+    return activities_name;
+  }
+
   async LoadForm(force = true) {
     if (this.loadAuxData && force) return false;
     if (this.data) {
@@ -464,7 +477,7 @@ export class FormUsersComponent implements OnInit {
         this.reference == null ? '' : this.reference,
       ],
       neighborhood_or_residence_id: [
-        this.GetData('neighborhood_or_residence_id'),
+        this.return_neighborhood_or_residence(this.GetData('neighborhood_or_residence_id')),
         Validators.compose([Validators.required]),
       ],
       inability_id: [
