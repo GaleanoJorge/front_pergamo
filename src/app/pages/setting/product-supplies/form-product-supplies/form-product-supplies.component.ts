@@ -63,6 +63,7 @@ export class FormProductSuppliesComponent implements OnInit {
         size_supplies_measure_id: '',
         product_dose_id: '',
         dose: '',
+        code_gmdn: '',
       };
     }
 
@@ -79,6 +80,7 @@ export class FormProductSuppliesComponent implements OnInit {
       size_supplies_measure_id: [this.data.size_supplies_measure_id],
       product_dose_id: [this.data.product_dose_id],
       dose: [this.data.dose],
+      code_gmdn: [this.data.code_gmdn],
 
     });
 
@@ -157,6 +159,7 @@ export class FormProductSuppliesComponent implements OnInit {
           measure_supplies_measure_id: this.form.controls.measure_supplies_measure_id.value,
           product_dose_id: this.form.controls.product_dose_id.value,
           dose: this.form.controls.dose.value,
+          code_gmdn: this.form.controls.code_gmdn.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -179,6 +182,7 @@ export class FormProductSuppliesComponent implements OnInit {
           maximum_stock: this.form.controls.maximum_stock.value,
           product_dose_id: this.form.controls.product_dose_id.value,
           dose: this.form.controls.dose.value,
+          code_gmdn: this.form.controls.code_gmdn.value,
 
         }).then(x => {
           this.toastService.success('', x.message);
