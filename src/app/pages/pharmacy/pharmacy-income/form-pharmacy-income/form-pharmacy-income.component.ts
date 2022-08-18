@@ -68,7 +68,7 @@ export class FormPharmacyIncomeComponent implements OnInit {
       };
     }
     this.form = this.formBuilder.group({
-      cantidad_enviada: [this.data.cantidad_enviada],
+      cantidad_enviada: [this.data.request_amount],
       observation: [this.data.observation],
     });
     await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {

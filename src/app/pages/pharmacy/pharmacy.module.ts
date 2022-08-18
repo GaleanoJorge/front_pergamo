@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CurrencyPipe} from '@angular/common';
-import {Ng2SmartTableModule} from 'ng2-smart-table';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CurrencyPipe } from '@angular/common';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {
   NbAccordionModule,
   NbButtonModule,
@@ -21,9 +21,9 @@ import {
   NbTooltipModule,
   NbDatepickerModule, NbSpinnerModule, NbToggleModule,
 } from '@nebular/theme';
-import {ThemeModule} from '../../@theme/theme.module';
-import {PagesModule} from '../pages.module';
-import {DateFormatPipe} from '../../pipe/date-format.pipe';
+import { ThemeModule } from '../../@theme/theme.module';
+import { PagesModule } from '../pages.module';
+import { DateFormatPipe } from '../../pipe/date-format.pipe';
 import { SignaturePadModule } from '@ng-plus/signature-pad';
 import { PharmacyRoutingModule } from './pharmacy-routing.module';
 import { FormBillingRequestPharmacyComponent } from './billing-request-pharmacy/form-billing-request-pharmacy/form-billing-request-pharmacy.component';
@@ -94,6 +94,10 @@ import { SelectIncomePatientComponent } from './pharmacy-income-patient/income-p
 import { AmountIncomePatientComponent } from './pharmacy-income-patient/income-patient-package/amountIncomePatient.component';
 import { AmountDamagedPatientComponent } from './pharmacy-income-patient/income-patient-package/amountdamagedPatient.component';
 import { FormPharmacyIncomePatientComponent } from './pharmacy-income-patient/form-pharmacy-income-patient/form-pharmacy-income-patient.component';
+import { FormPharmacyProductSuppliesComponent } from './pharmacy-request-supplies/form-pharmacy-product-supplies/form-pharmacy-product-supplies.component';
+import { PharmacyProductSuppliesComponent } from './pharmacy-request-supplies/pharmacy-product-supplies.component';
+import { ProductRequestComponent } from './product-request/product-request.component';
+import { AmountUnitComponent } from './pharmacy-lot/prod-lot-package/amountUnit.component';
 
 @NgModule({
   imports: [
@@ -151,7 +155,7 @@ import { FormPharmacyIncomePatientComponent } from './pharmacy-income-patient/fo
     ActionsSupComponent,
     PharmacyIncomeSuppliesComponent,
 
-    
+
     PharmacyInventoryComponent,
     FormPharmacyInventoryComponent,
     ActionsInvComponent,
@@ -162,7 +166,7 @@ import { FormPharmacyIncomePatientComponent } from './pharmacy-income-patient/fo
     FormPharmacyInventorySuppliesComponent,
     FormPharmaInvSupPersonComponent,
 
-    
+
     PharmacyLotComponent,
     FormPharmacyLotComponent,
     ProdLotPackageComponent,
@@ -170,9 +174,13 @@ import { FormPharmacyIncomePatientComponent } from './pharmacy-income-patient/fo
     AmountComponent,
     LotComponent,
     DateComponent,
+    AmountUnitComponent,
 
     PharmacyProductRequestComponent,
     FormPharmacyProductRequestComponent,
+    FormPharmacyProductSuppliesComponent,
+    PharmacyProductSuppliesComponent,
+    ProductRequestComponent,
 
     ProdShippingPackageComponent,
     SelectProductShippingComponent,
@@ -187,7 +195,7 @@ import { FormPharmacyIncomePatientComponent } from './pharmacy-income-patient/fo
     SelectProductPatientShippingComponent,
     ActionsSendPatientComponent,
     PharmacyRequestPatientComponent,
-    
+
     FormPharmacyReturnComponent,
     AmountReturnComponent,
     ProdReturnPackageComponent,
@@ -208,8 +216,8 @@ import { FormPharmacyIncomePatientComponent } from './pharmacy-income-patient/fo
     FormPharmacyIncomePatientComponent,
 
   ],
-exports:[
-  FormBillingRequestPharmacyComponent,
+  exports: [
+    FormBillingRequestPharmacyComponent,
     AmountBillingRequestPharmacyComponent,
     ProdBillingRequestPharmacyPackageComponent,
     SelectProductBillingRequestPharmacyComponent,
@@ -234,7 +242,7 @@ exports:[
     ActionsSupComponent,
     PharmacyIncomeSuppliesComponent,
 
-    
+
     PharmacyInventoryComponent,
     FormPharmacyInventoryComponent,
     ActionsInvComponent,
@@ -245,7 +253,7 @@ exports:[
     FormPharmacyInventorySuppliesComponent,
     FormPharmaInvSupPersonComponent,
 
-    
+
     PharmacyLotComponent,
     FormPharmacyLotComponent,
     ProdLotPackageComponent,
@@ -253,9 +261,13 @@ exports:[
     AmountComponent,
     LotComponent,
     DateComponent,
+    AmountUnitComponent,
 
     PharmacyProductRequestComponent,
     FormPharmacyProductRequestComponent,
+    FormPharmacyProductSuppliesComponent,
+    PharmacyProductSuppliesComponent,
+    ProductRequestComponent,
 
     ProdShippingPackageComponent,
     SelectProductShippingComponent,
@@ -270,7 +282,7 @@ exports:[
     SelectProductPatientShippingComponent,
     ActionsSendPatientComponent,
     PharmacyRequestPatientComponent,
-    
+
     FormPharmacyReturnComponent,
     AmountReturnComponent,
     ProdReturnPackageComponent,
@@ -281,7 +293,7 @@ exports:[
     ProductTabComponent,
     UserResponsibleComponent,
     ActionsPatientComponent,
-    
+
     PharmacyRequestPatientsComponent,
     PharmacyIncomePatientComponent,
     IncomePackagePatientComponent,
@@ -289,9 +301,9 @@ exports:[
     AmountIncomePatientComponent,
     AmountDamagedPatientComponent,
     FormPharmacyIncomePatientComponent,
-    
 
-],
+
+  ],
   providers: [
     DateFormatPipe,
     CurrencyPipe,

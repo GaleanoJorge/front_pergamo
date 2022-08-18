@@ -12,16 +12,6 @@
             {{ item.description }}</nb-option>
         </nb-select>
       </div>
-      <div class="col-12 col-sm-12 col-md-6">
-        <label class="form-text text-muted font-weight-bold">INSUMO GENÉRICO:</label>
-        <nb-select [selected]="this.data.product_supplies_id" formControlName="product_supplies_id"
-          id="product_supplies_id" fullWidth>
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == data.product_supplies_id }}" *ngFor="let item of product_supplies_id"
-            [value]="item.id">
-            {{ item.description }}</nb-option>
-        </nb-select>
-      </div>
 
       <div class="col-12 col-sm-12 col-md-6">
         <label for="request_pharmacy_stock_id" class="form-text text-muted font-weight-bold">SOLICITAR

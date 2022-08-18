@@ -60,10 +60,10 @@ export class PharmacyIncomeComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(value){
-          return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
-          }else{
-            return row.user_request_pad.firstname+" "+ row.user_request_pad.lastname;
+          if (value) {
+            return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
+          } else {
+            return row.user_request_pad.firstname + " " + row.user_request_pad.lastname;
           }
         },
       },
@@ -72,10 +72,10 @@ export class PharmacyIncomeComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.product_generic_id == null) {
-            if(row.services_briefcase){
+            if (row.services_briefcase) {
               return row.services_briefcase.manual_price.name;
-            }else{
-            return row.product_supplies.description;
+            } else {
+              return row.product_supplies.description;
             }
           } else {
             return row.product_generic.description;
@@ -83,18 +83,13 @@ export class PharmacyIncomeComponent implements OnInit {
 
         },
       },
-      request_amount: {
+      amount_operation: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (value == null) {
-            return row.request_amount;
-          } else {
-            return value;
-          }
-
+          return row.pharmacy_request_shipping.amount_operation;
         },
-        
+
       },
     },
   };
@@ -114,7 +109,7 @@ export class PharmacyIncomeComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + x[0].id ;
+        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + x[0].id;
         this.title = 'ACEPTAR MEDICAMENTOS ENVIADOS A:  ' + x[0]['name'];
       }
     });
@@ -137,11 +132,11 @@ export class PharmacyIncomeComponent implements OnInit {
 
 
   ChangePharmacy(pharmacy) {
-    if(pharmacy==0){
+    if (pharmacy == 0) {
       this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
 
-    }else{
-   
+    } else {
+
       this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
     }
     // this.RefreshData();
