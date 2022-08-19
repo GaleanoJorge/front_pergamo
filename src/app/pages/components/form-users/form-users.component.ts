@@ -993,9 +993,12 @@ export class FormUsersComponent implements OnInit {
 
   ShowDialogSpecialities() {
     this.selected = [];
-    this.data?.assistance[0]?.specialty.forEach(element => {
+     if(this.data.assistance[0].specialty){
+    this.data.assistance[0].specialty.forEach(element => {
       this.selected.push(element.specialty_id);
+    
     });
+   }
 
 
     this.dialog.open(SpecialitiesDialogComponent, {

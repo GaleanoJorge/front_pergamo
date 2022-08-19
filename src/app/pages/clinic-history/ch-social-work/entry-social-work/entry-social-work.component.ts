@@ -71,27 +71,6 @@ export class EntrySocialWorkComponent implements OnInit {
       };
     }
 
-    await this.chrespiratoryconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chrespiratoryconsultation = x;
-    });
-
-    await this.ChOxygenTherapyS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.teraphyRespiratory = x;
-    });
-
-    await this.RtSessionsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.sessionsTeraphyRespiratory = x;
-    });
-
-    await this.SuppliesS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.suppliesTeraphyRespiratory = x;
-    });
-
-    // await this.AssS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-    // this.assRespiratory = x;
-    // });
-
-
     this.form = this.formBuilder.group({
 
 

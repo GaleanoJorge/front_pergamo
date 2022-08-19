@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToast, NbToastrService } from '@nebular/theme';
 import { ChEOccHistoryOTService } from '../../../../../business-controller/ch_e_occ_history_o_t.service';
@@ -16,6 +16,7 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
   @Input() data: any = null;
   @Input() type_record_id;
   @Input() record_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -132,6 +133,9 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.patchValue({ ocupation:'', enterprice_employee:'', work_employee:'',shift_employee:'',observation_employee:'',work_independent:'',shift_independent:'',
+            observation_independent:'', observation_home:''});
           if (this.saved) {
             this.saved();
           }
