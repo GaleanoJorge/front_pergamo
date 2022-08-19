@@ -55,6 +55,8 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { AssistanceStockComponent } from './setting/assistance-stock/assistance-stock.component';
 import { FormAssistanceStockComponent } from './setting/assistance-stock/form-assistance-stock/form-assistance-stock.component';
 import { FormAssistanceReturnComponent } from './setting/assistance-stock/form-assistance-return/form-assistance-return.component';
+import { AgreementCheckComponent } from './components/form-users/agreement-package/agreement-check.component';
+import { AgreementPackageComponent } from './components/form-users/agreement-package/agreement-package.component';
 
 
 
@@ -91,6 +93,8 @@ import { FormAssistanceReturnComponent } from './setting/assistance-stock/form-a
     NbRadioModule,
   ],
   declarations: [
+    AgreementPackageComponent,
+    AgreementCheckComponent,
     AssistanceStockComponent,
     FormAssistanceStockComponent,
     FormAssistanceReturnComponent,
