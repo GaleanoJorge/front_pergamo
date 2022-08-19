@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { ChOxygenTherapyService } from '../../../business-controller/ch_oxygen_therapy.service';
 
@@ -45,7 +45,7 @@ export class FormChOxygenTherapyComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      revision: [this.data[0] ? this.data[0].revision : this.data.revision,],
+      revision: [this.data[0] ? this.data[0].revision : this.data.revision,Validators.compose([Validators.required])],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
     });
 
@@ -109,6 +109,8 @@ export class FormChOxygenTherapyComponent implements OnInit {
         });
       }
 
+    }else {
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 
