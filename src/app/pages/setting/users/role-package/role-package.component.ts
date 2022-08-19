@@ -122,7 +122,7 @@ export class RolePackageComponent implements OnInit {
   }
   saveGroup() {
     if (!this.selectedOptions.length) {
-      this.toastS.danger(null, 'Debe seleccionar al menos un Menú');
+      this.toastS.danger(null, 'Debe seleccionar al menos un item');
     }
     else {
       this.userRoleS.UpdateRoles({
