@@ -14,7 +14,11 @@ export class FormSwRiskFactorsComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() record_id: any = null;  
+  @Input() admission_id: any = null;
+  @Input() savedUser: any = true;
+  @Input() showTable: any = null;
+  @Input() user_id: any = null;
+  @Input() record_id: any = null;
   @Input() type_record: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -23,7 +27,6 @@ export class FormSwRiskFactorsComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public disabled: boolean = false;
-  public showTable;
  
   public arrayRiskFactors = [
     {
