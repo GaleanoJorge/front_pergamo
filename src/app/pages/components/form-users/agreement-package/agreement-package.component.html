@@ -1,0 +1,18 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+    <div class="row mt-3">
+      <div class="col-12">
+        <p class="text-muted title-users">Sedes</p>
+      </div>
+    </div>
+    <div class="esta_tabla">
+      <ngx-base-table  [title]="title" [settings]="settings" 
+      entity="company?eps=false" customData='company'>
+      <div actions>
+        <div class="actions">
+        </div>
+      </div>
+      </ngx-base-table>
+    </div>
+  </div>
+</ngx-base-list>
