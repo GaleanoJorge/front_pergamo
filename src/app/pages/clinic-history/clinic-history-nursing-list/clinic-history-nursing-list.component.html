@@ -16,7 +16,7 @@
 
       <nb-tab tabTitle="INGRESO" *ngIf="!is_pad">
         <div *ngIf="this.show == 1">
-          <ngx-entry-clinic-history-nursing [data]="null" [record_id]="record_id" [type_record_id]="1">
+          <ngx-entry-clinic-history-nursing  [data]="null" [record_id]="this.record_id" [type_record_id]="1">
           </ngx-entry-clinic-history-nursing>
         </div>
       </nb-tab>
@@ -29,14 +29,14 @@
 
       <nb-tab tabTitle="VALORACIÓN DE LA PIEL" *ngIf="!is_pad">
         <div *ngIf="this.show == 3">
-          <ngx-skin-valoration [record_id]="this.record_id" [type_record_id]="3"></ngx-skin-valoration>
+          <ngx-skin-valoration  [record_id]="this.record_id" [type_record_id]="3"></ngx-skin-valoration>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="ESCALAS" *ngIf="!is_pad">
         <div *ngIf="this.show == 4">
           
-          <ngx-form-ch-scales [enfermery]="true" [record_id]="record_id">
+          <ngx-form-ch-scales  [enfermery]="true" [record_id]="this.record_id">
           </ngx-form-ch-scales>
           
         </div>
@@ -45,7 +45,7 @@
       <nb-tab tabTitle="APLICACIÓN DE MEDICAMENTOS">
         <div *ngIf="this.show == 5">
 
-          <ngx-nursering-medication [data]="null" [record_id]="this.record_id" [type_record_id]="9"></ngx-nursering-medication>
+          <ngx-nursering-medication  [data]="null" [record_id]="this.record_id" [type_record_id]="9"></ngx-nursering-medication>
         </div>
       </nb-tab>
 

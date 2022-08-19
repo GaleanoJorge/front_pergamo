@@ -4,18 +4,13 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-      <input type="date" [min]="today" nbInput fullWidth id="expiration_date" expiration_date [value]="value.expiration_date"
+      <input type="number" min="0" pattern="^[0-9]+" nbInput fullWidth id = "amount_unit" amount_unit [value]="value.amount_unit"
       (change)="value.onchange($event, value.data)" [disabled]="value.enabled" />
   </div>
   `,
+  styleUrls: ['./prod-lot-package.component.scss'],
 })
-export class DateComponent implements ViewCell {
+export class AmountUnitComponent implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;
-  public today = null;
-
-  ngOnInit() {
-    this.today = new Date();
-    this.today = this.today.toISOString().split('T')[0];
-  }
 }

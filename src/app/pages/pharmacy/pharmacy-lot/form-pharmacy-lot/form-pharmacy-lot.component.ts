@@ -28,6 +28,7 @@ export class FormPharmacyLotComponent implements OnInit {
   public show: boolean = false;
   public pharmacy_stock_id;
   // public TotOperation;
+  public today = null;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -42,6 +43,8 @@ export class FormPharmacyLotComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.today = new Date();
+    this.today = this.today.toISOString().split('T')[0];
     this.user = this.authService.GetUser();
     this.parentData = {
       selectedOptions: [],
@@ -54,10 +57,14 @@ export class FormPharmacyLotComponent implements OnInit {
         vat: '',
         total: '',
         receipt_date: '',
+        num_invoice: '',
+        date_invoice: '',
       };
     }
 
     this.form = this.formBuilder.group({
+      num_invoice: [this.data.num_invoice, Validators.compose([Validators.required])],
+      date_invoice: [this.data.date_invoice, Validators.compose([Validators.required])],
       subtotal: [this.data.subtotal, Validators.compose([Validators.required])],
       vat: [this.data.vat],
       total: [this.data.total, Validators.compose([Validators.required])],
@@ -112,6 +119,8 @@ export class FormPharmacyLotComponent implements OnInit {
         if (this.data.id) {
           this.pharmalotS.Update({
             id: this.data.id,
+            date_invoice: this.form.controls.date_invoice.value,
+            num_invoice: this.form.controls.num_invoice.value,
             subtotal: this.form.controls.subtotal.value,
             vat: this.form.controls.vat.value,
             total: this.form.controls.total.value,
@@ -150,6 +159,8 @@ export class FormPharmacyLotComponent implements OnInit {
           });
         } else {
           this.pharmalotS.Save({
+            date_invoice: this.form.controls.date_invoice.value,
+            num_invoice: this.form.controls.num_invoice.value,
             subtotal: this.form.controls.subtotal.value,
             vat: this.form.controls.vat.value,
             total: this.form.controls.total.value,

@@ -1,22 +1,22 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { NbToastrService, NbDialogService } from '@nebular/theme';
+import { NbDialogService } from '@nebular/theme';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 import { AuthService } from '../../../services/auth.service';
 
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { ActionsComponent } from '../../contract/briefcase/actions.component';
-import { FormPharmacyProductRequestComponent } from './form-pharmacy-product-request/form-pharmacy-product-request.component';
+import { FormPharmacyProductSuppliesComponent } from './form-pharmacy-product-supplies/form-pharmacy-product-supplies.component';
 
 
 
 @Component({
-  selector: 'ngx-pharmacy-product-request',
-  templateUrl: './pharmacy-product-request.component.html',
-  styleUrls: ['./pharmacy-product-request.component.scss']
+  selector: 'ngx-pharmacy-product-supplies',
+  templateUrl: './pharmacy-product-supplies.component.html',
+  styleUrls: ['./pharmacy-product-supplies.component.scss']
 })
-export class PharmacyProductRequestComponent implements OnInit {
+
+export class PharmacyProductSuppliesComponent implements OnInit {
   @Input() parentData: any;
   public isSubmitted = false;
   public messageError = null;
@@ -97,7 +97,7 @@ export class PharmacyProductRequestComponent implements OnInit {
   }
 
   EditPharmacy(data) {
-    this.dialogFormService.open(FormPharmacyProductRequestComponent, {
+    this.dialogFormService.open(FormPharmacyProductSuppliesComponent, {
       closeOnBackdropClick: false,
       context: {
         title: 'Editar factura',

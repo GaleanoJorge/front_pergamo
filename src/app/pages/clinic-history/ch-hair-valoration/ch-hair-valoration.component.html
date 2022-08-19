@@ -1,7 +1,7 @@
 
-<ngx-form-ch-hair-valoration (messageEvent)="receiveMessage($event)"  [type_record]="type_record" [record_id]="record_id">
+<ngx-form-ch-hair-valoration *ngif="record_id" (messageEvent)="receiveMessage($event)"  [type_record]="type_record" [record_id]="record_id">
 </ngx-form-ch-hair-valoration>
-<ngx-base-list [messageError]="messageError" [routes]="routes">
+<ngx-base-list  *ngif="record_id" [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table  pager="false" [title]="title" customData="ch_hair_valoration" [settings]="settings"
       entity="ch_hair_valoration/by_record/{{record_id}}/{{type_record}}?pagination=false">

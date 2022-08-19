@@ -66,6 +66,7 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
           pharmacy_lot_stock_id: this.data.id,
           amount_provition: this.form.controls.amount_provition.value,
           status: 'ENVIADO',
+          status2: 1,
           product_supplies_id: this.data.billing_stock.product_supplies_com.product_supplies_id,
           request_pharmacy_stock_id: this.my_pharmacy_id,
           own_pharmacy_stock_id: this.form.controls.own_pharmacy_stock_id.value,

@@ -21,8 +21,8 @@ export class PharmacyRequestPatientComponent implements OnInit {
 
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'SOLICITANTE','PACIENTE', 'PRODUCTO', 'CANTIDAD'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
+  public headerFields: any[] = ['CONSECUTIVO', 'SOLICITANTE','NOMBRE PACIENTE', 'DOCUMENTO PACIENTE' ,'PRODUCTO', 'CANTIDAD'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]},${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
   public user;
@@ -66,11 +66,18 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.patients.firstname + ' ' + value.patients.lastname + ' - ' + value.patients.identification;
+          return value.patients.firstname + ' ' + value.patients.lastname;
+        },
+      },
+      identification: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.admissions.patients.identification;
         },
       },
       services_briefcase: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if(value != null){
@@ -81,7 +88,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
         },
       },
       request_amount: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         type: 'string',
       },
     },

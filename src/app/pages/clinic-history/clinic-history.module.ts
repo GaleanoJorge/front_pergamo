@@ -774,6 +774,8 @@ import { ChNursingNoteComponent } from './ch-nursing-note/ch-nursing-note.compon
 
   providers: [DateFormatPipe],
   exports: [
+    // ClinicHistoryNursingListComponent,
+    // ChHairValorationComponent
     // InsumeRequestComponent,
     // FormInsumeRequestComponent,
   ],

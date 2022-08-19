@@ -9,6 +9,7 @@ import { AmountComponent } from './amount.component';
 import { LotComponent } from './lot.component';
 import { DateComponent } from './date.component';
 import { BillingService } from '../../../../business-controller/billing.service';
+import { AmountUnitComponent } from './amountUnit.component';
 
 @Component({
   selector: 'ngx-prod-lot-package',
@@ -26,7 +27,8 @@ export class ProdLotPackageComponent implements OnInit {
   public form: FormGroup;
   public title = 'Selección de medicamentos: ';
   public subtitle = 'medicamentos a ingresar: ';
-  public headerFields: any[] = ['Medicamentos e insumos', 'Descripción generico', 'Cantidad ordenada', 'Iva', 'Cantidad ingresar', 'Lote', 'Fecha vencimiento'];
+  public headerFields: any[] = ['Medicamentos e insumos', 'Descripción generico', 'Cantidad ordenada', 'Valor unidad', 'Iva', 'Cantidad ingresar', 'Lote', 'Fecha vencimiento'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -100,12 +102,35 @@ export class ProdLotPackageComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
-      iva: {
+      amount_unit: {
         title: this.headerFields[3],
         type: 'string',
       },
-      amount_total: {
+      // amount_unit: {
+      //   title: this.headerFields[3],
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     var amo;
+      //     this.parentData.selectedOptions.forEach(x => {
+      //       if (x.billing_stock_id == row.id) {
+      //         amo = x.amount_unit;
+      //       }
+      //     });
+      //     return {
+      //       'data': row,
+      //       // 'enabled': !this.selectedOptions2.includes(row.id),
+      //       'amount_unit': row.amount_unit,
+      //       'onchange': (input, row: any) => this.onAmountUnitChange(input, row),
+      //     };
+      //   },
+      //   renderComponent: AmountUnitComponent,
+      // },
+      iva: {
         title: this.headerFields[4],
+        type: 'string',
+      },
+      amount_total: {
+        title: this.headerFields[5],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -125,7 +150,7 @@ export class ProdLotPackageComponent implements OnInit {
       },
 
       lot: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -146,7 +171,7 @@ export class ProdLotPackageComponent implements OnInit {
 
 
       expiration_date: {
-        title: this.headerFields[6],
+        title: this.headerFields[7],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -208,6 +233,7 @@ export class ProdLotPackageComponent implements OnInit {
       var diet = {
         billing_stock_id: row.id,
         amount_total: 0,
+        // amount_total: +row.amount_unit,
         lot: 0,
         expiration_date: 0,
         billing_id: this.billing_stock_id,
@@ -230,6 +256,11 @@ export class ProdLotPackageComponent implements OnInit {
     this.RefreshData();
   }
 
+  // onAmountUnitChange(input, row) {
+  //       amount_unit : +input.target.value;
+
+      
+  // }
   onAmountChange(input, row) {
     // if (Number(input.target.value) > Number(row.amount_provitional)) {
     //   this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad ordenada")
@@ -244,7 +275,6 @@ export class ProdLotPackageComponent implements OnInit {
       });
       this.selectedOptions = mientras;
       this.messageEvent.emit(this.selectedOptions);
-    // }
   }
 
   onLotChange(input, row) {

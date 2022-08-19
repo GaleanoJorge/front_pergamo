@@ -124,7 +124,7 @@ export class FormProductComponent implements OnInit {
         this.showReg = true;
       }
     });
-
+    this.onchangeForm(1);
   }
 
   close() {
@@ -143,7 +143,16 @@ export class FormProductComponent implements OnInit {
     }
   }
 
-
+  onchangeForm(event) {
+    var cum = this.form.controls.code_cum_file.value;
+    var consec = this.form.controls.code_cum_consecutive.value;
+    if (consec == '') {
+     this.form.patchValue({code_cum: cum});
+    } else {
+      var concaten = cum + " - " + consec;
+     this.form.patchValue({code_cum: concaten});
+    }
+  }
 
 
   save() {
