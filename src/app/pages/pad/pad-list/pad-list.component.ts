@@ -15,6 +15,9 @@ import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 import { PatientService } from '../../../business-controller/patient.service';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
+import { CompanyService } from '../../../business-controller/company.service';
+import { UserAgreementService } from '../../../business-controller/user-agreements.service';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'ngx-pad-list',
@@ -39,11 +42,14 @@ export class PadListComponent implements OnInit {
   public file: File;
   public user_id;
   public user;
-  public patients:any;
+  public patients: any;
   public dialog;
   public currentRole;
   public selectedOptions: any[] = [];
+  public company: any[] = [];
   public result: any = null;
+  public eps_id = null;
+  public campus_id;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -61,7 +67,7 @@ export class PadListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'management':this.patients,
+            'management': this.patients,
             'edit': this.EditGloss.bind(this),
             'delete': this.DeleteConfirmGloss.bind(this),
             'refresh': this.RefreshData.bind(this),
@@ -128,6 +134,9 @@ export class PadListComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
     public roleBS: RoleBusinessService,
+    private CompanyS: CompanyService,
+    private userAgService: UserAgreementService
+
   ) {
   }
   public form: FormGroup;
@@ -144,47 +153,29 @@ export class PadListComponent implements OnInit {
   async ngOnInit() {
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
+    this.campus_id = +localStorage.getItem('campus');
     this.currentRole = this.authService.GetRole();
-    if (this.user.roles[0].role_type_id==2 ) {
-      this.entity = 'patient/byPAD/2/' + this.user_id;
+    if (this.user.roles[0].role_type_id == 2) {
+      this.entity = 'patient/byPAD/2/' + this.user_id + "?campus_id=" + this.campus_id;
     }
     else {
-      this.entity = "patient/byPAD/2/0";
+      this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id;
     }
 
-
-    this.form = this.formBuilder.group({
-      file: [Validators.compose([Validators.required])],
+    this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
+      this.company = x;
     });
 
-    this.ResponseGlossForm = this.formBuilder.group({
-      response: ['', Validators.compose([Validators.required])],
-      accepted_value: ['', Validators.compose([Validators.required])],
-      value_not_accepted: ['', Validators.compose([Validators.required])],
-      objetion_code_response_id: ['', Validators.compose([Validators.required])],
-      justification_status: ['', Validators.compose([Validators.required])],
-      objetion_response_id: ['', Validators.compose([Validators.required])],
-      file: [Validators.compose([Validators.required])],
-    });
-
-    this.RadicationGlossForm = this.formBuilder.group({
-      observation: ['', Validators.compose([Validators.required])],
-      file: ['', Validators.compose([Validators.required])],
-    });
 
     this.PatientBS.PatientByPad(this.user_id).then(x => {
-      this.patients=x;
+      this.patients = x;
     });
   }
-
-
 
   ConfirmAction(dialog: TemplateRef<any>) {
     this.dialog = this.dialogService.open(dialog);
     this.GetResponseParam();
   }
-
-
 
   RefreshData() {
     this.table.refresh();
@@ -221,15 +212,7 @@ export class PadListComponent implements OnInit {
   }
 
   DeleteGloss(data) {
-    /*  return this.glossS.Delete(data.id).then(x => {
-        this.table.refresh();
-        return Promise.resolve(x.message);
-      }).catch(x => {
-        throw x;
-      });*/
   }
-
-
 
   async saveGroup() {
     this.isSubmitted = true;
@@ -256,52 +239,7 @@ export class PadListComponent implements OnInit {
     }
   }
 
-  async saveRadication() {
-    /*this.isSubmitted = true;
-    if (!this.RadicationGlossForm.invalid) {
-      if (!this.selectedOptions.length) {
-        this.dialog = this.dialog.close();
-        this.toastS.danger(null, 'Debe seleccionar un registro');
-      } else {
-        this.loading = true;
-        this.dialog.close();
-
-        var formData = new FormData();
-        formData.append('single', "0");
-        formData.append('file', this.RadicationGlossForm.value.file);
-        formData.append('gloss_response_id', JSON.stringify(this.gloss_response_id));
-        formData.append('observation', this.RadicationGlossForm.value.observation);
-        formData.append('gloss_id', JSON.stringify(this.gloss_id));
-        formData.append('total_selected', JSON.stringify(this.selectedOptions));
-
-        await this.GlossRadicationS.Save(formData).then(x => {
-          this.toastService.success('', x.data);
-          this.RefreshData();
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
-      }
-    }
-
-*/
-
-  }
-
-
   GetResponseParam() {
-    /*
-    if (!this.objetion_code_response || !this.objetion_response) {
-      this.objetionCodeResponseS.GetCollection().then(x => {
-        this.objetion_code_response = x;
-      });
-      this.objetionResponseS.GetCollection().then(x => {
-        this.objetion_response = x;
-      });
-    }*/
   }
 
   async saveFile(event) {
@@ -328,57 +266,60 @@ export class PadListComponent implements OnInit {
   }
 
   async uploadDocumentInfo(lectura) {
-    /*try {
-      let response;
-      response = await this.glossS.SaveFile(lectura);
-      this.loading2 = false;
-      this.toastService.success('', response.message);
-      this.RefreshData();
-    } catch (e) {
-      this.loading2 = false;
-      throw new Error(e);
-    }*/
+
   }
 
-  ChangeGlossStatus(status) {
-    this.status = status;
-    if (status != 0 && this.currentRole == 5) {
-      this.table.changeEntity(`gloss/byStatus/${this.status}/${this.user_id}`, 'gloss');
-      // this.RefreshData();
-    } else if (this.currentRole == 4 || this.currentRole == 1) {
-      this.table.changeEntity(`gloss/byStatus/${this.status}/0`, 'gloss');
-    } else if (status) {
-      this.table.changeEntity(`gloss/byStatus/${this.status}/0`, 'gloss');
+  FilterAgreement(e) {
+    if (this.user.roles[0].role_type_id == 2) {
+      this.entity = 'patient/byPAD/2/' + this.user_id + "?campus=" + this.campus_id;
     }
     else {
-      this.table.changeEntity(`gloss/byStatus/0/${this.user_id}`, 'gloss');
+      this.entity = "patient/byPAD/2/0?campus=" + this.campus_id;
     }
+    this.table.changeEntity(`${this.entity}&eps=${e}`, 'patients')
   }
 
-  async changeFile(files, option) {
-    this.loading = true;
-    if (!files) return false;
-    const file = await this.toBase64(files.target.files[0]);
 
-    switch (option) {
-      case 2:
-        this.ResponseGlossForm.patchValue({
-          file: files.target.files[0],
-        });
-        this.loading = false;
-        break;
-      case 3:
-        this.RadicationGlossForm.patchValue({
-          file: files.target.files[0],
-        });
-        break;
-    }
-  }
 
-  toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
+  // ChangeGlossStatus(status) {
+  //   this.status = status;
+  //   if (status != 0 && this.currentRole == 5) {
+  //     this.table.changeEntity(`gloss/byStatus/${this.status}/${this.user_id}`, 'gloss');
+  //     // this.RefreshData();
+  //   } else if (this.currentRole == 4 || this.currentRole == 1) {
+  //     this.table.changeEntity(`gloss/byStatus/${this.status}/0`, 'gloss');
+  //   } else if (status) {
+  //     this.table.changeEntity(`gloss/byStatus/${this.status}/0`, 'gloss');
+  //   }
+  //   else {
+  //     this.table.changeEntity(`gloss/byStatus/0/${this.user_id}`, 'gloss');
+  //   }
+  // }
+
+  // async changeFile(files, option) {
+  //   this.loading = true;
+  //   if (!files) return false;
+  //   const file = await this.toBase64(files.target.files[0]);
+
+  //   switch (option) {
+  //     case 2:
+  //       this.ResponseGlossForm.patchValue({
+  //         file: files.target.files[0],
+  //       });
+  //       this.loading = false;
+  //       break;
+  //     case 3:
+  //       this.RadicationGlossForm.patchValue({
+  //         file: files.target.files[0],
+  //       });
+  //       break;
+  //   }
+  // }
+
+  // toBase64 = file => new Promise((resolve, reject) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => resolve(reader.result);
+  //   reader.onerror = error => reject(error);
+  // });
 }
