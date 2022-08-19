@@ -92,6 +92,7 @@ export class FormUsersComponent implements OnInit {
   public localities: any[] = [];
   public parentData;
   public campusData;
+  public agreementData;
 
   public sectionals: SectionalCouncil[] = [];
   public districts: District[] = [];
@@ -197,6 +198,11 @@ export class FormUsersComponent implements OnInit {
       selectedOptions: this.data != null ? this.data.users_campus : [],
       entity: 'campus',
       customData: 'campus'
+    };
+    this.agreementData = {
+      selectedOptions: this.data != null ? this.data.user_agreement : [],
+      entity: 'company?eps=true',
+      customData: 'company'
     };
     if (this.data && this.data.file) {
       this.image = environment.storage + this.data.file;
@@ -711,6 +717,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('residence_address', this.residence);
       formData.append('neighborhood_or_residence_id', this.neighborhood_or_residence_id);
       formData.append('campus_id', JSON.stringify(this.campusData.selectedOptions));
+      formData.append('company_id', JSON.stringify(this.agreementData.selectedOptions));
 
       // var role = Number(this.role);
       if (this.roleBS.roles[0].role_type_id == 2) {
@@ -1140,5 +1147,9 @@ export class FormUsersComponent implements OnInit {
       this.toastService.warning('', 'Debe seleccionar un item de la lista');
       this.form.controls.activities_id.setErrors({ 'incorrect': true });
     }
+  }
+  
+  receiveAgreementsMessage($event) {
+    this.agreementData.selectedOptions = $event;
   }
 }

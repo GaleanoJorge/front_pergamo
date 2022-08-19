@@ -16,8 +16,12 @@
               </nb-option>
             </nb-select>
           </div>
+          <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
+            <nb-option *ngIf="this.currentRole == 1 || this.currentRole == 26 || this.currentRole == 27 || this.currentRole == 28 || this.currentRole == 29 || this.currentRole == 30 || this.currentRole == 31 || this.currentRole == 32">Todos los convenios</nb-option>
+            <nb-option *ngFor="let item of company" [value]="item.company.id">Convenio: {{item.company.name}}</nb-option>
+          </nb-select>
         </div>
-        <div class="actions" style="margin-top:1em;">
+        <div class="actions">
         </div>
       </div>
     </ngx-base-table>

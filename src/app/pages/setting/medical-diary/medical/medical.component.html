@@ -1,0 +1,15 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title" [subtitle]="subtitle" customData="medical_diary" [settings]="settings"
+      entity="medical_diary?assistance={{assistance_id}}" [messageToltip]="messageToltip">
+      <div actions>
+        <div class="actions">
+          <a nbButton routerLink="/pages/setting/manual">Volver</a>
+          <button nbButton status="danger" (click)="NewMedical()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>
