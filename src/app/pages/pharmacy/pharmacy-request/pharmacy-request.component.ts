@@ -105,11 +105,11 @@ export class PharmacyRequestComponent implements OnInit {
 
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
-      this.table.changeEntity('pharmacy_product_request/?pagination=true&status=SOLICITADO&request_pharmacy_stock_id='+this.my_pharmacy_id,'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request/?pagination=true&status=SOLICITADO FARMACIA&request_pharmacy_stock_id='+this.my_pharmacy_id,'pharmacy_product_request');
 
     }else{
 
-      this.table.changeEntity('pharmacy_product_request/?pagination=true&status=SOLICITADO&request_pharmacy_stock_id='+pharmacy,'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request/?pagination=true&status=SOLICITADO FARMACIA&request_pharmacy_stock_id='+pharmacy,'pharmacy_product_request');
     }
     // this.RefreshData();
   }

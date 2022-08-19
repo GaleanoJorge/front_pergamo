@@ -94,7 +94,7 @@ export class PharmacyIncomePatientComponent implements OnInit {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.patients.identification;
+          return row.admissions.patients.identification;
         },
       },
       request_amount: {
@@ -119,7 +119,7 @@ export class PharmacyIncomePatientComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + x[0].id;
+        this.entity = 'pharmacy_product_request?& status=DEVUELTO' + '&own_pharmacy_stock_id=' + x[0].id;
         this.title = 'MEDICAMENTOS DEVUELTOS A:  ' + x[0]['name'];
       }
     });

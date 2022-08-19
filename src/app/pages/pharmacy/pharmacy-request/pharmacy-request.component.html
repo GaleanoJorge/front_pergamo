@@ -5,7 +5,7 @@
       <nb-tab tabTitle="FARMACIA">
         <div *ngIf="this.showdiv == 1">
           <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-            entity="pharmacy_product_request/?pagination=true&status=SOLICITADO&request_pharmacy_stock_id={{this.my_pharmacy_id}}"
+            entity="pharmacy_product_request/?pagination=true&status=SOLICITADO FARMACIA&request_pharmacy_stock_id={{this.my_pharmacy_id}}"
             customData='pharmacy_product_request' [messageToltip]="messageToltip">
             <div actions>
               <div class="actions">

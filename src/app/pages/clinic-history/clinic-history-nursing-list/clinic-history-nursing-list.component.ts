@@ -22,7 +22,7 @@ import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/
 export class ClinicHistoryNursingListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-
+  @Input() ch_record2:number=null;
   linearMode = true;
   public messageError = null;
   public title;
@@ -92,7 +92,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.record_id = this.route.snapshot.params.id;
+    this.record_id = this.route.snapshot.params.id==undefined?this.ch_record2:this.route.snapshot.params.id;
     this.currentRole = this.authService.GetRole();
     this.own_user = this.authService.GetUser();
 

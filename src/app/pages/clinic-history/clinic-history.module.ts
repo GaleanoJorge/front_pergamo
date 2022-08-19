@@ -770,6 +770,8 @@ import { TableNRDiagnosisFTComponent } from './entry-clinic-history-physical-the
 
   providers: [DateFormatPipe],
   exports: [
+    // ClinicHistoryNursingListComponent,
+    // ChHairValorationComponent
     // InsumeRequestComponent,
     // FormInsumeRequestComponent,
   ],

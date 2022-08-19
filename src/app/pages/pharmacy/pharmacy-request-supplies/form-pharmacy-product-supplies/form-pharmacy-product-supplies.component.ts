@@ -72,7 +72,7 @@ export class FormPharmacyProductSuppliesComponent implements OnInit {
         await this.pharmaProdS.Update({
           id: this.data.id,
           request_amount: this.form.controls.request_amount.value,
-          status: 'SOLICITADO',
+          status: 'SOLICITADO FARMACIA',
           product_supplies_id: this.form.controls.product_supplies_id.value,
           own_pharmacy_stock_id: this.my_pharmacy_id,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
@@ -88,7 +88,7 @@ export class FormPharmacyProductSuppliesComponent implements OnInit {
       } else {
         await this.pharmaProdS.Save({
           request_amount: this.form.controls.request_amount.value,
-          status: 'SOLICITADO',
+          status: 'SOLICITADO FARMACIA',
           own_pharmacy_stock_id: this.my_pharmacy_id,
           product_supplies_id: this.form.controls.product_supplies_id.value,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,

@@ -91,12 +91,12 @@ export class IncomePackageComponent implements OnInit {
         },
       },
 
-      amount_operation: {
+      request_amount: {
         title: this.headerFields[5],
         type: 'string',
-        // valuePrepareFunction: (value, row) => {
-        //   return row.pharmacy_product_request.product_generic.description;
-        // },
+         valuePrepareFunction: (value, row) => {
+           return row.pharmacy_product_request.request_amount;
+         },
       },
       lot: {
         title: this.headerFields[2],
@@ -161,7 +161,7 @@ export class IncomePackageComponent implements OnInit {
     this.component_package_id = this.route.snapshot.params.id;
     this.selectedOptions = this.parentData.parentData;
     this.settings = this.settings_supplies;
-    this.entity = this.parentData.entity;
+    this.entity = this.parentData.entity+'&pharmacyto=1';
     this.customData = this.parentData.customData;
 
   }

@@ -83,11 +83,11 @@ export class PharmacyIncomeComponent implements OnInit {
 
         },
       },
-      amount_operation: {
+      request_amount: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.pharmacy_request_shipping.amount_operation;
+          return row.request_amount;
         },
 
       },
@@ -109,7 +109,7 @@ export class PharmacyIncomeComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=ENVIADO' + '&own_pharmacy_stock_id=' + x[0].id;
+        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=ENVIADO FARMACIA' + '&request_pharmacy_stock_id=' + x[0].id;
         this.title = 'ACEPTAR MEDICAMENTOS ENVIADOS A:  ' + x[0]['name'];
       }
     });

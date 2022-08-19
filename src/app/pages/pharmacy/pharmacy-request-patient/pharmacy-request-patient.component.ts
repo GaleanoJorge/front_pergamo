@@ -73,7 +73,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.patients.identification;
+          return row.admissions.patients.identification;
         },
       },
       services_briefcase: {

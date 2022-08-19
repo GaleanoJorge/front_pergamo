@@ -132,7 +132,7 @@ export class ProdShippingPackageComponent implements OnInit {
     this.component_package_id = this.route.snapshot.params.id;
     this.selectedOptions = this.parentData.parentData;
     this.settings = this.settings_supplies;
-    this.entity = this.parentData.entity;
+    this.entity = this.parentData.entity+'&pharmacyto=1';
     this.customData = this.parentData.customData;
 
   }

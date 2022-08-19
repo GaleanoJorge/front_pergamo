@@ -47,16 +47,16 @@ export class FormPharmacyIncomeComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    if(this.type == true || this.type == false){
+    if(this.data.product_generic_id != null){
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + this.type,
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + true,
         customData: 'pharmacy_request_shipping',
       };
     } else {
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + true,
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + false,
         customData: 'pharmacy_request_shipping',
       };
     }
@@ -107,7 +107,7 @@ export class FormPharmacyIncomeComponent implements OnInit {
           this.pharProdReqS.updateInventoryByLot({
             id: this.data.id,
             observation: this.form.controls.observation.value,
-            status: 'ACEPTADO',
+            status: 'ACEPTADO FARMACIA',
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.own_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),

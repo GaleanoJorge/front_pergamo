@@ -110,7 +110,7 @@ export class FormPharmacyRequestComponent implements OnInit {
           this.pharProdReqS.updateInventoryByLot({
             id: this.data.id,
             amount: total_sent,
-            status: 'ENVIADO',
+            status: 'ENVIADO FARMACIA',
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
@@ -142,6 +142,7 @@ export class FormPharmacyRequestComponent implements OnInit {
           this.pharProdReqS.Save({
             amount: this.form.controls.amount.value,
             status: 'ENVIADO',
+            ispharmacy:1,
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
           }).then(x => {
