@@ -8,7 +8,7 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <div class = "cuadro" 
+    <div *ngIf="value.user.roles[0].role_type_id == 1 || this.value.data.ingreso == 4 || this.value.data.ingreso == 5" class = "cuadro" 
      [style]="'background-color: '+this.color+';'"
      nbTooltip={{tooltip}} nbTooltipPlacement="top" nbTooltipStatus="primary">
     </div>

@@ -42,6 +42,7 @@ export class PadListComponent implements OnInit {
   public arrayBuffer: any;
   public file: File;
   public user_id;
+  public patient_id;
   public user;
   public patients: any;
   public dialog;
@@ -77,6 +78,7 @@ export class PadListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'user': this.user,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -88,6 +90,7 @@ export class PadListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'user': this.user,
             'management': this.patients,
             'edit': this.EditGloss.bind(this),
             'delete': this.DeleteConfirmGloss.bind(this),
