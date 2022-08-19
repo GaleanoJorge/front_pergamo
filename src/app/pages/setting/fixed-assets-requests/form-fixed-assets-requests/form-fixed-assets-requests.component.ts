@@ -87,13 +87,14 @@ export class FormFixedAssetsRequestsComponent implements OnInit {
       var total_sent = 1;
       if (!this.selectedOptions || this.selectedOptions.length == 0) {
         valid_values = false;
-        this.toastS.danger('Debe seleccionar al menos un medicamento', 'Error');
+        this.toastS.danger('Debe seleccionar al menos un activo', 'Error');
       }
       if (valid_values) {
         this.loading = true;
 
         if (this.data.id) {
           this.FixedAddS.updateInventoryByLot({
+            id: -1,
             fixed_assets_id: this.data.id,
             fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
             responsible_user_id: this.form.controls.responsible_user_id.value,
@@ -134,6 +135,7 @@ export class FormFixedAssetsRequestsComponent implements OnInit {
           });
         } else {
           await this.FixedAddS.updateInventoryByLot({
+            id: -1,
             fixed_assets_id: this.data.id,
             fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
             responsible_user_id: this.form.controls.responsible_user_id.value,

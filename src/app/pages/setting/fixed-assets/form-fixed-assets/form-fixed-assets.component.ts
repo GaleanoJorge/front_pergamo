@@ -109,6 +109,7 @@ export class FormFixedAssetsComponent implements OnInit {
         guide: '',
         periodicity_frequency_id: '',
         calibration_frequency_id: '',
+        accessories: '',
       };
     } else if (this.data.fixed_type_id == 2) {
       this.showBiomed = true;
@@ -118,6 +119,7 @@ export class FormFixedAssetsComponent implements OnInit {
       fixed_clasification_id: [this.data.fixed_clasification_id],
       fixed_nom_product_id: [this.data.fixed_nom_product_id],
       fixed_type_id: [this.data.fixed_type_id],
+      accessories: [this.data.accessories],
       fixed_property_id: [this.data.fixed_property_id, Validators.compose([Validators.required])],
       obs_property: [this.data.obs_property],
       plaque: [this.data.plaque],
@@ -244,11 +246,12 @@ export class FormFixedAssetsComponent implements OnInit {
           mark: this.form.controls.mark.value,
           serial: this.form.controls.serial.value,
           fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
+          accessories: this.form.controls.accessories.value,
           detail_description: this.form.controls.detail_description.value,
           color: this.form.controls.color.value,
           company_id: this.form.controls.company_id.value,
           fixed_condition_id: this.form.controls.fixed_condition_id.value,
-          status_prod: 'INGRESADO',
+          status_prod: 'STOCK',
           fixed_type_id: this.form.controls.fixed_type_id.value,
           fixed_stock_id: this.form.controls.fixed_stock_id.value,
           calibration_certificate: this.form.controls.calibration_certificate.value,
@@ -308,6 +311,7 @@ export class FormFixedAssetsComponent implements OnInit {
           detail_description: this.form.controls.detail_description.value,
           color: this.form.controls.color.value,
           company_id: this.form.controls.company_id.value,
+          accessories: this.form.controls.accessories.value,
           fixed_condition_id: this.form.controls.fixed_condition_id.value,
           status_prod: 'INGRESADO',
           fixed_type_id: this.form.controls.fixed_type_id.value,

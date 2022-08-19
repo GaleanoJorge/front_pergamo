@@ -141,7 +141,7 @@ export class AssetsRequestsPackageComponent implements OnInit {
     var contador = 0;
     var err = 0;
     if (!this.selectedOptions.length) {
-      this.toastS.danger(null, 'Debe seleccionar al menos un medicamento');
+      this.toastS.danger(null, 'Debe seleccionar al menos un activo');
     }
     else {
       var dta = {
