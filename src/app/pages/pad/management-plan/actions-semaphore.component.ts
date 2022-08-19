@@ -1,17 +1,16 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { VALUE } from '@syncfusion/ej2-angular-filemanager';
+import { color } from 'd3-color';
 import { ViewCell } from 'ng2-smart-table';
 
 
 @Component({
   template: `
-  <div class="d-flex justify-content-center" *ngIf="value.data.incumplidas > 0">
+  <div class="d-flex justify-content-center">
     <div class = "cuadro" 
-     [style]="this.semaphore == 1 ? 'background-color: #F1C40F;' : 
-     this.semaphore == 2 ? 'background-color: #D35400;' : 
-     this.semaphore == 3 ? 'background-color: #28B463;' : 
-     this.semaphore == 4 ? 'background-color: #C70039;' : 'background-color: #C70039'"
-     nbTooltip="{{value.data.incumplidas}} servicios incumplidos" nbTooltipPlacement="top" nbTooltipStatus="primary">
+     [style]="'background-color: '+this.color+';'"
+     nbTooltip={{tooltip}} nbTooltipPlacement="top" nbTooltipStatus="primary">
     </div>
   </div>
   `,
@@ -21,7 +20,21 @@ export class ActionsSemaphore2Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
 
+
+  public colors = {
+    amarillo: '#FFFF00',
+    pergamo: '#54BCC1',
+    naranja: '#FF7000',
+    azul: '#0000FF',
+    verde: '#28B463',
+    rojo: '#FF0000',
+    morado: '#7A39BB',
+  };
+
+  public color: string;
+
   public semaphore: any;
+  public tooltip: string;
   public today;
   public status;
   public description;
@@ -31,17 +44,31 @@ export class ActionsSemaphore2Component implements ViewCell {
   }
 
   async ngOnInit() {
+    var dat = this.value.data;
+    
+    if (dat.ingreso == 0) {
+      this.color = this.colors.verde;
+      this.tooltip = 'Cumplido'
+    } else if (dat.ingreso == 1) {
+      this.color = this.colors.pergamo;
+      this.tooltip = 'Admisión creada'
+    } else if (dat.ingreso == 2) {
+      this.color = this.colors.rojo;
+      this.tooltip = 'Sin agendar'
+    } else if (dat.ingreso == 3) {
+      this.color = this.colors.amarillo;
+      this.tooltip = 'Sin asignar profesional'
+    } else if (dat.ingreso == 4) {
+      this.color = this.colors.morado;
+      this.tooltip = 'Por subsanar'
+    } else if (dat.ingreso == 5) {
+      this.color = this.colors.naranja;
+      this.tooltip = 'Pendiente por ejecutar: ' + dat.incumplidas
+    } else if (dat.ingreso == 6) {
+      this.color = this.colors.azul;
+      this.tooltip = 'Proyección creada'
+    }
 
-    // this.semaphore = this.value.getDate(this.value.data);
-    // if (this.semaphore == 1) {
-    //   this.description = "Agendado";
-    // }else if (this.semaphore == 2) {
-    //   this.description = "Proximo a vencer";
-    // }else if (this.semaphore == 3) {
-    //   this.description = "Atendida";
-    // }else if (this.semaphore == 4) {
-    //   this.description = "Incumplida";
-    // }
 
   }
 

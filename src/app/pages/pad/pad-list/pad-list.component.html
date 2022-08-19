@@ -1,12 +1,21 @@
- 
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
-      customData="patients" [messageToltip]="messageToltip">
+    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity" customData="patients"
+      [messageToltip]="messageToltip">
       <div actions>
         <div class="actions">
-          
+          <div>
+            <label for="swallowing" style="width: 300px;" class="form-text text-muted font-weight-bold">FILTRO ESTADOS:</label>
+            <nb-select placeholder="Seleccione..." fullWidth (selectedChange)="changeSemaphore($event)">
+              <nb-option value="">Sin filtro</nb-option>
+              <nb-option *ngFor="let item of status_type" [value]="item.id">
+                <div class="cuadro" [style]="'background-color: ' + item.color + ';'" style="margin-right: 10px;">
+                </div>
+                {{ item.name }}
+              </nb-option>
+            </nb-select>
+          </div>
         </div>
         <div class="actions" style="margin-top:1em;">
         </div>
@@ -14,4 +23,3 @@
     </ngx-base-table>
   </div>
 </ngx-base-list>
-
