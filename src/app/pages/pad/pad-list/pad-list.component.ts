@@ -15,6 +15,7 @@ import { CurrencyPipe } from '@angular/common';
 import { date } from '@rxweb/reactive-form-validators';
 import { PatientService } from '../../../business-controller/patient.service';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
+import { ActionsSemaphore2Component } from '../management-plan/actions-semaphore.component';
 
 @Component({
   selector: 'ngx-pad-list',
@@ -44,6 +45,15 @@ export class PadListComponent implements OnInit {
   public currentRole;
   public selectedOptions: any[] = [];
   public result: any = null;
+  public status_type = [
+    { id: (0+1), color: "#28B463", name: "Cumplido" },
+    { id: (1+1), color: "#54BCC1", name: "Admisión creada" },
+    { id: (2+1), color: "#FF0000", name: "Sin agendar" },
+    { id: (6+1), color: "#0000FF", name: "Proyección creada" },
+    { id: (3+1), color: "#FFFF00", name: "Sin asignar profesional" },
+    { id: (4+1), color: "#7A39BB", name: "Por subsanar" },
+    { id: (5+1), color: "#FF7000", name: "Pendiente por ejecutar" },
+  ];
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -54,6 +64,17 @@ export class PadListComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      semaphore: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsSemaphore2Component,
+      },
       actions: {
         title: 'Acciones',
         type: 'custom',
@@ -381,4 +402,8 @@ export class PadListComponent implements OnInit {
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
   });
+
+  changeSemaphore($event: any) {
+    this.table.changeEntity(this.entity + '?semaphore=' + $event, 'patients');
+  }
 }

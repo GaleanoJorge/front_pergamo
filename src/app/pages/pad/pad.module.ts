@@ -48,7 +48,6 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
 import { AdmissionsPatientPadComponent } from './admissions-patient/admissions-patient.component';
 import { ActionsPadComponent } from './admissions-patient/actions.component';
 import { SuppliesView } from './management-plan/supplies-view/supplies-view.component';
-import { AssistanceStockComponent } from '../setting/assistance-stock/assistance-stock.component';
 
 
 
@@ -105,7 +104,7 @@ import { AssistanceStockComponent } from '../setting/assistance-stock/assistance
     ActionsComponent,
     AssignedManagementPlanComponent,
     FormFixedPlanComponent,
-    FixedPlanComponent
+    FixedPlanComponent,
   ],
   providers: [
     DateFormatPipe,
