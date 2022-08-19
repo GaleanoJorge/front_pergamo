@@ -1,31 +1,35 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { FixedAddService } from '../../../business-controller/fixed-add.service';
-import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
-import { AuthService } from '../../../services/auth.service';
+import { TableRowWidget } from '@syncfusion/ej2/documenteditor';
+import { FixedAddService } from '../../../../business-controller/fixed-add.service';
+import { FixedAssetsService } from '../../../../business-controller/fixed-assets.service';
+import { AuthService } from '../../../../services/auth.service';
 
-import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { FormFixedRequestComponent } from './form-fixed-request/form-fixed-request.component';
+import { BaseTableComponent } from '../../../components/base-table/base-table.component';
+import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
+import { FormFixedPlanComponent } from './form-fixed-plan/form-fixed-plan.component';
 
 @Component({
-  selector: 'ngx-fixed-request',
-  templateUrl: './fixed-request.component.html',
-  styleUrls: ['./fixed-request.component.scss']
+  selector: 'ngx-fixed-plan',
+  templateUrl: './fixed-plan.component.html',
+  styleUrls: ['./fixed-plan.component.scss']
 })
-export class FixedRequestComponent implements OnInit {
+export class FixedPlanComponent implements OnInit {
   @Input() parentData: any;
+  @Input() admissions_id: any = null;
+
   public isSubmitted = false;
   public messageError = null;
 
   public title: string = 'LISTA DE ACTIVOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'ELEMENTO', 'CANTIDAD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'ELEMENTO', 'PROCEDIMIENTO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
-  public user;
   public my_fixed_id;
+  public user;
+
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -38,22 +42,21 @@ export class FixedRequestComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      fixed_accessories: {
+      fixed_nom_product: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (value == null) {
-            return row.fixed_nom_product.name;
-          } else {
-            return row.fixed_accessories.name;
-
-          }
+          return row.fixed_nom_product.name + " - " + row.fixed_nom_product.fixed_clasification.fixed_type.name;
         },
       },
-      request_amount: {
+      procedure: {
         title: this.headerFields[2],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.procedure.manual_price.name;
+        },
       },
+
     },
   };
 
@@ -64,20 +67,17 @@ export class FixedRequestComponent implements OnInit {
     private authService: AuthService,
     private FixedAssetsS: FixedAssetsService,
     private toastService: NbToastrService,
-
   ) {
   }
 
-  ngOnInit() {
-    this.user = this.authService.GetUser();   
+  ngOnInit(): void {
+    this.user = this.authService.GetUser();
     this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_fixed_id = x[0].id;
-        // this.entity = 'fixed_assets?fixed_stock_id=' + x[0].id;
-        this.title = 'INVENTARIO DE:  ' + x[0]['fixed_stock']['fixed_type']['name'];
-      }else {
+      } else {
         this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
-       }
+      }
     });
   }
 
@@ -85,10 +85,11 @@ export class FixedRequestComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewPharmacy() {
-    this.dialogFormService.open(FormFixedRequestComponent, {
+  NewPharmacy(data) {
+    this.dialogFormService.open(FormFixedPlanComponent, {
       context: {
         title: 'Crear nueva Solicitud',
+        data: data,
         saved: this.RefreshData.bind(this),
       },
     });
@@ -101,7 +102,7 @@ export class FixedRequestComponent implements OnInit {
   }
 
   EditPharmacy(data) {
-    this.dialogFormService.open(FormFixedRequestComponent, {
+    this.dialogFormService.open(FormFixedPlanComponent, {
       context: {
         title: 'Editar Solicitud',
         data,

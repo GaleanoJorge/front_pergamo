@@ -72,7 +72,7 @@ export class FixedAssetsComponent implements OnInit {
         title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.campus.name;
+          return row.fixed_stock.campus.name;
         },
       },
     },

@@ -39,8 +39,6 @@ import { ActionsSemaphoreComponent } from './assigned-management-plan/actions-se
 import { ActionsSemaphore2Component } from './management-plan/actions-semaphore.component';
 import { PharmacyApplicationComponent } from './management-plan/pharmacy-application/pharmacy-application.component';
 import { Actions3Component } from './management-plan/pharmacy-application/actions.component';
-import { FixedPlanComponent } from './assigned-management-plan/fixed-plan/fixed-plan.component';
-import { FormFixedPlanComponent } from './assigned-management-plan/fixed-plan/form-fixed-plan/form-fixed-plan.component';
 import { FormConsentsInformedComponent } from './consents-informed/form-consents-informed/form-consents-informed.component';
 import { ConsentsInformedComponent } from './consents-informed/consents-informed.component';
 import { ActionsCIComponent } from './consents-informed/actions.component';
@@ -48,6 +46,12 @@ import { SignaturePadModule } from '@ng-plus/signature-pad';
 import { AdmissionsPatientPadComponent } from './admissions-patient/admissions-patient.component';
 import { ActionsPadComponent } from './admissions-patient/actions.component';
 import { SuppliesView } from './management-plan/supplies-view/supplies-view.component';
+import { AssistanceStockComponent } from '../setting/assistance-stock/assistance-stock.component';
+import { FixedPlanComponent } from './management-plan/fixed-plan/fixed-plan.component';
+import { FormFixedPlanComponent } from './management-plan/fixed-plan/form-fixed-plan/form-fixed-plan.component';
+import { FormFixedReturnComponent } from './management-plan/fixed-return/form-fixed-return/form-fixed-return.component';
+import { FixedReturnComponent } from './management-plan/fixed-return/fixed-return.component';
+import { ActionsRetuPatientComponent } from './management-plan/fixed-return/actions.component';
 
 
 
@@ -105,6 +109,9 @@ import { SuppliesView } from './management-plan/supplies-view/supplies-view.comp
     AssignedManagementPlanComponent,
     FormFixedPlanComponent,
     FixedPlanComponent,
+    FormFixedReturnComponent,
+    FixedReturnComponent,
+    ActionsRetuPatientComponent
   ],
   providers: [
     DateFormatPipe,

@@ -1,0 +1,51 @@
+<form [formGroup]="form">
+  <nb-card class="rounded_card">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+
+      <label class="form-text text-muted font-weight-bold align"></label>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="center">
+            <fieldset class="field_set">
+              <legend class="prue1">{{label}}</legend>
+              <div class="row">
+                <!-- <div class="col-md-6">
+                  <label for="quantity" class="form-text text-muted font-weight-bold align">CANTIDAD A DEVOLVER</label>
+                  <input type="number" nbInput id="quantity" formControlName="quantity" quantity fullWidth
+                    status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                </div> -->
+                <div class="col-md-12">
+                  <label class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
+                  <textarea id="observation" nbInput fullWidth formControlName="observation" observation
+                    rows="4" cols="50"
+                    status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+                </div>
+
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+
+
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-12">
+          <hr />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="isSubmitted" type="button"
+          (click)="save()">DEVOLVER</button>
+        <button nbButton status="basic" class="ml-1 btn-save" [disabled]="isSubmitted" type="button"
+          (click)="close()">CANCELAR</button>
+      </div>
+    </div>
+
+  </nb-card>
+</form>

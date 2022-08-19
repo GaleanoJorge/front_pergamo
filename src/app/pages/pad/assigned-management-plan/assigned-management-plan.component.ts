@@ -17,7 +17,6 @@ import { ManagementPlanService } from '../../../business-controller/management-p
 import { FormAssignedManagementPlanComponent } from './form-assigned-management-plan/form-assigned-management-plan.component';
 import { ActionsSemaphoreComponent } from './actions-semaphore.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
-import { FixedPlanComponent } from './fixed-plan/fixed-plan.component';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { ClinicHistoryNursingListComponent } from '../../clinic-history/clinic-history-nursing-list/clinic-history-nursing-list.component';
 
@@ -312,21 +311,6 @@ export class AssignedManagementPlanComponent implements OnInit {
       },
     });
   }
-
-  NewSolicitudFixed() {
-    this.dialogFormService.open(FixedPlanComponent, {
-      context: {
-        title: 'Solicitud activo fijo',
-        admissions:this.user.admissions[0].id,
-        // user: this.user,
-        // medical: this.medical,
-        // admissions_id: this.admissions_id,
-        // saved: this.RefreshData.bind(this),
-      },
-    });
-  }
-
-
 
   RefreshData() {
     this.table.refresh();

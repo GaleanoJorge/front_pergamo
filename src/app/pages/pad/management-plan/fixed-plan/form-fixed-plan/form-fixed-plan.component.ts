@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { FixedAccessoriesService } from '../../../../../business-controller/fixed-accessories.service';
+import { AdmissionsService } from '../../../../../business-controller/admissions.service';
 import { FixedAddService } from '../../../../../business-controller/fixed-add.service';
 import { FixedNomProductService } from '../../../../../business-controller/fixed-nom-product.service';
-import { FixedTypeService } from '../../../../../business-controller/fixed-type.service';
+import { FixedStockService } from '../../../../../business-controller/fixed-stock.service';
 import { PatientService } from '../../../../../business-controller/patient.service';
+import { ServicesBriefcaseService } from '../../../../../business-controller/services-briefcase.service';
 import { UserBusinessService } from '../../../../../business-controller/user-business.service';
 
 @Component({
@@ -18,7 +19,9 @@ export class FormFixedPlanComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
-  @Input() admissions: any = null;
+  @Input() admissions_id: any = null;
+  @Input() user: any = null;
+
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -27,56 +30,86 @@ export class FormFixedPlanComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public fixed_type_id: any[];
-  public fixed_accessories_id: any[];
   public responsible_user: any[];
   public fixed_nom_product_id: any[];
-  public user = null;
+  // public user = null;
+  public procedure_id: any;
+  public procedure;
+  public product_id;
+  public own_fixed_user_id;
+  public admissions;
+
 
   constructor(
     private formBuilder: FormBuilder,
-    private FixedTypeS: FixedTypeService,
     private FixedAddS: FixedAddService,
     private toastService: NbToastrService,
-    private FixedAccessoriesS: FixedAccessoriesService,
-    private UserRoleBusinessS: UserBusinessService,
+    private serviceBriefcaseS: ServicesBriefcaseService,
     private FixedNomProductS: FixedNomProductService,
+    private UserBusinessS: UserBusinessService,
     private patienBS: PatientService,
+    private admissionsS: AdmissionsService,
+
   ) {
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     if (!this.data) {
       this.data = {
-        fixed_type_id: '',
-        fixed_accessories_id: '',
-        request_amount: '',
-        responsible_user_id: '',
         fixed_nom_product_id: '',
+        procedure_id: '',
       };
+      
     }
 
     this.form = this.formBuilder.group({
-      fixed_type_id: [this.data.fixed_type_id],
       fixed_nom_product_id: [this.data.fixed_nom_product_id],
-      fixed_accessories_id: [this.data.fixed_accessories_id],
-      request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
-      responsible_user_id: [this.data.responsible_user_id, Validators.compose([Validators.required])],
+      procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
     });
-    await this.patienBS.GetUserById(this.user).then(x => {
-      this.user = x;
+    this.UserBusinessS.GetUser().then(x => {
+      this.own_fixed_user_id = x;
     });
-    await this.FixedTypeS.GetCollection().then(x => {
-      this.fixed_type_id = x;
-    });
-    await this.FixedAccessoriesS.GetCollection().then(x => {
-      this.fixed_accessories_id = x;
-    });
-    await this.UserRoleBusinessS.GetCollection().then(x => {
-      this.responsible_user = x;
-    });
-    await this.FixedNomProductS.GetCollection().then(x => {
+    this.FixedNomProductS.GetCollection().then(x => {
       this.fixed_nom_product_id = x;
     });
+  //   this.admissionsS.GetByPacient(this.user.id, 1).then(x => {
+  //     this.admissions = x;
+  //   });
+  //  this.patienBS.GetUserById(this.user).then(x => {
+  //     this.user = x;
+  //   });
+
+
+    this.serviceBriefcaseS.GetCollection({}).then(x => {
+      this.procedure = x;
+    });
+  }
+
+  saveCode(e): void {
+    var localidentify = this.procedure.find(item => item.manual_price.name == e);
+
+    if (localidentify) {
+      this.procedure_id = localidentify.id;
+      this.form.controls.procedure_id.setErrors(null);
+
+    } else {
+      this.procedure_id = null;
+      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
+      this.form.controls.procedure_id.setErrors({ 'incorrect': true });
+    }
+  }
+
+
+  saveCode1(e): void {
+    var localidentify = this.fixed_nom_product_id.find(item => item.name == e);
+
+    if (localidentify) {
+      this.product_id = localidentify.id;
+    } else {
+      this.product_id = null;
+      this.form.controls.fixed_nom_product_id.setErrors({ 'incorrect': true });
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+    }
   }
 
   async save() {
@@ -88,13 +121,12 @@ export class FormFixedPlanComponent implements OnInit {
       if (this.data.id) {
         this.FixedAddS.Update({
           id: this.data.id,
-          request_amount: this.form.controls.request_amount.value,
-          fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
-          fixed_accessories_id: this.form.controls.fixed_accessories_id.value,
-          responsible_user_id: this.form.controls.responsible_user_id.value,
-          fixed_type_id: this.form.controls.fixed_type_id.value,
+          request_amount: 1,
+          fixed_nom_product_id: this.product_id,
           status: 'PATIENT',
-          admissions_id:this.admissions,
+          admissions_id: this.admissions_id,
+          procedure_id: this.procedure_id,
+          own_fixed_user_id: this.own_fixed_user_id.id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
@@ -108,17 +140,16 @@ export class FormFixedPlanComponent implements OnInit {
       } else {
 
         this.FixedAddS.Save({
-          fixed_type_id: this.form.controls.fixed_type_id.value,
-          fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
-          fixed_accessories_id: this.form.controls.fixed_accessories_id.value,
-          request_amount: this.form.controls.request_amount.value,
-          responsible_user_id: this.form.controls.responsible_user_id.value,
+          request_amount: 1,
+          fixed_nom_product_id: this.product_id,
           status: 'PATIENT',
-          admissions_id:this.admissions,
+          admissions_id: this.admissions_id,
+          procedure_id: this.procedure_id,
+          own_fixed_user_id: this.own_fixed_user_id.id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ fixed_type_id: '', fixed_nom_product_id: '', fixed_accessories_id: '', request_amount: '', responsible_user_id: '' });
+          this.form.setValue({ fixed_type_id: '', fixed_nom_product_id: '', request_amount: '' });
           if (this.saved) {
             this.saved();
           }

@@ -57,11 +57,11 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      responsible_user: {
+      own_fixed_user: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.responsible_user.user.firstname + " - " + row.responsible_user.user.lastname;
+          return row.own_fixed_user.firstname + " - " + row.own_fixed_user.lastname;
         },
       },
       admissions: {

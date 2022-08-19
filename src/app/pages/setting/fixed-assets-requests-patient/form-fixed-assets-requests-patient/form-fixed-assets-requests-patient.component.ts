@@ -35,7 +35,7 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
     private toastS: NbToastrService,
     private UserRoleBusinessS: UserBusinessService,
     private FixedAddS: FixedAddService,
-    private FixedLoanS: FixedLoanService,
+    // private FixedLoanS: FixedLoanService,
   ) {
   }
 
@@ -79,10 +79,11 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
 
         if (this.data.id) {
           this.FixedAddS.updateInventoryByLot({
-            fixed_assets_id: this.data.id,
+            id: this.data.id,
+            fixed_assets_id: this.selectedOptions,
             responsible_user_id: this.form.controls.responsible_user_id.value,
             amount: 1,
-            status: 'ENVIADO',
+            status: 'ENVIADO PATIENT',
             observation: this.form.controls.observation.value,
           }).then(x => {
             this.toastService.success('', x.message);
@@ -115,9 +116,11 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
             this.loading = false;
           });
         } else {
-          await this.FixedAddS.Save({
+          await this.FixedAddS.updateInventoryByLot({
+            id: -1,
             amount: 1,
-            status: 'ENVIADO',
+            status: 'ENVIADO PATIENT', 
+            fixed_assets_id: this.selectedOptions,
             observation: this.form.controls.observation.value,
             responsible_user_id: this.form.controls.responsible_user_id.value,
           }).then(x => {
@@ -126,13 +129,13 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
             var id = x.data.fixed_add.id;
             var contador = 0;
             var err = 0;
-            this.FixedLoanS.Save({
-              fixed_add_id: id,
-              fixed_assets_id: JSON.stringify(this.selectedOptions),
-            }).then(x => {
-            }).catch(x => {
-              err++;
-            });
+            // this.FixedLoanS.Save({
+            //   fixed_add_id: id,
+            //   fixed_assets_id: JSON.stringify(this.selectedOptions),
+            // }).then(x => {
+            // }).catch(x => {
+            //   err++;
+            // });
             contador++;
             if (contador > 0) {
               this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
