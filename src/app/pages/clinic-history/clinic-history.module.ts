@@ -348,6 +348,8 @@ import { FormNRWeeklyFTComponent } from './entry-clinic-history-physical-therapy
 import { TableNRWeeklyFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-weekly-ft/table-nr-weekly-ft.component';
 import { FormNRDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-diagnosis-ft/form-nr-diagnosis-ft/form-nr-diagnosis-ft.component';
 import { TableNRDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-diagnosis-ft/table-nr-diagnosis-ft.component';
+import { FormChNursingNoteComponent } from './ch-nursing-note/form-ch-nursing-note/form-ch-nursing-note.component';
+import { ChNursingNoteComponent } from './ch-nursing-note/ch-nursing-note.component';
 
 
 @NgModule({
@@ -763,6 +765,8 @@ import { TableNRDiagnosisFTComponent } from './entry-clinic-history-physical-the
     FormChApComponent,
 
     Actions31Component,
+    FormChNursingNoteComponent,
+    ChNursingNoteComponent,
 
 
   ],
