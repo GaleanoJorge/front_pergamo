@@ -146,11 +146,11 @@ export class PharmacyInventoryComponent implements OnInit {
   
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
-      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + true, 'pharmacy_lot_stock');
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '&product=' + true, 'pharmacy_lot_stock');
 
     }else{
       this.pharmacy = pharmacy;
-      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + true, 'pharmacy_lot_stock');
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '&product=' + true, 'pharmacy_lot_stock');
     }
     // this.RefreshData();
   }
