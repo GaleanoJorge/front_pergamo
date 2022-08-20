@@ -9,6 +9,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { Patient } from '../../../models/patient';
 import { PatientService } from '../../../business-controller/patient.service';
 import { ActionsSemaphore2Component } from '../management-plan/actions-semaphore.component';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
   public patient_id;
   public date_end:boolean = true;
   public cont=0;
+  public user;
   public ambit;
   public program;
   public flat;
@@ -50,6 +52,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'user': this.user,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -164,6 +167,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
     private route: ActivatedRoute,
     private admissionsS: AdmissionsService,
     private router: Router,
+    private authService: AuthService,
     private dialogFormService: NbDialogService,
     private UserBS: UserBusinessService,
     private PatientBS: PatientService,
@@ -189,6 +193,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
   }
 
    ngOnInit(): void {
+    this.user = this.authService.GetUser();
     this.patient_id= this.route.snapshot.params.patient_id;
     this.user_id= this.route.snapshot.params.user_id;
 

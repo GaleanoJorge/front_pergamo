@@ -50,6 +50,7 @@ export class ManagementPlanComponent implements OnInit {
   public admissions_id;
   public user_id;
   public user;
+  public own_user;
   public dialog;
   public currentRole;
   public selectedOptions: any[] = [];
@@ -74,6 +75,7 @@ export class ManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'user': this.own_user,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -228,6 +230,7 @@ export class ManagementPlanComponent implements OnInit {
 
 
   async ngOnInit() {
+    this.own_user = this.authService.GetUser();
     this.currentRoleId = localStorage.getItem('role_id');
     this.user_id = this.route.snapshot.params.user;
     await this.roleBS.GetCollection({ id: this.currentRoleId  }).then(x => {
