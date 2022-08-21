@@ -312,6 +312,6 @@ export class PadListComponent implements OnInit {
   });
 
   changeSemaphore($event: any) {
-    this.table.changeEntity(this.entity + '?semaphore=' + $event, 'patients');
+    this.table.changeEntity(this.entity + '&semaphore=' + $event, 'patients');
   }
 }
