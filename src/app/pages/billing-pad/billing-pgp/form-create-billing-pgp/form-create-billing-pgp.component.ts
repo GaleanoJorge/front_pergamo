@@ -3,6 +3,7 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
 import { BillingPadService } from '../../../../business-controller/billing-pad.service';
+import { CampusService } from '../../../../business-controller/campus.service';
 
 
 @Component({
@@ -18,12 +19,14 @@ export class FormCreateBillingPgpComponent implements OnInit {
   public form: FormGroup;
   public isSubmitted: boolean = false;
   public saved: any = null;
+  public campus: any = null;
   public loading: boolean = false;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private BillingPadS: BillingPadService,
+    private CampusS: CampusService,
     private toastService: NbToastrService,
   ) {
   }
@@ -32,10 +35,16 @@ export class FormCreateBillingPgpComponent implements OnInit {
     if (!this.data) {
       this.data = {
         name: '',
+        campus_id: '',
       };
     }
 
+    this.CampusS.GetCollection().then(x => {
+      this.campus = x;
+    });
+
     this.form = this.formBuilder.group({
+      campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
     });
   }
 
@@ -53,6 +62,7 @@ export class FormCreateBillingPgpComponent implements OnInit {
 
       this.BillingPadS.GeneratePgpBilling({
         id: this.data.id,
+        campus_id: this.form.controls.campus_id.value,
       }, this.data.id).then(x => {
         this.toastService.success('', x.message);
         this.close();
