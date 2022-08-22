@@ -2,7 +2,7 @@
 <div class="row justify-content-center col col-lg-12">
    
 
-  <div *ngIf="has_input == false">
+  <div *ngIf="has_input == false || type_record_id != 1">
 
     <ngx-form-valoration-ft (messageEvent)="receiveMessage($event)" [type_record_id]="1" [record_id]="record_id">
     </ngx-form-valoration-ft>

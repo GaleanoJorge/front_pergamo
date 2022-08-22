@@ -1,7 +1,11 @@
 
-<ngx-form-language-hearing (messageEvent)="receiveMessage($event)" >
-</ngx-form-language-hearing>
-<label for="hearing_tl" class="form-text text-muted font-weight-bold align">Audición</label>
+<div>
+  <ngx-form-language-hearing (messageEvent)="receiveMessage($event)" >
+  </ngx-form-language-hearing>
+</div>
+
+<div *ngIf="has_input == false || type_record_id != 1">
+  <label for="hearing_tl" class="form-text text-muted font-weight-bold align">Audición</label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table  pager="false" [title]="title" customData="hearing_tl" [settings]="settings"
@@ -15,3 +19,4 @@
     </ngx-base-table>
   </div>
 </ngx-base-list>
+</div>

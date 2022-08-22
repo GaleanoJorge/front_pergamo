@@ -1,21 +1,27 @@
-<ngx-form-language-assessment (messageEvent)="receiveMessage($event)" [record_id]="record_id" >
-</ngx-form-language-assessment>
-<div class="row">
-  <div class="col-md-12 center">
-    <label class="font-weight-bold ImpPeq center">DIAGNOSTICOS DE INGRESO
-    </label>
-  </div>
+
+<div>
+  <ngx-form-language-assessment (messageEvent)="receiveMessage($event)" [record_id]="record_id" >
+  </ngx-form-language-assessment>
 </div>
-<ngx-base-list [messageError]="messageError" [routes]="routes">
-  <div content>
-    <ngx-base-table pager="false" [title]="title" customData="tl_therapy_language" [settings]="settings"
-      entity="tl_therapy_language/by_record/{{record_id}}/1">
-      <div actions>
-        <div class="actions">
-        </div>
-        <div class="actions" style="margin-top:1em;">
-        </div>
-      </div>
-    </ngx-base-table>
+
+<div *ngIf="has_input == false || type_record_id != 1">
+  <div class="row">
+    <div class="col-md-12 center">
+      <label class="font-weight-bold ImpPeq center">DIAGNOSTICOS DE INGRESO
+      </label>
+    </div>
   </div>
-</ngx-base-list>
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <ngx-base-table pager="false" [title]="title" customData="tl_therapy_language" [settings]="settings"
+        entity="tl_therapy_language/by_record/{{record_id}}/1">
+        <div actions>
+          <div class="actions">
+          </div>
+          <div class="actions" style="margin-top:1em;">
+          </div>
+        </div>
+      </ngx-base-table>
+    </div>
+  </ngx-base-list>
+</div>

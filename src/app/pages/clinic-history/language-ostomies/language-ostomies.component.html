@@ -1,7 +1,11 @@
 
-<ngx-form-language-ostomies (messageEvent)="receiveMessage($event)" >
-</ngx-form-language-ostomies>
-<label for="ostomies_tl" class="form-text text-muted font-weight-bold align">Ostomías</label>
+<div>
+  <ngx-form-language-ostomies (messageEvent)="receiveMessage($event)" >
+  </ngx-form-language-ostomies>
+</div>
+
+<div *ngIf="has_input == false || type_record_id != 1">
+  <label for="ostomies_tl" class="form-text text-muted font-weight-bold align">Ostomías</label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table  pager="false" [title]="title" customData="ostomies_tl" [settings]="settings"
@@ -15,3 +19,4 @@
     </ngx-base-table>
   </div>
 </ngx-base-list>
+</div>
