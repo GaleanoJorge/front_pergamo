@@ -3,7 +3,7 @@
   <div>
     <div class="col-md-12">
       <label class="form-text text-muted font-weight-bold">OCUPACION:</label>
-      <nb-select formControlName="ocupation" id="ocupation" fullWidth title="Seleccione..."
+      <nb-select formControlName="ocupation" id="ocupation" nbSelect (disabled)="this.has_input" fullWidth title="Seleccione..."
         status="{{ isSubmitted && form.controls.ocupation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option value="EMPLEADO">EMPLEADO</nb-option>
         <nb-option value="INDEPENDIENTE">INDEPENDIENTE</nb-option>
@@ -110,7 +110,7 @@
 
 
 
-    <div class="div-send">
+    <div class="div-send" *ngIf="!has_input">
       <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
     </div>
   </div>

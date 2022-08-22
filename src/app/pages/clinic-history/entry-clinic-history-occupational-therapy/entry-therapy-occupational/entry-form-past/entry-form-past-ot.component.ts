@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChEPastOTService } from '../../../../../business-controller/ch_e_past_o_t.service';
@@ -17,6 +17,8 @@ export class EntryFormPastOTComponent implements OnInit {
   @Input() data: any = null;
   @Input() type_record_id;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -62,6 +64,29 @@ export class EntryFormPastOTComponent implements OnInit {
     }
 
 
+    if (this.has_input) {
+      this.ChEPastOTServiceS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          family_base: [this.data[0] ? this.data[0].family_base : this.data.family_base,],
+          number_childrens: [this.data[0] ? this.data[0].number_childrens : this.data.number_childrens,],
+          observation_family_struct: [this.data[0] ? this.data[0].observation_family_struct : this.data.observation_family_struct,],
+          academy: [this.data[0] ? this.data[0].academy : this.data.academy,],
+          level_academy: [this.data[0] ? this.data[0].level_academy : this.data.level_academy,],
+          observation_schooling_training: [this.data[0] ? this.data[0].observation_schooling_training : this.data.observation_schooling_training,],
+          terapy: [this.data[0] ? this.data[0].terapy : this.data.terapy,],
+          observation_terapy: [this.data[0] ? this.data[0].observation_terapy : this.data.observation_terapy,],
+          smoke: [this.data[0] ? this.data[0].smoke : this.data.smoke,],
+          f_smoke: [this.data[0] ? this.data[0].f_smoke : this.data.f_smoke,],
+          alcohol: [this.data[0] ? this.data[0].alcohol : this.data.alcohol,],
+          f_alcohol: [this.data[0] ? this.data[0].f_alcohol : this.data.f_alcohol,],
+          sport: [this.data[0] ? this.data[0].sport : this.data.sport,],
+          f_sport: [this.data[0] ? this.data[0].f_sport : this.data.f_sport,],
+          sport_practice_observation: [this.data[0] ? this.data[0].sport_practice_observation : this.data.sport_practice_observation,],
+          observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
+        });
+      });
+    }
 
 
 

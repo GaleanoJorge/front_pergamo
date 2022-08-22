@@ -9,7 +9,7 @@
     <div class="row justify-content-center">
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">Nucleo Familiar Base:</label>   
-        <nb-select multiple placeholder="Seleccion Multiple" status="success" formControlName="family_base" id="family_base" family_base fullWidth>
+        <nb-select multiple placeholder="Seleccion Multiple" status="success" nbSelect (disabled)="this.has_input" formControlName="family_base" id="family_base" family_base fullWidth>
               <nb-option value="Madre">Madre</nb-option>
               <nb-option value="Padre">Padre</nb-option>
               <nb-option value="Conyuge">Conyuge</nb-option>
@@ -22,7 +22,7 @@
   
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">Numero de Hijos:</label>
-        <nb-select [selected]="this.data.number_childrens" formControlName="number_childrens" id="number_childrens" fullWidth
+        <nb-select [selected]="this.data.number_childrens" nbSelect (disabled)="this.has_input" formControlName="number_childrens" id="number_childrens" fullWidth
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.number_childrens.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -45,7 +45,7 @@
 
       <div class="col col-lg-12">
         <label class="form-text text-muted font-weight-bold">Observaciones:</label>
-        <textarea id="observation_family_struct" nbInput fullWidth formControlName="observation_family_struct" current_illness rows="3"
+        <textarea id="observation_family_struct" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_family_struct" current_illness rows="3"
           cols="50"
           status="{{ isSubmitted && form.controls.observation_family_struct.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
@@ -63,7 +63,7 @@
     <div class="row justify-content-center">
       <div class="col col-lg-3">
         <label class="form-text text-muted font-weight-bold">Nivel Academico:</label>
-        <nb-select [selected]="this.data.academy" formControlName="academy" id="academy" fullWidth
+        <nb-select [selected]="this.data.academy" nbSelect (disabled)="this.has_input" formControlName="academy" id="academy" fullWidth
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.academy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -77,7 +77,7 @@
   
       <div class="col col-lg-3">
         <label class="form-text text-muted font-weight-bold">Estado del nivel academico:</label>
-        <nb-select [selected]="this.data.level_academy" formControlName="level_academy" id="level_academy" fullWidth
+        <nb-select [selected]="this.data.level_academy" nbSelect (disabled)="this.has_input" formControlName="level_academy" id="level_academy" fullWidth
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.level_academy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -89,7 +89,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">Observaciones:</label>
-        <textarea id="observation_schooling_training" nbInput fullWidth formControlName="observation_schooling_training" current_illness rows="1"
+        <textarea id="observation_schooling_training" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_schooling_training" current_illness rows="1"
           cols="50"
           status="{{ isSubmitted && form.controls.observation_schooling_training.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
@@ -104,7 +104,7 @@
       </div>
 
       <div class="col col-lg-3">
-        <nb-radio-group formControlName="terapy" terapy id="terapy" class="d-flex text" name="terapy"
+        <nb-radio-group formControlName="terapy" terapy id="terapy" class="d-flex text" name="terapy" nbSelect (disabled)="this.has_input"
           status="{{ isSubmitted && form.controls.terapy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="SI">SI</nb-radio>
           <nb-radio value="NO">NO</nb-radio>
@@ -113,7 +113,7 @@
 
       <div *ngIf="showTerapy" class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">Observaciones:</label>
-        <textarea id="observation_terapy" nbInput fullWidth formControlName="observation_terapy" current_illness rows="1"
+        <textarea id="observation_terapy" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_terapy" current_illness rows="1"
           cols="50"
           status="{{ isSubmitted && form.controls.observation_terapy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
@@ -136,7 +136,7 @@
       </div>
 
       <div class="col col-lg-3">
-        <nb-radio-group formControlName="smoke" smoke id="smoke" class="d-flex text" name="smoke"
+        <nb-radio-group formControlName="smoke" smoke id="smoke" class="d-flex text" name="smoke" nbSelect (disabled)="this.has_input"
           status="{{ isSubmitted && form.controls.smoke.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="SI">SI</nb-radio>
           <nb-radio value="NO">NO</nb-radio>
@@ -144,7 +144,7 @@
       </div>
 
       <div *ngIf="showSmoke" class="col col-lg-6">
-        <nb-radio-group formControlName="f_smoke" f_smoke id="f_smoke" class="d-flex text" name="f_smoke"
+        <nb-radio-group formControlName="f_smoke" f_smoke id="f_smoke" class="d-flex text" name="f_smoke" nbSelect (disabled)="this.has_input"
           status="{{ isSubmitted && form.controls.f_smoke.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Todos los Dias">Todos los Dias</nb-radio>
           <nb-radio value="Dos,Tres Veces por Semana">Dos,Tres Veces por Semana</nb-radio>
@@ -161,7 +161,7 @@
       </div>
 
       <div class="col col-lg-3">
-        <nb-radio-group formControlName="alcohol" alcohol id="alcohol" class="d-flex text" name="alcohol"
+        <nb-radio-group formControlName="alcohol" alcohol id="alcohol" class="d-flex text" name="alcohol" nbSelect (disabled)="this.has_input"
           status="{{ isSubmitted && form.controls.alcohol.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="SI">SI</nb-radio>
           <nb-radio value="NO">NO</nb-radio>
@@ -170,7 +170,7 @@
 
 
       <div *ngIf="showAlcohol" class="col col-lg-6">
-        <nb-radio-group formControlName="f_alcohol" f_alcohol id="f_alcohol" class="d-flex text" name="f_alcohol"
+        <nb-radio-group formControlName="f_alcohol" f_alcohol id="f_alcohol" class="d-flex text" name="f_alcohol" nbSelect (disabled)="this.has_input"
           status="{{ isSubmitted && form.controls.f_alcohol.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Todos los Dias">Todos los Dias</nb-radio>
           <nb-radio value="Dos,Tres Veces por Semana">Dos,Tres Veces por Semana</nb-radio>
@@ -187,7 +187,7 @@
       </div>
 
       <div class="col col-lg-3">
-        <nb-radio-group formControlName="sport" sport id="sport" class="d-flex text" name="sport"
+        <nb-radio-group formControlName="sport" sport id="sport" class="d-flex text" name="sport" nbSelect (disabled)="this.has_input"
           status="{{ isSubmitted && form.controls.sport.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="SI">SI</nb-radio>
           <nb-radio value="NO">NO</nb-radio>
@@ -195,7 +195,7 @@
       </div>
 
       <div *ngIf="showSport" class="col col-lg-6">
-        <nb-radio-group formControlName="f_sport" f_sport id="f_sport" class="d-flex text" name="f_sport"
+        <nb-radio-group formControlName="f_sport" f_sport id="f_sport" class="d-flex text" name="f_sport" nbSelect (disabled)="this.has_input"
           status="{{ isSubmitted && form.controls.f_sport.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Todos los Dias">Todos los Dias</nb-radio>
           <nb-radio value="Dos,Tres Veces por Semana">Dos,Tres Veces por Semana</nb-radio>
@@ -204,7 +204,7 @@
 
           <div *ngIf="showSport" class="col col-md-12">
             <label class="form-text text-muted font-weight-bold">Cual Deporte Practica ?:</label>
-            <textarea id="sport_practice_observation" nbInput fullWidth formControlName="sport_practice_observation" current_illness rows="1"
+            <textarea id="sport_practice_observation" nbInput fullWidth formControlName="sport_practice_observation" current_illness rows="1" nbInput (disabled)="this.has_input"
             cols="50"
             status="{{ isSubmitted && form.controls.sport_practice_observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
@@ -217,14 +217,14 @@
 
     <div class="col col-lg-12">
       <label class="form-text text-muted font-weight-bold">Observaciones:</label>
-      <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="3"
+      <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="3" nbInput (disabled)="this.has_input"
         cols="50"
         status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <br/>
 
-    <div class="div-send">
+    <div class="div-send" *ngIf="!has_input">
       <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
     </div>
 </form>

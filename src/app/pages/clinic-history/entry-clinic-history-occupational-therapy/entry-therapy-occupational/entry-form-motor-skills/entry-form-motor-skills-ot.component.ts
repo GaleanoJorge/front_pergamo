@@ -27,6 +27,8 @@ export class EntryFormMotorSkillsOTComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id;
   @Input() type_record_id;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -35,7 +37,6 @@ export class EntryFormMotorSkillsOTComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public saveEntry: any = 0;
-  @Output() messageEvent = new EventEmitter<any>();
   public chfunpat: any[];
   public chintpat: any[];
   public chmovpat: any[];

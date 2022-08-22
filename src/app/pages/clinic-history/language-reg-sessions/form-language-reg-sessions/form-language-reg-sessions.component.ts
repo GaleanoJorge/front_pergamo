@@ -13,9 +13,10 @@ import { NumberMonthlySessionsTlService } from '../../../../business-controller/
 export class FormLanguageRegSessionsComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
-  @Output() messageEvent = new EventEmitter<any>();
   @Input() record_id: any = null;
   @Input() type_record: any;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -50,6 +51,17 @@ export class FormLanguageRegSessionsComponent implements OnInit {
         recomendations: '',
         
       };
+    }
+
+    if (this.has_input) {
+      this.NumberMonthlySessionsTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          monthly_sessions: [this.data[0] ? this.data[0].monthly_sessions : this.data.monthly_sessions,],
+          weekly_intensity: [this.data[0] ? this.data[0].weekly_intensity : this.data.weekly_intensity,],
+          recomendations: [this.data[0] ? this.data[0].recomendations : this.data.recomendations,],
+        });
+      });
     }
 
     this.form = this.formBuilder.group({

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChEDailyActivitiesOTService } from '../../../../../business-controller/ch_e_daily_activities_o_t.service';
@@ -17,6 +17,8 @@ export class EntryFormDailyActivitiesOTComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any = null;
   @Input() type_record_id;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -61,6 +63,37 @@ export class EntryFormDailyActivitiesOTComponent implements OnInit {
         test: '',
         observation_test: '',
       };
+    }
+
+    if (this.has_input) {
+      this.ChEDailyActivitiesOTService.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          cook: [this.data[0] ? this.data[0].cook : this.data.cook,],
+          kids: [this.data[0] ? this.data[0].kids : this.data.kids,],
+          wash: [this.data[0] ? this.data[0].wash : this.data.wash,],
+          game: [this.data[0] ? this.data[0].game : this.data.game,],
+          ironing: [this.data[0] ? this.data[0].ironing : this.data.ironing,],
+          walk: [this.data[0] ? this.data[0].walk : this.data.walk,],
+          clean: [this.data[0] ? this.data[0].clean : this.data.clean,],
+          sport: [this.data[0] ? this.data[0].sport : this.data.sport,],
+          decorate: [this.data[0] ? this.data[0].decorate : this.data.decorate,],
+          social: [this.data[0] ? this.data[0].social : this.data.social,],
+          act_floristry: [this.data[0] ? this.data[0].act_floristry : this.data.act_floristry,],
+          friends: [this.data[0] ? this.data[0].friends : this.data.friends,],
+          read: [this.data[0] ? this.data[0].read : this.data.read,],
+          politic: [this.data[0] ? this.data[0].politic : this.data.politic,],
+          view_tv: [this.data[0] ? this.data[0].view_tv : this.data.view_tv,],
+          religion: [this.data[0] ? this.data[0].religion : this.data.religion,],
+          write: [this.data[0] ? this.data[0].write : this.data.write,],
+          look: [this.data[0] ? this.data[0].look : this.data.look,],
+          arrange: [this.data[0] ? this.data[0].arrange : this.data.arrange,],
+          travel: [this.data[0] ? this.data[0].travel : this.data.travel,],
+          observation_activity: [this.data[0] ? this.data[0].observation_activity : this.data.observation_activity,],
+          test: [this.data[0] ? this.data[0].test : this.data.test,],
+          observation_test: [this.data[0] ? this.data[0].observation_test : this.data.observation_test,],
+        });
+      });
     }
 
 

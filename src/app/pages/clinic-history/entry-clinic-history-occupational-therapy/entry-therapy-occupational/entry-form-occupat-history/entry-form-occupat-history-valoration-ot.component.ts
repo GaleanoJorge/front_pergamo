@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToast, NbToastrService } from '@nebular/theme';
 import { ChEOccHistoryOTService } from '../../../../../business-controller/ch_e_occ_history_o_t.service';
@@ -16,6 +16,8 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
   @Input() data: any = null;
   @Input() type_record_id;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -45,6 +47,23 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
         observation_independent: '',
         observation_home: '',
       };
+    }
+
+    if (this.has_input) {
+      this.ChEOccHistoryOTServiceS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          ocupation: [this.data[0] ? this.data[0].ocupation : this.data.ocupation,],
+          enterprice_employee: [this.data[0] ? this.data[0].enterprice_employee : this.data.enterprice_employee,],
+          work_employee: [this.data[0] ? this.data[0].work_employee : this.data.work_employee,],
+          shift_employee: [this.data[0] ? this.data[0].shift_employee : this.data.shift_employee,],
+          observation_employee: [this.data[0] ? this.data[0].observation_employee : this.data.observation_employee,],
+          work_independent: [this.data[0] ? this.data[0].work_independent : this.data.work_independent,],
+          shift_independent: [this.data[0] ? this.data[0].shift_independent : this.data.shift_independent,],
+          observation_independent: [this.data[0] ? this.data[0].observation_independent : this.data.observation_independent,],
+          observation_home: [this.data[0] ? this.data[0].observation_home : this.data.observation_home,],
+        });
+      });
     }
 
 
@@ -109,6 +128,7 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
           if (this.saved) {
             this.saved();
           }
@@ -131,6 +151,7 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();

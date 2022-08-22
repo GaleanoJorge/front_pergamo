@@ -16,6 +16,7 @@ export class FormLanguageHearingComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -55,6 +56,19 @@ export class FormLanguageHearingComponent implements OnInit {
 
       };
     }
+
+    if (this.has_input) {
+      this.HearingTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          external_ear: [this.data[0] ? this.data[0].external_ear : this.data.external_ear,Validators.compose([Validators.required]),],
+          middle_ear: [this.data[0] ? this.data[0].middle_ear : this.data.middle_ear,Validators.compose([Validators.required]),],
+          inner_ear: [this.data[0] ? this.data[0].inner_ear : this.data.inner_ear,Validators.compose([Validators.required]),],
+          observations: [this.data[0] ? this.data[0].observations : this.data.observations,],
+        });
+      });
+    }
+
     this.form = this.formBuilder.group({
       external_ear: [this.data[0] ? this.data[0].external_ear : this.data.external_ear,Validators.compose([Validators.required]),],
       middle_ear: [this.data[0] ? this.data[0].middle_ear : this.data.middle_ear,Validators.compose([Validators.required]),],
