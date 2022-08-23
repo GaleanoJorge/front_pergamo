@@ -41,7 +41,7 @@ import { date } from '@rxweb/reactive-form-validators';
           <ngx-base-table
           subtitle="Servicios" 
           [settings]="this.settings_table" 
-          entity="assigned_management_plan/getByUserPatient/{{this.user_id}}/{{patient_id}}" 
+          entity="assigned_management_plan/getByUserPatient/{{this.user_id}}/{{patient_id}}?management_plan_id={{this.management_plan_id}}" 
           customData="assigned_management_plan">
     </ngx-base-table>
         </div>
@@ -64,6 +64,7 @@ export class Actions2Component implements ViewCell {
   public user_id;
   public patient_id;
   public dialog;
+  public management_plan_id = null;
 
   constructor(
     private dialogFormService: NbDialogService,
@@ -76,11 +77,18 @@ export class Actions2Component implements ViewCell {
       perPage: 30,
     },
     columns: {
-      proc: {
+      type_of_attention: {
         title: 'Tipo de Atención',
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.management_plan.type_of_attention.name;
+        },
+      },
+      manual_price: {
+        title: 'Atención',
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.management_plan.procedure.manual_price.name;
         },
       },
       start_date: {
@@ -103,15 +111,15 @@ export class Actions2Component implements ViewCell {
 
   async ngOnInit() {
     this.user_id = this.value.user.id;
-    }
+  }
 
-    ShowPreBilling(dialog: TemplateRef<any>, id) {
-      this.patient_id = id;
-      this.dialog = this.dialogFormService.open(dialog);
-    }
-  
-    closeDialog() {
-      this.dialog.close();
-    }
+  ShowPreBilling(dialog: TemplateRef<any>, id) {
+    this.patient_id = id;
+    this.dialog = this.dialogFormService.open(dialog);
+  }
+
+  closeDialog() {
+    this.dialog.close();
+  }
 
 }

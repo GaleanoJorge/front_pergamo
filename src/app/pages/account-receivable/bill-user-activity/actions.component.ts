@@ -9,12 +9,12 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button *ngIf="value.role_type == 1 && !(value.data.status == 'APROBADO')" nbTooltip="Aprobar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
+    <button *ngIf="value.role_type == 1 && !(value.data.status == 'APROBADO' || value.data.status == 'RECHAZADO')" nbTooltip="Aprobar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
         ghost (click)="ConfirmAction(aprobar)">
         <nb-icon icon="checkmark-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.role_type == 1 && !(value.data.status == 'APROBADO')" nbTooltip="Rechazar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
+    <button *ngIf="value.role_type == 1 && !(value.data.status == 'APROBADO' || value.data.status == 'RECHAZADO')" nbTooltip="Rechazar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
         ghost (click)="ConfirmAction(rechazar)">
         <nb-icon icon="close-outline"></nb-icon>
     </button>

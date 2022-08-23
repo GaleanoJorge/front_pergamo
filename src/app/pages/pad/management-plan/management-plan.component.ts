@@ -95,6 +95,7 @@ export class ManagementPlanComponent implements OnInit {
           return {
             'data': row,
             'user': this.user,
+            'own_user': this.own_user,
             'edit': this.EditManagementPlan.bind(this),
             'assignedUser': this.AssignedUser.bind(this),
             'delete': this.DeleteConfirmManagementPlan.bind(this),
@@ -250,6 +251,7 @@ export class ManagementPlanComponent implements OnInit {
 }
 
     this.own_user = this.authService.GetUser();
+    this.currentRole = this.own_user.roles[0].role_type_id;
     this.currentRoleId = localStorage.getItem('role_id');
     this.user_id = this.route.snapshot.params.user;
     await this.roleBS.GetCollection({ id: this.currentRoleId  }).then(x => {
