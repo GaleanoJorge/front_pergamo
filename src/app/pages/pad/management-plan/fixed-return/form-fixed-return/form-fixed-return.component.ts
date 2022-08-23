@@ -78,12 +78,14 @@ export class FormFixedReturnComponent implements OnInit {
           observation: this.form.controls.observation.value,
           admissions_id: this.data2.admissions_id,
           request_fixed_user: this.user_id,
-          status: 'DEVUELTO',
+          status: 'DEVUELTO PACIENTE',
           fixed_assets_id:this.data2.fixed_assets_id,
         }).then((x) => {
           this.toastService.success('', x.message);
+          this.close();
           if (this.saved) {
             this.saved();
+            this.close();
           }
           // this.close();
         }).catch(x => {
@@ -94,7 +96,7 @@ export class FormFixedReturnComponent implements OnInit {
 
       } else {
         await this.FixedAddService.Save({
-          status: 'DEVUELTO',
+          status: 'DEVUELTO PACIENTE',
           observation: this.form.controls.observation.value,
           admissions_id: this.data2.admissions_id,
           request_fixed_user: this.user_id,
@@ -103,6 +105,7 @@ export class FormFixedReturnComponent implements OnInit {
           .then((x) => {
             this.toastService.success('', x.message);
             if (this.saved) {
+              this.close();
               this.saved();
             }
           })
