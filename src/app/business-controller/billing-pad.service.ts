@@ -66,7 +66,7 @@ export class BillingPadService {
   GeneratePgpBilling(billing_pad: any, contract_id: number): Promise<ServiceObject> {
     let servObj = new ServiceObject('billing_pad/generatePgpBilling', contract_id);
     servObj.data = billing_pad;
-    return this.webAPI.PutAction(servObj)
+    return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
