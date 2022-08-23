@@ -278,10 +278,6 @@ export class FormSwFamilyComponent implements OnInit {
   
       };
   });
-}
-
-
-async checkedChange() {
 
   this.form.get('carer').valueChanges.subscribe(val => {
     if (val === false) {
@@ -297,5 +293,6 @@ async checkedChange() {
     };
 });
 }
+
 
 }

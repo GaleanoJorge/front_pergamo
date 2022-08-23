@@ -35,7 +35,7 @@ export class FormSwArmedConflictComponent implements OnInit {
   public disabled: boolean = false;
   public municipality: any[] = [];
   public population: any[] = [];
-  public ethnicity: any[] = [];
+  public ethnicitys: any[] = [];
   checked = false;
 
 
@@ -80,7 +80,7 @@ export class FormSwArmedConflictComponent implements OnInit {
     });
 
     this.ethnicityS.GetCollection().then(x => {
-      this.ethnicity = x;
+      this.ethnicitys = x;
     });
 
 
