@@ -1,17 +1,19 @@
 <ngx-base-list [messageError]="messageError">
   <div content>
-    <nb-tabset fullWidth>
+    <nb-tabset fullWidth (changeTab)="reloadForm($event)">
       <nb-tab tabTitle="SEDE">
-        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-          entity="fixed_add/?pagination=true&insum={{validator}}&status=SOLICITADO" customData='fixed_add'
-          [messageToltip]="messageToltip">
-        </ngx-base-table>
+        <div *ngIf="this.showdiv == 1">
+          <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"  [entity]="entity" customData='fixed_add'
+            [messageToltip]="messageToltip">
+          </ngx-base-table>
+        </div>
       </nb-tab>
+
       <nb-tab tabTitle="PACIENTE">
-        <ngx-fixed-assets-requests-patient></ngx-fixed-assets-requests-patient>
+        <div *ngIf="this.showdiv==2">
+          <ngx-fixed-assets-requests-patient></ngx-fixed-assets-requests-patient>
+        </div>
       </nb-tab>
-
     </nb-tabset>
-
   </div>
 </ngx-base-list>
