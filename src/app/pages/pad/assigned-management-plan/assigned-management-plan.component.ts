@@ -82,7 +82,7 @@ export class AssignedManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'user': this.user,
+            'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
             'openEF':this.NewChRecord.bind(this),
             'currentRole': this.currentRole,
@@ -130,7 +130,7 @@ export class AssignedManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'user': this.user,
+            'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
             'openEF':this.NewChRecord.bind(this),
