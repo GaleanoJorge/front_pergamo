@@ -142,7 +142,7 @@ export class FormLiquidControlAdmComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
-          this.messageEvent.emit(true);
+          // this.messageEvent.emit(true);
           this.form.patchValue({
             clock: '',
             ch_route_fluid_id: '',
