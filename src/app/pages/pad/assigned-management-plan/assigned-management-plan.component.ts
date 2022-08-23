@@ -35,7 +35,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Ejecución Plan de manejo';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de inicio', 'Fecha Final', 'Fecha de ejecución'];
+  public headerFields: any[] = ['Fecha de inicio', 'Fecha Final', 'Fecha de ejecución', 'Personal asistencial'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -103,6 +103,10 @@ export class AssignedManagementPlanComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
+      nombre_completo: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
     },
   };
 
@@ -153,6 +157,10 @@ export class AssignedManagementPlanComponent implements OnInit {
       },
       execution_date: {
         title: this.headerFields[2],
+        type: 'string',
+      },
+      nombre_completo: {
+        title: this.headerFields[3],
         type: 'string',
       },
     },
