@@ -106,7 +106,7 @@ export class UserPackageComponent implements OnInit {
   }
   saveGroup() {
     if (!this.selectedOptions.length) {
-      this.toastS.danger(null, 'Debe seleccionar al menos un Menú');
+      this.toastS.danger(null, 'Debe seleccionar al menos un Usuario');
     }
     else {
       this.UserPharmacyStockS.Save({

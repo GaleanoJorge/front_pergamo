@@ -21,9 +21,9 @@ export class FixedInventaryComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public showdiv: Number = null;
   public entity;
   public user;
-  public showdiv: Number = null;
   public my_fixed_id;
 
 
@@ -119,7 +119,7 @@ export class FixedInventaryComponent implements OnInit {
   }
 
   reloadForm(tab) {
-    if (tab.tabTitle == 'ASIGNADOS') {
+    if (tab.tabTitle == 'ACEPTAR') {
       this.showdiv = 1;
     } else {
       this.showdiv = 2;

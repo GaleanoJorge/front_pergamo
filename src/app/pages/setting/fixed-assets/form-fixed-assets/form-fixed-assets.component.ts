@@ -313,7 +313,7 @@ export class FormFixedAssetsComponent implements OnInit {
           company_id: this.form.controls.company_id.value,
           accessories: this.form.controls.accessories.value,
           fixed_condition_id: this.form.controls.fixed_condition_id.value,
-          status_prod: 'INGRESADO',
+          status_prod: 'STOCK',
           fixed_type_id: this.form.controls.fixed_type_id.value,
           fixed_stock_id: this.form.controls.fixed_stock_id.value,
 
