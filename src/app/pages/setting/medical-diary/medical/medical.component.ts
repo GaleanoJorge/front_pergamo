@@ -8,6 +8,7 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 import { ManualService } from '../../../../business-controller/manual.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 import { FormMedicalDiaryComponent } from '../form-medical-diary/form-medical-diary.component';
+import { ActionsDaysComponent } from './actions-days.component';
 
 @Component({
   selector: 'ngx-medical',
@@ -21,7 +22,17 @@ export class MedicalComponent implements OnInit {
   public messageError: string = null;
   public title: string;
   public subtitle: string = 'Agenda';
-  public headerFields: any[] = ['ID', 'Procedimiento', 'Valor', 'Tipo de Valor', 'Medicamento'];
+  public headerFields: any[] = [
+    'ID',
+    'Piso',
+    'Pabellon',
+    'Consultorio',
+    'Inicio agenda',
+    'Final agenda',
+    'Hora de inicio',
+    'Hora de salida',
+    'Estado',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -50,23 +61,56 @@ export class MedicalComponent implements OnInit {
         },
         renderComponent: ActionsMedicalComponent,
       },
-      id: {
-        title: this.headerFields[0],
-        type: 'string',
-      },
-      procedure: {
+      'office.pavilion.flat': {
         title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.office.pavilion.flat.name;
+        },
+      },
+      'office.pavilion': {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.office.pavilion.name;
+        },
+      },
+      office: {
+        title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
-      value: {
-        title: this.headerFields[2],
+      days: {
+        title: 'Dias de servicio',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'days':row.medical_diary_days,
+          };
+        },
+        renderComponent: ActionsDaysComponent,
+      },
+      start_date: {
+        title: this.headerFields[4],
         type: 'string',
       },
-      price_type: {
-        title: this.headerFields[3],
+      finish_date: {
+        title: this.headerFields[5],
+        type: 'string',
+      },
+      start_time: {
+        title: this.headerFields[6],
+        type: 'string',
+      },
+      finish_time: {
+        title: this.headerFields[7],
+        type: 'string',
+      },
+      diary_status: {
+        title: this.headerFields[8],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
@@ -106,6 +150,8 @@ export class MedicalComponent implements OnInit {
   NewMedical() {
     this.deleteConfirmService.open(FormMedicalDiaryComponent, {
       context: {
+        user: this.user,
+        assistance_id: this.assistance_id,
         title: 'Crear nueva Agenda',
         saved: this.RefreshData.bind(this),
       },

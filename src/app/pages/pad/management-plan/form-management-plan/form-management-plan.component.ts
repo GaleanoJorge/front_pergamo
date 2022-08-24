@@ -56,10 +56,6 @@ export class FormManagementPlanComponent implements OnInit {
   public admissions;
   public tipo_de_atencion;
 
-  //   this.status = x;
-
-
-
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,

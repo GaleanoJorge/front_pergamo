@@ -29,7 +29,7 @@
       <nb-tab tabTitle="SOLICITUDES">
         <div *ngIf="this.show == 2">
           <nb-stepper #stepper [linear]="false">
-            <nb-step label="Medicamentos" style="padding: initial;">
+            <nb-step label="Insumos" style="padding: initial;">
               <ngx-insume-request [user]="this.user" [admissions_id]="this.admissions_id"></ngx-insume-request>
             </nb-step>
             <nb-step label="Activos fijos" style="padding: initial;">

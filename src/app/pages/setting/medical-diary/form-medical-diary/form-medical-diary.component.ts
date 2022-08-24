@@ -1,13 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {NbDialogRef, NbToastrService} from '@nebular/theme';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import {MedicalDiaryService} from '../../../../business-controller/medical-diary.service';
-import {PavilionService} from '../../../../business-controller/pavilion.service';
+import { MedicalDiaryService } from '../../../../business-controller/medical-diary.service';
+import { PavilionService } from '../../../../business-controller/pavilion.service';
+import { DaysService } from '../../../../business-controller/days.service';
+import { UserBusinessService } from '../../../../business-controller/user-business.service';
+import { json } from '@rxweb/reactive-form-validators';
+import { BedService } from '../../../../business-controller/bed.service';
+import { AuthService } from '../../../../services/auth.service';
 
 
 
-  
+
 
 @Component({
   selector: 'ngx-form-medical-diary',
@@ -18,6 +23,8 @@ export class FormMedicalDiaryComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() user: any = null;
+  @Input() assistance_id: any = null;
 
   public form: FormGroup;
   public rips_typefile: any[];
@@ -25,51 +32,84 @@ export class FormMedicalDiaryComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public coverage:any[];
-  public status_bed:any[];
-  public pavilion:any[];
-
+  public coverage: any[];
+  public status_bed: any[];
+  public days: any[] = [];
+  public assistance_user: any[] = [];
+  public offices: any[] = [];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
-    // private statusBS: StatusBusinessService,
     private PavilionS: PavilionService,
     private MedicalDiaryS: MedicalDiaryService,
     private toastService: NbToastrService,
+    private DaysS: DaysService,
+    private userBS: UserBusinessService,
+    private bedS: BedService,
+    private AuthS: AuthService
   ) {
   }
 
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        name: '',
-        code: '',
-        status_bed_id:'',
-        pavilion_id: '',
-        bed_or_office:''
+        days_id: [],
+        office_id: '',
+        start_date: '',
+        finish_date: '',
+        start_time: '',
+        finish_time: '',
+        interval: '',
+        telemedicine: null,
       };
     }
 
-    // this.statusBS.GetCollection().then(x => {
-    //   this.status = x;
-    // });
-    
-    
-    this.form = this.formBuilder.group({      
-      name: [this.data.name, Validators.compose([Validators.required])],
-      code: [this.data.code, Validators.compose([Validators.required])],
-      status_bed_id: [this.data.status_bed_id, Validators.compose([Validators.required])],
-      pavilion_id: [this.data.pavilion_id, Validators.compose([Validators.required])],
-      bed_or_office: [this.data.bed_or_office, Validators.compose([Validators.required])],
+    this.form = this.formBuilder.group({
+      office_id: [
+        this.data.office_id
+      ],
+      days_id: [
+        [this.data.days_id]
+      ],
+      start_date: [
+        this.data.start_date,
+        Validators.compose([Validators.required])
+      ],
+      finish_date: [
+        this.data.finish_date,
+        Validators.compose([Validators.required])
+      ],
+      start_time: [
+        this.data.start_time,
+        Validators.compose([Validators.required])
+      ],
+      finish_time: [
+        this.data.finish_time,
+        Validators.compose([Validators.required])
+      ],
+      interval: [
+        this.data.finish_time,
+        Validators.compose([Validators.required])
+      ],
+      telemedicine: [
+        this.data.telemedicine,
+      ],
     });
 
-
-    this.PavilionS.GetCollection().then(x => {
-      this.pavilion=x;
+    this.DaysS.GetCollection().then(x => {
+      this.days = x;
     });
+
+    this.bedS.GetOfficeBycampus({
+      status_bed_id: 1,
+      campus_id: +localStorage.getItem('campus')
+    }).then(x =>{
+      this.offices = x;
+    }) 
+
   }
-  
+
 
   close() {
     this.dialogRef.close();
@@ -85,11 +125,15 @@ export class FormMedicalDiaryComponent implements OnInit {
       if (this.data.id) {
         this.MedicalDiaryS.Update({
           id: this.data.id,
-          code: this.form.controls.code.value,
-          name: this.form.controls.name.value,
-          status_bed_id: this.form.controls.status_bed_id.value,
-          bed_or_office: this.form.controls.bed_or_office.value,        
-          pavilion_id: this.form.controls.pavilion_id.value,
+          assistance_id: this.assistance_id,
+          office_id: this.form.controls.office_id.value,
+          weekdays: JSON.stringify(this.form.controls.days_id.value),
+          start_date: this.form.controls.start_date.value,
+          finish_date: this.form.controls.finish_date.value,
+          start_time: this.form.controls.start_time.value,
+          finish_time: this.form.controls.finish_time.value,
+          interval: this.form.controls.interval.value,
+          telemedicine: this.form.controls.telemedicine.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -102,11 +146,15 @@ export class FormMedicalDiaryComponent implements OnInit {
         });
       } else {
         this.MedicalDiaryS.Save({
-          code: this.form.controls.code.value,
-          name: this.form.controls.name.value,
-          status_bed_id: this.form.controls.status_bed_id.value,
-          bed_or_office: this.form.controls.bed_or_office.value,
-          pavilion_id: this.form.controls.pavilion_id.value,
+          assistance_id: this.assistance_id,
+          office_id: this.form.controls.office_id.value,
+          weekdays: JSON.stringify(this.form.controls.days_id.value),
+          start_date: this.form.controls.start_date.value,
+          finish_date: this.form.controls.finish_date.value,
+          start_time: this.form.controls.start_time.value,
+          finish_time: this.form.controls.finish_time.value,
+          interval: this.form.controls.interval.value,
+          telemedicine: this.form.controls.telemedicine.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

@@ -390,6 +390,7 @@ import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/fo
 import { MedicalComponent } from './medical-diary/medical/medical.component';
 import { ActionsMedicalDiaryComponent } from './medical-diary/actions.component';
 import { ActionsMedicalComponent } from './medical-diary/medical/actions.component';
+import { ActionsDaysComponent } from './medical-diary/medical/actions-days.component';
 
 @NgModule({
   imports: [
@@ -447,6 +448,7 @@ import { ActionsMedicalComponent } from './medical-diary/medical/actions.compone
     PolicyTypeComponent,
     FormBedComponent,
     BedComponent,
+    ActionsDaysComponent,
     MedicalComponent,
     ActionsMedicalDiaryComponent,
     ActionsMedicalComponent,

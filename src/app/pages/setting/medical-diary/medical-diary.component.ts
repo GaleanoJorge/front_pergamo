@@ -95,14 +95,14 @@ export class MedicalDiaryComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewMedicalDiary() {
-    this.dialogFormService.open(FormMedicalDiaryComponent, {
-      context: {
-        title: 'Crear nueva Agenda',
-        saved: this.RefreshData.bind(this),
-      },
-    });
-  }
+  // NewMedicalDiary() {
+  //   this.dialogFormService.open(FormMedicalDiaryComponent, {
+  //     context: {
+  //       title: 'Crear nueva Agenda',
+  //       saved: this.RefreshData.bind(this),
+  //     },
+  //   });
+  // }
 
   EditMedicalDiary(data) {
     this.dialogFormService.open(FormMedicalDiaryComponent, {
