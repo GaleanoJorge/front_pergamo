@@ -46,7 +46,7 @@ export class FormNursingPhysicalExamComponent implements OnInit {
     },
     {
       id: 3,
-      observation: 'No se explora (se deja así porque si se deja alguna descripción esta varía entre hombre y mujer)',
+      observation: 'No se explora',
     },
     {
       id: 4,
