@@ -84,7 +84,6 @@ export class FormSwRiskFactorsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.record_id = this.route.snapshot.params.id;
     if (!this.data) {
       this.data = {
         check1: false,
