@@ -41,26 +41,38 @@ export class ActionsPadProcedureComponent implements ViewCell {
 
     async ngOnInit() {
         this.semaphore = this.getByStatus(this.value.data);
-        var a = 1;
     }
 
     getByStatus(data: any) {
         var response = 0;
-        if (data.assigned_management_plan.execution_date == "0000-00-00 00:00:00") {
-            response = 0;
-            this.tooltip = 'Sin ejecutar';
-        } else if (data.billing_pad_status == 'FACTURADA') {
-            response = 2;
-            this.tooltip = 'Facturado';
-        } else if (data.auth_status_id != 3) {
-            response = 1;
-            this.tooltip = 'Sin autorizar';
-        } else if (data.assigned_management_plan.approved != 1) {
-            response = 4;
-            this.tooltip = 'Sin aprobar';
+        if (data.assigned_management_plan != null) {
+            if (data.assigned_management_plan.execution_date == "0000-00-00 00:00:00") {
+                response = 0;
+                this.tooltip = 'Sin ejecutar';
+            } else if (data.billing_pad_status == 'FACTURADA') {
+                response = 2;
+                this.tooltip = 'Facturado';
+            } else if (data.auth_status_id != 3) {
+                response = 1;
+                this.tooltip = 'Sin autorizar';
+            } else if (data.assigned_management_plan.approved != 1) {
+                response = 4;
+                this.tooltip = 'Sin aprobar';
+            } else {
+                response = 3;
+                this.tooltip = 'Por facturar';
+            }
         } else {
-            response = 3;
-            this.tooltip = 'Por facturar';
+            if (data.billing_pad_status == 'FACTURADA') {
+                response = 2;
+                this.tooltip = 'Facturado';
+            } else if (data.auth_status_id != 3) {
+                response = 1;
+                this.tooltip = 'Sin autorizar';
+            } else {
+                response = 3;
+                this.tooltip = 'Por facturar';
+            }
         }
         return response;
     }

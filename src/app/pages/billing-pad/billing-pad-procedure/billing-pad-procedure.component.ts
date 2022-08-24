@@ -161,13 +161,22 @@ export class BillingPadProcedureComponent implements OnInit {
           if (row.billing_pad_status == 'FACTURADA') {
             this.total_already_billing += row.services_briefcase.value;
           }
-          if (row.auth_status_id != 3 || row.assigned_management_plan.approved == 0) {
-            this.total_pendding_auth += row.services_briefcase.value;
-          }
-          if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3 && 
-          row.assigned_management_plan.execution_date != "0000-00-00 00:00:00"
-          && row.assigned_management_plan.approved == 1) {
-            this.total_pendding_billing += row.services_briefcase.value;
+          if (row.assigned_management_plan != null) {
+            if (row.auth_status_id != 3 || row.assigned_management_plan.approved == 0) {
+              this.total_pendding_auth += row.services_briefcase.value;
+            }
+            if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3 && 
+            row.assigned_management_plan.execution_date != "0000-00-00 00:00:00"
+            && row.assigned_management_plan.approved == 1) {
+              this.total_pendding_billing += row.services_briefcase.value;
+            }
+          } else {
+            if (row.auth_status_id != 3) {
+              this.total_pendding_auth += row.services_briefcase.value;
+            }
+            if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3) {
+              this.total_pendding_billing += row.services_briefcase.value;
+            }
           }
           return this.currency.transform(row.services_briefcase.value);
         },
@@ -203,11 +212,16 @@ export class BillingPadProcedureComponent implements OnInit {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.assigned_management_plan.approved == 1) {
-            return 'Aprobado';
+          if (row.assigned_management_plan != null) {
+            if (row.assigned_management_plan.approved == 1) {
+              return 'Aprobado';
+            } else {
+              return 'Sin aprobar';
+            }
           } else {
-            return 'Sin aprobar';
+            return '';
           }
+          
         }
       },
       billing_consecutive: {
