@@ -46,19 +46,19 @@ export class FormChSwIncomeComponent implements OnInit {
         donations: '',
         rent: '',
         familiar_help: '',
-        none: '',
+        none: false,
         total: ''
       };
     }
 
     this.form = this.formBuilder.group({
 
-      salary: [this.data[0] ? this.data[0].salary : this.data.salary, Validators.compose([Validators.required])],
-      pension: [this.data[0] ? this.data[0].pension : this.data.pension, Validators.compose([Validators.required])],
-      donations: [this.data[0] ? this.data[0].donations : this.data.donations, Validators.compose([Validators.required])],
-      rent: [this.data[0] ? this.data[0].rent : this.data.rent, Validators.compose([Validators.required])],
-      familiar_help: [this.data[0] ? this.data[0].familiar_help : this.data.familiar_help, Validators.compose([Validators.required])],
-      none: [this.data[0] ? this.data[0].none : this.data.none, Validators.compose([Validators.required])],
+      salary: [this.data[0] ? this.data[0].salary : this.data.salary,],
+      pension: [this.data[0] ? this.data[0].pension : this.data.pension,],
+      donations: [this.data[0] ? this.data[0].donations : this.data.donations,],
+      rent: [this.data[0] ? this.data[0].rent : this.data.rent,],
+      familiar_help: [this.data[0] ? this.data[0].familiar_help : this.data.familiar_help,],
+      none: [this.data[0] ? this.data[0].none : this.data.none,],
       total: [this.data[0] ? this.data[0].total : this.data.total],
 
     });
@@ -107,7 +107,7 @@ export class FormChSwIncomeComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({ salary: '', pension: '', donations: '', rent: '', familiar_help: '', none: '', total:''});
+          this.form.patchValue({ salary: '', pension: '', donations: '', rent: '', familiar_help: '', none: false, total:''});
           if (this.saved) {
             this.saved();
           }
@@ -126,12 +126,43 @@ export class FormChSwIncomeComponent implements OnInit {
 
     if (this.form.controls.salary.value != '' || this.form.controls.pension.value != '' ||
       this.form.controls.donations.value != '' || this.form.controls.rent.value != '' ||
-      this.form.controls.familiar_help.value != '' || this.form.controls.none.value != '') {
+      this.form.controls.familiar_help.value != '') {
       this.incomeTotal = (this.form.controls.salary.value + this.form.controls.pension.value + this.form.controls.donations.value +
-        this.form.controls.rent.value + this.form.controls.familiar_help.value + this.form.controls.familiar_help.value + this.form.controls.none.value)
+        this.form.controls.rent.value + this.form.controls.familiar_help.value + this.form.controls.familiar_help.value )
     } else {
       this.incomeTotal = null;
     }
+  }
+
+  async onChange() {
+
+    this.form.get('none').valueChanges.subscribe(val => {
+      if (val === false) {
+
+        this.form.controls.salary.clearValidators();
+        this.form.controls.pension.clearValidators();
+        this.form.controls.donations.clearValidators();
+        this.form.controls.rent.clearValidators();
+        this.form.controls.familiar_help.clearValidators();
+
+        this.form.controls.salary.setErrors(null);
+        this.form.controls.pension.setErrors(null);
+        this.form.controls.donations.setErrors(null);
+        this.form.controls.rent.setErrors(null);
+        this.form.controls.familiar_help.setErrors(null);
+
+      } else {
+
+        this.form.controls.salary.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.pension.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.donations.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.rent.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.familiar_help.setValidators(Validators.compose([Validators.required]));
+
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+
+      };
+    });
   }
 
 }

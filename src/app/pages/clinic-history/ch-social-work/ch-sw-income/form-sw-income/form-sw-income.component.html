@@ -5,7 +5,18 @@
     </div>
   </div>
 
-  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center" >
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="none" class="form-text text-muted font-weight-bold">No tiene ningún ingreso
+          </label>
+          <nb-toggle class="center" formControlName="none" none>
+          </nb-toggle>        
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center" *ngIf="this.form.controls.none.value == 0">
     <div class="col-md-4">
       <div class="form-group">
         <label for="salary" class="form-text text-muted font-weight-bold">Salario</label>
@@ -30,9 +41,6 @@
           status="{{ isSubmitted && form.controls.donations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
       </div>
     </div>
-  </div>
-
-  <div class="row justify-content-md-center">
     <div class="col-md-4">
       <div class="form-group">
         <label for="rent" class="form-text text-muted font-weight-bold">Renta</label>
@@ -49,17 +57,9 @@
           status="{{ isSubmitted && form.controls.familiar_help.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="none" class="form-text text-muted font-weight-bold">Ninguno</label>
-        <input type="number" nbInput fullWidth id="none" formControlName="none" none
-          (change)="onChangesTotal($event, 6)"
-          status="{{ isSubmitted && form.controls.none.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
-      </div>
-    </div>
   </div>
 
-  <div class="container">
+  <div class="container" *ngIf="this.form.controls.none.value == 0">
     <div class="row justify-content-md-center">
       <div class="col col-lg-6">
         <hr />
@@ -67,7 +67,7 @@
     </div>
   </div>
 
-  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center" *ngIf="this.form.controls.none.value == 0">
     <div class="col-md-4">
       <div class="form-group">
         <label class="form-text text-muted font-weight-bold align">Total de ingresos</label>
