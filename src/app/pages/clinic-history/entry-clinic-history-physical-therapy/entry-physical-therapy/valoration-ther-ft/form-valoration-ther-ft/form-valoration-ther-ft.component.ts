@@ -96,7 +96,7 @@ export class FormValorationTherFTComponent implements OnInit {
           days_number: this.form.controls.days_number.value,
           minutes_number: this.form.controls.minutes_number.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
           
         }).then(x => {
@@ -117,7 +117,7 @@ export class FormValorationTherFTComponent implements OnInit {
             days_number: this.form.controls.days_number.value,
             minutes_number: this.form.controls.minutes_number.value,
 
-          type_record_id: this.type_record_id,
+            type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
           this.messageEvent.emit(true)
@@ -126,8 +126,8 @@ export class FormValorationTherFTComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
-
-
+          this.isSubmitted = false;
+          this.loading = false;
         });
       }
 

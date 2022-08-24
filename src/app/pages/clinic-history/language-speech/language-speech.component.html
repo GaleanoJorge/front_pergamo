@@ -1,15 +1,15 @@
 
-<div>
+<div *ngIf="has_input == false || type_record_id != 1">
   <ngx-form-language-speech (messageEvent)="receiveMessage($event)" >
   </ngx-form-language-speech>
 </div>
 
-<div *ngIf="has_input == false || type_record_id != 1">
+<div>
   <label for="speech_tl" class="form-text text-muted font-weight-bold align">Habla</label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table  pager="false" [title]="title" customData="speech_tl" [settings]="settings"
-      entity="speech_tl/by_record/{{record_id}}/1?pagination=false">
+      entity="speech_tl/by_record/{{record_id}}/1?pagination=false&has_input={{has_input}}">
       <div actions>
         <div class="actions">
         </div>

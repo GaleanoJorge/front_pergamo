@@ -57,6 +57,9 @@ export class TableValorationFTComponent implements OnInit {
   }
 
   async ngOnInit() {
+    console.log(this.has_input);
+    console.log(this.type_record_id);
+
   }
 
   RefreshData() {

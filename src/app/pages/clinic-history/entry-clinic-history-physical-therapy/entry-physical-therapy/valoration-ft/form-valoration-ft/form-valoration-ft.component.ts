@@ -133,4 +133,9 @@ export class FormValorationFTComponent implements OnInit {
       }
     }
   }
+  checked = false;
+
+  toggle(checked: boolean) {
+    this.checked = checked;
+  }
 }
