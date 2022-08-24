@@ -119,8 +119,7 @@ export class FormChSwHousingAspectsComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({ flat:'', lift:'',  location:'', vehicle_access:'', ch_sw_housing_type_id:'',
-            ch_sw_housing_id:''});
+          this.form.patchValue({ ch_sw_housing_type_id:'', ch_sw_housing_id:'',  flat:'', lift:'', location:'', vehicle_access:'' });
           if (this.saved) {
             this.saved();
           }
