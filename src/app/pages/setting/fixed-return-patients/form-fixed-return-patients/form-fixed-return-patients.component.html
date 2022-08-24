@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 10px;max-width: 1500px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIÓN:</label>
+          <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4"
+            cols="50"> </textarea>
+        </div>
+
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">ACEPTAR</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

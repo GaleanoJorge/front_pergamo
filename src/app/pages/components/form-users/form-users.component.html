@@ -188,7 +188,8 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="birthplace_municipality_id" class="form-text text-muted font-weight-bold">Providencia, Vereda o Municipio:</label>
+            <label for="birthplace_municipality_id" class="form-text text-muted font-weight-bold">Providencia, Vereda o
+              Municipio:</label>
             <nb-select id="birthplace_municipality_id" fullWidth formControlName="birthplace_municipality_id"
               birthplace_municipality_id
               status="{{ isSubmitted && form.controls.birthplace_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -396,7 +397,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="residence_municipality_id" class="form-text text-muted font-weight-bold">Providencia, Vereda o Municipio:</label>
+            <label for="residence_municipality_id" class="form-text text-muted font-weight-bold">Providencia, Vereda o
+              Municipio:</label>
             <nb-select id="residence_municipality_id" fullWidth formControlName="residence_municipality_id"
               residence_municipality_id
               status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -420,12 +422,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="neighborhood_or_residence_id" class="form-text text-muted font-weight-bold">Barrio:</label>
-            <nb-select id="neighborhood_or_residence_id" fullWidth formControlName="neighborhood_or_residence_id"
-              neighborhood_or_residence_id
+            <input fullWidth nbInput list="codes2" (change)="save_neighborhood_or_residence($event.target.value)"
+              id="neighborhood_or_residence_id" formControlName="neighborhood_or_residence_id"
+              neighborhood_or_residence_id type="text" required
               status="{{ isSubmitted && form.controls.neighborhood_or_residence_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option *ngFor="let item of neighborhood_or_residence" [value]="item.id">{{ item.name }}</nb-option>
-            </nb-select>
+            <datalist id="codes2">
+              <option *ngFor="let item of neighborhood_or_residence" [value]="item.name">{{item.name}}</option>
+            </datalist>
           </div>
         </div>
       </div>
@@ -468,7 +471,7 @@
             <label for="residence_address" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">
             </label>
             <input nbInput fullWidth id="street" formControlName="street" street placeholder="Ej: 22 Sur" maxlength="10"
-            status="{{ isSubmitted && form.controls.street.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+              status="{{ isSubmitted && form.controls.street.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
         </div>
         <label for="residence_address" style="margin-top: 40px;" class="form-text text-muted font-weight-bold">#</label>
@@ -476,7 +479,7 @@
           <div class="form-group">
             <label for="residence_address" class="form-text text-muted font-weight-bold">Número</label>
             <input nbInput fullWidth id="num1" formControlName="num1" num1 placeholder="Ej: 45 B" maxlength="10"
-            status="{{ isSubmitted && form.controls.num1.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+              status="{{ isSubmitted && form.controls.num1.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
         </div>
         <label for="residence_address" style="margin-top: 40px;" class="form-text text-muted font-weight-bold">-</label>
@@ -485,7 +488,7 @@
             <label for="residence_address" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">
             </label>
             <input nbInput fullWidth id="num2" formControlName="num2" num2 placeholder="Ej: 45 B" maxlength="10"
-            status="{{ isSubmitted && form.controls.num2.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+              status="{{ isSubmitted && form.controls.num2.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
         </div>
 
@@ -584,15 +587,16 @@
 
         <div class="col-12 col-sm-12 col-md-12">
           <label for="firm" class="form-text text-muted font-weight-bold">Firma:</label>
-          <label for="firm" *ngIf="currentImg==null || this.roleBS.roles[0].role_type_id == 2" class="form-text text-muted font-weight-bold" style="text-align: justify;"> Manifiesto que
+          <label for="firm" *ngIf="currentImg==null || this.roleBS.roles[0].role_type_id == 2"
+            class="form-text text-muted font-weight-bold" style="text-align: justify;"> Manifiesto que
             conforme a lo dispuesto en la ley 527 de 1999, reglamentada por el Decreto 2364 de 2012, hemos acordado que
             mi firma será captada de manera electrónica, entendiendo que se da cumplimiento a los dispuesto en el
             numeral 3 de la normativa mencionada: Artículo 3°. Cumplimiento del requisito de firma. Cuando se exija la
             firma de una persona, ese requisito quedará cumplido en relación con un mensaje de datos si se utiliza una
             firma electrónica que, a la luz de todas las circunstancias del caso, incluido cualquier acuerdo aplicable,
             sea tan confiable como apropiada para los fines con los cuales se generó o comunicó ese mensaje.</label>
-          <ng-signature-pad *ngIf="currentImg==null || this.roleBS.roles[0].role_type_id == 2" [emitOnDragEnd]="true" [showDoneButton]="false"
-            clearButtonText="Borrar" format="base64" (done)="showImage($event)">
+          <ng-signature-pad *ngIf="currentImg==null || this.roleBS.roles[0].role_type_id == 2" [emitOnDragEnd]="true"
+            [showDoneButton]="false" clearButtonText="Borrar" format="base64" (done)="showImage($event)">
           </ng-signature-pad>
           <img [src]="currentImg" *ngIf="currentImg" />
         </div>
@@ -660,13 +664,13 @@
         </div>
         <div class="col-md-6">
           <div class="form-group  border border-danger p-3 rounded-sm">
-          <h6>La contraseña debe contener como mínimo:</h6>
-          <p>
-            <nb-icon icon="chevron-right-outline"></nb-icon>Más de 8 caracteres<br>
-            <nb-icon icon="chevron-right-outline"></nb-icon>Un número<br>
-            <nb-icon icon="chevron-right-outline"></nb-icon>Un carácter especial<br>
-            <nb-icon icon="chevron-right-outline"></nb-icon>Letras mayúsculas y minúsculas
-          </p>
+            <h6>La contraseña debe contener como mínimo:</h6>
+            <p>
+              <nb-icon icon="chevron-right-outline"></nb-icon>Más de 8 caracteres<br>
+              <nb-icon icon="chevron-right-outline"></nb-icon>Un número<br>
+              <nb-icon icon="chevron-right-outline"></nb-icon>Un carácter especial<br>
+              <nb-icon icon="chevron-right-outline"></nb-icon>Letras mayúsculas y minúsculas
+            </p>
           </div>
         </div>
       </div>
@@ -688,11 +692,15 @@
             </ngx-users-campus>
           </div>
         </div>
+
+        <div class="col-md-12" *ngIf="this.role == 23 || this.role == 26 || this.role == 27 || this.role == 28 || this.role == 29 || this.role == 31 || this.role == 32">
+          <div style="margin-top: 10px;">
+            <ngx-agreement-package (messageEvent)="receiveAgreementsMessage($event)" [agreementData]="agreementData">
+            </ngx-agreement-package>
+          </div>
+        </div>
+
       </div>
-
-
-
-
     </form>
   </div>
 </ngx-base-form>

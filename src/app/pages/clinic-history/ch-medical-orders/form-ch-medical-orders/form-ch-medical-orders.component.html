@@ -19,15 +19,27 @@
             <div class="row" style="justify-content: space-around ;">
               <div class="col-md-12">
                 <label class="form-text text-muted font-weight-bold">Procedimiento</label>
-                <nb-select [selected]="this.data.procedure_id" fullWidth formControlName="procedure_id"
+
+                <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="procedure_id"
+                formControlName="procedure_id" procedure_id type="text" required
+                status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <datalist id="codes" *ngIf="procedure">
+                <option *ngFor="let item of procedure" [value]="item.name">{{ item.code }} -
+                  {{item.name}} </option>
+              </datalist>
+
+
+                <!-- <nb-select [selected]="this.data.procedure_id" fullWidth formControlName="procedure_id"
                   id="procedure_id"
                   status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="">SELECCIONE...</nb-option>
                   <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedure_id"
                     [value]="item.id">
                     {{ item.name }}</nb-option>
-                </nb-select>
+                </nb-select> -->
               </div>
+
+
 
               <div class="col col-lg-6">
                 <label class="form-text text-muted font-weight-bold">Cantidad</label>

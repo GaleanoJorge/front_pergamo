@@ -1,4 +1,4 @@
-<div *ngIf="has_input == false">
+<div *ngIf="has_input == false || type_record_id!=1">
   <ngx-form-nursing-physical-exam (messageEvent)="receiveMessage($event)" [record_id]="record_id"
     [type_record_id]="type_record_id" [enfermery]="this.enfermery">
   </ngx-form-nursing-physical-exam>

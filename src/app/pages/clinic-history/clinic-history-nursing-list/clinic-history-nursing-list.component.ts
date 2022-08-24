@@ -22,7 +22,7 @@ import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/
 export class ClinicHistoryNursingListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-
+  @Input() ch_record2:number=null;
   linearMode = true;
   public messageError = null;
   public title;
@@ -45,6 +45,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public record_id;
   public isSubmitted: boolean = false;
   public saved: any = null;
+  public is_pad: boolean = false;
   public loading: boolean = false;
   public currentRole: any;
   public show: any;
@@ -92,9 +93,15 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.record_id = this.route.snapshot.params.id;
+    this.record_id = this.route.snapshot.params.id==undefined?this.ch_record2:this.route.snapshot.params.id;
     this.currentRole = this.authService.GetRole();
     this.own_user = this.authService.GetUser();
+
+    if (this.own_user.assistance != null) {
+      if (this.own_user.assistance.length > 0) {
+        this.is_pad = true;
+      }
+    }
 
     this.chRecord.GetCollection({
       record_id: this.record_id
@@ -169,9 +176,9 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     try {
 
       let response;
-    
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
-        this.location.back();
+
+      response = await this.chRecord.UpdateCH(formData, this.record_id);
+      this.location.back();
       this.toastService.success('', response.message);
       //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
       this.messageError = null;
@@ -184,7 +191,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
       this.loading = false;
       throw new Error(response);
     }
-  
+
   }
 
   RefreshData() {

@@ -123,24 +123,26 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label class="form-text text-muted font-weight-bold">Código unico de medicamento (CUM):</label>
-          <input nbInput fullWidth id="code_cum" formControlName="code_cum" code_cum
-            status="{{ isSubmitted && form.controls.code_cum.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
-        </div>
-
-        <div class="col-12 col-sm-12 col-md-6">
           <label for="code_cum_file" class="form-text text-muted font-weight-bold">Expediente de registro
             sanitario:</label>
-          <input nbInput fullWidth id="code_cum_file" formControlName="code_cum_file" code_cum_file
+          <input nbInput fullWidth id="code_cum_file" formControlName="code_cum_file" code_cum_file (change)="onchangeForm($event)"
             status="{{ isSubmitted && form.controls.code_cum_file.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="code_cum_consecutive" class="form-text text-muted font-weight-bold">Consecutivo de registro
             sanitario:</label>
-          <input nbInput fullWidth id="code_cum_consecutive" formControlName="code_cum_consecutive" code_cum_consecutive
+          <input nbInput fullWidth id="code_cum_consecutive" formControlName="code_cum_consecutive" code_cum_consecutive (change)="onchangeForm($event)"
             status="{{ isSubmitted && form.controls.code_cum_consecutive.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
+
+        
+        <div class="col-12 col-sm-12 col-md-6">
+          <label class="form-text text-muted font-weight-bold">Código unico de medicamento (CUM):</label>
+          <input nbInput fullWidth id="code_cum" formControlName="code_cum" code_cum
+            status="{{ isSubmitted && form.controls.code_cum.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"  readonly/>
+        </div>
+
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="regulated_drug" class="form-text text-muted font-weight-bold">¿Es un medicamento

@@ -18,6 +18,7 @@ export class NurseringNotesComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() is_pad: boolean = false;
   @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 

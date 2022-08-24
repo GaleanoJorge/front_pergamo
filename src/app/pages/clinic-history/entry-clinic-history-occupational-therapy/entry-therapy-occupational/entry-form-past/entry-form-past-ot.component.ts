@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChEPastOTService } from '../../../../../business-controller/ch_e_past_o_t.service';
@@ -17,8 +17,6 @@ export class EntryFormPastOTComponent implements OnInit {
   @Input() data: any = null;
   @Input() type_record_id;
   @Input() record_id: any = null;
-  @Input() has_input: boolean = false;
-  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -253,12 +251,14 @@ export class EntryFormPastOTComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.patchValue({family_base:'',  number_childrens:'',  observation_family_struct:'',  academy:'',  level_academy:'', 
+          observation_schooling_training:'',  terapy:'',  observation_terapy:'',  smoke:'',  f_smoke:'',  alcohol:'',  f_alcohol:'',  
+          sport:'',  f_sport:'',  sport_practice_observation:'',  observation:''}) 
           if (this.saved) {
             this.saved();
           }
         }).catch(x => {
-
-
         });
       }
 

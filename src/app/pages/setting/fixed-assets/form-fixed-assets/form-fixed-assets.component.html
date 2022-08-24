@@ -94,6 +94,9 @@
             color
             status="{{ isSubmitted && form.controls.color.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
+
+
+
         <div class="col-12 col-sm-12 col-md-4">
           <label for="fixed_condition" class="form-text text-muted font-weight-bold">Condición del activo:</label>
           <nb-select (selectedChange)="onChange2($event)" formControlName="fixed_condition_id" id="fixed_condition_id"
@@ -106,13 +109,18 @@
           </nb-select>
         </div>
         <div *ngIf="showCondi" class="col-12 col-sm-12 col-md-4">
-          <label for="obs_property" class="form-text text-muted font-weight-bold">Observacion del daño:</label>
+          <label for="obs_property" class="form-text text-muted font-weight-bold">Observación del daño:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="obs_property"
             formControlName="obs_property" obs_property
             status="{{ isSubmitted && form.controls.obs_property.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
 
+        <div class="col-12 col-sm-12 col-md-4">
+          <label class="form-text text-muted font-weight-bold">Complementos:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="accessories"
+            formControlName="accessories" color />
+        </div>
 
 
 
@@ -260,7 +268,7 @@
 
         <div *ngIf="showBiomed" class="col-12 col-sm-12 col-md-4">
           <label for="phone_maker" class="form-text text-muted font-weight-bold">Telefono del fabricante:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="phone_maker"
+          <input type="number" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="phone_maker"
             formControlName="phone_maker" phone_maker
             status="{{ isSubmitted && form.controls.phone_maker.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>

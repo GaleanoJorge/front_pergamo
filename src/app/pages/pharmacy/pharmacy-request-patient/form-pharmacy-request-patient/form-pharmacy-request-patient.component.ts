@@ -58,7 +58,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
       this.title = 'INSUMO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_lot_stock?product_supplies_id=' + this.data.product_supplies_id + '&pharmacy_stock_id=' + this.data.request_pharmacy_stock_id,
+        entity: 'pharmacy_lot_stock?product_supplies_id=' + this.data.product_supplies_id + '&pharmacy_stock_id=' + this.my_pharmacy_id,
         customData: 'pharmacy_lot_stock',
       };
     }

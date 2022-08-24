@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { FixedAccessoriesService } from '../../../../business-controller/fixed-accessories.service';
 import { FixedAddService } from '../../../../business-controller/fixed-add.service';
 import { FixedLocationCampusService } from '../../../../business-controller/fixed-location-campus.service';
 import { FixedNomProductService } from '../../../../business-controller/fixed-nom-product.service';
-import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 
 @Component({
@@ -25,23 +23,19 @@ export class FormFixedRequestComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public fixed_type_id: any[];
-  public fixed_accessories_id: any[];
   public fixed_location_campus_id: any[];
   public responsible_user: any[];
   public fixed_nom_product_id: any[];
-
-
+  public product_id;
 
   constructor(
     private formBuilder: FormBuilder,
-    private FixedTypeS: FixedTypeService,
     private FixedAddS: FixedAddService,
     private toastService: NbToastrService,
-    private FixedAccessoriesS: FixedAccessoriesService,
     private FixedLocationCampusS: FixedLocationCampusService,
     private UserRoleBusinessS: UserBusinessService,
-    private FixedNomProductS: FixedNomProductService
+    private FixedNomProductS: FixedNomProductService,
+
 
   ) {
   }
@@ -49,8 +43,6 @@ export class FormFixedRequestComponent implements OnInit {
   async ngOnInit() {
     if (!this.data) {
       this.data = {
-        fixed_type_id: '',
-        fixed_accessories_id: '',
         fixed_location_campus_id: '',
         request_amount: '',
         responsible_user_id: '',
@@ -61,19 +53,10 @@ export class FormFixedRequestComponent implements OnInit {
     this.form = this.formBuilder.group({
       request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
       fixed_nom_product_id: [this.data.fixed_nom_product_id],
-      fixed_accessories_id: [this.data.fixed_accessories_id],
       fixed_location_campus_id: [this.data.fixed_location_campus_id, Validators.compose([Validators.required])],
       responsible_user_id: [this.data.responsible_user_id, Validators.compose([Validators.required])],
-      fixed_type_id: [this.data.fixed_type_id],
     });
 
-
-    await this.FixedTypeS.GetCollection().then(x => {
-      this.fixed_type_id = x;
-    });
-    await this.FixedAccessoriesS.GetCollection().then(x => {
-      this.fixed_accessories_id = x;
-    });
     await this.FixedLocationCampusS.GetCollection().then(x => {
       this.fixed_location_campus_id = x;
     });
@@ -85,6 +68,18 @@ export class FormFixedRequestComponent implements OnInit {
     });
   }
 
+  
+  saveCode(e): void {
+    var localidentify = this.fixed_nom_product_id.find(item => item.name == e);
+
+    if (localidentify) {
+      this.product_id = localidentify.id;
+    } else {
+      this.product_id = null;
+      this.form.controls.fixed_nom_product_id.setErrors({ 'incorrect': true });
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+    }
+  }
 
   async save() {
     this.isSubmitted = true;
@@ -97,10 +92,8 @@ export class FormFixedRequestComponent implements OnInit {
           id: this.data.id,
           request_amount: this.form.controls.request_amount.value,
           fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
-          fixed_accessories_id: this.form.controls.fixed_accessories_id.value,
           fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
           responsible_user_id: this.form.controls.responsible_user_id.value,
-          fixed_type_id: this.form.controls.fixed_type_id.value,
           status: 'SOLICITADO',
         }).then(x => {
           this.toastService.success('', x.message);
@@ -116,15 +109,13 @@ export class FormFixedRequestComponent implements OnInit {
         this.FixedAddS.Save({
           request_amount: this.form.controls.request_amount.value,
           fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
-          fixed_accessories_id: this.form.controls.fixed_accessories_id.value,
           fixed_location_campus_id: this.form.controls.fixed_location_campus_id.value,
           responsible_user_id: this.form.controls.responsible_user_id.value,
-          fixed_type_id: this.form.controls.fixed_type_id.value,
           status: 'SOLICITADO',
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ fixed_type_id: '',fixed_nom_product_id:'', fixed_accessories_id: '', request_amount: '', fixed_location_campus_id: '', responsible_user_id: '' });
+          this.form.setValue({ fixed_nom_product_id: '', request_amount: '', fixed_location_campus_id: '', responsible_user_id: '' });
           if (this.saved) {
             this.saved();
           }

@@ -4,7 +4,7 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-      <input type="text" nbInput fullWidth id="lot" lot [value]="value.lot"
+      <input type="text"  oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="lot" lot [value]="value.lot"
       (change)="value.onchange($event, value.data)" [disabled]="value.enabled" />
   </div>
   `,

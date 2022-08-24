@@ -58,11 +58,11 @@ export class InsumeRequestComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
-      request_pharmacy_stock: {
+      own_pharmacy_stock: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value?.name + ' - ' + row.request_pharmacy_stock?.campus.name;
+          return value?.name + ' - ' + row.own_pharmacy_stock?.campus.name;
         },
       }
     },

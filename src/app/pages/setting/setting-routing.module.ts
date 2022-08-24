@@ -134,13 +134,13 @@ import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories
 import { MinimumSalaryComponent } from './minimum-salary/minimum-salary.component';
 import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component';
 import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
-import { FixedTabComponent } from './fixed-tab/fixed-tab.component';
-import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-requests.component';
 import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
 import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
 import { BillingTabComponent } from './billing-tab/billing-tab.component';
 import { FixedRequestComponent } from './fixed-request/fixed-request.component';
 import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+import { MedicalDiaryComponent } from './medical-diary/medical-diary.component';
+import { MedicalComponent } from './medical-diary/medical/medical.component';
 import { BillingPadPrefixComponent } from './billing-pad-prefix/billing-pad-prefix.component';
 import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billing-pad-consecutive.component';
 import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.component';
@@ -148,6 +148,10 @@ import { AssistanceStockComponent } from './assistance-stock/assistance-stock.co
 import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
 import { TcCollectionComponent } from './tc-collection/tc-collection.component';
 import { FixedStockComponent } from './fixed-stock/fixed-stock.component';
+import { FixedPatientsComponent } from './fixed-patients/fixed-patients.component';
+import { FixedMovementsComponent } from './fixed-movements/fixed-movements.component';
+import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
+import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 
 const routes: Routes = [{
   path: '',
@@ -156,6 +160,16 @@ const routes: Routes = [{
     {
       path: 'coverage',
       component: CoverageComponent,
+
+    },
+    {
+      path: 'medical-diary',
+      component: MedicalDiaryComponent,
+
+    },
+    {
+      path: 'medical-diary/medical/:id/:user',
+      component: MedicalComponent,
 
     },
     {
@@ -805,15 +819,15 @@ const routes: Routes = [{
     },
     {
       path: 'fixed-inventary',
-      component: FixedTabComponent,
+      component: FixedInventaryComponent,
     },
     {
       path: 'fixed-request',
       component: FixedRequestComponent,
     },
     {
-      path: 'fixed-access-requests',
-      component: FixedTabRequestsComponent,
+      path: 'fixed-assets-requests',
+      component: FixedAssetsRequestsComponent,
     },
     {
       path: 'product-supplies',
@@ -838,6 +852,14 @@ const routes: Routes = [{
     {
       path: 'assistance-stock',
       component: AssistanceStockComponent,
+    },
+    {
+      path: 'fixed-patients',
+      component: FixedPatientsComponent,
+    },
+    {
+      path: 'fixed-movements',
+      component: FixedMovementsComponent,
     }
   ],
 }];

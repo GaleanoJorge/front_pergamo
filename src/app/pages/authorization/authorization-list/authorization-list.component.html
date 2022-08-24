@@ -202,7 +202,7 @@
               </nb-toggle>
             </div>
             <div class="col-md-12" *ngIf="this.formMassive.controls.copay.value">
-              <label for="copay_value" class="form-text text-muted font-weight-bold">Número de contrato:</label>
+              <label for="copay_value" class="form-text text-muted font-weight-bold">Valor de copago:</label>
               <input nbInput fullWidth id="copay_value" formControlName="copay_value" copay_value type="number"
                 status="{{ isSubmitted && formMassive.controls.copay_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
             </div>
@@ -216,7 +216,7 @@
                     <a [href]="previewFile" target="_blank">Ver documentos</a>
                   </div>
                   <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file" nbInput fullWidth
-                    (change)="changeImage($event.target.files, 1)" />
+                    (change)="changeImage($event.target.files, 1)"/>
                 </div>
               </div>
             </div>

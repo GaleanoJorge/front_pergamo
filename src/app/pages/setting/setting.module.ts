@@ -385,6 +385,22 @@ import { RoleCheckComponent } from './users/role-package/role-check.component';
 import { RolePackageComponent } from './users/role-package/role-package.component';
 import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
 import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
+import { MedicalDiaryComponent } from './medical-diary/medical-diary.component';
+import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/form-medical-diary.component';
+import { MedicalComponent } from './medical-diary/medical/medical.component';
+import { ActionsMedicalDiaryComponent } from './medical-diary/actions.component';
+import { ActionsMedicalComponent } from './medical-diary/medical/actions.component';
+import { FixedPatientsComponent } from './fixed-patients/fixed-patients.component';
+import { FixedMovementsComponent } from './fixed-movements/fixed-movements.component';
+import { FixedInventaryAddPatientsComponent } from './fixed-inventary-add-patients/fixed-inventary-add-patients.component';
+import { FormFixedInventaryAddPatientsComponent } from './fixed-inventary-add-patients/form-fixed-inventary-add-patients/form-fixed-inventary-add-patients.component';
+import { FormFixedReturnComponent } from './fixed-return/form-fixed-return/form-fixed-return.component';
+import { ActionsReturnSedComponent } from './fixed-return/actions-return.component';
+import { FixedReturnComponent } from './fixed-return/fixed-return.component';
+import { FormFixedReturnPatientsComponent } from './fixed-return-patients/form-fixed-return-patients/form-fixed-return-patients.component';
+import { ActionsReturnPatiComponent } from './fixed-return-patients/actions-return.component';
+import { FixedReturnPatientsComponent } from './fixed-return-patients/fixed-return-patients.component';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -441,6 +457,9 @@ import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/ser
     PolicyTypeComponent,
     FormBedComponent,
     BedComponent,
+    MedicalComponent,
+    ActionsMedicalDiaryComponent,
+    ActionsMedicalComponent,
     RolesPermissionsComponent,
     FormObservationNoveltyComponent,
     ObservationNoveltyComponent,
@@ -479,6 +498,8 @@ import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/ser
     ActionsProcedureComponent,
     FormCoverageComponent,
     FormFirmsComponent,
+    MedicalDiaryComponent,
+    FormMedicalDiaryComponent,
     ProcedurePackageComponent,
     ProcedurePackage2Component,
     FormInsuranceCarrierComponent,
@@ -807,7 +828,20 @@ import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/ser
     ActionFixedComponent,
 
     ServicesFixedPackageComponent,
-    ServicesFixedComponent
+    ServicesFixedComponent,
+
+    FixedPatientsComponent,
+    FixedMovementsComponent,
+    FixedInventaryAddPatientsComponent,
+    FormFixedInventaryAddPatientsComponent,
+
+    FormFixedReturnComponent,
+    ActionsReturnSedComponent,
+    FixedReturnComponent,
+
+    FormFixedReturnPatientsComponent,
+    ActionsReturnPatiComponent,
+    FixedReturnPatientsComponent
 
   ],
   providers: [

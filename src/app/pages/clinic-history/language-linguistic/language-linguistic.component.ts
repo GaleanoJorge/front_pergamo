@@ -32,6 +32,7 @@ export class LanguageLinguisticComponent implements OnInit {
     'Codificación',
     'Decodificación',
     'Producción',
+    'Observaciones'
   ];
 
   public isSubmitted: boolean = false;

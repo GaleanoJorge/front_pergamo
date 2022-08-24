@@ -17,7 +17,8 @@ import { ManagementPlanService } from '../../../business-controller/management-p
 import { FormAssignedManagementPlanComponent } from './form-assigned-management-plan/form-assigned-management-plan.component';
 import { ActionsSemaphoreComponent } from './actions-semaphore.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
-import { FixedPlanComponent } from './fixed-plan/fixed-plan.component';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { ClinicHistoryNursingListComponent } from '../../clinic-history/clinic-history-nursing-list/clinic-history-nursing-list.component';
 
 @Component({
   selector: 'ngx-assigned-management-plan',
@@ -34,7 +35,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Ejecución Plan de manejo';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de inicio', 'Fecha Final', 'Fecha de ejecución'];
+  public headerFields: any[] = ['Fecha de inicio', 'Fecha Final', 'Fecha de ejecución', 'Personal asistencial'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -46,6 +47,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public dialog;
   public currentRole;
   public settings;
+  public own_user;
   public selectedOptions: any[] = [];
   public result: any = null;
 
@@ -80,8 +82,9 @@ export class AssignedManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'user': this.user,
+            'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
+            'openEF':this.NewChRecord.bind(this),
             'currentRole': this.currentRole,
             'edit': this.EditAssigned.bind(this),
           };
@@ -98,6 +101,10 @@ export class AssignedManagementPlanComponent implements OnInit {
       },
       execution_date: {
         title: this.headerFields[2],
+        type: 'string',
+      },
+      nombre_completo: {
+        title: this.headerFields[3],
         type: 'string',
       },
     },
@@ -127,9 +134,10 @@ export class AssignedManagementPlanComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'user': this.user,
+            'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole,
+            'openEF':this.NewChRecord.bind(this),
             'edit': this.EditAssigned.bind(this),
           };
         },
@@ -149,6 +157,10 @@ export class AssignedManagementPlanComponent implements OnInit {
       },
       execution_date: {
         title: this.headerFields[2],
+        type: 'string',
+      },
+      nombre_completo: {
+        title: this.headerFields[3],
         type: 'string',
       },
     },
@@ -177,7 +189,6 @@ export class AssignedManagementPlanComponent implements OnInit {
 
     private currency: CurrencyPipe,
     private patientBS: PatientService,
-    private userBS: UserBusinessService,
     private ManagementS: ManagementPlanService,
 
     private authService: AuthService,
@@ -185,6 +196,7 @@ export class AssignedManagementPlanComponent implements OnInit {
     private toastS: NbToastrService,
     private route: ActivatedRoute,
     private router: Router,
+    private chRecordS: ChRecordService,
 
   ) {
   }
@@ -198,6 +210,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public user_logged;
   public management;
   public semaphore;
+  public ch_record;
 
 
 
@@ -206,6 +219,7 @@ export class AssignedManagementPlanComponent implements OnInit {
 
   async ngOnInit() {
     this.management_id = this.route.snapshot.params.management_id;
+    this.own_user = this.authService.GetUser();
     await this.ManagementS.GetCollection({ management_id: this.management_id }).then(x => {
       this.management = x;
     });
@@ -271,21 +285,40 @@ export class AssignedManagementPlanComponent implements OnInit {
       },
     });
   }
+  async NewChRecord(data) {
+    await this.chRecordS.Save({
+      status: 'ACTIVO',
+      admissions_id: data.management_plan.admissions_id,
+      assigned_management_plan: data.id,
+      user_id: data.user_id,
+      type_of_attention_id: data.management_plan.type_of_attention_id,
+    }).then(x => {
+      this.ch_record=x.data.ch_record.id;
+      // this.openCHEF(data,this.ch_record)
+      this.router.navigateByUrl('/pages/clinic-history/clinic-history-nursing-list/' + this.ch_record + '/'+ data.id);
+      this.toastService.success('', x.message);
+      this.RefreshData();
+      if (this.saved) {
+        this.saved();
+      }
+    }).catch(x => {
+      this.isSubmitted = false;
+      this.loading = false;
+    });
 
-  NewSolicitudFixed() {
-    this.dialogFormService.open(FixedPlanComponent, {
+  }
+
+  openCHEF(data,ch_record?) {
+    this.dialogFormService.open(ClinicHistoryNursingListComponent, {
       context: {
-        title: 'Solicitud activo fijo',
-        admissions:this.user.admissions[0].id,
-        // user: this.user,
-        // medical: this.medical,
-        // admissions_id: this.admissions_id,
-        // saved: this.RefreshData.bind(this),
+        // title: 'Editar agendamiento',
+        data,
+        ch_record2:ch_record,
+        user: this.user,
+        saved: this.RefreshData.bind(this),
       },
     });
   }
-
-
 
   RefreshData() {
     this.table.refresh();

@@ -69,7 +69,7 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
     };
 
     this.form = this.formBuilder.group({
-      cantidad_enviada: [this.data.cantidad_enviada],
+      cantidad_enviada: [this.data.request_amount],
       observation: [this.data.observation],
     });
     await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
@@ -97,17 +97,13 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
             valid_values = false;
           }
         });
-        if (!valid_values) {
-          this.toastS.danger('Debe ingresar una cantidad valida', 'Error');
-        }
       }
-      if (valid_values) {
         this.loading = true;
         if (this.data.id) {
           this.pharProdReqS.updateInventoryByLot({
             id: this.data.id,
             observation: this.form.controls.observation.value,
-            status: 'ACEPTADO',
+            status: 'ACEPTADO FARMACIA',
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
@@ -146,7 +142,7 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
         } else {
           this.pharProdReqS.Save({
             observation: this.form.controls.observation.value,
-            status: 'ACEPTADO',
+            status: 'ACEPTADO FARMACIA',
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
           }).then(x => {
@@ -177,7 +173,7 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
             this.loading = false;
           });
         }
-      }
+      
     }
   }
 }

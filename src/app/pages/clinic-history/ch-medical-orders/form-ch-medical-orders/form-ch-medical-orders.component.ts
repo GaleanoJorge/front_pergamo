@@ -27,7 +27,8 @@ export class FormChMedicalOrdersComponent implements OnInit {
   public showTable;
   public record_id;
   public admissions_id;
-  public procedure_id: any[];
+  public procedure: any[];
+  public procedure_id;
   public frequency_id: any[];
 
   constructor(
@@ -60,7 +61,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
     };
 
     this.ProductS.GetCollection().then(x => {
-      this.procedure_id = x;
+      this.procedure = x;
     });
     this.FrequencyS.GetCollection().then(x => {
       this.frequency_id = x;
@@ -87,7 +88,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
           .Update({
             id: this.data.id,
             ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? 'Sí' : null,
-            procedure_id: this.form.controls.procedure_id.value,
+            procedure_id: this.procedure_id,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
@@ -108,7 +109,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
         await this.ChMedicalOrdersS
           .Save({
             ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? 'Sí' : null,
-            procedure_id: this.form.controls.procedure_id.value,
+            procedure_id: this.procedure_id,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
@@ -129,6 +130,20 @@ export class FormChMedicalOrdersComponent implements OnInit {
           });
         this.messageEvent.emit(true);
       }
+    }
+  }
+
+  saveCode(e): void {
+    var localidentify = this.procedure.find(item => item.name == e);
+
+    if (localidentify) {
+      this.procedure_id = localidentify.id;
+      this.form.controls.procedure_id.setErrors(null);
+
+    } else {
+      this.procedure_id = null;
+      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
+      this.form.controls.procedure_id.setErrors({ 'incorrect': true });
     }
   }
 }

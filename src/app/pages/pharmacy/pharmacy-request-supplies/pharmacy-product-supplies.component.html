@@ -1,0 +1,17 @@
+<div class="col-12 col-sm-12 col-md-12">
+  <ngx-form-pharmacy-product-supplies (messageEvent)="receiveMessage($event)" [my_pharmacy_id]="my_pharmacy_id">
+  </ngx-form-pharmacy-product-supplies>
+</div>
+<ngx-base-list [messageError]="messageError">
+  <div content>
+    <ngx-base-table *ngIf="entity" [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+      customData='pharmacy_product_request' [messageToltip]="messageToltip">
+      <div actions>
+        <div class="actions">
+      <!--    <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPharmacy()">Crear</button>-->
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

@@ -39,6 +39,9 @@ import { AmountRentReliefPackageComponent } from './account-receivable-list/form
 import { FileRentReliefPackageComponent } from './account-receivable-list/form-rent-relief/rent-relief-package/file-rent-relief-package.component';
 import { FormConfirmPayComponent } from './account-receivable-list/form-confirm-pay/form-confirm-pay.component';
 import { FormRejectAccountComponent } from './account-receivable-list/form-rent-relief/form-reject-account/form-reject-account.component';
+import { AccountPatientActionsComponent } from './account-patient/account-patient-actions.component';
+import { AccountPatientComponent } from './account-patient/account-patient.component';
+import { BillUserActivityPatientComponent } from './bill-user-activity-patient/bill-user-activity-patient.component';
 
 
 
@@ -86,6 +89,9 @@ import { FormRejectAccountComponent } from './account-receivable-list/form-rent-
     FileRentReliefPackageComponent,
     FormConfirmPayComponent,
     FormRejectAccountComponent,
+    AccountPatientActionsComponent,
+    AccountPatientComponent,
+    BillUserActivityPatientComponent,
   ],
   providers: [
     DateFormatPipe,

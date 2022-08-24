@@ -97,17 +97,10 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6">
-          <label for="code_cum_file" class="form-text text-muted font-weight-bold">Código CUM expediente:</label>
-          <input nbInput fullWidth id="code_cum_file" formControlName="code_cum_file" code_cum_file
-            status="{{ isSubmitted && form.controls.code_cum_file.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          <label for="code_udi" class="form-text text-muted font-weight-bold">Código UDI:</label>
+          <input nbInput fullWidth id="code_udi" formControlName="code_udi" code_udi/>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-6">
-          <label for="code_cum_consecutive" class="form-text text-muted font-weight-bold">Código CUM
-            consecutivo:</label>
-          <input nbInput fullWidth id="code_cum_consecutive" formControlName="code_cum_consecutive" code_cum_consecutive
-            status="{{ isSubmitted && form.controls.code_cum_consecutive.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
-        </div>
       </div>
 
     </nb-card-body>

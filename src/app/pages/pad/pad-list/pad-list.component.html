@@ -1,17 +1,28 @@
- 
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
-      customData="patients" [messageToltip]="messageToltip">
+    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity" customData="patients"
+      [messageToltip]="messageToltip">
       <div actions>
         <div class="actions">
-          
+          <div style="margin-right: 10px; width: 250px">
+            <nb-select placeholder="Filtrar por estado" fullWidth (selectedChange)="changeSemaphore($event)">
+              <nb-option value="">Sin filtro</nb-option>
+              <nb-option *ngFor="let item of status_type" [value]="item.id">
+                <div class="cuadro" [style]="'background-color: ' + item.color + ';'" style="margin-right: 10px;">
+                </div>
+                {{ item.name }}
+              </nb-option>
+            </nb-select>
+          </div>
+          <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
+            <nb-option *ngIf="this.currentRole == 1 || this.currentRole == 47 || this.currentRole == 26 || this.currentRole == 27 || this.currentRole == 28 || this.currentRole == 29 || this.currentRole == 30 || this.currentRole == 31 || this.currentRole == 32">Todos los convenios</nb-option>
+            <nb-option *ngFor="let item of company" [value]="item.company.id">Convenio: {{item.company.name}}</nb-option>
+          </nb-select>
         </div>
-        <div class="actions" style="margin-top:1em;">
+        <div class="actions">
         </div>
       </div>
     </ngx-base-table>
   </div>
 </ngx-base-list>
-

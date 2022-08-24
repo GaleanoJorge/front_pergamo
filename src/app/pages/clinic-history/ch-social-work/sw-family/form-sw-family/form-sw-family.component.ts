@@ -123,23 +123,23 @@ export class FormSwFamilyComponent implements OnInit {
 
     this.form = this.formBuilder.group({
 
-      firstname: [this.data[0] ? this.data[0].firstname : this.data.firstname,],
+      firstname: [this.data[0] ? this.data[0].firstname : this.data.firstname, Validators.compose([Validators.required])],
       middlefirstname: [this.data[0] ? this.data[0].middlefirstname : this.data.middlefirstname,],
-      lastname: [this.data[0] ? this.data[0].lastname : this.data.lastname,],
+      lastname: [this.data[0] ? this.data[0].lastname : this.data.lastname,Validators.compose([Validators.required])],
       middlelastname: [this.data[0] ? this.data[0].middlelastname : this.data.middlelastname,],
-      range_age: [this.data[0] ? this.data[0].range_age : this.data.range_age,],
-      identification: [this.data[0] ? this.data[0].identification : this.data.identification,],
-      phone: [this.data[0] ? this.data[0].phone : this.data.phone,],
+      range_age: [this.data[0] ? this.data[0].range_age : this.data.range_age,Validators.compose([Validators.required])],
+      identification: [this.data[0] ? this.data[0].identification : this.data.identification,Validators.compose([Validators.required])],
+      phone: [this.data[0] ? this.data[0].phone : this.data.phone,Validators.compose([Validators.required])],
       landline: [this.data[0] ? this.data[0].landline : this.data.landline,],
       email: [this.data[0] ? this.data[0].email : this.data.email,],
       residence_address: [this.data[0] ? this.data[0].residence_address : this.data.residence_address,],
       is_disability: [this.data[0] ? this.data[0].is_disability : this.data.is_disability,],
-      relationship_id: [this.data[0] ? this.data[0].relationship_id : this.data.relationship_id,],
-      identification_type_id: [this.data[0] ? this.data[0].identification_type_id : this.data.identification_type_id,],
-      marital_status_id: [this.data[0] ? this.data[0].marital_status_id : this.data.marital_status_id,],
-      academic_level_id: [this.data[0] ? this.data[0].academic_level_id : this.data.academic_level_id,],
-      study_level_status_id: [this.data[0] ? this.data[0].study_level_status_id : this.data.study_level_status_id,],
-      activities_id: [this.data[0] ? this.data[0].activities_id : this.data.activities_id,],
+      relationship_id: [this.data[0] ? this.data[0].relationship_id : this.data.relationship_id, Validators.compose([Validators.required])],
+      identification_type_id: [this.data[0] ? this.data[0].identification_type_id : this.data.identification_type_id,Validators.compose([Validators.required])],
+      marital_status_id: [this.data[0] ? this.data[0].marital_status_id : this.data.marital_status_id,Validators.compose([Validators.required])],
+      academic_level_id: [this.data[0] ? this.data[0].academic_level_id : this.data.academic_level_id,Validators.compose([Validators.required])],
+      study_level_status_id: [this.data[0] ? this.data[0].study_level_status_id : this.data.study_level_status_id,Validators.compose([Validators.required])],
+      activities_id: [this.data[0] ? this.data[0].activities_id : this.data.activities_id,Validators.compose([Validators.required])],
       inability_id: [this.data[0] ? this.data[0].inability_id : this.data.inability_id,],
       carer: [this.data[0] ? this.data[0].carer : this.data.carer,],
     });
@@ -243,7 +243,7 @@ export class FormSwFamilyComponent implements OnInit {
           this.messageEvent.emit(true);
           this.form.patchValue({ firstname:'', middlefirstname:'', lastname:'',middlelastname:'',range_age:'',identification:'',phone:'',
             landline:'', email:'',residence_address:'', relationship_id:'',identification_type_id:'',marital_status_id:'',
-            academic_level_id:'', study_level_status_id:'', activities_id:'', inability_id:false, carer:'',});
+            academic_level_id:'', study_level_status_id:'', activities_id:'', inability_id: '', is_disability:false, carer:'',});
           if (this.saved) {
             this.saved();
           }

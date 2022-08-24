@@ -24,8 +24,8 @@ export class PharmacyIncomePatientComponent implements OnInit {
 
   public title: string = 'ACEPTAR DEVOLUCIONES DE MEDICAMENTOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO DEVUELTO POR', 'PRODUCTO GENERICO'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
+  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO DEVUELTO POR', 'PRODUCTO GENERICO', 'NOMBRE PACIENTE', 'DOCUMENTO PACIENTE', 'CANTIDAD'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]},${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public validator;
   public user;
@@ -61,10 +61,10 @@ export class PharmacyIncomePatientComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(value){
-          return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
-          }else{
-            return row.user_request_pad.firstname+" "+ row.user_request_pad.lastname;
+          if (value) {
+            return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
+          } else {
+            return row.user_request_pad.firstname + " " + row.user_request_pad.lastname;
           }
         },
       },
@@ -73,19 +73,33 @@ export class PharmacyIncomePatientComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.product_generic_id == null) {
-            if(row.services_briefcase){
+            if (row.services_briefcase) {
               return row.services_briefcase.manual_price.name;
-            }else{
-            return row.product_supplies.description;
+            } else {
+              return row.product_supplies.description;
             }
           } else {
             return row.product_generic.description;
           }
-
         },
-      
-  
-        
+      },
+      admissions: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.patients.firstname + ' ' + value.patients.lastname;
+        },
+      },
+      identification: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.admissions.patients.identification;
+        },
+      },
+      request_amount: {
+        title: this.headerFields[5],
+        type: 'string',
       },
     },
   };
@@ -105,7 +119,7 @@ export class PharmacyIncomePatientComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + x[0].id ;
+        this.entity = 'pharmacy_product_request?& status=DEVUELTO' + '&own_pharmacy_stock_id=' + x[0].id;
         this.title = 'MEDICAMENTOS DEVUELTOS A:  ' + x[0]['name'];
       }
     });
@@ -114,7 +128,7 @@ export class PharmacyIncomePatientComponent implements OnInit {
     });
 
 
-    
+
   }
 
   RefreshData() {
@@ -122,10 +136,10 @@ export class PharmacyIncomePatientComponent implements OnInit {
   }
 
   ChangePharmacy(pharmacy) {
-    if(pharmacy==0){
-      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id,'pharmacy_product_request');
+    if (pharmacy == 0) {
+      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
 
-    }else{
+    } else {
 
       this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
     }

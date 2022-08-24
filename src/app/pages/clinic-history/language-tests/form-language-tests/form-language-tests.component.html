@@ -3,7 +3,7 @@
 
 
     <div class="col-md-6">
-      <label class="form-text text-muted font-weight-bold">Escala De Hamilton/ Fast/Prueba De Los 7 MinuTos
+      <label class="form-text text-muted font-weight-bold">Escala De Hamilton/ Fast/Prueba De Los 7 Minutos
         (Cognición) </label>
       <textarea id="hamilton_scale" nbInput (disabled)="this.has_input" fullWidth formControlName="hamilton_scale" hamilton_scale
         onpaste="return false" rows="4" cols="50"
@@ -20,7 +20,7 @@
 
     <div class="col-md-6">
       <label class="form-text text-muted font-weight-bold">Termal Y Merril/ Bhenale (Lenguaje Intantil) </label>
-      <textarea id="termal_merril" nbInput (disabled)="this.has_input" fullWidth formControlName="termal_merril" termal_merril
+      <textarea id="termal_merril" nbInput fullWidth formControlName="termal_merril" termal_merril
         onpaste="return false" rows="4" cols="50"
         status="{{ isSubmitted && form.controls.termal_merril.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>

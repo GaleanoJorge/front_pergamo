@@ -7,6 +7,7 @@ import { PharmacyProductRequestComponent } from './pharmacy-product-request/phar
 import { PharmacyRequestPatientsComponent } from './pharmacy-request-patients/pharmacy-request-patients.component';
 import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
 import { PharmacyComponent } from './pharmacy.component';
+import { ProductRequestComponent } from './product-request/product-request.component';
 import { ProductTabComponent } from './product-tab/product-tab.component';
 
 
@@ -31,7 +32,7 @@ const routes: Routes = [{
     },
     {
       path: 'pharmacy-product-request',
-      component: PharmacyProductRequestComponent,
+      component: ProductRequestComponent,
     },
     {
       path: 'billing-request-pharmacy',

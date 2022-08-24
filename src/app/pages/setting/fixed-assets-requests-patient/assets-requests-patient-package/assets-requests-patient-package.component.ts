@@ -30,6 +30,7 @@ export class AssetsRequestsPatientPackageComponent implements OnInit {
   public emit: any[] = [];
   public data = [];
   public dialog;
+  public already_checked: boolean = false;
   public inscriptionstatus = 0;
   public selectedRows: any;
   public inscriptionId;
@@ -47,17 +48,18 @@ export class AssetsRequestsPatientPackageComponent implements OnInit {
         title: '',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          if (!this.done) {
-            this.selectedOptions = this.parentData.selectedOptions;
-            this.emit = this.parentData.selectedOptions;
-            this.parentData.selectedOptions.forEach(x => {
-              this.selectedOptions2.push(x.pharmacy_request_shipping);
-            });
-            this.done = true;
-          }
+          // if (!this.done) {
+          //   this.selectedOptions = this.parentData.selectedOptions;
+          //   this.emit = this.parentData.selectedOptions;
+          //   this.parentData.selectedOptions.forEach(x => {
+          //     this.selectedOptions2.push(x.pharmacy_request_shipping);
+          //   });
+          //   this.done = true;
+          // }
           return {
             'data': row,
-            'valid': (!this.selectedOptions2.includes(row.id)) ? false : true,
+            'already_checked': this.already_checked,
+            'valid': this.selectedOptions != null ? (this.selectedOptions == row.id) ? true : false : false,
             'selection': (event, row: any) => this.eventSelections(event, row),
           };
         },
@@ -107,23 +109,21 @@ export class AssetsRequestsPatientPackageComponent implements OnInit {
 
   eventSelections(event, row) {
     if (event) {
-      this.selectedOptions2.push(row.id);
-      var diet = {
-        fixed_assets_id: row.id,
-        amount: 0,
-      };
-      this.emit.push(diet);
+      // this.selectedOptions2.push(row.id);
+      var diet = row.id;
+      this.emit = diet;
     } else {
-      this.emit = [];
-      let i = this.selectedOptions2.indexOf(row.id);
-      i !== -1 && this.selectedOptions2.splice(i, 1);
-      var j = 0;
-      this.selectedOptions.forEach(element => {
-        if (this.selectedOptions2.includes(element.fixed_assets_id)) {
-          this.emit.push(element);
-        }
-        j++;
-      });
+      this.emit = null;
+      // this.emit = [];
+      // let i = this.selectedOptions2.indexOf(row.id);
+      // i !== -1 && this.selectedOptions2.splice(i, 1);
+      // var j = 0;
+      // this.selectedOptions.forEach(element => {
+      //   if (this.selectedOptions2.includes(element.fixed_assets_id)) {
+      //     this.emit.push(element);
+      //   }
+      //   j++;
+      // });
     }
     this.selectedOptions = this.emit;
     this.messageEvent.emit(this.selectedOptions);
@@ -141,7 +141,7 @@ export class AssetsRequestsPatientPackageComponent implements OnInit {
     var contador = 0;
     var err = 0;
     if (!this.selectedOptions.length) {
-      this.toastS.danger(null, 'Debe seleccionar al menos un medicamento');
+      this.toastS.danger(null, 'Debe seleccionar al menos un activo');
     }
     else {
       var dta = {

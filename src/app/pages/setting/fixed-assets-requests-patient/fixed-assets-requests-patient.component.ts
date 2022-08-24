@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FixedAddService } from '../../../business-controller/fixed-add.service';
+import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
+import { AuthService } from '../../../services/auth.service';
 
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -24,7 +26,9 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
   public icon: string = 'nb-star';
   public data = [];
   public validator;
-
+  public entity;
+  public user;
+  public my_fixed_id;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -57,11 +61,11 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
-      responsible_user: {
+      own_fixed_user: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.responsible_user.user.firstname + " - " + row.responsible_user.user.lastname;
+          return row.own_fixed_user.firstname + " - " + row.own_fixed_user.lastname;
         },
       },
       admissions: {
@@ -78,11 +82,24 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
     private FixedAddS: FixedAddService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private authService: AuthService,
+    private FixedAssetsS: FixedAssetsService,
+    private toastService: NbToastrService,
   ) {
   }
 
   ngOnInit(): void {
-    this.validator = this.parentData;
+    // this.validator = this.parentData;
+    this.user = this.authService.GetUser();   
+    this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
+      if (x.length > 0) {
+        this.my_fixed_id = x[0].id;
+        // this.entity = 'fixed_add/?pagination=true&status=PATIENT';
+        this.title = 'LISTA DE ACTIVOS SOLICITADOS  PARA PACIENTE A:  ' + x[0]['fixed_stock']['fixed_type']['name'];
+      }else {
+        this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
+       }
+    });
   }
 
   RefreshData() {

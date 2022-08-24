@@ -16,6 +16,8 @@ export class FormLanguageTherapeuticGoalsComponent implements OnInit {
   @Input() data: any = null;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() record_id: any = null;
+  @Input() type_record: any;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -23,7 +25,7 @@ export class FormLanguageTherapeuticGoalsComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public record_id;
+ 
   public admissions_id;
   public arrayObjectives =
     [
@@ -165,7 +167,7 @@ export class FormLanguageTherapeuticGoalsComponent implements OnInit {
             strengthen_qualities:this.data.check8,
             strengthen_communication: this.data.check9,
             improve_skills:  this.data.check10,
-            type_record_id: 1,
+            type_record_id: this.type_record,
             ch_record_id: this.record_id,
           })
           .then((x) => {
@@ -192,7 +194,7 @@ export class FormLanguageTherapeuticGoalsComponent implements OnInit {
             strengthen_qualities:this.form.controls.check8.value ? this.arrayObjectives[7].description : null,
             strengthen_communication: this.form.controls.check9.value ? this.arrayObjectives[8].description : null,
             improve_skills: this.form.controls.check10.value ? this.arrayObjectives[9].description : null,
-            type_record_id: 1,
+            type_record_id: this.type_record,
             ch_record_id: this.record_id,
           })
           .then((x) => {

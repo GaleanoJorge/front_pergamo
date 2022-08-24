@@ -21,6 +21,7 @@ export class NotesDescriptionComponent implements OnInit {
 
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() is_pad: boolean = false;
   @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 

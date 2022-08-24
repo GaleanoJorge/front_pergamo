@@ -123,7 +123,7 @@ export class FormIspectionTherapyComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({  expansion: '', masses: '',  crepitations:'', fracturues:'', airway:''});
+          this.form.setValue({  expansion: '', masses: '', detail_masses:'',  crepitations:'', fracturues:'', detail_fracturues:'', airway:''});
           if (this.saved) {
             this.saved();
           }

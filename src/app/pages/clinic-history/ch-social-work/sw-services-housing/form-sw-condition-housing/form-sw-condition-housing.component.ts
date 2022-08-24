@@ -127,7 +127,7 @@ export class FormChSwConditionHousingComponent implements OnInit {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
           this.form.patchValue({
-            services:[],num_rooms: '', persons_rooms: '', rooms: '', living_room: '', dinning_room: '', kitchen: '',
+            ch_sw_services_id:[],num_rooms: '', persons_rooms: '', rooms: '', living_room: '', dinning_room: '', kitchen: '',
             bath: ''  });
           if (this.saved) {
             this.saved();

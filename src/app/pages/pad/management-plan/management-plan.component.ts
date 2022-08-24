@@ -41,7 +41,7 @@ export class ManagementPlanComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = '';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Consecutivo de admisión - Ambito - Programa', 'Ejecutado','Incumplidas'];
+  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Consecutivo de admisión - Ambito - Programa', 'Ejecutado','Incumplidas','Medicamento'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -50,6 +50,7 @@ export class ManagementPlanComponent implements OnInit {
   public admissions_id;
   public user_id;
   public user;
+  public own_user;
   public dialog;
   public currentRole;
   public selectedOptions: any[] = [];
@@ -58,6 +59,8 @@ export class ManagementPlanComponent implements OnInit {
   public currentRoleId;
   public roles;
   public user_logged;
+  public type_id;
+  public valor: any=null;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -71,9 +74,15 @@ export class ManagementPlanComponent implements OnInit {
       semaphore: {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          if(row.type_of_attention_id){
+            this.valor=true;
+          }else{
+            this.valor=false;
+          };
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'user': this.own_user,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -86,6 +95,7 @@ export class ManagementPlanComponent implements OnInit {
           return {
             'data': row,
             'user': this.user,
+            'own_user': this.own_user,
             'edit': this.EditManagementPlan.bind(this),
             'assignedUser': this.AssignedUser.bind(this),
             'delete': this.DeleteConfirmManagementPlan.bind(this),
@@ -109,12 +119,17 @@ export class ManagementPlanComponent implements OnInit {
           return value?.name;
         },
       },
-      frequency: {
-        title: this.headerFields[1],
+      service_briefcase: {
+        title: this.headerFields[7],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        valuePrepareFunction(value,row) {
+          if(row.type_of_attention_id==17){
+            return value?.manual_price.name;
+          }else{
+            return "N/A"
+          }
         },
+        "show": this.valor,
       },
       quantity: {
         title: this.headerFields[2],
@@ -228,6 +243,15 @@ export class ManagementPlanComponent implements OnInit {
 
 
   async ngOnInit() {
+
+    if (this.settings1.columns["service_briefcase"].hasOwnProperty("show")) {
+      if (this.settings1.columns["service_briefcase"].show ==false) {
+        delete this.settings1.columns["service_briefcase"];
+      }
+}
+
+    this.own_user = this.authService.GetUser();
+    this.currentRole = this.own_user.roles[0].role_type_id;
     this.currentRoleId = localStorage.getItem('role_id');
     this.user_id = this.route.snapshot.params.user;
     await this.roleBS.GetCollection({ id: this.currentRoleId  }).then(x => {

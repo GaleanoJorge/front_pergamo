@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FixedAddService } from '../../../business-controller/fixed-add.service';
+import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
+import { AuthService } from '../../../services/auth.service';
 
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -24,6 +26,10 @@ export class FixedAssetsRequestsComponent implements OnInit {
   public icon: string = 'nb-star';
   public data = [];
   public validator ;
+  public showdiv: Number = null;
+  public user;
+  public my_fixed_id;
+  public entity;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -71,11 +77,23 @@ export class FixedAssetsRequestsComponent implements OnInit {
     private FixedAddS: FixedAddService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    private FixedAssetsS: FixedAssetsService,
+    private toastService: NbToastrService,
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
-    this.validator = this.parentData;
+    this.user = this.authService.GetUser();   
+    this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
+      if (x.length > 0) {
+        this.my_fixed_id = x[0].id;
+        this.entity = 'fixed_assets?fixed_stock_id=' + x[0].id+'&status_prod=SOLICITADO';
+        this.title = 'LISTA DE ACTIVOS SOLICITADOS A:  ' + x[0]['fixed_stock']['fixed_type']['name'];
+      }else {
+        this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
+       }
+    });
   }
 
   RefreshData() {
@@ -115,6 +133,14 @@ export class FixedAssetsRequestsComponent implements OnInit {
         delete: this.DeletePharmacy.bind(this),
       },
     });
+  }
+
+  reloadForm(tab) {
+    if (tab.tabTitle == 'SEDE') {
+      this.showdiv = 1;
+    } else {
+      this.showdiv = 2;
+    }
   }
 
   DeletePharmacy(data) {
