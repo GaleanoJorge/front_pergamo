@@ -22,6 +22,7 @@ import { AdmissionsService } from '../../../business-controller/admissions.servi
 import { PatientService } from '../../../business-controller/patient.service';
 import { BriefcaseService } from '../../../business-controller/briefcase.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ActionsSemaphoreComponent } from './actionsSemaphore.component';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -128,6 +129,17 @@ export class AuthorizationListComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      semaphore: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsSemaphoreComponent,
+      },
       actions: {
         title: 'Acciones',
         type: 'custom',
@@ -488,7 +500,7 @@ export class AuthorizationListComponent implements OnInit {
       state_gloss: '',
       admissions_id: '',
     });
-    this.toastS.warning('', 'Filtros limpiados');
+    // this.toastS.warning('', 'Filtros limpiados');
     // this.RefreshData();
 
   }
