@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToast, NbToastrService } from '@nebular/theme';
 import { ChEOccHistoryOTService } from '../../../../../business-controller/ch_e_occ_history_o_t.service';
@@ -16,6 +16,8 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
   @Input() data: any = null;
   @Input() type_record_id;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
