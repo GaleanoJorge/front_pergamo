@@ -221,42 +221,38 @@ export class ClinicHistoryListComponent implements OnInit {
         this.show = 1;
         break;
       }
-      case "ANTECEDENTES": {
+      case "EVOLUCIÓN": {
         this.show = 2;
         break;
       }
-      case "EVOLUCIÓN": {
+      case "ESCALAS": {
         this.show = 3;
         break;
       }
-      case "ESCALAS": {
+      case "FORMULACIÓN": {
         this.show = 4;
         break;
       }
-      case "FORMULACIÓN": {
+      case "ORDEN MEDICAS": {
         this.show = 5;
         break;
       }
-      case "ORDEN MEDICAS": {
+      case "INCAPACIDAD": {
         this.show = 6;
         break;
       }
-      case "INCAPACIDAD": {
-        this.show = 7;
-        break;
-      }
       case "CERTIFICADO MEDICO": {
-        this.show = 8;
+        this.show = 7;
         break;
       }
     
       case "FALLIDA": {
-        this.show = 9;
+        this.show = 8;
         break;
       }
       
       case "SALIDA": {
-        this.show = 10;
+        this.show = 9;
         break;
       }
     }
