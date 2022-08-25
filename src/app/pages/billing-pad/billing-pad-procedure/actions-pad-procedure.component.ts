@@ -5,8 +5,8 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
 
 @Component({
     template: `
-    <div class="d-flex justify-content-center">
-    <div nbTooltip="{{this.tooltip}}" *ngIf="this.value.route == 2" class = "cuadro" 
+    <div class="d-flex justify-content-center" style="align-items: center;">
+    <div nbTooltip="{{this.tooltip}}" nbTooltipStatus="primary" *ngIf="this.value.route == 2" class = "cuadro" 
         [style]="this.semaphore == 0 ? 'background-color: #FF0000;' : 
         this.semaphore == 1 ? 'background-color: #7A39BB;' : 
         this.semaphore == 2 ? 'background-color: #44E431;' : 
@@ -63,15 +63,31 @@ export class ActionsPadProcedureComponent implements ViewCell {
                 this.tooltip = 'Por facturar';
             }
         } else {
-            if (data.billing_pad_status == 'FACTURADA') {
-                response = 2;
-                this.tooltip = 'Facturado';
-            } else if (data.auth_status_id != 3) {
-                response = 1;
-                this.tooltip = 'Sin autorizar';
+            if (data.pendientes) {
+                if (data.pendientes > 0) {
+                    response = 4;
+                    this.tooltip = 'Sin aprobar: ' + data.pendientes;
+                } else if (data.billing_pad_status == 'FACTURADA') {
+                    response = 2;
+                    this.tooltip = 'Facturado';
+                } else if (data.auth_status_id != 3) {
+                    response = 1;
+                    this.tooltip = 'Sin autorizar';
+                } else {
+                    response = 3;
+                    this.tooltip = 'Por facturar';
+                }
             } else {
-                response = 3;
-                this.tooltip = 'Por facturar';
+                if (data.billing_pad_status == 'FACTURADA') {
+                    response = 2;
+                    this.tooltip = 'Facturado';
+                } else if (data.auth_status_id != 3) {
+                    response = 1;
+                    this.tooltip = 'Sin autorizar';
+                } else {
+                    response = 3;
+                    this.tooltip = 'Por facturar';
+                }
             }
         }
         return response;

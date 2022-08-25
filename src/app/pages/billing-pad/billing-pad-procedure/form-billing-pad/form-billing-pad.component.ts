@@ -22,7 +22,7 @@ export class FormBillingPadComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public auth_package_id;
-  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN'];
+  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN', 'VERIFICADO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
 
   constructor(
@@ -59,6 +59,22 @@ export class FormBillingPadComponent implements OnInit {
           } else {
             return '';
           }
+        }
+      },
+      assigned_management_plan: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.assigned_management_plan != null) {
+            if (row.assigned_management_plan.approved == 1) {
+              return 'Aprobado';
+            } else {
+              return 'Sin aprobar';
+            }
+          } else {
+            return '';
+          }
+          
         }
       },
     },

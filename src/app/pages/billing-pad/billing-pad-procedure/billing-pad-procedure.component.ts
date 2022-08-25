@@ -350,6 +350,9 @@ export class BillingPadProcedureComponent implements OnInit {
         product_com: row.product_com != undefined ? {
           code_cum: row.product_com.code_cum,
         } : null,
+        fixed_add_id: row.fixed_add_id != undefined ? {
+          code_cum: row.fixed_add_id.observation,
+        } : null,
         assigned_management_plan: row.assigned_management_plan != undefined ?  {
           execution_date: row.assigned_management_plan.execution_date,
           user: {
