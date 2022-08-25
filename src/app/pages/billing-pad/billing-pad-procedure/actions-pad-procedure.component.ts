@@ -64,15 +64,15 @@ export class ActionsPadProcedureComponent implements ViewCell {
             }
         } else {
             if (data.pendientes) {
-                if (data.pendientes > 0) {
-                    response = 4;
-                    this.tooltip = 'Sin aprobar: ' + data.pendientes;
-                } else if (data.billing_pad_status == 'FACTURADA') {
+                if (data.billing_pad_status == 'FACTURADA') {
                     response = 2;
                     this.tooltip = 'Facturado';
                 } else if (data.auth_status_id != 3) {
                     response = 1;
                     this.tooltip = 'Sin autorizar';
+                } else if (data.pendientes > 0) {
+                    response = 4;
+                    this.tooltip = 'Sin aprobar: ' + data.pendientes;
                 } else {
                     response = 3;
                     this.tooltip = 'Por facturar';
