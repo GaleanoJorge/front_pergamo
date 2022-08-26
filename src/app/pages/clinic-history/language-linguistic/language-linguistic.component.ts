@@ -82,6 +82,13 @@ export class LanguageLinguisticComponent implements OnInit {
       observations: {
         title: this.headerFields[9],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
     },
   };
