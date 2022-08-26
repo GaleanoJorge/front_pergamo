@@ -71,6 +71,8 @@
             <div class="actions">
               <nb-select (selectedChange)="FilterStatus($event)" placeholder="Filtrar por estado">
                 <nb-option value="0">TODOS LOS REGISTROS</nb-option>
+                <nb-option value="P">PROYECTADOS</nb-option>
+                <nb-option value="E">EJECUTADOS</nb-option>
                 <nb-option *ngFor="let item of auth_statusM" [value]="item.id">{{item.name}}</nb-option>
               </nb-select>
             </div>

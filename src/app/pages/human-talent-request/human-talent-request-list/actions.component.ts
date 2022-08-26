@@ -99,11 +99,24 @@ export class Actions2Component implements ViewCell {
   }
 
   async ngOnInit() {
-    this.show = this.value.role == 23 ?
-      //PAD 
-      this.value.status == 0 ? true : false :
-      // TH 
-      this.value.status == 1 ? true : false;
+    this.show = (
+      this.value.role == 23 || // PAD - GESTOR
+      this.value.role == 26 || // PAD - GESTOR PHD
+      this.value.role == 27 || // PAD - ANALISTA ADMIN
+      this.value.role == 28 || // PAD - CORDINADOR NACIONAL
+      this.value.role == 29 || // PAD - JEFE DE PLANEACIÓN
+      this.value.role == 30 || // PAD - DIRECCIÓN
+      this.value.role == 31 || // PAD - JEFE BUSQUEDA ACTIVA
+      this.value.role == 32) ? // PAD - CORDINADOR CONVENIOS
+        //PAD 
+        this.value.status == 0 ? true : false :
+        // TH 
+        (
+          this.value.role == 17 || // TH - DIRECTOR
+          this.value.role == 24 || // TH - GESTOR
+          this.value.role == 25) ? // TH - COORDINADOR
+            this.value.status == 1 ? true : false : 
+            false;
 
     this.Form = this.formBuilder.group({
       observation: ["", Validators.compose([Validators.required])],

@@ -14,13 +14,13 @@ import { LocationService } from '../../../business-controller/location.service';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="!this.rowData.assigned_management_plan_id && !this.rowData.fixed_add_id" nbTooltip="editar paquete" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data, packagingTemplate)">
+    <a *ngIf="!this.rowData.assigned_management_plan_id && !this.rowData.fixed_add" nbTooltip="editar paquete" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data, packagingTemplate)">
         <nb-icon icon="edit-2-outline"></nb-icon>
     </a>
-    <button *ngIf="!this.rowData.assigned_management_plan_id && !this.rowData.fixed_add_id"  nbTooltip="Ver contenido de paquete" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.view(value.data)">
+    <button *ngIf="!this.rowData.assigned_management_plan_id && !this.rowData.fixed_add"  nbTooltip="Ver contenido de paquete" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.view(value.data)">
         <nb-icon icon="eye-outline"></nb-icon>
     </button>
-    <button *ngIf="!this.rowData.assigned_management_plan_id && !this.rowData.fixed_add_id"  nbTooltip="eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
+    <button *ngIf="!this.rowData.assigned_management_plan_id && !this.rowData.fixed_add"  nbTooltip="eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
     </button>
   </div>

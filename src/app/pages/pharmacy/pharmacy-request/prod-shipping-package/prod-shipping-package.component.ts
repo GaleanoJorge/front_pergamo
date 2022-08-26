@@ -17,6 +17,7 @@ export class ProdShippingPackageComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<any>();
   @Input() parentData: any = [];
+  @Input() request_amount: any;
   public messageError = null;
 
   public InscriptionForm: FormGroup;
@@ -132,7 +133,7 @@ export class ProdShippingPackageComponent implements OnInit {
     this.component_package_id = this.route.snapshot.params.id;
     this.selectedOptions = this.parentData.parentData;
     this.settings = this.settings_supplies;
-    this.entity = this.parentData.entity+'&pharmacyto=1';
+    this.entity = this.parentData.entity;
     this.customData = this.parentData.customData;
 
   }
@@ -163,16 +164,20 @@ export class ProdShippingPackageComponent implements OnInit {
   }
 
   onAmountChange(input, row) {
-    var i = 0;
-    var mientras = this.selectedOptions;
-    this.selectedOptions.forEach(element => {
-      if (element.pharmacy_lot_stock_id == row.id) {
-        mientras[i].amount = input.target.valueAsNumber;
-      }
-      i++
-    });
-    this.selectedOptions = mientras;
-    this.messageEvent.emit(this.selectedOptions);
+    if (Number(input.target.valueAsNumber) > Number(this.request_amount)) {
+      this.toastS.danger("", "La cantidad a entregar no debe superar la cantidad ordenada")
+    } else {
+      var i = 0;
+      var mientras = this.selectedOptions;
+      this.selectedOptions.forEach(element => {
+        if (element.pharmacy_lot_stock_id == row.id) {
+          mientras[i].amount = input.target.valueAsNumber;
+        }
+        i++
+      });
+      this.selectedOptions = mientras;
+      this.messageEvent.emit(this.selectedOptions);
+    }
   }
 
   ChangeManual(inscriptionstatus) {
