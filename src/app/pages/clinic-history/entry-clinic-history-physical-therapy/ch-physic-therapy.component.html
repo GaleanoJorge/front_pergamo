@@ -1,254 +1,196 @@
-
-
-  <ngx-base-list [messageError]="messageError" [routes]="routes">
-    <div content>
-      <div class="row" *ngIf="user">
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <div class="row" *ngIf="user">
       <div class="col-md-6" title>
-        <p class="parrafo" *ngIf="user"><b>CÉDULA:  </b> {{user.identification}} </p>
-        <p class="parrafo" *ngIf="user"><b>NOMBRE:  </b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
+        <p class="parrafo" *ngIf="user"><b>CÉDULA: </b> {{user.identification}} </p>
+        <p class="parrafo" *ngIf="user"><b>NOMBRE: </b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
         <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}}</p>
-        <p class="parrafo" *ngIf="user"><b>EDAD:  </b> {{user.age}} </p>
+        <p class="parrafo" *ngIf="user"><b>EDAD: </b> {{user.age}} </p>
       </div>
       <div class="col-md-6 position">
-        <a nbButton (click)="back()" >Volver</a>
+        <a nbButton (click)="back()">Volver</a>
       </div>
     </div>
-     
-      <nb-tabset  class="tabset">
-        <nb-tab tabTitle="INGRESO">
 
-          <nb-stepper #stepper [linear]="linearMode">
+    <nb-tabset *ngIf="user" class="tabset">
+      <nb-tab tabTitle="INGRESO">
 
-            <nb-step label='Valoracion Terapeutica Fisica'>
+        <nb-stepper #stepper [linear]="linearMode">
 
-              <div *ngIf="has_input != null">
+          <nb-step label='Valoracion Terapeutica Fisica'>
 
-                <ngx-table-valoration-ft (messageEvent)="inputMessage($event)" [has_input]="has_input" [type_record_id]="1" *ngIf="chftvaloration" [data]="chftvaloration" [record_id]="record_id">
-                </ngx-table-valoration-ft>
-                
-              </div>
+            <ngx-table-valoration-ft (messageEvent)="inputMessage($event)" [has_input]="has_input" [type_record_id]="1"
+              *ngIf="chftvaloration" [data]="chftvaloration" [record_id]="record_id">
+            </ngx-table-valoration-ft>
 
-            </nb-step>
+          </nb-step>
 
 
-            <nb-step label="Signos Vitales">
+          <nb-step label="Signos Vitales">
 
 
-              <div *ngIf="has_input != null">
-                
-                <ngx-signs (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id"></ngx-signs>
+            <ngx-signs (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id">
+            </ngx-signs>
 
-              </div>
 
+          </nb-step>
 
-            </nb-step>
+          <nb-step label='Valoracion Terepeutica'>
 
-            <nb-step label='Valoracion Terepeutica'>
+            <ngx-table-valoration-ther-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chftvalorationTher"
+              [data]="chftvalorationTher"></ngx-table-valoration-ther-ft>
 
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-valoration-ther-ft [type_record_id]="1" [record_id]="record_id" [data]="chftvalorationTher"
-                [data]="chftvalorationTher" ></ngx-table-valoration-ther-ft>
+          </nb-step>
 
-              </div>
+          <nb-step label='Dolor'>
 
-            </nb-step>           
-              
-            <nb-step label='Dolor'>
+            <ngx-table-pain-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chpain"></ngx-table-pain-ft>
 
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-pain-ft [type_record_id]="1"  [record_id]="record_id" [data]="chpain"></ngx-table-pain-ft>
+          </nb-step>
 
-              </div>
+          <nb-step label='Sistema Tegumentario'>
 
-            </nb-step>
+            <ngx-table-sys-integumentary-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chsysintegumentary">
+            </ngx-table-sys-integumentary-ft>
 
-            <nb-step label='Sistema Tegumentario'>
+          </nb-step>
 
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-sys-integumentary-ft [type_record_id]="1"  [record_id]="record_id" [data]="chsysintegumentary"></ngx-table-sys-integumentary-ft>
+          <br />
 
-              </div>
+          <nb-step label='Sistema Musculoesqueletico'>
 
-            </nb-step>
+            <ngx-table-sys-musculoskeletal-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id"
+              [data]="chsysmusculoskeletal"></ngx-table-sys-musculoskeletal-ft>
 
-            <br/>
+          </nb-step>
 
-            <nb-step label='Sistema Musculoesqueletico'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-sys-musculoskeletal-ft [type_record_id]="1"  [record_id]="record_id" [data]="chsysmusculoskeletal"></ngx-table-sys-musculoskeletal-ft>
+          <nb-step label='Fuerza Muscular'>
 
-              </div>
+            <ngx-table-muscular-strength-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chmuscularstrength">
+            </ngx-table-muscular-strength-ft>
 
-            </nb-step>
+          </nb-step>
 
-            <nb-step label='Fuerza Muscular'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-muscular-strength-ft [type_record_id]="1"  [record_id]="record_id" [data]="chmuscularstrength"></ngx-table-muscular-strength-ft>
+          <nb-step label='Sensibilidad'>
 
-              </div>
+            <ngx-table-sensibility-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chsensibility">
+            </ngx-table-sensibility-ft>
 
-            </nb-step>
+          </nb-step>
 
-            <nb-step label='Sensibilidad'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-sensibility-ft [type_record_id]="1"  [record_id]="record_id" [data]="chsensibility"></ngx-table-sensibility-ft>
+        </nb-stepper>
 
-              </div>
+        <hr />
+        <hr />
 
-            </nb-step>
+        <nb-stepper #stepper [linear]="linearMode">
 
-          </nb-stepper>
+          <nb-step label='Tono Muscular'>
 
-          <hr/>
-          <hr/>
+            <ngx-table-muscular-tone-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chmusculartone">
+            </ngx-table-muscular-tone-ft>
 
-          <nb-stepper #stepper [linear]="linearMode">
+          </nb-step>
 
-            <nb-step label='Tono Muscular'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-muscular-tone-ft [type_record_id]="1"  [record_id]="record_id" [data]="chmusculartone"></ngx-table-muscular-tone-ft>
+          <nb-step label='Reflejos'>
 
-              </div>
+            <ngx-table-reflection_f_t [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chreflection">
+            </ngx-table-reflection_f_t>
 
-            </nb-step>
+          </nb-step>
 
-            <nb-step label='Reflejos'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-reflection_f_t [type_record_id]="1"  [record_id]="record_id" [data]="chreflection"></ngx-table-reflection_f_t>
+          <nb-step label='Flexibilidad'>
 
-              </div>
+            <ngx-table-flexibility-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chflexibility">
+            </ngx-table-flexibility-ft>
 
-            </nb-step>
+          </nb-step>
 
-            <nb-step label='Flexibilidad'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-flexibility-ft [type_record_id]="1"  [record_id]="record_id" [data]="chflexibility"></ngx-table-flexibility-ft>
+          <nb-step label='Equilibrio'>
 
-              </div>
+            <ngx-table-balance-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chbalance">
+            </ngx-table-balance-ft>
 
-            </nb-step>
+          </nb-step>
 
-            <nb-step label='Equilibrio'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-balance-ft [type_record_id]="1"  [record_id]="record_id" [data]="chbalance"></ngx-table-balance-ft>
+          <nb-step label='Postura (Observacion)'>
 
-              </div>
+            <ngx-table-position-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chposition">
+            </ngx-table-position-ft>
 
-            </nb-step>
+          </nb-step>
 
-            <nb-step label='Postura (Observacion)'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-position-ft [type_record_id]="1"  [record_id]="record_id" [data]="chposition"></ngx-table-position-ft>
+          <nb-step label='Marcha'>
 
-              </div>
+            <ngx-table-march-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chmarch"></ngx-table-march-ft>
 
-            </nb-step>
+          </nb-step>
 
-            <nb-step label='Marcha'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-march-ft [type_record_id]="1"  [record_id]="record_id" [data]="chmarch"></ngx-table-march-ft>
+          <nb-step label='Diagnostico CIF'>
 
-              </div>
+            <ngx-table-diagnosis-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chdiagnosis">
+            </ngx-table-diagnosis-ft>
 
-            </nb-step>
+          </nb-step>
 
-            <nb-step label='Diagnostico CIF'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-diagnosis-ft [type_record_id]="1"  [record_id]="record_id" [data]="chdiagnosis"></ngx-table-diagnosis-ft>
+          <nb-step label='Objetivos Terapeuticos'>
 
-              </div>
+            <ngx-table-ther-goals-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chthergoals">
+            </ngx-table-ther-goals-ft>
 
-            </nb-step>
+          </nb-step>
 
-            <nb-step label='Objetivos Terapeuticos'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-ther-goals-ft [type_record_id]="1"  [record_id]="record_id" [data]="chthergoals"></ngx-table-ther-goals-ft>
-                
-              </div>
+          <nb-step label='Sesiones Semanales'>
 
-            </nb-step>
+            <ngx-table-weekly-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chweekly"></ngx-table-weekly-ft>
 
-            <nb-step label='Sesiones Semanales'>
-              
-              <div *ngIf="has_input != null">
-                
-                <ngx-table-weekly-ft [type_record_id]="1"  [record_id]="record_id" [data]="chweekly"></ngx-table-weekly-ft>
-                
-              </div>
-              
-            </nb-step>
+          </nb-step>
 
-          </nb-stepper>
+        </nb-stepper>
 
-        </nb-tab>
+      </nb-tab>
 
 
-        <nb-tab tabTitle="NOTA REGULAR">
-          
-          <nb-stepper #stepper [linear]="linearMode">
+      <nb-tab tabTitle="NOTA REGULAR">
 
-            <nb-step label='Objetivos Terapeuticos'>
-              <ngx-table-nr-valoration-ft [type_record_id]="3" [record_id]="record_id" [data]="chftvaloration">
-              </ngx-table-nr-valoration-ft>
-            </nb-step>
+        <nb-stepper #stepper [linear]="linearMode">
 
-            <nb-step label="Signos Vitales">
+          <nb-step label='Objetivos Terapeuticos'>
+            <ngx-table-nr-valoration-ft [type_record_id]="3" [record_id]="record_id" [data]="chftvaloration">
+            </ngx-table-nr-valoration-ft>
+          </nb-step>
 
-              <ngx-signs [record_id]="record_id"></ngx-signs>
+          <nb-step label="Signos Vitales">
 
-            </nb-step>
+            <ngx-signs [record_id]="record_id"></ngx-signs>
 
-            <nb-step label='Objetivos Terapeuticos'>
-              <ngx-table-nr-ther-goals-ft [type_record_id]="3" [record_id]="record_id" [data]="chthergoals">
-              </ngx-table-nr-ther-goals-ft>
-            </nb-step>
+          </nb-step>
 
-            <nb-step label='Diagnostico CIF'>
-              <ngx-table-nr-diagnosis-ft [type_record_id]="3" [record_id]="record_id" [data]="chdiagnosis">
-              </ngx-table-nr-diagnosis-ft>
-            </nb-step>
+          <nb-step label='Objetivos Terapeuticos'>
+            <ngx-table-nr-ther-goals-ft [type_record_id]="3" [record_id]="record_id" [data]="chthergoals">
+            </ngx-table-nr-ther-goals-ft>
+          </nb-step>
 
-            <nb-step label='Sesiones Mensuales'>
-              <ngx-table-nr-weekly-ft [type_record_id]="3" [record_id]="record_id" [data]="chweekly">
-              </ngx-table-nr-weekly-ft>
-            </nb-step>
+          <nb-step label='Diagnostico CIF'>
+            <ngx-table-nr-diagnosis-ft [type_record_id]="3" [record_id]="record_id" [data]="chdiagnosis">
+            </ngx-table-nr-diagnosis-ft>
+          </nb-step>
 
+          <nb-step label='Sesiones Mensuales'>
+            <ngx-table-nr-weekly-ft [type_record_id]="3" [record_id]="record_id" [data]="chweekly">
+            </ngx-table-nr-weekly-ft>
+          </nb-step>
 
-          </nb-stepper>
 
+        </nb-stepper>
 
-        </nb-tab>
-      </nb-tabset>
 
-      <div style="text-align: center;">
-        <a (click)="close()" nbButton>Finalizar registro</a>
-      </div>
-      
+      </nb-tab>
+    </nb-tabset>
+
+    <div style="text-align: center;">
+      <a (click)="close()" nbButton>Finalizar registro</a>
     </div>
-  </ngx-base-list>
 
+  </div>
+</ngx-base-list>
