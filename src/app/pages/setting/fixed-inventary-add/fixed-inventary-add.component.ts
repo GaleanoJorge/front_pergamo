@@ -15,7 +15,7 @@ export class FixedInventaryAddComponent implements OnInit {
   @Input() parentData: any;
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = '';
+  public title: string = 'ACTIVOS ASIGNADOS';
   public subtitle: string = '';
   public headerFields: any[] = ['ID', 'Descripción', 'Marca', 'Modelo', 'Serial', 'Ubicación', 'Responsable'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
@@ -23,7 +23,6 @@ export class FixedInventaryAddComponent implements OnInit {
   public data = [];
   public entity;
   public user;
-  public validator ;
   public my_fixed_id;
 
 
@@ -99,12 +98,12 @@ export class FixedInventaryAddComponent implements OnInit {
   ) {
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.user = this.authService.GetUser();
     this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_fixed_id = x[0].id;
-        this.entity = 'fixed_assets?fixed_stock_id=' + x[0].id+'&status_prod=ENVIADO PATIENT';
+        this.entity = 'fixed_assets?fixed_stock_id=' + x[0]['fixed_stock'].id+'&status_prod=ENVIADO PATIENT';
         this.title = 'ACTIVOS ASIGNADOS POR:  ' + x[0]['fixed_stock']['fixed_type']['name'];
       }else {
         this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
