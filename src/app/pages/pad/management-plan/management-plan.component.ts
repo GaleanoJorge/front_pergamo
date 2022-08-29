@@ -347,6 +347,7 @@ suppliesView() {
     this.dialogFormService.open(SuppliesView, {
       context: {
         user: this.user,
+        own_user: this.own_user,
         title: 'Suministros del paciente',
         admissions_id: this.admissions_id,
       },
