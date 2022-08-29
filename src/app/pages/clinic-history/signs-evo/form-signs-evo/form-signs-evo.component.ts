@@ -20,6 +20,7 @@ export class FormsignsEvoComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -133,7 +134,7 @@ export class FormsignsEvoComponent implements OnInit {
         liters_per_minute_id: '',
         parameters_signs_id: '',
         pupilas: '',
-        has_oxigen: false,
+        has_oxigen: this.admission.location[0].program_id == 7 ? true : false,
       };
 
     }
@@ -197,9 +198,11 @@ export class FormsignsEvoComponent implements OnInit {
       liters_per_minute_id: [this.data[0] ? this.data[0].liters_per_minute_id : this.data.liters_per_minute_id],
       parameters_signs_id: [this.data.parameters_signs_id],
       pupilas: [],
-      has_oxigen: [this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen,
+      has_oxigen: [(this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false,
       ],
     });
+
+    this.har_ox((this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false);
 
     this.onChange();
 
@@ -395,6 +398,14 @@ export class FormsignsEvoComponent implements OnInit {
   async onChange() {
 
     this.form.get('has_oxigen').valueChanges.subscribe(val => {
+      this.har_ox(val);
+    });
+  }
+  
+    har_ox(val: boolean) {
+
+
+
       if (val === false) {
         this.vital_ventilated = [];
         this.oxygen_type = [];
@@ -430,9 +441,9 @@ export class FormsignsEvoComponent implements OnInit {
         this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
 
-      };
-    });
-  }
+      }
+    }
+  
   fetchSelectedItems($event) {
     var i = 0;
     if ($event.item) {

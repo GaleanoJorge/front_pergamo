@@ -18,6 +18,9 @@ export class EvolutionListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() admission: any = null;
+
+
  
   @Input() type_record: any;
   @Output() messageEvent = new EventEmitter<any>();

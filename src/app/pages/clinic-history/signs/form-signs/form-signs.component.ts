@@ -20,6 +20,7 @@ export class FormsignsComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -133,7 +134,7 @@ export class FormsignsComponent implements OnInit {
         liters_per_minute_id: '',
         parameters_signs_id: '',
         pupilas: '',
-        has_oxigen: false,
+        has_oxigen: this.admission.location[0].program_id == 7 ? true : false,
       };
 
     }
@@ -147,18 +148,6 @@ export class FormsignsComponent implements OnInit {
     this.chvitalTemperatureS.GetCollection({ status_id: 1 }).then(x => {
       this.vital_temperature = x;
     });
-    // this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
-    //   this.ch_vital_ventilated = x;
-    // });
-    // this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
-    //   this.oxygen_type = x;
-    // });
-    // this.LitersPerMinuteS.GetCollection({ status_id: 1 }).then(x => {
-    //   this.liters_per_minute = x;
-    // });
-    // this.ParametersSignsS.GetCollection({ status_id: 1 }).then((x) => {
-    //   this.parameters_signs = x;
-    // });
 
     this.form = this.formBuilder.group({
       clock: [this.data[0] ? this.data[0].clock : this.data.clock, Validators.compose([Validators.required])],
@@ -197,9 +186,11 @@ export class FormsignsComponent implements OnInit {
       liters_per_minute_id: [this.data[0] ? this.data[0].liters_per_minute_id : this.data.liters_per_minute_id],
       parameters_signs_id: [this.data.parameters_signs_id],
       pupilas: [],
-      has_oxigen: [this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen,
+      has_oxigen: [(this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false,
       ],
     });
+
+    this.har_ox((this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false);
 
     this.onChange();
   
@@ -473,43 +464,47 @@ export class FormsignsComponent implements OnInit {
   async onChange() {
 
     this.form.get('has_oxigen').valueChanges.subscribe(val => {
-      if (val === false) {
-        this.vital_ventilated = [];
-        this.oxygen_type = [];
-        this.liters_per_minute = [];
-
-        this.form.controls.ch_vital_ventilated_id.clearValidators();
-        this.form.controls.oxygen_type_id.clearValidators();
-        this.form.controls.liters_per_minute_id.clearValidators();
-        this.form.controls.parameters_signs_id.clearValidators();
-
-        this.form.controls.ch_vital_ventilated_id.setErrors(null);
-        this.form.controls.oxygen_type_id.setErrors(null);
-        this.form.controls.liters_per_minute_id.setErrors(null);
-        this.form.controls.parameters_signs_id.setErrors(null);
-
-      } else {
-
-        this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
-          this.vital_ventilated = x;
-        });
-        this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
-          this.oxygen_type = x;
-        });
-        this.LitersPerMinuteS.GetCollection({ status_id: 1 }).then(x => {
-          this.liters_per_minute = x;
-        });
-        this.ParametersSignsS.GetCollection({ status_id: 1 }).then((x) => {
-          this.parameters_signs = x;
-        });
-
-        this.form.controls.ch_vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
-        this.form.controls.oxygen_type_id.setValidators(Validators.compose([Validators.required]));
-        this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
-        this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
-  
-      };
+      this.har_ox(val);
   });
+}
+
+har_ox(val: boolean) {
+  if (val === false) {
+    this.vital_ventilated = [];
+    this.oxygen_type = [];
+    this.liters_per_minute = [];
+
+    this.form.controls.ch_vital_ventilated_id.clearValidators();
+    this.form.controls.oxygen_type_id.clearValidators();
+    this.form.controls.liters_per_minute_id.clearValidators();
+    this.form.controls.parameters_signs_id.clearValidators();
+
+    this.form.controls.ch_vital_ventilated_id.setErrors(null);
+    this.form.controls.oxygen_type_id.setErrors(null);
+    this.form.controls.liters_per_minute_id.setErrors(null);
+    this.form.controls.parameters_signs_id.setErrors(null);
+
+  } else {
+
+    this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
+      this.vital_ventilated = x;
+    });
+    this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
+      this.oxygen_type = x;
+    });
+    this.LitersPerMinuteS.GetCollection({ status_id: 1 }).then(x => {
+      this.liters_per_minute = x;
+    });
+    this.ParametersSignsS.GetCollection({ status_id: 1 }).then((x) => {
+      this.parameters_signs = x;
+    });
+
+    this.form.controls.ch_vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
+    this.form.controls.oxygen_type_id.setValidators(Validators.compose([Validators.required]));
+    this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
+    this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
+
+  }
 }
 fetchSelectedItems($event) {
   var i = 0;
