@@ -38,6 +38,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public program;
   public flat;
   public user;
+  public admission;
   public own_user;
   public bed;
   public bed_id;
@@ -106,6 +107,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });

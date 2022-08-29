@@ -134,7 +134,7 @@ export class FormsignsComponent implements OnInit {
         liters_per_minute_id: '',
         parameters_signs_id: '',
         pupilas: '',
-        has_oxigen: this.admission.location[0].program_id == 7 ? true : false,
+        has_oxigen: this.admission ? this.admission.location[0].program_id == 7 ? true : false : false,
       };
 
     }
@@ -190,7 +190,7 @@ export class FormsignsComponent implements OnInit {
       ],
     });
 
-    this.har_ox((this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false);
+    this.har_ox((this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : (this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 0 ? false : (this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen));
 
     this.onChange();
   
