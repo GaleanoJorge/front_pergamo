@@ -89,6 +89,7 @@ export class AuthorizationListComponent implements OnInit {
     }
   public parentData: any;
   public previewFile = null;
+  public element;
 
 
 
@@ -504,16 +505,15 @@ export class AuthorizationListComponent implements OnInit {
   }
 
   packagingProcess() {
-
     if (this.selectedOptions.length < 1) {
       this.toastS.warning('', 'Debe seleccionar al menos 1 autorización de procedimientos');
     } else {
       if (this.briefcase_id) {
-        this.dialogFormService.open(AuthPackageComponent, {
+        this.dialog = this.dialogFormService.open(AuthPackageComponent, {
           context: {
             briefcase_id: this.briefcase_id,
             title: "Organizar paquete para " + this.selectedOptions[0].nombre_completo,
-            saved: this.RefreshData.bind(this),
+            saved: this.ClosePackage.bind(this),
             selectedOptions: this.selectedOptions,
             admissions_id: this.admissions_id
           },
@@ -524,6 +524,18 @@ export class AuthorizationListComponent implements OnInit {
     }
 
   }
+
+  ClosePackage() {
+    this.element = document.getElementsByTagName("nb-windows-container");
+    if(this.element.length > 0)
+    {
+      this.element[0].remove();
+    }
+    this.dialog.close();
+    this.dialog = null;
+    this.RefreshData();
+  }
+
 
   authMassive() {
     // this.disableCheck();
