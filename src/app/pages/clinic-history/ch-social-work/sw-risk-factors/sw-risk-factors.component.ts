@@ -48,15 +48,15 @@ export class SwRiskFactorsComponent implements OnInit {
         width: 'string',
         valuePrepareFunction: (value, row) => {
           return (row.net != null ? row.net  + ' - ' : "") 
-          + (row.spa != null ?  row.spa  + ' -  ' : "")
-          + (row.violence != null ?  row.violence  + ' -  ' : "")
-          + (row.victim != null ?  row.victim  + ' - ' : "")
-          + (row.economic != null ?  row.economic  + ' - ' : "")
-          + (row.living != null ?  row.living  + ' - ' : "")
-          + (row.attention != null ?  row.attention  + ' - ' : "")
-          + (row.stigmatization != null ?  row.stigmatization  + ' - ': "")
-          + (row.interference != null ?  row.interference  + ' - ': "")
-          + (row.spaces != null ?  row.spaces: "")
+          + (row.spa != null ?  ' -  ' + row.spa  : "")
+          + (row.violence != null ? ' -  ' +  row.violence  : "")
+          + (row.victim != null ? ' -  ' +  row.victim   : "")
+          + (row.economic != null ?  ' -  ' + row.economic   : "")
+          + (row.living != null ? ' -  ' +  row.living   : "")
+          + (row.attention != null ? ' -  ' +  row.attention  : "")
+          + (row.stigmatization != null ? ' -  ' +  row.stigmatization  : "")
+          + (row.interference != null ? ' -  ' +  row.interference  : "")
+          + (row.spaces != null ?  ' -  ' + row.spaces: "")
           ;
         },
     },
