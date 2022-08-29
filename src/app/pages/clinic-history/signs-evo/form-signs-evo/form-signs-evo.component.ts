@@ -20,6 +20,7 @@ export class FormsignsEvoComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -133,7 +134,7 @@ export class FormsignsEvoComponent implements OnInit {
         liters_per_minute_id: '',
         parameters_signs_id: '',
         pupilas: '',
-        has_oxigen: false,
+        has_oxigen: this.admission.location[0].program_id == 7 ? true : false,
       };
 
     }
@@ -189,17 +190,19 @@ export class FormsignsEvoComponent implements OnInit {
       pupil_size_right: [this.data[0] ? this.data[0].pupil_size_right : this.data.pupil_size_right],
       left_reaction: [this.data[0] ? this.data[0].left_reaction : this.data.left_reaction],
       pupil_size_left: [this.data[0] ? this.data[0].pupil_size_left : this.data.pupil_size_left],
-      ch_vital_hydration_id: [this.data[0] ? this.data[0].ch_vital_hydration_id : this.data.ch_vital_hydration_id],
+      ch_vital_hydration_id: [this.data[0] ? this.data[0].ch_vital_hydration_id : this.data.ch_vital_hydration_id, Validators.compose([Validators.required])],
       ch_vital_ventilated_id: [this.data[0] ? this.data[0].ch_vital_ventilated_id : this.data.ch_vital_ventilated_id],
       ch_vital_temperature_id: [this.data[0] ? this.data[0].ch_vital_temperature_id : this.data.ch_vital_temperature_id, Validators.compose([Validators.required])],
-      ch_vital_neurological_id: [this.data[0] ? this.data[0].ch_vital_neurological_id : this.data.ch_vital_neurological_id],
+      ch_vital_neurological_id: [this.data[0] ? this.data[0].ch_vital_neurological_id : this.data.ch_vital_neurological_id, Validators.compose([Validators.required])],
       oxygen_type_id: [this.data[0] ? this.data[0].oxygen_type_id : this.data.oxygen_type_id],
       liters_per_minute_id: [this.data[0] ? this.data[0].liters_per_minute_id : this.data.liters_per_minute_id],
       parameters_signs_id: [this.data.parameters_signs_id],
       pupilas: [],
-      has_oxigen: [this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen,
+      has_oxigen: [(this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false,
       ],
     });
+
+    this.har_ox((this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false);
 
     this.onChange();
 
@@ -395,6 +398,14 @@ export class FormsignsEvoComponent implements OnInit {
   async onChange() {
 
     this.form.get('has_oxigen').valueChanges.subscribe(val => {
+      this.har_ox(val);
+    });
+  }
+  
+    har_ox(val: boolean) {
+
+
+
       if (val === false) {
         this.vital_ventilated = [];
         this.oxygen_type = [];
@@ -430,9 +441,9 @@ export class FormsignsEvoComponent implements OnInit {
         this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
 
-      };
-    });
-  }
+      }
+    }
+  
   fetchSelectedItems($event) {
     var i = 0;
     if ($event.item) {

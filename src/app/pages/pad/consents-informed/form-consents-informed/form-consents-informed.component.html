@@ -73,16 +73,20 @@
           </div>
 
           <div class="col-12 col-sm-12 col-md-12">
-            <label for="relationship_id" class="form-text text-muted font-weight-bold">Parentesco de
-              responsable:</label>
 
-            <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes1"
-              (change)="saveCodeR($event.target.value)" id="relationship_id" formControlName="relationship_id"
-              relationship_id type="text" required
-              status="{{ isSubmitted && form.controls.relationship_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-            <datalist id="codes1">
-              <option *ngFor="let item of relationship" [value]="item.id">{{item.name}} </option>
-            </datalist>
+
+            
+             
+                <label for="relationship_id" class="form-text text-muted font-weight-bold">
+                  Parentesco:
+                </label>
+                <nb-select formControlName="relationship_id" id="relationship_id" fullWidth
+                  status="{{ isSubmitted && form.controls.relationship_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option *ngFor="let item of realtionships" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+      
+           
           </div>
 
 

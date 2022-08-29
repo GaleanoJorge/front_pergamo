@@ -4,14 +4,15 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'ngx-language-tests',
-  templateUrl: './language-tests.component.html',
-  styleUrls: ['./language-tests.component.scss'],
+  selector: 'ngx-language-therapeutic-goals',
+  templateUrl: './language-therapeutic-goals.component.html',
+  styleUrls: ['./language-therapeutic-goals.component.scss'],
 })
-export class LanguageTestsComponent implements OnInit {
+export class LanguageTherapeuticGoalsComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
+  @Input() type_record: any;
   linearMode = false;
   public messageError = null;
   public title;
@@ -19,13 +20,16 @@ export class LanguageTestsComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Escala De Hamilton/ Fast/Prueba De Los 7 Minimos (Cognición)',
-    'Prueba De Boston / Mini Boston (Lenguaje Adultos)',
-    'Termal Y Merril/ Bhenale (Lenguaje Intantil)',
-    'Prolec   / Plon-R (Lectura Y Escritura)',
-    'Ped /Guss (Deglucion)',
-    'Vhi /Grbas/Rasat (Voz)',
-    'Pemo (Habla)',
+    'Objetivo N°1',
+    'Objetivo N°2',
+    'Objetivo N°3',
+    'Objetivo N°4',
+    'Objetivo N°5',
+    'Objetivo N°6',
+    'Objetivo N°7',
+    'Objetivo N°8',
+    'Objetivo N°9',
+    'Objetivo N°10',
   ];
   
   public isSubmitted: boolean = false;
@@ -42,7 +46,8 @@ export class LanguageTestsComponent implements OnInit {
     },
     columns: {
 
-      hamilton_scale: {
+
+      hold_phonoarticulators: {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -53,7 +58,7 @@ export class LanguageTestsComponent implements OnInit {
           }
         }
       },
-      boston_test: {
+      strengthen_phonoarticulators: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -63,9 +68,8 @@ export class LanguageTestsComponent implements OnInit {
             return 'NO APLICA'
           }
         }
-       
       },
-      termal_merril: {
+      strengthen_tone: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -76,7 +80,7 @@ export class LanguageTestsComponent implements OnInit {
           }
         }
       },
-      prolec_plon: {
+      favor_process: {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -87,7 +91,7 @@ export class LanguageTestsComponent implements OnInit {
           }
         }
       },
-      ped_guss: {
+      strengthen_thread: {
         title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -97,9 +101,8 @@ export class LanguageTestsComponent implements OnInit {
             return 'NO APLICA'
           }
         }
-       
       },
-      vhi_grbas: {
+      favor_psycholinguistic: {
         title: this.headerFields[5],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -110,8 +113,41 @@ export class LanguageTestsComponent implements OnInit {
           }
         }
       },
-      pemo_speech: {
+      increase_processes: {
         title: this.headerFields[6],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      strengthen_qualities: {
+        title: this.headerFields[7],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      strengthen_communication: {
+        title: this.headerFields[8],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      improve_skills: {
+        title: this.headerFields[9],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
