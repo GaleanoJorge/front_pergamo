@@ -8,6 +8,10 @@ import { ViewCell } from 'ng2-smart-table';
         <nb-icon icon="arrowhead-up-outline"></nb-icon>
       </button>
 
+      <!--  <button nbTooltip="DEVOLVER" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.returned(value.data)">
+        <nb-icon icon="flip-2-outline"></nb-icon>
+      </button> -->
+
       <!-- <button nbTooltip="ELIMINAR" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button> -->

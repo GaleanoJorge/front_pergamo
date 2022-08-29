@@ -6,10 +6,10 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label class="form-text text-muted font-weight-bold">A DONDE ENVIAR:</label>
-          <nb-select [selected]="this.data.own_pharmacy_stock_id" formControlName="own_pharmacy_stock_id"
-            id="own_pharmacy_stock_id" fullWidth>
+          <nb-select [selected]="this.data.request_pharmacy_stock_id" formControlName="request_pharmacy_stock_id"
+            id="request_pharmacy_stock_id" fullWidth>
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.own_pharmacy_stock_id }}" *ngFor="let item of own_pharmacy_stock_id"
+            <nb-option selected="{{ item.id == data.request_pharmacy_stock_id }}" *ngFor="let item of request_pharmacy_stock_id"
               [value]="item.id">
               {{ item.name }} - {{ item.campus.name }}</nb-option>
           </nb-select>

@@ -9,6 +9,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ActionsIncoComponent } from './actions.component';
 import { FormPharmacyIncomeComponent } from './form-pharmacy-income/form-pharmacy-income.component';
+import { PharmaInvReturnComponent } from './pharma-inv-return/pharma-inv-return.component';
 
 @Component({
   selector: 'ngx-pharmacy-income',
@@ -47,6 +48,8 @@ export class PharmacyIncomeComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditInv.bind(this),
+            // 'returned': this.Returned.bind(this),
+
             // 'delete': this.DeletePharInventary.bind(this),
           };
         },
@@ -109,7 +112,7 @@ export class PharmacyIncomeComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=ENVIADO FARMACIA' + '&request_pharmacy_stock_id=' + x[0].id;
+        this.entity = 'pharmacy_product_request?product=' + 1 + '& status=ENVIADO FARMACIA' + '&request_amount=' + 0 + '&request_pharmacy_stock_id=' + x[0].id;
         this.title = 'ACEPTAR MEDICAMENTOS ENVIADOS A:  ' + x[0]['name'];
       }
     });
@@ -173,5 +176,18 @@ export class PharmacyIncomeComponent implements OnInit {
       throw x;
     });
   }
+
+  // Returned(data) {
+  //   // console.log('dañado');
+  //   this.dialogFormService.open(PharmaInvReturnComponent, {
+  //     context: {
+  //       title: 'DEVOLVER ELEMENTO',
+  //       data2: data,
+  //       status: 'EN DEVOLUCIÓN',
+  //       my_pharmacy_id: this.my_pharmacy_id,
+  //       saved: this.RefreshData.bind(this),
+  //     },
+  //   });
+  // }
 
 }

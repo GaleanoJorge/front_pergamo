@@ -1,29 +1,27 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChFormulationService } from '../../../../business-controller/ch-formulation.service';
-import { ActivatedRoute } from '@angular/router';
-import { SuppliesStatusService } from '../../../../business-controller/supplies-status.service';
-import { AuthService } from '../../../../services/auth.service';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
+import { UserBusinessService } from '../../../../business-controller/user-business.service';
+import { UserChangeService } from '../../../../business-controller/user-change.service';
+import { AuthService } from '../../../../services/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'ngx-form-drug-returned',
-  templateUrl: './form-drug-returned.component.html',
-  styleUrls: ['./form-drug-returned.component.scss'],
+  selector: 'ngx-pharma-inv-return',
+  templateUrl: './pharma-inv-return.component.html',
+  styleUrls: ['./pharma-inv-return.component.scss']
 })
-export class FormDrugReturnedComponent implements OnInit {
+export class PharmaInvReturnComponent implements OnInit {
+
   @Input() title: string;
+  @Input() my_pharmacy_id: any = null;
   @Input() data2: any = null;
-  @Input() record_id: any = null;
-  @Input() type_record_id: any = null;
   @Input() status: any = null;
-  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
   public saved: any = null;
-  // public close: any = null;
   public loading: boolean = false;
   public disabled: boolean = false;
   public label: string = '';
@@ -40,9 +38,7 @@ export class FormDrugReturnedComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     protected dialogRef: NbDialogRef<any>,
-    private route: ActivatedRoute,
-    private pharmacyRequest: PharmacyProductRequestService,
-    private suppliesStatus: SuppliesStatusService,
+    private PharmacyProductRequestS: PharmacyProductRequestService,
     private authS: AuthService,
   ) {
   }
@@ -50,14 +46,13 @@ export class FormDrugReturnedComponent implements OnInit {
   async ngOnInit() {
     if (!this.data) {
       this.data = {
-        quantity: '',
+        // quantity: '',
         observation: '',
       };
     } else {
     }
 
     this.form = this.formBuilder.group({
-      quantity: ['', Validators.compose([Validators.required])],
       observation: ['', Validators.compose([Validators.required])],
     });
 
@@ -65,26 +60,28 @@ export class FormDrugReturnedComponent implements OnInit {
 
   }
 
-  async save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
-      if (this.data.id) {
-        await this.pharmacyRequest.Update({
-          id: this.data.id,
+      if (this.data2.id) {
+        this.PharmacyProductRequestS.updateInventoryByLot({
+          id: this.data2.id,
+          amount: this.data2.request_amount,
+          request_pharmacy_stock_id: this.data2.own_pharmacy_stock_id,
+          own_pharmacy_stock_id: this.my_pharmacy_id,
+          // own_pharmacy_stock_id: this.data2.own_pharmacy_stock_id,
+          // request_pharmacy_stock_id: this.my_pharmacy_id,
           observation: this.form.controls.observation.value,
-          request_amount: this.form.controls.quantity.value,
-          admissions_id: this.data.admissions_id,
-          management_plan: this.data.management_plan,
-          services_briefcase_id:this.data.services_briefcase_id,
-          own_pharmacy_stock_id:this.data.own_pharmacy_stock_id,
-          user_request_pad_id:this.user_id,
+          status: 'DEVUELTO FARMACIA',
         }).then((x) => {
           this.toastService.success('', x.message);
+          this.close();
           if (this.saved) {
             this.saved();
+            this.close();
           }
-          this.loading = false;
+          // this.close();
         }).catch(x => {
           this.toastService.danger('', x);
           this.isSubmitted = false;
@@ -92,24 +89,19 @@ export class FormDrugReturnedComponent implements OnInit {
         });
 
       } else {
-        await this.pharmacyRequest.Save({
-          status: 'DEVUELTO_PACIENTE',
+        this.PharmacyProductRequestS.Save({
+          amount: this.data2.request_amount,
+          request_pharmacy_stock_id: this.data2.own_pharmacy_stock_id,
+          own_pharmacy_stock_id: this.my_pharmacy_id,
           observation: this.form.controls.observation.value,
-          request_amount: this.form.controls.quantity.value,
-          admissions_id: this.data2.admissions_id,
-          management_plan: this.data2.management_plan,
-          services_briefcase_id:this.data2.services_briefcase_id,
-          own_pharmacy_stock_id:this.data2.own_pharmacy_stock_id,
-          user_request_pad_id:this.user_id,
-          pharmacy_request:this.data2.id,
-
+          status: 'DEVUELTO FARMACIA',
         })
           .then((x) => {
             this.toastService.success('', x.message);
             if (this.saved) {
+              this.close();
               this.saved();
             }
-            this.loading = false;
           })
           .catch((x) => {
             this.toastService.success('', x.message);
@@ -123,6 +115,4 @@ export class FormDrugReturnedComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-
-
 }

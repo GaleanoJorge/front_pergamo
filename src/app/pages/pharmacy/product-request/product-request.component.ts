@@ -21,6 +21,7 @@ export class ProductRequestComponent implements OnInit {
   public data = [];
   public entity;
   public user;
+  public showdiv: Number = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -45,6 +46,13 @@ export class ProductRequestComponent implements OnInit {
   }
 
   async ngOnInit() {
+  }
+  reloadForm(tab) {
+    if (tab.tabTitle == 'SOLICITAR MEDICAMENTOS') {
+      this.showdiv = 1;
+    } else {
+      this.showdiv = 2;
+    }
   }
 
   RefreshData() {
