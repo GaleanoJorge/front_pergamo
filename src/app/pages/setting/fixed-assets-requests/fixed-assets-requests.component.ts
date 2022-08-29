@@ -88,7 +88,7 @@ export class FixedAssetsRequestsComponent implements OnInit {
     this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_fixed_id = x[0].id;
-        this.entity = 'fixed_assets?fixed_stock_id=' + x[0].id+'&status_prod=SOLICITADO';
+        this.entity = 'fixed_assets?fixed_stock_id=' + x[0]['fixed_stock'].id+'&status_prod=SOLICITADO';
         this.title = 'LISTA DE ACTIVOS SOLICITADOS A:  ' + x[0]['fixed_stock']['fixed_type']['name'];
       }else {
         this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');

@@ -103,7 +103,7 @@ export class FixedInventaryComponent implements OnInit {
     this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_fixed_id = x[0].id;
-        this.entity = 'fixed_assets?fixed_stock_id=' + x[0].id+'&status_prod=STOCK';
+        this.entity = 'fixed_assets?fixed_stock_id=' + x[0]['fixed_stock'].id+'&status_prod=STOCK';
         this.title = 'INVENTARIO DE:  ' + x[0]['fixed_stock']['fixed_type']['name'];
       }else {
         this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
