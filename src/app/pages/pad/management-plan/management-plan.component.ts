@@ -338,6 +338,10 @@ export class ManagementPlanComponent implements OnInit {
       context: {
         title: 'Editar plan de manejo',
         data,
+        edit:1,
+        user: this.user,
+        medical: 0,
+        admissions_id: this.admissions_id,
         saved: this.RefreshData.bind(this),
       },
     });

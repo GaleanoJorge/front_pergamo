@@ -34,6 +34,9 @@ import { data } from 'jquery';
           nbButton ghost (click)="ShowPreBilling(AssignedTable, value.data.admissions.patient_id)">
           <nb-icon icon="eye-outline"></nb-icon>
       </button>
+      <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
+        <nb-icon icon="edit-outline"></nb-icon>
+      </button>
   </div>
 
   <ng-template #AssignedTable>
