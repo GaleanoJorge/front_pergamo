@@ -17,7 +17,7 @@ export class ProductComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Productos';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Producto'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Producto', 'Fabricante'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -55,6 +55,13 @@ export class ProductComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.description;
+        },
+      },
+      factory: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
         },
       },
     },

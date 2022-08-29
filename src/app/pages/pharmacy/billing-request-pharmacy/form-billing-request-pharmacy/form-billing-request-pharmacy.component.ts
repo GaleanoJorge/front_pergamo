@@ -62,7 +62,7 @@ export class FormBillingRequestPharmacyComponent implements OnInit {
       type_billing_evidence_id: [this.data.type_billing_evidence_id, Validators.compose([Validators.required])],
     });
 
-    await this.typeEvidenS.GetCollection({id: 2}).then(x => {
+    await this.typeEvidenS.GetCollection({ id: 2 }).then(x => {
       this.type_billing_evidence = x;
     });
   }
@@ -80,24 +80,26 @@ export class FormBillingRequestPharmacyComponent implements OnInit {
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-      this.loading = true;
-      this.BillingRequestS.Save({
-        company_id: null,
-        pharmacy_stock_id: null,
-        type_billing_evidence_id: this.form.controls.type_billing_evidence_id.value,
-      }).then(x => {
-        this.toastService.success('', x.message);
-        this.close();
-        var id = x.data.billing.id;
-        var contador = 0;
-        var err = 0;
-        if (this.saved) {
-          this.saved();
-        }
-        if (!this.selectedOptions.length) {
-          this.toastS.danger(null, 'Debe seleccionar al menos un medicamento');
-        }
-        else {
+      var valid_values = true;
+      if ((!this.selectedOptions || this.selectedOptions.length == 0) && (!this.selectedOptions1 || this.selectedOptions1.length == 0)) {
+        valid_values = false;
+        this.toastS.danger('Debe seleccionar al menos un elemento', 'Error');
+      }
+      if (valid_values) {
+        this.loading = true;
+        this.BillingRequestS.Save({
+          company_id: null,
+          pharmacy_stock_id: null,
+          type_billing_evidence_id: this.form.controls.type_billing_evidence_id.value,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.close();
+          var id = x.data.billing.id;
+          var contador = 0;
+          var err = 0;
+          if (this.saved) {
+            this.saved();
+          }
           this.BillingStockRequestS.Save({
             billing_id: id,
             product_generic_id: this.selectedOptions || this.selectedOptions.length > 0 ? JSON.stringify(this.selectedOptions) : null,
@@ -114,14 +116,14 @@ export class FormBillingRequestPharmacyComponent implements OnInit {
           }
           this.selectedOptions = [];
           this.selectedOptions1 = [];
-        }
-        if (this.saved) {
-          this.saved();
-        }
-      }).catch(x => {
-        this.isSubmitted = false;
-        this.loading = false;
-      });
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      }
     }
   }
 }
