@@ -1,22 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DiagnosisService } from '../../../../../business-controller/diagnosis.service';
-import { ChEValorationOTService } from '../../../../../business-controller/ch_e_valoration_o_t.service';
-
-
+import { DiagnosisService } from '../../../../../../business-controller/diagnosis.service';
+import { ChEValorationOTService } from '../../../../../../business-controller/ch_e_valoration_o_t.service';
 
 @Component({
-  selector: 'ngx-entry-form-valoration-ot',
-  templateUrl: './entry-form-valoration-ot.component.html',
-  styleUrls: ['./entry-form-valoration-ot.component.scss']
+  selector: 'ngx-form-valoration-ot',
+  templateUrl: './form-valoration-ot.component.html',
+  styleUrls: ['./form-valoration-ot.component.scss']
 })
-export class EntryFormValorationOtComponent implements OnInit {
+export class FormValorationOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() type_record_id;
   @Input() record_id: any = null;
+  @Input() type_record_id;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -24,11 +23,9 @@ export class EntryFormValorationOtComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public ch_external_cause: any[];
   public diagnosis: any[];
-
+  public ch_e_valoration_o_t: any[];
   public ch_diagnosis_id;
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,32 +36,26 @@ export class EntryFormValorationOtComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.data || this.data.length == 0) {
+    if (!this.data) {
       this.data = {
         ch_diagnosis_id: '',
         recomendations: '',
       };
     }
 
-    // this.diagnosisS.GetCollection().then(x => {
-    //   this.diagnosis = x;
-    // });
 
 
     this.form = this.formBuilder.group({
-      ch_diagnosis_id: [this.data[0] ? this.data[0].ch_diagnosis_id : this.data.ch_diagnosis_id,],
-      recomendations: [this.data[0] ? this.data[0].recomendations : this.data.recomendations,],
+      ch_diagnosis_id: [this.data.ch_diagnosis_id,],
+      recomendations: [this.data.recomendations,],
     });
 
-    if (this.data.ch_diagnosis_id != '') {
-      this.form.controls.ch_diagnosis_id.disable();
-      this.form.controls.recomendations.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.ch_diagnosis_id.enable();
-      this.form.controls.recomendations.enable();
-      this.disabled = false;
-    }
+    // this.diagnosisS.GetCollection().then(x => {
+    //   this.diagnosis = x;
+    // });
+    this.ChEValorationOTS.GetCollection().then(x => {
+      this.ch_e_valoration_o_t = x;
+    });
   }
 
   public diagnosticConut = 0;
@@ -100,7 +91,7 @@ export class EntryFormValorationOtComponent implements OnInit {
     }
   }
 
-    save() {
+  save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
@@ -115,6 +106,7 @@ export class EntryFormValorationOtComponent implements OnInit {
           ch_record_id: this.record_id,
 
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -130,6 +122,7 @@ export class EntryFormValorationOtComponent implements OnInit {
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -139,8 +132,6 @@ export class EntryFormValorationOtComponent implements OnInit {
           this.loading = false;
         });
       }
-
     }
   }
-
 }

@@ -1,21 +1,19 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToast, NbToastrService } from '@nebular/theme';
-import { ChEOccHistoryOTService } from '../../../../../business-controller/ch_e_occ_history_o_t.service';
-
-
+import { ChEOccHistoryOTService } from '../../../../../../business-controller/ch_e_occ_history_o_t.service';
 
 @Component({
-  selector: 'ngx-entry-form-occupat-history-valoration-ot',
-  templateUrl: './entry-form-occupat-history-valoration-ot.component.html',
-  styleUrls: ['./entry-form-occupat-history-valoration-ot.component.scss']
+  selector: 'ngx-form-occupat-history-ot',
+  templateUrl: './form-occupat-history-ot.component.html',
+  styleUrls: ['./form-occupat-history-ot.component.scss']
 })
-export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
+export class FormOccupatHistoryOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() type_record_id;
   @Input() record_id: any = null;
+  @Input() type_record_id;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -25,7 +23,9 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-
+  public diagnosis: any[];
+  public ch_e_valoration_o_t: any[];
+  public ch_diagnosis_id;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,7 +67,6 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
     }
 
 
-
     this.form = this.formBuilder.group({
       ocupation: [this.data[0] ? this.data[0].ocupation : this.data.ocupation],
       enterprice_employee: [this.data[0] ? this.data[0].enterprice_employee : this.data.enterprice_employee],
@@ -80,30 +79,17 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
       observation_home: [this.data[0] ? this.data[0].observation_home : this.data.observation_home],
     });
 
-    if (this.data.ocupation != '') {
-      this.form.controls.ocupation.disable();
-      this.form.controls.enterprice_employee.disable();
-      this.form.controls.work_employee.disable();
-      this.form.controls.shift_employee.disable();
-      this.form.controls.observation_employee.disable();
-      this.form.controls.work_independent.disable();
-      this.form.controls.shift_independent.disable();
-      this.form.controls.observation_independent.disable(); 
-      this.form.controls.observation_home.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.ocupation.enable();
-      this.form.controls.enterprice_employee.enable();
-      this.form.controls.work_employee.enable();
-      this.form.controls.shift_employee.enable();
-      this.form.controls.observation_employee.enable();
-      this.form.controls.work_independent.enable();
-      this.form.controls.shift_independent.enable();
-      this.form.controls.observation_independent.enable();
-      this.form.controls.observation_home.enable();
-      this.disabled = false;
-    }
+    // this.diagnosisS.GetCollection().then(x => {
+    //   this.diagnosis = x;
+    // });
+    this.ChEOccHistoryOTServiceS.GetCollection().then(x => {
+      this.ch_e_valoration_o_t = x;
+    });
   }
+
+  public diagnosticConut = 0;
+
+
 
   save() {
     this.isSubmitted = true;
@@ -127,8 +113,8 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.toastService.success('', x.message);
           this.messageEvent.emit(true);
+          this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
           }
@@ -167,5 +153,4 @@ export class EntryFormOccupatHistoryValorationOTComponent implements OnInit {
 
     }
   }
-
 }
