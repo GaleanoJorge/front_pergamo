@@ -91,6 +91,17 @@ export class Actions2Component implements ViewCell {
           return row.management_plan.procedure.manual_price.name;
         },
       },
+      product: {
+        title: 'Medicamento',
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.management_plan.product_id) {
+            return row.management_plan.service_briefcase.manual_price.name;
+          } else {
+            return 'N.A.';
+          }
+        },
+      },
       start_date: {
         title: 'Fecha de Inicio',
         type: 'string',

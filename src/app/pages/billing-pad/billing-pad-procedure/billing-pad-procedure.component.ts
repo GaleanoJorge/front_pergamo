@@ -365,9 +365,15 @@ export class BillingPadProcedureComponent implements OnInit {
       this.count_billing += row.services_briefcase.value;
     } else {
       this.count_billing -= row.services_briefcase.value;
-      let i = this.selectedOptions.indexOf(row);
-      i !== -1 && this.selectedOptions.splice(i, 1);
+      var prov = this.selectedOptions;
+      this.selectedOptions = [];
+      prov.forEach(x => {
+        if (x.id != row.id) {
+          this.selectedOptions.push(row);
+        }
+      });
     }
+    console.log(1);
   }
 
   goBack() {
