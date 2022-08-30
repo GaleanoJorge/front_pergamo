@@ -22,7 +22,7 @@ export class InabilityService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.Inability = <Inability[]>servObj.data.Inability;
+        this.Inability = <Inability[]>servObj.data.inability;
 
         return Promise.resolve(this.Inability);
       })

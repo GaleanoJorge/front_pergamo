@@ -46,15 +46,36 @@ export class LanguageOstomiesComponent implements OnInit {
       jejunostomy: {
         title: this.headerFields[0],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
       colostomy: {
         title: this.headerFields[1],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
        
       },
       observations: {
         title: this.headerFields[2],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
       
      

@@ -15,6 +15,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 export class SignsEvoComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
+  @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
 

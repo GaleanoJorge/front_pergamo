@@ -29,6 +29,7 @@ export class PharmacyRequestComponent implements OnInit {
   public my_pharmacy_id;
   public pharmacy_stock;
   public showdiv: Number = null;
+  public entity;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -92,6 +93,7 @@ export class PharmacyRequestComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
+      this.entity = 'pharmacy_product_request?status=SOLICITADO FARMACIA' + '&request_pharmacy_stock_id=' + x[0].id ;
       this.title = 'SOLICITUDES DE MEDICAMENTOS A:  ' + x[0]['name'];
     });
     await this.permisoPharmaS.GetPharmacyUserId(this.user.id).then(x => {
@@ -105,11 +107,11 @@ export class PharmacyRequestComponent implements OnInit {
 
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
-      this.table.changeEntity('pharmacy_product_request/?pagination=true&status=SOLICITADO FARMACIA&request_pharmacy_stock_id='+this.my_pharmacy_id,'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request/?pagination=true&status=SOLICITADO FARMACIA'+'&request_pharmacy_stock_id='+this.my_pharmacy_id,'pharmacy_product_request');
 
     }else{
 
-      this.table.changeEntity('pharmacy_product_request/?pagination=true&status=SOLICITADO FARMACIA&request_pharmacy_stock_id='+pharmacy,'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request/?pagination=true&status=SOLICITADO FARMACIA'+'&request_pharmacy_stock_id='+pharmacy,'pharmacy_product_request');
     }
     // this.RefreshData();
   }

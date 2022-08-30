@@ -359,6 +359,8 @@ import { FormThermalMOTComponent } from './entry-clinic-history-occupational-the
 import { TableThermalMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/thermal-m-ot/table-thermal-m-ot.component';
 import { FormDisAuditoryMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-auditory-m-ot/form-dis-auditory-m-ot/form-dis-auditory-m-ot.component';
 import { TableDisAuditoryMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-auditory-m-ot/table-dis-auditory-m-ot.component';
+import { LanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/language-therapeutic-goals.component';
+import { MedicalRecordsListComponent } from './medical-records/medical-records-list.component';
 
 
 @NgModule({
@@ -391,6 +393,8 @@ import { TableDisAuditoryMOTComponent } from './entry-clinic-history-occupationa
     NbCheckboxModule,
   ],
   declarations: [
+
+    MedicalRecordsListComponent,
 
     InsumeApplicationComponent,
     FormInsumeApplicationComponent,
@@ -753,6 +757,7 @@ import { TableDisAuditoryMOTComponent } from './entry-clinic-history-occupationa
     FormLanguageRegSessionsComponent,
     LanguageRegSessionsComponent,
     FormLanguageTherapeuticGoalsComponent,
+    LanguageTherapeuticGoalsComponent,
     FormLanguageOstomiesComponent,
     LanguageOstomiesComponent,
     FormLanguageSwallowingComponent,

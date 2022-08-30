@@ -97,7 +97,9 @@ export class FormOccupationalHistoryComponent implements OnInit {
     this.turnS.GetCollection().then(x => {
       this.turn = x;
     });
-  
+
+
+    this.onChange();  
 
   }
   
@@ -122,6 +124,8 @@ export class FormOccupationalHistoryComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.form.patchValue({ ch_activities:'', ch_sw_occupation_id: '', ch_sw_seniority_id:'', ch_sw_hours_id:'',
+          ch_sw_turn_id:'', observations:''});
           // this.close();
           if (this.saved) {
             this.saved();
@@ -143,8 +147,13 @@ export class FormOccupationalHistoryComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({ ch_activities:'', ch_sw_occupation_id: '', ch_sw_seniority_id:'', ch_sw_hours_id:'',
-            ch_sw_turn_id:'', observations:''});
+          this.form.patchValue({ 
+            ch_sw_occupation_id: '',
+            ch_sw_seniority_id: '',
+            ch_sw_hours_id: '',
+            ch_sw_turn_id: '',
+            observations: '',
+            ch_activities: [],});
           if (this.saved) {
             this.saved();
           }
@@ -157,7 +166,73 @@ export class FormOccupationalHistoryComponent implements OnInit {
     }else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
-  }
+  } 
+  
+  async onChange() {
 
+    this.form.get('ch_sw_occupation_id').valueChanges.subscribe(val => {
+      if (val === 1) {
+        
+        this.form.controls.ch_sw_seniority_id.clearValidators();
+        this.form.controls.ch_sw_hours_id.clearValidators();
+        this.form.controls.ch_sw_turn_id.clearValidators();
+        this.form.controls.observations.clearValidators();
+        
+        this.form.controls.ch_sw_seniority_id.setErrors(null);        
+        this.form.controls.ch_sw_hours_id.setErrors(null);        
+        this.form.controls.ch_sw_turn_id.setErrors(null);        
+        this.form.controls.observations.setErrors(null);      
+                
+        this.form.patchValue({ ch_sw_seniority_id:'', ch_sw_hours_id: '', ch_sw_turn_id:'', observations:''});
+                
+        this.form.controls.ch_sw_seniority_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.ch_sw_hours_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.ch_sw_turn_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.observations.setValidators(Validators.compose([Validators.required]));   
+
+      } else if (val === 2) {
+
+        this.form.controls.ch_sw_hours_id.clearValidators();
+        this.form.controls.ch_sw_turn_id.clearValidators();
+        this.form.controls.observations.clearValidators();
+        
+        this.form.controls.ch_sw_hours_id.setErrors(null);        
+        this.form.controls.ch_sw_turn_id.setErrors(null);        
+        this.form.controls.observations.setErrors(null);       
+        
+        this.form.patchValue({ ch_sw_hours_id:'', ch_sw_turn_id: '', observations:''});
+
+        this.form.controls.ch_sw_hours_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.ch_sw_turn_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.observations.setValidators(Validators.compose([Validators.required]));
+
+      } else if (val === 3) {
+
+        this.form.controls.observations.clearValidators();
+        this.form.controls.observations.setErrors(null);  
+        this.form.patchValue({ observations:''});
+
+        this.form.controls.observations.setValidators(Validators.compose([Validators.required]));
+
+      } else if (val === 4) {
+
+        this.form.controls.ch_sw_seniority_id.clearValidators();
+        this.form.controls.ch_sw_hours_id.clearValidators();
+        this.form.controls.ch_sw_turn_id.clearValidators();
+        this.form.controls.observations.clearValidators();
+
+        this.form.controls.ch_sw_seniority_id.setErrors(null);
+        this.form.controls.ch_sw_hours_id.setErrors(null);
+        this.form.controls.ch_sw_turn_id.setErrors(null);
+        this.form.controls.observations.setErrors(null);
+
+        this.form.patchValue({ch_sw_seniority_id:'', ch_sw_hours_id:'',
+        ch_sw_turn_id:'', observations:''});
+
+        this.form.controls.observations.setValidators(Validators.compose([Validators.required]));
+
+      };
+    });
+  }
   
 }

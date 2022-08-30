@@ -262,9 +262,9 @@ export class ProdLotPackageComponent implements OnInit {
       
   // }
   onAmountChange(input, row) {
-    // if (Number(input.target.value) > Number(row.amount_provitional)) {
-    //   this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad ordenada")
-    // } else {
+    if (Number(input.target.value) > Number(row.amount_provitional)) {
+      this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad ordenada")
+    } else {
       var i = 0;
       var mientras = this.selectedOptions;
       this.selectedOptions.forEach(element => {
@@ -276,6 +276,7 @@ export class ProdLotPackageComponent implements OnInit {
       this.selectedOptions = mientras;
       this.messageEvent.emit(this.selectedOptions);
   }
+}
 
   onLotChange(input, row) {
     var i = 0;

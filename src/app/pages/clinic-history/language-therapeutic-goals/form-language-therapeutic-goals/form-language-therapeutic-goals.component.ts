@@ -27,6 +27,8 @@ export class FormLanguageTherapeuticGoalsComponent implements OnInit {
   public showTable;
  
   public admissions_id;
+  public therapeutic_goals: any[] = [];
+
   public arrayObjectives =
     [
       {

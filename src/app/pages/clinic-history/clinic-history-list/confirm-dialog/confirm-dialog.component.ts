@@ -59,12 +59,16 @@ export class ConfirmDialogCHComponent implements OnInit {
 
 
   DeleteAction() {
-   
-      this.close();
     this.loading = true;
     this.delete(this.firm_file).then((message) => {
-      this.location.back();
-      
+      if(message!=false){
+        this.location.back();
+      this.close();
+
+      }else{
+        this.loading = false;
+      }
+  
     }).catch((x) => {
       this.loading = false;
       // this.toastrService.danger('', message);

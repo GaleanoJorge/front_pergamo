@@ -86,6 +86,13 @@ export class LanguageCommunicationComponent implements OnInit {
       observations: {
         title: this.headerFields[8],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
      
     },

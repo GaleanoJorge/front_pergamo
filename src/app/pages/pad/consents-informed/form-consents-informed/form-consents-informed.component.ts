@@ -62,7 +62,7 @@ export class FormConsentsInformedComponent implements OnInit {
   public service;
   public document = null;
   public user_id = null;
-  public relationship: any[];
+  public realtionships: any[] = [];
   public relationship_id;
   public int=0;
   public int2=0;
@@ -113,7 +113,7 @@ export class FormConsentsInformedComponent implements OnInit {
     }
 
     this.RelationshipS.GetCollection().then((x) => {
-      this.relationship = x;
+      this.realtionships= x;
     });
     this.TypeConsentsS.GetCollection().then((x) => {
       this.type_consents = x;
@@ -141,6 +141,8 @@ export class FormConsentsInformedComponent implements OnInit {
     
    
   }
+
+ 
 
   onChanges() {
     this.form.get('type_consents_id').valueChanges.subscribe((val) => {
@@ -360,16 +362,7 @@ export class FormConsentsInformedComponent implements OnInit {
   //   }
   // }
 
-  returnCode(relationship_id){
-    var localName = this.relationship.find(item => item.id == relationship_id);
-    var nombre_relationship
-    if(localName){
-      nombre_relationship = localName.name;
-    } else {
-      nombre_relationship = ''
-    }
-    return nombre_relationship;
-  }
+ 
 
   saveCode(e): void {
     var localidentify = this.procedure.find(
@@ -406,15 +399,7 @@ export class FormConsentsInformedComponent implements OnInit {
       this.form.controls.product_gen.setErrors({ incorrect: true });
     }
   }
-  saveCodeR(e): void {
-    var localidentify = this.relationship.find(item => item.name == e);
 
-    if (localidentify) {
-      this.relationship_id = localidentify.id;
-    } else {
-      this.relationship_id = null;
-    }
-  }
 
  
 

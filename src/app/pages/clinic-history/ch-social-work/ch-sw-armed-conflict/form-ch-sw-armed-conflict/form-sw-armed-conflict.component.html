@@ -8,7 +8,7 @@
   <div class="row justify-content-md-center">
     <div class="col-md-4">
       <div class="form-group">
-        <label for="relationship_id" class="form-text text-muted font-weight-bold">¿Es víctima del conflicto
+        <label for="victim" class="form-text text-muted font-weight-bold">¿Es víctima del conflicto
           armado?</label>
         <nb-radio-group formControlName="victim" victim id="victim" class="d-flex text center" name="victim"
           status="{{ isSubmitted && form.controls.victim.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -19,8 +19,8 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="this.form.controls.victim.value == 'Si'">
-    <div class="col-md-6">
+  <div class="row justify-content-md-center" *ngIf="this.form.controls.victim.value == 'Si'">
+    <div class="col-md-3">
       <div class="form-group">
         <label for="victim_time" class="form-text text-muted font-weight-bold">¿Hace cuánto tiempo?</label>
         <input type="number" nbInput fullWidth id="victim_time" formControlName="victim_time" victim_time
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-3">
       <div class="form-group">
         <label for="municipality_id" class="form-text text-muted font-weight-bold">
           Ciudad de desplazamiento
@@ -42,8 +42,8 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="this.form.controls.victim.value == 'Si'">
-    <div class="col-md-6">
+  <div class="row justify-content-md-center" *ngIf="this.form.controls.victim.value == 'Si'">
+    <div class="col-md-3">
       <div class="form-group">
         <label for="population_group_id" class="form-text text-muted font-weight-bold">
           Grupo poblacional
@@ -55,7 +55,7 @@
         </nb-select>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
       <div class="form-group">
         <label for="ethnicity_id" class="form-text text-muted font-weight-bold">
           Grupo Étnico
@@ -63,7 +63,7 @@
         <nb-select formControlName="ethnicity_id" id="ethnicity_id" fullWidth
           status="{{ isSubmitted && form.controls.ethnicity_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
-          <nb-option *ngFor="let item of ethnicity" [value]="item.id">{{ item.name }}</nb-option>
+          <nb-option *ngFor="let item of ethnicitys" [value]="item.id">{{ item.name }}</nb-option>
         </nb-select>
       </div>
     </div>

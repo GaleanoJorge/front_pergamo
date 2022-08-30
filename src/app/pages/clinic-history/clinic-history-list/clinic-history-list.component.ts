@@ -37,6 +37,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public program;
   public flat;
   public user;
+  public admission;
   public own_user;
   public bed;
   public bed_id;
@@ -53,7 +54,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public signatureImage: string;
   public firm_file: string;
   public previousUrl: string;
-  public int;
+  public int=0;
 
 
 
@@ -110,6 +111,7 @@ export class ClinicHistoryListComponent implements OnInit {
       if (this.has_input ==  true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
+      this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
@@ -145,7 +147,7 @@ export class ClinicHistoryListComponent implements OnInit {
   }
 
   async finish(firm) {
-
+if(this.signatureImage!=null){
     var formData = new FormData();
     formData.append('id', this.record_id,);
     formData.append('status', 'CERRADO');
@@ -156,9 +158,7 @@ export class ClinicHistoryListComponent implements OnInit {
     formData.append('firm_file', this.signatureImage);
 
     try {
-
       let response;
-    
         response = await this.chRecord.UpdateCH(formData, this.record_id);
         this.location.back();
       this.toastService.success('', response.message);
@@ -167,12 +167,18 @@ export class ClinicHistoryListComponent implements OnInit {
       if (this.saved) {
         this.saved();
       }
+      return true;
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;
       this.loading = false;
       throw new Error(response);
     }
+  }else{
+    
+    this.toastService.danger('Debe diligenciar la firma');
+    return false;
+  }
   
   }
 
@@ -221,42 +227,38 @@ export class ClinicHistoryListComponent implements OnInit {
         this.show = 1;
         break;
       }
-      case "ANTECEDENTES": {
+      case "EVOLUCIÓN": {
         this.show = 2;
         break;
       }
-      case "EVOLUCIÓN": {
+      case "ESCALAS": {
         this.show = 3;
         break;
       }
-      case "ESCALAS": {
+      case "FORMULACIÓN": {
         this.show = 4;
         break;
       }
-      case "FORMULACIÓN": {
+      case "ORDEN MEDICAS": {
         this.show = 5;
         break;
       }
-      case "ORDEN MEDICAS": {
+      case "INCAPACIDAD": {
         this.show = 6;
         break;
       }
-      case "INCAPACIDAD": {
-        this.show = 7;
-        break;
-      }
       case "CERTIFICADO MEDICO": {
-        this.show = 8;
+        this.show = 7;
         break;
       }
     
       case "FALLIDA": {
-        this.show = 9;
+        this.show = 8;
         break;
       }
       
       case "SALIDA": {
-        this.show = 10;
+        this.show = 9;
         break;
       }
     }

@@ -27,6 +27,7 @@ import {
   NbAlertModule,
   NbRadioModule,
   NbIconModule,
+  NbAutocompleteModule,
 } from '@nebular/theme';
 import { LoginComponent } from './pages/login/login.component';
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
@@ -50,6 +51,7 @@ import { PagesModule } from './pages/pages.module';
     NbButtonModule,
     NbInputModule,
     NbAlertModule,
+    NbAutocompleteModule,
     NbEvaIconsModule,
     NbIconModule,
     NbCardModule,

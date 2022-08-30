@@ -115,6 +115,10 @@ export class DrugApplicationComponent implements OnInit {
         title: 'DISPONIBLES',
         type: 'string',
       },
+      Usadas: {
+        title: 'APLICADAS',
+        type: 'string',
+      },
       dañadas: {
         title: 'DAÑADAS',
         type: 'string',

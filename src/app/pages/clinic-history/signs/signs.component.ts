@@ -17,6 +17,7 @@ export class SignsListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() has_input: boolean = false;
+  @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   
   linearMode = true;
@@ -426,6 +427,7 @@ export class SignsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.record_id = this.route.snapshot.params.id;
+    console.log(this.admission)
   }
 
 

@@ -35,7 +35,7 @@ export class LanguageAssessmentRegularComponent implements OnInit {
     },
     columns: {
 
-      diagnosis_id: {
+      diagnosis: {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -45,6 +45,13 @@ export class LanguageAssessmentRegularComponent implements OnInit {
       status_patient: {
         title: this.headerFields[1],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
      
     },

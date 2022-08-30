@@ -31,6 +31,7 @@ export class FormPharmacyRequestComponent implements OnInit {
   public show_table;
   public all_changes: any[];
   public own_pharmacy_stock_id: any[];
+  public request_amount;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -50,13 +51,13 @@ export class FormPharmacyRequestComponent implements OnInit {
     if (this.data.product_generic_id == null) {
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_lot_stock?product_supplies_id=' + this.data.product_supplies_id + '&pharmacy_stock_id=' + this.data.request_pharmacy_stock_id,
+        entity: 'pharmacy_lot_stock?product_supplies_id=' + this.data.product_supplies_id + '&pharmacy_stock_id=' + this.my_pharmacy_id,
         customData: 'pharmacy_lot_stock',
       };
     } else {
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.product_generic_id + '&pharmacy_stock_id=' + this.data.request_pharmacy_stock_id,
+        entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.product_generic_id + '&pharmacy_stock_id=' + this.my_pharmacy_id,
         customData: 'pharmacy_lot_stock',
       };
     }
@@ -66,7 +67,7 @@ export class FormPharmacyRequestComponent implements OnInit {
         request_amount: '',
       };
     }
-
+    this.request_amount = this.data.request_amount;
     this.form = this.formBuilder.group({
       request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
     });
@@ -142,7 +143,7 @@ export class FormPharmacyRequestComponent implements OnInit {
           this.pharProdReqS.Save({
             amount: this.form.controls.amount.value,
             status: 'ENVIADO',
-            ispharmacy:1,
+            // ispharmacy:1,
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
           }).then(x => {

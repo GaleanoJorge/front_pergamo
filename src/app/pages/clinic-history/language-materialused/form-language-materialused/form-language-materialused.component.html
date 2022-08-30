@@ -5,7 +5,7 @@
       <div class="col col-lg-6"> <label class="form-text text-muted font-weight-bold align">MATERIALES E INSUMOS UTILIZADOS</label>
         <nb-select multiple formControlName="materialused" id="materialused" fullWidth placeholder="Seleccione..."
           status="{{ isSubmitted && form.controls.materialused.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-          <nb-option value="ELEMENTOS DE BIOSEGURIDAD (BATA, GUANTES, GORRO, POLAINAS)">ELEMENTOS DE BIOSEGURIDAD (BATA, GUANTES, GORRO, POLAINAS)</nb-option>
+          <nb-option [disabled]="true" value="ELEMENTOS DE BIOSEGURIDAD (BATA, GUANTES, GORRO, POLAINAS)">ELEMENTOS DE BIOSEGURIDAD (BATA, GUANTES, GORRO, POLAINAS)</nb-option>
           <nb-option value="MATERIALES DIDÁCTICOS">MATERIALES DIDÁCTICOS</nb-option>
           <nb-option value="ALIMENTOS Y LÍQUIDOS">ALIMENTOS Y LÍQUIDOS</nb-option>
           <nb-option value="MATERIAL DE PAPELERÍA">MATERIAL DE PAPELERÍA</nb-option>

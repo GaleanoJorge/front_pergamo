@@ -49,7 +49,7 @@ export class FormLanguageMaterialusedComponent implements OnInit {
     });
     if (!this.data || this.data.length == 0) {
       this.data = {
-        materialused: [],
+        materialused: ["ELEMENTOS DE BIOSEGURIDAD (BATA, GUANTES, GORRO, POLAINAS)",],
 
       };
     }

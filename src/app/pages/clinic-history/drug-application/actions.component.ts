@@ -15,7 +15,7 @@ import { date } from '@rxweb/reactive-form-validators';
 @Component({
   template: `
 <div class="d-flex justify-content-center">
-  <button *ngIf="this.rowData.disponibles != '0'" nbTooltip="APLICADO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.used(value.data)">
+  <button *ngIf="this.rowData.disponibles != '0'" nbTooltip="APLICAR" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.used(value.data)">
     <nb-icon icon="checkmark"></nb-icon>
   </button>
   <!-- <button nbTooltip="DEVOLVER" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.returned(value.data)">

@@ -51,6 +51,13 @@ export class LanguageCognitiveComponent implements OnInit {
       observations: {
         title: this.headerFields[3],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
     },
   };

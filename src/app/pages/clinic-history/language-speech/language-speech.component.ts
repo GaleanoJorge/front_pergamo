@@ -67,6 +67,13 @@ export class LanguageSpeechComponent implements OnInit {
       observations: {
         title: this.headerFields[5],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
     },
   };

@@ -50,7 +50,7 @@ export class ChHairValorationComponent implements OnInit {
   constructor(public userChangeS: UserChangeService) {}
 
   async ngOnInit() {
-
+    console.log(this.record_id);
   }
 
   RefreshData() {
