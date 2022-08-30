@@ -8,7 +8,7 @@ import { Ethnicity } from '../models/ethnicity';
   providedIn: 'root'
 })
 export class EthnicityService {
-  public ethnicity: Ethnicity[] = [];
+  public Ethnicity: Ethnicity[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
@@ -22,18 +22,18 @@ export class EthnicityService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.ethnicity = <Ethnicity[]>servObj.data.ethnicity;
+        this.Ethnicity = <Ethnicity[]>servObj.data.Ethnicity;
 
-        return Promise.resolve(this.ethnicity);
+        return Promise.resolve(this.Ethnicity);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(ethnicity: any): Promise<ServiceObject> {
+  Save(Ethnicity: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ethnicity');
-    servObj.data = ethnicity;
+    servObj.data = Ethnicity;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,9 @@ export class EthnicityService {
       });
   }
 
-  Update(ethnicity: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ethnicity', ethnicity.id);
-    servObj.data = ethnicity;
+  Update(Ethnicity: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ethnicity', Ethnicity.id);
+    servObj.data = Ethnicity;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
