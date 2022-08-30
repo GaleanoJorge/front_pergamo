@@ -1,4 +1,4 @@
-<div *ngIf="has_input == false">
+<div *ngIf="has_input == false || type_record!=1">
   <ngx-form-ch-ap (messageEvent)="receiveMessage($event)" [type_record]="type_record">
   </ngx-form-ch-ap>
 </div>

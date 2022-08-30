@@ -52,7 +52,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public signatureImage: string;
   public currentRole: any;
   public own_user;
-  public int;
+  public int: 0;
   public saved: any = null;
 
 
@@ -196,34 +196,38 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   // }
 
   async finish(firm) {
-
-    var formData = new FormData();
-    formData.append('id', this.record_id,);
-    formData.append('status', 'CERRADO');
-    formData.append('user', this.user);
-    formData.append('role', this.currentRole);
-    formData.append('user_id', this.own_user.id);
-    formData.append('firm_file', this.signatureImage);
-
-    try {
-
-      let response;
-    
+    if(this.signatureImage!=null){
+      var formData = new FormData();
+      formData.append('id', this.record_id,);
+      formData.append('status', 'CERRADO');
+      formData.append('user', this.user);
+      formData.append('role', this.currentRole);
+      formData.append('user_id', this.own_user.id);
+      formData.append('firm_file', this.signatureImage);
+      
+      try {
+        
+        let response;
+        
         response = await this.chRecord.UpdateCH(formData, this.record_id);
         this.location.back();
-      this.toastService.success('', response.message);
-      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
-      this.messageError = null;
-      if (this.saved) {
-        this.saved();
+        this.toastService.success('', response.message);
+        //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
+        this.messageError = null;
+        if (this.saved) {
+          this.saved();
+        }
+      } catch (response) {
+        this.messageError = response;
+        this.isSubmitted = false;
+        this.loading = false;
+        throw new Error(response);
       }
-    } catch (response) {
-      this.messageError = response;
-      this.isSubmitted = false;
-      this.loading = false;
-      throw new Error(response);
-    }
+    }else{
+      this.toastService.danger('Debe diligenciar la firma');
   
+    }
+      
   }
 
   RefreshData() {

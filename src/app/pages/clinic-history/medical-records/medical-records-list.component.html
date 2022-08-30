@@ -1,0 +1,197 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+
+    <nb-tabset fullWidth (changeTab)="reloadForm($event)">
+      <nb-tab tabTitle="A tramitar">
+
+        <form [formGroup]="form" (ngSubmit)="FilterAuth()">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="start_date" class="form-text text-muted font-weight-bold">Desde</label>
+              <input class="inputdate" [max]="today" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
+                formControlName="start_date" start_date />
+            </div>
+            <div class="col-md-4">
+              <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta</label>
+              <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date"
+                formControlName="finish_date" finish_date />
+            </div>
+          </div>
+
+          <div class="col-md-12 filter">
+            <button nbButton status="success" class="ml-1" disabled="{{ loading }}">Filtar</button>
+          </div>
+
+        </form>
+
+        <ngx-base-table *ngIf="auth_status && company" (propagar)="onUserRowSelect($event)" [title]="title"
+          [subtitle]="subtitle" [settings]="settings" entity="authorization/byStatus/0" customData="authorization"
+          [messageToltip]="messageToltip">
+
+          <div actions>
+
+            <div class="actions">
+              <nb-select (selectedChange)="FilterStatus($event)" placeholder="Filtrar por estado">
+                <nb-option value="0">TODOS LOS REGISTROS</nb-option>
+                <nb-option *ngFor="let item of auth_statusM" [value]="item.id">{{item.name}}</nb-option>
+              </nb-select>
+            </div>
+
+            <div class="actions" style="margin-top: 5px;">
+              <button nbButton status="danger" style="width: 100%;" (click)="packagingProcess()">Asignar
+                paquete</button>
+            </div>
+            <!-- 
+            <div class="actions" style=" margin-top: 5px;">
+              <button nbButton status="warning" (click)="ConfirmActions(masiveAuth)">Autorización masiva</button>
+            </div> -->
+
+          </div>
+
+        </ngx-base-table>
+
+        <button nbButton status="info" class="btn-studen-admissions" (click)="ConfirmActions(masiveAuth)">Autorización
+          masiva</button>
+
+        <button nbButton status="success" class="btn-studen-admissions" (click)="authMassive()"> Generar
+          masivo de autorizaciones
+        </button>
+
+      </nb-tab>
+      <nb-tab tabTitle="Historico">
+
+        <div *ngIf="this.showdiv">
+          
+          <ngx-historic-authorization (messageEvent)="null"></ngx-historic-authorization>
+        </div>
+
+      </nb-tab>
+    </nb-tabset>
+
+  </div>
+</ngx-base-list>
+
+<ng-template #packagingTemplate>
+  <div class="container-fluid">
+    <form [formGroup]="xlsForm" (ngSubmit)="saveCartera()">
+    <nb-card style="width: 700px;">
+      <nb-card-header>Generar XLS</nb-card-header>
+      <nb-card-body>
+          <div>
+            <div class="col-md-12">
+              <nb-select formControlName="state_gloss" id="state_gloss" fullWidth>
+                <nb-option value="">Seleccione...</nb-option>
+                <nb-option *ngFor="let item of company">{{item.name}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <div style="text-align:end;">
+            <button nbButton (click)="close()" type="button">Cancelar</button>
+            <button type="submit" nbButton status="success">Guardar</button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #packagingedit>
+  <div class="container-fluid">
+    <form [formGroup]="xlsForm" (ngSubmit)="save()">
+      <nb-card style="max-width: 1200px;max-height: 1100px;overflow: auto;">
+        <nb-card-header>Editar paquete</nb-card-header>
+        <nb-card-body>
+            <div class="col-md-12">
+              <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [show]="false"
+                [parentData]="this.parentData"></ngx-auth-asociated-package>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <div style="text-align:end;">
+            <button nbButton (click)="close()" type="button">Cancelar</button>
+            <button type="submit" nbButton status="success">Guardar</button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #packagingView>
+  <div class="container-fluid">
+    <form [formGroup]="xlsForm" (ngSubmit)="save()">
+      <nb-card style="max-width: 1400px;max-height: 1000px;overflow: auto;">
+        <nb-card-header>Ver paquete</nb-card-header>
+        <nb-card-body>
+            <div class="col-md-12">
+              <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [show]="true"
+                [parentData]="this.parentData"></ngx-auth-asociated-package>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <div style="text-align:end;">
+            <button nbButton (click)="close()" type="button">Cerrar</button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #masiveAuth>
+  <div class="container-fluid">
+    <form [formGroup]="formMassive">
+    <nb-card style="max-width: 1400px;max-height: 1200px;overflow: auto;">
+      <nb-card-header>Editar paquete</nb-card-header>
+      <nb-card-body>
+          <div>
+            <div class="col-md-12">
+              <label for="auth_number" class="form-text text-muted font-weight-bold">Número de autorización:</label>
+              <input nbInput type="text" fullWidth id="auth_number" formControlName="auth_number" auth_number
+                status="{{ isSubmitted && formMassive.controls.auth_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+            <div class="col-md-12">
+              <label for="observation" class="form-text text-muted font-weight-bold">Observación:</label>
+              <textarea cols="80" rows="4" nbInput formControlName="observation" id="observation" observation fullWidth
+                placeholder="Observación"
+                status="{{ isSubmitted && formMassive.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"></textarea>
+            </div>
+            <div class="col-md-12">
+              <label for="copay" class="form-text text-muted font-weight-bold">¿Tiene Copago?
+              </label>
+              <nb-toggle formControlName="copay" copay>
+              </nb-toggle>
+            </div>
+            <div class="col-md-12" *ngIf="this.formMassive.controls.copay.value">
+              <label for="copay_value" class="form-text text-muted font-weight-bold">Número de contrato:</label>
+              <input nbInput fullWidth id="copay_value" formControlName="copay_value" copay_value type="number"
+                status="{{ isSubmitted && formMassive.controls.copay_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="form-group">
+                  <label for="file" class="form-text text-muted font-weight-bold">
+                    Subir documentos:
+                  </label>
+                  <div *ngIf="previewFile" class="container py-2">
+                    <a [href]="previewFile" target="_blank">Ver documentos</a>
+                  </div>
+                  <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file" nbInput fullWidth
+                    (change)="changeImage($event.target.files, 1)" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <div style="text-align:end;">
+            <button type="button" nbButton (click)="close()">Cancelar</button>
+            <button type="button" nbButton status="success" (click)="saveGroup()">Guardar</button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </div>
+</ng-template>

@@ -3,11 +3,11 @@
     <div class="row justify-content-md-center">
       <div class="col-md-6">
         <label for="medical_diagnostic_id" class="form-text text-muted font-weight-bold ">DIAGNÓSTICO MÉDICO:</label>
-        <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes"
+        <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes1"
           (change)="saveCode($event.target.value,1)" id="medical_diagnostic_id" formControlName="medical_diagnostic_id"
           medical_diagnostic_id type="text" required (ngModelChange)="this.searchDiagnostic($event)"
           status="{{ isSubmitted && form.controls.medical_diagnostic_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-        <datalist id="codes">
+        <datalist id="codes1">
           <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
           </option>
         </datalist>
@@ -21,7 +21,7 @@
           formControlName="therapeutic_diagnosis_id" therapeutic_diagnosis_id type="text" required
           status="{{ isSubmitted && form.controls.therapeutic_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <datalist id="codes">
-          <option *ngFor="let item of therapeutic_diagnosis_id" [value]="item.name">{{ item.code }} - {{item.name}}
+          <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
           </option>
         </datalist>
       </div>

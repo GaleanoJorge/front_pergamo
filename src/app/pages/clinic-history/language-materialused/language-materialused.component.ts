@@ -43,29 +43,45 @@ export class LanguageMaterialusedComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
-        },
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
       didactic_materials: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
-        },
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
       liquid_food: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
-        },
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
       stationery: {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
-        },
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
      
     },

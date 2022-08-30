@@ -84,7 +84,7 @@ export class FormDrugReturnedComponent implements OnInit {
           if (this.saved) {
             this.saved();
           }
-          // this.close();
+          this.loading = false;
         }).catch(x => {
           this.toastService.danger('', x);
           this.isSubmitted = false;
@@ -93,7 +93,7 @@ export class FormDrugReturnedComponent implements OnInit {
 
       } else {
         await this.pharmacyRequest.Save({
-          status: 'DEVUELTO',
+          status: 'DEVUELTO_PACIENTE',
           observation: this.form.controls.observation.value,
           request_amount: this.form.controls.quantity.value,
           admissions_id: this.data2.admissions_id,
@@ -109,6 +109,7 @@ export class FormDrugReturnedComponent implements OnInit {
             if (this.saved) {
               this.saved();
             }
+            this.loading = false;
           })
           .catch((x) => {
             this.toastService.success('', x.message);

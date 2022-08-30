@@ -29,19 +29,19 @@ export class BillingRequestPharmacyComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      actions: {
-        title: 'Acciones',
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          // DATA FROM HERE GOES TO renderComponent
-          return {
-            'data': row,
-            'edit': this.EditBilling.bind(this),
-            'delete': this.DeleteConfirmBilling.bind(this),
-          };
-        },
-        // renderComponent: ActionsComponent,
-      },
+      // actions: {
+      //   title: 'Acciones',
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     // DATA FROM HERE GOES TO renderComponent
+      //     return {
+      //       'data': row,
+      //       'edit': this.EditBilling.bind(this),
+      //       'delete': this.DeleteConfirmBilling.bind(this),
+      //     };
+      //   },
+      //   // renderComponent: ActionsComponent,
+      // },
       id: {
         title: this.headerFields[0],
         type: 'string',

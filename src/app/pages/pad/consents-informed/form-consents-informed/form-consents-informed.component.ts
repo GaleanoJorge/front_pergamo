@@ -62,8 +62,10 @@ export class FormConsentsInformedComponent implements OnInit {
   public service;
   public document = null;
   public user_id = null;
-  public relationship: any[];
+  public realtionships: any[] = [];
   public relationship_id;
+  public int=0;
+  public int2=0;
 
   //   this.status = x;
 
@@ -111,7 +113,7 @@ export class FormConsentsInformedComponent implements OnInit {
     }
 
     this.RelationshipS.GetCollection().then((x) => {
-      this.relationship = x;
+      this.realtionships= x;
     });
     this.TypeConsentsS.GetCollection().then((x) => {
       this.type_consents = x;
@@ -139,6 +141,8 @@ export class FormConsentsInformedComponent implements OnInit {
     
    
   }
+
+ 
 
   onChanges() {
     this.form.get('type_consents_id').valueChanges.subscribe((val) => {
@@ -219,10 +223,21 @@ export class FormConsentsInformedComponent implements OnInit {
 
 
   showImage(data, type) {
+
     if (type == 1) {
-      this.signatureImage = data;
+      this.int++;
+      if (this.int == 1) {
+        this.signatureImage = null;
+      }else{
+        this.signatureImage = data;
+      }
     } else {
-      this.signatureImage2 = data;
+      this.int2++;
+      if (this.int == 1) {
+        this.signatureImage2 = null;
+      }else{
+        this.signatureImage2 = data;
+      }
     }
   }
 
@@ -230,88 +245,124 @@ export class FormConsentsInformedComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  save() {
+  async save() {
     this.isSubmitted = true;
-    if (!this.form.invalid) {
-      this.loading = true;
-      if (this.data.id) {
-        this.ConsentsInformedS.Update({
-          id: this.data.id,
-          type_consents_id: this.form.controls.type_consents_id.value,
-          admissions_id: this.admissions_id,
-          firm_patient: this.form.controls.firm_patient.value,
-          firm_responsible: this.form.controls.firm_responsible.value,
-          assigned_user_id: this.user_id,
-          name_responsible: this.form.controls.name_responsible.value,
-      
-          identification_responsible:this.form.controls.identification_responsible.value,
 
-          relationship_id: this.form.controls.relationship_id.value,
-          observations: this.form.controls.observations.value,
-          because_patient: this.form.controls.because_patient.value,
-          because_carer: this.form.controls.because_carer.value,
-          number_contact: this.form.controls.number_contac.value,
-          confirmation: this.form.controls.confirmation.value,
-          dissent: this.form.controls.dissent.value,
+    if (!this.form.invalid){
 
-        })
-          .then((x) => {
-            this.toastService.success('', x.message);
-            this.close();
-            if (this.saved) {
-              this.saved();
-            }
-          })
-          .catch((x) => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
-      } else {
-        this.ConsentsInformedS.Save({
-          type_consents_id: this.form.controls.type_consents_id.value,
-          admissions_id: this.admissions_id,
-          firm_patient: this.signatureImage,
-          firm_responsible: this.signatureImage2,
-          assigned_user_id: this.user_id,
-          name_responsible: this.form.controls.name_responsible.value,
-          identification_responsible:this.form.controls.identification_responsible.value,
-          relationship_id: this.form.controls.relationship_id.value,
-          observations: this.form.controls.observations.value,
-          because_patient: this.form.controls.because_patient.value,
-          because_carer: this.form.controls.because_carer.value,
-          number_contact: this.form.controls.number_contact.value,
-          confirmation: this.form.controls.confirmation.value,  //PACIENTE O RESPOSABLE
-          dissent: this.form.controls.dissent.value, 
+    this.loading = true;
 
-        })
-          .then((x) => {
-            this.toastService.success('', x.message);
-            if (x['message_error']) {
-              this.toastService.warning(x['message_error'], 'Error');
-            }
-            this.close();
-            if (this.saved) {
-              this.saved();
-            }
-          })
-          .catch((x) => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
+    var formData = new FormData();
+    var data = this.form.controls;
+    formData.append('type_consents_id', this.form.value.type_consents_id);
+    formData.append('admissions_id', this.admissions_id);
+    formData.append('firm_patient', this.signatureImage);
+    formData.append('firm_responsible', this.signatureImage2);
+    formData.append('assigned_user_id', this.user_id);
+    formData.append('name_responsible', this.form.value.name_responsible);
+    formData.append('identification_responsible', this.form.value.identification_responsible);
+    formData.append('relationship_id', this.form.value.relationship_id);
+    formData.append('observations', this.form.value.observations);
+    formData.append('because_patient', this.form.value.because_patient);
+    formData.append('because_carer', this.form.value.because_carer);
+    formData.append('number_contact', this.form.value.number_contact);
+    formData.append('confirmation', this.form.value.confirmation);
+    formData.append('dissent', this.form.value.dissent);
+
+    try {
+      let response;
+      if (!this.data?.id) {
+        response = await this.ConsentsInformedS.Save(formData);
       }
+      this.toastService.success('', response.message);
+
+      this.close();
+      if (this.saved) {
+        this.saved();
+      }
+    } catch (response) {
+      this.isSubmitted = false;
+      this.loading = false;
+      throw new Error(response);
     }
+  }else{
+    this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+  }
   }
 
-  returnCode(relationship_id){
-    var localName = this.relationship.find(item => item.id == relationship_id);
-    var nombre_relationship
-    if(localName){
-      nombre_relationship = localName.name;
-    } else {
-      nombre_relationship = ''
-    }
-    return nombre_relationship;
-  }
+  // save() {
+  //   this.isSubmitted = true;
+  //   if (!this.form.invalid) {
+  //     this.loading = true;
+  //     if (this.data.id) {
+  //       this.ConsentsInformedS.Update({
+  //         id: this.data.id,
+  //         type_consents_id: this.form.controls.type_consents_id.value,
+  //         admissions_id: this.admissions_id,
+  //         firm_patient: this.form.controls.firm_patient.value,
+  //         firm_responsible: this.form.controls.firm_responsible.value,
+  //         assigned_user_id: this.user_id,
+  //         name_responsible: this.form.controls.name_responsible.value,
+      
+  //         identification_responsible:this.form.controls.identification_responsible.value,
+
+  //         relationship_id: this.form.controls.relationship_id.value,
+  //         observations: this.form.controls.observations.value,
+  //         because_patient: this.form.controls.because_patient.value,
+  //         because_carer: this.form.controls.because_carer.value,
+  //         number_contact: this.form.controls.number_contac.value,
+  //         confirmation: this.form.controls.confirmation.value,
+  //         dissent: this.form.controls.dissent.value,
+
+  //       })
+  //         .then((x) => {
+  //           this.toastService.success('', x.message);
+  //           this.close();
+  //           if (this.saved) {
+  //             this.saved();
+  //           }
+  //         })
+  //         .catch((x) => {
+  //           this.isSubmitted = false;
+  //           this.loading = false;
+  //         });
+  //     } else {
+  //       this.ConsentsInformedS.Save({
+  //         type_consents_id: this.form.controls.type_consents_id.value,
+  //         admissions_id: this.admissions_id,
+  //         firm_patient: this.signatureImage,
+  //         firm_responsible: this.signatureImage2,
+  //         assigned_user_id: this.user_id,
+  //         name_responsible: this.form.controls.name_responsible.value,
+  //         identification_responsible:this.form.controls.identification_responsible.value,
+  //         relationship_id: this.form.controls.relationship_id.value,
+  //         observations: this.form.controls.observations.value,
+  //         because_patient: this.form.controls.because_patient.value,
+  //         because_carer: this.form.controls.because_carer.value,
+  //         number_contact: this.form.controls.number_contact.value,
+  //         confirmation: this.form.controls.confirmation.value,  //PACIENTE O RESPOSABLE
+  //         dissent: this.form.controls.dissent.value, 
+
+  //       })
+  //         .then((x) => {
+  //           this.toastService.success('', x.message);
+  //           if (x['message_error']) {
+  //             this.toastService.warning(x['message_error'], 'Error');
+  //           }
+  //           this.close();
+  //           if (this.saved) {
+  //             this.saved();
+  //           }
+  //         })
+  //         .catch((x) => {
+  //           this.isSubmitted = false;
+  //           this.loading = false;
+  //         });
+  //     }
+  //   }
+  // }
+
+ 
 
   saveCode(e): void {
     var localidentify = this.procedure.find(
@@ -348,15 +399,7 @@ export class FormConsentsInformedComponent implements OnInit {
       this.form.controls.product_gen.setErrors({ incorrect: true });
     }
   }
-  saveCodeR(e): void {
-    var localidentify = this.relationship.find(item => item.name == e);
 
-    if (localidentify) {
-      this.relationship_id = localidentify.id;
-    } else {
-      this.relationship_id = null;
-    }
-  }
 
  
 

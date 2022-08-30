@@ -20,7 +20,7 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public own_pharmacy_stock_id: any[];
+  public request_pharmacy_stock_id: any[];
   public selectedOptions: any[] = [];
 
   constructor(
@@ -41,12 +41,12 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
       };
     }
     this.form = this.formBuilder.group({
-      own_pharmacy_stock_id: [this.data.own_pharmacy_stock_id, Validators.compose([Validators.required])],
+      request_pharmacy_stock_id: [this.data.request_pharmacy_stock_id, Validators.compose([Validators.required])],
       amount_provition: [this.data.amount_provition, Validators.compose([Validators.required])],
     });
 
     await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
-      this.own_pharmacy_stock_id = x;
+      this.request_pharmacy_stock_id = x;
     });
   }
   close() {
@@ -65,11 +65,11 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
           id: -1,
           pharmacy_lot_stock_id: this.data.id,
           amount_provition: this.form.controls.amount_provition.value,
-          status: 'ENVIADO',
-          status2: 1,
+          status: 'ENVIO FARMACIA',
+          // status2: 1,
           product_supplies_id: this.data.billing_stock.product_supplies_com.product_supplies_id,
-          request_pharmacy_stock_id: this.my_pharmacy_id,
-          own_pharmacy_stock_id: this.form.controls.own_pharmacy_stock_id.value,
+          request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
+          own_pharmacy_stock_id: this.my_pharmacy_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

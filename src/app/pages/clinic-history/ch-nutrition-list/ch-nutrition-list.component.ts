@@ -37,7 +37,6 @@ export class ChNutritionListComponent implements OnInit {
   public flat;
   public user;
   public own_user;
-  public int;
   public bed;
   public bed_id;
   public pavilion;
@@ -47,6 +46,7 @@ export class ChNutritionListComponent implements OnInit {
   public loading: boolean = false;
   public currentRole: any;
   public show: any;
+  public int: 0;
   public signatureImage: string;
 
   toggleLinearMode() {
@@ -133,7 +133,7 @@ export class ChNutritionListComponent implements OnInit {
   }
   
   async finish(firm) {
-
+    if(this.signatureImage!=null){
     var formData = new FormData();
     formData.append('id', this.record_id,);
     formData.append('status', 'CERRADO');
@@ -159,6 +159,10 @@ export class ChNutritionListComponent implements OnInit {
       this.isSubmitted = false;
       this.loading = false;
       throw new Error(response);
+    }
+  }else{
+      this.toastService.danger('Debe diligenciar la firma');
+  
     }
   
   }

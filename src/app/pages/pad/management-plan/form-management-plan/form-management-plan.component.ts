@@ -26,6 +26,7 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() user: any = null;
   @Input() medical: number = 0;
   @Input() assigned: boolean;
+  @Input() edit: any;
   @Input() admissions_id: any = null;
 
   public form: FormGroup;
@@ -55,6 +56,10 @@ export class FormManagementPlanComponent implements OnInit {
   public showUser = true;
   public admissions;
   public tipo_de_atencion;
+  public showassigned;
+  //   this.status = x;
+
+
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -113,6 +118,10 @@ export class FormManagementPlanComponent implements OnInit {
       }).catch(e => {
         this.toastService.danger(e, 'Error');
       });
+
+      if(this.data.type_of_attention_id==17){
+        this.show=true;
+      }
     }
 
     for (var i = 0; i < 24; i++) {
@@ -161,7 +170,7 @@ export class FormManagementPlanComponent implements OnInit {
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
         specialty_id: [this.data.specialty_id],
         assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
-        procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
+        procedure_id: ['', Validators.compose([Validators.required])],
         product_id: [this.data.product_id],
         start_date: [this.data.start_date],
         finish_date: [this.data.finish_date],
@@ -292,6 +301,10 @@ export class FormManagementPlanComponent implements OnInit {
         }).catch(e => {
           this.toastService.danger(e, 'Error');
         });
+        
+        if(this.assigned==false){
+          this.showassigned=true;
+        }
 
         if (val == 17) {
           this.show = true;
@@ -422,6 +435,7 @@ export class FormManagementPlanComponent implements OnInit {
       if (this.data.id) {
         this.managementPlanS.Update({
           id: this.data.id,
+          edit: this.edit,
           type_of_attention_id: this.form.controls.type_of_attention_id.value,
           frequency_id: this.form.controls.frequency_id.value,
           quantity: this.form.controls.quantity.value,

@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { AuthService } from '../../../services/auth.service';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { FormFixedInventaryAddComponent } from './form-fixed-inventary-add/form-fixed-inventary-add.component';
+import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
 
 @Component({
   selector: 'ngx-fixed-inventary-add',
@@ -14,7 +15,7 @@ export class FixedInventaryAddComponent implements OnInit {
   @Input() parentData: any;
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = '';
+  public title: string = 'ACTIVOS ASIGNADOS';
   public subtitle: string = '';
   public headerFields: any[] = ['ID', 'Descripción', 'Marca', 'Modelo', 'Serial', 'Ubicación', 'Responsable'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
@@ -22,9 +23,8 @@ export class FixedInventaryAddComponent implements OnInit {
   public data = [];
   public entity;
   public user;
-  public validator ;
+  public my_fixed_id;
 
-  //public my_pharmacy_id;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -92,19 +92,31 @@ export class FixedInventaryAddComponent implements OnInit {
 
   constructor(
     private dialogFormService: NbDialogService,
-    private invS: PharmacyLotStockService,
     private authService: AuthService,
+    private FixedAssetsS: FixedAssetsService,
+    private toastService: NbToastrService,
   ) {
   }
 
-  async ngOnInit() {
-    this.validator = this.parentData;
+  ngOnInit() {
     this.user = this.authService.GetUser();
-    this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
+    this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
+      if (x.length > 0) {
+        this.my_fixed_id = x[0].id;
+        this.entity = 'fixed_assets?fixed_stock_id=' + x[0]['fixed_stock'].id+'&status_prod=ENVIADO PATIENT';
+        this.title = 'ACTIVOS ASIGNADOS POR:  ' + x[0]['fixed_stock']['fixed_type']['name'];
+      }else {
+        this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
+       }
+    });
+
+
+
+    // this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       //  this.my_pharmacy_id = x[0].id;
       // this.entity = 'fixed_loan?fixed_loan=' + x[0].id;
       // this.title = 'INVENTARIO DE ' + x[0]['name'];
-    });
+    // });
   }
 
   RefreshData() {

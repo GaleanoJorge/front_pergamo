@@ -55,7 +55,7 @@ export class FormLanguageAssessmentRegularComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
-      status_patient: [this.data.status_patient, ],
+      status_patient: [this.data.status_patient, Validators.compose([Validators.required])],
     });
 
     // this.diagnosisS.GetCollection().then(x => {

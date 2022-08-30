@@ -76,6 +76,8 @@ export class FormChSwHousingAspectsComponent implements OnInit {
     this.housingTypeS.GetCollection().then(x => {
       this.housingType = x;
     });
+
+    this.onChange();
   
   }
     
@@ -119,8 +121,7 @@ export class FormChSwHousingAspectsComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({ flat:'', lift:'',  location:'', vehicle_access:'', ch_sw_housing_type_id:'',
-            ch_sw_housing_id:''});
+          this.form.patchValue({ ch_sw_housing_type_id:'', ch_sw_housing_id:'',  flat:'', lift:'', location:'', vehicle_access:'' });
           if (this.saved) {
             this.saved();
           }
@@ -133,6 +134,23 @@ export class FormChSwHousingAspectsComponent implements OnInit {
     }else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+  } 
+
+  async onChange() {
+
+    this.form.get('ch_sw_housing_type_id').valueChanges.subscribe(val => {
+      if (val =! 1) {
+
+        this.form.controls.flat.clearValidators();
+
+        this.form.controls.flat.setErrors(null);
+
+      } else {
+        this.form.controls.flat.setValidators(Validators.compose([Validators.required]));
+        this.form.patchValue({ flat:''});
+
+      };
+    });
   }
 
   

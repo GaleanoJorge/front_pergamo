@@ -47,7 +47,7 @@
     <div class="col-md-2" *ngIf="this.form.controls.ch_sw_housing_type_id.value == 1">
       <div class="form-group">
         <label class="form-text text-muted font-weight-bold align">Número de Piso</label>
-        <input type="number" id="flat" class="ImpPeq"  formControlName="flat" required nbInput ngModel
+        <input type="number" id="flat" class="ImpPeq"  formControlName="flat"  nbInput ngModel
           status="{{ isSubmitted && form.controls.flat.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
       </div>
     </div>

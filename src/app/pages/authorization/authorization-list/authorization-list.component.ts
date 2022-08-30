@@ -22,6 +22,7 @@ import { AdmissionsService } from '../../../business-controller/admissions.servi
 import { PatientService } from '../../../business-controller/patient.service';
 import { BriefcaseService } from '../../../business-controller/briefcase.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ActionsSemaphoreComponent } from './actionsSemaphore.component';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -129,6 +130,17 @@ export class AuthorizationListComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      semaphore: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsSemaphoreComponent,
+      },
       actions: {
         title: 'Acciones',
         type: 'custom',
@@ -174,8 +186,12 @@ export class AuthorizationListComponent implements OnInit {
       services_briefcase: {
         title: this.headerFields[2],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.manual_price.name;
+        valuePrepareFunction(value, row) {
+          if (row.fixed_add_id) {
+            return row?.fixed_add.fixed_assets.fixed_nom_product.name + ' - ' + row.fixed_add.fixed_assets.fixed_clasification.name;
+          } else {            
+            return value?.manual_price.name;
+          }
         },
       },
       auth_number: {
@@ -485,7 +501,7 @@ export class AuthorizationListComponent implements OnInit {
       state_gloss: '',
       admissions_id: '',
     });
-    this.toastS.warning('', 'Filtros limpiados');
+    // this.toastS.warning('', 'Filtros limpiados');
     // this.RefreshData();
 
   }

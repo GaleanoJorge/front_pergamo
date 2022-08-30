@@ -24,7 +24,7 @@ export class PharmacyIncomePatientComponent implements OnInit {
 
   public title: string = 'ACEPTAR DEVOLUCIONES DE MEDICAMENTOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO DEVUELTO POR', 'PRODUCTO GENERICO', 'NOMBRE PACIENTE', 'DOCUMENTO PACIENTE', 'CANTIDAD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO DEVUELTO POR', 'PRODUCTO GENERICO', 'NOMBRE PACIENTE', 'DOCUMENTO PACIENTE', 'CANTIDAD', 'OBSERVACIÓN'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]},${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public validator;
@@ -101,6 +101,10 @@ export class PharmacyIncomePatientComponent implements OnInit {
         title: this.headerFields[5],
         type: 'string',
       },
+      observation: {
+        title: this.headerFields[6],
+        type: 'string',
+      },
     },
   };
 
@@ -114,12 +118,11 @@ export class PharmacyIncomePatientComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.validator = this.parentData;
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?& status=DEVUELTO' + '&own_pharmacy_stock_id=' + x[0].id;
+        this.entity = 'pharmacy_product_request?status=DEVUELTO_PACIENTE' + '&own_pharmacy_stock_id=' + x[0].id;
         this.title = 'MEDICAMENTOS DEVUELTOS A:  ' + x[0]['name'];
       }
     });
@@ -137,11 +140,11 @@ export class PharmacyIncomePatientComponent implements OnInit {
 
   ChangePharmacy(pharmacy) {
     if (pharmacy == 0) {
-      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=DEVUELTO_PACIENTE' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
 
     } else {
 
-      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=DEVUELTO' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '& status=DEVUELTO_PACIENTE' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
     }
     // this.RefreshData();
   }

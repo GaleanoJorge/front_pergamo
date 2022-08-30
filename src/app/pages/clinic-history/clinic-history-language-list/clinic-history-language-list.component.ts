@@ -36,7 +36,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   public ambit;
   public program;
   public flat;
-  public int;
+  public int: 0;
   public user;
   public own_user;
   public bed;
@@ -134,7 +134,8 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   }
   
   async finish(firm) {
-
+    if(this.signatureImage!=null){
+    
     var formData = new FormData();
     formData.append('id', this.record_id,);
     formData.append('status', 'CERRADO');
@@ -160,6 +161,9 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
       this.isSubmitted = false;
       this.loading = false;
       throw new Error(response);
+    }
+  }else{
+      this.toastService.danger('Debe diligenciar la firma');
     }
   
   }

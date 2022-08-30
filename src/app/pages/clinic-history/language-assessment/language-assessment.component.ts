@@ -52,6 +52,13 @@ export class LanguageAssessmentComponent implements OnInit {
       reason_consultation: {
         title: this.headerFields[2],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
      
     },

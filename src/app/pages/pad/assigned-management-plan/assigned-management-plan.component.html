@@ -17,27 +17,35 @@
         <!-- <p class="parrafo" *ngIf="user.gender.name">GÉNERO:</b> {{user.gender.name}} </p> -->
 
         <p class="parrafo" *ngIf="management"><b>TIPO DE ATENCIÓN:</b> {{management[0].type_of_attention.name}} </p>
-        <p class="parrafo" *ngIf="management[0].quantity!=null"><b>CANTIDAD:</b> {{management[0].quantity}}
-        </p>
         <p class="parrafo" *ngIf="management[0].procedure!=null"><b>PROCEDIMIENTO:</b>
           {{management[0].procedure.manual_price.name}}
         </p>
+        <hr width=400>
         <p class="parrafo" *ngIf="management[0].service_briefcase!=null"><b>MEDICAMENTO:</b>
-          {{management[0].service_briefcase.manual_price.name}}
+          <b> {{management[0].service_briefcase.manual_price.name}}</b>
         </p>
-        <p class="parrafo" *ngIf="management[0].number_doses!=null"><b>DOSIS TOTALES DEL TRATAMIENTO:</b>
-          {{management[0].number_doses}}
+        <p class="parrafo" *ngIf="management[0].quantity!=null && management[0].type_of_attention_id!=17"><b>CANTIDAD:</b> {{management[0].quantity}}
         </p>
+
         <p class="parrafo" *ngIf="management[0].dosage_administer!=null"><b>DOSIS A ADMINISTRAR:</b>
-          {{management[0].dosage_administer}}
+          {{management[0].dosage_administer}} {{management[0].service_briefcase.manual_price.product.measurement_units.name}}
         </p>
+        <p class="parrafo" *ngIf="management[0].type_of_attention_id==17"><b>FRECUENCIA HORARIA:</b> CADA {{management[0].quantity}} HORAS
+        </p>
+
+        <p class="parrafo" *ngIf="management[0].route_of_administration!=null"><b>VIA DE ADMINISTRACIÓN:</b>
+          {{management[0].route_administration.name}} </p>
+     
+        <p class="parrafo" *ngIf="management[0].number_doses!=null"><b>DOSIS TOTALES DEL TRATAMIENTO:</b>
+          {{management[0].number_doses}} APLICACIONES
+        </p>
+        <p class="parrafo" *ngIf="management[0].administration_time!=null"><b>TIEMPO DE ADMINISTRACIÓN:</b>
+          {{management[0].administration_time}} MINUTOS</p>
         <p class="parrafo" *ngIf="management[0].preparation!=null"><b>PREPARACIÓN:</b> {{management[0].preparation}}
         </p>
-        <p class="parrafo" *ngIf="management[0].route_of_administration!=null"><b>VIA DE ADMINISTRACIÓN:</b>
-          {{management[0].route_of_administration}} </p>
+
         <p class="parrafo" *ngIf="management[0].blend!=null"><b>MEZCLA:</b> {{management[0].blend}} </p>
-        <p class="parrafo" *ngIf="management[0].administration_time!=null"><b>TIEMPO DE ADMINISTRACIÓN:</b>
-          {{management[0].administration_time}} </p>
+
         <p class="parrafo" *ngIf="management[0].observation!=null"><b>OBSERVACIÓN:</b>
           {{management[0].observation}} </p>
 

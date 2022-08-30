@@ -150,7 +150,6 @@ export class HumanTalentRequestListComponent implements OnInit {
   async ngOnInit() {
     this.user = this.authService.GetUser();
     this.currentRole = this.authService.GetRole();
-    this.currentRole = 23;
     this.HumanTalentRequestObservationS.GetCollection({
       category: 1,
     }).then(x => {

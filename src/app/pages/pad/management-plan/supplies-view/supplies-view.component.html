@@ -26,7 +26,7 @@
       </nb-tab>
       <!-- <nb-card style="margin: 30px; max-width: 1400px; max-height: 900px; overflow: auto;"> -->
 
-      <nb-tab tabTitle="SOLICITUDES">
+      <nb-tab *ngIf="this.own_user.roles[0].role_type_id == 1" tabTitle="SOLICITUDES">
         <div *ngIf="this.show == 2">
           <nb-stepper #stepper [linear]="false">
             <nb-step label="Insumos" style="padding: initial;">

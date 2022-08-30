@@ -104,7 +104,7 @@ export class UserFixedPackageComponent implements OnInit {
   }
   saveGroup() {
     if (!this.selectedOptions.length) {
-      this.toastS.danger(null, 'Debe seleccionar al menos un Menú');
+      this.toastS.danger(null, 'Debe seleccionar al menos un Usuario');
     }
     else {
       this.UsersFixedStockS.Save({

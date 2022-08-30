@@ -1,4 +1,4 @@
-<div *ngIf="has_input == false">
+<div *ngIf="has_input == false || type_record!=1">
   <ngx-form-recommendations-evo (messageEvent)="receiveMessage($event)" [record_id]="record_id"
     [type_record]="type_record">
   </ngx-form-recommendations-evo>
