@@ -98,6 +98,7 @@ import { FormPharmacyProductSuppliesComponent } from './pharmacy-request-supplie
 import { PharmacyProductSuppliesComponent } from './pharmacy-request-supplies/pharmacy-product-supplies.component';
 import { ProductRequestComponent } from './product-request/product-request.component';
 import { AmountUnitComponent } from './pharmacy-lot/prod-lot-package/amountUnit.component';
+import { PharmaInvReturnComponent } from './pharmacy-income/pharma-inv-return/pharma-inv-return.component';
 
 @NgModule({
   imports: [
@@ -154,7 +155,7 @@ import { AmountUnitComponent } from './pharmacy-lot/prod-lot-package/amountUnit.
     SelectSuppliesIncomeComponent,
     ActionsSupComponent,
     PharmacyIncomeSuppliesComponent,
-
+    PharmaInvReturnComponent,
 
     PharmacyInventoryComponent,
     FormPharmacyInventoryComponent,
@@ -233,6 +234,7 @@ import { AmountUnitComponent } from './pharmacy-lot/prod-lot-package/amountUnit.
     AmountIncomeComponent,
     IncomePackageComponent,
     SelectIncomeComponent,
+    PharmaInvReturnComponent,
 
     FormPharmacyIncomeSuppliesComponent,
     AmountDamagedSupComponent,

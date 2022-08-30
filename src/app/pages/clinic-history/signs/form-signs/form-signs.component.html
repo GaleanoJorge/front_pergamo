@@ -307,21 +307,7 @@
     </div>
 
     <div class="row justify-content-md mt-3" *ngIf="this.form.controls.has_oxigen.value">
-      <div class="col-md-3 ">
-        <div class="center">
-          <fieldset class="field_set">
-            <legend class="prue1">MODO VENTILATORIO</legend>
-            <nb-select [selected]="this.data.ch_vital_ventilated_id" formControlName="ch_vital_ventilated_id"
-              id="ch_vital_ventilated_id"
-              status="{{ isSubmitted && form.controls.ch_vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.ch_vital_ventilated_id }}" *ngFor="let item of vital_ventilated"
-                [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
-          </fieldset>
-        </div>
-      </div>
+    
 
       <div class="col-md-3">
         <div class="center">
@@ -353,8 +339,23 @@
           </fieldset>
         </div>
       </div>
+      <div class="col-md-3 ">
+        <div class="center">
+          <fieldset class="field_set">
+            <legend class="prue1">MODO VENTILATORIO</legend>
+            <nb-select [selected]="this.data.ch_vital_ventilated_id" formControlName="ch_vital_ventilated_id"
+              id="ch_vital_ventilated_id"
+              status="{{ isSubmitted && form.controls.ch_vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">SELECCIONE...</nb-option>
+              <nb-option selected="{{ item.id == this.data.ch_vital_ventilated_id }}" *ngFor="let item of vital_ventilated"
+                [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </fieldset>
+        </div>
+      </div>
 
-      <div class="col-md-3">
+      <div class="col-md-3"  *ngIf="this.form.controls.ch_vital_ventilated_id.value !='9'">
         <div class="center">
           <fieldset class="field_set">
             <legend class="prue1">PARAMETROS</legend>

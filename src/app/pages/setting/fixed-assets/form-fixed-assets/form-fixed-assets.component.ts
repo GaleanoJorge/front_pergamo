@@ -13,6 +13,7 @@ import { FrequencyService } from '../../../../business-controller/frequency.serv
 import { RiskService } from '../../../../business-controller/risk.service';
 import { BiomedicalClassificationService } from '../../../../business-controller/biomedical-classification.service';
 import { FixedStockService } from '../../../../business-controller/fixed-stock.service';
+import { PeriodicityFrequencyService } from '../../../../business-controller/periodicity-frequency.service';
 
 
 @Component({
@@ -56,7 +57,7 @@ export class FormFixedAssetsComponent implements OnInit {
     private FixedStockS: FixedStockService,
     private FixedNomProductS: FixedNomProductService,
     private FixedClasificationS: FixedClasificationService,
-    private FrequencyS: FrequencyService,
+    private FrequencyS: PeriodicityFrequencyService,
     private RiskS: RiskService,
     private BiomedicalClassificationS: BiomedicalClassificationService,
   ) {
@@ -313,7 +314,7 @@ export class FormFixedAssetsComponent implements OnInit {
           company_id: this.form.controls.company_id.value,
           accessories: this.form.controls.accessories.value,
           fixed_condition_id: this.form.controls.fixed_condition_id.value,
-          status_prod: 'INGRESADO',
+          status_prod: 'STOCK',
           fixed_type_id: this.form.controls.fixed_type_id.value,
           fixed_stock_id: this.form.controls.fixed_stock_id.value,
 

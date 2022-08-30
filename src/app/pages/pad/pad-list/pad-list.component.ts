@@ -35,7 +35,7 @@ export class PadListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Plan de atención domiciliaria';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Email', 'Ciudad', 'Barrio', 'Dirección'];
+  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Programa', 'Ciudad', 'Barrio', 'Dirección', 'Localidad'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -115,15 +115,18 @@ export class PadListComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
-      email: {
-        title: this.headerFields[3],
-        type: 'string',
-      },
       residence_municipality: {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction(value) {
           return value?.name;
+        },
+      },
+      locality_id: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.locality?.name;
         },
       },
       residence: {
@@ -135,6 +138,10 @@ export class PadListComponent implements OnInit {
       },
       residence_address: {
         title: this.headerFields[6],
+        type: 'string',
+      },
+      programa: {
+        title: this.headerFields[3],
         type: 'string',
       },
     },

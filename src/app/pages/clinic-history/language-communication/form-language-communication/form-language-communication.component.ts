@@ -66,14 +66,14 @@ export class FormLanguageCommunicationComponent implements OnInit {
       };
     }
     this.form = this.formBuilder.group({
-      eye_contact: [this.data[0] ? this.data[0].eye_contact : this.data.eye_contact,],
-      courtesy_rules: [this.data[0] ? this.data[0].courtesy_rules : this.data.courtesy_rules,],
-      communicative_intention: [this.data[0] ? this.data[0].communicative_intention : this.data.communicative_intention,],
-      communicative_purpose: [this.data[0] ? this.data[0].communicative_purpose : this.data.communicative_purpose,],
-      oral_verb_modality: [this.data[0] ? this.data[0].oral_verb_modality : this.data.oral_verb_modality,],
-      written_verb_modality: [this.data[0] ? this.data[0].written_verb_modality : this.data.written_verb_modality,],
-      nonsymbolic_nonverbal_modality: [this.data[0] ? this.data[0].nonsymbolic_nonverbal_modality : this.data.nonsymbolic_nonverbal_modality,],
-      symbolic_nonverbal_modality: [this.data[0] ? this.data[0].symbolic_nonverbal_modality : this.data.symbolic_nonverbal_modality,],
+      eye_contact: [this.data[0] ? this.data[0].eye_contact : this.data.eye_contact,Validators.compose([Validators.required])],
+      courtesy_rules: [this.data[0] ? this.data[0].courtesy_rules : this.data.courtesy_rules,Validators.compose([Validators.required])],
+      communicative_intention: [this.data[0] ? this.data[0].communicative_intention : this.data.communicative_intention,Validators.compose([Validators.required])],
+      communicative_purpose: [this.data[0] ? this.data[0].communicative_purpose : this.data.communicative_purpose,Validators.compose([Validators.required])],
+      oral_verb_modality: [this.data[0] ? this.data[0].oral_verb_modality : this.data.oral_verb_modality,Validators.compose([Validators.required])],
+      written_verb_modality: [this.data[0] ? this.data[0].written_verb_modality : this.data.written_verb_modality,Validators.compose([Validators.required])],
+      nonsymbolic_nonverbal_modality: [this.data[0] ? this.data[0].nonsymbolic_nonverbal_modality : this.data.nonsymbolic_nonverbal_modality,Validators.compose([Validators.required])],
+      symbolic_nonverbal_modality: [this.data[0] ? this.data[0].symbolic_nonverbal_modality : this.data.symbolic_nonverbal_modality,Validators.compose([Validators.required])],
       observations: [this.data[0] ? this.data[0].observations : this.data.observations,],
     });    
 

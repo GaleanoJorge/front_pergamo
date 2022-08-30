@@ -36,6 +36,7 @@ import { AuthAsociatedPackageComponent } from './authorization-list/auth-asociat
 import { AuthPackageComponent } from './authorization-list/historic-authorization/auth-package/auth-package.component';
 import { ActionsComponent } from './authorization-list/actions.component';
 import { ActionsDocumentComponent } from './authorization-list/actions2.component';
+import { ActionsSemaphoreComponent } from './authorization-list/actionsSemaphore.component';
 
 
 
@@ -68,6 +69,7 @@ import { ActionsDocumentComponent } from './authorization-list/actions2.componen
     NbSpinnerModule,
   ],
   declarations: [
+    ActionsSemaphoreComponent,
     ActionsDocumentComponent,
     ActionsComponent,
     AuthAsociatedPackageComponent,

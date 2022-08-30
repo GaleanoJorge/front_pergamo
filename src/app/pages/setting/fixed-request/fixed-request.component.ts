@@ -74,7 +74,7 @@ export class FixedRequestComponent implements OnInit {
       if (x.length > 0) {
         this.my_fixed_id = x[0].id;
         // this.entity = 'fixed_assets?fixed_stock_id=' + x[0].id;
-        this.title = 'INVENTARIO DE:  ' + x[0]['fixed_stock']['fixed_type']['name'];
+        this.title = 'SOLICITUDES REALIZADAS POR:  ' + x[0]['fixed_stock']['fixed_type']['name'];
       }else {
         this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
        }

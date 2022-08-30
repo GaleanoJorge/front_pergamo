@@ -39,6 +39,9 @@ export class ChScaleGlasgowComponent implements OnInit {
       total: {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value+'/15';
+        },
       },
      
     },

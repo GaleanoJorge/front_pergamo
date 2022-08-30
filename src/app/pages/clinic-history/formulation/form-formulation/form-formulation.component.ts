@@ -96,11 +96,13 @@ export class FormFormulationComponent implements OnInit {
     await this.patienBS.GetUserById(this.user).then(async x => {
       this.user2 = x;
       await this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
+        if(x.length>0){
         this.service_briefcase_id = x[0]['id'];
         this.product_gen = this.readProductGen(x);
         this.briefcase_products = this.readProductGen(x);
+        }
         this.loading_screen = false;
-      });
+            });
     });
 
     await this.AdministrationRouteS.GetCollection().then(x => {

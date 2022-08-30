@@ -4,8 +4,7 @@
     <nb-tabset *ngIf="this.my_pharmacy_id" fullWidth (changeTab)="reloadForm($event)">
       <nb-tab tabTitle="FARMACIA">
         <div *ngIf="this.showdiv == 1">
-          <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-            entity="pharmacy_product_request/?pagination=true&status=SOLICITADO FARMACIA&request_pharmacy_stock_id={{this.my_pharmacy_id}}"
+          <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
             customData='pharmacy_product_request' [messageToltip]="messageToltip">
             <div actions>
               <div class="actions">

@@ -58,7 +58,7 @@ export class FormulationComponent implements OnInit {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.value + '-' + row.hourly_frequency.name;
+          return 'CADA ' +value.value + '-' + row.hourly_frequency.name;
         },
       },
       treatment_days: {

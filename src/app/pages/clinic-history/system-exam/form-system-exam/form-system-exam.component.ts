@@ -43,7 +43,7 @@ export class FormSystemExamComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        revision: '',
+        revision: 'NORMAL',
         observation: '',
         type_ch_system_exam_id: '',
       };

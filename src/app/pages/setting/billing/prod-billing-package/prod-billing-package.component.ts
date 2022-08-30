@@ -25,7 +25,7 @@ export class ProdBillingPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Selección de medicamentos: ';
   public subtitle = 'medicamentos a comprar: ';
-  public headerFields: any[] = ['Medicamento', 'Descripción generico', 'Cantidad ordenada', 'Valor por unidad', 'Iva'];
+  public headerFields: any[] = ['Medicamento', 'Descripción generico','Fabricante', 'Cantidad ordenada', 'Valor por unidad', 'Iva'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -87,8 +87,15 @@ export class ProdBillingPackageComponent implements OnInit {
           return value.description;
         },
       },
-      amount: {
+      factory: {
         title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      amount: {
+        title: this.headerFields[3],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -107,7 +114,7 @@ export class ProdBillingPackageComponent implements OnInit {
         renderComponent: AmountBillingComponent,
       },
       amount_unit: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -128,7 +135,7 @@ export class ProdBillingPackageComponent implements OnInit {
 
 
       iva: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;

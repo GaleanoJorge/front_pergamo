@@ -2,13 +2,17 @@
 
 
   <div content>
-    <nb-tabset fullWidth>
+    <nb-tabset fullWidth (changeTab)="reloadForm($event)">
       <nb-tab tabTitle="DISPENSACIÓN PACIENTE">
-        <ngx-pharmacy-request-patient></ngx-pharmacy-request-patient>
+        <div *ngIf="this.showdiv == 1">
+          <ngx-pharmacy-request-patient></ngx-pharmacy-request-patient>
+        </div>
       </nb-tab>
 
       <nb-tab tabTitle="DEVOLUCIONES PACIENTE">
-        <ngx-pharmacy-income-patient></ngx-pharmacy-income-patient>
+        <div *ngIf="this.showdiv==2">
+          <ngx-pharmacy-income-patient></ngx-pharmacy-income-patient>
+        </div>
       </nb-tab>
     </nb-tabset>
   </div>

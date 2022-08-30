@@ -80,8 +80,12 @@ export class HistoricAuthorizationListComponent implements OnInit {
       services_briefcase: {
         title: this.headerFields[0],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.manual_price.name;
+        valuePrepareFunction(value, row) {
+          if (row.fixed_add_id) {
+            return row?.fixed_add.fixed_assets.fixed_nom_product.name + ' - ' + row.fixed_add.fixed_assets.fixed_clasification.name;
+          } else {            
+            return value?.manual_price.name;
+          }
         },
       },
       auth_number: {

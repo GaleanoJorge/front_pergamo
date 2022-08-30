@@ -22,7 +22,7 @@ export class EthnicityService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.Ethnicity = <Ethnicity[]>servObj.data.Ethnicity;
+        this.Ethnicity = <Ethnicity[]>servObj.data.ethnicity;
 
         return Promise.resolve(this.Ethnicity);
       })

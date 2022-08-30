@@ -18,13 +18,16 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="(today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17)||value.data.allow_redo == 1" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
+    <a *ngIf="value.user.roles[0].role_type_id == 2 && ((today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17)||value.data.allow_redo == 1)" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
     <nb-icon icon="folder-add-outline"></nb-icon>
     </a>
-    <a *ngIf=" firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.openEF(value.data)">
+    <a *ngIf="value.user.roles[0].role_type_id == 2 && (firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.openEF(value.data)">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
-  <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
+  <button *ngIf="value.data.ch_record.length > 0" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
+      <nb-icon icon="file-add"></nb-icon>
+    </button>
+  <button *ngIf="value.user.roles[0].role_type_id == 1" nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
   <nb-icon icon="edit-outline"></nb-icon>
 </button>
   </div>
@@ -51,7 +54,7 @@ export class Actions4Component implements ViewCell {
   constructor(
     private datePipe: DateFormatPipe,
     private viewHCS: ChRecordService,
-
+    private toastService: NbToastrService,
   ) {
   }
 
@@ -78,6 +81,19 @@ export class Actions4Component implements ViewCell {
 
     this.today = this.datePipe.transform2(this.today);
 
+  }
+
+  viewHC() {
+    this.viewHCS.ViewHC(this.value.data.ch_record[this.value.data.ch_record.length - 1].id).then(x => {
+
+      //this.loadingDownload = false;
+      this.toastService.success('', x.message);
+      window.open(x.url, '_blank');
+
+    }).catch(x => {
+      // this.isSubmitted = false;
+      // this.loading = false;
+    });
   }
 
 }

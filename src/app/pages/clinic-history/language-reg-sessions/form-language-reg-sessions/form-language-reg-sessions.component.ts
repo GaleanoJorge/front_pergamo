@@ -53,8 +53,8 @@ export class FormLanguageRegSessionsComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      monthly_sessions: [this.data[0] ? this.data[0].monthly_sessions : this.data.monthly_sessions,],
-      weekly_intensity: [this.data[0] ? this.data[0].weekly_intensity : this.data.weekly_intensity,],
+      monthly_sessions: [this.data[0] ? this.data[0].monthly_sessions : this.data.monthly_sessions,Validators.compose([Validators.required])],
+      weekly_intensity: [this.data[0] ? this.data[0].weekly_intensity : this.data.weekly_intensity,Validators.compose([Validators.required])],
       recomendations: [this.data[0] ? this.data[0].recomendations : this.data.recomendations,],
      
      

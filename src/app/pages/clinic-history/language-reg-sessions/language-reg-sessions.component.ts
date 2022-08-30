@@ -58,8 +58,15 @@ export class LanguageRegSessionsComponent implements OnInit {
       recomendations: {
         title: this.headerFields[3],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
       },
     },
+  },
   };
 
   constructor(

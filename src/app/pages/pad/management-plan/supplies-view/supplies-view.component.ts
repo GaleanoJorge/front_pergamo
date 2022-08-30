@@ -15,6 +15,7 @@ export class SuppliesView {
   @Input() data: any = null;
   @Input() title: any = null;
   @Input() user: any = null;
+  @Input() own_user: any = null;
   @Input() admissions_id: any = null;
 
   public show;

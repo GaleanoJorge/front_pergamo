@@ -57,10 +57,16 @@ export class BackgroundComponent implements OnInit {
       observation: {
         title: this.headerFields[3],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
       },
     },
+  },
   };
-
   constructor(
     public userChangeS: UserChangeService,    
     public datePipe: DateFormatPipe,
