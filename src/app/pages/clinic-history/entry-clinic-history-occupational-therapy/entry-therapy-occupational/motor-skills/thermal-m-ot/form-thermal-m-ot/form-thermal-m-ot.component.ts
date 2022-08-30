@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { ChEMSThermalOTService } from '../../../../../../business-controller/ch_e_m_s_thermal_o_t.service';
+import { ChEMSThermalOTService } from '../../../../../../../business-controller/ch_e_m_s_thermal_o_t.service';
 
 
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-thermal-ot',
-  templateUrl: './form-entry-motor-thermal-ot.component.html',
-  styleUrls: ['./form-entry-motor-thermal-ot.component.scss']
+  selector: 'ngx-form-thermal-m-ot',
+  templateUrl: './form-thermal-m-ot.component.html',
+  styleUrls: ['./form-thermal-m-ot.component.scss']
 })
-export class FormEntryMotorThermalOTComponent implements OnInit {
+export class FormThermalMOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -77,10 +77,11 @@ export class FormEntryMotorThermalOTComponent implements OnInit {
           heat: this.form.controls.heat.value,
           cold: this.form.controls.cold.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
           
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -95,9 +96,10 @@ export class FormEntryMotorThermalOTComponent implements OnInit {
           cold: this.form.controls.cold.value,
 
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();

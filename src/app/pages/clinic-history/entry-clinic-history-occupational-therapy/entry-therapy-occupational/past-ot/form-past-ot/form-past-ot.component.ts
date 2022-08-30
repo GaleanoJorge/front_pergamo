@@ -1,17 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChEPastOTService } from '../../../../../business-controller/ch_e_past_o_t.service';
-
-
-
+import { ChEPastOTService } from '../../../../../../business-controller/ch_e_past_o_t.service';
 
 @Component({
-  selector: 'ngx-entry-form-past-ot',
-  templateUrl: './entry-form-past-ot.component.html',
-  styleUrls: ['./entry-form-past-ot.component.scss']
+  selector: 'ngx-form-past-ot',
+  templateUrl: './form-past-ot.component.html',
+  styleUrls: ['./form-past-ot.component.scss']
 })
-export class EntryFormPastOTComponent implements OnInit {
+export class FormPastOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -106,7 +103,7 @@ export class EntryFormPastOTComponent implements OnInit {
       f_alcohol: [this.data[0] ? this.data[0].f_alcohol : this.data.f_alcohol],
       sport: [this.data[0] ? this.data[0].sport : this.data.sport, Validators.compose([Validators.required])],
       f_sport: [this.data[0] ? this.data[0].f_sport : this.data.f_sport],
-      sport_practice_observation: [this.data[0] ? this.data[0].sport_practice_observation : this.data.sport_practice_observation, Validators.compose([Validators.required])],
+      sport_practice_observation: [this.data[0] ? this.data[0].sport_practice_observation : this.data.sport_practice_observation],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
     });
 
@@ -154,43 +151,6 @@ export class EntryFormPastOTComponent implements OnInit {
       
     })
 
-    if (this.data.family_base != '') {
-      this.form.controls.family_base.disable();
-      this.form.controls.number_childrens.disable();
-      this.form.controls.observation_family_struct.disable();
-      this.form.controls.academy.disable();
-      this.form.controls.level_academy.disable();
-      this.form.controls.observation_schooling_training.disable();
-      this.form.controls.terapy.disable();
-      this.form.controls.observation_terapy.disable();
-      this.form.controls.smoke.disable();
-      this.form.controls.f_smoke.disable();
-      this.form.controls.alcohol.disable();
-      this.form.controls.f_alcohol.disable();
-      this.form.controls.sport.disable();
-      this.form.controls.f_sport.disable();
-      this.form.controls.sport_practice_observation.disable();
-      this.form.controls.observation.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.family_base.enable();
-      this.form.controls.number_childrens.enable();
-      this.form.controls.observation_family_struct.enable();
-      this.form.controls.academy.enable();
-      this.form.controls.level_academy.enable();
-      this.form.controls.observation_schooling_training.enable();
-      this.form.controls.terapy.enable();
-      this.form.controls.observation_terapy.enable();
-      this.form.controls.smoke.enable();
-      this.form.controls.f_smoke.enable();
-      this.form.controls.alcohol.enable();
-      this.form.controls.f_alcohol.enable();
-      this.form.controls.sport.enable();
-      this.form.controls.f_sport.enable();
-      this.form.controls.sport_practice_observation.enable();
-      this.form.controls.observation.enable();
-      this.disabled = false;
-    }
   }
 
   save() {
@@ -274,5 +234,3 @@ export class EntryFormPastOTComponent implements OnInit {
   }
 
 }
-
-

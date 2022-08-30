@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChEMSFunPatOTService } from '../../../../../../business-controller/ch_e_m_s_fun_pat_o_t.service';
+import { ChEMSFunPatOTService } from '../../../../../../../business-controller/ch_e_m_s_fun_pat_o_t.service';
 
 
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-fun-pat-ot',
-  templateUrl: './form-entry-motor-fun-pat-ot.component.html',
-  styleUrls: ['./form-entry-motor-fun-pat-ot.component.scss']
+  selector: 'ngx-form-fun-pat-m-ot',
+  templateUrl: './form-fun-pat-m-ot.component.html',
+  styleUrls: ['./form-fun-pat-m-ot.component.scss']
 })
-export class FormEntryMotorFunPatOTComponent implements OnInit {
+export class FormFunPatMOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -74,39 +74,6 @@ export class FormEntryMotorFunPatOTComponent implements OnInit {
       foot_left: [this.data[0] ? this.data[0].foot_left : this.data.foot_left, Validators.compose([Validators.required])],
     });
 
-    if (this.data.head_right != '') {
-      this.form.controls.head_right.disable();
-      this.form.controls.head_left.disable();
-      this.form.controls.mouth_right.disable();
-      this.form.controls.mouth_left.disable();
-      this.form.controls.shoulder_right.disable();
-      this.form.controls.shoulder_left.disable();
-      this.form.controls.back_right.disable();
-      this.form.controls.back_left.disable();
-      this.form.controls.waist_right.disable();
-      this.form.controls.waist_left.disable();
-      this.form.controls.knee_right.disable();
-      this.form.controls.knee_left.disable();
-      this.form.controls.foot_right.disable();
-      this.form.controls.foot_left.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.head_right.enable();
-      this.form.controls.head_left.enable();
-      this.form.controls.mouth_right.enable();
-      this.form.controls.mouth_left.enable();
-      this.form.controls.shoulder_right.enable();
-      this.form.controls.shoulder_left.enable();
-      this.form.controls.back_right.enable();
-      this.form.controls.back_left.enable();
-      this.form.controls.waist_right.enable();
-      this.form.controls.waist_left.enable();
-      this.form.controls.knee_right.enable();
-      this.form.controls.knee_left.enable();
-      this.form.controls.foot_right.enable();
-      this.form.controls.foot_left.enable();
-      this.disabled = false;
-    }
   }
 
   save() {
@@ -132,9 +99,10 @@ export class FormEntryMotorFunPatOTComponent implements OnInit {
           foot_right: this.form.controls.foot_right.value,
           foot_left: this.form.controls.foot_left.value,
           
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -160,9 +128,10 @@ export class FormEntryMotorFunPatOTComponent implements OnInit {
           foot_right: this.form.controls.foot_right.value,
           foot_left: this.form.controls.foot_left.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();

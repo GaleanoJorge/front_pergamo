@@ -1,17 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChEDailyActivitiesOTService } from '../../../../../business-controller/ch_e_daily_activities_o_t.service';
-
-
-
+import { ChEDailyActivitiesOTService } from '../../../../../../business-controller/ch_e_daily_activities_o_t.service';
 
 @Component({
-  selector: 'ngx-entry-form-daily-activities-ot',
-  templateUrl: './entry-form-daily-activities-ot.component.html',
-  styleUrls: ['./entry-form-daily-activities-ot.component.scss']
+  selector: 'ngx-form-daily-activities-ot',
+  templateUrl: './form-daily-activities-ot.component.html',
+  styleUrls: ['./form-daily-activities-ot.component.scss']
 })
-export class EntryFormDailyActivitiesOTComponent implements OnInit {
+export class FormDailyActivitiesOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -126,57 +123,6 @@ export class EntryFormDailyActivitiesOTComponent implements OnInit {
       observation_test: [this.data[0] ? this.data[0].observation_test : this.data.observation_test,],
     });
 
-    if (this.data.cook != '') {
-      this.form.controls.cook.disable();
-      this.form.controls.kids.disable();
-      this.form.controls.wash.disable();
-      this.form.controls.game.disable();
-      this.form.controls.ironing.disable();
-      this.form.controls.walk.disable();
-      this.form.controls.clean.disable();
-      this.form.controls.sport.disable();
-      this.form.controls.decorate.disable();
-      this.form.controls.social.disable();
-      this.form.controls.act_floristry.disable();
-      this.form.controls.friends.disable();
-      this.form.controls.read.disable();
-      this.form.controls.politic.disable();
-      this.form.controls.view_tv.disable();
-      this.form.controls.religion.disable();
-      this.form.controls.write.disable();
-      this.form.controls.look.disable();
-      this.form.controls.arrange.disable();
-      this.form.controls.travel.disable();
-      this.form.controls.observation_activity.disable();
-      this.form.controls.test.disable();
-      this.form.controls.observation_test.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.cook.enable();
-      this.form.controls.kids.enable();
-      this.form.controls.wash.enable();
-      this.form.controls.game.enable();
-      this.form.controls.ironing.enable();
-      this.form.controls.walk.enable();
-      this.form.controls.clean.enable();
-      this.form.controls.sport.enable();
-      this.form.controls.decorate.enable();
-      this.form.controls.social.enable();
-      this.form.controls.act_floristry.enable();
-      this.form.controls.friends.enable();
-      this.form.controls.read.enable();
-      this.form.controls.politic.enable();
-      this.form.controls.view_tv.enable();
-      this.form.controls.religion.enable();
-      this.form.controls.write.enable();
-      this.form.controls.look.enable();
-      this.form.controls.arrange.enable();
-      this.form.controls.travel.enable();
-      this.form.controls.observation_activity.enable();
-      this.form.controls.test.enable();
-      this.form.controls.observation_test.enable();
-      this.disabled = false;
-    }
   }
 
   save() {
@@ -215,6 +161,7 @@ export class EntryFormDailyActivitiesOTComponent implements OnInit {
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -252,6 +199,7 @@ export class EntryFormDailyActivitiesOTComponent implements OnInit {
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -272,5 +220,3 @@ export class EntryFormDailyActivitiesOTComponent implements OnInit {
   }
 
 }
-
-

@@ -1,17 +1,17 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChEMSMovPatOTService } from '../../../../../../business-controller/ch_e_m_s_mov_pat_o_t.service';
+import { ChEMSMovPatOTService } from '../../../../../../../business-controller/ch_e_m_s_mov_pat_o_t.service';
 
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-mov-pat-ot',
-  templateUrl: './form-entry-motor-mov-pat-ot.component.html',
-  styleUrls: ['./form-entry-motor-mov-pat-ot.component.scss']
+  selector: 'ngx-form-mov-pat-m-ot',
+  templateUrl: './form-mov-pat-m-ot.component.html',
+  styleUrls: ['./form-mov-pat-m-ot.component.scss']
 })
-export class FormEntryMotorMovPatOTComponent implements OnInit {
+export class FormMovPatMOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -113,77 +113,6 @@ export class FormEntryMotorMovPatOTComponent implements OnInit {
 
     });
 
-    if (this.data.scroll_right != '') {
-      this.form.controls.scroll_right.disable();
-      this.form.controls.scroll_left.disable();
-      this.form.controls.get_up_right.disable();
-      this.form.controls.get_up_left.disable();
-      this.form.controls.push_right.disable();
-      this.form.controls.push_left.disable();
-      this.form.controls.pull_right.disable();
-      this.form.controls.pull_left.disable();
-      this.form.controls.transport_right.disable();
-      this.form.controls.transport_left.disable();
-      this.form.controls.attain_right.disable();
-      this.form.controls.attain_left.disable();
-      this.form.controls.bipedal_posture_right.disable();
-      this.form.controls.bipedal_posture_left.disable();
-      this.form.controls.sitting_posture_right.disable();
-      this.form.controls.sitting_posture_left.disable();
-      this.form.controls.squat_posture_right.disable();
-      this.form.controls.squat_posture_left.disable();
-      this.form.controls.use_both_hands_right.disable();
-      this.form.controls.use_both_hands_left.disable();
-      this.form.controls.alternating_movements_right.disable();
-      this.form.controls.alternating_movements_left.disable();
-      this.form.controls.dissociated_movements_right.disable();
-      this.form.controls.dissociated_movements_left.disable();
-      this.form.controls.Simultaneous_movements_right.disable();
-      this.form.controls.Simultaneous_movements_left.disable();
-      this.form.controls.bimanual_coordination_right.disable();
-      this.form.controls.bimanual_coordination_left.disable();
-      this.form.controls.hand_eye_coordination_right.disable();
-      this.form.controls.hand_eye_coordination_left.disable();
-      this.form.controls.hand_foot_coordination_right.disable();
-      this.form.controls.hand_foot_coordination_left.disable();
-
-      this.disabled = true;
-    } else {
-      this.form.controls.scroll_right.enable();
-      this.form.controls.scroll_left.enable();
-      this.form.controls.get_up_right.enable();
-      this.form.controls.get_up_left.enable();
-      this.form.controls.push_right.enable();
-      this.form.controls.push_left.enable();
-      this.form.controls.pull_right.enable();
-      this.form.controls.pull_left.enable();
-      this.form.controls.transport_right.enable();
-      this.form.controls.transport_left.enable();
-      this.form.controls.attain_right.enable();
-      this.form.controls.attain_left.enable();
-      this.form.controls.bipedal_posture_right.enable();
-      this.form.controls.bipedal_posture_left.enable();
-      this.form.controls.sitting_posture_right.enable();
-      this.form.controls.sitting_posture_left.enable();
-      this.form.controls.squat_posture_right.enable();
-      this.form.controls.squat_posture_left.enable();
-      this.form.controls.use_both_hands_right.enable();
-      this.form.controls.use_both_hands_left.enable();
-      this.form.controls.alternating_movements_right.enable();
-      this.form.controls.alternating_movements_left.enable();
-      this.form.controls.dissociated_movements_right.enable();
-      this.form.controls.dissociated_movements_left.enable();
-      this.form.controls.Simultaneous_movements_right.enable();
-      this.form.controls.Simultaneous_movements_left.enable();
-      this.form.controls.bimanual_coordination_right.enable();
-      this.form.controls.bimanual_coordination_left.enable();
-      this.form.controls.hand_eye_coordination_right.enable();
-      this.form.controls.hand_eye_coordination_left.enable();
-      this.form.controls.hand_foot_coordination_right.enable();
-      this.form.controls.hand_foot_coordination_left.enable();
-
-      this.disabled = false;
-    }
   }
 
   save() {
@@ -227,10 +156,11 @@ export class FormEntryMotorMovPatOTComponent implements OnInit {
           hand_foot_coordination_right: this.form.controls.hand_foot_coordination_right.value,
           hand_foot_coordination_left: this.form.controls.hand_foot_coordination_left.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
           
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -274,9 +204,10 @@ export class FormEntryMotorMovPatOTComponent implements OnInit {
           hand_foot_coordination_right: this.form.controls.hand_foot_coordination_right.value,
           hand_foot_coordination_left: this.form.controls.hand_foot_coordination_left.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();

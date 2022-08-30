@@ -1,16 +1,16 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChEMSIntPatOTService } from '../../../../../../business-controller/ch_e_m_s_int_pat_o_t.service';
+import { ChEMSIntPatOTService } from '../../../../../../../business-controller/ch_e_m_s_int_pat_o_t.service';
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-int-pat-ot',
-  templateUrl: './form-entry-motor-int-pat-ot.component.html',
-  styleUrls: ['./form-entry-motor-int-pat-ot.component.scss']
+  selector: 'ngx-form-int-pat-m-ot',
+  templateUrl: './form-int-pat-m-ot.component.html',
+  styleUrls: ['./form-int-pat-m-ot.component.scss']
 })
-export class FormEntryMotorIntPatOTComponent implements OnInit {
+export class FormIntPatMOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -97,59 +97,6 @@ export class FormEntryMotorIntPatOTComponent implements OnInit {
 
     });
 
-    if (this.data.up_right != '') {
-      this.form.controls.up_right.disable();
-      this.form.controls.up_left.disable();
-      this.form.controls.side_right.disable();
-      this.form.controls.side_left.disable();
-      this.form.controls.backend_right.disable();
-      this.form.controls.backend_left.disable();
-      this.form.controls.frontend_right.disable();
-      this.form.controls.frontend_left.disable();
-      this.form.controls.down_right.disable();
-      this.form.controls.down_left.disable();
-      this.form.controls.full_hand_right.disable();
-      this.form.controls.full_hand_left.disable();
-      this.form.controls.cylindric_right.disable();
-      this.form.controls.cylindric_left.disable();
-      this.form.controls.hooking_right.disable();
-      this.form.controls.hooking_left.disable();
-      this.form.controls.fine_clamp_right.disable();
-      this.form.controls.fine_clamp_left.disable();
-      this.form.controls.tripod_right.disable();
-      this.form.controls.tripod_left.disable();
-      this.form.controls.opposition_right.disable();
-      this.form.controls.opposition_left.disable();
-      this.form.controls.coil_right.disable();
-      this.form.controls.coil_left.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.up_right.enable();
-      this.form.controls.up_left.enable();
-      this.form.controls.side_right.enable();
-      this.form.controls.side_left.enable();
-      this.form.controls.backend_right.enable();
-      this.form.controls.backend_left.enable();
-      this.form.controls.frontend_right.enable();
-      this.form.controls.frontend_left.enable();
-      this.form.controls.down_right.enable();
-      this.form.controls.down_left.enable();
-      this.form.controls.full_hand_right.enable();
-      this.form.controls.full_hand_left.enable();
-      this.form.controls.cylindric_right.enable();
-      this.form.controls.cylindric_left.enable();
-      this.form.controls.hooking_right.enable();
-      this.form.controls.hooking_left.enable();
-      this.form.controls.fine_clamp_right.enable();
-      this.form.controls.fine_clamp_left.enable();
-      this.form.controls.tripod_right.enable();
-      this.form.controls.tripod_left.enable();
-      this.form.controls.opposition_right.enable();
-      this.form.controls.opposition_left.enable();
-      this.form.controls.coil_right.enable();
-      this.form.controls.coil_left.enable();
-      this.disabled = false;
-    }
   }
 
   save() {
@@ -185,10 +132,11 @@ export class FormEntryMotorIntPatOTComponent implements OnInit {
           coil_right: this.form.controls.coil_right.value,
           coil_left: this.form.controls.coil_left.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
           
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -224,9 +172,10 @@ export class FormEntryMotorIntPatOTComponent implements OnInit {
           coil_right: this.form.controls.coil_right.value,
           coil_left: this.form.controls.coil_left.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
