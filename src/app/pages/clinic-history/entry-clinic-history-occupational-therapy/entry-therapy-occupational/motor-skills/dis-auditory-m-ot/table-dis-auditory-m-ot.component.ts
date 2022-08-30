@@ -41,30 +41,30 @@ export class TableDisAuditoryMOTComponent implements OnInit {
     },
     columns: {
 
-      scroll_right: {
+      sound_sources: {
         title: this.headerFields[0],
         width: 'string',
       },
 
-      scroll_left: {
+      auditory_hyposensitivity: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      get_up_right: {
+      auditory_hypersensitivity: {
         title: this.headerFields[2],
         width: 'string',
       },
-      get_up_left: {
+
+      auditory_stimuli: {
         title: this.headerFields[3],
         width: 'string',
       },
 
-      push_right: {
+      auditive_discrimination: {
         title: this.headerFields[4],
         width: 'string',
       },
-
     },
   };
 
