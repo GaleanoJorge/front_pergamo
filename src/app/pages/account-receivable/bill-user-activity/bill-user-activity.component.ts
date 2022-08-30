@@ -13,6 +13,7 @@ import { CurrencyPipe } from '@angular/common';
 import { ActionsBillComponent } from './actions.component';
 import { BillUserActivityService } from '../../../business-controller/bill-user-activity.service';
 import { HumanTalentRequestObservationService } from '../../../business-controller/human-talent-request-observation.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -147,6 +148,7 @@ export class BillUserActivityComponent implements OnInit {
     private authService: AuthService,
     private currency: CurrencyPipe,
     private HumanTalentRequestObservationS: HumanTalentRequestObservationService,
+    private location: Location,
   ) {
   }
 
@@ -173,6 +175,11 @@ export class BillUserActivityComponent implements OnInit {
     });
   }
 
+  
+ back() {
+  this.location.back();
+
+}
 
   RefreshData() {
     this.table.refresh();

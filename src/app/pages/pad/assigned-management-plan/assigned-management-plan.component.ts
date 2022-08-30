@@ -19,6 +19,7 @@ import { ActionsSemaphoreComponent } from './actions-semaphore.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { ClinicHistoryNursingListComponent } from '../../clinic-history/clinic-history-nursing-list/clinic-history-nursing-list.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-assigned-management-plan',
@@ -169,7 +170,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public routes = [
     {
       name: 'Pad',
-      route: '../pad/list',
+      route: '/pages/pad/list',
     },
     {
       name: 'Plan de manejo',
@@ -197,6 +198,7 @@ export class AssignedManagementPlanComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private chRecordS: ChRecordService,
+    private location: Location,
 
   ) {
   }
@@ -244,6 +246,9 @@ export class AssignedManagementPlanComponent implements OnInit {
       this.entity = "assigned_management_plan/" + this.management_id + "/" + this.user_logged + "?patient=" + this.user.admissions[0].id;
     });
   }
+  back() {
+    this.location.back();
+  };
 
   statusSemaphor(data) {
     var today = new Date().getTime();

@@ -21,6 +21,7 @@ import { ActionsSemaphore2Component } from './actions-semaphore.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 import { SuppliesView } from './supplies-view/supplies-view.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -202,6 +203,7 @@ export class ManagementPlanComponent implements OnInit {
       },
     },
   };
+ 
 
 
 
@@ -224,6 +226,7 @@ export class ManagementPlanComponent implements OnInit {
     private route: ActivatedRoute,
     public roleBS: RoleBusinessService,
     private router: Router,
+    private location: Location,
 
   ) {
   }
@@ -238,6 +241,10 @@ export class ManagementPlanComponent implements OnInit {
   public assigned_user: any[];
 
 
+  back() {
+    this.location.back();
+  }
+
 
 
 
@@ -247,8 +254,11 @@ export class ManagementPlanComponent implements OnInit {
     if (this.settings1.columns["service_briefcase"].hasOwnProperty("show")) {
       if (this.settings1.columns["service_briefcase"].show ==false) {
         delete this.settings1.columns["service_briefcase"];
+        
       }
 }
+
+
 
     this.own_user = this.authService.GetUser();
     this.currentRole = this.own_user.roles[0].role_type_id;
@@ -294,7 +304,7 @@ export class ManagementPlanComponent implements OnInit {
     });
   }
 
-
+  
 
   ConfirmAction(dialog: TemplateRef<any>) {
     this.dialog = this.dialogService.open(dialog);
