@@ -8,6 +8,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from '../../../business-controller/company.service';
 import { ActionsComponentEditDelete } from './actions.component';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -84,6 +85,7 @@ export class CompanyMailComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private companyS: CompanyService,
+    private location: Location,
   ) {
   }
 
@@ -113,6 +115,11 @@ export class CompanyMailComponent implements OnInit {
     this.title = 'Correos electronicos de la empresa: ' + element.name;
 
   }
+
+  back() {
+    this.location.back();
+
+ }
 
   RefreshData() {
 
