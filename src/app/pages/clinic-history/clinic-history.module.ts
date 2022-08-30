@@ -350,6 +350,7 @@ import { FormNRDiagnosisFTComponent } from './entry-clinic-history-physical-ther
 import { TableNRDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-diagnosis-ft/table-nr-diagnosis-ft.component';
 import { FormChNursingNoteComponent } from './ch-nursing-note/form-ch-nursing-note/form-ch-nursing-note.component';
 import { ChNursingNoteComponent } from './ch-nursing-note/ch-nursing-note.component';
+import { MedicalRecordsListComponent } from './medical-records/medical-records-list.component';
 
 
 @NgModule({
@@ -382,6 +383,8 @@ import { ChNursingNoteComponent } from './ch-nursing-note/ch-nursing-note.compon
     NbCheckboxModule,
   ],
   declarations: [
+
+    MedicalRecordsListComponent,
 
     InsumeApplicationComponent,
     FormInsumeApplicationComponent,
