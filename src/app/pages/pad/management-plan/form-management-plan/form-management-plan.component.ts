@@ -56,7 +56,7 @@ export class FormManagementPlanComponent implements OnInit {
   public showUser = true;
   public admissions;
   public tipo_de_atencion;
-
+  public showassigned;
   //   this.status = x;
 
 
@@ -118,6 +118,10 @@ export class FormManagementPlanComponent implements OnInit {
       }).catch(e => {
         this.toastService.danger(e, 'Error');
       });
+
+      if(this.data.type_of_attention_id==17){
+        this.show=true;
+      }
     }
 
     for (var i = 0; i < 24; i++) {
@@ -297,6 +301,10 @@ export class FormManagementPlanComponent implements OnInit {
         }).catch(e => {
           this.toastService.danger(e, 'Error');
         });
+        
+        if(this.assigned==false){
+          this.showassigned=true;
+        }
 
         if (val == 17) {
           this.show = true;

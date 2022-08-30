@@ -325,7 +325,7 @@ export class ManagementPlanComponent implements OnInit {
         title: 'Asignar personal asistencial',
         data,
         user: this.user,
-        medical: this.medical,
+        medical: 0,
         assigned: false,
         admissions_id: this.admissions_id,
         saved: this.RefreshData.bind(this),
