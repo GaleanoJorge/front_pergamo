@@ -9,7 +9,7 @@ import { AuthService } from '../../../services/auth.service';
 import { PatientService } from '../../../business-controller/patient.service';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
-import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -105,7 +105,7 @@ export class ChRecordListComponent implements OnInit {
     private authService: AuthService,
     private admissionsS: AdmissionsService,
     public datePipe: DateFormatPipe,
-
+    private location: Location,
   ) {
     this.routes = [
       {
@@ -145,9 +145,14 @@ export class ChRecordListComponent implements OnInit {
 
   }
 
+  back() {
+    this.location.back();
+  }
+
   RefreshData() {
     this.table.refresh();
   }
+
 
   NewChRecord() {
     this.chRecordS.Save({
@@ -168,5 +173,6 @@ export class ChRecordListComponent implements OnInit {
     });
 
   }
+
 
 }

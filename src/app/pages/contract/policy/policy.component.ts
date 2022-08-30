@@ -9,7 +9,7 @@ import { ContractService } from '../../../business-controller/contract.service';
 import { environment } from '../../../../environments/environment.prod';
 import { Actions2Component } from './actions2.component';
 import { ActionsEDComponent } from './actions.component';
-
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -107,6 +107,7 @@ export class PolicyComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private route: ActivatedRoute,
     private ContractS: ContractService,
+    private location: Location,
   ) {
   }
 
@@ -136,6 +137,10 @@ export class PolicyComponent implements OnInit {
     this.title = 'Pólizas del contracto: ' + element.name;
     
   }
+  back() {
+    this.location.back();
+
+ }
 
   RefreshData() {
 
