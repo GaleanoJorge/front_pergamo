@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="small" style="max-width: 300px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="day" class="form-text text-muted font-weight-bold">Día:</label>
+          <input  nbInput fullWidth id="day" formControlName="day" day type="date"
+            status="{{ isSubmitted && form.controls.day.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+        <div class="col-md-12">
+          <label for="description" class="form-text text-muted font-weight-bold">Descripción:</label>
+          <input  nbInput fullWidth id="description" formControlName="description" description type="text"
+            status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
