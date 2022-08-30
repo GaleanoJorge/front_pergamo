@@ -45,11 +45,22 @@ export class ChSwIncomeComponent implements OnInit {
           return this.datePipe.transform2(value);
         },
       },
+      none: {
+        title: this.headerFields[6],
+        width: 'string',
+        valuePrepareFunction: (value, data) => {
+          if (value != 0) {
+            return 'No tiene ingresos';
+          } else {
+            return 'No aplica'
+          }
+        },
+      },
       salary: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction: (value, data) => {
-          if (value != 0) {
+          if (value != null) {
             return this.currency.transform(value);
           } else {
             return 'No aplica'
@@ -60,7 +71,7 @@ export class ChSwIncomeComponent implements OnInit {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction: (value, data) => {
-          if (value != 0) {
+          if (value != null) {
             return this.currency.transform(value);
           } else {
             return 'No aplica'
@@ -71,78 +82,68 @@ export class ChSwIncomeComponent implements OnInit {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction: (value, data) => {
-          if (value != 0) {
+          if (value != null) {
             return this.currency.transform(value);
           } else {
             return 'No aplica'
           }
         },
       },
-        rent: {
-          title: this.headerFields[4],
-          width: 'string',
-          valuePrepareFunction: (value, data) => {
-            if (value != 0) {
-              return this.currency.transform(value);
-            } else {
-              return 'No aplica'
-            }
-          },
+      rent: {
+        title: this.headerFields[4],
+        width: 'string',
+        valuePrepareFunction: (value, data) => {
+          if (value != null) {
+            return this.currency.transform(value);
+          } else {
+            return 'No aplica'
+          }
         },
-        familiar_help: {
-          title: this.headerFields[5],
-          width: 'string',
-          valuePrepareFunction: (value, data) => {
-            if (value != 0) {
-              return this.currency.transform(value);
-            } else {
-              return 'No aplica'
-            }
-          },
+      },
+      familiar_help: {
+        title: this.headerFields[5],
+        width: 'string',
+        valuePrepareFunction: (value, data) => {
+          if (value != null) {
+            return this.currency.transform(value);
+          } else {
+            return 'No aplica'
+          }
         },
-        none: {
-          title: this.headerFields[6],
-          width: 'string',
-          valuePrepareFunction: (value, data) => {
-            if (value != 0) {
-              return this.currency.transform(value);
-            } else {
-              return 'No aplica'
-            }
-          },
+      },
+
+      total: {
+        title: this.headerFields[7],
+        width: 'string',
+        valuePrepareFunction: (value, data) => {
+          if (value != null) {
+            return this.currency.transform(value);
+          } else {
+            return 'No aplica'
+          }
         },
-        total: {
-          title: this.headerFields[7],
-          width: 'string',
-          valuePrepareFunction: (value, data) => {
-            if (value != 0) {
-              return this.currency.transform(value);
-            } else {
-              return 'No aplica'
-            }
-          },
-        },
+      },
     },
   }
 
 
-    constructor(
-      public userChangeS: UserChangeService,
-      public datePipe: DateFormatPipe,
-      private currency: CurrencyPipe,
-    ) {
-    }
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe,
+    private currency: CurrencyPipe,
+  ) {
+  }
 
   async ngOnInit() {
-    }
+  }
 
   RefreshData() {
-      this.table.refresh();
-    }
+    this.table.refresh();
+  }
 
   receiveMessage($event) {
-      if ($event == true) {
-        this.RefreshData();
-      }
+    if ($event == true) {
+      this.RefreshData();
     }
   }
+}

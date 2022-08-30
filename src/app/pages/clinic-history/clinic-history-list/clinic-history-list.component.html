@@ -17,56 +17,50 @@
           <ngx-entry-clinic-history (messageEvent)="inputMessage($event)" [has_input]="has_input" [admission]="admission">
           </ngx-entry-clinic-history>
         </div>
-      </nb-tab>
-      <nb-tab tabTitle="ANTECEDENTES">
-        <div *ngIf="this.show == 2">
-          <ngx-back-list [data]="this.user">
-          </ngx-back-list>
-        </div>
-      </nb-tab>
+      </nb-tab>      
       <nb-tab tabTitle="EVOLUCIÓN">
-        <div *ngIf="this.show == 3">
+        <div *ngIf="this.show == 2">
           <ngx-evolution-list  [admission]="admission"></ngx-evolution-list>
         </div>
       </nb-tab>
       <nb-tab tabTitle="ESCALAS">
-        <div *ngIf="this.show == 4 && this.user">
+        <div *ngIf="this.show == 3 && this.user">
           <ngx-form-ch-scales [medical]="true" [record_id]="record_id" [age]="user">
           </ngx-form-ch-scales>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="FORMULACIÓN">
-        <div *ngIf="this.show == 5">
+        <div *ngIf="this.show == 4">
           <ngx-formulation [record_id]="record_id" [user]="user_id"></ngx-formulation>
         </div>
       </nb-tab>
       <nb-tab tabTitle="ORDEN MEDICAS">
-        <div *ngIf="this.show == 6">
+        <div *ngIf="this.show == 5">
           <ngx-orders-medical  [record_id]="record_id"></ngx-orders-medical>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="INCAPACIDAD">
-        <div *ngIf="this.show == 7">
+        <div *ngIf="this.show == 6">
           <ngx-ch-inability [record_id]="record_id"></ngx-ch-inability>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="CERTIFICADO MEDICO">
-        <div *ngIf="this.show == 8">
+        <div *ngIf="this.show == 7">
           <ngx-ch-medical-certificate  [record_id]="record_id"></ngx-ch-medical-certificate>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="FALLIDA">
-        <div *ngIf="this.show == 9">
+        <div *ngIf="this.show == 8">
           <ngx-failed (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-failed>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="SALIDA">
-        <div *ngIf="this.show == 10">
+        <div *ngIf="this.show == 9">
           <ngx-form-patient-exit [record_id]="record_id"></ngx-form-patient-exit>
         </div>
       </nb-tab>

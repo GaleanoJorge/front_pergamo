@@ -1190,6 +1190,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh2 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ ocular_value: '', verbal_value: '', motor_value: '', totalGlasgow: '' });
           this.form.controls.ocular_value.clearValidators();
@@ -1276,6 +1277,7 @@ export class FormChScalesComponent implements OnInit {
         }).then(x => {
           this.refresh3 = true;
           // var results = x.data.ch_scale_payette;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ eat_value: '', move_value: '', cleanliness_value: '', toilet_value: '', shower_value: '', commute_value: '', stairs_value: '', dress_value: '', fecal_value: '', urine_value: '', totalBarthel: '', classBarthel: '' });
           this.form.controls.eat_value.clearValidators();
@@ -1378,6 +1380,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh1 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ qOnePayette_value: '', qTwoPayette_value: '', qThreePayette_value: '', qFourPayette_value: '', qFivePayette_value: '', qSixPayette_value: '', qSevenPayette_value: '', qEightPayette_value: '', qNinePayette_value: '', qTenPayette_value: '', totalPayette: '', riskPayette: '', recommendations: '', });
           this.form.controls.qOnePayette_value.clearValidators();
@@ -1452,6 +1455,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh5 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ qOneFragility_value: '', qTwoFragility_value: '', qThreeFragility_value: '', qFourFragility_value: '', qFiveFragility_value: '', totalFragility: '', classFragility: '' });
           this.form.controls.qOneFragility_value.clearValidators();
@@ -1536,6 +1540,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh7 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ pOneNews_value: '', pTwoNews_value: '', pThreeNews_value: '', pFourNews_value: '', pFiveNews_value: '', pSixNews_value: '', pSevenNews_value: '', pEightNews_value: '', totalNews: '', riskNews: '', response: '', });
           this.form.controls.pOneNews_value.clearValidators();
@@ -1614,6 +1619,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh8 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ vOnePap_value: '', vTwoPap_value: '', vThreePap_value: '', vFourPap_value: '', vFivePap_value: '', vSixPap_value: '', totalPap: '', classPap: '' });
           this.form.controls.vOnePap_value.clearValidators();
@@ -1743,6 +1749,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh9 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({
             vOneHamilton_value: '', vTwoHamilton_value: '', vThreeHamilton_value: '', vFourHamilton_value: '', vFiveHamilton_value: '', vSixHamilton_value: '', vSevenHamilton_value: '',
@@ -1829,6 +1836,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh10 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ mindCam_value: '', attentionCam_value: '', thoughtCam_value: '', awarenessCam_value: '', resultCam: '' });
           this.form.controls.mindCam_value.clearValidators();
@@ -1861,7 +1869,7 @@ export class FormChScalesComponent implements OnInit {
       this.refresh11 = false;
       this.form.controls.level_value.setValidators(Validators.compose([Validators.required]));
       var level = this.separateText(this.form.controls.level_value.value);
-      this.form.controls.definitionFacText.setValidators(Validators.compose([Validators.required]));
+      // this.form.controls.definitionFacText.setValidators(Validators.compose([Validators.required]));
       this.loading = true;
       this.showTable = false;
       if (!this.form.invalid) {
@@ -1872,7 +1880,8 @@ export class FormChScalesComponent implements OnInit {
           type_record_id: 4,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.refresh11 = false;
+          this.refresh11 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ level_value: '', definitionFacText: '' });
           this.form.controls.level_value.clearValidators();
@@ -1911,6 +1920,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh12 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ grade_value: '', definitionCrossText: '' });
           this.form.controls.grade_value.clearValidators();
@@ -1980,6 +1990,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh14 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ gradeEcog_value: '', definitionEcogText: '', });
           this.form.controls.gradeEcog_value.clearValidators();
@@ -2034,6 +2045,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh15 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ score_one: '', score_two: '', score_three: '', score_four: '', total: '', risk: '', classification: '', });
           this.form.controls.score_one_value.clearValidators();
@@ -2110,6 +2122,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh16 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ pain_value: '', tiredness_value: '', retching_value: '', depression_value: '', anxiety_value: '', drowsiness_value: '', appetite_value: '', welfare_value: '', breathing_value: '', sleep_value: '', obsEsas: '' });
 
@@ -2189,6 +2202,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh17 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ face: '', legs: '', activity: '', crying: '', comfort: '', total: '', qualification: '' });
           this.form.controls.face_value.clearValidators();
@@ -2257,6 +2271,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh18 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ pps_value: '', oral_value: '', edema_value: '', dyspnoea_value: '', delirium_value: '', totalPpi: '', classPpi: '' });
           this.form.controls.pps_value.clearValidators();
@@ -2409,6 +2424,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh19 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ q_one_value: '', q_two_value: '', q_three_value: '', q_four_value: '', q_five_value: '', q_six_value: '', q_seven_value: '', q_eight_value: '', q_nine_value: '', q_ten_value: '', q_eleven_value: '', q_twelve_value: '', q_thirteen_value: '', q_fourteen_value: '', q_fifteen_value: '', q_sixteen_value: '', q_seventeen_value: '', q_eighteen_value: '', q_nineteen_value: '', q_twenty_value: '', q_twenty_one_value: '', q_twenty_two_value: '', totalZarit: '', classZarit: '' });
           this.form.controls.q_one_value.clearValidators();
@@ -2484,6 +2500,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh20 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ rangePain_value: '' });
           this.form.controls.rangePain_value.clearValidators();
@@ -2516,6 +2533,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh21 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ painWong_value: '' });
           this.form.controls.painWong_value.clearValidators();
@@ -2602,6 +2620,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh22 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ studyValue: '', qOneValue: '', qTwoValue: '', qThreeValue: '', qFourValue: '', qFiveValue: '', qSixValue: '', qSevenValue: '', qEightValue: '', qNineValue: '', qTenValue: '', totalPfeiffer: '', classPfeiffer: '' });
           this.form.controls.studyValue.clearValidators();
@@ -2681,6 +2700,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh23 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ falls_value: '', medication_value: '', deficiency_value: '', mental_value: '', wandering_value: '', totalJhDownton: '', riskJhDownton: '' });
           this.form.controls.falls_value.clearValidators();
@@ -2773,6 +2793,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh24 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({
             vOneScreening_value: '', vTwoScreening_value: '', vThreeScreening_value: '', vFourScreening_value: '', vFiveScreening_value: '', vSixScreening_value: '', vSevenScreening_value: '',
@@ -2825,6 +2846,7 @@ export class FormChScalesComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.refresh25 = true;
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.form.patchValue({ range: '' });
           if (this.saved) {

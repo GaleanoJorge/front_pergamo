@@ -96,7 +96,8 @@ export class FormSwArmedConflictComponent implements OnInit {
       ethnicity_id: [this.data[0] ? this.data[0].ethnicity_id : this.data.ethnicity_id,],
      
     });
-
+    
+    this.onChange();
   }
 
   save() {
@@ -155,6 +156,47 @@ export class FormSwArmedConflictComponent implements OnInit {
     }else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+  } 
+  
+  async onChange() {
+
+    this.form.get('victim').valueChanges.subscribe(val => {
+      if (val == 'No') {
+
+        this.form.controls.victim_time.clearValidators();
+        this.form.controls.municipality_id.clearValidators();
+        this.form.controls.population_group_id.clearValidators();
+        this.form.controls.ethnicity_id.clearValidators();
+
+        this.form.controls.victim_time.setErrors(null);
+        this.form.controls.municipality_id.setErrors(null);
+        this.form.controls.population_group_id.setErrors(null);
+        this.form.controls.ethnicity_id.setErrors(null);
+
+      } else {
+
+        this.form.controls.victim_time.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.municipality_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.population_group_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.ethnicity_id.setValidators(Validators.compose([Validators.required]));
+
+      };
+    });
+
+    this.form.get('subsidies').valueChanges.subscribe(val => {
+      if (val == 'No') {
+
+        this.form.controls.detail_subsidies.clearValidators();
+
+        this.form.controls.detail_subsidies.setErrors(null);
+
+      } else {
+
+        this.form.controls.detail_subsidies.setValidators(Validators.compose([Validators.required]));
+
+      };
+    });
+
   }
 
 }

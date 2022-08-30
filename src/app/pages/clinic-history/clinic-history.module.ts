@@ -351,6 +351,7 @@ import { TableNRDiagnosisFTComponent } from './entry-clinic-history-physical-the
 import { FormChNursingNoteComponent } from './ch-nursing-note/form-ch-nursing-note/form-ch-nursing-note.component';
 import { ChNursingNoteComponent } from './ch-nursing-note/ch-nursing-note.component';
 import { LanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/language-therapeutic-goals.component';
+import { MedicalRecordsListComponent } from './medical-records/medical-records-list.component';
 
 
 @NgModule({
@@ -383,6 +384,8 @@ import { LanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/
     NbCheckboxModule,
   ],
   declarations: [
+
+    MedicalRecordsListComponent,
 
     InsumeApplicationComponent,
     FormInsumeApplicationComponent,
