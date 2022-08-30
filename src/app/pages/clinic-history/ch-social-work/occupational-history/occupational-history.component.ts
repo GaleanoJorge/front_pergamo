@@ -104,6 +104,13 @@ export class OccupationalHistoryComponent implements OnInit {
       observations: {
         title: this.headerFields[6],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        },
       },
     },
   };
