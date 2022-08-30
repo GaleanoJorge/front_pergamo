@@ -385,12 +385,6 @@ import { RoleCheckComponent } from './users/role-package/role-check.component';
 import { RolePackageComponent } from './users/role-package/role-package.component';
 import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
 import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
-import { MedicalDiaryComponent } from './medical-diary/medical-diary.component';
-import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/form-medical-diary.component';
-import { MedicalComponent } from './medical-diary/medical/medical.component';
-import { ActionsMedicalDiaryComponent } from './medical-diary/actions.component';
-import { ActionsMedicalComponent } from './medical-diary/medical/actions.component';
-import { ActionsDaysComponent } from './medical-diary/medical/actions-days.component';
 
 @NgModule({
   imports: [
@@ -422,6 +416,7 @@ import { ActionsDaysComponent } from './medical-diary/medical/actions-days.compo
     NbAccordionModule,
   ],
   declarations: [
+
     RoleCheckComponent,
     RolePackageComponent,
     ActionsComponentInsume,
@@ -448,10 +443,6 @@ import { ActionsDaysComponent } from './medical-diary/medical/actions-days.compo
     PolicyTypeComponent,
     FormBedComponent,
     BedComponent,
-    ActionsDaysComponent,
-    MedicalComponent,
-    ActionsMedicalDiaryComponent,
-    ActionsMedicalComponent,
     RolesPermissionsComponent,
     FormObservationNoveltyComponent,
     ObservationNoveltyComponent,
@@ -490,8 +481,6 @@ import { ActionsDaysComponent } from './medical-diary/medical/actions-days.compo
     ActionsProcedureComponent,
     FormCoverageComponent,
     FormFirmsComponent,
-    MedicalDiaryComponent,
-    FormMedicalDiaryComponent,
     ProcedurePackageComponent,
     ProcedurePackage2Component,
     FormInsuranceCarrierComponent,
