@@ -1,6 +1,8 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content *ngIf="settings && this.entity">
 
+    
+
     <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
       customData="assigned_management_plan" [messageToltip]="messageToltip">
       <div title *ngIf="user">
@@ -48,13 +50,20 @@
 
         <p class="parrafo" *ngIf="management[0].observation!=null"><b>OBSERVACIÓN:</b>
           {{management[0].observation}} </p>
+          
 
 
       </div>
       <div actions>
+        <button nbButton (click)="back()" >Volver</button>
         <div class="actions" style="margin-top:1em;">
         </div>
       </div>
+    
+
+
+
+
     </ngx-base-table>
   </div>
 </ngx-base-list>

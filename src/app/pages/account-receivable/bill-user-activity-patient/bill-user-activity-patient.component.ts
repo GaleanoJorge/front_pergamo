@@ -15,6 +15,7 @@ import { HumanTalentRequestObservationService } from '../../../business-controll
 import { ActionsBillComponent } from '../bill-user-activity/actions.component';
 import { PatientService } from '../../../business-controller/patient.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -147,6 +148,7 @@ export class BillUserActivityPatientComponent implements OnInit {
     private PatientS: PatientService,
     public datePipe: DateFormatPipe,
     private HumanTalentRequestObservationS: HumanTalentRequestObservationService,
+    private location: Location,
   ) {
   }
 
@@ -165,6 +167,8 @@ export class BillUserActivityPatientComponent implements OnInit {
         route: '../../contract/briefcase',
       },
     ];
+    
+
 
     this.HumanTalentRequestObservationS.GetCollection({
       category: 3,
@@ -180,7 +184,10 @@ export class BillUserActivityPatientComponent implements OnInit {
       }
     });
   }
-
+  back() {
+    this.location.back();
+  
+  }
 
   RefreshData() {
     this.table.refresh();
