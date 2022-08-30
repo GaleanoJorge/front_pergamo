@@ -65,5 +65,35 @@
 
 .nb-theme-corporate nb-layout .scrollable-container::-webkit-scrollbar {
   width: 0.5rem;
-  height: 0.325rem;
+  height: 0.4rem;
+}
+
+.nb-theme-corporate nb-sidebar .scrollable::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.nb-theme-corporate nb-sidebar .scrollable::-webkit-scrollbar-thumb {
+  background: #54bcc1;
+  cursor: pointer;
+  border-radius: 0.15625rem;
+}
+
+.nb-theme-corporate nb-sidebar .scrollable::-webkit-scrollbar-track {
+  background: #e4e9f2;
+}
+
+.nb-theme-corporate nb-card-body::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.nb-theme-corporate nb-card-body::-webkit-scrollbar-thumb {
+  background: #54bcc1;
+  cursor: pointer;
+  border-radius: 0.15625rem;
+}
+
+.nb-theme-corporate nb-card-body::-webkit-scrollbar-track {
+  background: #e4e9f2;
 }
