@@ -10,6 +10,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { FormPatientDataComponent } from '../patient-data/form-admissions-patient/form-patient-data.component';
 import { Patient } from '../../../models/patient';
 import { PatientService } from '../../../business-controller/patient.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -180,6 +181,7 @@ export class AdmissionsPatientComponent implements OnInit {
     private UserBS: UserBusinessService,
     private PatientBS: PatientService,
     private deleteConfirmService: NbDialogService,
+    private location: Location,
   ) {
     this.routes = [
       {
@@ -193,6 +195,11 @@ export class AdmissionsPatientComponent implements OnInit {
     ];
     
   }
+  
+ back() {
+  this.location.back();
+
+}
 
   GetParams() {
     return {

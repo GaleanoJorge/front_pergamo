@@ -10,6 +10,7 @@ import { Patient } from '../../../models/patient';
 import { PatientService } from '../../../business-controller/patient.service';
 import { ActionsSemaphore2Component } from '../management-plan/actions-semaphore.component';
 import { AuthService } from '../../../services/auth.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -172,6 +173,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
     private UserBS: UserBusinessService,
     private PatientBS: PatientService,
     private deleteConfirmService: NbDialogService,
+    private location: Location,
   ) {
     this.routes = [
       {
@@ -205,6 +207,12 @@ export class AdmissionsPatientPadComponent implements OnInit {
       }
     });
   }
+
+  back() {
+    this.location.back();
+
+ }
+
 
   RefreshData() {
 

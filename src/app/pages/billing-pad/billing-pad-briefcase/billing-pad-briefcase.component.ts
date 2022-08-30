@@ -6,6 +6,7 @@ import { ActionsBillingPadBriefcaseComponent } from './actions-billing-pad-brief
 import { FormShowBillingPadComponent } from '../billing-admission/form-show-billing-pad/form-show-billing-pad.component';
 import { ActivatedRoute } from '@angular/router';
 import { ContractService } from '../../../business-controller/contract.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-billing-pad-briefcase',
@@ -75,6 +76,8 @@ export class BillingPadBriefcaseComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastS: NbToastrService,
+    private location: Location,
+
   ) {
   }
   public form: FormGroup;
@@ -103,6 +106,11 @@ export class BillingPadBriefcaseComponent implements OnInit {
   }
 
 
+  back() {
+    this.location.back();
+
+ }
+ 
   RefreshData() {
     this.table.refresh();
   }

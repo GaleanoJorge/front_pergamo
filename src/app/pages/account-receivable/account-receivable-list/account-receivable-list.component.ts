@@ -14,7 +14,7 @@ import { FormRentReliefComponent } from './form-rent-relief/form-rent-relief.com
 import { FormLocationCapacityComponent } from '../../setting/location-capacity/sigle-location-capacity/form-location-capacity/form-location-capacity.component';
 import { FormConfirmPayComponent } from './form-confirm-pay/form-confirm-pay.component';
 import { ActivatedRoute } from '@angular/router';
-
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-account-receivable-list',
@@ -192,6 +192,7 @@ export class AccountReceivableListComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private authService: AuthService,
     private route: ActivatedRoute,
+    private location: Location,
   ) {
   }
 
@@ -220,6 +221,10 @@ export class AccountReceivableListComponent implements OnInit {
     }
 
   }
+  back() {
+    this.location.back();
+
+ }
 
   RefreshData() {
 
