@@ -71,7 +71,7 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
   }
 
   saveMcEa() {
-    console.log('adentro');
+    // console.log('adentro');
   }
 
   saveRxSystem() {

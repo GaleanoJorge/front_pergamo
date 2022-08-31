@@ -353,7 +353,7 @@ export class FormCarePlanComponent implements OnInit {
   }
 
   saveCode(event, identificator) {
-    console.log(event.target.checked);
+    // console.log(event.target.checked);
     if (event.target.checked) {
       this.care_plans_ids.push(identificator);
     } else {

@@ -224,9 +224,9 @@ export class ActionsComponent implements ViewCell, OnInit {
       this.loading = true;
       var formData = new FormData();
       formData.append('right_user_id', this.user_id);
-      console.log(formData);
+      // console.log(formData);
       formData.append('wrong_user_id', this.UserChangeForm.controls.right_user_id.value);
-      console.log(formData);
+      // console.log(formData);
       formData.append('observation_novelty_id', this.UserChangeForm.controls.observation_novelty_id.value);
       this.dialog = this.dialog.close();
       this.UserChangeS.Save(formData).then(x => {
