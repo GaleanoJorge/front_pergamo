@@ -8,6 +8,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from '../../../business-controller/company.service';
 import { ActionsCDComponent } from './actionsCD.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-company-document',
@@ -82,6 +83,7 @@ export class CompanyDocumentComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private companyS: CompanyService,
+    private location: Location,
   ) {
   }
 
@@ -110,6 +112,11 @@ export class CompanyDocumentComponent implements OnInit {
     var element = this.companies.find(item => item.id == this.company_id);
     this.title = 'Documentos de la empresa: ' + element.name;
   }
+  back() {
+    this.location.back();
+
+ }
+
 
   RefreshData() {
 

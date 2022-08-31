@@ -25,7 +25,7 @@ export class FormReasonConsultationComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
-  @Input() has_input: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   languages: string[] = languages;

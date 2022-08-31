@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
@@ -12,6 +12,10 @@ export class LanguageTestsComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
+  @Input() has_input: boolean = false;
+  @Input() type_record_id;
+  @Output() messageEvent = new EventEmitter<any>();
+  
   linearMode = false;
   public messageError = null;
   public title;
@@ -138,6 +142,9 @@ export class LanguageTestsComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
     }
   }
 }

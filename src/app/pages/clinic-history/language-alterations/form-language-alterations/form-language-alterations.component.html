@@ -8,7 +8,7 @@
           <label class="form-text text-muted font-weight-bold">Alteración en Timbre</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="bell_alteration" bell_alteration id="bell_alteration" name="bell_alteration"
+          <nb-radio-group formControlName="bell_alteration" nbSelect (disabled)="this.has_input" bell_alteration id="bell_alteration" name="bell_alteration"
             status="{{ isSubmitted && form.controls.bell_alteration.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
@@ -18,7 +18,7 @@
           <label class="form-text text-muted font-weight-bold">Alteración en Tono</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="tone_alteration" tone_alteration id="tone_alteration" name="tone_alteration"
+          <nb-radio-group formControlName="tone_alteration" nbSelect (disabled)="this.has_input" tone_alteration id="tone_alteration" name="tone_alteration"
             status="{{ isSubmitted && form.controls.tone_alteration.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
@@ -34,7 +34,7 @@
           <label class="form-text text-muted font-weight-bold">Alteración en Intensidad</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="intensity_alteration" intensity_alteration id="intensity_alteration"
+          <nb-radio-group formControlName="intensity_alteration" nbSelect (disabled)="this.has_input" intensity_alteration id="intensity_alteration"
             name="intensity_alteration"
             status="{{ isSubmitted && form.controls.intensity_alteration.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -45,13 +45,13 @@
           <label class="form-text text-muted font-weight-bold center">Observaciones</label>
         </div>
         <div class="col col-lg-4">
-          <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+          <textarea id="observations" nbInput (disabled)="this.has_input" fullWidth formControlName="observations" observations
             onpaste="return false" rows="4" cols="50"
             status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
       </div>
     </fieldset>
-    <div class="container">
+    <div class="container" *ngIf="!has_input">
       <div class="row">
         <div class="col-md-12">
           <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>

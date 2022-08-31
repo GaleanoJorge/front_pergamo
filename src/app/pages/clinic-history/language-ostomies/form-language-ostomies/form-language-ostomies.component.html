@@ -2,14 +2,14 @@
   <div class="row">
     <div class="col-md-6">
       <label class="form-text text-muted font-weight-bold">Yeyunostomía</label>
-      <textarea id="jejunostomy" nbInput fullWidth formControlName="jejunostomy" jejunostomy
+      <textarea id="jejunostomy" nbInput (disabled)="this.has_input" fullWidth formControlName="jejunostomy" jejunostomy
         onpaste="return false" rows="4" cols="50"
         status="{{ isSubmitted && form.controls.jejunostomy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="col-md-6">
       <label class="form-text text-muted font-weight-bold">Colostomía</label>
-      <textarea id="colostomy" nbInput fullWidth formControlName="colostomy" colostomy onpaste="return false"
+      <textarea id="colostomy" nbInput (disabled)="this.has_input" fullWidth formControlName="colostomy" colostomy onpaste="return false"
         rows="4" cols="50"
         status="{{ isSubmitted && form.controls.colostomy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
@@ -18,14 +18,14 @@
 
     <div class="col col-lg-12">
       <label class="form-text text-muted font-weight-bold center">Observaciones</label>
-      <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+      <textarea id="observations" nbInput (disabled)="this.has_input" fullWidth formControlName="observations" observations
         onpaste="return false" rows="3" cols="40"
         status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
   </div>
 
-  <div class="container">
+  <div class="container" *ngIf="!has_input">
     <div class="row">
       <div class="col-md-12">
         <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"

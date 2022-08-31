@@ -16,7 +16,7 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 export class SignsListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
-  @Input() has_input: any = null;
+  @Input() has_input: boolean = false;
   @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   

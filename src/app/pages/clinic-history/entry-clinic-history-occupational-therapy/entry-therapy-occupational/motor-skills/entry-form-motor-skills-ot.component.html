@@ -1,0 +1,175 @@
+<form [formGroup]="form">
+
+  <hr/>
+  <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center" >PATRONES FUNCIONALES</nb-accordion-item-header>
+     <nb-accordion-item-body>
+     
+
+      <ngx-table-fun-pat-m-ot  [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chfunpat" [data]="chfunpat">
+      </ngx-table-fun-pat-m-ot>
+
+
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion>
+   <hr/>
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center" >PATRONES INTEGRALES</nb-accordion-item-header>chintpat
+     <nb-accordion-item-body>
+    
+      <ngx-table-int-pat-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chintpat" [data]="chintpat">
+      </ngx-table-int-pat-m-ot>
+ 
+
+      <br/>
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion>
+   <hr/>
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center" >PATRONES DE MOVIMIENTO</nb-accordion-item-header>
+     <nb-accordion-item-body>
+     
+      <ngx-table-mov-pat-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chmovpat" [data]="chmovpat">
+      </ngx-table-mov-pat-m-ot>
+
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion>
+   <hr/>
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center">COINCIDENCIA TERMICA</nb-accordion-item-header>
+     <nb-accordion-item-body>
+  
+      <br/>
+
+      <ngx-table-thermal-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chthermal" [data]="chthermal">
+      </ngx-table-thermal-m-ot>
+
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion>
+   <hr/>
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center">DISCRIMINACION AUDITIVA</nb-accordion-item-header>
+     <nb-accordion-item-body>
+  
+      <br/>
+
+      <ngx-table-dis-auditory-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chauditory" [data]="chauditory">
+      </ngx-table-dis-auditory-m-ot>
+
+
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion> 
+   <hr/>
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center">DISCRIMINACION TACTIL</nb-accordion-item-header>
+     <nb-accordion-item-body>
+  
+      <br/>
+
+      <ngx-form-entry-motor-dis-tactile-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chatactile" [data]="chatactile">
+      </ngx-form-entry-motor-dis-tactile-ot>
+  
+      <br/>
+
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion> 
+   <hr/>
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center" >AGUDEZA</nb-accordion-item-header>
+     <nb-accordion-item-body>
+      <br/>
+  
+      <ngx-form-entry-motor-acuity-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chacuity" [data]="chacuity">
+      </ngx-form-entry-motor-acuity-ot>
+  
+      <br/>
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion>
+   <hr/>
+
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center" >COMPONENTE VESTIBULAR</nb-accordion-item-header>
+     <nb-accordion-item-body>
+        <hr/>
+  
+      <br/>
+
+      <ngx-form-entry-motor-component-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chcomponent" [data]="chcomponent">
+      </ngx-form-entry-motor-component-ot>
+
+      <br/>
+     
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion>
+   <hr/>
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center" >EXAMEN MENTAL</nb-accordion-item-header>
+     <nb-accordion-item-body>
+
+      <ngx-form-entry-motor-test-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chtest" [data]="chtest">
+      </ngx-form-entry-motor-test-ot>
+
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion>
+   <hr/>
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center" >HABILIDADES DE COMUNICACION E INTERACCION</nb-accordion-item-header>chcommunication
+     <nb-accordion-item-body>
+
+      <ngx-form-entry-motor-communication-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chcommunication" [data]="chcommunication">
+      </ngx-form-entry-motor-communication-ot>
+  
+      <br/>
+  
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion>
+   <hr/>
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="row justify-content-center" >VALORACION DIARIA</nb-accordion-item-header>
+     <nb-accordion-item-body>
+
+      <ngx-form-entry-motor-assessment-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chassessment" [data]="chassessment">
+      </ngx-form-entry-motor-assessment-ot>
+       
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion>
+   <hr/>
+   <nb-accordion>
+    <nb-accordion-item>
+     <nb-accordion-item-header class="justify-content-center" >NUMERO DE SESIONES MENSUALES E INTENSIDAD SEMANAL</nb-accordion-item-header>
+     <nb-accordion-item-body>
+ 
+      <ngx-form-entry-motor-weekly-int-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chweekly" [data]="chweekly">
+      </ngx-form-entry-motor-weekly-int-ot>
+      
+  
+     </nb-accordion-item-body>
+    </nb-accordion-item>
+   </nb-accordion>
+   <hr/>
+
+    <br/>
+
+</form>

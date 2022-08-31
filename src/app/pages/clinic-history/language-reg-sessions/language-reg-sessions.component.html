@@ -1,11 +1,15 @@
 
-<ngx-form-language-reg-sessions [type_record]="type_record" (messageEvent)="receiveMessage($event)" >
-</ngx-form-language-reg-sessions>
-<label for="number_monthly_sessions_tl" class="form-text text-muted font-weight-bold align">Sesiones</label>
+<div *ngIf="has_input == false || type_record_id != 1">
+  <ngx-form-language-reg-sessions [type_record]="type_record" (messageEvent)="receiveMessage($event)" >
+  </ngx-form-language-reg-sessions>
+</div>
+
+<div>
+  <label for="number_monthly_sessions_tl" class="form-text text-muted font-weight-bold align">Sesiones</label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table  pager="false" [title]="title" customData="number_monthly_sessions_tl" [settings]="settings"
-      entity="number_monthly_sessions_tl/by_record/{{record_id}}/{{this.type_record}}?pagination=false">
+      entity="number_monthly_sessions_tl/by_record/{{record_id}}/{{this.type_record}}?pagination=false&has_input={{has_input}}">
       <div actions>
         <div class="actions">
         </div>
@@ -15,3 +19,4 @@
     </ngx-base-table>
   </div>
 </ngx-base-list>
+</div>

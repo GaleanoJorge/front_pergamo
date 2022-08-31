@@ -86,8 +86,8 @@
     </nb-card-body>
 
     <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton (click)="SaveBilling()" status="success" type="button">Aceptar</button>
-      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+      <button nbButton (click)="SaveBilling()" style="margin-right: 5px;" status="success" type="button" disabled="{{ loading }}">Aceptar</button>
+      <button nbButton (click)="closeDialog()" type="button" >Cerrar</button>
     </nb-card-footer>
   </nb-card>
 </ng-template>

@@ -19,6 +19,7 @@ export class FormLanguageSpeechComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -64,6 +65,21 @@ export class FormLanguageSpeechComponent implements OnInit {
 
       };
     }
+
+    if (this.has_input) {
+      this.SpeechTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          breathing: [this.data[0] ? this.data[0].breathing : this.data.breathing,],
+          joint: [this.data[0] ? this.data[0].joint : this.data.joint,],
+          resonance: [this.data[0] ? this.data[0].resonance : this.data.resonance,],
+          fluency: [this.data[0] ? this.data[0].joint : this.data.fluency,],
+          prosody: [this.data[0] ? this.data[0].prosody : this.data.prosody,],
+          observations: [this.data[0] ? this.data[0].observations : this.data.observations,],
+        });
+      });
+    }
+
     this.form = this.formBuilder.group({
       breathing: [this.data[0] ? this.data[0].breathing : this.data.breathing,],
       joint: [this.data[0] ? this.data[0].joint : this.data.joint,],

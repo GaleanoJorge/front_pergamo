@@ -15,8 +15,9 @@ import { TlTherapyLanguageService } from '../../../../business-controller/tl-the
 export class FormLanguageAssessmentComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
-  @Output() messageEvent = new EventEmitter<any>();
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -97,6 +98,16 @@ export class FormLanguageAssessmentComponent implements OnInit {
     if (this.loadAuxData && force) return false;
     
 
+    if (this.has_input) {
+      this.TlTherapyLanguageS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          medical_diagnostic_id: [this.data[0] ? this.returnCode( this.data[0].medical_diagnostic_id ): this.data.medical_diagnostic_id,Validators.compose([Validators.required]),],
+          therapeutic_diagnosis_id: [this.data[0] ? this.returnCode( this.data[0].therapeutic_diagnosis_id ): this.data.therapeutic_diagnosis_id,Validators.compose([Validators.required]),],
+          reason_consultation: [this.data[0] ? this.returnCode( this.data[0].reason_consultation) : this.data.reason_consultation,],
+        });
+      });
+    }
 
     this.form = this.formBuilder.group({
       medical_diagnostic_id: [this.data[0] ? this.returnCode( this.data[0].medical_diagnostic_id ): this.data.medical_diagnostic_id,Validators.compose([Validators.required]),],
