@@ -6,6 +6,7 @@ import { AssistanceService } from '../../../../../business-controller/assistance
 import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 import { FormLocationCapacityComponent } from '../form-location-capacity/form-location-capacity.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-base-location-package',
@@ -66,6 +67,7 @@ export class BaseLocationPackageComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private assistanceS: AssistanceService,
     private deleteConfirmService: NbDialogService,
+    private location: Location,
   ) {
   }
 
@@ -73,6 +75,10 @@ export class BaseLocationPackageComponent implements OnInit {
     this.assistance_id = this.parentData;
   }
 
+  back() {
+    this.location.back();
+
+ }
   GetParams() {
     return {
       assistance_id: this.route.snapshot.params.user_id,

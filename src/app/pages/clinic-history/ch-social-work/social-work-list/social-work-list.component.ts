@@ -42,7 +42,7 @@ export class SocialWorkListComponent implements OnInit {
   public bed;
   public bed_id;
   public pavilion;
-  public int;
+  public int: 0;
   public record_id;
   public isSubmitted: boolean = false;
   public saved: any = null;
@@ -136,6 +136,9 @@ export class SocialWorkListComponent implements OnInit {
 
   async finish(firm) {
 
+      if(this.signatureImage!=null){
+     
+        
     var formData = new FormData();
     formData.append('id', this.record_id,);
     formData.append('status', 'CERRADO');
@@ -162,7 +165,9 @@ export class SocialWorkListComponent implements OnInit {
       this.loading = false;
       throw new Error(response);
     }
-  
+  }else{
+    this.toastService.danger('Debe diligenciar la firma');
+  }
   }
 
 

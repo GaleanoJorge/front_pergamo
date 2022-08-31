@@ -50,7 +50,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public loading: boolean = false;
   public currentRole: any;
   public show: any;
-  public int: any;
+  public int: 0;s
   public signatureImage: string;
   public previousUrl: string;
   public has_input;
@@ -166,35 +166,39 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   // }
 
   async finish(firm) {
-
-    var formData = new FormData();
-    formData.append('id', this.record_id,);
-    formData.append('status', 'CERRADO');
-    formData.append('user', this.user);
-    formData.append('role', this.currentRole);
-    formData.append('user_id', this.own_user.id);
-    formData.append('firm_file', this.signatureImage);
-
-    try {
-
-      let response;
-
-      response = await this.chRecord.UpdateCH(formData, this.record_id);
-      this.location.back();
-      this.toastService.success('', response.message);
-      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
-      this.messageError = null;
-      if (this.saved) {
-        this.saved();
+    if(this.signatureImage!=null){
+      var formData = new FormData();
+      formData.append('id', this.record_id,);
+      formData.append('status', 'CERRADO');
+      formData.append('user', this.user);
+      formData.append('role', this.currentRole);
+      formData.append('user_id', this.own_user.id);
+      formData.append('firm_file', this.signatureImage);
+      
+      try {
+        
+        let response;
+        
+        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        this.location.back();
+        this.toastService.success('', response.message);
+        //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
+        this.messageError = null;
+        if (this.saved) {
+          this.saved();
+        }
+      } catch (response) {
+        this.messageError = response;
+        this.isSubmitted = false;
+        this.loading = false;
+        throw new Error(response);
       }
-    } catch (response) {
-      this.messageError = response;
-      this.isSubmitted = false;
-      this.loading = false;
-      throw new Error(response);
+    }else{
+      this.toastService.danger('Debe diligenciar la firma');
+  
     }
-
-  }
+      
+    }
 
   RefreshData() {
 

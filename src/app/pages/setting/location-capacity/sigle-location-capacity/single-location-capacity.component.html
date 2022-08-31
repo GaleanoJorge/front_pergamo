@@ -6,6 +6,8 @@
       <div class="col-md-12">
         <h3 class="parrafo"*ngIf="assistance_name">CAPACIDAD INSTALADA DE {{assistance_name}}</h3>
       </div>
+      
+
 
       <ngx-base-location-package [parentData]="this.assistance_id" (emitMessage)="receiveMessage($event)"></ngx-base-location-package>
     <!-- <ngx-base-table [title]="title_base"

@@ -8,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 import { BriefcaseService } from '../../../business-controller/briefcase.service';
 import { ActionsSemaphoreAdmissionsListComponent } from './actions -semaphore-admissions-list.component';
 
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'ngx-billing-admissions-pad-list',
   templateUrl: './billing-admissions-pad-list.component.html',
@@ -153,6 +155,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private toastS: NbToastrService,
+    private location: Location,
   ) {
   }
   public form: FormGroup;
@@ -183,6 +186,11 @@ export class BillingAdmissionsPadListComponent implements OnInit {
       });
     }
   }
+  back() {
+    this.location.back();
+
+ }
+
 
 
   RefreshData() {

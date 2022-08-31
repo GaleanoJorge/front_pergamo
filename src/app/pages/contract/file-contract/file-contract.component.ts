@@ -7,6 +7,7 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions2Component } from './actions2.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-file-contract',
@@ -76,6 +77,7 @@ export class FileContractComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private route: ActivatedRoute,
+    private location: Location,
   ) {
   }
 
@@ -99,6 +101,11 @@ export class FileContractComponent implements OnInit {
     ];
     
   }
+  back() {
+    this.location.back();
+
+ }
+
 
   RefreshData() {
 
