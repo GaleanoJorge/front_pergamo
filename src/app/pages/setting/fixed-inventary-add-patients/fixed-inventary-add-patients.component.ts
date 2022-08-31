@@ -4,6 +4,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { AuthService } from '../../../services/auth.service';
 import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
 import { FormFixedInventaryAddPatientsComponent } from './form-fixed-inventary-add-patients/form-fixed-inventary-add-patients.component';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-fixed-inventary-add-patients',
@@ -16,7 +17,7 @@ export class FixedInventaryAddPatientsComponent implements OnInit {
   public messageError: string = null;
   public title: string = '';
   public subtitle: string = '';
-  public headerFields: any[] = ['Consecutivo', 'Descripción', 'Marca', 'Modelo', 'Serial', 'Responsable'];
+  public headerFields: any[] = ['Consecutivo', 'Descripción', 'Marca', 'Modelo', 'Serial', 'Responsable', '# Documento paciente', 'Nombre del paciente', 'Fecha prestamo activo'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -78,6 +79,27 @@ export class FixedInventaryAddPatientsComponent implements OnInit {
         }
       },
 
+      admissions: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.admissions.patients.identification;
+        },
+      },
+      firstname: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.admissions.patients.firstname + " " + row.admissions.patients.lastname;
+        },
+      },
+      created_at: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+      },
     },
 
   };
@@ -87,6 +109,8 @@ export class FixedInventaryAddPatientsComponent implements OnInit {
     private authService: AuthService,
     private FixedAssetsS: FixedAssetsService,
     private toastService: NbToastrService,
+    public datePipe: DateFormatPipe,
+
   ) {
   }
 

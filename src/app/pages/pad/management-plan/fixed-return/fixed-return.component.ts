@@ -25,7 +25,7 @@ export class FixedReturnComponent implements OnInit {
 
   public title: string = 'LISTA DE ACTIVOS A NOMBRE DEL PACIENTE'; 
   public subtitle: string = '';
-  public headerFields: any[] = ['ELEMENTO', 'FECHA SOLICITUD'];
+  public headerFields: any[] = ['ELEMENTO', 'FECHA ENTREGADO ACTIVO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
