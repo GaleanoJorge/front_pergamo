@@ -24,23 +24,22 @@
             </div>
             <div class="col-md-4">
               <label for="briefcase_id" class="form-text text-muted font-weight-bold">Portafolios de atención:</label>
-              <nb-select formControlName="briefcase_id" id="briefcase_id" fullWidth
+              <nb-select formControlName="briefcase_id" id="briefcase_id" fullWidth placeholder="Seleccione..."
                 status="{{ isSubmitted && form.controls.briefcase_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                <nb-option value="">Seleccione...</nb-option>
+                <nb-option >Seleccione...</nb-option>
                 <nb-option *ngFor="let item of briefcase" [value]="item.id">
                   {{ item.name }}</nb-option>
               </nb-select>
             </div>
             <div class="col-md-4">
-              <label for="admissions_id" class="form-text text-muted font-weight-bold">Admisiónes del paciente:</label>
-              <nb-select [selected]="this.data.admissions_id" formControlName="admissions_id" id="admissions_id"
-                fullWidth
-                status="{{ isSubmitted && form.controls.admissions_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                <nb-option value="">Seleccione...</nb-option>
-                <nb-option selected="{{ item.id == data.admissions_id }}" *ngFor="let item of admissions"
+              <label for="program_id" class="form-text text-muted font-weight-bold">Programa:</label>
+              <nb-select [selected]="this.data.program_id" formControlName="program_id" id="program_id"
+                fullWidth placeholder="Seleccione..."
+                status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option >Seleccione...</nb-option>
+                <nb-option selected="{{ item.id == data.program_id }}" *ngFor="let item of program"
                   [value]="item.id">
-                  {{ item.consecutive}} - {{item.location[0].scope_of_attention.name}} - {{item.location[0].program.name
-                  }}
+                  {{ item.name }}
                 </nb-option>
               </nb-select>
             </div>
@@ -73,6 +72,7 @@
                 <nb-option value="0">TODOS LOS REGISTROS</nb-option>
                 <nb-option value="P">PROYECTADOS</nb-option>
                 <nb-option value="E">EJECUTADOS</nb-option>
+                <nb-option value="PAQ">PAQUETES</nb-option>
                 <nb-option *ngFor="let item of auth_statusM" [value]="item.id">{{item.name}}</nb-option>
               </nb-select>
             </div>
