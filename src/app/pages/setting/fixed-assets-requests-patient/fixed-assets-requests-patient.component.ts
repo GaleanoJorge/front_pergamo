@@ -21,8 +21,8 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
 
   public title: string = 'LISTA DE ACTIVOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ELEMENTO', 'CANTIDAD', 'SOLICITADO POR', 'PACIENTE'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
+  public headerFields: any[] = ['ELEMENTO', 'CANTIDAD', 'SOLICITADO POR', '# DOCUMENTO PACIENTE', 'NOMBRE PACIENTE'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
   public validator;
@@ -72,7 +72,14 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.admissions.patients.identification + " - " + row.admissions.patients.firstname + " " + row.admissions.patients.lastname;
+          return row.admissions.patients.identification;
+        },
+      },
+      firstname: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.admissions.patients.firstname + " " + row.admissions.patients.lastname;
         },
       },
     },
