@@ -19,7 +19,7 @@
         <nb-stepper #stepper [linear]="linearMode">
 
           <nb-step label='Valoracion Terapeutica'>
-            <ngx-table-valoration-ot [type_record_id]="1" *ngIf="chvaloration" [data]="chvaloration"
+            <ngx-table-valoration-ot [type_record_id]="1" *ngIf="chvaloration" [data]="chvaloration" [has_input]="has_input"
               [record_id]="record_id">
             </ngx-table-valoration-ot>
           </nb-step>
@@ -32,17 +32,17 @@
           </nb-step>
 
           <nb-step label='Historia Ocupacional'>
-            <ngx-table-occupat-history-ot [type_record_id]="1" *ngIf="chocuupationalhistory"
+            <ngx-table-occupat-history-ot [type_record_id]="1" *ngIf="chocuupationalhistory" [has_input]="has_input"
               [record_id]="record_id" [data]="chocuupationalhistory"></ngx-table-occupat-history-ot>
           </nb-step>
 
           <nb-step label='Antecedentes Ocupacionales'>
-            <ngx-table-past-ot [type_record_id]="1" *ngIf="chpast" [record_id]="record_id" [data]="chpast">
+            <ngx-table-past-ot [type_record_id]="1" *ngIf="chpast" [record_id]="record_id" [data]="chpast" [has_input]="has_input">
             </ngx-table-past-ot>
           </nb-step>
 
           <nb-step label='Actividades Vida Diaria'>
-            <ngx-table-daily-activities-ot [type_record_id]="1" *ngIf="chdailyactivities" [record_id]="record_id"
+            <ngx-table-daily-activities-ot [type_record_id]="1" *ngIf="chdailyactivities" [record_id]="record_id" [has_input]="has_input"
               [data]="chdailyactivities"></ngx-table-daily-activities-ot>
           </nb-step>
 

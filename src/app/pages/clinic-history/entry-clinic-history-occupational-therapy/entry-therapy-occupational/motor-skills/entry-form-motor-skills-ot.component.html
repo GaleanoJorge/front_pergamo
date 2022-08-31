@@ -7,7 +7,7 @@
      <nb-accordion-item-body>
      
 
-      <ngx-table-fun-pat-m-ot  [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chfunpat" [data]="chfunpat">
+      <ngx-table-fun-pat-m-ot  [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chfunpat" [data]="chfunpat" [has_input]="has_input">
       </ngx-table-fun-pat-m-ot>
 
 
@@ -20,7 +20,7 @@
      <nb-accordion-item-header class="row justify-content-center" >PATRONES INTEGRALES</nb-accordion-item-header>chintpat
      <nb-accordion-item-body>
     
-      <ngx-table-int-pat-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chintpat" [data]="chintpat">
+      <ngx-table-int-pat-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chintpat" [data]="chintpat" [has_input]="has_input">
       </ngx-table-int-pat-m-ot>
  
 
@@ -34,7 +34,7 @@
      <nb-accordion-item-header class="row justify-content-center" >PATRONES DE MOVIMIENTO</nb-accordion-item-header>
      <nb-accordion-item-body>
      
-      <ngx-table-mov-pat-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chmovpat" [data]="chmovpat">
+      <ngx-table-mov-pat-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chmovpat" [data]="chmovpat" [has_input]="has_input">
       </ngx-table-mov-pat-m-ot>
 
      </nb-accordion-item-body>
@@ -48,7 +48,7 @@
   
       <br/>
 
-      <ngx-table-thermal-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chthermal" [data]="chthermal">
+      <ngx-table-thermal-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chthermal" [data]="chthermal" [has_input]="has_input">
       </ngx-table-thermal-m-ot>
 
      </nb-accordion-item-body>
@@ -62,7 +62,7 @@
   
       <br/>
 
-      <ngx-table-dis-auditory-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chauditory" [data]="chauditory">
+      <ngx-table-dis-auditory-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chauditory" [data]="chauditory" [has_input]="has_input">
       </ngx-table-dis-auditory-m-ot>
 
 
@@ -77,7 +77,7 @@
   
       <br/>
 
-      <ngx-table-dis-tactile-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chatactile" [data]="chatactile">
+      <ngx-table-dis-tactile-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chatactile" [data]="chatactile" [has_input]="has_input">
       </ngx-table-dis-tactile-m-ot>
   
       <br/>
@@ -92,7 +92,7 @@
      <nb-accordion-item-body>
       <br/>
   
-      <ngx-table-acuity-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chacuity" [data]="chacuity">
+      <ngx-table-acuity-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chacuity" [data]="chacuity" [has_input]="has_input">
       </ngx-table-acuity-m-ot>
   
       <br/>
@@ -109,7 +109,7 @@
   
       <br/>
 
-      <ngx-table-component-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chcomponent" [data]="chcomponent">
+      <ngx-table-component-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chcomponent" [data]="chcomponent" [has_input]="has_input">
       </ngx-table-component-m-ot>
 
       <br/>
@@ -123,7 +123,7 @@
      <nb-accordion-item-header class="row justify-content-center" >EXAMEN MENTAL</nb-accordion-item-header>
      <nb-accordion-item-body>
 
-      <ngx-table-test-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chtest" [data]="chtest">
+      <ngx-table-test-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chtest" [data]="chtest" [has_input]="has_input">
       </ngx-table-test-m-ot>
 
      </nb-accordion-item-body>
@@ -135,7 +135,7 @@
      <nb-accordion-item-header class="row justify-content-center" >HABILIDADES DE COMUNICACION E INTERACCION</nb-accordion-item-header>chcommunication
      <nb-accordion-item-body>
 
-      <ngx-table-communication-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chcommunication" [data]="chcommunication">
+      <ngx-table-communication-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chcommunication" [data]="chcommunication" [has_input]="has_input">
       </ngx-table-communication-m-ot>
   
       <br/>
@@ -149,7 +149,7 @@
      <nb-accordion-item-header class="row justify-content-center" >VALORACION DIARIA</nb-accordion-item-header>
      <nb-accordion-item-body>
 
-      <ngx-table-assessment-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chassessment" [data]="chassessment">
+      <ngx-table-assessment-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chassessment" [data]="chassessment" [has_input]="has_input">
       </ngx-table-assessment-m-ot>
        
      </nb-accordion-item-body>
@@ -161,7 +161,7 @@
      <nb-accordion-item-header class="justify-content-center" >NUMERO DE SESIONES MENSUALES E INTENSIDAD SEMANAL</nb-accordion-item-header>
      <nb-accordion-item-body>
  
-      <ngx-table-weekly-int-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chweekly" [data]="chweekly">
+      <ngx-table-weekly-int-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chweekly" [data]="chweekly" [has_input]="has_input">
       </ngx-table-weekly-int-m-ot>
       
   
