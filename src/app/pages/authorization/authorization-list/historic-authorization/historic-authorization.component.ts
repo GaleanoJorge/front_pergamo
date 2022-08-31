@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlossService } from '../../../../business-controller/gloss.service';
@@ -12,6 +12,7 @@ import { AuthorizationService } from '../../../../business-controller/authorizat
 import { ActionsDocumentComponent } from '../actions2.component';
 import { ActionsAuthNumberComponent } from '../actions-auth-number.component';
 import { AuthService } from '../../../../services/auth.service';
+import { ActionsHistComponent } from '../actionsHist.component';
 
 
 @Component({
@@ -60,9 +61,11 @@ export class HistoricAuthorizationListComponent implements OnInit {
   public result: any = null;
   public diagnosis: any[] = [];
   public profesionals: any[] = [];
+  public parentData: any;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @ViewChild('packagingView', { read: TemplateRef }) packagingView: TemplateRef<HTMLElement>;
 
 
   private readonly newProperty = 'custom';
@@ -73,6 +76,19 @@ export class HistoricAuthorizationListComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'view': this.ViewPackage.bind(this),
+            'refresh': this.RefreshData.bind(this),
+          };
+        },
+        renderComponent: ActionsHistComponent,
+      },
       id: {
         title: 'ID',
         type: 'string',
@@ -200,6 +216,7 @@ export class HistoricAuthorizationListComponent implements OnInit {
     private authStatusS: AuthStatusService,
     private authorizationS: AuthorizationService,
     private toastS: NbToastrService,
+    private dialogFormService: NbDialogService,
   ) {
   }
   public form: FormGroup;
@@ -212,9 +229,28 @@ export class HistoricAuthorizationListComponent implements OnInit {
 
 
   async ngOnInit() {
+
+    this.parentData = {
+      selectedOptions: [],
+      entity: '',
+      customData: '',
+    };
+
     await this.authStatusS.GetCollection().then(x => {
       x.splice(0, 2);
       this.auth_status = x;
+    });
+
+
+  }
+
+  ViewPackage(data) {
+    if (data) {
+      this.parentData.entity = 'authorization/auth_byAdmission/' + data.admissions_id + '?view=true&id=' + data.id;
+      this.parentData.customData = 'authorization'
+    };
+
+    this.dialog = this.dialogFormService.open(this.packagingView, {
     });
   }
 
@@ -241,5 +277,9 @@ export class HistoricAuthorizationListComponent implements OnInit {
 
       });
     }
+  }
+
+  close() {
+    this.dialog.close();
   }
 }
