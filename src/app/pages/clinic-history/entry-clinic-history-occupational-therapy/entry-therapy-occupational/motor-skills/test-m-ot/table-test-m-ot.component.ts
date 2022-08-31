@@ -6,11 +6,11 @@ import { BaseTableComponent } from '../../../../../components/base-table/base-ta
 
 
 @Component({
-  selector: 'ngx-table-dis-auditory-m-ot',
-  templateUrl: './table-dis-auditory-m-ot.component.html',
-  styleUrls: ['./table-dis-auditory-m-ot.component.scss']
+  selector: 'ngx-table-test-m-ot',
+  templateUrl: './table-test-m-ot.component.html',
+  styleUrls: ['./table-test-m-ot.component.scss']
 })
-export class TableDisAuditoryMOTComponent implements OnInit {
+export class TableTestMOTComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
@@ -23,11 +23,17 @@ export class TableDisAuditoryMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['REALIZA BUSQUEDA DE FUENTES SONORAS', 
-                                'PRESENTA HIPERSENSIBILIDAD AUDITIVA',
-                                'PRESENTA HIPOSENSIBILIDAD AUDITIVA', 
-                                'PRESENTA RESPUESTA AUDITIVA FRENTE A LOS DIFERENTES ESTIMULOS AUDITIVOS',
-                                'LOGRA DISCIMINACION AUDITIVA',];
+  public headerFields: any[] = ['APARIENCIA', 
+                                'CONCIENCIA',
+                                'ATENCION', 
+                                'ESTADO DE HUMOR',
+                                'LENGUAJE', 
+                                'SENSOPERCEPCION',
+                                'CURSO', 
+                                'CONTENIDO',
+                                'ORIENTACION', 
+                                'SUEÑO',
+                                'MEMORIA',];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -41,30 +47,57 @@ export class TableDisAuditoryMOTComponent implements OnInit {
     },
     columns: {
 
-      sound_sources: {
+      appearance: {
         title: this.headerFields[0],
         width: 'string',
       },
 
-      auditory_hyposensitivity: {
+      consent: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      auditory_hypersensitivity: {
+      Attention: {
         title: this.headerFields[2],
         width: 'string',
       },
-
-      auditory_stimuli: {
+      humor: {
         title: this.headerFields[3],
         width: 'string',
       },
 
-      auditive_discrimination: {
+      language: {
         title: this.headerFields[4],
         width: 'string',
       },
+      sensory_perception: {
+        title: this.headerFields[5],
+        width: 'string',
+      },
+
+      grade: {
+        title: this.headerFields[6],
+        width: 'string',
+      },
+      contents: {
+        title: this.headerFields[7],
+        width: 'string',
+      },
+
+      orientation: {
+        title: this.headerFields[8],
+        width: 'string',
+      },
+
+      sleep: {
+        title: this.headerFields[9],
+        width: 'string',
+      },
+      memory: {
+        title: this.headerFields[10],
+        width: 'string',
+      },
+
     },
   };
 
@@ -86,3 +119,4 @@ export class TableDisAuditoryMOTComponent implements OnInit {
     }
   }
 }
+

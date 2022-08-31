@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { ChEMSCommunicationOTService } from '../../../../../../business-controller/ch_e_m_s_communication_o_t.service';
+import { ChEMSCommunicationOTService } from '../../../../../../../business-controller/ch_e_m_s_communication_o_t.service';
 
 
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-communication-ot',
-  templateUrl: './form-entry-motor-communication-ot.component.html',
-  styleUrls: ['./form-entry-motor-communication-ot.component.scss']
+  selector: 'ngx-form-communication-m-ot',
+  templateUrl: './form-communication-m-ot.component.html',
+  styleUrls: ['./form-communication-m-ot.component.scss']
 })
-export class FormEntryMotorCommunicationOTComponent implements OnInit {
+export class FormCommunicationMOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -67,32 +67,6 @@ export class FormEntryMotorCommunicationOTComponent implements OnInit {
 
     });
 
-
-    if (this.data.community != '') {
-      this.form.controls.community.disable();
-      this.form.controls.relatives.disable();
-      this.form.controls.friends.disable();
-      this.form.controls.health.disable();
-      this.form.controls.shopping.disable();
-      this.form.controls.foods.disable();
-      this.form.controls.bathe.disable();
-      this.form.controls.dress.disable();
-      this.form.controls.animals.disable();
-
-      this.disabled = true;
-    } else {
-      this.form.controls.community.enable();
-      this.form.controls.relatives.enable();
-      this.form.controls.friends.enable();
-      this.form.controls.health.enable();
-      this.form.controls.shopping.enable();
-      this.form.controls.foods.enable();
-      this.form.controls.bathe.enable();
-      this.form.controls.dress.enable();
-      this.form.controls.animals.enable();
-
-      this.disabled = false;
-    }
   }
 
   save() {
@@ -113,10 +87,11 @@ export class FormEntryMotorCommunicationOTComponent implements OnInit {
           dress: this.form.controls.dress.value,
           animals: this.form.controls.animals.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
           
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -137,9 +112,10 @@ export class FormEntryMotorCommunicationOTComponent implements OnInit {
           dress: this.form.controls.dress.value,
           animals: this.form.controls.animals.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();

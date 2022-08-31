@@ -6,11 +6,11 @@ import { BaseTableComponent } from '../../../../../components/base-table/base-ta
 
 
 @Component({
-  selector: 'ngx-table-dis-auditory-m-ot',
-  templateUrl: './table-dis-auditory-m-ot.component.html',
-  styleUrls: ['./table-dis-auditory-m-ot.component.scss']
+  selector: 'ngx-table-assessment-m-ot',
+  templateUrl: './table-assessment-m-ot.component.html',
+  styleUrls: ['./table-assessment-m-ot.component.scss']
 })
-export class TableDisAuditoryMOTComponent implements OnInit {
+export class TableAssessmentMOTComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
@@ -23,11 +23,17 @@ export class TableDisAuditoryMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['REALIZA BUSQUEDA DE FUENTES SONORAS', 
-                                'PRESENTA HIPERSENSIBILIDAD AUDITIVA',
-                                'PRESENTA HIPOSENSIBILIDAD AUDITIVA', 
-                                'PRESENTA RESPUESTA AUDITIVA FRENTE A LOS DIFERENTES ESTIMULOS AUDITIVOS',
-                                'LOGRA DISCIMINACION AUDITIVA',];
+  public headerFields: any[] = ['OBJETIVO 1', 
+                                'OBJETIVO 2',
+                                'OBJETIVO 3', 
+                                'OBJETIVO 4',
+                                'OBJETIVO 5', 
+                                'OBJETIVO 6',
+                                'OBJETIVO 7', 
+                                'OBJETIVO 8',
+                                'OBJETIVO 9', 
+                                'OBJETIVO 10',
+                                'CONCEPTO OCUPACIONAL', ];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -41,30 +47,58 @@ export class TableDisAuditoryMOTComponent implements OnInit {
     },
     columns: {
 
-      sound_sources: {
+      check1_hold: {
         title: this.headerFields[0],
         width: 'string',
       },
 
-      auditory_hyposensitivity: {
+      check2_improve: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      auditory_hypersensitivity: {
+      check3_structure: {
         title: this.headerFields[2],
         width: 'string',
       },
-
-      auditory_stimuli: {
+      check4_promote: {
         title: this.headerFields[3],
         width: 'string',
       },
 
-      auditive_discrimination: {
+      check5_strengthen: {
         title: this.headerFields[4],
         width: 'string',
       },
+      check6_promote_2: {
+        title: this.headerFields[5],
+        width: 'string',
+      },
+
+      check7_develop: {
+        title: this.headerFields[6],
+        width: 'string',
+      },
+      check8_strengthen_2: {
+        title: this.headerFields[7],
+        width: 'string',
+      },
+
+      check9_favor: {
+        title: this.headerFields[8],
+        width: 'string',
+      },
+
+      check10_functionality: {
+        title: this.headerFields[9],
+        width: 'string',
+      },
+      occupational_con: {
+        title: this.headerFields[10],
+        width: 'string',
+      },
+
+      
     },
   };
 
@@ -86,3 +120,4 @@ export class TableDisAuditoryMOTComponent implements OnInit {
     }
   }
 }
+

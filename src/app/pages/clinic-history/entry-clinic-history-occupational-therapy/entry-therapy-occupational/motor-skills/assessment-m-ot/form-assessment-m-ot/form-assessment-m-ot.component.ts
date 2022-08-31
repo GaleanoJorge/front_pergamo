@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { ChEMSAssessmentOTService } from '../../../../../../business-controller/ch_e_m_s_assessment_o_t.service';
+import { ChEMSAssessmentOTService } from '../../../../../../../business-controller/ch_e_m_s_assessment_o_t.service';
 
 
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-assessment-ot',
-  templateUrl: './form-entry-motor-assessment-ot.component.html',
-  styleUrls: ['./form-entry-motor-assessment-ot.component.scss']
+  selector: 'ngx-form-assessment-m-ot',
+  templateUrl: './form-assessment-m-ot.component.html',
+  styleUrls: ['./form-assessment-m-ot.component.scss']
 })
-export class FormEntryMotorAssessmentOTComponent implements OnInit {
+export class FormAssessmentMOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -136,45 +136,45 @@ export class FormEntryMotorAssessmentOTComponent implements OnInit {
 
     });
 
-    if (this.data.occupational_con != ''
-       ||this.data.check1_hold != ''
-       ||this.data.check2_improve != ''
-       ||this.data.check3_structure != ''
-       ||this.data.check4_promote != ''
-       ||this.data.check5_strengthen != ''
-       ||this.data.check6_promote_2 != ''
-       ||this.data.check7_develop != ''
-       ||this.data.check8_strengthen_2 != ''
-       ||this.data.check9_favor != ''
-       ||this.data.check10_functionality != '') {
-      this.form.controls.occupational_con.disable();
-      this.form.controls.check1_hold.disable();
-      this.form.controls.check2_improve.disable();
-      this.form.controls.check3_structure.disable();
-      this.form.controls.check4_promote.disable();
-      this.form.controls.check5_strengthen.disable();
-      this.form.controls.check6_promote_2.disable();
-      this.form.controls.check7_develop.disable();
-      this.form.controls.check8_strengthen_2.disable();
-      this.form.controls.check9_favor.disable();
-      this.form.controls.check10_functionality.disable();
+    // if (this.data.occupational_con != ''
+    //    ||this.data.check1_hold != ''
+    //    ||this.data.check2_improve != ''
+    //    ||this.data.check3_structure != ''
+    //    ||this.data.check4_promote != ''
+    //    ||this.data.check5_strengthen != ''
+    //    ||this.data.check6_promote_2 != ''
+    //    ||this.data.check7_develop != ''
+    //    ||this.data.check8_strengthen_2 != ''
+    //    ||this.data.check9_favor != ''
+    //    ||this.data.check10_functionality != '') {
+    //   this.form.controls.occupational_con.disable();
+    //   this.form.controls.check1_hold.disable();
+    //   this.form.controls.check2_improve.disable();
+    //   this.form.controls.check3_structure.disable();
+    //   this.form.controls.check4_promote.disable();
+    //   this.form.controls.check5_strengthen.disable();
+    //   this.form.controls.check6_promote_2.disable();
+    //   this.form.controls.check7_develop.disable();
+    //   this.form.controls.check8_strengthen_2.disable();
+    //   this.form.controls.check9_favor.disable();
+    //   this.form.controls.check10_functionality.disable();
 
-      this.disabled = true;
-    } else {
-      this.form.controls.occupational_con.enable();
-      this.form.controls.check1_hold.enable();
-      this.form.controls.check2_improve.enable();
-      this.form.controls.check3_structure.enable();
-      this.form.controls.check4_promote.enable();
-      this.form.controls.check5_strengthen.enable();
-      this.form.controls.check6_promote_2.enable();
-      this.form.controls.check7_develop.enable();
-      this.form.controls.check8_strengthen_2.enable();
-      this.form.controls.check9_favor.enable();
-      this.form.controls.check10_functionality.enable();
+    //   this.disabled = true;
+    // } else {
+    //   this.form.controls.occupational_con.enable();
+    //   this.form.controls.check1_hold.enable();
+    //   this.form.controls.check2_improve.enable();
+    //   this.form.controls.check3_structure.enable();
+    //   this.form.controls.check4_promote.enable();
+    //   this.form.controls.check5_strengthen.enable();
+    //   this.form.controls.check6_promote_2.enable();
+    //   this.form.controls.check7_develop.enable();
+    //   this.form.controls.check8_strengthen_2.enable();
+    //   this.form.controls.check9_favor.enable();
+    //   this.form.controls.check10_functionality.enable();
 
-      this.disabled = false;
-    }
+    //   this.disabled = false;
+    // }
   }
 
    save() {
@@ -201,6 +201,7 @@ export class FormEntryMotorAssessmentOTComponent implements OnInit {
           ch_record_id: this.record_id,
           
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -226,6 +227,7 @@ export class FormEntryMotorAssessmentOTComponent implements OnInit {
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();

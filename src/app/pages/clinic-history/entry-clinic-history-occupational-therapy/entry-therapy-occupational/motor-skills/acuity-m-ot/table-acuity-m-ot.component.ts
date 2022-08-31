@@ -6,11 +6,11 @@ import { BaseTableComponent } from '../../../../../components/base-table/base-ta
 
 
 @Component({
-  selector: 'ngx-table-dis-auditory-m-ot',
-  templateUrl: './table-dis-auditory-m-ot.component.html',
-  styleUrls: ['./table-dis-auditory-m-ot.component.scss']
+  selector: 'ngx-table-acuity-m-ot',
+  templateUrl: './table-acuity-m-ot.component.html',
+  styleUrls: ['./table-acuity-m-ot.component.scss']
 })
-export class TableDisAuditoryMOTComponent implements OnInit {
+export class TableAcuityMOTComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
@@ -23,11 +23,12 @@ export class TableDisAuditoryMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['REALIZA BUSQUEDA DE FUENTES SONORAS', 
-                                'PRESENTA HIPERSENSIBILIDAD AUDITIVA',
-                                'PRESENTA HIPOSENSIBILIDAD AUDITIVA', 
-                                'PRESENTA RESPUESTA AUDITIVA FRENTE A LOS DIFERENTES ESTIMULOS AUDITIVOS',
-                                'LOGRA DISCIMINACION AUDITIVA',];
+  public headerFields: any[] = ['LOGRA TACTO Y SEGUIMIENTO VISUAL', 
+                                'IDENTIFICACIÓN DE OBJETOS',
+                                'FIGURAS SUPERPUESTAS', 
+                                'DISEÑO DE BLOQUES DE COLORES',
+                                'CATEGORIZACIÓN', 
+                                'RELÑACIÓN ESPECIAL ENTRE EL PACIENTE Y LOS OBJETOS DE ESPACIO',];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -41,30 +42,34 @@ export class TableDisAuditoryMOTComponent implements OnInit {
     },
     columns: {
 
-      sound_sources: {
+      follow_up: {
         title: this.headerFields[0],
         width: 'string',
       },
 
-      auditory_hyposensitivity: {
+      object_identify: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      auditory_hypersensitivity: {
+      figures: {
         title: this.headerFields[2],
         width: 'string',
       },
-
-      auditory_stimuli: {
+      color_design: {
         title: this.headerFields[3],
         width: 'string',
       },
 
-      auditive_discrimination: {
+      categorization: {
         title: this.headerFields[4],
         width: 'string',
       },
+      special_relation: {
+        title: this.headerFields[5],
+        width: 'string',
+      },
+
     },
   };
 
@@ -86,3 +91,4 @@ export class TableDisAuditoryMOTComponent implements OnInit {
     }
   }
 }
+

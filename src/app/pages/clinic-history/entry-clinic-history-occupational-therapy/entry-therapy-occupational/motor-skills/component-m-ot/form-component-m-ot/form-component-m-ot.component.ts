@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { ChEMSComponentOTService } from '../../../../../../business-controller/ch_e_m_s_component_o_t.service';
+import { ChEMSComponentOTService } from '../../../../../../../business-controller/ch_e_m_s_component_o_t.service';
 
 
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-component-ot',
-  templateUrl: './form-entry-motor-component-ot.component.html',
-  styleUrls: ['./form-entry-motor-component-ot.component.scss']
+  selector: 'ngx-form-component-m-ot',
+  templateUrl: './form-component-m-ot.component.html',
+  styleUrls: ['./form-component-m-ot.component.scss']
 })
-export class FormEntryMotorComponentOTComponent implements OnInit {
+export class FormComponentMOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -82,10 +82,11 @@ export class FormEntryMotorComponentOTComponent implements OnInit {
           static_balance: this.form.controls.static_balance.value,
           observation_component: this.form.controls.observation_component.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
           
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -100,9 +101,10 @@ export class FormEntryMotorComponentOTComponent implements OnInit {
           static_balance: this.form.controls.static_balance.value,
           observation_component: this.form.controls.observation_component.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();

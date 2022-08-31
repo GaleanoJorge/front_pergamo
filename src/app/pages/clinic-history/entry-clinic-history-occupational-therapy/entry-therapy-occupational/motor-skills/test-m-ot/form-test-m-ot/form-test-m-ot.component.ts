@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { ChEMSTestOTService } from '../../../../../../business-controller/ch_e_m_s_test_o_t.service';
+import { ChEMSTestOTService } from '../../../../../../../business-controller/ch_e_m_s_test_o_t.service';
 
 
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-test-ot',
-  templateUrl: './form-entry-motor-test-ot.component.html',
-  styleUrls: ['./form-entry-motor-test-ot.component.scss']
+  selector: 'ngx-form-test-m-ot',
+  templateUrl: './form-test-m-ot.component.html',
+  styleUrls: ['./form-test-m-ot.component.scss']
 })
-export class FormEntryMotorTestOTComponent implements OnInit {
+export class FormTestMOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -123,10 +123,11 @@ export class FormEntryMotorTestOTComponent implements OnInit {
           sleep: this.form.controls.sleep.value,
           memory: this.form.controls.memory.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
           
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -149,9 +150,10 @@ export class FormEntryMotorTestOTComponent implements OnInit {
           sleep: this.form.controls.sleep.value,
           memory: this.form.controls.memory.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
