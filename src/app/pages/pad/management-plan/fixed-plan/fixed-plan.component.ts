@@ -3,6 +3,7 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { TableRowWidget } from '@syncfusion/ej2/documenteditor';
 import { FixedAddService } from '../../../../business-controller/fixed-add.service';
 import { FixedAssetsService } from '../../../../business-controller/fixed-assets.service';
+import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 import { AuthService } from '../../../../services/auth.service';
 
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
@@ -23,7 +24,7 @@ export class FixedPlanComponent implements OnInit {
 
   public title: string = 'LISTA DE ACTIVOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'ELEMENTO', 'PROCEDIMIENTO'];
+  public headerFields: any[] = ['CONSECUTIVO', 'ELEMENTO', 'PROCEDIMIENTO', 'FECHA SOLICITUD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -56,6 +57,13 @@ export class FixedPlanComponent implements OnInit {
           return row.procedure.manual_price.name;
         },
       },
+      created_at: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+      },
 
     },
   };
@@ -67,6 +75,8 @@ export class FixedPlanComponent implements OnInit {
     private authService: AuthService,
     private FixedAssetsS: FixedAssetsService,
     private toastService: NbToastrService,
+    public datePipe: DateFormatPipe,
+
   ) {
   }
 
