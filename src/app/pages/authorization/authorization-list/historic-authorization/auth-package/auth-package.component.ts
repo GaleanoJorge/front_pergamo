@@ -118,9 +118,7 @@ export class AuthPackageComponent implements OnInit {
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
-            if (this.saved) {
-              this.saved();
-            }
+            this.saved();
           }).catch(x => {
             this.isSubmitted = false;
             this.loading = false;
@@ -133,11 +131,12 @@ export class AuthPackageComponent implements OnInit {
             auth_array: JSON.stringify(this.selectedOptions),
           }).then(x => {
             this.toastService.success('', x.message);
-            this.dialog.close();
-            this.dialog = null;
-            if (this.saved) {
-              this.saved();
+            if(this.dialog){
+              this.dialog.close();
+              this.dialog = null;
             }
+            this.close();
+            this.saved();
           }).catch(x => {
             this.isSubmitted = false;
             this.loading = false;
