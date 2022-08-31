@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
-import { NbDialogRef, NbDialogService, NbToastrService, NbWindowService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbToastrService, NbWindowService, NbWindowRef } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthorizationService } from '../../../../../business-controller/authorization.service';
 import { Contract } from '../../../../../models/contract';
@@ -38,6 +38,7 @@ export class AuthPackageComponent implements OnInit {
 
   public package_id: any = null;
   public packages: any[] = [];
+  public element;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -92,6 +93,11 @@ export class AuthPackageComponent implements OnInit {
     if (!t) {
       this.saved()
     }
+    this.element = document.getElementsByTagName("nb-windows-container");
+    if(this.element.length > 0)
+    {
+      this.element[0].remove();
+    }
     this.dialogRef.close();
   }
 
@@ -127,7 +133,8 @@ export class AuthPackageComponent implements OnInit {
             auth_array: JSON.stringify(this.selectedOptions),
           }).then(x => {
             this.toastService.success('', x.message);
-            this.close();
+            this.dialog.close();
+            this.dialog = null;
             if (this.saved) {
               this.saved();
             }
