@@ -3,6 +3,7 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { TableRowWidget } from '@syncfusion/ej2/documenteditor';
 import { FixedAddService } from '../../../../business-controller/fixed-add.service';
 import { FixedAssetsService } from '../../../../business-controller/fixed-assets.service';
+import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 import { AuthService } from '../../../../services/auth.service';
 
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
@@ -24,8 +25,8 @@ export class FixedReturnComponent implements OnInit {
 
   public title: string = 'LISTA DE ACTIVOS A NOMBRE DEL PACIENTE'; 
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'ELEMENTO'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
+  public headerFields: any[] = ['ELEMENTO', 'FECHA SOLICITUD'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
   public my_fixed_id;
@@ -55,15 +56,18 @@ export class FixedReturnComponent implements OnInit {
         },
         renderComponent: ActionsRetuPatientComponent,
       },
-      id: {
-        title: this.headerFields[0],
-        type: 'string',
-      },
       fixed_nom_product: {
-        title: this.headerFields[1],
+        title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.fixed_nom_product.name + " - " + row.fixed_nom_product.fixed_clasification.fixed_type.name;
+        },
+      },
+      created_at: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
         },
       },
     },
@@ -73,6 +77,8 @@ export class FixedReturnComponent implements OnInit {
     private FixedAddS: FixedAddService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
+    public datePipe: DateFormatPipe,
+
   ) {
   }
 
