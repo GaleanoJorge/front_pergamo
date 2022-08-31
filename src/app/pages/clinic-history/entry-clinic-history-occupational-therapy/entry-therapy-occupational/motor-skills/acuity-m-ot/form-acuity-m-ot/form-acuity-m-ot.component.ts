@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { ChEMSAcuityOTService } from '../../../../../../business-controller/ch_e_m_s_acuity_o_t.service';
+import { ChEMSAcuityOTService } from '../../../../../../../business-controller/ch_e_m_s_acuity_o_t.service';
 
 
 
 
 
 @Component({
-  selector: 'ngx-form-entry-motor-acuity-ot',
-  templateUrl: './form-entry-motor-acuity-ot.component.html',
-  styleUrls: ['./form-entry-motor-acuity-ot.component.scss']
+  selector: 'ngx-form-acuity-m-ot',
+  templateUrl: './form-acuity-m-ot.component.html',
+  styleUrls: ['./form-acuity-m-ot.component.scss']
 })
-export class FormEntryMotorAcuityOTComponent implements OnInit {
+export class FormAcuityMOTComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
@@ -98,10 +98,11 @@ export class FormEntryMotorAcuityOTComponent implements OnInit {
           categorization: this.form.controls.categorization.value,
           special_relation: this.form.controls.special_relation.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
           
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -119,9 +120,10 @@ export class FormEntryMotorAcuityOTComponent implements OnInit {
           categorization: this.form.controls.categorization.value,
           special_relation: this.form.controls.special_relation.value,
 
-          type_record_id: this.type_record_id,
+          type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
