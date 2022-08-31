@@ -22,13 +22,12 @@
       
       <div actions>
         <div class="actions">
+          <button nbButton (click)="back()" >Volver</button>
           <button *ngIf="showButtom==true"  nbButton status="danger" (click)="NewChRecord()">Crear</button>
         </div>
         <div class="actions" >
         </div>
-        <div class="col-md-6 position">
-          <button nbButton (click)="back()" >Volver</button>
-        </div>
+        
       </div>
     </ngx-base-table>
   </div>
