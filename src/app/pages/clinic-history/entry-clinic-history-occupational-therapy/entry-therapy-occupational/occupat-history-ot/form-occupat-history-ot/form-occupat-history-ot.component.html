@@ -1,0 +1,117 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+ 
+  <div>
+    <div class="col-md-12">
+      <label class="form-text text-muted font-weight-bold">OCUPACION:</label>
+      <nb-select formControlName="ocupation" id="ocupation" nbSelect (disabled)="this.has_input" fullWidth title="Seleccione..."
+        status="{{ isSubmitted && form.controls.ocupation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option value="EMPLEADO">EMPLEADO</nb-option>
+        <nb-option value="INDEPENDIENTE">INDEPENDIENTE</nb-option>
+        <nb-option value="HOGAR">HOGAR</nb-option>
+        <nb-option value="ACTUALMENTE NO LABORA">ACTUALMENTE NO LABORA</nb-option>
+      </nb-select>
+    </div>
+
+    <div *ngIf="form.controls.ocupation.value == 'EMPLEADO'">
+
+      <div class="col-md-12">
+        <label class="form-text text-muted font-weight-bold">ANTIGÛEDAD EN LA EMPRESA:</label>
+        <nb-select formControlName="enterprice_employee" id="enterprice_employee" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.enterprice_employee.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="1 A 6 MESES">1 A 6 MESES</nb-option>
+          <nb-option value="6 MESES A 1 AÑO">6 MESES A 1 AÑO</nb-option>
+          <nb-option value="1 AÑO A 3 AÑOS">1 AÑO A 3 AÑOS</nb-option>
+          <nb-option value="3 AÑOS O MAS">3 AÑOS O MAS</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-md-12">
+          <label class="form-text text-muted font-weight-bold">HORARIO DE TRABAJO:</label>
+          <nb-select formControlName="work_employee" id="work_employee" fullWidth
+            title="Seleccione..."
+            status="{{ isSubmitted && form.controls.work_employee.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="7:00 AM - 5:00 PM">7:00 AM - 5:00 PM</nb-option>
+            <nb-option value="TURNO 6 HORAS">TURNO 6 HORAS</nb-option>
+            <nb-option value="TURNO 12 HORAS">TURNO 12 HORAS</nb-option>
+            <nb-option value="TURNO 24 HORAS">TURNO 24 HORAS</nb-option>
+          </nb-select>
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-text text-muted font-weight-bold">REALIZA TURNOS:</label>
+        <nb-select  formControlName="shift_employee" id="shift_employee" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.shift_employee.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="DIURNOS">DIURNOS</nb-option>
+          <nb-option value="NOCTURNOS">NOCTURNOS</nb-option>
+          <nb-option value="ROTATIVOS">ROTATIVOS</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
+        <textarea id="observation_employee" nbInput fullWidth formControlName="observation_employee" current_illness rows="4"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation_employee.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <div *ngIf="form.controls.ocupation.value == 'INDEPENDIENTE'">
+
+      <div class="col-md-12">
+          <label class="form-text text-muted font-weight-bold">HORARIO DE TRABAJO:</label>
+          <nb-select formControlName="work_independent" id="work_independent" fullWidth
+            title="Seleccione..."
+            status="{{ isSubmitted && form.controls.work_independent.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="7:00 AM - 5:00 PM">7:00 AM - 5:00 PM</nb-option>
+            <nb-option value="TURNO 6 HORAS">TURNO 6 HORAS</nb-option>
+            <nb-option value="TURNO 12 HORAS">TURNO 12 HORAS</nb-option>
+            <nb-option value="TURNO 24 HORAS">TURNO 24 HORAS</nb-option>
+          </nb-select>
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-text text-muted font-weight-bold">REALIZA TURNOS:</label>
+        <nb-select formControlName="shift_independent" id="shift_independent" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.shift_independent.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="DIURNOS">DIURNOS</nb-option>
+          <nb-option value="NOCTURNOS">NOCTURNOS</nb-option>
+          <nb-option value="ROTATIVOS">ROTATIVOS</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
+        <textarea id="observation_independent" nbInput fullWidth formControlName="observation_independent" current_illness rows="4"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation_independent.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <div *ngIf="form.controls.ocupation.value == 'HOGAR'">
+
+      <div class="col-md-12">
+        <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
+        <textarea id="observation_home" nbInput fullWidth formControlName="observation_home" current_illness rows="4"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation_home.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <div *ngIf="form.controls.ocupation.value == 'ACTUALMENTE NO LABORA'">
+
+    </div>
+
+
+
+
+    <div class="div-send" *ngIf="!has_input">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+  </div>
+</form>

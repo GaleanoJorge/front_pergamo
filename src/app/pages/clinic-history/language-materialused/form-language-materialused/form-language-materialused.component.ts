@@ -14,6 +14,7 @@ export class FormLanguageMaterialusedComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -52,6 +53,7 @@ export class FormLanguageMaterialusedComponent implements OnInit {
 
       };
     }
+    
     this.form = this.formBuilder.group({
       materialused: [this.data[0] ? this.data[0].materialused : this.data.materialused,],
       

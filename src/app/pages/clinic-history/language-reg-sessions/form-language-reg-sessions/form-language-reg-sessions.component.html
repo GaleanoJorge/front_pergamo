@@ -4,19 +4,19 @@
 
       <div class="col col-lg-6 center">
         <label class="form-text text-muted font-weight-bold">Sesiones Mensuales</label>
-        <input type="number" class="Box" id="monthly_sessions" formControlName="monthly_sessions" nbInput
+        <input type="number" class="Box" id="monthly_sessions" formControlName="monthly_sessions" nbInput (disabled)="this.has_input"
           status="{{ isSubmitted && form.controls.monthly_sessions.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
       </div>
 
       <div class="col col-lg-6 center">
         <label class="form-text text-muted font-weight-bold">Intensidad Semanal</label>
-        <input type="number" class="Box" id="weekly_intensity" formControlName="weekly_intensity" nbInput
+        <input type="number" class="Box" id="weekly_intensity" formControlName="weekly_intensity" nbInput (disabled)="this.has_input"
           status="{{ isSubmitted && form.controls.weekly_intensity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
       </div>
 
       <div class="col-md-12 center">
         <label class="form-text text-muted font-weight-bold">Recomendaciones/Educación</label>
-        <textarea id="recomendations" nbInput fullWidth formControlName="recomendations" recomendations
+        <textarea id="recomendations" nbInput (disabled)="this.has_input" fullWidth formControlName="recomendations" recomendations
           onpaste="return false" rows="4" cols="50"
           status="{{ isSubmitted && form.controls.recomendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
@@ -26,7 +26,7 @@
 
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="!has_input">
       <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
     </div>
   </div>

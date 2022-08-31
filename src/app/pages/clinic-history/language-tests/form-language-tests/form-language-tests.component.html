@@ -14,7 +14,7 @@
     <div class="col-md-6">
       <label class="form-text text-muted font-weight-bold">Escala De Hamilton/ Fast/Prueba De Los 7 Minutos
         (Cognición) </label>
-      <textarea id="hamilton_scale" nbInput fullWidth formControlName="hamilton_scale" hamilton_scale
+      <textarea id="hamilton_scale" nbInput (disabled)="this.has_input" fullWidth formControlName="hamilton_scale" hamilton_scale
         onpaste="return false" rows="4" cols="50"
         status="{{ isSubmitted && form.controls.hamilton_scale.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
@@ -22,13 +22,13 @@
     <div class="col-md-6">
       <label class="form-text text-muted font-weight-bold">Prueba De Boston / Mini Boston (Lenguaje
         Adultos)</label>
-      <textarea id="boston_test" nbInput fullWidth formControlName="boston_test" boston_test
+      <textarea id="boston_test" nbInput (disabled)="this.has_input" fullWidth formControlName="boston_test" boston_test
         onpaste="return false" rows="4" cols="50"
         status="{{ isSubmitted && form.controls.boston_test.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="col-md-6">
-      <label class="form-text text-muted font-weight-bold">Terman Y Merril/ Bhenale (Lenguaje Infantil) </label>
+      <label class="form-text text-muted font-weight-bold">Termal Y Merril/ Bhenale (Lenguaje Intantil) </label>
       <textarea id="termal_merril" nbInput fullWidth formControlName="termal_merril" termal_merril
         onpaste="return false" rows="4" cols="50"
         status="{{ isSubmitted && form.controls.termal_merril.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
@@ -36,33 +36,33 @@
 
     <div class="col-md-6">
       <label class="form-text text-muted font-weight-bold">Prolec / Plon-R (Lectura Y Escritura)</label>
-      <textarea id="prolec_plon" nbInput fullWidth formControlName="prolec_plon" prolec_plon
+      <textarea id="prolec_plon" nbInput (disabled)="this.has_input" fullWidth formControlName="prolec_plon" prolec_plon
         onpaste="return false" rows="4" cols="50"
         status="{{ isSubmitted && form.controls.prolec_plon.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="col-md-6">
       <label class="form-text text-muted font-weight-bold">Ped /Guss (Deglución)</label>
-      <textarea id="ped_guss" nbInput fullWidth formControlName="ped_guss" ped_guss onpaste="return false"
+      <textarea id="ped_guss" nbInput (disabled)="this.has_input" fullWidth formControlName="ped_guss" ped_guss onpaste="return false"
         rows="4" cols="50"
         status="{{ isSubmitted && form.controls.ped_guss.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="col-md-6">
       <label class="form-text text-muted font-weight-bold">Vhi /Grbas/Rasat (Voz)</label>
-      <textarea id="vhi_grbas" nbInput fullWidth formControlName="vhi_grbas" vhi_grbas onpaste="return false"
+      <textarea id="vhi_grbas" nbInput (disabled)="this.has_input" fullWidth formControlName="vhi_grbas" vhi_grbas onpaste="return false"
         rows="4" cols="50"
         status="{{ isSubmitted && form.controls.vhi_grbas.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
     <div class="col-md-6">
       <label class="form-text text-muted font-weight-bold">Pemo (Habla)</label>
-      <textarea id="pemo_speech" nbInput fullWidth formControlName="pemo_speech" pemo_speech
+      <textarea id="pemo_speech" nbInput (disabled)="this.has_input" fullWidth formControlName="pemo_speech" pemo_speech
         onpaste="return false" rows="4" cols="50"
         status="{{ isSubmitted && form.controls.pemo_speech.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
 
-    <div class="container">
+    <div class="container" *ngIf="!has_input">
       <div class="row">
         <div class="col-md-12">
           <button nbButton status="danger" class="ml-1 btn-save"  [disabled]="disabled"

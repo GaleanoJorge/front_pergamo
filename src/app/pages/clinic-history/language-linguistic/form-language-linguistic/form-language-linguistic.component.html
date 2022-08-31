@@ -10,7 +10,7 @@
           <label class="form-text text-muted font-weight-bold">Fonético/Fonológico</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="phonetic_phonological" phonetic_phonological id="phonetic_phonological"
+          <nb-radio-group formControlName="phonetic_phonological" nbSelect (disabled)="this.has_input" phonetic_phonological id="phonetic_phonological"
             name="phonetic_phonological"
             status="{{ isSubmitted && form.controls.phonetic_phonological.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -21,7 +21,7 @@
           <label class="form-text text-muted font-weight-bold">Sintáctico</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="syntactic" syntactic
+          <nb-radio-group formControlName="syntactic" nbSelect (disabled)="this.has_input" syntactic
             id="syntactic" name="syntactic"
             status="{{ isSubmitted && form.controls.syntactic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -33,7 +33,7 @@
           <label class="form-text text-muted font-weight-bold">Morfosintáctico</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="morphosyntactic" morphosyntactic
+          <nb-radio-group formControlName="morphosyntactic" nbSelect (disabled)="this.has_input" morphosyntactic
             id="morphosyntactic" name="morphosyntactic"
             status="{{ isSubmitted && form.controls.morphosyntactic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -49,7 +49,7 @@
           <label class="form-text text-muted font-weight-bold">Semántico</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="semantic" semantic id="semantic"
+          <nb-radio-group formControlName="semantic" nbSelect (disabled)="this.has_input" semantic id="semantic"
             name="semantic"
             status="{{ isSubmitted && form.controls.semantic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -62,7 +62,7 @@
           <label class="form-text text-muted font-weight-bold">Pragmático</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="pragmatic" pragmatic id="pragmatic" name="pragmatic"
+          <nb-radio-group formControlName="pragmatic" nbSelect (disabled)="this.has_input" pragmatic id="pragmatic" name="pragmatic"
             status="{{ isSubmitted && form.controls.pragmatic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
@@ -81,7 +81,7 @@
           <label class="form-text text-muted font-weight-bold">Recepción</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="reception" reception id="reception" name="reception"
+          <nb-radio-group formControlName="reception" nbSelect (disabled)="this.has_input" reception id="reception" name="reception"
             status="{{ isSubmitted && form.controls.reception.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
@@ -91,7 +91,7 @@
           <label class="form-text text-muted font-weight-bold">Codificación</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="coding" coding id="coding" name="coding"
+          <nb-radio-group formControlName="coding" nbSelect (disabled)="this.has_input" coding id="coding" name="coding"
             status="{{ isSubmitted && form.controls.coding.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
@@ -103,7 +103,7 @@
           <label class="form-text text-muted font-weight-bold">Decodificación</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="decoding" decoding id="decoding" name="decoding"
+          <nb-radio-group formControlName="decoding" nbSelect (disabled)="this.has_input" decoding id="decoding" name="decoding"
             status="{{ isSubmitted && form.controls.decoding.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
@@ -123,7 +123,7 @@
           <label class="form-text text-muted font-weight-bold">Producción</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="production" production id="production" name="production"
+          <nb-radio-group formControlName="production" nbSelect (disabled)="this.has_input" production id="production" name="production"
             status="{{ isSubmitted && form.controls.production.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
@@ -145,7 +145,7 @@
           <label class="form-text text-muted font-weight-bold center">Observaciones</label>
         </div>
         <div class="col col-lg-4">
-          <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+          <textarea id="observations" nbInput (disabled)="this.has_input" fullWidth formControlName="observations" observations
             onpaste="return false" rows="3" cols="50"
             status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
@@ -153,7 +153,7 @@
       </div>
 
     </fieldset>
-    <div class="container">
+    <div class="container" *ngIf="!has_input">
       <div class="row">
         <div class="col-md-12">
           <button nbButton status="danger" class="ml-1 btn-save"  [disabled]="disabled"

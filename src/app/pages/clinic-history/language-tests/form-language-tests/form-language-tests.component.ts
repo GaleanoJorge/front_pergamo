@@ -14,6 +14,7 @@ export class FormLanguageTestsComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -55,6 +56,22 @@ export class FormLanguageTestsComponent implements OnInit {
 
       };
     }
+
+    if (this.has_input) {
+      this.SpecificTestsTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          hamilton_scale: [this.data[0] ? this.data[0].hamilton_scale : this.data.hamilton_scale,],
+          boston_test: [this.data[0] ? this.data[0].boston_test : this.data.boston_test,],
+          termal_merril: [this.data[0] ? this.data[0].termal_merril : this.data.termal_merril,],
+          prolec_plon: [this.data[0] ? this.data[0].prolec_plon : this.data.prolec_plon,],
+          ped_guss: [this.data[0] ? this.data[0].boston_test : this.data.ped_guss,],
+          vhi_grbas: [this.data[0] ? this.data[0].vhi_grbas : this.data.vhi_grbas,],
+          pemo_speech: [this.data[0] ? this.data[0].pemo_speech : this.data.pemo_speech,],
+        });
+      });
+    }
+
     this.form = this.formBuilder.group({
       hamilton_scale: [this.data[0] ? this.data[0].hamilton_scale : this.data.hamilton_scale,],
       boston_test: [this.data[0] ? this.data[0].boston_test : this.data.boston_test,],

@@ -3,7 +3,7 @@
     <div class="row justify-content-md-center">
       <div class="col-md-6">
         <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico Médico:</label>
-        <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="medical_diagnosis_id"
+        <input fullWidth nbInput (disabled)="this.has_input" list="codes" (change)="saveCode($event.target.value)" id="medical_diagnosis_id"
           formControlName="medical_diagnosis_id" medical_diagnosis_id type="text" required  (ngModelChange)="this.searchDiagnostic($event)"
           status="{{ isSubmitted && form.controls.medical_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <datalist id="codes">
@@ -15,7 +15,7 @@
         <label class="form-text text-muted font-weight-bold">Diagnóstico Terápeutico CIF:</label>
         <div class="row" style="align-items: center;">
           <div class="col-md-11">
-            <textarea onpaste="return false" id="therapeutic_diagnosis" nbInput fullWidth
+            <textarea onpaste="return false" id="therapeutic_diagnosis" nbInput (disabled)="this.has_input" fullWidth
               formControlName="therapeutic_diagnosis" therapeutic_diagnosis rows="2" cols="40"
               status="{{ isSubmitted && form.controls.therapeutic_diagnosis.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
@@ -33,7 +33,7 @@
         <label class="form-text text-muted font-weight-bold">Motivo de consulta:</label>
         <div class="row" style="align-items: center;">
           <div class="col-md-11">
-            <textarea onpaste="return false" id="reason_consultation" nbInput fullWidth
+            <textarea onpaste="return false" id="reason_consultation" nbInput (disabled)="this.has_input" fullWidth
               formControlName="reason_consultation" reason_consultation rows="4" cols="50"
               status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
@@ -49,7 +49,7 @@
 
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12" *ngIf="!has_input">
         <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
       </div>
     </div>

@@ -14,6 +14,7 @@ export class FormLanguageOrofacialComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -56,6 +57,21 @@ export class FormLanguageOrofacialComponent implements OnInit {
 
       };
     }
+
+    if (this.has_input) {
+      this.OrofacialTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          right_hermiface_symmetry: [this.data[0] ? this.data[0].right_hermiface_symmetry : this.data.right_hermiface_symmetry,Validators.compose([Validators.required]),],
+          right_hermiface_tone: [this.data[0] ? this.data[0].right_hermiface_tone : this.data.right_hermiface_tone,Validators.compose([Validators.required]),],
+          right_hermiface_sensitivity: [this.data[0] ? this.data[0].right_hermiface_sensitivity : this.data.right_hermiface_sensitivity,Validators.compose([Validators.required]),],
+          left_hermiface_symmetry: [this.data[0] ? this.data[0].left_hermiface_symmetry : this.data.left_hermiface_symmetry, Validators.compose([Validators.required]),],
+          left_hermiface_tone: [this.data[0] ? this.data[0].left_hermiface_tone : this.data.left_hermiface_tone,Validators.compose([Validators.required]),],
+          left_hermiface_sensitivity: [this.data[0] ? this.data[0].left_hermiface_sensitivity : this.data.left_hermiface_sensitivity, Validators.compose([Validators.required]),],
+        });
+      });
+    }
+
     this.form = this.formBuilder.group({
       right_hermiface_symmetry: [this.data[0] ? this.data[0].right_hermiface_symmetry : this.data.right_hermiface_symmetry,Validators.compose([Validators.required]),],
       right_hermiface_tone: [this.data[0] ? this.data[0].right_hermiface_tone : this.data.right_hermiface_tone,Validators.compose([Validators.required]),],

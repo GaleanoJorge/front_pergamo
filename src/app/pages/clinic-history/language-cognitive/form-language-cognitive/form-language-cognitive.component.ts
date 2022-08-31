@@ -14,6 +14,7 @@ export class FormLanguageCognitiveComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -53,6 +54,19 @@ export class FormLanguageCognitiveComponent implements OnInit {
 
       };
     }
+
+    if (this.has_input) {
+      this.CognitiveTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          memory: [this.data[0] ? this.data[0].memory : this.data.memory,Validators.compose([Validators.required]),],
+          attention: [this.data[0] ? this.data[0].attention : this.data.attention,Validators.compose([Validators.required]),],
+          concentration: [this.data[0] ? this.data[0].concentration : this.data.concentration,Validators.compose([Validators.required]),],
+          observations: [this.data[0] ? this.data[0].observations : this.data.observations,],
+        });
+      });
+    }
+
     this.form = this.formBuilder.group({
       memory: [this.data[0] ? this.data[0].memory : this.data.memory,Validators.compose([Validators.required]),],
       attention: [this.data[0] ? this.data[0].attention : this.data.attention,Validators.compose([Validators.required]),],

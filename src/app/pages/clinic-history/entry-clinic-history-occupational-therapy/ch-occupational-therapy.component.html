@@ -19,31 +19,31 @@
         <nb-stepper #stepper [linear]="linearMode">
 
           <nb-step label='Valoracion Terapeutica'>
-            <ngx-entry-form-valoration-ot [type_record_id]="1" *ngIf="chvaloration" [data]="chvaloration"
+            <ngx-table-valoration-ot [type_record_id]="1" *ngIf="chvaloration" [data]="chvaloration"
               [record_id]="record_id">
-            </ngx-entry-form-valoration-ot>
+            </ngx-table-valoration-ot>
           </nb-step>
 
 
           <nb-step label="Signos Vitales">
 
-            <ngx-signs-evo [record_id]="record_id"></ngx-signs-evo>
+            <ngx-signs [record_id]="record_id"></ngx-signs>
 
           </nb-step>
 
           <nb-step label='Historia Ocupacional'>
-            <ngx-entry-form-occupat-history-valoration-ot [type_record_id]="1" *ngIf="chocuupationalhistory"
-              [record_id]="record_id" [data]="chocuupationalhistory"></ngx-entry-form-occupat-history-valoration-ot>
+            <ngx-table-occupat-history-ot [type_record_id]="1" *ngIf="chocuupationalhistory"
+              [record_id]="record_id" [data]="chocuupationalhistory"></ngx-table-occupat-history-ot>
           </nb-step>
 
           <nb-step label='Antecedentes Ocupacionales'>
-            <ngx-entry-form-past-ot [type_record_id]="1" *ngIf="chpast" [record_id]="record_id" [data]="chpast">
-            </ngx-entry-form-past-ot>
+            <ngx-table-past-ot [type_record_id]="1" *ngIf="chpast" [record_id]="record_id" [data]="chpast">
+            </ngx-table-past-ot>
           </nb-step>
 
           <nb-step label='Actividades Vida Diaria'>
-            <ngx-entry-form-daily-activities-ot [type_record_id]="1" *ngIf="chdailyactivities" [record_id]="record_id"
-              [data]="chdailyactivities"></ngx-entry-form-daily-activities-ot>
+            <ngx-table-daily-activities-ot [type_record_id]="1" *ngIf="chdailyactivities" [record_id]="record_id"
+              [data]="chdailyactivities"></ngx-table-daily-activities-ot>
           </nb-step>
 
           <nb-step label='Habilidades Motoras'>
@@ -71,7 +71,7 @@
 
           <nb-step label="Signos Vitales">
 
-            <ngx-form-signs></ngx-form-signs>
+            <ngx-signs></ngx-signs>
 
 
           </nb-step>

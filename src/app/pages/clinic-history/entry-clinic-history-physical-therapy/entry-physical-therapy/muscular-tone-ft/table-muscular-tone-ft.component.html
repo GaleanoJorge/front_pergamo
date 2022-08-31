@@ -2,7 +2,7 @@
 <div class="row justify-content-center col col-lg-12">
    
 
-  <div>
+  <div *ngIf="has_input == false || type_record_id != 1">
 
     <ngx-form-muscular-tone-ft (messageEvent)="receiveMessage($event)" [type_record_id]="1" [record_id]="record_id">
     </ngx-form-muscular-tone-ft>
@@ -15,7 +15,7 @@
   <ngx-base-list [messageError]="messageError" [routes]="routes">
     <div content>
       <ngx-base-table  pager="false" [title]="title" customData="ch_e_muscular_tone_f_t" [settings]="settings"
-        entity="ch_e_muscular_tone_f_t/by_record/{{record_id}}/1">
+        entity="ch_e_muscular_tone_f_t/by_record/{{record_id}}/1?&has_input={{has_input}}">
         <div actions>
           <div class="actions">
           </div>
