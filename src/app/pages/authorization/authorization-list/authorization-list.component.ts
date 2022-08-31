@@ -23,6 +23,7 @@ import { PatientService } from '../../../business-controller/patient.service';
 import { BriefcaseService } from '../../../business-controller/briefcase.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ActionsSemaphoreComponent } from './actionsSemaphore.component';
+import { ProgramService } from '../../../business-controller/program.service';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -75,6 +76,7 @@ export class AuthorizationListComponent implements OnInit {
   public checkbox: any[] = [];
   public all_Data: any[] = [];
   public company: any[] = [];
+  public program: any[] = [];
   public contract: any[] = [];
   public briefcase: any[] = [];
   public admissions: any[] = [];
@@ -86,11 +88,11 @@ export class AuthorizationListComponent implements OnInit {
       final_date: null,
       briefcase_id: null,
       patient_id: null,
-      admissions_id: null,
+      program_id: null,
     }
   public parentData: any;
   public previewFile = null;
-
+  public element;
 
 
 
@@ -119,6 +121,8 @@ export class AuthorizationListComponent implements OnInit {
     private patientS: PatientService,
     private ContractS: ContractService,
     private briefcaseS: BriefcaseService,
+    private ProgramS: ProgramService,
+
   ) {
   }
 
@@ -307,7 +311,7 @@ export class AuthorizationListComponent implements OnInit {
       state_gloss: '',
       briefcase_id: '',
       contract_id: '',
-      admissions_id: '',
+      program_id: '',
     };
 
     this.form = this.formBuilder.group({
@@ -326,8 +330,8 @@ export class AuthorizationListComponent implements OnInit {
       contract_id: [
         this.data.contract_id,
       ],
-      admissions_id: [
-        this.data.admissions_id,
+      program_id: [
+        this.data.program_id,
       ],
     });
 
@@ -362,13 +366,18 @@ export class AuthorizationListComponent implements OnInit {
     this.companyS.GetCollection().then(x => {
       this.company = x;
     });
-
+    
+    this.ProgramS.GetCollection().then(x => {
+      this.program = x;
+    });
+    
     this.xlsForm = this.formBuilder.group({
       state_gloss: [
         this.data.state_gloss,
         Validators.compose([Validators.required])
       ],
     });
+    
     this.onChanges();
   }
 
@@ -486,7 +495,7 @@ export class AuthorizationListComponent implements OnInit {
   FilterAuth() {
     // this.disableCheck();
     var entity = this.entity
-    this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&admissions_id=${this.filter.admissions_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}`, 'authorization');
+    this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&program_id=${this.filter.program_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}`, 'authorization');
   }
 
   FilterStatus(status) {
@@ -498,7 +507,9 @@ export class AuthorizationListComponent implements OnInit {
       start_date: '',
       finish_date: '',
       state_gloss: '',
-      admissions_id: '',
+      briefcase_id: '',
+      contract_id: '',
+      program_id: '',
     });
     // this.toastS.warning('', 'Filtros limpiados');
     // this.RefreshData();
@@ -520,16 +531,15 @@ export class AuthorizationListComponent implements OnInit {
   }
 
   packagingProcess() {
-
     if (this.selectedOptions.length < 1) {
       this.toastS.warning('', 'Debe seleccionar al menos 1 autorización de procedimientos');
     } else {
       if (this.briefcase_id) {
-        this.dialogFormService.open(AuthPackageComponent, {
+        this.dialog = this.dialogFormService.open(AuthPackageComponent, {
           context: {
             briefcase_id: this.briefcase_id,
             title: "Organizar paquete para " + this.selectedOptions[0].nombre_completo,
-            saved: this.RefreshData.bind(this),
+            saved: this.ClosePackage.bind(this),
             selectedOptions: this.selectedOptions,
             admissions_id: this.admissions_id
           },
@@ -539,6 +549,17 @@ export class AuthorizationListComponent implements OnInit {
       }
     }
 
+  }
+
+  ClosePackage() {
+    this.element = document.getElementsByTagName("nb-windows-container");
+    if(this.element.length > 0)
+    {
+      this.element[0].remove();
+    }
+    this.dialog.close();
+    this.dialog = null;
+    this.RefreshData();
   }
 
   authMassive() {
@@ -668,8 +689,8 @@ export class AuthorizationListComponent implements OnInit {
       });
     });
 
-    this.form.get('admissions_id').valueChanges.subscribe(val => {
-      this.filter.admissions_id = val;
+    this.form.get('program_id').valueChanges.subscribe(val => {
+      this.filter.program_id = val;
     });
 
   }

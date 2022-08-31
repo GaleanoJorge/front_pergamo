@@ -37,6 +37,7 @@ import { AuthPackageComponent } from './authorization-list/historic-authorizatio
 import { ActionsComponent } from './authorization-list/actions.component';
 import { ActionsDocumentComponent } from './authorization-list/actions2.component';
 import { ActionsSemaphoreComponent } from './authorization-list/actionsSemaphore.component';
+import { ActionsHistComponent } from './authorization-list/actionsHist.component';
 
 
 
@@ -71,6 +72,7 @@ import { ActionsSemaphoreComponent } from './authorization-list/actionsSemaphore
   declarations: [
     ActionsSemaphoreComponent,
     ActionsDocumentComponent,
+    ActionsHistComponent,
     ActionsComponent,
     AuthAsociatedPackageComponent,
     AuthPackageComponent,

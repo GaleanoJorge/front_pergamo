@@ -18,3 +18,22 @@
     </div>
   </ngx-base-table>  
 </div>
+
+<ng-template #packagingView>
+  <div class="container-fluid">
+      <nb-card style="max-width: 1400px;max-height: 1000px;overflow: auto;">
+        <nb-card-header>Ver paquete</nb-card-header>
+        <nb-card-body>
+            <div class="col-md-12">
+              <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [show]="true"
+                [parentData]="this.parentData"></ngx-auth-asociated-package>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <div style="text-align:end;">
+            <button nbButton (click)="close()" type="button">Cerrar</button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+  </div>
+</ng-template>
