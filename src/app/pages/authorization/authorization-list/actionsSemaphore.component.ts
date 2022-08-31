@@ -37,8 +37,7 @@ export class ActionsSemaphoreComponent implements ViewCell {
   }
   ngOnInit() {
 
-    console.log('algo')
-
+    // console.log('algo')
     if(!this.rowData.assigned_management_plan && !this.rowData.product_com_id && !this.rowData.fixed_add){
       this.color = this.colors.amarillo;
       this.tooltip = "Paquete";
