@@ -74,17 +74,8 @@
             </nb-select>
           </div>
 
-          <div class="col-12 col-sm-12 col-md-6">
-            <label for="parenteral_nutrition" class="form-text text-muted font-weight-bold">Apetito:</label>
-            <nb-select formControlName="swallowing" id="swallowing" fullWidth
-            status="{{ isSubmitted && form.controls.swallowing.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option *ngFor="let item of swallowing" [value]="item.id">
-              {{ item.name }}</nb-option>
-            </nb-select>
-          </div>
           
-          <div class="col-12 col-sm-12 col-md-6">
+          <div class="col-12 col-sm-12 col-md-12">
             <label for="swallowing" class="form-text text-muted font-weight-bold">Nutrición Parenteral:</label>
             <nb-select formControlName="parenteral_nutrition" id="parenteral_nutrition" fullWidth
               status="{{ isSubmitted && form.controls.parenteral_nutrition.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
