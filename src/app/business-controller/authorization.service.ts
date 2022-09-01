@@ -5,46 +5,51 @@ import { HttpParams } from '@angular/common/http';
 import { Authorization } from '../models/authorization';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthorizationService {
   public authorization: Authorization[] = [];
 
-  constructor(private webAPI: WebAPIService) {
-  }
+  constructor(private webAPI: WebAPIService) {}
 
   GetCollection(params = {}): Promise<Authorization[]> {
-    let servObj = new ServiceObject(params ? 'authorization?pagination=false' : 'authorization');
+    let servObj = new ServiceObject(
+      params ? 'authorization?pagination=false' : 'authorization'
+    );
 
-    return this.webAPI.GetAction(servObj, params)
-      .then(x => {
+    return this.webAPI
+      .GetAction(servObj, params)
+      .then((x) => {
         servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
+        if (!servObj.status) throw new Error(servObj.message);
 
         this.authorization = <Authorization[]>servObj.data.authorization;
 
         return Promise.resolve(this.authorization);
       })
-      .catch(x => {
+      .catch((x) => {
         throw x.message;
       });
   }
 
   GetInProcess(params = {}): Promise<Authorization[]> {
-    let servObj = new ServiceObject(params ? 'authorization/byStatus/0?pagination=false' : 'authorization/byStatus/0');
+    let servObj = new ServiceObject(
+      params
+        ? 'authorization/byStatus/0?pagination=false'
+        : 'authorization/byStatus/0'
+    );
 
-    return this.webAPI.GetAction(servObj, params)
-      .then(x => {
+    return this.webAPI
+      .GetAction(servObj, params)
+      .then((x) => {
         servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
+        if (!servObj.status) throw new Error(servObj.message);
 
         this.authorization = <Authorization[]>servObj.data.authorization;
 
         return Promise.resolve(this.authorization);
       })
-      .catch(x => {
+      .catch((x) => {
         throw x.message;
       });
   }
@@ -52,62 +57,62 @@ export class AuthorizationService {
   Save(authorization: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('authorization');
     servObj.data = authorization;
-    return this.webAPI.PostAction(servObj)
-      .then(x => {
+    return this.webAPI
+      .PostAction(servObj)
+      .then((x) => {
         servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
+        if (!servObj.status) throw new Error(servObj.message);
 
         return Promise.resolve(servObj);
       })
-      .catch(x => {
+      .catch((x) => {
         throw x.message;
       });
   }
 
-  SaveGroup(authorization: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('authorization/Massive');
+  SaveGroup(authorization: any, id = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('authorization/Massive', (authorization.id ? authorization.id : id));
     servObj.data = authorization;
     return this.webAPI.PostAction(servObj)
-      .then(x => {
+      .then((x) => {
         servObj = <ServiceObject>x;
-        if (!servObj.status)
+        if (!servObj.status) 
           throw new Error(servObj.message);
 
         return Promise.resolve(servObj);
       })
-      .catch(x => {
+      .catch((x) => {
         throw x.message;
       });
   }
 
-  Update(authorization: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('authorization', authorization.id);
+  Update(authorization: any, id = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('authorization', (authorization.id ? authorization.id : id));
     servObj.data = authorization;
-    return this.webAPI.PutAction(servObj)
-      .then(x => {
+    return this.webAPI.PostAction(servObj)
+      .then((x) => {
         servObj = <ServiceObject>x;
-        if (!servObj.status)
+        if (!servObj.status) 
           throw new Error(servObj.message);
 
         return Promise.resolve(servObj);
       })
-      .catch(x => {
-        throw x.message;
+      .catch((x) => {
+        throw x;
       });
   }
 
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('authorization', id);
-    return this.webAPI.DeleteAction(servObj)
-      .then(x => {
+    return this.webAPI
+      .DeleteAction(servObj)
+      .then((x) => {
         servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
+        if (!servObj.status) throw new Error(servObj.message);
 
         return Promise.resolve(servObj);
       })
-      .catch(x => {
+      .catch((x) => {
         throw x.message;
       });
   }
