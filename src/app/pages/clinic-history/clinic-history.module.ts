@@ -174,14 +174,12 @@ import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/resp
 import { FormChOxygenTherapyComponent } from './oxygen-therapy/form-oxygen-therapy.component';
 import { RegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/regular-respiratory-therapy.component';
 import { FormSessionsTherapyComponent } from './sessions-therapy/form-sessions-therapy.component';
-import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-therapy.component';
 import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
 import { FormNutritionBackgroundComponent } from './ch-nutrition-list/ch-nutrition-input/form-nutrition-background/form-nutrition-background.component';
 import { NursingPhysicalExamComponent } from './nursing-physical-exam/nursing-physical-exam.component';
 import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-nursing-physical-exam/form-nursing-physical-exam.component';
-import { SuppliesTherapyComponent } from './supplies-therapy/supplies-therapy.component';
 import { ReasonConsultationRespiratoryTherapyComponent } from './entry-respiratory-therapy/form-reason-consultation-respiratory-therapy/reason-consultation-respiratory-therapy.component';
 import { FormLanguageOstomiesComponent } from './language-ostomies/form-language-ostomies/form-language-ostomies.component';
 import { LanguageOstomiesComponent } from './language-ostomies/language-ostomies.component';
@@ -353,7 +351,6 @@ import { TableThermalMOTComponent } from './entry-clinic-history-occupational-th
 import { FormDisAuditoryMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-auditory-m-ot/form-dis-auditory-m-ot/form-dis-auditory-m-ot.component';
 import { TableDisAuditoryMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-auditory-m-ot/table-dis-auditory-m-ot.component';
 import { LanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/language-therapeutic-goals.component';
-import { MedicalRecordsListComponent } from './medical-records/medical-records-list.component';
 import { FormDisTactilelMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-tactile-m-ot/form-dis-tactile-m-ot/form-dis-tactile-m-ot.component';
 import { TableDisTactilelMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-tactile-m-ot/table-dis-tactile-m-ot.component';
 import { FormAcuityMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/acuity-m-ot/form-acuity-m-ot/form-acuity-m-ot.component';
@@ -401,7 +398,6 @@ import { TableWeeklyInMOTComponent } from './entry-clinic-history-occupational-t
   ],
   declarations: [
 
-    MedicalRecordsListComponent,
 
     InsumeApplicationComponent,
     FormInsumeApplicationComponent,
@@ -628,8 +624,6 @@ import { TableWeeklyInMOTComponent } from './entry-clinic-history-occupational-t
     SessionsTherapyComponent,
 
     FormSessionsTherapyComponent,
-    FormSuppliesTherapyComponent,
-    SuppliesTherapyComponent,
 
     SkinValorationComponent,
     FormSkinValorationComponent,
