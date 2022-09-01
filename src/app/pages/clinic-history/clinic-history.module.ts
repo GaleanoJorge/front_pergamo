@@ -174,14 +174,12 @@ import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/resp
 import { FormChOxygenTherapyComponent } from './oxygen-therapy/form-oxygen-therapy.component';
 import { RegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/regular-respiratory-therapy.component';
 import { FormSessionsTherapyComponent } from './sessions-therapy/form-sessions-therapy.component';
-import { FormSuppliesTherapyComponent } from './supplies-therapy/form-supplies-therapy.component';
 import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
 import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
 import { FormNutritionBackgroundComponent } from './ch-nutrition-list/ch-nutrition-input/form-nutrition-background/form-nutrition-background.component';
 import { NursingPhysicalExamComponent } from './nursing-physical-exam/nursing-physical-exam.component';
 import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-nursing-physical-exam/form-nursing-physical-exam.component';
-import { SuppliesTherapyComponent } from './supplies-therapy/supplies-therapy.component';
 import { ReasonConsultationRespiratoryTherapyComponent } from './entry-respiratory-therapy/form-reason-consultation-respiratory-therapy/reason-consultation-respiratory-therapy.component';
 import { FormLanguageOstomiesComponent } from './language-ostomies/form-language-ostomies/form-language-ostomies.component';
 import { LanguageOstomiesComponent } from './language-ostomies/language-ostomies.component';
@@ -351,7 +349,6 @@ import { TableNRDiagnosisFTComponent } from './entry-clinic-history-physical-the
 import { FormChNursingNoteComponent } from './ch-nursing-note/form-ch-nursing-note/form-ch-nursing-note.component';
 import { ChNursingNoteComponent } from './ch-nursing-note/ch-nursing-note.component';
 import { LanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/language-therapeutic-goals.component';
-import { MedicalRecordsListComponent } from './medical-records/medical-records-list.component';
 
 
 @NgModule({
@@ -385,7 +382,6 @@ import { MedicalRecordsListComponent } from './medical-records/medical-records-l
   ],
   declarations: [
 
-    MedicalRecordsListComponent,
 
     InsumeApplicationComponent,
     FormInsumeApplicationComponent,
@@ -593,8 +589,6 @@ import { MedicalRecordsListComponent } from './medical-records/medical-records-l
     SessionsTherapyComponent,
 
     FormSessionsTherapyComponent,
-    FormSuppliesTherapyComponent,
-    SuppliesTherapyComponent,
 
     SkinValorationComponent,
     FormSkinValorationComponent,
