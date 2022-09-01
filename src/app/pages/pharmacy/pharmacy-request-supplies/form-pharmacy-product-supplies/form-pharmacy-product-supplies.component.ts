@@ -54,7 +54,7 @@ export class FormPharmacyProductSuppliesComponent implements OnInit {
       product_supplies_id: [this.data.product_supplies_id],
       request_pharmacy_stock_id: [this.data.request_pharmacy_stock_id, Validators.compose([Validators.required])],
     });
-    await this.pharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
+    await this.pharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id}).then(x => {
       this.request_pharmacy_stock_id = x;
     });
     await this.ProductSuppliesS.GetCollection().then(x => {
