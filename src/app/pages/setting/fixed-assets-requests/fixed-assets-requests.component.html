@@ -1,13 +1,13 @@
 <ngx-base-list [messageError]="messageError">
   <div content>
     <nb-tabset fullWidth (changeTab)="reloadForm($event)">
-      <nb-tab tabTitle="SEDE">
+      <!-- <nb-tab tabTitle="SEDE">
         <div *ngIf="this.showdiv == 1">
           <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"  [entity]="entity" customData='fixed_add'
             [messageToltip]="messageToltip">
           </ngx-base-table>
         </div>
-      </nb-tab>
+      </nb-tab> -->
 
       <nb-tab tabTitle="PACIENTE">
         <div *ngIf="this.showdiv==2">

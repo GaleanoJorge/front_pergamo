@@ -65,7 +65,7 @@ export class FormInsumeRequestComponent implements OnInit {
       request_pharmacy_stock_id: [this.data.request_pharmacy_stock_id, Validators.compose([Validators.required])],
     });
 
-    await this.pharmaS.GetCollection().then(x => {
+    await this.pharmaS.GetCollection({type:2} ).then(x => {
       this.request_pharmacy_stock_id = x;
     });
     if(this.user){
