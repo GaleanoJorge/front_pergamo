@@ -18,20 +18,18 @@
       <div actions>
       
 
+        <div class="actions" style="margin-top: 5px;">
+          <button nbButton (click)="back()" >Volver</button>
+        </div>
         <div class="actions">
           <div class="space" style="margin-right:-5px;">
-            <button nbButton (click)="back()" >Volver</button>
 
-            <button nbButton status="danger" (click)="NewManagementPlan()">Crear</button>
+            <button nbButton status="danger" (click)="NewManagementPlan()">anexar servicios</button>
           </div>
-
+          
         </div>
         <div class="actions" style="margin-top: 5px;">
           <button nbButton status="info" (click)="suppliesView()">Suministros</button>
-          <!-- <a nbTooltip="Suministros" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost
->
-            <nb-icon icon="car-outline"></nb-icon>
-          </a> -->
         </div>
         
       </div>

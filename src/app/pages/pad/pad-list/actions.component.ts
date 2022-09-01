@@ -101,6 +101,7 @@ export class Actions2Component implements ViewCell {
             'openEF':this.NewChRecord.bind(this),
             'currentRole': this.currentRole,
             'edit': this.EditAssigned.bind(this),
+            'closeDialog': this.closeDialog.bind(this),
           };
         },
         renderComponent: Actions4Component,

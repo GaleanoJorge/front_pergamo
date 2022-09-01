@@ -76,7 +76,7 @@
             formControlName="nombre_completo" nombre_completo type="text" required
             status="{{ isSubmitted && form.controls.nombre_completo.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes" *ngIf="admissions">
-            <option *ngFor="let item of admissions" [value]="item.nombre_completo">{{item.nombre_completo}} </option>
+            <option *ngFor="let item of admissions" [value]="item.nombre_completo">{{item.nombre_completo}} - {{item.patients.identification}}</option>
           </datalist>
         </div>
 
