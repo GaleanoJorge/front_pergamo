@@ -292,10 +292,12 @@ export class ManagementPlanComponent implements OnInit {
       this.routes = [
         {
           name: 'Pad',
-          route: '../pad/list',
+          route: '/pages/pad/list',
+          
         },
         {
           name: 'Plan de manejo',
+          route: '/pages/pad/management-plan',
         },
       ];
     }

@@ -77,6 +77,7 @@ export class FormEvoSoapComponent implements OnInit {
           })
           .then((x) => {
             this.toastService.success('', x.message);
+            this.messageEvent.emit(true);
             if (this.saved) {
               this.saved();
             }
@@ -107,11 +108,17 @@ export class FormEvoSoapComponent implements OnInit {
           });
           this.messageEvent.emit(true);
       }
+      
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 
-
+    
 }
+
+
+
 
 
 

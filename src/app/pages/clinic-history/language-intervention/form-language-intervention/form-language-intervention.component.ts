@@ -104,7 +104,10 @@ export class FormLanguageInterventionComponent implements OnInit {
           });
           this.messageEvent.emit(true);
       }
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+    
   }
 
  
