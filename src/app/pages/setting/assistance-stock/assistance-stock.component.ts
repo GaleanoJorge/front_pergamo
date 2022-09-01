@@ -145,6 +145,14 @@ export class AssistanceStockComponent implements OnInit {
         title: 'APLICADAS',
         type: 'string',
       },
+      dañadas: {
+        title: 'DAÑADAS',
+        type: 'string',
+      },
+      returned: {
+        title: 'DEVUELTAS',
+        type: 'string',
+      },
     },
   };
 

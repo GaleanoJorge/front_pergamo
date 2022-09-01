@@ -732,19 +732,18 @@ export class AuthorizationListComponent implements OnInit {
 
         var formData = new FormData();
         var data = this.formMassive.controls;
-        formData.append('file', this.formMassive.value.file_auth);
-        formData.append('observation', data.observation.value);
         formData.append('auth_number', data.auth_number.value);
+        formData.append('observation', data.observation.value);
         formData.append('copay', data.copay.value);
         formData.append('copay_value', data.copay_value.value);
         formData.append('authorizations', JSON.stringify(this.selectedOptions));
-
+        formData.append('file_auth', this.formMassive.value.file_auth);
         try {
           let response;
           if (this.data?.id) {
             // response = await this.authorizationS.Update(formData, this.data.id);
           } else {
-            response = await this.authorizationS.SaveGroup(formData);
+            response = await this.authorizationS.SaveGroup(formData, 1);
           }
           this.toastS.success('', response.message);
           this.messageError = null;

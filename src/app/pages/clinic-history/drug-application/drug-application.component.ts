@@ -123,6 +123,10 @@ export class DrugApplicationComponent implements OnInit {
         title: 'DAÑADAS',
         type: 'string',
       },
+      returned: {
+        title: 'DEVUELTAS',
+        type: 'string',
+      },
     },
   };
 

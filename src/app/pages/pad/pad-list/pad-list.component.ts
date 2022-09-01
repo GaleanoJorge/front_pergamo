@@ -220,7 +220,11 @@ export class PadListComponent implements OnInit {
       this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id;
     }
 
-    this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
+    // this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
+    //   this.company = x;
+    // });
+
+    this.CompanyS.GetCollection().then(x => {
       this.company = x;
     });
 
