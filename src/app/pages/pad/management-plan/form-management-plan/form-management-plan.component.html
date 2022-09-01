@@ -152,10 +152,10 @@
             status="{{ isSubmitted && form.controls.number_doses.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="show || assigned!=false">
-          <label for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a administrar:</label>
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="show">
+          <label *ngIf="localidentify" for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a administrar:</label>
 
-          <div class="row  ">
+          <div class="row ">
             <div class="col-12 col-sm-12 col-md-8 asd">
               <input *ngIf="localidentify" placeholder="{{this.localidentify.manual_price.product.product_dose_id == 2 ? this.localidentify.manual_price.product.multidose_concentration.name :
               this.localidentify.manual_price.product.measurement_units.name}}" type="number" nbInput fullWidth

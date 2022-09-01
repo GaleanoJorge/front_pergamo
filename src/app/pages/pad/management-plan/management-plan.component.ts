@@ -42,7 +42,7 @@ export class ManagementPlanComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = '';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Consecutivo de admisión - Ambito - Programa', 'Ejecutado','Incumplidas','Medicamento'];
+  public headerFields: any[] = ['Servicio', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Consecutivo de admisión - Ambito - Programa', 'Ejecutado','Incumplidas','Medicamento'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -116,8 +116,9 @@ export class ManagementPlanComponent implements OnInit {
       type_of_attention: {
         title: this.headerFields[0],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        width: '25%',
+        valuePrepareFunction(value, row) {
+          return value?.name + ' - ' + row.procedure.manual_price.name;
         },
       },
       service_briefcase: {

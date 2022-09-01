@@ -18,9 +18,9 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="value.user.roles[0].role_type_id == 2 && ((today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17)||value.data.allow_redo == 1)" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
+    <button *ngIf="value.user.roles[0].role_type_id == 2 && ((today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17)||value.data.allow_redo == 1)" (click)="click()" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
     <nb-icon icon="folder-add-outline"></nb-icon>
-    </a>
+    </button>
     <a *ngIf="value.user.roles[0].role_type_id == 2 && (firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.openEF(value.data)">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
@@ -87,13 +87,23 @@ export class Actions4Component implements ViewCell {
     this.viewHCS.ViewHC(this.value.data.ch_record[this.value.data.ch_record.length - 1].id).then(x => {
 
       //this.loadingDownload = false;
+      if (this.value.closeDialog) {
+        this.value.closeDialog();
+      }
       this.toastService.success('', x.message);
       window.open(x.url, '_blank');
 
     }).catch(x => {
+      this.toastService.danger(x, 'Error');
       // this.isSubmitted = false;
       // this.loading = false;
     });
+  }
+
+  click() {
+     if (this.value.closeDialog) {
+        this.value.closeDialog();
+      }
   }
 
 }

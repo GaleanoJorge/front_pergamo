@@ -7,6 +7,8 @@ import { LocationCapacityService } from '../../../business-controller/location-c
 import { ActionsLocationCapacityComponent } from './actions-location-capacity.component';
 import { AssistanceService } from '../../../business-controller/assistance.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BaseLocationPackageComponent } from './sigle-location-capacity/base-location-package/base-location-package.component';
+import { Row } from '@syncfusion/ej2/grids';
 
 @Component({
   selector: 'ngx-location-capacity',
@@ -19,7 +21,7 @@ export class LocationCapacityComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'PERSONAL ASISTENCIAL';
   public subtitle: string = 'PERSONAL';
-  public headerFields: any[] = ['ROL', 'NOMBRE', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'SERVICIOS EJECUTADOS', 'TIPO DE IDENTIFICACIÓN', 'IDENTIFICACIÓN'];
+  public headerFields: any[] = ['ROL', 'NOMBRE', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'SERVICIOS EJECUTADOS', 'TIPO DE IDENTIFICACIÓN', 'IDENTIFICACIÓN', 'TELÉFONO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -38,6 +40,7 @@ export class LocationCapacityComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return {
             'data': row,
+            'show': this.EditSigleLocationCapacity.bind(this),
           };
         },
         renderComponent: ActionsLocationCapacityComponent,
@@ -67,6 +70,13 @@ export class LocationCapacityComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
+      phone: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.user.phone;
+        },
+      },
       total1: {
         title: this.headerFields[2],
         type: 'string',
@@ -95,11 +105,21 @@ export class LocationCapacityComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private dialogFormService: NbDialogService,
   ) {
   }
 
   ngOnInit(): void {
     this.user_id= this.route.snapshot.params.user_id;
+  }
+
+  EditSigleLocationCapacity(data) {
+    this.dialogFormService.open(BaseLocationPackageComponent, {
+      context: {
+        parentData: data.id,
+        from_form: false,
+      },
+    });
   }
 
   GetParams() {
