@@ -10,7 +10,7 @@
             status="{{ isSubmitted && form.controls.package_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.package_id }}" *ngFor="let item of packages"
-              [value]="item.id">
+              [value]="item.manual_price_id">
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
