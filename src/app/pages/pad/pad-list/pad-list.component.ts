@@ -36,7 +36,7 @@ export class PadListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Plan de atención domiciliaria';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Tipo de atención', 'Ciudad', 'Barrio', 'Dirección', 'Zona/Localidad', 'EPS', 'Edad', 'Total Agendado', 'Total Ejecutado'];
+  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Tipo de atención', 'Ciudad', 'Barrio', 'Dirección', 'Zona/Localidad', 'EPS', 'Edad', 'Total Agendado', 'Total Ejecutado', 'Teléfono'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -126,6 +126,10 @@ export class PadListComponent implements OnInit {
           var ageDate = new Date(ageDifMs); // miliseconds from epoch
           return Math.abs(ageDate.getUTCFullYear() - 1970)  + " AÑOS" ;
         },
+      },
+      phone: {
+        title: this.headerFields[12],
+        type: 'string',
       },
       residence_municipality: {
         title: this.headerFields[4],
