@@ -16,6 +16,7 @@ export class FormIntPatMOTComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any = null;
   @Input() type_record_id;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;

@@ -14,6 +14,7 @@ export class TableComponentMOTComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
+  @Input() type_record_id;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -72,6 +73,9 @@ export class TableComponentMOTComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
     }
   }
 }
