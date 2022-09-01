@@ -2,7 +2,7 @@
 <div class="row justify-content-center">
    
 
-  <div class="col-md-12">
+  <div *ngIf="has_input == false || type_record_id != 1" class="col-md-12">
 
     <ngx-form-weekly-int-m-ot (messageEvent)="receiveMessage($event)" [record_id]="record_id">
     </ngx-form-weekly-int-m-ot>
@@ -15,7 +15,7 @@
   <ngx-base-list [messageError]="messageError" [routes]="routes">
     <div content>
       <ngx-base-table  pager="false" [title]="title" customData="ch_e_m_s_weekly_o_t" [settings]="settings"
-        entity="ch_e_m_s_weekly_o_t/by_record/{{record_id}}/1">
+        entity="ch_e_m_s_weekly_o_t/by_record/{{record_id}}/1?&has_input={{has_input}}">
         <div actions>
           <div class="actions">
           </div>
