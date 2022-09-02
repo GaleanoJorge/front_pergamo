@@ -86,7 +86,7 @@ export class FormChOstomiesComponent implements OnInit {
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
 
-        }).then(x => {
+          }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
           if (this.saved) {
@@ -96,17 +96,17 @@ export class FormChOstomiesComponent implements OnInit {
             ostomy_id: '',
             observation: '',
           });
-        }).catch(x => {
+          }).catch(x => {
           this.isSubmitted = false;
           this.loading = false;
-        });
-      } else {
-        await this.ChOstomiesS.Save({
+          });
+        } else {
+           await this.ChOstomiesS.Save({
           ostomy_id: this.form.controls.ostomy_id.value,
           observation: this.form.controls.observation.value,
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
-        }).then(x => {
+          }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
           this.form.patchValue({
@@ -116,14 +116,16 @@ export class FormChOstomiesComponent implements OnInit {
           if (this.saved) {
             this.saved();
           }
-        }).catch(x => {
+          }).catch(x => {
             this.isSubmitted = false;
             this.loading = false;
-        });
-        this.messageEvent.emit(true);
-      }
-
+          });
+          this.messageEvent.emit(true);
+        }
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+    
   }
 
 }

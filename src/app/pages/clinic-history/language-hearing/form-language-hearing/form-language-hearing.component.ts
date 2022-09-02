@@ -131,8 +131,11 @@ export class FormLanguageHearingComponent implements OnInit {
 
         });
       }
-
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+
+    
   }
 
 }

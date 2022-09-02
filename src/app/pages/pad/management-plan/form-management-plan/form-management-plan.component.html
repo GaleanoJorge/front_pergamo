@@ -153,7 +153,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4" *ngIf="show && assigned!=false">
-          <label for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a administrar:</label>
+          <label *ngIf="localidentify" for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a administrar:</label>
 
           <div class="row  ">
             <div class="col-12 col-sm-12 col-md-8 asd">

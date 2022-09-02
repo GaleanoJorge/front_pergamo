@@ -174,9 +174,11 @@ export class AssignedManagementPlanComponent implements OnInit {
     },
     {
       name: 'Plan de manejo',
+      route: '/pages/pad/management-plan',
     },
     {
       name: 'Ejecución de plan de manejo',
+      route: '/pages/pad/assigned-management-plan',
     },
   ];
 

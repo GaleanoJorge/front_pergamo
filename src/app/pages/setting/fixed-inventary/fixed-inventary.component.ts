@@ -34,18 +34,18 @@ export class FixedInventaryComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      actions: {
-        title: 'Acciones',
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          // DATA FROM HERE GOES TO renderComponent
-          return {
-            'data': row,
-            'edit': this.EditInv.bind(this),
-          };
-        },
-        renderComponent: ActionsInFixComponent,
-      },
+      // actions: {
+      //   title: 'Acciones',
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     // DATA FROM HERE GOES TO renderComponent
+      //     return {
+      //       'data': row,
+      //       'edit': this.EditInv.bind(this),
+      //     };
+      //   },
+      //   renderComponent: ActionsInFixComponent,
+      // },
       id: {
         title: this.headerFields[0],
         type: 'string',

@@ -122,6 +122,9 @@ export class FormLanguageRegSessionsComponent implements OnInit {
             this.loading = false;
           });
       }
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+    
   }
 }
