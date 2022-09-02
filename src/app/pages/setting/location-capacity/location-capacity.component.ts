@@ -1,14 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from '../sectional-council/actions.component';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { LocationCapacityService } from '../../../business-controller/location-capacity.service';
 import { ActionsLocationCapacityComponent } from './actions-location-capacity.component';
-import { AssistanceService } from '../../../business-controller/assistance.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseLocationPackageComponent } from './sigle-location-capacity/base-location-package/base-location-package.component';
-import { Row } from '@syncfusion/ej2/grids';
+import { RoleBusinessService } from '../../../business-controller/role-business.service';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-location-capacity',
@@ -26,6 +22,8 @@ export class LocationCapacityComponent implements OnInit {
   public icon: string = 'nb-star';
   public data = [];
   public user_id;
+  public role;
+  public role_id;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -49,7 +47,7 @@ export class LocationCapacityComponent implements OnInit {
         title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction(value, row) {
-          return row.user.identification_type.name;
+          return row.user.identification_type.code;
         },
       },
       identification: {
@@ -106,11 +104,19 @@ export class LocationCapacityComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dialogFormService: NbDialogService,
+    private roleBS: RoleBusinessService,
   ) {
   }
 
   ngOnInit(): void {
     this.user_id= this.route.snapshot.params.user_id;
+
+    this.roleBS.GetCollection({
+      status_id: 1,
+      role_type_id: 2,
+    }).then(x => {
+      this.role = x;
+    });
   }
 
   EditSigleLocationCapacity(data) {
@@ -130,5 +136,10 @@ export class LocationCapacityComponent implements OnInit {
 
   RefreshData() {
     this.table.refresh();
+  }
+
+  changeRole($event) {
+    this.role_id = $event;
+    this.table.changeEntity('assistance/?pagination=true&status_id=1&role_id=' + this.role_id,'assistance');
   }
 }

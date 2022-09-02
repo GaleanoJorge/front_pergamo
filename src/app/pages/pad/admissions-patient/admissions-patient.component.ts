@@ -156,14 +156,6 @@ export class AdmissionsPatientPadComponent implements OnInit {
           return value;
         },
       },
-      total_agendado: {
-        title: this.headerFields[15],
-        type: 'string',
-      },
-      total_ejecutado: {
-        title: this.headerFields[16],
-        type: 'string',
-      },
     },
   };
 

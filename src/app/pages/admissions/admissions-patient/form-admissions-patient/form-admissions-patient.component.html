@@ -4,7 +4,7 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-6">
-          <label for="admission_route" class="form-text text-muted font-weight-bold">Ruta de admisión:</label>
+          <label for="admission_route" class="form-text text-muted font-weight-bold">Ambito de atención:</label>
           <nb-select [selected]="this.data.admission_route_id" (selectedChange)="ShowDiagnostic($event)"
             formControlName="admission_route_id" id="admission_route_id" fullWidth
             status="{{ isSubmitted && form.controls.admission_route_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -15,7 +15,7 @@
           </nb-select>
         </div>
         <div class="col-md-6">
-          <label for="scope_of_attention" class="form-text text-muted font-weight-bold">Ambito de atención:</label>
+          <label for="scope_of_attention" class="form-text text-muted font-weight-bold">Ruta de admisión:</label>
           <nb-select [selected]="this.data.scope_of_attention_id" formControlName="scope_of_attention_id"
             id="scope_of_attention_id" fullWidth
             status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
