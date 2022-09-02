@@ -6,8 +6,6 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 import { SelectProductPatientShippingComponent } from './select-prod-patient-shipping.component';
 import { AmountShippingPatientComponent } from './amount-shipping-patient.component';
-import { UserBusinessService } from '../../../../business-controller/user-business.service';
-import { UserResponsibleComponent } from './user-responsible.component';
 
 @Component({
   selector: 'ngx-prod-shipping-patient-package',
@@ -25,19 +23,16 @@ export class ProdShippingPatientPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public subtitle = ' ';
   public headerFields: any[] = ['PRODUCTO COMERCIAL', 'PRODUCTO GENERICO', 'CANTIDAD ACTUAL STOCK', 'CANTIDAD A ENVIAR', 'LOTE', 'FECHA DE VENCIMIENTO'];
-  // public headerFields: any[] = ['PRODUCTO COMERCIAL', 'PRODUCTO GENERICO', 'CANTIDAD ACTUAL STOCK', 'CANTIDAD A ENVIAR', 'LOTE', 'FECHA DE VENCIMIENTO', 'USUARIO RESPONSABLE'];
   public routes = [];
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
   public emit: any[] = [];
   public data = [];
   public dialog;
-  public inscriptionstatus = 0;
   public selectedRows: any;
   public inscriptionId;
   public entity;
   public customData;
-  public user_request_id;
 
   public component_package_id: number;
   public done = false;
@@ -204,27 +199,6 @@ export class ProdShippingPatientPackageComponent implements OnInit {
       this.selectedOptions = mientras;
       this.messageEvent.emit(this.selectedOptions);
     }
-  }
-
-
-  // SaveStatus(event?, data?) {
-  //   var i = 0;
-  //     var mientras = this.selectedOptions;
-  //     this.selectedOptions.forEach(element => {
-  //       if (element.pharmacy_lot_stock_id == data.id) {
-  //         mientras[i].user_request_id = data.target.value;
-  //       }
-  //       i++
-  //     });
-  //     this.selectedOptions = mientras;
-  //     this.messageEvent.emit(this.selectedOptions);
-
-  // }
-
-
-  ChangeManual(inscriptionstatus) {
-    this.inscriptionstatus = inscriptionstatus;
-    this.table.changeEntity(`inscriptionsByCourse/${this.inscriptionstatus}`);
   }
 
   RefreshData() {

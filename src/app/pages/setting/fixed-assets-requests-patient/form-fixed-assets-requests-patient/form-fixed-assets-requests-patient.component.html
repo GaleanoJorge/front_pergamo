@@ -11,6 +11,20 @@
           <label></label>
         </div>
 
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label class="form-text text-muted font-weight-bold">PERSONA RESPONSABLE:</label>
+          <input type="text" list="codes1" class="data-list" id="responsible_user_id"
+            (change)="saveCode($event.target.value)" formControlName="responsible_user_id" responsible_user_id
+            fullWidth nbInput
+            status="{{ isSubmitted && form.controls.responsible_user_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="codes1">
+            <option *ngFor="let item of responsible_user_id" [value]="item.nombre_completo">
+              {{item.nombre_completo }}
+            </option>
+          </datalist>
+        </div>
+        <!-- 
         <div class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold">PERSONA RESPONSABLE:</label>
           <nb-select [selected]="this.data.responsible_user_id" formControlName="responsible_user_id"
@@ -20,7 +34,7 @@
               [value]="item.id">
               {{ item.nombre_completo }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
         <div class="col-12 col-sm-12 col-md-4">
           <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIÓN:</label>
           <input type="text" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="observation"

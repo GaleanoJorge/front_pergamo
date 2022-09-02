@@ -24,7 +24,7 @@ export class FixedPlanComponent implements OnInit {
 
   public title: string = 'LISTA DE ACTIVOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ELEMENTO', 'PROCEDIMIENTO', 'FECHA SOLICITUD'];
+  public headerFields: any[] = ['ELEMENTO', 'PROCEDIMIENTO', 'PERSONAL QUE SOLICITO EL ACTIVO', 'FECHA SOLICITUD', 'ESTADO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -53,11 +53,29 @@ export class FixedPlanComponent implements OnInit {
           return row.procedure.manual_price.name;
         },
       },
-      created_at: {
+      own_fixed_user: {
         title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.own_fixed_user.firstname + " " + row.own_fixed_user.lastname;
+        },
+      },
+
+      created_at: {
+        title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value) => {
           return this.datePipe.transform2(value);
+        },
+      },
+      status: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value == 'PATIENT') {
+            return 'SOLICITADO'
+          }
+          return 'SIN EXISTENCIAS';
         },
       },
 

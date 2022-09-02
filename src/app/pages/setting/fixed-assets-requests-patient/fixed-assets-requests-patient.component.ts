@@ -8,6 +8,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ActionsAssReqPatientComponent } from './actions.component';
 import { FormFixedAssetsRequestsPatientComponent } from './form-fixed-assets-requests-patient/form-fixed-assets-requests-patient.component';
+import { FormFixedDeniedComponent } from './form-fixed-denied/form-fixed-denied.component';
 
 @Component({
   selector: 'ngx-fixed-assets-requests-patient',
@@ -46,6 +47,7 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditPharmacy.bind(this),
+            'returned': this.Returned.bind(this),
           };
         },
         renderComponent: ActionsAssReqPatientComponent,
@@ -133,6 +135,17 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
       context: {
         title: '',
         data,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
+  Returned(data) {
+    this.dialogFormService.open(FormFixedDeniedComponent, {
+      context: {
+        title: 'RECHAZAR ELEMENTO',
+        data2: data,
+        status: 'RECHAZADO',
         saved: this.RefreshData.bind(this),
       },
     });
