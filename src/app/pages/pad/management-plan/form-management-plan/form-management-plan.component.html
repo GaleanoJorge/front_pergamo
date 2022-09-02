@@ -48,7 +48,7 @@
           </datalist>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="show || assigned==false">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="show && assigned!=false">
           <label class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
           <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value)" id="product_gen"
             formControlName="product_gen" product_gen required fullWidth nbInput
@@ -152,7 +152,7 @@
             status="{{ isSubmitted && form.controls.number_doses.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="show || assigned!=false">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="show && assigned!=false">
           <label for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a administrar:</label>
 
           <div class="row  ">

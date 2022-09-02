@@ -22,6 +22,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 import { SuppliesView } from './supplies-view/supplies-view.component';
 import { Location } from '@angular/common';
+import { AdmissionsService } from '../../../business-controller/admissions.service';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -49,6 +50,7 @@ export class ManagementPlanComponent implements OnInit {
   public arrayBuffer: any;
   public file: File;
   public admissions_id;
+  public admissions1;
   public user_id;
   public user;
   public own_user;
@@ -60,6 +62,7 @@ export class ManagementPlanComponent implements OnInit {
   public currentRoleId;
   public roles;
   public user_logged;
+  public ambito;
   public type_id;
   public valor: any=null;
 
@@ -216,7 +219,7 @@ export class ManagementPlanComponent implements OnInit {
     public datePipe: DateFormatPipe,
 
     private currency: CurrencyPipe,
-    private userBS: UserBusinessService,
+    private admissionS: AdmissionsService,
     private patienBS: PatientService,
 
     private authService: AuthService,
@@ -258,6 +261,10 @@ export class ManagementPlanComponent implements OnInit {
       }
 }
 
+await this.admissionS.GetCollection(this.admissions_id).then(x => {
+  this.admissions1= x;
+});
+
 
 
     this.own_user = this.authService.GetUser();
@@ -270,10 +277,10 @@ export class ManagementPlanComponent implements OnInit {
     this.user_logged= this.authService.GetUser().id;
     if (this.roles[0].role_type_id != 2 && this.title==null) {
       this.admissions_id = this.route.snapshot.params.id;
-      this.title = "Agendamiento Plan de atención domiciliario";
+      this.title = "Plan de manejo paciente "+this.admissions1[0].location[0].scope_of_attention.name;
       this.entity="management_plan_by_patient/"+this.user_id+"/"+0+"?admission_id="+this.admissions_id;
     }else if(this.medical==1){
-      this.title = "Agendamiento Plan de atención domiciliario";
+      this.title =  "Plan de manejo paciente "+this.admissions1[0].location[0].scope_of_attention.name;
       this.entity="management_plan_by_patient/"+this.patient+"/"+0;
     }else{
       this.title = "Servicios a Ejecutar";
@@ -302,6 +309,8 @@ export class ManagementPlanComponent implements OnInit {
     await this.patienBS.GetUserById(this.user_id).then(x => {
       this.user = x;
     });
+
+    
   }
 
   

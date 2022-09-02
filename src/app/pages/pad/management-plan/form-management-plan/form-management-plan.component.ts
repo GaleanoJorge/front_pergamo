@@ -26,7 +26,7 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() user: any = null;
   @Input() medical: number = 0;
   @Input() assigned: boolean;
-  @Input() edit: any;
+  @Input() edit: any=null;
   @Input() admissions_id: any = null;
 
   public form: FormGroup;
@@ -163,14 +163,14 @@ export class FormManagementPlanComponent implements OnInit {
     }).then(x => {
       this.specialty = x;
     });
-    if (this.medical == 0) {
+    if (this.medical == 0 ) {
       this.configForm = {
         type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
         frequency_id: [this.data.frequency_id,],
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
         specialty_id: [this.data.specialty_id],
         assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
-        procedure_id: ['', Validators.compose([Validators.required])],
+        procedure_id: [this.assigned==false?'':this.data.procedure_id, Validators.compose([Validators.required])],
         product_id: [this.data.product_id],
         start_date: [this.data.start_date],
         finish_date: [this.data.finish_date],
@@ -215,6 +215,15 @@ export class FormManagementPlanComponent implements OnInit {
     // if (this.assigned == true) {
 
     // }
+
+    if(this.assigned==false){
+      this.form.controls.procedure_id.setValidators(null);
+      this.procedure_id=this.data.procedure_id;
+      if(this.data.type_of_attention_id==17){
+        this.form.patchValue({quantity:this.data.number_doses});
+      }
+      
+    }
 
   }
 
@@ -304,6 +313,7 @@ export class FormManagementPlanComponent implements OnInit {
         
         if(this.assigned==false){
           this.showassigned=true;
+          
         }
 
         if (val == 17) {

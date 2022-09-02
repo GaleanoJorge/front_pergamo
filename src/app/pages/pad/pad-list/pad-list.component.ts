@@ -33,7 +33,7 @@ export class PadListComponent implements OnInit {
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Plan de atención domiciliaria';
+  public title: string = 'Programa de atención domiciliaria';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Programa', 'Ciudad', 'Barrio', 'Dirección', 'Localidad'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
