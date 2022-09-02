@@ -13,7 +13,9 @@ import { ObservationNoveltyService } from '../../../business-controller/observat
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
   <div class="d-flex justify-content-center" style="align-items: center;">
-      <div class="cuadro"
+      <div class="cuadro" nbTooltip="{{this.value.data.admissions.length == 0  ? 'Sin admisiones activas' :
+      this.value.data.admissions[this.value.data.admissions.length - 1].medical_date != '0000-00-00 00:00:00' && this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date == '0000-00-00 00:00:00' ? 'Con salida médica'
+      : this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date == '0000-00-00 00:00:00' ? 'Admitido' : 'Sin admisiones activas'}}" nbTooltipPlacement="top" nbTooltipStatus="primary"
           [style]="this.value.data.admissions.length == 0  ? 'background-color: #54bcc1;' :
       this.value.data.admissions[this.value.data.admissions.length - 1].medical_date != '0000-00-00 00:00:00' && this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date == '0000-00-00 00:00:00' ? 'background-color: red;'
       : this.value.data.admissions[this.value.data.admissions.length - 1].discharge_date == '0000-00-00 00:00:00' ? 'background-color: yellow;' : 'background-color: #54bcc1;'">

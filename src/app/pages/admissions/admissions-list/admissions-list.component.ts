@@ -26,6 +26,7 @@ export class AdmissionsListComponent {
   public datain;
   public admissions:any[];
   public status;
+  public show = true;
   public all_changes:any[];
   public own_user: any = null;
 
@@ -110,6 +111,16 @@ export class AdmissionsListComponent {
     });
     this.own_user = this.authService.GetUser();
     
+    this.show = (
+      this.own_user.roles[0].role_type_id == 23 || // PAD - GESTOR
+      this.own_user.roles[0].role_type_id == 26 || // PAD - GESTOR PHD
+      this.own_user.roles[0].role_type_id == 27 || // PAD - ANALISTA ADMIN
+      this.own_user.roles[0].role_type_id == 28 || // PAD - CORDINADOR NACIONAL
+      this.own_user.roles[0].role_type_id == 29 || // PAD - JEFE DE PLANEACIÓN
+      this.own_user.roles[0].role_type_id == 30 || // PAD - DIRECCIÓN
+      this.own_user.roles[0].role_type_id == 31 || // PAD - JEFE BUSQUEDA ACTIVA
+      this.own_user.roles[0].role_type_id == 32) ? // PAD - CORDINADOR CONVENIOS
+      false : true;
     }
 
   RefreshData() {
