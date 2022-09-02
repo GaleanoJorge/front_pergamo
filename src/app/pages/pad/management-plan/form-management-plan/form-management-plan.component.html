@@ -62,7 +62,7 @@
 
 
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && !show && !showTemp">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && !show && !showTemp && !frec">
           <label for="frequency" class="form-text text-muted font-weight-bold">Frecuencia:</label>
           <nb-select [selected]="this.data.frequency_id" formControlName="frequency_id" id="frequency_id" fullWidth
             status="{{ isSubmitted && form.controls.frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">

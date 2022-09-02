@@ -57,6 +57,7 @@ export class FormManagementPlanComponent implements OnInit {
   public admissions;
   public tipo_de_atencion;
   public showassigned;
+  public frec = false;
   //   this.status = x;
 
 
@@ -318,6 +319,7 @@ export class FormManagementPlanComponent implements OnInit {
 
         if (val == 17) {
           this.show = true;
+          this.frec = false;
           this.form.controls.start_date.setValidators(Validators.compose([Validators.required]));
           this.form.controls.preparation.setValidators(Validators.compose([Validators.required]));
           this.form.controls.route_of_administration.setValidators(Validators.compose([Validators.required]));
@@ -330,8 +332,9 @@ export class FormManagementPlanComponent implements OnInit {
 
 
         } else if (val == 13 || val == 12) {
-          this.showTemp = true;
+          this.showTemp = false;
           this.show = false;
+          this.frec = true;
           this.form.controls.start_date.setValidators(null);
           this.form.controls.preparation.setValidators(null);
           this.form.controls.route_of_administration.setValidators(null);
@@ -345,6 +348,7 @@ export class FormManagementPlanComponent implements OnInit {
         else {
           this.show = false;
           this.showTemp = false;
+          this.frec = false;
 
           this.form.controls.start_date.setValidators(null);
           this.form.controls.preparation.setValidators(null);
