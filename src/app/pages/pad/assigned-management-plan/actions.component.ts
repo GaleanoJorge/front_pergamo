@@ -84,7 +84,15 @@ export class Actions4Component implements ViewCell {
   }
 
   viewHC() {
-    this.viewHCS.ViewHC(this.value.data.ch_record[this.value.data.ch_record.length - 1].id).then(x => {
+    var offset = 0;
+    var i = 0;
+    this.value.data.ch_record.forEach(element => {
+      if (element.status == 'CERRADO') {
+        offset = i;
+      }
+      i++;
+    });
+    this.viewHCS.ViewHC(this.value.data.ch_record[offset].id).then(x => {
 
       //this.loadingDownload = false;
       if (this.value.closeDialog) {
@@ -101,9 +109,9 @@ export class Actions4Component implements ViewCell {
   }
 
   click() {
-     if (this.value.closeDialog) {
-        this.value.closeDialog();
-      }
+    if (this.value.closeDialog) {
+      this.value.closeDialog();
+    }
   }
 
 }
