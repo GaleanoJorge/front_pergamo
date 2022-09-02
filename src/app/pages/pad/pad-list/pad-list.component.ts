@@ -117,6 +117,10 @@ export class PadListComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
       },
+      company: {
+        title: this.headerFields[8],
+        type: 'string',
+      },
       birthday: {
         title: this.headerFields[9],
         type: 'string',
@@ -156,20 +160,8 @@ export class PadListComponent implements OnInit {
         title: this.headerFields[6],
         type: 'string',
       },
-      company: {
-        title: this.headerFields[8],
-        type: 'string',
-      },
       scope_of_attention: {
         title: this.headerFields[3],
-        type: 'string',
-      },
-      total_agendado: {
-        title: this.headerFields[10],
-        type: 'string',
-      },
-      total_ejecutado: {
-        title: this.headerFields[11],
         type: 'string',
       },
     },
