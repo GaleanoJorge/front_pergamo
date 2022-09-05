@@ -31,7 +31,17 @@ export class TableParenteralNutritionComponent implements OnInit {
                                 'VOLUMEN DE AMINÁCIDOS',
                                 'VOLUMEN DE DEXTROSA',
                                 'VALOMEN DE LÍPIDOS',
-                                'CALORIAS TOTALES',];
+                                'CALORIAS TOTALES',
+                                'GRAMOS TOTALES DE PROTEINA',
+                                'GRAMOS DE NITROGENO',
+                                'CARBOHIDRATOS TOTALES',
+                                'GRAMOS TOTALES DE LIPIDOS',
+                                'TOTAL VOLUMEN DE AMINOACIDOS',
+                                'TOTAL VOLUMEN DE DEXTROSA',
+                                'TOTAL VOLUMEN LIPIDO',
+                                'TOTAL CALORIAS',
+                                'CE_SE',
+                                ];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -71,67 +81,67 @@ export class TableParenteralNutritionComponent implements OnInit {
         width: 'string',
       },
 
-      ce_se:
+      dextrose_volume:
       {
         title: this.headerFields[4],
         width: 'string',
       },
 
-      dextrose_volume:
+      lipid_volume:
       {
         title: this.headerFields[5],
         width: 'string',
       },
 
-      lipid_volume:
+      total_grams_of_protein:
       {
         title: this.headerFields[6],
         width: 'string',
       },
 
-      total_grams_of_protein:
+      grams_of_nitrogen:
       {
         title: this.headerFields[7],
         width: 'string',
       },
 
-      grams_of_nitrogen:
+      total_carbohydrates:
       {
         title: this.headerFields[8],
         width: 'string',
       },
 
-      total_carbohydrates:
+      total_grams_of_lipids:
       {
         title: this.headerFields[9],
         width: 'string',
       },
 
-      total_grams_of_lipids:
+      total_amino_acid_volume:
       {
         title: this.headerFields[10],
         width: 'string',
       },
 
-      total_amino_acid_volume:
+      total_dextrose_volume:
       {
         title: this.headerFields[11],
         width: 'string',
       },
 
-      total_dextrose_volume:
+      total_lipid_volume:
       {
         title: this.headerFields[12],
         width: 'string',
       },
 
-      total_lipid_volume:
+      total_calories:
       {
         title: this.headerFields[13],
         width: 'string',
       },
 
-      total_calories:
+      ce_se:
       {
         title: this.headerFields[14],
         width: 'string',
