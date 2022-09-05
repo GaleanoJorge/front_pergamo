@@ -414,9 +414,12 @@ export class FormManagementPlanComponent implements OnInit {
       this.GetMedical(this.user.locality_id).then(x => {
         if (x) {
           this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+          this.showUser = true;
         }
       }).catch(e => {
         this.toastService.warning(e, 'AVISO');
+        this.form.controls.assigned_user_id.setErrors(null);
+        this.showUser = false;
       });
     }
   }

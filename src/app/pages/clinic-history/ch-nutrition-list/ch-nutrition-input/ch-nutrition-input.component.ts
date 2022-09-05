@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,6 +15,8 @@ export class ChNutritionInputComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any = null;
   @Input() user_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
+  
 
   linearMode = false;
   public form: FormGroup;
@@ -24,6 +26,8 @@ export class ChNutritionInputComponent implements OnInit {
   public loading: boolean = false;
   public messageError = null;
   public weight: any = null;
+  public has_input: any = null; 
+  public input_done: boolean = false;
 
 
   constructor(
@@ -40,5 +44,9 @@ export class ChNutritionInputComponent implements OnInit {
       this.weight = event.value;
     }
   }
+    // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
+    inputMessage($event) {
+      this.input_done = true;
+    }
 
 }

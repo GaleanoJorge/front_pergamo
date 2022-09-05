@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { ChNutritionFoodHistoryService } from '../../../../../business-controller/ch-nutrition-food-history.service';
-import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
+import { ChNutritionFoodHistoryService } from '../../../../../../business-controller/ch-nutrition-food-history.service';
+import { BaseTableComponent } from '../../../../../components/base-table/base-table.component';
 
 
 @Component({
@@ -16,7 +16,9 @@ export class FormFoodHistoryComponent implements OnInit {
   @Input() data: any = null;
   @Input() route: any = null;
   @Input() record_id: any = null;
+  @Input() type_record_id;
   @Input() user_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   linearMode = false;
   public form: FormGroup;
@@ -170,7 +172,7 @@ export class FormFoodHistoryComponent implements OnInit {
         this.ChNutritionFoodHistoryS.Update({
           id: this.ch_nutrition_food_history.id,
           ch_record_id: this.record_id,
-          type_record_id: this.route,
+          type_record_id: 1,
           is_allergic: this.form.controls.is_allergic.value,
           allergy: this.form.controls.allergy.value,
           description: this.form.controls.description.value,
@@ -181,6 +183,7 @@ export class FormFoodHistoryComponent implements OnInit {
           parenteral_nutrition: this.form.controls.parenteral_nutrition.value,
           intake_control: this.form.controls.intake_control.value,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.saved = x;
           this.ch_nutrition_food_history = x.data.ch_nutrition_food_history;
           this.botton_title = 'Actualizar';
@@ -193,7 +196,7 @@ export class FormFoodHistoryComponent implements OnInit {
       } else {
         this.ChNutritionFoodHistoryS.Save({
           ch_record_id: this.record_id,
-          type_record_id: this.route,
+          type_record_id: 1,
           is_allergic: this.form.controls.is_allergic.value,
           allergy: this.form.controls.allergy.value,
           description: this.form.controls.description.value,
@@ -204,6 +207,7 @@ export class FormFoodHistoryComponent implements OnInit {
           parenteral_nutrition: this.form.controls.parenteral_nutrition.value,
           intake_control: this.form.controls.intake_control.value,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.saved = x;
           this.ch_nutrition_food_history = x.data.ch_nutrition_food_history;
           this.botton_title = 'Actualizar';
