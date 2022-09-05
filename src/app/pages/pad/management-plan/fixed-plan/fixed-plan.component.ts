@@ -30,6 +30,7 @@ export class FixedPlanComponent implements OnInit {
   public data = [];
   public my_fixed_id;
   public user;
+  public entity: string = null;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -95,14 +96,8 @@ export class FixedPlanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.authService.GetUser();
-    this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
-      if (x.length > 0) {
-        this.my_fixed_id = x[0].id;
-      } else {
-        this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
-      }
-    });
+    this.entity = 'fixed_add/?pagination=true&status=PATIENT&admissions=' + this.admissions_id ;
+    // fixed_add/?pagination=true&status=PATIENT&Admissions_id=admissions_id
   }
 
   RefreshData() {
