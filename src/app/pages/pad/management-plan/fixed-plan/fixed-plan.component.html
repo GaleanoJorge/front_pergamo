@@ -1,7 +1,7 @@
 <nb-card>
   <nb-card-body>
     <div class="col-12 col-sm-12 col-md-12">
-      <ngx-form-fixed-plan (messageEvent)="receiveMessage($event)" [admissions_id]="admissions_id">
+      <ngx-form-fixed-plan (messageEvent)="receiveMessage($event)"  [user]="user" [admissions_id]="admissions_id">
       </ngx-form-fixed-plan>
     </div>
     <ngx-base-list [messageError]="messageError">

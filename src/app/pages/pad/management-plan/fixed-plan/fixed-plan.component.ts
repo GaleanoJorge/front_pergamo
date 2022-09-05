@@ -17,6 +17,7 @@ import { FormFixedPlanComponent } from './form-fixed-plan/form-fixed-plan.compon
 })
 export class FixedPlanComponent implements OnInit {
   @Input() parentData: any;
+  @Input() user: any;
   @Input() admissions_id: any = null;
 
   public isSubmitted = false;
@@ -29,7 +30,7 @@ export class FixedPlanComponent implements OnInit {
   public icon: string = 'nb-star';
   public data = [];
   public my_fixed_id;
-  public user;
+  public user1;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -95,8 +96,8 @@ export class FixedPlanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.authService.GetUser();
-    this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
+    this.user1 = this.authService.GetUser();
+    this.FixedAssetsS.getFixedByUserId(this.user1.id, {}).then(x => {
       if (x.length > 0) {
         this.my_fixed_id = x[0].id;
       } else {
