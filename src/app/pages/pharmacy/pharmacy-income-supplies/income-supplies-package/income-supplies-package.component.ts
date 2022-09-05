@@ -88,12 +88,12 @@ export class IncomeSuppliesPackageComponent implements OnInit {
           return row.pharmacy_lot_stock.lot;
         },
       },
-      amount_provition: {
+      request_amount: {
         title: this.headerFields[5],
         type: 'string',
-        // valuePrepareFunction: (value, row) => {
-        //   return row.pharmacy_product_request.product_generic.description;
-        // },
+         valuePrepareFunction: (value, row) => {
+           return row.pharmacy_product_request.request_amount;
+         },
       },
       amount: {
         title: this.headerFields[3],

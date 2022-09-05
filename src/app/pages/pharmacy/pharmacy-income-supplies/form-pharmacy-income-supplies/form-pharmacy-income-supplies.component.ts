@@ -50,7 +50,7 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
 
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + false + this.type,
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '&product1=' + false + this.type,
         customData: 'pharmacy_request_shipping',
       };
     } else {
@@ -93,11 +93,16 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
         this.toastS.danger('Debe seleccionar al menos un medicamento', 'Error');
       } else {
         this.selectedOptions.forEach(element => {
-          if (element.amount == null || element.amount <= 0 || element.amount_damaged <= 0) {
+          var total=element.amount + element.amount_damaged;
+          if (element.amount == null || total <= 0 ) {
             valid_values = false;
           }
         });
+        if (!valid_values) {
+          this.toastS.danger('Debe ingresar una cantidad valida', 'Error');
+        }
       }
+      if (valid_values) {
         this.loading = true;
         if (this.data.id) {
           this.pharProdReqS.updateInventoryByLot({
@@ -105,31 +110,11 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
             observation: this.form.controls.observation.value,
             status: 'ACEPTADO FARMACIA',
             own_pharmacy_stock_id: this.my_pharmacy_id,
-            request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
+            request_pharmacy_stock_id: this.data.own_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
-            // var id = x.data.pharmacy_lot_stock.id;
-            // var contador = 0;
-            // var err = 0;
-            // if (this.saved) {
-            //   this.saved();
-            // }
-            // this.pharmalotStockS.Update({
-            //   pharmacy_product_request_id: id,
-            //   pharmacy_request_shipping_id: JSON.stringify(this.selectedOptions),
-            // }, id).then(x => {
-            // }).catch(x => {
-            //   err++;
-            // });
-            // contador++;
-
-            // if (contador > 0) {
-            //   this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
-            // } else if (err > 0) {
-            //   this.toastS.danger(null, 'No se actualizaron ' + contador + ' elementos');
-            // }
             this.selectedOptions = [];
             if (this.saved) {
               this.saved();
@@ -142,7 +127,7 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
         } else {
           this.pharProdReqS.Save({
             observation: this.form.controls.observation.value,
-            status: 'ACEPTADO FARMACIA',
+            status: 'ACEPTADO',
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
           }).then(x => {
@@ -173,7 +158,7 @@ export class FormPharmacyIncomeSuppliesComponent implements OnInit {
             this.loading = false;
           });
         }
-      
+      }
     }
   }
 }
