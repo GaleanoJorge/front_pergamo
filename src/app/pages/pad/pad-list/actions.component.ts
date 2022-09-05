@@ -23,11 +23,11 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
           ghost [routerLink]="'/pages/pad/admissions-patient-pad/' + value.data.id+'/'+value.data.admissions[0].id">
           <nb-icon icon="menu-outline"></nb-icon>
       </a>
-      <a *ngIf="value.currentRole==2" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top"
-          nbTooltipStatus="primary" nbButton ghost
+      <button *ngIf="value.currentRole==2" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top"
+          nbTooltipStatus="primary" nbButton ghost (click)="closeDialog()"
           [routerLink]="'/pages/pad/management-plan/' + value.data.admissions[0].id+'/'+value.data.id">
           <nb-icon icon="menu-outline"></nb-icon>
-      </a>
+      </button>
       <button *ngIf="value.user.roles[0].role_type_id == 2" nbTooltip="Próximos servicios" nbTooltipPlacement="top" nbTooltipStatus="primary"
           nbButton ghost (click)="ShowPreBilling(AssignedTable, value.data.id)">
           <nb-icon icon="eye-outline"></nb-icon>

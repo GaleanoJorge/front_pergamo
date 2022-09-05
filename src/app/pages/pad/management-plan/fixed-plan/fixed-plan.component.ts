@@ -31,6 +31,7 @@ export class FixedPlanComponent implements OnInit {
   public data = [];
   public my_fixed_id;
   public user1;
+  public entity: string = null;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -96,6 +97,8 @@ export class FixedPlanComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.entity = 'fixed_add/?pagination=true&status=PATIENT&admissions=' + this.admissions_id ;
+    // fixed_add/?pagination=true&status=PATIENT&Admissions_id=admissions_id
     this.user1 = this.authService.GetUser();
     this.FixedAssetsS.getFixedByUserId(this.user1.id, {}).then(x => {
       if (x.length > 0) {
