@@ -76,8 +76,9 @@
           <label *ngIf="show" for="quantity" class="form-text text-muted font-weight-bold">Frecuencia Horaria
             (Horas):</label>
           <label *ngIf="showTemp" for="quantity" class="form-text text-muted font-weight-bold">Turno:</label>
-          <label *ngIf="!show && !showTemp" for="quantity" class="form-text text-muted font-weight-bold">Cantidad
+          <label *ngIf="!show && !showTemp && this.form.controls.type_of_attention_id.value != 12" for="quantity" class="form-text text-muted font-weight-bold">Cantidad
             proyectada:</label>
+          <label *ngIf="!show && !showTemp && this.form.controls.type_of_attention_id.value == 12" for="quantity" class="form-text text-muted font-weight-bold">Cantidad asistenciales:</label>
           <input *ngIf="!show && !showTemp" nbInput fullWidth id="quantity" formControlName="quantity" quantity
             status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           <nb-select *ngIf="show || showTemp" [selected]="this.data.quantity" formControlName="quantity" id="quantity"

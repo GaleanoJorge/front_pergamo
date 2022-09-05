@@ -167,6 +167,66 @@ export class AssignedManagementPlanComponent implements OnInit {
     },
   };
 
+  public settings3 = {
+    pager: {
+      display: true,
+      perPage: 30,
+    },
+    columns: {
+      semaphore: {
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'getDate': this.statusSemaphor.bind(this),
+          };
+        },
+        renderComponent: ActionsSemaphoreComponent,
+      },
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'user': this.own_user,
+            'refresh': this.RefreshData.bind(this),
+            'currentRole': this.currentRole,
+            'openEF':this.NewChRecord.bind(this),
+            'edit': this.EditAssigned.bind(this),
+          };
+        },
+        renderComponent: Actions4Component,
+      },
+      start_date: {
+        title: this.headerFields[0],
+        type: 'string',
+      },
+      finish_date: {
+        title: this.headerFields[1],
+        type: 'string',
+      },
+      start_hour: {
+        title: 'Hora de inicio',
+        type: 'string',
+      },
+      finish_hour: {
+        title: 'Hora de final',
+        type: 'string',
+      },
+      execution_date: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
+      nombre_completo: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+    },
+  };
+
   public routes = [
     {
       name: 'Pad',
@@ -229,6 +289,8 @@ export class AssignedManagementPlanComponent implements OnInit {
     });
     if (this.management[0].type_of_attention_id == 17) {
       this.settings = this.settings2;
+    } else if (this.management[0].type_of_attention_id == 12) {
+      this.settings = this.settings3;
     } else {
       this.settings = this.settings1;
     }

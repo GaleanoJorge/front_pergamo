@@ -38,10 +38,10 @@ export class FormAssignedManagementPlanComponent implements OnInit {
   public procedure_id: any;
   public isMedical: boolean = false;
   public type_auth = 1;
-  public show=false;
+  public show = false;
   public product_gen: any[];
   public product_id;
-  
+
   //   this.status = x;
 
 
@@ -86,20 +86,29 @@ export class FormAssignedManagementPlanComponent implements OnInit {
       });
     }
 
-    if(this.data.management_plan.type_of_attention_id==17){
-      this.show= true;
+    if (this.data.management_plan.type_of_attention_id == 17) {
+      this.show = true;
       this.form = this.formBuilder.group({
         start_date: [this.data.start_date],
         finish_date: [this.data.finish_date],
-        assigned_user_id:[this.data.user_id],
-      start_hours: [this.data.start_hours,Validators.compose([Validators.required])],
+        assigned_user_id: [this.data.user_id],
+        start_hour: [this.data.start_hour, Validators.compose([Validators.required])],
       });
-    }else{
-      this.show= false;
+    } else if (this.data.management_plan.type_of_attention_id == 12) {
+      this.show = true;
       this.form = this.formBuilder.group({
-      start_date: [this.data.start_date],
-      finish_date: [this.data.finish_date],
-      assigned_user_id:[this.data.user_id],
+        start_date: [this.data.start_date],
+        finish_date: [this.data.finish_date],
+        assigned_user_id: [this.data.user_id],
+        start_hour: [this.data.start_hour, Validators.compose([Validators.required])],
+        finish_hour: [this.data.finish_hour, Validators.compose([Validators.required])],
+      });
+    } else {
+      this.show = false;
+      this.form = this.formBuilder.group({
+        start_date: [this.data.start_date],
+        finish_date: [this.data.finish_date],
+        assigned_user_id: [this.data.user_id],
       });
     }
 
@@ -108,7 +117,7 @@ export class FormAssignedManagementPlanComponent implements OnInit {
     }).then(x => {
       this.special_field = x;
     });
-  
+
 
     // if (this.assigned == true) {
 
@@ -156,7 +165,7 @@ export class FormAssignedManagementPlanComponent implements OnInit {
   async GetMedical(type_professional, locality_id) {
     if (!type_professional || type_professional === '') return Promise.resolve(false);
 
-    return await this.userAssigned.UserByRoleLocation(locality_id, this.phone_consult==1 ? 2 : 1, {
+    return await this.userAssigned.UserByRoleLocation(locality_id, this.phone_consult == 1 ? 2 : 1, {
       roles: JSON.stringify(this.roles),
       type_of_attention: this.data.management_plan.type_of_attention_id,
     }).then(x => {
@@ -183,13 +192,13 @@ export class FormAssignedManagementPlanComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       if (this.medical == false) {
-      var selectes_assistance_id;
-      this.assigned_user.forEach(user => {
-        if (user.id === this.form.value.assigned_user_id) {
-          selectes_assistance_id = user.assistance_id;
-        }
-      });
-    }
+        var selectes_assistance_id;
+        this.assigned_user.forEach(user => {
+          if (user.id === this.form.value.assigned_user_id) {
+            selectes_assistance_id = user.assistance_id;
+          }
+        });
+      }
       if (this.data.id) {
         this.AssignedManagementPlanS.Update({
           id: this.data.id,
@@ -197,7 +206,8 @@ export class FormAssignedManagementPlanComponent implements OnInit {
           start_date: this.form.controls.start_date.value,
           finish_date: this.form.controls.finish_date.value,
           user_id: this.form.controls.assigned_user_id.value,
-          start_hour: this.data.management_plan.type_of_attention_id==17?this.form.controls.start_hours.value :null,
+          start_hour: (this.data.management_plan.type_of_attention_id == 17 || this.data.management_plan.type_of_attention_id == 12) ? this.form.controls.start_hour.value : null,
+          finish_hour: this.data.management_plan.type_of_attention_id == 12 ? this.form.controls.finish_hour.value : null,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -227,7 +237,7 @@ export class FormAssignedManagementPlanComponent implements OnInit {
           route_of_administration: this.form.controls.route_of_administration.value,
           blend: this.form.controls.blend.value,
           administration_time: this.form.controls.administration_time.value,
-          start_hours: this.form.controls.start_hours.value,
+          start_hour: this.form.controls.start_hour.value,
           type_auth: this.type_auth,
         }).then(x => {
           this.toastService.success('', x.message);

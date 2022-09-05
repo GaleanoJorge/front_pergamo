@@ -25,7 +25,7 @@ export class HumanTalentRequestListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Solicitudes de personal';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['TIPO DE PERSONAL A SOLICITAR','TIPO DE ATENCIÓN', 'IDENTIFICACIÓN PACIENTE', 'NOMBRE PACIENTE', 'ZONA', 'BARRIO', 'FECHA DE SOLICITUD', 'ESTADO', 'OBSERVACIONES'];
+  public headerFields: any[] = ['TIPO DE PERSONAL A SOLICITAR','TIPO DE ATENCIÓN', 'IDENTIFICACIÓN PACIENTE', 'NOMBRE PACIENTE', 'ZONA', 'BARRIO', 'FECHA DE SOLICITUD', 'ESTADO', 'OBSERVACIONES', 'TELECONSULTA'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -106,14 +106,33 @@ export class HumanTalentRequestListComponent implements OnInit {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.admissions.patients.locality.name;
+          if (row.management_plan.phone_consult == 1) {
+            return 'N.A.'
+          } else {
+            return row.admissions.patients.locality.name;
+          }
         },
       },
       residence: {
         title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.admissions.patients.residence.name;
+          if (row.management_plan.phone_consult == 1) {
+            return 'N.A.'
+          } else {
+            return row.admissions.patients.residence.name;
+          }
+        },
+      },
+      phone_consult: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.management_plan.phone_consult == 1) {
+            return 'SI';
+          } else {
+            return 'N.A.'
+          }
         },
       },
       created_at: {

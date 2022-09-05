@@ -18,10 +18,13 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button *ngIf="value.user.roles[0].role_type_id == 2 && ((today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17)||value.data.allow_redo == 1)" (click)="click()" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" (click)="this.value.closeDialog()" >
+    <button *ngIf="value.user.roles[0].role_type_id == 2 && ((today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17 && value.data.management_plan.type_of_attention_id!=12)||value.data.allow_redo == 1)" (click)="click()" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" (click)="this.value.closeDialog()" >
     <nb-icon icon="folder-add-outline"></nb-icon>
     </button>
     <a *ngIf="value.user.roles[0].role_type_id == 2 && (firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="openEF(value.data)">
+    <nb-icon icon="folder-add-outline"></nb-icon>
+  </a>
+    <a *ngIf="value.user.roles[0].role_type_id == 2 && (start <= today2 && finish >= today2 && firsthour < hournow && endhour >= hournow && value.data.management_plan.type_of_attention_id==12)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="openEF(value.data)">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
   <button *ngIf="value.data.ch_record.length > 0" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
@@ -47,6 +50,8 @@ export class Actions4Component implements ViewCell {
   public date;
   public finish;
   public firstdate;
+  public first_date_temp;
+  public final_date_temp;
   public enddate;
   public showBotton: boolean = false;
 
@@ -63,21 +68,41 @@ export class Actions4Component implements ViewCell {
     this.today = new Date;
     this.today2 = new Date;
     this.date = this.value.data.start_date + ' ' + this.value.data.start_hour;
+    this.first_date_temp = this.today.getFullYear() + '-' +  (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.start_hour;
+    this.final_date_temp = this.today.getFullYear() + '-' +  (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.finish_hour;
     // console.log(this.rowData);
     // console.log(this.value);
 
 
-
-    var firstdate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() + 3));
-    var enddate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() - 3));
-    this.hournow = this.today2.getTime();
-    this.firsthour = firstdate.getTime();
-    this.endhour = enddate.getTime();
-    this.start = this.value.data.start_date.split('-');
-    this.finish = this.value.data.finish_date.split('-');
-    let day = this.today.getDate();
-    let month = this.today.getMonth() + 1;
-    let year = this.today.getFullYear();
+    if (this.value.data.management_plan.type_of_attention_id==12) {
+      var firstdate = new Date(new Date(this.first_date_temp));
+      var enddate = new Date(new Date(this.final_date_temp));
+      if (firstdate > enddate) {
+        this.final_date_temp = this.today.getFullYear() + '-' +  (this.today.getMonth() + 1) + '-' + (this.today.getDate() + 1) + ' ' + this.value.data.finish_hour;
+        enddate = new Date(new Date(this.final_date_temp));
+      }
+      this.hournow = this.today2;
+      this.firsthour = firstdate;
+      this.endhour = enddate;
+      this.start =  new Date(this.value.data.start_date);
+      this.finish =  new Date(this.value.data.finish_date);
+    } else {
+      var firstdate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() + 3));
+      var enddate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() - 3));
+      this.hournow = this.today2.getTime();
+      this.firsthour = firstdate.getTime();
+      this.endhour = enddate.getTime();
+      this.start = this.value.data.start_date.split('-');
+      this.finish = this.value.data.finish_date.split('-');
+      let day = this.today.getDate();
+      let month = this.today.getMonth() + 1;
+      let year = this.today.getFullYear();
+    }
+    
+    var a = this.firsthour < this.hournow;
+    var b =  this.endhour >= this.hournow;
+    var c = this.start <= this.today2;
+    var d =  this.finish >= this.today2;
 
     this.today = this.datePipe.transform2(this.today);
 
