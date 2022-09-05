@@ -19,6 +19,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
   @Input() parentData: any = [];
   @Input() title: any = [];
   public messageError = null;
+  @Input() request_amount: any;
 
   public InscriptionForm: FormGroup;
   public subtitle = ' ';
@@ -185,7 +186,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
   }
 
   onAmountChange(input, row) {
-    if (Number(row.request_amount) > Number(input.target.valueAsNumber)) {
+    if (Number(input.target.valueAsNumber) > Number(this.request_amount)) {
       this.toastS.danger("", "La cantidad a entregar no debe superar la cantidad ordenada")
     } else {
       var i = 0;

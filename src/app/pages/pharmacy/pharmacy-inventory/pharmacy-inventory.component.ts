@@ -22,7 +22,7 @@ export class PharmacyInventoryComponent implements OnInit {
   public title: string = 'INVENTARIO';
   public subtitle: string = '';
   public headerFields: any[] = ['PRODUCTO - PRODUCTO GENERICO', 'FABRICANTE', 'CANTIDAD INICIAL', 'CANTIDAD ACTUAL', 'LOTE', 'FECHA DE VENCIMIENTO'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
   public entity;

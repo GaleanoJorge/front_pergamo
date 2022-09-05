@@ -32,6 +32,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
   public all_changes: any[];
   public own_user: any = null;
   public own_pharmacy_stock_id: any[];
+  public request_amount;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -68,7 +69,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
         request_amount: '',
       };
     }
-
+    this.request_amount = this.data.request_amount;
     this.form = this.formBuilder.group({
       request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
     });
