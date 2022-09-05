@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { ChNutritionParentalService } from '../../../../../business-controller/ch-nutrition-parenteral.service';
+import { ChNutritionParentalService } from '../../../../../../business-controller/ch-nutrition-parenteral.service';
 
 
 @Component({
@@ -16,7 +16,10 @@ export class FormParenteralNutritionComponent implements OnInit {
   @Input() weight: any = null;
   @Input() route: any = null;
   @Input() record_id: any = null;
+  @Input() type_record_id;
   @Input() user_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
+
 
   linearMode = false;
   public form: FormGroup;
@@ -154,7 +157,7 @@ export class FormParenteralNutritionComponent implements OnInit {
         this.ChNutritionParentalNutritionS.Update({
           id: this.ch_nutrition_parenteral.id, 
           ch_record_id: this.record_id,
-          type_record_id: this.route,
+          type_record_id: 1,
           protein_contributions: this.form.controls.protein_contributions.value,
           carbohydrate_contribution: this.form.controls.carbohydrate_contribution.value,
           lipid_contribution: this.form.controls.lipid_contribution.value,
@@ -171,6 +174,7 @@ export class FormParenteralNutritionComponent implements OnInit {
           total_lipid_volume: this.total_lipid_volume,
           total_calories: this.total_calories,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.saved = x;
           this.loading = false;
           this.ch_nutrition_parenteral = x.data.ch_nutrition_parenteral;
@@ -183,7 +187,7 @@ export class FormParenteralNutritionComponent implements OnInit {
       } else {
         this.ChNutritionParentalNutritionS.Save({
           ch_record_id: this.record_id,
-          type_record_id: this.route,
+          type_record_id: 1,
           protein_contributions: this.form.controls.protein_contributions.value,
           carbohydrate_contribution: this.form.controls.carbohydrate_contribution.value,
           lipid_contribution: this.form.controls.lipid_contribution.value,
@@ -200,6 +204,7 @@ export class FormParenteralNutritionComponent implements OnInit {
           total_lipid_volume: this.total_lipid_volume,
           total_calories: this.total_calories,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.saved = x;
           this.loading = false;
           this.ch_nutrition_parenteral = x.data.ch_nutrition_parenteral;

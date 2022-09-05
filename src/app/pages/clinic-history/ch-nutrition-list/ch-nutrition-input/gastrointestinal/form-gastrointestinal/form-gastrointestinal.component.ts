@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { ChNutritionGastrointestinalService } from '../../../../../business-controller/ch-nutrition-gastrointestinal.service';
+import { ChNutritionGastrointestinalService } from '../../../../../../business-controller/ch-nutrition-gastrointestinal.service';
 
 
 @Component({
@@ -14,8 +14,10 @@ export class FormGastrointestinalComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() route: any = null;
+  @Input() type_record_id;
   @Input() record_id: any = null;
   @Input() user_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   linearMode = false;
   public form: FormGroup;
@@ -101,13 +103,14 @@ export class FormGastrointestinalComponent implements OnInit {
         this.ChNutritionGastrointestinalS.Update({
           id: this.ch_nutrition_gastrointestinal.id,
           ch_record_id: this.record_id,
-          type_record_id: this.route,
+          type_record_id: 1,
           bowel_habit: this.form.controls.bowel_habit.value,
           vomit: this.form.controls.vomit.value,
           amount_of_vomit: this.form.controls.amount_of_vomit.value,
           nausea: this.form.controls.nausea.value,
           observations: this.form.controls.observations.value,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.saved = x;
           this.loading = false;
           this.ch_nutrition_gastrointestinal = x.data.ch_nutrition_gastrointestinal;
@@ -120,13 +123,14 @@ export class FormGastrointestinalComponent implements OnInit {
       } else {
         this.ChNutritionGastrointestinalS.Save({
           ch_record_id: this.record_id,
-          type_record_id: this.route,
+          type_record_id: 1,
           bowel_habit: this.form.controls.bowel_habit.value,
           vomit: this.form.controls.vomit.value,
           amount_of_vomit: this.form.controls.amount_of_vomit.value,
           nausea: this.form.controls.nausea.value,
           observations: this.form.controls.observations.value,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.saved = x;
           this.loading = false;
           this.ch_nutrition_gastrointestinal = x.data.ch_nutrition_gastrointestinal;

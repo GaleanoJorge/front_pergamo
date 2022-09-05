@@ -18,6 +18,7 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
   @Input() route: any = null;
   @Input() record_id: any = null;
   @Input() user_id: any = null;
+  
 
   linearMode = false;
   public form: FormGroup;
@@ -30,6 +31,7 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
   public loading: boolean = false;
   public botton_title: string = 'Guardar';
   public ch_nutrition_interpretation = null;
+  public has_input: any = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {

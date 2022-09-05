@@ -15,7 +15,7 @@
 
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show == 1">
-          <ngx-ch-nutrition-input [data]="this.user" [record_id]="this.record_id">
+          <ngx-ch-nutrition-input [data]="this.user" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
           </ngx-ch-nutrition-input>
         </div>
       </nb-tab>
