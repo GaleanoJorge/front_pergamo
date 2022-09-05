@@ -31,7 +31,7 @@ export class SuppliesView {
 
   }
   async ngOnInit() {
-    // console.log(this.user);
+    console.log(this.user);
     // console.log(this.admissions_id);
   }
 

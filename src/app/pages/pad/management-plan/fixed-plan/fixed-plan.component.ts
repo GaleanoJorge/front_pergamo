@@ -17,6 +17,7 @@ import { FormFixedPlanComponent } from './form-fixed-plan/form-fixed-plan.compon
 })
 export class FixedPlanComponent implements OnInit {
   @Input() parentData: any;
+  @Input() user: any;
   @Input() admissions_id: any = null;
 
   public isSubmitted = false;
@@ -29,7 +30,7 @@ export class FixedPlanComponent implements OnInit {
   public icon: string = 'nb-star';
   public data = [];
   public my_fixed_id;
-  public user;
+  public user1;
   public entity: string = null;
 
 
@@ -98,6 +99,14 @@ export class FixedPlanComponent implements OnInit {
   ngOnInit(): void {
     this.entity = 'fixed_add/?pagination=true&status=PATIENT&admissions=' + this.admissions_id ;
     // fixed_add/?pagination=true&status=PATIENT&Admissions_id=admissions_id
+    this.user1 = this.authService.GetUser();
+    this.FixedAssetsS.getFixedByUserId(this.user1.id, {}).then(x => {
+      if (x.length > 0) {
+        this.my_fixed_id = x[0].id;
+      } else {
+        this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
+      }
+    });
   }
 
   RefreshData() {
