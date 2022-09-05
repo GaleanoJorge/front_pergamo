@@ -130,8 +130,12 @@ export class FormChMedicalOrdersComponent implements OnInit {
           });
         this.messageEvent.emit(true);
       }
+
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
-  }
+    }
+  
 
   saveCode(e): void {
     var localidentify = this.procedure.find(item => item.name == e);

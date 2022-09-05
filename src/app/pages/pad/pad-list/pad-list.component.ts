@@ -19,6 +19,7 @@ import { ActionsSemaphore2Component } from '../management-plan/actions-semaphore
 import { CompanyService } from '../../../business-controller/company.service';
 import { UserAgreementService } from '../../../business-controller/user-agreements.service';
 import { threadId } from 'worker_threads';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-pad-list',
@@ -33,9 +34,9 @@ export class PadListComponent implements OnInit {
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Plan de atención domiciliaria';
+  public title: string = 'Programa de atención domiciliaria';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Programa', 'Ciudad', 'Barrio', 'Dirección', 'Localidad'];
+  public headerFields: any[] = ['Tipo de documento', 'Número de documento', 'Nombre completo', 'Tipo de atención', 'Ciudad', 'Barrio', 'Dirección', 'Zona/Localidad', 'EPS', 'Edad', 'Total Agendado', 'Total Ejecutado', 'Teléfono'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -103,8 +104,9 @@ export class PadListComponent implements OnInit {
       identification_type: {
         title: this.headerFields[0],
         type: 'string',
+        width: '5%',
         valuePrepareFunction(value) {
-          return value?.name;
+          return value?.code;
         },
       },
       identification: {
@@ -113,6 +115,24 @@ export class PadListComponent implements OnInit {
       },
       nombre_completo: {
         title: this.headerFields[2],
+        type: 'string',
+      },
+      company: {
+        title: this.headerFields[8],
+        type: 'string',
+      },
+      birthday: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction(value) {
+          var date = new Date(value.substring(0,10));
+          var ageDifMs = Date.now() - date.getTime();
+          var ageDate = new Date(ageDifMs); // miliseconds from epoch
+          return Math.abs(ageDate.getUTCFullYear() - 1970)  + " AÑOS" ;
+        },
+      },
+      phone: {
+        title: this.headerFields[12],
         type: 'string',
       },
       residence_municipality: {
@@ -140,7 +160,7 @@ export class PadListComponent implements OnInit {
         title: this.headerFields[6],
         type: 'string',
       },
-      programa: {
+      scope_of_attention: {
         title: this.headerFields[3],
         type: 'string',
       },
@@ -166,8 +186,8 @@ export class PadListComponent implements OnInit {
     private toastS: NbToastrService,
     public roleBS: RoleBusinessService,
     private CompanyS: CompanyService,
-    private userAgService: UserAgreementService
-
+    private userAgService: UserAgreementService,
+    
   ) {
   }
   public form: FormGroup;
@@ -177,7 +197,6 @@ export class PadListComponent implements OnInit {
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
   public saved: any = null;
-
 
 
 
@@ -193,12 +212,18 @@ export class PadListComponent implements OnInit {
       this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id;
     }
 
-    this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
+    // this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
+    //   this.company = x;
+    // });
+
+    this.CompanyS.GetCollection().then(x => {
       this.company = x;
     });
 
-
-    this.PatientBS.PatientByPad(this.user_id).then(x => {
+    var a = (this.user.roles[0].role_type_id == 2) ? this.user_id : "0";
+    this.PatientBS.PatientByPad(a, {
+      campus_id: this.campus_id,
+    }).then(x => {
       this.patients = x;
     });
   }

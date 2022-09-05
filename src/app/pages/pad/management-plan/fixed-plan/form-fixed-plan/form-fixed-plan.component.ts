@@ -80,9 +80,9 @@ export class FormFixedPlanComponent implements OnInit {
   //   });
 
 
-    this.serviceBriefcaseS.GetCollection({}).then(x => {
-      this.procedure = x;
-    });
+  this.serviceBriefcaseS.GetByBriefcase({ type: '4'}, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+    this.procedure = x;
+  });
   }
 
   saveCode(e): void {

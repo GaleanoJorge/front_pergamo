@@ -10,7 +10,7 @@
                     >
       <div actions>
         <div class="actions">
-          <a ngxCheckPerms="create" style="margin-right: 5px;" nbButton status="danger" routerLink="../../admissions/bed-management">Manejo de camas</a>
+          <a *ngIf="show" ngxCheckPerms="create" style="margin-right: 5px;" nbButton status="danger" routerLink="../../admissions/bed-management">Manejo de camas</a>
           <a ngxCheckPerms="create" nbButton status="danger" routerLink="../../admissions/patient/create">Crear</a>
         </div>
       </div>

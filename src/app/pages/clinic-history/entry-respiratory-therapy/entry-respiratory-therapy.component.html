@@ -19,9 +19,9 @@
           <!-- *ngIf="vitalsigns" [data]="vitalsigns"  -->
 
           <nb-step [stepControl]="nameForm" label="Destete de oxigeno">
-            <ngx-form-oxygen-therapy *ngIf="teraphyRespiratory" [record_id]="record_id" [type_record]="1"
+            <ngx-oxygen-therapy *ngIf="teraphyRespiratory" [record_id]="record_id" [type_record]="1"
             [data]="teraphyRespiratory">
-            </ngx-form-oxygen-therapy>
+            </ngx-oxygen-therapy>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Valoración Terapeutica">
@@ -33,16 +33,12 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Pedido de insumos">
-            <ngx-form-supplies-therapy [record_id]="record_id" [type_record]="1" *ngIf="suppliesTeraphyRespiratory" [data]="suppliesTeraphyRespiratory"></ngx-form-supplies-therapy>
+            <ngx-insume-request [record_id]="record_id"></ngx-insume-request>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Sesiones">
-            <ngx-form-sessions-therapy [record_id]="record_id" [type_record]="1" *ngIf="sessionsTeraphyRespiratory" 
-            [data]="sessionsTeraphyRespiratory"></ngx-form-sessions-therapy>
+            <ngx-sessions-therapy [record_id]="record_id" [type_record]="1"></ngx-sessions-therapy>
           </nb-step>
-
-
-
 
 
           <nb-step [hidden]="true">

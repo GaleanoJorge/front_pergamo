@@ -26,7 +26,7 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() user: any = null;
   @Input() medical: number = 0;
   @Input() assigned: boolean;
-  @Input() edit: any;
+  @Input() edit: any=null;
   @Input() admissions_id: any = null;
 
   public form: FormGroup;
@@ -57,6 +57,7 @@ export class FormManagementPlanComponent implements OnInit {
   public admissions;
   public tipo_de_atencion;
   public showassigned;
+  public frec = false;
   //   this.status = x;
 
 
@@ -163,14 +164,14 @@ export class FormManagementPlanComponent implements OnInit {
     }).then(x => {
       this.specialty = x;
     });
-    if (this.medical == 0) {
+    if (this.medical == 0 ) {
       this.configForm = {
         type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
         frequency_id: [this.data.frequency_id,],
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
         specialty_id: [this.data.specialty_id],
         assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
-        procedure_id: ['', Validators.compose([Validators.required])],
+        procedure_id: [this.assigned==false?'':this.data.procedure_id, Validators.compose([Validators.required])],
         product_id: [this.data.product_id],
         start_date: [this.data.start_date],
         finish_date: [this.data.finish_date],
@@ -215,6 +216,15 @@ export class FormManagementPlanComponent implements OnInit {
     // if (this.assigned == true) {
 
     // }
+
+    if(this.assigned==false){
+      this.form.controls.procedure_id.setValidators(null);
+      this.procedure_id=this.data.procedure_id;
+      if(this.data.type_of_attention_id==17){
+        this.form.patchValue({quantity:this.data.number_doses});
+      }
+      
+    }
 
   }
 
@@ -304,10 +314,12 @@ export class FormManagementPlanComponent implements OnInit {
         
         if(this.assigned==false){
           this.showassigned=true;
+          
         }
 
         if (val == 17) {
           this.show = true;
+          this.frec = false;
           this.form.controls.start_date.setValidators(Validators.compose([Validators.required]));
           this.form.controls.preparation.setValidators(Validators.compose([Validators.required]));
           this.form.controls.route_of_administration.setValidators(Validators.compose([Validators.required]));
@@ -320,8 +332,9 @@ export class FormManagementPlanComponent implements OnInit {
 
 
         } else if (val == 13 || val == 12) {
-          this.showTemp = true;
+          this.showTemp = false;
           this.show = false;
+          this.frec = true;
           this.form.controls.start_date.setValidators(null);
           this.form.controls.preparation.setValidators(null);
           this.form.controls.route_of_administration.setValidators(null);
@@ -335,6 +348,7 @@ export class FormManagementPlanComponent implements OnInit {
         else {
           this.show = false;
           this.showTemp = false;
+          this.frec = false;
 
           this.form.controls.start_date.setValidators(null);
           this.form.controls.preparation.setValidators(null);
@@ -400,9 +414,12 @@ export class FormManagementPlanComponent implements OnInit {
       this.GetMedical(this.user.locality_id).then(x => {
         if (x) {
           this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+          this.showUser = true;
         }
       }).catch(e => {
         this.toastService.warning(e, 'AVISO');
+        this.form.controls.assigned_user_id.setErrors(null);
+        this.showUser = false;
       });
     }
   }

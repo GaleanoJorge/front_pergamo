@@ -131,7 +131,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       this.flat = x;
     });
 
-    this.companyS.GetCollection({ eps: 0 }).then(x => {
+    this.companyS.GetCollection({ eps: 1, company_category_id: 1 }).then(x => {
       this.eps = x;
     });
     // this.DiagnosisS.GetCollection().then(x => {

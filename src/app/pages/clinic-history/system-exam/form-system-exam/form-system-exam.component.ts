@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChTypeSystemExamService } from '../../../../business-controller/ch_type_system_exam.service';
 import { ChSystemExamService } from '../../../../business-controller/ch_system_exam.service';
 import { SystemExamComponent } from '../system-exam.component';
@@ -58,7 +58,7 @@ export class FormSystemExamComponent implements OnInit {
     this.form = this.formBuilder.group({
       revision: [this.data[0] ? this.data[0].revision : this.data.revision,],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
-      type_ch_system_exam_id: [this.data[0] ? this.data[0].type_ch_system_exam_id : this.data.type_ch_system_exam_id,],
+      type_ch_system_exam_id: [this.data[0] ? this.data[0].type_ch_system_exam_id : this.data.type_ch_system_exam_id,Validators.compose([Validators.required])],
     });
 
   }
@@ -110,11 +110,14 @@ export class FormSystemExamComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           }
-
         });
+
+      }
+      } else{
+        this.toastService.warning('', "Debe seleccionar un item de la lista");
       }
 
     }
   }
 
-}
+

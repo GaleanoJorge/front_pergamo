@@ -299,7 +299,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
   // }
 
   async finish(firm) {
-    // if(this.signatureImage!=null){
+    if(this.signatureImage!=null){
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
@@ -326,10 +326,10 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
         this.loading = false;
         throw new Error(response);
       }
-    // }else{
-    //   this.toastService.danger('Debe diligenciar la firma');
+    }else{
+      this.toastService.danger('Debe diligenciar la firma');
   
-    // }
+    }
 
   }
 

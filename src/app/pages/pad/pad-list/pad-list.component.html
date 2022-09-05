@@ -3,8 +3,12 @@
 
     <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity" customData="patients"
       [messageToltip]="messageToltip">
+      <div title>
+        <div *ngIf="this.user.roles[0].role_type_id == 1 && this.patients"><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div>
+      </div>
       <div actions>
         <div class="actions">
+          
           <div *ngIf="this.user.roles[0].role_type_id == 1" style="margin-right: 10px; width: 250px">
             <nb-select placeholder="Filtrar por estado" fullWidth (selectedChange)="changeSemaphore($event)">
               <nb-option value="">Sin filtro</nb-option>
@@ -15,13 +19,12 @@
               </nb-option>
             </nb-select>
           </div>
-          <nb-select *ngIf="this.user.roles[0].role_type_id == 1" (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
-            <nb-option *ngIf="this.currentRole == 1 || this.currentRole == 47 || this.currentRole == 26 || this.currentRole == 27 || this.currentRole == 28 || this.currentRole == 29 || this.currentRole == 30 || this.currentRole == 31 || this.currentRole == 32">Todos los convenios</nb-option>
-            <nb-option *ngFor="let item of company" [value]="item.company.id">Convenio: {{item.company.name}}</nb-option>
+          <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
+            <nb-option >Todos los convenios</nb-option>
+            <nb-option *ngFor="let item of company" [value]="item.id">Convenio: {{item.name}}</nb-option>
           </nb-select>
         </div>
-        <div class="actions">
-        </div>
+        
       </div>
     </ngx-base-table>
   </div>

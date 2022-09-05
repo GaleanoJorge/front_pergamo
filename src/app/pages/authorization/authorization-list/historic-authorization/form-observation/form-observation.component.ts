@@ -3,15 +3,12 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthorizationService } from '../../../../../business-controller/authorization.service';
 
-
-
 @Component({
   selector: 'ngx-form-observation',
   templateUrl: './form-observation.component.html',
-  styleUrls: ['./form-observation.component.scss']
+  styleUrls: ['./form-observation.component.scss'],
 })
 export class FormObservationComponent implements OnInit {
-
   @Input() title: string;
   @Input() data: any = null;
   @Input() Managemen: any = null;
@@ -28,9 +25,8 @@ export class FormObservationComponent implements OnInit {
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
-    private authorizationS: AuthorizationService,
-  ) {
-  }
+    private authorizationS: AuthorizationService
+  ) {}
 
   ngOnInit(): void {
     if (!this.data) {
@@ -43,41 +39,37 @@ export class FormObservationComponent implements OnInit {
       };
     }
 
-    
     this.form = this.formBuilder.group({
-      observation: [
-        this.data.observation,
-      ],
+      observation: [this.data.observation],
       auth_number: [
         this.data.auth_number,
         Validators.compose([Validators.required]),
       ],
-      copay: [
-        this.data.copay ? true : null,
-      ],
-      copay_value: [
-        this.data.copay_value,
-      ],
-      file_auth: [
-        null,
-      ]
+      copay: [this.data.copay ? true : null],
+      copay_value: [this.data.copay_value],
+      file_auth: [null],
     });
 
     if (this.Managemen) {
       this.title = 'AUTORIZACIÓN PLAN DE MANEJO';
-    } else if(this.auth_status == 3){
-      this.title = 'Autorizar paquete: ' + this.data.services_briefcase.manual_price.name;
+    } else if (this.auth_status == 3) {
+      this.title =
+        'Autorizar paquete: ' + this.data.services_briefcase.manual_price.name;
     } else {
-      this.title = this.auth_status == 4 ? 'OBSERVACIÓN MOTIVO DE CANCELACIÓN' : 'GESTIONAR ERRADA POR EPS';
+      this.title =
+        this.auth_status == 4
+          ? 'OBSERVACIÓN MOTIVO DE CANCELACIÓN'
+          : 'GESTIONAR ERRADA POR EPS';
       this.form.controls.auth_number.clearValidators();
       this.form.controls.auth_number.updateValueAndValidity();
-      this.form.controls.observation.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.observation.setValidators(
+        Validators.compose([Validators.required])
+      );
     }
   }
 
-
   close() {
-    this.saved()
+    this.saved();
     this.dialogRef.close();
   }
 
@@ -95,12 +87,13 @@ export class FormObservationComponent implements OnInit {
     }
   }
 
-  toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  })
+  toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
 
   save() {
     this.isSubmitted = true;
@@ -108,26 +101,29 @@ export class FormObservationComponent implements OnInit {
     if (!this.form.invalid) {
       this.loading = true;
       if (this.data.id) {
-        this.authorizationS.Update({
-          id: this.data.id,
-          auth_status_id: this.auth_status,
-          auth_number: this.form.controls.auth_number.value,
-          observation: this.form.controls.observation.value,
-          copay: this.form.controls.copay.value,
-          copay_value: this.form.controls.copay_value.value,
-          file_auth: this.form.value.file_auth,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
+        var formData = new FormData();
+        var data = this.form.controls;
+        formData.append('id', this.data.id);
+        formData.append('auth_status_id', this.auth_status);
+        formData.append('auth_number', data.auth_number.value);
+        formData.append('observation', data.observation.value);
+        formData.append('copay', data.copay.value);
+        formData.append('copay_value', data.copay_value.value);
+        formData.append('file_auth', this.form.value.file_auth);
+        this.authorizationS
+          .Update(formData, this.data.id)
+          .then((x) => {
+            this.toastService.success('', x.message);
+            this.close();
+            if (this.saved) {
+              this.saved();
+            }
+          })
+          .catch((x) => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
       }
     }
   }
-
 }

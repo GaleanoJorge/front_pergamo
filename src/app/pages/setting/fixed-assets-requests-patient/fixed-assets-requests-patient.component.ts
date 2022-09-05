@@ -8,6 +8,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ActionsAssReqPatientComponent } from './actions.component';
 import { FormFixedAssetsRequestsPatientComponent } from './form-fixed-assets-requests-patient/form-fixed-assets-requests-patient.component';
+import { FormFixedDeniedComponent } from './form-fixed-denied/form-fixed-denied.component';
 
 @Component({
   selector: 'ngx-fixed-assets-requests-patient',
@@ -21,8 +22,8 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
 
   public title: string = 'LISTA DE ACTIVOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ELEMENTO', 'CANTIDAD', 'SOLICITADO POR', 'PACIENTE'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
+  public headerFields: any[] = ['ELEMENTO', 'CANTIDAD', 'SOLICITADO POR', '# DOCUMENTO PACIENTE', 'NOMBRE PACIENTE'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
   public validator;
@@ -46,6 +47,7 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditPharmacy.bind(this),
+            'returned': this.Returned.bind(this),
           };
         },
         renderComponent: ActionsAssReqPatientComponent,
@@ -72,7 +74,14 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.admissions.patients.identification + " - " + row.admissions.patients.firstname + " " + row.admissions.patients.lastname;
+          return row.admissions.patients.identification;
+        },
+      },
+      firstname: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.admissions.patients.firstname + " " + row.admissions.patients.lastname;
         },
       },
     },
@@ -126,6 +135,17 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
       context: {
         title: '',
         data,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
+  Returned(data) {
+    this.dialogFormService.open(FormFixedDeniedComponent, {
+      context: {
+        title: 'RECHAZAR ELEMENTO',
+        data2: data,
+        status: 'RECHAZADO',
         saved: this.RefreshData.bind(this),
       },
     });

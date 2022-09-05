@@ -16,6 +16,7 @@ import { Location } from '@angular/common';
 export class BaseLocationPackageComponent implements OnInit {
   @ViewChild(BaseTableComponent) table_base: BaseTableComponent;
   @Input() parentData: AnyAaaaRecord;
+  @Input() from_form: boolean = true;
   @Output() emitMessage = new EventEmitter<any>();
 
   public isSubmitted = false;

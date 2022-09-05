@@ -26,7 +26,7 @@ export class InsumeRequestComponent implements OnInit {
 
   public title: string = 'SOLICITAR INSUMOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'PRODUCTO', 'CANTIDAD', 'SOLICITADO A'];
+  public headerFields: any[] = ['PRODUCTO', 'CANTIDAD', 'SOLICITADO A'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -39,12 +39,8 @@ export class InsumeRequestComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      id: {
-        title: this.headerFields[0],
-        type: 'string',
-      },
       product_supplies: {
-        title: this.headerFields[1],
+        title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (value) {
@@ -55,11 +51,11 @@ export class InsumeRequestComponent implements OnInit {
         },
       },
       request_amount: {
-        title: this.headerFields[2],
+        title: this.headerFields[1],
         type: 'string',
       },
       own_pharmacy_stock: {
-        title: this.headerFields[3],
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value?.name + ' - ' + row.own_pharmacy_stock?.campus.name;

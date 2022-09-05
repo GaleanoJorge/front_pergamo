@@ -53,6 +53,13 @@ export class ChOstomiesComponent implements OnInit {
       observation: {
         title: this.headerFields[1],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
       
      
