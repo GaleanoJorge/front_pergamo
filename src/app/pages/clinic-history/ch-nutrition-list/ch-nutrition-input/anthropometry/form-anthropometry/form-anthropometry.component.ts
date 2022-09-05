@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { ChNutritionAnthropometryService } from '../../../../../business-controller/ch-nutrition-anthropometry.service';
+import { ChNutritionAnthropometryService } from '../../../../../../business-controller/ch-nutrition-anthropometry.service';
 
 
 @Component({
@@ -15,6 +15,7 @@ export class FormAnthropometryComponent implements OnInit {
   @Input() data: any = null;
   @Input() route: any = null;
   @Input() record_id: any = null;
+  @Input() type_record_id;
   @Input() user_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -111,7 +112,7 @@ export class FormAnthropometryComponent implements OnInit {
 
     this.ChNutritionAnthropometryS.GetCollection({
       type_record_id: this.route,
-      ch_record_id: this.record_id,
+      ch_record_id: 1,
     }).then(x => {
       this.ch_nutrition_anthropometry = x[0];
       if (this.ch_nutrition_anthropometry != null) {
@@ -287,7 +288,7 @@ export class FormAnthropometryComponent implements OnInit {
         this.ChNutritionAnthropometryS.Update({
           id: this.ch_nutrition_anthropometry.id,
           ch_record_id: this.record_id,
-          type_record_id: this.route,
+          type_record_id: 1,
           is_functional: this.form.controls.is_functional.value,
           weight: this.form.controls.weight.value,
           size: this.form.controls.size.value,
@@ -302,6 +303,7 @@ export class FormAnthropometryComponent implements OnInit {
           estimated_size: this.estimated_size,
           total_energy_expenditure: this.total_energy_expenditure,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.saved = x;
           this.loading = false;
           this.ch_nutrition_anthropometry = x.data.ch_nutrition_anthropometry;
@@ -314,7 +316,7 @@ export class FormAnthropometryComponent implements OnInit {
       } else {
         this.ChNutritionAnthropometryS.Save({
           ch_record_id: this.record_id,
-          type_record_id: this.route,
+          type_record_id: 1,
           is_functional: this.form.controls.is_functional.value,
           weight: this.form.controls.weight.value,
           size: this.form.controls.size.value,
@@ -329,6 +331,7 @@ export class FormAnthropometryComponent implements OnInit {
           estimated_size: this.estimated_size,
           total_energy_expenditure: this.total_energy_expenditure,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.saved = x;
           this.loading = false;
           this.ch_nutrition_anthropometry = x.data.ch_nutrition_anthropometry;

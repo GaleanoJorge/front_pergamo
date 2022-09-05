@@ -130,11 +130,7 @@ import { FormSkinValorationComponent } from './skin-valoration/form-skin-valorat
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { ChNutritionInputComponent } from './ch-nutrition-list/ch-nutrition-input/ch-nutrition-input.component';
 import { ChNutritionRegularNoneComponent } from './ch-nutrition-list/ch-nutrition-regular-note/ch-nutrition-regular-note.component';
-import { FormAnthropometryComponent } from './ch-nutrition-list/ch-nutrition-input/form-anthropometry/form-anthropometry.component';
-import { FormGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition-input/form-gastrointestinal/form-gastrointestinal.component';
-import { FormFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input/form-food-history/form-food-history.component';
 import { FormAnalysisAndInterpretationComponent } from './ch-nutrition-list/ch-nutrition-input/form-analysis-and-interpretation/form-analysis-and-interpretation.component';
-import { FormParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/form-parenteral-nutrition/form-parenteral-nutrition.component';
 import { FormClinicHistoryLanguageComponent } from './clinic-history-language-list/form-clinic-history-language/form-clinic-history-language.component';
 import { ClinicHistoryLanguageListComponent } from './clinic-history-language-list/clinic-history-language-list.component';
 import { ActionsLanguageComponent } from './clinic-history-language-list/actionslanguage.component';
@@ -365,6 +361,14 @@ import { TableAssessmentMOTComponent } from './entry-clinic-history-occupational
 import { FormAssessmentMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/assessment-m-ot/form-assessment-m-ot/form-assessment-m-ot.component';
 import { FormWeeklyInMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/weekly-int-m-ot/form-weekly-int-m-ot/form-weekly-int-m-ot.component';
 import { TableWeeklyInMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/weekly-int-m-ot/table-weekly-int-m-ot.component';
+import { FormAnthropometryComponent } from './ch-nutrition-list/ch-nutrition-input/anthropometry/form-anthropometry/form-anthropometry.component';
+import { TableAnthropometryComponent } from './ch-nutrition-list/ch-nutrition-input/anthropometry/table-anthropometry.component';
+import { FormGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition-input/gastrointestinal/form-gastrointestinal/form-gastrointestinal.component';
+import { TableGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition-input/gastrointestinal/table-gastrointestinal.component';
+import { FormFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input/food-history/form-food-history/form-food-history.component';
+import { TableFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input/food-history/table-food-history.component';
+import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/parenteral-nutrition/table-parenteral-nutrition.component';
+import { FormParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/parenteral-nutrition/form-parenteral-nutrition/form-parenteral-nutrition.component';
 
 
 @NgModule({
@@ -735,16 +739,22 @@ import { TableWeeklyInMOTComponent } from './entry-clinic-history-occupational-t
     FormOrdersMedicalComponent,
     OrdersMedicalComponent,
 
+    // historia nutricion
     ChHistoricScalesComponent,
 
     ChNutritionListComponent,
     ChNutritionInputComponent,
     ChNutritionRegularNoneComponent,
+
     FormAnthropometryComponent,
+    TableAnthropometryComponent,
     FormGastrointestinalComponent,
+    TableGastrointestinalComponent,
     FormFoodHistoryComponent,
+    TableFoodHistoryComponent,
     FormAnalysisAndInterpretationComponent,
     FormParenteralNutritionComponent,
+    TableParenteralNutritionComponent,
     FormClinicHistoryLanguageComponent,
     ClinicHistoryLanguageListComponent,
     ActionsLanguageComponent,

@@ -12,6 +12,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 import { Location } from '@angular/common';
 import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/confirm-dialog.component';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { AdmissionsService } from '../../../business-controller/admissions.service';
 
 
 @Component({
@@ -66,6 +67,7 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
     private chRecord: ChRecordService,
     private location: Location,
     private deleteConfirmService: NbDialogService,
+    private admissionsS: AdmissionsService,
     private toastService: NbToastrService,
 
 
@@ -108,7 +110,7 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
   }
 
   close() {
-    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
+    // if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
       this.deleteConfirmService.open(ConfirmDialogCHComponent, {
         context: {
           signature: true,
@@ -119,9 +121,9 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
           textConfirm: 'Finalizar registro'
         },
       });
-    } else {
-      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
-    }
+    // } else {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+    //   this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
+    // }
   }
 
   showImage(data) {
@@ -195,5 +197,19 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
       this.messageEvent.emit($event);
     }
   }
+
+  DeleteAdmissions(data) {
+    return this.admissionsS.Delete(data.id).then(x => {
+      this.table.refresh();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
+  }
+
+    // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
+    inputMessage($event) {
+      this.input_done = true;
+    }
 }
 
