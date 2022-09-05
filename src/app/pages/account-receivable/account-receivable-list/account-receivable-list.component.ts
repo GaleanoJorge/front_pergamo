@@ -198,11 +198,14 @@ export class AccountReceivableListComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    this.currentRole = this.authService.GetRole();
-    await this.roleBS.GetCollection({ id: this.currentRole }).then(x => {
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
+    await this.roleBS.GetCollection({ id: this.currentRole.id }).then(x => {
       this.roles = x;
     }).catch(x => { });
-    if (this.roles[0].role_type_id == 2) {
+    if (this.currentRole.role_type_id == 2) {
       this.entity = 'account_receivable/byUser/' + this.user.id;
       this.settings = this.settings1;
     } else {
