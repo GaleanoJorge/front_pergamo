@@ -87,6 +87,7 @@ export class ManagementPlanComponent implements OnInit {
           return {
             'data': row,
             'user': this.own_user,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: ActionsSemaphore2Component,

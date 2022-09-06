@@ -104,7 +104,7 @@ export class FormUsersComponent implements OnInit {
   public categoriesSelect = [];
   public today = null;
   public previewCurriculum = null;
-  public currentRole = null;
+  public currentRoleId = null;
   public phone_consult = false;
   public phone_consult_amount = null;
   public showPassword = false;
@@ -217,10 +217,7 @@ export class FormUsersComponent implements OnInit {
         this.currentImg = null;
       }
     }
-    var curr = this.authService.GetRole();
-    this.currentRole = this.own_user.roles.find(x => {
-      return x.id == curr;
-    });
+    this.currentRoleId = localStorage.getItem('role_id');
     this.LoadForm(false).then();
     await Promise.all([
       this.GetAuxData(this.role == 7 ? 1 : this.role == 14 ? 2 : null),
@@ -516,7 +513,7 @@ export class FormUsersComponent implements OnInit {
         ],
       }
     }
-    if (this.currentRole.role_type_id == 2) {
+    if (this.roles[0].role_type_id == 2) {
       configForm = {
         ...configForm,
         medical_record: [
@@ -723,7 +720,7 @@ export class FormUsersComponent implements OnInit {
       formData.append('company_id', JSON.stringify(this.agreementData.selectedOptions));
 
       // var role = Number(this.role);
-      if (this.currentRole.role_type_id == 2) {
+      if (this.roleBS.roles[0].role_type_id == 2) {
         formData.append('assistance_id', this.data != null ? this.data.assistance[0] == null ? null : this.data.assistance[0].id : null);
         formData.append('medical_record', data.medical_record.value);
         formData.append('localities_id', JSON.stringify(this.parentData.selectedOptions));

@@ -133,7 +133,7 @@ export class AccountReceivableListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'role': this.roles[0],
+            'role_type': this.currentRole.role_type_id,
             'edit': this.EditAccountReceivable.bind(this),
             'pay': this.PayAccountReceivable.bind(this),
             'rent': this.RentAccountReceivable.bind(this),

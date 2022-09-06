@@ -80,6 +80,7 @@ export class PadListComponent implements OnInit {
           return {
             'data': row,
             'user': this.user,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: ActionsSemaphore2Component,

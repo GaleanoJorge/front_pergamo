@@ -521,7 +521,7 @@
           </div>
         </div>
       </div>
-      <div class="row mt-3" *ngIf="this.currentRole.role_type_id == 2">
+      <div class="row mt-3" *ngIf="this.roleBS.roles[0].role_type_id == 2">
         <div class="col-12">
           <p class="text-muted title-users">Información personal asistencial</p>
         </div>
@@ -545,7 +545,7 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="this.currentRole.role_type_id == 2">
+      <div class="row" *ngIf="this.roleBS.roles[0].role_type_id == 2">
 
         <!-- <div class="col-md-4">
           <div class="form-group">
@@ -588,7 +588,7 @@
 
         <div class="col-12 col-sm-12 col-md-12">
           <label for="firm" class="form-text text-muted font-weight-bold">Firma:</label>
-          <label for="firm" *ngIf="currentImg==null || this.currentRole.role_type_id == 2"
+          <label for="firm" *ngIf="currentImg==null || this.roleBS.roles[0].role_type_id == 2"
             class="form-text text-muted font-weight-bold" style="text-align: justify;"> Manifiesto que
             conforme a lo dispuesto en la ley 527 de 1999, reglamentada por el Decreto 2364 de 2012, hemos acordado que
             mi firma será captada de manera electrónica, entendiendo que se da cumplimiento a los dispuesto en el
@@ -596,7 +596,7 @@
             firma de una persona, ese requisito quedará cumplido en relación con un mensaje de datos si se utiliza una
             firma electrónica que, a la luz de todas las circunstancias del caso, incluido cualquier acuerdo aplicable,
             sea tan confiable como apropiada para los fines con los cuales se generó o comunicó ese mensaje.</label>
-          <ng-signature-pad *ngIf="currentImg==null || this.currentRole.role_type_id == 2" [emitOnDragEnd]="true"
+          <ng-signature-pad *ngIf="currentImg==null || this.roleBS.roles[0].role_type_id == 2" [emitOnDragEnd]="true"
             [showDoneButton]="false" clearButtonText="Borrar" format="base64" (done)="showImage($event)">
           </ng-signature-pad>
           <img [src]="currentImg" *ngIf="currentImg" />
