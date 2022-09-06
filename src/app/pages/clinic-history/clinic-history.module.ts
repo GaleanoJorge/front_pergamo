@@ -349,6 +349,7 @@ import { TableNRDiagnosisFTComponent } from './entry-clinic-history-physical-the
 import { FormChNursingNoteComponent } from './ch-nursing-note/form-ch-nursing-note/form-ch-nursing-note.component';
 import { ChNursingNoteComponent } from './ch-nursing-note/ch-nursing-note.component';
 import { LanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/language-therapeutic-goals.component';
+import { SwDiagnosisComponent } from './ch-social-work/ch-sw-diagnosis/sw-diagnosis.component';
 
 
 @NgModule({
@@ -559,6 +560,7 @@ import { LanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/
     SwSupportNetworkComponent,
     RegularSocialWorkComponent,
     SwHousingComponent,
+    SwDiagnosisComponent,
 
       
     RespiratoryTherapyListComponent,
