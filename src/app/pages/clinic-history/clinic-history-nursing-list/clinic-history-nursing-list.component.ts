@@ -54,6 +54,8 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public signatureImage: string;
   public previousUrl: string;
   public has_input;
+  public ch_record;
+  public show_labs: boolean = false;
 
 
   toggleLinearMode() {
@@ -107,9 +109,13 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.ch_record = x;
       this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
+      if(this.ch_record[0].assigned_management_plan.management_plan.management_procedure.length > 0){
+        this.show_labs = true;
+      }
     });
   }
 

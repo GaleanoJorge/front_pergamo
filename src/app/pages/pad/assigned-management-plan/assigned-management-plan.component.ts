@@ -215,6 +215,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public management;
   public semaphore;
   public ch_record;
+  public show_labs = false;
 
 
 
@@ -226,6 +227,9 @@ export class AssignedManagementPlanComponent implements OnInit {
     this.own_user = this.authService.GetUser();
     await this.ManagementS.GetCollection({ management_id: this.management_id }).then(x => {
       this.management = x;
+      if(this.management[0].management_procedure.length > 0){
+        this.show_labs = true;
+      }
     });
     if (this.management[0].type_of_attention_id == 17) {
       this.settings = this.settings2;
