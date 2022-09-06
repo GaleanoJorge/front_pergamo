@@ -111,7 +111,7 @@ export class PharmacyInventoryComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product=' + true;
+        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '&product=' + true + '&actual_amount' + true;
         this.title = 'INVENTARIO DE ' + x[0]['name'];
       } else {
         this.toastService.info('Usuario sin farmacias asociadas', 'Información');

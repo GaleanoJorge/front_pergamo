@@ -149,7 +149,7 @@ export class FormFixedPlanComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ fixed_type_id: '', fixed_nom_product_id: '', request_amount: '' });
+          this.form.setValue({ fixed_nom_product_id: '', procedure_id: ''});
           if (this.saved) {
             this.saved();
           }

@@ -47,16 +47,16 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    if(this.type == true || this.type == false){
+    if(this.data.services_briefcase.manual_price.supplies_id == null){
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + this.type,
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '&product1=' + true,
         customData: 'pharmacy_request_shipping',
       };
     } else {
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + true,
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '&product1=' + true,
         customData: 'pharmacy_request_shipping',
       };
     }

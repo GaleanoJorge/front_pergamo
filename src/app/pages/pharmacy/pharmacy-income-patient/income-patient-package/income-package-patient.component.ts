@@ -119,7 +119,7 @@ export class IncomePackagePatientComponent implements OnInit {
       // },
 
       amount_damaged: {
-        title: this.headerFields[4],
+        title: this.headerFields[3],
         type: 'string',
       },
     },
