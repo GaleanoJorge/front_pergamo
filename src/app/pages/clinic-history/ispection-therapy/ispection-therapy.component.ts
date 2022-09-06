@@ -56,6 +56,13 @@ export class IspectionTherapyComponent implements OnInit {
       detail_masses: {
         title: this.headerFields[3],
         width: 'string',
+        valuePrepareFunction: (value, row) => {
+        if (value=! null) {
+          return value.name;
+        } else {
+          return 'NO APLICA'
+        }
+      },
       },
       crepitations: {
         title: this.headerFields[4],
@@ -68,6 +75,13 @@ export class IspectionTherapyComponent implements OnInit {
       detail_fracturues: {
         title: this.headerFields[6],
         width: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value=! null) {
+            return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+        },
       },
       airway: {
         title: this.headerFields[7],
