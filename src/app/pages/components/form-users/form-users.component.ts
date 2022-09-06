@@ -540,6 +540,9 @@ export class FormUsersComponent implements OnInit {
         PAD_service: [
           this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_service == 1 ? true : false : false,
         ],
+        has_car: [
+          this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].has_car == 1 ? true : false : false,
+        ],
         // PAD_patient_quantity: [
         //   this.data == null ? false : this.data.assistance.length > 0 ? this.data.assistance[0].PAD_patient_quantity : false,
         // ],
@@ -735,6 +738,7 @@ export class FormUsersComponent implements OnInit {
         formData.append('serve_multiple_patients', data.serve_multiple_patients.value === true ? '1' : '0');
         formData.append('firm_file', this.signatureImage);
         formData.append('PAD_service', data.PAD_service.value === true ? '1' : '0');
+        formData.append('has_car', data.has_car.value === true ? '1' : '0');
         // formData.append('PAD_patient_quantity', data.PAD_patient_quantity.value === false ? null : data.PAD_patient_quantity.value);
       }
 
