@@ -6,6 +6,7 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 import { SelectProductPatientShippingComponent } from './select-prod-patient-shipping.component';
 import { AmountShippingPatientComponent } from './amount-shipping-patient.component';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'ngx-prod-shipping-patient-package',
@@ -19,6 +20,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
   @Input() parentData: any = [];
   @Input() title: any = [];
   public messageError = null;
+  @Input() request_amount: any;
 
   public InscriptionForm: FormGroup;
   public subtitle = ' ';
@@ -32,6 +34,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
   public selectedRows: any;
   public inscriptionId;
   public entity;
+  public validate = false;
   public customData;
 
   public component_package_id: number;
@@ -64,7 +67,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(row.billing_stock.product){
+          if (row.billing_stock.product) {
             return row.billing_stock.product.name + ' - ' + row.billing_stock.product.factory.name;
           } else {
             return row.billing_stock.product_supplies_com.name + ' - ' + row.billing_stock.product_supplies_com.factory.name;
@@ -75,7 +78,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(row.billing_stock.product){
+          if (row.billing_stock.product) {
             return row.billing_stock.product.product_generic.description;
           } else {
             return row.billing_stock.product_supplies_com.product_supplies.description;
@@ -134,6 +137,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
       // },
     },
   };
+  mientras: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -165,6 +169,7 @@ export class ProdShippingPatientPackageComponent implements OnInit {
       var diet = {
         pharmacy_lot_stock_id: row.id,
         amount: 0,
+        actual_amount: row.actual_amount,
       };
       this.emit.push(diet);
     } else {
@@ -183,23 +188,52 @@ export class ProdShippingPatientPackageComponent implements OnInit {
     this.messageEvent.emit(this.selectedOptions);
     this.RefreshData();
   }
-
   onAmountChange(input, row) {
-    if (Number(row.request_amount) > Number(input.target.valueAsNumber)) {
+    var sub = 0;
+    var i = 0;
+    this.mientras = [];
+    this.mientras = this.selectedOptions;
+    this.selectedOptions.forEach(element => {
+      if (element.pharmacy_lot_stock_id == row.id) {
+        this.mientras[i].amount = input.target.valueAsNumber;
+        if (this.mientras[i].actual_amount < this.mientras[i].amount) {
+          this.toastS.danger("", "La cantidad a entregar no debe superar la cantidad que se encuentra en stock")
+        }
+      }
+      i++
+    });
+    this.selectedOptions = this.mientras;
+    if (this.mientras.length > 0) {
+      this.mientras.forEach(element => {
+        sub += element.amount;
+      });
+    }
+    if (sub > Number(this.request_amount)) {
+      this.validate = false;
       this.toastS.danger("", "La cantidad a entregar no debe superar la cantidad ordenada")
     } else {
-      var i = 0;
-      var mientras = this.selectedOptions;
-      this.selectedOptions.forEach(element => {
-        if (element.pharmacy_lot_stock_id == row.id) {
-          mientras[i].amount = input.target.valueAsNumber;
-        }
-        i++
-      });
-      this.selectedOptions = mientras;
-      this.messageEvent.emit(this.selectedOptions);
+      this.validate = true;
     }
+    this.selectedOptions = this.mientras;
+    this.messageEvent.emit(this.selectedOptions);
   }
+
+  // onAmountChange(input, row) {
+  //   if (Number(input.target.valueAsNumber) > Number(this.request_amount)) {
+  //     this.toastS.danger("", "La cantidad a entregar no debe superar la cantidad ordenada")
+  //   } else {
+  //     var i = 0;
+  //     var mientras = this.selectedOptions;
+  //     this.selectedOptions.forEach(element => {
+  //       if (element.pharmacy_lot_stock_id == row.id) {
+  //         mientras[i].amount = input.target.valueAsNumber;
+  //       }
+  //       i++
+  //     });
+  //     this.selectedOptions = mientras;
+  //     this.messageEvent.emit(this.selectedOptions);
+  //   }
+  // }
 
   RefreshData() {
     this.table.refresh();
@@ -213,6 +247,8 @@ export class ProdShippingPatientPackageComponent implements OnInit {
     var err = 0;
     if (!this.selectedOptions.length) {
       this.toastS.danger(null, 'Debe seleccionar al menos un medicamento');
+    } else if (!this.validate) {
+      this.toastS.danger(null, 'La cantidad por enviar es mayor a la slicitada');
     }
     else {
       var dta = {

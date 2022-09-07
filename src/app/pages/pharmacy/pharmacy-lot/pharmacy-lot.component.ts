@@ -84,7 +84,7 @@ export class PharmacyLotComponent implements OnInit {
     this.pharmacyS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product=' + true + '& islot=' + true;
+        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '&islot=' + true;
       }
     });
   }
