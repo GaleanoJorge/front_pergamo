@@ -13,7 +13,7 @@ export class DashboardAComponent {
     constructor(
         private reporteBS: ReportBusinessService,
         private authService: AuthService,
-        ) { }
+    ) { }
 
     routes = [
         {
@@ -28,7 +28,10 @@ export class DashboardAComponent {
     public dataGraphic: any[] = [];
 
     ngOnInit() {
-        this.currentRole = this.authService.GetUser().roles[0].role_type_id;
+        var curr = this.authService.GetRole();
+        this.currentRole = this.authService.GetUser().roles.find(x => {
+            return x.id == curr;
+        });
         this.dataGraphic.push({
             type: 'pie',
             title: 'Total de Grupos (120)',

@@ -2,10 +2,18 @@
   <div content>
     <div class="row" *ngIf="user">
       <div class="col-md-6" title *ngIf="user">
-        <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
-        <p class="parrafo" *ngIf="user">NOMBRE: {{this.user.firstname + ' ' + this.user.lastname}}</p>
-        <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{this.datePipe.transform3(user.birthday)}} </p>
-        <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
+        <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}} </p>
+        <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
+        <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}} </p>
+        <p class="parrafo" *ngIf="user"><b>EDAD:</b> {{user.age}} </p>
+        <div *ngIf="show_labs">
+          <p class="parrafo" *ngIf="show_labs"><b>LABORATORIOS:</b>
+          </p>
+          <div *ngFor="let item of this.ch_record[0].assigned_management_plan.management_plan.management_procedure">
+            <p class="parrafo">
+              {{item.services_briefcase.manual_price.name}} </p>
+          </div>
+        </div>
       </div>
       <div class="col-md-6 position">
         <a nbButton (click)="back()" >Volver</a>

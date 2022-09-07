@@ -18,7 +18,7 @@ export class ProductComponent implements OnInit {
   public title: string = 'Productos';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre', 'Producto', 'Fabricante'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}`;
   public icon: string = 'nb-star';
   public data = [];
 

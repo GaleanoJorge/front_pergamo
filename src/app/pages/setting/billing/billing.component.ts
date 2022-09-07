@@ -18,7 +18,7 @@ export class BillingComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Orden de compra';
   public subtitle: string = '';
-  public headerFields: any[] = ['Consecutivo', 'Proveedor', 'Enviada a'];
+  public headerFields: any[] = ['Cantidad comprada', 'Valor unidad', 'Producto comercial', 'Comprado a', 'Consecutivo factura'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -43,24 +43,42 @@ export class BillingComponent implements OnInit {
       //   },
       //   renderComponent: ActionsComponent,
       // },
-      id: {
+      amount: {
         title: this.headerFields[0],
         type: 'string',
       },
-      company: {
+      amount_unit: {
         title: this.headerFields[1],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return value.name;
-        },
       },
-      pharmacy_stock: {
+      product_supplies_com: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          if (value == null) {
+            return row.product.name;
+          } else {
+            return row.product_supplies_com.name;
+          }
         },
       },
+      company: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.billing.company.name;
+
+        }
+      },
+      billing: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.billing.id;
+
+        }
+      }
+
     },
   };
 

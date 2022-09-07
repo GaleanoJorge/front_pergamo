@@ -49,7 +49,7 @@ export class HumanTalentRequestListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'role': this.currentRole,
+            'role': this.currentRole.id,
             'edit': this.EditHumanTalentRequest.bind(this),
             'new': this.NewHumanTalentRequest.bind(this),
             'update': this.UpdateRequest.bind(this),
@@ -65,7 +65,7 @@ export class HumanTalentRequestListComponent implements OnInit {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if ( this.currentRole == 23 && value == 'Aprobada PAD') {
+          if ( this.currentRole.id == 23 && value == 'Aprobada PAD') {
             return 'En proceso';
           } else {
             return value;
@@ -155,7 +155,7 @@ export class HumanTalentRequestListComponent implements OnInit {
   public routes = [
     {
       name: 'Solicitudes de personal',
-      route: '../../setting/account-receivable',
+      route: '../../human-talent-request/list',
     },
   ];
 
@@ -175,7 +175,10 @@ export class HumanTalentRequestListComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    this.currentRole = this.authService.GetRole();
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
     this.HumanTalentRequestObservationS.GetCollection({
       category: 1,
     }).then(x => {

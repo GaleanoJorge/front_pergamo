@@ -55,7 +55,7 @@ export class AccountPatientComponent implements OnInit {
             'data': row,
             'user': this.user,
             'refresh': this.RefreshData.bind(this),
-            'currentRole': this.user.roles[0].role_type_id,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: AccountPatientActionsComponent,
@@ -125,14 +125,11 @@ export class AccountPatientComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
     this.campus_id = +localStorage.getItem('campus');
-    this.currentRole = this.authService.GetRole();
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
     this.entity = 'account_receivable/getPatientsServices/0' + "?campus_id=" + this.campus_id;
-    // if (this.user.roles[0].role_type_id == 2) {
-    //   this.entity = 'patient/byPAD/2/' + this.user_id + "?campus_id=" + this.campus_id;
-    // }
-    // else {
-    //   this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id;
-    // }
     
 
   }

@@ -91,7 +91,7 @@ export class BillingPadConsecutiveComponent implements OnInit {
 
   public routes = [
     {
-      name: 'PREFIJOS DE FACTURACIÓN',
+      name: 'Prefijos de Facturación',
       route: '../../setting/billing-pad-consecutive',
     },
   ];
