@@ -178,7 +178,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
     this.routes = [
       {
         name: 'Pacientes',
-        route: '../../list',
+        route:'/pages/pad/list',
       },
       {
         name: 'Admisiones del paciente',

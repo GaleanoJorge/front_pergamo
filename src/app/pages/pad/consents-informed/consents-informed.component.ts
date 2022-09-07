@@ -19,6 +19,7 @@ import { PatientService } from '../../../business-controller/patient.service';
 import { type } from 'os';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -149,6 +150,7 @@ export class ConsentsInformedComponent implements OnInit {
     private toastS: NbToastrService,
     private route: ActivatedRoute,
     public roleBS: RoleBusinessService,
+    private location: Location,
 
 
   ) {
@@ -202,6 +204,9 @@ export class ConsentsInformedComponent implements OnInit {
     await this.patienBS.GetUserById(this.user_id).then(x => {
       this.user = x;
     });
+  }
+  back() {
+    this.location.back();
   }
 
 

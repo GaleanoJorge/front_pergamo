@@ -56,7 +56,7 @@ export class BaseLocationPackageComponent implements OnInit {
   public routes = [
     {
       name: 'Capacidad instalada',
-      route: '../../setting/base-location-package',
+      route: '/pages/setting/location-capacity',
     },
   ];
 

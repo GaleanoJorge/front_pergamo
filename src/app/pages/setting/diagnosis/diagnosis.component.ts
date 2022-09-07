@@ -63,7 +63,7 @@ export class DiagnosisComponent implements OnInit {
   public routes = [
     {
       name: 'Diagnósticos',
-      route: '../../setting/bed',
+      route: '../../setting/diagnosis',
     },
   ];
 

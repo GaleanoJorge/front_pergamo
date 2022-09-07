@@ -10,7 +10,7 @@
                     [queryParams]="GetParams()">
       <div actions>
         <div class="actions">
-          <button nbButton (click)="back()" >Volver</button>
+          <button nbButton (click)="back()" style="margin-right: 5px;" >Volver</button>
           <button *ngIf="this.admission_id" nbButton status="danger" (click)="NewPatientData()">Crear</button>
         </div>
       </div>
