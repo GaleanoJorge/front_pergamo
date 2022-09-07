@@ -44,7 +44,7 @@
 </nb-card>
 
 <ng-template #prebilling>
-  <nb-card style="max-width: 1400px;max-height: 600px;overflow: auto;">
+  <nb-card style="width: auto;height: 100%;overflow: auto;">
     <nb-card-header>PROYECCIÓN DE DE {{patient_name}}
 
     </nb-card-header>
@@ -63,17 +63,19 @@
     </nb-card-body>
 
     <nb-card-footer class="d-flex justify-content-end">
-      <div class="vi">TOTAL PROYECTADO: {{this.currency.transform(this.total_pre_billing)}}</div>
-      <div class="vi">TOTAL FACTURADO: {{this.currency.transform(this.total_already_billing)}}</div>
-      <div class="vi">PENDIENTE EJECUTAR/AUTORIZAR/APROBAR: {{this.currency.transform(this.total_pendding_auth)}}</div>
-      <div class="vi">PENDIENTE FACTURAR: {{this.currency.transform(this.total_pendding_billing)}}</div>
-      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+      <div class ="col-12 col-sm-12 col-md-3 vi">TOTAL PROYECTADO: {{this.currency.transform(this.total_pre_billing)}}</div>
+      <div class ="col-12 col-sm-12 col-md-3 vi">TOTAL FACTURADO: {{this.currency.transform(this.total_already_billing)}}</div>
+      <div class ="col-12 col-sm-12 col-md-3 vi">PENDIENTE EJECUTAR/AUTORIZAR/APROBAR: {{this.currency.transform(this.total_pendding_auth)}}</div>
+      <div class ="col-12 col-sm-12 col-md-3 vi">PENDIENTE FACTURAR: {{this.currency.transform(this.total_pendding_billing)}}</div>
+      <div class ="col-12 col-sm-12 col-md-3">
+        <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+      </div>
     </nb-card-footer>
   </nb-card>
 </ng-template>
 
 <ng-template #confirm>
-  <nb-card style="max-width: 1400px;max-height: 600px;overflow: auto;">
+  <nb-card style="width: auto;height: 100%;overflow: auto;">
     <nb-card-header>
       GENERAR FACTURA
     </nb-card-header>

@@ -44,7 +44,7 @@ import { Actions4Component } from '../assigned-management-plan/actions.component
   </div>
 
   <ng-template #AssignedTable>
-  <nb-card style="max-width: 1400px;max-height: 600px;overflow: auto;">
+  <nb-card style="width: auto;height: 100%;overflow: auto;">
     <nb-card-header>
       Próximos servicios
     </nb-card-header>
