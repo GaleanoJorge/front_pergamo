@@ -116,7 +116,7 @@ export class SingleLocationCapacityComponent implements OnInit {
   public routes = [
     {
       name: 'Capacidad instalada',
-      route: '../../setting/single-location-capacity',
+      route: '/pages/setting/location-capacity',
     },
   ];
 

@@ -60,8 +60,8 @@ export class AuthStatusComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Estados del contrato',
-      route: '../../setting/contract-status',
+      name: 'Estados de la autorización',
+      route: '../../setting/auth-status',
     },
   ];
 

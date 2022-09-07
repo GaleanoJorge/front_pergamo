@@ -64,7 +64,7 @@ export class SpecialtyComponent implements OnInit {
   public routes = [
     {
       name: 'Especialidades',
-      route: '../../setting/especialidades',
+      route: '../../setting/specialty',
     },
   ]
   constructor(

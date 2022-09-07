@@ -95,10 +95,7 @@ export class LocationCapacityComponent implements OnInit {
       name: 'Personal asistencial',
       route: '../../setting/location-capacity',
     },
-    {
-      name: 'Admisiones del paciente',
-      route: 'single-location-capacity/' + this.route.snapshot.params.user_id,
-    },
+    
   ];
 
   constructor(
