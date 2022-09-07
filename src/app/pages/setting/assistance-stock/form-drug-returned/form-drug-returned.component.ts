@@ -62,7 +62,7 @@ export class FormDrugReturnedComponent implements OnInit {
     });
 
     this.user_id = this.authS.GetUser().id;
-
+    this.onChange();
   }
 
   async save() {
@@ -76,19 +76,21 @@ export class FormDrugReturnedComponent implements OnInit {
           request_amount: this.form.controls.quantity.value,
           admissions_id: this.data.admissions_id,
           management_plan: this.data.management_plan,
-          services_briefcase_id:this.data.services_briefcase_id,
-          own_pharmacy_stock_id:this.data.own_pharmacy_stock_id,
-          user_request_pad_id:this.user_id,
+          services_briefcase_id: this.data.services_briefcase_id,
+          own_pharmacy_stock_id: this.data.own_pharmacy_stock_id,
+          user_request_pad_id: this.user_id,
         }).then((x) => {
           this.toastService.success('', x.message);
+          this.close();
           if (this.saved) {
             this.saved();
           }
+          this.isSubmitted = false;
           this.loading = false;
         }).catch(x => {
           this.toastService.danger('', x);
-          this.isSubmitted = false;
-          this.loading = false;
+          // this.isSubmitted = false;
+          // this.loading = false;
         });
 
       } else {
@@ -98,26 +100,39 @@ export class FormDrugReturnedComponent implements OnInit {
           request_amount: this.form.controls.quantity.value,
           admissions_id: this.data2.admissions_id,
           management_plan: this.data2.management_plan,
-          services_briefcase_id:this.data2.services_briefcase_id,
-          own_pharmacy_stock_id:this.data2.own_pharmacy_stock_id,
-          user_request_pad_id:this.user_id,
-          pharmacy_request:this.data2.id,
+          services_briefcase_id: this.data2.services_briefcase_id,
+          own_pharmacy_stock_id: this.data2.own_pharmacy_stock_id,
+          user_request_pad_id: this.user_id,
+          pharmacy_request: this.data2.id,
 
+        }).then((x) => {
+          this.toastService.success('', x.message);
+          this.close();
+          if (this.saved) {
+            this.saved();
+          }
+          this.isSubmitted = false;
+          this.loading = false;
         })
-          .then((x) => {
-            this.toastService.success('', x.message);
-            if (this.saved) {
-              this.saved();
-            }
-            this.loading = false;
-          })
           .catch((x) => {
-            this.toastService.success('', x.message);
-            this.isSubmitted = false;
-            this.loading = false;
+            this.toastService.warning('', x.message);
+            // this.isSubmitted = false;
+            // this.loading = false;
           });
       }
     }
+    this.loading = false;
+
+  }
+
+  onChange() {
+    this.form.get('quantity').valueChanges.subscribe(val => {
+      if (val > Number(this.data2.disponibles)) {
+        this.toastService.warning('', 'Cantidad invalida');
+      this.form.controls.quantity.setErrors({ 'incorrect': true });
+
+      }
+    });
   }
 
   close() {
