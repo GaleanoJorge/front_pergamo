@@ -140,11 +140,11 @@ export class PharmacyIncomePatientComponent implements OnInit {
 
   ChangePharmacy(pharmacy) {
     if (pharmacy == 0) {
-      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '&status=DEVUELTO_PACIENTE' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request?status=DEVUELTO_PACIENTE' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
 
     } else {
 
-      this.table.changeEntity('pharmacy_product_request?product=' + 2 + '&status=DEVUELTO_PACIENTE' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request?status=DEVUELTO_PACIENTE' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
     }
     // this.RefreshData();
   }

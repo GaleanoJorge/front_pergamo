@@ -30,7 +30,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
   public user;
   public show: boolean = false;
   public own_pharmacy_stock_id: any[];
-
+  public request_amount;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -47,13 +47,15 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    if(this.data.services_briefcase.manual_price.supplies_id == null){
+    if (this.data.services_briefcase.manual_price.supplies_id != null) {
+      this.title = 'INSUMO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '&product1=' + true,
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '&product1=' + false,
         customData: 'pharmacy_request_shipping',
       };
-    } else {
+    }else{
+      this.title = 'MEDICAMENTO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
         entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '&product1=' + true,
@@ -65,10 +67,13 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
         amount_damaged: '',
         amount: '',
         observation: '',
+        request_amount: '',
       };
     }
+    this.request_amount = this.data.request_amount;
     this.form = this.formBuilder.group({
-      // cantidad_enviada: [this.data.cantidad_enviada],
+      request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
+      cantidad_enviada: [this.data.request_amount],
       observation: [this.data.observation],
     });
     await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
@@ -92,7 +97,8 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
         this.toastS.danger('Debe seleccionar al menos un medicamento', 'Error');
       } else {
         this.selectedOptions.forEach(element => {
-          if (element.amount == null || element.amount <= 0 || element.amount_damaged <= 0) {
+          var total=element.amount + element.amount_damaged;
+          if (element.amount == null || total <= 0 ) {
             valid_values = false;
           }
         });
@@ -106,9 +112,9 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
           this.pharProdReqS.updateInventoryByLot({
             id: this.data.id,
             observation: this.form.controls.observation.value,
-            status: 'DAÑADO',
+            status: 'ACEPTADO FARMACIA',
             own_pharmacy_stock_id: this.my_pharmacy_id,
-            request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
+            // request_pharmacy_stock_id: this.data.own_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
           }).then(x => {
             this.toastService.success('', x.message);
@@ -125,7 +131,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
         } else {
           this.pharProdReqS.Save({
             observation: this.form.controls.observation.value,
-            status: 'DAÑADO',
+            status: 'ACEPTADO',
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
           }).then(x => {
