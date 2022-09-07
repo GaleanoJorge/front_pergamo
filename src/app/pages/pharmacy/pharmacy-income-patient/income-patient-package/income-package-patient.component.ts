@@ -24,7 +24,7 @@ export class IncomePackagePatientComponent implements OnInit {
   public form: FormGroup;
   public title = 'MEDICAMENTOS';
   public subtitle = '';
-  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'LOTE', 'DAÑADA'];
+  public headerFields: any[] = ['MEDICAMENTO COMERCIAL', 'MEDICAMENTO GENERICO', 'LOTE', 'CANTIDAD A RECIBIR', 'CANTIDAD CON DAÑOS'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -71,22 +71,21 @@ export class IncomePackagePatientComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_lot_stock.billing_stock.product.name;
+          if (row.pharmacy_lot_stock.billing_stock.product_supplies_com == null) {
+            return row.pharmacy_lot_stock.billing_stock.product.name + ' - ' + row.pharmacy_lot_stock.billing_stock.product.factory.name;
           } else {
-            return row.pharmacy_lot_stock.billing_stock.product_supplies_com.name;
+            return row.pharmacy_lot_stock.billing_stock.product_supplies_com.name + ' - ' + row.pharmacy_lot_stock.billing_stock.product_supplies_com.factory.name;
           }
-
-        },
+        }
       },
       product_generic: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.pharmacy_product_request.product_generic) {
-            return row.pharmacy_product_request.product_generic.description;
+          if (row.pharmacy_lot_stock.billing_stock.product_supplies_com  == null) {
+            return row.pharmacy_lot_stock.billing_stock.product.product_generic.description;
           } else {
-            return row.pharmacy_product_request.product_supplies.description;
+            return row.pharmacy_lot_stock.billing_stock.product_supplies_com.product_supplies.description;
           }
         },
       },
@@ -95,32 +94,47 @@ export class IncomePackagePatientComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot_stock.lot;
-        },
+        return row.pharmacy_lot_stock.lot;
       },
-      // amount: {
-      //   title: this.headerFields[3],
-      //   type: 'custom',
-      //   valuePrepareFunction: (value, row) => {
-      //     var amo;
-      //     this.parentData.selectedOptions.forEach(x => {
-      //       if (x.pharmacy_request_shipping == row.id) {
-      //         amo = x.amount;
-      //       }
-      //     });
-      //     return {
-      //       'data': row,
-      //       'enabled': !this.selectedOptions2.includes(row.id),
-      //       'amount': amo ? amo : '',
-      //       'onchange': (input, row: any) => this.onAmountChange(input, row),
-      //     };
-      //   },
-      //   renderComponent: AmountIncomePatientComponent,
-      // },
+    },
+      amount: {
+        title: this.headerFields[3],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          var amo;
+          this.parentData.selectedOptions.forEach(x => {
+            if (x.pharmacy_request_shipping == row.id) {
+              amo = x.amount;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': !this.selectedOptions2.includes(row.id),
+            'amount': amo ? amo : '',
+            'onchange': (input, row: any) => this.onAmountChange(input, row),
+          };
+        },
+        renderComponent: AmountIncomePatientComponent,
+      },
 
       amount_damaged: {
-        title: this.headerFields[3],
-        type: 'string',
+        title: this.headerFields[4],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          var amo;
+          this.parentData.selectedOptions.forEach(x => {
+            if (x.pharmacy_request_shipping == row.id) {
+              amo = x.amount_damaged;
+            }
+          });
+          return {
+            'data': row,
+            'enabled': !this.selectedOptions2.includes(row.id),
+            'amount_damaged': amo ? amo : '',
+            'onchange': (input, row: any) => this.onAmountDamagedChange(input, row),
+          };
+        },
+        renderComponent: AmountDamagedPatientComponent,
       },
     },
   };
@@ -150,9 +164,9 @@ export class IncomePackagePatientComponent implements OnInit {
       var diet = {
         pharmacy_request_shipping_id: row.id,
         pharmacy_lot_stock_id: row.pharmacy_lot_stock_id,
-        // amount: 0,
-        // amount_damaged: 0,
-        // amount_provition: row.amount_provition,
+        amount: 0,
+        amount_damaged: 0,
+        amount_provition: row.amount_provition,
       };
       this.emit.push(diet);
     } else {
@@ -172,40 +186,40 @@ export class IncomePackagePatientComponent implements OnInit {
     this.RefreshData();
   }
 
-  // onAmountChange(input, row) {
-  //   if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
-  //     this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
-  //   } else {
-  //     var i = 0;
-  //     var mientras = this.selectedOptions;
-  //     this.selectedOptions.forEach(element => {
-  //       if (element.pharmacy_request_shipping_id == row.id) {
-  //         mientras[i].amount = input.target.valueAsNumber;
-  //       }
-  //       i++
-  //     });
-  //     this.selectedOptions = mientras;
-  //     this.messageEvent.emit(this.selectedOptions);
-  //   }
-  // }
+  onAmountChange(input, row) {
+    if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
+      this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
+    } else {
+      var i = 0;
+      var mientras = this.selectedOptions;
+      this.selectedOptions.forEach(element => {
+        if (element.pharmacy_request_shipping_id == row.id) {
+          mientras[i].amount = input.target.valueAsNumber;
+        }
+        i++
+      });
+      this.selectedOptions = mientras;
+      this.messageEvent.emit(this.selectedOptions);
+    }
+  }
 
-  // onAmountDamagedChange(input, row) {
-  //   if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
-  //     this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
-  //   } else {
+  onAmountDamagedChange(input, row) {
+    if (Number(input.target.valueAsNumber) > Number(row.amount_provition)) {
+      this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad enviada")
+    } else {
 
-  //     var i = 0;
-  //     var mientras = this.selectedOptions;
-  //     this.selectedOptions.forEach(element => {
-  //       if (element.pharmacy_request_shipping_id == row.id) {
-  //         mientras[i].amount_damaged = input.target.valueAsNumber;
-  //       }
-  //       i++
-  //     });
-  //     this.selectedOptions = mientras;
-  //     this.messageEvent.emit(this.selectedOptions);
-  //   }
-  // }
+      var i = 0;
+      var mientras = this.selectedOptions;
+      this.selectedOptions.forEach(element => {
+        if (element.pharmacy_request_shipping_id == row.id) {
+          mientras[i].amount_damaged = input.target.valueAsNumber;
+        }
+        i++
+      });
+      this.selectedOptions = mientras;
+      this.messageEvent.emit(this.selectedOptions);
+    }
+  }
 
   ChangeManual(inscriptionstatus) {
     this.inscriptionstatus = inscriptionstatus;
