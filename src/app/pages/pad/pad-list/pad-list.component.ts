@@ -80,6 +80,7 @@ export class PadListComponent implements OnInit {
           return {
             'data': row,
             'user': this.user,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -96,7 +97,7 @@ export class PadListComponent implements OnInit {
             'edit': this.EditGloss.bind(this),
             'delete': this.DeleteConfirmGloss.bind(this),
             'refresh': this.RefreshData.bind(this),
-            'currentRole': this.user.roles[0].role_type_id,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: Actions2Component,
@@ -204,8 +205,11 @@ export class PadListComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
     this.campus_id = +localStorage.getItem('campus');
-    this.currentRole = this.authService.GetRole();
-    if (this.user.roles[0].role_type_id == 2) {
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
+    if (this.currentRole.role_type_id == 2) {
       this.entity = 'patient/byPAD/2/' + this.user_id + "?campus_id=" + this.campus_id;
     }
     else {
@@ -220,7 +224,7 @@ export class PadListComponent implements OnInit {
       this.company = x;
     });
 
-    var a = (this.user.roles[0].role_type_id == 2) ? this.user_id : "0";
+    var a = (this.currentRole.role_type_id == 2) ? this.user_id : "0";
     this.PatientBS.PatientByPad(a, {
       campus_id: this.campus_id,
     }).then(x => {
@@ -326,7 +330,7 @@ export class PadListComponent implements OnInit {
   }
 
   FilterAgreement(e) {
-    if (this.user.roles[0].role_type_id == 2) {
+    if (this.currentRole.role_type_id == 2) {
       this.entity = 'patient/byPAD/2/' + this.user_id + "?campus=" + this.campus_id;
     }
     else {

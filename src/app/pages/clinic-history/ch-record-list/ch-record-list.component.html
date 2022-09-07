@@ -16,6 +16,14 @@
         <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions[0].briefcase.name}}</p>
         <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability}} </p>
         <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES </p>
+        <div *ngIf="show_labs">
+          <p class="parrafo" *ngIf="show_labs"><b>LABORATORIOS:</b>
+          </p>
+          <div *ngFor="let item of this.assigned[0].management_plan.management_procedure">
+            <p class="parrafo">
+              {{item.services_briefcase.manual_price.name}} </p>
+          </div>
+        </div>
         
       </div>
 

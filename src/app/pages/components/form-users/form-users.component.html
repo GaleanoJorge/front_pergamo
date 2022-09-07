@@ -559,14 +559,14 @@
             </nb-select>
           </div>
         </div> -->
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
             <nb-card-body>
               <nb-toggle formControlName="attends_external_consultation" name>Consulta externa</nb-toggle>
             </nb-card-body>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
             <nb-card-body>
               <nb-toggle formControlName="serve_multiple_patients" name>Hospitalario</nb-toggle>
@@ -574,9 +574,14 @@
           </div>
         </div>
         <!-- pad -->
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
             <nb-toggle formControlName="PAD_service" PAD_service>Servicio de PAD</nb-toggle>
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="form.controls.PAD_service.value && !this.data">
+          <div class="form-group">
+            <nb-toggle formControlName="has_car" has_car>Cuanta con carro</nb-toggle>
           </div>
         </div>
         <div class="col-md-12" *ngIf="form.controls.PAD_service.value && !this.data">

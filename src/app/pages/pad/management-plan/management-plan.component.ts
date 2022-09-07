@@ -87,6 +87,7 @@ export class ManagementPlanComponent implements OnInit {
           return {
             'data': row,
             'user': this.own_user,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -104,7 +105,7 @@ export class ManagementPlanComponent implements OnInit {
             'assignedUser': this.AssignedUser.bind(this),
             'delete': this.DeleteConfirmManagementPlan.bind(this),
             'refresh': this.RefreshData.bind(this),
-            'currentRole': this.currentRole,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: ActionsComponent,
@@ -267,14 +268,17 @@ export class ManagementPlanComponent implements OnInit {
 
 
       this.own_user = this.authService.GetUser();
-      this.currentRole = this.own_user.roles[0].role_type_id;
-      this.currentRoleId = localStorage.getItem('role_id');
+      var curr = this.authService.GetRole();
+      this.currentRole = this.own_user.roles.find(x => {
+        return x.id == curr;
+      });
+      this.currentRoleId = this.currentRole.id;
       this.user_id = this.route.snapshot.params.user;
       await this.roleBS.GetCollection({ id: this.currentRoleId }).then(x => {
         this.roles = x;
       }).catch(x => { });
       this.user_logged = this.authService.GetUser().id;
-      if (this.roles[0].role_type_id != 2 && this.title == null) {
+      if (this.currentRole.role_type_id != 2 && this.title == null) {
         this.admissions_id = this.route.snapshot.params.id;
         this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
         this.entity = "management_plan_by_patient/" + this.user_id + "/" + 0 + "?admission_id=" + this.admissions_id;

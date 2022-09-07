@@ -37,7 +37,7 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false ">
           <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimiento:</label>
           <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="procedure_id"
             formControlName="procedure_id" procedure_id type="text" required
@@ -46,6 +46,16 @@
             <option *ngFor="let item of procedure" [value]="item.manual_price.name">{{ item.manual_price.own_code }} -
               {{item.manual_price.homologous_id}} </option>
           </datalist>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false && this.show_proc">
+          <label for="laboratories" class="form-text text-muted font-weight-bold">Laboratorios:</label>
+          <nb-select multiple [selected]="this.data.laboratories" formControlName="laboratories" id="laboratories" fullWidth
+            status="{{ isSubmitted && form.controls.laboratories.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option  >Seleccione...</nb-option>
+            <nb-option *ngFor="let item of laboratories" [value]="item.id">{{ item.manual_price.own_code }} -
+              {{item.manual_price.homologous_id}} - {{item.manual_price.name}}</nb-option>
+          </nb-select>
         </div>
 
         <div class="col-12 col-sm-12 col-md-4" *ngIf="show && assigned!=false">

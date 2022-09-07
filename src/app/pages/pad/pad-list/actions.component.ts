@@ -19,16 +19,16 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-      <a *ngIf="value.currentRole!=2" nbTooltip="Admisiones" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
+      <a *ngIf="value.currentRole != 2" nbTooltip="Admisiones" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
           ghost [routerLink]="'/pages/pad/admissions-patient-pad/' + value.data.id+'/'+value.data.admissions[0].id">
           <nb-icon icon="menu-outline"></nb-icon>
       </a>
-      <button *ngIf="value.currentRole==2" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top"
+      <button *ngIf="value.currentRole == 2" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top"
           nbTooltipStatus="primary" nbButton ghost (click)="closeDialog()"
           [routerLink]="'/pages/pad/management-plan/' + value.data.admissions[0].id+'/'+value.data.id">
           <nb-icon icon="menu-outline"></nb-icon>
       </button>
-      <button *ngIf="value.user.roles[0].role_type_id == 2" nbTooltip="Próximos servicios" nbTooltipPlacement="top" nbTooltipStatus="primary"
+      <button *ngIf="value.currentRole == 2" nbTooltip="Próximos servicios" nbTooltipPlacement="top" nbTooltipStatus="primary"
           nbButton ghost (click)="ShowPreBilling(AssignedTable, value.data.id)">
           <nb-icon icon="eye-outline"></nb-icon>
       </button>
@@ -72,7 +72,6 @@ export class Actions2Component implements ViewCell {
   public management_plan_id = null;
   public own_user;
   public ch_record;
-  public currentRole;
 
   constructor(
     private dialogFormService: NbDialogService,
@@ -99,7 +98,7 @@ export class Actions2Component implements ViewCell {
             'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
             'openEF':this.NewChRecord.bind(this),
-            'currentRole': this.currentRole,
+            'currentRole': this.value.currentRole,
             'edit': this.EditAssigned.bind(this),
             'closeDialog': this.closeDialog.bind(this),
           };

@@ -86,7 +86,7 @@ export class AssignedManagementPlanComponent implements OnInit {
             'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
             'openEF':this.NewChRecord.bind(this),
-            'currentRole': this.currentRole,
+            'currentRole': this.currentRole.role_type_id,
             'edit': this.EditAssigned.bind(this),
           };
         },
@@ -137,7 +137,7 @@ export class AssignedManagementPlanComponent implements OnInit {
             'data': row,
             'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
-            'currentRole': this.currentRole,
+            'currentRole': this.currentRole.role_type_id,
             'openEF':this.NewChRecord.bind(this),
             'edit': this.EditAssigned.bind(this),
           };
@@ -275,6 +275,7 @@ export class AssignedManagementPlanComponent implements OnInit {
   public management;
   public semaphore;
   public ch_record;
+  public show_labs = false;
 
 
 
@@ -286,6 +287,9 @@ export class AssignedManagementPlanComponent implements OnInit {
     this.own_user = this.authService.GetUser();
     await this.ManagementS.GetCollection({ management_id: this.management_id }).then(x => {
       this.management = x;
+      if(this.management[0].management_procedure.length > 0){
+        this.show_labs = true;
+      }
     });
     if (this.management[0].type_of_attention_id == 17) {
       this.settings = this.settings2;
@@ -295,7 +299,11 @@ export class AssignedManagementPlanComponent implements OnInit {
       this.settings = this.settings1;
     }
     this.user = this.authService.GetUser();
-    if(this.user.roles[0].role_type_id==2){
+    var curr = this.authService.GetRole();
+    this.currentRole = this.own_user.roles.find(x => {
+      return x.id == curr;
+    });
+    if(this.currentRole.role_type_id==2){
        this.user_logged= this.authService.GetUser().id;
       // this.user_logged=0;
 

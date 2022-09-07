@@ -82,7 +82,6 @@ export class ActionsComponent implements ViewCell {
   public user_id;
   public own_user;
   public ch_record;
-  public currentRole;
 
   constructor(
     private dialogFormService: NbDialogService,
@@ -109,7 +108,7 @@ export class ActionsComponent implements ViewCell {
             'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
             'openEF':this.NewChRecord.bind(this),
-            'currentRole': this.currentRole,
+            'currentRole': this.value.currentRole,
             'edit': this.EditAssigned.bind(this),
             'closeDialog': this.closeDialog.bind(this),
           };

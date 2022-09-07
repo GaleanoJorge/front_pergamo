@@ -41,7 +41,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
   public patient;
   public admission_route_id;
   public admission_id;
-
+  public currentRole;
 
 
 
@@ -54,6 +54,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
           return {
             'data': row,
             'user': this.user,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -193,7 +194,10 @@ export class AdmissionsPatientPadComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.patient_id= this.route.snapshot.params.patient_id;
     this.user_id= this.route.snapshot.params.user_id;
-
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
 
     this.PatientBS.GetUserById(this.patient_id).then(x => {
       if(x){

@@ -49,7 +49,7 @@ export class BillUserActivityPatientComponent implements OnInit {
   public user;
   public role_type;
   public entity: string;
-
+  public currentRole;
   public package: any[] = [];
   public type_briefcase: any[] = [];
   public component_package_id: number;
@@ -156,7 +156,11 @@ export class BillUserActivityPatientComponent implements OnInit {
   ngOnInit(): void {
     this.patient_id = this.route.snapshot.params.id;
     this.user = this.authService.GetUser();
-    this.role_type = this.user.roles[0].role_type_id;
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
+    this.role_type = this.currentRole.role_type_id;
     this.routes = [
       {
         name: 'Insumos',

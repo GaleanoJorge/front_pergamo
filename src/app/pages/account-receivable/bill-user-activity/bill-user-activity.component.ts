@@ -46,6 +46,7 @@ export class BillUserActivityComponent implements OnInit {
   public campus;
   public user;
   public role_type;
+  public currentRole;
   public entity: string;
 
   public package: any[] = [];
@@ -156,7 +157,11 @@ export class BillUserActivityComponent implements OnInit {
   ngOnInit(): void {
     this.account = this.route.snapshot.params.id;
     this.user = this.authService.GetUser();
-    this.role_type = this.user.roles[0].role_type_id;
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
+    this.role_type = this.currentRole.role_type_id;
     this.routes = [
       {
         name: 'Insumos',

@@ -4,12 +4,12 @@
     <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity" customData="patients"
       [messageToltip]="messageToltip">
       <div title>
-        <div *ngIf="this.user.roles[0].role_type_id == 1 && this.patients"><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div>
+        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients"><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div>
       </div>
       <div actions>
         <div class="actions">
           
-          <div *ngIf="this.user.roles[0].role_type_id == 1" style="margin-right: 10px; width: 250px">
+          <div *ngIf="this.currentRole.role_type_id == 1" style="margin-right: 10px; width: 250px">
             <nb-select placeholder="Filtrar por estado" fullWidth (selectedChange)="changeSemaphore($event)">
               <nb-option value="">Sin filtro</nb-option>
               <nb-option *ngFor="let item of status_type" [value]="item.id">

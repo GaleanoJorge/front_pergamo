@@ -23,7 +23,7 @@
           <button nbButton (click)="back()" >Volver</button>
         </div>
         <div class="actions">
-          <div *ngIf=" this.currentRole == 1" class="space" style="margin-right:-5px;">
+          <div *ngIf=" this.currentRole.role_type_id == 1" class="space" style="margin-right:-5px;">
 
             <button nbButton status="danger" (click)="NewManagementPlan()">anexar servicios</button>
           </div>
