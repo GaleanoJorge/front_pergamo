@@ -63,11 +63,11 @@
     </nb-card-body>
 
     <nb-card-footer class="d-flex justify-content-end">
-      <div class ="col-12 col-sm-12 col-md-3 vi">TOTAL PROYECTADO: {{this.currency.transform(this.total_pre_billing)}}</div>
-      <div class ="col-12 col-sm-12 col-md-3 vi">TOTAL FACTURADO: {{this.currency.transform(this.total_already_billing)}}</div>
+      <div class ="col-12 col-sm-12 col-md-2 vi">TOTAL PROYECTADO: {{this.currency.transform(this.total_pre_billing)}}</div>
+      <div class ="col-12 col-sm-12 col-md-2 vi">TOTAL FACTURADO: {{this.currency.transform(this.total_already_billing)}}</div>
       <div class ="col-12 col-sm-12 col-md-3 vi">PENDIENTE EJECUTAR/AUTORIZAR/APROBAR: {{this.currency.transform(this.total_pendding_auth)}}</div>
-      <div class ="col-12 col-sm-12 col-md-3 vi">PENDIENTE FACTURAR: {{this.currency.transform(this.total_pendding_billing)}}</div>
-      <div class ="col-12 col-sm-12 col-md-3">
+      <div class ="col-12 col-sm-12 col-md-2 vi">PENDIENTE FACTURAR: {{this.currency.transform(this.total_pendding_billing)}}</div>
+      <div class ="col-12 col-sm-12 col-md-2">
         <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
       </div>
     </nb-card-footer>
