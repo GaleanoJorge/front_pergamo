@@ -80,7 +80,7 @@ export class PharmacyProductSuppliesComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
-      this.entity= 'pharmacy_product_request/?pagination=true' + '&status=SOLICITADO FARMACIA' + '&own_pharmacy_stock_id='+x[0].id;
+      this.entity= 'pharmacy_product_request?pagination=true' + '&status=SOLICITADO FARMACIA' + '&own_pharmacy_stock_id='+x[0].id;
       this.title = 'SOLICITUDES REALIZADAS POR:  ' + x[0]['name'];
 
     });
