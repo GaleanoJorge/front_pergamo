@@ -276,6 +276,28 @@ export class AuthorizationListComponent implements OnInit {
           return row.admissions.patients.residence_address;
         },
       },
+      applications: {
+        title: 'Hora de aplicación',
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.application_id != null){
+            return row.applications.application_hour;
+          } else {
+            return '--';
+          }
+        },
+      },
+      assistencial_aplications: {
+        title: 'Asistencial',
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.application_id != null){
+            return row.applications.users.identification
+          } else {
+            return '--';
+          }
+        },
+      },
     },
   };
 
