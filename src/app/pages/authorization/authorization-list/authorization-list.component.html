@@ -53,7 +53,21 @@
               <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date"
                 formControlName="finish_date" finish_date />
             </div>
+            
+            <div class="col-md-4">
+              <label for="type_of_attention_id" class="form-text text-muted font-weight-bold">Programa:</label>
+              <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id" id="program_id"
+                fullWidth placeholder="Seleccione..."
+                status="{{ isSubmitted && form.controls.type_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option >Seleccione...</nb-option>
+                <nb-option selected="{{ item.id == data.type_of_attention_id }}" *ngFor="let item of type_of_attention"
+                  [value]="item.id">
+                  {{ item.name }}
+                </nb-option>
+              </nb-select>
+            </div>
           </div>
+
 
           <div class="col-md-12 filter">
             <button nbButton status="success" class="ml-1" disabled="{{ loading }}">Filtar</button>
