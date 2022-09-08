@@ -63,6 +63,22 @@ export class TariffService {
       });
   }
 
+  ChangeStatus(id): Promise<any> {
+    let servObj = new ServiceObject(`tariff/${id}/changeStatus`);
+
+    return this.webAPI.PatchAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(<any>servObj);
+      }).catch(x => {
+        throw x.message;
+      });
+  }
+
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('tariff', id);
     return this.webAPI.DeleteAction(servObj)

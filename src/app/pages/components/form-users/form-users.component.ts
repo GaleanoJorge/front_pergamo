@@ -738,7 +738,7 @@ export class FormUsersComponent implements OnInit {
         formData.append('serve_multiple_patients', data.serve_multiple_patients.value === true ? '1' : '0');
         formData.append('firm_file', this.signatureImage);
         formData.append('PAD_service', data.PAD_service.value === true ? '1' : '0');
-        formData.append('has_car', data.has_car.value === true ? '1' : '0');
+        formData.append('has_car', data.PAD_service.value === true ? data.has_car.value === true ? '1' : '0' : '0');
         // formData.append('PAD_patient_quantity', data.PAD_patient_quantity.value === false ? null : data.PAD_patient_quantity.value);
       }
 

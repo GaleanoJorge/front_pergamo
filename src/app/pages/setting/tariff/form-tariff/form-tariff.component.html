@@ -98,6 +98,12 @@
           </nb-toggle>
         </div>
 
+        <div class="col-12 col-sm-12 col-md-2">
+          <label for="has_car" class="form-text text-muted font-weight-bold">CUENTA CON CARRO:</label>
+          <nb-toggle labelPosition="left" [checked]="has_car" (change)="hasCarChange($event)">
+          </nb-toggle>
+        </div>
+
         <div class="col-12 col-sm-12 col-md-12">
           <label for="amount" class="form-text text-muted font-weight-bold">HONORARIOS:</label>
           <input type="number" nbInput fullWidth id="amount" formControlName="amount" amount placeholder="$"
