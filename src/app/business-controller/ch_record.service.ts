@@ -62,6 +62,41 @@ export class ChRecordService {
       });
   }
 
+  ViewCertification(ch_record: any): any {
+    let servObj = new ServiceObject('viewCertification/'+ ch_record);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        //this.ch_record = <any[]>servObj.data.ch_record;
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+
+  ViewAllHC(params = {}): any {
+    let servObj = new ServiceObject('viewAllHC');
+    return this.webAPI.GetAction(servObj,params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        //this.ch_record = <any[]>servObj.data.ch_record;
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
 
   Update(ch_record: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_record', ch_record.id);
