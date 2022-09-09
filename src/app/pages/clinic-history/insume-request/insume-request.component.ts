@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 
@@ -19,7 +19,9 @@ export class InsumeRequestComponent implements OnInit {
   @Input() record_id: any;
   @Input() user: any;
   @Input() admissions_id: any;
-  @Input() type_record_id: any;
+  @Input() type_record_id;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
   
   public isSubmitted = false;
   public messageError = null;
@@ -87,11 +89,6 @@ export class InsumeRequestComponent implements OnInit {
     });
   }
 
-  receiveMessage($event) {
-    if ($event == true) {
-      this.RefreshData();
-    }
-  }
 
   EditPharmacy(data) {
     this.dialogFormService.open(FormInsumeRequestComponent, {
@@ -120,6 +117,15 @@ export class InsumeRequestComponent implements OnInit {
     }).catch(x => {
       throw x;
     });
+  }
+
+  receiveMessage($event) {
+    if ($event == true) {
+      this.RefreshData();
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
+    }
   }
 
 }

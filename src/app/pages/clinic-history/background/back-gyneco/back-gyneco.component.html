@@ -1,10 +1,15 @@
-<ngx-form-back-gyneco (messageEvent)="receiveMessage($event)" [record_id]="record_id">
-</ngx-form-back-gyneco>
-<label for="ch_external_cause" class="form-text text-muted font-weight-bold align">REGISTROS ANTECEDENTES GINECOOBSTETRICOS</label>
+
+<div *ngIf="has_input == false || type_record_id != 1">
+  <ngx-form-back-gyneco (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+  </ngx-form-back-gyneco>
+</div>
+
+<div>
+  <label for="ch_external_cause" class="form-text text-muted font-weight-bold align">REGISTROS ANTECEDENTES GINECOOBSTETRICOS</label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table  pager="false" [title]="title" customData="ch_gynecologists" [settings]="settings"
-      entity="ch_gynecologists/by_record/{{record_id}}/1?pagination=false">
+      entity="ch_gynecologists/by_record/{{record_id}}/1?pagination=false?&has_input={{has_input}}">
       <div actions>
         <div class="actions">
         </div>
@@ -14,3 +19,4 @@
     </ngx-base-table>
   </div>
 </ngx-base-list>
+</div>

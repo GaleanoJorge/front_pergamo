@@ -14,8 +14,10 @@ export class FormaDiagnosticTherapyComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
-  // @Input() type_record: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() type_record_id;
+  @Input() has_input: boolean = false;
+
 
   public form: FormGroup;
   public isSubmitted: boolean = false;

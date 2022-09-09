@@ -1,4 +1,4 @@
-<div class="col-12 col-sm-12 col-md-12">
+<div *ngIf="has_input == false || type_record_id != 1" class="col-12 col-sm-12 col-md-12">
   <ngx-form-insume-request (messageEvent)="receiveMessage($event)" [user]="this.user"
     [admissions_id]="this.admissions_id" [record_id]="record_id">
   </ngx-form-insume-request>
@@ -7,7 +7,7 @@
   <div content>
 
     <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
-      entity="pharmacy_product_request/?admissions_id={{this.admissions_id}}&status=PATIENT&product=2"
+      entity="pharmacy_product_request/?admissions_id={{this.admissions_id}}&status=PATIENT&product=2&/by_record/{{record_id}}/1?&has_input={{has_input}}"
       customData='pharmacy_product_request' [messageToltip]="messageToltip">
       <div actions>
         <div class="actions">

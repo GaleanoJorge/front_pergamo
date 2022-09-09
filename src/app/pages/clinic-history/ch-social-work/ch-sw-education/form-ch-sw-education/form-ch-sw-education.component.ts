@@ -17,6 +17,8 @@ export class FormChSwEducationComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
