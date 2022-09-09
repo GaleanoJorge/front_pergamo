@@ -83,10 +83,10 @@ export class FormPharmacyLotComponent implements OnInit {
     var sub = this.form.controls.subtotal.value;
     var vat = this.form.controls.vat.value;
     if (vat == '') {
-     this.form.patchValue({total: sub});
+      this.form.patchValue({ total: sub });
     } else {
       var tot2 = sub + vat;
-     this.form.patchValue({total: tot2});
+      this.form.patchValue({ total: tot2 });
     }
   }
 
@@ -199,5 +199,31 @@ export class FormPharmacyLotComponent implements OnInit {
     }
   }
 
+  onDatechange($event) {
+    var date = new Date($event.target.value);
+    var now_date = new Date;
 
+    if (date > now_date) {
+      this.form.controls.receipt_date.setErrors({ 'incorrect': true });
+      this.toastS.danger(null, 'La fecha no puede ser mayor a la actual');
+    } else {
+      this.form.controls.receipt_date.setErrors(null);
+    }
+  }
+
+
+
+
+
+  onDatechange1($event) {
+    var date = new Date($event.target.value);
+    var now_date = new Date;
+
+    if (date > now_date) {
+      this.form.controls.date_invoice.setErrors({ 'incorrect': true });
+      this.toastS.danger(null, 'La fecha no puede ser mayor a la actual');
+    } else {
+      this.form.controls.date_invoice.setErrors(null);
+    }
+  }
 }

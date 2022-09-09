@@ -35,7 +35,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
   </div>
 
   <ng-template #AssignedTable>
-  <nb-card style="max-width: 1400px;max-height: 600px;overflow: auto;">
+  <nb-card style="width: 100%;height: 100%;overflow: auto;">
     <nb-card-header>
       Próximos servicios
     </nb-card-header>

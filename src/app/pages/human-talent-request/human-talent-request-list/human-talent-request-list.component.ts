@@ -155,7 +155,7 @@ export class HumanTalentRequestListComponent implements OnInit {
   public routes = [
     {
       name: 'Solicitudes de personal',
-      route: '../../setting/account-receivable',
+      route: '../../human-talent-request/list',
     },
   ];
 

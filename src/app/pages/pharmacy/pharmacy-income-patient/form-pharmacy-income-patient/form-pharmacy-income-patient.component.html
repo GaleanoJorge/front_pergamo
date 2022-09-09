@@ -6,7 +6,13 @@
         <div class="col-12 col-sm-12 col-md-6">
           <label class="form-text text-muted font-weight-bold">MEDICAMENTOS DEVUELTOS</label>
         </div>
-
+        <div class="col-12 col-sm-12 col-md-6">
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="request_amount"
+            formControlName="request_amount" disabled="disabled" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
         <div class="col-12 col-sm-12 col-md-12">
           <ngx-income-package-patient (messageEvent)="receiveMessage($event)" [parentData]="parentData" >
           <!-- <ngx-income-package (messageEvent)="receiveMessage($event)" [parentData]="parentData" [my_pharmacy_id]="my_pharmacy_id"> -->

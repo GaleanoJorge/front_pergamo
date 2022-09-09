@@ -29,7 +29,7 @@
           </div>
           
         </div>
-        <div class="actions" style="margin-top: 5px;">
+        <div *ngIf=" this.currentRole.role_type_id == 1" class="actions" style="margin-top: 5px;">
           <button nbButton status="info" (click)="suppliesView()">Suministros</button>
         </div>
         

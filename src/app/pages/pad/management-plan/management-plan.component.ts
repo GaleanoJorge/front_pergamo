@@ -300,7 +300,7 @@ export class ManagementPlanComponent implements OnInit {
         },
         {
           name: 'Plan de manejo',
-          route: '/pages/pad/management-plan',
+          route: '/pages/pad/management-plan/' + this.admissions_id + '/' + this.user_id,
         },
       ];
     }

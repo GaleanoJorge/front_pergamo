@@ -24,6 +24,7 @@ import { BriefcaseService } from '../../../business-controller/briefcase.service
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ActionsSemaphoreComponent } from './actionsSemaphore.component';
 import { ProgramService } from '../../../business-controller/program.service';
+import { TypeOfAttentionService } from '../../../business-controller/type-of-attention.service';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -77,6 +78,7 @@ export class AuthorizationListComponent implements OnInit {
   public all_Data: any[] = [];
   public company: any[] = [];
   public program: any[] = [];
+  public type_of_attention: any[] = [];
   public contract: any[] = [];
   public briefcase: any[] = [];
   public admissions: any[] = [];
@@ -89,6 +91,7 @@ export class AuthorizationListComponent implements OnInit {
       briefcase_id: null,
       patient_id: null,
       program_id: null,
+      type_of_attention_id: null,
     }
   public parentData: any;
   public previewFile = null;
@@ -122,6 +125,7 @@ export class AuthorizationListComponent implements OnInit {
     private ContractS: ContractService,
     private briefcaseS: BriefcaseService,
     private ProgramS: ProgramService,
+    private typeOfAttention: TypeOfAttentionService,
 
   ) {
   }
@@ -272,6 +276,28 @@ export class AuthorizationListComponent implements OnInit {
           return row.admissions.patients.residence_address;
         },
       },
+      applications: {
+        title: 'Hora de aplicación',
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.application_id != null){
+            return row.applications.application_hour;
+          } else {
+            return '--';
+          }
+        },
+      },
+      assistencial_aplications: {
+        title: 'Asistencial',
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.application_id != null){
+            return row.applications.users.identification
+          } else {
+            return '--';
+          }
+        },
+      },
     },
   };
 
@@ -312,6 +338,7 @@ export class AuthorizationListComponent implements OnInit {
       briefcase_id: '',
       contract_id: '',
       program_id: '',
+      type_of_attention_id: ''
     };
 
     this.form = this.formBuilder.group({
@@ -332,6 +359,9 @@ export class AuthorizationListComponent implements OnInit {
       ],
       program_id: [
         this.data.program_id,
+      ],
+      type_of_attention_id: [
+        this.data.type_of_attention_id,
       ],
     });
 
@@ -369,6 +399,10 @@ export class AuthorizationListComponent implements OnInit {
     
     this.ProgramS.GetCollection().then(x => {
       this.program = x;
+    });
+
+    this.typeOfAttention.GetCollection().then(x => {
+      this.type_of_attention = x;
     });
     
     this.xlsForm = this.formBuilder.group({
@@ -495,7 +529,7 @@ export class AuthorizationListComponent implements OnInit {
   FilterAuth() {
     // this.disableCheck();
     var entity = this.entity
-    this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&program_id=${this.filter.program_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}`, 'authorization');
+    this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&program_id=${this.filter.program_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}&type_of_attention_id=${this.filter.type_of_attention_id}`, 'authorization');
   }
 
   FilterStatus(status) {
@@ -510,6 +544,7 @@ export class AuthorizationListComponent implements OnInit {
       briefcase_id: '',
       contract_id: '',
       program_id: '',
+      type_of_attention_id:'',
     });
     // this.toastS.warning('', 'Filtros limpiados');
     // this.RefreshData();
@@ -691,6 +726,10 @@ export class AuthorizationListComponent implements OnInit {
 
     this.form.get('program_id').valueChanges.subscribe(val => {
       this.filter.program_id = val;
+    });
+
+    this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
+      this.filter.type_of_attention_id = val;
     });
 
   }

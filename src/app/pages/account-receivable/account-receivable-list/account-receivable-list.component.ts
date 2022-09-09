@@ -178,7 +178,7 @@ export class AccountReceivableListComponent implements OnInit {
   public routes = [
     {
       name: 'Cuentas de Cobro',
-      route: '../../setting/account-receivable',
+      route: '/pages/account-receivable/list',
     },
   ];
 

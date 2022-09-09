@@ -193,7 +193,7 @@ export class AssignedManagementPlanComponent implements OnInit {
             'data': row,
             'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
-            'currentRole': this.currentRole,
+            'currentRole': this.currentRole.role_type_id,
             'openEF':this.NewChRecord.bind(this),
             'edit': this.EditAssigned.bind(this),
           };
@@ -234,7 +234,7 @@ export class AssignedManagementPlanComponent implements OnInit {
     },
     {
       name: 'Plan de manejo',
-      route: '/pages/pad/management-plan',
+      route: '../../management-plan',
     },
     {
       name: 'Ejecución de plan de manejo',

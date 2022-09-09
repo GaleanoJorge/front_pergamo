@@ -32,6 +32,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
   public all_changes: any[];
   public own_user: any = null;
   public own_pharmacy_stock_id: any[];
+  public request_amount;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -68,7 +69,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
         request_amount: '',
       };
     }
-
+    this.request_amount = this.data.request_amount;
     this.form = this.formBuilder.group({
       request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
     });
@@ -99,12 +100,18 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
         this.selectedOptions.forEach(element => {
           if (element.amount == null || element.amount <= 0 || element.amount_damaged <= 0) {
             valid_values = false;
+          } else if (element.amount > element.actual_amount) {
+            valid_values = false;
           } else {
             total_sent += element.amount
           }
         });
         if (!valid_values) {
           this.toastS.danger('Debe ingresar una cantidad valida', 'Error');
+        }
+        if (total_sent > this.data.request_amount) {
+          valid_values = false;
+          this.toastS.danger('La cantidad a entregar no debe superar la cantidad ordenada', 'Error');
         }
       }
       if (valid_values) {

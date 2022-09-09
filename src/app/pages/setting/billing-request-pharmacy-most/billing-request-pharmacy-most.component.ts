@@ -18,7 +18,7 @@ export class BillingRequestPharmacyMostComponent implements OnInit {
   public title: string = 'Solicitudes por Bodega Principal';
   public subtitle: string = '';
   public headerFields: any[] = ['consecutivo', 'Producto solicitado', 'Cantidad'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
 

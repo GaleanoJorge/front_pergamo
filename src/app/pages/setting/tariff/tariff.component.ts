@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { FormTariffComponent } from './form-tariff/form-tariff.component';
 import { TariffService } from '../../../business-controller/tariff.service';
 import { CurrencyPipe } from '@angular/common';
+import { FormTariffConfirmDisabledComponent } from './form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
 
 @Component({
   selector: 'ngx-tariff',
@@ -25,7 +26,7 @@ export class TariffComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'TARIFAS DE MÉDICOS';
   public subtitle: string = 'TARIFAS';
-  public headerFields: any[] = ['NOMBRE', 'ZONA', 'EXTRA DOSIS', 'TELECONSULTA', 'PROGRAMA', 'HORAS ATENCIÓN', 'ESTADO', 'TIPO DE ATENCIÓN', 'HONORARIOS', 'FALLIDA', 'ADMISIÓN'];
+  public headerFields: any[] = ['NOMBRE', 'ZONA', 'EXTRA DOSIS', 'TELECONSULTA', 'PROGRAMA', 'HORAS ATENCIÓN', 'ESTADO', 'TIPO DE ATENCIÓN', 'HONORARIOS', 'FALLIDA', 'ADMISIÓN', 'CON CARRO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -120,23 +121,28 @@ export class TariffComponent implements OnInit {
           }
         },
       },
-      status_id: {
-        title: this.headerFields[6],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          if (row.status) {
-            return row.status.name;
-          } else {
-            return 'NO APLICA';
-          }
-        },
-      },
+
       type_of_attention_id: {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.type_of_attention) {
             return row.type_of_attention.name;
+          } else {
+            return 'NO APLICA';
+          }
+        },
+      },
+      has_car: {
+        title: this.headerFields[11],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (value != null) {
+            if (value == 1) {
+              return 'SI';
+            } else {
+              return 'NO';
+            }
           } else {
             return 'NO APLICA';
           }
@@ -175,6 +181,18 @@ export class TariffComponent implements OnInit {
           return this.currency.transform(value);
         },
       },
+      status_id: {
+        title: this.headerFields[6],
+        type: 'custom',
+        width: '10%',
+        valuePrepareFunction: (value, row) => {
+          return {
+            'data': row,
+            'changeState': this.ConfirmDisabled.bind(this),
+          };
+        },
+        renderComponent: StatusFieldComponent,
+      },
     },
   };
 
@@ -191,7 +209,7 @@ export class TariffComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private currency: CurrencyPipe,
-    private datepipe: DateFormatPipe,
+    private dialogService: NbDialogService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -241,6 +259,24 @@ export class TariffComponent implements OnInit {
       return Promise.resolve(x.message);
     }).catch(x => {
       throw x;
+    });
+  }
+
+  ConfirmDisabled(dataUser) {
+    this.dialogService.open(FormTariffConfirmDisabledComponent, {
+      context: {
+        data: dataUser,
+        desable: this.ChangeState.bind(this),
+      },
+    });
+  }
+
+  ChangeState(data) {
+    this.tariffS.ChangeStatus(data.id).then((x) => {
+      this.toastrService.success('', x.message);
+      this.RefreshData();
+    }).catch((x) => {
+      // this.toastrService.danger(x.message);
     });
   }
 }

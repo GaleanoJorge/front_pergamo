@@ -420,7 +420,7 @@ export class FormManagementPlanComponent implements OnInit {
       } else {
         this.form.get('specialty_id').valueChanges.subscribe(val => {
           if (val != "") {
-            this.getRoleByAttention(val).then(x => {
+            this.getRoleByAttention(this.form.controls.type_of_attention_id.value).then(x => {
               if (x) {
                 this.GetMedical(this.user.locality_id, val).then(x => {
                   if (x) {

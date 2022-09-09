@@ -96,6 +96,7 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
             id: this.data.id,
             fixed_assets_id: this.selectedOptions,
             responsible_user_id: this.product_id,
+            // responsible_user_id: this.form.controls.responsible_user_id.value,
             amount: 1,
             status: 'ENVIADO PATIENT',
             observation: this.form.controls.observation.value,
@@ -130,6 +131,7 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
             fixed_assets_id: this.selectedOptions,
             observation: this.form.controls.observation.value,
             responsible_user_id: this.product_id,
+            // responsible_user_id: this.form.controls.responsible_user_id.value,
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
