@@ -1,9 +1,12 @@
 
 import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
 import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
+import { ActionsSWComponent } from './actions.component';
 
 @Component({
   selector: 'ngx-sw-support-network',
@@ -13,8 +16,9 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 export class SwSupportNetworkComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
-  @Input() record_id;
+  @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() data: any = null;
 
 
   linearMode = true;
@@ -37,6 +41,23 @@ export class SwSupportNetworkComponent implements OnInit {
     },
 
     columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          if (row.ch_sw_network =! 5) {
+            this.showButtom = false;
+          }
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'assigned': this.assigned_management_plan,
+            'user': this.user,
+            'refresh': this.RefreshData.bind(this),
+          };
+        },
+        renderComponent: ActionsSWComponent,
+      },
       created_at: {
         title: this.headerFields[0],
         type: 'string',
@@ -62,16 +83,23 @@ export class SwSupportNetworkComponent implements OnInit {
 
     },
   };
+  showButtom: boolean;
+  assigned_management_plan: any;
+  user: any;
 
 
   constructor(
     public userChangeS: UserChangeService,
     public datePipe: DateFormatPipe,
+    private route: ActivatedRoute,
     private currency: CurrencyPipe,
+    private dialogFormService: NbDialogService,
+
   ) {
   }
 
   async ngOnInit() {
+    // this.record_id = this.route.snapshot.params.id;
   }
 
   RefreshData() {
