@@ -8,6 +8,7 @@ import { PopulationGroupService } from '../../../../../business-controller/popul
 import { EthnicityService } from '../../../../../business-controller/ethnicity.service';
 import { ChSwArmedConflictService } from '../../../../../business-controller/ch-sw-armed-conflict.service';
 import { ChDiagnosisService } from '../../../../../business-controller/ch-diagnosis.service';
+import { ChSwDiagnosisService } from '../../../../../business-controller/ch-sw-diagnosis.service';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class FormSwDiagnosisComponent implements OnInit {
   public population: any[] = [];
   public ethnicity: any[] = [];
   checked = false;
+  public ch_diagnosis_id;
 
 
   constructor(
@@ -49,13 +51,9 @@ export class FormSwDiagnosisComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userBS: UserBusinessService,
     // private statusBS: StatusBusinessService,
-    private PatientDataS: PatientDataService,
     private toastService: NbToastrService,
     private ChDiagnosisS: ChDiagnosisService,
-    private municipalityS: MunicipalityService,
-    private populationS: PopulationGroupService,
-    private ethnicityS: EthnicityService,
-    private armedS: ChSwArmedConflictService,
+    private ChSwDiagnosisS: ChSwDiagnosisService,
   ) {
   }
 
@@ -74,23 +72,10 @@ export class FormSwDiagnosisComponent implements OnInit {
       this.ch_diagnosis = x;
     });
 
-    this.municipalityS.GetCollection().then(x => {
-      this.municipality = x;
-    });
-
-    this.populationS.GetCollection().then(x => {
-      this.population = x;
-    });
-
-    this.ethnicityS.GetCollection().then(x => {
-      this.ethnicity = x;
-    });
-
-
-
     this.form = this.formBuilder.group({
 
-      ch_diagnosis_id: [this.data[0] ? this.data[0].ch_diagnosis_id : this.data.ch_diagnosis_id,],
+      ch_diagnosis_id: [this.data[0] ? this.returnCode(this.data[0].ch_diagnosis_id) : this.data.ch_diagnosis_id],
+      sw_diagnosis: [this.data[0] ? this.data[0].sw_diagnosis : this.data.sw_diagnosis,],
 
 
     });
@@ -104,9 +89,10 @@ export class FormSwDiagnosisComponent implements OnInit {
       this.loading = true;
 
       if (this.data.id) {
-        this.armedS.Update({
+        this.ChSwDiagnosisS.Update({
           id: this.data.id,
           ch_diagnosis_id: this.form.controls.ch_diagnosis_id.value,
+          sw_diagnosis: this.form.controls.sw_diagnosis.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -120,8 +106,9 @@ export class FormSwDiagnosisComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        this.armedS.Save({
+        this.ChSwDiagnosisS.Save({
           ch_diagnosis_id: this.form.controls.ch_diagnosis_id.value,
+          sw_diagnosis: this.form.controls.sw_diagnosis.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -136,8 +123,38 @@ export class FormSwDiagnosisComponent implements OnInit {
         });
       }
 
+    }
+    //  else {
+    //   this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+    // }
+  }
+
+
+  returnCode(diagnosis_id) {
+    var localName = this.diagnosis.find(item => item.id == diagnosis_id);
+    var nombre_diagnosis
+    if (localName) {
+      nombre_diagnosis = localName.name;
     } else {
-      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+      nombre_diagnosis = ''
+    }
+    return nombre_diagnosis;
+  }
+  
+  saveCode(e, valid): void {
+    var localidentify = this.diagnosis.find(item => item.name == e);
+
+    if (localidentify) {
+      if (valid == 1) {
+        var localidentify = this.ch_diagnosis.find(item => item.diagnosis.name == e);
+        this.ch_diagnosis_id = localidentify.id;
+      }
+    } else {
+      if (valid == 1) {
+        this.ch_diagnosis_id = null;
+        // this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+        this.form.controls.ch_diagnosis_id.setErrors({ 'incorrect': true });
+      }
     }
   }
 

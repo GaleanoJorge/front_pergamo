@@ -6,13 +6,28 @@
   </div>
 
   <div class="row justify-content-md-center">
-    <nb-select [selected]="this.data.ch_diagnosis_id" formControlName="ch_diagnosis_id" id="ch_diagnosis_id"
+    <div class="col-md-6">
+      <div class="form-group">
+      <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold ">Diagnóstico de ingreso</label>
+
+      <nb-select [selected]="this.data.ch_diagnosis_id" formControlName="ch_diagnosis_id" id="ch_diagnosis_id"
       ch_diagnosis_id fullWidth
       status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
       placeholder="Seleccione...">
       <nb-option selected="{{ item.id == data.ch_diagnosis_id }}" *ngFor="let item of ch_diagnosis" [value]="item.id">
-        {{ item.name }}</nb-option>
-    </nb-select>
+        {{item.diagnosis.name }}</nb-option>
+      </nb-select>     
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Diagnóstico </label>
+        <textarea id="sw_diagnosis" nbInput fullWidth formControlName="sw_diagnosis" sw_diagnosis
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.sw_diagnosis.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
   </div>
 
   <div class="row">

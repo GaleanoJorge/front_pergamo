@@ -63,7 +63,7 @@
         <nb-select formControlName="ethnicity_id" id="ethnicity_id" fullWidth
           status="{{ isSubmitted && form.controls.ethnicity_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
-          <nb-option *ngFor="let item of ethnicitys" [value]="item.id">{{ item.name }}</nb-option>
+          <nb-option *ngFor="let item of ethnicity" [value]="item.id">{{ item.name }}</nb-option>
         </nb-select>
       </div>
     </div>

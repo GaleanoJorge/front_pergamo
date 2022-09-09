@@ -88,6 +88,14 @@ export class ChSwHousingAspectsComponent implements OnInit {
       lift: {
         title: this.headerFields[4],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+
+        },
       },
 
       location: {
