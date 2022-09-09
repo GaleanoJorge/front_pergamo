@@ -66,7 +66,8 @@ export class SwFamilyDynamicsComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value.relationship;
+            return value.firstname + " " + value.middlefirstname  + " " + value.lastname + " " + value.middlelastname;
+            
           } else {
             return 'NO APLICA'
           }
@@ -77,7 +78,7 @@ export class SwFamilyDynamicsComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value;
+            return value.firstname + " " + value.middlefirstname  + " " + value.lastname + " " + value.middlelastname;
           } else {
             return 'NO APLICA'
           }
