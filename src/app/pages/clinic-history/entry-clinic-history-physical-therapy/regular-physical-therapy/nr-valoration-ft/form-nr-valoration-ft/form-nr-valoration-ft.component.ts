@@ -106,6 +106,7 @@ export class FormNRValorationFTComponent implements OnInit {
 
         }).then(x => {
           this.toastService.success('', x.message);
+          this.form.patchValue({ch_diagnosis_id:'',  patient_state:''});
           if (this.saved) {
             this.saved();
           }
@@ -121,6 +122,7 @@ export class FormNRValorationFTComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.form.patchValue({ch_diagnosis_id:'',  patient_state:''});
           if (this.saved) {
             this.saved();
           }

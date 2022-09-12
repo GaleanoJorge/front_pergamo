@@ -102,6 +102,7 @@ export class FormValorationTherFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true)
           this.toastService.success('', x.message);
+          this.form.patchValue({illness:'',  sports:'', obsertations:'', days_number:'', minutes_number:''});
           if (this.saved) {
             this.saved();
           }
@@ -122,6 +123,7 @@ export class FormValorationTherFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true)
           this.toastService.success('', x.message);
+          this.form.patchValue({illness:'',  sports:'', obsertations:'', days_number:'', minutes_number:''});
           if (this.saved) {
             this.saved();
           }

@@ -66,6 +66,7 @@ export class AuthPackageComponent implements OnInit {
     if (!this.data) {
       this.data = {
         package_id: '',
+        quantity: '',
       };
       // this.parentData.entity
       this.parentData.entity = 'authorization/auth_byAdmission/' + this.admissions_id;
@@ -78,6 +79,10 @@ export class AuthPackageComponent implements OnInit {
     this.form = this.formBuilder.group({
       package_id: [
         this.data.package_id,
+        Validators.compose([Validators.required])
+      ],
+      quantity: [
+        this.data.quantity,
         Validators.compose([Validators.required])
       ],
     });
@@ -109,39 +114,44 @@ export class AuthPackageComponent implements OnInit {
       this.toastService.danger(null, 'Debe seleccionar al menos un Menú');
     } else {
       if (!this.form.invalid) {
-        this.loading = true;
-        if (this.data.id) {
-          this.authPackageS.Update({
-            id: this.data.id,
-            auth_number: this.form.controls.auth_number.value ? this.form.controls.auth_number.value : null,
-            authorized_amount: this.form.controls.authorized_amount.value ? this.form.controls.authorized_amount.value : null,
-            observation: this.form.controls.observation.value ? this.form.controls.observation.value : null,
-          }).then(x => {
-            this.toastService.success('', x.message);
-            this.close();
-            this.saved();
-          }).catch(x => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
-
+        if (this.form.controls.quantity.value < 1) {
+          this.toastService.danger(null, 'El tiempo de facturación debe ser mayoro  igual a 1');
         } else {
-          this.authPackageS.Save({
-            admissions_id: this.admissions_id,
-            services_briefcase_id: this.service_briefcase_id,
-            auth_array: JSON.stringify(this.selectedOptions),
-          }).then(x => {
-            this.toastService.success('', x.message);
-            if(this.dialog){
-              this.dialog.close();
-              this.dialog = null;
-            }
-            this.close();
-            this.saved();
-          }).catch(x => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
+          this.loading = true;
+          if (this.data.id) {
+            this.authPackageS.Update({
+              id: this.data.id,
+              auth_number: this.form.controls.auth_number.value ? this.form.controls.auth_number.value : null,
+              authorized_amount: this.form.controls.authorized_amount.value ? this.form.controls.authorized_amount.value : null,
+              observation: this.form.controls.observation.value ? this.form.controls.observation.value : null,
+            }).then(x => {
+              this.toastService.success('', x.message);
+              this.close();
+              this.saved();
+            }).catch(x => {
+              this.isSubmitted = false;
+              this.loading = false;
+            });
+  
+          } else {
+            this.authPackageS.Save({
+              admissions_id: this.admissions_id,
+              quantity: this.form.controls.quantity.value,
+              services_briefcase_id: this.service_briefcase_id,
+              auth_array: JSON.stringify(this.selectedOptions),
+            }).then(x => {
+              this.toastService.success('', x.message);
+              if(this.dialog){
+                this.dialog.close();
+                this.dialog = null;
+              }
+              this.close();
+              this.saved();
+            }).catch(x => {
+              this.isSubmitted = false;
+              this.loading = false;
+            });
+          }
         }
 
       }

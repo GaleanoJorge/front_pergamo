@@ -4,7 +4,7 @@
 
       <div class="col col-lg-12">
         <label class="form-text text-muted font-weight-bold">CABEZA Y CUELLO:</label>
-        <nb-select [selected]="this.data.head" formControlName="head" id="head" fullWidth
+        <nb-select [selected]="this.data.head" formControlName="head" id="head" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.head.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -22,7 +22,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">MIEMBRO SUPERIOR IZQUIERDO:</label>
-        <nb-select [selected]="this.data.sup_left" formControlName="sup_left" id="sup_left" fullWidth
+        <nb-select [selected]="this.data.sup_left" formControlName="sup_left" id="sup_left" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.sup_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -40,7 +40,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">MANO, MUÑECA, DEDOS IZQUIERDO:</label>
-        <nb-select [selected]="this.data.hand_left" formControlName="hand_left" id="hand_left" fullWidth
+        <nb-select [selected]="this.data.hand_left" formControlName="hand_left" id="hand_left" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.hand_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -58,7 +58,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">MIEMBRO SUPERIOR DERECHO:</label>
-        <nb-select [selected]="this.data.sup_right" formControlName="sup_right" id="sup_right" fullWidth
+        <nb-select [selected]="this.data.sup_right" formControlName="sup_right" id="sup_right" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.sup_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -76,7 +76,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">MANO, MUÑECA, DEDOS  DERECHO:</label>
-        <nb-select [selected]="this.data.hand" formControlName="hand" id="hand" fullWidth
+        <nb-select [selected]="this.data.hand" formControlName="hand" id="hand" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.hand.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -99,7 +99,7 @@
 
       <div class="col col-lg-12">
         <label class="form-text text-muted font-weight-bold">TRONCO:</label>
-        <nb-select [selected]="this.data.trunk" formControlName="trunk" id="trunk" fullWidth
+        <nb-select [selected]="this.data.trunk" formControlName="trunk" id="trunk" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.trunk.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -117,7 +117,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">MIEMBRO INFERIOR IZQUIERDO:</label>
-        <nb-select [selected]="this.data.inf_left" formControlName="inf_left" id="inf_left" fullWidth
+        <nb-select [selected]="this.data.inf_left" formControlName="inf_left" id="inf_left" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.inf_left.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -135,7 +135,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">CUELLO DE PIE, DEDOS IZQUIERDO:</label>
-        <nb-select [selected]="this.data.left_foot" formControlName="left_foot" id="left_foot" fullWidth
+        <nb-select [selected]="this.data.left_foot" formControlName="left_foot" id="left_foot" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.left_foot.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -153,7 +153,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">MIEMBRO INFERIOR DERCHO:</label>
-        <nb-select [selected]="this.data.inf_right" formControlName="inf_right" id="inf_right" fullWidth
+        <nb-select [selected]="this.data.inf_right" formControlName="inf_right" id="inf_right" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.inf_right.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -171,7 +171,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">CUELLO DE PIE, DEDOS DERECHO:</label>
-        <nb-select [selected]="this.data.right_foot" formControlName="right_foot" id="right_foot" fullWidth
+        <nb-select [selected]="this.data.right_foot" formControlName="right_foot" id="right_foot" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.right_foot.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>

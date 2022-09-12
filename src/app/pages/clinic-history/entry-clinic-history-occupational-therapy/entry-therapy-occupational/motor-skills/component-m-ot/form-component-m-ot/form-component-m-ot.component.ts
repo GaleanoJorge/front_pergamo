@@ -89,6 +89,7 @@ export class FormComponentMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({dynamic_balance:'',  static_balance:'', observation_component:''});
           if (this.saved) {
             this.saved();
           }
@@ -107,6 +108,7 @@ export class FormComponentMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({dynamic_balance:'',  static_balance:'', observation_component:''});
           if (this.saved) {
             this.saved();
           }

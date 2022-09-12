@@ -347,6 +347,8 @@ import { TableThermalMOTComponent } from './entry-clinic-history-occupational-th
 import { FormDisAuditoryMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-auditory-m-ot/form-dis-auditory-m-ot/form-dis-auditory-m-ot.component';
 import { TableDisAuditoryMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-auditory-m-ot/table-dis-auditory-m-ot.component';
 import { LanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/language-therapeutic-goals.component';
+import { SwDiagnosisComponent } from './ch-social-work/ch-sw-diagnosis/sw-diagnosis.component';
+import { ActionsSWComponent } from './ch-social-work/ch-sw-support-network/actions.component';
 import { FormDisTactilelMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-tactile-m-ot/form-dis-tactile-m-ot/form-dis-tactile-m-ot.component';
 import { TableDisTactilelMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-tactile-m-ot/table-dis-tactile-m-ot.component';
 import { FormAcuityMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/acuity-m-ot/form-acuity-m-ot/form-acuity-m-ot.component';
@@ -598,6 +600,8 @@ import { FormParenteralNutritionComponent } from './ch-nutrition-list/ch-nutriti
     SwSupportNetworkComponent,
     RegularSocialWorkComponent,
     SwHousingComponent,
+    SwDiagnosisComponent,
+    ActionsSWComponent,
 
       
     RespiratoryTherapyListComponent,

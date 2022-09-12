@@ -4,7 +4,7 @@
 
       <div class="col col-lg-12">
         <label class="form-text text-muted font-weight-bold">DIAGNOSTICO CIF:</label>
-        <textarea id="diagnosis" nbInput fullWidth formControlName="diagnosis" current_illness rows="3"
+        <textarea id="diagnosis" nbInput fullWidth formControlName="diagnosis" current_illness rows="3" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.diagnosis.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>

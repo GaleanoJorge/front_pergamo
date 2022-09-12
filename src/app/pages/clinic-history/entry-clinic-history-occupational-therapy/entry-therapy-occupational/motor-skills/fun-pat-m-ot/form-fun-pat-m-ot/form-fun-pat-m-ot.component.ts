@@ -105,6 +105,9 @@ export class FormFunPatMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({head_right:'',  head_left:'', mouth_right:'', mouth_left:'', shoulder_right:'',
+          shoulder_left:'',  back_right:'',  back_left:'',  waist_right:'',  waist_left:'', 
+          knee_right:'',  knee_left:'',  foot_right:'',  foot_left:'',});
           if (this.saved) {
             this.saved();
           }
@@ -134,6 +137,9 @@ export class FormFunPatMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({head_right:'',  head_left:'', mouth_right:'', mouth_left:'', shoulder_right:'',
+          shoulder_left:'',  back_right:'',  back_left:'',  waist_right:'',  waist_left:'', 
+          knee_right:'',  knee_left:'',  foot_right:'',  foot_left:'',});
           if (this.saved) {
             this.saved();
           }

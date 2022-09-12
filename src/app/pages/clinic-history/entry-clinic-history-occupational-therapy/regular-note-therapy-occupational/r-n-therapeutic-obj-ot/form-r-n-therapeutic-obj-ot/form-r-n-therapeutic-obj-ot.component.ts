@@ -154,6 +154,8 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({occupational_con:'',  check1_hold:'', check2_improve:'', check3_structure:'', check4_promote:'',
+          check5_strengthen:'',  check6_promote_2:'',  check7_develop:'',  check8_strengthen_2:'',  check9_favor:'',  check10_functionality:''});
           if (this.saved) {
             this.saved();
             this.messageEvent.emit(true);
@@ -180,6 +182,8 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({occupational_con:'',  check1_hold:'', check2_improve:'', check3_structure:'', check4_promote:'',
+          check5_strengthen:'',  check6_promote_2:'',  check7_develop:'',  check8_strengthen_2:'',  check9_favor:'',  check10_functionality:''});
           if (this.saved) {
             this.messageEvent.emit(true);
             this.saved();

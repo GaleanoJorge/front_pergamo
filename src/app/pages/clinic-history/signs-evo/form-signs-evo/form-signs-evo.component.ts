@@ -148,18 +148,7 @@ export class FormsignsEvoComponent implements OnInit {
     this.chvitalTemperatureS.GetCollection({ status_id: 1 }).then(x => {
       this.vital_temperature = x;
     });
-    // this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
-    //   this.ch_vital_ventilated = x;
-    // });
-    // this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
-    //   this.oxygen_type = x;
-    // });
-    // this.LitersPerMinuteS.GetCollection({ status_id: 1 }).then(x => {
-    //   this.liters_per_minute = x;
-    // });
-    // this.ParametersSignsS.GetCollection({ status_id: 1 }).then((x) => {
-    //   this.parameters_signs = x;
-    // });
+   
 
     this.form = this.formBuilder.group({
       clock: [this.data[0] ? this.data[0].clock : this.data.clock, Validators.compose([Validators.required])],
@@ -347,7 +336,7 @@ export class FormsignsEvoComponent implements OnInit {
             oxygen_type_id: '',
             liters_per_minute_id: '',
             parameters_signs_id: '',
-            has_oxigen: '',
+            has_oxigen: false,
           });
           if (this.saved) {
             this.saved();
@@ -400,6 +389,20 @@ export class FormsignsEvoComponent implements OnInit {
     this.form.get('has_oxigen').valueChanges.subscribe(val => {
       this.har_ox(val);
     });
+
+    this.form.get('ch_vital_ventilated_id').valueChanges.subscribe(val => {
+      if (val == 9) {
+  
+        this.form.controls.parameters_signs_id.clearValidators();
+  
+        this.form.controls.parameters_signs_id.setErrors(null);
+  
+      } else {
+        this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
+        this.form.patchValue({ parameters_signs_id:''});
+  
+      };
+    });
   }
   
     har_ox(val: boolean) {
@@ -439,7 +442,6 @@ export class FormsignsEvoComponent implements OnInit {
         this.form.controls.ch_vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.oxygen_type_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
-        this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
 
       }
     }

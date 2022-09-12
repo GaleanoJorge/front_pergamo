@@ -63,7 +63,7 @@ export class FormChSwHousingAspectsComponent implements OnInit {
       ch_sw_housing_type_id: [this.data[0] ? this.data[0].ch_sw_housing_type_id : this.data.ch_sw_housing_type_id,Validators.compose([Validators.required])],
       ch_sw_housing_id: [this.data[0] ? this.data[0].ch_sw_housing_id : this.data.ch_sw_housing_id,Validators.compose([Validators.required])],
       flat: [this.data[0] ? this.data[0].flat : this.data.flat,],
-      lift: [this.data[0] ? this.data[0].lift : this.data.lift,Validators.compose([Validators.required])],
+      lift: [this.data[0] ? this.data[0].lift : this.data.lift,],
       location: [this.data[0] ? this.data[0].location : this.data.location, Validators.compose([Validators.required])],
       vehicle_access: [this.data[0] ? this.data[0].vehicle_access : this.data.vehicle_access,Validators.compose([Validators.required])],
 
@@ -139,15 +139,19 @@ export class FormChSwHousingAspectsComponent implements OnInit {
   async onChange() {
 
     this.form.get('ch_sw_housing_type_id').valueChanges.subscribe(val => {
-      if (val =! 1) {
+      if (val != 1) {
 
         this.form.controls.flat.clearValidators();
+        this.form.controls.lift.clearValidators();
 
         this.form.controls.flat.setErrors(null);
+        this.form.controls.lift.setErrors(null);
 
       } else {
         this.form.controls.flat.setValidators(Validators.compose([Validators.required]));
         this.form.patchValue({ flat:''});
+        this.form.controls.lift.setValidators(Validators.compose([Validators.required]));
+        this.form.patchValue({ lift:''});
 
       };
     });

@@ -12,13 +12,13 @@
             {{ item.name }}</nb-option>
         </nb-select>
       </div>
-      <div class="col-md-12">
+      <!-- <div class="col-md-12">
         <nb-radio-group formControlName="revision" revision id="revision" class="d-flex text" name="revision"
           status="{{ isSubmitted && form.controls.revision.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="SI">SI</nb-radio>
           <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
         </nb-radio-group>
-      </div>
+      </div> -->
       <div class="col-md-12" *ngIf="this.form.controls.revision.value =='SI'" >
         <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
         <textarea id="observation" nbInput fullWidth formControlName="observation" observation  onpaste="return false" rows="4" cols="50"

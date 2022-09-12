@@ -152,6 +152,8 @@ export class FormRNMaterialsOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({check1_cognitive:'',  check2_colors:'', check3_elements:'', check4_balls:'', check5_material_paper:'',
+          check6_material_didactic:'',  check7_computer:'',  check8_clay:'',  check9_colbon:'',  check10_pug:''});
           if (this.saved) {
             this.saved();
             this.messageEvent.emit(true);
@@ -177,6 +179,8 @@ export class FormRNMaterialsOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({check1_cognitive:'',  check2_colors:'', check3_elements:'', check4_balls:'', check5_material_paper:'',
+          check6_material_didactic:'',  check7_computer:'',  check8_clay:'',  check9_colbon:'',  check10_pug:''});
           if (this.saved) {
             this.messageEvent.emit(true);
             this.saved();

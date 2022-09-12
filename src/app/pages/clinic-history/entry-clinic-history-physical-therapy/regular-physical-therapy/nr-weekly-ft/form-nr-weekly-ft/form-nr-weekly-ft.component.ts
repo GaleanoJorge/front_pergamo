@@ -96,6 +96,7 @@ export class FormNRWeeklyFTComponent implements OnInit {
           
         }).then(x => {
           this.toastService.success('', x.message);
+          this.form.patchValue({monthly_sessions:'',  weekly_intensity:'', recommendations:''});
           if (this.saved) {
             this.saved();
           }
@@ -113,6 +114,7 @@ export class FormNRWeeklyFTComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.form.patchValue({monthly_sessions:'',  weekly_intensity:'', recommendations:''});
           if (this.saved) {
             this.saved();
           }

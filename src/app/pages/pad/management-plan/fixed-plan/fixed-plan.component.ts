@@ -5,10 +5,10 @@ import { FixedAddService } from '../../../../business-controller/fixed-add.servi
 import { FixedAssetsService } from '../../../../business-controller/fixed-assets.service';
 import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 import { AuthService } from '../../../../services/auth.service';
-
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
 import { FormFixedPlanComponent } from './form-fixed-plan/form-fixed-plan.component';
+import { FixedPadEnabledComponent } from './fixed-pad-enabled/fixed-pad-enabled.component';
 
 @Component({
   selector: 'ngx-fixed-plan',
@@ -38,7 +38,7 @@ export class FixedPlanComponent implements OnInit {
   public settings = {
     pager: {
       display: true,
-      perPage: 10,
+      perPage: 5,
     },
     columns: {
       fixed_nom_product: {
@@ -85,42 +85,23 @@ export class FixedPlanComponent implements OnInit {
   };
 
   constructor(
-    private FixedAddS: FixedAddService,
     private dialogFormService: NbDialogService,
-    private deleteConfirmService: NbDialogService,
     private authService: AuthService,
     private FixedAssetsS: FixedAssetsService,
-    private toastService: NbToastrService,
     public datePipe: DateFormatPipe,
-
   ) {
   }
 
   ngOnInit(): void {
-    this.entity = 'fixed_add/?pagination=true&status=PATIENT&admissions=' + this.admissions_id ;
-    // fixed_add/?pagination=true&status=PATIENT&Admissions_id=admissions_id
+    this.entity = 'fixed_add/?pagination=true&status=PATIENT&admissions=' + this.admissions_id;
     this.user1 = this.authService.GetUser();
     this.FixedAssetsS.getFixedByUserId(this.user1.id, {}).then(x => {
-      if (x.length > 0) {
-        this.my_fixed_id = x[0].id;
-      } else {
-        this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
-      }
+
     });
   }
 
   RefreshData() {
     this.table.refresh();
-  }
-
-  NewPharmacy(data) {
-    this.dialogFormService.open(FormFixedPlanComponent, {
-      context: {
-        title: 'Crear nueva Solicitud',
-        data: data,
-        saved: this.RefreshData.bind(this),
-      },
-    });
   }
 
   receiveMessage($event) {
@@ -129,33 +110,13 @@ export class FixedPlanComponent implements OnInit {
     }
   }
 
-  EditPharmacy(data) {
-    this.dialogFormService.open(FormFixedPlanComponent, {
+  asd() {
+    this.dialogFormService.open(FixedPadEnabledComponent, {
+      closeOnBackdropClick: false,
       context: {
-        title: 'Editar Solicitud',
-        data,
-        saved: this.RefreshData.bind(this),
+        title: 'NO DISPONIBLES',
+        admissions_id: this.admissions_id,
       },
     });
   }
-
-  DeleteConfirmPharmacy(data) {
-    this.deleteConfirmService.open(ConfirmDialogComponent, {
-      context: {
-        name: data.name,
-        data: data,
-        delete: this.DeletePharmacy.bind(this),
-      },
-    });
-  }
-
-  DeletePharmacy(data) {
-    return this.FixedAddS.Delete(data.id).then(x => {
-      this.table.refresh();
-      return Promise.resolve(x.message);
-    }).catch(x => {
-      throw x;
-    });
-  }
-
 }
