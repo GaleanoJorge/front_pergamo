@@ -48,7 +48,7 @@ export class BackListComponent implements OnInit {
   public saveEntry: any = 0;
   public loading: boolean = false;
 
-  public user;
+  public users;
   public signatureImage: string;
   public own_user;
   public int: 0;
@@ -83,7 +83,7 @@ export class BackListComponent implements OnInit {
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
-      this.user = x[0]['admissions']['patients'];
+      this.users = x[0]['admissions']['patients'];
      
     });
 
@@ -174,7 +174,7 @@ export class BackListComponent implements OnInit {
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
-      formData.append('user', this.user);
+      formData.append('user', this.users);
       formData.append('role', this.currentRole);
       formData.append('user_id', this.own_user.id);
       formData.append('firm_file', this.signatureImage);
