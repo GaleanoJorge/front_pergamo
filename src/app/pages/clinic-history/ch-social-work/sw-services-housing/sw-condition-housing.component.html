@@ -1,10 +1,16 @@
-<ngx-form-sw-condition-housing (messageEvent)="receiveMessage($event)" [record_id]="record_id">
-</ngx-form-sw-condition-housing>
+
+
+<div *ngIf="has_input == false || type_record_id != 1">
+
+  <ngx-form-sw-condition-housing (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+  </ngx-form-sw-condition-housing>
+
+</div>
 <div class="center">
   <label class="form-text text-muted font-weight-bold align center">Registros Condición Vivienda</label>
   <ngx-base-list [messageError]="messageError" [routes]="routes">
     <div content>
       <ngx-base-table pager="false" class="table" [title]="title" [subtitle]="subtitle" customData="ch_sw_condition_housing"
-        [settings]="settings" entity="ch_sw_condition_housing/by_record/{{record_id}}/1">
+        [settings]="settings" entity="ch_sw_condition_housing/by_record/{{record_id}}/1?&has_input={{has_input}}">
       </ngx-base-table>
     </div>

@@ -53,7 +53,7 @@
     </div>
 
 
-    <div class="col-md-3">
+    <div class="col-md-3" *ngIf="this.form.controls.ch_sw_housing_type_id.value == 1">
       <label class="form-text text-muted font-weight-bold align">Cuenta con ascensor</label>
       <nb-radio-group formControlName="lift" lift id="lift" class="d-flex text" name="lift"
         status="{{ isSubmitted && form.controls.lift.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">

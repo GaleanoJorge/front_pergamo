@@ -1,11 +1,17 @@
-<ngx-form-ch-sw-housing-aspects (messageEvent)="receiveMessage($event)" [record_id]="record_id">
-</ngx-form-ch-sw-housing-aspects>
+
+
+<div *ngIf="has_input == false || type_record_id != 1">
+
+  <ngx-form-ch-sw-housing-aspects (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+  </ngx-form-ch-sw-housing-aspects>
+
+</div>
 <div class="center">
   <label class="form-text text-muted font-weight-bold align center">Registros Factores de Riesgo Psicosocial</label>
   <ngx-base-list [messageError]="messageError" [routes]="routes">
     <div content>
       <ngx-base-table pager="false" class="table" [title]="title" [subtitle]="subtitle" customData="ch_sw_housing_aspect"
-        [settings]="settings" entity="ch_sw_housing_aspect/by_record/{{record_id}}/1">
+        [settings]="settings" entity="ch_sw_housing_aspect/by_record/{{record_id}}/1?&has_input={{has_input}}">
       </ngx-base-table>
     </div>
   </ngx-base-list>

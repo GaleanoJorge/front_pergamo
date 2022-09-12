@@ -1,5 +1,5 @@
 import { UserBusinessService } from '../../../business-controller/user-business.service';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
@@ -16,6 +16,9 @@ export class OxygenTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() type_record: any = null;
+  @Input() type_record_id;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
   
   linearMode = true;
   public messageError = null;
@@ -71,8 +74,11 @@ RefreshData() {
 }
 
 receiveMessage($event) {
-  if($event==true){
+  if ($event == true) {
     this.RefreshData();
+    if (this.type_record_id == 1) {
+      this.messageEvent.emit(true);
+    }
   }
 }
 }

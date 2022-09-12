@@ -5,6 +5,7 @@ import { UserBusinessService } from '../../../../../business-controller/user-bus
 import { PatientDataService } from '../../../../../business-controller/patient-data.service';
 import { ChSwNetworkService } from '../../../../../business-controller/ch-sw-network.service';
 import { ChSwSupportNetworkService } from '../../../../../business-controller/ch-sw-support-network.service';
+import { ChSwEntityService } from '../../../../../business-controller/ch-sw-entity.service';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class FormSwSupportNetworkComponent implements OnInit {
   public diagnosis: any[] = [];
   public disabled: boolean = false;
   public network: any[] = [];
+  public entity: any[] = [];
   checked = false;
 
 
@@ -44,6 +46,7 @@ export class FormSwSupportNetworkComponent implements OnInit {
     private toastService: NbToastrService,
     private networkS: ChSwNetworkService,
     private supportS: ChSwSupportNetworkService,
+    private entityS: ChSwEntityService,
   ) {
   }
 
@@ -52,7 +55,9 @@ export class FormSwSupportNetworkComponent implements OnInit {
       this.data = {
         provided: '',
         sw_note: '',
-        ch_sw_network_id: ''
+        ch_sw_network_id: '',
+        ch_sw_entity_id: '',
+        observation: ''
       };
     }
 
@@ -60,11 +65,17 @@ export class FormSwSupportNetworkComponent implements OnInit {
       this.network = x;
     });
 
+    this.entityS.GetCollection().then(x => {
+      this.entity = x;
+    });
+
 
     this.form = this.formBuilder.group({
 
       provided: [this.data[0] ? this.data[0].provided : this.data.provided, Validators.compose([Validators.required])],
       sw_note: [this.data[0] ? this.data[0].sw_note : this.data.sw_note, Validators.compose([Validators.required])],
+      ch_sw_entity_id: [this.data[0] ? this.data[0].ch_sw_entity_id : this.data.ch_sw_entity_id,],
+      observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
       ch_sw_network_id: [this.data[0] ? this.data[0].ch_sw_network_id : this.data.ch_sw_network_id, Validators.compose([Validators.required])],
      
     });
@@ -82,6 +93,8 @@ export class FormSwSupportNetworkComponent implements OnInit {
           id: this.data.id,
           provided: this.form.controls.provided.value,
           sw_note: this.form.controls.sw_note.value,
+          ch_sw_entity_id: this.form.controls.ch_sw_entity_id.value,
+          observation: this.form.controls.observation.value,
           ch_sw_network_id: this.form.controls.ch_sw_network_id.value,
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
@@ -99,13 +112,15 @@ export class FormSwSupportNetworkComponent implements OnInit {
         this.supportS.Save({
           provided: this.form.controls.provided.value,
           sw_note: this.form.controls.sw_note.value,
+          ch_sw_entity_id: this.form.controls.ch_sw_entity_id.value,
+          observation: this.form.controls.observation.value,
           ch_sw_network_id: this.form.controls.ch_sw_network_id.value,
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({ provided:'', sw_note:'', ch_sw_network_id:'' });
+          this.form.patchValue({ provided:'', sw_note:'', ch_sw_network_id:'', ch_sw_entity_id:'', observation:'' });
           if (this.saved) {
             this.saved();
           }
@@ -118,6 +133,27 @@ export class FormSwSupportNetworkComponent implements OnInit {
     }else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+  }
+
+  async onChange() {
+
+    this.form.get('ch_sw_network_id').valueChanges.subscribe(val => {
+      if (val != 5) {
+
+        this.form.controls.ch_sw_entity_id.clearValidators();
+        this.form.controls.observation.clearValidators();
+
+        this.form.controls.ch_sw_entity_id.setErrors(null);
+        this.form.controls.observation.setErrors(null);
+
+      } else {
+        this.form.controls.ch_sw_entity_id.setValidators(Validators.compose([Validators.required]));
+        this.form.patchValue({ ch_sw_entity_id:''});
+        this.form.controls.observation.setValidators(Validators.compose([Validators.required]));
+        this.form.patchValue({ observation:''});
+
+      };
+    });
   }
 
 }

@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { TemperatureHumidityData } from '../../../../@core/data/temperature-humidity';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
 import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
@@ -15,6 +15,9 @@ export class SwFamilyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() type_record: any = null;
+  @Input() type_record_id;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
 
 
   linearMode = true;
@@ -189,6 +192,9 @@ export class SwFamilyComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
     }
   }
 }
