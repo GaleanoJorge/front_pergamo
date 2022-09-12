@@ -121,6 +121,8 @@ export class FormSysMusculoskeletalFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({head:'',  sup_left:'', hand_left:'', sup_right:'', hand:'',
+            trunk:'',  inf_left:'',  left_foot:'',  inf_right:'',  right_foot:'',  observation:'' });
           if (this.saved) {
             this.saved();
           }
@@ -147,6 +149,8 @@ export class FormSysMusculoskeletalFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({head:'',  sup_left:'', hand_left:'', sup_right:'', hand:'',
+          trunk:'',  inf_left:'',  left_foot:'',  inf_right:'',  right_foot:'',  observation:'' });
           if (this.saved) {
             this.saved();
           }

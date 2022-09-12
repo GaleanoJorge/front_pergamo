@@ -51,7 +51,7 @@
 
       <div class="col-md-12">
         <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
-        <textarea id="observation_employee" nbInput fullWidth formControlName="observation_employee" current_illness rows="4"
+        <textarea id="observation_employee" nbInput fullWidth formControlName="observation_employee" current_illness rows="4" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.observation_employee.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
@@ -85,7 +85,7 @@
 
       <div class="col-md-12">
         <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
-        <textarea id="observation_independent" nbInput fullWidth formControlName="observation_independent" current_illness rows="4"
+        <textarea id="observation_independent" nbInput fullWidth formControlName="observation_independent" current_illness rows="4" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.observation_independent.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
@@ -96,7 +96,7 @@
 
       <div class="col-md-12">
         <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
-        <textarea id="observation_home" nbInput fullWidth formControlName="observation_home" current_illness rows="4"
+        <textarea id="observation_home" nbInput fullWidth formControlName="observation_home" current_illness rows="4" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.observation_home.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>

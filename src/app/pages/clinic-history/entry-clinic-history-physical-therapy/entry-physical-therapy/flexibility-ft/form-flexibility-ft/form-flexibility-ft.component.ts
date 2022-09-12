@@ -109,6 +109,8 @@ export class FormFlexibilityFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({head:'',  trunk:'', sup_left:'', sup_right:'', inf_right:'',
+            inf_left:'',  observation:''});
           if (this.saved) {
             this.saved();
           }
@@ -131,6 +133,8 @@ export class FormFlexibilityFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({head:'',  trunk:'', sup_left:'', sup_right:'', inf_right:'',
+          inf_left:'',  observation:''});
           if (this.saved) {
             this.saved();
           }

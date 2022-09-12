@@ -4,7 +4,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">BICIPITAL:</label>
-        <nb-select [selected]="this.data.bicipital" formControlName="bicipital" id="bicipital" fullWidth
+        <nb-select [selected]="this.data.bicipital" formControlName="bicipital" id="bicipital" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.bicipital.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -16,7 +16,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">ESTILO RADIAL:</label>
-        <nb-select [selected]="this.data.radial" formControlName="radial" id="radial" fullWidth
+        <nb-select [selected]="this.data.radial" formControlName="radial" id="radial" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.radial.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -28,7 +28,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">TRICIPITAL:</label>
-        <nb-select [selected]="this.data.triceps" formControlName="triceps" id="triceps" fullWidth
+        <nb-select [selected]="this.data.triceps" formControlName="triceps" id="triceps" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.triceps.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -40,7 +40,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">PATELAR O ROTULIANO:</label>
-        <nb-select [selected]="this.data.patellar" formControlName="patellar" id="patellar" fullWidth
+        <nb-select [selected]="this.data.patellar" formControlName="patellar" id="patellar" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.patellar.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -52,7 +52,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">AQUILIANO:</label>
-        <nb-select [selected]="this.data.aquilano" formControlName="aquilano" id="aquilano" fullWidth
+        <nb-select [selected]="this.data.aquilano" formControlName="aquilano" id="aquilano" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.aquilano.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -64,7 +64,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">PRESENCIA DE REFLEJOS PATOLOGICOS:</label>
-        <nb-select [selected]="this.data.reflexes" formControlName="reflexes" id="reflexes" fullWidth
+        <nb-select [selected]="this.data.reflexes" formControlName="reflexes" id="reflexes" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.reflexes.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -75,7 +75,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">cual?:</label>
-        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="1"
+        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="1" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>

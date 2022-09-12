@@ -109,6 +109,8 @@ export class FormReflectionFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({bicipital:'',  radial:'', triceps:'', patellar:'', aquilano:'',
+            reflexes:'',  observation:''});
           if (this.saved) {
             this.saved();
           }
@@ -131,6 +133,8 @@ export class FormReflectionFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({bicipital:'',  radial:'', triceps:'', patellar:'', aquilano:'',
+          reflexes:'',  observation:''});
           if (this.saved) {
             this.saved();
           }

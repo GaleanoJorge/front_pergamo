@@ -88,7 +88,9 @@ export class FormNRDiagnosisFTComponent implements OnInit {
           ch_record_id: this.record_id,
           
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({diagnosis:''});
           if (this.saved) {
             this.saved();
           }
@@ -103,7 +105,9 @@ export class FormNRDiagnosisFTComponent implements OnInit {
           type_record_id: 3,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({diagnosis:''});
           if (this.saved) {
             this.saved();
           }

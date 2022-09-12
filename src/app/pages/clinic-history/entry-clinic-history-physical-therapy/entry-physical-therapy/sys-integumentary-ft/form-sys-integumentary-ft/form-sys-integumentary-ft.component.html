@@ -4,7 +4,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">COLABORACION:</label>
-        <nb-select [selected]="this.data.colaboration" formControlName="colaboration" id="colaboration" fullWidth
+        <nb-select [selected]="this.data.colaboration" formControlName="colaboration" id="colaboration" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.colaboration.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -15,7 +15,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">INTEGRIDAD:</label>
-        <nb-select [selected]="this.data.integrity" formControlName="integrity" id="integrity" fullWidth
+        <nb-select [selected]="this.data.integrity" formControlName="integrity" id="integrity" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.integrity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -26,7 +26,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">TEXTURA:</label>
-        <nb-select [selected]="this.data.texture" formControlName="texture" id="texture" fullWidth
+        <nb-select [selected]="this.data.texture" formControlName="texture" id="texture" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.texture.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -37,7 +37,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">SUDORACION:</label>
-        <nb-select [selected]="this.data.sweating" formControlName="sweating" id="sweating" fullWidth
+        <nb-select [selected]="this.data.sweating" formControlName="sweating" id="sweating" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.sweating.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -48,7 +48,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">ELASTICIDAD:</label>
-        <nb-select [selected]="this.data.elasticity" formControlName="elasticity" id="elasticity" fullWidth
+        <nb-select [selected]="this.data.elasticity" formControlName="elasticity" id="elasticity" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.elasticity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -59,7 +59,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">EXTENSIBILIDAD:</label>
-        <nb-select [selected]="this.data.extensibility" formControlName="extensibility" id="extensibility" fullWidth
+        <nb-select [selected]="this.data.extensibility" formControlName="extensibility" id="extensibility" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.extensibility.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -70,7 +70,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">MOVILIDAD:</label>
-        <nb-select [selected]="this.data.mobility" formControlName="mobility" id="mobility" fullWidth
+        <nb-select [selected]="this.data.mobility" formControlName="mobility" id="mobility" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.mobility.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -81,7 +81,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">CICATRIZ:</label>
-        <nb-select [selected]="this.data.scar" formControlName="scar" id="scar" fullWidth
+        <nb-select [selected]="this.data.scar" formControlName="scar" id="scar" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.scar.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -92,7 +92,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">ESCARAS:</label>
-        <nb-select [selected]="this.data.bedsores" formControlName="bedsores" id="bedsores" fullWidth
+        <nb-select [selected]="this.data.bedsores" formControlName="bedsores" id="bedsores" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.bedsores.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -103,7 +103,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">UBICACIÓN:</label>
-        <textarea id="location" nbInput fullWidth formControlName="location" current_illness rows="1"
+        <textarea id="location" nbInput fullWidth formControlName="location" current_illness rows="1" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.location.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>

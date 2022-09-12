@@ -94,6 +94,8 @@ export class FormCommunicationMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({community:'',  relatives:'', friends:'', health:'', shopping:'',
+          foods:'',  bathe:'',  dress:'',  animals:''});
           if (this.saved) {
             this.saved();
           }
@@ -118,6 +120,8 @@ export class FormCommunicationMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({community:'',  relatives:'', friends:'', health:'', shopping:'',
+          foods:'',  bathe:'',  dress:'',  animals:''});
           if (this.saved) {
             this.saved();
           }

@@ -130,6 +130,8 @@ export class FormTestMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({appearance:'',  consent:'', Attention:'', humor:'', language:'',
+          sensory_perception:'',  grade:'',  contents:'',  orientation:'',  sleep:'',  memory:''});
           if (this.saved) {
             this.saved();
           }
@@ -156,6 +158,8 @@ export class FormTestMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({appearance:'',  consent:'', Attention:'', humor:'', language:'',
+          sensory_perception:'',  grade:'',  contents:'',  orientation:'',  sleep:'',  memory:''});
           if (this.saved) {
             this.saved();
           }

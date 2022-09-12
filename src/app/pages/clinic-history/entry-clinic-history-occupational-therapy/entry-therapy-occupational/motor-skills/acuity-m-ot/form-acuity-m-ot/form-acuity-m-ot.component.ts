@@ -105,6 +105,8 @@ export class FormAcuityMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({follow_up:'',  object_identify:'', figures:'', color_design:'', categorization:'',
+          special_relation:''});
           if (this.saved) {
             this.saved();
           }
