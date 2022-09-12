@@ -68,14 +68,14 @@ export class FormChInabilityComponent implements OnInit {
    
 
     this.form = this.formBuilder.group({
-      ch_contingency_code_id: [this.data[0] ? this.data[0].ch_contingency_code_id : this.data.ch_contingency_code_id,],
+      ch_contingency_code_id: [this.data[0] ? this.data[0].ch_contingency_code_id : this.data.ch_contingency_code_id, Validators.compose([Validators.required])],
       extension: [this.data[0] ? this.data[0].extension : this.data.extension,],
-      initial_date: [this.data[0] ? this.data[0].initial_date : this.data.initial_date,],
-      final_date: [this.data[0] ? this.data[0].final_date : this.data.final_date,],
+      initial_date: [this.data[0] ? this.data[0].initial_date : this.data.initial_date,Validators.compose([Validators.required])],
+      final_date: [this.data[0] ? this.data[0].final_date : this.data.final_date,Validators.compose([Validators.required])],
       diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id,],
-      ch_type_inability_id: [this.data[0] ? this.data[0].ch_type_inability_id : this.data.ch_type_inability_id,],
-      ch_type_procedure_id: [this.data[0] ? this.data[0].ch_type_procedure_id : this.data.ch_type_procedure_id,],
-      observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
+      ch_type_inability_id: [this.data[0] ? this.data[0].ch_type_inability_id : this.data.ch_type_inability_id,Validators.compose([Validators.required])],
+      ch_type_procedure_id: [this.data[0] ? this.data[0].ch_type_procedure_id : this.data.ch_type_procedure_id,Validators.compose([Validators.required])],
+      observation: [this.data[0] ? this.data[0].observation : this.data.observation,Validators.compose([Validators.required])],
       total_days: [this.data[0] ? this.data[0].total_days : this.data.total_days,],
       
 

@@ -174,7 +174,7 @@ export class FormManagementPlanComponent implements OnInit {
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
         specialty_id: [this.data.specialty_id],
         assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
-        procedure_id: [this.assigned==false?'':this.data.procedure_id, Validators.compose([Validators.required])],
+        procedure_id: ['', Validators.compose([Validators.required])],
         product_id: [this.data.product_id],
         start_date: [this.data.start_date],
         finish_date: [this.data.finish_date],

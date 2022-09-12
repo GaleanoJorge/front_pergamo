@@ -15,7 +15,7 @@
                       <p class="parrafo" *ngIf="patient"><b>ASEGURADOR:</b> {{patient.admissions[0].contract.company.name}}</p>
                       <p class="parrafo" *ngIf="patient"><b>CONTRATO:</b> {{patient.admissions[0].contract.name}}</p>
                       <p class="parrafo" *ngIf="patient"><b>PORTAFOLIO:</b> {{patient.admissions[0].briefcase.name}}</p>
-                      <p class="parrafo" *ngIf="patient.inability"><b>DISCAPACIDAD:</b> {{patient.inability}}</p>
+                      <p class="parrafo" *ngIf="patient.inability"><b>DISCAPACIDAD:</b> {{patient.inability.name}}</p>
                       <p class="parrafo" *ngIf="!patient.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES</p>
                     </div>
       <div actions>
