@@ -466,6 +466,20 @@ export class FormsignsComponent implements OnInit {
     this.form.get('has_oxigen').valueChanges.subscribe(val => {
       this.har_ox(val);
   });
+
+    this.form.get('ch_vital_ventilated_id').valueChanges.subscribe(val => {
+    if (val == 9) {
+
+      this.form.controls.parameters_signs_id.clearValidators();
+
+      this.form.controls.parameters_signs_id.setErrors(null);
+
+    } else {
+      this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
+      this.form.patchValue({ parameters_signs_id:''});
+
+    };
+  });
 }
 
 har_ox(val: boolean) {
@@ -502,7 +516,6 @@ har_ox(val: boolean) {
     this.form.controls.ch_vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
     this.form.controls.oxygen_type_id.setValidators(Validators.compose([Validators.required]));
     this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
-    this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
 
   }
 }
