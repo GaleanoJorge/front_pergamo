@@ -1,21 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { TableRowWidget } from '@syncfusion/ej2/documenteditor';
-import { FixedAddService } from '../../../../business-controller/fixed-add.service';
-import { FixedAssetsService } from '../../../../business-controller/fixed-assets.service';
-import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
-import { AuthService } from '../../../../services/auth.service';
-import { BaseTableComponent } from '../../../components/base-table/base-table.component';
-import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
-import { FormFixedPlanComponent } from './form-fixed-plan/form-fixed-plan.component';
-import { FixedPadEnabledComponent } from './fixed-pad-enabled/fixed-pad-enabled.component';
+import { FixedAddService } from '../../../../../business-controller/fixed-add.service';
+import { FixedAssetsService } from '../../../../../business-controller/fixed-assets.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
+import { AuthService } from '../../../../../services/auth.service';
+
+import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
+import { ConfirmDialogComponent } from '../../../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'ngx-fixed-plan',
-  templateUrl: './fixed-plan.component.html',
-  styleUrls: ['./fixed-plan.component.scss']
+  selector: 'ngx-fixed-pad-enabled',
+  templateUrl: './fixed-pad-enabled.component.html',
+  styleUrls: ['./fixed-pad-enabled.component.scss']
 })
-export class FixedPlanComponent implements OnInit {
+export class FixedPadEnabledComponent implements OnInit {
   @Input() parentData: any;
   @Input() user: any;
   @Input() admissions_id: any = null;
@@ -23,9 +22,9 @@ export class FixedPlanComponent implements OnInit {
   public isSubmitted = false;
   public messageError = null;
 
-  public title: string = 'LISTA DE ACTIVOS SOLICITADOS';
+  public title: string = 'ACTIVOS RECHAZADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ELEMENTO', 'PROCEDIMIENTO', 'PERSONAL QUE SOLICITO EL ACTIVO', 'FECHA SOLICITUD', 'ESTADO'];
+  public headerFields: any[] = ['ELEMENTO', 'PROCEDIMIENTO', 'PERSONAL QUE SOLICITO EL ACTIVO', 'FECHA SOLICITUD', 'ESTADO', 'OBSERVACIÓN'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -38,7 +37,7 @@ export class FixedPlanComponent implements OnInit {
   public settings = {
     pager: {
       display: true,
-      perPage: 5,
+      perPage: 10,
     },
     columns: {
       fixed_nom_product: {
@@ -80,12 +79,17 @@ export class FixedPlanComponent implements OnInit {
           return 'SIN EXISTENCIAS';
         },
       },
+      observation: {
+        title: this.headerFields[5],
+        type: 'string',
+      }
 
     },
   };
 
   constructor(
-    private dialogFormService: NbDialogService,
+    protected dialogRef: NbDialogRef<any>,
+
     private authService: AuthService,
     private FixedAssetsS: FixedAssetsService,
     public datePipe: DateFormatPipe,
@@ -93,30 +97,23 @@ export class FixedPlanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.entity = 'fixed_add/?pagination=true&status=PATIENT&admissions=' + this.admissions_id;
+    this.entity = 'fixed_add/?pagination=true&status=RECHAZADO&admissions=' + this.admissions_id ;
     this.user1 = this.authService.GetUser();
     this.FixedAssetsS.getFixedByUserId(this.user1.id, {}).then(x => {
-
     });
   }
 
   RefreshData() {
     this.table.refresh();
   }
+ 
+  close() {
+    this.dialogRef.close();
+  }
 
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
     }
-  }
-
-  asd() {
-    this.dialogFormService.open(FixedPadEnabledComponent, {
-      closeOnBackdropClick: false,
-      context: {
-        title: 'NO DISPONIBLES',
-        admissions_id: this.admissions_id,
-      },
-    });
   }
 }
