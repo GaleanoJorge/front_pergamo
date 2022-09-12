@@ -169,16 +169,16 @@ export class ActionsSWComponent implements ViewCell {
   }
 
   viewCertification() {
-    this.viewCertificationS.ViewCertification(this.value.data.id).then(x => {
+    // this.viewCertificationS.ViewCertification(this.value.data.id).then(x => {
 
-      //this.loadingDownload = false;
-      this.toastService.success('', x.message);
-      window.open(x.url, '_blank');
+    //   //this.loadingDownload = false;
+    //   this.toastService.success('', x.message);
+    //   window.open(x.url, '_blank');
 
-    }).catch(x => {
-      this.isSubmitted = false;
-      this.loading = false;
-    });
+    // }).catch(x => {
+    //   this.isSubmitted = false;
+    //   this.loading = false;
+    // });
   }
 
   save() {
