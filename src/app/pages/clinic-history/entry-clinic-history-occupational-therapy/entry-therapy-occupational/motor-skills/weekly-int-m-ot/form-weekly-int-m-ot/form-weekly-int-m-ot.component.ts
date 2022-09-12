@@ -105,6 +105,8 @@ export class FormWeeklyInMOTComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 
