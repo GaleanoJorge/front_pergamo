@@ -6,7 +6,7 @@
         <label class="form-text text-muted font-weight-bold">Disfagia para Solidos</label>
       </div>
       <div class="col col-lg-2">
-        <nb-radio-group formControlName="solid_dysphagia" solid_dysphagia id="solid_dysphagia"
+        <nb-radio-group nbSelect (disabled)="this.has_input" formControlName="solid_dysphagia" solid_dysphagia id="solid_dysphagia"
           name="solid_dysphagia"
           status="{{ isSubmitted && form.controls.solid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
@@ -17,7 +17,7 @@
         <label class="form-text text-muted font-weight-bold">Disfagia para Líquidos Claros</label>
       </div>
       <div class="col col-lg-2">
-        <nb-radio-group formControlName="clear_liquid_dysphagia" clear_liquid_dysphagia
+        <nb-radio-group nbSelect (disabled)="this.has_input" formControlName="clear_liquid_dysphagia" clear_liquid_dysphagia
           id="clear_liquid_dysphagia" name="clear_liquid_dysphagia"
           status="{{ isSubmitted && form.controls.clear_liquid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
@@ -30,7 +30,7 @@
           Espesos</label>
       </div>
       <div class="col col-lg-2">
-        <nb-radio-group formControlName="thick_liquid_dysphagia" thick_liquid_dysphagia
+        <nb-radio-group nbSelect (disabled)="this.has_input" formControlName="thick_liquid_dysphagia" thick_liquid_dysphagia
           id="thick_liquid_dysphagia" name="thick_liquid_dysphagia"
           status="{{ isSubmitted && form.controls.thick_liquid_dysphagia.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
@@ -46,7 +46,7 @@
         <label class="form-text text-muted font-weight-bold">Sonda Nasogástrica</label>
       </div>
       <div class="col col-lg-2">
-        <nb-radio-group formControlName="nasogastric_tube" nasogastric_tube id="nasogastric_tube"
+        <nb-radio-group nbSelect (disabled)="this.has_input" formControlName="nasogastric_tube" nasogastric_tube id="nasogastric_tube"
           name="nasogastric_tube"
           status="{{ isSubmitted && form.controls.nasogastric_tube.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
@@ -59,7 +59,7 @@
         <label class="form-text text-muted font-weight-bold">Gastrostomía</label>
       </div>
       <div class="col col-lg-2">
-        <nb-radio-group formControlName="gastrostomy" gastrostomy id="gastrostomy" name="gastrostomy"
+        <nb-radio-group nbSelect (disabled)="this.has_input" formControlName="gastrostomy" gastrostomy id="gastrostomy" name="gastrostomy"
           status="{{ isSubmitted && form.controls.gastrostomy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
           <nb-radio value="No">No</nb-radio>
@@ -70,7 +70,7 @@
       </div>
 
       <div class="col col-lg-2">
-        <nb-radio-group formControlName="nothing_orally" nothing_orally id="nothing_orally" name="nothing_orally"
+        <nb-radio-group nbSelect (disabled)="this.has_input" formControlName="nothing_orally" nothing_orally id="nothing_orally" name="nothing_orally"
           status="{{ isSubmitted && form.controls.nothing_orally.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-radio value="Si">Si</nb-radio>
           <nb-radio value="No">No</nb-radio>
@@ -88,7 +88,7 @@
       status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
   </fieldset>
 
-  <div class="container">
+  <div class="container" *ngIf="!has_input">
     <div class="row">
       <div class="col-md-12">
         <button nbButton status="danger" class="ml-1 btn-save"  [disabled]="disabled"

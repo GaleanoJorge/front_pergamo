@@ -1,14 +1,13 @@
 import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
 import { Ethnicity } from '../models/ethnicity';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EthnicityService {
-  public Ethnicity: Ethnicity[] = [];
+  public ethnicity: Ethnicity[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
@@ -22,9 +21,9 @@ export class EthnicityService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.Ethnicity = <Ethnicity[]>servObj.data.ethnicity;
+        this.ethnicity = <Ethnicity[]>servObj.data.ethnicity;
 
-        return Promise.resolve(this.Ethnicity);
+        return Promise.resolve(this.ethnicity);
       })
       .catch(x => {
         throw x.message;
@@ -47,9 +46,9 @@ export class EthnicityService {
       });
   }
 
-  Update(Ethnicity: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ethnicity', Ethnicity.id);
-    servObj.data = Ethnicity;
+  Update(mun: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ethnicity', mun.id);
+    servObj.data = mun;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

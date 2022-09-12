@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
@@ -15,6 +15,9 @@ export class TableValorationTherFTComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any;
   @Input() type_record_id;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
+
   linearMode = false;
   public messageError = null;
   public title;
@@ -78,6 +81,9 @@ export class TableValorationTherFTComponent implements OnInit {
   }
 
   async ngOnInit() {
+    console.log(this.has_input);
+    console.log(this.type_record_id);
+
   }
 
   RefreshData() {
@@ -88,6 +94,9 @@ export class TableValorationTherFTComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
     }
   }
 }

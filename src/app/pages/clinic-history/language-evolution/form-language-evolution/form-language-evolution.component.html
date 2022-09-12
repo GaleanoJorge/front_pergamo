@@ -7,7 +7,7 @@
       <nb-accordion-item-header center>Ostomias</nb-accordion-item-header>
       <nb-accordion-item-body>
 
-    <ngx-language-ostomies [record_id]="record_id"></ngx-language-ostomies>
+    <ngx-language-ostomies [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-ostomies>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -18,7 +18,7 @@
       <nb-accordion-item-header>Alteraciones En La Deglución</nb-accordion-item-header>
       <nb-accordion-item-body>
         
-        <ngx-language-swallowing [record_id]="record_id"></ngx-language-swallowing>
+        <ngx-language-swallowing [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-swallowing>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -29,7 +29,7 @@
       <nb-accordion-item-header>Alteraciones En La Voz</nb-accordion-item-header>
       <nb-accordion-item-body>
         
-        <ngx-language-alterations [record_id]="record_id"></ngx-language-alterations>
+        <ngx-language-alterations [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-alterations>
 
         
       </nb-accordion-item-body>
@@ -43,7 +43,7 @@
       <nb-accordion-item-header>Audición</nb-accordion-item-header>
       <nb-accordion-item-body>
         
-        <ngx-language-hearing  [record_id]="record_id"></ngx-language-hearing>
+        <ngx-language-hearing  [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-hearing>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -55,7 +55,7 @@
       <nb-accordion-item-header>Lenguaje</nb-accordion-item-header>
       <nb-accordion-item-body>
 
-        <ngx-language-linguistic [record_id]="record_id"></ngx-language-linguistic>
+        <ngx-language-linguistic [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-linguistic>
         
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -65,7 +65,7 @@
       <nb-accordion-item-header>Comunicación</nb-accordion-item-header>
       <nb-accordion-item-body>
         
-        <ngx-language-communication [record_id]="record_id"></ngx-language-communication>
+        <ngx-language-communication [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-communication>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -75,7 +75,7 @@
       <nb-accordion-item-header>Cognitivo</nb-accordion-item-header>
       <nb-accordion-item-body>
         
-        <ngx-language-cognitive [record_id]="record_id"></ngx-language-cognitive>
+        <ngx-language-cognitive [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-cognitive>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -85,7 +85,7 @@
       <nb-accordion-item-header>Orofacial</nb-accordion-item-header>
       <nb-accordion-item-body>
       
-        <ngx-language-orofacial [record_id]="record_id"></ngx-language-orofacial>
+        <ngx-language-orofacial [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-orofacial>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -95,7 +95,7 @@
       <nb-accordion-item-header>Habla</nb-accordion-item-header>
       <nb-accordion-item-body>
         
-        <ngx-language-speech [record_id]="record_id"></ngx-language-speech>
+        <ngx-language-speech [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-speech>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -105,7 +105,7 @@
       <nb-accordion-item-header>Pruebas Especificas</nb-accordion-item-header>
       <nb-accordion-item-body>
         
-        <ngx-language-tests  [record_id]="record_id"></ngx-language-tests>
+        <ngx-language-tests  [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-tests>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -114,7 +114,7 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Objetivos Terapeuticos</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <ngx-language-therapeutic-goals [record_id]="record_id"  [type_record]="1">
+        <ngx-language-therapeutic-goals [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record]="1">
         </ngx-language-therapeutic-goals>
 
       </nb-accordion-item-body>
@@ -126,7 +126,7 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Diagnostico Cif</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <ngx-form-language-evo-diagnosis *ngIf="cifdiagnosistl" [record_id]="record_id"
+        <ngx-form-language-evo-diagnosis *ngIf="cifdiagnosistl" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"
         [data]="cifdiagnosistl">
         </ngx-form-language-evo-diagnosis>
 
@@ -140,7 +140,7 @@
       <nb-accordion-item-header>Numero de Sesiones Mensuales E Intensidad Semana</nb-accordion-item-header>
       <nb-accordion-item-body>
 
-        <ngx-language-reg-sessions [record_id]="record_id" [type_record]="1">
+        <ngx-language-reg-sessions [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1">
         </ngx-language-reg-sessions>
 
 

@@ -26,7 +26,7 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() user: any = null;
   @Input() medical: number = 0;
   @Input() assigned: boolean;
-  @Input() edit: any;
+  @Input() edit: any=null;
   @Input() admissions_id: any = null;
 
   public form: FormGroup;
@@ -39,6 +39,7 @@ export class FormManagementPlanComponent implements OnInit {
   public assigned_user: any[] = [];
   public roles;
   public procedure;
+  public laboratories: any [] = [];
   public procedure_id: any;
   public isMedical: boolean = false;
   public phone_consult = false;
@@ -57,6 +58,8 @@ export class FormManagementPlanComponent implements OnInit {
   public admissions;
   public tipo_de_atencion;
   public showassigned;
+  public frec = false;
+  public show_proc = false;
   //   this.status = x;
 
 
@@ -95,6 +98,7 @@ export class FormManagementPlanComponent implements OnInit {
         blend: '',
         administration_time: '',
         start_hours: '',
+        laboratories: '',
       };
       this.militat_hour_id = '00';
       this.militat_minut_id = '00';
@@ -163,14 +167,14 @@ export class FormManagementPlanComponent implements OnInit {
     }).then(x => {
       this.specialty = x;
     });
-    if (this.medical == 0) {
+    if (this.medical == 0 ) {
       this.configForm = {
         type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
         frequency_id: [this.data.frequency_id,],
         quantity: [this.data.quantity, Validators.compose([Validators.required])],
         specialty_id: [this.data.specialty_id],
         assigned_user_id: [this.data.assigned_user_id, Validators.compose([Validators.required])],
-        procedure_id: ['', Validators.compose([Validators.required])],
+        procedure_id: [this.assigned==false?'':this.data.procedure_id, Validators.compose([Validators.required])],
         product_id: [this.data.product_id],
         start_date: [this.data.start_date],
         finish_date: [this.data.finish_date],
@@ -183,6 +187,7 @@ export class FormManagementPlanComponent implements OnInit {
         number_doses: [this.data.number_doses],
         dosage_administer: [this.data.dosage_administer],
         product_gen: [this.data.product_gen],
+        laboratories: [[this.data.laboratories]],
       }
       this.form = this.formBuilder.group(this.configForm);
       this.onChanges();
@@ -206,6 +211,8 @@ export class FormManagementPlanComponent implements OnInit {
         number_doses: [this.data.number_doses],
         dosage_administer: [this.data.dosage_administer],
         product_gen: [this.data.product_gen],
+        laboratories: [[this.data.laboratories]],
+
       });
       this.isMedical = true;
       this.onChanges2();
@@ -215,6 +222,15 @@ export class FormManagementPlanComponent implements OnInit {
     // if (this.assigned == true) {
 
     // }
+
+    if(this.assigned==false){
+      this.form.controls.procedure_id.setValidators(null);
+      this.procedure_id=this.data.procedure_id;
+      if(this.data.type_of_attention_id==17){
+        this.form.patchValue({quantity:this.data.number_doses});
+      }
+      
+    }
 
   }
 
@@ -233,6 +249,11 @@ export class FormManagementPlanComponent implements OnInit {
 
       if (val == 17) {
         this.show = true;
+        this.show_proc = false;
+        this.form.patchValue({
+          procedure_id: this.assigned==false?'':this.data.procedure_id
+        })
+
         this.form.controls.start_date.setValidators(Validators.compose([Validators.required]));
         this.form.controls.preparation.setValidators(Validators.compose([Validators.required]));
         this.form.controls.route_of_administration.setValidators(Validators.compose([Validators.required]));
@@ -246,9 +267,29 @@ export class FormManagementPlanComponent implements OnInit {
         this.form.controls.frequency_id.setErrors(null);
 
 
-      } else if (val == 13 || val == 12) {
+      } else if(val == 16){
+        this.show = false;
+        this.showTemp = false;
+        this.show_proc = true;
+        this.serviceBriefcaseS.GetByBriefcase({ type: '4',patient:this.user.id, laboratory: true}, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+          this.laboratories = x;
+        });
+
+        this.form.controls.start_date.setValidators(null);
+        this.form.controls.preparation.setValidators(null);
+        this.form.controls.route_of_administration.setValidators(null);
+        this.form.controls.blend.setValidators(null);
+        this.form.controls.observation.setValidators(null);
+        this.form.controls.administration_time.setValidators(null);
+        this.form.controls.start_hours.setValidators(null);
+        this.form.controls.number_doses.setValidators(null);
+        this.form.controls.dosage_administer.setValidators(null);
+      } 
+      else if (val == 13 || val == 12) {
         this.showTemp = true;
         this.show = false;
+        this.show_proc = false;
+
         this.form.controls.start_date.setValidators(null);
         this.form.controls.preparation.setValidators(null);
         this.form.controls.route_of_administration.setValidators(null);
@@ -262,6 +303,7 @@ export class FormManagementPlanComponent implements OnInit {
       else {
         this.show = false;
         this.showTemp = false;
+        this.show_proc = false;
 
         this.form.controls.start_date.setValidators(null);
         this.form.controls.preparation.setValidators(null);
@@ -275,6 +317,7 @@ export class FormManagementPlanComponent implements OnInit {
       }
     });
   }
+
   onChanges() {
 
     this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
@@ -304,10 +347,14 @@ export class FormManagementPlanComponent implements OnInit {
         
         if(this.assigned==false){
           this.showassigned=true;
+          
         }
 
         if (val == 17) {
           this.show = true;
+          this.frec = false;
+          this.show_proc = false;
+
           this.form.controls.start_date.setValidators(Validators.compose([Validators.required]));
           this.form.controls.preparation.setValidators(Validators.compose([Validators.required]));
           this.form.controls.route_of_administration.setValidators(Validators.compose([Validators.required]));
@@ -319,9 +366,31 @@ export class FormManagementPlanComponent implements OnInit {
           this.form.controls.dosage_administer.setValidators(Validators.compose([Validators.required]));
 
 
-        } else if (val == 13 || val == 12) {
-          this.showTemp = true;
+        } else if(val == 16){
           this.show = false;
+          this.showTemp = false;
+          this.show_proc = true;
+
+          this.show_proc = true;
+          this.serviceBriefcaseS.GetByBriefcase({ type: '4',patient:this.user.id, laboratory: true}, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+            this.laboratories = x;
+          });
+  
+          this.form.controls.start_date.setValidators(null);
+          this.form.controls.preparation.setValidators(null);
+          this.form.controls.route_of_administration.setValidators(null);
+          this.form.controls.blend.setValidators(null);
+          this.form.controls.observation.setValidators(null);
+          this.form.controls.administration_time.setValidators(null);
+          this.form.controls.start_hours.setValidators(null);
+          this.form.controls.number_doses.setValidators(null);
+          this.form.controls.dosage_administer.setValidators(null);
+        } else if (val == 13 || val == 12) {
+          this.showTemp = false;
+          this.show = false;
+          this.frec = true;
+          this.show_proc = false;
+
           this.form.controls.start_date.setValidators(null);
           this.form.controls.preparation.setValidators(null);
           this.form.controls.route_of_administration.setValidators(null);
@@ -335,6 +404,8 @@ export class FormManagementPlanComponent implements OnInit {
         else {
           this.show = false;
           this.showTemp = false;
+          this.frec = false;
+          this.show_proc = false;
 
           this.form.controls.start_date.setValidators(null);
           this.form.controls.preparation.setValidators(null);
@@ -349,7 +420,7 @@ export class FormManagementPlanComponent implements OnInit {
       } else {
         this.form.get('specialty_id').valueChanges.subscribe(val => {
           if (val != "") {
-            this.getRoleByAttention(val).then(x => {
+            this.getRoleByAttention(this.form.controls.type_of_attention_id.value).then(x => {
               if (x) {
                 this.GetMedical(this.user.locality_id, val).then(x => {
                   if (x) {
@@ -400,9 +471,12 @@ export class FormManagementPlanComponent implements OnInit {
       this.GetMedical(this.user.locality_id).then(x => {
         if (x) {
           this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+          this.showUser = true;
         }
       }).catch(e => {
         this.toastService.warning(e, 'AVISO');
+        this.form.controls.assigned_user_id.setErrors(null);
+        this.showUser = false;
       });
     }
   }
@@ -443,6 +517,7 @@ export class FormManagementPlanComponent implements OnInit {
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
+          laboratories: this.form.controls.laboratories.value,
           product_id: this.product_id,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,
@@ -477,6 +552,7 @@ export class FormManagementPlanComponent implements OnInit {
           assigned_user_id: this.form.controls.assigned_user_id.value,
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
+          laboratories: this.form.controls.laboratories.value,
           assistance_id: selectes_assistance_id,
           locality_id: this.user.locality_id,
           phone_consult: this.phone_consult,
@@ -516,6 +592,7 @@ export class FormManagementPlanComponent implements OnInit {
           admissions_id: this.admissions_id,
           procedure_id: this.procedure_id,
           assistance_id: selectes_assistance_id,
+          laboratories: this.form.controls.laboratories.value,
           locality_id: this.user.locality_id,
           phone_consult: this.phone_consult,
           start_date: this.form.controls.start_date.value,

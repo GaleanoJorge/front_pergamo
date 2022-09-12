@@ -127,7 +127,10 @@ export class FormChInterconsultationComponent implements OnInit {
           });
           this.messageEvent.emit(true);
       }
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+    
   }
   returnCode(specialty_id){
     var localName = this.specialty.find(item => item.id == specialty_id);

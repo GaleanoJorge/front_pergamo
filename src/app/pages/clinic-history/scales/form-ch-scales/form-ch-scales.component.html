@@ -250,7 +250,7 @@
 
       <!-- BARTHEL -->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true && this.ageScale>10 : false">
+        *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>10) ? false : this.respiratory ? false : (this.medical && this.ageScale>10) ? true : false">
         <nb-accordion-item-header>
           Escala Barthel
         </nb-accordion-item-header>
@@ -494,7 +494,7 @@
 
       <!-- PAYETTE-->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : this.medical ? true && this.ageScale>60 : false">
+        *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>60) ? true : this.respiratory ? false : (this.medical && this.ageScale>60) ? true : false">
         <nb-accordion-item-header>
           Escala Payette
         </nb-accordion-item-header>
@@ -718,7 +718,7 @@
 
       <!-- FRAGILIDAD -->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : this.medical ? true && this.ageScale>65 : false">
+        *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>65) ? true : this.respiratory ? false : (this.medical && this.ageScale>65) ? true  : false">
         <nb-accordion-item-header>
           Escala Fragilidad
         </nb-accordion-item-header>
@@ -1803,7 +1803,7 @@
 
       <!-- FAC -->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true && this.ageScale>10 : false">
+        *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>10) ? false : this.respiratory ? false : (this.medical && this.ageScale>10) ? true  : false">
         <nb-accordion-item-header>
           Escala FAC
         </nb-accordion-item-header>
@@ -1855,7 +1855,7 @@
 
       <!-- CRUZ ROJA -->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true && this.ageScale>10: false">
+        *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>10) ? false : this.respiratory ? false : (this.medical && this.ageScale>10) ? true : false">
         <nb-accordion-item-header>
           Escala Cruz roja
         </nb-accordion-item-header>
@@ -1907,7 +1907,7 @@
 
       <!--KARNOFSKY  -->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true && this.ageScale>16 : false">
+        *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>16) ? false : this.respiratory ? false : (this.medical && this.ageScale>16) ? true  : false">
         <nb-accordion-item-header>
           Escala Karnofsky
         </nb-accordion-item-header>
@@ -2044,7 +2044,7 @@
 
       <!-- NUTRICIONAL PEDIATRICO -->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : this.medical ? true && this.ageScale<15 : false">
+        *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale<15) ? true : this.respiratory ? false : (this.medical && this.ageScale<15) ? true : false">
         <nb-accordion-item-header>
           Escala Nutricional Pediátrico
         </nb-accordion-item-header>
@@ -3263,7 +3263,7 @@
 
       <!-- DOLOR ADULTOS -->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? true && this.ageScale>7 : this.medical ? false : false ">
+        *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>7) ? false : (this.respiratory && this.ageScale>7) ? true  : this.medical ? false : false ">
         <nb-accordion-item-header>
           Escala Dolor Adultos
         </nb-accordion-item-header>
@@ -3334,7 +3334,7 @@
 
       <!-- WONG BAKER -->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? true && this.ageScale<7 : this.medical ? false : false">
+        *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale<7) ? false : (this.respiratory && this.ageScale<7) ? true  : this.medical ? false : false">
         <nb-accordion-item-header>
           Escala Wong Baker
         </nb-accordion-item-header>
@@ -3748,7 +3748,7 @@
 
       <!-- MINI TAMIZAJE-->
       <nb-accordion-item
-        *ngIf="this.enfermery ? false : this.nutrition ? true : this.respiratory ? false : this.medical ? true && this.ageScale>15 && this.ageScale<59 : false">
+        *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>15 && this.ageScale<59) ? true : this.respiratory ? false : (this.medical && this.ageScale>15 && this.ageScale<59) ? true : false">
         <nb-accordion-item-header>
           Mini-Tamizaje Nutricional Adultos
         </nb-accordion-item-header>

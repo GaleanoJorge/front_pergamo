@@ -1,0 +1,33 @@
+
+<div class="row justify-content-center">
+   
+
+  <div *ngIf="has_input == false || type_record_id != 1" class="col-md-12">
+
+    <ngx-form-fun-pat-m-ot (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+    </ngx-form-fun-pat-m-ot>
+  
+  </div>
+  
+  <div class="col-md-12">
+  
+    <label class="form-text text-muted font-weight-bold">REGISTROS PATRONES FUNCIONALES</label>
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <ngx-base-table  pager="false" [title]="title" customData="ch_e_m_s_fun_pat_o_t" [settings]="settings"
+        entity="ch_e_m_s_fun_pat_o_t/by_record/{{record_id}}/1?&has_input={{has_input}}">
+        <div actions>
+          <div class="actions">
+          </div>
+          <div class="actions" style="margin-top:1em;">
+          </div>
+        </div>
+      </ngx-base-table>
+    </div>
+  </ngx-base-list>
+  
+  </div>
+  
+</div>
+
+

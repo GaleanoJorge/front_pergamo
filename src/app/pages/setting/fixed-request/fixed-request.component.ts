@@ -20,7 +20,7 @@ export class FixedRequestComponent implements OnInit {
 
   public title: string = 'LISTA DE ACTIVOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'ELEMENTO', 'CANTIDAD'];
+  public headerFields: any[] = ['ELEMENTO', 'CANTIDAD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -34,12 +34,8 @@ export class FixedRequestComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      id: {
-        title: this.headerFields[0],
-        type: 'string',
-      },
       fixed_accessories: {
-        title: this.headerFields[1],
+        title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (value == null) {
@@ -51,7 +47,7 @@ export class FixedRequestComponent implements OnInit {
         },
       },
       request_amount: {
-        title: this.headerFields[2],
+        title: this.headerFields[1],
         type: 'string',
       },
     },

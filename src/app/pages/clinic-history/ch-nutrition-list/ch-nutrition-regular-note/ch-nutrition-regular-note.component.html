@@ -17,11 +17,11 @@
           </nb-step>
           
           <nb-step label="Análisis e Interpretación">
-            <ngx-form-analysis-and-interpretation [data]="this.data" [route]="3"></ngx-form-analysis-and-interpretation>
+            <ngx-form-analysis-and-interpretation [data]="this.data" [record_id]="this.record_id" [route]="3"></ngx-form-analysis-and-interpretation>
           </nb-step>
 
           <nb-step label="Recomendaciones / Educación">
-            
+            <ngx-recommendations-evo [record_id]="record_id" [type_record]="3"></ngx-recommendations-evo>
           </nb-step>
 
         </nb-stepper>

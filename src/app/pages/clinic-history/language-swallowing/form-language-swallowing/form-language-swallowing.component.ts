@@ -14,6 +14,7 @@ export class FormLanguageSwallowingComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -55,6 +56,22 @@ export class FormLanguageSwallowingComponent implements OnInit {
 
       };
     }
+
+    if (this.has_input) {
+      this.SwallowingDisordersTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          solid_dysphagia: [this.data[0] ? this.data[0].solid_dysphagia : this.data.solid_dysphagia,Validators.compose([Validators.required]),],
+          clear_liquid_dysphagia: [this.data[0] ? this.data[0].clear_liquid_dysphagia : this.data.clear_liquid_dysphagia,Validators.compose([Validators.required]),],
+          thick_liquid_dysphagia: [this.data[0] ? this.data[0].thick_liquid_dysphagia : this.data.thick_liquid_dysphagia,Validators.compose([Validators.required]),],
+          nasogastric_tube: [this.data[0] ? this.data[0].nasogastric_tube : this.data.nasogastric_tube,Validators.compose([Validators.required]),],
+          gastrostomy: [this.data[0] ? this.data[0].gastrostomy : this.data.gastrostomy,Validators.compose([Validators.required]),],
+          nothing_orally: [this.data[0] ? this.data[0].nothing_orally : this.data.nothing_orally,Validators.compose([Validators.required]),],
+          observations: [this.data[0] ? this.data[0].observations : this.data.observations,],
+        });
+      });
+    }
+
     this.form = this.formBuilder.group({
       solid_dysphagia: [this.data[0] ? this.data[0].solid_dysphagia : this.data.solid_dysphagia,Validators.compose([Validators.required]),],
       clear_liquid_dysphagia: [this.data[0] ? this.data[0].clear_liquid_dysphagia : this.data.clear_liquid_dysphagia,Validators.compose([Validators.required]),],

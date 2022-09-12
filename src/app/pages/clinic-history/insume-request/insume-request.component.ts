@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 
@@ -19,14 +19,16 @@ export class InsumeRequestComponent implements OnInit {
   @Input() record_id: any;
   @Input() user: any;
   @Input() admissions_id: any;
-  @Input() type_record_id: any;
+  @Input() type_record_id;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
   
   public isSubmitted = false;
   public messageError = null;
 
   public title: string = 'SOLICITAR INSUMOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'PRODUCTO', 'CANTIDAD', 'SOLICITADO A'];
+  public headerFields: any[] = ['PRODUCTO', 'CANTIDAD', 'SOLICITADO A'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -39,12 +41,8 @@ export class InsumeRequestComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      id: {
-        title: this.headerFields[0],
-        type: 'string',
-      },
       product_supplies: {
-        title: this.headerFields[1],
+        title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (value) {
@@ -55,11 +53,11 @@ export class InsumeRequestComponent implements OnInit {
         },
       },
       request_amount: {
-        title: this.headerFields[2],
+        title: this.headerFields[1],
         type: 'string',
       },
       own_pharmacy_stock: {
-        title: this.headerFields[3],
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value?.name + ' - ' + row.own_pharmacy_stock?.campus.name;
@@ -91,11 +89,6 @@ export class InsumeRequestComponent implements OnInit {
     });
   }
 
-  receiveMessage($event) {
-    if ($event == true) {
-      this.RefreshData();
-    }
-  }
 
   EditPharmacy(data) {
     this.dialogFormService.open(FormInsumeRequestComponent, {
@@ -124,6 +117,15 @@ export class InsumeRequestComponent implements OnInit {
     }).catch(x => {
       throw x;
     });
+  }
+
+  receiveMessage($event) {
+    if ($event == true) {
+      this.RefreshData();
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
+    }
   }
 
 }

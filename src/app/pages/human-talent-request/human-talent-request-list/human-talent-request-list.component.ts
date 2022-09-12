@@ -25,7 +25,7 @@ export class HumanTalentRequestListComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Solicitudes de personal';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['TIPO DE PERSONAL A SOLICITAR', 'IDENTIFICACIÓN PACIENTE', 'NOMBRE PACIENTE', 'ZONA', 'BARRIO', 'FECHA DE SOLICITUD', 'ESTADO', 'OBSERVACIONES'];
+  public headerFields: any[] = ['TIPO DE PERSONAL A SOLICITAR','TIPO DE ATENCIÓN', 'IDENTIFICACIÓN PACIENTE', 'NOMBRE PACIENTE', 'ZONA', 'BARRIO', 'FECHA DE SOLICITUD', 'ESTADO', 'OBSERVACIONES', 'TELECONSULTA'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -49,7 +49,7 @@ export class HumanTalentRequestListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'role': this.currentRole,
+            'role': this.currentRole.id,
             'edit': this.EditHumanTalentRequest.bind(this),
             'new': this.NewHumanTalentRequest.bind(this),
             'update': this.UpdateRequest.bind(this),
@@ -62,10 +62,10 @@ export class HumanTalentRequestListComponent implements OnInit {
         renderComponent: Actions2Component,
       },
       status: {
-        title: this.headerFields[6],
+        title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if ( this.currentRole == 23 && value == 'Aprobada PAD') {
+          if ( this.currentRole.id == 23 && value == 'Aprobada PAD') {
             return 'En proceso';
           } else {
             return value;
@@ -81,43 +81,69 @@ export class HumanTalentRequestListComponent implements OnInit {
           return value;
         },
       },
-      identification: {
+      management_plan: {
         title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.type_of_attention.name;
+        },
+      },
+      identification: {
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.admissions.patients.identification;
         },
       },
       nombre: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.admissions.patients.firstname + ' ' + row.admissions.patients.lastname;
         },
       },
       locality: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.admissions.patients.locality.name;
-        },
-      },
-      residence: {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.admissions.patients.residence.name;
+          if (row.management_plan.phone_consult == 1) {
+            return 'N.A.'
+          } else {
+            return row.admissions.patients.locality.name;
+          }
+        },
+      },
+      residence: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.management_plan.phone_consult == 1) {
+            return 'N.A.'
+          } else {
+            return row.admissions.patients.residence.name;
+          }
+        },
+      },
+      phone_consult: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.management_plan.phone_consult == 1) {
+            return 'SI';
+          } else {
+            return 'N.A.'
+          }
         },
       },
       created_at: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return this.datePipe.transform2(value);
         },
       },
       observation: {
-        title: this.headerFields[7],
+        title: this.headerFields[8],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value;
@@ -129,7 +155,7 @@ export class HumanTalentRequestListComponent implements OnInit {
   public routes = [
     {
       name: 'Solicitudes de personal',
-      route: '../../setting/account-receivable',
+      route: '../../human-talent-request/list',
     },
   ];
 
@@ -149,7 +175,10 @@ export class HumanTalentRequestListComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    this.currentRole = this.authService.GetRole();
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
     this.HumanTalentRequestObservationS.GetCollection({
       category: 1,
     }).then(x => {

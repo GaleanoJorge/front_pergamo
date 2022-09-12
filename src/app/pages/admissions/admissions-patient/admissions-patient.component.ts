@@ -23,7 +23,7 @@ export class AdmissionsPatientComponent implements OnInit {
   public messageError = null;
   public title;
   public subtitle = 'Por usuario';
-  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ruta','Ambito','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Portafolio','Regimen','Fecha Ingreso','Fecha Egreso','Salida Medica'];
+  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ambito','Ruta','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Portafolio','Regimen','Fecha Ingreso','Fecha Egreso','Salida Medica', 'Diagnóstico principal'];
   public routes = [];
   public course;
   public data= [];
@@ -97,6 +97,13 @@ export class AdmissionsPatientComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return this.program;
+        },
+      },
+      diagnosis: {
+        title: this.headerFields[14],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.code + ' - ' + value.name;
         },
       },
       campus: {
@@ -186,7 +193,7 @@ export class AdmissionsPatientComponent implements OnInit {
     this.routes = [
       {
         name: 'Pacientes',
-        route: '../../list',
+        route: '/pages/pad/list',
       },
       {
         name: 'Admisiones del paciente',

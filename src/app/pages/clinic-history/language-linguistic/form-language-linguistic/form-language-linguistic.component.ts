@@ -15,6 +15,7 @@ export class FormLanguageLinguisticComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -59,6 +60,25 @@ export class FormLanguageLinguisticComponent implements OnInit {
 
       };
     }
+
+    if (this.has_input) {
+      this.LanguageTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          phonetic_phonological: [this.data[0] ? this.data[0].phonetic_phonological : this.data.phonetic_phonological,Validators.compose([Validators.required]),],
+          syntactic: [this.data[0] ? this.data[0].syntactic : this.data.syntactic,Validators.compose([Validators.required]),],
+          morphosyntactic: [this.data[0] ? this.data[0].morphosyntactic : this.data.morphosyntactic,Validators.compose([Validators.required]),],
+          semantic: [this.data[0] ? this.data[0].semantic : this.data.semantic,Validators.compose([Validators.required]),],
+          pragmatic: [this.data[0] ? this.data[0].pragmatic : this.data.pragmatic,Validators.compose([Validators.required]),],
+          reception: [this.data[0] ? this.data[0].reception : this.data.reception,Validators.compose([Validators.required]),],
+          coding: [this.data[0] ? this.data[0].coding : this.data.coding,Validators.compose([Validators.required]),],
+          decoding: [this.data[0] ? this.data[0].decoding : this.data.decoding,Validators.compose([Validators.required]),],
+          production: [this.data[0] ? this.data[0].production : this.data.production,Validators.compose([Validators.required]),],
+          observations: [this.data[0] ? this.data[0].observations : this.data.observations,],
+        });
+      });
+    }
+
     this.form = this.formBuilder.group({
       phonetic_phonological: [this.data[0] ? this.data[0].phonetic_phonological : this.data.phonetic_phonological,Validators.compose([Validators.required]),],
       syntactic: [this.data[0] ? this.data[0].syntactic : this.data.syntactic,Validators.compose([Validators.required]),],
@@ -141,8 +161,11 @@ export class FormLanguageLinguisticComponent implements OnInit {
         });
         this.messageEvent.emit(true);
       }
-
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+
+    
   }
 
 }

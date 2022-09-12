@@ -1,0 +1,10 @@
+<ngx-form-sw-diagnosis (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+</ngx-form-sw-diagnosis>
+<div class="center">
+  <label class="form-text text-muted font-weight-bold align center">Registros Diagnóstico</label>
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <ngx-base-table pager="false" class="table" [title]="title" [subtitle]="subtitle" customData="ch_sw_diagnosis"
+        [settings]="settings" entity="ch_sw_diagnosis/by_record/{{record_id}}/1">
+      </ngx-base-table>
+    </div>

@@ -123,6 +123,10 @@ export class DrugApplicationComponent implements OnInit {
         title: 'DAÑADAS',
         type: 'string',
       },
+      returned: {
+        title: 'DEVUELTAS',
+        type: 'string',
+      },
     },
   };
 
@@ -142,7 +146,7 @@ export class DrugApplicationComponent implements OnInit {
   }
 
   Aplication(data) {
-    console.log('usado');
+    // console.log('usado');
     this.dialog = this.dialogFormService.open(FormDrugApplicationComponent, {
       context: {
         title: 'REGISTRAR USO',
@@ -156,7 +160,7 @@ export class DrugApplicationComponent implements OnInit {
   }
 
   Damaged(data) {
-    console.log('dañado');
+    // console.log('dañado');
     this.dialog = this.dialogFormService.open(FormDrugApplicationComponent, {
       context: {
         title: 'REGISTRAR DAÑO EN ELEMENTO',

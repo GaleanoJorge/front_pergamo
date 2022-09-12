@@ -14,6 +14,7 @@ export class FormLanguageAlterationsComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -53,6 +54,19 @@ export class FormLanguageAlterationsComponent implements OnInit {
 
       };
     }
+
+    if (this.has_input) {
+      this.VoiceAlterationsTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          bell_alteration: [this.data[0] ? this.data[0].bell_alteration : this.data.bell_alteration,],
+          tone_alteration: [this.data[0] ? this.data[0].tone_alteration : this.data.tone_alteration,],
+          intensity_alteration: [this.data[0] ? this.data[0].intensity_alteration : this.data.intensity_alteration,],
+          observations: [this.data[0] ? this.data[0].observations : this.data.observations,],
+        });
+      });
+    }
+
     this.form = this.formBuilder.group({
       bell_alteration: [this.data[0] ? this.data[0].bell_alteration : this.data.bell_alteration,],
       tone_alteration: [this.data[0] ? this.data[0].tone_alteration : this.data.tone_alteration,],

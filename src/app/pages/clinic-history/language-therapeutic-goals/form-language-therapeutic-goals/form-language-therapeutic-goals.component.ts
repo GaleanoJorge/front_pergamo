@@ -14,6 +14,7 @@ import { TherapeuticGoalsTlService } from '../../../../business-controller/thera
 export class FormLanguageTherapeuticGoalsComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
   @Input() record_id: any = null;
   @Input() type_record: any;
@@ -102,6 +103,24 @@ export class FormLanguageTherapeuticGoalsComponent implements OnInit {
       };
     } else {
       this.disabled = true;
+    }
+
+    if (this.has_input) {
+      this.TherapeuticGoalsTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          check1: [this.data.check1],
+          check2: [this.data.check2],
+          check3: [this.data.check3],
+          check4: [this.data.check4],
+          check5: [this.data.check5],
+          check6: [this.data.check6],
+          check7: [this.data.check7],
+          check8: [this.data.check8],
+          check9: [this.data.check9],
+          check10: [this.data.check10],
+        });
+      });
     }
 
     this.form = this.formBuilder.group({
@@ -207,6 +226,9 @@ export class FormLanguageTherapeuticGoalsComponent implements OnInit {
 
           });
       }
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+    
   }
 }

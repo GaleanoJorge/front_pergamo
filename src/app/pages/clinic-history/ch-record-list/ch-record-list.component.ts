@@ -1,7 +1,7 @@
 import { UserBusinessService } from '../../../business-controller/user-business.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActivatedRoute, } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Actions5Component } from './actions.component';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
@@ -10,7 +10,7 @@ import { PatientService } from '../../../business-controller/patient.service';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { Location } from '@angular/common';
-
+import { AssignedManagementPlanService } from '../../../business-controller/assigned-management-plan.service';
 
 @Component({
   selector: 'ngx-ch-record-list',
@@ -25,9 +25,14 @@ export class ChRecordListComponent implements OnInit {
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title = "Registo Historia Clinica";
+  public title = 'Registo Historia Clinica';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de registro', 'Personal Asistencial', 'Fecha de atención', 'Estado'];
+  public headerFields: any[] = [
+    'Fecha de registro',
+    'Personal Asistencial',
+    'Fecha de atención',
+    'Estado',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public routes = [];
   public data = [];
@@ -40,10 +45,11 @@ export class ChRecordListComponent implements OnInit {
   public role_user;
   public assigned_management_plan;
   public type_of_attention;
+  public assigned;
+  public show_labs = false;
 
   public disabled: boolean = false;
   public showButtom: boolean = true;
-
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -65,10 +71,10 @@ export class ChRecordListComponent implements OnInit {
           }
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'assigned': this.assigned_management_plan,
-            'user': this.user,
-            'refresh': this.RefreshData.bind(this),
+            data: row,
+            assigned: this.assigned_management_plan,
+            user: this.user,
+            refresh: this.RefreshData.bind(this),
           };
         },
         renderComponent: Actions5Component,
@@ -106,6 +112,7 @@ export class ChRecordListComponent implements OnInit {
     private admissionsS: AdmissionsService,
     public datePipe: DateFormatPipe,
     private location: Location,
+    public assignedService: AssignedManagementPlanService
   ) {
     this.routes = [
       {
@@ -117,7 +124,6 @@ export class ChRecordListComponent implements OnInit {
         route: '../../clinic-history/' + this.route.snapshot.params.user_id,
       },
     ];
-
   }
 
   GetParams() {
@@ -127,22 +133,36 @@ export class ChRecordListComponent implements OnInit {
   }
 
   async ngOnInit() {
-
     this.admissions_id = this.route.snapshot.params.id;
     this.assigned_management_plan = this.route.snapshot.params.id2;
     this.type_of_attention = this.route.snapshot.params.id3;
 
-    await this.admissionsS.GetCollection({ admissions_id: this.admissions_id }).then(x => {
-      this.admissions = x;
-    });
+    await this.admissionsS
+      .GetCollection({ admissions_id: this.admissions_id })
+      .then((x) => {
+        this.admissions = x;
+      });
 
     this.own_user = this.authService.GetUser();
 
-    await this.patientBS.GetUserById(this.admissions[0].patient_id).then(x => {
-      this.user = x;
-    });
+    await this.patientBS
+      .GetUserById(this.admissions[0].patient_id)
+      .then((x) => {
+        this.user = x;
+      });
 
-
+      if(this.type_of_attention == 16){
+        await this.assignedService
+          .GetCollection({
+            assigned_management_plan_id: this.assigned_management_plan,
+          })
+          .then((x) => {
+            this.assigned = x;
+            if (this.assigned[0].management_plan.management_procedure.length > 0) {
+              this.show_labs = true;
+            }
+          });
+      }
   }
 
   back() {
@@ -153,26 +173,26 @@ export class ChRecordListComponent implements OnInit {
     this.table.refresh();
   }
 
-
   NewChRecord() {
-    this.chRecordS.Save({
-      status: 'ACTIVO',
-      admissions_id: this.admissions_id,
-      assigned_management_plan: this.assigned_management_plan,
-      user_id: this.own_user.id,
-      type_of_attention_id: this.type_of_attention,
-    }).then(x => {
-      this.toastService.success('', x.message);
-      this.RefreshData();
-      if (this.saved) {
-        this.saved();
-      }
-    }).catch(x => {
-      this.isSubmitted = false;
-      this.loading = false;
-    });
-
+    this.chRecordS
+      .Save({
+        status: 'ACTIVO',
+        admissions_id: this.admissions_id,
+        assigned_management_plan: this.assigned_management_plan,
+        user_id: this.own_user.id,
+        type_of_attention_id: this.type_of_attention,
+      })
+      .then((x) => {
+        this.toastService.success('', x.message);
+        this.RefreshData();
+        if (this.saved) {
+          this.saved();
+        }
+      })
+      .catch((x) => {
+        this.toastService.danger(x, 'ERROR');
+        this.isSubmitted = false;
+        this.loading = false;
+      });
   }
-
-
 }

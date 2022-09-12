@@ -22,6 +22,8 @@ export class FormInsumeRequestComponent implements OnInit {
   @Input() record_id: number;
   @Input() user: any;
   @Input() admissions_id: number;
+  @Input() type_record_id;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -38,12 +40,9 @@ export class FormInsumeRequestComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private pharmaProdS: PharmacyProductRequestService,
-    private pharmaShippS: PharmacyRequestShippingService,
     private pharmaS: PharmacyStockService,
-    private ProductGenericS: ProductGenericService,
     private toastService: NbToastrService,
     private serviceBriefcaseS: ServicesBriefcaseService,
-    private ProductSuppliesS: ProductSuppliesService,
     private authS: AuthService,
   ) {
   }
@@ -65,7 +64,7 @@ export class FormInsumeRequestComponent implements OnInit {
       request_pharmacy_stock_id: [this.data.request_pharmacy_stock_id, Validators.compose([Validators.required])],
     });
 
-    await this.pharmaS.GetCollection().then(x => {
+    await this.pharmaS.GetCollection({type:2} ).then(x => {
       this.request_pharmacy_stock_id = x;
     });
     if(this.user){
@@ -106,6 +105,7 @@ export class FormInsumeRequestComponent implements OnInit {
           id: this.data.id,
           request_amount: this.form.controls.request_amount.value,
           record_id: this.record_id,
+          type_record_id: 1,
           status: 'PATIENT',
           product_supplies_id: this.briefcase.manual_price.insume.id,
           own_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
@@ -127,6 +127,7 @@ export class FormInsumeRequestComponent implements OnInit {
           own_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
           product_supplies_id: this.briefcase.manual_price.insume.id,
           admissions_id: this.admissions_id,
+          type_record_id: 1,
           user_request_pad_id: this.authS.GetUser().id,
         }).then(x => {
           this.toastService.success('', x.message);

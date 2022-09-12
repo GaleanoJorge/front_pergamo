@@ -340,6 +340,7 @@ export class AuthorizationListComponent implements OnInit {
       state_gloss: '',
       briefcase_id: '',
       contract_id: '',
+      program_id: '',
       type_of_attention_id: '',
       id_number: null,
     };
@@ -362,6 +363,9 @@ export class AuthorizationListComponent implements OnInit {
       ],
       contract_id: [
         this.data.contract_id,
+      ],
+      program_id: [
+        this.data.program_id,
       ],
       type_of_attention_id: [
         this.data.type_of_attention_id,
@@ -557,7 +561,8 @@ export class AuthorizationListComponent implements OnInit {
       state_gloss: '',
       briefcase_id: '',
       contract_id: '',
-      type_of_attention_id: '',
+      program_id: '',
+      type_of_attention_id:'',
     });
     // document.getElementById('type_of').
   }
@@ -596,8 +601,6 @@ export class AuthorizationListComponent implements OnInit {
     }
 
   }
-
-
 
   ClosePackage() {
     this.element = document.getElementsByTagName("nb-windows-container");
@@ -744,6 +747,10 @@ export class AuthorizationListComponent implements OnInit {
 
     this.form.get('program_id').valueChanges.subscribe(val => {
       this.filter.program_id = val;
+    });
+
+    this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
+      this.filter.type_of_attention_id = val;
     });
 
     this.form.get('id_number').valueChanges.subscribe(val => {

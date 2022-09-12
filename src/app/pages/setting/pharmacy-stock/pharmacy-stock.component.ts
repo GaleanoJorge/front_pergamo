@@ -21,7 +21,7 @@ export class PharmacyStockComponent implements OnInit {
   public title: string = 'CREAR BODEGA O FARMACIA';
   public subtitle: string = '';
   public headerFields: any[] = ['ID', 'TIPO', 'NOMBRE', 'SEDE'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -98,7 +98,7 @@ export class PharmacyStockComponent implements OnInit {
       closeOnBackdropClick: false,
       context: {
         title: 'CREAR FARMACIA O BODEGA',
-         saved: this.RefreshData.bind(this),
+        saved: this.RefreshData.bind(this),
       },
     });
   }
@@ -120,7 +120,7 @@ export class PharmacyStockComponent implements OnInit {
       context: {
         title: 'CREAR USUARIOS PARA FARMACIA O BODEGA',
         data,
-           saved: this.RefreshData.bind(this),
+        saved: this.RefreshData.bind(this),
       },
     });
   }
@@ -132,7 +132,7 @@ export class PharmacyStockComponent implements OnInit {
       context: {
         title: 'TIPOS DE SERVICIOS',
         data: data,
-           saved: this.RefreshData.bind(this),
+        saved: this.RefreshData.bind(this),
       },
     });
   }

@@ -8,7 +8,7 @@
           <label class="form-text text-muted font-weight-bold">Contacto Visual</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="eye_contact" eye_contact id="eye_contact" name="eye_contact"
+          <nb-radio-group formControlName="eye_contact" nbSelect (disabled)="this.has_input" eye_contact id="eye_contact" name="eye_contact"
             status="{{ isSubmitted && form.controls.eye_contact.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
             <nb-radio value="No">No</nb-radio>
@@ -18,7 +18,7 @@
           <label class="form-text text-muted font-weight-bold">Normas De Cortesía</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="courtesy_rules" courtesy_rules id="courtesy_rules"
+          <nb-radio-group formControlName="courtesy_rules" nbSelect (disabled)="this.has_input" courtesy_rules id="courtesy_rules"
             name="courtesy_rules"
             status="{{ isSubmitted && form.controls.courtesy_rules.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -31,7 +31,7 @@
           <label class="form-text text-muted font-weight-bold">Intención Comunicativa</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="communicative_intention" communicative_intention
+          <nb-radio-group formControlName="communicative_intention" nbSelect (disabled)="this.has_input" communicative_intention
             id="communicative_intention" name="communicative_intention"
             status="{{ isSubmitted && form.controls.communicative_intention.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -47,7 +47,7 @@
           <label class="form-text text-muted font-weight-bold">Propósito Comunicativo</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="communicative_purpose" communicative_purpose id="communicative_purpose"
+          <nb-radio-group formControlName="communicative_purpose" nbSelect (disabled)="this.has_input" communicative_purpose id="communicative_purpose"
             name="communicative_purpose"
             status="{{ isSubmitted && form.controls.communicative_purpose.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -60,7 +60,7 @@
           <label class="form-text text-muted font-weight-bold">Modalidad Verbal Oral</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="oral_verb_modality" oral_verb_modality id="oral_verb_modality"
+          <nb-radio-group formControlName="oral_verb_modality" nbSelect (disabled)="this.has_input" oral_verb_modality id="oral_verb_modality"
             name="oral_verb_modality"
             status="{{ isSubmitted && form.controls.oral_verb_modality.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -72,7 +72,7 @@
         </div>
 
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="written_verb_modality" written_verb_modality id="written_verb_modality"
+          <nb-radio-group formControlName="written_verb_modality" nbSelect (disabled)="this.has_input" written_verb_modality id="written_verb_modality"
             name="nothing_orally"
             status="{{ isSubmitted && form.controls.written_verb_modality.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -88,7 +88,7 @@
           <label class="form-text text-muted font-weight-bold">Modalidad No Verbal- No Simbólica</label>
         </div>
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="nonsymbolic_nonverbal_modality" nonsymbolic_nonverbal_modality
+          <nb-radio-group formControlName="nonsymbolic_nonverbal_modality" nbSelect (disabled)="this.has_input" nonsymbolic_nonverbal_modality
             id="nonsymbolic_nonverbal_modality" name="nonsymbolic_nonverbal_modality"
             status="{{ isSubmitted && form.controls.nonsymbolic_nonverbal_modality.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -100,7 +100,7 @@
         </div>
 
         <div class="col col-lg-2">
-          <nb-radio-group formControlName="symbolic_nonverbal_modality" symbolic_nonverbal_modality
+          <nb-radio-group formControlName="symbolic_nonverbal_modality" nbSelect (disabled)="this.has_input" symbolic_nonverbal_modality
             id="symbolic_nonverbal_modality" name="symbolic_nonverbal_modality"
             status="{{ isSubmitted && form.controls.symbolic_nonverbal_modality.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-radio value="Si">Si</nb-radio>
@@ -113,7 +113,7 @@
           <label class="form-text text-muted font-weight-bold">Observaciones</label>
         </div>
         <div class="col col-lg-2">
-          <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+          <textarea id="observations" nbInput (disabled)="this.has_input" fullWidth formControlName="observations" observations
             onpaste="return false" rows="3" cols="50"
             status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
@@ -121,7 +121,7 @@
 
       </div>
     </fieldset>
-    <div class="container">
+    <div class="container" *ngIf="!has_input">
       <div class="row">
         <div class="col-md-12">
           <button nbButton status="danger" class="ml-1 btn-save"  [disabled]="disabled" type="submit">GUARDAR</button>

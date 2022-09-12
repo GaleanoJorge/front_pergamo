@@ -116,9 +116,14 @@ export class FormRecommendationsEvoComponent implements OnInit {
           }
         });
         this.messageEvent.emit(true);
+
       }
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
-  }
+
+    }
+  
 
   onDescriptionChange(event) {
     this.recommendations_evo_id.forEach(x => {

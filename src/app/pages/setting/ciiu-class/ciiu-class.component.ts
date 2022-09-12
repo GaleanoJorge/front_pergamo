@@ -61,7 +61,7 @@ export class CiiuClassComponent implements OnInit {
   public routes = [
     {
       name: 'Clase de clasificación industrial',
-      route: '../../setting/ciiu-group',
+      route: '../../setting/ciiu-class',
     },
   ];
 

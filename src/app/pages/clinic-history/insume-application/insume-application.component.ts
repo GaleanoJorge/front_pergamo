@@ -115,9 +115,17 @@ export class InsumeApplicationComponent implements OnInit {
         title: 'DISPONIBLES',
         width: 'string',
       },
+      Usadas: {
+        title: 'APLICADAS',
+        type: 'string',
+      },
       dañadas: {
         title: 'DAÑADAS',
-        width: 'string',
+        type: 'string',
+      },
+      returned: {
+        title: 'DEVUELTAS',
+        type: 'string',
       },
       // treatment_days: {
       //   title: this.headerFields[4],

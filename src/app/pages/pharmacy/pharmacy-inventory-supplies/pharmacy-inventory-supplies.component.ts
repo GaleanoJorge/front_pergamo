@@ -107,7 +107,7 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product='+ false;
+        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '&product='+ false;
         this.title = 'INVENTARIO DE ' + x[0]['name'];
       } else {
         this.toastService.info('Usuario sin farmacias asociadas', 'Información');
@@ -131,11 +131,11 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
   }
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
-      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '& product=' + false, 'pharmacy_lot_stock');
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '&product=' + false, 'pharmacy_lot_stock');
 
     }else{
       this.pharmacy = pharmacy;
-      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '& product=' + false, 'pharmacy_lot_stock');
+      this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '&product=' + false, 'pharmacy_lot_stock');
     }
     // this.RefreshData();
   }

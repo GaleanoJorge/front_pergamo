@@ -1,7 +1,7 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content *ngIf="settings && this.entity">
 
-    
+
 
     <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
       customData="assigned_management_plan" [messageToltip]="messageToltip">
@@ -14,7 +14,7 @@
         <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions[0].contract.company.name}}</p>
         <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions[0].contract.name}}</p>
         <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions[0].briefcase.name}}</p>
-        <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability}} </p>
+        <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability.name}} </p>
         <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES </p>
         <!-- <p class="parrafo" *ngIf="user.gender.name">GÉNERO:</b> {{user.gender.name}} </p> -->
 
@@ -26,18 +26,21 @@
         <p class="parrafo" *ngIf="management[0].service_briefcase!=null"><b>MEDICAMENTO:</b>
           <b> {{management[0].service_briefcase.manual_price.name}}</b>
         </p>
-        <p class="parrafo" *ngIf="management[0].quantity!=null && management[0].type_of_attention_id!=17"><b>CANTIDAD:</b> {{management[0].quantity}}
+        <p class="parrafo" *ngIf="management[0].quantity!=null && management[0].type_of_attention_id!=17">
+          <b>CANTIDAD:</b> {{management[0].quantity}}
         </p>
 
         <p class="parrafo" *ngIf="management[0].dosage_administer!=null"><b>DOSIS A ADMINISTRAR:</b>
-          {{management[0].dosage_administer}} {{management[0].service_briefcase.manual_price.product.measurement_units.name}}
+          {{management[0].dosage_administer}}
+          {{management[0].service_briefcase.manual_price.product.measurement_units.name}}
         </p>
-        <p class="parrafo" *ngIf="management[0].type_of_attention_id==17"><b>FRECUENCIA HORARIA:</b> CADA {{management[0].quantity}} HORAS
+        <p class="parrafo" *ngIf="management[0].type_of_attention_id==17"><b>FRECUENCIA HORARIA:</b> CADA
+          {{management[0].quantity}} HORAS
         </p>
 
         <p class="parrafo" *ngIf="management[0].route_of_administration!=null"><b>VIA DE ADMINISTRACIÓN:</b>
           {{management[0].route_administration.name}} </p>
-     
+
         <p class="parrafo" *ngIf="management[0].number_doses!=null"><b>DOSIS TOTALES DEL TRATAMIENTO:</b>
           {{management[0].number_doses}} APLICACIONES
         </p>
@@ -50,16 +53,26 @@
 
         <p class="parrafo" *ngIf="management[0].observation!=null"><b>OBSERVACIÓN:</b>
           {{management[0].observation}} </p>
-          
+
+        <div *ngIf="show_labs">
+          <p class="parrafo" *ngIf="show_labs"><b>LABORATORIO:</b>
+          </p>
+          <div *ngFor="let item of management[0].management_procedure">
+            <p class="parrafo">
+              {{item.services_briefcase.manual_price.name}} </p>
+          </div>
+        </div>
+
+
 
 
       </div>
       <div actions>
-        <button nbButton (click)="back()" >Volver</button>
+        <button nbButton (click)="back()">Volver</button>
         <div class="actions" style="margin-top:1em;">
         </div>
       </div>
-    
+
 
 
 

@@ -1,6 +1,5 @@
 <ngx-base-list
-  [messageError]="messageError"
-  [routes]="routes">
+  [messageError]="messageError">
   <div content>
 
       <div class="col-md-12">
@@ -15,8 +14,8 @@
                     [queryParams]="GetParams()"
                     >
       <div actions>
-        <div class="actions">
-          <button nbButton (click)="back()" >Volver</button>
+        <div class="actions" *ngIf="this.from_form">
+          <button nbButton (click)="back()" style="margin-right: 5px;" >Volver</button>
           <button nbButton status="danger" (click)="NewSigleLocationCapacity()">Editar</button>
         </div>
       </div>

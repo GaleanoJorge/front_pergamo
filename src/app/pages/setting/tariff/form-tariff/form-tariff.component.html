@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
+  <nb-card style="margin: 10px;width: 100%;height: 100%;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
@@ -76,7 +76,7 @@
             formControlName="nombre_completo" nombre_completo type="text" required
             status="{{ isSubmitted && form.controls.nombre_completo.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes" *ngIf="admissions">
-            <option *ngFor="let item of admissions" [value]="item.nombre_completo">{{item.nombre_completo}} </option>
+            <option *ngFor="let item of admissions" [value]="item.nombre_completo">{{item.nombre_completo}} - {{item.patients.identification}}</option>
           </datalist>
         </div>
 
@@ -95,6 +95,12 @@
         <div class="col-12 col-sm-12 col-md-2">
           <label for="extra_dose" class="form-text text-muted font-weight-bold">EXTRA DOSIS:</label>
           <nb-toggle labelPosition="left" [checked]="extra_dose" (change)="extraDoseChange($event)">
+          </nb-toggle>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-2">
+          <label for="has_car" class="form-text text-muted font-weight-bold">CUENTA CON CARRO:</label>
+          <nb-toggle labelPosition="left" [checked]="has_car" (change)="hasCarChange($event)">
           </nb-toggle>
         </div>
 

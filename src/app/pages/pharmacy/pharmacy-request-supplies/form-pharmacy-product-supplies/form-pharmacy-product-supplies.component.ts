@@ -28,6 +28,8 @@ export class FormPharmacyProductSuppliesComponent implements OnInit {
   public showTable;
   public product_supplies_id: any[];
   public request_pharmacy_stock_id: any[];
+  public product_id;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,15 +53,27 @@ export class FormPharmacyProductSuppliesComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
-      product_supplies_id: [this.data.product_supplies_id],
+      product_supplies_id: [this.product_id],
       request_pharmacy_stock_id: [this.data.request_pharmacy_stock_id, Validators.compose([Validators.required])],
     });
-    await this.pharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
+    await this.pharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id}).then(x => {
       this.request_pharmacy_stock_id = x;
     });
     await this.ProductSuppliesS.GetCollection().then(x => {
       this.product_supplies_id = x;
     });
+  }
+
+  saveCode(e): void {
+    var localidentify = this.product_supplies_id.find(item => item.description == e);
+
+    if (localidentify) {
+      this.product_id = localidentify.id;
+    } else {
+      this.product_id = null;
+      this.form.controls.product_supplies_id.setErrors({ 'incorrect': true });
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+    }
   }
 
   async save() {
@@ -73,7 +87,7 @@ export class FormPharmacyProductSuppliesComponent implements OnInit {
           id: this.data.id,
           request_amount: this.form.controls.request_amount.value,
           status: 'SOLICITADO FARMACIA',
-          product_supplies_id: this.form.controls.product_supplies_id.value,
+          product_supplies_id: this.product_id,
           own_pharmacy_stock_id: this.my_pharmacy_id,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
         }).then(x => {
@@ -90,7 +104,7 @@ export class FormPharmacyProductSuppliesComponent implements OnInit {
           request_amount: this.form.controls.request_amount.value,
           status: 'SOLICITADO FARMACIA',
           own_pharmacy_stock_id: this.my_pharmacy_id,
-          product_supplies_id: this.form.controls.product_supplies_id.value,
+          product_supplies_id: this.product_id,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
         }).then(x => {
           this.toastService.success('', x.message);

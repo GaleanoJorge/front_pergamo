@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="margin: 10px;max-width: 1400px;max-height: 600px;overflow: auto;">
+  <nb-card style="margin: 10px;width: 100%;height: 100%;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
@@ -37,7 +37,7 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false ">
           <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimiento:</label>
           <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="procedure_id"
             formControlName="procedure_id" procedure_id type="text" required
@@ -48,7 +48,17 @@
           </datalist>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="show || assigned==false">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false && this.show_proc">
+          <label for="laboratories" class="form-text text-muted font-weight-bold">Laboratorios:</label>
+          <nb-select multiple [selected]="this.data.laboratories" formControlName="laboratories" id="laboratories" fullWidth
+            status="{{ isSubmitted && form.controls.laboratories.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option  >Seleccione...</nb-option>
+            <nb-option *ngFor="let item of laboratories" [value]="item.id">{{ item.manual_price.own_code }} -
+              {{item.manual_price.homologous_id}} - {{item.manual_price.name}}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="show && assigned!=false">
           <label class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
           <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value)" id="product_gen"
             formControlName="product_gen" product_gen required fullWidth nbInput
@@ -62,7 +72,7 @@
 
 
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && !show && !showTemp">
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && !show && !showTemp && !frec">
           <label for="frequency" class="form-text text-muted font-weight-bold">Frecuencia:</label>
           <nb-select [selected]="this.data.frequency_id" formControlName="frequency_id" id="frequency_id" fullWidth
             status="{{ isSubmitted && form.controls.frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -76,8 +86,9 @@
           <label *ngIf="show" for="quantity" class="form-text text-muted font-weight-bold">Frecuencia Horaria
             (Horas):</label>
           <label *ngIf="showTemp" for="quantity" class="form-text text-muted font-weight-bold">Turno:</label>
-          <label *ngIf="!show && !showTemp" for="quantity" class="form-text text-muted font-weight-bold">Cantidad
+          <label *ngIf="!show && !showTemp && this.form.controls.type_of_attention_id.value != 12" for="quantity" class="form-text text-muted font-weight-bold">Cantidad
             proyectada:</label>
+          <label *ngIf="!show && !showTemp && this.form.controls.type_of_attention_id.value == 12" for="quantity" class="form-text text-muted font-weight-bold">Cantidad asistenciales:</label>
           <input *ngIf="!show && !showTemp" nbInput fullWidth id="quantity" formControlName="quantity" quantity
             status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           <nb-select *ngIf="show || showTemp" [selected]="this.data.quantity" formControlName="quantity" id="quantity"
@@ -152,8 +163,8 @@
             status="{{ isSubmitted && form.controls.number_doses.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="show || assigned!=false">
-          <label for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a administrar:</label>
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="show && assigned!=false">
+          <label *ngIf="localidentify" for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a administrar:</label>
 
           <div class="row  ">
             <div class="col-12 col-sm-12 col-md-8 asd">

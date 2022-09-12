@@ -28,7 +28,29 @@
   </div>
 
   <div class="row">
+    <div class="col-md-6" *ngIf="this.form.controls.ch_sw_network_id.value == 5">
+      <div class="form-group">
+        <label for="ch_sw_entity_id" class="form-text text-muted font-weight-bold">
+          Red de apoyo
+        </label>
+        <nb-select formControlName="ch_sw_entity_id" id="ch_sw_entity_id" fullWidth
+          status="{{ isSubmitted && form.controls.ch_sw_entity_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of entity" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
     <div class="col-md-6">
+      <div class="form-group">
+        <label for="observation" class="form-text text-muted font-weight-bold">Observaciones</label>
+        <input type="text" nbInput fullWidth id="observation" formControlName="observation" observation
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
       <div class="form-group">
         <label class="form-text text-muted font-weight-bold text ">Nota de Trabajo Social</label>
         <textarea id="sw_note" nbInput fullWidth formControlName="sw_note" sw_note onpaste="return false" rows="2"

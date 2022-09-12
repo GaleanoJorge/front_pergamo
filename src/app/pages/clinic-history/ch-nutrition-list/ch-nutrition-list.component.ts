@@ -1,6 +1,6 @@
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
-import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
@@ -19,6 +19,8 @@ import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/
 export class ChNutritionListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() data: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
 
   linearMode = true;
   public messageError = null;
@@ -27,7 +29,7 @@ export class ChNutritionListComponent implements OnInit {
   public headerFields: any[] = ['Consecutivo de ingreso', 'Ruta', 'Ambito', 'Programa', 'Sede', 'Piso', 'Pabellón', 'Cama/Consultorio', 'Contrato', 'Fecha Ingreso', 'Fecha Egreso', 'Salida Medica'];
   public routes = [];
   public course;
-  public data = [];
+  //public data = [];
   public user_id;
   public date_end: boolean = true;
   public is_failed: boolean = true;
@@ -48,6 +50,8 @@ export class ChNutritionListComponent implements OnInit {
   public show: any;
   public int: 0;
   public signatureImage: string;
+  public has_input: any = null; // ya existe registro de ingreso
+  public input_done: boolean = false; // ya se registró algo en el ingreso
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -95,22 +99,30 @@ export class ChNutritionListComponent implements OnInit {
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
+      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
+        this.input_done = true;
+      }
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
   }
 
   close() {
-    this.deleteConfirmService.open(ConfirmDialogCHComponent, {
-      context: {
-        signature: true, 
-        title: 'Finalizar registro.',
-        delete: this.finish.bind(this),
-        showImage: this.showImage.bind(this),
-        // save: this.saveSignature.bind(this),
-        textConfirm:'Finalizar registro'
-      },
-    });
+    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
+      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
+        context: {
+          signature: true,
+          title: 'Finalizar registro.',
+          delete: this.finish.bind(this),
+          showImage: this.showImage.bind(this),
+          // save: this.saveSignature.bind(this),
+          textConfirm: 'Finalizar registro'
+        },
+      });
+    } else {
+      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
+    }
   }
 
   showImage(data) {
@@ -220,4 +232,9 @@ export class ChNutritionListComponent implements OnInit {
       throw x;
     });
   }
+
+    // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
+    inputMessage($event) {
+      this.input_done = true;
+    }
 }

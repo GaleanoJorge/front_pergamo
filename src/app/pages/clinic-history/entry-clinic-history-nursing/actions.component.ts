@@ -172,7 +172,7 @@ export class ActionsNursing2Component implements ViewCell {
       this.medical = false;
       this.status = false;
       this.service = true
-      console.log(this.rowData.id);
+      // console.log(this.rowData.id);
     } else if (this.value.data.medical_date != '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {
       this.status = true;
       this.medical = true;
@@ -296,7 +296,7 @@ export class ActionsNursing2Component implements ViewCell {
 
   onChanges() {
     this.form.get('admission_route_id').valueChanges.subscribe(val => {
-      console.log(val);
+      // console.log(val);
       if (val === '') {
         this.scope_of_attention = [];
       } else {
@@ -320,7 +320,7 @@ export class ActionsNursing2Component implements ViewCell {
     });
 
     this.form.get('flat_id').valueChanges.subscribe(val => {
-      console.log(val);
+      // console.log(val);
       if (val === '') {
         this.pavilion = [];
       } else {

@@ -48,7 +48,7 @@ export class RegularSocialWorkComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.record_id = this.route.snapshot.params.id;
+    this.record_id = this.route.snapshot.params.id1;
     if (!this.data) {
       this.data = {
       };

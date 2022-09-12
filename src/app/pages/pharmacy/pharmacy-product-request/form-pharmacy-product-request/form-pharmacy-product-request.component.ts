@@ -28,6 +28,8 @@ export class FormPharmacyProductRequestComponent implements OnInit {
   public showTable;
   public product_generic_id: any[];
   public request_pharmacy_stock_id: any[];
+  public product_id;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,7 +51,7 @@ export class FormPharmacyProductRequestComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       request_amount: [this.data.request_amount, Validators.compose([Validators.required])],
-      product_generic_id: [this.data.product_generic_id],
+      product_generic_id: [this.product_id],
       request_pharmacy_stock_id: [this.data.request_pharmacy_stock_id, Validators.compose([Validators.required])],
     });
 
@@ -60,6 +62,17 @@ export class FormPharmacyProductRequestComponent implements OnInit {
       this.request_pharmacy_stock_id = x;
     });
   
+  }
+  saveCode(e): void {
+    var localidentify = this.product_generic_id.find(item => item.description == e);
+
+    if (localidentify) {
+      this.product_id = localidentify.id;
+    } else {
+      this.product_id = null;
+      this.form.controls.product_generic_id.setErrors({ 'incorrect': true });
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+    }
   }
 
   async save() {
@@ -73,7 +86,7 @@ export class FormPharmacyProductRequestComponent implements OnInit {
           id: this.data.id,
           request_amount: this.form.controls.request_amount.value,
           status: 'SOLICITADO FARMACIA',
-          product_generic_id: this.form.controls.product_generic_id.value,
+          product_generic_id: this.product_id,
           own_pharmacy_stock_id: this.my_pharmacy_id,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
         }).then(x => {
@@ -89,7 +102,7 @@ export class FormPharmacyProductRequestComponent implements OnInit {
         await this.pharmaProdS.Save({
           request_amount: this.form.controls.request_amount.value,
           status: 'SOLICITADO FARMACIA',
-          product_generic_id: this.form.controls.product_generic_id.value,
+          product_generic_id: this.product_id,
           own_pharmacy_stock_id: this.my_pharmacy_id,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
         }).then(x => {

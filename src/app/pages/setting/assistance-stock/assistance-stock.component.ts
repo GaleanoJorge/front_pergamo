@@ -130,16 +130,28 @@ export class AssistanceStockComponent implements OnInit {
           }
         },
       },
-      disponibles: {
-        title: this.headerFields[7],
-        type: 'string',
-      },
       'pharmacy_product_request.pharmacy_request_shipping.amount_provition': {
         title: this.headerFields[8],
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.pharmacy_request_shipping.amount_provition;
         },
+      },
+      disponibles: {
+        title: this.headerFields[7],
+        type: 'string',
+      },
+      Usadas: {
+        title: 'APLICADAS',
+        type: 'string',
+      },
+      dañadas: {
+        title: 'DAÑADAS',
+        type: 'string',
+      },
+      returned: {
+        title: 'DEVUELTAS',
+        type: 'string',
       },
     },
   };

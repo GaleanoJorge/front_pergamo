@@ -19,8 +19,8 @@ export class ProductSuppliesComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Insumos Génericos ';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre - Descripción del insumo'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
+  public headerFields: any[] = ['ID', 'Nombre del insumo generico'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
 

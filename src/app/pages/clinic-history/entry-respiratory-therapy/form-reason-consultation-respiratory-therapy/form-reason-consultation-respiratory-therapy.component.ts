@@ -19,6 +19,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
   @Input() data: any = null;
   @Input() record_id: any = null;  
   @Input() type_record: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
 
@@ -98,6 +99,17 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
 
   async loadForm(force = true) {
     if (this.loadAuxData && force) return false;
+
+    if (this.has_input) {
+      this.respiratoryS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          medical_diagnosis_id: [this.data[0] ? this.data[0].medical_diagnosis_id : this.data.medical_diagnosis_id,],
+          therapeutic_diagnosis: [this.data[0] ? this.data[0].therapeutic_diagnosis : this.data.therapeutic_diagnosis,],
+          reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation,],
+        });
+      });
+    }
 
 
     this.form = this.formBuilder.group({
