@@ -5,6 +5,7 @@ import { FormMedicalDiaryComponent } from './form-medical-diary/form-medical-dia
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActionsMedicalDiaryComponent } from './actions.component';
+import { CupsPackageComponent } from './cups-package/cups-package.component';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class MedicalDiaryComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'assign': this.assignCups.bind(this),
+            'assign': this.assignCups.bind(this)
           };
         },
         renderComponent: ActionsMedicalDiaryComponent,
@@ -116,7 +117,7 @@ export class MedicalDiaryComponent implements OnInit {
   }
 
   assignCups(data){
-    this.dialogFormService.open(FormMedicalDiaryComponent, {
+    this.dialogFormService.open(CupsPackageComponent, {
       context: {
         title: 'Editar agenda',
         data,

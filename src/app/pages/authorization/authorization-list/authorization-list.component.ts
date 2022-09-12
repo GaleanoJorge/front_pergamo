@@ -23,6 +23,8 @@ import { PatientService } from '../../../business-controller/patient.service';
 import { BriefcaseService } from '../../../business-controller/briefcase.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ActionsSemaphoreComponent } from './actionsSemaphore.component';
+import { ProgramService } from '../../../business-controller/program.service';
+import { TypeOfAttentionService } from '../../../business-controller/type-of-attention.service';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -75,23 +77,27 @@ export class AuthorizationListComponent implements OnInit {
   public checkbox: any[] = [];
   public all_Data: any[] = [];
   public company: any[] = [];
+  public program: any[] = [];
+  public type_of_attention: any[] = [];
   public contract: any[] = [];
   public briefcase: any[] = [];
   public admissions: any[] = [];
   public filter =
     {
+      status_id: 0,
       eps_id: null,
       contract_id: null,
       initial_date: null,
       final_date: null,
       briefcase_id: null,
       patient_id: null,
-      admissions_id: null,
+      program_id: null,
+      type_of_attention_id: null,
+      id_number: null,
     }
   public parentData: any;
   public previewFile = null;
   public element;
-
 
 
 
@@ -120,6 +126,9 @@ export class AuthorizationListComponent implements OnInit {
     private patientS: PatientService,
     private ContractS: ContractService,
     private briefcaseS: BriefcaseService,
+    private ProgramS: ProgramService,
+    private typeOfAttention: TypeOfAttentionService,
+
   ) {
   }
 
@@ -269,6 +278,28 @@ export class AuthorizationListComponent implements OnInit {
           return row.admissions.patients.residence_address;
         },
       },
+      applications: {
+        title: 'Hora de aplicación',
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.application_id != null){
+            return row.applications.application_hour;
+          } else {
+            return '--';
+          }
+        },
+      },
+      assistencial_aplications: {
+        title: 'Asistencial',
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.application_id != null){
+            return row.applications.users.identification
+          } else {
+            return '--';
+          }
+        },
+      },
     },
   };
 
@@ -302,16 +333,21 @@ export class AuthorizationListComponent implements OnInit {
     this.today = this.today.toISOString().split('T')[0];
 
     this.data = {
+      status_id: 0,
       company_id: null,
       start_date: '',
       finish_date: '',
       state_gloss: '',
       briefcase_id: '',
       contract_id: '',
-      admissions_id: '',
+      type_of_attention_id: '',
+      id_number: null,
     };
 
     this.form = this.formBuilder.group({
+      status_id: [
+        this.data.status_id,
+      ],
       company_id: [
         this.data.company_id,
       ],
@@ -327,8 +363,11 @@ export class AuthorizationListComponent implements OnInit {
       contract_id: [
         this.data.contract_id,
       ],
-      admissions_id: [
-        this.data.admissions_id,
+      type_of_attention_id: [
+        this.data.type_of_attention_id,
+      ],
+      id_number: [
+        this.data.id_number,
       ],
     });
 
@@ -363,13 +402,22 @@ export class AuthorizationListComponent implements OnInit {
     this.companyS.GetCollection().then(x => {
       this.company = x;
     });
+    
+    this.ProgramS.GetCollection().then(x => {
+      this.program = x;
+    });
 
+    this.typeOfAttention.GetCollection().then(x => {
+      this.type_of_attention = x;
+    });
+    
     this.xlsForm = this.formBuilder.group({
       state_gloss: [
         this.data.state_gloss,
         Validators.compose([Validators.required])
       ],
     });
+    
     this.onChanges();
   }
 
@@ -484,10 +532,18 @@ export class AuthorizationListComponent implements OnInit {
     this.selectedOptions = $event;
   }
 
+  FilterProgram(event){
+    if(event === ""){
+      this.filter.type_of_attention_id = null;
+    } else {
+      this.filter.type_of_attention_id = event;
+    }
+    this.FilterAuth();
+  }
+
   FilterAuth() {
     // this.disableCheck();
-    var entity = this.entity
-    this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&admissions_id=${this.filter.admissions_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}`, 'authorization');
+    this.table.changeEntity(`authorization/byStatus/0?status_id=${this.filter.status_id}&eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&program_id=${this.filter.program_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}&type_of_attention_id=${this.filter.type_of_attention_id}`, 'authorization');
   }
 
   FilterStatus(status) {
@@ -496,14 +552,14 @@ export class AuthorizationListComponent implements OnInit {
     this.entity = this.table.entity
     this.form.patchValue({
       company_id: null,
-      start_date: '',
+      start_date: null,
       finish_date: '',
       state_gloss: '',
-      admissions_id: '',
+      briefcase_id: '',
+      contract_id: '',
+      type_of_attention_id: '',
     });
-    // this.toastS.warning('', 'Filtros limpiados');
-    // this.RefreshData();
-
+    // document.getElementById('type_of').
   }
 
   ConfirmAction(data, Managemen?, type?) {
@@ -541,6 +597,8 @@ export class AuthorizationListComponent implements OnInit {
 
   }
 
+
+
   ClosePackage() {
     this.element = document.getElementsByTagName("nb-windows-container");
     if(this.element.length > 0)
@@ -551,7 +609,6 @@ export class AuthorizationListComponent implements OnInit {
     this.dialog = null;
     this.RefreshData();
   }
-
 
   authMassive() {
     // this.disableCheck();
@@ -629,6 +686,11 @@ export class AuthorizationListComponent implements OnInit {
   }
 
   onChanges() {
+
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.filter.final_date = val;
+    });
+
     this.form.get('company_id').valueChanges.subscribe(val => {
       this.filter.eps_id = val;
       if (val == '') {
@@ -680,9 +742,21 @@ export class AuthorizationListComponent implements OnInit {
       });
     });
 
-    this.form.get('admissions_id').valueChanges.subscribe(val => {
-      this.filter.admissions_id = val;
+    this.form.get('program_id').valueChanges.subscribe(val => {
+      this.filter.program_id = val;
     });
+
+    this.form.get('id_number').valueChanges.subscribe(val => {
+      this.filter.id_number = val;
+    });
+
+    this.form.get('status_id').valueChanges.subscribe(val => {
+      this.filter.status_id = val;
+    });
+
+    // this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
+    //   this.filter.type_of_attention_id = val;
+    // });
 
   }
 
@@ -723,19 +797,18 @@ export class AuthorizationListComponent implements OnInit {
 
         var formData = new FormData();
         var data = this.formMassive.controls;
-        formData.append('file', this.formMassive.value.file_auth);
-        formData.append('observation', data.observation.value);
         formData.append('auth_number', data.auth_number.value);
+        formData.append('observation', data.observation.value);
         formData.append('copay', data.copay.value);
         formData.append('copay_value', data.copay_value.value);
         formData.append('authorizations', JSON.stringify(this.selectedOptions));
-
+        formData.append('file_auth', this.formMassive.value.file_auth);
         try {
           let response;
           if (this.data?.id) {
             // response = await this.authorizationS.Update(formData, this.data.id);
           } else {
-            response = await this.authorizationS.SaveGroup(formData);
+            response = await this.authorizationS.SaveGroup(formData, 1);
           }
           this.toastS.success('', response.message);
           this.messageError = null;

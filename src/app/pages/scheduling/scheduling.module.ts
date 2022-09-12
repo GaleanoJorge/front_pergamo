@@ -19,7 +19,7 @@ import {
   NbCheckboxModule,
   NbRadioModule,
   NbTooltipModule,
-  NbDatepickerModule, NbSpinnerModule, NbToggleModule,
+  NbDatepickerModule, NbSpinnerModule, NbToggleModule, NbAutocompleteModule,
 } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { PagesModule } from '../pages.module';
@@ -38,6 +38,8 @@ import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/fo
 import { SchedulingComponent } from './scheduling.component';
 import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 import { ActionsDaysComponent } from './non-working-days/actions.component';
+import { CupsCheckComponent } from './medical-diary/cups-package/cups-check.component';
+import { CupsPackageComponent } from './medical-diary/cups-package/cups-package.component';
 
 
 
@@ -65,6 +67,7 @@ import { ActionsDaysComponent } from './non-working-days/actions.component';
     PagesModule,
     NbDialogModule.forRoot(),
     NbCheckboxModule,
+    NbAutocompleteModule,
     Ng2SmartTableModule,
     NbIconModule,
     NbDatepickerModule,
@@ -72,6 +75,9 @@ import { ActionsDaysComponent } from './non-working-days/actions.component';
     ScheduleModule,
   ],
   declarations: [
+    CupsPackageComponent,
+    CupsCheckComponent,
+
     TelemedicineListComponent,
     FormTelemedicineComponent,
 

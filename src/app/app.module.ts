@@ -49,6 +49,7 @@ import { PagesModule } from './pages/pages.module';
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     NbButtonModule,
+    NbAutocompleteModule,
     NbInputModule,
     NbAlertModule,
     NbAutocompleteModule,

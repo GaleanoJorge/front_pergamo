@@ -2,19 +2,19 @@ import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { Procedure } from '../models/procedure';
+import { AssistanceProcedure } from '../models/assistance-procedure';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProcedureService {
-  public procedure: Procedure[] = [];
+export class AssistanceProcedureService {
+  public AssistanceProcedure: AssistanceProcedure[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
-  GetCollection(params = {}): Promise<Procedure[]> {
-    let servObj = new ServiceObject(params ? 'procedure?pagination=false' : 'procedure');
+  GetCollection(params = {}): Promise<AssistanceProcedure[]> {
+    let servObj = new ServiceObject(params ? 'assistance_procedure?pagination=false' : 'assistance_procedure');
 
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
@@ -22,18 +22,18 @@ export class ProcedureService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.procedure = <Procedure[]>servObj.data.procedure;
+        this.AssistanceProcedure = <AssistanceProcedure[]>servObj.data.assistance_procedure;
 
-        return Promise.resolve(this.procedure);
+        return Promise.resolve(this.AssistanceProcedure);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(procedure: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('procedure');
-    servObj.data = procedure;
+  Save(AssistanceProcedure: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('assistance_procedure');
+    servObj.data = AssistanceProcedure;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -47,9 +47,25 @@ export class ProcedureService {
       });
   }
 
-  Update(procedure: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('procedure', procedure.id);
-    servObj.data = procedure;
+  UpdateProcedures(AssistanceProcedure: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('cups_package');
+    servObj.data = AssistanceProcedure;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  Update(AssistanceProcedure: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('assistance_procedure', AssistanceProcedure.id);
+    servObj.data = AssistanceProcedure;
     return this.webAPI.PutAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -64,7 +80,7 @@ export class ProcedureService {
   }
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('procedure', id);
+    let servObj = new ServiceObject('assistance_procedure', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

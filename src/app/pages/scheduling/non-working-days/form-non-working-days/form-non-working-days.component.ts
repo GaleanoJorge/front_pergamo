@@ -67,6 +67,7 @@ export class FormNonWorkingDaysComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
+          this.toastService.warning('', x);
           this.isSubmitted = false;
           this.loading = false;
         });
@@ -81,6 +82,7 @@ export class FormNonWorkingDaysComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
+          this.toastService.warning('', x);
           this.isSubmitted = false;
           this.loading = false;
         });
