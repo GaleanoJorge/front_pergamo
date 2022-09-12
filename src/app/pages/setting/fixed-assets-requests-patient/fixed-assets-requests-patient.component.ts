@@ -22,7 +22,7 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
 
   public title: string = 'LISTA DE ACTIVOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['ELEMENTO', 'CANTIDAD', 'SOLICITADO POR', '# DOCUMENTO PACIENTE', 'NOMBRE PACIENTE'];
+  public headerFields: any[] = ['ELEMENTO', 'CANTIDAD', 'SOLICITADO POR', 'SEDE SOLICITUD', '# DOCUMENTO PACIENTE', 'NOMBRE PACIENTE'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -70,15 +70,22 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
           return row.own_fixed_user.firstname + " - " + row.own_fixed_user.lastname;
         },
       },
-      admissions: {
+      campus: {
         title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.admissions.campus.name;
+        },
+      },
+      admissions: {
+        title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.admissions.patients.identification;
         },
       },
       firstname: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.admissions.patients.firstname + " " + row.admissions.patients.lastname;
@@ -99,15 +106,15 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
 
   ngOnInit(): void {
     // this.validator = this.parentData;
-    this.user = this.authService.GetUser();   
+    this.user = this.authService.GetUser();
     this.FixedAssetsS.getFixedByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_fixed_id = x[0].id;
         // this.entity = 'fixed_add/?pagination=true&status=PATIENT';
         this.title = 'LISTA DE ACTIVOS SOLICITADOS  PARA PACIENTE A:  ' + x[0]['fixed_stock']['fixed_type']['name'];
-      }else {
+      } else {
         this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
-       }
+      }
     });
   }
 

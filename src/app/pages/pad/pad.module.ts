@@ -52,6 +52,7 @@ import { FormFixedPlanComponent } from './management-plan/fixed-plan/form-fixed-
 import { FormFixedReturnComponent } from './management-plan/fixed-return/form-fixed-return/form-fixed-return.component';
 import { FixedReturnComponent } from './management-plan/fixed-return/fixed-return.component';
 import { ActionsRetuPatientComponent } from './management-plan/fixed-return/actions.component';
+import { FixedPadEnabledComponent } from './management-plan/fixed-plan/fixed-pad-enabled/fixed-pad-enabled.component';
 
 
 
@@ -108,6 +109,7 @@ import { ActionsRetuPatientComponent } from './management-plan/fixed-return/acti
     ActionsComponent,
     AssignedManagementPlanComponent,
     FormFixedPlanComponent,
+    FixedPadEnabledComponent,
     FixedPlanComponent,
     FormFixedReturnComponent,
     FixedReturnComponent,

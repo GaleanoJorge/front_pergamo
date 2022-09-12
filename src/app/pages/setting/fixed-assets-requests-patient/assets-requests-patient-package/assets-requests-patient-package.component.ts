@@ -34,7 +34,7 @@ export class AssetsRequestsPatientPackageComponent implements OnInit {
   public inscriptionstatus = 0;
   public selectedRows: any;
   public inscriptionId;
-  public entity;
+  public dta2;
   public billing_id: any[];
   public customData;
 
@@ -102,7 +102,7 @@ export class AssetsRequestsPatientPackageComponent implements OnInit {
     this.component_package_id = this.route.snapshot.params.id;
     this.selectedOptions = this.parentData.parentData;
     this.settings = this.settings_supplies;
-    this.entity = this.parentData.entity;
+    this.dta2 = this.parentData.data.fixed_nom_product_id;
     this.customData = this.parentData.customData;
 
   }
