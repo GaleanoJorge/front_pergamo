@@ -84,6 +84,7 @@ export class FormDisTactilelMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({right:'',  left:''});
           if (this.saved) {
             this.saved();
           }
@@ -101,6 +102,7 @@ export class FormDisTactilelMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({right:'',  left:''});
           if (this.saved) {
             this.saved();
           }

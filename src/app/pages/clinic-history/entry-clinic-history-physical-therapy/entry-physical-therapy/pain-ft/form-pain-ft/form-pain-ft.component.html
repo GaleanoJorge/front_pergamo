@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">Tipo:</label>   
-        <nb-select multiple placeholder="Seleccion Multiple" status="success" formControlName="type" id="type" type fullWidth>
+        <nb-select multiple placeholder="Seleccion Multiple" status="success" formControlName="type" id="type" type fullWidth onpaste="return false">
               <nb-option value="Quemante">Quemante</nb-option>
               <nb-option value="Punzante">Punzante</nb-option>
               <nb-option value="Localizado">Localizado</nb-option>
@@ -13,14 +13,14 @@
 
         <div class="col col-lg-6">
           <label class="form-text text-muted font-weight-bold">IRRADIADO:</label>
-          <textarea id="irradiated" nbInput fullWidth formControlName="irradiated" current_illness rows="1"
+          <textarea id="irradiated" nbInput fullWidth formControlName="irradiated" current_illness rows="1" onpaste="return false"
             cols="50"
             status="{{ isSubmitted && form.controls.irradiated.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
   
         <div class="col col-lg-6">
           <label class="form-text text-muted font-weight-bold">LOCALIZADO:</label>
-          <textarea id="located" nbInput fullWidth formControlName="located" current_illness rows="1"
+          <textarea id="located" nbInput fullWidth formControlName="located" current_illness rows="1" onpaste="return false"
             cols="50"
             status="{{ isSubmitted && form.controls.located.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
@@ -28,7 +28,7 @@
   
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">INTENSIDAD:</label>
-        <nb-select [selected]="this.data.intensity" formControlName="intensity" id="intensity" fullWidth
+        <nb-select [selected]="this.data.intensity" formControlName="intensity" id="intensity" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.intensity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -51,14 +51,14 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">FACTORES QUE EXACERVAN:</label>
-        <textarea id="exaccervating" nbInput fullWidth formControlName="exaccervating" current_illness rows="1"
+        <textarea id="exaccervating" nbInput fullWidth formControlName="exaccervating" current_illness rows="1" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.exaccervating.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">FACTORES QUE DISMINUYEN :</label>
-        <textarea id="decreated" nbInput fullWidth formControlName="decreated" current_illness rows="1"
+        <textarea id="decreated" nbInput fullWidth formControlName="decreated" current_illness rows="1" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.decreated.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>

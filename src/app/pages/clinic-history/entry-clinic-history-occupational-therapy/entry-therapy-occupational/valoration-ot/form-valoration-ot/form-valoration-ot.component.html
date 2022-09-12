@@ -9,14 +9,14 @@
       <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNOSTICO MEDICO:</label>
       <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="ch_diagnosis_id"
         formControlName="ch_diagnosis_id" ch_diagnosis_id type="text" required (ngModelChange)="this.searchDiagnostic($event)"
-        status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" onpaste="return false">
       <datalist id="codes">
         <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
       </datalist>
     </div>
     <div class="col col-lg-12">
       <label for="recomendations" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
-      <textarea id="recomendations" nbInput fullWidth formControlName="recomendations" recomendations rows="3" cols="50"
+      <textarea id="recomendations" nbInput fullWidth formControlName="recomendations" recomendations rows="3" cols="50" onpaste="return false"
         status="{{ isSubmitted && form.controls.recomendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
     <div class="div-send">

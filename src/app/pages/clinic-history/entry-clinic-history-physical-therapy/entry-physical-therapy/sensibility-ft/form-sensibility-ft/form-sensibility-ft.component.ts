@@ -102,6 +102,7 @@ export class FormSensibilityFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({deep:'',  superficial:'', cortical:'', observation:''});
           if (this.saved) {
             this.saved();
           }
@@ -121,6 +122,7 @@ export class FormSensibilityFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({deep:'',  superficial:'', cortical:'', observation:''});
           if (this.saved) {
             this.saved();
           }

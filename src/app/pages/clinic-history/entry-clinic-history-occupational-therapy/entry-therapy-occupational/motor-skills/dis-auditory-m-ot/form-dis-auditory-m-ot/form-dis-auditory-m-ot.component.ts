@@ -82,6 +82,8 @@ export class FormDisAuditoryMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({sound_sources:'',  auditory_hyposensitivity:'', 
+          auditory_hypersensitivity:'', auditory_stimuli:'', auditive_discrimination:'',});
           if (this.saved) {
             this.saved();
           }
@@ -103,6 +105,8 @@ export class FormDisAuditoryMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({sound_sources:'',  auditory_hyposensitivity:'', 
+          auditory_hypersensitivity:'', auditory_stimuli:'', auditive_discrimination:'',});
           if (this.saved) {
             this.saved();
           }

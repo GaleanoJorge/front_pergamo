@@ -16,7 +16,7 @@
     </div>
     <div class="col col-lg-12">
       <label for="patient_state" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
-      <textarea id="patient_state" nbInput fullWidth formControlName="patient_state" patient_state rows="3" cols="50"
+      <textarea id="patient_state" nbInput fullWidth formControlName="patient_state" patient_state rows="3" cols="50" onpaste="return false"
         status="{{ isSubmitted && form.controls.patient_state.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>
     <div class="div-send">

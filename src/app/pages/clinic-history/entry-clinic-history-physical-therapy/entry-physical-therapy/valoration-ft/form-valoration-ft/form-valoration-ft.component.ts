@@ -107,6 +107,7 @@ export class FormValorationFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({ch_diagnosis_id:'',  patient_state:''});
           if (this.saved) {
             this.saved();
           }
@@ -123,6 +124,7 @@ export class FormValorationFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({ch_diagnosis_id:'',  patient_state:''});
           if (this.saved) {
             this.saved();
           }
