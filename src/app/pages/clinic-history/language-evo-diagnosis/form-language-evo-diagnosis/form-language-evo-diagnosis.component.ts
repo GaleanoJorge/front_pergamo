@@ -50,7 +50,7 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit {
 
 
     this.form = this.formBuilder.group({
-      text: [this.data[0] ? this.data[0].text : this.data.text ],
+      text: [this.data[0] ? this.data[0].text : this.data.text , Validators.compose([Validators.required]),],
     });
 
     if (this.data.text != '') {   
@@ -106,7 +106,11 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit {
 
           });
       }
+
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+    
   }
 }
   

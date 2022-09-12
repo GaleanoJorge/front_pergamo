@@ -5,7 +5,7 @@
           Valoración Terapéutica
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ngx-ass-therapy-respiratory [record_id]="record_id">
+          <ngx-ass-therapy-respiratory [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1">
           </ngx-ass-therapy-respiratory>         
         </nb-accordion-item-body>
       </nb-accordion-item>
@@ -15,7 +15,7 @@
           Inspección
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ngx-ispection-therapy [record_id]="record_id" [data]="data">
+          <ngx-ispection-therapy [record_id]="record_id" [data]="data" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1">
           </ngx-ispection-therapy>
         </nb-accordion-item-body>
       </nb-accordion-item>
@@ -25,7 +25,7 @@
           Auscultación
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ngx-auscultacion-therapy [record_id]="record_id">
+          <ngx-auscultacion-therapy [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1">
           </ngx-auscultacion-therapy>
         </nb-accordion-item-body>
       </nb-accordion-item>
@@ -35,7 +35,7 @@
           Ayudas diagnósticas
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ngx-diagnostic-therapy [record_id]="record_id">
+          <ngx-diagnostic-therapy [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1">
           </ngx-diagnostic-therapy>
         </nb-accordion-item-body>
       </nb-accordion-item>

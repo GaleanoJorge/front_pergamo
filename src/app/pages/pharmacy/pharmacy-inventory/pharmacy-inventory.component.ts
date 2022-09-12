@@ -22,7 +22,7 @@ export class PharmacyInventoryComponent implements OnInit {
   public title: string = 'INVENTARIO';
   public subtitle: string = '';
   public headerFields: any[] = ['PRODUCTO - PRODUCTO GENERICO', 'FABRICANTE', 'CANTIDAD INICIAL', 'CANTIDAD ACTUAL', 'LOTE', 'FECHA DE VENCIMIENTO'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
   public entity;
@@ -111,7 +111,7 @@ export class PharmacyInventoryComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '& product=' + true;
+        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '&product=' + true + '&actual_amount' + true;
         this.title = 'INVENTARIO DE ' + x[0]['name'];
       } else {
         this.toastService.info('Usuario sin farmacias asociadas', 'Información');

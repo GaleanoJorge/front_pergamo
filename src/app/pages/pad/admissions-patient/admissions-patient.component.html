@@ -2,6 +2,7 @@
   [messageError]="messageError"
   [routes]="routes">
   <div content>
+    
     <ngx-base-table 
                     [title]="title"
                     [subtitle]="subtitle"
@@ -11,9 +12,16 @@
                     [queryParams]="GetParams()">
       <div actions>
         <div class="actions">
+          <button nbButton (click)="back()" >Volver</button>
           <!-- <button *ngIf="this.date_end || this.admission_route_id==2 " nbButton status="danger" (click)="NewAdmissions()">Admitir</button> -->
         </div>
       </div>
+
+
+      
+<div class="col-md-6 position">
+  <!-- <button nbButton (click)="back()" >Volver</button> -->
+</div>
     </ngx-base-table>
   </div>
 </ngx-base-list>

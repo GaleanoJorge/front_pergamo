@@ -105,6 +105,7 @@ export class FormValorationFTComponent implements OnInit {
           ch_record_id: this.record_id,
 
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -120,6 +121,7 @@ export class FormValorationFTComponent implements OnInit {
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -130,5 +132,10 @@ export class FormValorationFTComponent implements OnInit {
         });
       }
     }
+  }
+  checked = false;
+
+  toggle(checked: boolean) {
+    this.checked = checked;
   }
 }

@@ -1,11 +1,15 @@
 
-<ngx-form-language-communication (messageEvent)="receiveMessage($event)" >
-</ngx-form-language-communication>
-<label for="communication_tl" class="form-text text-muted font-weight-bold align">Comunicación</label>
+<div *ngIf="has_input == false || type_record_id != 1">
+  <ngx-form-language-communication (messageEvent)="receiveMessage($event)" >
+  </ngx-form-language-communication>
+</div>
+
+<div>
+  <label for="communication_tl" class="form-text text-muted font-weight-bold align">Comunicación</label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table  pager="false" [title]="title" customData="communication_tl" [settings]="settings"
-      entity="communication_tl/by_record/{{record_id}}/1?pagination=false">
+      entity="communication_tl/by_record/{{record_id}}/1?pagination=false&has_input={{has_input}}">
       <div actions>
         <div class="actions">
         </div>
@@ -15,3 +19,4 @@
     </ngx-base-table>
   </div>
 </ngx-base-list>
+</div>

@@ -18,7 +18,7 @@ export class EntryClinicHistoryComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() user: any = null;
-  @Input() has_input: any = null;
+  @Input() has_input: boolean = false;
   @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 

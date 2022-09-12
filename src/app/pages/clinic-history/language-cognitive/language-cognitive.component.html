@@ -1,11 +1,15 @@
 
-<ngx-form-language-cognitive (messageEvent)="receiveMessage($event)" >
-</ngx-form-language-cognitive>
-<label for="cognitive_tl" class="form-text text-muted font-weight-bold align">Cognitivo</label>
+<div *ngIf="has_input == false || type_record_id != 1">
+  <ngx-form-language-cognitive (messageEvent)="receiveMessage($event)" >
+  </ngx-form-language-cognitive>
+</div>
+
+<div>
+  <label for="cognitive_tl" class="form-text text-muted font-weight-bold align">Cognitivo</label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table  pager="false" [title]="title" customData="cognitive_tl" [settings]="settings"
-      entity="cognitive_tl/by_record/{{record_id}}/1?pagination=false">
+      entity="cognitive_tl/by_record/{{record_id}}/1?pagination=false&has_input={{has_input}}">
       <div actions>
         <div class="actions">
         </div>
@@ -15,3 +19,4 @@
     </ngx-base-table>
   </div>
 </ngx-base-list>
+</div>

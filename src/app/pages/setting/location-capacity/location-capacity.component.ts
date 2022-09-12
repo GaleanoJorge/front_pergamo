@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from '../sectional-council/actions.component';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { LocationCapacityService } from '../../../business-controller/location-capacity.service';
 import { ActionsLocationCapacityComponent } from './actions-location-capacity.component';
-import { AssistanceService } from '../../../business-controller/assistance.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BaseLocationPackageComponent } from './sigle-location-capacity/base-location-package/base-location-package.component';
+import { RoleBusinessService } from '../../../business-controller/role-business.service';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-location-capacity',
@@ -19,11 +17,13 @@ export class LocationCapacityComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'PERSONAL ASISTENCIAL';
   public subtitle: string = 'PERSONAL';
-  public headerFields: any[] = ['ROL', 'NOMBRE', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'SERVICIOS EJECUTADOS', 'TIPO DE IDENTIFICACIÓN', 'IDENTIFICACIÓN'];
+  public headerFields: any[] = ['ROL', 'NOMBRE', 'CAPACIDAD INICIAL', 'CAPACIDAD ACTUAL', 'SERVICIOS EJECUTADOS', 'TIPO DE IDENTIFICACIÓN', 'IDENTIFICACIÓN', 'TELÉFONO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
   public user_id;
+  public role;
+  public role_id;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -38,6 +38,7 @@ export class LocationCapacityComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return {
             'data': row,
+            'show': this.EditSigleLocationCapacity.bind(this),
           };
         },
         renderComponent: ActionsLocationCapacityComponent,
@@ -46,7 +47,7 @@ export class LocationCapacityComponent implements OnInit {
         title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction(value, row) {
-          return row.user.identification_type.name;
+          return row.user.identification_type.code;
         },
       },
       identification: {
@@ -66,6 +67,13 @@ export class LocationCapacityComponent implements OnInit {
       role_name: {
         title: this.headerFields[0],
         type: 'string',
+      },
+      phone: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.user.phone;
+        },
       },
       total1: {
         title: this.headerFields[2],
@@ -87,19 +95,34 @@ export class LocationCapacityComponent implements OnInit {
       name: 'Personal asistencial',
       route: '../../setting/location-capacity',
     },
-    {
-      name: 'Admisiones del paciente',
-      route: 'single-location-capacity/' + this.route.snapshot.params.user_id,
-    },
+    
   ];
 
   constructor(
     private route: ActivatedRoute,
+    private dialogFormService: NbDialogService,
+    private roleBS: RoleBusinessService,
   ) {
   }
 
   ngOnInit(): void {
     this.user_id= this.route.snapshot.params.user_id;
+
+    this.roleBS.GetCollection({
+      status_id: 1,
+      role_type_id: 2,
+    }).then(x => {
+      this.role = x;
+    });
+  }
+
+  EditSigleLocationCapacity(data) {
+    this.dialogFormService.open(BaseLocationPackageComponent, {
+      context: {
+        parentData: data.id,
+        from_form: false,
+      },
+    });
   }
 
   GetParams() {
@@ -110,5 +133,10 @@ export class LocationCapacityComponent implements OnInit {
 
   RefreshData() {
     this.table.refresh();
+  }
+
+  changeRole($event) {
+    this.role_id = $event;
+    this.table.changeEntity('assistance/?pagination=true&status_id=1&role_id=' + this.role_id,'assistance');
   }
 }

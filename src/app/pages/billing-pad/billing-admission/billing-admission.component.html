@@ -18,6 +18,7 @@
       </div>
       <div actions>
         <div class="actions">
+          <button nbButton (click)="back()" >Volver</button>
           <button nbButton *ngIf="this.create_new_billing" status="danger" (click)="NewBillingAdmission()">Nueva
             factura</button>
         </div>

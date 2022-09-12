@@ -15,6 +15,9 @@ export class TableTherGoalsFTComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any;
   @Input() type_record_id;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
+
   linearMode = false;
   public messageError = null;
   public title;
@@ -104,6 +107,9 @@ export class TableTherGoalsFTComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
     }
   }
 }

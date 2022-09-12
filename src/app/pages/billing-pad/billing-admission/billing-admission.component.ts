@@ -9,6 +9,7 @@ import { FormShowBillingPadComponent } from './form-show-billing-pad/form-show-b
 import { CurrencyPipe } from '@angular/common';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { BillingPadService } from '../../../business-controller/billing-pad.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-billing-admission',
@@ -108,6 +109,8 @@ export class BillingAdmissionComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private AdmissionsS: AdmissionsService,
+    private location: Location,
+
   ) {
   }
 
@@ -119,6 +122,10 @@ export class BillingAdmissionComponent implements OnInit {
       this.title = 'FACTURAS DE: ' + x[0]['nombre_completo'];
     });
   }
+  back() {
+    this.location.back();
+
+ }
 
   RefreshData() {
 

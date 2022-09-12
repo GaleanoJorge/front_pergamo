@@ -4,7 +4,7 @@
       <nb-card-body>
         <nb-stepper #stepper [linear]="linearMode">
           <nb-step [stepControl]="nameForm" label="Valoración">
-            <ngx-reason-consultation-respiratory-therapy  [record_id]="record_id" [type_record]="1">
+            <ngx-reason-consultation-respiratory-therapy  [record_id]="record_id" [type_record]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input">
             </ngx-reason-consultation-respiratory-therapy>
 
           </nb-step>
@@ -14,7 +14,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
-            <ngx-signs  [record_id]="record_id" ></ngx-signs>
+            <ngx-signs  [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" ></ngx-signs>
           </nb-step>
           <!-- *ngIf="vitalsigns" [data]="vitalsigns"  -->
 
@@ -25,19 +25,19 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Valoración Terapeutica">
-            <ngx-form-assessment-therapy [record_id]="record_id" [data]="data"></ngx-form-assessment-therapy>
+            <ngx-form-assessment-therapy [record_id]="record_id" [data]="data" [type_record]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-form-assessment-therapy>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Objetivos">
-            <ngx-objectives-therapy [record_id]="record_id"></ngx-objectives-therapy>
+            <ngx-objectives-therapy [record_id]="record_id" [type_record]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-objectives-therapy>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Pedido de insumos">
-            <ngx-insume-request [record_id]="record_id"></ngx-insume-request>
+            <ngx-insume-request [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-insume-request>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Sesiones">
-            <ngx-sessions-therapy [record_id]="record_id" [type_record]="1"></ngx-sessions-therapy>
+            <ngx-sessions-therapy [record_id]="record_id" [type_record]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-sessions-therapy>
           </nb-step>
 
 

@@ -6,14 +6,14 @@
       <div class="row justify-content-md">
         <div class="col-md-6">
           <label class="form-text text-muted font-weight-bold">Simetría</label>
-          <textarea id="right_hermiface_symmetry" nbInput fullWidth formControlName="right_hermiface_symmetry"
+          <textarea id="right_hermiface_symmetry" nbInput (disabled)="this.has_input" fullWidth formControlName="right_hermiface_symmetry"
             right_hermiface_symmetry onpaste="return false" rows="4" cols="50"
             status="{{ isSubmitted && form.controls.right_hermiface_symmetry.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
 
         <div class="col-md-6">
           <label class="form-text text-muted font-weight-bold">Tono</label>
-          <textarea id="right_hermiface_tone" nbInput fullWidth formControlName="right_hermiface_tone"
+          <textarea id="right_hermiface_tone" nbInput (disabled)="this.has_input" fullWidth formControlName="right_hermiface_tone"
             right_hermiface_tone onpaste="return false" rows="4" cols="50"
             status="{{ isSubmitted && form.controls.right_hermiface_tone.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
@@ -22,7 +22,7 @@
 
         <div class="col col-lg-12">
           <label class="form-text text-muted font-weight-bold center">Sensibilidad</label>
-          <textarea id="right_hermiface_sensitivity" nbInput fullWidth formControlName="right_hermiface_sensitivity"
+          <textarea id="right_hermiface_sensitivity" nbInput (disabled)="this.has_input" fullWidth formControlName="right_hermiface_sensitivity"
             right_hermiface_sensitivity onpaste="return false" rows="3" cols="40"
             status="{{ isSubmitted && form.controls.right_hermiface_sensitivity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
@@ -36,14 +36,14 @@
 
         <div class="col-md-6">
           <label class="form-text text-muted font-weight-bold">Simetría</label>
-          <textarea id="left_hermiface_symmetry" nbInput fullWidth formControlName="left_hermiface_symmetry"
+          <textarea id="left_hermiface_symmetry" nbInput (disabled)="this.has_input" fullWidth formControlName="left_hermiface_symmetry"
             left_hermiface_symmetry onpaste="return false" rows="4" cols="50"
             status="{{ isSubmitted && form.controls.left_hermiface_symmetry.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
 
         <div class="col-md-6">
           <label class="form-text text-muted font-weight-bold">Tono</label>
-          <textarea id="left_hermiface_tone" nbInput fullWidth formControlName="left_hermiface_tone" left_hermiface_tone
+          <textarea id="left_hermiface_tone" nbInput (disabled)="this.has_input" fullWidth formControlName="left_hermiface_tone" left_hermiface_tone
             onpaste="return false" rows="4" cols="50"
             status="{{ isSubmitted && form.controls.left_hermiface_tone.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
@@ -52,14 +52,14 @@
 
         <div class="col col-lg-12">
           <label class="form-text text-muted font-weight-bold center">Sensibilidad</label>
-          <textarea id="left_hermiface_sensitivity" nbInput fullWidth formControlName="left_hermiface_sensitivity"
+          <textarea id="left_hermiface_sensitivity" nbInput (disabled)="this.has_input" fullWidth formControlName="left_hermiface_sensitivity"
             left_hermiface_sensitivity onpaste="return false" rows="3" cols="40"
             status="{{ isSubmitted && form.controls.left_hermiface_sensitivity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
         </div>
       </div>
     </fieldset>
 
-    <div class="container">
+    <div class="container" *ngIf="!has_input">
       <div class="row">
         <div class="col-md-12">
           <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>

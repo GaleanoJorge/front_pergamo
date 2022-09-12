@@ -8,11 +8,11 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <div *ngIf="value.user.roles[0].role_type_id == 1" class = "cuadro" 
+    <div *ngIf="value.currentRole == 1" class = "cuadro" 
      [style]="'background-color: '+this.color+';'"
      nbTooltip={{tooltip}} nbTooltipPlacement="top" nbTooltipStatus="primary">
     </div>
-    <div *ngIf="value.user.roles[0].role_type_id == 2" class = "cuadro" 
+    <div *ngIf="value.currentRole == 2" class = "cuadro" 
      [style]="'background-color: '+this.color2+';'"
      nbTooltip={{tooltip2}} nbTooltipPlacement="top" nbTooltipStatus="primary">
     </div>

@@ -26,6 +26,7 @@ export class FormTariffComponent implements OnInit {
 
   public phone_consult: boolean = false;
   public extra_dose: boolean = false;
+  public has_car: boolean = false;
   public failed: boolean = false;
   public pad_risk: any[];
   public program: any[];
@@ -96,6 +97,7 @@ export class FormTariffComponent implements OnInit {
         amount: '',
         name: '',
         extra_dose: '',
+        has_car: '',
         phone_consult: '',
         quantity: '',
         pad_risk_id: '',
@@ -111,6 +113,7 @@ export class FormTariffComponent implements OnInit {
         amount: this.data.amount,
         name: this.data.name,
         extra_dose: this.data.extra_dose,
+        has_car: this.data.has_car,
         phone_consult: this.data.phone_consult,
         quantity: this.data.quantity,
         pad_risk_id: this.data.pad_risk_id,
@@ -125,6 +128,10 @@ export class FormTariffComponent implements OnInit {
       var a: number = this.data.extra_dose;
       if (a) {
         this.extra_dose = true;
+      }
+      var c: number = this.data.has_car;
+      if (c) {
+        this.has_car = true;
       }
       var b: number = this.data.phone_consult;
       if (b) {
@@ -236,6 +243,10 @@ export class FormTariffComponent implements OnInit {
     this.extra_dose = event.target.checked;
   }
 
+  hasCarChange(event) {
+    this.has_car = event.target.checked;
+  }
+
   close() {
     this.dialogRef.close();
   }
@@ -257,6 +268,7 @@ export class FormTariffComponent implements OnInit {
           name: this.form.controls.name.value,
           amount: this.form.controls.amount.value,
           extra_dose: this.extra_dose,
+          has_car: this.has_car,
           failed: this.failed,
           phone_consult: this.phone_consult,
           pad_risk_id: this.form.controls.pad_risk_id.value,
@@ -281,6 +293,7 @@ export class FormTariffComponent implements OnInit {
           name: this.form.controls.name.value,
           amount: this.form.controls.amount.value,
           extra_dose: this.extra_dose,
+          has_car: this.has_car,
           failed: this.failed,
           phone_consult: this.phone_consult,
           pad_risk_id: this.form.controls.pad_risk_id.value,

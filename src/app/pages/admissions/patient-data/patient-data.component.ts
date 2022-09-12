@@ -11,6 +11,7 @@ import { AffiliateTypeService } from '../../../business-controller/affiliate-typ
 import { SpecialAttentionService } from '../../../business-controller/special-attention.service';
 import { type } from 'os';
 import { ActionsComponentED } from './actionsED.component';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -89,6 +90,7 @@ export class PatientDataComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private userBS: UserBusinessService,
+    private location: Location,
   ) {
     this.routes = [
       {
@@ -126,6 +128,10 @@ export class PatientDataComponent implements OnInit {
 
   }
 
+  back() {
+    this.location.back();
+
+ }
   RefreshData() {
 
     this.table.refresh();

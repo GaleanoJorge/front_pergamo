@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChTypeBackgroundService } from '../../../../../business-controller/ch_type_background.service';
 import { ChBackgroundService } from '../../../../../business-controller/ch_background.service';
 
@@ -55,7 +55,7 @@ export class FormBackgroundComponent implements OnInit {
     this.form = this.formBuilder.group({
       revision: [this.data[0] ? this.data[0].revision : this.data.revision,],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
-      ch_type_background_id: [this.data[0] ? this.data[0].ch_type_background_id : this.data.ch_type_background_id,],
+      ch_type_background_id: [this.data[0] ? this.data[0].ch_type_background_id : this.data.ch_type_background_id,Validators.compose([Validators.required])],
     });
 
   }
@@ -110,9 +110,13 @@ export class FormBackgroundComponent implements OnInit {
         });
       }
 
+    } else{
+      this.toastService.warning('', "Debe seleccionar un item de la lista");
+    }
+
     }
   }
 
 
-}
+
 

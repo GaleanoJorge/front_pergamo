@@ -13,7 +13,7 @@ export class ChOstomiesComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any;
   @Input() type_record: any;
-  @Input() has_input: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   linearMode = false;
@@ -53,6 +53,13 @@ export class ChOstomiesComponent implements OnInit {
       observation: {
         title: this.headerFields[1],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
       },
       
      

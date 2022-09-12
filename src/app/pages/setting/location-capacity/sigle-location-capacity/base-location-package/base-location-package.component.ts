@@ -6,6 +6,7 @@ import { AssistanceService } from '../../../../../business-controller/assistance
 import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 import { FormLocationCapacityComponent } from '../form-location-capacity/form-location-capacity.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-base-location-package',
@@ -15,6 +16,7 @@ import { FormLocationCapacityComponent } from '../form-location-capacity/form-lo
 export class BaseLocationPackageComponent implements OnInit {
   @ViewChild(BaseTableComponent) table_base: BaseTableComponent;
   @Input() parentData: AnyAaaaRecord;
+  @Input() from_form: boolean = true;
   @Output() emitMessage = new EventEmitter<any>();
 
   public isSubmitted = false;
@@ -55,7 +57,7 @@ export class BaseLocationPackageComponent implements OnInit {
   public routes = [
     {
       name: 'Capacidad instalada',
-      route: '../../setting/base-location-package',
+      route: '/pages/setting/location-capacity',
     },
   ];
 
@@ -66,6 +68,7 @@ export class BaseLocationPackageComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private assistanceS: AssistanceService,
     private deleteConfirmService: NbDialogService,
+    private location: Location,
   ) {
   }
 
@@ -73,6 +76,10 @@ export class BaseLocationPackageComponent implements OnInit {
     this.assistance_id = this.parentData;
   }
 
+  back() {
+    this.location.back();
+
+ }
   GetParams() {
     return {
       assistance_id: this.route.snapshot.params.user_id,

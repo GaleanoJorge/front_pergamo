@@ -10,6 +10,7 @@ import { Patient } from '../../../models/patient';
 import { PatientService } from '../../../business-controller/patient.service';
 import { ActionsSemaphore2Component } from '../management-plan/actions-semaphore.component';
 import { AuthService } from '../../../services/auth.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
   public messageError = null;
   public title;
   public subtitle = 'Por usuario';
-  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ruta','Ambito','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Portafolio','Regimen','Fecha Ingreso','Fecha Egreso','Salida Medica'];
+  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ruta','Tipo de atención','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Portafolio','Regimen','Fecha Ingreso','Fecha Egreso','Salida Medica', 'EPS', 'Total Agendado', 'Total Ejecutado'];
   public routes = [];
   public course;
   public data= [];
@@ -40,7 +41,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
   public patient;
   public admission_route_id;
   public admission_id;
-
+  public currentRole;
 
 
 
@@ -53,6 +54,7 @@ export class AdmissionsPatientPadComponent implements OnInit {
           return {
             'data': row,
             'user': this.user,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -70,10 +72,6 @@ export class AdmissionsPatientPadComponent implements OnInit {
           };
         },
         renderComponent: ActionsPadComponent,
-      },
-      consecutive: {
-        title: this.headerFields[0],
-        width: '5%',
       },
       location: {
         title: this.headerFields[1],
@@ -103,18 +101,18 @@ export class AdmissionsPatientPadComponent implements OnInit {
           return this.ambit;
         },
       },
-      program: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return this.program;
-        },
-      },
       campus: {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
+        },
+      },
+      company: {
+        title: this.headerFields[14],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value;
         },
       },
       contract: {
@@ -159,7 +157,6 @@ export class AdmissionsPatientPadComponent implements OnInit {
           return value;
         },
       },
-
     },
   };
 
@@ -172,11 +169,12 @@ export class AdmissionsPatientPadComponent implements OnInit {
     private UserBS: UserBusinessService,
     private PatientBS: PatientService,
     private deleteConfirmService: NbDialogService,
+    private location: Location,
   ) {
     this.routes = [
       {
         name: 'Pacientes',
-        route: '../../list',
+        route:'/pages/pad/list',
       },
       {
         name: 'Admisiones del paciente',
@@ -196,7 +194,10 @@ export class AdmissionsPatientPadComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.patient_id= this.route.snapshot.params.patient_id;
     this.user_id= this.route.snapshot.params.user_id;
-
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
 
     this.PatientBS.GetUserById(this.patient_id).then(x => {
       if(x){
@@ -205,6 +206,12 @@ export class AdmissionsPatientPadComponent implements OnInit {
       }
     });
   }
+
+  back() {
+    this.location.back();
+
+ }
+
 
   RefreshData() {
 

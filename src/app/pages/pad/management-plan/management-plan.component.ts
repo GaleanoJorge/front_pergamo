@@ -21,6 +21,8 @@ import { ActionsSemaphore2Component } from './actions-semaphore.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 import { SuppliesView } from './supplies-view/supplies-view.component';
+import { Location } from '@angular/common';
+import { AdmissionsService } from '../../../business-controller/admissions.service';
 
 @Component({
   selector: 'ngx-management-pad',
@@ -31,7 +33,7 @@ export class ManagementPlanComponent implements OnInit {
 
 
   @Input() admissions: any = null;
-  @Input() medical: number=0;
+  @Input() medical: number = 0;
   @Input() patient: boolean = false;
   @Input() title: string = null;
   public isSubmitted = false;
@@ -41,13 +43,14 @@ export class ManagementPlanComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = '';
-  public headerFields: any[] = ['Tipo de Atención', 'Frecuencia', 'Cantidad', 'Personal asistencial', 'Consecutivo de admisión - Ambito - Programa', 'Ejecutado','Incumplidas','Medicamento'];
+  public headerFields: any[] = ['Servicio', 'Frecuencia', 'Cantidad agendada', 'Personal asistencial', 'Consecutivo de admisión - Ambito - Programa', 'Ejecutado', 'Incumplidas', 'Medicamento'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
   public arrayBuffer: any;
   public file: File;
   public admissions_id;
+  public admissions1;
   public user_id;
   public user;
   public own_user;
@@ -59,8 +62,9 @@ export class ManagementPlanComponent implements OnInit {
   public currentRoleId;
   public roles;
   public user_logged;
+  public ambito;
   public type_id;
-  public valor: any=null;
+  public valor: any = null;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -74,15 +78,16 @@ export class ManagementPlanComponent implements OnInit {
       semaphore: {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          if(row.type_of_attention_id){
-            this.valor=true;
-          }else{
-            this.valor=false;
+          if (row.type_of_attention_id) {
+            this.valor = true;
+          } else {
+            this.valor = false;
           };
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
             'user': this.own_user,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -100,7 +105,7 @@ export class ManagementPlanComponent implements OnInit {
             'assignedUser': this.AssignedUser.bind(this),
             'delete': this.DeleteConfirmManagementPlan.bind(this),
             'refresh': this.RefreshData.bind(this),
-            'currentRole': this.currentRole,
+            'currentRole': this.currentRole.role_type_id,
           };
         },
         renderComponent: ActionsComponent,
@@ -109,23 +114,24 @@ export class ManagementPlanComponent implements OnInit {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction(value) {
-          return value?.consecutive+' - '+ value.location[0].scope_of_attention.name+' - '+ value.location[0].program.name;
+          return value?.consecutive + ' - ' + value.location[0].scope_of_attention.name + ' - ' + value.location[0].program.name;
         },
       },
       type_of_attention: {
         title: this.headerFields[0],
         type: 'string',
-        valuePrepareFunction(value) {
-          return value?.name;
+        width: '25%',
+        valuePrepareFunction(value, row) {
+          return value?.name + ' - ' + row.procedure.manual_price.name;
         },
       },
       service_briefcase: {
         title: this.headerFields[7],
         type: 'string',
-        valuePrepareFunction(value,row) {
-          if(row.type_of_attention_id==17){
+        valuePrepareFunction(value, row) {
+          if (row.type_of_attention_id == 17) {
             return value?.manual_price.name;
-          }else{
+          } else {
             return "N/A"
           }
         },
@@ -134,22 +140,11 @@ export class ManagementPlanComponent implements OnInit {
       quantity: {
         title: this.headerFields[2],
         type: 'string',
-        valuePrepareFunction(value,row) {
-          if(row.type_of_attention_id==17){
+        valuePrepareFunction(value, row) {
+          if (row.type_of_attention_id == 17) {
             return row.number_doses;
-          }else{
-            return value;
-          }
-        },
-      },
-      assigned_user: {
-        title: this.headerFields[3],
-        type: 'string',
-        valuePrepareFunction(value) {
-          if (value) {
-            return value?.firstname + ' ' + value.lastname;
           } else {
-            return 'Sin asignación';
+            return value;
           }
         },
       },
@@ -168,9 +163,9 @@ export class ManagementPlanComponent implements OnInit {
         title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction(value, row) {
-         
-            return  value;
-          
+
+          return value;
+
         },
       },
     },
@@ -205,6 +200,7 @@ export class ManagementPlanComponent implements OnInit {
 
 
 
+
   constructor(
 
     private formBuilder: FormBuilder,
@@ -214,7 +210,7 @@ export class ManagementPlanComponent implements OnInit {
     public datePipe: DateFormatPipe,
 
     private currency: CurrencyPipe,
-    private userBS: UserBusinessService,
+    private admissionS: AdmissionsService,
     private patienBS: PatientService,
 
     private authService: AuthService,
@@ -224,6 +220,7 @@ export class ManagementPlanComponent implements OnInit {
     private route: ActivatedRoute,
     public roleBS: RoleBusinessService,
     private router: Router,
+    private location: Location,
 
   ) {
   }
@@ -238,6 +235,10 @@ export class ManagementPlanComponent implements OnInit {
   public assigned_user: any[];
 
 
+  back() {
+    this.location.back();
+  }
+
 
 
 
@@ -245,30 +246,12 @@ export class ManagementPlanComponent implements OnInit {
   async ngOnInit() {
 
     if (this.settings1.columns["service_briefcase"].hasOwnProperty("show")) {
-      if (this.settings1.columns["service_briefcase"].show ==false) {
+      if (this.settings1.columns["service_briefcase"].show == false) {
         delete this.settings1.columns["service_briefcase"];
-      }
-}
 
-    this.own_user = this.authService.GetUser();
-    this.currentRole = this.own_user.roles[0].role_type_id;
-    this.currentRoleId = localStorage.getItem('role_id');
-    this.user_id = this.route.snapshot.params.user;
-    await this.roleBS.GetCollection({ id: this.currentRoleId  }).then(x => {
-      this.roles = x;
-    }).catch(x => { });
-    this.user_logged= this.authService.GetUser().id;
-    if (this.roles[0].role_type_id != 2 && this.title==null) {
-      this.admissions_id = this.route.snapshot.params.id;
-      this.title = "Agendamiento Plan de atención domiciliario";
-      this.entity="management_plan_by_patient/"+this.user_id+"/"+0+"?admission_id="+this.admissions_id;
-    }else if(this.medical==1){
-      this.title = "Agendamiento Plan de atención domiciliario";
-      this.entity="management_plan_by_patient/"+this.patient+"/"+0;
-    }else{
-      this.title = "Servicios a Ejecutar";
-      this.entity="management_plan_by_patient/"+this.user_id+"/"+this.user_logged;
+      }
     }
+
     if (this.admissions) {
       this.admissions_id = this.admissions;
       this.settings = this.settings2;
@@ -278,20 +261,54 @@ export class ManagementPlanComponent implements OnInit {
       this.user_id = this.route.snapshot.params.user;
       this.settings = this.settings1;
 
+      await this.admissionS.GetCollection({ admissions_id: this.admissions_id }).then(x => {
+        this.admissions1 = x;
+      });
+
+
+
+      this.own_user = this.authService.GetUser();
+      var curr = this.authService.GetRole();
+      this.currentRole = this.own_user.roles.find(x => {
+        return x.id == curr;
+      });
+      this.currentRoleId = this.currentRole.id;
+      this.user_id = this.route.snapshot.params.user;
+      await this.roleBS.GetCollection({ id: this.currentRoleId }).then(x => {
+        this.roles = x;
+      }).catch(x => { });
+      this.user_logged = this.authService.GetUser().id;
+      if (this.currentRole.role_type_id != 2 && this.title == null) {
+        this.admissions_id = this.route.snapshot.params.id;
+        this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
+        this.entity = "management_plan_by_patient/" + this.user_id + "/" + 0 + "?admission_id=" + this.admissions_id;
+      } else if (this.medical == 1) {
+        this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
+        this.entity = "management_plan_by_patient/" + this.patient + "/" + 0;
+      } else {
+        this.title = "Servicios a Ejecutar";
+        this.entity = "management_plan_by_patient/" + this.user_id + "/" + this.user_logged;
+      }
+
+
 
       this.routes = [
         {
           name: 'Pad',
-          route: '../pad/list',
+          route: '/pages/pad/list',
+
         },
         {
           name: 'Plan de manejo',
+          route: '/pages/pad/management-plan/' + this.admissions_id + '/' + this.user_id,
         },
       ];
     }
     await this.patienBS.GetUserById(this.user_id).then(x => {
       this.user = x;
     });
+
+
   }
 
 
@@ -325,7 +342,7 @@ export class ManagementPlanComponent implements OnInit {
         title: 'Asignar personal asistencial',
         data,
         user: this.user,
-        medical: this.medical,
+        medical: 0,
         assigned: false,
         admissions_id: this.admissions_id,
         saved: this.RefreshData.bind(this),
@@ -338,7 +355,7 @@ export class ManagementPlanComponent implements OnInit {
       context: {
         title: 'Editar plan de manejo',
         data,
-        edit:1,
+        edit: 1,
         user: this.user,
         medical: 0,
         admissions_id: this.admissions_id,
@@ -347,7 +364,7 @@ export class ManagementPlanComponent implements OnInit {
     });
   }
 
-suppliesView() {
+  suppliesView() {
     this.dialogFormService.open(SuppliesView, {
       context: {
         user: this.user,

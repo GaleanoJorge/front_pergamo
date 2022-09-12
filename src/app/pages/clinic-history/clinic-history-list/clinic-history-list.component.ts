@@ -54,7 +54,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public signatureImage: string;
   public firm_file: string;
   public previousUrl: string;
-  public int;
+  public int=0;
 
 
 
@@ -147,7 +147,7 @@ export class ClinicHistoryListComponent implements OnInit {
   }
 
   async finish(firm) {
-
+if(this.signatureImage!=null){
     var formData = new FormData();
     formData.append('id', this.record_id,);
     formData.append('status', 'CERRADO');
@@ -158,9 +158,7 @@ export class ClinicHistoryListComponent implements OnInit {
     formData.append('firm_file', this.signatureImage);
 
     try {
-
       let response;
-    
         response = await this.chRecord.UpdateCH(formData, this.record_id);
         this.location.back();
       this.toastService.success('', response.message);
@@ -169,12 +167,18 @@ export class ClinicHistoryListComponent implements OnInit {
       if (this.saved) {
         this.saved();
       }
+      return true;
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;
       this.loading = false;
       throw new Error(response);
     }
+  }else{
+    
+    this.toastService.danger('Debe diligenciar la firma');
+    return false;
+  }
   
   }
 

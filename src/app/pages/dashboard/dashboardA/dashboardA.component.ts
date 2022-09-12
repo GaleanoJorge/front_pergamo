@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { ReportBusinessService } from '../../../business-controller/report-business.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
     selector: 'ngx-dashboardA',
@@ -8,8 +9,11 @@ import { ReportBusinessService } from '../../../business-controller/report-busin
     styleUrls: ['dashboardA.component.scss'],
 })
 export class DashboardAComponent {
-
-    constructor(private reporteBS: ReportBusinessService) { }
+    public currentRole;
+    constructor(
+        private reporteBS: ReportBusinessService,
+        private authService: AuthService,
+    ) { }
 
     routes = [
         {
@@ -24,6 +28,10 @@ export class DashboardAComponent {
     public dataGraphic: any[] = [];
 
     ngOnInit() {
+        var curr = this.authService.GetRole();
+        this.currentRole = this.authService.GetUser().roles.find(x => {
+            return x.id == curr;
+        });
         this.dataGraphic.push({
             type: 'pie',
             title: 'Total de Grupos (120)',

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
-import { NbDialogRef, NbDialogService, NbToastrService, NbWindowService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbToastrService, NbWindowService, NbWindowRef } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthorizationService } from '../../../../../business-controller/authorization.service';
 import { Contract } from '../../../../../models/contract';
@@ -37,7 +37,9 @@ export class AuthPackageComponent implements OnInit {
   public saved: any = null;
 
   public package_id: any = null;
+  public service_briefcase_id: any = null;
   public packages: any[] = [];
+  public element;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -92,6 +94,11 @@ export class AuthPackageComponent implements OnInit {
     if (!t) {
       this.saved()
     }
+    this.element = document.getElementsByTagName("nb-windows-container");
+    if(this.element.length > 0)
+    {
+      this.element[0].remove();
+    }
     this.dialogRef.close();
   }
 
@@ -112,9 +119,7 @@ export class AuthPackageComponent implements OnInit {
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
-            if (this.saved) {
-              this.saved();
-            }
+            this.saved();
           }).catch(x => {
             this.isSubmitted = false;
             this.loading = false;
@@ -123,14 +128,16 @@ export class AuthPackageComponent implements OnInit {
         } else {
           this.authPackageS.Save({
             admissions_id: this.admissions_id,
-            services_briefcase_id: this.package_id,
+            services_briefcase_id: this.service_briefcase_id,
             auth_array: JSON.stringify(this.selectedOptions),
           }).then(x => {
             this.toastService.success('', x.message);
-            this.close();
-            if (this.saved) {
-              this.saved();
+            if(this.dialog){
+              this.dialog.close();
+              this.dialog = null;
             }
+            this.close();
+            this.saved();
           }).catch(x => {
             this.isSubmitted = false;
             this.loading = false;
@@ -145,8 +152,10 @@ export class AuthPackageComponent implements OnInit {
     this.form.get('package_id').valueChanges.subscribe(val => {
       if (val === '') {
         this.package_id = null;
+        this.service_briefcase_id = null;
       } else {
-        this.package_id = val;
+        this.package_id = this.packages.find(item => item.id == val);
+        this.service_briefcase_id = val;
       }
     });
   }
@@ -173,7 +182,7 @@ export class AuthPackageComponent implements OnInit {
     this.dialog = this.windowService.open(ProcedurePackage2Component, {
       title: 'Información de paquetes', hasBackdrop: false, closeOnEsc: false, 
       context: {
-        procedure_package_id: this.package_id,
+        procedure_package_id: this.package_id.manual_price_id,
       }
     });
   }

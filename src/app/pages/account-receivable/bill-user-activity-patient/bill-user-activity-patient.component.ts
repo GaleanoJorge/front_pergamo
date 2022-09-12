@@ -15,6 +15,7 @@ import { HumanTalentRequestObservationService } from '../../../business-controll
 import { ActionsBillComponent } from '../bill-user-activity/actions.component';
 import { PatientService } from '../../../business-controller/patient.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class BillUserActivityPatientComponent implements OnInit {
   public user;
   public role_type;
   public entity: string;
-
+  public currentRole;
   public package: any[] = [];
   public type_briefcase: any[] = [];
   public component_package_id: number;
@@ -147,6 +148,7 @@ export class BillUserActivityPatientComponent implements OnInit {
     private PatientS: PatientService,
     public datePipe: DateFormatPipe,
     private HumanTalentRequestObservationS: HumanTalentRequestObservationService,
+    private location: Location,
   ) {
   }
 
@@ -154,7 +156,11 @@ export class BillUserActivityPatientComponent implements OnInit {
   ngOnInit(): void {
     this.patient_id = this.route.snapshot.params.id;
     this.user = this.authService.GetUser();
-    this.role_type = this.user.roles[0].role_type_id;
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
+    this.role_type = this.currentRole.role_type_id;
     this.routes = [
       {
         name: 'Insumos',
@@ -165,6 +171,8 @@ export class BillUserActivityPatientComponent implements OnInit {
         route: '../../contract/briefcase',
       },
     ];
+    
+
 
     this.HumanTalentRequestObservationS.GetCollection({
       category: 3,
@@ -180,7 +188,10 @@ export class BillUserActivityPatientComponent implements OnInit {
       }
     });
   }
-
+  back() {
+    this.location.back();
+  
+  }
 
   RefreshData() {
     this.table.refresh();

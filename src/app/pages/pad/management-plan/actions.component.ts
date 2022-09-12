@@ -38,13 +38,13 @@ import { Actions4Component } from '../assigned-management-plan/actions.component
           nbButton ghost (click)="ShowPreBilling(AssignedTable, value.data.admissions.patient_id)">
           <nb-icon icon="eye-outline"></nb-icon>
       </button>
-      <button nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
+      <button *ngIf="value.currentRole == 1" nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
   </div>
 
   <ng-template #AssignedTable>
-  <nb-card style="max-width: 1400px;max-height: 600px;overflow: auto;">
+  <nb-card style="width: 100%;height: 100%;overflow: auto;">
     <nb-card-header>
       Próximos servicios
     </nb-card-header>
@@ -82,7 +82,6 @@ export class ActionsComponent implements ViewCell {
   public user_id;
   public own_user;
   public ch_record;
-  public currentRole;
 
   constructor(
     private dialogFormService: NbDialogService,
@@ -109,8 +108,9 @@ export class ActionsComponent implements ViewCell {
             'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
             'openEF':this.NewChRecord.bind(this),
-            'currentRole': this.currentRole,
+            'currentRole': this.value.currentRole,
             'edit': this.EditAssigned.bind(this),
+            'closeDialog': this.closeDialog.bind(this),
           };
         },
         renderComponent: Actions4Component,

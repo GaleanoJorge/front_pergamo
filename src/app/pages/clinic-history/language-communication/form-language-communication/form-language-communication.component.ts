@@ -20,6 +20,7 @@ export class FormLanguageCommunicationComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -65,6 +66,24 @@ export class FormLanguageCommunicationComponent implements OnInit {
 
       };
     }
+
+    if (this.has_input) {
+      this.CommunicationTlS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
+        this.data = x;
+        this.form = this.formBuilder.group({
+          eye_contact: [this.data[0] ? this.data[0].eye_contact : this.data.eye_contact,],
+          courtesy_rules: [this.data[0] ? this.data[0].courtesy_rules : this.data.courtesy_rules,],
+          communicative_intention: [this.data[0] ? this.data[0].communicative_intention : this.data.communicative_intention,],
+          communicative_purpose: [this.data[0] ? this.data[0].communicative_purpose : this.data.communicative_purpose,],
+          oral_verb_modality: [this.data[0] ? this.data[0].oral_verb_modality : this.data.oral_verb_modality,],
+          written_verb_modality: [this.data[0] ? this.data[0].written_verb_modality : this.data.written_verb_modality,],
+          nonsymbolic_nonverbal_modality: [this.data[0] ? this.data[0].nonsymbolic_nonverbal_modality : this.data.nonsymbolic_nonverbal_modality,],
+          symbolic_nonverbal_modality: [this.data[0] ? this.data[0].symbolic_nonverbal_modality : this.data.symbolic_nonverbal_modality,],
+          observations: [this.data[0] ? this.data[0].observations : this.data.observations,],
+        });
+      });
+    }
+
     this.form = this.formBuilder.group({
       eye_contact: [this.data[0] ? this.data[0].eye_contact : this.data.eye_contact,Validators.compose([Validators.required])],
       courtesy_rules: [this.data[0] ? this.data[0].courtesy_rules : this.data.courtesy_rules,Validators.compose([Validators.required])],
@@ -143,8 +162,11 @@ export class FormLanguageCommunicationComponent implements OnInit {
         });
         this.messageEvent.emit(true);
       }
-
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+
+    
   }
 
 }

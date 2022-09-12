@@ -26,6 +26,8 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
   public fixed_assets_id: any[];
   public user;
   public selectedOptions: any[] = [];
+  public product_id;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -66,6 +68,18 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  saveCode(e): void {
+    var localidentify = this.responsible_user_id.find(item => item.nombre_completo == e);
+    if (localidentify) {
+      this.product_id = localidentify.id;
+    } else {
+      this.product_id = null;
+      this.form.controls.responsible_user_id.setErrors({ 'incorrect': true });
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+    }
+  }
+
+
   async save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
@@ -81,7 +95,8 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
           this.FixedAddS.updateInventoryByLot({
             id: this.data.id,
             fixed_assets_id: this.selectedOptions,
-            responsible_user_id: this.form.controls.responsible_user_id.value,
+            responsible_user_id: this.product_id,
+            // responsible_user_id: this.form.controls.responsible_user_id.value,
             amount: 1,
             status: 'ENVIADO PATIENT',
             observation: this.form.controls.observation.value,
@@ -94,13 +109,6 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
             if (this.saved) {
               this.saved();
             }
-            // this.FixedLoanS.Update({
-            //   fixed_add_id: id,
-            //   fixed_assets_id: JSON.stringify(this.selectedOptions),
-            // }, id).then(x => {
-            // }).catch(x => {
-            //   err++;
-            // });
             contador++;
             if (contador > 0) {
               this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');
@@ -122,20 +130,14 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
             status: 'ENVIADO PATIENT', 
             fixed_assets_id: this.selectedOptions,
             observation: this.form.controls.observation.value,
-            responsible_user_id: this.form.controls.responsible_user_id.value,
+            responsible_user_id: this.product_id,
+            // responsible_user_id: this.form.controls.responsible_user_id.value,
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
             var id = x.data.fixed_add.id;
             var contador = 0;
             var err = 0;
-            // this.FixedLoanS.Save({
-            //   fixed_add_id: id,
-            //   fixed_assets_id: JSON.stringify(this.selectedOptions),
-            // }).then(x => {
-            // }).catch(x => {
-            //   err++;
-            // });
             contador++;
             if (contador > 0) {
               this.toastS.success(null, 'Se actualizaron ' + contador + ' elementos');

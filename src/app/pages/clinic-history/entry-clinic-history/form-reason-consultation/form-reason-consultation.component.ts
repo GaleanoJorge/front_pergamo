@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChReasonConsultationService } from '../../../../business-controller/ch-reason-consultation.service';
 import { ChExternalCauseService } from '../../../../business-controller/ch-external-cause.service';
 import { merge, Observable, of, Subject } from 'rxjs';
@@ -25,7 +25,7 @@ export class FormReasonConsultationComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
-  @Input() has_input: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   languages: string[] = languages;
@@ -79,14 +79,14 @@ export class FormReasonConsultationComponent implements OnInit {
         this.form = this.formBuilder.group({
           reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation,],
           current_illness: [this.data[0] ? this.data[0].current_illness : this.data.current_illness,],
-          ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id,],
+          ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id, ],
         });
       });
     }
 
 
     this.form = this.formBuilder.group({
-      reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation,],
+      reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation, Validators.compose([Validators.required])],
       current_illness: [this.data[0] ? this.data[0].current_illness : this.data.current_illness,],
       ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id,],
     });
@@ -157,8 +157,11 @@ export class FormReasonConsultationComponent implements OnInit {
 
         });
       }
-
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+
+    
   }
   receiveMessage($event) {
 

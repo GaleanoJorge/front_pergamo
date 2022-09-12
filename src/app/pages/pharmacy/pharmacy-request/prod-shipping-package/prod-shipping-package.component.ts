@@ -162,9 +162,15 @@ export class ProdShippingPackageComponent implements OnInit {
     this.messageEvent.emit(this.selectedOptions);
     this.RefreshData();
   }
-
   onAmountChange(input, row) {
-    if (Number(input.target.valueAsNumber) > Number(this.request_amount)) {
+    var sub = 0;
+    if (this.selectedOptions.length > 0) {
+      this.selectedOptions.forEach(element => {
+        sub += element.amount;
+      });
+    }
+    sub += Number(input.target.valueAsNumber)
+    if (sub > Number(this.request_amount)) {
       this.toastS.danger("", "La cantidad a entregar no debe superar la cantidad ordenada")
     } else {
       var i = 0;
@@ -179,6 +185,23 @@ export class ProdShippingPackageComponent implements OnInit {
       this.messageEvent.emit(this.selectedOptions);
     }
   }
+
+  // onAmountChange(input, row) {
+  //   if (Number(input.target.valueAsNumber) > Number(this.request_amount)) {
+  //     this.toastS.danger("", "La cantidad a entregar no debe superar la cantidad ordenada")
+  //   } else {
+  //     var i = 0;
+  //     var mientras = this.selectedOptions;
+  //     this.selectedOptions.forEach(element => {
+  //       if (element.pharmacy_lot_stock_id == row.id) {
+  //         mientras[i].amount = input.target.valueAsNumber;
+  //       }
+  //       i++
+  //     });
+  //     this.selectedOptions = mientras;
+  //     this.messageEvent.emit(this.selectedOptions);
+  //   }
+  // }
 
   ChangeManual(inscriptionstatus) {
     this.inscriptionstatus = inscriptionstatus;

@@ -1,8 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CifDiagnosisTlService } from '../../../../business-controller/cif-diagnosis-tl.service';
+import { Location } from '@angular/common';
+import { ChRecordService } from '../../../../business-controller/ch_record.service';
+import { ConfirmDialogCHComponent } from '../../clinic-history-list/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'ngx-form-language-evolution',
@@ -14,6 +17,7 @@ export class FormLanguageEvolutionComponent implements OnInit {
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   @Input() record_id: any = null;
+  @Input() has_input: boolean = false;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -26,12 +30,25 @@ export class FormLanguageEvolutionComponent implements OnInit {
   public check1;
   public cifdiagnosistl: any[];
   public saveEntry: any = 0;
+  //public has_input: any = null; // ya existe registro de ingreso
+  public input_done: boolean = false; // ya se registró algo en el ingreso
+
+  public user;
+  public signatureImage: string;
+  public currentRole: any;
+  public own_user;
+  public int: 0;
+  public messageError = null;
   
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private CifDiagnosisTlS: CifDiagnosisTlService,
+    private location: Location,
+    private toastService: NbToastrService,
+    private chRecord: ChRecordService,
+    private deleteConfirmService: NbDialogService,
 
 
   ) {}
@@ -46,6 +63,11 @@ export class FormLanguageEvolutionComponent implements OnInit {
     }
     await this.CifDiagnosisTlS.GetCollection({ch_record_id: this.record_id,}).then((x) => {
       this.cifdiagnosistl = x;
+      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
+      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
+        this.input_done = true;
+      }
+      this.user = x[0]['admissions']['patients'];
     });
 
     this.form = this.formBuilder.group({
@@ -65,5 +87,82 @@ export class FormLanguageEvolutionComponent implements OnInit {
       await this.CifDiagnosisTlS.Update({});
       
     }
+  }
+
+  public back(): void {
+    this.location.back();
+  }
+
+  close() {
+    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
+      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
+        context: {
+          signature: true,
+          title: 'Finalizar registro.',
+          delete: this.finish.bind(this),
+          showImage: this.showImage.bind(this),
+          // save: this.saveSignature.bind(this),
+          textConfirm: 'Finalizar registro'
+        },
+      });
+    } else {
+      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
+    }
+  }
+
+  showImage(data) {
+    this.int++;
+    if (this.int == 1) {
+      this.signatureImage = null;
+    } else {
+      this.signatureImage = data;
+
+    }
+  }
+
+  // async saveSignature() {
+  //   var formData = new FormData();
+  //   formData.append('firm_file', this.signatureImage);
+  //   console.log(this.signatureImage);
+  // }
+
+  async finish(firm) {
+    if(this.signatureImage!=null){
+      var formData = new FormData();
+      formData.append('id', this.record_id,);
+      formData.append('status', 'CERRADO');
+      formData.append('user', this.user);
+      formData.append('role', this.currentRole);
+      formData.append('user_id', this.own_user.id);
+      formData.append('firm_file', this.signatureImage);
+      
+      try {
+        
+        let response;
+        
+        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        this.location.back();
+        this.toastService.success('', response.message);
+        //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
+        this.messageError = null;
+        if (this.saved) {
+          this.saved();
+        }
+      } catch (response) {
+        this.messageError = response;
+        this.isSubmitted = false;
+        this.loading = false;
+        throw new Error(response);
+      }
+    }else{
+      this.toastService.danger('Debe diligenciar la firma');
+  
+    }
+      
+  }
+
+  // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
+  inputMessage($event) {
+    this.input_done = true;
   }
 }

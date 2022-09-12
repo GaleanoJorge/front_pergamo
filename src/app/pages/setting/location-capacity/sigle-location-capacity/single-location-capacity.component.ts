@@ -8,6 +8,7 @@ import { ActionsSingleLocationCapacityComponent } from './actions-single-locatio
 import { FormEditLocationCapacityComponent } from './form-edit-location-capacity/form-edit-location-capacity.component';
 import { FormLocationCapacityComponent } from './form-location-capacity/form-location-capacity.component';
 
+
 @Component({
   selector: 'ngx-single-location-capacity',
   templateUrl: './single-location-capacity.component.html',
@@ -115,7 +116,7 @@ export class SingleLocationCapacityComponent implements OnInit {
   public routes = [
     {
       name: 'Capacidad instalada',
-      route: '../../setting/single-location-capacity',
+      route: '/pages/setting/location-capacity',
     },
   ];
 
@@ -126,6 +127,8 @@ export class SingleLocationCapacityComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private assistanceS: AssistanceService,
     private deleteConfirmService: NbDialogService,
+   
+
   ) {
   }
 
@@ -138,6 +141,7 @@ export class SingleLocationCapacityComponent implements OnInit {
       this.assistance_name = x[0]['user']['firstname'] + ' ' + x[0]['user']['lastname'];
     });
   }
+  
 
   GetParams() {
     return {

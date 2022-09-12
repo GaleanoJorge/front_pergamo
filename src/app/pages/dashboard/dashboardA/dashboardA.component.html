@@ -8,7 +8,7 @@
                         </nb-card-body>
                  
             </nb-tab>
-            <nb-tab tabTitle="GERENCIA">
+            <nb-tab *ngIf="currentRole.role_type_id == 1" tabTitle="GERENCIA">
                 <nb-tabset class="tabset">
                     <nb-tab tabTitle="REPORTE FRT">
                         <nb-card-body>
@@ -22,7 +22,7 @@
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
-            <nb-tab tabTitle="GLOSAS">
+            <nb-tab *ngIf="currentRole.role_type_id == 1" tabTitle="GLOSAS">
                 <nb-tabset class="tabset">
                     <nb-tab tabTitle="REPORTE GLOSAS">
                         <nb-card-body>
@@ -35,7 +35,7 @@
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
-            <nb-tab tabTitle="ADMINISTRATIVA">
+            <nb-tab *ngIf="currentRole.role_type_id == 1" tabTitle="ADMINISTRATIVA">
                 <nb-tabset class="tabset">
                     <nb-tab tabTitle="REPORTE VEHICULOS">
                         <nb-card-body>
@@ -46,7 +46,7 @@
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
-            <nb-tab tabTitle="JURIDICA">
+            <nb-tab *ngIf="currentRole.role_type_id == 1" tabTitle="JURIDICA">
                 <nb-tabset class="tabset">
                     <nb-tab tabTitle="REPORTE">
                         <nb-card-body>
@@ -58,7 +58,7 @@
                 </nb-tabset>
             </nb-tab>
 
-            <nb-tab tabTitle="CALIDAD">
+            <nb-tab *ngIf="currentRole.role_type_id == 1" tabTitle="CALIDAD">
                 <nb-tabset class="tabset">
                     <nb-tab tabTitle="REPORTE PBX">
                         <nb-card-body>
@@ -77,18 +77,18 @@
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
-            <nb-tab tabTitle="PAD">
+            <nb-tab *ngIf="currentRole.role_type_id == 1" tabTitle="PAD">
                 <nb-tabset class="tabset">
                     <nb-tab tabTitle="REPORTE">
                         <nb-card-body>
-                            <iframe title="PAD - PERSONAL ACTIVO" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiMzI1MGNiNzAtYjZjMy00YmRiLTllYjYtYWU0MGE2OGM1MDg4IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9" frameborder="0" allowFullScreen="true"></iframe>
+                            <iframe title="PAD_drive" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiMWQ1NGQ4ZmItM2NkOC00OTZhLWJkN2EtYmZlZTU3ZDIyNmFkIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9&pageName=ReportSectionaafdcbbcba4a793ec492" frameborder="0" allowFullScreen="true"></iframe>
                           </nb-card-body>
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
-            <nb-tab tabTitle="..">
+            <nb-tab *ngIf="currentRole.role_type_id == 1" tabTitle="..">
             </nb-tab>
-            <nb-tab tabTitle="..">
+            <nb-tab *ngIf="currentRole.role_type_id == 1" tabTitle="..">
             </nb-tab>
         </nb-tabset>
     </div>

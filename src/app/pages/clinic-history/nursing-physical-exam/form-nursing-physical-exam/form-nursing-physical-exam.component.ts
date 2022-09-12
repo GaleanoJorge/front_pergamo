@@ -303,7 +303,10 @@ export class FormNursingPhysicalExamComponent implements OnInit {
         this.loading = false;
         this.messageEvent.emit(true);
       }
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+    
   }
 
   makeArray() {

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 import { AdmissionsService } from '../../../../business-controller/admissions.service';
+import { AuthService } from '../../../../services/auth.service';
 
 
 @Component({
@@ -20,19 +21,22 @@ export class SuppliesView {
 
   public show;
   public saved: any = null;
-
+  public currentRole;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private userS: UserBusinessService,
     private toastrService: NbToastrService,
     public AdmissionsS: AdmissionsService,
+    private authService: AuthService,
   ) {
 
   }
   async ngOnInit() {
-    // console.log(this.user);
-    // console.log(this.admissions_id);
+    var curr = this.authService.GetRole();
+    this.currentRole = this.own_user.roles.find(x => {
+      return x.id == curr;
+    });
   }
 
   close() {
