@@ -73,7 +73,7 @@ export class PharmaInvReturnComponent implements OnInit {
           // own_pharmacy_stock_id: this.data2.own_pharmacy_stock_id,
           // request_pharmacy_stock_id: this.my_pharmacy_id,
           observation: this.form.controls.observation.value,
-          status: 'DEVUELTO FARMACIA',
+          status: 'ENVIADO',
         }).then((x) => {
           this.toastService.success('', x.message);
           this.close();
@@ -94,7 +94,7 @@ export class PharmaInvReturnComponent implements OnInit {
           request_pharmacy_stock_id: this.data2.own_pharmacy_stock_id,
           own_pharmacy_stock_id: this.my_pharmacy_id,
           observation: this.form.controls.observation.value,
-          status: 'DEVUELTO FARMACIA',
+          status: 'ENVIADO',
         })
           .then((x) => {
             this.toastService.success('', x.message);
