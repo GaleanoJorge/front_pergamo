@@ -10,7 +10,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Antecedentes">
-            <ngx-back-list [record_id]="record_id"></ngx-back-list>
+            <ngx-back-list [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" [type_record_id]="1"></ngx-back-list>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
@@ -33,7 +33,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Pedido de insumos">
-            <ngx-insume-request [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-insume-request>
+            <ngx-insume-request [record_id]="record_id" (messageEvent)="inputMessage($event)" [type_record_id]="1" [has_input]="has_input"></ngx-insume-request>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Sesiones">

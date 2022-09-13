@@ -87,13 +87,19 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
       };
     }
 
-    await this.ChOxygenTherapyS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.teraphyRespiratory = x;
+    this.chRecord.GetCollection({
+      record_id: this.record_id
+    }).then(x => {
       this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
       this.user = x[0]['admissions']['patients'];
+      this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
+    });
+
+    await this.ChOxygenTherapyS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.teraphyRespiratory = x;
     });
 
     await this.SuppliesS.GetCollection({ ch_record_id: this.record_id }).then(x => {
