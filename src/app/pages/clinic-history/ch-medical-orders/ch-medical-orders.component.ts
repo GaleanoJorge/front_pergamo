@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-ch-medical-orders',
@@ -19,6 +20,7 @@ export class ChMedicalOrdersComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Orden Medica  Ambulatoria',
     'Procedimiento',
     'Cantidad',
@@ -40,30 +42,37 @@ export class ChMedicalOrdersComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      ambulatory_medical_order: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      ambulatory_medical_order: {
+        title: this.headerFields[1],
         width: 'string',
       },
       procedure: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
       amount: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
       frequency: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
       observations: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
       },
       
@@ -71,7 +80,10 @@ export class ChMedicalOrdersComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+    ) {}
 
   async ngOnInit() {
 

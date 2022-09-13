@@ -17,6 +17,7 @@ import { ChRespiratoryTherapyService } from '../../../business-controller/ch_res
 export class RegularRespiratoryTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() user: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   //@Input() vital: any;

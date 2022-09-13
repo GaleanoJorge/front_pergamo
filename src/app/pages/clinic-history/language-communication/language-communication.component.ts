@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-communication',
@@ -23,6 +24,7 @@ export class LanguageCommunicationComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Contacto Visual',
     'Normas De Cortesía',
     'Intención Comunicativa',
@@ -48,43 +50,50 @@ export class LanguageCommunicationComponent implements OnInit {
       perPage: 10,
     },
     columns: {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
 
       eye_contact: {
-        title: this.headerFields[0],
+        title: this.headerFields[1],
         width: 'string',
       },
       courtesy_rules: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
        
       },
       communicative_intention: {
-        title: this.headerFields[2],
-        width: 'string',
-      },
-      communicative_purpose: {
         title: this.headerFields[3],
         width: 'string',
       },
-      oral_verb_modality: {
+      communicative_purpose: {
         title: this.headerFields[4],
         width: 'string',
       },
-      written_verb_modality: {
+      oral_verb_modality: {
         title: this.headerFields[5],
+        width: 'string',
+      },
+      written_verb_modality: {
+        title: this.headerFields[6],
         width: 'string',
        
       },
       nonsymbolic_nonverbal_modality: {
-        title: this.headerFields[6],
-        width: 'string',
-      },
-      symbolic_nonverbal_modality: {
         title: this.headerFields[7],
         width: 'string',
       },
-      observations: {
+      symbolic_nonverbal_modality: {
         title: this.headerFields[8],
+        width: 'string',
+      },
+      observations: {
+        title: this.headerFields[9],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -98,7 +107,10 @@ export class LanguageCommunicationComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+    ) {}
 
   async ngOnInit() {
 

@@ -30,7 +30,7 @@
       <div class="col-md-12">
         <label for="reason_consultation" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
         <textarea id="reason_consultation" nbInput (disabled)="this.has_input" fullWidth formControlName="reason_consultation" current_illness
-          rows="4" cols="50"
+          rows="4" cols="50" onpaste="return false"
           status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
 
