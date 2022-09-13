@@ -2,6 +2,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-nursing-procedure',
@@ -21,6 +22,7 @@ export class NursingProcedureComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'FECHA',
     'PROCEDIMIENTO', 'OBSERVACIÓN',
 
   ];
@@ -36,21 +38,29 @@ export class NursingProcedureComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      nursing_procedure: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      nursing_procedure: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
       observation: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         type: 'string',
       }
     },
   };
 
   constructor(
+    public datePipe: DateFormatPipe
   ) {
 
   }

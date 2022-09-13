@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-therapeutic-goals',
@@ -24,6 +25,7 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Objetivo N°1',
     'Objetivo N°2',
     'Objetivo N°3',
@@ -49,20 +51,15 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
 
       hold_phonoarticulators: {
-        title: this.headerFields[0],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          if (value) {
-            return value;
-          } else {
-            return 'NO APLICA'
-          }
-        }
-      },
-      strengthen_phonoarticulators: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -73,7 +70,7 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
           }
         }
       },
-      strengthen_tone: {
+      strengthen_phonoarticulators: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -84,7 +81,7 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
           }
         }
       },
-      favor_process: {
+      strengthen_tone: {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -95,7 +92,7 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
           }
         }
       },
-      strengthen_thread: {
+      favor_process: {
         title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -106,7 +103,7 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
           }
         }
       },
-      favor_psycholinguistic: {
+      strengthen_thread: {
         title: this.headerFields[5],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -117,7 +114,7 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
           }
         }
       },
-      increase_processes: {
+      favor_psycholinguistic: {
         title: this.headerFields[6],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -128,7 +125,7 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
           }
         }
       },
-      strengthen_qualities: {
+      increase_processes: {
         title: this.headerFields[7],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -139,7 +136,7 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
           }
         }
       },
-      strengthen_communication: {
+      strengthen_qualities: {
         title: this.headerFields[8],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -150,8 +147,19 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
           }
         }
       },
-      improve_skills: {
+      strengthen_communication: {
         title: this.headerFields[9],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      improve_skills: {
+        title: this.headerFields[10],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -165,7 +173,9 @@ export class LanguageTherapeuticGoalsComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe) {}
 
   async ngOnInit() {
 

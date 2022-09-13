@@ -3,6 +3,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-ch-inability',
@@ -20,7 +21,7 @@ export class ChInabilityComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Prorroga', 'Codigo de Contingencia', 'Fecha de Inicio', 'Fecha Final', 'Cant de Días','Diagnostico', 'Tipo de Incapacidad', 'Tipo de Procedimiento', 'Observación',
+    'Fecha','Prorroga', 'Codigo de Contingencia', 'Fecha de Inicio', 'Fecha Final', 'Cant de Días','Diagnostico', 'Tipo de Incapacidad', 'Tipo de Procedimiento', 'Observación',
     
   ];
 
@@ -35,12 +36,19 @@ export class ChInabilityComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      extension: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      extension: {
+        title: this.headerFields[1],
         type: 'string',
         },
       ch_contingency_code: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
@@ -48,42 +56,42 @@ export class ChInabilityComponent implements OnInit {
       },
       
         initial_date: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
         
       },
       final_date: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         width: 'string',
         
        },
        total_days: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         type: 'string',
         },
        diagnosis: {
-        title: this.headerFields[5],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.name;
-        },
-      },
-      ch_type_inability: {
         title: this.headerFields[6],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-      ch_type_procedure: {
+      ch_type_inability: {
         title: this.headerFields[7],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-      observation: {
+      ch_type_procedure: {
         title: this.headerFields[8],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
+      },
+      observation: {
+        title: this.headerFields[9],
         width: 'string',
         
        },
@@ -91,7 +99,8 @@ export class ChInabilityComponent implements OnInit {
   };
 
   constructor(
-    public userChangeS: UserChangeService
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe,
     ) {
       
     }

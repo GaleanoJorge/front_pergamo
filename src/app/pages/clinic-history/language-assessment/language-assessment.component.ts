@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-assessment',
@@ -23,7 +24,7 @@ export class LanguageAssessmentComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Diagnóstico Médico', 'Diagnóstico terapéutico','Motivo de la Consulta'];
+  public headerFields: any[] = ['Fecha','Diagnóstico Médico', 'Diagnóstico terapéutico','Motivo de la Consulta'];
   public movieForm: String;
 
   public isSubmitted: boolean = false;
@@ -39,22 +40,30 @@ export class LanguageAssessmentComponent implements OnInit {
     },
     columns: {
 
-      medical_diagnostic: {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.name;
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
         },
-      },
-      therapeutic_diagnosis: {
+        },
+
+      medical_diagnostic: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-      reason_consultation: {
+      therapeutic_diagnosis: {
         title: this.headerFields[2],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
+      },
+      reason_consultation: {
+        title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -71,6 +80,7 @@ export class LanguageAssessmentComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
 
   }

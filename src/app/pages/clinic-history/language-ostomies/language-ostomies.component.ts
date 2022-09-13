@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-ostomies',
@@ -23,6 +24,7 @@ export class LanguageOstomiesComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Yeyunostomía',
     'Colostomía',
     'Observaciones',
@@ -43,8 +45,16 @@ export class LanguageOstomiesComponent implements OnInit {
     },
     columns: {
 
-      jejunostomy: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+
+      jejunostomy: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -55,7 +65,7 @@ export class LanguageOstomiesComponent implements OnInit {
         }
       },
       colostomy: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -67,7 +77,7 @@ export class LanguageOstomiesComponent implements OnInit {
        
       },
       observations: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -82,7 +92,10 @@ export class LanguageOstomiesComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+    ) {}
 
   async ngOnInit() {
 

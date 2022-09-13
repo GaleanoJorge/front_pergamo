@@ -3,6 +3,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-skin-valoration',
@@ -22,7 +23,7 @@ export class SkinValorationComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'DIAGNOSTICO', 'ZONA EXAMINADA', 'EXUDADO', 'TIPO DE EXUDADO', 'SIGNOS DE INFECCIÓN', 'PIEL CIRCUNDANTE', 'ESTADO DE LA PIEL'
+    'FECHA','DIAGNOSTICO', 'ZONA EXAMINADA', 'EXUDADO', 'TIPO DE EXUDADO', 'SIGNOS DE INFECCIÓN', 'PIEL CIRCUNDANTE', 'ESTADO DE LA PIEL'
   ];
 
   public isSubmitted: boolean = false;
@@ -36,39 +37,36 @@ export class SkinValorationComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      diagnosis: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
+      diagnosis: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
       body_region: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
       skin_status: {
-        title: this.headerFields[6],
+        title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
       exudate: {
-        title: this.headerFields[2],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          if(value){
-            return value;
-          } else {
-            return '--';
-          }
-        },
-      },
-      concentrated: {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -79,7 +77,7 @@ export class SkinValorationComponent implements OnInit {
           }
         },
       },
-      infection_sign: {
+      concentrated: {
         title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -90,8 +88,19 @@ export class SkinValorationComponent implements OnInit {
           }
         },
       },
-      surrounding_skin: {
+      infection_sign: {
         title: this.headerFields[5],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if(value){
+            return value;
+          } else {
+            return '--';
+          }
+        },
+      },
+      surrounding_skin: {
+        title: this.headerFields[6],
         width: 'string',
         valuePrepareFunction(value, row) {
           if(value){
@@ -105,7 +114,8 @@ export class SkinValorationComponent implements OnInit {
   };
 
   constructor(
-    public userChangeS: UserChangeService
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
 
   }

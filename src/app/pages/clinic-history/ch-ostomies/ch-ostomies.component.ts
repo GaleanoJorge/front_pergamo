@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-ch-ostomies',
@@ -23,6 +24,7 @@ export class ChOstomiesComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Ostomias',
     'Observaciones',
   
@@ -41,9 +43,16 @@ export class ChOstomiesComponent implements OnInit {
       perPage: 10,
     },
     columns: {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+	  },
 
       ostomy: {
-        title: this.headerFields[0],
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
@@ -51,7 +60,7 @@ export class ChOstomiesComponent implements OnInit {
       },
       
       observation: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -66,7 +75,9 @@ export class ChOstomiesComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe) {}
 
   async ngOnInit() {
 
