@@ -20,7 +20,7 @@
       </nb-tab>      
       <nb-tab tabTitle="EVOLUCIÓN">
         <div *ngIf="this.show == 2">
-          <ngx-evolution-list  [admission]="admission"></ngx-evolution-list>
+          <ngx-evolution-list [user]="user" [admission]="admission"></ngx-evolution-list>
         </div>
       </nb-tab>
       <nb-tab tabTitle="ESCALAS">
