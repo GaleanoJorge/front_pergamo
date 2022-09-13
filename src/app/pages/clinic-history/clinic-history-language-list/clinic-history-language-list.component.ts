@@ -49,6 +49,9 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   public currentRole: any;
   public show: any;  
   public signatureImage: string;
+  public admissions_id;
+  public has_input: any = null; // ya existe registro de ingreso
+  public input_done: boolean = false; // ya se registró algo en el ingreso
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -96,6 +99,11 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.admissions_id=x;
+      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
+      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
+        this.input_done = true;
+      }
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
@@ -214,5 +222,10 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
     }).catch(x => {
       throw x;
     });
+  }
+
+  // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
+  inputMessage($event) {
+    this.input_done = true;
   }
 }

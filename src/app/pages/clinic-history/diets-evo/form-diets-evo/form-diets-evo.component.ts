@@ -26,8 +26,33 @@ export class FormDietsEvoComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public enterally_diet_id;
-  public diet_consistency_id;
- 
+  public diet_consistency;
+  
+  public diet_type = [
+    { id: "LIQUIDA CLARA", name: "LIQUIDA CLARA" },
+    { id: "LIQUIDA COMPLETA", name: "LIQUIDA COMPLETA" },
+    { id: "BLANDA - TODO MIEL ", name: "BLANDA - TODO MIEL " },
+    { id: "BLANDA - TODO MOLIDO", name: "BLANDA - TODO MOLIDO" },
+    { id: "BLANDA - PURE", name: "BLANDA - PURE" },
+    { id: "BLANDA - TODO PICADO", name: "BLANDA - TODO PICADO" },
+    { id: "BLANDA - ESTIMULO", name: "BLANDA - ESTIMULO" },
+    { id: "SEMIBLANDA", name: "SEMIBLANDA" },
+    { id: "NORMAL", name: "NORMAL" },
+    { id: "HIPOCALORICA", name: "HIPOCALORICA" },
+    { id: "HIPERCALORICA", name: "HIPERCALORICA" },
+    { id: "HIPOPROTEICA", name: "HIPOPROTEICA" },
+    { id: "HIPERPROTEICA", name: "HIPERPROTEICA" },
+    { id: "HIPOGLUCIDA", name: "HIPOGLUCIDA" },
+    { id: "HIPOSODICA", name: "HIPOSODICA" },
+    { id: "HIPOGRASA", name: "HIPOGRASA" },
+    { id: "ALTA EN FIBRA", name: "ALTA EN FIBRA" },
+    { id: "VEGETARIANA", name: "VEGETARIANA" },
+    { id: "CETOGENICA", name: "CETOGENICA" },
+    { id: "SOPORTE NUTRICIONAL ESPECIALIZADO - GASTROSTOMIA", name: "SOPORTE NUTRICIONAL ESPECIALIZADO - GASTROSTOMIA" },
+    { id: "SOPORTE NUTRICIONAL ESPECIALIZADO - SONDA NASOGASTRICA", name: "SOPORTE NUTRICIONAL ESPECIALIZADO - SONDA NASOGASTRICA" },
+    { id: "SOPORTE NUTRICIONAL ESPECIALIZADO - SONDA OROGASTRICA", name: "SOPORTE NUTRICIONAL ESPECIALIZADO - SONDA OROGASTRICA" },
+    { id: "SOPORTE NUTRICIONAL ESPECIALIZADO - YEYUNOSTOMIA", name: "SOPORTE NUTRICIONAL ESPECIALIZADO - YEYUNOSTOMIA" },
+  ];
 
 
   constructor(
@@ -44,7 +69,7 @@ export class FormDietsEvoComponent implements OnInit {
     if (!this.data ) {
       this.data = {
         enterally_diet_id: '',
-        diet_consistency_id: '',
+        diet_consistency: '',
         observation:'',
         
       };
@@ -53,13 +78,10 @@ export class FormDietsEvoComponent implements OnInit {
     this.EnterallyDietS.GetCollection().then(x => {
       this.enterally_diet_id = x;
     });
-    this.DietConsistencyS.GetCollection().then(x => {
-      this.diet_consistency_id = x;
-    });
    
     this.form = this.formBuilder.group({
       enterally_diet_id: [this.data.enterally_diet_id ],
-      diet_consistency_id: [this.data.diet_consistency_id,Validators.compose([Validators.required])],
+      diet_consistency: [this.data.diet_consistency,Validators.compose([Validators.required])],
       observation: [this.data.observation, Validators.compose([Validators.required])],
     });
   }
@@ -74,7 +96,7 @@ export class FormDietsEvoComponent implements OnInit {
         await this.ChDietsEvoS.Update({
           id: this.data.id,
           enterally_diet_id: this.form.controls.enterally_diet_id.value,
-          diet_consistency_id: this.form.controls.diet_consistency_id.value,
+          diet_consistency:  JSON.stringify(this.form.controls.diet_consistency.value),
           observation: this.form.controls.observation.value,
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
@@ -92,14 +114,14 @@ export class FormDietsEvoComponent implements OnInit {
       } else {
         await this.ChDietsEvoS.Save({
           enterally_diet_id: this.form.controls.enterally_diet_id.value,
-          diet_consistency_id: this.form.controls.diet_consistency_id.value,
+          diet_consistency:  JSON.stringify(this.form.controls.diet_consistency.value),
           observation: this.form.controls.observation.value,
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({  diet_consistency_id: '', enterally_diet_id: '', observation:'' });
+          this.form.setValue({  diet_consistency: '', enterally_diet_id: '', observation:'' });
           if (this.saved) {
             this.saved();
           }

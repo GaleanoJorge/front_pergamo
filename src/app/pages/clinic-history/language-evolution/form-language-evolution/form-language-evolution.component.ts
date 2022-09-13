@@ -17,6 +17,7 @@ export class FormLanguageEvolutionComponent implements OnInit {
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   @Input() record_id: any = null;
+  @Input() user: any = null;
   @Input() has_input: boolean = false;
 
   public form: FormGroup;
@@ -33,7 +34,6 @@ export class FormLanguageEvolutionComponent implements OnInit {
   //public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
 
-  public user;
   public signatureImage: string;
   public currentRole: any;
   public own_user;
@@ -63,11 +63,6 @@ export class FormLanguageEvolutionComponent implements OnInit {
     }
     await this.CifDiagnosisTlS.GetCollection({ch_record_id: this.record_id,}).then((x) => {
       this.cifdiagnosistl = x;
-      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
-      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
-        this.input_done = true;
-      }
-      this.user = x[0]['admissions']['patients'];
     });
 
     this.form = this.formBuilder.group({
