@@ -4,7 +4,6 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { PharmacyLotStockService } from '../../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
-import { UserChangeService } from '../../../../business-controller/user-change.service';
 import { AuthService } from '../../../../services/auth.service';
 
 @Component({
@@ -32,7 +31,6 @@ export class FormPharmacyReturnComponent implements OnInit {
   public show: boolean = false;
   public own_pharmacy_stock_id: any[];
 
-
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
@@ -42,34 +40,31 @@ export class FormPharmacyReturnComponent implements OnInit {
     private toastS: NbToastrService,
     private authService: AuthService,
     private perPharmaS: PharmacyStockService,
-
   ) {
   }
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    if(this.type == true || this.type == false){
+    if (this.data.product_supplies_id == null) {
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + this.type,
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '&product1=' + true,
         customData: 'pharmacy_request_shipping',
       };
     } else {
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '& product1=' + true,
+        entity: 'pharmacy_request_shipping?pharmacy_product_request_id=' + this.data.id + '&product1=' + false,
         customData: 'pharmacy_request_shipping',
       };
     }
     if (!this.data) {
       this.data = {
         amount_damaged: '',
-        amount: '',
         observation: '',
       };
     }
     this.form = this.formBuilder.group({
-      // cantidad_enviada: [this.data.cantidad_enviada],
       observation: [this.data.observation],
     });
     await this.perPharmaS.GetCollection({ not_pharmacy: this.my_pharmacy_id, }).then(x => {
@@ -93,7 +88,8 @@ export class FormPharmacyReturnComponent implements OnInit {
         this.toastS.danger('Debe seleccionar al menos un medicamento', 'Error');
       } else {
         this.selectedOptions.forEach(element => {
-          if (element.amount == null || element.amount <= 0 || element.amount_damaged <= 0) {
+          var total=element.amount_damaged;
+          if (total <= 0 ) {
             valid_values = false;
           }
         });
@@ -107,7 +103,7 @@ export class FormPharmacyReturnComponent implements OnInit {
           this.pharProdReqS.updateInventoryByLot({
             id: this.data.id,
             observation: this.form.controls.observation.value,
-            status: 'DAÑADO',
+            status: 'ACEPTADO',
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
@@ -126,7 +122,7 @@ export class FormPharmacyReturnComponent implements OnInit {
         } else {
           this.pharProdReqS.Save({
             observation: this.form.controls.observation.value,
-            status: 'DAÑADO',
+            status: 'ACEPTADO',
             own_pharmacy_stock_id: this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
           }).then(x => {
