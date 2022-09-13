@@ -43,6 +43,7 @@ export class FormReasonConsultationComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
+  public ch_external_cause_name;
   public ch_external_cause: any[];
   public changes = false;
   public changes1 = false;
@@ -79,8 +80,9 @@ export class FormReasonConsultationComponent implements OnInit {
         this.form = this.formBuilder.group({
           reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation,],
           current_illness: [this.data[0] ? this.data[0].current_illness : this.data.current_illness,],
-          ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id, ],
+          ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id,],
         });
+        this.ch_external_cause_name = this.ch_external_cause.find(x => { return x.id == this.form.controls.ch_external_cause_id.value }).name;
       });
     }
 
@@ -93,17 +95,17 @@ export class FormReasonConsultationComponent implements OnInit {
 
 
 
-    if (this.data.reason_consultation != '') {
-      this.form.controls.reason_consultation.disable();
-      this.form.controls.current_illness.disable();
-      this.form.controls.ch_external_cause_id.disable();
-      this.disabled = true;
-    } else {
-      this.form.controls.reason_consultation.enable();
-      this.form.controls.current_illness.enable();
-      this.form.controls.ch_external_cause_id.enable();
-      this.disabled = false;
-    }
+    // if (this.data.reason_consultation != '') {
+    //   this.form.controls.reason_consultation.disable();
+    //   this.form.controls.current_illness.disable();
+    //   this.form.controls.ch_external_cause_id.disable();
+    //   this.disabled = true;
+    // } else {
+    //   this.form.controls.reason_consultation.enable();
+    //   this.form.controls.current_illness.enable();
+    //   this.form.controls.ch_external_cause_id.enable();
+    //   this.disabled = false;
+    // }
 
 
   }
@@ -157,11 +159,11 @@ export class FormReasonConsultationComponent implements OnInit {
 
         });
       }
-    } else{
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
 
-    
+
   }
   receiveMessage($event) {
 

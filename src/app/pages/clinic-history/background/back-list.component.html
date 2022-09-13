@@ -6,7 +6,7 @@
           <nb-step [stepControl]="nameForm" label="Antecedentes">
             <div class="row">
               <div class="col-md-12">
-                <ngx-background [record_id]="record_id"></ngx-background>
+                <ngx-background [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" [type_record_id]="1"></ngx-background>
               </div>
             </div>
           </nb-step>
@@ -15,7 +15,7 @@
           <nb-step *ngIf= "this.user.gender_id==1" [stepControl]="nameForm" label="Ginecoobstreticos">
             <div class="row">
               <div class="col-md-12">
-                <ngx-back-gyneco [record_id]="record_id"></ngx-back-gyneco>
+                <ngx-back-gyneco [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" [type_record_id]="1"></ngx-back-gyneco>
               </div>
             </div>
           </nb-step>

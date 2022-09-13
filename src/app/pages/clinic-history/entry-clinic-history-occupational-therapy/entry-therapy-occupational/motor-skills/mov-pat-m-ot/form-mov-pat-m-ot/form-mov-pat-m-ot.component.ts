@@ -233,6 +233,8 @@ export class FormMovPatMOTComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 
