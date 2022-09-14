@@ -14,7 +14,6 @@ export class FormParenteralNutritionComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() weight: any = null;
-  @Input() route: any = null;
   @Input() record_id: any = null;
   @Input() type_record_id;
   @Input() user_id: any = null;
@@ -77,7 +76,7 @@ export class FormParenteralNutritionComponent implements OnInit {
     });
 
     this.ChNutritionParentalNutritionS.GetCollection({
-      type_record_id: this.route,
+      type_record_id: this.type_record_id,
       ch_record_id: this.record_id,
     }).then(x => {
       this.ch_nutrition_parenteral = x[0];
@@ -157,7 +156,7 @@ export class FormParenteralNutritionComponent implements OnInit {
         this.ChNutritionParentalNutritionS.Update({
           id: this.ch_nutrition_parenteral.id, 
           ch_record_id: this.record_id,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           protein_contributions: this.form.controls.protein_contributions.value,
           carbohydrate_contribution: this.form.controls.carbohydrate_contribution.value,
           lipid_contribution: this.form.controls.lipid_contribution.value,
@@ -187,7 +186,7 @@ export class FormParenteralNutritionComponent implements OnInit {
       } else {
         this.ChNutritionParentalNutritionS.Save({
           ch_record_id: this.record_id,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           protein_contributions: this.form.controls.protein_contributions.value,
           carbohydrate_contribution: this.form.controls.carbohydrate_contribution.value,
           lipid_contribution: this.form.controls.lipid_contribution.value,
