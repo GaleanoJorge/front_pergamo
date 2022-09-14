@@ -23,7 +23,7 @@ export class BackListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() user: any = null;
-  @Input() type_record_id: any = 1;
+  @Input() type_record_id: any;
   @Input() has_input: boolean = false;
   @Input() record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
