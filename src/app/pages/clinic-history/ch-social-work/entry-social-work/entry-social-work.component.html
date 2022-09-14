@@ -5,7 +5,7 @@
         <nb-stepper #stepper [linear]="linearMode">
 
           <nb-step [stepControl]="nameForm" label="Diagnóstico">
-            <ngx-form-sw-diagnosis [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-form-sw-diagnosis>
+            <ngx-sw-diagnosis [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-diagnosis>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Familia">

@@ -56,17 +56,8 @@ export class SwHousingComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.record_id = this.route.snapshot.params.id;
     this.own_user = this.authService.GetUser();
-    this.chRecord.GetCollection({
-      record_id: this.record_id
-    }).then(x => {
-      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
-      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
-        this.input_done = true;
-      }
-      this.user = x[0]['admissions']['patients'];
-    });
+    
     if (!this.data || this.data.length == 0) {
       this.data = {
       };

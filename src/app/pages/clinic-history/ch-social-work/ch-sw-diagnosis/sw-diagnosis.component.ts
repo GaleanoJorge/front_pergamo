@@ -1,6 +1,6 @@
 
 import { CurrencyPipe } from '@angular/common';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
 import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
@@ -15,6 +15,9 @@ export class SwDiagnosisComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
+  @Input() has_input: boolean = false;
+  @Output() messageEvent = new EventEmitter<any>();
 
 
   linearMode = true;
