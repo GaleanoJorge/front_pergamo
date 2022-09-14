@@ -16,7 +16,7 @@ export class FormBackgroundComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
-  @Input() type_record_id: any = 1;
+  @Input() type_record_id: any;
   @Output() messageEvent = new EventEmitter<any>();
 
 

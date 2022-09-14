@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -25,7 +26,8 @@ export class TableFoodHistoryComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['DESCRIPCION',
+  public headerFields: any[] = ['FECHA',
+                                'DESCRIPCION',
                                 '¿ ES ALÉRGICO E INTOLERANTE A ALGÚN ALIMENTO?',
                                 '¿CUÁL?:',
                                 'APETITO',
@@ -48,15 +50,23 @@ export class TableFoodHistoryComponent implements OnInit {
     },
     columns:
     {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+
       description:
       {
-        title: this.headerFields[0],
+        title: this.headerFields[1],
         width: 'string',
       },
 
       is_allergic:
       {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value,row) {
           if (value == 0) {
@@ -70,44 +80,44 @@ export class TableFoodHistoryComponent implements OnInit {
 
       allergy:
       {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
 
 
       appetite:
       {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         width: 'string',
       },
 
       intake:
       {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
       },
 
       swallowing:
       {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         width: 'string',
       },
 
       diet_type:
       {
-        title: this.headerFields[6],
+        title: this.headerFields[7],
         width: 'string',
       },
 
       parenteral_nutrition:
       {
-        title: this.headerFields[7],
+        title: this.headerFields[8],
         width: 'string',
       },
 
       intake_control:
       {
-        title: this.headerFields[8],
+        title: this.headerFields[9],
         width: 'string',
       },
 
@@ -118,6 +128,7 @@ export class TableFoodHistoryComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

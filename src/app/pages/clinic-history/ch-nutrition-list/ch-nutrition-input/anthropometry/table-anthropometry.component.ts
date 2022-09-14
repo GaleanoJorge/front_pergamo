@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -26,7 +27,8 @@ export class TableAnthropometryComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['PACIENTE FUNCIONAL',
+  public headerFields: any[] = ['FECHA',
+                                'PACIENTE FUNCIONAL',
                                 'PESO',
                                 'TALLA',
                                 'CIRCUNFERENCIA DE BRAZO',
@@ -52,82 +54,89 @@ export class TableAnthropometryComponent implements OnInit {
     },
     columns:
     {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
 
       is_functional:
-      {
-        title: this.headerFields[0],
-        width: 'string',
-      },
-
-      weight:
       {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      size:
+      weight:
       {
         title: this.headerFields[2],
         width: 'string',
       },
 
-      arm_circunferency:
+      size:
       {
         title: this.headerFields[3],
         width: 'string',
       },
 
-      calf_circumference:
+      arm_circunferency:
       {
         title: this.headerFields[4],
         width: 'string',
       },
 
-      knee_height:
+      calf_circumference:
       {
         title: this.headerFields[5],
         width: 'string',
       },
 
-      abdominal_perimeter:
+      knee_height:
       {
         title: this.headerFields[6],
         width: 'string',
       },
 
-      hip_perimeter:
+      abdominal_perimeter:
       {
         title: this.headerFields[7],
         width: 'string',
       },
 
-      geteratedIMC:
+      hip_perimeter:
       {
         title: this.headerFields[8],
         width: 'string',
       },
 
-      classification:
+      geteratedIMC:
       {
         title: this.headerFields[9],
         width: 'string',
       },
 
-      estimated_weight:
+      classification:
       {
         title: this.headerFields[10],
         width: 'string',
       },
 
-      estimated_size:
+      estimated_weight:
       {
         title: this.headerFields[11],
         width: 'string',
       },
 
-      total_energy_expenditure:
+      estimated_size:
       {
         title: this.headerFields[12],
+        width: 'string',
+      },
+
+      total_energy_expenditure:
+      {
+        title: this.headerFields[13],
         width: 'string',
       },
 
@@ -137,6 +146,8 @@ export class TableAnthropometryComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+
   ) {
   }
 
