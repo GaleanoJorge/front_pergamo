@@ -15,7 +15,7 @@ export class FormNutritionBackgroundComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
-  @Input() route: any = null;
+  @Input() type_record_id: any = null;
   @Input() record_id: any = null;
   @Input() user_id: any = null;
 
@@ -74,7 +74,7 @@ export class FormNutritionBackgroundComponent implements OnInit {
     });
 
     this.ChNutritionAnalysisAndInterpretationS.GetCollection({
-      type_record_id: this.route,
+      type_record_id: this.type_record_id,
       ch_record_id: this.record_id,
     }).then(x => {
       this.ch_nutrition_interpretation = x[0];
@@ -94,7 +94,7 @@ export class FormNutritionBackgroundComponent implements OnInit {
         this.ChNutritionAnalysisAndInterpretationS.Update({
           id: this.ch_nutrition_interpretation.id,
           ch_record_id: this.record_id,
-          type_record_id: this.route,
+          type_record_id: this.type_record_id,
           observation: this.form.controls.observation.value,
         }).then(x => {
           this.saved = x;
@@ -109,7 +109,7 @@ export class FormNutritionBackgroundComponent implements OnInit {
       } else {
         this.ChNutritionAnalysisAndInterpretationS.Save({
           ch_record_id: this.record_id,
-          type_record_id: this.route,
+          type_record_id: this.type_record_id,
           observation: this.form.controls.observation.value,
         }).then(x => {
           this.saved = x;

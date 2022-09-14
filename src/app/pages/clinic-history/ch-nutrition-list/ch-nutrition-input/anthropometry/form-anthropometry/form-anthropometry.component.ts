@@ -111,7 +111,7 @@ export class FormAnthropometryComponent implements OnInit {
     });
 
     this.ChNutritionAnthropometryS.GetCollection({
-      type_record_id: this.route,
+      type_record_id: this.type_record_id,
       ch_record_id: 1,
     }).then(x => {
       this.ch_nutrition_anthropometry = x[0];
@@ -288,7 +288,7 @@ export class FormAnthropometryComponent implements OnInit {
         this.ChNutritionAnthropometryS.Update({
           id: this.ch_nutrition_anthropometry.id,
           ch_record_id: this.record_id,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           is_functional: this.form.controls.is_functional.value,
           weight: this.form.controls.weight.value,
           size: this.form.controls.size.value,
@@ -316,7 +316,7 @@ export class FormAnthropometryComponent implements OnInit {
       } else {
         this.ChNutritionAnthropometryS.Save({
           ch_record_id: this.record_id,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           is_functional: this.form.controls.is_functional.value,
           weight: this.form.controls.weight.value,
           size: this.form.controls.size.value,
