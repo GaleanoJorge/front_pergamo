@@ -10,6 +10,7 @@ import { CurrencyPipe } from '@angular/common';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { BillingPadService } from '../../../business-controller/billing-pad.service';
 import { Location } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'ngx-billing-admission',
@@ -22,7 +23,7 @@ export class BillingAdmissionComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'FACTURAS';
   public subtitle: string = 'GESTIÓN';
-  public headerFields: any[] = ['MES', 'VALOR', 'ESTADO', 'NÚMERO DE FACTURA'];
+  public headerFields: any[] = ['MES', 'VALOR', 'ESTADO', 'NÚMERO DE FACTURA', 'FACTURA REFERENCIA'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -53,6 +54,8 @@ export class BillingAdmissionComponent implements OnInit {
           return {
             'data': row,
             'show': this.ShowBillingAdmission.bind(this),
+            'resend': this.resend.bind(this),
+            'cancel': this.cancelBilling.bind(this),
             // 'delete': this.DeleteConfirmBillingAdmission.bind(this),
           };
         },
@@ -90,6 +93,17 @@ export class BillingAdmissionComponent implements OnInit {
           return row.billing_pad_status.name;
         }
       },
+      its_credit_note: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.its_credit_note != null) {
+            return row.its_credit_note.billing_pad_prefix.name + row.its_credit_note.consecutive;
+          } else {
+            return '-';
+          }
+        }
+      },
     },
   };
 
@@ -106,6 +120,7 @@ export class BillingAdmissionComponent implements OnInit {
     private currency: CurrencyPipe,
     private BillingPadS: BillingPadService,
     private toastrService: NbToastrService,
+    private authService: AuthService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private AdmissionsS: AdmissionsService,
@@ -178,6 +193,23 @@ export class BillingAdmissionComponent implements OnInit {
     // }).catch(x => {
     //   throw x;
     // });
+  }
+
+  resend(data) {
+    this.BillingPadS.GenerateFile(1, data.id).then(x => {
+      this.toastrService.success('Archivo plano .Dat reenviado exitosamente', 'Exito');
+    }).catch(x=> {
+      this.toastrService.danger('Error al enviar archivo: ' + x, 'Error');
+    });
+  }
+
+  cancelBilling(data) {
+    this.BillingPadS.CancelBillingNoPgp({
+      id: data.id,
+      user_id : this.authService.GetUser().id,
+    }).then(x => {
+      this.RefreshData();
+    });
   }
 
 }

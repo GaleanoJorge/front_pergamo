@@ -30,6 +30,16 @@
           </nb-select>
         </div>
         <div class="col-12 col-sm-12 col-md-12">
+          <label for="billing_pad_credit_note_prefix" class="form-text text-muted font-weight-bold">CONSECUTIVO DE NOTA CRÉDITO:</label>
+          <nb-select formControlName="billing_pad_credit_note_prefix_id" (selectedChange)="onCountryChange($event)"
+            id="billing_pad_credit_note_prefix_id" fullWidth
+            status="{{ isSubmitted && form.controls.billing_pad_credit_note_prefix_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of billing_pad_prefix" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
           <label for="country" class="form-text text-muted font-weight-bold">PAÍS:</label>
           <nb-select formControlName="country_id" (selectedChange)="onCountryChange($event)" id="country_id" fullWidth
             status="{{ isSubmitted && form.controls.country_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">

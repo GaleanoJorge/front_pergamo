@@ -53,6 +53,7 @@ export class FormCampusComponent implements OnInit {
         address: '',
         enable_code: '',
         billing_pad_prefix_id: '',
+        billing_pad_credit_note_prefix_id: '',
         region_id: '',
         municipality_id: '',
       };
@@ -69,6 +70,7 @@ export class FormCampusComponent implements OnInit {
       address: [this.data.address, Validators.compose([Validators.required])],
       enable_code: [this.data.enable_code, Validators.compose([Validators.required])],
       billing_pad_prefix_id: [this.data.billing_pad_prefix_id, Validators.compose([Validators.required])],
+      billing_pad_credit_note_prefix_id: [this.data.billing_pad_credit_note_prefix_id, Validators.compose([Validators.required])],
       country_id: ['', Validators.compose([Validators.required])],
       region_id: [this.data.region_id, Validators.compose([Validators.required])],
       municipality_id: [this.data.municipality_id, Validators.compose([Validators.required])],
@@ -136,6 +138,7 @@ export class FormCampusComponent implements OnInit {
           address: this.form.controls.address.value,
           enable_code: this.form.controls.enable_code.value,
           billing_pad_prefix_id: this.form.controls.billing_pad_prefix_id.value,
+          billing_pad_credit_note_prefix_id: this.form.controls.billing_pad_credit_note_prefix_id.value,
           region_id: this.form.controls.region_id.value,
           municipality_id: this.form.controls.municipality_id.value,
         }).then(x => {
@@ -155,6 +158,7 @@ export class FormCampusComponent implements OnInit {
           address: this.form.controls.address.value,
           enable_code: this.form.controls.enable_code.value,
           billing_pad_prefix_id: this.form.controls.billing_pad_prefix_id.value,
+          billing_pad_credit_note_prefix_id: this.form.controls.billing_pad_credit_note_prefix_id.value,
           region_id: this.form.controls.region_id.value,
           municipality_id: this.form.controls.municipality_id.value,
         }).then(x => {
