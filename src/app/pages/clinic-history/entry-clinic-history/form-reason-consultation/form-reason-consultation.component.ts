@@ -72,6 +72,7 @@ export class FormReasonConsultationComponent implements OnInit {
 
     this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
       this.ch_external_cause = x;
+      this.findExternal();
     });
 
     if (this.has_input) {
@@ -82,7 +83,7 @@ export class FormReasonConsultationComponent implements OnInit {
           current_illness: [this.data[0] ? this.data[0].current_illness : this.data.current_illness,],
           ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id,],
         });
-        this.ch_external_cause_name = this.ch_external_cause.find(x => { return x.id == this.form.controls.ch_external_cause_id.value }).name;
+        this.findExternal();
       });
     }
 
@@ -108,6 +109,12 @@ export class FormReasonConsultationComponent implements OnInit {
     // }
 
 
+  }
+
+  findExternal(){
+    if (this.ch_external_cause != null && this.data != null) {
+      this.ch_external_cause_name = this.ch_external_cause.find(x => { return x.id == this.form.controls.ch_external_cause_id.value }).name;
+    }
   }
 
   async save() {

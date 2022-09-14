@@ -53,7 +53,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
-  public int: 0;
+  public int = 0;
   public signatureImage: string;
   public currentRole: any;
   public saved: any = null;
@@ -174,6 +174,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -182,7 +183,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
       
   }

@@ -20,6 +20,7 @@ import { AdmissionsService } from '../../../../business-controller/admissions.se
 })
 export class FormPatientExitComponent implements OnInit {
   @Input() title: string;
+  @Input() record_id: any = null;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -29,7 +30,6 @@ export class FormPatientExitComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public record_id;
   public admissions_id;
   public death_diagnosis_id;
   public ch_diagnosis: any[];
@@ -125,8 +125,13 @@ export class FormPatientExitComponent implements OnInit {
     // this.DiagnosisS.GetCollection().then(x => {
     //   this.diagnosis = x;
     // });
-    this.ChDiagnosisS.GetCollection().then(x => {
+    this.ChDiagnosisS.getByRecord({
+      record_id: this.record_id,
+      type_record_id: 1,
+      has_input: true,
+    }).then(x => {
       this.ch_diagnosis = x;
+      this.form.patchValue({ch_diagnosis_id: this.ch_diagnosis[0]['diagnosis']['name']})
     });
 
 
@@ -338,7 +343,11 @@ export class FormPatientExitComponent implements OnInit {
   }
 
   saveCode(e, valid): void {
-    var localidentify = this.diagnosis.find(item => item.name == e);
+    if (valid != 4) {
+      var localidentify = this.diagnosis.find(item => item.name == e);
+    } else {
+      var localidentify = this.ch_diagnosis.find(item => item.diagnosis.name == e);
+    }
 
     if (localidentify) {
       if (valid == 1) {
@@ -348,7 +357,6 @@ export class FormPatientExitComponent implements OnInit {
       } else if (valid == 3) {
         this.death_diagnosis_id = localidentify.id;
       } else if (valid == 4) {
-        var localidentify = this.ch_diagnosis.find(item => item.diagnosis.name == e);
         this.ch_diagnosis_id = localidentify.id;
       }
     } else {
