@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -25,7 +26,8 @@ export class TableParenteralNutritionComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['APORTES DE PROTEINA',
+  public headerFields: any[] = ['FEHCA',
+                                'APORTES DE PROTEINA',
                                 'APORTES DE CARBOHIDRATOS',
                                 'APORTES DE LÍPIDOS',
                                 'VOLUMEN DE AMINOÁCIDOS',
@@ -55,94 +57,102 @@ export class TableParenteralNutritionComponent implements OnInit {
     columns:
     {
 
-      protein_contributions:
-      {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-      },
-
-      carbohydrate_contribution:
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
+      protein_contributions:
       {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      lipid_contribution:
+      carbohydrate_contribution:
       {
         title: this.headerFields[2],
+        width: 'string',
+      },
+
+      lipid_contribution:
+      {
+        title: this.headerFields[3],
         width: 'string',
       },
 
 
       amino_acid_volume:
       {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         width: 'string',
       },
 
       dextrose_volume:
       {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
       },
 
       lipid_volume:
       {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         width: 'string',
       },
 
       total_grams_of_protein:
       {
-        title: this.headerFields[6],
+        title: this.headerFields[7],
         width: 'string',
       },
 
       grams_of_nitrogen:
       {
-        title: this.headerFields[7],
+        title: this.headerFields[8],
         width: 'string',
       },
 
       total_carbohydrates:
       {
-        title: this.headerFields[8],
+        title: this.headerFields[9],
         width: 'string',
       },
 
       total_grams_of_lipids:
       {
-        title: this.headerFields[9],
+        title: this.headerFields[10],
         width: 'string',
       },
 
       total_amino_acid_volume:
       {
-        title: this.headerFields[10],
+        title: this.headerFields[11],
         width: 'string',
       },
 
       total_dextrose_volume:
       {
-        title: this.headerFields[11],
+        title: this.headerFields[12],
         width: 'string',
       },
 
       total_lipid_volume:
       {
-        title: this.headerFields[12],
+        title: this.headerFields[13],
         width: 'string',
       },
 
       total_calories:
       {
-        title: this.headerFields[13],
+        title: this.headerFields[14],
         width: 'string',
       },
 
       ce_se:
       {
-        title: this.headerFields[14],
+        title: this.headerFields[15],
         width: 'string',
       },
 
@@ -153,6 +163,8 @@ export class TableParenteralNutritionComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+
   ) {
   }
 
