@@ -4,7 +4,7 @@
 
   <div *ngIf="has_input == false || type_record_id != 1" class="col-md-12">
 
-    <ngx-form-anthropometry (messageEvent)="receiveMessage($event)" [type_record_id]="type_record_id" [record_id]="record_id" [data]="this.data">
+    <ngx-form-anthropometry (messageEvent2)="receiveWeight($event)" (messageEvent)="receiveMessage($event)" [type_record_id]="type_record_id" [record_id]="record_id" [data]="this.data">
     </ngx-form-anthropometry>
   
   </div>

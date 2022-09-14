@@ -18,6 +18,7 @@ export class TableAnthropometryComponent implements OnInit {
   @Input() route: any = null;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
+  @Output() messageEvent2 = new EventEmitter<any>();
   
   linearMode = false;
   public messageError = null;
@@ -154,6 +155,10 @@ export class TableAnthropometryComponent implements OnInit {
         this.messageEvent.emit(true);
       }
     }
+  }
+
+  receiveWeight($event) {
+    this.messageEvent2.emit($event);
   }
 }
 

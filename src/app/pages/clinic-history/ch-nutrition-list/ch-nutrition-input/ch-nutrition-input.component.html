@@ -4,7 +4,7 @@
       <nb-card-body>
         <nb-stepper #stepper [linear]="false">
           <nb-step label="Antropometría">
-            <ngx-table-anthropometry (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [data]="this.data"
+            <ngx-table-anthropometry (messageEvent2)="receiveMessage($event)" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [data]="this.data"
               [record_id]="this.record_id" [type_record_id]="1"></ngx-table-anthropometry>
           </nb-step>
 

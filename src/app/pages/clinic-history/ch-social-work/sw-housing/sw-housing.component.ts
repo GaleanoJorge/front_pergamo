@@ -38,7 +38,7 @@ export class SwHousingComponent implements OnInit {
   public signatureImage: string;
   public currentRole: any;
   public own_user;
-  public int: 0;
+  public int = 0;
   public user;
   public messageError = null;
 
@@ -145,6 +145,7 @@ export class SwHousingComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -153,7 +154,7 @@ export class SwHousingComponent implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
       
   }

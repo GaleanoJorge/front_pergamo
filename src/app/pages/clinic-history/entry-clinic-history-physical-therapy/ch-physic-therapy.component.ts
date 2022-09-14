@@ -74,7 +74,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
 
 
   public record_id;
-  public int: 0;
+  public int = 0;
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
@@ -320,6 +320,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -328,7 +329,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
 
   }
