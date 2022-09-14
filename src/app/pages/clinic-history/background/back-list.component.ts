@@ -26,7 +26,6 @@ export class BackListComponent implements OnInit {
   @Input() type_record_id: any = 1;
   @Input() has_input: boolean = false;
   @Input() record_id: any = null;
-  @Input() type_record_id:any;
   @Output() messageEvent = new EventEmitter<any>();
 
   //@Input() vital: any;
