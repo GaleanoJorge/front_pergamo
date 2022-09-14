@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableOccupatHistoryOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['OCUPACION', 
+  public headerFields: any[] = ['FECHA',
+                                'OCUPACION', 
                                 'ANTIGÛEDAD EN LA EMPRESA-EMPLEADO',
                                 'HORARIO DE TRABAJO-EMPLEADO', 
                                 'REALIZAR TURNOS-EMPLEADO',
@@ -46,44 +48,53 @@ export class TableOccupatHistoryOTComponent implements OnInit {
     },
     columns: {
 
-      ocupation: {
+
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
+      ocupation: {
+        title: this.headerFields[1],
         width: 'string',
       },
       enterprice_employee: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
       },
 
       work_employee: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
       shift_employee: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         width: 'string',
       },
 
       observation_employee: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
       },
       work_independent: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         width: 'string',
       },
 
       shift_independent: {
-        title: this.headerFields[6],
+        title: this.headerFields[7],
         width: 'string',
       },
       observation_independent: {
-        title: this.headerFields[7],
+        title: this.headerFields[8],
         width: 'string',
       },
 
       observation_home: {
-        title: this.headerFields[8],
+        title: this.headerFields[9],
         width: 'string',
       },
 
@@ -92,6 +103,7 @@ export class TableOccupatHistoryOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

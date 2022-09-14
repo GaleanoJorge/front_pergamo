@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableSysIntegumentaryComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['COLABORACION',
+  public headerFields: any[] = ['FEHCA',
+                                'COLABORACION',
                                 'INTEGRIDAD',
                                 'TEXTURA',
                                 'SUDORACION',
@@ -47,64 +49,72 @@ export class TableSysIntegumentaryComponent implements OnInit {
     },
     columns:
     {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
      
       colaboration:
-      {
-        title: this.headerFields[0],
-        width: 'string',
-      },
-
-      integrity:
       {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      texture:
+      integrity:
       {
         title: this.headerFields[2],
         width: 'string',
       },
 
-      sweating:
+      texture:
       {
         title: this.headerFields[3],
         width: 'string',
       },
 
-      elasticity:
+      sweating:
       {
         title: this.headerFields[4],
         width: 'string',
       },
 
-      extensibility:
+      elasticity:
       {
         title: this.headerFields[5],
         width: 'string',
       },
 
-      mobility:
+      extensibility:
       {
         title: this.headerFields[6],
         width: 'string',
       },
 
-      scar:
+      mobility:
       {
         title: this.headerFields[7],
         width: 'string',
       },
 
-      bedsores:
+      scar:
       {
         title: this.headerFields[8],
         width: 'string',
       },
 
-      location:
+      bedsores:
       {
         title: this.headerFields[9],
+        width: 'string',
+      },
+
+      location:
+      {
+        title: this.headerFields[10],
         width: 'string',
       },
     },
@@ -113,6 +123,7 @@ export class TableSysIntegumentaryComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

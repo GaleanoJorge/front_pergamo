@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableThermalMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['CALOR', 
+  public headerFields: any[] = ['FECHA',
+                                'CALOR', 
                                 'FRIO',];
 
   public form: FormGroup;
@@ -39,13 +41,21 @@ export class TableThermalMOTComponent implements OnInit {
     },
     columns: {
 
+		  created_at: {
+			title: this.headerFields[0],
+			type: 'string',
+			valuePrepareFunction: (value) => {
+			  return this.datePipe.transform2(value);
+			},
+		  },
+
       heat: {
-        title: this.headerFields[0],
+        title: this.headerFields[1],
         width: 'string',
       },
 
       cold: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
       },
 
@@ -54,6 +64,7 @@ export class TableThermalMOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

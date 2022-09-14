@@ -11,7 +11,7 @@
             <div class="col-md-6">
               <label class="form-text font-weight-bold">TIPO DE DIETA </label>
               <nb-select  multiple placeholder="Seleccione..." formControlName="diet_consistency" fullWidth
-                id="diet_consistency"
+                id="diet_consistency" name="diet_consistency"
                     status="{{ isSubmitted && form.controls.diet_consistency.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                     <nb-option *ngFor="let item of diet_type" [value]="item.id">
                       {{ item.name }}</nb-option>
