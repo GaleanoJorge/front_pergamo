@@ -115,6 +115,8 @@ export class FormOccupatHistoryOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({ocupation:'',  enterprice_employee:'', work_employee:'', shift_employee:'', observation_employee:'',
+          work_independent:'',  shift_independent:'',  observation_independent:'',  observation_home:''});
           if (this.saved) {
             this.saved();
           }
@@ -137,11 +139,10 @@ export class FormOccupatHistoryOTComponent implements OnInit {
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({ ocupation:'', enterprice_employee:'', work_employee:'',shift_employee:'',observation_employee:'',work_independent:'',shift_independent:'',
-            observation_independent:'', observation_home:''});
+          this.form.patchValue({ocupation:'',  enterprice_employee:'', work_employee:'', shift_employee:'', observation_employee:'',
+          work_independent:'',  shift_independent:'',  observation_independent:'',  observation_home:''});
           if (this.saved) {
             this.saved();
           }
@@ -151,6 +152,8 @@ export class FormOccupatHistoryOTComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 }

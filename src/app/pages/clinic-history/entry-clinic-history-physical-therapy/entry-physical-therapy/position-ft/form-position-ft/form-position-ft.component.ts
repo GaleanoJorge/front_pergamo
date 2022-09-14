@@ -101,6 +101,7 @@ export class FormPositionFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({front_view:'',  right_view:'', left_view:'', rear_view:''});
           if (this.saved) {
             this.saved();
           }
@@ -120,6 +121,7 @@ export class FormPositionFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({front_view:'',  right_view:'', left_view:'', rear_view:''});
           if (this.saved) {
             this.saved();
           }
@@ -129,6 +131,8 @@ export class FormPositionFTComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 

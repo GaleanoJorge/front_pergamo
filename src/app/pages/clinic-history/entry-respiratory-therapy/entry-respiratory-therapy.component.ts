@@ -23,6 +23,8 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() user: any = null;
+  @Input() has_input: boolean = false;
 
   //@Input() vital: any;
   linearMode = false;
@@ -40,8 +42,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   public teraphyRespiratory: any[];
   //public assRespiratory: any[];
   public suppliesTeraphyRespiratory: any[];
-  public user;
-  public has_input: any = null; // ya existe registro de ingreso
+  // public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
 
 
@@ -89,11 +90,6 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
 
     await this.ChOxygenTherapyS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.teraphyRespiratory = x;
-      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
-      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
-        this.input_done = true;
-      }
-      this.user = x[0]['admissions']['patients'];
     });
 
     await this.SuppliesS.GetCollection({ ch_record_id: this.record_id }).then(x => {
@@ -123,22 +119,22 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
     this.location.back();
   }
 
-  close() {
-    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
-      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
-        context: {
-          signature: true,
-          title: 'Finalizar registro.',
-          delete: this.finish.bind(this),
-          showImage: this.showImage.bind(this),
-          // save: this.saveSignature.bind(this),
-          textConfirm: 'Finalizar registro'
-        },
-      });
-    } else {
-      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
-    }
-  }
+  // close() {
+  //   if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
+  //     this.deleteConfirmService.open(ConfirmDialogCHComponent, {
+  //       context: {
+  //         signature: true,
+  //         title: 'Finalizar registro.',
+  //         delete: this.finish.bind(this),
+  //         showImage: this.showImage.bind(this),
+  //         // save: this.saveSignature.bind(this),
+  //         textConfirm: 'Finalizar registro'
+  //       },
+  //     });
+  //   } else {
+  //     this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
+  //   }
+  // }
 
   showImage(data) {
     this.int++;

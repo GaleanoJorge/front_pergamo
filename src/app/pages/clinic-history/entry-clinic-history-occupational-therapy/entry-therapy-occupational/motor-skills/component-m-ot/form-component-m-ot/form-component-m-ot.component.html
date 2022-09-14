@@ -38,7 +38,7 @@
 
   <div class="col col-lg-12">
     <label for="observation_component_test" class="form-text text-muted font-weight-bold">Observaciones:</label>
-    <textarea id="observation_component" nbInput fullWidth formControlName="observation_component" current_illness rows="1"
+    <textarea id="observation_component" nbInput fullWidth formControlName="observation_component" current_illness rows="1" onpaste="return false"
       cols="50"
       status="{{ isSubmitted && form.controls.observation_component.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
   </div>

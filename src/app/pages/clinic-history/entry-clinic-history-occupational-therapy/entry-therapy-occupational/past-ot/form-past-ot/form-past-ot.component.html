@@ -45,7 +45,7 @@
 
       <div class="col col-lg-12">
         <label class="form-text text-muted font-weight-bold">Observaciones:</label>
-        <textarea id="observation_family_struct" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_family_struct" current_illness rows="3"
+        <textarea id="observation_family_struct" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_family_struct" current_illness rows="3" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.observation_family_struct.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
@@ -89,7 +89,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">Observaciones:</label>
-        <textarea id="observation_schooling_training" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_schooling_training" current_illness rows="1"
+        <textarea id="observation_schooling_training" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_schooling_training" current_illness rows="1" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.observation_schooling_training.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
@@ -113,7 +113,7 @@
 
       <div *ngIf="showTerapy" class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">Observaciones:</label>
-        <textarea id="observation_terapy" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_terapy" current_illness rows="1"
+        <textarea id="observation_terapy" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_terapy" current_illness rows="1" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.observation_terapy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>
@@ -204,7 +204,7 @@
 
           <div *ngIf="showSport" class="col col-md-12">
             <label class="form-text text-muted font-weight-bold">Cual Deporte Practica ?:</label>
-            <textarea id="sport_practice_observation" nbInput fullWidth formControlName="sport_practice_observation" current_illness rows="1" nbInput (disabled)="this.has_input"
+            <textarea id="sport_practice_observation" nbInput fullWidth formControlName="sport_practice_observation" current_illness rows="1" nbInput (disabled)="this.has_input" onpaste="return false"
             cols="50"
             status="{{ isSubmitted && form.controls.sport_practice_observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>

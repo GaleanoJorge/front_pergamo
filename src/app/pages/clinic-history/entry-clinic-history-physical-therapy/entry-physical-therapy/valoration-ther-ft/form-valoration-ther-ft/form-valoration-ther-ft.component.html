@@ -7,7 +7,7 @@
     </div> 
 
     <div class="col col-lg-6">
-      <nb-radio-group formControlName="illness" smoke id="illness" class="d-flex text" name="illness"
+      <nb-radio-group formControlName="illness" smoke id="illness" class="d-flex text" name="illness" onpaste="return false"
         status="{{ isSubmitted && form.controls.illness.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-radio value="SI">SI</nb-radio>
         <nb-radio value="NO">NO</nb-radio>
@@ -23,7 +23,7 @@
     </div> 
 
     <div class="col col-lg-6">
-      <nb-radio-group formControlName="sports" smoke id="sports" class="d-flex text" name="sports"
+      <nb-radio-group formControlName="sports" smoke id="sports" class="d-flex text" name="sports" onpaste="return false"
         status="{{ isSubmitted && form.controls.sports.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-radio value="SI">SI</nb-radio>
         <nb-radio value="NO">NO</nb-radio>
@@ -34,19 +34,19 @@
 
   <div class="col col-lg-12">
     <label for="obsertations" class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
-    <textarea id="obsertations" nbInput fullWidth formControlName="obsertations" obsertations rows="3" cols="50"
+    <textarea id="obsertations" nbInput fullWidth formControlName="obsertations" obsertations rows="3" cols="50" onpaste="return false"
       status="{{ isSubmitted && form.controls.obsertations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
   </div>
 
   <div class="col col-lg-12">
     <label for="days_number" class="form-text text-muted font-weight-bold">En promedio, ¿Cuantos días por semana realiza ejercicio? :</label>
-    <textarea id="days_number" nbInput fullWidth formControlName="days_number" days_number rows="1" cols="20"
+    <textarea id="days_number" nbInput fullWidth formControlName="days_number" days_number rows="1" cols="20" onpaste="return false"
       status="{{ isSubmitted && form.controls.days_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
   </div>
 
   <div class="col col-lg-12">
     <label for="minutes_number" class="form-text text-muted font-weight-bold">En promedio, ¿Cuántos minutos al día realiza ejercicio?  :</label>
-    <textarea id="minutes_number" nbInput fullWidth formControlName="minutes_number" minutes_number rows="1" cols="20"
+    <textarea id="minutes_number" nbInput fullWidth formControlName="minutes_number" minutes_number rows="1" cols="20" onpaste="return false"
       status="{{ isSubmitted && form.controls.minutes_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
   </div>
 

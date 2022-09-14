@@ -40,7 +40,7 @@ export class FormBackgroundComponent implements OnInit {
   ngOnInit(): void {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        revision: '',
+        revision: 'SI',
         observation: '',
         ch_type_background_id: '',
       };
@@ -53,7 +53,7 @@ export class FormBackgroundComponent implements OnInit {
 
 
     this.form = this.formBuilder.group({
-      revision: [this.data[0] ? this.data[0].revision : this.data.revision,],
+      revision: ['SI',],
       observation: [this.data[0] ? this.data[0].observation : this.data.observation,],
       ch_type_background_id: [this.data[0] ? this.data[0].ch_type_background_id : this.data.ch_type_background_id,Validators.compose([Validators.required])],
     });

@@ -163,6 +163,10 @@ export class FormDailyActivitiesOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({cook:'',  kids:'', wash:'', game:'', ironing:'',
+          walk:'',  clean:'',  sport:'',  decorate:'',  social:'', act_floristry:'', friends:'',
+          read:'', politic:'', view_tv:'',religion:'',  write:'',  look:'',  arrange:'',  
+          travel:'',observation_activity:'', test:'', observation_test:''});
           if (this.saved) {
             this.saved();
           }
@@ -201,6 +205,10 @@ export class FormDailyActivitiesOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({cook:'',  kids:'', wash:'', game:'', ironing:'',
+          walk:'',  clean:'',  sport:'',  decorate:'',  social:'', act_floristry:'', friends:'',
+          read:'', politic:'', view_tv:'',religion:'',  write:'',  look:'',  arrange:'',  
+          travel:'',observation_activity:'', test:'', observation_test:''});
           if (this.saved) {
             this.saved();
           }
@@ -210,6 +218,8 @@ export class FormDailyActivitiesOTComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 

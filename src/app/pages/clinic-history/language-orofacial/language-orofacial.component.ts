@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-orofacial',
@@ -23,7 +24,7 @@ export class LanguageOrofacialComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Simetría Derecho',	'Tono Derecho',	'Sensibilidad Derecho', 'Simetría Izquierdo', 'Tono Izquierdo', 'Sensibilidad Izquierdo'
+    'Fecha','Simetría Derecho',	'Tono Derecho',	'Sensibilidad Derecho', 'Simetría Izquierdo', 'Tono Izquierdo', 'Sensibilidad Izquierdo'
   ];
   
   public isSubmitted: boolean = false;
@@ -40,36 +41,47 @@ export class LanguageOrofacialComponent implements OnInit {
     },
     columns: {
 
-      right_hermiface_symmetry: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
+
+      right_hermiface_symmetry: {
+        title: this.headerFields[1],
         width: 'string',
       },
       right_hermiface_tone: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
        
       },
       right_hermiface_sensitivity: {
-        title: this.headerFields[2],
-        width: 'string',
-      },
-      left_hermiface_symmetry: {
         title: this.headerFields[3],
         width: 'string',
       },
-      left_hermiface_tone: {
+      left_hermiface_symmetry: {
         title: this.headerFields[4],
         width: 'string',
       },
-      left_hermiface_sensitivity: {
+      left_hermiface_tone: {
         title: this.headerFields[5],
+        width: 'string',
+      },
+      left_hermiface_sensitivity: {
+        title: this.headerFields[6],
         width: 'string',
       },
      
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe) {}
 
   async ngOnInit() {
 

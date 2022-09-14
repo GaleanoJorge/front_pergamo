@@ -90,6 +90,7 @@ export class FormDiagnosisFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({diagnosis:''});
           if (this.saved) {
             this.saved();
           }
@@ -106,6 +107,7 @@ export class FormDiagnosisFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({diagnosis:''});
           if (this.saved) {
             this.saved();
           }
@@ -115,6 +117,8 @@ export class FormDiagnosisFTComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 

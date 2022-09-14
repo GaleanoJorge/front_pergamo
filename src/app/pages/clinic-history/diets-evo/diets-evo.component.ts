@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-diets-evo',
@@ -23,7 +24,7 @@ export class DietsEvoComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Oral', 'Enteral','Observaciones'];
+  public headerFields: any[] = ['Fecha','Tipo de dieta', 'Enteral','Observaciones'];
   public movieForm: String;
 
   public isSubmitted: boolean = false;
@@ -38,20 +39,26 @@ export class DietsEvoComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-
-      diet_consistency: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+	  },
+      diet_consistency: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           if(value){
-          return value.name;
+          return value;
             }else{
               return 'NO APLICA'
             }
         },
       },
       enterally_diet: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           if(value){
@@ -63,7 +70,7 @@ export class DietsEvoComponent implements OnInit {
         },
       },
       observation: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
      
@@ -73,6 +80,7 @@ export class DietsEvoComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
 
   }

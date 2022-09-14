@@ -45,7 +45,6 @@ export class PharmacyReturnComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditInv.bind(this),
-            // 'delete': this.DeletePharInventary.bind(this),
           };
         },
         renderComponent: ActionsReturnComponent,
@@ -78,7 +77,6 @@ export class PharmacyReturnComponent implements OnInit {
           } else {
             return row.product_generic.description;
           }
-
         },
       },
       observation: {
@@ -105,7 +103,7 @@ export class PharmacyReturnComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?status=DEVUELTO FARMACIA' + '&request_pharmacy_stock_id=' + x[0].id;
+        this.entity = 'pharmacy_product_request?status=ENVIADO' + '&request_pharmacy_stock_id=' + x[0].id;
         this.title = 'MEDICAMENTOS DEVUELTOS POR FARMACIA A:  ' + x[0]['name'];
       }
     });

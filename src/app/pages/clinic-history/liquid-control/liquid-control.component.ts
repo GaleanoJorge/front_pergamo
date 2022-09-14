@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ChLiquidControlService } from '../../../business-controller/ch-liquid-control.service';
 import { nullSafeIsEquivalent, THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { time } from '@rxweb/reactive-form-validators';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-liquid-control',
@@ -26,7 +27,7 @@ export class LiquidControlComponent implements OnInit {
   public messageError = null;
   public title: string = 'CONTROL DE LÍQUIDOS';
   public subtitle: string = 'INGRESADOS/ELIMINADOS';
-  public headerFields: any[] = ['FLUIDO', 'ELEMENTO', 'TIPO DE FLUIDO', 'CANTIDAD (CC)', 'ADICIONAL', 'HORA DEL EVENTO'];
+  public headerFields: any[] = ['FECHA','FLUIDO', 'ELEMENTO', 'TIPO DE FLUIDO', 'CANTIDAD (CC)', 'ADICIONAL', 'HORA DEL EVENTO'];
   public routes = [];
   public data = [];
   public auxForm: any = null;
@@ -53,6 +54,14 @@ export class LiquidControlComponent implements OnInit {
   }
   public settings = {
     columns: {
+
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
       // actions: {
       //   title: 'Acciones',
       //   type: 'custom',
@@ -63,7 +72,7 @@ export class LiquidControlComponent implements OnInit {
       //   },
       // },
       ch_type_fluid_id: {
-        title: this.headerFields[0],
+        title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if(!this.done){
@@ -89,14 +98,14 @@ export class LiquidControlComponent implements OnInit {
         },
       },
       ch_route_fluid: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
       ch_type_fluid: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           this.liquidCalculator(row.weight);
@@ -104,11 +113,11 @@ export class LiquidControlComponent implements OnInit {
         },
       },
       delivered_volume: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         type: 'string',
       },
       specific_name: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (value) {
@@ -120,7 +129,7 @@ export class LiquidControlComponent implements OnInit {
         },
       },
       clock: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (value) {
@@ -139,6 +148,7 @@ export class LiquidControlComponent implements OnInit {
     private formBuilder: FormBuilder,
     private liquidControlS: ChLiquidControlService,
     private chVitalSignS: ChVitalSignsService,
+    public datePipe: DateFormatPipe
 
   ) {
   }

@@ -124,6 +124,8 @@ export class FormMarchFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({independent:'',  help:'', spastic:'', ataxic:'', contact:'',
+            response:'',  support_init:'',  support_finish:'',  prebalance:'',  medium_balance:'',  finish_balance:'', observation:'' });
           if (this.saved) {
             this.saved();
           }
@@ -151,6 +153,8 @@ export class FormMarchFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({independent:'',  help:'', spastic:'', ataxic:'', contact:'',
+          response:'',  support_init:'',  support_finish:'',  prebalance:'',  medium_balance:'',  finish_balance:'', observation:'' });
           if (this.saved) {
             this.saved();
           }
@@ -160,6 +164,8 @@ export class FormMarchFTComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 

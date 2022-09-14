@@ -83,7 +83,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ patient_family_education:'', recommendations_evo_id: '', description:'', });
+          this.form.patchValue({ patient_family_education:'', recommendations_evo_id: '', observation:'', });
           if (this.saved) {
             this.saved();
           }
@@ -102,7 +102,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ patient_family_education:'', recommendations_evo_id: '', description:'', });
+          this.form.patchValue({ patient_family_education:'', recommendations_evo_id: '', observation:'', });
           if (this.saved) {
             this.saved();
           }

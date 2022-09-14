@@ -272,7 +272,7 @@ export class BillingPadProcedureComponent implements OnInit {
       this.settings = this.settings1
       this.admission_id = this.route.snapshot.params.admission_id;
       this.billing_id = this.route.snapshot.params.billing_id;
-      this.entity = 'billing_pad/getAuthorizedProcedures/' + this.admission_id + '?billing_id=' + this.billing_id;
+      this.entity = 'billing_pad/getAuthorizedProcedures/' + this.admission_id + '?billing_id=' + this.billing_id + '&bill=' + true;
     } else {
       this.title = 'PREFACTURA DE';
       this.settings = this.settings2
@@ -382,7 +382,7 @@ export class BillingPadProcedureComponent implements OnInit {
       this.selectedOptions = [];
       prov.forEach(x => {
         if (x.id != row.id) {
-          this.selectedOptions.push(row);
+          this.selectedOptions.push(x);
         }
       });
     }

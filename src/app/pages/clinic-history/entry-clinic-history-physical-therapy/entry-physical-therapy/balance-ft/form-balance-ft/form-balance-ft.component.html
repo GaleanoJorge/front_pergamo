@@ -4,7 +4,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">EQUILIBRIO ESTATICO:</label>
-        <nb-select [selected]="this.data.static" formControlName="static" id="static" fullWidth
+        <nb-select [selected]="this.data.static" formControlName="static" id="static" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.static.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -15,7 +15,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">EQUILIBRIO DINAMICO:</label>
-        <nb-select [selected]="this.data.dinamic" formControlName="dinamic" id="dinamic" fullWidth
+        <nb-select [selected]="this.data.dinamic" formControlName="dinamic" id="dinamic" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.dinamic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -26,7 +26,7 @@
 
       <div class="col col-lg-12">
         <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
-        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="3"
+        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="3" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>

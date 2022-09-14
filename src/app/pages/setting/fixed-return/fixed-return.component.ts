@@ -98,7 +98,7 @@ export class FixedReturnComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'fixed_add?fixed_stock_id=' + x[0].id+'&status_prod=DEVUELTO' + 'own_fixed_user_id=' + x[0].id;
+        this.entity = 'fixed_add?fixed_stock_id=' + x[0].id+'&status_prod=DEVUELTO' + '&own_fixed_user_id=' + x[0].id;
         this.title = 'ACTIVOS FIJOS DEVUELTOS A:  ' + x[0]['name'];
       }
     });

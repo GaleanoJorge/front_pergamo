@@ -84,6 +84,7 @@ export class FormThermalMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({heat:'',  cold:''});
           if (this.saved) {
             this.saved();
           }
@@ -102,6 +103,7 @@ export class FormThermalMOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({heat:'',  cold:''});
           if (this.saved) {
             this.saved();
           }
@@ -111,6 +113,8 @@ export class FormThermalMOTComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 

@@ -32,7 +32,7 @@ export class BillUserActivityComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Actividades realizadas: ';
   public subtitle = '';
-  public headerFields: any[] = ['PROCEDIMIENTO', 'VALOR', 'ESTADO', 'OBSERVACIÓN', 'EJECUCIÓN', 'TIPO DE IDENTIFICACIÓN', 'IDENTIFICACIÓN', 'PACIENTE'];
+  public headerFields: any[] = ['PROCEDIMIENTO', 'VALOR', 'ESTADO', 'OBSERVACIÓN', 'EJECUCIÓN', 'TIPO DE IDENTIFICACIÓN', 'IDENTIFICACIÓN', 'PACIENTE','MEDICAMENTO'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -108,6 +108,17 @@ export class BillUserActivityComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.manual_price.name;
+        },
+      },
+      'assigned_management_plan2': {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(row.assigned_management_plan.management_plan.service_briefcase){
+          return row.assigned_management_plan.management_plan.service_briefcase.manual_price.name;
+          }else{
+            return "N/A"
+          }
         },
       },
       assigned_management_plan: {

@@ -4,7 +4,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">PROFUNDA:</label>
-        <nb-select [selected]="this.data.deep" formControlName="deep" id="deep" fullWidth
+        <nb-select [selected]="this.data.deep" formControlName="deep" id="deep" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.deep.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -15,7 +15,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">SUPREFICIAL:</label>
-        <nb-select [selected]="this.data.superficial" formControlName="superficial" id="superficial" fullWidth
+        <nb-select [selected]="this.data.superficial" formControlName="superficial" id="superficial" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.superficial.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -26,7 +26,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">CORTICAL:</label>
-        <nb-select [selected]="this.data.cortical" formControlName="cortical" id="cortical" fullWidth
+        <nb-select [selected]="this.data.cortical" formControlName="cortical" id="cortical" fullWidth onpaste="return false"
           title="Seleccione..."
           status="{{ isSubmitted && form.controls.cortical.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -37,7 +37,7 @@
 
       <div class="col col-lg-6">
         <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
-        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="1"
+        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="1" onpaste="return false"
           cols="50"
           status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
       </div>

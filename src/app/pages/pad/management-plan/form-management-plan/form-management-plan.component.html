@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="margin: 10px;width: 100%;height: 100%;overflow: auto;">
+  <nb-card style="width: 100%;height: 600px;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
@@ -58,7 +58,7 @@
           </nb-select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4" *ngIf="show && assigned!=false">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="show && assigned!=false">
           <label class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
           <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value)" id="product_gen"
             formControlName="product_gen" product_gen required fullWidth nbInput
@@ -237,7 +237,7 @@
 
         <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && assigned!=false && show">
           <label for="administration_time" class="form-text text-muted font-weight-bold">Tiempo de
-            administración:</label>
+            administración (minutos):</label>
           <input nbInput fullWidth id="administration_time" formControlName="administration_time" administration_time
             status="{{ isSubmitted && form.controls.administration_time.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>

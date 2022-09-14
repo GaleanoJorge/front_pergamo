@@ -46,11 +46,11 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public record_id;
   public isSubmitted: boolean = false;
   public saved: any = null;
-  public is_pad: boolean = false;
+  public is_pad: number = 0;
   public loading: boolean = false;
   public currentRole: any;
   public show: any;
-  public int: 0;s
+  public int= 0;
   public signatureImage: string;
   public previousUrl: string;
   public has_input;
@@ -100,16 +100,11 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     this.currentRole = this.authService.GetRole();
     this.own_user = this.authService.GetUser();
 
-    if (this.own_user.assistance != null) {
-      if (this.own_user.assistance.length > 0) {
-        this.is_pad = true;
-      }
-    }
-
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
       this.ch_record = x;
+      this.is_pad=x[0]['assigned_management_plan']['management_plan']['type_of_attention_id'];
       this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
@@ -193,6 +188,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -201,7 +197,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
       
     }

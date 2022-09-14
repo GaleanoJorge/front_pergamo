@@ -131,6 +131,12 @@ export class FormDrugApplicationComponent implements OnInit {
             this.loading = false;
           });
       }
+    } else {
+      if(this.form.controls.observation.errors){
+        this.toastService.warning('', 'Debe diligenciar observaciones');
+      } else {
+        this.toastService.warning('', 'Debe diligenciar la hora de aplicación');
+      }
     }
   }
 

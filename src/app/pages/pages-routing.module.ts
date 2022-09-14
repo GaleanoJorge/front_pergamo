@@ -97,6 +97,11 @@ const routes: Routes = [{
         .then(m => m.AuthorizationModule),
     },
     {
+      path: 'medical-records',
+      loadChildren: () => import('./medical-records/medical-records.module')
+        .then(m => m.MedicalRecordsModule),
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',

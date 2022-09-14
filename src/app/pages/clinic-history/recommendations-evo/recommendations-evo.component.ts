@@ -4,6 +4,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { ChEvoSoapService } from '../../../business-controller/ch-evo-soap.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 @Component({
   selector: 'ngx-recommendations-evo',
   templateUrl: './recommendations-evo.component.html',
@@ -25,7 +26,7 @@ export class RecommendationsEvoComponent implements OnInit {
   public chreasonconsultation: any[];
   public chvitsigns: any[];
   public nameForm: String;
-  public headerFields: any[] = [ 'Educación Paciente/Familiar',
+  public headerFields: any[] = [ 'Fecha','Educación Paciente/Familiar',
     'Recomendación', 'Observación',
   
   ];
@@ -43,13 +44,20 @@ export class RecommendationsEvoComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      patient_family_education: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+	  },
+      patient_family_education: {
+        title: this.headerFields[1],
         width: 'string',
       },
 
       recommendations_evo: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           if(value){
@@ -61,14 +69,17 @@ export class RecommendationsEvoComponent implements OnInit {
         },
       },
       observations: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
 
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+  ) {}
 
   async ngOnInit() {}
 

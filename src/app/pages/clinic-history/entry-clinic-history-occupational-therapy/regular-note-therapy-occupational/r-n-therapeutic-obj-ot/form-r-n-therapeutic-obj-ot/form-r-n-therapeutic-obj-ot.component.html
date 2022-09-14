@@ -6,7 +6,7 @@
 
     <div class="col col-lg-12">
       <label for="occupational_con_text" class="form-text text-muted font-weight-bold">Concepto Ocupacional:</label>
-      <textarea id="occupational_con" nbInput fullWidth formControlName="occupational_con" current_illness rows="1"
+      <textarea id="occupational_con" nbInput fullWidth formControlName="occupational_con" current_illness rows="1" onpaste="return false"
         cols="50"
         status="{{ isSubmitted && form.controls.occupational_con.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>

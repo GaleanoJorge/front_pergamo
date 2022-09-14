@@ -22,6 +22,8 @@ export class LanguageListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() user: any = null;
+  @Input() has_input: boolean = false;
   @Input() record_id;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -37,11 +39,7 @@ export class LanguageListComponent implements OnInit {
   public chdiagnosis: any[];
   public nameForm: String;
   public movieForm: String;
-  public admissions_id;
-  public has_input: any = null; // ya existe registro de ingreso
-  public input_done: boolean = false; // ya se registró algo en el ingreso
-
-  public user;
+  
   public signatureImage: string;
   public currentRole: any;
   public own_user;
@@ -79,16 +77,6 @@ export class LanguageListComponent implements OnInit {
 
   async ngOnInit() {
     this.record_id = this.route.snapshot.params.id;
-
-    this.chRecord.GetCollection(this.record_id).then(x => {
-      this.admissions_id=x;
-      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
-      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
-        this.input_done = true;
-      }
-      this.user = x[0]['admissions']['patients'];
-     
-    });
 
     if (!this.data) {
       this.data = {
@@ -138,22 +126,6 @@ export class LanguageListComponent implements OnInit {
     this.location.back();
   }
 
-  close() {
-    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
-      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
-        context: {
-          signature: true,
-          title: 'Finalizar registro.',
-          delete: this.finish.bind(this),
-          showImage: this.showImage.bind(this),
-          // save: this.saveSignature.bind(this),
-          textConfirm: 'Finalizar registro'
-        },
-      });
-    } else {
-      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
-    }
-  }
 
   showImage(data) {
     this.int++;
@@ -225,7 +197,9 @@ export class LanguageListComponent implements OnInit {
 
   // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
   inputMessage($event) {
-    this.input_done = true;
+    if ($event) {
+      this.messageEvent.emit(true);
+    }
   }
 }
 

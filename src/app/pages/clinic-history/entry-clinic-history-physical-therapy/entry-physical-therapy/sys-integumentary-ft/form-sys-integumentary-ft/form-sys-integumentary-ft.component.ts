@@ -118,6 +118,8 @@ export class FormSysIntegumentaryComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({colaboration:'',  integrity:'', texture:'', sweating:'', elasticity:'',
+            extensibility:'',  mobility:'',  scar:'',  bedsores:'',  location:''});
           if (this.saved) {
             this.saved();
           }
@@ -143,6 +145,8 @@ export class FormSysIntegumentaryComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({colaboration:'',  integrity:'', texture:'', sweating:'', elasticity:'',
+          extensibility:'',  mobility:'',  scar:'',  bedsores:'',  location:''});
           if (this.saved) {
             this.saved();
           }
@@ -152,6 +156,8 @@ export class FormSysIntegumentaryComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 

@@ -97,6 +97,7 @@ export class FormBalanceFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({static:'',  dinamic:'', observation:''});
           if (this.saved) {
             this.saved();
           }
@@ -115,6 +116,7 @@ export class FormBalanceFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({static:'',  dinamic:'', observation:''});
           if (this.saved) {
             this.saved();
           }
@@ -124,6 +126,8 @@ export class FormBalanceFTComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 

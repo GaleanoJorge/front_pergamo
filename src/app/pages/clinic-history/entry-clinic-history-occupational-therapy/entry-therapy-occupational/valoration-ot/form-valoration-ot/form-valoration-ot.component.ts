@@ -109,6 +109,7 @@ export class FormValorationOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({ch_diagnosis_id:'',  recomendations:''});
           if (this.saved) {
             this.saved();
           }
@@ -125,6 +126,7 @@ export class FormValorationOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({ch_diagnosis_id:'',  recomendations:''});
           if (this.saved) {
             this.saved();
           }
@@ -133,6 +135,8 @@ export class FormValorationOTComponent implements OnInit {
           this.loading = false;
         });
       }
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 }

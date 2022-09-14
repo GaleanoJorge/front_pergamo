@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-diagnostic',
@@ -24,7 +25,7 @@ export class DiagnosticListComponent implements OnInit {
   public chreasonconsultation: any[];
   public chvitsigns: any[];
   public nameForm: String;
-  public headerFields: any[] = ['Diagnostico', 'Clase', 'Tipo', 'Observación'];
+  public headerFields: any[] = ['Fecha','Diagnóstico', 'Clase', 'Tipo', 'Observación'];
   public movieForm: String;
 
   public isSubmitted: boolean = false;
@@ -39,29 +40,36 @@ export class DiagnosticListComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      diagnosis: {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.name;
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
         },
-      },
-      ch_diagnosis_class: {
+	  },
+      diagnosis: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-      ch_diagnosis_type: {
+      ch_diagnosis_class: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
-      diagnosis_observation: {
+      ch_diagnosis_type: {
         title: this.headerFields[3],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
+      },
+      diagnosis_observation: {
+        title: this.headerFields[4],
         width: 'string',
       }
     },
@@ -70,6 +78,7 @@ export class DiagnosticListComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe,
   ) {
 
   }

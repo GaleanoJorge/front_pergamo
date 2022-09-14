@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-tests',
@@ -23,6 +24,7 @@ export class LanguageTestsComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Escala De Hamilton/ Fast/Prueba De Los 7 Minimos (Cognición)',
     'Prueba De Boston / Mini Boston (Lenguaje Adultos)',
     'Termal Y Merril/ Bhenale (Lenguaje Intantil)',
@@ -46,8 +48,16 @@ export class LanguageTestsComponent implements OnInit {
     },
     columns: {
 
-      hamilton_scale: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+
+      hamilton_scale: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -58,7 +68,7 @@ export class LanguageTestsComponent implements OnInit {
         }
       },
       boston_test: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -70,17 +80,6 @@ export class LanguageTestsComponent implements OnInit {
        
       },
       termal_merril: {
-        title: this.headerFields[2],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          if (value) {
-            return value;
-          } else {
-            return 'NO APLICA'
-          }
-        }
-      },
-      prolec_plon: {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -91,8 +90,19 @@ export class LanguageTestsComponent implements OnInit {
           }
         }
       },
-      ped_guss: {
+      prolec_plon: {
         title: this.headerFields[4],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      ped_guss: {
+        title: this.headerFields[5],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -104,7 +114,7 @@ export class LanguageTestsComponent implements OnInit {
        
       },
       vhi_grbas: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -115,7 +125,7 @@ export class LanguageTestsComponent implements OnInit {
         }
       },
       pemo_speech: {
-        title: this.headerFields[6],
+        title: this.headerFields[7],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -129,7 +139,9 @@ export class LanguageTestsComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe ) {}
 
   async ngOnInit() {
 

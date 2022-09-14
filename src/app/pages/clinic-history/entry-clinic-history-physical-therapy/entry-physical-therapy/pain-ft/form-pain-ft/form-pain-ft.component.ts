@@ -122,6 +122,8 @@ export class FormPainFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({type:'',  burning:'', stinging:'', locatedi:'', oppressive:'',
+            irradiated:'',  located:'',  intensity:'',  exaccervating:'',  decreated:''});
           if (this.saved) {
             this.saved();
           }
@@ -148,6 +150,8 @@ export class FormPainFTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({type:'',  burning:'', stinging:'', locatedi:'', oppressive:'',
+          irradiated:'',  located:'',  intensity:'',  exaccervating:'',  decreated:''});
           if (this.saved) {
             this.saved();
           }
@@ -157,6 +161,8 @@ export class FormPainFTComponent implements OnInit {
         });
       }
 
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 

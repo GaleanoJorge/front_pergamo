@@ -82,7 +82,7 @@
 
 <div class="col col-lg-12">
  <label for="recommendations_text" class="form-text text-muted font-weight-bold">Recomendaciones/Educacion</label>
- <textarea id="recommendations" nbInput fullWidth formControlName="recommendations" current_illness rows="1"
+ <textarea id="recommendations" nbInput fullWidth formControlName="recommendations" current_illness rows="1" onpaste="return false"
    cols="50"
    status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
 </div>
