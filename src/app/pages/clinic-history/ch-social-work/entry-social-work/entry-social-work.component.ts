@@ -23,6 +23,8 @@ export class EntrySocialWorkComponent implements OnInit {
   
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() has_input: Boolean = false;
+  @Input() record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   //@Input() vital: any;
@@ -41,7 +43,6 @@ export class EntrySocialWorkComponent implements OnInit {
   //public assRespiratory: any[];
   public suppliesTeraphyRespiratory: any[];
   public sessionsTeraphyRespiratory: any[];
-  public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
 
   public signatureImage: string;
@@ -52,8 +53,6 @@ export class EntrySocialWorkComponent implements OnInit {
   public user;
 
 
-
-  public record_id;
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
@@ -85,15 +84,6 @@ export class EntrySocialWorkComponent implements OnInit {
   async ngOnInit() {
     this.record_id = this.route.snapshot.params.id1;
     this.own_user = this.authService.GetUser();
-    this.chRecord.GetCollection({
-      record_id: this.record_id
-    }).then(x => {
-      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
-      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
-        this.input_done = true;
-      }
-      this.user = x[0]['admissions']['patients'];
-    });
     if (!this.data) {
       this.data = {
         ch_diagnosis_id: '',
@@ -199,7 +189,9 @@ export class EntrySocialWorkComponent implements OnInit {
 
   // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
   inputMessage($event) {
-    this.input_done = true;
+    if ($event == true) {
+      this.messageEvent.emit($event);
+    }
   }
 }
 
