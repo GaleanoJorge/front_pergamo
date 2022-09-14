@@ -16,6 +16,7 @@ export class FormBackgroundComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record_id: any = 1;
   @Output() messageEvent = new EventEmitter<any>();
 
 
@@ -72,7 +73,7 @@ export class FormBackgroundComponent implements OnInit {
           revision: this.form.controls.revision.value,
           observation: this.form.controls.observation.value,
           ch_type_background_id: this.form.controls.ch_type_background_id.value,
-          type_record_id: 2,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -89,7 +90,7 @@ export class FormBackgroundComponent implements OnInit {
           revision: this.form.controls.revision.value,
           observation: this.form.controls.observation.value,
           ch_type_background_id: this.form.controls.ch_type_background_id.value,
-          type_record_id: 2,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

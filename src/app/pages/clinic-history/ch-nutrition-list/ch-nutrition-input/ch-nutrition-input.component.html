@@ -18,7 +18,7 @@
           </nb-step>
 
           <nb-step label="Cálculos de Nutrición Parenteral">
-            <div >
+            <div *ngIf="this.weight">
               <ngx-table-parenteral-nutrition [data]="this.data"  [type_record_id]="1"
                 [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" ></ngx-table-parenteral-nutrition>
             </div>
@@ -28,7 +28,7 @@
           </nb-step>
 
           <nb-step label="Antecedentes">
-            <ngx-back-list [record_id]="record_id" [user]="this.data" (messageEvent)="inputMessage($event)" ></ngx-back-list>
+            <ngx-back-list [has_input]="has_input" [record_id]="record_id" [type_record_id]="1" [user]="this.data" (messageEvent)="inputMessage($event)" ></ngx-back-list>
           </nb-step>
 
           <nb-step label="Análisis e Interpretación">
