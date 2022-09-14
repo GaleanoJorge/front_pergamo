@@ -45,6 +45,7 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.parentData = {
       selectedOptions: [],
+      data: this.data,
     };
     if (!this.data) {
       this.data = {

@@ -21,10 +21,10 @@
 
 <ng-template #packagingView>
   <div class="container-fluid">
-      <nb-card style="max-width: 1400px;max-height: 1000px;overflow: auto;">
+      <nb-card style="width: 100%;height: 600px;overflow: auto;">
         <nb-card-header>Ver paquete</nb-card-header>
         <nb-card-body>
-            <div class="col-md-12">
+            <div class="col-md-12" >
               <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [show]="true"
                 [parentData]="this.parentData"></ngx-auth-asociated-package>
             </div>

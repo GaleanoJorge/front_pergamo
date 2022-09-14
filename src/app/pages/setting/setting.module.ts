@@ -402,6 +402,7 @@ import { ActionsReturnPatiComponent } from './fixed-return-patients/actions-retu
 import { FixedReturnPatientsComponent } from './fixed-return-patients/fixed-return-patients.component';
 import { FormFixedDeniedComponent } from './fixed-assets-requests-patient/form-fixed-denied/form-fixed-denied.component';
 import { FormTariffConfirmDisabledComponent } from './tariff/form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
+import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
 
 @NgModule({
   imports: [
@@ -845,7 +846,8 @@ import { FormTariffConfirmDisabledComponent } from './tariff/form-tariff-confirm
     FormFixedReturnPatientsComponent,
     ActionsReturnPatiComponent,
     FixedReturnPatientsComponent,
-    FormFixedDeniedComponent
+    FormFixedDeniedComponent,
+    ProductDamagedComponent
   ],
   providers: [
     DateFormatPipe,

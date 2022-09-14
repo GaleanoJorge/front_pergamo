@@ -84,6 +84,7 @@ export class AuthorizationListComponent implements OnInit {
   public admissions: any[] = [];
   public filter =
     {
+      status_id: 0,
       eps_id: null,
       contract_id: null,
       initial_date: null,
@@ -92,6 +93,7 @@ export class AuthorizationListComponent implements OnInit {
       patient_id: null,
       program_id: null,
       type_of_attention_id: null,
+      id_number: null,
     }
   public parentData: any;
   public previewFile = null;
@@ -331,6 +333,7 @@ export class AuthorizationListComponent implements OnInit {
     this.today = this.today.toISOString().split('T')[0];
 
     this.data = {
+      status_id: 0,
       company_id: null,
       start_date: '',
       finish_date: '',
@@ -338,10 +341,14 @@ export class AuthorizationListComponent implements OnInit {
       briefcase_id: '',
       contract_id: '',
       program_id: '',
-      type_of_attention_id: ''
+      type_of_attention_id: '',
+      id_number: null,
     };
 
     this.form = this.formBuilder.group({
+      status_id: [
+        this.data.status_id,
+      ],
       company_id: [
         this.data.company_id,
       ],
@@ -357,11 +364,14 @@ export class AuthorizationListComponent implements OnInit {
       contract_id: [
         this.data.contract_id,
       ],
+      type_of_attention_id: [
+        this.data.type_of_attention_id,
+      ],
       program_id: [
         this.data.program_id,
       ],
-      type_of_attention_id: [
-        this.data.type_of_attention_id,
+      id_number: [
+        this.data.id_number,
       ],
     });
 
@@ -526,10 +536,18 @@ export class AuthorizationListComponent implements OnInit {
     this.selectedOptions = $event;
   }
 
+  FilterProgram(event){
+    if(event === ""){
+      this.filter.type_of_attention_id = null;
+    } else {
+      this.filter.type_of_attention_id = event;
+    }
+    this.FilterAuth();
+  }
+
   FilterAuth() {
     // this.disableCheck();
-    var entity = this.entity
-    this.table.changeEntity(`${entity}?eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&program_id=${this.filter.program_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}&type_of_attention_id=${this.filter.type_of_attention_id}`, 'authorization');
+    this.table.changeEntity(`authorization/byStatus/0?status_id=${this.filter.status_id}&eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&program_id=${this.filter.program_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}&type_of_attention_id=${this.filter.type_of_attention_id}&number_id=${this.filter.id_number}`, 'authorization');
   }
 
   FilterStatus(status) {
@@ -538,17 +556,14 @@ export class AuthorizationListComponent implements OnInit {
     this.entity = this.table.entity
     this.form.patchValue({
       company_id: null,
-      start_date: '',
+      start_date: null,
       finish_date: '',
       state_gloss: '',
       briefcase_id: '',
       contract_id: '',
-      program_id: '',
-      type_of_attention_id:'',
+      type_of_attention_id: '',
     });
-    // this.toastS.warning('', 'Filtros limpiados');
-    // this.RefreshData();
-
+    // document.getElementById('type_of').
   }
 
   ConfirmAction(data, Managemen?, type?) {
@@ -585,6 +600,8 @@ export class AuthorizationListComponent implements OnInit {
     }
 
   }
+
+
 
   ClosePackage() {
     this.element = document.getElementsByTagName("nb-windows-container");
@@ -673,6 +690,12 @@ export class AuthorizationListComponent implements OnInit {
   }
 
   onChanges() {
+
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.filter.final_date = val;
+      this.FilterAuth();
+    });
+
     this.form.get('company_id').valueChanges.subscribe(val => {
       this.filter.eps_id = val;
       if (val == '') {
@@ -685,6 +708,7 @@ export class AuthorizationListComponent implements OnInit {
           this.contract = x;
         });
       }
+      this.FilterAuth();
     });
 
     this.form.get('contract_id').valueChanges.subscribe(val => {
@@ -699,15 +723,18 @@ export class AuthorizationListComponent implements OnInit {
       this.form.patchValue({
         briefcase_id: '',
       });
+      this.FilterAuth();
     });
 
     this.form.get('start_date').valueChanges.subscribe(val => {
       this.min_day = val;
       this.filter.initial_date = val;
+      this.FilterAuth();
     });
 
     this.form.get('finish_date').valueChanges.subscribe(val => {
       this.filter.final_date = val;
+      this.FilterAuth();
     });
 
     this.form.get('briefcase_id').valueChanges.subscribe(val => {
@@ -719,17 +746,27 @@ export class AuthorizationListComponent implements OnInit {
           this.admissions = x;
         });
       }
-      this.form.patchValue({
-        admissions_id: '',
-      });
+      this.FilterAuth();
     });
 
     this.form.get('program_id').valueChanges.subscribe(val => {
       this.filter.program_id = val;
+      this.FilterAuth();
+    });
+
+    this.form.get('id_number').valueChanges.subscribe(val => {
+      this.filter.id_number = val;
+      this.FilterAuth();
+    });
+
+    this.form.get('status_id').valueChanges.subscribe(val => {
+      this.filter.status_id = val;
+      this.FilterAuth();
     });
 
     this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
       this.filter.type_of_attention_id = val;
+      this.FilterAuth();
     });
 
   }

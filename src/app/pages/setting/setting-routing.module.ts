@@ -152,6 +152,7 @@ import { FixedPatientsComponent } from './fixed-patients/fixed-patients.componen
 import { FixedMovementsComponent } from './fixed-movements/fixed-movements.component';
 import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
 import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
+import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
 
 const routes: Routes = [{
   path: '',
@@ -860,6 +861,12 @@ const routes: Routes = [{
     {
       path: 'fixed-movements',
       component: FixedMovementsComponent,
+    }
+
+    ,
+    {
+      path: 'product-damaged',
+      component: ProductDamagedComponent,
     }
   ],
 }];

@@ -4,7 +4,7 @@
     <nb-tabset fullWidth (changeTab)="reloadForm($event)">
       <nb-tab tabTitle="A tramitar">
 
-        <form [formGroup]="form" (ngSubmit)="FilterAuth()">
+        <form [formGroup]="form">
           <div class="row">
             <div class="col-md-4">
               <label for="company" class="form-text text-muted font-weight-bold">Autorizaciones por EPS:</label>
@@ -26,63 +26,39 @@
               <label for="briefcase_id" class="form-text text-muted font-weight-bold">Portafolios de atención:</label>
               <nb-select formControlName="briefcase_id" id="briefcase_id" fullWidth placeholder="Seleccione..."
                 status="{{ isSubmitted && form.controls.briefcase_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                <nb-option >Seleccione...</nb-option>
+                <nb-option>Seleccione...</nb-option>
                 <nb-option *ngFor="let item of briefcase" [value]="item.id">
                   {{ item.name }}</nb-option>
               </nb-select>
             </div>
             <div class="col-md-4">
               <label for="program_id" class="form-text text-muted font-weight-bold">Programa:</label>
-              <nb-select [selected]="this.data.program_id" formControlName="program_id" id="program_id"
-                fullWidth placeholder="Seleccione..."
+              <nb-select [selected]="this.data.program_id" formControlName="program_id" id="program_id" fullWidth
+                placeholder="Seleccione..."
                 status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                <nb-option >Seleccione...</nb-option>
-                <nb-option selected="{{ item.id == data.program_id }}" *ngFor="let item of program"
-                  [value]="item.id">
+                <nb-option>Seleccione...</nb-option>
+                <nb-option selected="{{ item.id == data.program_id }}" *ngFor="let item of program" [value]="item.id">
                   {{ item.name }}
                 </nb-option>
               </nb-select>
             </div>
             <div class="col-md-4">
-              <label for="start_date" class="form-text text-muted font-weight-bold">Desde</label>
+              <label for="start_date" class="form-text text-muted font-weight-bold">Desde:</label>
               <input class="inputdate" [max]="today" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
                 formControlName="start_date" start_date />
             </div>
             <div class="col-md-4">
-              <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta</label>
+              <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta:</label>
               <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date"
                 formControlName="finish_date" finish_date />
             </div>
 
+
             <div class="col-md-4">
-              <label for="type_of_attention_id" class="form-text text-muted font-weight-bold">Programa:</label>
-              <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id" id="program_id"
-                fullWidth placeholder="Seleccione..."
+              <label for="status_id" class="form-text text-muted font-weight-bold">Estado:</label>
+              <nb-select formControlName="status_id" id="status_id" fullWidth
+                placeholder="TODOS LOS REGISTROS"
                 status="{{ isSubmitted && form.controls.type_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                <nb-option >Seleccione...</nb-option>
-                <nb-option selected="{{ item.id == data.type_of_attention_id }}" *ngFor="let item of type_of_attention"
-                  [value]="item.id">
-                  {{ item.name }}
-                </nb-option>
-              </nb-select>
-            </div>
-          </div>
-
-
-          <div class="col-md-12 filter">
-            <button nbButton status="success" class="ml-1" disabled="{{ loading }}">Filtar</button>
-          </div>
-
-        </form>
-
-        <ngx-base-table *ngIf="auth_status && company" (propagar)="onUserRowSelect($event)" [title]="title"
-          [subtitle]="subtitle" [settings]="settings" entity="authorization/byStatus/0" customData="authorization"
-          [messageToltip]="messageToltip">
-
-          <div actions>
-
-            <div class="actions">
-              <nb-select (selectedChange)="FilterStatus($event)" placeholder="Filtrar por estado">
                 <nb-option value="0">TODOS LOS REGISTROS</nb-option>
                 <nb-option value="P">PROYECTADOS</nb-option>
                 <nb-option value="E">EJECUTADOS</nb-option>
@@ -90,6 +66,58 @@
                 <nb-option *ngFor="let item of auth_statusM" [value]="item.id">{{item.name}}</nb-option>
               </nb-select>
             </div>
+
+            <div class="col-md-4">
+              <label for="type_of_attention_id" class="form-text text-muted font-weight-bold">Tipo de atención:</label>
+              <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id"
+                id="type_of_attention_id" fullWidth placeholder="Seleccione..."
+                status="{{ isSubmitted && form.controls.type_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option>Seleccione...</nb-option>
+                <nb-option selected="{{ item.id == data.type_of_attention_id }}" *ngFor="let item of type_of_attention"
+                  [value]="item.id">
+                  {{ item.name }}
+                </nb-option>
+              </nb-select>
+            </div>
+
+            <div class="col-md-4">
+              <label for="id_number" class="form-text text-muted font-weight-bold">Número ID:</label>
+              <input  nbInput fullWidth id="id_number" placeholder="Número de documento"
+                formControlName="id_number" program_id
+                status="{{ isSubmitted && form.controls.id_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+
+          </div>
+
+<!-- 
+          <div class="col-md-12 filter">
+            <button nbButton status="success" class="ml-1" disabled="{{ loading }}">Filtar</button>
+          </div> -->
+
+        </form>
+
+        <ngx-base-table *ngIf="auth_status && company" (propagar)="onUserRowSelect($event)" [title]="title"
+          [subtitle]="subtitle" [settings]="settings" entity="authorization/byStatus/0?status_id=0" customData="authorization"
+          [messageToltip]="messageToltip">
+
+          <div actions>
+
+            <!-- <div class="actions">
+              <nb-select (selectedChange)="FilterStatus($event)" placeholder="Filtrar por estado">
+                <nb-option value="0">TODOS LOS REGISTROS</nb-option>
+                <nb-option value="P">PROYECTADOS</nb-option>
+                <nb-option value="E">EJECUTADOS</nb-option>
+                <nb-option value="PAQ">PAQUETES</nb-option>
+                <nb-option *ngFor="let item of auth_statusM" [value]="item.id">{{item.name}}</nb-option>
+              </nb-select>
+            </div> -->
+
+            <!-- <div class="actions" style="margin-top: 5px;">
+              <nb-select (selectedChange)="FilterProgram($event)" id="type_of" placeholder="Tipo de atención">
+                <nb-option value="">Seleccione...</nb-option>
+                <nb-option *ngFor="let item of type_of_attention" [value]="item.id">{{ item.name }}</nb-option>
+              </nb-select>
+            </div> -->
 
             <div class="actions" style="margin-top: 5px;">
               <button nbButton status="danger" style="width: 100%;" (click)="packagingProcess()">Asignar
@@ -127,9 +155,9 @@
 <ng-template #packagingTemplate>
   <div class="container-fluid">
     <form [formGroup]="xlsForm" (ngSubmit)="saveCartera()">
-    <nb-card style="width: 700px;">
-      <nb-card-header>Generar XLS</nb-card-header>
-      <nb-card-body>
+      <nb-card style="width: 700px;">
+        <nb-card-header>Generar XLS</nb-card-header>
+        <nb-card-body>
           <div>
             <div class="col-md-12">
               <nb-select formControlName="state_gloss" id="state_gloss" fullWidth>
@@ -156,10 +184,10 @@
       <nb-card style="width: 100%;height: 600px;overflow: auto;">
         <nb-card-header>Editar paquete</nb-card-header>
         <nb-card-body>
-            <div class="col-md-12">
-              <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [show]="false"
-                [parentData]="this.parentData"></ngx-auth-asociated-package>
-            </div>
+          <div class="col-md-12">
+            <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [show]="false"
+              [parentData]="this.parentData"></ngx-auth-asociated-package>
+          </div>
         </nb-card-body>
         <nb-card-footer>
           <div style="text-align:end;">
@@ -178,10 +206,10 @@
       <nb-card style="width: 100%;height: 600px;overflow: auto;">
         <nb-card-header>Ver paquete</nb-card-header>
         <nb-card-body>
-            <div class="col-md-12">
-              <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [show]="true"
-                [parentData]="this.parentData"></ngx-auth-asociated-package>
-            </div>
+          <div class="col-md-12">
+            <ngx-auth-asociated-package (messageEvent)="receiveMessage($event)" [show]="true"
+              [parentData]="this.parentData"></ngx-auth-asociated-package>
+          </div>
         </nb-card-body>
         <nb-card-footer>
           <div style="text-align:end;">
@@ -196,9 +224,9 @@
 <ng-template #masiveAuth>
   <div class="container-fluid">
     <form [formGroup]="formMassive">
-    <nb-card style="max-width: 1400px;max-height: 1200px;overflow: auto;">
-      <nb-card-header>Editar paquete</nb-card-header>
-      <nb-card-body>
+      <nb-card style="max-width: 1400px;max-height: 1200px;overflow: auto;">
+        <nb-card-header>Editar paquete</nb-card-header>
+        <nb-card-body>
           <div>
             <div class="col-md-12">
               <label for="auth_number" class="form-text text-muted font-weight-bold">Número de autorización:</label>
@@ -232,7 +260,7 @@
                     <a [href]="previewFile" target="_blank">Ver documentos</a>
                   </div>
                   <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file" nbInput fullWidth
-                    (change)="changeImage($event.target.files, 1)"/>
+                    (change)="changeImage($event.target.files, 1)" />
                 </div>
               </div>
             </div>

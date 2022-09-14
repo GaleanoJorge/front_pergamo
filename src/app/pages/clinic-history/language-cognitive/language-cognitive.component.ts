@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-cognitive',
@@ -22,7 +23,7 @@ export class LanguageCognitiveComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Memoria', 'Atención', 'Concentración', 'Observaciones'];
+  public headerFields: any[] = ['Fecha','Memoria', 'Atención', 'Concentración', 'Observaciones'];
 
   public isSubmitted: boolean = false;
   public form: FormGroup;
@@ -36,20 +37,27 @@ export class LanguageCognitiveComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      memory: {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-      },
-      attention: {
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      memory: {
         title: this.headerFields[1],
         width: 'string',
       },
-      concentration: {
+      attention: {
         title: this.headerFields[2],
         width: 'string',
       },
-      observations: {
+      concentration: {
         title: this.headerFields[3],
+        width: 'string',
+      },
+      observations: {
+        title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -62,7 +70,9 @@ export class LanguageCognitiveComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe) {}
 
   async ngOnInit() {}
 

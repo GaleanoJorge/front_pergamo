@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,7 @@ export class TableDiagnosisFTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['DIAGNOSTICO CIF',];
+  public headerFields: any[] = ['FECHA','DIAGNOSTICO CIF',];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -38,10 +39,16 @@ export class TableDiagnosisFTComponent implements OnInit {
     },
     columns:
     {
-     
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
       diagnosis:
       {
-        title: this.headerFields[0],
+        title: this.headerFields[1],
         width: 'string',
       },
 
@@ -51,6 +58,7 @@ export class TableDiagnosisFTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

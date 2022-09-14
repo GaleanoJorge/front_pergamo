@@ -15,7 +15,7 @@
           <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions[0].contract.company.name}}</p>
           <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions[0].contract.name}}</p>
           <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions[0].briefcase.name}}</p>
-          <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability}}</p>
+          <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability.name}}</p>
           <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES</p>
         </div>
           <div actions>
@@ -34,10 +34,10 @@
     </ngx-base-list>
   </nb-card-body>
   <nb-card-footer class="d-flex justify-content-end">
-    <div class="vi">
+    <div style="margin-left: 15px;" class="vi">
       VALOR FACTURAR: {{this.currency.transform(this.count_billing)}}
     </div>
-    <div class="vi">
+    <div style="margin-left: 15px;" class="vi">
       VALOR FACTURA: {{this.currency.transform(this.total_billing)}}
     </div>
   </nb-card-footer>

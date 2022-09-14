@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableFunPatMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['MANO-CABEZA-DERECHA', 
+  public headerFields: any[] = ['FECHA',
+                                'MANO-CABEZA-DERECHA', 
                                 'MANO-CABEZA-IZQUIERDA',
                                 'MANO-BOCA-DERECHA', 
                                 'MANO-BOCA-IZQUIERDA',
@@ -51,68 +53,78 @@ export class TableFunPatMOTComponent implements OnInit {
     },
     columns: {
 
-      head_right: {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-      },
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
+      
 
-      head_left: {
+      head_right: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      mouth_right: {
+      head_left: {
         title: this.headerFields[2],
         width: 'string',
       },
-      mouth_left: {
+
+      mouth_right: {
         title: this.headerFields[3],
+        width: 'string',
+      },
+      mouth_left: {
+        title: this.headerFields[4],
         width: 'string',
       },
 
       shoulder_right: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
       },
       shoulder_left: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         width: 'string',
       },
 
       back_right: {
-        title: this.headerFields[6],
-        width: 'string',
-      },
-      back_left: {
         title: this.headerFields[7],
         width: 'string',
       },
-
-      waist_right: {
+      back_left: {
         title: this.headerFields[8],
         width: 'string',
       },
 
-      waist_left: {
+      waist_right: {
         title: this.headerFields[9],
         width: 'string',
       },
-      knee_right: {
+
+      waist_left: {
         title: this.headerFields[10],
+        width: 'string',
+      },
+      knee_right: {
+        title: this.headerFields[11],
         width: 'string',
       },
 
       knee_left: {
-        title: this.headerFields[11],
+        title: this.headerFields[12],
         width: 'string',
       },
       foot_right: {
-        title: this.headerFields[12],
+        title: this.headerFields[13],
         width: 'string',
       },
 
       foot_left: {
-        title: this.headerFields[13],
+        title: this.headerFields[14],
         width: 'string',
       },
       
@@ -122,6 +134,7 @@ export class TableFunPatMOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

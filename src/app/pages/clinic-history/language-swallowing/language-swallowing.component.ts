@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-swallowing',
@@ -23,6 +24,7 @@ export class LanguageSwallowingComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Disfagia Para Solidos',
     'Disfagia Para Líquidos Claros ',
     'Disfagia Para Líquidos Espesos',
@@ -46,34 +48,42 @@ export class LanguageSwallowingComponent implements OnInit {
     },
     columns: {
 
-      solid_dysphagia: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+
+      solid_dysphagia: {
+        title: this.headerFields[1],
         width: 'string',
       },
       clear_liquid_dysphagia: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
        
       },
       thick_liquid_dysphagia: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
       nasogastric_tube: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
       gastrostomy: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
        
       },
       nothing_orally: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
       observations: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -87,7 +97,9 @@ export class LanguageSwallowingComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe) {}
 
   async ngOnInit() {
 

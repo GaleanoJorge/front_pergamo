@@ -1,5 +1,5 @@
 
-<div *ngIf="has_input == false || type_record_id != 1">
+<div *ngIf="has_input == false || type_record != 1">
   <ngx-form-language-reg-sessions [type_record]="type_record" (messageEvent)="receiveMessage($event)" >
   </ngx-form-language-reg-sessions>
 </div>
@@ -9,7 +9,7 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table  pager="false" [title]="title" customData="number_monthly_sessions_tl" [settings]="settings"
-      entity="number_monthly_sessions_tl/by_record/{{record_id}}/{{this.type_record}}?pagination=false&has_input={{has_input}}">
+      entity="number_monthly_sessions_tl/by_record/{{record_id}}/{{type_record}}?pagination=false&has_input={{has_input}}">
       <div actions>
         <div class="actions">
         </div>

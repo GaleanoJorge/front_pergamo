@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-materialused',
@@ -19,6 +20,7 @@ export class LanguageMaterialusedComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Elementos De Bioseguridad',
     'Materiales Didácticos',
     'Alimentos Y Líquidos',
@@ -39,18 +41,16 @@ export class LanguageMaterialusedComponent implements OnInit {
     },
     columns: {
 
-      biosecurity_elements: {
+      
+		  created_at: {
         title: this.headerFields[0],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          if (value) {
-            return value;
-          } else {
-            return 'NO APLICA'
-          }
-        }
-      },
-      didactic_materials: {
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+
+      biosecurity_elements: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -61,7 +61,7 @@ export class LanguageMaterialusedComponent implements OnInit {
           }
         }
       },
-      liquid_food: {
+      didactic_materials: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -72,8 +72,19 @@ export class LanguageMaterialusedComponent implements OnInit {
           }
         }
       },
-      stationery: {
+      liquid_food: {
         title: this.headerFields[3],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      stationery: {
+        title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -87,7 +98,9 @@ export class LanguageMaterialusedComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe) {}
 
   async ngOnInit() {
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableAcuityMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['LOGRA TACTO Y SEGUIMIENTO VISUAL', 
+  public headerFields: any[] = ['FECHA',
+                                'LOGRA TACTO Y SEGUIMIENTO VISUAL', 
                                 'IDENTIFICACIÓN DE OBJETOS',
                                 'FIGURAS SUPERPUESTAS', 
                                 'DISEÑO DE BLOQUES DE COLORES',
@@ -43,31 +45,40 @@ export class TableAcuityMOTComponent implements OnInit {
     },
     columns: {
 
-      follow_up: {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-      },
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
 
-      object_identify: {
+      follow_up: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      figures: {
+      object_identify: {
         title: this.headerFields[2],
         width: 'string',
       },
-      color_design: {
+
+      figures: {
         title: this.headerFields[3],
+        width: 'string',
+      },
+      color_design: {
+        title: this.headerFields[4],
         width: 'string',
       },
 
       categorization: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
       },
       special_relation: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         width: 'string',
       },
 
@@ -76,6 +87,7 @@ export class TableAcuityMOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

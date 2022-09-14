@@ -12,11 +12,11 @@
       </div>
     </div>
 
-    <nb-tabset fullWidth class="tabset" (changeTab)="tablock($event)">
+    <nb-tabset *ngIf="user" fullWidth class="tabset" (changeTab)="tablock($event)">
 
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show == 1">
-          <ngx-language-list [record_id]="this.record_id">
+          <ngx-language-list [record_id]="this.record_id" [user]="user" (messageEvent)="inputMessage($event)" >
           </ngx-language-list>
         </div>
       </nb-tab>

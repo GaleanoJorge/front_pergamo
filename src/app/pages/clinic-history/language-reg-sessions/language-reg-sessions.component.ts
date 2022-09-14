@@ -14,7 +14,6 @@ export class LanguageRegSessionsComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any;
   @Input() type_record: any;
-  @Input() type_record_id;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
   
@@ -89,7 +88,7 @@ export class LanguageRegSessionsComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
-      if (this.type_record_id == 1) {
+      if (this.type_record == 1) {
         this.messageEvent.emit(true);
       }
     }

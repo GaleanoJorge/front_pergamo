@@ -22,6 +22,9 @@ export class BackListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() user: any = null;
+  @Input() type_record_id: any = 1;
+  @Input() has_input: boolean = false;
   @Input() record_id: any = null;
   @Input() type_record_id:any;
   @Output() messageEvent = new EventEmitter<any>();
@@ -39,8 +42,6 @@ export class BackListComponent implements OnInit {
   public nameForm: String;
   public movieForm: String;
   public admissions_id;
-  public has_input: any = null; // ya existe registro de ingreso
-  public input_done: boolean = false; // ya se registró algo en el ingreso
 
   public isSubmitted: boolean = false;
   public form: FormGroup;
@@ -48,7 +49,7 @@ export class BackListComponent implements OnInit {
   public saveEntry: any = 0;
   public loading: boolean = false;
 
-  public user;
+  public users;
   public signatureImage: string;
   public own_user;
   public int: 0;
@@ -76,16 +77,6 @@ export class BackListComponent implements OnInit {
 
   async ngOnInit() {
     this.record_id = this.route.snapshot.params.id;
-
-    this.chRecord.GetCollection(this.record_id).then(x => {
-      this.admissions_id=x;
-      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
-      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
-        this.input_done = true;
-      }
-      this.user = x[0]['admissions']['patients'];
-     
-    });
 
     if (!this.data) {
       this.data = {
@@ -136,22 +127,7 @@ export class BackListComponent implements OnInit {
   }
 
   
-  close() {
-    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
-      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
-        context: {
-          signature: true,
-          title: 'Finalizar registro.',
-          delete: this.finish.bind(this),
-          showImage: this.showImage.bind(this),
-          // save: this.saveSignature.bind(this),
-          textConfirm: 'Finalizar registro'
-        },
-      });
-    } else {
-      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
-    }
-  }
+  
 
   showImage(data) {
     this.int++;
@@ -174,7 +150,7 @@ export class BackListComponent implements OnInit {
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
-      formData.append('user', this.user);
+      formData.append('user', this.users);
       formData.append('role', this.currentRole);
       formData.append('user_id', this.own_user.id);
       formData.append('firm_file', this.signatureImage);
@@ -223,7 +199,9 @@ export class BackListComponent implements OnInit {
 
   // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
   inputMessage($event) {
-    this.input_done = true;
+    if ($event == true) {
+      this.messageEvent.emit($event);
+    }
   }
 }
 

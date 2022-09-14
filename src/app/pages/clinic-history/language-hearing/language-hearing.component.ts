@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-hearing',
@@ -23,6 +24,7 @@ export class LanguageHearingComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Oído Externo',
     'Oído Medio',
     'Oído Interno',
@@ -43,21 +45,28 @@ export class LanguageHearingComponent implements OnInit {
     },
     columns: {
 
-      external_ear: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      external_ear: {
+        title: this.headerFields[1],
         width: 'string',
       },
       middle_ear: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
        
       },
       inner_ear: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
       observations: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -71,7 +80,10 @@ export class LanguageHearingComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+    ) {}
 
   async ngOnInit() {
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-linguistic',
@@ -23,6 +24,7 @@ export class LanguageLinguisticComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Fonético/Fonológico',
     'Sintáctico',
     'Morfosintáctico',
@@ -47,44 +49,52 @@ export class LanguageLinguisticComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      phonetic_phonological: {
+
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-      },
-      syntactic: {
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      phonetic_phonological: {
         title: this.headerFields[1],
         width: 'string',
       },
-      morphosyntactic: {
+      syntactic: {
         title: this.headerFields[2],
         width: 'string',
       },
-      semantic: {
+      morphosyntactic: {
         title: this.headerFields[3],
         width: 'string',
       },
-      pragmatic: {
+      semantic: {
         title: this.headerFields[4],
         width: 'string',
       },
-      reception: {
+      pragmatic: {
         title: this.headerFields[5],
         width: 'string',
       },
-      coding: {
+      reception: {
         title: this.headerFields[6],
         width: 'string',
       },
-      decoding: {
+      coding: {
         title: this.headerFields[7],
         width: 'string',
       },
-      production: {
+      decoding: {
         title: this.headerFields[8],
         width: 'string',
       },
-      observations: {
+      production: {
         title: this.headerFields[9],
+        width: 'string',
+      },
+      observations: {
+        title: this.headerFields[10],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -97,7 +107,9 @@ export class LanguageLinguisticComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe) {}
 
   async ngOnInit() {}
 

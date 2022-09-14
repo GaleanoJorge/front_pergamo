@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { ChReasonConsultationService } from '../../../business-controller/ch-reason-consultation.service';
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class NursingPhysicalExamComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Lista', 'Revisión'];
+  public headerFields: any[] = ['Fecha','Lista', 'Revisión'];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -43,15 +44,22 @@ export class NursingPhysicalExamComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      type_ch_physical_exam: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+      },
+      type_ch_physical_exam: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name + ' - Observación: ' + row.description;
         },
       },
       revision: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
       },
     },
@@ -59,6 +67,7 @@ export class NursingPhysicalExamComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe,
   ) {
   }
 

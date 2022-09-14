@@ -106,8 +106,12 @@ export class BillingPadProcedureComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          this.total_billing += row.services_briefcase.value;
-          return this.currency.transform(row.services_briefcase.value);
+          var q = 1;
+          if (row.quantity) {
+            q = row.quantity;
+          }
+          this.total_billing += (row.services_briefcase.value * q);
+          return this.currency.transform((row.services_briefcase.value * q));
         },
       },
       assigned_management_plan_id: {
@@ -157,28 +161,32 @@ export class BillingPadProcedureComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          this.total_pre_billing += row.services_briefcase.value;
+          var q = 1;
+          if (row.quantity) {
+            q = row.quantity;
+          }
+          this.total_pre_billing += (row.services_briefcase.value * q);
           if (row.billing_pad_status == 'FACTURADA') {
-            this.total_already_billing += row.services_briefcase.value;
+            this.total_already_billing += (row.services_briefcase.value * q);
           }
           if (row.assigned_management_plan != null) {
             if (row.auth_status_id != 3 || row.assigned_management_plan.approved == 0) {
-              this.total_pendding_auth += row.services_briefcase.value;
+              this.total_pendding_auth += (row.services_briefcase.value * q);
             }
-            if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3 && 
-            row.assigned_management_plan.execution_date != "0000-00-00 00:00:00"
-            && row.assigned_management_plan.approved == 1) {
-              this.total_pendding_billing += row.services_briefcase.value;
+            if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3 &&
+              row.assigned_management_plan.execution_date != "0000-00-00 00:00:00"
+              && row.assigned_management_plan.approved == 1) {
+              this.total_pendding_billing += (row.services_briefcase.value * q);
             }
           } else {
             if (row.auth_status_id != 3) {
-              this.total_pendding_auth += row.services_briefcase.value;
+              this.total_pendding_auth += (row.services_briefcase.value * q);
             }
             if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3) {
-              this.total_pendding_billing += row.services_briefcase.value;
+              this.total_pendding_billing += (row.services_briefcase.value * q);
             }
           }
-          return this.currency.transform(row.services_briefcase.value);
+          return this.currency.transform((row.services_briefcase.value * q));
         },
       },
       assigned_management_plan_id: {
@@ -221,14 +229,14 @@ export class BillingPadProcedureComponent implements OnInit {
           } else {
             return '';
           }
-          
+
         }
       },
       billing_consecutive: {
         title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-         return value;
+          return value;
         }
       },
     },
@@ -264,7 +272,7 @@ export class BillingPadProcedureComponent implements OnInit {
       this.settings = this.settings1
       this.admission_id = this.route.snapshot.params.admission_id;
       this.billing_id = this.route.snapshot.params.billing_id;
-      this.entity = 'billing_pad/getAuthorizedProcedures/' + this.admission_id + '?billing_id=' + this.billing_id;
+      this.entity = 'billing_pad/getAuthorizedProcedures/' + this.admission_id + '?billing_id=' + this.billing_id + '&bill=' + true;
     } else {
       this.title = 'PREFACTURA DE';
       this.settings = this.settings2
@@ -334,18 +342,23 @@ export class BillingPadProcedureComponent implements OnInit {
   }
 
   eventSelections(event, row) {
+    var q = 1;
+    if (row.quantity) {
+      q = row.quantity;
+    }
     if (event) {
       var add = {
         id: row.id,
-        services_briefcase:{
-          value: row.services_briefcase.value,
+        quantity: q,
+        services_briefcase: {
+          value: (row.services_briefcase.value * q),
           manual_price: {
             homologous_id: row.services_briefcase.manual_price.homologous_id,
             name: row.services_briefcase.manual_price.name,
           },
         },
         supplies_com: row.supplies_com != undefined ? {
-          code_cum:  row.supplies_com.code_cum,
+          code_cum: row.supplies_com.code_cum,
         } : null,
         product_com: row.product_com != undefined ? {
           code_cum: row.product_com.code_cum,
@@ -353,23 +366,23 @@ export class BillingPadProcedureComponent implements OnInit {
         fixed_add_id: row.fixed_add_id != undefined ? {
           code_cum: row.fixed_add_id.observation,
         } : null,
-        assigned_management_plan: row.assigned_management_plan != undefined ?  {
+        assigned_management_plan: row.assigned_management_plan != undefined ? {
           execution_date: row.assigned_management_plan.execution_date,
           user: {
             firstname: row.assigned_management_plan.user.firstname,
             lastname: row.assigned_management_plan.user.lastname,
           },
-        }:null,
+        } : null,
       }
       this.selectedOptions.push(add);
-      this.count_billing += row.services_briefcase.value;
+      this.count_billing += (row.services_briefcase.value * q);
     } else {
-      this.count_billing -= row.services_briefcase.value;
+      this.count_billing -= (row.services_briefcase.value * q);
       var prov = this.selectedOptions;
       this.selectedOptions = [];
       prov.forEach(x => {
         if (x.id != row.id) {
-          this.selectedOptions.push(row);
+          this.selectedOptions.push(x);
         }
       });
     }

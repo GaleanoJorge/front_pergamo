@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableDisAuditoryMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['REALIZA BUSQUEDA DE FUENTES SONORAS', 
+  public headerFields: any[] = ['FECHA',
+                                'REALIZA BUSQUEDA DE FUENTES SONORAS', 
                                 'PRESENTA HIPERSENSIBILIDAD AUDITIVA',
                                 'PRESENTA HIPOSENSIBILIDAD AUDITIVA', 
                                 'PRESENTA RESPUESTA AUDITIVA FRENTE A LOS DIFERENTES ESTIMULOS AUDITIVOS',
@@ -41,29 +43,36 @@ export class TableDisAuditoryMOTComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
 
       sound_sources: {
-        title: this.headerFields[0],
-        width: 'string',
-      },
-
-      auditory_hyposensitivity: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      auditory_hypersensitivity: {
+      auditory_hyposensitivity: {
         title: this.headerFields[2],
         width: 'string',
       },
 
-      auditory_stimuli: {
+      auditory_hypersensitivity: {
         title: this.headerFields[3],
         width: 'string',
       },
 
-      auditive_discrimination: {
+      auditory_stimuli: {
         title: this.headerFields[4],
+        width: 'string',
+      },
+
+      auditive_discrimination: {
+        title: this.headerFields[5],
         width: 'string',
       },
     },
@@ -71,6 +80,8 @@ export class TableDisAuditoryMOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+
   ) {
   }
 

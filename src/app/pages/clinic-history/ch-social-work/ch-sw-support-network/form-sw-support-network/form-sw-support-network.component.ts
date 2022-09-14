@@ -80,6 +80,8 @@ export class FormSwSupportNetworkComponent implements OnInit {
      
     });
 
+    this.onChange();
+
   }
 
   save() {

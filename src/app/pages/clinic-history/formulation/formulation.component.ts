@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-formulation',
@@ -19,7 +20,7 @@ export class FormulationComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Descripción','Dosis','Vía De Administración','Frecuencia Horaria ','Días De Tratamiento','Cant. Solic ','Observaciones'];
+  public headerFields: any[] = ['Fecha','Descripción','Dosis','Vía De Administración','Frecuencia Horaria ','Días De Tratamiento','Cant. Solic ','Observaciones'];
   public saveEntry: any = 0;
   public isSubmitted: boolean = false;
   public form: FormGroup;
@@ -34,20 +35,28 @@ export class FormulationComponent implements OnInit {
     },
     columns: {
 
-      product_id: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+	  },
+
+      product_id: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return row.product_generic.description;
         },
 
       dose: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
         },
       },
       administration_route: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
@@ -55,28 +64,31 @@ export class FormulationComponent implements OnInit {
 
       },
       hourly_frequency: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
           return 'CADA ' +value.value + '-' + row.hourly_frequency.name;
         },
       },
       treatment_days: {
-        title: this.headerFields[4],
-        width: 'string',
-      },
-      outpatient_formulation: {
         title: this.headerFields[5],
         width: 'string',
       },
-      observation: {
+      outpatient_formulation: {
         title: this.headerFields[6],
+        width: 'string',
+      },
+      observation: {
+        title: this.headerFields[7],
         width: 'string',
       },
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+    ) {}
 
   async ngOnInit() {}
 

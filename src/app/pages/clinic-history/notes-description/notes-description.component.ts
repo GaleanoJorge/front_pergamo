@@ -8,6 +8,7 @@ import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs
 import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.service';
 import { ChPhysicalExamService } from '../../../business-controller/ch_physical_exam.service';
 import { VALUE } from '@syncfusion/ej2-angular-filemanager';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class NotesDescriptionComponent implements OnInit {
   public messageError = null;
   public title = '';
   public subtitle = '';
-  public headerFields: any[] = ['POSICIÓN ACTUAL', 'CUERO CABELLUDO', 'OSTOMIA', 'OXIGENO','TIPO DE OXIGENO','LITROS POR MINUTO', 'UNIDAD', 'BAÑAR'];
+  public headerFields: any[] = ['FECHA','POSICIÓN ACTUAL', 'CUERO CABELLUDO', 'OSTOMIA', 'OXIGENO','TIPO DE OXIGENO','LITROS POR MINUTO', 'UNIDAD', 'BAÑAR'];
   public routes = [];
   public user_id;
   public chreasonconsultation: any[];
@@ -56,6 +57,7 @@ export class NotesDescriptionComponent implements OnInit {
     private chvitalSignsS: ChVitalSignsService,
     private chdiagnosisS: ChDiagnosisService,
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
 
 
   ) {
@@ -63,6 +65,14 @@ export class NotesDescriptionComponent implements OnInit {
 
   public settings = {
     columns: {
+
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
       // actions: {
       //   title: 'Acciones',
       //   type: 'custom',
@@ -73,18 +83,18 @@ export class NotesDescriptionComponent implements OnInit {
       //   },
       // },
       patient_position: {
-        title: this.headerFields[0],
+        title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
       unit_arrangement: {
-        title: this.headerFields[6],
+        title: this.headerFields[7],
         type: 'string',
       },
       patient_dry: {
-        title: this.headerFields[7],
+        title: this.headerFields[8],
         type: 'string',
       },
     },

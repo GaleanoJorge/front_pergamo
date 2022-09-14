@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableValorationTherFTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['¿Ha recibido tratamiento fisioterapéutico por la enfermedad que consulta o es remitido?',
+  public headerFields: any[] = [ 'Fecha',
+                                '¿Ha recibido tratamiento fisioterapéutico por la enfermedad que consulta o es remitido?',
                                 '¿Hace ejercicio más allá de las actividades diarias?',
                                 'Observaciones',
                                 'En promedio, ¿Cuantos días por semana realiza ejercicio? ',
@@ -42,33 +44,42 @@ export class TableValorationTherFTComponent implements OnInit {
     },
     columns:
      {
+
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+      },
+
       illness:
        {
-          title: this.headerFields[0],
+          title: this.headerFields[1],
           width: 'string',
        }, 
       
       sports:
        {
-          title: this.headerFields[1],
+          title: this.headerFields[2],
           width: 'string',
        },
        
        obsertations:
        {
-          title: this.headerFields[2],
+          title: this.headerFields[3],
           width: 'string',
        }, 
 
        days_number:
        {
-          title: this.headerFields[3],
+          title: this.headerFields[4],
           width: 'string',
        }, 
 
        minutes_number:
        {
-          title: this.headerFields[4],
+          title: this.headerFields[5],
           width: 'string',
        }, 
      },
@@ -77,6 +88,7 @@ export class TableValorationTherFTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

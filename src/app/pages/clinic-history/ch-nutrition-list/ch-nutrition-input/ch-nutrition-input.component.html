@@ -5,21 +5,21 @@
         <nb-stepper #stepper [linear]="false">
           <nb-step label="Antropometría">
             <ngx-table-anthropometry (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [data]="this.data"
-              [record_id]="this.record_id" [route]="1"></ngx-table-anthropometry>
+              [record_id]="this.record_id" [type_record_id]="1"></ngx-table-anthropometry>
           </nb-step>
 
           <nb-step label="Gastrointestinales">
-            <ngx-table-gastrointestinal [data]="this.data" [route]="1" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" >
+            <ngx-table-gastrointestinal [data]="this.data" [type_record_id]="1" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" >
             </ngx-table-gastrointestinal>
           </nb-step>
 
           <nb-step label="Anamnesis Alimentaria">
-            <ngx-table-food-history [data]="this.data" [route]="1" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" ></ngx-table-food-history>
+            <ngx-table-food-history [data]="this.data" [type_record_id]="1" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" ></ngx-table-food-history>
           </nb-step>
 
           <nb-step label="Cálculos de Nutrición Parenteral">
-            <div >
-              <ngx-table-parenteral-nutrition [data]="this.data"  [route]="1"
+            <div *ngIf="this.weight">
+              <ngx-table-parenteral-nutrition [data]="this.data"  [type_record_id]="1"
                 [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" ></ngx-table-parenteral-nutrition>
             </div>
             <div *ngIf="!this.weight">
@@ -28,11 +28,11 @@
           </nb-step>
 
           <nb-step label="Antecedentes">
-            <ngx-back-list [record_id]="record_id" [data]="this.data" (messageEvent)="inputMessage($event)" ></ngx-back-list>
+            <ngx-back-list [has_input]="has_input" [record_id]="record_id" [type_record_id]="1" [user]="this.data" (messageEvent)="inputMessage($event)" ></ngx-back-list>
           </nb-step>
 
           <nb-step label="Análisis e Interpretación">
-            <ngx-form-analysis-and-interpretation [data]="this.data" [route]="1" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" >
+            <ngx-form-analysis-and-interpretation [data]="this.data" [type_record_id]="1" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" >
             </ngx-form-analysis-and-interpretation>
           </nb-step>
 

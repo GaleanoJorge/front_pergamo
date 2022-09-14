@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableSensibilityFTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['PROFUNDA',
+  public headerFields: any[] = ['FECHA',
+                                'PROFUNDA',
                                 'SUPREFICIAL',
                                 'CORNICAL',
                                 'OBSERVACION',];
@@ -41,28 +43,35 @@ export class TableSensibilityFTComponent implements OnInit {
     },
     columns:
     {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
      
       deep:
-      {
-        title: this.headerFields[0],
-        width: 'string',
-      },
-
-      superficial:
       {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      cortical:
+      superficial:
       {
         title: this.headerFields[2],
         width: 'string',
       },
 
-      observation:
+      cortical:
       {
         title: this.headerFields[3],
+        width: 'string',
+      },
+
+      observation:
+      {
+        title: this.headerFields[4],
         width: 'string',
       },
 
@@ -72,6 +81,7 @@ export class TableSensibilityFTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

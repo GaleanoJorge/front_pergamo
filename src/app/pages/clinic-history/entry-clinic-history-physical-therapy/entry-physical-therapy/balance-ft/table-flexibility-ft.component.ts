@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableBalanceFTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['EQUILIBRIO ESTATICO',
+  public headerFields: any[] = ['FECHA',
+                                'EQUILIBRIO ESTATICO',
                                 'EQUILIBRIO DINAMICO',
                                 'OBSERVACIONES',];
 
@@ -40,22 +42,30 @@ export class TableBalanceFTComponent implements OnInit {
     },
     columns:
     {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
      
       static:
-      {
-        title: this.headerFields[0],
-        width: 'string',
-      },
-
-      dinamic:
       {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      observation:
+      dinamic:
       {
         title: this.headerFields[2],
+        width: 'string',
+      },
+
+      observation:
+      {
+        title: this.headerFields[3],
         width: 'string',
       },
 
@@ -65,6 +75,7 @@ export class TableBalanceFTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

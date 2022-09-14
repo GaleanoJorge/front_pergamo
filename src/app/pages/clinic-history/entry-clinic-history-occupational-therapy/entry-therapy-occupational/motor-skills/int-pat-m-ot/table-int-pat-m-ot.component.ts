@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableIntPatMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['ALCANCE-ARRIBA-DERECHA', 
+  public headerFields: any[] = ['FECHA',
+                                'ALCANCE-ARRIBA-DERECHA', 
                                 'ALCANCE-ARRIBA-IZQUIERDA',
                                 'ALCANCE-AL-LADO-DERECHA', 
                                 'ALCANCE-AL-LADO-IZQUIERDA',
@@ -60,115 +62,123 @@ export class TableIntPatMOTComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
 
       up_right: {
-        title: this.headerFields[0],
-        width: 'string',
-      },
-
-      up_left: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      side_right: {
+      up_left: {
         title: this.headerFields[2],
         width: 'string',
       },
-      side_left: {
+
+      side_right: {
         title: this.headerFields[3],
+        width: 'string',
+      },
+      side_left: {
+        title: this.headerFields[4],
         width: 'string',
       },
 
       backend_right: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
       },
       backend_left: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         width: 'string',
       },
 
       frontend_right: {
-        title: this.headerFields[6],
-        width: 'string',
-      },
-      frontend_left: {
         title: this.headerFields[7],
         width: 'string',
       },
-
-      down_right: {
+      frontend_left: {
         title: this.headerFields[8],
         width: 'string',
       },
 
-      down_left: {
+      down_right: {
         title: this.headerFields[9],
         width: 'string',
       },
-      full_hand_right: {
+
+      down_left: {
         title: this.headerFields[10],
+        width: 'string',
+      },
+      full_hand_right: {
+        title: this.headerFields[11],
         width: 'string',
       },
 
       full_hand_left: {
-        title: this.headerFields[11],
-        width: 'string',
-      },
-      cylindric_right: {
         title: this.headerFields[12],
         width: 'string',
       },
-
-      cylindric_left: {
+      cylindric_right: {
         title: this.headerFields[13],
         width: 'string',
       },
 
-      hooking_right: {
+      cylindric_left: {
         title: this.headerFields[14],
         width: 'string',
       },
-      hooking_left: {
+
+      hooking_right: {
         title: this.headerFields[15],
+        width: 'string',
+      },
+      hooking_left: {
+        title: this.headerFields[16],
         width: 'string',
       },
 
       fine_clamp_right: {
-        title: this.headerFields[16],
-        width: 'string',
-      },
-      fine_clamp_left: {
         title: this.headerFields[17],
         width: 'string',
       },
-
-      tripod_right: {
+      fine_clamp_left: {
         title: this.headerFields[18],
         width: 'string',
       },
 
-      tripod_left: {
+      tripod_right: {
         title: this.headerFields[19],
         width: 'string',
       },
-      opposition_right: {
+
+      tripod_left: {
         title: this.headerFields[20],
+        width: 'string',
+      },
+      opposition_right: {
+        title: this.headerFields[21],
         width: 'string',
       },
 
       opposition_left: {
-        title: this.headerFields[21],
+        title: this.headerFields[22],
         width: 'string',
       },
       coil_right: {
-        title: this.headerFields[22],
+        title: this.headerFields[23],
         width: 'string',
       },
 
       coil_left: {
-        title: this.headerFields[23],
+        title: this.headerFields[24],
         width: 'string',
       },
       
@@ -178,6 +188,7 @@ export class TableIntPatMOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 
