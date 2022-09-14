@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TablePositionFTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['VISTA FRONTAL',
+  public headerFields: any[] = ['FECHA',
+                                'VISTA FRONTAL',
                                 'VISTA LATERAL DERECHA',
                                 'VISTA LATERAL IZQUIERDA',
                                 'VISTA POSTERIOR',];
@@ -42,28 +44,35 @@ export class TablePositionFTComponent implements OnInit {
     },
     columns:
     {
-     
-      front_view:
-      {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-      },
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
 
-      right_view:
+      front_view:
       {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      left_view:
+      right_view:
       {
         title: this.headerFields[2],
         width: 'string',
       },
 
-      rear_view:
+      left_view:
       {
         title: this.headerFields[3],
+        width: 'string',
+      },
+
+      rear_view:
+      {
+        title: this.headerFields[4],
         width: 'string',
       },
 
@@ -73,6 +82,7 @@ export class TablePositionFTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

@@ -69,7 +69,7 @@ export class FormDietsEvoComponent implements OnInit {
     if (!this.data ) {
       this.data = {
         enterally_diet_id: '',
-        diet_consistency: '',
+        diet_consistency: [],
         observation:'',
         
       };
