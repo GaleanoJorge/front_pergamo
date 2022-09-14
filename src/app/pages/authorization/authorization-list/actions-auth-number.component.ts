@@ -5,10 +5,10 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
     template: `
     <div class="d-flex justify-content-center">
-        <textarea  *ngIf="!value.enabled" type="text" nbInput fullWidth id="amount" amount [value]="value.amount"
+        <textarea  *ngIf="!value.enabled" type="text" nbInput fullWidth id="amount" amount [value]="value.amount ? value.amount : '' "
         (change)="value.onchange($event, value.data)" [disabled]="value.enabled" textarea>
         </textarea>
-        <textarea  *ngIf="value.enabled" type="text" nbInput fullWidth id="amount" amount [value]="value.amount"
+        <textarea  *ngIf="value.enabled" type="text" nbInput fullWidth id="amount" amount [value]="value.amount ? value.amount : '' "
         (change)="value.onchange($event, value.data)" readonly textarea>
         </textarea>
     </div>
