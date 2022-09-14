@@ -82,7 +82,7 @@
 
 
           <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold ">DX Ingreso</label>
-          <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes2"
+          <input disabled="true" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput list="codes2"
             id="ch_diagnosis_id" formControlName="ch_diagnosis_id" ch_diagnosis_id type="text"
             (change)="saveCode($event.target.value,4)"
             status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
