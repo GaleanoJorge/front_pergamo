@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,9 @@ export class TablePainFTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['TIPO',
+  public headerFields: any[] = [
+    'FECHA',
+    'TIPO',
     'IRRADIADO',
     'LOCALIZADO',
     'INTENSIDAD',
@@ -43,9 +46,17 @@ export class TablePainFTComponent implements OnInit {
     },
     columns:
     {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+
       burning:
       {
-        title: this.headerFields[0],
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction: (value, row) => {
           return (row.burning != null ? row.burning  + ' ' : "") 
@@ -58,31 +69,31 @@ export class TablePainFTComponent implements OnInit {
      
       irradiated:
       {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
       },
 
       located:
       {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
       },
 
       intensity:
       {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         width: 'string',
       },
 
       exaccervating:
       {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
       },
 
       decreated:
       {
-        title: this.headerFields[4],
+        title: this.headerFields[6],
         width: 'string',
       },
     },
@@ -91,6 +102,7 @@ export class TablePainFTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

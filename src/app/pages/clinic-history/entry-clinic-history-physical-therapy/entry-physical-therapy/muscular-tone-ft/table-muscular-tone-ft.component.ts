@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableMuscularToneFTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['CABEZA Y CUELLO',
+  public headerFields: any[] = ['FECHA',
+                                'CABEZA Y CUELLO',
                                 'MIEMBRO SUPERIOR IZQUIERDO',
                                 'MANO, MUÑECA, DEDOS IZQUIERDO',
                                 'MIEMBRO SUPERIOR DERECHO',
@@ -48,70 +50,76 @@ export class TableMuscularToneFTComponent implements OnInit {
     },
     columns:
     {
-     
-      head:
-      {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-      },
-
-      sup_left:
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      head:
       {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      hand_left:
+      sup_left:
       {
         title: this.headerFields[2],
         width: 'string',
       },
 
-      sup_right:
+      hand_left:
       {
         title: this.headerFields[3],
         width: 'string',
       },
 
-      hand:
+      sup_right:
       {
         title: this.headerFields[4],
         width: 'string',
       },
 
-      trunk:
+      hand:
       {
         title: this.headerFields[5],
         width: 'string',
       },
 
-      inf_left:
+      trunk:
       {
         title: this.headerFields[6],
         width: 'string',
       },
 
-      left_foot:
+      inf_left:
       {
         title: this.headerFields[7],
         width: 'string',
       },
 
-      inf_right:
+      left_foot:
       {
         title: this.headerFields[8],
         width: 'string',
       },
 
-      right_foot:
+      inf_right:
       {
         title: this.headerFields[9],
         width: 'string',
       },
 
-      observation:
+      right_foot:
       {
         title: this.headerFields[10],
+        width: 'string',
+      },
+
+      observation:
+      {
+        title: this.headerFields[11],
         width: 'string',
       },
     },
@@ -120,6 +128,8 @@ export class TableMuscularToneFTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+
   ) {
   }
 

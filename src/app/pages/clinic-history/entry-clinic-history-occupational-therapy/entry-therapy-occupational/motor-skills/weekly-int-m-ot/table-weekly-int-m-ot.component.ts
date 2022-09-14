@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableWeeklyInMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['SESIONES MENSUALES', 
+  public headerFields: any[] = ['FECHA',
+                                'SESIONES MENSUALES', 
                                 'INTENSIDAD SEMANAL',
                                 'RECOMENDACIONES',];
 
@@ -40,18 +42,26 @@ export class TableWeeklyInMOTComponent implements OnInit {
     },
     columns: {
 
-      monthly_sessions: {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-      },
-
-      weekly_intensity: {
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
+      monthly_sessions: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      recommendations: {
+      weekly_intensity: {
         title: this.headerFields[2],
+        width: 'string',
+      },
+
+      recommendations: {
+        title: this.headerFields[3],
         width: 'string',
       },
       
@@ -60,6 +70,9 @@ export class TableWeeklyInMOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+
+
   ) {
   }
 

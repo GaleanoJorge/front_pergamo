@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -20,7 +21,7 @@ export class RNValorationOtComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Observación', 'Nota'];
+  public headerFields: any[] = ['Fecha','Observación', 'Nota'];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -33,15 +34,22 @@ export class RNValorationOtComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-      ch_diagnosis: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      ch_diagnosis: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           return value.name;
         },
       },
       patient_state: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
       },
     },
@@ -49,6 +57,7 @@ export class RNValorationOtComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 
