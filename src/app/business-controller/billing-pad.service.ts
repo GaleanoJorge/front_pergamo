@@ -110,8 +110,8 @@ export class BillingPadService {
       });
   }
 
-  GenerateFile(billing_pad: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('billing_pad/generateBillingDat/'+billing_pad);
+  GenerateFile(bill_type: any, billing_pad: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad/generateBillingDat/' + bill_type + '/' + billing_pad);
     servObj.data = billing_pad;
     return this.webAPI.GetAction(servObj)
       .then(x => {
@@ -128,6 +128,38 @@ export class BillingPadService {
   
   GeneratePdf(params: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('billing_pad/generateBillingPdf/'+params.id);
+    servObj.data = params;
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  CancelBillingNoPgp(params: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad/creditNoteNoPgp/'+params.id);
+    servObj.data = params;
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  CancelBillingPgp(params: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('billing_pad/creditNotePgp/'+params.id);
     servObj.data = params;
     return this.webAPI.GetAction(servObj, params)
       .then(x => {

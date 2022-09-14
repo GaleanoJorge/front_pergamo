@@ -10,6 +10,8 @@ import { ContractService } from '../../../business-controller/contract.service';
 import { FormShowBillingPgpComponent } from './form-show-billing-pgp/form-show-billing-pgp.component';
 import { FormCreateBillingPgpComponent } from './form-create-billing-pgp/form-create-billing-pgp.component';
 import { BillingAdmissionsPadListComponent } from '../billing-pad-admissions-list/billing-admissions-pad-list.component';
+import { BillingPadService } from '../../../business-controller/billing-pad.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'ngx-billing-pgp',
@@ -42,6 +44,7 @@ export class BillingPgpComponent implements OnInit {
           return {
             'data': row,
             'show': this.ShowAdmissionsPgp.bind(this),
+            'cancel': this.cancelBilling.bind(this),
             // 'delete': this.DeleteConfirmBillingPgp.bind(this),
           };
         },
@@ -82,10 +85,12 @@ export class BillingPgpComponent implements OnInit {
     private route: ActivatedRoute,
     public datePipe: DateFormatPipe,
     private currency: CurrencyPipe,
+    private authService: AuthService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private ContractS: ContractService,
+    private BillingPadS: BillingPadService,
   ) {
   }
 
@@ -152,6 +157,15 @@ export class BillingPgpComponent implements OnInit {
     // }).catch(x => {
     //   throw x;
     // });
+  }
+
+  cancelBilling(data) {
+    this.BillingPadS.CancelBillingPgp({
+      id: data.id,
+      user_id : this.authService.GetUser().id,
+    }).then(x => {
+      this.RefreshData();
+    });
   }
 
 }
