@@ -14,7 +14,7 @@
     <nb-tabset *ngIf="user" class="tabset" (changeTab)="tablock($event)">
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show == 1">
-          <ngx-entry-clinic-history (messageEvent)="inputMessage($event)" [has_input]="has_input" [admission]="admission">
+          <ngx-entry-clinic-history (messageEvent)="inputMessage($event)" [has_input]="has_input" [admission]="admission" [type_record_id]="1">
           </ngx-entry-clinic-history>
         </div>
       </nb-tab>      

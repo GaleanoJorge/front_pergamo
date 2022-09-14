@@ -22,6 +22,8 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 })
 export class ClinicHistoryListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() type_record_id:any;
+  
   linearMode = true;
   public messageError = null;
   public title;

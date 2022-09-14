@@ -19,6 +19,7 @@ export class EntryClinicHistoryComponent implements OnInit {
   @Input() data: any = null;
   @Input() has_input: boolean = false;
   @Input() admission: any = null;
+  @Input() type_record_id:any;
   @Output() messageEvent = new EventEmitter<any>();
 
 
