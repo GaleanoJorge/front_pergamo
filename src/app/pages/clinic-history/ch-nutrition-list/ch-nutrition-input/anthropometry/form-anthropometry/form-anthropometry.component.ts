@@ -18,6 +18,7 @@ export class FormAnthropometryComponent implements OnInit {
   @Input() type_record_id;
   @Input() user_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Output() messageEvent2 = new EventEmitter<any>();
 
   linearMode = false;
   public form: FormGroup;
@@ -278,7 +279,7 @@ export class FormAnthropometryComponent implements OnInit {
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-      this.messageEvent.emit({
+      this.messageEvent2.emit({
         name: 'weight',
         value: this.prov_weight
       });

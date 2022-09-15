@@ -42,7 +42,7 @@ export class SocialWorkListComponent implements OnInit {
   public bed;
   public bed_id;
   public pavilion;
-  public int: 0;
+  public int = 0;
   public record_id;
   public isSubmitted: boolean = false;
   public saved: any = null;
@@ -159,6 +159,7 @@ export class SocialWorkListComponent implements OnInit {
       if (this.saved) {
         this.saved();
       }
+      return true;
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;
@@ -167,6 +168,7 @@ export class SocialWorkListComponent implements OnInit {
     }
   }else{
     this.toastService.danger('Debe diligenciar la firma');
+    return false;
   }
   }
 

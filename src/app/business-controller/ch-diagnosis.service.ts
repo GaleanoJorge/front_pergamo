@@ -29,6 +29,24 @@ export class ChDiagnosisService {
         throw x.message;
       });
   }
+  
+  getByRecord(params = {}): Promise<ChDiagnosis[]> {
+    let servObj = new ServiceObject('ch_diagnosis/by_record/' + params['record_id'] +'/' + params['type_record_id']);
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.ch_diagnosis = <ChDiagnosis[]>servObj.data.ch_diagnosis;
+
+        return Promise.resolve(this.ch_diagnosis);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 
   Save(ch_diagnosis: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_diagnosis');

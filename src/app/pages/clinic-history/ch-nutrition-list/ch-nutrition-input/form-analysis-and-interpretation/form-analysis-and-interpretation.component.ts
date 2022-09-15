@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { ChNutritionInterpretationService } from '../../../../../business-controller/ch-nutrition-interpretation.service';
@@ -18,6 +18,7 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
   @Input() type_record_id: any = null;
   @Input() record_id: any = null;
   @Input() user_id: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
   
 
   linearMode = false;
@@ -95,6 +96,7 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
           type_record_id: this.type_record_id,
           observation: this.form.controls.observation.value,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.saved = x;
           this.loading = false;
           this.ch_nutrition_interpretation = x.data.ch_nutrition_interpretation;
@@ -111,6 +113,7 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
           type_record_id: this.type_record_id,
           observation: this.form.controls.observation.value,
         }).then(x => {
+          this.messageEvent.emit(true);
           this.saved = x;
           this.loading = false;
           this.RefreshData();
