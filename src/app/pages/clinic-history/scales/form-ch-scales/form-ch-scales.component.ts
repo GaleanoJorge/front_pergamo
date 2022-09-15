@@ -1412,6 +1412,8 @@ export class FormChScalesComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
+      }  else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
       }
     }
 
