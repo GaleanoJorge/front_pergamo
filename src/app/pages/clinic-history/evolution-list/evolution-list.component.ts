@@ -19,6 +19,7 @@ export class EvolutionListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() admission: any = null;
+  @Input() type_record_id: any = null;
   @Input() user: any = null;
 
  
