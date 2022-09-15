@@ -39,7 +39,7 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
   public movieForm: String;
   public own_user;
   public user;
-  public int: 0;
+  public int = 0;
   public saved: any = null;
   public currentRole: any;
   public signatureImage: string;
@@ -142,7 +142,7 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
   // }
 
   async finish(firm) {
-    // if(this.signatureImage!=null){
+    if(this.signatureImage!=null){
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
@@ -163,16 +163,17 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return false;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
         this.loading = false;
         throw new Error(response);
       }
-    // }else{
-    //   this.toastService.danger('Debe diligenciar la firma');
-  
-    // }
+    }else{
+      this.toastService.danger('Debe diligenciar la firma');
+      return false;
+    }
 
   }
 

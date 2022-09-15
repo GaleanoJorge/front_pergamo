@@ -298,7 +298,7 @@ export class FormNursingPhysicalExamComponent implements OnInit {
               err++;
             });
         });
-        this.toastService.success('', mesagge + '' + contador);
+        this.toastService.success('', 'Se ha guardado correctamente');
         this.disabled = true;
         this.loading = false;
         this.messageEvent.emit(true);

@@ -36,7 +36,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   public ambit;
   public program;
   public flat;
-  public int: 0;
+  public int = 0;
   public user;
   public own_user;
   public bed;
@@ -164,6 +164,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
       if (this.saved) {
         this.saved();
       }
+      return true;
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;
@@ -172,6 +173,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
     }
   }else{
       this.toastService.danger('Debe diligenciar la firma');
+      return false;
     }
   
   }

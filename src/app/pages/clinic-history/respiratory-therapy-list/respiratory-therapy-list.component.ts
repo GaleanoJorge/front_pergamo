@@ -156,6 +156,7 @@ export class RespiratoryTherapyListComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -164,7 +165,7 @@ export class RespiratoryTherapyListComponent implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
       
   }

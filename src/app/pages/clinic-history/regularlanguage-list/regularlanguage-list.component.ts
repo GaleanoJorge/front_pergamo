@@ -49,7 +49,7 @@ export class RegularLanguageListComponent implements OnInit {
 
 
   public record_id;
-  public int: 0;
+  public int = 0;
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
@@ -180,7 +180,7 @@ export class RegularLanguageListComponent implements OnInit {
   // }
 
   async finish(firm) {
-    // if(this.signatureImage!=null){
+    if(this.signatureImage!=null){
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
@@ -201,16 +201,17 @@ export class RegularLanguageListComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
         this.loading = false;
         throw new Error(response);
       }
-    // }else{
-    //   this.toastService.danger('Debe diligenciar la firma');
-  
-    // }
+    }else{
+      this.toastService.danger('Debe diligenciar la firma');
+      return false;
+    }
 
   }
 

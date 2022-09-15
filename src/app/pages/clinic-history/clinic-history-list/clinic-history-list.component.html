@@ -20,7 +20,7 @@
       </nb-tab>      
       <nb-tab tabTitle="EVOLUCIÓN">
         <div *ngIf="this.show == 2">
-          <ngx-evolution-list [user]="user" [admission]="admission"></ngx-evolution-list>
+          <ngx-evolution-list [user]="user" [admission]="admission" [type_record_id]="3"></ngx-evolution-list>
         </div>
       </nb-tab>
       <nb-tab tabTitle="ESCALAS">
@@ -61,7 +61,7 @@
 
       <nb-tab tabTitle="SALIDA">
         <div *ngIf="this.show == 9">
-          <ngx-form-patient-exit [record_id]="record_id"></ngx-form-patient-exit>
+          <ngx-form-patient-exit [record_id]="record_id" [admission]="admission"></ngx-form-patient-exit>
         </div>
       </nb-tab>
 

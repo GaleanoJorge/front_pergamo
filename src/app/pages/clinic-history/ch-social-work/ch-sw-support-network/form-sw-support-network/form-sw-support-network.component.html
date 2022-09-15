@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div class="form-group">
+      <div class="form-group" *ngIf="this.form.controls.ch_sw_network_id.value == 5">
         <label for="observation" class="form-text text-muted font-weight-bold">Observaciones</label>
         <input type="text" nbInput fullWidth id="observation" formControlName="observation" observation
           status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
