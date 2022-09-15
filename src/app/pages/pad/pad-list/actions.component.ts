@@ -159,7 +159,9 @@ export class Actions2Component implements ViewCell {
   }
 
   closeDialog() {
-    this.dialog.close();
+    if (this.dialog) {
+      this.dialog.close();
+    }
   }
 
   RefreshData() {
