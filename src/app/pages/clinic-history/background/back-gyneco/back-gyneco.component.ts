@@ -15,7 +15,7 @@ export class BackgGynecoComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
-  @Input() type_record_id;
+  @Input() type_record_id: any;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
   
