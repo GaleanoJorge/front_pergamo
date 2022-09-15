@@ -112,8 +112,11 @@ export class FormReasonConsultationComponent implements OnInit {
   }
 
   findExternal(){
-    if (this.ch_external_cause != null && this.data != null) {
-      this.ch_external_cause_name = this.ch_external_cause.find(x => { return x.id == this.form.controls.ch_external_cause_id.value }).name;
+    if (this.ch_external_cause != null && this.form.controls.ch_external_cause_id.value != '') {
+      var aa = this.ch_external_cause.find(x => { return x.id == this.form.controls.ch_external_cause_id.value });
+      if (aa) {
+        this.ch_external_cause_name = aa.name;
+      }
     }
   }
 
