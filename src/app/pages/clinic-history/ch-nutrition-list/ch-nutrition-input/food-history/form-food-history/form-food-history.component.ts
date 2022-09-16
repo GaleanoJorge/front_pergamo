@@ -115,7 +115,7 @@ export class FormFoodHistoryComponent implements OnInit {
       intake: ['', Validators.required],
       swallowing: ['', Validators.required],
       diet_type: [[], Validators.required],
-      parenteral_nutrition: ['', Validators.required],
+      parenteral_nutrition: [''],
       intake_control: ['', Validators.required],
     });
 

@@ -20,7 +20,7 @@
           <nb-step label="Cálculos de Nutrición Parenteral">
             <div *ngIf="this.weight">
               <ngx-table-parenteral-nutrition [data]="this.data"  [type_record_id]="1"
-                [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" ></ngx-table-parenteral-nutrition>
+                [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" [weight]="weight" ></ngx-table-parenteral-nutrition>
             </div>
             <div *ngIf="!this.weight">
               Debes diligenciar y guardar Antropometría para acceder a este campo

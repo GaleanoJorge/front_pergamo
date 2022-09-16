@@ -112,8 +112,8 @@ export class FormAnthropometryComponent implements OnInit {
     });
 
     this.ChNutritionAnthropometryS.GetCollection({
+      ch_record_id: this.record_id,
       type_record_id: this.type_record_id,
-      ch_record_id: 1,
     }).then(x => {
       this.ch_nutrition_anthropometry = x[0];
       if (this.ch_nutrition_anthropometry != null) {
@@ -133,7 +133,7 @@ export class FormAnthropometryComponent implements OnInit {
         this.prov_weight = (this.form.controls.weight.value != null && this.form.controls.weight.value != '' && this.form.controls.weight.value > 0) ?
           this.form.controls.weight.value : (this.ch_nutrition_anthropometry.estimated_weight > 0) ?
             this.ch_nutrition_anthropometry.estimated_weight : 0;
-        this.messageEvent.emit({
+        this.messageEvent2.emit({
           name: 'weight',
           value: this.prov_weight
         });

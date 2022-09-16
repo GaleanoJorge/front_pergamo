@@ -16,6 +16,7 @@ export class TableParenteralNutritionComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any;
   @Input() type_record_id;
+  @Input() weight: any = null;
   @Input() route: any = null;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
