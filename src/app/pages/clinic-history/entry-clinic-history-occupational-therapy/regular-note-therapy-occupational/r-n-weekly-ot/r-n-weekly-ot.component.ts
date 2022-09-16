@@ -43,7 +43,7 @@ export class RNWeeklyOtComponent implements OnInit {
         width: 'string',
       },
 
-      recomendations: {
+      recommendations: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction: (value) => {
