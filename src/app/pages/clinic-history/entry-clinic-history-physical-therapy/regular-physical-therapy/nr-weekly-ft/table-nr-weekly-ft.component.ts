@@ -64,6 +64,13 @@ export class TableNRWeeklyFTComponent implements OnInit {
       {
         title: this.headerFields[3],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
     },

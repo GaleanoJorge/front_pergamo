@@ -41,7 +41,7 @@ export class FormCreateBillingPgpComponent implements OnInit {
       };
     }
 
-    this.CampusS.GetCollection().then(x => {
+    this.CampusS.GetCollection({status_id: 1,}).then(x => {
       this.campus = x;
     });
 

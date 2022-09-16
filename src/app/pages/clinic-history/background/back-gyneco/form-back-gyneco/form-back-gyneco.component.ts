@@ -22,6 +22,7 @@ import { ChGynecologistsService } from '../../../../../business-controller/ch_gy
 export class FormBackGynecoComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() type_record_id: any;
   @Input() record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -247,7 +248,7 @@ export class FormBackGynecoComponent implements OnInit {
           ch_rst_colposcipia_gyneco_id: this.form.controls.ch_rst_colposcipia_gyneco_id.value,
           ch_rst_cytology_gyneco_id: this.form.controls.ch_rst_cytology_gyneco_id.value,
           ch_rst_mammography_gyneco_id: this.form.controls.ch_rst_mammography_gyneco_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -303,7 +304,7 @@ export class FormBackGynecoComponent implements OnInit {
           ch_rst_colposcipia_gyneco_id: this.form.controls.ch_rst_colposcipia_gyneco_id.value,
           ch_rst_cytology_gyneco_id: this.form.controls.ch_rst_cytology_gyneco_id.value,
           ch_rst_mammography_gyneco_id: this.form.controls.ch_rst_mammography_gyneco_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

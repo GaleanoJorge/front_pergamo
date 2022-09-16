@@ -87,6 +87,13 @@ export class TablePastOTComponent implements OnInit {
       observation_family_struct: {
         title: this.headerFields[3],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
       academy: {
         title: this.headerFields[4],
@@ -100,6 +107,13 @@ export class TablePastOTComponent implements OnInit {
       observation_schooling_training: {
         title: this.headerFields[6],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
       terapy: {
@@ -109,6 +123,13 @@ export class TablePastOTComponent implements OnInit {
       observation_terapy: {
         title: this.headerFields[8],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
       smoke: {
@@ -146,6 +167,13 @@ export class TablePastOTComponent implements OnInit {
       observation: {
         title: this.headerFields[16],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
     },

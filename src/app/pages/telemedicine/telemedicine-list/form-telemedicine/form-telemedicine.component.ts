@@ -97,7 +97,7 @@ export class FormTelemedicineComponent implements OnInit {
     this.companyS.GetCollection().then(x => {
       this.company = x;
     });
-    this.campusS.GetCollection().then(x => {
+    this.campusS.GetCollection({status_id: 1,}).then(x => {
       this.campus = x;
     });
     this.glossModalityS.GetCollection({ status_id: 1 }).then(x => {

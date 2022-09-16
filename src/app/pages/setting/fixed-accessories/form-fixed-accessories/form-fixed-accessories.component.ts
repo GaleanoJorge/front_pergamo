@@ -51,7 +51,7 @@ export class FormFixedAccessoriesComponent implements OnInit {
 
     });
 
-    await this.CampusS.GetCollection().then(x => {
+    await this.CampusS.GetCollection({status_id: 1,}).then(x => {
       this.campus_id = x;
     });
     await this.FixedTypeS.GetCollection({}).then(x => {

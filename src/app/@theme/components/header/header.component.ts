@@ -104,7 +104,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.currentCampus= this.GetCampus();
       this.origins = this.authService.GetOrigins();
       this.roles = this.authService.GetUser().roles;
-      this.campus= await this.userCampusBS.GetCollection(this.userMain.id);
+      this.campus= await this.userCampusBS.GetCollection(this.userMain.id, {status_id: 1});
     }
   }
 

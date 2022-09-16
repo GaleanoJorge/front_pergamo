@@ -191,6 +191,8 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         }).catch(x => {
         });
       }
+    }else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
   checked = false;
