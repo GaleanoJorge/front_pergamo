@@ -103,7 +103,7 @@ export class FormDietsEvoComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ diet_component: '', diet_consistency: '', observation: ''});
+          this.form.patchValue({ diet_component: '', diet_consistency: '', observation: ''});
           if (this.saved) {
             this.saved();
           }
@@ -121,7 +121,7 @@ export class FormDietsEvoComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({  diet_consistency: '', enterally_diet_id: '', observation:'' });
+          this.form.patchValue({  diet_consistency: [], enterally_diet_id: '', observation:'' });
           if (this.saved) {
             this.saved();
           }
