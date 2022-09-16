@@ -54,7 +54,7 @@ export class BackgGynecoComponent implements OnInit {
       },
       gestational_age: {
         title: this.headerFields[2],
-        width: 'string',
+        width: 'number',
       },
       date_childbirth: {
         title: this.headerFields[3],
