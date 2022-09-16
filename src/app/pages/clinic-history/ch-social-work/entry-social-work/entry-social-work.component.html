@@ -5,47 +5,47 @@
         <nb-stepper #stepper [linear]="linearMode">
 
           <nb-step [stepControl]="nameForm" label="Diagnóstico">
-            <ngx-sw-diagnosis [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-diagnosis>
+            <ngx-sw-diagnosis [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-diagnosis>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Familia">
-            <ngx-sw-family [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-family>
+            <ngx-sw-family [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-family>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="S.Enfermeria">
-            <ngx-sw-nursing [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-nursing>
+            <ngx-sw-nursing [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-nursing>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Hist. Ocupacional">
-            <ngx-occupational-history [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-occupational-history>
+            <ngx-occupational-history [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-occupational-history>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Dinámica Familiar">
-            <ngx-sw-family-dynamics [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-family-dynamics>
+            <ngx-sw-family-dynamics [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-family-dynamics>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Factores de Riesgo">
-            <ngx-sw-risk-factors [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-risk-factors>
+            <ngx-sw-risk-factors [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-risk-factors>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Vivienda">
-            <ngx-sw-housing [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-housing>
+            <ngx-sw-housing [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-housing>
           </nb-step>
          
           <nb-step [stepControl]="nameForm" label="Económia">
-            <ngx-sw-economic-aspects [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-economic-aspects>
+            <ngx-sw-economic-aspects [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-economic-aspects>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Conflicto armado">
-            <ngx-sw-armed-conflict [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-armed-conflict>
+            <ngx-sw-armed-conflict [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-sw-armed-conflict>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Red de apoyo">
-            <ngx-sw-support-network [type_record]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" ></ngx-sw-support-network>
+            <ngx-sw-support-network [type_record]="1" [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input" ></ngx-sw-support-network>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Reco. / Educ.">
-            <ngx-form-ch-sw-education [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" ></ngx-form-ch-sw-education>
+            <ngx-form-ch-sw-education [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input" ></ngx-form-ch-sw-education>
           </nb-step>
 
           <nb-step [hidden]="true">

@@ -40,10 +40,8 @@ export class EntrySocialWorkComponent implements OnInit {
   public nameForm: String;
   public movieForm: String;
   public teraphyRespiratory: any[];
-  //public assRespiratory: any[];
   public suppliesTeraphyRespiratory: any[];
   public sessionsTeraphyRespiratory: any[];
-  public input_done: boolean = false; // ya se registró algo en el ingreso
 
   public signatureImage: string;
   public currentRole: any;
@@ -113,23 +111,6 @@ export class EntrySocialWorkComponent implements OnInit {
     this.location.back();
   }
 
-  close() {
-    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
-      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
-        context: {
-          signature: true,
-          title: 'Finalizar registro.',
-          delete: this.finish.bind(this),
-          showImage: this.showImage.bind(this),
-          // save: this.saveSignature.bind(this),
-          textConfirm: 'Finalizar registro'
-        },
-      });
-    } else {
-      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
-    }
-  }
-
   showImage(data) {
     this.int++;
     if (this.int == 1) {
@@ -188,11 +169,5 @@ export class EntrySocialWorkComponent implements OnInit {
     }
   }
 
-  // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
-  inputMessage($event) {
-    if ($event == true) {
-      this.messageEvent.emit($event);
-    }
-  }
 }
 
