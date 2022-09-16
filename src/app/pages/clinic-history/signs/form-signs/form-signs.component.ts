@@ -136,7 +136,7 @@ export class FormsignsComponent implements OnInit {
         pupilas: '',
         has_oxigen: this.admission ? this.admission.location[0].program_id == 7 ? true : false : false,
       };
-
+    
     }
 
     this.chvitalHydrationS.GetCollection({ status_id: 1 }).then(x => {
@@ -190,6 +190,12 @@ export class FormsignsComponent implements OnInit {
       ],
     });
 
+    if(this.data.has_oxigen == true){
+      this.form.controls.has_oxigen.disable();
+    } else{
+      this.form.controls.has_oxigen.enable();
+    }
+    
     this.har_ox((this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : (this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 0 ? false : (this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen));
 
     this.onChange();

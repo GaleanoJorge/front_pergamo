@@ -191,6 +191,12 @@ export class FormsignsEvoComponent implements OnInit {
       ],
     });
 
+    if(this.data.has_oxigen == true){
+      this.form.controls.has_oxigen.disable();
+    } else{
+      this.form.controls.has_oxigen.enable();
+    }
+
     this.har_ox((this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : (this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 0 ? false : (this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen));
 
     this.onChange();
