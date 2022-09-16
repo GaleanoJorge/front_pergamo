@@ -67,7 +67,7 @@ export class FormDietSuppliesOutputComponent implements OnInit {
       this.parentData.selectedOptions = x;
     });
 
-    this.campusS.GetCollection().then(x => {
+    this.campusS.GetCollection({status_id: 1,}).then(x => {
       this.campus = x;
     });
 
