@@ -40,7 +40,6 @@ export class ForRNmWeeklyOTComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private ChEMSWeeklyOTService: ChEMSWeeklyOTService,
-    private ChRNWeeklyOTService: ChRNWeeklyOTService,
   ) {
   }
 
@@ -56,10 +55,10 @@ export class ForRNmWeeklyOTComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-
-      monthly_sessions: [this.data.monthly_sessions],
-      weekly_intensity: [this.data.weekly_intensity],
-      recommendations: [this.data.recomendations],
+      
+      monthly_sessions: [this.data[0] ? this.data[0].monthly_sessions : this.data.monthly_sessions, Validators.compose([Validators.required])],
+      weekly_intensity: [this.data[0] ? this.data[0].weekly_intensity : this.data.weekly_intensity, Validators.compose([Validators.required])],
+      recommendations: [this.data[0] ? this.data[0].recommendations : this.data.recommendations, Validators.compose([Validators.required])],
 
     });
 
@@ -127,6 +126,8 @@ export class ForRNmWeeklyOTComponent implements OnInit {
         });
       }
 
+    }  else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
 

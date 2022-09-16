@@ -89,6 +89,22 @@ export class FormRNMaterialsOTComponent implements OnInit {
         check10_pug: false,
       };
     }
+    this.form = this.formBuilder.group({
+      
+
+      check1_cognitive: [this.data[0] ? this.data[0].check1_cognitive : this.data.check1_cognitive, Validators.compose([Validators.required])],
+      check2_colors: [this.data[0] ? this.data[0].check2_colors : this.data.check2_colors, Validators.compose([Validators.required])],
+      check3_elements: [this.data[0] ? this.data[0].check3_elements : this.data.check3_elements, Validators.compose([Validators.required])],
+      check4_balls: [this.data[0] ? this.data[0].check4_balls : this.data.check4_balls, Validators.compose([Validators.required])],
+      check5_material_paper: [this.data[0] ? this.data[0].check5_material_paper : this.data.check5_material_paper, Validators.compose([Validators.required])],
+      check6_material_didactic: [this.data[0] ? this.data[0].check6_material_didactic : this.data.check6_material_didactic, Validators.compose([Validators.required])],
+      check7_computer: [this.data[0] ? this.data[0].check7_computer : this.data.check7_computer, Validators.compose([Validators.required])],
+      check8_clay: [this.data[0] ? this.data[0].check8_clay : this.data.check8_clay, Validators.compose([Validators.required])],
+      check9_colbon: [this.data[0] ? this.data[0].check9_colbon : this.data.check9_colbon, Validators.compose([Validators.required])],
+      check10_pug: [this.data[0] ? this.data[0].check10_pug : this.data.check10_pug, Validators.compose([Validators.required])],
+
+
+    });
 
     this.form = this.formBuilder.group({
       check1_cognitive: [
@@ -188,6 +204,8 @@ export class FormRNMaterialsOTComponent implements OnInit {
         }).catch(x => {
         });
       }
+    } else{
+      this.toastService.danger('ingrese todos los campos solicitados');
     }
   }
   checked = false;

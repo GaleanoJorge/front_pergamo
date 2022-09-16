@@ -36,9 +36,6 @@ export class RNWeeklyOtComponent implements OnInit {
       monthly_sessions: {
         title: this.headerFields[0],
         width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.name;
-        },
       },
 
       weekly_intensity: {
@@ -49,6 +46,13 @@ export class RNWeeklyOtComponent implements OnInit {
       recomendations: {
         title: this.headerFields[2],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
     },
   };
