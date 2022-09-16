@@ -301,7 +301,7 @@
       <div class="col col-lg-12 center">
         <label for="has_oxigen" class="form-text text-muted font-weight-bold">¿Tiene oxígeno?
         </label>
-        <nb-toggle formControlName="has_oxigen" has_oxigen>
+        <nb-toggle disabled="!this.data.has_oxigen" formControlName="has_oxigen" has_oxigen>
         </nb-toggle>
       </div>
     </div>

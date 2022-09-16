@@ -22,9 +22,11 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 export class EntryRespiratoryTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() admissions: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   @Input() user: any = null;
   @Input() has_input: boolean = false;
+  @Input() type_record_id:any;
 
   //@Input() vital: any;
   linearMode = false;

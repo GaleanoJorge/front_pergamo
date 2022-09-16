@@ -108,6 +108,12 @@ export class FormChMedicalOrdersComponent implements OnInit {
           .then((x) => {
             this.clearForm();
             this.toastService.success('', x.message);
+            this.form.patchValue({
+              ambulatory_medical_order: '',
+              procedure_id: '',
+              amount: '',
+              frequency_id: '',
+              observations: '' });
             if (this.saved) {
               this.saved();
             }
@@ -131,6 +137,12 @@ export class FormChMedicalOrdersComponent implements OnInit {
             this.clearForm();
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
+            this.form.patchValue({
+              ambulatory_medical_order: '',
+              procedure_id: '',
+              amount: '',
+              frequency_id: '',
+              observations: '' });
             if (this.saved) {
               this.saved();
             }

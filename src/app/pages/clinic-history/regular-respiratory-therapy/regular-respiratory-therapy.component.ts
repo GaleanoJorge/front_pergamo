@@ -18,6 +18,8 @@ export class RegularRespiratoryTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() user: any = null;
+  @Input() admissions: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   //@Input() vital: any;

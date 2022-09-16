@@ -20,7 +20,7 @@ export class FormsignsComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
-  @Input() admission: any = null;
+  @Input() admissions: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -134,7 +134,7 @@ export class FormsignsComponent implements OnInit {
         liters_per_minute_id: '',
         parameters_signs_id: '',
         pupilas: '',
-        has_oxigen: this.admission ? this.admission.location[0].program_id == 7 ? true : false : false,
+        has_oxigen: this.admissions ? this.admissions.location[0].program_id == 7 ? true : false : false,
       };
     
     }

@@ -17,7 +17,7 @@ export class FormaObjectivesTherapyComponent implements OnInit {
   @Input() record_id: any = null;  
   @Input() type_record: any = null;
   @Output() messageEvent = new EventEmitter<any>();
-  @Input() type_record_id;
+  @Input() type_record_id: any = null;
   @Input() has_input: boolean = false;
 
   public form: FormGroup;
@@ -153,7 +153,7 @@ export class FormaObjectivesTherapyComponent implements OnInit {
           train: this.data.check8,
           headline: this.data.check9,
           look_out: this.data.check10,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
 
         }).then(x => {

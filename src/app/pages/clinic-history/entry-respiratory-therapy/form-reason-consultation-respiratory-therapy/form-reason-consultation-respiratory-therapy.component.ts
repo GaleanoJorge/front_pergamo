@@ -19,6 +19,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
   @Input() data: any = null;
   @Input() record_id: any = null;  
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -158,7 +159,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
           medical_diagnosis_id: this.diagnosis_medical,
           therapeutic_diagnosis: this.form.controls.therapeutic_diagnosis.value,
           reason_consultation: this.form.controls.reason_consultation.value,
-          type_record_id: this.type_record,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -175,7 +176,7 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
           medical_diagnosis_id: this.diagnosis_medical,
           therapeutic_diagnosis: this.form.controls.therapeutic_diagnosis.value,
           reason_consultation: this.form.controls.reason_consultation.value,
-          type_record_id: this.type_record,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
