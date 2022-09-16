@@ -77,6 +77,16 @@ export class FormChMedicalOrdersComponent implements OnInit {
     });
   }
 
+  clearForm() {
+    this.form.patchValue({
+      ambulatory_medical_order: '',
+      procedure_id: '',
+      amount: '',
+      frequency_id: '',
+      observations: '',
+    });
+  }
+
   async save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
@@ -96,6 +106,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
             ch_record_id: this.record_id,
           })
           .then((x) => {
+            this.clearForm();
             this.toastService.success('', x.message);
             if (this.saved) {
               this.saved();
@@ -117,9 +128,9 @@ export class FormChMedicalOrdersComponent implements OnInit {
             ch_record_id: this.record_id,
           })
           .then((x) => {
+            this.clearForm();
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
-            this.form.setValue({ ambulatory_medical_order: '', procedure_id: '', amount: '', hourly_frequency: '', observations: '' });
             if (this.saved) {
               this.saved();
             }
@@ -131,11 +142,11 @@ export class FormChMedicalOrdersComponent implements OnInit {
         this.messageEvent.emit(true);
       }
 
-    } else{
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
-    }
-  
+  }
+
 
   saveCode(e): void {
     var localidentify = this.procedure.find(item => item.name == e);

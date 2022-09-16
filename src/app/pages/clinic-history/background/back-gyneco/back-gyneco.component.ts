@@ -18,7 +18,7 @@ export class BackgGynecoComponent implements OnInit {
   @Input() type_record_id;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
-  
+
   linearMode = false;
   public messageError = null;
   public title;
@@ -28,7 +28,7 @@ export class BackgGynecoComponent implements OnInit {
   public headerFields: any[] = ['Fecha', 'Estado', 'Edad gestional', 'Fecha prob. parto', 'Menarquia', 'FUR', 'Tipo', 'Cada', 'Duración', 'FUC', 'Resultado Citologia',
     'Biopsia', 'Resultado Biopsia', 'Momografía', 'Resultado Mamografía', 'Colposcopia', 'Result Colposcopia', 'Total gestas previas', 'Partos', 'Cesárias',
     'Abortos', 'Molas', 'Ectópicos', 'Hijos nacidos fallecidos', 'Hijos viven', 'Hijos fallecidos 1era semana', 'Hijos fallecidos despues 1era semana', 'Abortos espontáneos', 'Antecedentes gemelares', 'Ultimo embarazo planeado',
-    'Fecha último parto', 'Ultimo peso', 'Método fracaso','Planifica', 'Método de planificación', 'Desde', 'Nro. Compañeros sexuales', 'Auto exámen seno', 'Cada', 'Observación Auto exámen', 'Flujo','Observación Flujo'];
+    'Fecha último parto', 'Ultimo peso', 'Método fracaso', 'Planifica', 'Método de planificación', 'Desde', 'Nro. Compañeros sexuales', 'Auto exámen seno', 'Cada', 'Observación Auto exámen', 'Flujo', 'Observación Flujo'];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -55,213 +55,442 @@ export class BackgGynecoComponent implements OnInit {
       gestational_age: {
         title: this.headerFields[2],
         width: 'number',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       date_childbirth: {
         title: this.headerFields[3],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       menarche_years: {
         title: this.headerFields[4],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       last_menstruation: {
         title: this.headerFields[5],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       ch_type_gynecologists: {
         title: this.headerFields[6],
         width: 'string',
         valuePrepareFunction(value,) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       time_menstruation: {
         title: this.headerFields[7],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       duration_menstruation: {
         title: this.headerFields[8],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       date_last_cytology: {
         title: this.headerFields[9],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       ch_rst_cytology_gyneco: {
         title: this.headerFields[10],
         width: 'string',
         valuePrepareFunction(value,) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       date_biopsy: {
         title: this.headerFields[11],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       ch_rst_biopsy_gyneco: {
         title: this.headerFields[12],
         width: 'string',
         valuePrepareFunction(value,) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       date_mammography: {
         title: this.headerFields[13],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       ch_rst_mammography_gyneco: {
         title: this.headerFields[14],
         width: 'string',
         valuePrepareFunction(value,) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       date_colposcipia: {
         title: this.headerFields[15],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       ch_rst_colposcipia_gyneco: {
         title: this.headerFields[16],
         width: 'string',
         valuePrepareFunction(value,) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       total_feats: {
         title: this.headerFields[17],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       childbirth_number: {
         title: this.headerFields[18],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       caesarean_operation: {
         title: this.headerFields[19],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       misbirth: {
         title: this.headerFields[20],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       molar_pregnancy: {
         title: this.headerFields[21],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       ectopic: {
         title: this.headerFields[22],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       dead_sons: {
         title: this.headerFields[23],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       living_sons: {
         title: this.headerFields[24],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       sons_dead_first_week: {
         title: this.headerFields[25],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       children_died_after_the_first_week: {
         title: this.headerFields[26],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       misbirth_unstudied: {
         title: this.headerFields[27],
         width: 'string',
         valuePrepareFunction(value) {
-          if(value==1){
-            return 'Si' ; 
-            }else{
-              return 'No'
-            }
+          if (value == 1) {
+            return 'Si';
+          } else {
+            return 'No'
+          }
+        },
       },
-    },
       background_twins: {
         title: this.headerFields[28],
         width: 'string',
         valuePrepareFunction(value) {
-          if(value==1){
-            return 'Si' ; 
-            }else{
-              return 'No'
-            }
+          if (value == 1) {
+            return 'Si';
+          } else {
+            return 'No'
+          }
+        },
       },
-    },
       last_planned_pregnancy: {
         title: this.headerFields[29],
         width: 'string',
         valuePrepareFunction(value) {
-          if(value==1){
-            return 'Si' ; 
-            }else{
-              return 'No'
-            }
+          if (value == 1) {
+            return 'Si';
+          } else {
+            return 'No'
+          }
+        },
       },
-    },
       date_of_last_childbirth: {
         title: this.headerFields[30],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       last_weight: {
         title: this.headerFields[31],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       ch_failure_method_gyneco: {
         title: this.headerFields[32],
         width: 'string',
         valuePrepareFunction(value,) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       ch_planning_gynecologists: {
         title: this.headerFields[33],
-        width: 'string',        
+        width: 'string',
         valuePrepareFunction(value,) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       ch_method_planning_gyneco: {
         title: this.headerFields[34],
         width: 'string',
         valuePrepareFunction(value,) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       since_planning: {
         title: this.headerFields[35],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       sexual_partners: {
         title: this.headerFields[36],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       ch_exam_gynecologists: {
         title: this.headerFields[37],
         width: 'string',
         valuePrepareFunction(value,) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       time_exam_breast_self: {
         title: this.headerFields[38],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       observation_breast_self_exam: {
         title: this.headerFields[39],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       ch_flow_gynecologists: {
         title: this.headerFields[40],
         width: 'string',
         valuePrepareFunction(value,) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       observation_flow: {
         title: this.headerFields[41],
         width: 'string',
+        valuePrepareFunction(value,) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
     },
   };
