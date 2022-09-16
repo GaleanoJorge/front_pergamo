@@ -131,6 +131,13 @@ export class TableMarchFTComponent implements OnInit {
       {
         title: this.headerFields[12],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
     },

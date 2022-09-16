@@ -164,6 +164,13 @@ export class TableDailyActivitiesOTComponent implements OnInit {
       observation_activity: {
         title: this.headerFields[21],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
       test: {
@@ -173,6 +180,13 @@ export class TableDailyActivitiesOTComponent implements OnInit {
       observation_test: {
         title: this.headerFields[23],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
     },

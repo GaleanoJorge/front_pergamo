@@ -67,7 +67,7 @@ export class FormMuscularToneFTComponent implements OnInit {
       left_foot: [this.data[0] ? this.data[0].left_foot : this.data.left_foot, Validators.compose([Validators.required])],
       inf_right: [this.data[0] ? this.data[0].inf_right : this.data.inf_right, Validators.compose([Validators.required])],
       right_foot: [this.data[0] ? this.data[0].right_foot : this.data.right_foot, Validators.compose([Validators.required])],
-      observation: [this.data[0] ? this.data[0].observation : this.data.observation, Validators.compose([Validators.required])],
+      observation: [this.data[0] ? this.data[0].observation : this.data.observation],
 
     });
 
