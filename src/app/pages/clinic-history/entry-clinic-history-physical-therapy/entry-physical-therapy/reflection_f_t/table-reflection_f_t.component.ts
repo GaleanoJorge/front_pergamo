@@ -94,6 +94,13 @@ export class TableReflectionComponent implements OnInit {
       {
         title: this.headerFields[7],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN DAÑOS PATOLOGICOS O SIN OBSERVACIÓN';
+          }
+        },
       },
 
 

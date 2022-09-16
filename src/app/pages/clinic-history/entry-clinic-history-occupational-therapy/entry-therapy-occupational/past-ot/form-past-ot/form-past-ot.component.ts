@@ -184,6 +184,9 @@ export class FormPastOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
+          this.form.patchValue({family_base:'',  number_childrens:'', observation_family_struct:'', academy:'', level_academy:'',
+          observation_schooling_training:'',  terapy:'',  observation_terapy:'',  smoke:'',  f_smoke:'', 
+           alcohol:'', f_alcohol:'',  sport:'', f_sport:'',  sport_practice_observation:'', observation:'' });
           if (this.saved) {
             this.saved();
           }
@@ -213,11 +216,11 @@ export class FormPastOTComponent implements OnInit {
           type_record_id: 1,
           ch_record_id: this.record_id,
         }).then(x => {
-          this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({family_base:'',  number_childrens:'',  observation_family_struct:'',  academy:'',  level_academy:'', 
-          observation_schooling_training:'',  terapy:'',  observation_terapy:'',  smoke:'',  f_smoke:'',  alcohol:'',  f_alcohol:'',  
-          sport:'',  f_sport:'',  sport_practice_observation:'',  observation:''}) 
+          this.toastService.success('', x.message);
+          this.form.patchValue({family_base:'',  number_childrens:'', observation_family_struct:'', academy:'', level_academy:'',
+          observation_schooling_training:'',  terapy:'',  observation_terapy:'',  smoke:'',  f_smoke:'', 
+           alcohol:'', f_alcohol:'',  sport:'', f_sport:'',  sport_practice_observation:'', observation:'' });
           if (this.saved) {
             this.saved();
           }

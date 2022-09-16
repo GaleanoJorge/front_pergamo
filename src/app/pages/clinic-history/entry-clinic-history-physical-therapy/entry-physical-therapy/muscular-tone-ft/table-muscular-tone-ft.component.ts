@@ -121,6 +121,14 @@ export class TableMuscularToneFTComponent implements OnInit {
       {
         title: this.headerFields[11],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
+        
       },
     },
 

@@ -95,7 +95,8 @@ export class FormMarchFTComponent implements OnInit {
     // }
   }
 
-  save() {
+  save() 
+  {
     this.isSubmitted = true;
 
     if (!this.form.invalid) {
