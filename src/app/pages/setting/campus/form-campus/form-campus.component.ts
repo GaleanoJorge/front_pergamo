@@ -134,6 +134,7 @@ export class FormCampusComponent implements OnInit {
       if (this.data.id) {
         this.campusS.Update({
           id: this.data.id,
+          status_id: this.data.status_id,
           name: this.form.controls.name.value,
           address: this.form.controls.address.value,
           enable_code: this.form.controls.enable_code.value,
@@ -156,6 +157,7 @@ export class FormCampusComponent implements OnInit {
         this.campusS.Save({
           name: this.form.controls.name.value,
           address: this.form.controls.address.value,
+          status_id: 1,
           enable_code: this.form.controls.enable_code.value,
           billing_pad_prefix_id: this.form.controls.billing_pad_prefix_id.value,
           billing_pad_credit_note_prefix_id: this.form.controls.billing_pad_credit_note_prefix_id.value,

@@ -55,7 +55,7 @@ export class FormDietSuppliesInputComponent implements OnInit {
     this.dietCompanyS.GetCollection({ company_category_id: 2 }).then(x => {
       this.company = x;
     });
-    this.campusS.GetCollection().then(x => {
+    this.campusS.GetCollection({status_id: 1,}).then(x => {
       this.campus = x;
     });
 

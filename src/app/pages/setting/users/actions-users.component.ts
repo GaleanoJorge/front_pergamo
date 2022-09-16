@@ -80,7 +80,7 @@ export class ActionsUsersComponent implements ViewCell, OnInit {
       this.value.data.user_role.forEach(element => {
         this.roles.push(element.role);
       });
-      this.campus= await this.campusBS.GetCollection();
+      this.campus= await this.campusBS.GetCollection({status_id: 1,});
   }
 
   ChangeCampus(value){

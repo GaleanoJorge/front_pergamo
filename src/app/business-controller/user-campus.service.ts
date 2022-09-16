@@ -21,9 +21,9 @@ export class UserCampusBusinessService {
   ) {
   }
 
-  GetCollection($userId): Promise<UserCampus[]> {
+  GetCollection($userId, params = {}): Promise<UserCampus[]> {
     var servObj = new ServiceObject("campus/byUser", $userId);
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
