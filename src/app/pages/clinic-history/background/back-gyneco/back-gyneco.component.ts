@@ -53,7 +53,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -64,7 +64,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -75,7 +75,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -86,7 +86,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -97,7 +97,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -119,7 +119,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -130,7 +130,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -141,7 +141,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -163,7 +163,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -185,7 +185,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -207,7 +207,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -229,7 +229,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -240,7 +240,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -251,7 +251,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -262,7 +262,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -273,7 +273,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -284,7 +284,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -295,7 +295,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -306,7 +306,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -317,7 +317,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -328,7 +328,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -372,7 +372,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -383,7 +383,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -427,7 +427,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -438,7 +438,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -460,7 +460,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -471,7 +471,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
@@ -493,7 +493,7 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'N.A.';
           }
