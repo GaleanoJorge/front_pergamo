@@ -15,6 +15,7 @@ import { ConfirmDialogCHComponent } from '../../clinic-history-list/confirm-dial
 export class FormLanguageEvolutionComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   @Input() record_id: any = null;
   @Input() user: any = null;

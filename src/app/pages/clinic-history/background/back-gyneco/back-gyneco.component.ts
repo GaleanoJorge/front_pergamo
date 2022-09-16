@@ -55,7 +55,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -66,18 +66,18 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
       date_childbirth: {
         title: this.headerFields[3],
         width: 'string',
-        valuePrepareFunction(value,) {
+        valuePrepareFunction: (value) => {
           if (value) {
-            return value;
+            return this.datePipe.transform2(value);
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -88,18 +88,18 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
       last_menstruation: {
         title: this.headerFields[5],
         width: 'string',
-        valuePrepareFunction(value,) {
+        valuePrepareFunction: (value) => {
           if (value) {
-            return value;
+            return this.datePipe.transform2(value);
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -110,7 +110,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value.name;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -121,7 +121,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -132,18 +132,18 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
       date_last_cytology: {
         title: this.headerFields[9],
         width: 'string',
-        valuePrepareFunction(value,) {
+        valuePrepareFunction: (value) => {
           if (value) {
-            return value;
+            return this.datePipe.transform2(value);
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -154,18 +154,18 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value.name;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
       date_biopsy: {
         title: this.headerFields[11],
         width: 'string',
-        valuePrepareFunction(value,) {
+        valuePrepareFunction: (value) => {
           if (value) {
-            return value;
+            return this.datePipe.transform2(value);
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -176,18 +176,18 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value.name;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
       date_mammography: {
         title: this.headerFields[13],
         width: 'string',
-        valuePrepareFunction(value,) {
+        valuePrepareFunction: (value) => {
           if (value) {
-            return value;
+            return this.datePipe.transform2(value);
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -198,18 +198,18 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value.name;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
       date_colposcipia: {
         title: this.headerFields[15],
         width: 'string',
-        valuePrepareFunction(value,) {
+        valuePrepareFunction: (value) => {
           if (value) {
-            return value;
+            return this.datePipe.transform2(value);
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -220,7 +220,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value.name;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -231,7 +231,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -242,7 +242,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -253,7 +253,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -264,7 +264,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -275,7 +275,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -286,7 +286,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -297,7 +297,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -308,7 +308,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -319,7 +319,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -330,7 +330,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -341,7 +341,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value == 1) {
             return 'Si';
           } else {
-            return 'No'
+            return 'No Aplica'
           }
         },
       },
@@ -352,7 +352,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value == 1) {
             return 'Si';
           } else {
-            return 'No'
+            return 'No Aplica'
           }
         },
       },
@@ -363,18 +363,18 @@ export class BackgGynecoComponent implements OnInit {
           if (value == 1) {
             return 'Si';
           } else {
-            return 'No'
+            return 'No Aplica'
           }
         },
       },
       date_of_last_childbirth: {
         title: this.headerFields[30],
         width: 'string',
-        valuePrepareFunction(value,) {
+        valuePrepareFunction: (value) => {
           if (value) {
-            return value;
+            return this.datePipe.transform2(value);
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -383,9 +383,9 @@ export class BackgGynecoComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value,) {
           if (value) {
-            return value;
+            return value + 'Kg';
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -396,7 +396,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value.name;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -407,7 +407,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value.name;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -418,18 +418,18 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value.name;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
       since_planning: {
         title: this.headerFields[35],
         width: 'string',
-        valuePrepareFunction(value,) {
+        valuePrepareFunction: (value) => {
           if (value) {
-            return value;
+            return this.datePipe.transform2(value);
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -440,7 +440,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -451,7 +451,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value.name;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -462,7 +462,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -473,7 +473,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -484,7 +484,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value.name;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },
@@ -495,7 +495,7 @@ export class BackgGynecoComponent implements OnInit {
           if (value) {
             return value;
           } else {
-            return 'N.A.';
+            return 'No Aplica';
           }
         },
       },

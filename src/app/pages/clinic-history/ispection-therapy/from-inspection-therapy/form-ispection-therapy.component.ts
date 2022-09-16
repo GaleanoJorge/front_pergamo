@@ -15,6 +15,7 @@ export class FormIspectionTherapyComponent implements OnInit {
   @Input() data: any = null;
   @Input() user: any = null;
   @Input() record_id: any = null;  
+  @Input() type_record_id: any = null;  
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -97,7 +98,7 @@ export class FormIspectionTherapyComponent implements OnInit {
           fracturues: this.form.controls.fracturues.value,
           detail_fracturues: this.form.controls.detail_fracturues.value,
           airway: this.form.controls.airway.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -118,7 +119,7 @@ export class FormIspectionTherapyComponent implements OnInit {
           fracturues: this.form.controls.fracturues.value,
           detail_fracturues: this.form.controls.detail_fracturues.value,
           airway: this.form.controls.airway.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

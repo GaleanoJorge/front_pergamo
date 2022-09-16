@@ -29,6 +29,23 @@ export class ChSystemExamService {
       });
   }
 
+  ByRecord(record,type): Promise<ChSystemExam[]> {
+    let servObj = new ServiceObject('ch_system_exam/by_record/'+record+'/'+type+'?pagination=false');
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.ch_system_exam = <ChSystemExam[]>servObj.data.ch_background;
+
+        return Promise.resolve(this.ch_system_exam);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(ch_system_exam: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_system_exam');
     servObj.data = ch_system_exam;

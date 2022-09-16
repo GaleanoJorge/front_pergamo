@@ -1,6 +1,6 @@
 
 <div *ngIf="has_input == false || type_record_id != 1">
-  <ngx-form-auscultacion-therapy (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+  <ngx-form-auscultacion-therapy (messageEvent)="receiveMessage($event)" [record_id]="record_id" [type_record_id]="type_record_id">
   </ngx-form-auscultacion-therapy>
 </div>
 
@@ -10,7 +10,7 @@
     <ngx-base-list [messageError]="messageError" [routes]="routes">
       <div content>
         <ngx-base-table pager="false" class="table" [title]="title" [subtitle]="subtitle" customData="ch_auscultation"
-          [settings]="settings" entity="ch_auscultation/by_record/{{record_id}}/1?&has_input={{has_input}}">
+          [settings]="settings" entity="ch_auscultation/by_record/{{record_id}}/{{type_record_id}}?&has_input={{has_input}}">
         </ngx-base-table>
       </div>
     </ngx-base-list>

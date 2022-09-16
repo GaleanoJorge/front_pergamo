@@ -23,6 +23,7 @@ import { AdmissionsService } from '../../../business-controller/admissions.servi
 export class EntryClinicHistoryNursingComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input()  admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   //@Input() vital: any;

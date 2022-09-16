@@ -363,7 +363,8 @@ export class FormBackGynecoComponent implements OnInit {
 
       }
 
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
-
 }
