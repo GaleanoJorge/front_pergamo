@@ -52,6 +52,8 @@ export class SocialWorkListComponent implements OnInit {
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
   public signatureImage: string;
+  public has_input: any = null; // ya existe registro de ingreso
+  public input_done: boolean = false; // ya se registró algo en el ingreso
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -112,16 +114,20 @@ export class SocialWorkListComponent implements OnInit {
   }
 
   close() {
-    this.deleteConfirmService.open(ConfirmDialogCHComponent, {
-      context: {
-        signature: true, 
-        title: 'Finalizar registro.',
-        delete: this.finish.bind(this),
-        showImage: this.showImage.bind(this),
-        // save: this.saveSignature.bind(this),
-        textConfirm:'Finalizar registro'
-      },
-    });
+    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
+      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
+        context: {
+          signature: true,
+          title: 'Finalizar registro.',
+          delete: this.finish.bind(this),
+          showImage: this.showImage.bind(this),
+          // save: this.saveSignature.bind(this),
+          textConfirm: 'Finalizar registro'
+        },
+      });
+    } else {
+      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
+    }
   }
 
   showImage(data) {
@@ -227,6 +233,7 @@ export class SocialWorkListComponent implements OnInit {
     });
   }
 
+  // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
   inputMessage($event) {
     this.input_done = true;
   }
