@@ -6,7 +6,7 @@
            <nb-step [stepControl]="nameForm" label="Valoración">
             <div class="row">
               <div class="col-md-12">
-                <ngx-language-assessment [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"></ngx-language-assessment>
+                <ngx-language-assessment [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-language-assessment>
               </div>
              </div> 
           </nb-step>
@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-md-12">
                 
-                <ngx-back-list [record_id]="record_id" [user]="user" ></ngx-back-list>
+                <ngx-back-list [record_id]="record_id" [user]="user" [type_record_id]="type_record_id"></ngx-back-list>
               </div>
             </div>
           </nb-step>

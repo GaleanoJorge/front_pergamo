@@ -262,7 +262,6 @@ export class FormBackGynecoComponent implements OnInit {
         });
       } else {
         await this.ChGynecologistsS.Save({
-          id: this.data.id,
           pregnancy_status: this.form.controls.pregnancy_status.value,
           gestational_age: this.form.controls.gestational_age.value,
           date_childbirth: this.form.controls.date_childbirth.value,
@@ -363,7 +362,8 @@ export class FormBackGynecoComponent implements OnInit {
 
       }
 
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
-
 }

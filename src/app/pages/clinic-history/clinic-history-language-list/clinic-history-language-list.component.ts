@@ -21,6 +21,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 export class ClinicHistoryLanguageListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() type_record_id:any;
 
   linearMode = true;
   public messageError = null;
@@ -38,6 +39,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   public flat;
   public int = 0;
   public user;
+  public admission;
   public own_user;
   public bed;
   public bed_id;
@@ -104,6 +106,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
+      this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });

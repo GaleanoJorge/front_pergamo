@@ -17,7 +17,8 @@ export class SignsListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() has_input: boolean = false;
-  @Input() admission: any = null;
+  @Input() admissions: any = null;
+  @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   
   linearMode = true;
@@ -44,7 +45,6 @@ export class SignsListComponent implements OnInit {
     'Tiene oxigeno', 'Modo Ventilatorio', 'Tipo de Oxigeno','Lts por Mints.', 'Parametros', ];
 
   public routes = [];
-  public data = [];
   public loading: boolean = false;
   public saved: any = null;
   public isSubmitted = false;
@@ -427,7 +427,7 @@ export class SignsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.record_id = this.route.snapshot.params.id;
-    console.log(this.admission)
+    console.log(this.admissions)
   }
 
 

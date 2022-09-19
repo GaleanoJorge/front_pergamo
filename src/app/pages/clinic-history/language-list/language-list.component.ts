@@ -23,6 +23,7 @@ export class LanguageListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() user: any = null;
+  @Input() type_record_id: any = null;
   @Input() has_input: boolean = false;
   @Input() record_id;
   @Output() messageEvent = new EventEmitter<any>();

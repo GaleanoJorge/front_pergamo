@@ -1,5 +1,5 @@
 <div *ngIf="has_input == false">
-  <ngx-form-system-exam (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+  <ngx-form-system-exam [change]="block" (messageEvent)="receiveMessage($event)" [record_id]="record_id" [type_record_id]="type_record_id">
   </ngx-form-system-exam>
 </div>
 <label for="ch_external_cause" class="form-text text-muted font-weight-bold align">REVISIÓN POR SISTEMAS</label>

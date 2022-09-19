@@ -14,8 +14,8 @@ export class IspectionTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Input() data: any = null;
-  @Input() type_record_id;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
   
@@ -60,8 +60,8 @@ export class IspectionTherapyComponent implements OnInit {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction: (value, row) => {
-        if (value=! null) {
-          return value.name;
+        if (value != null) {
+          return value;
         } else {
           return 'NO APLICA'
         }
@@ -79,8 +79,8 @@ export class IspectionTherapyComponent implements OnInit {
         title: this.headerFields[6],
         width: 'string',
         valuePrepareFunction: (value, row) => {
-          if (value=! null) {
-            return value.name;
+          if (value != null) {
+            return value;
           } else {
             return 'NO APLICA'
           }

@@ -19,6 +19,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Input() has_input: boolean = false;
   //@Input() input_done: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
