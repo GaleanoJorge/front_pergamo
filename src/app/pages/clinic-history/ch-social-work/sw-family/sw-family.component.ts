@@ -171,6 +171,14 @@ export class SwFamilyComponent implements OnInit {
       residence_address: {
         title: this.headerFields[16],
         width: 'string',
+        valuePrepareFunction(value) {
+          if(value){
+            return value ; 
+            }else{
+              return 'NO APLICA'
+            }
+          
+        },
       },
     },
   };

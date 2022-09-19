@@ -70,7 +70,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
   public chweekly: any[];
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
-
+  public admission;
 
 
   public record_id;
@@ -124,6 +124,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
+      this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
     });
     if (!this.data) {

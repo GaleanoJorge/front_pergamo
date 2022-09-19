@@ -5,8 +5,9 @@
 
       <div class="col-md-12">
         <label for="observation" class="form-text text-muted font-weight-bold align">NOTA:</label>
-        <textarea [disabled]="disabled" id="observation" onpaste="return false" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"
-          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+        <textarea [disabled]="disabled" id="observation" nbInput fullWidth formControlName="observation" observation rows="4" cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          onpaste="return false"> </textarea>
       </div>
     </fieldset>
 

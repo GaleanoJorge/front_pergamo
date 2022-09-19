@@ -27,7 +27,7 @@
 
           <nb-step label="Signos Vitales">
 
-            <ngx-signs [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-signs>
+            <ngx-signs [record_id]="record_id" [type_record_id]="1" [admissions]="admission" (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-signs>
 
           </nb-step>
 
@@ -71,7 +71,7 @@
 
           <nb-step label="Signos Vitales">
 
-            <ngx-signs></ngx-signs>
+            <ngx-signs [record_id]="record_id" [type_record_id]="3" [admissions]="admission"></ngx-signs>
 
 
           </nb-step>

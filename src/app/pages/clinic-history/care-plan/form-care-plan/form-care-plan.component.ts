@@ -438,8 +438,8 @@ export class FormCarePlanComponent implements OnInit {
           }
           this.isSubmitted = false;
           this.loading = false;
-        })
-          .catch((x) => {
+        }).catch((x) => {
+          this.toastService.warning('', x);
           });
       }
     }
