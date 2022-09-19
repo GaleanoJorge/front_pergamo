@@ -47,7 +47,7 @@ export class FormObservationComponent implements OnInit {
       ],
       copay: [this.data.copay ? true : null],
       copay_value: [this.data.copay_value],
-      file_auth: [null],
+      file_auth: [null, Validators.compose([Validators.required])],
     });
 
     if (this.Managemen) {
