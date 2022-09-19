@@ -481,7 +481,7 @@ export class FormsignsComponent implements OnInit {
 
       this.form.controls.parameters_signs_id.setErrors(null);
 
-    } else {
+    } else if (val != 9 && val != '') {
       this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
       this.form.patchValue({ parameters_signs_id:''});
 
