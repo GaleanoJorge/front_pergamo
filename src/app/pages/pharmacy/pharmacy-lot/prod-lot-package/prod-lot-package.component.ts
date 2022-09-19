@@ -360,7 +360,7 @@ export class ProdLotPackageComponent implements OnInit {
       if (!this.show) {
         this.show = true;
       } else {
-        this.RefreshData();
+        this.table.changeEntity(this.entity, this.customData);
       }
     } else {
       this.show = false;
