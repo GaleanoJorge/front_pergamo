@@ -20,7 +20,7 @@ export class TableParenteralNutritionComponent implements OnInit {
   @Input() route: any = null;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
-  
+
   linearMode = false;
   public messageError = null;
   public title;
@@ -28,22 +28,22 @@ export class TableParenteralNutritionComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = ['FEHCA',
-                                'APORTES DE PROTEINA',
-                                'APORTES DE CARBOHIDRATOS',
-                                'APORTES DE LÍPIDOS',
-                                'VOLUMEN DE AMINOÁCIDOS',
-                                'VOLUMEN DE DEXTROSA',
-                                'VALOMEN DE LÍPIDOS',
-                                'GRAMOS TOTALES DE PROTEINA',
-                                'GRAMOS DE NITROGENO',
-                                'CARBOHIDRATOS TOTALES',
-                                'GRAMOS TOTALES DE LIPIDOS',
-                                'TOTAL VOLUMEN DE AMINOACIDOS',
-                                'TOTAL VOLUMEN DE DEXTROSA',
-                                'TOTAL VOLUMEN LIPIDO',
-                                'TOTAL CALORIAS',
-                                'CE_SE',
-                                ];
+    'APORTES DE PROTEINA',
+    'APORTES DE CARBOHIDRATOS',
+    'APORTES DE LÍPIDOS',
+    'VOLUMEN DE AMINOÁCIDOS',
+    'VOLUMEN DE DEXTROSA',
+    'VALOMEN DE LÍPIDOS',
+    'GRAMOS TOTALES DE PROTEINA',
+    'GRAMOS DE NITROGENO',
+    'CARBOHIDRATOS TOTALES',
+    'GRAMOS TOTALES DE LIPIDOS',
+    'TOTAL VOLUMEN DE AMINOACIDOS',
+    'TOTAL VOLUMEN DE DEXTROSA',
+    'TOTAL VOLUMEN LIPIDO',
+    'TOTAL CALORIAS',
+    'CE_SE',
+  ];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -64,97 +64,202 @@ export class TableParenteralNutritionComponent implements OnInit {
         valuePrepareFunction: (value) => {
           return this.datePipe.transform2(value);
         },
-        },
-     
+      },
+
       protein_contributions:
       {
         title: this.headerFields[1],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       carbohydrate_contribution:
       {
         title: this.headerFields[2],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       lipid_contribution:
       {
         title: this.headerFields[3],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
 
       amino_acid_volume:
       {
         title: this.headerFields[4],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       dextrose_volume:
       {
         title: this.headerFields[5],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       lipid_volume:
       {
         title: this.headerFields[6],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       total_grams_of_protein:
       {
         title: this.headerFields[7],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       grams_of_nitrogen:
       {
         title: this.headerFields[8],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       total_carbohydrates:
       {
         title: this.headerFields[9],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       total_grams_of_lipids:
       {
         title: this.headerFields[10],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       total_amino_acid_volume:
       {
         title: this.headerFields[11],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       total_dextrose_volume:
       {
         title: this.headerFields[12],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       total_lipid_volume:
       {
         title: this.headerFields[13],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       total_calories:
       {
         title: this.headerFields[14],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       ce_se:
       {
         title: this.headerFields[15],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
 

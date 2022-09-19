@@ -20,7 +20,7 @@ export class TableAnthropometryComponent implements OnInit {
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
   @Output() messageEvent2 = new EventEmitter<any>();
-  
+
   linearMode = false;
   public messageError = null;
   public title;
@@ -28,19 +28,19 @@ export class TableAnthropometryComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = ['FECHA',
-                                'PACIENTE FUNCIONAL',
-                                'PESO',
-                                'TALLA',
-                                'CIRCUNFERENCIA DE BRAZO',
-                                'CIRCUNFERENCIA DE PANTORRILA',
-                                'ALTURA DE RODILLA',
-                                'PERIMETRO ADOMINAL',
-                                'PERIMETRO DE CADERA',
-                                'IMC',
-                                'OBESIDAD',
-                                'PESO ESTIMADO',
-                                'TALLA ESTIMADA',
-                                'CALCULO DE GASTOS ENERGETICOS TOTAL',];
+    'PACIENTE FUNCIONAL',
+    'PESO',
+    'TALLA',
+    'CIRCUNFERENCIA DE BRAZO',
+    'CIRCUNFERENCIA DE PANTORRILA',
+    'ALTURA DE RODILLA',
+    'PERIMETRO ADOMINAL',
+    'PERIMETRO DE CADERA',
+    'IMC',
+    'OBESIDAD',
+    'PESO ESTIMADO',
+    'TALLA ESTIMADA',
+    'CALCULO DE GASTOS ENERGETICOS TOTAL',];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -60,84 +60,175 @@ export class TableAnthropometryComponent implements OnInit {
         valuePrepareFunction: (value) => {
           return this.datePipe.transform2(value);
         },
-        },
+      },
 
       is_functional:
       {
         title: this.headerFields[1],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       weight:
       {
         title: this.headerFields[2],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       size:
       {
         title: this.headerFields[3],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       arm_circunferency:
       {
         title: this.headerFields[4],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       calf_circumference:
       {
         title: this.headerFields[5],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       knee_height:
       {
         title: this.headerFields[6],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       abdominal_perimeter:
       {
         title: this.headerFields[7],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       hip_perimeter:
       {
         title: this.headerFields[8],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       geteratedIMC:
       {
         title: this.headerFields[9],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       classification:
       {
         title: this.headerFields[10],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       estimated_weight:
       {
         title: this.headerFields[11],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       estimated_size:
       {
         title: this.headerFields[12],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       total_energy_expenditure:
       {
         title: this.headerFields[13],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
     },
