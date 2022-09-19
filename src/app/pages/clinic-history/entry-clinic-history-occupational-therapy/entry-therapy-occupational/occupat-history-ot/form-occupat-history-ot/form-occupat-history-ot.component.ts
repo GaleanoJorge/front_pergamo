@@ -53,7 +53,7 @@ export class FormOccupatHistoryOTComponent implements OnInit {
       this.ChEOccHistoryOTServiceS.GetCollection({ has_input: true, record_id: this.record_id }).then(x => {
         this.data = x;
         this.form = this.formBuilder.group({
-          ocupation: [this.data[0] ? this.data[0].ocupation : this.data.ocupation, , Validators.compose([Validators.required])],
+          ocupation: [this.data[0] ? this.data[0].ocupation : this.data.ocupation, Validators.compose([Validators.required])],
           enterprice_employee: [this.data[0] ? this.data[0].enterprice_employee : this.data.enterprice_employee,],
           work_employee: [this.data[0] ? this.data[0].work_employee : this.data.work_employee,],
           shift_employee: [this.data[0] ? this.data[0].shift_employee : this.data.shift_employee,],
