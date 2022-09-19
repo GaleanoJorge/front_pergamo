@@ -15,7 +15,7 @@
 
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show == 1">
-          <ngx-entry-social-work [data]="null" [has_input]="has_input" [record_id]="record_id">
+          <ngx-entry-social-work [data]="null" [has_input]="has_input" (messageEvent)="inputMessage($event)" [record_id]="record_id">
           </ngx-entry-social-work>
         </div>
       </nb-tab>

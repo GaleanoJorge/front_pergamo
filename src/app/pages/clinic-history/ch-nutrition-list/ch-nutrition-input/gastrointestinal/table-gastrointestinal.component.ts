@@ -19,7 +19,7 @@ export class TableGastrointestinalComponent implements OnInit {
   @Input() route: any = null;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
-  
+
   linearMode = false;
   public messageError = null;
   public title;
@@ -27,10 +27,10 @@ export class TableGastrointestinalComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = ['FECHA',
-                                'HABITO INTESTINAL',
-                                '¿ HA PRESENTADO VOMITO ?',
-                                '¿ HA PRESENTADO NUSEAS ?',
-                                'OBSERVACIONES',];
+    'HABITO INTESTINAL',
+    '¿ HA PRESENTADO VOMITO ?',
+    '¿ HA PRESENTADO NUSEAS ?',
+    'OBSERVACIONES',];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -51,20 +51,27 @@ export class TableGastrointestinalComponent implements OnInit {
         valuePrepareFunction: (value) => {
           return this.datePipe.transform2(value);
         },
-        },
+      },
       bowel_habit:
       {
         title: this.headerFields[1],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       vomit:
       {
         title: this.headerFields[2],
         width: 'string',
-        valuePrepareFunction(value,row) {
+        valuePrepareFunction(value, row) {
           if (value == 0) {
-            return 'SI';           
+            return 'SI';
           } else {
             return 'NO';
 
@@ -76,9 +83,9 @@ export class TableGastrointestinalComponent implements OnInit {
       {
         title: this.headerFields[3],
         width: 'string',
-        valuePrepareFunction(value,row) {
+        valuePrepareFunction(value, row) {
           if (value == 0) {
-            return 'SI';           
+            return 'SI';
           } else {
             return 'NO';
 
@@ -89,7 +96,14 @@ export class TableGastrointestinalComponent implements OnInit {
       observations:
       {
         title: this.headerFields[4],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
 

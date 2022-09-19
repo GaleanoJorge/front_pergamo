@@ -24,7 +24,7 @@ export class SkinValorationComponent implements OnInit {
   public nameForm: String;
   public headerFields: any[] = [
     'FECHA','DIAGNOSTICO', 'ZONA EXAMINADA', 'EXUDADO', 'TIPO DE EXUDADO', 'SIGNOS DE INFECCIÓN', 'PIEL CIRCUNDANTE', 'ESTADO DE LA PIEL'
-  ];
+  ,'OBSERVACIONES'];
 
   public isSubmitted: boolean = false;
   public form: FormGroup;
@@ -101,6 +101,17 @@ export class SkinValorationComponent implements OnInit {
       },
       surrounding_skin: {
         title: this.headerFields[6],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if(value){
+            return value;
+          } else {
+            return '--';
+          }
+        },
+      },
+      observation: {
+        title: this.headerFields[8],
         width: 'string',
         valuePrepareFunction(value, row) {
           if(value){

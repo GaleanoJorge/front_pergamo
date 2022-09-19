@@ -67,22 +67,23 @@ export class BillingPadProcedureComponent implements OnInit {
   // @ViewChild('prebilling', { read: TemplateRef }) prebilling: TemplateRef<HTMLElement>;
 
   public settings1 = {
+    selectMode: 'multi',
     pager: {
       display: true,
       perPage: 10,
     },
     columns: {
-      select: {
-        title: 'SELECCIÓN',
-        type: 'custom',
-        valuePrepareFunction: (value, row) => {
-          return {
-            'data': row,
-            'selection': (event, row: any) => this.eventSelections(event, row),
-          };
-        },
-        renderComponent: SelectServiceBillingComponent,
-      },
+      // select: {
+      //   title: 'SELECCIÓN',
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     return {
+      //       'data': row,
+      //       'selection': (event, row: any) => this.eventSelections(event, row),
+      //     };
+      //   },
+      //   renderComponent: SelectServiceBillingComponent,
+      // },
       actions: {
         title: this.headerFields[0],
         type: 'custom',
@@ -341,52 +342,43 @@ export class BillingPadProcedureComponent implements OnInit {
     });
   }
 
-  eventSelections(event, row) {
-    var q = 1;
-    if (row.quantity) {
-      q = row.quantity;
-    }
-    if (event) {
+  eventSelections(row) {
+    this.selectedOptions = [];
+    row.forEach(element => {
+      var q = 1;
+      if (row.quantity) {
+        q = row.quantity;
+      }
       var add = {
-        id: row.id,
+        id: element.id,
         quantity: q,
         services_briefcase: {
-          value: (row.services_briefcase.value * q),
+          value: (element.services_briefcase.value * q),
           manual_price: {
-            homologous_id: row.services_briefcase.manual_price.homologous_id,
-            name: row.services_briefcase.manual_price.name,
+            homologous_id: element.services_briefcase.manual_price.homologous_id,
+            name: element.services_briefcase.manual_price.name,
           },
         },
-        supplies_com: row.supplies_com != undefined ? {
-          code_cum: row.supplies_com.code_cum,
+        supplies_com: element.supplies_com != undefined ? {
+          code_cum: element.supplies_com.code_cum,
         } : null,
-        product_com: row.product_com != undefined ? {
-          code_cum: row.product_com.code_cum,
+        product_com: element.product_com != undefined ? {
+          code_cum: element.product_com.code_cum,
         } : null,
-        fixed_add_id: row.fixed_add_id != undefined ? {
-          code_cum: row.fixed_add_id.observation,
+        fixed_add_id: element.fixed_add_id != undefined ? {
+          code_cum: element.fixed_add_id.observation,
         } : null,
-        assigned_management_plan: row.assigned_management_plan != undefined ? {
-          execution_date: row.assigned_management_plan.execution_date,
+        assigned_management_plan: element.assigned_management_plan != undefined ? {
+          execution_date: element.assigned_management_plan.execution_date,
           user: {
-            firstname: row.assigned_management_plan.user.firstname,
-            lastname: row.assigned_management_plan.user.lastname,
+            firstname: element.assigned_management_plan.user.firstname,
+            lastname: element.assigned_management_plan.user.lastname,
           },
         } : null,
       }
       this.selectedOptions.push(add);
-      this.count_billing += (row.services_briefcase.value * q);
-    } else {
-      this.count_billing -= (row.services_briefcase.value * q);
-      var prov = this.selectedOptions;
-      this.selectedOptions = [];
-      prov.forEach(x => {
-        if (x.id != row.id) {
-          this.selectedOptions.push(x);
-        }
-      });
-    }
-    console.log(1);
+    });
+    
   }
 
   goBack() {
