@@ -52,8 +52,6 @@ export class SocialWorkListComponent implements OnInit {
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
   public signatureImage: string;
-  public has_input: any = null; // ya existe registro de ingreso
-  public input_done: boolean = false; // ya se registró algo en el ingreso
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
