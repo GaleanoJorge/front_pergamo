@@ -1,5 +1,5 @@
 <div *ngIf="has_input == false">
-  <ngx-form-signs (messageEvent)="receiveMessage($event)" [record_id]="record_id" [data]="data"  [admissions]="admissions">
+  <ngx-form-signs (messageEvent)="receiveMessage($event)" [record_id]="record_id" [data]="data"  [admissions]="admissions" [type_record_id]="type_record_id">
   </ngx-form-signs>
 </div>
 <div class="center">
@@ -7,7 +7,7 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table pager="false" [title]="title" customData="ch_vital_signs" [settings]="settings"
-      entity="ch_vital_signs/by_record/{{record_id}}/1">
+      entity="ch_vital_signs/by_record/{{record_id}}/{{type_record_id}}">
       <div actions>
         <div class="actions">
         </div>

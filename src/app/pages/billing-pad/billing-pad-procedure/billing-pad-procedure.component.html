@@ -4,7 +4,7 @@
   <nb-card-body>
     <ngx-base-list [messageError]="messageError" >
       <div content *ngIf="this.show_info">
-        <ngx-base-table pager="false" [settings]="settings" [entity]="entity"
+        <ngx-base-table (propagar)="eventSelections($event)" pager="false" [settings]="settings" [entity]="entity"
         customData="billing_pad" [messageToltip]="messageToltip">
         <div title *ngIf="user">
           <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}}</p>

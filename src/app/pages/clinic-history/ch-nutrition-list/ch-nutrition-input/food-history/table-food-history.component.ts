@@ -19,7 +19,7 @@ export class TableFoodHistoryComponent implements OnInit {
   @Input() route: any = null;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
-  
+
   linearMode = false;
   public messageError = null;
   public title;
@@ -27,16 +27,16 @@ export class TableFoodHistoryComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = ['FECHA',
-                                'DESCRIPCION',
-                                '¿ ES ALÉRGICO E INTOLERANTE A ALGÚN ALIMENTO?',
-                                '¿CUÁL?:',
-                                'APETITO',
-                                'INGESTA',
-                                'DEGLUCIÓN',
-                                'TIPO DE DIETA',
-                                'APETITO',
-                                'NUTRICION PARENTAL',
-                                'CONTROL INGESTA',];
+    'DESCRIPCION',
+    '¿ ES ALÉRGICO E INTOLERANTE A ALGÚN ALIMENTO?',
+    '¿CUÁL?:',
+    'APETITO',
+    'INGESTA',
+    'DEGLUCIÓN',
+    'TIPO DE DIETA',
+    'APETITO',
+    'NUTRICION PARENTAL',
+    'CONTROL INGESTA',];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -56,21 +56,28 @@ export class TableFoodHistoryComponent implements OnInit {
         valuePrepareFunction: (value) => {
           return this.datePipe.transform2(value);
         },
-        },
+      },
 
       description:
       {
         title: this.headerFields[1],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       is_allergic:
       {
         title: this.headerFields[2],
         width: 'string',
-        valuePrepareFunction(value,row) {
+        valuePrepareFunction(value, row) {
           if (value == 0) {
-            return 'SI';           
+            return 'SI';
           } else {
             return 'NO';
 
@@ -81,44 +88,93 @@ export class TableFoodHistoryComponent implements OnInit {
       allergy:
       {
         title: this.headerFields[3],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
 
       appetite:
       {
         title: this.headerFields[4],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       intake:
       {
         title: this.headerFields[5],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       swallowing:
       {
         title: this.headerFields[6],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       diet_type:
       {
         title: this.headerFields[7],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       parenteral_nutrition:
       {
         title: this.headerFields[8],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       intake_control:
       {
         title: this.headerFields[9],
-        width: 'string',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
 
