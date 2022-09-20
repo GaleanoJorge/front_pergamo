@@ -30,19 +30,21 @@ export class FormNursingPhysicalExamComponent implements OnInit {
   public ch_physical_exams: any[];
   public ArrayforSaving = [];
   public loadAuxData = true;
-  public arrayMedical: any = 
-  [
+  public arrayMedical: any = [
     {
       id: 0,
-      observation: 'Normocéfalo, conjuntivas normocrómicas, pupilas isocóricas normorreactivas a la luz, mucosa oral húmeda, orofaringe normal, cuello móvil sin adenopatías, no doloroso a la movilización.',
+      observation:
+        'Normocéfalo, conjuntivas normocrómicas, pupilas isocóricas normorreactivas a la luz, mucosa oral húmeda, orofaringe normal, cuello móvil sin adenopatías, no doloroso a la movilización.',
     },
     {
       id: 1,
-      observation: 'Simétrico, normoexpansible, sin presencia de tirajes o retracciones sub o intercostales, ruidos cardíacos rítmicos sin soplos, no S3, ruidos respiratorios claros sin ruidos sobreagregados.',
+      observation:
+        'Simétrico, normoexpansible, sin presencia de tirajes o retracciones sub o intercostales, ruidos cardíacos rítmicos sin soplos, no S3, ruidos respiratorios claros sin ruidos sobreagregados.',
     },
     {
       id: 2,
-      observation: 'Peristalsis (+), blando, no doloroso a la palpación, no se palpan masas ni visceromegalias, no signos de irritación peritoneal.',
+      observation:
+        'Peristalsis (+), blando, no doloroso a la palpación, no se palpan masas ni visceromegalias, no signos de irritación peritoneal.',
     },
     {
       id: 3,
@@ -50,12 +52,13 @@ export class FormNursingPhysicalExamComponent implements OnInit {
     },
     {
       id: 4,
-      observation: 'Simétricas, eutróficas, llenado capilar menor a 2 segundos, no edemas',
+      observation:
+        'Simétricas, eutróficas, llenado capilar menor a 2 segundos, no edemas',
     },
     {
       id: 5,
-      observation: 'Alerta, orientado, fuerza muscular conservada, sin signos de irritación meníngea',
-      
+      observation:
+        'Alerta, orientado, fuerza muscular conservada, sin signos de irritación meníngea',
     },
     {
       id: 6,
@@ -172,12 +175,19 @@ export class FormNursingPhysicalExamComponent implements OnInit {
           this.data = x;
           this.disabled = true;
           this.form.controls.description1.disable();
+          this.form.controls.description1.updateValueAndValidity();
           this.form.controls.description2.disable();
+          this.form.controls.description2.updateValueAndValidity();
           this.form.controls.description3.disable();
+          this.form.controls.description3.updateValueAndValidity();
           this.form.controls.description4.disable();
+          this.form.controls.description4.updateValueAndValidity();
           this.form.controls.description5.disable();
+          this.form.controls.description5.updateValueAndValidity();
           this.form.controls.description6.disable();
+          this.form.controls.description6.updateValueAndValidity();
           this.form.controls.description7.disable();
+          this.form.controls.description7.updateValueAndValidity();
         }
       }
     );
@@ -281,32 +291,25 @@ export class FormNursingPhysicalExamComponent implements OnInit {
             this.loading = false;
           });
       } else {
-        var mesagge;
-        this.ArrayforSaving.forEach(async (element) => {
-          await this.PhysicalExamS.Save({
-            type_ch_physical_exam_id: element.id,
-            revision: element.revision,
-            description: element.description,
-            type_record_id: this.type_record_id,
-            ch_record_id: this.record_id,
-          })
-            .then((x) => {
-              mesagge = x.message;
-              contador++;
-            })
-            .catch((x) => {
-              err++;
-            });
-        });
-        this.toastService.success('', 'Se ha guardado correctamente');
+        await this.PhysicalExamS.Save({
+          physical_exam: JSON.stringify(this.ArrayforSaving),
+          type_record_id: this.type_record_id,
+          ch_record_id: this.record_id,
+        }).then((x) => {
+          this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+        }).catch((x) => {
+            this.isSubmitted = false;
+            this.loading = false;
+            this.toastService.danger('Ya cuenta con observaciones');
+          });
         this.disabled = true;
         this.loading = false;
         this.messageEvent.emit(true);
       }
-    } else{
-      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+    } else {
+      this.toastService.warning('', 'Debe diligenciar los campos obligatorios');
     }
-    
   }
 
   makeArray() {

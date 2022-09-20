@@ -328,6 +328,7 @@ export class ManagementPlanComponent implements OnInit {
       context: {
         title: 'Crear plan de manejo',
         assigned: true,
+        admissions1:this.admissions1,
         user: this.user,
         medical: this.medical,
         admissions_id: this.admissions_id,

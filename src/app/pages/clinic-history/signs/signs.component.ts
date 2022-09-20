@@ -18,6 +18,7 @@ export class SignsListComponent implements OnInit {
   @Input() record_id;
   @Input() has_input: boolean = false;
   @Input() admissions: any = null;
+  @Input() type_record_id;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   

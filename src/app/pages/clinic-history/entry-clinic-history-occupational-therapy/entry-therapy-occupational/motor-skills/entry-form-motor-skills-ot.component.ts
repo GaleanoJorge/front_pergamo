@@ -216,7 +216,7 @@ export class EntryFormMotorSkillsOTComponent implements OnInit {
   //   }
   // }
 
-  receiveMessage($event) {
+  inputMessage($event) {
     if ($event == true) {
       this.messageEvent.emit($event);
     }

@@ -14,7 +14,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
-            <ngx-signs  [record_id]="record_id" [admissions]="admissions" (messageEvent)="inputMessage($event)" [has_input]="has_input" ></ngx-signs>
+            <ngx-signs  [record_id]="record_id" [admissions]="admissions" (messageEvent)="inputMessage($event)" [has_input]="has_input" [type_record_id]="type_record_id"></ngx-signs>
           </nb-step>
           <!-- *ngIf="vitalsigns" [data]="vitalsigns"  -->
 

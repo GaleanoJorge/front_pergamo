@@ -20,6 +20,7 @@ export class FormsignsComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record_id: any = null;
   @Input() admissions: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
@@ -328,7 +329,7 @@ export class FormsignsComponent implements OnInit {
           liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
           parameters_signs_id: [this.data.parameters_signs_id],
           has_oxigen: this.form.controls.has_oxigen.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -379,7 +380,7 @@ export class FormsignsComponent implements OnInit {
           liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
           parameters_signs_id: this.form.controls.parameters_signs_id.value,
           has_oxigen: this.form.controls.has_oxigen.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -480,7 +481,7 @@ export class FormsignsComponent implements OnInit {
 
       this.form.controls.parameters_signs_id.setErrors(null);
 
-    } else {
+    } else if (val != 9 && val != '') {
       this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
       this.form.patchValue({ parameters_signs_id:''});
 
