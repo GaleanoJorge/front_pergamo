@@ -19,7 +19,7 @@
             status="{{ isSubmitted && form.controls.fixed_clasification_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.fixed_clasification_id }}" *ngFor="let item of fixed_clasification"
-              [value]="item.id">{{ item.name }}</nb-option>
+              [value]="item.id">{{item.fixed_code.name}} - {{ item.name }}</nb-option>
           </nb-select>
         </div>
 
