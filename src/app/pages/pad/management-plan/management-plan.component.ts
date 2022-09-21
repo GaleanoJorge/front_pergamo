@@ -343,6 +343,7 @@ export class ManagementPlanComponent implements OnInit {
         title: 'Asignar personal asistencial',
         data,
         user: this.user,
+        admissions1:this.admissions1,
         medical: 0,
         assigned: false,
         admissions_id: this.admissions_id,
@@ -356,6 +357,7 @@ export class ManagementPlanComponent implements OnInit {
       context: {
         title: 'Editar plan de manejo',
         data,
+        admissions1:this.admissions1,
         edit: 1,
         user: this.user,
         medical: 0,

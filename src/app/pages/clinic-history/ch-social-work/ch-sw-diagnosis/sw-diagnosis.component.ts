@@ -24,7 +24,7 @@ export class SwDiagnosisComponent implements OnInit {
   public messageError = null;
   public title: string = '';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha', 'Diagnóstico de ingreso', 'Diagnóstico',];
+  public headerFields: any[] = ['Fecha', 'Diagnóstico de ingreso','Clase', 'Tipo'];
   public routes = [];
   public loading: boolean = false;
   public saved: any = null;
@@ -47,27 +47,30 @@ export class SwDiagnosisComponent implements OnInit {
           return this.datePipe.transform2(value);
         },
       },
-      ch_diagnosis: {
+      diagnosis: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value.diagnosis.name;
+            return value.name;
           } else {
             return 'NO APLICA'
           }
         }
       },
-      sw_diagnosis: {
+      ch_diagnosis_class: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (value) {
-            return value;
-          } else {
-            return 'NO APLICA'
-          }
-        }
+          return value.name;
+        },
+      },
+      ch_diagnosis_type: {
+        title: this.headerFields[3],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
       },
     },
   };
@@ -81,7 +84,7 @@ export class SwDiagnosisComponent implements OnInit {
   }
 
   async ngOnInit() {
-  }
+    this.has_input=true;  }
 
   RefreshData() {
     this.table.refresh();
