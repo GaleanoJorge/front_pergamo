@@ -1,5 +1,5 @@
-<form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="margin: 10px;width: 100%;height: 100%;overflow: auto;">
+<form [formGroup]="form" (ngSubmit)="save()" style="width: 98%;height: 97%;overflow: auto; margin: 10px;">
+  <nb-card >
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
@@ -220,9 +220,12 @@
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton status="warning" (click)="RentAccountReceivable()" type="button">Rechazar</button>
-      <button nbButton status="basic" (click)="close()" type="button">Cancelar</button>
-      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">{{this.button_save}}</button>
+      <div class="row">
+        <button nbButton status="warning" class="ml-1 btn-save"  (click)="RentAccountReceivable()" type="button">Rechazar</button>
+        <button nbButton status="basic" class="ml-1 btn-save"  (click)="close()" type="button">Cancelar</button>
+        <button nbButton status="danger" class="ml-1 btn-save"  disabled="{{ loading }}">{{this.button_save}}</button>
+        
+      </div>
     </nb-card-footer>
   </nb-card>
 </form>
