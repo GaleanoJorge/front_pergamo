@@ -9,6 +9,7 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
 import { FormFixedPlanComponent } from './form-fixed-plan/form-fixed-plan.component';
 import { FixedPadEnabledComponent } from './fixed-pad-enabled/fixed-pad-enabled.component';
+import { UsersFixedStockService } from '../../../../business-controller/users-fixed-stock.service';
 
 @Component({
   selector: 'ngx-fixed-plan',
@@ -32,6 +33,7 @@ export class FixedPlanComponent implements OnInit {
   public my_fixed_id;
   public user1;
   public entity: string = null;
+  public fixed_stock;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -89,6 +91,7 @@ export class FixedPlanComponent implements OnInit {
     private authService: AuthService,
     private FixedAssetsS: FixedAssetsService,
     public datePipe: DateFormatPipe,
+    private UsersFixedStockS: UsersFixedStockService,
   ) {
   }
 
@@ -96,7 +99,9 @@ export class FixedPlanComponent implements OnInit {
     this.entity = 'fixed_add/?pagination=true&status=PATIENT&admissions=' + this.admissions_id;
     this.user1 = this.authService.GetUser();
     this.FixedAssetsS.getFixedByUserId(this.user1.id, {}).then(x => {
-
+    });
+     this.UsersFixedStockS.getFixedUserId(this.user.id).then(x => {
+      this.fixed_stock = x;
     });
   }
 
