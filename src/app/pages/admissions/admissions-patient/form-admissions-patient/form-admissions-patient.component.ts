@@ -106,7 +106,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
 
 
-
     this.form = this.formBuilder.group({
       diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
       admission_route_id: [this.data.admission_route_id, Validators.compose([Validators.required])],
@@ -142,6 +141,23 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.regimeS.GetCollection().then(x => {
       this.regime = x;
     });
+
+    if (this.data.eps) {
+      this.diagnosis_id = this.data.diagnosis;
+      if (!this.data.diagnosis_id) {
+        this.DiagnosisS.GetCollection({
+          id: this.data.diagnosis,
+        }).then(x => {
+          this.diagnosis = x;
+          this.form.patchValue({
+            diagnosis_id: this.diagnosis[0].name,
+          });
+        });
+      }
+      this.epsChanged(this.data.eps);
+      this.admissionRouteChanged(this.data.admission_route_id);
+      this.ShowDiagnostic(this.data.admission_route_id);
+    }
 
     this.onChanges();
   }
@@ -228,7 +244,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
               this.stored();
             }
           }).catch(x => {
-            this.toastService.danger(null, "Ya se creo una admisión con el mismo programa");
+            this.toastService.danger(null, "Ya se creó una admisión con el mismo programa");
             this.isSubmitted = false;
             this.loading = false;
           });
@@ -368,47 +384,13 @@ export class FormAdmissionsPatientComponent implements OnInit {
   onChanges() {
 
     this.form.get('eps').valueChanges.subscribe(val => {
-      if (val === '') {
-        this.contract = [];
-      } else {
-        this.ContractS.GetCollection({ company_id: val }).then(x => {
-          this.contract = x;
-        });
-      }
-      this.form.patchValue({
-        contract_id: '',
-      });
+      this.epsChanged(val);
     });
 
 
 
     this.form.get('admission_route_id').valueChanges.subscribe(val => {
-      // console.log(val);
-      this.route = val;
-      if (val === '') {
-        this.scope_of_attention = [];
-      } else if (val == 2) {
-        this.form.controls.has_caregiver.setValue(true);
-        this.form.controls.has_caregiver.disable();
-        this.form.controls.procedure_id.clearValidators();
-        this.form.controls.procedure_id.setErrors(null);
-
-
-      } else {
-        if (val == 1) {
-          this.form.controls.procedure_id.setValidators(Validators.compose([Validators.required]));
-          this.form.controls.has_caregiver.setValue(false);
-          this.form.controls.has_caregiver.enable();
-        } else {
-          this.form.controls.procedure_id.clearValidators();
-          this.form.controls.procedure_id.setErrors(null);
-        }
-
-      }
-      this.GetScope(val).then();
-      this.form.patchValue({
-        scope_of_attention_id: '',
-      });
+      this.admissionRouteChanged(val);
     });
 
     this.form.get('scope_of_attention_id').valueChanges.subscribe(val => {
@@ -468,6 +450,48 @@ export class FormAdmissionsPatientComponent implements OnInit {
       });
     });
 
+  }
+
+  admissionRouteChanged(val) {
+    // console.log(val);
+    this.route = val;
+    if (val === '') {
+      this.scope_of_attention = [];
+    } else if (val == 2) {
+      this.form.controls.has_caregiver.setValue(true);
+      this.form.controls.has_caregiver.disable();
+      this.form.controls.procedure_id.clearValidators();
+      this.form.controls.procedure_id.setErrors(null);
+
+
+    } else {
+      if (val == 1) {
+        this.form.controls.procedure_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.has_caregiver.setValue(false);
+        this.form.controls.has_caregiver.enable();
+      } else {
+        this.form.controls.procedure_id.clearValidators();
+        this.form.controls.procedure_id.setErrors(null);
+      }
+
+    }
+    this.GetScope(val).then();
+    this.form.patchValue({
+      scope_of_attention_id: '',
+    });
+  }
+
+  epsChanged(val) {
+    if (val === '') {
+      this.contract = [];
+    } else {
+      this.ContractS.GetCollection({ company_id: val }).then(x => {
+        this.contract = x;
+      });
+    }
+    this.form.patchValue({
+      contract_id: '',
+    });
   }
 
   saveCode(e): void {

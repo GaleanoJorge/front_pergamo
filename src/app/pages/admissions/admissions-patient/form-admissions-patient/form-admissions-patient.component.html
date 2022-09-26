@@ -113,7 +113,7 @@
         <div class="col-md-6" *ngIf="this.form.value.admission_route_id==1">
           <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimientos del portafolio:</label>
           <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth
-            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
               [value]="item.manual_price.procedure.id">
@@ -133,7 +133,7 @@
   
       </nb-card-footer> -->
     <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton (click)="close()" type="button">Cerrar</button>
+      <button *ngIf="!this.data.eps" nbButton (click)="close()" type="button">Cerrar</button>
       <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" (click)="save()">Guardar admisión</button>
     </nb-card-footer>
   </nb-card>

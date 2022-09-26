@@ -100,6 +100,7 @@ export class Actions2Component implements ViewCell {
 
   async ngOnInit() {
     this.show = (
+      this.value.role == 1  || // SUPER-ADMIN
       this.value.role == 23 || // PAD - GESTOR
       this.value.role == 26 || // PAD - GESTOR PHD
       this.value.role == 27 || // PAD - ANALISTA ADMIN
@@ -112,6 +113,7 @@ export class Actions2Component implements ViewCell {
         this.value.status == 0 ? true : false :
         // TH 
         (
+          this.value.role == 1  || // SUPER-ADMIN
           this.value.role == 17 || // TH - DIRECTOR
           this.value.role == 24 || // TH - GESTOR
           this.value.role == 25) ? // TH - COORDINADOR
