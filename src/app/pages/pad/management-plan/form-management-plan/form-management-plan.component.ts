@@ -28,6 +28,7 @@ export class FormManagementPlanComponent implements OnInit {
   @Input() assigned: boolean;
   @Input() edit: any=null;
   @Input() admissions_id: any = null;
+  @Input() admissions1: any = null;
 
   public form: FormGroup;
   public loading: boolean = false;
@@ -147,7 +148,7 @@ export class FormManagementPlanComponent implements OnInit {
     this.AdministrationRouteS.GetCollection().then(x => {
       this.route_of_administration = x;
     });
-    this.serviceBriefcaseS.GetByBriefcase({ type: '2',patient:this.user.id }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+    this.serviceBriefcaseS.GetByBriefcase({ type: '2',patient:this.user.id }, this.admissions1[0].briefcase.id).then(x => {
       this.product_gen = x;
     });
     this.typeOfAttentionS.GetCollection().then(x => {
@@ -159,7 +160,7 @@ export class FormManagementPlanComponent implements OnInit {
     this.frequencyS.GetCollection().then(x => {
       this.frequency = x;
     });
-    this.serviceBriefcaseS.GetByBriefcase({ type: '4',patient:this.user.id }, this.user.admissions[this.user.admissions.length - 1].briefcase_id).then(x => {
+    this.serviceBriefcaseS.GetByBriefcase({ type: '4',patient:this.user.id }, this.admissions1[0].briefcase.id).then(x => {
       this.procedure = x;
     });
     this.specialField.GetCollection({

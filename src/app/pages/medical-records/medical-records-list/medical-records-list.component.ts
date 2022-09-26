@@ -7,6 +7,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { PatientService } from '../../../business-controller/patient.service';
+import { ChTypeService } from '../../../business-controller/ch-type.service';
 @Component({
   selector: 'ngx-medical-records-list',
   templateUrl: './medical-records-list.component.html',
@@ -75,6 +76,7 @@ export class MedicalRecordsListComponent implements OnInit {
   public parentData: any;
   public previewFile = null;
   public patient_id;
+  public ch_type;
 
 
 
@@ -92,6 +94,7 @@ export class MedicalRecordsListComponent implements OnInit {
     private toastS: NbToastrService,
     private chRecordS: ChRecordService,
     private patientS: PatientService,
+    private chTypeS: ChTypeService,
 
 
     // private renderer2: Renderer2,
@@ -268,7 +271,7 @@ export class MedicalRecordsListComponent implements OnInit {
       start_date: '',
       finish_date: '',
       state_gloss: '',
-      briefcase_id: '',
+      ch_type: '',
       contract_id: '',
       admissions_id: '',
       patient_id: ''
@@ -284,8 +287,8 @@ export class MedicalRecordsListComponent implements OnInit {
       finish_date: [
         this.data.finish_date,
       ],
-      briefcase_id: [
-        this.data.briefcase_id,
+      ch_type: [
+        this.data.ch_type,
       ],
       contract_id: [
         this.data.contract_id,
@@ -325,6 +328,10 @@ export class MedicalRecordsListComponent implements OnInit {
       this.patient = x;
     });
 
+    await this.chTypeS.GetCollection().then(x => {
+      this.ch_type = x;
+    });
+
     this.xlsForm = this.formBuilder.group({
       state_gloss: [
         this.data.state_gloss,
@@ -362,7 +369,7 @@ export class MedicalRecordsListComponent implements OnInit {
 
     var filter = this.patient.filter(patient => patient.identification == e.target.value);
     if (filter) {
-      this.admissions = filter[0].admissions;
+      this.admissions = filter[0].id;
 
     }
 
@@ -443,19 +450,27 @@ export class MedicalRecordsListComponent implements OnInit {
   }
 
   FilterHC() {
+    this.loading = true;
     this.chRecordS.ViewAllHC({
       start_date:this.form.controls.start_date.value,
       finish_date:this.form.controls.finish_date.value,
-      admissions: JSON.stringify(this.admissions),
+      admissions: this.admissions,
+      ch_type:this.form.controls.ch_type.value,
+
 
     }).then(x => {
-      this.toastService.success('', x.message);
-      this.close();
+      this.toastS.success('', x.message);
+      window.open(x.url, '_blank');
+      this.loading = false;
 
       if (this.saved) {
         this.saved();
       }
-  });
+  }).catch(x => {
+    this.toastS.warning('', x);
+    this.isSubmitted = false;
+    this.loading = false;
+  });;
 }
 
   FilterStatus(status) {
