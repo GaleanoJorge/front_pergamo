@@ -5,6 +5,7 @@ import { FormFixedInventaryComponent } from './form-fixed-inventary/form-fixed-i
 import { AuthService } from '../../../services/auth.service';
 import { ActionsInFixComponent } from './actionsInFix.component';
 import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
+import { UsersFixedStockService } from '../../../business-controller/users-fixed-stock.service';
 
 @Component({
   selector: 'ngx-fixed-inventary',
@@ -25,6 +26,7 @@ export class FixedInventaryComponent implements OnInit {
   public entity;
   public user;
   public my_fixed_id;
+  public fixed_stock;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -94,6 +96,7 @@ export class FixedInventaryComponent implements OnInit {
     private authService: AuthService,
     private FixedAssetsS: FixedAssetsService,
     private toastService: NbToastrService,
+    private UsersFixedStockS: UsersFixedStockService,
 
   ) {
   }
@@ -109,7 +112,9 @@ export class FixedInventaryComponent implements OnInit {
         this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
        }
     });
-    
+    this.UsersFixedStockS.getFixedUserId(this.user.id).then(x => {
+      this.fixed_stock = x;
+    });
     
 
   }

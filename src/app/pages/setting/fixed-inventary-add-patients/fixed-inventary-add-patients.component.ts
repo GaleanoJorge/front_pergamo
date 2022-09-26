@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
 import { FormFixedInventaryAddPatientsComponent } from './form-fixed-inventary-add-patients/form-fixed-inventary-add-patients.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { UsersFixedStockService } from '../../../business-controller/users-fixed-stock.service';
 
 @Component({
   selector: 'ngx-fixed-inventary-add-patients',
@@ -25,6 +26,7 @@ export class FixedInventaryAddPatientsComponent implements OnInit {
   public user;
   public validator ;
   public my_fixed_id;
+  public fixed_stock;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -110,6 +112,7 @@ export class FixedInventaryAddPatientsComponent implements OnInit {
     private FixedAssetsS: FixedAssetsService,
     private toastService: NbToastrService,
     public datePipe: DateFormatPipe,
+    private UsersFixedStockS: UsersFixedStockService,
 
   ) {
   }
@@ -124,6 +127,9 @@ export class FixedInventaryAddPatientsComponent implements OnInit {
       }else {
         this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
        }
+    });
+    this.UsersFixedStockS.getFixedUserId(this.user.id).then(x => {
+      this.fixed_stock = x;
     });
   }
 
