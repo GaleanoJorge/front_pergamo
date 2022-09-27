@@ -13,6 +13,7 @@ import { BaseTableComponent } from '../../../../components/base-table/base-table
 })
 export class RNTheraputicObjOTComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @ViewChild(BaseTableComponent) table2: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
   linearMode = false;
@@ -21,12 +22,37 @@ export class RNTheraputicObjOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Fecha','Concepto Ocupacional', 'Nota1', 'Nota2', 'Nota3', 'Nota4', 'Nota5', 'Nota5', 'Nota7', 'Nota8', 'Nota9', 'Nota10'];
+  public headerFields: any[] = ['Fecha', 'Objetivo 1', 'Objetivo 2', 'Objetivo 3', 'Objetivo 4', 'Objetivo 5', 'Objetivo 6', 'Objetivo 7', 'Objetivo 8', 'Objetivo 9', 'Objetivo 10', 'Intervención'];
+  public concept: any[] = ['Fecha','Concepto Ocupacional'];
 
   public form: FormGroup;
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
+
+  public settings2 = {
+    pager: {
+      display: true,
+      perPage: 30,
+    },
+    columns: {
+
+
+      created_at: {
+        title: this.concept[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      
+
+      occupational_con: {
+        title: this.concept[1],
+        width: 'string',
+      },
+    },
+  };
 
   public settings = {
     pager: {
@@ -45,60 +71,65 @@ export class RNTheraputicObjOTComponent implements OnInit {
         },
       
 
-      occupational_con: {
-        title: this.headerFields[1],
-        width: 'string',
-      },
       check1_hold: {
-        title: this.headerFields[2],
+        title: this.headerFields[1],
         width: 'string',
 
       },
       
       check2_improve: {
-        title: this.headerFields[3],
+        title: this.headerFields[2],
         width: 'string',
 
       },
+
       check3_structure: {
-        title: this.headerFields[4],
+        title: this.headerFields[3],
         width: 'string',
       },
    
       check4_promote: {
-        title: this.headerFields[5],
+        title: this.headerFields[4],
         width: 'string',
 
       },
+
       check5_strengthen: {
-        title: this.headerFields[6],
+        title: this.headerFields[5],
         width: 'string',
       },
       
       check6_promote_2: {
-        title: this.headerFields[7],
+        title: this.headerFields[6],
         width: 'string',
 
       },
+
       check7_develop: {
-        title: this.headerFields[8],
+        title: this.headerFields[7],
         width: 'string',
       },
     
       check8_strengthen_2: {
-        title: this.headerFields[9],
+        title: this.headerFields[8],
         width: 'string',
 
       },
+
       check9_favor: {
+        title: this.headerFields[9],
+        width: 'string',
+      },
+
+      check10_functionality: {
         title: this.headerFields[10],
         width: 'string',
       },
-      check10_functionality: {
+
+      occupational_con: {
         title: this.headerFields[11],
         width: 'string',
       },
-
 
     },
   };
@@ -118,9 +149,14 @@ export class RNTheraputicObjOTComponent implements OnInit {
     this.table.refresh();
   }
 
+  RefreshData2() {
+    this.table2.refresh();
+  }
+
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      this.RefreshData2();
     }
   }
 }

@@ -52,6 +52,64 @@
             </ngx-entry-form-motor-skills-ot>
           </nb-step>
 
+          <nb-step label='Coincidencia Termica'>
+            <ngx-table-thermal-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+            </ngx-table-thermal-m-ot>
+          </nb-step>
+
+        </nb-stepper>
+
+        <nb-stepper #stepper [linear]="linearMode">
+
+          <nb-step label='Discriminacion Auditiva'>
+            <ngx-table-dis-auditory-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+            </ngx-table-dis-auditory-m-ot>
+          </nb-step>
+
+          <nb-step label='Discriminacion Tactil'>
+            <ngx-table-dis-tactile-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+            </ngx-table-dis-tactile-m-ot>
+          </nb-step>
+
+          <nb-step label='Agudeza'>
+            <ngx-table-acuity-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+            </ngx-table-acuity-m-ot>
+          </nb-step>
+
+          <nb-step label='Componente Vestibular'>
+            <ngx-table-component-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+            </ngx-table-component-m-ot>
+          </nb-step>
+
+          <nb-step label='Examen Mental'>
+            <ngx-table-test-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+            </ngx-table-test-m-ot>
+          </nb-step>
+
+          <nb-step label='Interaccion'>
+            <ngx-table-communication-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+            </ngx-table-communication-m-ot>
+          </nb-step>
+
+          <nb-step label='Valoracion Diaria'>
+            <ngx-table-assessment-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+            </ngx-table-assessment-m-ot>
+          </nb-step>
+
+          <nb-step label='Sesiones'>
+            <ngx-table-weekly-int-m-ot  [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+            </ngx-table-weekly-int-m-ot >
+          </nb-step>
+
         </nb-stepper>
 
       </nb-tab>
@@ -83,7 +141,7 @@
           </nb-step>
 
 
-          <nb-step label='Materiales e Insumos Utilizados'>
+          <nb-step label='Materiales'>
             <ngx-r-n-materials-ot [type_record_id]="3" *ngIf="chrnmaterials" [record_id]="record_id"
               [data]="chrnmaterials">
 
@@ -91,7 +149,7 @@
           </nb-step>
 
 
-          <nb-step label='Numero De Sesiones Mensuales e Intensidad Semanal'>
+          <nb-step label='Sesiones'>
             <ngx-r-n-weekly-ot [record_id]="record_id">
 
             </ngx-r-n-weekly-ot>

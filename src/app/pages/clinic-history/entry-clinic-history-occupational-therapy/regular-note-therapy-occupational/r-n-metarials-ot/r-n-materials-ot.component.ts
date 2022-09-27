@@ -21,7 +21,7 @@ export class RNMaterialsOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Fecha','Nota1', 'Nota2', 'Nota3', 'Nota4', 'Nota5', 'Nota5', 'Nota7', 'Nota8', 'Nota9', 'Nota10'];
+  public headerFields: any[] = ['Fecha','Material 1', 'Material 2', 'Material 3', 'Material 4', 'Material 5', 'Material 5', 'Material 7', 'Material 8', 'Material 9', 'Material 10'];
 
   public form: FormGroup;
   public all_changes: any[];
