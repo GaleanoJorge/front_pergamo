@@ -31,6 +31,24 @@ export class ReferenceService {
       });
   }
 
+  getReferenceData(params = {}): Promise<Reference[]> {
+    let servObj = new ServiceObject('reference/getReferenceData/' + 0);
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.reference = <Reference[]>servObj.data.reference;
+
+        return Promise.resolve(this.reference);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(reference: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('reference');
     servObj.data = reference;

@@ -62,22 +62,9 @@
           </nb-radio-group>
         </div>
 
-        <div class="col-md-4" *ngIf="route == 1">
-          <label for="presentation_date" class="form-text text-muted font-weight-bold">FECHA DE PRESENTACIÓN:</label>
-          <input type="date" nbInput fullWidth id="presentation_date" formControlName="presentation_date" start_date
-            status="{{ isSubmitted && form.controls.presentation_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
-        </div>
-
-        <div class="col-md-4" *ngIf="route == 1">
-          <label for="presentation_hour" class="form-text text-muted font-weight-bold align">HORA DE PRESENTACIÓN</label>
-          <input type="time" nbInput id="presentation_hour" formControlName="presentation_hour" presentation_hour
-            fullWidth
-            status="{{ isSubmitted && form.controls.presentation_hour.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-        </div>
-
         <div class="col-md-4">
           <label for="re_input" class="form-text text-muted font-weight-bold">REINGRESO:</label>
-          <nb-radio-group [disabled]="re_input_disabled" formControlName="re_input" re_input id="re_input" class="d-flex" name="re_input"
+          <nb-radio-group disabled formControlName="re_input" re_input id="re_input" class="d-flex" name="re_input"
               status="{{ isSubmitted && form.controls.re_input.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-radio *ngFor="let item of re_input" [value]="item.id">{{ item.name }}</nb-radio>
             </nb-radio-group>
@@ -227,18 +214,6 @@
 
 
 
-        <div class="col-md-4" *ngIf="route == 2">
-          <label for="acceptance_date" class="form-text text-muted font-weight-bold">FECHA DE ACEPTACIÓN:</label>
-          <input type="date" nbInput fullWidth id="acceptance_date" formControlName="acceptance_date" start_date
-            status="{{ isSubmitted && form.controls.acceptance_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
-        </div>
-
-        <div class="col-md-4" *ngIf="route == 2">
-          <label for="acceptance_hour" class="form-text text-muted font-weight-bold align">HORA DE ACEPTACIÓN</label>
-          <input type="time" nbInput id="acceptance_hour" formControlName="acceptance_hour" acceptance_hour
-            fullWidth
-            status="{{ isSubmitted && form.controls.acceptance_hour.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-        </div>
 
         <div class="col-md-4" *ngIf="route == 2">
           <label for="acceptance_campus" class="form-text text-muted font-weight-bold">SEDE:</label>
@@ -326,19 +301,6 @@
 
 
         <div class="col-md-4" *ngIf="route == 3">
-          <label for="denied_date" class="form-text text-muted font-weight-bold">FECHA DE RECHAZO:</label>
-          <input type="date" nbInput fullWidth id="denied_date" formControlName="denied_date" start_date
-            status="{{ isSubmitted && form.controls.denied_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
-        </div>
-
-        <div class="col-md-4" *ngIf="route == 3">
-          <label for="denied_hour" class="form-text text-muted font-weight-bold align">HORA DE RECHAZO</label>
-          <input type="time" nbInput id="denied_hour" formControlName="denied_hour" denied_hour
-            fullWidth
-            status="{{ isSubmitted && form.controls.denied_hour.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-        </div>
-
-        <div class="col-md-4" *ngIf="route == 3">
           <label for="denied_technological_medium" class="form-text text-muted font-weight-bold">MEDIO TECNOLÓGICO
             UTILIZADO:</label>
           <nb-select [selected]="this.data.denied_technological_medium_id" formControlName="denied_technological_medium_id"
@@ -382,6 +344,30 @@
             status="{{ isSubmitted && form.controls.denied_program_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.denied_program_id }}" *ngFor="let item of program"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4" *ngIf="route == 3">
+          <label for="denied_type" class="form-text text-muted font-weight-bold">TIPO DE RECHAZO:</label>
+          <nb-select [selected]="this.data.denied_type_id" formControlName="denied_type_id"
+            id="denied_type_id" fullWidth
+            status="{{ isSubmitted && form.controls.denied_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.denied_type_id }}" *ngFor="let item of denied_type"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        
+        <div class="col-md-4" *ngIf="route == 3">
+          <label for="denied_reason" class="form-text text-muted font-weight-bold">RAZÓN DE RECHAZO:</label>
+          <nb-select [selected]="this.data.denied_reason_id" formControlName="denied_reason_id"
+            id="denied_reason_id" fullWidth
+            status="{{ isSubmitted && form.controls.denied_reason_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.denied_reason_id }}" *ngFor="let item of denied_reason"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>

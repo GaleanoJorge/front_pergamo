@@ -20,6 +20,7 @@ import { ProgramService } from '../../../../business-controller/program.service'
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 import { ReferenceService } from '../../../../business-controller/reference.service';
 import { AdmissionsService } from '../../../../business-controller/admissions.service';
+import { DeniedReasonService } from '../../../../business-controller/denied-reason.service';
 
 
 
@@ -68,6 +69,8 @@ export class FormReferenceComponent implements OnInit {
   public diagnosis = null;
   public providers_of_health_services = null;
   public stay_type = null;
+  public denied_type = null;
+  public denied_reason = null;
   public reference_status = null;
   public campus = null;
   public regime = null;
@@ -84,22 +87,8 @@ export class FormReferenceComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private authService: AuthService,
-    private PatientS: PatientService,
-    private GenderS: GenderBusinessService,
-    private IdentificationTypeS: IdentificationTypeBusinessService,
-    private ProcedureS: ProcedureService,
-    private CompanyS: CompanyService,
+    private DeniedReasonS: DeniedReasonService,
     private DiagnosisS: DiagnosisService,
-    private ProvidersOfHealthServicesS: ProvidersOfHealthServicesService,
-    private StayTypeS: StayTypeService,
-    private ReferenceStatusS: ReferenceStatusService,
-    private CampusS: CampusService,
-    private RegimeS: TypeBriefcaseService,
-    private TechnologicalMediumS: TechnologicalMediumService,
-    private AdmissionRouteS: AdmissionRouteService,
-    private SpecialtyS: SpecialtyService,
-    private ProgramS: ProgramService,
-    private UserS: UserBusinessService,
     private AdmissionsS: AdmissionsService,
     private ReferenceS: ReferenceService,
   ) {
@@ -116,12 +105,6 @@ export class FormReferenceComponent implements OnInit {
         re_input: '',
         age: '',
         intention: '',
-        presentation_date: '',
-        presentation_hour: '',
-        acceptance_date: '',
-        acceptance_hour: '',
-        denied_date: '',
-        denied_hour: '',
         patient_id: '',
         gender_id: '',
         identification_type_id: '',
@@ -150,19 +133,11 @@ export class FormReferenceComponent implements OnInit {
         denied_admission_route_id: '',
         denied_specialty_id: '',
         denied_type_id: '',
+        denied_reason_id: '',
         denied_program_id: '',
         denied_observation: '',
       };
     } else {
-      var a = this.data.presentation_date;
-      var b = this.data.acceptance_date;
-      var c = this.data.denied_date;
-      this.data.presentation_date = a ? this.getDate(a) : '';
-      this.data.presentation_hour = a ? this.getHour(a) : '';
-      this.data.acceptance_date = b ? this.getDate(b) : '';
-      this.data.acceptance_hour = b ? this.getHour(b) : '';
-      this.data.denied_date = c ? this.getDate(c) : '';
-      this.data.denied_hour = c ? this.getHour(c) : '';
       this.data.re_input = this.data.re_input == 0 ? false : true;
       this.DiagnosisS.GetCollection({
         id: this.data.diagnosis_id,
@@ -177,23 +152,14 @@ export class FormReferenceComponent implements OnInit {
       this.diagnosis_id = this.data.diagnosis_id;
     }
 
-    this.PatientS.GetCollection().then(x => {
-      this.patient = x;
+    this.ReferenceS.getReferenceData({ eps: 1, company_category_id: 1 }).then(x => {
+      this.patient = x['patient'];
       if (this.data.patient_id) {
         this.savePatient(this.data.identification);
       }
-    });
-
-    this.GenderS.GetCollection().then(x => {
-      this.gender = x;
-    });
-
-    this.IdentificationTypeS.GetCollection().then(x => {
-      this.identification_type = x;
-    });
-
-    this.ProcedureS.GetCollection().then(x => {
-      this.procedure = x;
+      this.gender = x['gender'];
+      this.identification_type = x['identification_type'];
+      this.procedure = x['procedure'];
       if (this.data.id) {
         var localidentify = this.procedure.find(item => item.id == this.data.procedure_id);
         this.diagnosis_id = localidentify.id;
@@ -201,51 +167,18 @@ export class FormReferenceComponent implements OnInit {
           procedure_id: localidentify.name,
         });
       }
+      this.company = x['company'];
+      this.providers_of_health_services = x['providers_of_health_services'];
+      this.stay_type = x['stay_type'];
+      this.reference_status = x['reference_status'];
+      this.campus = x['campus'];
+      this.regime = x['regime'];
+      this.technological_medium = x['technological_medium'];
+      this.admission_route = x['admission_route'];
+      this.specialty = x['specialty'];
+      this.program = x['program'];
+      this.denied_type = x['role_type'];
     });
-
-    this.CompanyS.GetCollection({ eps: 1, company_category_id: 1 }).then(x => {
-      this.company = x;
-    });
-
-    this.ProvidersOfHealthServicesS.GetCollection().then(x => {
-      this.providers_of_health_services = x;
-    });
-
-    this.StayTypeS.GetCollection().then(x => {
-      this.stay_type = x;
-    });
-
-    this.ReferenceStatusS.GetCollection().then(x => {
-      this.reference_status = x;
-    });
-
-    this.CampusS.GetCollection().then(x => {
-      this.campus = x;
-    });
-
-    this.RegimeS.GetCollection().then(x => {
-      this.regime = x;
-    });
-
-    this.TechnologicalMediumS.GetCollection().then(x => {
-      this.technological_medium = x;
-    });
-
-    this.AdmissionRouteS.GetCollection().then(x => {
-      this.admission_route = x;
-    });
-
-    this.SpecialtyS.GetCollection().then(x => {
-      this.specialty = x;
-    });
-
-    this.ProgramS.GetCollection().then(x => {
-      this.program = x;
-    });
-
-    // this.UserS.GetCollection().then(x => {
-    //   this.tutor = x;
-    // });
 
 
     this.form = this.formBuilder.group({
@@ -255,12 +188,6 @@ export class FormReferenceComponent implements OnInit {
       re_input: [this.data.re_input, []],
       age: [this.data.age, []],
       intention: [this.data.intention, []],
-      presentation_date: [this.data.presentation_date, []],
-      presentation_hour: [this.data.presentation_hour, []],
-      acceptance_date: [this.data.acceptance_date, []],
-      acceptance_hour: [this.data.acceptance_hour, []],
-      denied_date: [this.data.denied_date, []],
-      denied_hour: [this.data.denied_hour, []],
       patient_id: [this.data.patient_id, []],
       gender_id: [this.data.gender_id, []],
       identification_type_id: [this.data.identification_type_id, []],
@@ -288,6 +215,7 @@ export class FormReferenceComponent implements OnInit {
       denied_admission_route_id: [this.data.request_admission_route_id, []],
       denied_specialty_id: [this.data.request_specialty_id, []],
       denied_type_id: [this.data.denied_type_id, []],
+      denied_reason_id: [this.data.denied_reason_id, []],
       denied_program_id: [this.data.request_program_id, []],
       denied_observation: [this.data.denied_observation, []],
     });
@@ -299,8 +227,6 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.re_input.setValidators(Validators.compose([Validators.required]));
       this.form.controls.age.setValidators(Validators.compose([Validators.required]));
       this.form.controls.intention.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.presentation_date.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.presentation_hour.setValidators(Validators.compose([Validators.required]));
       this.form.controls.gender_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.identification_type_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.procedure_id.setValidators(Validators.compose([Validators.required]));
@@ -316,8 +242,6 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.request_program_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.request_observation.setValidators(Validators.compose([Validators.required]));
 
-      this.form.controls.acceptance_date.setErrors(null);
-      this.form.controls.acceptance_hour.setErrors(null);
       this.form.controls.acceptance_campus_id.setErrors(null);
       this.form.controls.acceptance_regime_id.setErrors(null);
       this.form.controls.acceptance_technological_medium_id.setErrors(null);
@@ -326,12 +250,11 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.acceptance_program_id.setErrors(null);
       this.form.controls.acceptance_observation.setErrors(null);
 
-      this.form.controls.denied_date.setErrors(null);
-      this.form.controls.denied_hour.setErrors(null);
       this.form.controls.denied_technological_medium_id.setErrors(null);
       this.form.controls.denied_admission_route_id.setErrors(null);
       this.form.controls.denied_specialty_id.setErrors(null);
       this.form.controls.denied_type_id.setErrors(null);
+      this.form.controls.denied_reason_id.setErrors(null);
       this.form.controls.denied_program_id.setErrors(null);
       this.form.controls.denied_observation.setErrors(null);
     } else if (this.route == 2) {
@@ -341,8 +264,6 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.re_input.setErrors(null);
       this.form.controls.age.setErrors(null);
       this.form.controls.intention.setErrors(null);
-      this.form.controls.presentation_date.setErrors(null);
-      this.form.controls.presentation_hour.setErrors(null);
       this.form.controls.gender_id.setErrors(null);
       this.form.controls.identification_type_id.setErrors(null);
       this.form.controls.procedure_id.setErrors(null);
@@ -358,8 +279,6 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.request_program_id.setErrors(null);
       this.form.controls.request_observation.setErrors(null);
 
-      this.form.controls.acceptance_date.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.acceptance_hour.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_campus_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_regime_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_technological_medium_id.setValidators(Validators.compose([Validators.required]));
@@ -368,12 +287,11 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.acceptance_program_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_observation.setValidators(Validators.compose([Validators.required]));
 
-      this.form.controls.denied_date.setErrors(null);
-      this.form.controls.denied_hour.setErrors(null);
       this.form.controls.denied_technological_medium_id.setErrors(null);
       this.form.controls.denied_admission_route_id.setErrors(null);
       this.form.controls.denied_specialty_id.setErrors(null);
       this.form.controls.denied_type_id.setErrors(null);
+      this.form.controls.denied_reason_id.setErrors(null);
       this.form.controls.denied_program_id.setErrors(null);
       this.form.controls.denied_observation.setErrors(null);
     } else if (this.route == 3) {
@@ -383,8 +301,6 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.re_input.setErrors(null);
       this.form.controls.age.setErrors(null);
       this.form.controls.intention.setErrors(null);
-      this.form.controls.presentation_date.setErrors(null);
-      this.form.controls.presentation_hour.setErrors(null);
       this.form.controls.gender_id.setErrors(null);
       this.form.controls.identification_type_id.setErrors(null);
       this.form.controls.procedure_id.setErrors(null);
@@ -400,8 +316,6 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.request_program_id.setErrors(null);
       this.form.controls.request_observation.setErrors(null);
 
-      this.form.controls.acceptance_date.setErrors(null);
-      this.form.controls.acceptance_hour.setErrors(null);
       this.form.controls.acceptance_campus_id.setErrors(null);
       this.form.controls.acceptance_regime_id.setErrors(null);
       this.form.controls.acceptance_technological_medium_id.setErrors(null);
@@ -410,12 +324,11 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.acceptance_program_id.setErrors(null);
       this.form.controls.acceptance_observation.setErrors(null);
 
-      this.form.controls.denied_date.setValidators(Validators.compose([Validators.required]));
-      this.form.controls.denied_hour.setValidators(Validators.compose([Validators.required]));
       this.form.controls.denied_technological_medium_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.denied_admission_route_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.denied_specialty_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.denied_type_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.denied_reason_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.denied_program_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.denied_observation.setValidators(Validators.compose([Validators.required]));
     }
@@ -432,8 +345,6 @@ export class FormReferenceComponent implements OnInit {
       this.gender_id_disabled = true;
       if (this.route != 1) {
         this.form.controls.intention.disable();
-        this.form.controls.presentation_date.disable();
-        this.form.controls.presentation_hour.disable();
         this.form.controls.procedure_id.disable();
         this.form.controls.company_id.disable();
         this.form.controls.diagnosis_id.disable();
@@ -458,8 +369,6 @@ export class FormReferenceComponent implements OnInit {
           id: this.data.id,
           user_id: this.user.id,
           route: this.route,
-          acceptance_date: this.form.controls.acceptance_date.value,
-          acceptance_hour: this.form.controls.acceptance_hour.value,
           acceptance_campus_id: this.form.controls.acceptance_campus_id.value,
           acceptance_regime_id: this.form.controls.acceptance_regime_id.value,
           acceptance_technological_medium_id: this.form.controls.acceptance_technological_medium_id.value,
@@ -467,12 +376,11 @@ export class FormReferenceComponent implements OnInit {
           acceptance_specialty_id: this.form.controls.acceptance_specialty_id.value,
           acceptance_program_id: this.form.controls.acceptance_program_id.value,
           acceptance_observation: this.form.controls.acceptance_observation.value,
-          denied_date: this.form.controls.denied_date.value,
-          denied_hour: this.form.controls.denied_hour.value,
           denied_technological_medium_id: this.form.controls.denied_technological_medium_id.value,
           denied_admission_route_id: this.form.controls.denied_admission_route_id.value,
           denied_specialty_id: this.form.controls.denied_specialty_id.value,
           denied_type_id: this.form.controls.denied_type_id.value,
+          denied_reason_id: this.form.controls.denied_reason_id.value,
           denied_program_id: this.form.controls.denied_program_id.value,
           denied_observation: this.form.controls.denied_observation.value,
 
@@ -485,8 +393,6 @@ export class FormReferenceComponent implements OnInit {
           re_input: this.form.controls.re_input.value,
           age: this.form.controls.age.value,
           intention: this.form.controls.intention.value,
-          presentation_date: this.form.controls.presentation_date.value,
-          presentation_hour: this.form.controls.presentation_hour.value,
           gender_id: this.form.controls.gender_id.value,
           identification_type_id: this.form.controls.identification_type_id.value,
           company_id: this.form.controls.company_id.value,
@@ -543,8 +449,6 @@ export class FormReferenceComponent implements OnInit {
           re_input: this.form.controls.re_input.value,
           age: this.form.controls.age.value,
           intention: this.form.controls.intention.value,
-          presentation_date: this.form.controls.presentation_date.value,
-          presentation_hour: this.form.controls.presentation_hour.value,
           gender_id: this.form.controls.gender_id.value,
           identification_type_id: this.form.controls.identification_type_id.value,
           company_id: this.form.controls.company_id.value,
@@ -594,14 +498,6 @@ export class FormReferenceComponent implements OnInit {
     } else {
       this.toastService.warning('', 'Debes diligenciar los campos obligatorios');
     }
-  }
-
-  getDate(date: string) {
-    return date.substring(0, 10);
-  }
-
-  getHour(date: string) {
-    return date.substring(11, 16);
   }
 
   saveProcedure(e): void {
@@ -726,6 +622,29 @@ export class FormReferenceComponent implements OnInit {
             });
           }
         });
+      } else {
+        this.form.patchValue({
+          re_input: '',
+        });
+      }
+    });
+
+    this.form.get('denied_type_id').valueChanges.subscribe(val => {
+      this.form.patchValue({
+        denied_reason_id: '',
+      });
+      if (val != null && val != '') {
+        this.DeniedReasonS.GetCollection({
+          denied_type_id: val,
+        }).then(x => {
+          if (x.length > 0) {
+            this.denied_reason = x;
+          } else {
+            this.denied_reason = null;
+          }
+        });
+      } else {
+        this.denied_reason = null;
       }
     });
 
