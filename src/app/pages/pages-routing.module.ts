@@ -51,6 +51,11 @@ const routes: Routes = [{
         .then(m => m.HumanTalentRequestModule),
     },
     {
+      path: 'reference',
+      loadChildren: () => import('./reference/reference.module')
+        .then(m => m.ReferenceModule),
+    },
+    {
       path: 'pad',
       loadChildren: () => import('./pad/pad.module')
         .then(m => m.PadModule),

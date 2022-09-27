@@ -5,13 +5,13 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    entity="human_talent_request?role_id={{this.currentRole.id}}"
-                    customData='human_talent_request'
+                    entity="reference?role_id={{this.currentRole.id}}"
+                    customData='reference'
                     [messageToltip]="messageToltip"
                     >
       <div actions>
         <div class="actions">
-          <!-- <button nbButton status="danger" ngxCheckPerms="create" (click)="NewAccountReceivable()">Crear</button> -->
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewReference()">Crear Referencia</button>
         </div>
       </div>
     </ngx-base-table>
