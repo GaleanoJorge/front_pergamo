@@ -23,7 +23,7 @@ export class FormNRValorationFTComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public diagnosis: any[];
+  public diagnosisr: any[];
   public ch_e_valoration_f_t: any[];
   public ch_diagnosis_id;
 
@@ -67,20 +67,20 @@ export class FormNRValorationFTComponent implements OnInit {
         this.DiagnosisS.GetCollection({
           search: $event,
         }).then(x => {
-          this.diagnosis = x;
+          this.diagnosisr = x;
         });
       } else {
         this.DiagnosisS.GetCollection({
           search: '',
         }).then(x => {
-          this.diagnosis = x;
+          this.diagnosisr = x;
         });
       }
     }
   }
 
   saveCode(e): void {
-    var localidentify = this.diagnosis.find(item => item.name == e);
+    var localidentify = this.diagnosisr.find(item => item.name == e);
     if (localidentify) {
       this.ch_diagnosis_id = localidentify.id;
     } else {
