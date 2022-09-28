@@ -1,15 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="save()">
 
+  <hr/>
+
   <div class ="row justify-content-center">
-
-
-
-    <div class="col col-lg-12">
-      <label for="occupational_con_text" class="form-text text-muted font-weight-bold">Concepto Ocupacional:</label>
-      <textarea id="occupational_con" nbInput fullWidth formControlName="occupational_con" current_illness rows="1"
-        cols="50"
-        status="{{ isSubmitted && form.controls.occupational_con.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
-    </div>
 
     <br/>
 
@@ -19,7 +12,7 @@
             <a>
               <nb-card status="{{this.form.controls.check1_hold.value ? 'success' : 'basic'}}" size="tiny">
                 <nb-card-header>
-                 <nb-checkbox formControlName="check1_hold" check1_hold id="check1_hold"><b>Objetivo</b></nb-checkbox>
+                 <nb-checkbox formControlName="check1_hold" check1_hold id="check1_hold"><b>Objetivo 1</b></nb-checkbox>
                 </nb-card-header>
                 <nb-card-body> {{this.arrayObjectives[0].description}}<br>
                 </nb-card-body>
@@ -31,7 +24,7 @@
             <a>
               <nb-card size="tiny" status="{{this.form.controls.check2_improve.value ? 'success' : 'basic'}}">
                 <nb-card-header>
-                  <nb-checkbox formControlName="check2_improve" check2_improve id="check2_improve"><b>Objetivo</b></nb-checkbox>
+                  <nb-checkbox formControlName="check2_improve" check2_improve id="check2_improve"><b>Objetivo 2</b></nb-checkbox>
                 </nb-card-header>
                 <nb-card-body> {{this.arrayObjectives[1].description}}<br>
                 </nb-card-body>
@@ -43,7 +36,7 @@
             <a>
               <nb-card size="tiny" status="{{this.form.controls.check3_structure.value ? 'success' : 'basic'}}">
                 <nb-card-header>
-                  <nb-checkbox formControlName="check3_structure" check3_structure id="check3_structure"><b>Objetivo</b></nb-checkbox>
+                  <nb-checkbox formControlName="check3_structure" check3_structure id="check3_structure"><b>Objetivo 3</b></nb-checkbox>
                 </nb-card-header>
                 <nb-card-body>{{this.arrayObjectives[2].description}}<br>
                 </nb-card-body>
@@ -55,7 +48,7 @@
             <a>
               <nb-card size="tiny" status="{{this.form.controls.check4_promote.value ? 'success' : 'basic'}}">
                 <nb-card-header>
-                  <nb-checkbox formControlName="check4_promote" check4_promote id="check4_promote"><b>Objetivo</b></nb-checkbox>
+                  <nb-checkbox formControlName="check4_promote" check4_promote id="check4_promote"><b>Objetivo 4</b></nb-checkbox>
                 </nb-card-header>
                 <nb-card-body>{{this.arrayObjectives[3].description}}<br>
                 </nb-card-body>
@@ -67,7 +60,7 @@
             <a>
               <nb-card size="tiny" status="{{this.form.controls.check5_strengthen.value ? 'success' : 'basic'}}">
                 <nb-card-header>
-                  <nb-checkbox formControlName="check5_strengthen" check5_strengthen id="check5_strengthen"><b>Objetivo</b></nb-checkbox>
+                  <nb-checkbox formControlName="check5_strengthen" check5_strengthen id="check5_strengthen"><b>Objetivo 5</b></nb-checkbox>
                 </nb-card-header>
                 <nb-card-body>
                   {{this.arrayObjectives[4].description}}<br>
@@ -80,7 +73,7 @@
             <a>
               <nb-card size="tiny" status="{{this.form.controls.check6_promote_2.value ? 'success' : 'basic'}}">
                 <nb-card-header>
-                  <nb-checkbox formControlName="check6_promote_2" check6_promote_2 id="check6_promote_2"><b>Objetivo</b></nb-checkbox>
+                  <nb-checkbox formControlName="check6_promote_2" check6_promote_2 id="check6_promote_2"><b>Objetivo 6</b></nb-checkbox>
                 </nb-card-header>
                 <nb-card-body>
                  {{this.arrayObjectives[5].description}}<br>
@@ -93,7 +86,7 @@
             <a>
               <nb-card size="tiny" status="{{this.form.controls.check7_develop.value ? 'success' : 'basic'}}">
                 <nb-card-header>
-                  <nb-checkbox formControlName="check7_develop" check7_develop id="check7_develop"><b>Objetivo</b></nb-checkbox>
+                  <nb-checkbox formControlName="check7_develop" check7_develop id="check7_develop"><b>Objetivo 7</b></nb-checkbox>
                 </nb-card-header>
                 <nb-card-body>
                  {{this.arrayObjectives[6].description}}<br>
@@ -106,7 +99,7 @@
             <a>
               <nb-card size="tiny" status="{{this.form.controls.check8_strengthen_2.value ? 'success' : 'basic'}}">
                 <nb-card-header>
-                  <nb-checkbox formControlName="check8_strengthen_2" check8_strengthen_2 id="check8_strengthen_2"><b>Objetivo</b></nb-checkbox>
+                  <nb-checkbox formControlName="check8_strengthen_2" check8_strengthen_2 id="check8_strengthen_2"><b>Objetivo 8</b></nb-checkbox>
                 </nb-card-header>
                 <nb-card-body>
                  {{this.arrayObjectives[7].description}}<br>
@@ -119,7 +112,7 @@
             <a>
               <nb-card size="tiny" status="{{this.form.controls.check9_favor.value ? 'success' : 'basic'}}">
                 <nb-card-header>
-                  <nb-checkbox formControlName="check9_favor" check9_favor id="check9_favor"><b>Objetivo</b></nb-checkbox>
+                  <nb-checkbox formControlName="check9_favor" check9_favor id="check9_favor"><b>Objetivo 9</b></nb-checkbox>
                 </nb-card-header>
                 <nb-card-body> {{this.arrayObjectives[8].description}}<br>
                 </nb-card-body>
@@ -131,12 +124,20 @@
             <a>
               <nb-card size="tiny" status="{{this.form.controls.check10_functionality.value ? 'success' : 'basic'}}">
                 <nb-card-header>
-                  <nb-checkbox formControlName="check10_functionality" check10_functionality id="check10_functionality" onpaste="return false"><b>Objetivo</b></nb-checkbox>
+                  <nb-checkbox formControlName="check10_functionality" check10_functionality id="check10_functionality" onpaste="return false"><b>Objetivo 10</b></nb-checkbox>
                 </nb-card-header>
                 <nb-card-body> {{this.arrayObjectives[9].description}}<br>
                 </nb-card-body>
               </nb-card>
             </a>
+          </div>
+
+
+          <div class="col col-lg-12">
+            <label for="occupational_con_text" class="form-text text-muted font-weight-bold">Concepto Ocupacional:</label>
+            <textarea id="occupational_con" nbInput fullWidth formControlName="occupational_con" current_illness rows="1"
+              cols="50"
+              status="{{ isSubmitted && form.controls.occupational_con.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
       
         </div>          

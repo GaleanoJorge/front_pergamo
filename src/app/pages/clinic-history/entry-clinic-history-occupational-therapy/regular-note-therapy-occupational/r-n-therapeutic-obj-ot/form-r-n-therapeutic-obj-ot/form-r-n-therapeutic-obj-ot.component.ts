@@ -26,43 +26,43 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
   public arrayObjectives = [
     {
       id: 1,
-      description: "Fortalecer musculatura respiratoria para mejorar niveles de oxigenación"
+      description: "Mantener y/o mejorar las destrezas de ejecución por medio de actividades graduadas y basadas en intereses para potencializar su desempeño ocupacional."
     },
     {
       id: 2,
-      description: "Promover y vigilar decanulación traqueal"
+      description: "Mejorar funciones mentales globales y específicas por medio de actividades de estimulación cognitiva."
     },
     {
       id: 3,
-      description: "Titulacion de flujo de oxigenoterapia en cumplimiento a metas de oximetrias"
+      description: "Estructurar patrones de desempeño a nivel de  actividades de ocio/tiempo libre."
     },
     {
       id: 4,
-      description: "Mejorar/mantener cualidades fisicas de musculatura respiratoria"
+      description: "Promover destrezas de interacción y comunicación por medio de actividades grupales."
     },
     {
       id: 5,
-      description: "Reeducacion de patron ventilatorio"
+      description: "Fortalecer las habilidades emocionales por medio de una actividad de auto-reconocimiento con el fin de brindar una resignificación frente a los obstáculos que se les presentan."
     },
     {
       id: 6,
-      description: "Mantener/ reeducar cinetica diafragmatica y costal"
+      description: "Promover mejoras para el fortalecimiento de su vida emocional con el fin de mejorar sus respuestas adaptativas."
     },
     {
       id: 7,
-      description: "Controlar la hiperventilacion y fatiga muscular"
+      description: "Desarrollar estrategias que contribuyan a la proyección de nueva metas dando cumplimiento de las mismas y a la vez resolviendo los restos que pueden surgir. "
     },
     {
       id: 8,
-      description: "Entrenar uso de inhaloterapia / farmacoterapia de acuerdo a prescripción medica"
+      description: "Fortalecer su salud emocional para mejorar su desempeño a nivel familiar, social y laboral. "
     },
     {
       id: 9,
-      description: "Titular parametros ventilatorios en relación a dinamica ventilatoria"
+      description: "Favorecer funciones cognitivas y habilidades motoras  con el fin de mejorar el desempeño ocupacional y el cumplimiento de roles propios de la edad."
     },
     {
       id: 10,
-      description: "Vigilar presencia de signos de dificultad respiratoria"
+      description: "Mejorar la capacidad sensitiva y propioceptiva por medio de la discriminación táctil para favorecer la funcionalidad e independencia en la AVD. *Mejorar habilidades cognitivas superiores con el fin de lograr la ejecución de sus ocupaciones."
     }
 
   ]
@@ -87,8 +87,6 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         check8_strengthen_2: false,
         check9_favor: false,
         check10_functionality: false,
-
-        occupational_con:  '',
       };
     }
 
@@ -123,7 +121,6 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
       check10_functionality: [
         this.data.check10_functionality,
       ],
-      occupational_con: [this.data.occupational_con, Validators.compose([Validators.required])],
     });
 
   }
@@ -136,7 +133,6 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
       if (this.data.id) {
           this.ChEMSAssessmentOTService.Update({
           id: this.data.id,
-          occupational_con: this.form.controls.occupational_con.value,
           check1_hold: this.form.controls.check1_hold.value ? this.arrayObjectives[0].description : null,
           check2_improve: this.form.controls.check2_improve.value ? this.arrayObjectives[1].description : null,
           check3_structure: this.form.controls.check3_structure.value ? this.arrayObjectives[2].description : null,
@@ -154,7 +150,7 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
-          this.form.patchValue({occupational_con:'',  check1_hold:'', check2_improve:'', check3_structure:'', check4_promote:'',
+          this.form.patchValue({check1_hold:'', check2_improve:'', check3_structure:'', check4_promote:'',
           check5_strengthen:'',  check6_promote_2:'',  check7_develop:'',  check8_strengthen_2:'',  check9_favor:'',  check10_functionality:''});
           if (this.saved) {
             this.saved();
@@ -166,7 +162,6 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         });
       } else {
           this.ChEMSAssessmentOTService.Save({
-          occupational_con: this.form.controls.occupational_con.value,
           check1_hold: this.form.controls.check1_hold.value ? this.arrayObjectives[0].description : null,
           check2_improve: this.form.controls.check2_improve.value ? this.arrayObjectives[1].description : null,
           check3_structure: this.form.controls.check3_structure.value ? this.arrayObjectives[2].description : null,
@@ -182,7 +177,7 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
-          this.form.patchValue({occupational_con:'',  check1_hold:'', check2_improve:'', check3_structure:'', check4_promote:'',
+          this.form.patchValue({check1_hold:'', check2_improve:'', check3_structure:'', check4_promote:'',
           check5_strengthen:'',  check6_promote_2:'',  check7_develop:'',  check8_strengthen_2:'',  check9_favor:'',  check10_functionality:''});
           if (this.saved) {
             this.messageEvent.emit(true);

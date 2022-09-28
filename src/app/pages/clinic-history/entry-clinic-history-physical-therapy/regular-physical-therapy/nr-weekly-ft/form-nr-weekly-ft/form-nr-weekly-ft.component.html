@@ -1,14 +1,12 @@
 <form [formGroup]="form" (ngSubmit)="save()">
 
-  <div>
+  <div class="col col-lg-12">
 
-    <div class ="justify-content-center">
+    <div class="col col-lg-6">
 
-     <div class="col col-lg-6 asds">
+     <div>
        <label for="monthly_sessions_text" class="form-text text-muted font-weight-bold">Sesiones Mensuales:</label>
-     </div>
 
-     <div class="col col-lg-6">
        <nb-select [selected]="this.data.monthly_sessions" formControlName="monthly_sessions" id="monthly_sessions" fullWidth
          title="Seleccione..."
          status="{{ isSubmitted && form.controls.monthly_sessions.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -56,14 +54,11 @@
 
  <br/>
 
- <div class ="justify-content-center">
+ <div class="col col-lg-6">
 
-   <div class="col col-lg-6 asds">
+   <div>
      <label for="weekly_intensity_text" class="form-text text-muted font-weight-bold">Intensidad Semanal:</label>
-   </div>
 
-
-   <div class="col col-lg-6">
      <nb-select [selected]="this.data.weekly_intensity" formControlName="weekly_intensity" id="weekly_intensity" fullWidth
        title="Seleccione..."
        status="{{ isSubmitted && form.controls.weekly_intensity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">

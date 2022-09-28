@@ -3,19 +3,16 @@
 
   <div class="col col-lg-12">
 
-    <ngx-form-nr-ther-goals-ft (messageEvent)="receiveMessage($event)" [record_id]="record_id">
-    </ngx-form-nr-ther-goals-ft>
-
   </div>
 
 
   <div class="col col-lg-12">
 
-    <label class="form-text text-muted font-weight-bold">REGISTROS OBJETIVOS TERAPEUTICOS</label>
+    <label class="form-text text-muted text-center font-weight-bold">REGISTROS OBJETIVOS TERAPEUTICOS INGRESO</label>
     <ngx-base-list [messageError]="messageError" [routes]="routes">
       <div content>
         <ngx-base-table pager="false" [title]="title" customData="ch_e_ther_goals_f_t" [settings]="settings"
-          entity="ch_e_ther_goals_f_t/by_record/{{record_id}}/3">
+          entity="ch_e_ther_goals_f_t/by_record/{{record_id}}/1">
           <div actions>
             <div class="actions">
             </div>

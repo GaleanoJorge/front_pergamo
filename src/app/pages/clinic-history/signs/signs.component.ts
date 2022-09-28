@@ -455,7 +455,9 @@ export class SignsListComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
-      this.messageEvent.emit(true);
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
     }
   }
 }

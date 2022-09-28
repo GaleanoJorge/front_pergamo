@@ -368,6 +368,12 @@ import { TableGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition
 import { TableFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input/food-history/table-food-history.component';
 import { FormParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/parenteral-nutrition/form-parenteral-nutrition/form-parenteral-nutrition.component';
 import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/parenteral-nutrition/table-parenteral-nutrition.component';
+import { FormRNinterventionTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-intervention-ot/formr-n-intervention-ot/form-r-n-intervention-ot.component';
+import { TableRNInterventionOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-intervention-ot/table-r-n-intervention-ot.component';
+import { FormNRinterventionFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-intervention-ft/form-nr-intervention-ft/form-nr-intervention-ft.component';
+import { TableNRinterventionFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-intervention-ft/table-nr-intervention-ft.component';
+import { FormNRMaterialsFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-metarials-ft/form-nr-metarials-ft/nr-metarials-ft.component';
+import { TableNRMaterialsFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-metarials-ft/table-nr-metarials-ft.component';
 import { FormPsychologyComponent } from './ch-psychology/psychology-list/form-psychology/form-psychology.component';
 import { EntryPsychologyComponent } from './ch-psychology/entry-psychology/entry-psychology.component';
 import { PsychologyListComponent } from './ch-psychology/psychology-list/psychology-list.component';
@@ -536,6 +542,8 @@ import { PsObjectivesComponent } from './ch-psychology/ps-objectives/ps-objectiv
     RNMaterialsOTComponent,
     ForRNmWeeklyOTComponent,
     RNWeeklyOtComponent,
+    FormRNinterventionTComponent,
+    TableRNInterventionOTComponent,
     ConfirmDialogCHComponent,
 
     //ht fisica
@@ -585,7 +593,10 @@ import { PsObjectivesComponent } from './ch-psychology/ps-objectives/ps-objectiv
     TableNRWeeklyFTComponent,
     FormNRDiagnosisFTComponent,
     TableNRDiagnosisFTComponent,
-
+    FormNRinterventionFTComponent,
+    TableNRinterventionFTComponent,
+    FormNRMaterialsFTComponent,
+    TableNRMaterialsFTComponent,
     
 
     ConfirmDialogCHComponent,

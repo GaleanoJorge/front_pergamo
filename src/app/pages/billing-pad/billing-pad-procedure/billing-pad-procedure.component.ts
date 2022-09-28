@@ -346,8 +346,8 @@ export class BillingPadProcedureComponent implements OnInit {
     this.selectedOptions = [];
     row.forEach(element => {
       var q = 1;
-      if (row.quantity) {
-        q = row.quantity;
+      if (element.quantity) {
+        q = element.quantity;
       }
       var add = {
         id: element.id,

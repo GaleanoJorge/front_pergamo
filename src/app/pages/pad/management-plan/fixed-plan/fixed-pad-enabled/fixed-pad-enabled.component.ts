@@ -3,6 +3,7 @@ import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { TableRowWidget } from '@syncfusion/ej2/documenteditor';
 import { FixedAddService } from '../../../../../business-controller/fixed-add.service';
 import { FixedAssetsService } from '../../../../../business-controller/fixed-assets.service';
+import { UsersFixedStockService } from '../../../../../business-controller/users-fixed-stock.service';
 import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { AuthService } from '../../../../../services/auth.service';
 
@@ -31,6 +32,7 @@ export class FixedPadEnabledComponent implements OnInit {
   public my_fixed_id;
   public user1;
   public entity: string = null;
+  public fixed_stock;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -93,6 +95,8 @@ export class FixedPadEnabledComponent implements OnInit {
     private authService: AuthService,
     private FixedAssetsS: FixedAssetsService,
     public datePipe: DateFormatPipe,
+    private UsersFixedStockS: UsersFixedStockService,
+
   ) {
   }
 
@@ -100,6 +104,9 @@ export class FixedPadEnabledComponent implements OnInit {
     this.entity = 'fixed_add/?pagination=true&status=RECHAZADO&admissions=' + this.admissions_id ;
     this.user1 = this.authService.GetUser();
     this.FixedAssetsS.getFixedByUserId(this.user1.id, {}).then(x => {
+    });
+    this.UsersFixedStockS.getFixedUserId(this.user.id).then(x => {
+      this.fixed_stock = x;
     });
   }
 

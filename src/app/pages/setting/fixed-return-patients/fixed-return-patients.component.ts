@@ -3,6 +3,7 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
+import { UsersFixedStockService } from '../../../business-controller/users-fixed-stock.service';
 import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -28,6 +29,7 @@ export class FixedReturnPatientsComponent implements OnInit {
   public entity;
   public user;
   public my_fixed_id;
+  public fixed_stock;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -99,6 +101,8 @@ export class FixedReturnPatientsComponent implements OnInit {
     private authService: AuthService,
     private FixedAssetsS: FixedAssetsService,
     private toastService: NbToastrService,
+    private UsersFixedStockS: UsersFixedStockService,
+
   ) {
   }
 
@@ -112,6 +116,9 @@ export class FixedReturnPatientsComponent implements OnInit {
       }else {
         this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
        }
+    });
+    this.UsersFixedStockS.getFixedUserId(this.user.id).then(x => {
+      this.fixed_stock = x;
     });
   }
 

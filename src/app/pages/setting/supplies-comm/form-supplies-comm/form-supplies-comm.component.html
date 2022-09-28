@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="margin: 10px;max-width: 1100px;max-height: 600px;overflow: auto;">
+  <nb-card style="max-width: 1100px;max-height: 600px;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
@@ -71,7 +71,7 @@
         <div class="col-12 col-sm-12 col-md-6">
           <div class="form-group">
             <label for="date_cum" class="form-text text-muted font-weight-bold">Fecha vencimiento:</label>
-            <input type="date" nbInput fullWidth id="date_cum" formControlName="date_cum" date_cum
+            <input type="date" nbInput fullWidth id="date_cum" (change)="onDatechange1($event)"  formControlName="date_cum" date_cum
               status="{{ isSubmitted && form.controls.date_cum.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
         </div>

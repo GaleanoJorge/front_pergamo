@@ -42,6 +42,7 @@ export class FormSuppliesCommComponent implements OnInit {
     private InvimaStatusS: InvimaStatusService,
     private StorageConditionsS: StorageConditionsService,
     private packingS: PackingService,
+    private toastS: NbToastrService,
   ) {
   }
 
@@ -161,6 +162,17 @@ export class FormSuppliesCommComponent implements OnInit {
           this.loading = false;
         });
       }
+    }
+  }
+  onDatechange1($event) {
+    var date = new Date($event.target.value);
+    var now_date = new Date;
+
+    if (date < now_date) {
+      this.form.controls.date_cum.setErrors({ 'incorrect': true });
+      this.toastS.danger(null, 'Confirmar estado del registro sanitario');
+    } else {
+      this.form.controls.date_cum.setErrors(null);
     }
   }
 }
