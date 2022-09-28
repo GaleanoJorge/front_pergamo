@@ -1,0 +1,117 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Funciones de síntesis</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Psicomotricidad</label>
+        <nb-select multiple formControlName="psychomotricity" id="psychomotricity" fullWidth
+                    status="{{ isSubmitted && form.controls.psychomotricity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <nb-option *ngFor="let item of psychomotricity" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="observations_psy" nbInput fullWidth formControlName="observations_psy" observations_psy onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.observations_psy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Introspección</label>
+        <nb-select multiple formControlName="introspection" id="introspection" fullWidth
+        status="{{ isSubmitted && form.controls.introspection.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-option *ngFor="let item of introspection" [value]="item.id">{{ item.name }}</nb-option>
+    </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="observations_in" nbInput fullWidth formControlName="observations_in" observations_in onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.observations_in.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Juicio y raciocinio</label>
+        <nb-select formControlName="ch_ps_judgment_id" id="ch_ps_judgment_id" fullWidth
+                    status="{{ isSubmitted && form.controls.ch_ps_judgment_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of judgment" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="observations_jud" nbInput fullWidth formControlName="observations_jud" observations_jud onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.observations_jud.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Prospección</label>
+        <nb-select formControlName="ch_ps_prospecting_id" id="ch_ps_prospecting_id" fullWidth
+          status="{{ isSubmitted && form.controls.ch_ps_prospecting_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of prospecting" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="observations_pros" nbInput fullWidth formControlName="observations_pros" observations_pros onpaste="return false"
+          status="{{ isSubmitted && form.controls.observations_pros.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Inteligencia</label>
+        <nb-select formControlName="ch_ps_intelligence_id" id="ch_ps_intelligence_id" fullWidth
+                    status="{{ isSubmitted && form.controls.ch_ps_intelligence_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of intelligence" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="observations_inte" nbInput fullWidth formControlName="observations_inte" observations_inte onpaste="return false"
+          status="{{ isSubmitted && form.controls.observations_inte.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,86 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Valoración Multiaxial</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Eje I</label>
+        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+          id="axis_one" formControlName="axis_one" axis_one type="text" required
+          (ngModelChange)="this.searchDiagnostic($event)"
+          status="{{ isSubmitted && form.controls.axis_one.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis_dms" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        </datalist>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Eje II</label>
+        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+          id="axis_two" formControlName="axis_two" axis_two type="text" required
+          (ngModelChange)="this.searchDiagnostic($event)"
+          status="{{ isSubmitted && form.controls.axis_two.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis_dms" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        </datalist>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Eje III</label>
+        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+          id="axis_three" formControlName="axis_three" axis_three type="text" required
+          (ngModelChange)="this.searchDiagnostic($event)"
+          status="{{ isSubmitted && form.controls.axis_three.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis_dms" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        </datalist>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Eje IV</label>
+        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+          id="axis_four" formControlName="axis_four" axis_four type="text" required
+          (ngModelChange)="this.searchDiagnostic($event)"
+          status="{{ isSubmitted && form.controls.axis_four.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes">
+          <option *ngFor="let item of diagnosis_dms" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        </datalist>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">EEAG</label>
+        <nb-select class="form-text" id="eeag" formControlName="eeag" fullWidth
+          status="{{ isSubmitted && form.controls.eeag.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="0">0 </nb-option>
+          <nb-option value="10">10 </nb-option>
+          <nb-option value="30">30</nb-option>
+          <nb-option value="40">40</nb-option>
+          <nb-option value="50">50</nb-option>
+          <nb-option value="60">60</nb-option>
+          <nb-option value="70">70</nb-option>
+          <nb-option value="80">80</nb-option>
+          <nb-option value="90">90</nb-option>
+          <nb-option value="100">100</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>
