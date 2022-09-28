@@ -79,7 +79,7 @@ export class FormSwFamilyDynamicsComponent implements OnInit {
       this.expression = x;
     });
 
-    this.familyS.GetCollection().then(x => {
+    this.familyS.GetCollection({record_id:this.record_id}).then(x => {
       this.decisions = x;
     });
 
@@ -145,5 +145,13 @@ export class FormSwFamilyDynamicsComponent implements OnInit {
     }
   }
 
+
+  onChanges() {
+    this.form.get('ch_sw_communications_id').valueChanges.subscribe(val => {
+      this.familyS.GetCollection({record_id:this.record_id}).then(x => {
+        this.decisions = x;
+      });
+    });
+   }
   
 }

@@ -14,6 +14,8 @@ export class FormUserComponent implements OnInit {
   @Input() role2;
   @Input() isTH;
   @Input() saved;
+  @Input() dat;
+  @Input() data = null;
 
 
   public routes = [];
@@ -60,8 +62,11 @@ export class FormUserComponent implements OnInit {
 
   receiveMessage($event) {
     if($event==true){
-      this.saved();
       this.close();
+      this.saved();
+    } else if($event.id){
+      this.close();
+      this.saved($event, this.dat);
     }
   }
 }

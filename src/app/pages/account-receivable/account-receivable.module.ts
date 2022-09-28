@@ -22,7 +22,7 @@ import {
   NbDatepickerModule, NbSpinnerModule,
 } from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
-import {AccountReceivableComponent} from './account-receivable..component';
+import {AccountReceivableComponent} from './account-receivable.component';
 import {PagesModule} from '../pages.module';
 import {DateFormatPipe} from '../../pipe/date-format.pipe';
 import {AccountReceivableListComponent} from './account-receivable-list/account-receivable-list.component';
