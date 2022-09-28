@@ -4,7 +4,7 @@ import {NbDialogRef} from '@nebular/theme';
 
 @Component({
   template: `
-    <nb-card style='min-width: 360px; max-width: 450px;max-height: 100%;overflow-y: hidden;'>
+    <nb-card style='min-width: 360px; max-width: 450px;max-height: 600px;overflow-y: hidden;'>
       <nb-card-header>
         Programas disponibles
       </nb-card-header>
