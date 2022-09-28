@@ -1,0 +1,417 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+
+    <div class="row justify-content-center">
+
+      <div class="col col-lg-3 checks">
+        <a>
+          <nb-card status="{{this.form.controls.Material_1.value ? 'success' : 'basic'}}" size="tiny">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_1" Material_1 id="Material_1"><b>Material 1</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[0].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_2.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_2" Material_2 id="Material_2"><b>Material 2</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[1].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_3.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_3" Material_3 id="Material_3">
+                <b>Material 3</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>{{this.arrayObjectives[2].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_4.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_4" Material_4 id="Material_4"><b>Material 4</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>{{this.arrayObjectives[3].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_5.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_5" Material_5 id="Material_5">
+                <b>Material 5</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[4].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_6.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_6" Material_6 id="Material_6">
+                <b>Material 6</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[5].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_7.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_7" Material_7 id="Material_7"><b>Material 7</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[6].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_8.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_8" Material_8 id="Material_8">
+                <b>Material 8</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[7].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_9.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_9" Material_9 id="Material_9"><b>Material 9</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[8].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_10.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_10" Material_10 id="Material_10">
+                <b>Material 10</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[9].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks">
+        <a>
+          <nb-card status="{{this.form.controls.Material_11.value ? 'success' : 'basic'}}" size="tiny">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_11" Material_11 id="Material_11"><b>Material 11</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[10].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_12.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_12" Material_12 id="Material_12"><b>Material 12</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[11].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_13.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_13" Material_13 id="Material_13">
+                <b>Material 13</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>{{this.arrayObjectives[12].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_14.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_14" Material_14 id="Material_14"><b>Material 14</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>{{this.arrayObjectives[13].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_15.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_15" Material_15 id="Material_15">
+                <b>Material 15</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[14].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_16.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_16" Material_16 id="Material_16">
+                <b>Material 16</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[15].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_17.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_17" Material_17 id="Material_17"><b>Material 17</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[16].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_18.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_18" Material_18 id="Material_18">
+                <b>Material 18</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[17].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_19.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_19" Material_19 id="Material_19"><b>Material 19</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[18].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_20.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_20" Material_20 id="Material_20">
+                <b>Material 20</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[19].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks">
+        <a>
+          <nb-card status="{{this.form.controls.Material_21.value ? 'success' : 'basic'}}" size="tiny">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_21" Material_21 id="Material_21"><b>Material 21</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[20].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_22.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_22" Material_22 id="Material_22"><b>Material 22</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[21].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_23.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_23" Material_23 id="Material_23">
+                <b>Material 23</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>{{this.arrayObjectives[22].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_24.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_24" Material_24 id="Material24"><b>Material 24</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>{{this.arrayObjectives[23].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_25.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_25" Material_25 id="Material_25">
+                <b>Material 25</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[24].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_26.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_26" Material_26 id="Material_26">
+                <b>Material 26</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[25].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_27.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_27" Material_27 id="Material_27"><b>Material 27</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[26].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_28.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_28" Material_28 id="Material_28">
+                <b>Material 28</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body>
+              {{this.arrayObjectives[27].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+      <div class="col col-lg-3 checks justify-content">
+        <a>
+          <nb-card size="tiny" status="{{this.form.controls.Material_29.value ? 'success' : 'basic'}}">
+            <nb-card-header>
+              <nb-checkbox formControlName="Material_29" Material_29 id="Material_29"><b>Material 29</b>
+              </nb-checkbox>
+            </nb-card-header>
+            <nb-card-body> {{this.arrayObjectives[28].description}}<br>
+            </nb-card-body>
+          </nb-card>
+        </a>
+      </div>
+
+
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-FUNCIONAL btn-save" [disabled]="disabled" type="button"
+        (click)="save()">GUARDAR</button>
+    </div>
+  </div>
+</form>

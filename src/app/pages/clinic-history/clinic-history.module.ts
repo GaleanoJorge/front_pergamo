@@ -368,6 +368,12 @@ import { TableGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition
 import { TableFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input/food-history/table-food-history.component';
 import { FormParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/parenteral-nutrition/form-parenteral-nutrition/form-parenteral-nutrition.component';
 import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/parenteral-nutrition/table-parenteral-nutrition.component';
+import { FormRNinterventionTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-intervention-ot/formr-n-intervention-ot/form-r-n-intervention-ot.component';
+import { TableRNInterventionOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-intervention-ot/table-r-n-intervention-ot.component';
+import { FormNRinterventionFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-intervention-ft/form-nr-intervention-ft/form-nr-intervention-ft.component';
+import { TableNRinterventionFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-intervention-ft/table-nr-intervention-ft.component';
+import { FormNRMaterialsFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-metarials-ft/form-nr-metarials-ft/nr-metarials-ft.component';
+import { TableNRMaterialsFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-metarials-ft/table-nr-metarials-ft.component';
 
 
 @NgModule({
@@ -507,6 +513,8 @@ import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrit
     RNMaterialsOTComponent,
     ForRNmWeeklyOTComponent,
     RNWeeklyOtComponent,
+    FormRNinterventionTComponent,
+    TableRNInterventionOTComponent,
     ConfirmDialogCHComponent,
 
     //ht fisica
@@ -556,7 +564,10 @@ import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrit
     TableNRWeeklyFTComponent,
     FormNRDiagnosisFTComponent,
     TableNRDiagnosisFTComponent,
-
+    FormNRinterventionFTComponent,
+    TableNRinterventionFTComponent,
+    FormNRMaterialsFTComponent,
+    TableNRMaterialsFTComponent,
     
 
     ConfirmDialogCHComponent,
