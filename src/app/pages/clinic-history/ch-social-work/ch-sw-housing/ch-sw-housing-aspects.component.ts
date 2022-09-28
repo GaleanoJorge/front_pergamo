@@ -90,7 +90,7 @@ export class ChSwHousingAspectsComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'NO APLICA'
           }
