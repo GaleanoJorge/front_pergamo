@@ -157,7 +157,9 @@ export class FormChSwExpensesComponent implements OnInit {
       this.form.controls.medical.value != '' ||
       this.form.controls.cell_phone.value != '' ||
       this.form.controls.landline.value != '') {
-      this.expensesTotal = (this.form.controls.feeding.value +
+
+      this.expensesTotal = (
+        this.form.controls.feeding.value +
         this.form.controls.gas.value +
         this.form.controls.light.value +
         this.form.controls.aqueduct.value +
