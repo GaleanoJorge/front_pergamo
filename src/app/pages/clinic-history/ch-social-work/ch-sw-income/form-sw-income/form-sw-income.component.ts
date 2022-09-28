@@ -128,7 +128,7 @@ export class FormChSwIncomeComponent implements OnInit {
       this.form.controls.donations.value != '' || this.form.controls.rent.value != '' ||
       this.form.controls.familiar_help.value != '') {
       this.incomeTotal = (this.form.controls.salary.value + this.form.controls.pension.value + this.form.controls.donations.value +
-        this.form.controls.rent.value + this.form.controls.familiar_help.value + this.form.controls.familiar_help.value )
+        this.form.controls.rent.value + this.form.controls.familiar_help.value )
     } else {
       this.incomeTotal = null;
     }
