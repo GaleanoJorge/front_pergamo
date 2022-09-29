@@ -102,11 +102,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
       };
     }
 
-
-
-
-
-
     this.form = this.formBuilder.group({
       diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
       admission_route_id: [this.data.admission_route_id, Validators.compose([Validators.required])],
