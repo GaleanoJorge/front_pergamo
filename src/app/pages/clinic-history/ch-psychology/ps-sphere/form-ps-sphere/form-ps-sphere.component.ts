@@ -200,7 +200,7 @@ export class FormPsSphereComponent implements OnInit {
   async onChange() {
 
     this.form.get('euthymia').valueChanges.subscribe(val => {
-      if (val != 0) {
+      if (val != 1) {
 
         this.form.controls.ch_ps_sadness_id.clearValidators();
         this.form.controls.ch_ps_joy_id.clearValidators();

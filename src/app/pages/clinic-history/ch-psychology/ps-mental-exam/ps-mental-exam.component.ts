@@ -82,9 +82,9 @@ export class PsMentalExamComponent implements OnInit {
   }
 
 
-
-  // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
-  inputMessage($event) {
-    this.input_done = true;
+  receiveMessage($event) {
+    if ($event == true) {
+      this.messageEvent.emit(true);
+    }
   }
 }

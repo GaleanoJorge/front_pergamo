@@ -18,3 +18,17 @@ input[type=number]::-webkit-outer-spin-button {
 
     float: RIGHT;
 }
+
+.ImpPeq {
+  outline: none;
+  border: 0;
+  //  padding: 10px;
+  margin: 10px;
+  height: 30px;
+  width: 85px;
+  border: 1px solid #eaeaea;
+}
+.center {
+  text-align: center;
+  justify-content: center;
+}

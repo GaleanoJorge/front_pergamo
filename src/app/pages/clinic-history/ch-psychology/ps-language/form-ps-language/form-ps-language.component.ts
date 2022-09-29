@@ -76,15 +76,15 @@ export class FormPsLanguageComponent implements OnInit {
     });
 
     this.comprehensiveS.GetCollection().then(x => {
-      this.paraphasias = x;
-    });
-
-    this.othersS.GetCollection().then(x => {
       this.comprehensive = x;
     });
 
-    this.paraphasiasS.GetCollection().then(x => {
+    this.othersS.GetCollection().then(x => {
       this.others = x;
+    });
+
+    this.paraphasiasS.GetCollection().then(x => {
+      this.paraphasias = x;
     });
 
 

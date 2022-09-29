@@ -40,7 +40,7 @@
       </div>
 
 
-      <div class="col-md-6 col-lg-6">
+      <div class="col-md-5 col-lg-5">
         <div class="form-group">
           <label for="ch_ps_episodes_id" class="form-text text-muted font-weight-bold">Episodios Previos (inicio y curso
             - síntomas) </label>
@@ -52,15 +52,15 @@
         </div>
       </div>
 
-      <div class="col-md-6 col-lg-6 mt-4">
+      <div class="col-md-3 col-lg-3">
         <div class="form-group">
-          <input nbInput fullWidth id="episodes_number" formControlName="episodes_number" episodes_number
-            placeholder="Número"
+          <label for="ch_ps_episodes_id" class="form-text text-muted font-weight-bold">Número de episodios</label> 
+          <input nbInput id="episodes_number" formControlName="episodes_number" episodes_number class="ImpPeq center"
             status="{{ isSubmitted && form.controls.episodes_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
       </div>
 
-      <div class="col-md-6 col-lg-6">
+      <div class="col-md-4 col-lg-4">
         <div class="form-group">
           <label for="areas" class="form-text text-muted font-weight-bold">Áreas de Ajuste</label>
           <nb-select multiple formControlName="areas" id="areas" fullWidth

@@ -134,6 +134,9 @@ export class PsAssessmentComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
     }
   }
 }

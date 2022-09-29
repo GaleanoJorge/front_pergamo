@@ -182,6 +182,7 @@ export class PsSynthesisComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      this.messageEvent.emit(true);
     }
   }
 }
