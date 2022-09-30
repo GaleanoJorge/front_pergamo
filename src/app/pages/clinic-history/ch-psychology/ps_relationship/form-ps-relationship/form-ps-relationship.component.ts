@@ -136,6 +136,8 @@ export class FormPsRelationshipComponent implements OnInit {
       excretion: [this.data[0] ? this.data[0].excretion : this.data.excretion, Validators.compose([Validators.required])],
 
     });
+
+    this.onChange();
   }
 
   async save() {
@@ -237,7 +239,7 @@ export class FormPsRelationshipComponent implements OnInit {
     }
   }
 
-  async onChange() {
+  onChange() {
 
     this.form.get('ch_ps_sleep_id').valueChanges.subscribe(val => {
       if (val != 9) {

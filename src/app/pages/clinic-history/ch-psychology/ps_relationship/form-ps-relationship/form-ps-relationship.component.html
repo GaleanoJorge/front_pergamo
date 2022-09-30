@@ -115,7 +115,7 @@
     <div class="col-md-6 col-lg-6">
       <div class="form-group">
         <label for="ch_ps_sleep_id" class="form-text text-muted font-weight-bold">Sueño</label>
-        <nb-select formControlName="ch_ps_sleep_id" id="ch_ps_sleep_id" fullWidth
+        <nb-select formControlName="ch_ps_sleep_id" id="ch_ps_sleep_id" fullWidth ch_ps_sleep_id
           status="{{ isSubmitted && form.controls.ch_ps_sleep_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
           <nb-option *ngFor="let item of sleep" [value]="item.id">{{ item.name }}</nb-option>
