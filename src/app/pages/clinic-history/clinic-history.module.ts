@@ -403,6 +403,7 @@ import { PsInterventionComponent } from './ch-psychology/ps-intervention/ps-inte
 import { PsOperationalizationComponent } from './ch-psychology/ps-operationalization/ps-operationalization.component';
 import { PsAwarenessComponent } from './ch-psychology/ps-awareness/ps-awareness.component';
 import { PsObjectivesComponent } from './ch-psychology/ps-objectives/ps-objectives.component';
+import { ActionsFormulationComponent } from './formulation/actions.component';
 
 
 @NgModule({
@@ -697,7 +698,7 @@ import { PsObjectivesComponent } from './ch-psychology/ps-objectives/ps-objectiv
     FormSystemExamComponent,
     SystemExamComponent,
     Actions7Component,
-
+    ActionsFormulationComponent,
 
 
     FormBackgroundComponent,

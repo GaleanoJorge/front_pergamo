@@ -9,8 +9,8 @@
     <div class="col-md-4">
       <div class="form-group">
         <label class="form-text font-weight-bold">Psicomotricidad</label>
-        <nb-select multiple formControlName="psychomotricity" id="psychomotricity" fullWidth
-                    status="{{ isSubmitted && form.controls.psychomotricity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-select multiple formControlName="psychomotricity" id="psychomotricity" fullWidth placeholder="Seleccione"
+                    status="{{ isSubmitted && form.controls.psychomotricity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" >
                     <nb-option *ngFor="let item of psychomotricity" [value]="item.name">{{ item.name }}</nb-option>
                 </nb-select>
       </div>
@@ -29,7 +29,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label class="form-text font-weight-bold">Introspección</label>
-        <nb-select multiple formControlName="introspection" id="introspection" fullWidth
+        <nb-select multiple formControlName="introspection" id="introspection" fullWidth placeholder="Seleccione"
         status="{{ isSubmitted && form.controls.introspection.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <nb-option *ngFor="let item of introspection" [value]="item.name">{{ item.name }}</nb-option>
     </nb-select>

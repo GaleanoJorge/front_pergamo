@@ -78,6 +78,22 @@ export class ChRecordService {
         throw x.message;
       });
   }
+  ViewFormulation(ch_record: any): any {
+    let servObj = new ServiceObject('viewFormulation/'+ ch_record);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        //this.ch_record = <any[]>servObj.data.ch_record;
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 
 
   ViewAllHC(params = {}): any {

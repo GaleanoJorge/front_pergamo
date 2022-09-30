@@ -130,12 +130,14 @@ export class FormPsRelationshipComponent implements OnInit {
       attitude: [this.data[0] ? this.data[0].attitude : this.data.attitude, Validators.compose([Validators.required])],
       ch_ps_awareness_id: [this.data[0] ? this.data[0].ch_ps_awareness_id : this.data.ch_ps_awareness_id, Validators.compose([Validators.required])],
       ch_ps_sleep_id: [this.data[0] ? this.data[0].ch_ps_sleep_id : this.data.ch_ps_sleep_id, Validators.compose([Validators.required])],
-      exam_others: [this.data[0] ? this.data[0].exam_others : this.data.exam_others, Validators.compose([Validators.required])],
+      exam_others: [this.data[0] ? this.data[0].exam_others : this.data.exam_others,],
       sexuality: [this.data[0] ? this.data[0].sexuality : this.data.sexuality, Validators.compose([Validators.required])],
       feeding: [this.data[0] ? this.data[0].feeding : this.data.feeding, Validators.compose([Validators.required])],
       excretion: [this.data[0] ? this.data[0].excretion : this.data.excretion, Validators.compose([Validators.required])],
 
     });
+
+    this.onChange();
   }
 
   async save() {
@@ -237,5 +239,23 @@ export class FormPsRelationshipComponent implements OnInit {
     }
   }
 
+  onChange() {
 
+    this.form.get('ch_ps_sleep_id').valueChanges.subscribe(val => {
+      if (val != 9) {
+
+        this.form.controls.exam_others.clearValidators();
+
+        this.form.controls.exam_others.setErrors(null);
+
+      } else {
+        this.form.controls.exam_others.setValidators(Validators.compose([Validators.required]));
+        this.form.patchValue({ exam_others:''});
+
+      };
+    });
+
+  
+
+  }
 }
