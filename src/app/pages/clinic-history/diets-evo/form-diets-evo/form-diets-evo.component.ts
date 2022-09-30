@@ -81,7 +81,7 @@ export class FormDietsEvoComponent implements OnInit {
    
     this.form = this.formBuilder.group({
       enterally_diet_id: [this.data.enterally_diet_id ],
-      diet_consistency: [this.data.diet_consistency,Validators.compose([Validators.required])],
+      diet_consistency: [this.data.diet_consistency],
       observation: [this.data.observation, Validators.compose([Validators.required])],
     });
   }
@@ -114,7 +114,7 @@ export class FormDietsEvoComponent implements OnInit {
       } else {
         await this.ChDietsEvoS.Save({
           enterally_diet_id: this.form.controls.enterally_diet_id.value,
-          diet_consistency:  JSON.stringify(this.form.controls.diet_consistency.value),
+          diet_consistency:  this.form.controls.diet_consistency.value.length>0? JSON.stringify(this.form.controls.diet_consistency.value):null,
           observation: this.form.controls.observation.value,
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
