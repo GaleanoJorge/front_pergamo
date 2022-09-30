@@ -17,7 +17,7 @@ import { AuthService } from '../../../services/auth.service';
   template: `
   <div class="d-flex justify-content-center">
   
-    <button nbTooltip="Formula médica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewMedicalOrder()" >
+    <button nbTooltip="Orden médica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewMedicalOrder()" >
       <nb-icon icon="file-add"></nb-icon>
     </button>
 
