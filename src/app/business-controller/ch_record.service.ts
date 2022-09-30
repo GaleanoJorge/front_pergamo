@@ -111,6 +111,57 @@ export class ChRecordService {
       });
   }
 
+  ViewInability(ch_record: any): any {
+    let servObj = new ServiceObject('viewInability/'+ ch_record);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        //this.ch_record = <any[]>servObj.data.ch_record;
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  ViewCertificate(ch_record: any): any {
+    let servObj = new ServiceObject('viewCertificate/'+ ch_record);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        //this.ch_record = <any[]>servObj.data.ch_record;
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  ViewInterconsultation(ch_record: any): any {
+    let servObj = new ServiceObject('viewInterconsultation/'+ ch_record);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        //this.ch_record = <any[]>servObj.data.ch_record;
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
 
   ViewAllHC(params = {}): any {
     let servObj = new ServiceObject('viewAllHC');
