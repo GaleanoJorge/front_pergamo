@@ -405,6 +405,9 @@ import { PsAwarenessComponent } from './ch-psychology/ps-awareness/ps-awareness.
 import { PsObjectivesComponent } from './ch-psychology/ps-objectives/ps-objectives.component';
 import { ActionsFormulationComponent } from './formulation/actions.component';
 import { ActionsMedicalOrderComponent } from './ch-medical-orders/actions.component';
+import { ActionsInabilityComponent } from './ch-inability/actions.component';
+import { ActionsCertificateComponent } from './ch-medical-certificate/actions.component';
+import { ActionsInterconsultationComponent } from './ch-interconsultation/actions.component';
 
 
 @NgModule({
@@ -701,6 +704,9 @@ import { ActionsMedicalOrderComponent } from './ch-medical-orders/actions.compon
     Actions7Component,
     ActionsFormulationComponent,
     ActionsMedicalOrderComponent,
+    ActionsInabilityComponent,
+    ActionsCertificateComponent,
+    ActionsInterconsultationComponent,
 
 
     FormBackgroundComponent,
