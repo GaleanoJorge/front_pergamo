@@ -73,7 +73,11 @@ export class CampusComponent implements OnInit {
         title: this.headerFields[8],
         type: 'string',
         valuePrepareFunction(value, row) {
-          return row.billing_pad_credit_note_prefix.name;
+          if (row.billing_pad_credit_note_prefix) {
+            return row.billing_pad_credit_note_prefix.name;
+          } else {
+            return '--'
+          }
         }
       },
       region_id: {
