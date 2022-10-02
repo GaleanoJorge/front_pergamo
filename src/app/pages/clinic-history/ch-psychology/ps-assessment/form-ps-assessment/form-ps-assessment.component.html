@@ -1,0 +1,84 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Motivo de consulta</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-12 col-lg-12">
+      <div class="form-group">
+        <label for="text" class="form-text text-muted font-weight-bold">Paciente</label>
+        <textarea id="patient" nbInput fullWidth formControlName="patient" patient onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.patient.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        </textarea>
+      </div>
+    </div>
+  </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-6 col-lg-6">
+        <div class="form-group">
+          <label for="relationship_id" class="form-text text-muted font-weight-bold">Tercero:</label>
+          <nb-select formControlName="relationship_id" id="relationship_id" fullWidth
+            status="{{ isSubmitted && form.controls.relationship_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of realtionships" [value]="item.id">{{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="symptom" class="form-text text-muted font-weight-bold align">Inicio y Curso (Síntomas)</label>
+          <textarea id="symptom" nbInput fullWidth formControlName="symptom" symptom rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.symptom.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+        </div>
+      </div>
+
+
+      <div class="col-md-5 col-lg-5">
+        <div class="form-group">
+          <label for="ch_ps_episodes_id" class="form-text text-muted font-weight-bold">Episodios Previos (inicio y curso
+            - síntomas) </label>
+          <nb-select formControlName="ch_ps_episodes_id" id="ch_ps_episodes_id" fullWidth
+            status="{{ isSubmitted && form.controls.ch_ps_episodes_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of episodes" [value]="item.id">{{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="form-group">
+          <label for="ch_ps_episodes_id" class="form-text text-muted font-weight-bold">Número de episodios</label> 
+          <input nbInput id="episodes_number" formControlName="episodes_number" episodes_number class="ImpPeq center"
+            status="{{ isSubmitted && form.controls.episodes_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg-4">
+        <div class="form-group">
+          <label for="areas" class="form-text text-muted font-weight-bold">Áreas de Ajuste</label>
+          <nb-select multiple formControlName="areas" id="areas" fullWidth
+            status="{{ isSubmitted && form.controls.areas.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option *ngFor="let item of areas" [value]="item.name">{{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="div-send">
+          <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        </div>
+      </div>
+    </div>
+
+</form>

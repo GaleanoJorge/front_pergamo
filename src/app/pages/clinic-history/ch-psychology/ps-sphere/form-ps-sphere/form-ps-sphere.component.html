@@ -1,0 +1,109 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+    <div class="row">
+        <div class="col-12">
+            <p class="text-muted title-form">Esfera afectiva o del humor</p>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-4 col-lg-4">
+            <div class="form-group">
+                <nb-checkbox for="euthymia" (checkedChange)="toggle($event)" fullWidth id="euthymia"
+                    formControlName="euthymia" euthymia
+                    status="{{ isSubmitted && form.controls.euthymia.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    Eutimia</nb-checkbox>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center" *ngIf="this.form.controls.euthymia.value == 0">
+        <div class="col-12">
+            <p class="text-muted title-form">Alteraciones</p>
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+            <div class="form-group">
+                <label for="ch_ps_sadness_id" class="form-text text-muted font-weight-bold">Tristeza</label>
+                <nb-select formControlName="ch_ps_sadness_id" id="ch_ps_sadness_id" fullWidth ch_ps_sadness_id
+                    status="{{ isSubmitted && form.controls.ch_ps_sadness_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of sadness" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <div class="form-group">
+                <label for="ch_ps_joy_id" class="form-text text-muted font-weight-bold">Alegria</label>
+                <nb-select formControlName="ch_ps_joy_id" id="ch_ps_joy_id" fullWidth ch_ps_joy_id
+                    status="{{ isSubmitted && form.controls.ch_ps_joy_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of joy" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <div class="form-group">
+                <label for="ch_ps_fear_id" class="form-text text-muted font-weight-bold">Temor o miedo</label>
+                <nb-select formControlName="ch_ps_fear_id" id="ch_ps_fear_id" fullWidth ch_ps_fear_id
+                    status="{{ isSubmitted && form.controls.ch_ps_fear_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of fear" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <div class="form-group">
+                <label for="ch_ps_anger_id" class="form-text text-muted font-weight-bold">Ira</label>
+                <nb-select formControlName="ch_ps_anger_id" id="ch_ps_anger_id" fullWidth ch_ps_anger_id
+                    status="{{ isSubmitted && form.controls.ch_ps_anger_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of anger" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <div class="form-group">
+                <label for="ch_ps_insufficiency_id" class="form-text text-muted font-weight-bold">Insuficiencias</label>
+                <nb-select formControlName="ch_ps_insufficiency_id" id="ch_ps_insufficiency_id" fullWidth
+                    ch_ps_insufficiency_id
+                    status="{{ isSubmitted && form.controls.ch_ps_insufficiency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of insufficiency" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <div class="form-group">
+                <label for="ch_ps_several_id" class="form-text text-muted font-weight-bold">Varios</label>
+                <nb-select formControlName="ch_ps_several_id" id="ch_ps_several_id" fullWidth ch_ps_several_id
+                    status="{{ isSubmitted && form.controls.ch_ps_several_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option *ngFor="let item of several" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-6 col-lg-6">
+            <div class="form-group">
+                <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+                <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+                    onpaste="return false"
+                    status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="div-send">
+                <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
+                    type="submit">GUARDAR</button>
+            </div>
+        </div>
+    </div>
+
+</form>

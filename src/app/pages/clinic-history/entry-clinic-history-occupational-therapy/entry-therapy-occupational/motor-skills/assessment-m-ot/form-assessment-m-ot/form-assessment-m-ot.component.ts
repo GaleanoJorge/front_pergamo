@@ -31,43 +31,43 @@ export class FormAssessmentMOTComponent implements OnInit {
   public arrayObjectives = [
     {
       id: 1,
-      description: "Fortalecer musculatura respiratoria para mejorar niveles de oxigenación"
+      description: "Mantener y/o mejorar las destrezas de ejecución por medio de actividades graduadas y basadas en intereses para potencializar su desempeño ocupacional."
     },
     {
       id: 2,
-      description: "Promover y vigilar decanulación traqueal"
+      description: "Mejorar funciones mentales globales y específicas por medio de actividades de estimulación cognitiva."
     },
     {
       id: 3,
-      description: "Titulacion de flujo de oxigenoterapia en cumplimiento a metas de oximetrias"
+      description: "Estructurar patrones de desempeño a nivel de  actividades de ocio/tiempo libre."
     },
     {
       id: 4,
-      description: "Mejorar/mantener cualidades fisicas de musculatura respiratoria"
+      description: "Promover destrezas de interacción y comunicación por medio de actividades grupales."
     },
     {
       id: 5,
-      description: "Reeducacion de patron ventilatorio"
+      description: "Fortalecer las habilidades emocionales por medio de una actividad de auto-reconocimiento con el fin de brindar una resignificación frente a los obstáculos que se les presentan."
     },
     {
       id: 6,
-      description: "Mantener/ reeducar cinetica diafragmatica y costal"
+      description: "Promover mejoras para el fortalecimiento de su vida emocional con el fin de mejorar sus respuestas adaptativas."
     },
     {
       id: 7,
-      description: "Controlar la hiperventilacion y fatiga muscular"
+      description: "Desarrollar estrategias que contribuyan a la proyección de nueva metas dando cumplimiento de las mismas y a la vez resolviendo los restos que pueden surgir. "
     },
     {
       id: 8,
-      description: "Entrenar uso de inhaloterapia / farmacoterapia de acuerdo a prescripción medica"
+      description: "Fortalecer su salud emocional para mejorar su desempeño a nivel familiar, social y laboral. "
     },
     {
       id: 9,
-      description: "Titular parametros ventilatorios en relación a dinamica ventilatoria"
+      description: "Favorecer funciones cognitivas y habilidades motoras  con el fin de mejorar el desempeño ocupacional y el cumplimiento de roles propios de la edad."
     },
     {
       id: 10,
-      description: "Vigilar presencia de signos de dificultad respiratoria"
+      description: "Mejorar la capacidad sensitiva y propioceptiva por medio de la discriminación táctil para favorecer la funcionalidad e independencia en la AVD. *Mejorar habilidades cognitivas superiores con el fin de lograr la ejecución de sus ocupaciones."
     }
 
   ]

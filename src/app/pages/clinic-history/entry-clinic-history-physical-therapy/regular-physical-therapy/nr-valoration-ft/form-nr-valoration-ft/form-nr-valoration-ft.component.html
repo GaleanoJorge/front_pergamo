@@ -8,11 +8,11 @@
     
     <div class="col col-lg-12">
       <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNOSTICO MEDICO:</label>
-      <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="ch_diagnosis_id"
+      <input fullWidth nbInput list="codes1" (change)="saveCode($event.target.value)" id="ch_diagnosis_id"
         formControlName="ch_diagnosis_id" ch_diagnosis_id type="text" required (ngModelChange)="this.searchDiagnostic($event)"
         status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-      <datalist id="codes">
-        <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+      <datalist id="codes1">
+        <option *ngFor="let item of diagnosisr" [value]="item.name">{{ item.code }} - {{item.name}} </option>
       </datalist>
     </div>
 

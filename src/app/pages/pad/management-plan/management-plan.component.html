@@ -1,9 +1,9 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table *ngIf="roles && user" [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+    <ngx-base-table *ngIf="user" [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
       customData="management_plan" [messageToltip]="messageToltip">
-      <div title *ngIf="user && medical==false">
+      <div title *ngIf="user && medical!=1">
         <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}}</p>
         <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> {{user.nombre_completo}}</p>
         <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}}</p>
@@ -23,9 +23,9 @@
           <button nbButton (click)="back()" >Volver</button>
         </div>
         <div class="actions">
-          <div *ngIf=" this.currentRole.role_type_id == 1" class="space" style="margin-right:-5px;">
+          <div *ngIf=" this.currentRole.role_type_id == 1 || this.currentRole.id==3" class="space" style="margin-right:-5px;">
 
-            <button nbButton status="danger" (click)="NewManagementPlan()">anexar servicios</button>
+            <button nbButton status="danger" (click)="NewManagementPlan()">Anexar servicios</button>
           </div>
           
         </div>

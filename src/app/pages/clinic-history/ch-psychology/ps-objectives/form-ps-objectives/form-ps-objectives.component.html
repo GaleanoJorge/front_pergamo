@@ -1,0 +1,73 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Estado de conciencia</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Objetivo del Paciente</label>
+        <textarea id="patient" nbInput fullWidth formControlName="patient" patient onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.patient.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Objetivo de Sesión</label>
+        <textarea id="session" nbInput fullWidth formControlName="session" session
+          onpaste="return false" onpaste="return false"
+          status="{{ isSubmitted && form.controls.session.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Intervención</label>
+        <textarea id="intervention" nbInput fullWidth formControlName="intervention" intervention onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.intervention.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Estado del paciente</label>
+        <textarea id="patient_state" nbInput fullWidth formControlName="patient_state" patient_state onpaste="return false"
+          status="{{ isSubmitted && form.controls.patient_state.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Recomendaciones</label>
+        <textarea id="recommendations" nbInput fullWidth formControlName="recommendations" recommendations onpaste="return false"
+          status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Control</label>
+        <textarea id="control" nbInput fullWidth formControlName="control" control onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.control.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Remisiones</label>
+        <textarea id="referrals" nbInput fullWidth formControlName="referrals" referrals onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.referrals.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+   
+    <div class="row">
+      <div class="col-md-12">
+        <div class="div-send">
+          <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        </div>
+      </div>
+    </div>
+
+</form>

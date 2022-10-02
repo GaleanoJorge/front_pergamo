@@ -89,7 +89,7 @@
   <div class="row justify-content-md-center">
     <div class="col-md-4">
       <div class="form-group">
-        <label for="cell_phone" class="form-text text-muted font-weight-bold">Teléfono celular</label>
+        <label for="cell_phone" class="form-text text-muted font-weight-bold">Gastos Teléfono celular</label>
         <input type="number" nbInput fullWidth id="cell_phone" formControlName="cell_phone" cell_phone
           (change)="onChangesTotal($event, 4)"
           status="{{ isSubmitted && form.controls.cell_phone.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
@@ -97,7 +97,7 @@
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label for="landline" class="form-text text-muted font-weight-bold">Teléfono fijo</label>
+        <label for="landline" class="form-text text-muted font-weight-bold">Gastos Teléfono fijo</label>
         <input type="number" nbInput fullWidth id="landline" formControlName="landline" landline
           (change)="onChangesTotal($event, 5)"
           status="{{ isSubmitted && form.controls.landline.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />

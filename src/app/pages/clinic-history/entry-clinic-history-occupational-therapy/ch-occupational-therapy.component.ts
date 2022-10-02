@@ -42,6 +42,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public chreasonconsultation: any[];
   public chrnvaloration: any[];
   public rntherapeutic: any[];
+  public chintervention: any[];
   public chrnmaterials: any[];
   public physical: any[];
   public chvitsigns: any[];
@@ -82,6 +83,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
     private ChEValorationOTService: ChEValorationOTService,
     private ChEPastOTService: ChEPastOTService,
     private ChEDailyActivitiesOTService: ChEDailyActivitiesOTService,
+    
     private ChRNValorationOTS: ChRNValorationOTService,
     private ChRNTherapeuticObjOTS: ChRNTherapeuticObjOTService,
     private ChRNMaterialsOTService: ChRNMaterialsOTService,
