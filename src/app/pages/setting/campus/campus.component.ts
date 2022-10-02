@@ -21,7 +21,7 @@ export class CampusComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Sedes';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Dirección', 'Código habilitación', 'Prefijo facturación', 'Región', 'Municipio', 'Estado'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Dirección', 'Código habilitación', 'Prefijo facturación', 'Región', 'Municipio', 'Estado', 'Prefijo nota crédito'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -67,6 +67,13 @@ export class CampusComponent implements OnInit {
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.billing_pad_prefix.name;
+        }
+      },
+      billing_pad_credit_note_prefix_id: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.billing_pad_credit_note_prefix.name;
         }
       },
       region_id: {
