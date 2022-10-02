@@ -21,10 +21,10 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
     <button *ngIf="value.currentRole == 2 && ((today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17 && value.data.management_plan.type_of_attention_id!=12)||value.data.allow_redo == 1)" (click)="click()" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
     <nb-icon icon="folder-add-outline"></nb-icon>
     </button>
-    <a *ngIf="value.currentRole == 2 && (firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="openEF(value.data)">
+    <a *ngIf="value.currentRole == 2 && (firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
-    <a *ngIf="value.currentRole == 2 && (start <= today2 && finish >= today2 && firsthour < hournow && endhour >= hournow && value.data.management_plan.type_of_attention_id==12)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="openEF(value.data)">
+    <a *ngIf="value.currentRole == 2 && (start <= today2 && finish >= today2 && firsthour < hournow && endhour >= hournow && value.data.management_plan.type_of_attention_id==12)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
   <button *ngIf="value.data.ch_record.length > 0" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
