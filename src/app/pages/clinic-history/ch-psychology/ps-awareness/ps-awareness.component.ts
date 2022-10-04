@@ -36,7 +36,7 @@ export class PsAwarenessComponent implements OnInit {
     'Estupor o sopor',
     'En coma superficial',
     'En coma profundo',
-    'Apariencia',
+    'Apariencia, Porte',
     'Actitud'
 
   ];
@@ -115,7 +115,7 @@ export class PsAwarenessComponent implements OnInit {
       
     },
     appearance: {
-      title: this.headerFields[10],
+      title: this.headerFields[11],
       width: 'string',
       valuePrepareFunction(value, row) {
           if (value) {
@@ -127,11 +127,13 @@ export class PsAwarenessComponent implements OnInit {
       
     },
     attitude: {
-      title: this.headerFields[10],
+      title: this.headerFields[12],
       width: 'string',
       valuePrepareFunction(value, row) {
           if (value) {
-            return value;
+            var a =  value.replace(/[["]+/g, '');
+            var b = a.replace(/]+/g,'');
+            return (b.replace(/,+/g,', '));
           } else {
             return 'NO APLICA'
           }
