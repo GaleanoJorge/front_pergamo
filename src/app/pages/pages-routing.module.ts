@@ -61,6 +61,11 @@ const routes: Routes = [{
         .then(m => m.PadModule),
     },
     {
+      path: 'pah',
+      loadChildren: () => import('./pah/pah.module')
+        .then(m => m.PahModule),
+    },
+    {
       path: 'telemedicine',
       loadChildren: () => import('./telemedicine/telemedicine.module')
         .then(m => m.TelemedicineModule),

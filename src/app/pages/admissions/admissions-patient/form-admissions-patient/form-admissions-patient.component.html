@@ -44,34 +44,7 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-md-6" *ngIf="this.show_inputs">
-          <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
-          <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
-            status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == this.data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
-        <div class="col-md-6" *ngIf="this.show_inputs">
-          <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
-          <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
-            status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == this.data.pavilion_id }}" *ngFor="let item of pavilion"
-              [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
-        <div class="col-md-6" *ngIf="this.show_inputs">
-          <label for="bed" class="form-text text-muted font-weight-bold">Cama / Consultorio:</label>
-          <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
-            status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == this.data.bed_id }}" *ngFor="let item of bed" [value]="item.id">
-              {{ item.name }}</nb-option>
-          </nb-select>
-        </div>
+        
         <div class="col-md-6">
           <label for="eps" class="form-text text-muted font-weight-bold">EPS / Asegurador:</label>
           <nb-select [selected]="this.data.eps" formControlName="eps" id="eps" fullWidth
@@ -116,9 +89,48 @@
             status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
-              [value]="item.manual_price.procedure.id">
+              [value]="item.id">
               {{ item.manual_price.procedure.name }} - {{ item.manual_price.name }}</nb-option>
           </nb-select>
+        </div>
+        <div class="col-md-6" *ngIf="this.show_inputs">
+          <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
+          <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
+            status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6" *ngIf="this.show_inputs">
+          <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
+          <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
+            status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.pavilion_id }}" *ngFor="let item of pavilion"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6" *ngIf="this.show_inputs">
+          <label for="bed" class="form-text text-muted font-weight-bold">Cama / Consultorio:</label>
+          <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
+            status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.bed_id }}" *ngFor="let item of bed" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6" *ngIf="this.show_auth_inputs">
+          <label for="auth_number" class="form-text text-muted font-weight-bold">Número de autorización:</label>
+          <input nbInput fullWidth id="auth_number"
+            formControlName="auth_number" auth_number
+            status="{{ isSubmitted && form.controls.auth_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+        <div class="col-md-6" *ngIf="this.show_auth_inputs">
+          <label for="bed" class="form-text text-muted font-weight-bold">Archivo de autorización:</label>
+          <input accept="application/pdf" type="file" id="file" nbInput fullWidth
+                (change)="changeImage($event.target.files, 1)" />
         </div>
         <div class="col-md-6">
           <label for="has_caregiver" class="form-text text-muted font-weight-bold">¿Tiene algún acompañante/responsable?

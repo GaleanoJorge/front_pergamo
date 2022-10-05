@@ -31,8 +31,8 @@ export class BedService {
       });
   }
 
-  GetBedByPavilion(pavilion_id,ambit): Promise<Bed[]> {
-    let servObj = new ServiceObject(`bed/byPavilion/${pavilion_id}/${ambit}`);
+  GetBedByPavilion(pavilion_id,ambit, procedure = 0): Promise<Bed[]> {
+    let servObj = new ServiceObject(`bed/byPavilion/${pavilion_id}/${ambit}/${procedure}`);
     return this.webAPI.GetAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
