@@ -140,11 +140,12 @@ export class FormLanguageAssessmentComponent implements OnInit {
     } else {
       if (valid==1){
         this.diagnosis_medical = null;
+        this.form.controls.medical_diagnostic_id.setErrors({'incorrect': true});
       } else {
         this.therapeutyc_diagnosis = null;
+        this.form.controls.therapeutic_diagnosis_id.setErrors({'incorrect': true});
       }
       this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
-      this.form.controls.diagnosis_id.setErrors({'incorrect': true});
     }
   }
 
