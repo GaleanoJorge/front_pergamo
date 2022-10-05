@@ -1,0 +1,213 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Funciones de relación</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">POSTURA</label>
+        <nb-select class="form-text" id="position" formControlName="position" fullWidth
+         status="{{ isSubmitted && form.controls.position.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adecuado">Adecuada</nb-option>
+          <nb-option value="Inadecuado">Inadecuada</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">AUTOCUIDADO</label>
+        <nb-select class="form-text" id="self_care" formControlName="self_care" fullWidth
+         status="{{ isSubmitted && form.controls.self_care.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Se evidencia">Se evidencia</nb-option>
+          <nb-option value="No se evidencia">No se evidencia</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">CONTACTO VISUAL</label>
+        <nb-select class="form-text" id="visual" formControlName="visual" fullWidth
+         status="{{ isSubmitted && form.controls.visual.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Establece">Establece</nb-option>
+          <nb-option value="Establece Parcial">Establece Parcial</nb-option>
+          <nb-option value="No Estabelce">No Establece</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">CONTACTO VERBAL</label>
+        <nb-select class="form-text" id="verbal" formControlName="verbal" fullWidth        
+        status="{{ isSubmitted && form.controls.verbal.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Establece">Establece</nb-option>
+          <nb-option value="Establece Parcial">Establece Parcial</nb-option>
+          <nb-option value="No Estabelce">No Establece</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">APARIENCIA, PORTE</label>
+        <nb-select class="form-text" id="appearance" formControlName="appearance" fullWidth
+         status="{{ isSubmitted && form.controls.appearance.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adaptativo">Adaptativo</nb-option>
+          <nb-option value="No Adaptativo">No Adaptativo</nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="attitude" class="form-text text-muted font-weight-bold">Actitud</label>
+        <nb-select multiple formControlName="attitude" id="attitude" fullWidth
+          status="{{ isSubmitted && form.controls.attitude.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option *ngFor="let item of attitude" [value]="item.name">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones de Actitud</label>
+        <textarea id="att_observations" nbInput fullWidth formControlName="att_observations" att_observations
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.att_observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="ch_ps_awareness_id" class="form-text text-muted font-weight-bold">Estado de conciencia</label>
+        <nb-select formControlName="ch_ps_awareness_id" id="ch_ps_awareness_id" fullWidth
+          status="{{ isSubmitted && form.controls.ch_ps_awareness_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of awareness" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones Estado de conciencia</label>
+        <textarea id="aw_observations" nbInput fullWidth formControlName="aw_observations" aw_observations
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.aw_observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="ch_ps_sleep_id" class="form-text text-muted font-weight-bold">Sueño</label>
+        <nb-select formControlName="ch_ps_sleep_id" id="ch_ps_sleep_id" fullWidth ch_ps_sleep_id
+          status="{{ isSubmitted && form.controls.ch_ps_sleep_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of sleep" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6" *ngIf = "this.form.controls.ch_ps_sleep_id.value == 9">
+      <div class="form-group">
+        <label for="exam_others" class="form-text text-muted font-weight-bold">Otros</label>
+        <nb-select  multiple formControlName="exam_others" id="exam_others" fullWidth
+          status="{{ isSubmitted && form.controls.exam_others.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option *ngFor="let item of others" [value]="item.name">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-12 col-lg-12">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones sueño</label>
+        <textarea id="sl_observations" nbInput fullWidth formControlName="sl_observations" sl_observations
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.sl_observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="sexuality" class="form-text text-muted font-weight-bold">Sexualidad</label>
+        <nb-select multiple formControlName="sexuality" id="sexuality" fullWidth
+          status="{{ isSubmitted && form.controls.sexuality.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option *ngFor="let item of sexuality" [value]="item.name">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-16 col-lg-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones Sexualidad</label>
+        <textarea id="sex_observations" nbInput fullWidth formControlName="sex_observations" sex_observations
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.sex_observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="feeding" class="form-text text-muted font-weight-bold">Alimentación</label>
+        <nb-select multiple formControlName="feeding" id="feeding" fullWidth
+          status="{{ isSubmitted && form.controls.feeding.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option *ngFor="let item of feeding" [value]="item.name">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-16 col-lg-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones Alimentación</label>
+        <textarea id="fee_observations" nbInput fullWidth formControlName="fee_observations" fee_observations
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.fee_observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="excretion" class="form-text text-muted font-weight-bold">Excreción</label>
+        <nb-select multiple formControlName="excretion" id="excretion" fullWidth
+          status="{{ isSubmitted && form.controls.excretion.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option *ngFor="let item of excretion" [value]="item.name">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-16 col-lg-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones Excreción</label>
+        <textarea id="ex_observations" nbInput fullWidth formControlName="ex_observations" ex_observations
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.ex_observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

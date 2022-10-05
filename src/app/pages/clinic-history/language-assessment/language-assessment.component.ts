@@ -52,14 +52,22 @@ export class LanguageAssessmentComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'NO APLICA';
+          }
         },
       },
       therapeutic_diagnosis: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'NO APLICA';
+          }
         },
       },
       reason_consultation: {

@@ -114,6 +114,31 @@
           </nb-select>
         </div>
 
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && this.temp">
+          <label *ngIf="temp" for="hours" class="form-text text-muted font-weight-bold">Turno:</label>
+          <nb-select *ngIf="temp" [selected]="this.data.hours" formControlName="hours" id="hours"
+            fullWidth
+            status="{{ isSubmitted && form.controls.hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ 1 == data.hours }}" value="1">
+              CADA 1 HORA</nb-option>
+            <nb-option selected="{{ 2 == data.hours }}" value="2">
+              CADA 2 HORAS</nb-option>
+            <nb-option selected="{{ 3 == data.hours }}" value="3">
+              CADA 3 HORAS</nb-option>
+            <nb-option selected="{{ 4 == data.hours }}" value="4">
+              CADA 4 HORAS</nb-option>
+            <nb-option selected="{{ 6 == data.hours }}" value="6">
+              CADA 6 HORAS</nb-option>
+            <nb-option selected="{{ 8 == data.hours }}" value="8">
+              CADA 8 HORAS</nb-option>
+            <nb-option selected="{{ 12 == data.hours }}" value="12">
+              CADA 12 HORAS</nb-option>
+            <nb-option selected="{{ 24 == data.hours }}" value="24">
+              CADA 24 HORAS</nb-option>
+          </nb-select>
+        </div>
+
         <div class="col-12 col-sm-12 col-md-3" *ngIf="medical==0">
           <label for="start_date" class="form-text text-muted font-weight-bold">Fecha de inicio:</label>
           <input type="date" nbInput fullWidth id="start_date" formControlName="start_date" start_date
@@ -197,7 +222,7 @@
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.assigned_user_id }}" *ngFor="let item of assigned_user"
               [value]="item.id">
-              {{ item.firstname }} {{item.lastname}}</nb-option>
+              {{ item.firstname }} {{ item.middlefirstname }} {{item.lastname}} {{item.middlelastname}} - {{ item.identification }}</nb-option>
           </nb-select>
         </div>
 

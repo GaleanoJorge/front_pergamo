@@ -252,6 +252,7 @@ export class FormBackGynecoComponent implements OnInit {
           ch_record_id: this.record_id,
 
         }).then(x => {
+          this.messageEvent.emit(true);
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();

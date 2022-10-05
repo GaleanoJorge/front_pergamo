@@ -1,0 +1,18 @@
+<div *ngIf="has_input == false || type_record_id != 1">
+  <ngx-form-ps-thought (messageEvent)="receiveMessage($event)" [record_id]="record_id" [has_input]="has_input"  [type_record_id]="type_record_id">
+  </ngx-form-ps-thought>
+</div>
+<div class="center">
+  <label class="form-text text-muted font-weight-bold align center">Registros Pensamiento</label>
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <ngx-base-table pager="false" [title]="title" customData="ch_ps_thought" [settings]="settings"
+        entity="ch_ps_thought/by_record/{{record_id}}/{{type_record_id}}?pagination=false&has_input={{has_input}}">
+        <div actions>
+          <div class="actions">
+          </div>
+          <div class="actions" style="margin-top:1em;">
+          </div>
+        </div>
+      </ngx-base-table>
+</div>
