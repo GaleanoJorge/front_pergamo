@@ -19,7 +19,7 @@
           <!-- *ngIf="vitalsigns" [data]="vitalsigns"  -->
 
           <nb-step [stepControl]="nameForm" label="Destete de oxigeno">
-            <ngx-oxygen-therapy *ngIf="teraphyRespiratory" [record_id]="record_id" [type_record_id]="type_record_id" [has_input]="has_input"
+            <ngx-oxygen-therapy *ngIf="teraphyRespiratory" [record_id]="record_id" (messageEvent)="inputMessage($event)" [type_record_id]="type_record_id" [has_input]="has_input"
             [data]="teraphyRespiratory">
             </ngx-oxygen-therapy>
           </nb-step>
@@ -48,7 +48,7 @@
               <button nbButton (click)="stepper.reset()">Try again</button>
             </div>
 
-          </nb-step>
+          </nb-step>          
         </nb-stepper>
       </nb-card-body>
     </nb-card>
