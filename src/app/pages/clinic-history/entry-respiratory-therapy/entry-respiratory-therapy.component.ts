@@ -199,6 +199,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
   inputMessage($event) {
     this.input_done = true;
+     this.messageEvent.emit($event);
   }
 }
 

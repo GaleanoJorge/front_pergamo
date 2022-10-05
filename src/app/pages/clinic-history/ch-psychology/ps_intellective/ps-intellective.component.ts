@@ -73,7 +73,9 @@ export class PsIntellectiveComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value;
+            var a =  value.replace(/[["]+/g, '');
+            var b = a.replace(/]+/g,'');
+            return (b.replace(/,+/g,', '));
           } else {
             return 'NO APLICA'
           }
@@ -95,7 +97,9 @@ export class PsIntellectiveComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value;
+            var a =  value.replace(/[["]+/g, '');
+            var b = a.replace(/]+/g,'');
+            return (b.replace(/,+/g,', '));
           } else {
             return 'NO APLICA'
           }

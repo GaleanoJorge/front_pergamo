@@ -51,7 +51,11 @@ export class BackgroundComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'No Aplica';
+          }
         },
       },
       revision: {
