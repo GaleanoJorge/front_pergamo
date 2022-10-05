@@ -159,7 +159,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
 
       let response;
     
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
       this.toastService.success('', response.message);
       //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
