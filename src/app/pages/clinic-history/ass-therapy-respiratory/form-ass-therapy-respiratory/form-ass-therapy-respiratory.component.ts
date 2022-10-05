@@ -149,6 +149,7 @@ export class FormAssTherapyRespiratoryComponent implements OnInit {
 
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
           if (this.saved) {
             this.saved();
           }
@@ -201,6 +202,7 @@ export class FormAssTherapyRespiratoryComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      this.messageEvent.emit($event);
     }
   }
 
