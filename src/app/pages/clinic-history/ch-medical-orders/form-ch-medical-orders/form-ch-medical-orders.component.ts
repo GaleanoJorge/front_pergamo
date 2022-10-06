@@ -53,7 +53,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
     if (!this.data) {
       this.data = {
-        ambulatory_medical_order: '',
+        ambulatory_medical_order: 0,
         procedure_id: '',
         services_briefcase_id: '',
         amount: '',
@@ -65,6 +65,10 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
     this.FrequencyS.GetCollection().then(x => {
       this.frequency_id = x;
+    });
+
+    this.serviceS.GetProcedureByBriefcase(this.admission.briefcase_id).then(x => {
+      this.procedure = x;
     });
 
     
@@ -130,9 +134,9 @@ export class FormChMedicalOrdersComponent implements OnInit {
       } else {
         await this.ChMedicalOrdersS
           .Save({
-            ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? 'Sí' : null,
-            procedure_id: this.form.controls.ambulatory_medical_order.value ? this.procedure_id : null,
-            services_briefcase_id: this.form.controls.ambulatory_medical_order.value ? null : this.procedure_id,
+            ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? true : false,
+            procedure_id: this.form.controls.ambulatory_medical_order.value == true ? this.procedure_id : null,
+            services_briefcase_id: this.form.controls.ambulatory_medical_order.value == false ? this.procedure_id : null,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
@@ -168,7 +172,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
 
   saveCode(e): void {
-    var localidentify = this.procedure.find(item => item.name == e);
+    var localidentify = this.form.controls.ambulatory_medical_order.value ? this.procedure.find(item => item.name == e) : this.procedure.find(item => item.manual_price.procedure.name == e);
 
     if (localidentify) {
       this.procedure_id = localidentify.id;
@@ -177,8 +181,9 @@ export class FormChMedicalOrdersComponent implements OnInit {
     } else {
       this.procedure_id = null;
       this.form.controls.procedure_id.setErrors({ 'incorrect': true });
+      
+      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
     }
-    this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
   }
 
 
@@ -186,6 +191,13 @@ onChange() {
 
   this.form.get('ambulatory_medical_order').valueChanges.subscribe(val => {
     this.procedure_id = null;
+    this.procedure = null;
+    this.form.patchValue({
+      procedure_id: '',
+      amount: '',
+      frequency_id: '',
+      observations: '' });
+
       this.form.controls.procedure_id.setErrors({ 'incorrect': true });
     if (val == 1) {
 
@@ -195,7 +207,7 @@ onChange() {
      
 
     } else {
-      this.serviceS.GetCollection().then(x => {
+      this.serviceS.GetProcedureByBriefcase(this.admission.briefcase_id).then(x => {
         this.procedure = x;
       });
    

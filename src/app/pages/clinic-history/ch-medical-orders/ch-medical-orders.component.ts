@@ -69,12 +69,27 @@ export class ChMedicalOrdersComponent implements OnInit {
       ambulatory_medical_order: {
         title: this.headerFields[1],
         width: 'string',
+        valuePrepareFunction(value) {
+          if (value == 1) {
+            return 'Si';
+          } else {
+            return 'No'
+          }
+        },
       },
       procedure: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return (row.procedure != null ? row.procedure.name : row.services_briefcase != null ? row.services_briefcase.manual_price.procedure.name : "") 
+
+
+
+          // if (value == null) {
+          //   return 'No aplica';
+          // } else {
+          //   return value.name
+          // }
         },
       },
       amount: {
