@@ -30,6 +30,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() admission_id: null;
   @Input() stored: any = null;
+  @Input() campus_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -51,10 +52,10 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public diagnosis: any[] = [];
   public briefcase: any[] = [];
   public procedures: any[] = [];
-  public campus_id;
   public ambit;
   public show_diagnostic: boolean = false;
   public show_inputs: boolean = false;
+  public show_auth_inputs: boolean = false;
   public diagnosis_id;
   public showTable;
   public admissions_id: number = 0;
@@ -117,12 +118,15 @@ export class FormAdmissionsPatientComponent implements OnInit {
       contract_id: [this.data.contract_id, Validators.compose([Validators.required])],
       briefcase_id: [this.data.briefcase_id, Validators.compose([Validators.required])],
       procedure_id: [this.data.procedure_id],
+      auth_number: [this.data.auth_number],
+      file_auth: [this.data.file_auth],
       has_caregiver: [this.data.has_caregiver, Validators.compose([Validators.required])],
       regime_id: [this.data.regime_id, Validators.compose([Validators.required])],
       eps: [this.data.eps],
     });
-
-    this.campus_id = localStorage.getItem('campus');
+    if (this.campus_id == null) {
+      this.campus_id = localStorage.getItem('campus');
+    }
     this.AdmissionRouteS.GetCollection().then(x => {
       this.admission_route = x;
     });
@@ -186,6 +190,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
           briefcase_id: this.form.controls.briefcase_id.value,
           regime_id: this.form.controls.regime_id.value,
           procedure_id: this.form.controls.procedure_id.value,
+          auth_number: this.form.controls.procedure_id.value,
+          file_auth: this.form.controls.procedure_id.value,
           campus_id: this.campus_id,
           patient_id: this.user_id
         }).then(x => {
@@ -222,6 +228,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
             pavilion_id: this.form.controls.pavilion_id.value,
             bed_id: this.form.controls.bed_id.value,
             contract_id: this.form.controls.contract_id.value,
+            auth_number: this.form.controls.procedure_id.value,
+            file_auth: this.form.controls.procedure_id.value,
             campus_id: this.campus_id,
             patient_id: this.user_id,
           }).then(x => {
@@ -462,16 +470,39 @@ export class FormAdmissionsPatientComponent implements OnInit {
       this.form.controls.has_caregiver.disable();
       this.form.controls.procedure_id.clearValidators();
       this.form.controls.procedure_id.setErrors(null);
+      this.form.controls.flat_id.setValidators([]);
+      this.form.controls.flat_id.updateValueAndValidity();
+      this.form.controls.pavilion_id.setValidators([]);
+      this.form.controls.pavilion_id.updateValueAndValidity();
+      this.form.controls.bed_id.setValidators([]);
+      this.form.controls.bed_id.updateValueAndValidity();
 
 
     } else {
       if (val == 1) {
+        this.show_auth_inputs = true;
         this.form.controls.procedure_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.flat_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.pavilion_id.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.auth_number.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.file_auth.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.bed_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.has_caregiver.setValue(false);
         this.form.controls.has_caregiver.enable();
       } else {
+        this.show_auth_inputs = false;
         this.form.controls.procedure_id.clearValidators();
         this.form.controls.procedure_id.setErrors(null);
+        this.form.controls.flat_id.setValidators([]);
+        this.form.controls.flat_id.updateValueAndValidity();
+        this.form.controls.pavilion_id.setValidators([]);
+        this.form.controls.pavilion_id.updateValueAndValidity();
+        this.form.controls.bed_id.setValidators([]);
+        this.form.controls.bed_id.updateValueAndValidity();
+        this.form.controls.auth_number.setValidators([]);
+        this.form.controls.auth_number.updateValueAndValidity();
+        this.form.controls.file_auth.setValidators([]);
+        this.form.controls.file_auth.updateValueAndValidity();
       }
 
     }
@@ -543,9 +574,13 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
 
   GetBed(pavilion_id, ambit) {
-    if (!pavilion_id || pavilion_id === '') return Promise.resolve(false);
-    return this.BedS.GetBedByPavilion(pavilion_id, ambit).then(x => {
-      this.bed = x;
+    if ((!pavilion_id || pavilion_id === '') || (!this.form.controls.procedure_id.value || this.form.controls.procedure_id.value === '') || (!ambit || ambit === '')) return Promise.resolve(false);
+    return this.BedS.GetBedByPavilion(pavilion_id, ambit, this.procedures.find(item => item.id == this.form.controls.procedure_id.value).manual_price.procedure_id).then(x => {
+      if (x.length > 0) {
+        this.bed = x;
+      } else {
+        this.toastService.warning('', 'No se encontraron camas')
+      }
 
       return Promise.resolve(true);
     });
@@ -568,5 +603,26 @@ export class FormAdmissionsPatientComponent implements OnInit {
       return Promise.resolve(true);
     });
   }
+
+  async changeImage(files, option) {
+    if (!files.length) return false;
+
+    const file = await this.toBase64(files[0]);
+
+    switch (option) {
+      case 1:
+        this.form.patchValue({
+          file_auth: files[0],
+        });
+        break;
+    }
+  }
+
+  toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  })
 
 }

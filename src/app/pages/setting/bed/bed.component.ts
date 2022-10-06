@@ -18,7 +18,7 @@ export class BedComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Camas';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID','Código','Nombre','Pabellón','Piso','Sede','Estado'];
+  public headerFields: any[] = ['ID','Código','Nombre','Pabellón','Piso','Sede','Estado', 'Procedimiento'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -78,6 +78,13 @@ export class BedComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return this.sede;
+        },
+      },
+      procedure: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
         },
       },
       status_bed: {

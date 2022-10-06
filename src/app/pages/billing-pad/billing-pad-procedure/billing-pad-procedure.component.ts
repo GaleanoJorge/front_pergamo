@@ -108,6 +108,10 @@ export class BillingPadProcedureComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           var q = 1;
+          if (row.location_id) {
+            var diff = Math.abs(new Date().getDate() - new Date(row.created_at).getDate());
+            row.quantity = diff;
+          }
           if (row.quantity) {
             q = row.quantity;
           }
@@ -163,6 +167,10 @@ export class BillingPadProcedureComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           var q = 1;
+          if (row.location_id) {
+            var diff = Math.abs(new Date().getDate() - new Date(row.created_at).getDate());
+            row.quantity = diff;
+          }
           if (row.quantity) {
             q = row.quantity;
           }
@@ -352,6 +360,12 @@ export class BillingPadProcedureComponent implements OnInit {
       var add = {
         id: element.id,
         quantity: q,
+        location_id: element.location_id,
+        created_at: element.created_at,
+        location: element.location_id ? {
+          entry_date: element.location.entry_date,
+          discharge_date: element.location.discharge_date,
+        } : null,
         services_briefcase: {
           value: (element.services_briefcase.value * q),
           manual_price: {

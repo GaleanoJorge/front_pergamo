@@ -98,6 +98,22 @@ export class PatientService {
       });
   }
 
+  PatientByPah(id: any, params = {}): Promise<Patient[]> {
+    var servObj = new ServiceObject("patient/byPAH/2", id);
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.patients = <Patient[]>servObj.data;
+        return Promise.resolve(this.patients);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   UpdatePatient(patient: any, id?): Promise<ServiceObject> {
     let servObj = new ServiceObject('PacientInscription', (patient.id ? patient.id : id));
     servObj.data = patient;

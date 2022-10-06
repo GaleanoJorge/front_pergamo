@@ -342,6 +342,7 @@ export class ReferenceListComponent implements OnInit {
       closeOnEsc: false,
       context: {
         title: 'Crear nuevo ingreso',
+        campus_id: data.acceptance_campus_id,
         user_id: data.patient_id ? data.patient_id : data.id,
         admission_data: dat,
         saved: this.RefreshData.bind(this),
