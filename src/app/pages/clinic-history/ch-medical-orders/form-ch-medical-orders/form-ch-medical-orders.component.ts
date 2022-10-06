@@ -17,6 +17,7 @@ import { ServicesBriefcaseService } from '../../../../business-controller/servic
 export class FormChMedicalOrdersComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -107,6 +108,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
             observations: this.form.controls.observations.value,
             type_record_id: 6,
             ch_record_id: this.record_id,
+            admissions_id: this.admission.id,
           })
           .then((x) => {
             this.clearForm();
@@ -136,6 +138,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
             observations: this.form.controls.observations.value,
             type_record_id: 6,
             ch_record_id: this.record_id,
+            admissions_id: this.admission.id,
           })
           .then((x) => {
             this.clearForm();
