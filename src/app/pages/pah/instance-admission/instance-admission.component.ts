@@ -37,7 +37,9 @@ export class InstanceAdmissionComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Instancias de hospitalización';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de inicio', 'Fecha Final', 'Fecha de ejecución', 'Personal asistencial'];
+  public headerFields: any[] = [
+    /*01*/ 'Servicio',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -93,21 +95,12 @@ export class InstanceAdmissionComponent implements OnInit {
       //   },
       //   renderComponent: Actions4Component,
       // },
-      start_date: {
+      services_briefcase: {
         title: this.headerFields[0],
         type: 'string',
-      },
-      finish_date: {
-        title: this.headerFields[1],
-        type: 'string',
-      },
-      execution_date: {
-        title: this.headerFields[2],
-        type: 'string',
-      },
-      nombre_completo: {
-        title: this.headerFields[3],
-        type: 'string',
+        valuePrepareFunction: (value) => {
+          return value.manual_price.procedure.name;
+        },
       },
     },
   };
@@ -174,10 +167,10 @@ export class InstanceAdmissionComponent implements OnInit {
       this.user = x[0]['patients'];
     });
 
-    this. settings = this. settings1;
+    this.settings = this.settings1;
 
-    this.entity = 'ch_medical_orders?admissions_id=' + this.admission_id;
-    
+    this.entity = 'ch_medical_orders?admissions_id =' + this.admission_id + '&ambulatory_medical_order=1';
+
 
   }
   back() {
