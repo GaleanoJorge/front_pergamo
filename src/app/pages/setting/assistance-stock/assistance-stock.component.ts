@@ -32,7 +32,7 @@ export class AssistanceStockComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'LISTA DE ELEMENTOS DEL PACIENTE';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'ESTADO', 'PRODUCTO', 'DESCRIPCIÓN', 'INDICACIONES', 'CONTRAINDICACIONES', 'REFRIGERACIÓN', 'ADMINISTRACIONES DISPONIBLES', 'DESPACHADO POR FARMACIA'];
+  public headerFields: any[] = ['ID', 'ESTADO', 'PRODUCTO', 'DESCRIPCIÓN', 'INDICACIONES', 'CONTRAINDICACIONES', 'REFRIGERACIÓN', 'ADMINISTRACIONES DISPONIBLES', 'SOLICITADOS A FARMACIA', 'RECIBIDOS POR FARMACIA'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public entity: string = null;
@@ -135,6 +135,13 @@ export class AssistanceStockComponent implements OnInit {
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.pharmacy_request_shipping.amount_provition;
+        },
+      },
+      'pharmacy_product_request.pharmacy_request_shipping.amount': {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.pharmacy_request_shipping.amount;
         },
       },
       disponibles: {
