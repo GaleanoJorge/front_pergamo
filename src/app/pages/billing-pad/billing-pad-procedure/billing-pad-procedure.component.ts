@@ -109,7 +109,9 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           var q = 1;
           if (row.location_id) {
-            var diff = Math.abs(new Date().getDate() - new Date(row.created_at).getDate());
+            var a = +(new Date(row.created_at).getFullYear() + '' + (new Date(row.created_at).getMonth() < 10 ? '0' + new Date(row.created_at).getMonth() : new Date(row.created_at).getMonth()) + '' + (new Date(row.created_at).getDate() < 10 ? '0' + new Date(row.created_at).getDate() : new Date(row.created_at).getDate()));
+            var b = +(new Date().getFullYear() + '' + (new Date().getMonth() < 10 ? '0' + new Date().getMonth() : new Date().getMonth()) + '' + (new Date().getDate() < 10 ? '0' + new Date().getDate() : new Date().getDate()));
+            var diff = Math.abs(b - a) + 1;
             row.quantity = diff;
           }
           if (row.quantity) {
@@ -168,7 +170,9 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           var q = 1;
           if (row.location_id) {
-            var diff = Math.abs(new Date().getDate() - new Date(row.created_at).getDate());
+            var a = +(new Date(row.created_at).getFullYear() + '' + (new Date(row.created_at).getMonth() < 10 ? '0' + new Date(row.created_at).getMonth() : new Date(row.created_at).getMonth()) + '' + (new Date(row.created_at).getDate() < 10 ? '0' + new Date(row.created_at).getDate() : new Date(row.created_at).getDate()));
+            var b = +(new Date().getFullYear() + '' + (new Date().getMonth() < 10 ? '0' + new Date().getMonth() : new Date().getMonth()) + '' + (new Date().getDate() < 10 ? '0' + new Date().getDate() : new Date().getDate()));
+            var diff = Math.abs(b - a) + 1;
             row.quantity = diff;
           }
           if (row.quantity) {
@@ -392,7 +396,7 @@ export class BillingPadProcedureComponent implements OnInit {
       }
       this.selectedOptions.push(add);
     });
-    
+
   }
 
   goBack() {
