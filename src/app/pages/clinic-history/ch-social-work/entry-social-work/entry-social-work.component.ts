@@ -25,6 +25,7 @@ export class EntrySocialWorkComponent implements OnInit {
   @Input() data: any = null;
   @Input() has_input: Boolean = false;
   @Input() record_id: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   //@Input() vital: any;

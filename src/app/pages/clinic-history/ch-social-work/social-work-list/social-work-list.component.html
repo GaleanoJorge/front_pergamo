@@ -15,14 +15,14 @@
 
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show == 1">
-          <ngx-entry-social-work [data]="null" [has_input]="has_input" (messageEvent)="inputMessage($event)" [record_id]="record_id">
+          <ngx-entry-social-work [data]="null" [has_input]="has_input" (messageEvent)="inputMessage($event)" [record_id]="record_id" [type_record_id]="1">
           </ngx-entry-social-work>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="REGULAR">
         <div *ngIf="this.show == 2">
-          <ngx-regular-social-work [data]="null" [record_id]="record_id">
+          <ngx-regular-social-work [data]="null" [record_id]="record_id" [type_record_id]="3">
           </ngx-regular-social-work>
         </div>
       </nb-tab>
