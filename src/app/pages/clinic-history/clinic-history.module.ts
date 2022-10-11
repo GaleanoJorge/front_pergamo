@@ -408,6 +408,7 @@ import { ActionsMedicalOrderComponent } from './ch-medical-orders/actions.compon
 import { ActionsInabilityComponent } from './ch-inability/actions.component';
 import { ActionsCertificateComponent } from './ch-medical-certificate/actions.component';
 import { ActionsInterconsultationComponent } from './ch-interconsultation/actions.component';
+import { ChSwEducationComponent } from './ch-social-work/ch-sw-education/ch-sw-education.component';
 
 
 @NgModule({
@@ -639,6 +640,7 @@ import { ActionsInterconsultationComponent } from './ch-interconsultation/action
     SwArmedConflictComponent,
     FormSwSupportNetworkComponent,
     FormChSwEducationComponent,
+    ChSwEducationComponent,
     SwSupportNetworkComponent,
     RegularSocialWorkComponent,
     SwHousingComponent,
