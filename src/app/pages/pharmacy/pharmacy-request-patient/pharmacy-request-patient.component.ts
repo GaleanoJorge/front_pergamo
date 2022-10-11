@@ -3,6 +3,7 @@ import { NbDialogService } from '@nebular/theme';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 import { UserPharmacyStockService } from '../../../business-controller/user-pharmacy-stock.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -21,7 +22,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
 
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'SOLICITANTE','NOMBRE PACIENTE', 'DOCUMENTO PACIENTE' ,'PRODUCTO', 'CANTIDAD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'SOLICITANTE','NOMBRE PACIENTE', 'DOCUMENTO PACIENTE' ,'PRODUCTO', 'CANTIDAD',  'FECHA DE SOLICITUD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]},${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -66,7 +67,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.patients.firstname + ' ' + value.patients.lastname;
+          return value.patients.firstname + ' ' + value.patients.middlefirstname + ' ' +  value.patients.lastname + ' ' + value.patients.middlelastname;
         },
       },
       identification: {
@@ -91,6 +92,14 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[5],
         type: 'string',
       },
+
+      created_at: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+      },
     },
   };
 
@@ -100,6 +109,8 @@ export class PharmacyRequestPatientComponent implements OnInit {
     private invS: PharmacyLotStockService,
     private authService: AuthService,
     private permisoPharmaS: UserPharmacyStockService,
+    public datePipe: DateFormatPipe,
+
   ) {
   }
 

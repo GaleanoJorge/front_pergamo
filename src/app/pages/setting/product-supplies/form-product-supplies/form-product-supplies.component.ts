@@ -64,6 +64,9 @@ export class FormProductSuppliesComponent implements OnInit {
         product_dose_id: '',
         dose: '',
         code_gmdn: '',
+        product_group_id: '',
+        product_category_id: '',
+        product_subcategory_id: '',
       };
     }
 
@@ -149,10 +152,18 @@ export class FormProductSuppliesComponent implements OnInit {
       if (this.data.id) {
         this.ProductSuppliesS.Update({
           id: this.data.id,
+          product_group_id: this.form.controls.product_group_id.value,
+          product_category_id: this.form.controls.product_category_id.value,
+          product_subcategory_id: this.form.controls.product_subcategory_id.value,
           size: this.form.controls.size.value,
           measure: this.form.controls.measure.value,
           stature: this.form.controls.stature.value,
-          description: this.form.controls.measure.value != null ? this.form.controls.size.value == null ? this.subcategory + " " + this.form.controls.measure.value + " " + this.measure_supplies + " x " + this.form.controls.stature.value : this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies : this.subcategory + " " + this.form.controls.stature.value,
+          description:
+            this.form.controls.measure.value == "" && this.form.controls.stature.value == "" ?
+              this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies :
+              this.form.controls.size.value == "" && this.form.controls.measure.value == "" ?
+                this.subcategory + " " + this.form.controls.stature.value :
+                this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies,
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           size_supplies_measure_id: this.form.controls.size_supplies_measure_id.value,
@@ -172,12 +183,20 @@ export class FormProductSuppliesComponent implements OnInit {
         });
       } else {
         this.ProductSuppliesS.Save({
+          product_group_id: this.form.controls.product_group_id.value,
+          product_category_id: this.form.controls.product_category_id.value,
+          product_subcategory_id: this.form.controls.product_subcategory_id.value,
           size: this.form.controls.size.value,
           measure: this.form.controls.measure.value,
           stature: this.form.controls.stature.value,
           size_supplies_measure_id: this.form.controls.size_supplies_measure_id.value,
           measure_supplies_measure_id: this.form.controls.measure_supplies_measure_id.value,
-          description: this.form.controls.measure.value != null ? this.form.controls.size.value == null ? this.subcategory + " " + this.form.controls.measure.value + " " + this.measure_supplies + " x " + this.form.controls.stature.value : this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies : this.subcategory + " " + this.form.controls.stature.value,
+          description:
+            this.form.controls.measure.value == "" && this.form.controls.stature.value == "" ?
+              this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies :
+              this.form.controls.size.value == "" && this.form.controls.measure.value == "" ?
+                this.subcategory + " " + this.form.controls.stature.value :
+                this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies,
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           product_dose_id: this.form.controls.product_dose_id.value,
