@@ -22,7 +22,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
 
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'SOLICITANTE','NOMBRE PACIENTE', 'DOCUMENTO PACIENTE' ,'PRODUCTO', 'CANTIDAD',  'FECHA DE SOLICITUD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'SOLICITANTE', 'NOMBRE PACIENTE', 'DOCUMENTO PACIENTE', 'PRODUCTO', 'CANTIDAD', 'FECHA DE SOLICITUD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]},${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -67,7 +67,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.patients.firstname + ' ' + value.patients.middlefirstname + ' ' +  value.patients.lastname + ' ' + value.patients.middlelastname;
+          return value.patients.nombre_completo;
         },
       },
       identification: {
@@ -81,9 +81,9 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(value != null){
+          if (value != null) {
             return value.manual_price.name;
-          }else{
+          } else {
             return row.product_supplies.description;
           }
         },
@@ -118,7 +118,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
-      this.entity = 'pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + x[0].id ;
+      this.entity = 'pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + x[0].id;
       this.title = 'SOLICITUDES DE MEDICAMENTOS A:  ' + x[0]['name'];
 
     });
@@ -130,16 +130,16 @@ export class PharmacyRequestPatientComponent implements OnInit {
 
 
 
-ChangePharmacy(pharmacy) {
-  if(pharmacy==0){
-    this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
+  ChangePharmacy(pharmacy) {
+    if (pharmacy == 0) {
+      this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
 
-  }else{
+    } else {
 
-    this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+    }
+    // this.RefreshData();
   }
-  // this.RefreshData();
-}
 
   RefreshData() {
     this.table.refresh();
