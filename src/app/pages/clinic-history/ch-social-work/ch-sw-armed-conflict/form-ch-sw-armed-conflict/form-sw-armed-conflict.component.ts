@@ -24,6 +24,7 @@ export class FormSwArmedConflictComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -116,7 +117,7 @@ export class FormSwArmedConflictComponent implements OnInit {
           municipality_id: this.form.controls.municipality_id.value,
           population_group_id: this.form.controls.population_group_id.value,
           ethnicity_id: this.form.controls.ethnicity_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -137,7 +138,7 @@ export class FormSwArmedConflictComponent implements OnInit {
           municipality_id: this.form.controls.municipality_id.value,
           population_group_id: this.form.controls.population_group_id.value,
           ethnicity_id: this.form.controls.ethnicity_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
