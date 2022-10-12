@@ -122,8 +122,12 @@ export class ManagementPlanComponent implements OnInit {
         type: 'string',
         width: '25%',
         valuePrepareFunction(value, row) {
+          if (row.type_of_attention_id != 20) {
           return value?.name + ' - ' + row.procedure.manual_price.name;
-        },
+        }else {
+          return "SEGUIMIENTO"
+        }
+        }
       },
       service_briefcase: {
         title: this.headerFields[7],
