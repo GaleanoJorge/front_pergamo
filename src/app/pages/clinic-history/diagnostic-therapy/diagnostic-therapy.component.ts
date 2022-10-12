@@ -13,7 +13,7 @@ export class DiagnosticTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() type_record: any = null;
-  @Input() type_record_id;
+  @Input() type_record_id: any = null;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 

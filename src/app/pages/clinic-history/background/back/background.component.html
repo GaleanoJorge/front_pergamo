@@ -1,6 +1,6 @@
 
 <div *ngIf="has_input == false || type_record_id != 1">
-  <ngx-form-background (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+  <ngx-form-background (messageEvent)="receiveMessage($event)" [record_id]="record_id" [type_record_id]="this.type_record_id">
   </ngx-form-background>
 </div>
 
@@ -9,7 +9,7 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
     <ngx-base-table  pager="false" [title]="title" customData="ch_background" [settings]="settings"
-      entity="ch_background/by_record/{{record_id}}/2/?pagination=false?&has_input={{has_input}}">
+      entity="ch_background/by_record/{{record_id}}/{{type_record_id}}/?pagination=false?&has_input={{has_input}}">
       <div actions>
         <div class="actions">
         </div>

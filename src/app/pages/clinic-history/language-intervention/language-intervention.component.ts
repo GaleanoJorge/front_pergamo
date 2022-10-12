@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-intervention',
@@ -19,6 +20,7 @@ export class LanguageInterventionComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
+    'Fecha',
     'Intervención',
     
   ];
@@ -37,8 +39,16 @@ export class LanguageInterventionComponent implements OnInit {
     },
     columns: {
 
-      text: {
+
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      text: {
+        title: this.headerFields[1],
         width: 'string',
       },
       
@@ -46,7 +56,9 @@ export class LanguageInterventionComponent implements OnInit {
     },
   };
 
-  constructor(public userChangeS: UserChangeService) {}
+  constructor(
+    public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe) {}
 
   async ngOnInit() {
 

@@ -4,7 +4,7 @@
   <nb-card-body>
     <ngx-base-list [messageError]="messageError" >
       <div content *ngIf="this.show_info">
-        <ngx-base-table pager="false" [settings]="settings" [entity]="entity"
+        <ngx-base-table (propagar)="eventSelections($event)" pager="false" [settings]="settings" [entity]="entity"
         customData="billing_pad" [messageToltip]="messageToltip">
         <div title *ngIf="user">
           <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}}</p>
@@ -44,7 +44,7 @@
 </nb-card>
 
 <ng-template #prebilling>
-  <nb-card style="width: 100%;height: 100%;overflow: auto;">
+  <nb-card style="width: 100%;height: 600px;overflow: auto;">
     <nb-card-header>PROYECCIÓN DE DE {{patient_name}}
 
     </nb-card-header>
@@ -75,7 +75,7 @@
 </ng-template>
 
 <ng-template #confirm>
-  <nb-card style="width: 100%;height: 100%;overflow: auto;">
+  <nb-card style="width: 100%;height: 600px;overflow: auto;">
     <nb-card-header>
       GENERAR FACTURA
     </nb-card-header>

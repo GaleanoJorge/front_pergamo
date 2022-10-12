@@ -13,6 +13,7 @@ export class SignsRespiratoryComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   linearMode = true;
@@ -78,7 +79,9 @@ export class SignsRespiratoryComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
-      this.messageEvent.emit(true);
+      if (this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }
     }
   }
 }

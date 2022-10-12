@@ -74,11 +74,12 @@ export class FormChOxygenTherapyComponent implements OnInit {
           id: this.data.id,
           revision: this.form.controls.revision.value,
           observation: this.form.controls.observation.value,
-          type_record_id: this.type_record,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
 
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
           if (this.saved) {
             this.saved();
           }
@@ -90,7 +91,7 @@ export class FormChOxygenTherapyComponent implements OnInit {
         await this.OxygenS.Save({
           revision: this.form.controls.revision.value,
           observation: this.form.controls.observation.value,
-          type_record_id: this.type_record,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

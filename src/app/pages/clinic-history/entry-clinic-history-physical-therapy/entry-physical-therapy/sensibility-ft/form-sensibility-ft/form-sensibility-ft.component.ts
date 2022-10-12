@@ -55,7 +55,7 @@ export class FormSensibilityFTComponent implements OnInit {
       deep: [this.data[0] ? this.data[0].deep : this.data.deep, Validators.compose([Validators.required])],
       superficial: [this.data[0] ? this.data[0].superficial : this.data.superficial, Validators.compose([Validators.required])],
       cortical: [this.data[0] ? this.data[0].cortical : this.data.cortical, Validators.compose([Validators.required])],
-      observation: [this.data[0] ? this.data[0].observation : this.data.observation, Validators.compose([Validators.required])],
+      observation: [this.data[0] ? this.data[0].observation : this.data.observation],
 
     });
 

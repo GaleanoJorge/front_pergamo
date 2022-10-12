@@ -34,7 +34,7 @@ export class ManagementPlanComponent implements OnInit {
 
   @Input() admissions: any = null;
   @Input() medical: number = 0;
-  @Input() patient: boolean = false;
+  @Input() patient;
   @Input() title: string = null;
   public isSubmitted = false;
   public entity: string;
@@ -252,6 +252,13 @@ export class ManagementPlanComponent implements OnInit {
       }
     }
 
+    this.own_user = this.authService.GetUser();
+    var curr = this.authService.GetRole();
+    this.currentRole = this.own_user.roles.find(x => {
+      return x.id == curr;
+    });
+    this.currentRoleId = this.currentRole.id;
+
     if (this.admissions) {
       this.admissions_id = this.admissions;
       this.settings = this.settings2;
@@ -260,19 +267,14 @@ export class ManagementPlanComponent implements OnInit {
       this.admissions_id = this.route.snapshot.params.id;
       this.user_id = this.route.snapshot.params.user;
       this.settings = this.settings1;
-
+  }
       await this.admissionS.GetCollection({ admissions_id: this.admissions_id }).then(x => {
         this.admissions1 = x;
       });
 
 
 
-      this.own_user = this.authService.GetUser();
-      var curr = this.authService.GetRole();
-      this.currentRole = this.own_user.roles.find(x => {
-        return x.id == curr;
-      });
-      this.currentRoleId = this.currentRole.id;
+
       this.user_id = this.route.snapshot.params.user;
       await this.roleBS.GetCollection({ id: this.currentRoleId }).then(x => {
         this.roles = x;
@@ -303,7 +305,7 @@ export class ManagementPlanComponent implements OnInit {
           route: '/pages/pad/management-plan/' + this.admissions_id + '/' + this.user_id,
         },
       ];
-    }
+    
     await this.patienBS.GetUserById(this.user_id).then(x => {
       this.user = x;
     });
@@ -328,6 +330,7 @@ export class ManagementPlanComponent implements OnInit {
       context: {
         title: 'Crear plan de manejo',
         assigned: true,
+        admissions1:this.admissions1,
         user: this.user,
         medical: this.medical,
         admissions_id: this.admissions_id,
@@ -342,6 +345,7 @@ export class ManagementPlanComponent implements OnInit {
         title: 'Asignar personal asistencial',
         data,
         user: this.user,
+        admissions1:this.admissions1,
         medical: 0,
         assigned: false,
         admissions_id: this.admissions_id,
@@ -355,6 +359,7 @@ export class ManagementPlanComponent implements OnInit {
       context: {
         title: 'Editar plan de manejo',
         data,
+        admissions1:this.admissions1,
         edit: 1,
         user: this.user,
         medical: 0,

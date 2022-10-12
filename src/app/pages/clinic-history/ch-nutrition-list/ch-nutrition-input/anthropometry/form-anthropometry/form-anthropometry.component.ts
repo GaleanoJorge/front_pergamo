@@ -18,6 +18,7 @@ export class FormAnthropometryComponent implements OnInit {
   @Input() type_record_id;
   @Input() user_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Output() messageEvent2 = new EventEmitter<any>();
 
   linearMode = false;
   public form: FormGroup;
@@ -111,8 +112,8 @@ export class FormAnthropometryComponent implements OnInit {
     });
 
     this.ChNutritionAnthropometryS.GetCollection({
-      type_record_id: this.route,
-      ch_record_id: 1,
+      ch_record_id: this.record_id,
+      type_record_id: this.type_record_id,
     }).then(x => {
       this.ch_nutrition_anthropometry = x[0];
       if (this.ch_nutrition_anthropometry != null) {
@@ -132,7 +133,7 @@ export class FormAnthropometryComponent implements OnInit {
         this.prov_weight = (this.form.controls.weight.value != null && this.form.controls.weight.value != '' && this.form.controls.weight.value > 0) ?
           this.form.controls.weight.value : (this.ch_nutrition_anthropometry.estimated_weight > 0) ?
             this.ch_nutrition_anthropometry.estimated_weight : 0;
-        this.messageEvent.emit({
+        this.messageEvent2.emit({
           name: 'weight',
           value: this.prov_weight
         });
@@ -278,7 +279,7 @@ export class FormAnthropometryComponent implements OnInit {
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-      this.messageEvent.emit({
+      this.messageEvent2.emit({
         name: 'weight',
         value: this.prov_weight
       });
@@ -288,7 +289,7 @@ export class FormAnthropometryComponent implements OnInit {
         this.ChNutritionAnthropometryS.Update({
           id: this.ch_nutrition_anthropometry.id,
           ch_record_id: this.record_id,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           is_functional: this.form.controls.is_functional.value,
           weight: this.form.controls.weight.value,
           size: this.form.controls.size.value,
@@ -316,7 +317,7 @@ export class FormAnthropometryComponent implements OnInit {
       } else {
         this.ChNutritionAnthropometryS.Save({
           ch_record_id: this.record_id,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           is_functional: this.form.controls.is_functional.value,
           weight: this.form.controls.weight.value,
           size: this.form.controls.size.value,

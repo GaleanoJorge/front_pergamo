@@ -14,6 +14,7 @@ export class ChOstomiesComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any;
   @Input() type_record: any;
+  @Input() type_record_id:any;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 

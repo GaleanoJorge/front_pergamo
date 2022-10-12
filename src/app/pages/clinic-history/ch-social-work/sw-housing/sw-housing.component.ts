@@ -38,7 +38,7 @@ export class SwHousingComponent implements OnInit {
   public signatureImage: string;
   public currentRole: any;
   public own_user;
-  public int: 0;
+  public int = 0;
   public user;
   public messageError = null;
 
@@ -56,17 +56,8 @@ export class SwHousingComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.record_id = this.route.snapshot.params.id;
     this.own_user = this.authService.GetUser();
-    this.chRecord.GetCollection({
-      record_id: this.record_id
-    }).then(x => {
-      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
-      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
-        this.input_done = true;
-      }
-      this.user = x[0]['admissions']['patients'];
-    });
+    
     if (!this.data || this.data.length == 0) {
       this.data = {
       };
@@ -137,7 +128,7 @@ export class SwHousingComponent implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -145,6 +136,7 @@ export class SwHousingComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -153,7 +145,7 @@ export class SwHousingComponent implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
       
   }

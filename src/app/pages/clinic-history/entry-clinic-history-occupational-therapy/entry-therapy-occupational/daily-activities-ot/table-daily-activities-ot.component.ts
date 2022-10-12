@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableDailyActivitiesOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['COCINAR', 
+  public headerFields: any[] = ['FECHA',
+                                'COCINAR', 
                                 'CUIDAR NIÑOS',
                                 'LEER', 
                                 'JUEGOS DE AZAR',
@@ -59,111 +61,132 @@ export class TableDailyActivitiesOTComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
 
       cook: {
-        title: this.headerFields[0],
-        width: 'string',
-      },
-
-      kids: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      wash: {
+      kids: {
         title: this.headerFields[2],
         width: 'string',
       },
-      game: {
+
+      wash: {
         title: this.headerFields[3],
+        width: 'string',
+      },
+      game: {
+        title: this.headerFields[4],
         width: 'string',
       },
 
       ironing: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
       },
       walk: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         width: 'string',
       },
 
       clean: {
-        title: this.headerFields[6],
-        width: 'string',
-      },
-      sport: {
         title: this.headerFields[7],
         width: 'string',
       },
-
-      decorate: {
+      sport: {
         title: this.headerFields[8],
         width: 'string',
       },
 
-      social: {
+      decorate: {
         title: this.headerFields[9],
         width: 'string',
       },
-      act_floristry: {
+
+      social: {
         title: this.headerFields[10],
+        width: 'string',
+      },
+      act_floristry: {
+        title: this.headerFields[11],
         width: 'string',
       },
 
       friends: {
-        title: this.headerFields[11],
+        title: this.headerFields[12],
         width: 'string',
       },
       read: {
-        title: this.headerFields[12],
+        title: this.headerFields[13],
         width: 'string',
       },
 
       politic: {
-        title: this.headerFields[13],
-        width: 'string',
-      },
-      view_tv: {
         title: this.headerFields[14],
         width: 'string',
       },
-
-      religion: {
+      view_tv: {
         title: this.headerFields[15],
         width: 'string',
       },
 
-      write: {
+      religion: {
         title: this.headerFields[16],
         width: 'string',
       },
 
-      look: {
+      write: {
         title: this.headerFields[17],
         width: 'string',
       },
-      arrange: {
+
+      look: {
         title: this.headerFields[18],
+        width: 'string',
+      },
+      arrange: {
+        title: this.headerFields[19],
         width: 'string',
       },
 
       travel: {
-        title: this.headerFields[19],
-        width: 'string',
-      },
-      observation_activity: {
         title: this.headerFields[20],
         width: 'string',
       },
+      observation_activity: {
+        title: this.headerFields[21],
+        width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
+      },
 
       test: {
-        title: this.headerFields[21],
+        title: this.headerFields[22],
         width: 'string',
       },
       observation_test: {
-        title: this.headerFields[22],
+        title: this.headerFields[23],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
     },
@@ -171,6 +194,8 @@ export class TableDailyActivitiesOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+
   ) {
   }
 

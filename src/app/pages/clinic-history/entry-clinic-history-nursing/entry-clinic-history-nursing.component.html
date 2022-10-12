@@ -19,7 +19,7 @@
 
           <nb-step [stepControl]="nameForm" label="Signos Vitales">
 
-            <ngx-signs [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-signs>
+            <ngx-signs [record_id]="record_id" (messageEvent)="inputMessage($event)" [type_record_id]="type_record_id" [admissions]="admission" [has_input]="has_input"></ngx-signs>
 
           </nb-step>
 

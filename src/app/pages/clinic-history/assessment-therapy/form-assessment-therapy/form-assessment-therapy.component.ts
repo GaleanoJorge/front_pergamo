@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -19,6 +19,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Input() has_input: boolean = false;
   //@Input() input_done: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
@@ -36,7 +37,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
   public user;
   public signatureImage: string;
   public currentRole: any;
-  public int: 0;
+  public int = 0;
   public messageError = null;
 
   constructor(
@@ -120,7 +121,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -128,6 +129,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -136,15 +138,14 @@ export class FormAssessmentTherapyComponent implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
       
   }
-
-  // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
-  inputMessage($event) {
-    this.input_done = true;
-  }
   
-
+  inputMessage($event) {
+    if ($event == true) {
+      this.messageEvent.emit($event);
+    }
+  }
 }

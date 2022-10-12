@@ -98,7 +98,7 @@ export class UsersCampusComponent implements OnInit {
     this.customData = this.campusData.customData;
 
 
-    this.campusBS.GetCollection().then(x => {
+    this.campusBS.GetCollection({status_id: 1,}).then(x => {
       this.campus = x;
     });
 

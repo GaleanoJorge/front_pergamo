@@ -24,7 +24,7 @@
 
       <nb-tab tabTitle="INGRESO" *ngIf="is_pad != 17">
         <div *ngIf="this.show == 1">
-          <ngx-entry-clinic-history-nursing  [data]="null" [record_id]="this.record_id" [type_record_id]="1">
+          <ngx-entry-clinic-history-nursing  [data]="null" [record_id]="this.record_id" [type_record_id]="1"  [has_input]="this.has_input" [admission]="admission">
           </ngx-entry-clinic-history-nursing>
         </div>
       </nb-tab>

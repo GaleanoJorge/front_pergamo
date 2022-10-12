@@ -813,9 +813,9 @@ export class AuthorizationListComponent implements OnInit {
 
   async saveGroup() {
 
+    this.isSubmitted = true;
     if (!this.formMassive.invalid) {
       if (this.selectedOptions.length > 0) {
-        this.isSubmitted = true;
         this.loading = true;
 
         var formData = new FormData();
@@ -846,6 +846,7 @@ export class AuthorizationListComponent implements OnInit {
             copay_value: '',
             file_auth: null,
           });
+          this.isSubmitted = false;
         } catch (response) {
           this.messageError = response;
           this.isSubmitted = false;

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableReflectionComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['BICIPITAL',
+  public headerFields: any[] = ['FECHA',
+                                'BICIPITAL',
                                 'ESTILO RADIAL',
                                 'TRICIPITAL',
                                 'PATELAR O ROTULIANO',
@@ -44,47 +46,61 @@ export class TableReflectionComponent implements OnInit {
     },
     columns:
     {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
      
       bicipital:
-      {
-        title: this.headerFields[0],
-        width: 'string',
-      },
-
-      radial:
       {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      triceps:
+      radial:
       {
         title: this.headerFields[2],
         width: 'string',
       },
 
-      patellar:
+      triceps:
       {
         title: this.headerFields[3],
         width: 'string',
       },
 
-      aquilano:
+      patellar:
       {
         title: this.headerFields[4],
         width: 'string',
       },
 
-      reflexes:
+      aquilano:
       {
         title: this.headerFields[5],
         width: 'string',
       },
 
-      observation:
+      reflexes:
       {
         title: this.headerFields[6],
         width: 'string',
+      },
+
+      observation:
+      {
+        title: this.headerFields[7],
+        width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN DAÑOS PATOLOGICOS O SIN OBSERVACIÓN';
+          }
+        },
       },
 
 
@@ -94,6 +110,7 @@ export class TableReflectionComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

@@ -155,6 +155,8 @@ export class FormFixedAssetsRequestsPatientComponent implements OnInit {
           });
         }
       }
+    }else{
+      this.toastService.danger('DEBE LLENAR TODOS LOS CAMPOS');
     }
   }
 }

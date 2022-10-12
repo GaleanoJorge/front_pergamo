@@ -828,7 +828,7 @@ export class FormSkinValorationComponent implements OnInit {
           infection_sign: this.form.controls.infection_sign.value,
           surrounding_skin: this.form.controls.surrounding_skin.value,
           observation: this.form.controls.observation.value,
-          type_record_id: 7,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then((x) => {
           this.toastService.success('', x.message);

@@ -45,7 +45,8 @@
                   <a [href]="previewFile" target="_blank">Ver documentos</a>
                 </div>
                 <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file" nbInput fullWidth
-                  (change)="changeImage($event.target.files, 1)" />
+                  (change)="changeImage($event.target.files, 1)" 
+                  status="{{ isSubmitted && form.controls.file_auth.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
               </div>
             </div>
           </div>

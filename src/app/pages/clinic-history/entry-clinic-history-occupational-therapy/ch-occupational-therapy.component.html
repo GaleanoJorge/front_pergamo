@@ -15,44 +15,130 @@
     <nb-tabset *ngIf="user" class="tabset">
       <nb-tab tabTitle="INGRESO">
 
+        <nb-accordion>
+          <nb-accordion-item>
+           <nb-accordion-item-header class="row justify-content-center" >PARTE #1</nb-accordion-item-header>
+           <nb-accordion-item-body>
+           
+            <nb-stepper #stepper [linear]="linearMode">
 
-        <nb-stepper #stepper [linear]="linearMode">
+              <nb-step label='Valoracion Terapeutica'>
+                <ngx-table-valoration-ot *ngIf="chvaloration" [data]="chvaloration" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"
+                  [record_id]="record_id">
+                </ngx-table-valoration-ot>
+              </nb-step>
+    
+    
+              <nb-step label="Signos Vitales">
+    
+                <ngx-signs [record_id]="record_id" [type_record_id]="1" [admissions]="admission" (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-signs>
+    
+              </nb-step>
+    
+              <nb-step label='Historia Ocupacional'>
+                <ngx-table-occupat-history-ot [type_record_id]="1" *ngIf="chocuupationalhistory" (messageEvent)="inputMessage($event)" [has_input]="has_input"
+                  [record_id]="record_id" [data]="chocuupationalhistory"></ngx-table-occupat-history-ot>
+              </nb-step>
+    
+              <nb-step label='Antecedentes Ocupacionales'>
+                <ngx-table-past-ot [type_record_id]="1" *ngIf="chpast" [record_id]="record_id" [data]="chpast" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+                </ngx-table-past-ot>
+              </nb-step>
+    
+              <nb-step label='Actividades Vida Diaria'>
+                <ngx-table-daily-activities-ot [type_record_id]="1" *ngIf="chdailyactivities" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"
+                  [data]="chdailyactivities"></ngx-table-daily-activities-ot>
+              </nb-step>
+    
+              <nb-step label='Habilidades Motoras'>
+                <ngx-entry-form-motor-skills-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+    
+                </ngx-entry-form-motor-skills-ot>
+              </nb-step>
+    
+              <nb-step label='Coincidencia Termica'>
+                <ngx-table-thermal-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+    
+                </ngx-table-thermal-m-ot>
+              </nb-step>
+    
+            </nb-stepper>
+      
+      
+      
+           </nb-accordion-item-body>
+          </nb-accordion-item>
+         </nb-accordion>
 
-          <nb-step label='Valoracion Terapeutica'>
-            <ngx-table-valoration-ot *ngIf="chvaloration" [data]="chvaloration" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="1"
-              [record_id]="record_id">
-            </ngx-table-valoration-ot>
-          </nb-step>
+         <hr>
 
+         <nb-accordion>
+          <nb-accordion-item>
+           <nb-accordion-item-header class="row justify-content-center" >PARTE #2</nb-accordion-item-header>
+           <nb-accordion-item-body>
+           
+      
+      
+            <nb-stepper #stepper [linear]="linearMode">
 
-          <nb-step label="Signos Vitales">
+              <nb-step label='Discriminacion Auditiva'>
+                <ngx-table-dis-auditory-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+    
+                </ngx-table-dis-auditory-m-ot>
+              </nb-step>
+    
+              <nb-step label='Discriminacion Tactil'>
+                <ngx-table-dis-tactile-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+    
+                </ngx-table-dis-tactile-m-ot>
+              </nb-step>
+    
+              <nb-step label='Agudeza'>
+                <ngx-table-acuity-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+    
+                </ngx-table-acuity-m-ot>
+              </nb-step>
+    
+              <nb-step label='Componente Vestibular'>
+                <ngx-table-component-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+    
+                </ngx-table-component-m-ot>
+              </nb-step>
+    
+              <nb-step label='Examen Mental'>
+                <ngx-table-test-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+    
+                </ngx-table-test-m-ot>
+              </nb-step>
+    
+              <nb-step label='Interaccion'>
+                <ngx-table-communication-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+    
+                </ngx-table-communication-m-ot>
+              </nb-step>
+    
+              <nb-step label='Valoracion Diaria'>
+                <ngx-table-assessment-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+    
+                </ngx-table-assessment-m-ot>
+              </nb-step>
+    
+              <nb-step label='Sesiones'>
+                <ngx-table-weekly-int-m-ot  [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+    
+                </ngx-table-weekly-int-m-ot >
+              </nb-step>
+    
+            </nb-stepper>
+      
+           </nb-accordion-item-body>
+          </nb-accordion-item>
+         </nb-accordion>
 
-            <ngx-signs [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-signs>
+         <hr>
+       
 
-          </nb-step>
-
-          <nb-step label='Historia Ocupacional'>
-            <ngx-table-occupat-history-ot [type_record_id]="1" *ngIf="chocuupationalhistory" (messageEvent)="inputMessage($event)" [has_input]="has_input"
-              [record_id]="record_id" [data]="chocuupationalhistory"></ngx-table-occupat-history-ot>
-          </nb-step>
-
-          <nb-step label='Antecedentes Ocupacionales'>
-            <ngx-table-past-ot [type_record_id]="1" *ngIf="chpast" [record_id]="record_id" [data]="chpast" (messageEvent)="inputMessage($event)" [has_input]="has_input">
-            </ngx-table-past-ot>
-          </nb-step>
-
-          <nb-step label='Actividades Vida Diaria'>
-            <ngx-table-daily-activities-ot [type_record_id]="1" *ngIf="chdailyactivities" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"
-              [data]="chdailyactivities"></ngx-table-daily-activities-ot>
-          </nb-step>
-
-          <nb-step label='Habilidades Motoras'>
-            <ngx-entry-form-motor-skills-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
-
-            </ngx-entry-form-motor-skills-ot>
-          </nb-step>
-
-        </nb-stepper>
+        
 
       </nb-tab>
 
@@ -71,7 +157,7 @@
 
           <nb-step label="Signos Vitales">
 
-            <ngx-signs></ngx-signs>
+            <ngx-signs [record_id]="record_id" [type_record_id]="3" [admissions]="admission"></ngx-signs>
 
 
           </nb-step>
@@ -82,8 +168,14 @@
             </ngx-r-n-therapeutic-obj-ot>
           </nb-step>
 
+          <nb-step label='intervención'>
+            <ngx-table-r-n-intervention-ot [type_record_id]="3" *ngIf="rntherapeutic"  [record_id]="record_id" >
 
-          <nb-step label='Materiales e Insumos Utilizados'>
+            </ngx-table-r-n-intervention-ot>
+          </nb-step>
+
+
+          <nb-step label='Materiales'>
             <ngx-r-n-materials-ot [type_record_id]="3" *ngIf="chrnmaterials" [record_id]="record_id"
               [data]="chrnmaterials">
 
@@ -91,7 +183,7 @@
           </nb-step>
 
 
-          <nb-step label='Numero De Sesiones Mensuales e Intensidad Semanal'>
+          <nb-step label='Sesiones'>
             <ngx-r-n-weekly-ot [record_id]="record_id">
 
             </ngx-r-n-weekly-ot>

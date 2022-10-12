@@ -22,9 +22,11 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 export class EntryRespiratoryTherapyComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() admissions: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   @Input() user: any = null;
   @Input() has_input: boolean = false;
+  @Input() type_record_id:any;
 
   //@Input() vital: any;
   linearMode = false;
@@ -53,7 +55,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
-  public int: 0;
+  public int = 0;
   public signatureImage: string;
   public currentRole: any;
   public saved: any = null;
@@ -166,7 +168,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -174,6 +176,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -182,7 +185,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
       
   }
@@ -196,6 +199,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
   inputMessage($event) {
     this.input_done = true;
+     this.messageEvent.emit($event);
   }
 }
 

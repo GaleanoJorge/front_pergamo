@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ChExternalCauseService } from '../../../../business-controller/ch-external-cause.service';
 import { ChReasonConsultationService } from '../../../../business-controller/ch-reason-consultation.service';
+import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 
 
 
@@ -13,9 +14,12 @@ import { ChReasonConsultationService } from '../../../../business-controller/ch-
 })
 export class FormOrdersMedicalComponent implements OnInit {
 
+  @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record: any;
+  @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -103,6 +107,8 @@ export class FormOrdersMedicalComponent implements OnInit {
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
+          this.form.patchValue({  diet_consistency: [], enterally_diet_id: '', observation:'' });
           if (this.saved) {
             this.saved();
           }
@@ -118,6 +124,19 @@ export class FormOrdersMedicalComponent implements OnInit {
         });
       }
 
+    }
+  }
+
+  RefreshData() {
+    this.table.refresh();
+  }
+
+  receiveMessage($event) {
+    if ($event == true) {
+      this.RefreshData();
+      if (this.type_record == 1) {
+        this.messageEvent.emit(true);
+      }
     }
   }
 

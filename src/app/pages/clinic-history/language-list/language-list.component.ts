@@ -23,6 +23,8 @@ export class LanguageListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() user: any = null;
+  @Input() type_record_id: any = null;
+  @Input() admission: any = null;
   @Input() has_input: boolean = false;
   @Input() record_id;
   @Output() messageEvent = new EventEmitter<any>();
@@ -43,7 +45,7 @@ export class LanguageListComponent implements OnInit {
   public signatureImage: string;
   public currentRole: any;
   public own_user;
-  public int: 0;
+  public int = 0;
   public saved: any = null;
   
 
@@ -157,7 +159,7 @@ export class LanguageListComponent implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -165,6 +167,7 @@ export class LanguageListComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -173,7 +176,7 @@ export class LanguageListComponent implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
       
   }

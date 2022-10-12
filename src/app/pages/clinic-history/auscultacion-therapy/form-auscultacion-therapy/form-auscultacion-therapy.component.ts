@@ -14,6 +14,7 @@ export class FormAuscultacionTherapyComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() record_id: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -60,7 +61,7 @@ export class FormAuscultacionTherapyComponent implements OnInit {
           id: this.data.id,
           auscultation: this.form.controls.auscultation.value,
           observation: this.form.controls.observation.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -76,7 +77,7 @@ export class FormAuscultacionTherapyComponent implements OnInit {
         await this.AuscultacionS.Save({
           auscultation: this.form.controls.auscultation.value,
           observation: this.form.controls.observation.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <nb-card>
     <nb-card-body>
-      <fieldset class="field_set">
+      <fieldset *ngIf="has_input == false || type_record_id != 1" class="field_set">
         <legend class="prue1 center">Análisis e Interpretación</legend>
         <div class="row">
 
@@ -24,7 +24,7 @@
 
       </div>
     </nb-card-body>
-    <nb-card-footer class="d-flex justify-content-end">
+    <nb-card-footer *ngIf="has_input == false || type_record_id != 1" class="d-flex justify-content-end">
       <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">{{this.botton_title}}</button>
     </nb-card-footer>
   </nb-card>

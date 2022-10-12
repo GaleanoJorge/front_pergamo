@@ -18,6 +18,7 @@ export class FormChSwExpensesComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -95,7 +96,7 @@ export class FormChSwExpensesComponent implements OnInit {
           cell_phone: this.form.controls.cell_phone.value,
           landline: this.form.controls.landline.value,
           total: this.expensesTotal,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -121,7 +122,7 @@ export class FormChSwExpensesComponent implements OnInit {
           cell_phone: this.form.controls.cell_phone.value,
           landline: this.form.controls.landline.value,
           total: this.expensesTotal,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -157,7 +158,9 @@ export class FormChSwExpensesComponent implements OnInit {
       this.form.controls.medical.value != '' ||
       this.form.controls.cell_phone.value != '' ||
       this.form.controls.landline.value != '') {
-      this.expensesTotal = (this.form.controls.feeding.value +
+
+      this.expensesTotal = (
+        this.form.controls.feeding.value +
         this.form.controls.gas.value +
         this.form.controls.light.value +
         this.form.controls.aqueduct.value +

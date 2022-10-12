@@ -115,7 +115,7 @@ export class FormFoodHistoryComponent implements OnInit {
       intake: ['', Validators.required],
       swallowing: ['', Validators.required],
       diet_type: [[], Validators.required],
-      parenteral_nutrition: ['', Validators.required],
+      parenteral_nutrition: [''],
       intake_control: ['', Validators.required],
     });
 
@@ -133,7 +133,7 @@ export class FormFoodHistoryComponent implements OnInit {
     });
 
     this.ChNutritionFoodHistoryS.GetCollection({
-      type_record_id: this.route,
+      type_record_id: this.type_record_id,
       ch_record_id: this.record_id,
     }).then(x => {
       this.ch_nutrition_food_history = x[0];
@@ -172,7 +172,7 @@ export class FormFoodHistoryComponent implements OnInit {
         this.ChNutritionFoodHistoryS.Update({
           id: this.ch_nutrition_food_history.id,
           ch_record_id: this.record_id,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           is_allergic: this.form.controls.is_allergic.value,
           allergy: this.form.controls.allergy.value,
           description: this.form.controls.description.value,
@@ -196,7 +196,7 @@ export class FormFoodHistoryComponent implements OnInit {
       } else {
         this.ChNutritionFoodHistoryS.Save({
           ch_record_id: this.record_id,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           is_allergic: this.form.controls.is_allergic.value,
           allergy: this.form.controls.allergy.value,
           description: this.form.controls.description.value,

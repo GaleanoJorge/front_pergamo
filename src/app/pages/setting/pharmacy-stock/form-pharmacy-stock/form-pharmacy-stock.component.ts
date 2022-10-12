@@ -49,7 +49,7 @@ export class FormPharmacyStockComponent implements OnInit {
       campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
     });
 
-    await this.sedesS.GetCollection().then(x => {
+    await this.sedesS.GetCollection({status_id: 1,}).then(x => {
       this.campus_id = x;
     });
     await this.typePharmaS.GetCollection().then(x => {

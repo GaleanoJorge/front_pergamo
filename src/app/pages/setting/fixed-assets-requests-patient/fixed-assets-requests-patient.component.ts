@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FixedAddService } from '../../../business-controller/fixed-add.service';
 import { FixedAssetsService } from '../../../business-controller/fixed-assets.service';
+import { UsersFixedStockService } from '../../../business-controller/users-fixed-stock.service';
 import { AuthService } from '../../../services/auth.service';
 
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
@@ -30,6 +31,7 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
   public entity;
   public user;
   public my_fixed_id;
+  public fixed_stock;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -101,6 +103,8 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
     private authService: AuthService,
     private FixedAssetsS: FixedAssetsService,
     private toastService: NbToastrService,
+    private UsersFixedStockS: UsersFixedStockService,
+
   ) {
   }
 
@@ -115,6 +119,9 @@ export class FixedAssetsRequestsPatientComponent implements OnInit {
       } else {
         this.toastService.info('Usuario sin tipo de activo asociadas', 'Información');
       }
+    });
+    this.UsersFixedStockS.getFixedUserId(this.user.id).then(x => {
+      this.fixed_stock = x;
     });
   }
 

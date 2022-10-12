@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableTestMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['APARIENCIA', 
+  public headerFields: any[] = ['FECHA',
+                                'APARIENCIA', 
                                 'CONCIENCIA',
                                 'ATENCION', 
                                 'ESTADO DE HUMOR',
@@ -48,54 +50,61 @@ export class TableTestMOTComponent implements OnInit {
     },
     columns: {
 
-      appearance: {
+      created_at: {
         title: this.headerFields[0],
-        width: 'string',
-      },
-
-      consent: {
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+      appearance: {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      Attention: {
+      consent: {
         title: this.headerFields[2],
         width: 'string',
       },
-      humor: {
+
+      Attention: {
         title: this.headerFields[3],
+        width: 'string',
+      },
+      humor: {
+        title: this.headerFields[4],
         width: 'string',
       },
 
       language: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
       },
       sensory_perception: {
-        title: this.headerFields[5],
+        title: this.headerFields[6],
         width: 'string',
       },
 
       grade: {
-        title: this.headerFields[6],
-        width: 'string',
-      },
-      contents: {
         title: this.headerFields[7],
         width: 'string',
       },
-
-      orientation: {
+      contents: {
         title: this.headerFields[8],
         width: 'string',
       },
 
-      sleep: {
+      orientation: {
         title: this.headerFields[9],
         width: 'string',
       },
-      memory: {
+
+      sleep: {
         title: this.headerFields[10],
+        width: 'string',
+      },
+      memory: {
+        title: this.headerFields[11],
         width: 'string',
       },
 
@@ -104,6 +113,8 @@ export class TableTestMOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+
   ) {
   }
 

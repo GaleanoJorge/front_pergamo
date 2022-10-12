@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -21,7 +22,8 @@ export class TableNRWeeklyFTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['SESIONES MENSUALES',
+  public headerFields: any[] = ['FECHA',
+                                'SESIONES MENSUALES',
                                 'INTESIDAD SEMANAL',
                                 'RECOMENDACIONES/EDUCACION',];
 
@@ -37,23 +39,38 @@ export class TableNRWeeklyFTComponent implements OnInit {
     },
     columns:
     {
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
      
       monthly_sessions:
-      {
-        title: this.headerFields[0],
-        width: 'string',
-      },
-
-      weekly_intensity:
       {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      recommendations:
+      weekly_intensity:
       {
         title: this.headerFields[2],
         width: 'string',
+      },
+
+      recommendations:
+      {
+        title: this.headerFields[3],
+        width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
     },
@@ -62,7 +79,7 @@ export class TableNRWeeklyFTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
-  ) {
+    public datePipe: DateFormatPipe  ) {
   }
 
   async ngOnInit() {

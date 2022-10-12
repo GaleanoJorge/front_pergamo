@@ -72,6 +72,7 @@ export class NursingPhysicalExamComponent implements OnInit {
   }
 
   async ngOnInit() {
+    console.log(this.has_input)
   }
 
   RefreshData() {

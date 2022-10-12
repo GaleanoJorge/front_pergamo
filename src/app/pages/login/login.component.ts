@@ -134,7 +134,7 @@ export class LoginComponent implements OnInit {
 
             await this.itemBS.GetCollection(this.authService.GetRole());
 
-            this.campus = await this.userCampusBS.GetCollection(this.authService.GetUser().id);
+            this.campus = await this.userCampusBS.GetCollection(this.authService.GetUser().id, {status_id: 1});
 
           } else {
             this.messageError = 'No tiene ningún rol asociado';

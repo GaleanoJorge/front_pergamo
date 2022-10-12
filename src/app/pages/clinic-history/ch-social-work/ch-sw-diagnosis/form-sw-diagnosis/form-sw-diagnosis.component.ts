@@ -93,7 +93,7 @@ export class FormSwDiagnosisComponent implements OnInit {
           id: this.data.id,
           ch_diagnosis_id: this.form.controls.ch_diagnosis_id.value,
           sw_diagnosis: this.form.controls.sw_diagnosis.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -109,7 +109,7 @@ export class FormSwDiagnosisComponent implements OnInit {
         this.ChSwDiagnosisS.Save({
           ch_diagnosis_id: this.form.controls.ch_diagnosis_id.value,
           sw_diagnosis: this.form.controls.sw_diagnosis.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

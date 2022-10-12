@@ -24,6 +24,9 @@ export class RegularLanguageListComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() type_record_id: any = null;
+  @Input() admission: any = null;
+  @Input() user: any = null;
 
   //@Input() vital: any;
   linearMode = false;
@@ -31,7 +34,6 @@ export class RegularLanguageListComponent implements OnInit {
   public title;
   public routes = [];
   public user_id;
-  public user;
   public own_user;
   public cifdiagnosistl: any[];
   public physical: any[];
@@ -49,7 +51,7 @@ export class RegularLanguageListComponent implements OnInit {
 
 
   public record_id;
-  public int: 0;
+  public int = 0;
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
@@ -79,15 +81,7 @@ export class RegularLanguageListComponent implements OnInit {
   async ngOnInit() {
     this.record_id = this.route.snapshot.params.id;
     this.own_user = this.authService.GetUser();
-    this.chRecord.GetCollection({
-      record_id: this.record_id
-    }).then(x => {
-      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
-      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
-        this.input_done = true;
-      }
-      this.user = x[0]['admissions']['patients'];
-    });
+    
     if (!this.data) {
       this.data = {
         ch_diagnosis_id: '',
@@ -180,7 +174,7 @@ export class RegularLanguageListComponent implements OnInit {
   // }
 
   async finish(firm) {
-    // if(this.signatureImage!=null){
+    if(this.signatureImage!=null){
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
@@ -193,7 +187,7 @@ export class RegularLanguageListComponent implements OnInit {
 
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -201,16 +195,17 @@ export class RegularLanguageListComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
         this.loading = false;
         throw new Error(response);
       }
-    // }else{
-    //   this.toastService.danger('Debe diligenciar la firma');
-  
-    // }
+    }else{
+      this.toastService.danger('Debe diligenciar la firma');
+      return false;
+    }
 
   }
 

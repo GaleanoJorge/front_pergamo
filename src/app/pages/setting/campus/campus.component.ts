@@ -7,6 +7,7 @@ import { FormCampusComponent } from './form-campus/form-campus.component';
 import { ActionsComponent } from '.././sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { FormTariffConfirmDisabledComponent } from '../tariff/form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class CampusComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Sedes';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Dirección', 'Código habilitación', 'Prefijo facturación', 'Región', 'Municipio'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Dirección', 'Código habilitación', 'Prefijo facturación', 'Región', 'Municipio', 'Estado', 'Prefijo nota crédito'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -68,6 +69,17 @@ export class CampusComponent implements OnInit {
           return row.billing_pad_prefix.name;
         }
       },
+      billing_pad_credit_note_prefix_id: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if (row.billing_pad_credit_note_prefix) {
+            return row.billing_pad_credit_note_prefix.name;
+          } else {
+            return '--'
+          }
+        }
+      },
       region_id: {
         title: this.headerFields[5],
         type: 'string',
@@ -83,19 +95,18 @@ export class CampusComponent implements OnInit {
         }
       },
 
-      // status_id: {
-      //   title: 'Estado',
-      //   type: 'custom',
-      //   width: '10%',
-      //   valuePrepareFunction: (value, row) => {
-      //     // DATA FROM HERE GOES TO renderComponent
-      //     return {
-      //       'data': row,
-      //       'changeState': this.ChangeState.bind(this),
-      //     };
-      //   },
-      //   renderComponent: StatusFieldComponent,
-      // },
+      status_id: {
+        title: this.headerFields[7],
+        type: 'custom',
+        width: '10%',
+        valuePrepareFunction: (value, row) => {
+          return {
+            'data': row,
+            'changeState': this.ConfirmDisabled.bind(this),
+          };
+        },
+        renderComponent: StatusFieldComponent,
+      },
     },
   };
 
@@ -111,6 +122,7 @@ export class CampusComponent implements OnInit {
     private campusS: CampusService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
+    private dialogService: NbDialogService,
     private deleteConfirmService: NbDialogService,
   ) {
   }
@@ -142,18 +154,23 @@ export class CampusComponent implements OnInit {
     });
   }
 
-  // ChangeState(data) {
-  //   // data.status_id = data.status_id === 1 ? 2 : 1;
+  ConfirmDisabled(dataUser) {
+    this.dialogService.open(FormTariffConfirmDisabledComponent, {
+      context: {
+        data: dataUser,
+        desable: this.ChangeState.bind(this),
+      },
+    });
+  }
 
-  //   this.toastrService.info('', 'Cambiando estado');
-
-  //   this.regionS.Update(data).then((x) => {
-  //     this.toastrService.success('', x.message);
-  //     this.table.refresh();
-  //   }).catch((x) => {
-  //     this.toastrService.danger(x.message);
-  //   });
-  // }
+  ChangeState(data) {
+    this.campusS.ChangeStatus(data.id).then((x) => {
+      this.toastrService.success('', x.message);
+      this.RefreshData();
+    }).catch((x) => {
+      // this.toastrService.danger(x.message);
+    });
+  }
 
   DeleteConfirmCampus(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {

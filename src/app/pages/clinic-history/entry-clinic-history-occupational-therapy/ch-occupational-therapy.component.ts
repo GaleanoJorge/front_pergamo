@@ -42,6 +42,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public chreasonconsultation: any[];
   public chrnvaloration: any[];
   public rntherapeutic: any[];
+  public chintervention: any[];
   public chrnmaterials: any[];
   public physical: any[];
   public chvitsigns: any[];
@@ -52,7 +53,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public signatureImage: string;
   public currentRole: any;
   public own_user;
-  public int: 0;
+  public int = 0;
   public saved: any = null;
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
@@ -64,6 +65,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
+  public admission;
 
 
   constructor(
@@ -81,6 +83,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
     private ChEValorationOTService: ChEValorationOTService,
     private ChEPastOTService: ChEPastOTService,
     private ChEDailyActivitiesOTService: ChEDailyActivitiesOTService,
+    
     private ChRNValorationOTS: ChRNValorationOTService,
     private ChRNTherapeuticObjOTS: ChRNTherapeuticObjOTService,
     private ChRNMaterialsOTService: ChRNMaterialsOTService,
@@ -99,6 +102,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
+      this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
     });
     if (!this.data) {
@@ -219,7 +223,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -227,6 +231,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -235,7 +240,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
       
   }

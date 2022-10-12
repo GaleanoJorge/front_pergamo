@@ -36,6 +36,7 @@ export class ActionsComponent implements ViewCell {
   @Input() rowData: any;  // This holds the entire row object
 
   public show: boolean = false;
+  public id: number = null;
 
   constructor(
     private viewHCS: ChRecordService,
@@ -44,16 +45,27 @@ export class ActionsComponent implements ViewCell {
   ngOnInit() {
     if(this.rowData.assigned_management_plan){
       if (this.rowData.assigned_management_plan.ch_record.length > 0) {
-        if(this.rowData.assigned_management_plan.ch_record.at(-1).status == "CERRADO") {
-          this.show = true;
-        }
+        this.rowData.assigned_management_plan.ch_record.forEach(x => {
+          if(x.status == "CERRADO"){
+            this.show = true;
+            this.id = x.id;
+          }
+        });
+        // if(this.rowData.assigned_management_plan.ch_record.at(-1).status == "CERRADO") {
+        //   this.show = true;
+        //   this.id = this.rowData.assigned_management_plan.ch_record.at(-1).id;
+        // } else if(this.rowData.assigned_management_plan.ch_record.at(-2).status == "CERRADO") {
+        //   this.show = true;
+        //   this.id = this.rowData.assigned_management_plan.ch_record.at(-2).id;
+        // }
       }
     }
   }
 
   viewHC() {
+
     this.viewHCS
-      .ViewHC(this.rowData.assigned_management_plan.ch_record.at(-1).id)
+      .ViewHC(this.id)
       .then((x) => {
         //this.loadingDownload = false;
         this.toastService.success('', x.message);

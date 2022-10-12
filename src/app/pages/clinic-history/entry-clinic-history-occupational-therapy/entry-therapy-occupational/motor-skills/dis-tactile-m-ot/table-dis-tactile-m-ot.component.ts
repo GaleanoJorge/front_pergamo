@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableDisTactilelMOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['DERECHA', 
+  public headerFields: any[] = ['FECHA',
+                                'DERECHA', 
                                 'IZQUIERDA',];
 
   public form: FormGroup;
@@ -39,13 +41,21 @@ export class TableDisTactilelMOTComponent implements OnInit {
     },
     columns: {
 
-      right: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
+      right: {
+        title: this.headerFields[1],
         width: 'string',
       },
 
       left: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
       },
      
@@ -55,6 +65,7 @@ export class TableDisTactilelMOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

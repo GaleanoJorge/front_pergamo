@@ -14,7 +14,7 @@
           </nb-step>
 
           <nb-step label="Signos Vitales">
-            <ngx-signs-evo (messageEvent)="receiveMessage($event)" [record_id]="record_id" [admission]="admission"></ngx-signs-evo>
+            <ngx-signs (messageEvent)="receiveMessage($event)" [record_id]="record_id" [admissions]="admission" [type_record_id]="type_record_id"></ngx-signs>
           </nb-step>
 
           <nb-step label="Procedimientos de enfermeria">

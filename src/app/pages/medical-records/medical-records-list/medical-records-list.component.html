@@ -1,64 +1,42 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
 
-   <div content>
+  <div content>
 
 
-        <form [formGroup]="form" (ngSubmit)="FilterHC()">
-          <div class="row">
-            <div class="col-md-4">
-              <label class="form-text text-muted font-weight-bold">Paciente:</label>
-              <input type="text" list="codes2" (change)="saveCode2($event)" formControlName="patient_id" nbInput fullWidth placeholder="Seleccione">
-              <datalist id="codes2">
-                <option *ngFor="let item of patient" [value]="item.identification">{{item.identification}}-{{item.nombre_completo}}</option>
-              </datalist>
-            </div>
-            <div class="col-md-4">
-              <label for="start_date" class="form-text text-muted font-weight-bold">Desde</label>
-              <input class="inputdate" [max]="today" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
-                formControlName="start_date" start_date />
-            </div>
-            <div class="col-md-4">
-              <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta</label>
-              <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date"
-                formControlName="finish_date" finish_date />
-            </div>           
-          </div>
+    <form [formGroup]="form" (ngSubmit)="FilterHC()">
+      <div class="row">
+        <div class="col-md-4">
+          <label class="form-text text-muted font-weight-bold">Paciente:</label>
+          <input type="text" list="codes2" (change)="saveCode2($event)" formControlName="patient_id" nbInput fullWidth
+            placeholder="Seleccione">
+          <datalist id="codes2">
+            <option *ngFor="let item of patient" [value]="item.identification">
+              {{item.identification}}-{{item.nombre_completo}}</option>
+          </datalist>
+        </div>
+        <div class="col-md-4">
+          <label class="form-text text-muted font-weight-bold">Tipo de Atención:</label>
+          <nb-select size="medium" fullWidth formControlName="ch_type">
+            <nb-option *ngFor="let type of ch_type" [value]="type.id">{{type.name}}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-4">
+          <label for="start_date" class="form-text text-muted font-weight-bold">Desde</label>
+          <input class="inputdate" [max]="today" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
+            formControlName="start_date" start_date />
+        </div>
+        <div class="col-md-4">
+          <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta</label>
+          <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date"
+            formControlName="finish_date" finish_date />
+        </div>
+      </div>
 
-          <div class="col-md-12 filter">
-            <button nbButton status="success" class="ml-1" disabled="{{ loading }}">Filtrar</button>
-          </div>
+      <div class="col-md-12 filter">
+        <button nbButton status="success" class="ml-1" disabled="{{ loading }}">Generar Historia Clinica</button>
+      </div>
 
-        </form>
+    </form>
 
-        <ngx-base-table *ngIf="auth_status && company" (propagar)="onUserRowSelect($event)" [title]="title"
-          [subtitle]="subtitle" [settings]="settings" entity="authorization/byStatus/0" customData="authorization"
-          [messageToltip]="messageToltip">
-
-          <div actions>
-
-            <div class="actions">
-              <nb-select (selectedChange)="FilterStatus($event)" placeholder="Filtrar por estado">
-                <nb-option value="0">TODOS LOS REGISTROS</nb-option>
-                <nb-option *ngFor="let item of auth_statusM" [value]="item.id">{{item.name}}</nb-option>
-              </nb-select>
-            </div>
-
-            <div class="actions" style="margin-top: 5px;">
-              <button nbButton status="danger" style="width: 100%;" (click)="packagingProcess()">Asignar
-                paquete</button>
-            </div>
-          
-            <div class="actions" style=" margin-top: 5px;">
-              <button nbButton status="warning" (click)="ConfirmActions(masiveAuth)">Autorización masiva</button>
-            </div>
-
-          </div>
-
-        </ngx-base-table> 
-
-  </div> 
+  </div>
 </ngx-base-list>
-
-
-
-

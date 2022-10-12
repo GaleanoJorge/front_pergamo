@@ -21,6 +21,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 export class ClinicHistoryLanguageListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() type_record_id:any;
 
   linearMode = true;
   public messageError = null;
@@ -36,8 +37,9 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   public ambit;
   public program;
   public flat;
-  public int: 0;
+  public int = 0;
   public user;
+  public admission;
   public own_user;
   public bed;
   public bed_id;
@@ -104,6 +106,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
+      this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
@@ -156,7 +159,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
 
       let response;
     
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
       this.toastService.success('', response.message);
       //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -164,6 +167,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
       if (this.saved) {
         this.saved();
       }
+      return true;
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;
@@ -172,6 +176,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
     }
   }else{
       this.toastService.danger('Debe diligenciar la firma');
+      return false;
     }
   
   }

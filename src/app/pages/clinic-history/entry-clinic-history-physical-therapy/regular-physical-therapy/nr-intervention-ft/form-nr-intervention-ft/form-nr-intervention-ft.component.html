@@ -1,0 +1,25 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <hr>
+  
+  <div >
+
+      <div class="col col-lg-12">
+
+        <div >
+          <label for="occupational_con_text" class="form-text text-center text-muted font-weight-bold">Intervención:</label>
+          <textarea id="occupational_con" nbInput fullWidth formControlName="occupational_con" current_illness rows="3" onpaste="return false"
+            cols="50"
+            status="{{ isSubmitted && form.controls.occupational_con.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+        </div>
+
+      </div>
+  </div>
+
+  <div class="div-send">
+      <button nbButton status="danger" class="ml-FUNCIONAL btn-save" [disabled]="disabled" type="button"
+        (click)="save()">GUARDAR</button>
+  </div>
+
+  
+</form>

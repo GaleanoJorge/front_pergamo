@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TableMarchFTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['INDEPENDIENTE',
+  public headerFields: any[] = ['FECHA',
+                                'INDEPENDIENTE',
                                 'CLAUDICANTE CON AYUDA',
                                 'ATAXICAS',
                                 'SE EVIDENCIA CONTACTO INICIAL',
@@ -50,77 +52,92 @@ export class TableMarchFTComponent implements OnInit {
     },
     columns:
     {
+
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
      
       independent:
-      {
-        title: this.headerFields[0],
-        width: 'string',
-      },
-
-      help:
       {
         title: this.headerFields[1],
         width: 'string',
       },
 
-      spastic:
+      help:
       {
         title: this.headerFields[2],
         width: 'string',
       },
 
-      ataxic:
+      spastic:
       {
         title: this.headerFields[3],
         width: 'string',
       },
 
-      contact:
+      ataxic:
       {
         title: this.headerFields[4],
         width: 'string',
       },
 
-      response:
+      contact:
       {
         title: this.headerFields[5],
         width: 'string',
       },
 
-      support_init:
+      response:
       {
         title: this.headerFields[6],
         width: 'string',
       },
 
-      support_finish:
+      support_init:
       {
         title: this.headerFields[7],
         width: 'string',
       },
 
-      prebalance:
+      support_finish:
       {
         title: this.headerFields[8],
         width: 'string',
       },
 
-      medium_balance:
+      prebalance:
       {
         title: this.headerFields[9],
         width: 'string',
       },
 
-      finish_balance:
+      medium_balance:
       {
         title: this.headerFields[10],
         width: 'string',
       },
 
-      observation:
+      finish_balance:
       {
         title: this.headerFields[11],
         width: 'string',
+      },
+
+      observation:
+      {
+        title: this.headerFields[12],
+        width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
     },
@@ -129,6 +146,8 @@ export class TableMarchFTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+
   ) {
   }
 

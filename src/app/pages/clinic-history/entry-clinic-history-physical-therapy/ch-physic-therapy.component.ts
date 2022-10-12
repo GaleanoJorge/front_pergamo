@@ -70,11 +70,11 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
   public chweekly: any[];
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
-
+  public admission;
 
 
   public record_id;
-  public int: 0;
+  public int = 0;
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
@@ -124,6 +124,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
+      this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
     });
     if (!this.data) {
@@ -312,7 +313,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
 
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -320,6 +321,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -328,7 +330,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
 
   }

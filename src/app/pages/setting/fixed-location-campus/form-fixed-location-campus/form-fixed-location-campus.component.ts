@@ -55,7 +55,7 @@ export class FormFixedLocationCampusComponent implements OnInit {
     this.FlatS.GetCollection().then(x => {
       this.flat = x;
     });
-    this.CampusS.GetCollection().then(x => {
+    this.CampusS.GetCollection({status_id: 1,}).then(x => {
       this.campus = x;
     });
     this.FixedAreaCampusS.GetCollection().then(x => {

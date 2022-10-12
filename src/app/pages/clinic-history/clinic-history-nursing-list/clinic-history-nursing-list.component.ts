@@ -54,6 +54,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public signatureImage: string;
   public previousUrl: string;
   public has_input;
+  public input_done;
   public ch_record;
   public show_labs: boolean = false;
 
@@ -108,6 +109,10 @@ export class ClinicHistoryNursingListComponent implements OnInit {
       this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
+      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
+      if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
+        this.input_done = true;
+      }
       if(this.ch_record[0].assigned_management_plan.management_plan.management_procedure.length > 0){
         this.show_labs = true;
       }
@@ -180,7 +185,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');

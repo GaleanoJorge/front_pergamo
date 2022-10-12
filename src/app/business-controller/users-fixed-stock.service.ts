@@ -77,4 +77,26 @@ export class UsersFixedStockService {
         throw x.message;
       });
   }
+
+
+
+  getFixedUserId(id, params = {}): Promise<UsersFixedStock[]> {
+    let servObj = new ServiceObject('users_fixed_stock/byuser/' + id);
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users_fixed_stock = <UsersFixedStock[]>servObj.data.users_fixed_stock;
+
+        return Promise.resolve(this.users_fixed_stock);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+
 }

@@ -57,6 +57,7 @@ import { FormAssistanceStockComponent } from './setting/assistance-stock/form-as
 import { FormAssistanceReturnComponent } from './setting/assistance-stock/form-assistance-return/form-assistance-return.component';
 import { AgreementCheckComponent } from './components/form-users/agreement-package/agreement-check.component';
 import { AgreementPackageComponent } from './components/form-users/agreement-package/agreement-package.component';
+//import { ReferenceComponent } from './reference/reference.component';
 
 
 
@@ -119,6 +120,7 @@ import { AgreementPackageComponent } from './components/form-users/agreement-pac
     SelectWorkLocationComponent,
     WorkLocationPackageComponent,
     BillingPadComponent,
+   // ReferenceComponent,
     SelectUsersCampusComponent,
     UsersCampusComponent,
     WebSpeachComponent,

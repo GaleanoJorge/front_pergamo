@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -24,7 +25,8 @@ export class TablePastOTComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['NUCLEO FAMILIAR', 
+  public headerFields: any[] = ['FECHA',
+                                'NUCLEO FAMILIAR', 
                                 'NUCLEO HIJOS',
                                 'OBSERVACIONES', 
                                 'NIVEL ACADEMICO',
@@ -53,8 +55,17 @@ export class TablePastOTComponent implements OnInit {
     },
     columns: {
 
-      mother: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+     
+
+      mother: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction: (value, row) => {
           return (row.mother != null ? row.mother  + ' ' : "") 
@@ -69,72 +80,100 @@ export class TablePastOTComponent implements OnInit {
       },
 
       number_childrens: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
       },
 
       observation_family_struct: {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
       academy: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         width: 'string',
       },
 
       level_academy: {
-        title: this.headerFields[4],
-        width: 'string',
-      },
-      observation_schooling_training: {
         title: this.headerFields[5],
         width: 'string',
       },
-
-      terapy: {
+      observation_schooling_training: {
         title: this.headerFields[6],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
-      observation_terapy: {
+
+      terapy: {
         title: this.headerFields[7],
         width: 'string',
       },
+      observation_terapy: {
+        title: this.headerFields[8],
+        width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
+      },
 
       smoke: {
-        title: this.headerFields[8],
+        title: this.headerFields[9],
         width: 'string',
       },
 
       f_smoke: {
-        title: this.headerFields[9],
+        title: this.headerFields[10],
         width: 'string',
       },
       alcohol: {
-        title: this.headerFields[10],
+        title: this.headerFields[11],
         width: 'string',
       },
 
       f_alcohol: {
-        title: this.headerFields[11],
+        title: this.headerFields[12],
         width: 'string',
       },
       sport: {
-        title: this.headerFields[12],
+        title: this.headerFields[13],
         width: 'string',
       },
 
       f_sport: {
-        title: this.headerFields[13],
+        title: this.headerFields[14],
         width: 'string',
       },
       sport_practice_observation: {
-        title: this.headerFields[14],
+        title: this.headerFields[15],
         width: 'string',
       },
 
       observation: {
-        title: this.headerFields[15],
+        title: this.headerFields[16],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'SIN OBSERVACIÓN';
+          }
+        },
       },
 
     },
@@ -142,6 +181,8 @@ export class TablePastOTComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
+
   ) {
   }
 

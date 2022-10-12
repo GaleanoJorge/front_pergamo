@@ -26,6 +26,7 @@ export class FormAssTherapyRespiratoryComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -142,12 +143,13 @@ export class FormAssTherapyRespiratoryComponent implements OnInit {
           ch_ass_cough_id: this.form.controls.ch_ass_cough_id.value,
           ch_ass_chest_type_id: this.form.controls.ch_ass_chest_type_id.value,
           ch_ass_chest_symmetry_id: this.form.controls.ch_ass_chest_symmetry_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
           ch_signs: this.form.controls.ch_signs.value,
 
         }).then(x => {
           this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
           if (this.saved) {
             this.saved();
           }
@@ -164,7 +166,7 @@ export class FormAssTherapyRespiratoryComponent implements OnInit {
           ch_ass_cough_id: this.form.controls.ch_ass_cough_id.value,
           ch_ass_chest_type_id: this.form.controls.ch_ass_chest_type_id.value,
           ch_ass_chest_symmetry_id: this.form.controls.ch_ass_chest_symmetry_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
           ch_signs: this.form.controls.ch_signs.value,
         }).then(x => {
@@ -200,6 +202,7 @@ export class FormAssTherapyRespiratoryComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.RefreshData();
+      this.messageEvent.emit($event);
     }
   }
 

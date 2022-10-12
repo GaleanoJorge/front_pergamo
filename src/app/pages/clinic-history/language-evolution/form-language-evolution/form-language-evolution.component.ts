@@ -15,6 +15,7 @@ import { ConfirmDialogCHComponent } from '../../clinic-history-list/confirm-dial
 export class FormLanguageEvolutionComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   @Input() record_id: any = null;
   @Input() user: any = null;
@@ -37,7 +38,7 @@ export class FormLanguageEvolutionComponent implements OnInit {
   public signatureImage: string;
   public currentRole: any;
   public own_user;
-  public int: 0;
+  public int = 0;
   public messageError = null;
   
 
@@ -135,7 +136,7 @@ export class FormLanguageEvolutionComponent implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -143,6 +144,7 @@ export class FormLanguageEvolutionComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -151,7 +153,7 @@ export class FormLanguageEvolutionComponent implements OnInit {
       }
     }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
       
   }

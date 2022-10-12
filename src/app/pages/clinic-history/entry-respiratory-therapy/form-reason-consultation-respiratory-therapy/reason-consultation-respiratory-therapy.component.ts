@@ -46,8 +46,7 @@ export class ReasonConsultationRespiratoryTherapyComponent implements OnInit {
         valuePrepareFunction: (value) => {
           return this.datePipe.transform2(value);
         },
-      },
-   
+      },  
 
       medical_diagnosis: {
         title: this.headerFields[1],

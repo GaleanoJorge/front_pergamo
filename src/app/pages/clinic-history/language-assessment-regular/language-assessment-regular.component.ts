@@ -3,6 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
   selector: 'ngx-language-assessment-regular',
@@ -19,7 +20,7 @@ export class LanguageAssessmentRegularComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Diagnostico Medico', 'Estado del Paciente'];
+  public headerFields: any[] = ['Fecha','Diagnostico Medico', 'Estado del Paciente'];
   public movieForm: String;
 
   public isSubmitted: boolean = false;
@@ -35,15 +36,28 @@ export class LanguageAssessmentRegularComponent implements OnInit {
     },
     columns: {
 
-      diagnosis: {
+      created_at: {
         title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+        },
+
+      diagnosis: {
+        title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+          
         },
       },
       status_patient: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
@@ -60,6 +74,7 @@ export class LanguageAssessmentRegularComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
 
   }

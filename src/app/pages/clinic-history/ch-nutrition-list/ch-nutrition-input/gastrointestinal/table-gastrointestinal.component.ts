@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
+import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 import { BaseTableComponent } from '../../../../components/base-table/base-table.component';
 
 
@@ -18,17 +19,18 @@ export class TableGastrointestinalComponent implements OnInit {
   @Input() route: any = null;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
-  
+
   linearMode = false;
   public messageError = null;
   public title;
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['HABITO INTESTINAL',
-                                '¿ HA PRESENTADO VOMITO ?',
-                                '¿ HA PRESENTADO NUSEAS ?',
-                                'OBSERVACIONES',];
+  public headerFields: any[] = ['FECHA',
+    'HABITO INTESTINAL',
+    '¿ HA PRESENTADO VOMITO ?',
+    '¿ HA PRESENTADO NUSEAS ?',
+    'OBSERVACIONES',];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -42,19 +44,34 @@ export class TableGastrointestinalComponent implements OnInit {
     },
     columns:
     {
+
+      created_at: {
+        title: this.headerFields[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+      },
       bowel_habit:
       {
-        title: this.headerFields[0],
-        width: 'string',
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
       vomit:
       {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         width: 'string',
-        valuePrepareFunction(value,row) {
+        valuePrepareFunction(value, row) {
           if (value == 0) {
-            return 'SI';           
+            return 'SI';
           } else {
             return 'NO';
 
@@ -64,11 +81,11 @@ export class TableGastrointestinalComponent implements OnInit {
 
       nausea:
       {
-        title: this.headerFields[2],
+        title: this.headerFields[3],
         width: 'string',
-        valuePrepareFunction(value,row) {
+        valuePrepareFunction(value, row) {
           if (value == 0) {
-            return 'SI';           
+            return 'SI';
           } else {
             return 'NO';
 
@@ -78,8 +95,15 @@ export class TableGastrointestinalComponent implements OnInit {
 
       observations:
       {
-        title: this.headerFields[3],
-        width: 'string',
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
 
 
@@ -89,6 +113,7 @@ export class TableGastrointestinalComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
+    public datePipe: DateFormatPipe
   ) {
   }
 

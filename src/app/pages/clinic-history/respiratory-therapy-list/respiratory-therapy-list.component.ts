@@ -21,6 +21,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 export class RespiratoryTherapyListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() type_record_id: any;
 
   linearMode = true;
   public messageError = null;
@@ -30,6 +31,7 @@ export class RespiratoryTherapyListComponent implements OnInit {
   public routes = [];
   public course;
   public data = [];
+  public admissions = [];
   public user_id;
   public date_end: boolean = true;
   public cont = 0;
@@ -42,13 +44,15 @@ export class RespiratoryTherapyListComponent implements OnInit {
   public bed_id;
   public pavilion;
   public record_id;
-  public int:0;
+  public int: 0;
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
   public currentRole: any;
   public show: any;
   public signatureImage: string;
+  public has_input: any = null; // ya existe registro de ingreso
+  public input_done: boolean = false;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -96,7 +100,12 @@ export class RespiratoryTherapyListComponent implements OnInit {
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
+      if (this.has_input ==  true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
+        this.input_done = true;
+      }
       this.user = x[0]['admissions']['patients'];
+      this.admissions = x[0]['admissions'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
   }
@@ -106,16 +115,20 @@ export class RespiratoryTherapyListComponent implements OnInit {
   }
 
   close() {
-    this.deleteConfirmService.open(ConfirmDialogCHComponent, {
-      context: {
-        signature: true, 
-        title: 'Finalizar registro.',
-        delete: this.finish.bind(this),
-        showImage: this.showImage.bind(this),
-        // save: this.saveSignature.bind(this),
-        textConfirm:'Finalizar registro'
-      },
-    });
+    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
+      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
+        context: {
+          signature: true,
+          title: 'Finalizar registro.',
+          delete: this.finish.bind(this),
+          showImage: this.showImage.bind(this),
+          // save: this.saveSignature.bind(this),
+          textConfirm: 'Finalizar registro'
+        },
+      });
+    } else {
+      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
+    }
   }
 
   showImage(data) {
@@ -135,7 +148,7 @@ export class RespiratoryTherapyListComponent implements OnInit {
   }
 
   async finish(firm) {
-    if(this.signatureImage!=null){
+    if (this.signatureImage != null) {
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
@@ -143,12 +156,12 @@ export class RespiratoryTherapyListComponent implements OnInit {
       formData.append('role', this.currentRole);
       formData.append('user_id', this.own_user.id);
       formData.append('firm_file', this.signatureImage);
-      
+
       try {
-        
+
         let response;
-        
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -156,17 +169,18 @@ export class RespiratoryTherapyListComponent implements OnInit {
         if (this.saved) {
           this.saved();
         }
+        return true;
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
         this.loading = false;
         throw new Error(response);
       }
-    }else{
+    } else {
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
-      
+
   }
 
 
@@ -216,5 +230,10 @@ export class RespiratoryTherapyListComponent implements OnInit {
     }).catch(x => {
       throw x;
     });
+  }
+
+  // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
+  inputMessage($event) {
+    this.input_done = true;
   }
 }

@@ -48,7 +48,7 @@ export class ChNutritionListComponent implements OnInit {
   public loading: boolean = false;
   public currentRole: any;
   public show: any;
-  public int: 0;
+  public int = 0;
   public signatureImage: string;
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
@@ -158,7 +158,7 @@ export class ChNutritionListComponent implements OnInit {
 
       let response;
     
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
       this.toastService.success('', response.message);
       //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -166,6 +166,7 @@ export class ChNutritionListComponent implements OnInit {
       if (this.saved) {
         this.saved();
       }
+      return true;
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;
@@ -174,7 +175,7 @@ export class ChNutritionListComponent implements OnInit {
     }
   }else{
       this.toastService.danger('Debe diligenciar la firma');
-  
+      return false;
     }
   
   }
