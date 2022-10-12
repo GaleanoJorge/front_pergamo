@@ -16,22 +16,22 @@
       </div>
       <div class="col-12">
         <form [formGroup]="loginForm" *ngIf="!resetPasswordForm">
-          <div class="div-form-login">
+          <div class="div-form-login row">
             <small class="col-md-4 form-text text-muted">USUARIO</small>
-            <input class="input-login input-login-style" type="username" nbInput fullWidth
+            <input class="input-login input-login-style col-md-8" type="username" nbInput fullWidth
               status="{{ isSubmitted && loginForm.controls.username.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
               formControlName="username" required username minlength="5" autocomplete="on">
           </div>
           <div *ngIf="loginForm.controls.username.errors && isSubmitted ">
             <small *ngIf="loginForm.controls.username.errors.required">Ingrese su correo</small>
           </div>
-          <div class="div-form-login">
+          <div class="div-form-login row">
             <small class="col-md-4 form-text text-muted">CONTRASEÑA</small>
             <!-- <input (change)="login()" class="input-login input-login-style" type="password" nbInput fullWidth
               status="{{ isSubmitted && loginForm.controls.password.errors ? 'danger' :  isSubmitted ? 'success' : '' }}"
               status="danger" formControlName="password" required minlength="5" autocomplete="on"> -->
 
-              <div class="input-group">
+              <div class="input-group col-md-8">
                 <nb-form-field class="w-100">
                   <input (change)="login()" class="input-login input-login-style password" [type]="getInputTypePassword()" nbInput fullWidth id="password"
                     formControlName="password" password

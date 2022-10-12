@@ -101,3 +101,15 @@
 .nb-theme-corporate nb-dialog-container{
   width: 100%;
 }
+
+@media screen and (max-width: 480px) {
+  .nb-theme-corporate nb-card-body{
+    padding: 1rem .3rem !important;
+  }
+  .nb-theme-corporate nb-tabset nb-tab{
+    padding: 1rem .3rem !important;
+  }
+  .nb-theme-corporate nb-stepper .step-content{
+    padding: .5rem !important;
+  }
+    }
