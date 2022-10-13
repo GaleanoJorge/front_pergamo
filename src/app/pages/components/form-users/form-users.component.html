@@ -533,7 +533,7 @@
               status="{{ isSubmitted && form.controls.medical_record.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
         </div>
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-4" *ngIf="this.role!=2 && !edit_own_info">
           <div class="form-group">
             <label for="contract_type" class="form-text text-muted font-weight-bold">Tipo de contrato:</label>
             <nb-select formControlName="contract_type_id" id="contract_type_id" fullWidth
@@ -559,14 +559,14 @@
             </nb-select>
           </div>
         </div> -->
-        <div class="col-md-3">
+        <div class="col-md-3" *ngIf="this.role!=2 && !edit_own_info">
           <div class="form-group">
             <nb-card-body>
               <nb-toggle formControlName="attends_external_consultation" name>Consulta externa</nb-toggle>
             </nb-card-body>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3"  *ngIf="this.role!=2 && !edit_own_info">
           <div class="form-group">
             <nb-card-body>
               <nb-toggle formControlName="serve_multiple_patients" name>Hospitalario</nb-toggle>
@@ -574,12 +574,12 @@
           </div>
         </div>
         <!-- pad -->
-        <div class="col-md-3">
+        <div class="col-md-3"  *ngIf="this.role!=2 && !edit_own_info">
           <div class="form-group">
             <nb-toggle formControlName="PAD_service" PAD_service>Servicio de PAD</nb-toggle>
           </div>
         </div>
-        <div class="col-md-3" *ngIf="form.controls.PAD_service.value">
+        <div class="col-md-3" *ngIf="form.controls.PAD_service.value && this.role!=2 && !edit_own_info">
           <div class="form-group">
             <nb-toggle formControlName="has_car" has_car>Cuenta con carro</nb-toggle>
           </div>
@@ -682,7 +682,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-4" *ngIf="this.role!=2">
+        <div class="col-md-4" *ngIf="this.role!=2 && !edit_own_info">
           <div class="form-group">
             <label for="status" class="form-text text-muted font-weight-bold">Estado:</label>
             <nb-select selected="" formControlName="status_id" id="status" fullWidth
