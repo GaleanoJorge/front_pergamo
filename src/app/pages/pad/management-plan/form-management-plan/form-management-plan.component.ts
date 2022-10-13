@@ -339,7 +339,7 @@ export class FormManagementPlanComponent implements OnInit {
           if (x) {
             this.GetMedical(this.user.locality_id).then(x => {
               if (x) {
-                this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+                this.assigned_user = this.assigned_user;
                 this.showUser = true;
               }
             }).catch(e => {
