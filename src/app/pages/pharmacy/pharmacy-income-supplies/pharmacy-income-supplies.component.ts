@@ -53,11 +53,11 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      request_pharmacy_stock: {
+      own_pharmacy_stock: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
+          return value.name + ' - ' + row.own_pharmacy_stock.campus.name;
         },
       },
       product_supplies: {
