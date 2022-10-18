@@ -14,6 +14,8 @@ export class RegularSocialWorkComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
+  @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
 
   //@Input() vital: any;
   linearMode = false;

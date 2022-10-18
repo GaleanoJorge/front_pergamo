@@ -408,6 +408,11 @@ import { ActionsMedicalOrderComponent } from './ch-medical-orders/actions.compon
 import { ActionsInabilityComponent } from './ch-inability/actions.component';
 import { ActionsCertificateComponent } from './ch-medical-certificate/actions.component';
 import { ActionsInterconsultationComponent } from './ch-interconsultation/actions.component';
+import { ChSwEducationComponent } from './ch-social-work/ch-sw-education/ch-sw-education.component';
+import { FormTracingComponent } from './tracing/form-tracing/form-tracing.component';
+import { TracingComponent } from './tracing/tracing.component';
+import { TracingListComponent } from './tracing-list/tracing-list.component';
+import { FormTracingListComponent } from './tracing-list/form-tracing-list/form-tracing-list.component';
 
 
 @NgModule({
@@ -639,6 +644,7 @@ import { ActionsInterconsultationComponent } from './ch-interconsultation/action
     SwArmedConflictComponent,
     FormSwSupportNetworkComponent,
     FormChSwEducationComponent,
+    ChSwEducationComponent,
     SwSupportNetworkComponent,
     RegularSocialWorkComponent,
     SwHousingComponent,
@@ -890,6 +896,12 @@ import { ActionsInterconsultationComponent } from './ch-interconsultation/action
     PsAwarenessComponent,
     FormPsObjectivesComponent,
     PsObjectivesComponent,
+
+    FormTracingComponent,
+    TracingComponent,
+    TracingListComponent,
+    FormTracingListComponent,
+   
 
 
   ],

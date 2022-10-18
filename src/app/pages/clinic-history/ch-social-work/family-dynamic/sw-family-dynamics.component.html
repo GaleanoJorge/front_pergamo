@@ -2,7 +2,7 @@
 
 <div *ngIf="has_input == false || type_record_id != 1">
 
-  <ngx-form-sw-family-dynamics (messageEvent)="receiveMessage($event)" [record_id]="record_id">
+  <ngx-form-sw-family-dynamics (messageEvent)="receiveMessage($event)" [record_id]="record_id" [type_record_id]="type_record_id" [has_input]="has_input">
   </ngx-form-sw-family-dynamics>
 
 </div>
@@ -12,6 +12,6 @@
   <ngx-base-list [messageError]="messageError" [routes]="routes">
     <div content>
       <ngx-base-table pager="false" class="table" [title]="title" [subtitle]="subtitle" customData="ch_sw_family_dynamics"
-        [settings]="settings" entity="ch_sw_family_dynamics/by_record/{{record_id}}/1?&has_input={{has_input}}">
+        [settings]="settings" entity="ch_sw_family_dynamics/by_record/{{record_id}}/{{type_record_id}}?&has_input={{has_input}}">
       </ngx-base-table>
     </div>
