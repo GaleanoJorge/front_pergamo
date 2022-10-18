@@ -23,6 +23,7 @@ export class FormSwSupportNetworkComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -98,7 +99,7 @@ export class FormSwSupportNetworkComponent implements OnInit {
           ch_sw_entity_id: this.form.controls.ch_sw_entity_id.value,
           observation: this.form.controls.observation.value,
           ch_sw_network_id: this.form.controls.ch_sw_network_id.value,
-          type_record_id: this.type_record,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -117,7 +118,7 @@ export class FormSwSupportNetworkComponent implements OnInit {
           ch_sw_entity_id: this.form.controls.ch_sw_entity_id.value,
           observation: this.form.controls.observation.value,
           ch_sw_network_id: this.form.controls.ch_sw_network_id.value,
-          type_record_id: this.type_record,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

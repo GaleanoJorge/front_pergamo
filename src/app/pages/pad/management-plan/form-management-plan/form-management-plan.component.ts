@@ -115,7 +115,7 @@ export class FormManagementPlanComponent implements OnInit {
         if (x) {
           this.GetMedical(this.user.locality_id).then(x => {
             if (x) {
-              this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+              this.assigned_user = this.assigned_user;
             }
           }).catch(e => {
             this.toastService.danger(e, 'Error');
@@ -334,12 +334,12 @@ export class FormManagementPlanComponent implements OnInit {
       // console.log(val);
       if (val === '') {
         this.assigned_user = [];
-      } else if (val != "2") {
+      } else if (val != "2" && val != "20") {
         this.getRoleByAttention(val).then(x => {
           if (x) {
             this.GetMedical(this.user.locality_id).then(x => {
               if (x) {
-                this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+                this.assigned_user = this.assigned_user;
                 this.showUser = true;
               }
             }).catch(e => {
@@ -428,14 +428,39 @@ export class FormManagementPlanComponent implements OnInit {
           this.form.controls.number_doses.setValidators(null);
           this.form.controls.dosage_administer.setValidators(null);
         }
-      } else {
+
+        if (val == 20) {
+     
+
+        }
+      } else if(val==20){
+        this.show = false;
+        this.frec = true;
+
+        // this.form.controls.procedure_id.clearValidators();
+        this.form.controls.procedure_id.setErrors(null);
+        // this.form.controls.procedure_id.setValidators(null);
+        this.form.controls.quantity.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.start_date.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.finish_date.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.assigned_user_id.setValidators(Validators.compose([Validators.required]));
+
+        
+        this.userAssigned.UserByRoleLocation(0, this.phone_consult ? 2 : 1, {
+          type_of_attention: val,
+        }).then(x => {
+          this.assigned_user = x;
+        });
+
+      }
+      else {
         this.form.get('specialty_id').valueChanges.subscribe(val => {
           if (val != "") {
             this.getRoleByAttention(this.form.controls.type_of_attention_id.value).then(x => {
               if (x) {
                 this.GetMedical(this.user.locality_id, val).then(x => {
                   if (x) {
-                    this.assigned_user = this.assigned_user.filter(x => x.id !== this.user.id);
+                    this.assigned_user = this.assigned_user;
                   }
                 }).catch(e => {
                   this.toastService.danger(e, 'Error');

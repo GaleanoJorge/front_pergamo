@@ -5,11 +5,11 @@
         <nb-stepper #stepper [linear]="linearMode"> 
     
           <nb-step [stepControl]="nameForm" label="Nota regular">
-            <ngx-sw-support-network [record_id]="record_id" [type_record]="3"></ngx-sw-support-network>
+            <ngx-sw-support-network [record_id]="record_id" [type_record_id]="type_record_id"></ngx-sw-support-network>
           </nb-step>
           
           <nb-step [stepControl]="nameForm" label="Recomendaciones / Educación">
-            <ngx-form-ch-sw-education [record_id]="record_id"></ngx-form-ch-sw-education>
+            <ngx-ch-sw-education [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ch-sw-education>
           </nb-step>
         
          
