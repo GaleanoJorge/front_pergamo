@@ -331,10 +331,10 @@ export class PadListComponent implements OnInit {
 
   FilterAgreement(e) {
     if (this.currentRole.role_type_id == 2) {
-      this.entity = 'patient/byPAD/2/' + this.user_id + "?campus=" + this.campus_id;
+      this.entity = 'patient/byPAD/2/' + this.user_id + "?campus_id=" + this.campus_id;
     }
     else {
-      this.entity = "patient/byPAD/2/0?campus=" + this.campus_id;
+      this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id;
     }
     this.table.changeEntity(`${this.entity}&eps=${e}`, 'patients')
   }
