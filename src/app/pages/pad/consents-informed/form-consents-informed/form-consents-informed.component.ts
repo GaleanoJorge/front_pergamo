@@ -218,8 +218,9 @@ export class FormConsentsInformedComponent implements OnInit {
         this.document
       );
     });
-  }
 
+  
+  }
 
 
   showImage(data, type) {
@@ -233,7 +234,7 @@ export class FormConsentsInformedComponent implements OnInit {
       }
     } else {
       this.int2++;
-      if (this.int == 1) {
+      if (this.int2 == 1) {
         this.signatureImage2 = null;
       }else{
         this.signatureImage2 = data;
@@ -247,10 +248,11 @@ export class FormConsentsInformedComponent implements OnInit {
 
   async save() {
     this.isSubmitted = true;
-
+    if(this.signatureImage!=null || this.signatureImage2!=null){
     if (!this.form.invalid){
 
     this.loading = true;
+
 
     var formData = new FormData();
     var data = this.form.controls;
@@ -285,10 +287,20 @@ export class FormConsentsInformedComponent implements OnInit {
       this.loading = false;
       throw new Error(response);
     }
-  }else{
-    this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+  
   }
+  else{
+    this.
+    toastService.warning('', "Debe diligenciar los campos obligatorios");
+    this.loading = false;
+
   }
+}else{
+    this.toastService.danger('Debe diligenciar la firma');
+    return false;
+    this.loading = false;
+  }
+}
 
   // save() {
   //   this.isSubmitted = true;
