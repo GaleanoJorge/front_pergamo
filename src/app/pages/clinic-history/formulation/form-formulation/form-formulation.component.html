@@ -54,8 +54,8 @@
                     this.product.drug_concentration.value)}}
                   </div>
                   <div *ngIf="this.product">
-                    {{ this.product.product_dose_id == 2 ? this.product.multidose_concentration.name :
-                    this.product.measurement_units.code}}
+                    {{ this.product.product_dose_id == 2 ? this.numerador_measurement_units(this.product.multidose_concentration.name) :
+                    this.numerador_measurement_units(this.product.measurement_units.code)}}
                   </div>
                 </div>
 
@@ -69,8 +69,8 @@
                       status="{{ isSubmitted && form.controls.dose.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   </div>
                   <div class="aaa" *ngIf="this.product">
-                    {{ this.product.product_dose_id == 2 ? this.product.multidose_concentration.name :
-                    this.product.measurement_units.code}}
+                    {{ this.product.product_dose_id == 2 ? this.numerador_measurement_units(this.product.multidose_concentration.name) :
+                    this.numerador_measurement_units(this.product.measurement_units.code)}}
                   </div>
                 </div>
               </div>
