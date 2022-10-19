@@ -4,6 +4,8 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 import { FormGroup } from '@angular/forms';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ActionsFormulationComponent } from './actions.component';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-formulation',
@@ -63,7 +65,12 @@ export class FormulationComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return row.product_generic.description;
+          if(value){
+            return row.product_generic.description;
+
+          }else{
+            return 'No aplica'
+          }
         },
 
       dose: {
@@ -106,10 +113,25 @@ export class FormulationComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
-    public datePipe: DateFormatPipe
+    public datePipe: DateFormatPipe,
+    private viewFormulationS: ChRecordService,
+    private toastService: NbToastrService,
     ) {}
 
   async ngOnInit() {}
+
+  Historic() {
+    this.viewFormulationS.ViewAllFormulation(this.record_id).then(x => {
+
+      //this.loadingDownload = false;
+      this.toastService.success('', x.message);
+      window.open(x.url, '_blank');
+
+    }).catch(x => {
+      this.isSubmitted = false;
+      this.loading = false;
+    });
+  }
 
   RefreshData() {
     this.table.refresh();
