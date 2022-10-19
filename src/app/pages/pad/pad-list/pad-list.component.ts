@@ -30,6 +30,8 @@ export class PadListComponent implements OnInit {
 
   public isSubmitted = false;
   public entity: string;
+  public semaphore: string;
+  public eps: string;
   public loading: boolean = false;
   public loading2: boolean = false;
   public category_id: number = null;
@@ -336,7 +338,8 @@ export class PadListComponent implements OnInit {
     else {
       this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id;
     }
-    this.table.changeEntity(`${this.entity}&eps=${e}`, 'patients')
+    this.eps = e;
+    this.table.changeEntity(`${this.entity}&semaphore=${this.semaphore}&eps=${e}`, 'patients')
   }
 
 
@@ -348,6 +351,7 @@ export class PadListComponent implements OnInit {
   });
 
   changeSemaphore($event: any) {
-    this.table.changeEntity(this.entity + '&semaphore=' + $event, 'patients');
+    this.semaphore= $event;
+    this.table.changeEntity(`${this.entity}&semaphore=${$event}&eps=${(this.eps ? this.eps : null)}`, 'patients');
   }
 }
