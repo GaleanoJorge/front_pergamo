@@ -230,7 +230,7 @@ export class FormFormulationComponent implements OnInit {
       var spl = value.split('/');
       var num = spl[0];
       var den = +spl[1];
-      rr = this.numWithPlus(num) / den;
+      rr = this.numWithPlus(num);
 
     } else {
       rr = this.numWithPlus(value);
@@ -326,6 +326,20 @@ export class FormFormulationComponent implements OnInit {
         this.product_gen = this.all_peoducts;
       }
     }
+  }
+
+  numerador_measurement_units(val) {
+    var rr = '';
+    if (val.includes('/')) {
+      var spl = val.split('/');
+      var num = spl[0];
+      var den = +spl[1];
+      rr = num;
+
+    } else {
+      rr = val;
+    }
+    return rr;
   }
 
 }
