@@ -53,11 +53,11 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      request_pharmacy_stock: {
+      own_pharmacy_stock: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
+          return value.name + ' - ' + row.own_pharmacy_stock.campus.name;
         },
       },
       product_supplies: {
@@ -95,7 +95,7 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?product=' + 2 + '& status=ENVIADO FARMACIA'  + '&request_pharmacy_stock_id=' + x[0].id ;
+        this.entity = 'pharmacy_product_request?product=' + 2 + '&status=ENVIADO FARMACIA'  + '&request_pharmacy_stock_id=' + x[0].id ;
         this.title = 'ACEPTAR INSUMOS ENVIADOS A:  ' + x[0]['name'];
       }
     });
@@ -116,11 +116,11 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
 
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
-      this.table.changeEntity('pharmacy_product_request?product=' + 2 + '& status=ENVIADO FARMACIA'  + '&own_pharmacy_stock_id=' + this.my_pharmacy_id,'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request?product=' + 2 + '&status=ENVIADO FARMACIA'  + '&own_pharmacy_stock_id=' + this.my_pharmacy_id,'pharmacy_product_request');
 
     }else{
 
-      this.table.changeEntity('pharmacy_product_request?product=' + 2 + '& status=ENVIADO FARMACIA'  + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request?product=' + 2 + '&status=ENVIADO FARMACIA'  + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
     }
     // this.RefreshData();
   }

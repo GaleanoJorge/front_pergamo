@@ -25,7 +25,7 @@ export class ProdSuppliesPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Selección de insumos: ';
   public subtitle = 'Insumos a comprar: ';
-  public headerFields: any[] = ['Insumo comercial', 'Descripción generico', 'Cantidad ordenada', 'Valor por unidad', 'Iva'];
+  public headerFields: any[] = ['Insumo comercial','Empaque','Cantidad', 'Descripción generico', 'Cantidad ordenada', 'Valor por unidad', 'Iva'];
   public routes = [];
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
@@ -67,16 +67,26 @@ export class ProdSuppliesPackageComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return value;
         },
+      }, packing: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      unit_packing: {
+        title: this.headerFields[2],
+        type: 'string',
       },
       product_supplies: {
-        title: this.headerFields[1],
+        title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.description;
         },
       },
       amount: {
-        title: this.headerFields[2],
+        title: this.headerFields[4],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -95,7 +105,7 @@ export class ProdSuppliesPackageComponent implements OnInit {
         renderComponent: AmountSuppliesComponent,
       },
       amount_unit: {
-        title: this.headerFields[3],
+        title: this.headerFields[5],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -115,7 +125,7 @@ export class ProdSuppliesPackageComponent implements OnInit {
       },
 
       iva: {
-        title: this.headerFields[4],
+        title: this.headerFields[6],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
