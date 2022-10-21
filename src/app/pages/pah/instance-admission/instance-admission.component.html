@@ -4,7 +4,7 @@
 
 
     <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
-      customData="ch_medical_orders" [messageToltip]="messageToltip">
+      customData="ch_interconsultation" [messageToltip]="messageToltip">
       <div title *ngIf="user">
         <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}} </p>
         <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> {{(user.firstname ? user.firstname : '') + ' ' + (middlefirstname ? user.middlefirstname + ' ' : '') + (user.lastname ? user.lastname + ' ' : '') + (user.middlelastname ? user.middlelastname : '')}}</p>

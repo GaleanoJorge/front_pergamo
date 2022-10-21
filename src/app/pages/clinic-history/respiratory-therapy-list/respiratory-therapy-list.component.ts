@@ -31,7 +31,7 @@ export class RespiratoryTherapyListComponent implements OnInit {
   public routes = [];
   public course;
   public data = [];
-  public admissions = [];
+  public admissions;
   public user_id;
   public date_end: boolean = true;
   public cont = 0;
@@ -120,6 +120,7 @@ export class RespiratoryTherapyListComponent implements OnInit {
         context: {
           signature: true,
           title: 'Finalizar registro.',
+          admission: this.admissions,
           delete: this.finish.bind(this),
           showImage: this.showImage.bind(this),
           // save: this.saveSignature.bind(this),
@@ -148,7 +149,7 @@ export class RespiratoryTherapyListComponent implements OnInit {
   }
 
   async finish(firm) {
-    if (this.signatureImage != null) {
+    if(this.admissions.location[this.admissions.location.length -1].admission_route_id != 1 ? this.signatureImage!=null : true){
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');

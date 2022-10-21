@@ -21,11 +21,13 @@ export class ChInterconsultationComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Fecha',
-    'Especialidad',
-    'Cantidad',
-    'Frecuencia',
-    'Observaciones',
+    /*00*/ 'Fecha',
+    /*01*/ 'Especialidad',
+    /*02*/ 'Cantidad',
+    /*03*/ 'Frecuencia',
+    /*04*/ 'Observaciones',
+    /*05*/ 'Tipo de atención',
+    /*06*/ 'Procedimiento',
   ];
   
   public isSubmitted: boolean = false;
@@ -63,11 +65,39 @@ export class ChInterconsultationComponent implements OnInit {
           return this.datePipe.transform2(value);
         },
       },
+      type_of_attention: {
+        title: this.headerFields[5],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+         
+        },
+      },
       specialty: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.id + '-' + row.specialty.name;
+          if (value) {
+            return value.id + '-' + value.name;
+          } else {
+            return 'N.A.';
+          }
+         
+        },
+      },
+      services_briefcase: {
+        title: this.headerFields[6],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.manual_price.procedure.name;
+          } else {
+            return 'N.A.';
+          }
          
         },
       },
@@ -79,7 +109,11 @@ export class ChInterconsultationComponent implements OnInit {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
         },
       },
       observations: {

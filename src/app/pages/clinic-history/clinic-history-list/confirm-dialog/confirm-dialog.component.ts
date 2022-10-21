@@ -13,6 +13,7 @@ export class ConfirmDialogCHComponent implements OnInit {
   @Input() body: string = 'Este proceso es irreversible, ¿estas seguro?';
   @Input() name: string | null = null;
   @Input() delete: any = null;
+  @Input() admission: any = null;
   @Input() changeImage;
   @Input() data: any = null;
   @Input() textConfirm = 'Eliminar';

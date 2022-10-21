@@ -26,7 +26,7 @@ import { ChTypeService } from '../../../business-controller/ch-type.service';
 
       <button nbTooltip="Instancias" nbTooltipPlacement="top"
           nbTooltipStatus="primary" nbButton ghost (click)="closeDialog()"
-          [routerLink]="'/pages/pah/instance-admission/' + value.data.id">
+          [routerLink]="'/pages/pah/instance-admission/' + value.data.admissions[value.data.admissions.length - 1].id">
           <nb-icon icon="menu-outline"></nb-icon>
       </button>
   </div>

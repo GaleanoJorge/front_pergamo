@@ -79,22 +79,21 @@ export class InstanceAdmissionComponent implements OnInit {
       //   },
       //   renderComponent: ActionsSemaphoreComponent,
       // },
-      // actions: {
-      //   title: 'Acciones',
-      //   type: 'custom',
-      //   valuePrepareFunction: (value, row) => {
-      //     // DATA FROM HERE GOES TO renderComponent
-      //     return {
-      //       'data': row,
-      //       'user': this.own_user,
-      //       'refresh': this.RefreshData.bind(this),
-      //       'openEF':this.NewChRecord.bind(this),
-      //       'currentRole': this.currentRole.role_type_id,
-      //       'edit': this.EditAssigned.bind(this),
-      //     };
-      //   },
-      //   renderComponent: Actions4Component,
-      // },
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'user': this.own_user,
+            'admission_id': this.admission_id,
+            'refresh': this.RefreshData.bind(this),
+            'currentRole': this.currentRole.role_type_id,
+          };
+        },
+        renderComponent: Actions4Component,
+      },
       services_briefcase: {
         title: this.headerFields[0],
         type: 'string',
@@ -160,6 +159,10 @@ export class InstanceAdmissionComponent implements OnInit {
   async ngOnInit() {
     this.admission_id = this.route.snapshot.params.admission_id;
     this.own_user = this.authService.GetUser();
+    var curr = this.authService.GetRole();
+    this.currentRole = this.authService.GetUser().roles.find(x => {
+      return x.id == curr;
+    });
 
     this.AdmissionsS.GetCollection({
       admissions_id: this.admission_id
@@ -169,7 +172,7 @@ export class InstanceAdmissionComponent implements OnInit {
 
     this.settings = this.settings1;
 
-    this.entity = 'ch_medical_orders?admissions_id =' + this.admission_id + '&ambulatory_medical_order=1';
+    this.entity = 'ch_interconsultation?admissions_id=' + this.admission_id + '&ambulatory_medical_order=1';
 
 
   }

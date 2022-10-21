@@ -182,6 +182,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
         context: {
           signature: true,
           title: 'Finalizar registro.',
+          admission: this.admission,
           delete: this.finish.bind(this),
           showImage: this.showImage.bind(this),
           // save: this.saveSignature.bind(this),
@@ -210,7 +211,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   // }
 
   async finish(firm) {
-    if(this.signatureImage!=null){
+    if(this.admission.location[this.admission.location.length -1].admission_route_id != 1 ? this.signatureImage!=null : true){
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');

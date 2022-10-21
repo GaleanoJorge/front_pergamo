@@ -39,6 +39,7 @@ export class SocialWorkListComponent implements OnInit {
   public flat;
   public user;
   public own_user;
+  public admission;
   public bed;
   public bed_id;
   public pavilion;
@@ -102,6 +103,7 @@ export class SocialWorkListComponent implements OnInit {
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
+      this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
@@ -117,6 +119,7 @@ export class SocialWorkListComponent implements OnInit {
         context: {
           signature: true,
           title: 'Finalizar registro.',
+          admission: this.admission,
           delete: this.finish.bind(this),
           showImage: this.showImage.bind(this),
           // save: this.saveSignature.bind(this),
@@ -146,7 +149,7 @@ export class SocialWorkListComponent implements OnInit {
 
   async finish(firm) {
 
-      if(this.signatureImage!=null){
+    if(this.admission.location[this.admission.location.length -1].admission_route_id != 1 ? this.signatureImage!=null : true){
      
         
     var formData = new FormData();

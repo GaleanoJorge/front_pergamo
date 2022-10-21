@@ -366,6 +366,7 @@ export class BillingPadProcedureComponent implements OnInit {
         quantity: q,
         location_id: element.location_id,
         created_at: element.created_at,
+        ch_interconsultation: element.ch_interconsultation ? element.ch_interconsultation : null,
         location: element.location_id ? {
           entry_date: element.location.entry_date,
           discharge_date: element.location.discharge_date,

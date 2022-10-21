@@ -34,6 +34,9 @@ import {FormInstanceAdmissionComponent} from './instance-admission/form-instance
 import { SignaturePadModule } from '@ng-plus/signature-pad';
 import { ActionsSemaphoreComponent } from './instance-admission/actions-semaphore.component';
 import { Actions4Component } from './instance-admission/actions.component';
+import {InterconsultationComponent} from './interconsultation/interconsultation.component';
+import {FormInterconsultationComponent} from './interconsultation/form-interconsultation/form-interconsultation.component';
+import { Actions5Component } from './interconsultation/actions.component';
 
 
 
@@ -77,6 +80,9 @@ import { Actions4Component } from './instance-admission/actions.component';
     FormInstanceAdmissionComponent,
     ActionsSemaphoreComponent,
     Actions4Component,
+    Actions5Component,
+    InterconsultationComponent,
+    FormInterconsultationComponent,
   ],
   providers: [
     DateFormatPipe,

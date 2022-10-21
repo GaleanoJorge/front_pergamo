@@ -2,7 +2,7 @@
   <nb-card-header>
     <span class="h5">{{ title }} {{ name }}</span>
   </nb-card-header>
-  <nb-card-body>
+  <nb-card-body *ngIf="this.admission != null ? this.admission.location[this.admission.location.length -1].admission_route_id != 1 : true">
     <div>
       {{ body }}
     </div>

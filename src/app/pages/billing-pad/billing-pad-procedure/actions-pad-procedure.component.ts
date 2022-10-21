@@ -70,7 +70,7 @@ export class ActionsPadProcedureComponent implements ViewCell {
                 } else if (data.auth_status_id != 3) {
                     response = 1;
                     this.tooltip = 'Sin autorizar';
-                } else if (data.pendientes > 0) {
+                } else if (data.pendientes > 0 && !data.location_id) {
                     response = 4;
                     this.tooltip = 'Sin aprobar: ' + data.pendientes;
                 } else {
