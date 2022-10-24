@@ -20,6 +20,9 @@ import { AuthService } from '../../../services/auth.service';
     <button nbTooltip="Orden médica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewMedicalOrder()" >
       <nb-icon icon="file-add"></nb-icon>
     </button>
+    <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
+      <nb-icon icon="trash-2-outline"></nb-icon>
+    </button>
 
   </div>
   `,

@@ -41,6 +41,9 @@ import { Actions4Component } from '../assigned-management-plan/actions.component
       <button *ngIf="value.currentRole == 1" nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
+      <button *ngIf="value.currentRole == 1" nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.update(value.data)">
+        <nb-icon icon="trash-2-outline"></nb-icon>
+      </button>
   </div>
 
   <ng-template #AssignedTable>

@@ -65,6 +65,8 @@ export class ManagementPlanComponent implements OnInit {
   public ambito;
   public type_id;
   public valor: any = null;
+  public close: any;
+
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -104,6 +106,7 @@ export class ManagementPlanComponent implements OnInit {
             'edit': this.EditManagementPlan.bind(this),
             'assignedUser': this.AssignedUser.bind(this),
             'delete': this.DeleteConfirmManagementPlan.bind(this),
+            'update': this.UpdateConfirmManagementPlan.bind(this),
             'refresh': this.RefreshData.bind(this),
             'currentRole': this.currentRole.role_type_id,
           };
@@ -395,12 +398,32 @@ export class ManagementPlanComponent implements OnInit {
     });
   }
 
+  UpdateConfirmManagementPlan(data) {
+    this.close = this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        name: data.name,
+        data: data,
+        delete: this.ChangeState.bind(this),
+      },
+    });
+  }
+
   DeleteManagementPlan(data) {
     return this.managementPlanS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {
       throw x;
+    });
+  }
+
+  ChangeState(data) {
+    this.managementPlanS.ChangeStatus(data.id).then((x) => {
+      this.toastService.warning('', x.message);
+      this.close.close();
+      this.RefreshData();
+    }).catch((x) => {
+      // this.toastrService.danger(x.message);
     });
   }
 
