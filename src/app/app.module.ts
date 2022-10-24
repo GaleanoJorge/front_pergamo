@@ -33,6 +33,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
 import { DateFormatPipe } from './pipe/date-format.pipe';
 import { PagesModule } from './pages/pages.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -64,6 +66,7 @@ import { PagesModule } from './pages/pages.module';
     FormsModule,
     PagesModule,
     NbRadioModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' })
   ],
   bootstrap: [AppComponent],
   providers: [
