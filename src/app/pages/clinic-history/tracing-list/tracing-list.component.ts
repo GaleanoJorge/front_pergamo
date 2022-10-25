@@ -44,6 +44,7 @@ export class TracingListComponent implements OnInit {
   public pavilion;
   public int = 0;
   public record_id;
+  public redo = false;
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
@@ -98,12 +99,14 @@ export class TracingListComponent implements OnInit {
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.redo = x[0]['assigned_management_plan'] ? x[0]['assigned_management_plan']['redo'] == 0 ? false : true: false;
       this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
       this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
+      this.admission = x[0]['admissions'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
   }
@@ -118,9 +121,10 @@ export class TracingListComponent implements OnInit {
         context: {
           signature: true,
           title: 'Finalizar registro.',
-          admission: this.admission,
           delete: this.finish.bind(this),
           showImage: this.showImage.bind(this),
+          admission: this.admission,
+          redo: this.redo,
           // save: this.saveSignature.bind(this),
           textConfirm: 'Finalizar registro'
         },
@@ -148,7 +152,7 @@ export class TracingListComponent implements OnInit {
 
   async finish(firm) {
 
-    if(this.admission.location[this.admission.location.length -1].admission_route_id != 1 ? this.signatureImage!=null : true){
+    if(this.admission.location[this.admission.location.length -1].admission_route_id != 1 ? !this.redo ? this.signatureImage!=null : true : true){
      
         
     var formData = new FormData();

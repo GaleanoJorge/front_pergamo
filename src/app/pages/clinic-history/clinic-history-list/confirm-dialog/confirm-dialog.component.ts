@@ -16,6 +16,7 @@ export class ConfirmDialogCHComponent implements OnInit {
   @Input() admission: any = null;
   @Input() changeImage;
   @Input() data: any = null;
+  @Input() redo: any = null;
   @Input() textConfirm = 'Eliminar';
   @Input() signature: boolean = false;
   // @Input() save: any = null;
