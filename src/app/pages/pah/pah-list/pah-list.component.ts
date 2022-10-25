@@ -63,6 +63,7 @@ export class PahListComponent implements OnInit {
   public user;
   public patients: any;
   public dialog;
+  public show = false;
   public currentRole;
   public selectedOptions: any[] = [];
   public company: any[] = [];
@@ -240,9 +241,13 @@ export class PahListComponent implements OnInit {
       return x.id == curr;
     });
     if (this.currentRole.role_type_id == 2) {
+      if (this.user.assistance[0]['serve_multiple_patients'] == 1) {
+        this.show = true;
+      }
       this.entity = 'patient/byPAH/2/' + this.user_id + "?campus_id=" + this.campus_id;
     }
     else {
+      this.show = true;
       this.entity = "patient/byPAH/2/0?campus_id=" + this.campus_id;
     }
 

@@ -1,5 +1,5 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
-  <div content>
+  <div content *ngIf="show">
 
     <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity" customData="patients"
       [messageToltip]="messageToltip">

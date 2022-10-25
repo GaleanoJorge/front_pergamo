@@ -20,6 +20,8 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 import { ClinicHistoryNursingListComponent } from '../../clinic-history/clinic-history-nursing-list/clinic-history-nursing-list.component';
 import { Location } from '@angular/common';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { ChInterconsultationService } from '../../../business-controller/ch-interconsultation.service';
+import { count } from 'console';
 
 @Component({
   selector: 'ngx-interconsultation',
@@ -51,6 +53,7 @@ export class InterconsultationComponent implements OnInit {
   public saved: any = null;
   public user;
   public admissions;
+  public available_roles;
   public own_user;
   public currentRole;
   public done;
@@ -61,7 +64,7 @@ export class InterconsultationComponent implements OnInit {
   public show_labs = false;
 
   public disabled: boolean = false;
-  public showButtom: boolean = true;
+  public showButtom: boolean = false;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -129,6 +132,7 @@ export class InterconsultationComponent implements OnInit {
     private dialogService: NbDialogService,
     private authService: AuthService,
     private admissionsS: AdmissionsService,
+    private ChInterconsultationS: ChInterconsultationService,
     public datePipe: DateFormatPipe,
     private location: Location,
     // public assignedService: AssignedManagementPlanService
@@ -161,14 +165,33 @@ export class InterconsultationComponent implements OnInit {
         return x.id == curr;
     });
 
-    if (this.currentRole.role_type_id == 1) {
-      this.showButtom = false;
-    }
+    
 
     await this.admissionsS
       .GetCollection({ admissions_id: this.admissions_id })
       .then((x) => {
         this.admissions = x;
+      });
+
+    await this.ChInterconsultationS
+      .GetCollection({ id: this.ch_interconsultation_id })
+      .then((x) => {
+        this.available_roles = x[0]['roles'];
+
+        if (this.currentRole.role_type_id == 1) {
+          this.showButtom = false;
+        } else {
+          if (this.available_roles.length > 0) {
+            this.available_roles.forEach(element => {
+              if (element.role_id == this.currentRole.id) {
+                this.showButtom = true;
+              }
+            });
+          } else {
+            this.showButtom = this.currentRole.id == 1 || this.currentRole.id == 8 ? true : false;
+          }
+        }
+
       });
 
     this.own_user = this.authService.GetUser();
