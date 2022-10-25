@@ -120,6 +120,8 @@ export class ChNutritionListComponent implements OnInit {
           title: 'Finalizar registro.',
           delete: this.finish.bind(this),
           showImage: this.showImage.bind(this),
+          admission: this.admission,
+          redo: this.redo,
           // save: this.saveSignature.bind(this),
           textConfirm: 'Finalizar registro'
         },
