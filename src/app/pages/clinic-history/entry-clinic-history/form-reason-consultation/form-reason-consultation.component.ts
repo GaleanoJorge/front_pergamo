@@ -48,7 +48,7 @@ export class FormReasonConsultationComponent implements OnInit {
   public changes = false;
   public changes1 = false;
   public botton_title: string = 'Guardar';
-  public reason_consultation = null;
+  public ch_reason_consultation = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -92,8 +92,8 @@ export class FormReasonConsultationComponent implements OnInit {
       ch_record_id: this.record_id,
       type_record_id: this.record_id,
     }).then(x => {
-      this.reason_consultation = x[0];
-      if (this.reason_consultation != null) {
+      this.ch_reason_consultation = x[0];
+      if (this.ch_reason_consultation != null) {
         this.botton_title = 'Actualizar';
       }
     });
@@ -137,9 +137,9 @@ export class FormReasonConsultationComponent implements OnInit {
       this.loading = true;
       this.showTable = false;
 
-      if (this.reason_consultation != null) {
+      if (this.ch_reason_consultation != null) {
         await this.reasonConsultationS.Update({
-          id: this.reason_consultation.id,
+          id: this.ch_reason_consultation.id,
           reason_consultation: this.form.controls.reason_consultation.value,
           current_illness: this.form.controls.current_illness.value,
           ch_external_cause_id: this.form.controls.ch_external_cause_id.value,
@@ -149,9 +149,8 @@ export class FormReasonConsultationComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.saved = x;
           this.loading = false;
-          this.reason_consultation = x.data.reason_consultation;
+          this.ch_reason_consultation = x.data.ch_reason_consultation;
           this.botton_title = 'Actualizar';
           if (this.saved) {
             this.saved();
@@ -170,10 +169,9 @@ export class FormReasonConsultationComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.saved = x;
           this.loading = false;
           this.botton_title = 'Actualizar';
-          this.reason_consultation = x.data.reason_consultation;
+          this.ch_reason_consultation = x.data.ch_reason_consultation;
           if (this.saved) {
             this.saved();
           }
