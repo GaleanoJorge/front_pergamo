@@ -47,6 +47,22 @@ export class BedService {
       });
   }
 
+  getBedsByCampus(campus_id): Promise<Bed[]> {
+    let servObj = new ServiceObject(`bed/getBedsByCampus/${campus_id}`);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.bed = <Bed[]>servObj.data;
+        return Promise.resolve(this.bed);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(bed: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('bed');
     servObj.data = bed;

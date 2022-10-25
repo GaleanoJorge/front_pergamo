@@ -5,6 +5,7 @@ import { FormBedComponent } from './form-bed/form-bed.component';
 import { ActionsComponent } from '../sectional-council/actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { ActionsBedComponent } from './actions-bed.component';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class BedComponent implements OnInit {
             'delete': this.DeleteConfirmBed.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionsBedComponent,
       },
       id: {
         title: this.headerFields[0],

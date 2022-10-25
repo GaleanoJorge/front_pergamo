@@ -77,7 +77,7 @@ export class BedManagementComponent {
           if(row.status_bed_id==1 || row.status_bed_id==3 || row.status_bed_id==4){
             return 'Sin paciente'
           }else{
-            return value[value.length - 1].admissions.users.firstname + ' ' + value[value.length - 1].admissions.users.lastname
+            return value[value.length - 1].admissions.patients.firstname + ' ' + value[value.length - 1].admissions.patients.lastname
           }
         },
       },
