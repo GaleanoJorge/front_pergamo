@@ -67,7 +67,7 @@
 
 
       <div class="div-send" *ngIf="!has_input">
-        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        <button nbButton status="danger" class="ml-1 btn-save" disabled="{{ loading }}">{{this.botton_title}}</button>
       </div>
     </div>
   </div>
