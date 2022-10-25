@@ -14,7 +14,7 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
         'background-color: #54bcc1' "
         >
     </div>
-        <button *ngIf="value.data.auth_package" nbTooltip="VER CONTENIDO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data, value.route)">
+        <button *ngIf="value.data.auth_package && !value.data.ch_interconsultation_id" nbTooltip="VER CONTENIDO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data, value.route)">
             <nb-icon icon="eye-outline"></nb-icon>
         </button>
     </div>
