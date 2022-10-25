@@ -255,7 +255,7 @@ export class WorkLocationPackageComponent implements OnInit {
     this.entity = `${this.parentData.entity}/${municipality_id}`;
     this.customData = this.parentData.customData;
     if (this.consulto_done && !this.region_changed) {
-      this.RefreshData();
+      this.table.changeEntity(this.entity, this.customData);
     }
     this.region_changed = false;
     this.consulto_done = true;

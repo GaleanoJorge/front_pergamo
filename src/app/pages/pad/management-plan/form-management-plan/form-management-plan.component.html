@@ -201,15 +201,15 @@
 
         <div class="row  ">
           <div class="col-12 col-sm-12 col-md-8 asd">
-            <input *ngIf="localidentify" placeholder="{{this.localidentify.manual_price.product.product_dose_id == 2 ? this.localidentify.manual_price.product.multidose_concentration.name :
-              this.localidentify.manual_price.product.measurement_units.name}}" type="number" nbInput fullWidth
+            <input *ngIf="localidentify" placeholder="{{this.localidentify.manual_price.product.product_dose_id == 2 ? this.numerador_measurement_units(this.localidentify.manual_price.product.multidose_concentration.name) :
+              this.numerador_measurement_units(this.localidentify.manual_price.product.measurement_units.name)}}" type="number" nbInput fullWidth
               id="dosage_administer" formControlName="dosage_administer" dosage_administer
               status="{{ isSubmitted && form.controls.dosage_administer.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
           <div class="col-12 col-sm-12 col-md-2 aaa" *ngIf="this.localidentify">
             {{this.localidentify.manual_price.product.product_dose_id == 2 ?
-            this.localidentify.manual_price.product.multidose_concentration.name :
-            this.localidentify.manual_price.product.measurement_units.name}}
+            this.numerador_measurement_units(this.localidentify.manual_price.product.multidose_concentration.name) :
+            this.numerador_measurement_units(this.localidentify.manual_price.product.measurement_units.name)}}
           </div>
         </div>
       </div>

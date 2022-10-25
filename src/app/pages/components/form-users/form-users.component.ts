@@ -430,7 +430,7 @@ export class FormUsersComponent implements OnInit {
       ],
 
       locality_id: [
-        this.GetData('locality_id'),
+        this.GetData('locality_id'),  Validators.compose([Validators.required]),
       ],
 
       study_level_status_id: [

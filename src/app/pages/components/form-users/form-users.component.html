@@ -411,7 +411,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="locality_id" class="form-text text-muted font-weight-bold">Comuna, Localidad o Vereda:</label>
-            <nb-select id="locality_id" fullWidth formControlName="locality_id" residence_municipality_id
+            <nb-select id="locality_id" fullWidth formControlName="locality_id" required residence_municipality_id
               status="{{ isSubmitted && form.controls.locality_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of localities" [value]="item.id">{{ item.name }}</nb-option>
