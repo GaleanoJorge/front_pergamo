@@ -35,10 +35,11 @@ export class InstanceAdmissionComponent implements OnInit {
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Instancias de hospitalización';
+  public title: string = 'Evoluciones de Hospitalización';
   public subtitle: string = '';
   public headerFields: any[] = [
-    /*01*/ 'Servicio',
+    /*00*/ 'Servicio',
+    /*01*/ 'Evoluciones',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
@@ -99,6 +100,17 @@ export class InstanceAdmissionComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value) => {
           return value.manual_price.procedure.name;
+        },
+      },
+      evolutions: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 0;
+          }
         },
       },
     },

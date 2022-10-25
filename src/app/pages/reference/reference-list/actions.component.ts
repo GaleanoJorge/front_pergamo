@@ -6,27 +6,27 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button *ngIf="this.value.data.reference_status_id == 1" nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary"
+    <button *ngIf="this.show && (this.value.data.reference_status_id == 1)" nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary"
         (click)="value.edit(value.data, 1)" nbButton ghost>
         <nb-icon icon="edit-outline"></nb-icon>
     </button>
 
-    <button *ngIf="this.value.data.reference_status_id == 1" nbTooltip="Aprobar" nbTooltipPlacement="top" nbTooltipStatus="primary"
+    <button *ngIf="this.show && (this.value.data.reference_status_id == 1)" nbTooltip="Aprobar" nbTooltipPlacement="top" nbTooltipStatus="primary"
         (click)="value.edit(value.data, 2)" nbButton ghost>
         <nb-icon icon="checkmark-outline"></nb-icon>
     </button>
 
-    <button *ngIf="this.value.data.reference_status_id == 1" nbTooltip="Rechazar" nbTooltipPlacement="top" nbTooltipStatus="primary"
+    <button *ngIf="this.show && (this.value.data.reference_status_id == 1)" nbTooltip="Rechazar" nbTooltipPlacement="top" nbTooltipStatus="primary"
         (click)="value.edit(value.data, 3)" nbButton ghost>
         <nb-icon icon="close-outline"></nb-icon>
     </button>
 
-    <button *ngIf="this.value.data.reference_status_id == 3 && !this.value.data.admissions_id && this.value.data.patient_id" nbTooltip="Admitir" nbTooltipPlacement="top" nbTooltipStatus="primary"
+    <button *ngIf="this.show && (this.value.data.reference_status_id == 3 && !this.value.data.admissions_id && this.value.data.patient_id)" nbTooltip="Admitir" nbTooltipPlacement="top" nbTooltipStatus="primary"
         (click)="value.admission(value.data)" nbButton ghost>
         <nb-icon icon="log-in-outline"></nb-icon>
     </button>
 
-    <button *ngIf="this.value.data.reference_status_id == 3 && !this.value.data.patient_id" nbTooltip="Crear Paciente" nbTooltipPlacement="top" nbTooltipStatus="primary"
+    <button *ngIf="this.show && (this.value.data.reference_status_id == 3 && !this.value.data.patient_id)" nbTooltip="Crear Paciente" nbTooltipPlacement="top" nbTooltipStatus="primary"
         (click)="value.patient(value.data)" nbButton ghost>
         <nb-icon icon="person-add-outline"></nb-icon>
     </button>
@@ -55,5 +55,11 @@ export class Actions2Component implements ViewCell {
   }
 
   async ngOnInit() {
+    var c = new Date(this.value.data.created_at).getTime();
+    var d = new Date().getTime();
+
+    var e =(d - c) / (60 * 60 * 1000);
+
+    this.show = e <= 6 ? true : false;
   }
 }

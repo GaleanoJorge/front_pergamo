@@ -19,6 +19,7 @@ import { CompanyService } from '../../../business-controller/company.service';
 import { UserAgreementService } from '../../../business-controller/user-agreements.service';
 import { threadId } from 'worker_threads';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { BedService } from '../../../business-controller/bed.service';
 
 @Component({
   selector: 'ngx-pah-list',
@@ -36,14 +37,17 @@ export class PahListComponent implements OnInit {
   public title: string = 'Hospitalizaciones';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = [
-    /*0*/  'Tipo de documento',
-    /*1*/  'Número de documento',
-    /*2*/  'Nombre completo',
-    /*3*/  'EPS',
-    /*4*/  'Edad',
-    /*5*/  'Piso',
-    /*6*/  'Pabellón',
-    /*7*/  'Cama',
+    /*00*/  'Tipo de documento',
+    /*01*/  'Número de documento',
+    /*02*/  'Nombre completo',
+    /*03*/  'EPS',
+    /*04*/  'Edad',
+    /*05*/  'Piso',
+    /*06*/  'Pabellón',
+    /*07*/  'Cama',
+    /*08*/  'Diagnóstico',
+    /*09*/  'Procedimiento',
+    /*10*/  'Días Est.',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
@@ -52,6 +56,10 @@ export class PahListComponent implements OnInit {
   public file: File;
   public user_id;
   public patient_id;
+  public available_bed;
+  public busy_bed;
+  public fix_bed;
+  public clean_bed;
   public user;
   public patients: any;
   public dialog;
@@ -140,6 +148,31 @@ export class PahListComponent implements OnInit {
           return Math.abs(ageDate.getUTCFullYear() - 1970) + " AÑOS";
         },
       },
+      diagnosis: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions[row.admissions.length - 1].diagnosis.code  + ' - ' + row.admissions[row.admissions.length - 1].diagnosis.name;
+        },
+      },
+      procedure: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].procedure.manual_price.procedure.code + ' - ' + row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].procedure.manual_price.procedure.name;
+        },
+      },
+      days: {
+        title: this.headerFields[10],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          var a = +(new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getFullYear() + '' + (new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth() < 10 ? '0' + new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth() : new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth()) + '' + (new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate() < 10 ? '0' + new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate() : new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate()));
+          var b = +(new Date().getFullYear() + '' + (new Date().getMonth() < 10 ? '0' + new Date().getMonth() : new Date().getMonth()) + '' + (new Date().getDate() < 10 ? '0' + new Date().getDate() : new Date().getDate()));
+          var diff = Math.abs(b - a) + 1;
+
+          return diff + ' DÍAS';
+        },
+      },
       flat: {
         title: this.headerFields[5],
         type: 'string',
@@ -178,6 +211,7 @@ export class PahListComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
     private PatientBS: PatientService,
+    private BedS: BedService,
     private authService: AuthService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
@@ -211,6 +245,13 @@ export class PahListComponent implements OnInit {
     else {
       this.entity = "patient/byPAH/2/0?campus_id=" + this.campus_id;
     }
+
+    this.BedS.getBedsByCampus(this.campus_id).then(x => {
+      this.available_bed = x['available_bed'].length;
+      this.busy_bed = x['busy_bed'].length;
+      this.fix_bed = x['fix_bed'].length;
+      this.clean_bed = x['clean_bed'].length;
+    });
 
     // this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
     //   this.company = x;

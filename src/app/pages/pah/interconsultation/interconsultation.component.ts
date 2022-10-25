@@ -38,10 +38,11 @@ export class InterconsultationComponent implements OnInit {
   public title = 'Registo Historia Clinica';
   public subtitle: string = '';
   public headerFields: any[] = [
-    'Fecha de registro',
-    'Personal Asistencial',
-    'Fecha de atención',
-    'Estado',
+    /*01*/'Fecha de registro',
+    /*02*/'Personal Asistencial',
+    /*03*/'Fecha de atención',
+    /*04*/'Estado',
+    /*05*/'Tipo de Registro',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public routes = [];
@@ -77,10 +78,6 @@ export class InterconsultationComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          if (row.status == 'ACTIVO' || row.status == null) {
-            this.showButtom = false;
-          }
-          // DATA FROM HERE GOES TO renderComponent
           return {
             data: row,
             assigned: this.ch_interconsultation_id,
@@ -89,6 +86,17 @@ export class InterconsultationComponent implements OnInit {
           };
         },
         renderComponent: Actions5Component,
+      },
+      ch_type: {
+        title: this.headerFields[5],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
       },
       date_attention: {
         title: this.headerFields[0],

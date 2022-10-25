@@ -403,6 +403,7 @@ import { FixedReturnPatientsComponent } from './fixed-return-patients/fixed-retu
 import { FormFixedDeniedComponent } from './fixed-assets-requests-patient/form-fixed-denied/form-fixed-denied.component';
 import { FormTariffConfirmDisabledComponent } from './tariff/form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
+import { ActionsBedComponent } from './bed/actions-bed.component';
 
 @NgModule({
   imports: [
@@ -485,6 +486,7 @@ import { ProductDamagedComponent } from './product-damaged/product-damaged.compo
     FlatComponent,
     FormFlatComponent,
     BedComponent,
+    ActionsBedComponent,
     FormBedComponent,
     AffiliateTypeComponent,
     FormAffiliateTypeComponent,

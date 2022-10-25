@@ -5,6 +5,10 @@
       [messageToltip]="messageToltip">
       <div title>
         <div *ngIf="this.currentRole.role_type_id == 1 && this.patients"><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div>
+        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS DISPONIBLES: {{this.available_bed}}</div>
+        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS OCUPADAS: {{this.busy_bed}}</div>
+        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS EN MANTENIMIENTO: {{this.fix_bed}}</div>
+        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS EN DESINFECCIÓN: {{this.clean_bed}}</div>
       </div>
       <div actions>
         <div class="actions">
