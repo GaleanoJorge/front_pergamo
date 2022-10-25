@@ -6,6 +6,8 @@ import { DiagnosisService } from '../../../../business-controller/diagnosis.serv
 import { ReferenceService } from '../../../../business-controller/reference.service';
 import { AdmissionsService } from '../../../../business-controller/admissions.service';
 import { DeniedReasonService } from '../../../../business-controller/denied-reason.service';
+import { PatientService } from '../../../../business-controller/patient.service';
+import { BedService } from '../../../../business-controller/bed.service';
 
 
 
@@ -28,6 +30,7 @@ export class FormReferenceComponent implements OnInit {
   public new_admission: any = null;
   public previewFile = null;
   public user;
+  public available_bed;
   public messageError = null;
   public diagnosis_id;
   public patient_id;
@@ -74,8 +77,9 @@ export class FormReferenceComponent implements OnInit {
     private authService: AuthService,
     private DeniedReasonS: DeniedReasonService,
     private DiagnosisS: DiagnosisService,
-    private AdmissionsS: AdmissionsService,
+    private PatientS: PatientService,
     private ReferenceS: ReferenceService,
+    private BedS: BedService,
   ) {
   }
 
@@ -101,6 +105,7 @@ export class FormReferenceComponent implements OnInit {
         reference_status_id: '',
         request_campus_id: '',
         request_regime_id: '',
+        request_regime_level: '',
         request_technological_medium_id: '',
         request_admission_route_id: '',
         request_specialty_id: '',
@@ -108,6 +113,7 @@ export class FormReferenceComponent implements OnInit {
         request_observation: '',
         acceptance_campus_id: '',
         acceptance_regime_id: '',
+        acceptance_regime_level: '',
         acceptance_technological_medium_id: '',
         acceptance_admission_route_id: '',
         acceptance_specialty_id: '',
@@ -183,6 +189,7 @@ export class FormReferenceComponent implements OnInit {
       stay_type_id: [this.data.stay_type_id, []],
       request_campus_id: [this.data.request_campus_id, []],
       request_regime_id: [this.data.request_regime_id, []],
+      request_regime_level: [this.data.request_regime_level, []],
       request_technological_medium_id: [this.data.request_technological_medium_id, []],
       request_admission_route_id: [this.data.request_admission_route_id, []],
       request_specialty_id: [this.data.request_specialty_id, []],
@@ -190,6 +197,7 @@ export class FormReferenceComponent implements OnInit {
       request_observation: [this.data.request_observation, []],
       acceptance_campus_id: [this.data.request_campus_id, []],
       acceptance_regime_id: [this.data.request_regime_id, []],
+      acceptance_regime_level: [this.data.request_regime_level, []],
       acceptance_technological_medium_id: [this.data.request_technological_medium_id, []],
       acceptance_admission_route_id: [this.data.request_admission_route_id, []],
       acceptance_specialty_id: [this.data.request_specialty_id, []],
@@ -221,6 +229,7 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.stay_type_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.request_campus_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.request_regime_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.request_regime_level.setValidators(Validators.compose([Validators.required]));
       this.form.controls.request_technological_medium_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.request_admission_route_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.request_specialty_id.setValidators(Validators.compose([Validators.required]));
@@ -229,6 +238,7 @@ export class FormReferenceComponent implements OnInit {
 
       this.form.controls.acceptance_campus_id.setErrors(null);
       this.form.controls.acceptance_regime_id.setErrors(null);
+      this.form.controls.acceptance_regime_level.setErrors(null);
       this.form.controls.acceptance_technological_medium_id.setErrors(null);
       this.form.controls.acceptance_admission_route_id.setErrors(null);
       this.form.controls.acceptance_specialty_id.setErrors(null);
@@ -258,6 +268,7 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.stay_type_id.setErrors(null);
       this.form.controls.request_campus_id.setErrors(null);
       this.form.controls.request_regime_id.setErrors(null);
+      this.form.controls.request_regime_level.setErrors(null);
       this.form.controls.request_technological_medium_id.setErrors(null);
       this.form.controls.request_admission_route_id.setErrors(null);
       this.form.controls.request_specialty_id.setErrors(null);
@@ -266,6 +277,7 @@ export class FormReferenceComponent implements OnInit {
 
       this.form.controls.acceptance_campus_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_regime_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.acceptance_regime_level.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_technological_medium_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_admission_route_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_specialty_id.setValidators(Validators.compose([Validators.required]));
@@ -295,6 +307,7 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.stay_type_id.setErrors(null);
       this.form.controls.request_campus_id.setErrors(null);
       this.form.controls.request_regime_id.setErrors(null);
+      this.form.controls.request_regime_level.setErrors(null);
       this.form.controls.request_technological_medium_id.setErrors(null);
       this.form.controls.request_admission_route_id.setErrors(null);
       this.form.controls.request_specialty_id.setErrors(null);
@@ -303,6 +316,7 @@ export class FormReferenceComponent implements OnInit {
 
       this.form.controls.acceptance_campus_id.setErrors(null);
       this.form.controls.acceptance_regime_id.setErrors(null);
+      this.form.controls.acceptance_regime_level.setErrors(null);
       this.form.controls.acceptance_technological_medium_id.setErrors(null);
       this.form.controls.acceptance_admission_route_id.setErrors(null);
       this.form.controls.acceptance_specialty_id.setErrors(null);
@@ -336,6 +350,7 @@ export class FormReferenceComponent implements OnInit {
         this.form.controls.providers_of_health_services_id.disable();
         this.form.controls.stay_type_id.disable();
         this.re_input_disabled = true;
+        this.getBedsByCampus();
       }
     }
   }
@@ -356,6 +371,7 @@ export class FormReferenceComponent implements OnInit {
           route: this.route,
           acceptance_campus_id: this.form.controls.acceptance_campus_id.value,
           acceptance_regime_id: this.form.controls.acceptance_regime_id.value,
+          acceptance_regime_level: this.form.controls.acceptance_regime_level.value,
           acceptance_technological_medium_id: this.form.controls.acceptance_technological_medium_id.value,
           acceptance_admission_route_id: this.form.controls.acceptance_admission_route_id.value,
           acceptance_specialty_id: this.form.controls.acceptance_specialty_id.value,
@@ -385,6 +401,7 @@ export class FormReferenceComponent implements OnInit {
           stay_type_id: this.form.controls.stay_type_id.value,
           request_campus_id: this.form.controls.request_campus_id.value,
           request_regime_id: this.form.controls.request_regime_id.value,
+          request_regime_level: this.form.controls.request_regime_level.value,
           request_technological_medium_id: this.form.controls.request_technological_medium_id.value,
           request_admission_route_id: this.form.controls.request_admission_route_id.value,
           request_specialty_id: this.form.controls.request_specialty_id.value,
@@ -441,6 +458,7 @@ export class FormReferenceComponent implements OnInit {
           stay_type_id: this.form.controls.stay_type_id.value,
           request_campus_id: this.form.controls.request_campus_id.value,
           request_regime_id: this.form.controls.request_regime_id.value,
+          request_regime_level: this.form.controls.request_regime_level.value,
           request_technological_medium_id: this.form.controls.request_technological_medium_id.value,
           request_admission_route_id: this.form.controls.request_admission_route_id.value,
           request_specialty_id: this.form.controls.request_specialty_id.value,
@@ -596,20 +614,23 @@ export class FormReferenceComponent implements OnInit {
   onChanges() {
     this.form.get('identification').valueChanges.subscribe(val => {
       if (val != null && val != '') {
-        this.AdmissionsS.getByIdentification(val).then(x => {
-          if (x.length > 0) {
+        this.PatientS.GetPatientByIdentification(val).then(x => {
+          if (x['admissions'].length > 0) {
             this.form.patchValue({
               re_input: true,
+              intention: this.form.controls.intention.value == '' ? +x['rr'] + 1 : this.form.controls.intention.value,
             });
           } else {
             this.form.patchValue({
               re_input: false,
+              intention: this.form.controls.intention.value == '' ? +x['rr'] + 1 : this.form.controls.intention.value,
             });
           }
         });
       } else {
         this.form.patchValue({
           re_input: '',
+          intention: '',
         });
       }
     });
@@ -644,6 +665,22 @@ export class FormReferenceComponent implements OnInit {
     this.form.get('denied_admission_route_id').valueChanges.subscribe(val => {
       this.routeChanges(val);
     });
+    
+    this.form.get('request_campus_id').valueChanges.subscribe(val => {
+      this.getBedsByCampus();
+    });
+    
+    this.form.get('acceptance_campus_id').valueChanges.subscribe(val => {
+      this.getBedsByCampus();
+    });
+    
+    this.form.get('acceptance_admission_route_id').valueChanges.subscribe(val => {
+      this.getBedsByCampus();
+    });
+    
+    this.form.get('request_admission_route_id').valueChanges.subscribe(val => {
+      this.getBedsByCampus();
+    });
   }
 
   routeChanges(val) {
@@ -663,6 +700,19 @@ export class FormReferenceComponent implements OnInit {
     // this.ProgramS.GetProgramByScope(val).then(x => {
     //   this.program = x;
     // });
+  }
+
+  getBedsByCampus() {
+    if (
+      (this.form.controls.request_campus_id.value != '' && this.form.controls.request_admission_route_id.value == 1) ||
+      (this.form.controls.acceptance_campus_id.value != '' && this.form.controls.acceptance_admission_route_id.value == 1)
+    ) {
+      this.available_bed = 0;
+      var campus_id = this.form.controls.acceptance_campus_id.value != '' ? this.form.controls.acceptance_campus_id.value : this.form.controls.request_campus_id.value;
+      this.BedS.getBedsByCampus(campus_id).then(x => {
+        this.available_bed = x['available_bed'].length;
+      });
+    }
   }
 
 }

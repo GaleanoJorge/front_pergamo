@@ -42,6 +42,7 @@ export class ReferenceListComponent implements OnInit {
     /*16*/ 'AMBITO REFERIDO',
     /*17*/ 'ESPACIALIDAD REFERIDA',
     /*18*/ 'PROGRAMA REFERIDO',
+    /*19*/ 'NIVEL RÉGIMEN REFERIDO',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
@@ -198,6 +199,13 @@ export class ReferenceListComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
+        },
+      },
+      request_regime_level: {
+        title: this.headerFields[19],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return 'NIVEL ' + value.name;
         },
       },
       request_technological_medium: {
