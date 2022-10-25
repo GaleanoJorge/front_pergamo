@@ -33,6 +33,23 @@ export class PatientService {
       });
   }
 
+  GetPatientByIdentification(identification: number): Promise<Patient[]> {
+    // console.log(identification);
+    var servObj = new ServiceObject("patient/GetPatientByIdentification", identification);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.patients = <Patient[]>servObj.data.patients;
+        return Promise.resolve(this.patients);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   GetByAdmission(identification: {}): Promise<Patient[]> {
     // console.log(identification);
     var servObj = new ServiceObject("user/byAdmission/2");
