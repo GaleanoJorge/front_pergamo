@@ -16,6 +16,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() parentData: any;
+  @Input() user: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   @Input() my_pharmacy_id: any = null;
 
@@ -27,7 +28,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
   public showTable;
   public pharmacy_lot_stock_id: any[];
   public selectedOptions: any[] = [];
-  public user;
+  // public user;
   public show_table;
   public all_changes: any[];
   public own_user: any = null;
@@ -52,7 +53,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
       this.title = 'MEDICAMENTO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
-        entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.services_briefcase.manual_price.product_id + '&pharmacy_stock_id=' + this.my_pharmacy_id+'&campus_id=' + this.data.admissions.campus_id,
+        entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.services_briefcase.manual_price.product_id + '&pharmacy_stock_id=' + this.my_pharmacy_id,
         customData: 'pharmacy_lot_stock',
       };
     }else{

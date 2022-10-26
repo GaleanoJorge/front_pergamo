@@ -157,6 +157,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
       context: {
         title: 'Enviar Medicamento',
         data: data,
+        user: this.user,
         my_pharmacy_id: this.my_pharmacy_id,
         saved: this.RefreshData.bind(this),
       },
