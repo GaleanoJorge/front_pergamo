@@ -34,14 +34,14 @@ import { Actions4Component } from '../assigned-management-plan/actions.component
           nbTooltipStatus="primary" nbButton ghost (click)="value.assignedUser(value.data)">
           <nb-icon icon="person-add-outline"></nb-icon>
       </a>
-      <button *ngIf="value.currentRole == 2" nbTooltip="Próximos servicios" nbTooltipPlacement="top" nbTooltipStatus="primary"
+      <button *ngIf="value.currentRole.role_type_id == 2" nbTooltip="Próximos servicios" nbTooltipPlacement="top" nbTooltipStatus="primary"
           nbButton ghost (click)="ShowPreBilling(AssignedTable, value.data.admissions.patient_id)">
           <nb-icon icon="eye-outline"></nb-icon>
       </button>
-      <button *ngIf="value.currentRole == 1" nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
+      <button *ngIf="value.currentRole.role_type_id == 1" nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
-      <button *ngIf="value.currentRole == 1" nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.update(value.data)">
+      <button *ngIf="value.currentRole.id == 1" nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.update(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
   </div>
@@ -111,7 +111,7 @@ export class ActionsComponent implements ViewCell {
             'user': this.own_user,
             'refresh': this.RefreshData.bind(this),
             'openEF':this.NewChRecord.bind(this),
-            'currentRole': this.value.currentRole,
+            'currentRole': this.value.currentRole.role_type_id,
             'edit': this.EditAssigned.bind(this),
             'closeDialog': this.closeDialog.bind(this),
           };
