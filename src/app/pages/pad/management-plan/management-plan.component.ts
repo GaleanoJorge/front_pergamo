@@ -108,7 +108,7 @@ export class ManagementPlanComponent implements OnInit {
             'delete': this.DeleteConfirmManagementPlan.bind(this),
             'update': this.UpdateConfirmManagementPlan.bind(this),
             'refresh': this.RefreshData.bind(this),
-            'currentRole': this.currentRole.role_type_id,
+            'currentRole': this.currentRole,
           };
         },
         renderComponent: ActionsComponent,
