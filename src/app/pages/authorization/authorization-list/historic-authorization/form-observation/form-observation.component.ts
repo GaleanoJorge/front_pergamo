@@ -62,6 +62,8 @@ export class FormObservationComponent implements OnInit {
           : 'GESTIONAR ERRADA POR EPS';
       this.form.controls.auth_number.clearValidators();
       this.form.controls.auth_number.updateValueAndValidity();
+      this.form.controls.file_auth.clearValidators();
+      this.form.controls.file_auth.updateValueAndValidity();
       this.form.controls.observation.setValidators(
         Validators.compose([Validators.required])
       );
