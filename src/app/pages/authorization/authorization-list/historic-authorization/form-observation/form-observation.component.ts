@@ -107,7 +107,7 @@ export class FormObservationComponent implements OnInit {
         var data = this.form.controls;
         formData.append('id', this.data.id);
         formData.append('auth_status_id', this.auth_status);
-        formData.append('auth_number', data.auth_number.value);
+        formData.append('auth_number', data.auth_number.value == '' ? null : data.auth_number.value );
         formData.append('observation', data.observation.value);
         formData.append('copay', data.copay.value);
         formData.append('copay_value', data.copay_value.value);
