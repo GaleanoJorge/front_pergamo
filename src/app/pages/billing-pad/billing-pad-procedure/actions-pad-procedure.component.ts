@@ -62,6 +62,25 @@ export class ActionsPadProcedureComponent implements ViewCell {
                 response = 3;
                 this.tooltip = 'Por facturar';
             }
+        } else if (data.ch_interconsultation != null) {
+            var a = data.ch_interconsultation.many_ch_record;
+            var b = a.find(item => item.created_at == data.created_at)
+            if (b && b.date_finish == "0000-00-00 00:00:00") {
+                response = 0;
+                this.tooltip = 'Sin ejecutar';
+            } else if (data.billing_pad_status == 'FACTURADA') {
+                response = 2;
+                this.tooltip = 'Facturado';
+            } else if (data.auth_status_id != 3) {
+                response = 1;
+                this.tooltip = 'Sin autorizar';
+            // } else if (data.assigned_management_plan.approved != 1) {
+            //     response = 4;
+            //     this.tooltip = 'Sin aprobar';
+            } else {
+                response = 3;
+                this.tooltip = 'Por facturar';
+            }
         } else {
             if (data.pendientes) {
                 if (data.billing_pad_status == 'FACTURADA') {

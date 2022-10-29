@@ -40,11 +40,12 @@ export class InterconsultationComponent implements OnInit {
   public title = 'Registo Historia Clinica';
   public subtitle: string = '';
   public headerFields: any[] = [
-    /*01*/'Fecha de registro',
-    /*02*/'Personal Asistencial',
-    /*03*/'Fecha de atención',
-    /*04*/'Estado',
-    /*05*/'Tipo de Registro',
+    /*00*/'Fecha de registro',
+    /*01*/'Personal Asistencial',
+    /*02*/'Fecha de atención',
+    /*03*/'Estado',
+    /*04*/'Tipo de Registro',
+    /*05*/'N° registro',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public routes = [];
@@ -55,6 +56,8 @@ export class InterconsultationComponent implements OnInit {
   public admissions;
   public available_roles;
   public own_user;
+  public service;
+  public ch_interconsultation;
   public currentRole;
   public done;
   public role_user;
@@ -91,19 +94,15 @@ export class InterconsultationComponent implements OnInit {
         renderComponent: Actions5Component,
       },
       ch_type: {
-        title: this.headerFields[5],
+        title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value.name;
+            return (value.name).toUpperCase();
           } else {
             return 'N.A.';
           }
         },
-      },
-      date_attention: {
-        title: this.headerFields[0],
-        width: 'string',
       },
       user: {
         title: this.headerFields[1],
@@ -112,9 +111,24 @@ export class InterconsultationComponent implements OnInit {
           return value?.firstname + ' ' + value.lastname;
         },
       },
+      date_attention: {
+        title: this.headerFields[0],
+        width: 'string',
+      },
       date_finish: {
         title: this.headerFields[2],
         width: 'string',
+      },
+      consecutive: {
+        title: this.headerFields[5],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return '-';
+          }
+        },
       },
       status: {
         title: this.headerFields[3],
@@ -160,12 +174,14 @@ export class InterconsultationComponent implements OnInit {
     this.ch_interconsultation_id = this.route.snapshot.params.id2;
     this.type_of_attention = this.route.snapshot.params.id3;
 
+    this.own_user = this.authService.GetUser();
+
     var curr = this.authService.GetRole();
     this.currentRole = this.authService.GetUser().roles.find(x => {
-        return x.id == curr;
+      return x.id == curr;
     });
 
-    
+
 
     await this.admissionsS
       .GetCollection({ admissions_id: this.admissions_id })
@@ -177,7 +193,14 @@ export class InterconsultationComponent implements OnInit {
       .GetCollection({ id: this.ch_interconsultation_id })
       .then((x) => {
         this.available_roles = x[0]['roles'];
+      });
 
+    await this.patientBS
+      .GetUserById(this.admissions[0].patient_id)
+      .then((x) => {
+        this.user = x;
+        var a = x['admissions'][x['admissions'].length - 1].ch_interconsultation;
+        this.ch_interconsultation = a.find(item => item.id == this.ch_interconsultation_id);
         if (this.currentRole.role_type_id == 1) {
           this.showButtom = false;
         } else {
@@ -188,32 +211,27 @@ export class InterconsultationComponent implements OnInit {
               }
             });
           } else {
-            this.showButtom = this.currentRole.id == 1 || this.currentRole.id == 8 ? true : false;
+            this.showButtom = this.currentRole.id == 3 || this.currentRole.id == 8 ? true : false;
           }
         }
-
+        if ((this.ch_interconsultation.amount != null && this.ch_interconsultation.amount != 0) && (this.ch_interconsultation.amount <= this.ch_interconsultation.many_ch_record.length)) {
+          this.showButtom = false;
+        }
+        this.service = this.ch_interconsultation.services_briefcase.manual_price.procedure.name;
       });
 
-    this.own_user = this.authService.GetUser();
-
-    await this.patientBS
-      .GetUserById(this.admissions[0].patient_id)
-      .then((x) => {
-        this.user = x;
-      });
-
-      if(this.type_of_attention == 16){
-        // await this.assignedService
-        //   .GetCollection({
-        //     assigned_management_plan_id: this.assigned_management_plan,
-        //   })
-        //   .then((x) => {
-        //     this.assigned = x;
-        //     if (this.assigned[0].management_plan.management_procedure.length > 0) {
-        //       this.show_labs = true;
-        //     }
-        //   });
-      }
+    if (this.type_of_attention == 16) {
+      // await this.assignedService
+      //   .GetCollection({
+      //     assigned_management_plan_id: this.assigned_management_plan,
+      //   })
+      //   .then((x) => {
+      //     this.assigned = x;
+      //     if (this.assigned[0].management_plan.management_procedure.length > 0) {
+      //       this.show_labs = true;
+      //     }
+      //   });
+    }
   }
 
   back() {

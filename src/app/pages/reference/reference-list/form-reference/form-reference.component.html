@@ -2,7 +2,7 @@
   <nb-card style="width: 100%;height: 600px;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
-      <div class="row" [nbSpinner]="!program">
+      <div class="row" [nbSpinner]="!specialty">
 
         <div class="col-md-4">
           <label for="patient" class="form-text text-muted font-weight-bold">BÚSQUEDA:</label>
@@ -152,9 +152,8 @@
             fullWidth
             status="{{ isSubmitted && form.controls.request_regime_level.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option value="1">NIVEL 1</nb-option>
-            <nb-option value="2">NIVEL 2</nb-option>
-            <nb-option value="3">NIVEL 3</nb-option>
+            <nb-option selected="{{ item.id == this.data.request_regime_level }}" *ngFor="let item of levels"
+              [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>
         </div>
 
@@ -246,6 +245,39 @@
               {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
+        <div class="col-md-4" *ngIf="route == 2">
+          <label for="acceptance_flat" class="form-text text-muted font-weight-bold">PISO:</label>
+          <nb-select [selected]="this.data.acceptance_flat_id" formControlName="acceptance_flat_id"
+            id="acceptance_flat_id" fullWidth
+            status="{{ isSubmitted && form.controls.acceptance_flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.acceptance_flat_id }}" *ngFor="let item of flat"
+              [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-4" *ngIf="route == 2">
+          <label for="acceptance_pavilion" class="form-text text-muted font-weight-bold">PABELLÓN:</label>
+          <nb-select [selected]="this.data.acceptance_pavilion_id" formControlName="acceptance_pavilion_id"
+            id="acceptance_pavilion_id" fullWidth
+            status="{{ isSubmitted && form.controls.acceptance_pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.acceptance_pavilion_id }}" *ngFor="let item of pavilion"
+              [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-4" *ngIf="route == 2">
+          <label for="acceptance_bed" class="form-text text-muted font-weight-bold">CAMA:</label>
+          <nb-select [selected]="this.data.acceptance_bed_id" formControlName="acceptance_bed_id"
+            id="acceptance_bed_id" fullWidth
+            status="{{ isSubmitted && form.controls.acceptance_bed_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.acceptance_bed_id }}" *ngFor="let item of beds"
+              [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
 
         <div class="col-md-4" *ngIf="route == 2">
           <label for="acceptance_regime" class="form-text text-muted font-weight-bold">RÉGIMEN:</label>
@@ -254,8 +286,7 @@
             status="{{ isSubmitted && form.controls.acceptance_regime_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.acceptance_regime_id }}" *ngFor="let item of regime"
-              [value]="item.id">
-              {{ (item.name).toUpperCase() }}</nb-option>
+              [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>
         </div>
 
@@ -265,9 +296,8 @@
             fullWidth
             status="{{ isSubmitted && form.controls.acceptance_regime_level.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option value="1">NIVEL 1</nb-option>
-            <nb-option value="2">NIVEL 2</nb-option>
-            <nb-option value="3">NIVEL 3</nb-option>
+            <nb-option selected="{{ item.id == this.data.acceptance_regime_level }}" *ngFor="let item of levels"
+              [value]="item.id">NIVEL {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
 

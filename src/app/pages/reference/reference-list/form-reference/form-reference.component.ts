@@ -4,10 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../../services/auth.service';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { ReferenceService } from '../../../../business-controller/reference.service';
-import { AdmissionsService } from '../../../../business-controller/admissions.service';
 import { DeniedReasonService } from '../../../../business-controller/denied-reason.service';
 import { PatientService } from '../../../../business-controller/patient.service';
 import { BedService } from '../../../../business-controller/bed.service';
+import { ProgramService } from '../../../../business-controller/program.service';
+import { PavilionService } from '../../../../business-controller/pavilion.service';
+import { FlatService } from '../../../../business-controller/flat.service';
 
 
 
@@ -31,6 +33,9 @@ export class FormReferenceComponent implements OnInit {
   public previewFile = null;
   public user;
   public available_bed;
+  public pavilion;
+  public beds;
+  public flat;
   public messageError = null;
   public diagnosis_id;
   public patient_id;
@@ -67,7 +72,11 @@ export class FormReferenceComponent implements OnInit {
   public specialty = null;
   public program = null;
   public tutor = null;
-
+  public levels = [
+    {id: 1, name: 'NIVEL 1'},
+    {id: 2, name: 'NIVEL 2'},
+    {id: 3, name: 'NIVEL 3'},
+  ];
   public selectedOptions: any[] = [];
 
   constructor(
@@ -80,6 +89,9 @@ export class FormReferenceComponent implements OnInit {
     private PatientS: PatientService,
     private ReferenceS: ReferenceService,
     private BedS: BedService,
+    private FlatS: FlatService,
+    private PavilionS: PavilionService,
+    private ProgramS: ProgramService,
   ) {
   }
 
@@ -112,6 +124,9 @@ export class FormReferenceComponent implements OnInit {
         request_program_id: '',
         request_observation: '',
         acceptance_campus_id: '',
+        acceptance_flat_id: '',
+        acceptance_pavilion_id: '',
+        acceptance_bed_id: '',
         acceptance_regime_id: '',
         acceptance_regime_level: '',
         acceptance_technological_medium_id: '',
@@ -167,7 +182,7 @@ export class FormReferenceComponent implements OnInit {
       this.technological_medium = x['technological_medium'];
       this.admission_route = x['admission_route'];
       this.specialty = x['specialty'];
-      this.program = x['program'];
+      // this.program = x['program'];
       this.denied_type = x['role_type'];
     });
 
@@ -196,6 +211,9 @@ export class FormReferenceComponent implements OnInit {
       request_program_id: [this.data.request_program_id, []],
       request_observation: [this.data.request_observation, []],
       acceptance_campus_id: [this.data.request_campus_id, []],
+      acceptance_flat_id: ['', []],
+      acceptance_pavilion_id: ['', []],
+      acceptance_bed_id: ['', []],
       acceptance_regime_id: [this.data.request_regime_id, []],
       acceptance_regime_level: [this.data.request_regime_level, []],
       acceptance_technological_medium_id: [this.data.request_technological_medium_id, []],
@@ -237,6 +255,9 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.request_observation.setValidators(Validators.compose([Validators.required]));
 
       this.form.controls.acceptance_campus_id.setErrors(null);
+      this.form.controls.acceptance_flat_id.setErrors(null);
+      this.form.controls.acceptance_pavilion_id.setErrors(null);
+      this.form.controls.acceptance_bed_id.setErrors(null);
       this.form.controls.acceptance_regime_id.setErrors(null);
       this.form.controls.acceptance_regime_level.setErrors(null);
       this.form.controls.acceptance_technological_medium_id.setErrors(null);
@@ -276,6 +297,9 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.request_observation.setErrors(null);
 
       this.form.controls.acceptance_campus_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.acceptance_flat_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.acceptance_pavilion_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.acceptance_bed_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_regime_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_regime_level.setValidators(Validators.compose([Validators.required]));
       this.form.controls.acceptance_technological_medium_id.setValidators(Validators.compose([Validators.required]));
@@ -315,6 +339,9 @@ export class FormReferenceComponent implements OnInit {
       this.form.controls.request_observation.setErrors(null);
 
       this.form.controls.acceptance_campus_id.setErrors(null);
+      this.form.controls.acceptance_flat_id.setErrors(null);
+      this.form.controls.acceptance_pavilion_id.setErrors(null);
+      this.form.controls.acceptance_bed_id.setErrors(null);
       this.form.controls.acceptance_regime_id.setErrors(null);
       this.form.controls.acceptance_regime_level.setErrors(null);
       this.form.controls.acceptance_technological_medium_id.setErrors(null);
@@ -350,8 +377,10 @@ export class FormReferenceComponent implements OnInit {
         this.form.controls.providers_of_health_services_id.disable();
         this.form.controls.stay_type_id.disable();
         this.re_input_disabled = true;
-        this.getBedsByCampus();
+        this.GetFlat(this.form.controls.acceptance_campus_id);
       }
+      this.getProgramByAmbit();
+      this.getBedsByCampus();
     }
   }
 
@@ -370,6 +399,9 @@ export class FormReferenceComponent implements OnInit {
           user_id: this.user.id,
           route: this.route,
           acceptance_campus_id: this.form.controls.acceptance_campus_id.value,
+          acceptance_flat_id: this.form.controls.acceptance_flat_id.value,
+          acceptance_pavilion_id: this.form.controls.acceptance_pavilion_id.value,
+          acceptance_bed_id: this.form.controls.acceptance_bed_id.value,
           acceptance_regime_id: this.form.controls.acceptance_regime_id.value,
           acceptance_regime_level: this.form.controls.acceptance_regime_level.value,
           acceptance_technological_medium_id: this.form.controls.acceptance_technological_medium_id.value,
@@ -415,14 +447,6 @@ export class FormReferenceComponent implements OnInit {
           }
           if (this.new_patient && this.route == 2) {
             if (this.patient_id) {
-              this.new_admission(x.data.reference, {
-                admission_route_id: this.form.controls.acceptance_admission_route_id.value,
-                program_id: this.form.controls.acceptance_program_id.value,
-                regime_id: this.form.controls.acceptance_regime_id.value,
-                eps: this.form.controls.company_id.value,
-                diagnosis_id: this.form.controls.diagnosis_id.value,
-                diagnosis: this.diagnosis_id,
-              });
             } else {
               this.new_patient(x.data.reference, {
                 admission_route_id: this.form.controls.acceptance_admission_route_id.value,
@@ -472,14 +496,6 @@ export class FormReferenceComponent implements OnInit {
           }
           if (this.new_patient && this.route == 2) {
             if (this.patient_id) {
-              this.new_admission(x.data.reference, {
-                admission_route_id: this.form.controls.acceptance_admission_route_id.value,
-                program_id: this.form.controls.acceptance_program_id.value,
-                regime_id: this.form.controls.acceptance_regime_id.value,
-                eps: this.form.controls.company_id.value,
-                diagnosis_id: this.form.controls.diagnosis_id.value,
-                diagnosis: this.diagnosis_id,
-              });
             } else {
               this.new_patient(x.data.reference, {
                 admission_route_id: this.form.controls.acceptance_admission_route_id.value,
@@ -615,7 +631,7 @@ export class FormReferenceComponent implements OnInit {
     this.form.get('identification').valueChanges.subscribe(val => {
       if (val != null && val != '') {
         this.PatientS.GetPatientByIdentification(val).then(x => {
-          if (x['admissions'].length > 0) {
+          if (x && x['admissions'].length > 0) {
             this.form.patchValue({
               re_input: true,
               intention: this.form.controls.intention.value == '' ? +x['rr'] + 1 : this.form.controls.intention.value,
@@ -623,7 +639,7 @@ export class FormReferenceComponent implements OnInit {
           } else {
             this.form.patchValue({
               re_input: false,
-              intention: this.form.controls.intention.value == '' ? +x['rr'] + 1 : this.form.controls.intention.value,
+              intention: 1,
             });
           }
         });
@@ -665,21 +681,42 @@ export class FormReferenceComponent implements OnInit {
     this.form.get('denied_admission_route_id').valueChanges.subscribe(val => {
       this.routeChanges(val);
     });
-    
+
     this.form.get('request_campus_id').valueChanges.subscribe(val => {
       this.getBedsByCampus();
     });
-    
+
     this.form.get('acceptance_campus_id').valueChanges.subscribe(val => {
       this.getBedsByCampus();
+      this.GetFlat(val);
     });
-    
+
+    this.form.get('acceptance_flat_id').valueChanges.subscribe(val => {
+      this.GetPavilion(val);
+    });
+
+    this.form.get('acceptance_pavilion_id').valueChanges.subscribe(val => {
+      this.GetBed(val, 1);
+    });
+
     this.form.get('acceptance_admission_route_id').valueChanges.subscribe(val => {
       this.getBedsByCampus();
     });
-    
+
     this.form.get('request_admission_route_id').valueChanges.subscribe(val => {
       this.getBedsByCampus();
+    });
+
+    this.form.get('acceptance_admission_route_id').valueChanges.subscribe(val => {
+      this.getProgramByAmbit();
+    });
+
+    this.form.get('denied_admission_route_id').valueChanges.subscribe(val => {
+      this.getProgramByAmbit();
+    });
+
+    this.form.get('request_admission_route_id').valueChanges.subscribe(val => {
+      this.getProgramByAmbit();
     });
   }
 
@@ -713,6 +750,53 @@ export class FormReferenceComponent implements OnInit {
         this.available_bed = x['available_bed'].length;
       });
     }
+  }
+
+  getProgramByAmbit() {
+    if (
+      (this.form.controls.acceptance_admission_route_id.value != '') ||
+      (this.form.controls.denied_admission_route_id.value != '') ||
+      (this.form.controls.request_admission_route_id.value != '')
+    ) {
+      var admission_route_id = (this.form.controls.acceptance_admission_route_id.value != '' ? this.form.controls.acceptance_admission_route_id.value : (this.form.controls.denied_admission_route_id.value != '' ? this.form.controls.denied_admission_route_id.value : this.form.controls.request_admission_route_id.value));
+      this.ProgramS.getProgramByAmbit(admission_route_id).then(x => {
+        this.program = x;
+      });
+    }
+  }
+
+  GetFlat(flat_id, job = false) {
+    if (!flat_id || flat_id === '') return Promise.resolve(false);
+
+    this.FlatS.GetFlatByCampus(this.form.controls.acceptance_campus_id.value).then(x => {
+      this.flat = x;
+    });
+  }
+
+  GetPavilion(flat_id, job = false) {
+    if (!flat_id || flat_id === '') return Promise.resolve(false);
+
+    return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+
+      this.pavilion = x;
+
+      return Promise.resolve(true);
+    });
+  }
+
+  GetBed(pavilion_id, ambit) {
+    if ((!pavilion_id || pavilion_id === '') || (!this.form.controls.procedure_id.value || this.form.controls.procedure_id.value === '') || (!ambit || ambit === '')) return Promise.resolve(false);
+    return this.BedS.GetBedByPavilion(pavilion_id, ambit, this.procedure_id, {
+      identification: this.form.controls.identification.value,
+    }).then(x => {
+      if (x.length > 0) {
+        this.beds = x;
+      } else {
+        this.toastService.warning('', 'No se encontraron camas')
+      }
+
+      return Promise.resolve(true);
+    });
   }
 
 }

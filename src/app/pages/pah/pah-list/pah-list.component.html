@@ -1,18 +1,19 @@
-<ngx-base-list [messageError]="messageError" [routes]="routes">
+<ngx-base-list [messageError]="messageError">
   <div content *ngIf="show">
-
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity" customData="patients"
+    <nb-tabset class="tabset" (changeTab)="tablock($event)">
+      <nb-tab tabTitle="INTERNACIONES">
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity" customData="patients"
       [messageToltip]="messageToltip">
       <div title>
         <div *ngIf="this.currentRole.role_type_id == 1 && this.patients"><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div>
-        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS DISPONIBLES: {{this.available_bed}}</div>
+        <!-- <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS DISPONIBLES: {{this.available_bed}}</div>
         <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS OCUPADAS: {{this.busy_bed}}</div>
         <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS EN MANTENIMIENTO: {{this.fix_bed}}</div>
-        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS EN DESINFECCIÓN: {{this.clean_bed}}</div>
+        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS EN DESINFECCIÓN: {{this.clean_bed}}</div> -->
       </div>
       <div actions>
         <div class="actions">
-          
+
           <!-- <div *ngIf="this.currentRole.role_type_id == 1" style="margin-right: 10px; width: 250px">
             <nb-select placeholder="Filtrar por estado" fullWidth (selectedChange)="changeSemaphore($event)">
               <nb-option value="">Sin filtro</nb-option>
@@ -24,12 +25,31 @@
             </nb-select>
           </div> -->
           <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
-            <nb-option >Todos los convenios</nb-option>
-            <nb-option *ngFor="let item of company" [value]="item.id">Convenio: {{item.name}}</nb-option>
+            <nb-option>Todos los convenios</nb-option>
+            <nb-option *ngFor="let item of company" [value]="item.id">CONVENIO: {{item.name}}</nb-option>
           </nb-select>
         </div>
-        
+
       </div>
     </ngx-base-table>
+      </nb-tab>
+      <nb-tab tabTitle="INTERCONSULTAS">
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings1" [entity]="entity2" customData="patients"
+      [messageToltip]="messageToltip">
+      <div title>
+        <!-- <div *ngIf="this.currentRole.role_type_id == 1 && this.patients"><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div> -->
+      </div>
+      <div actions>
+        <div class="actions">
+          <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
+            <nb-option>Todos los convenios</nb-option>
+            <nb-option *ngFor="let item of company" [value]="item.id">CONVENIO: {{item.name}}</nb-option>
+          </nb-select>
+        </div>
+
+      </div>
+    </ngx-base-table>
+      </nb-tab>
+    </nb-tabset>
   </div>
 </ngx-base-list>

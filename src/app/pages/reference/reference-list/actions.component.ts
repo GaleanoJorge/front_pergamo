@@ -55,7 +55,7 @@ export class Actions2Component implements ViewCell {
   }
 
   async ngOnInit() {
-    var c = new Date(this.value.data.created_at).getTime();
+    var c = (this.value.data.acceptance_date != null ? new Date(this.value.data.acceptance_date).getTime() :  new Date().getTime());
     var d = new Date().getTime();
 
     var e =(d - c) / (60 * 60 * 1000);

@@ -315,6 +315,9 @@ export class ReferenceListComponent implements OnInit {
     if (dat == null) {
       dat = {
         admission_route_id: data.acceptance_admission_route_id,
+        flat_id: data.acceptance_flat_id,
+        pavilion_id: data.acceptance_pavilion_id,
+        bed_id: data.acceptance_bed_id,
         program_id: data.acceptance_program_id,
         regime_id: data.acceptance_regime_id,
         eps: data.company_id,
@@ -338,6 +341,9 @@ export class ReferenceListComponent implements OnInit {
     if (dat == null) {
       dat = {
         admission_route_id: data.acceptance_admission_route_id,
+        flat_id: data.acceptance_flat_id,
+        pavilion_id: data.acceptance_pavilion_id,
+        bed_id: data.acceptance_bed_id,
         program_id: data.acceptance_program_id,
         regime_id: data.acceptance_regime_id,
         eps: data.company_id,

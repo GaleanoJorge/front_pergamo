@@ -101,6 +101,10 @@ export class FormAdmissionsPatientComponent implements OnInit {
         procedure_id: '',
         has_caregiver: false,
       };
+    } else {
+      if (this.data.pavilion_id) {
+        this.data.scope_of_attention_id = 1;
+      }
     }
 
 
@@ -161,6 +165,12 @@ export class FormAdmissionsPatientComponent implements OnInit {
       this.epsChanged(this.data.eps);
       this.admissionRouteChanged(this.data.admission_route_id);
       this.ShowDiagnostic(this.data.admission_route_id);
+      if (this.data.flat_id) {
+        this.GetPavilion(this.data.flat_id).then();
+      }
+      if (this.data.pavilion_id) {
+        this.GetBed(this.data.pavilion_id, this.data.scope_of_attention_id).then();
+      }
     }
 
     this.onChanges();
@@ -485,7 +495,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         this.form.controls.flat_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.pavilion_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.auth_number.setValidators(Validators.compose([Validators.required]));
-        this.form.controls.file_auth.setValidators(Validators.compose([Validators.required]));
+        // this.form.controls.file_auth.setValidators(Validators.compose([Validators.required]));
         this.form.controls.bed_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.has_caregiver.setValue(false);
         this.form.controls.has_caregiver.enable();
@@ -574,8 +584,11 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
 
   GetBed(pavilion_id, ambit) {
-    if ((!pavilion_id || pavilion_id === '') || (!this.form.controls.procedure_id.value || this.form.controls.procedure_id.value === '') || (!ambit || ambit === '')) return Promise.resolve(false);
-    return this.BedS.GetBedByPavilion(pavilion_id, ambit, this.procedures.find(item => item.id == this.form.controls.procedure_id.value).manual_price.procedure_id).then(x => {
+    if ((!pavilion_id || pavilion_id === '') || (!this.data.eps ? (!this.form.controls.procedure_id.value || this.form.controls.procedure_id.value === '') : false) || (!ambit || ambit === '')) return Promise.resolve(false);
+    var proc =  this.data.eps ? 0 : this.procedures.find(item => item.id == this.form.controls.procedure_id.value).manual_price.procedure_id;
+    return this.BedS.GetBedByPavilion(pavilion_id, ambit, proc, {
+      patient_id: this.user_id,
+    }).then(x => {
       if (x.length > 0) {
         this.bed = x;
       } else {

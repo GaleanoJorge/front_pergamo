@@ -123,7 +123,7 @@ export class Actions3Component implements ViewCell {
   }
   ngOnInit(){
 
-    if(this.value.data.status_bed_id==1 || this.value.data.status_bed_id==3 || this.value.data.status_bed_id==4 ){
+    if(this.value.data.status_bed_id==1 || this.value.data.status_bed_id==3 || this.value.data.status_bed_id==4 || this.value.data.status_bed_id==5){
       this.state=true;
       this.traslate=false;
     }else{

@@ -35,11 +35,13 @@ export class InstanceAdmissionComponent implements OnInit {
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Evoluciones de Hospitalización';
+  public title: string = 'Interconsultas';
   public subtitle: string = '';
   public headerFields: any[] = [
     /*00*/ 'Servicio',
     /*01*/ 'Evoluciones',
+    /*02*/ 'Cantidad Ordenada',
+    /*03*/ 'Especialidad',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
@@ -100,6 +102,32 @@ export class InstanceAdmissionComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value) => {
           return value.manual_price.procedure.name;
+        },
+      },
+      specialty: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value != null) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
+      },
+      amount: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value != null) {
+            if (value != 0) {
+              return value;
+            } else {
+              return 'A Pertinencia';
+            }
+          } else {
+            return 'N.A.';
+          }
         },
       },
       evolutions: {
@@ -184,7 +212,7 @@ export class InstanceAdmissionComponent implements OnInit {
 
     this.settings = this.settings1;
 
-    this.entity = 'ch_interconsultation?admissions_id=' + this.admission_id + '&ambulatory_medical_order=1';
+    this.entity = 'ch_interconsultation?admissions_id=' + this.admission_id + '&ambulatory_medical_order=1&role_id=' + this.currentRole.id;
 
 
   }

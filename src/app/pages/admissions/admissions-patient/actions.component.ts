@@ -97,7 +97,7 @@ import { ServicesBriefcaseService } from '../../../business-controller/services-
               <nb-option value="">Seleccione...</nb-option>
               <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
                 [value]="item.id">
-                {{ item.manual_price.procedure.name }} - {{ item.manual_price.name }}</nb-option>
+                {{ item.manual_price.procedure.code }} - {{ item.manual_price.name }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-12">

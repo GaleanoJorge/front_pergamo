@@ -11,7 +11,7 @@
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.admission_route_id }}" *ngFor="let item of admission_route"
               [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-6">
@@ -22,7 +22,7 @@
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.scope_of_attention_id }}"
               *ngFor="let item of scope_of_attention" [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-6">
@@ -41,7 +41,7 @@
             status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.program_id }}" *ngFor="let item of program" [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
         
@@ -51,7 +51,7 @@
             status="{{ isSubmitted && form.controls.eps.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.eps }}" *ngFor="let item of eps" [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-6">
@@ -61,7 +61,7 @@
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.contract_id }}" *ngFor="let item of contract"
               [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-6">
@@ -71,7 +71,7 @@
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.briefcase_id }}" *ngFor="let item of briefcase"
               [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
         <div class="col-12 col-sm-12 col-md-6">
@@ -80,7 +80,7 @@
             status="{{ isSubmitted && form.controls.regime_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.regime_id }}" *ngFor="let item of regime" [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-6" *ngIf="this.form.value.admission_route_id==1">
@@ -90,7 +90,7 @@
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
               [value]="item.id">
-              {{ item.manual_price.procedure.name }} - {{ item.manual_price.name }}</nb-option>
+              {{ item.manual_price.procedure.code }} - {{ item.manual_price.name }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-6" *ngIf="this.show_inputs">
@@ -99,7 +99,7 @@
             status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-6" *ngIf="this.show_inputs">
@@ -109,7 +109,7 @@
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.pavilion_id }}" *ngFor="let item of pavilion"
               [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-6" *ngIf="this.show_inputs">
@@ -118,7 +118,7 @@
             status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == this.data.bed_id }}" *ngFor="let item of bed" [value]="item.id">
-              {{ item.name }}</nb-option>
+              {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-6" *ngIf="this.show_auth_inputs">
@@ -145,7 +145,7 @@
   
       </nb-card-footer> -->
     <nb-card-footer class="d-flex justify-content-end">
-      <button *ngIf="!this.data.eps" nbButton (click)="close()" type="button">Cerrar</button>
+      <button nbButton (click)="close()" type="button">Cerrar</button>
       <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" (click)="save()">Guardar admisión</button>
     </nb-card-footer>
   </nb-card>

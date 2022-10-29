@@ -25,6 +25,7 @@ export class BedComponent implements OnInit {
   public data = [];
   public flat;
   public sede;
+  public campus_id;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -38,6 +39,20 @@ export class BedComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
+          if (row.reservation_date) {
+            var c = new Date(row.reservation_date).getTime();
+            var d = new Date().getTime();
+            var e = (d - c) / (60 * 60 * 1000);
+            var show = e <= 6 ? true : false;
+            if (show) {
+              row.status_bed_id = 6;
+              row.status_bed.name = 'Reservada';
+            } else {
+              row.status_bed_id = 1;
+              row.status_bed.name = 'Libre';
+            }
+          }
+          
           return {
             'data': row,
             'edit': this.EditBed.bind(this),
@@ -114,6 +129,7 @@ export class BedComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.campus_id = +localStorage.getItem('campus');
   }
 
   RefreshData() {

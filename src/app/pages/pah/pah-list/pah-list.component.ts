@@ -30,6 +30,7 @@ export class PahListComponent implements OnInit {
 
   public isSubmitted = false;
   public entity: string;
+  public entity2: string;
   public loading: boolean = false;
   public loading2: boolean = false;
   public category_id: number = null;
@@ -56,10 +57,10 @@ export class PahListComponent implements OnInit {
   public file: File;
   public user_id;
   public patient_id;
-  public available_bed;
-  public busy_bed;
-  public fix_bed;
-  public clean_bed;
+  // public available_bed;
+  // public busy_bed;
+  // public fix_bed;
+  // public clean_bed;
   public user;
   public patients: any;
   public dialog;
@@ -108,6 +109,123 @@ export class PahListComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
+            'route': 1,
+            'data': row,
+            'user': this.user,
+            'management': this.patients,
+            'edit': this.EditGloss.bind(this),
+            'delete': this.DeleteConfirmGloss.bind(this),
+            'refresh': this.RefreshData.bind(this),
+            'currentRole': this.currentRole.role_type_id,
+          };
+        },
+        renderComponent: Actions2Component,
+      },
+      identification_type: {
+        title: this.headerFields[0],
+        type: 'string',
+        width: '5%',
+        valuePrepareFunction(value) {
+          return value?.code;
+        },
+      },
+      identification: {
+        title: this.headerFields[1],
+        type: 'string',
+      },
+      nombre_completo: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
+      company: {
+        title: this.headerFields[3],
+        type: 'string',
+      },
+      birthday: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction(value) {
+          var date = new Date(value.substring(0, 10));
+          var ageDifMs = Date.now() - date.getTime();
+          var ageDate = new Date(ageDifMs); // miliseconds from epoch
+          return Math.abs(ageDate.getUTCFullYear() - 1970) + " AÑOS";
+        },
+      },
+      diagnosis: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions[row.admissions.length - 1].diagnosis.code  + ' - ' + row.admissions[row.admissions.length - 1].diagnosis.name;
+        },
+      },
+      procedure: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].procedure.manual_price.procedure.code + ' - ' + row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].procedure.manual_price.procedure.name;
+        },
+      },
+      days: {
+        title: this.headerFields[10],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          var a = +(new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getFullYear() + '' + (new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth() < 10 ? '0' + new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth() : new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth()) + '' + (new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate() < 10 ? '0' + new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate() : new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate()));
+          var b = +(new Date().getFullYear() + '' + (new Date().getMonth() < 10 ? '0' + new Date().getMonth() : new Date().getMonth()) + '' + (new Date().getDate() < 10 ? '0' + new Date().getDate() : new Date().getDate()));
+          var diff = Math.abs(b - a) + 1;
+
+          return diff + ' DÍAS';
+        },
+      },
+      flat: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].flat.name;
+        },
+      },
+      pavilion: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].pavilion.name;
+        },
+      },
+      bed: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].bed.name;
+        },
+      },
+    },
+  };
+
+  public settings1 = {
+    pager: {
+      display: true,
+      perPage: 30,
+    },
+    columns: {
+      // semaphore: {
+      //   title: '',
+      //   type: 'custom',
+      //   valuePrepareFunction: (value, row) => {
+      //     // DATA FROM HERE GOES TO renderComponent
+      //     return {
+      //       'data': row,
+      //       'user': this.user,
+      //       'currentRole': this.currentRole.role_type_id,
+      //     };
+      //   },
+      //   renderComponent: ActionsSemaphore2Component,
+      // },
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'route': 2,
             'data': row,
             'user': this.user,
             'management': this.patients,
@@ -212,7 +330,7 @@ export class PahListComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
     private PatientBS: PatientService,
-    private BedS: BedService,
+    // private BedS: BedService,
     private authService: AuthService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
@@ -245,18 +363,20 @@ export class PahListComponent implements OnInit {
         this.show = true;
       }
       this.entity = 'patient/byPAH/2/' + this.user_id + "?campus_id=" + this.campus_id;
+      this.entity2 = 'patient/byPAH/2/' + this.user_id + "?campus_id=" + this.campus_id + "&role_id=" + this.currentRole.id;
     }
     else {
       this.show = true;
       this.entity = "patient/byPAH/2/0?campus_id=" + this.campus_id;
+      this.entity2 = "patient/byPAH/2/0?campus_id=" + this.campus_id + "&role_id=" + this.currentRole.id;
     }
 
-    this.BedS.getBedsByCampus(this.campus_id).then(x => {
-      this.available_bed = x['available_bed'].length;
-      this.busy_bed = x['busy_bed'].length;
-      this.fix_bed = x['fix_bed'].length;
-      this.clean_bed = x['clean_bed'].length;
-    });
+    // this.BedS.getBedsByCampus(this.campus_id).then(x => {
+    //   this.available_bed = x['available_bed'].length;
+    //   this.busy_bed = x['busy_bed'].length;
+    //   this.fix_bed = x['fix_bed'].length;
+    //   this.clean_bed = x['clean_bed'].length;
+    // });
 
     // this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
     //   this.company = x;
@@ -391,5 +511,9 @@ export class PahListComponent implements OnInit {
 
   changeSemaphore($event: any) {
     this.table.changeEntity(this.entity + '&semaphore=' + $event, 'patients');
+  }
+
+  tablock(e) {
+    
   }
 }
