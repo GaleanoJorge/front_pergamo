@@ -18,6 +18,7 @@
           <label class="form-text text-muted font-weight-bold">Tipo de Atención:</label>
           <nb-select size="medium" fullWidth formControlName="ch_type">
             <nb-option *ngFor="let type of ch_type" [value]="type.id">{{type.name}}</nb-option>
+            <nb-option value=20>Formulación</nb-option>
           </nb-select>
         </div>
         <div class="col-md-4">
