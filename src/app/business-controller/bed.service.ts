@@ -31,9 +31,9 @@ export class BedService {
       });
   }
 
-  GetBedByPavilion(pavilion_id,ambit): Promise<Bed[]> {
+  GetBedByPavilion(pavilion_id,ambit, params = {}): Promise<Bed[]> {
     let servObj = new ServiceObject(`bed/byPavilion/${pavilion_id}/${ambit}`);
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
@@ -48,6 +48,24 @@ export class BedService {
   }
 
   GetOfficeBycampus(params = {}): Promise<Bed[]> {
+    let servObj = new ServiceObject(params ? 'office_by_campus?pagination=false' : 'office_by_campus');
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.bed = <Bed[]>servObj.data.bed;
+
+        return Promise.resolve(this.bed);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetOfficeByPavilion(params = {}): Promise<Bed[]> {
     let servObj = new ServiceObject(params ? 'office_by_campus?pagination=false' : 'office_by_campus');
 
     return this.webAPI.GetAction(servObj, params)
