@@ -44,6 +44,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public bed_id;
   public pavilion;
   public record_id;
+  public redo = false;
   public isSubmitted: boolean = false;
   public saved: any = null;
   public is_pad: number = 0;
@@ -104,6 +105,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.redo = x[0]['assigned_management_plan'] ? x[0]['assigned_management_plan']['redo'] == 0 ? false : true: false;
       this.ch_record = x;
       this.is_pad=x[0]['assigned_management_plan']['management_plan']['type_of_attention_id'];
       this.admission = x[0]['admissions'];
@@ -130,6 +132,8 @@ export class ClinicHistoryNursingListComponent implements OnInit {
         title: 'Finalizar registro.',
         delete: this.finish.bind(this),
         showImage: this.showImage.bind(this),
+        admission: this.admission,
+        redo: this.redo,
         // save: this.saveSignature.bind(this),
         textConfirm: 'Finalizar registro'
       },
@@ -172,7 +176,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   // }
 
   async finish(firm) {
-    if(this.signatureImage!=null){
+    if(this.admission.location[this.admission.location.length -1].admission_route_id != 1 ? !this.redo ? this.signatureImage!=null : true : true){
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');

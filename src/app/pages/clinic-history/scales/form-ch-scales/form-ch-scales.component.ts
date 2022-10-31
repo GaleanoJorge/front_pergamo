@@ -665,7 +665,7 @@ export class FormChScalesComponent implements OnInit {
       this.totalBarthel = this.num1 + this.num2 + this.num3 + this.num4 + this.num5 + this.num6 + this.num7 + this.num8 + this.num9 + this.num10;
 
       if (this.totalBarthel >= 0 && this.totalBarthel <= 20) {
-        this.classBarthel = 'Dependencia Leve';
+        this.classBarthel = 'Dependencia Total';
 
       } else if (this.totalBarthel >= 21 && this.totalBarthel <= 60) {
         this.classBarthel = 'Dependencia Severa';
