@@ -121,9 +121,9 @@ export class ReferenceListComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.identification) {
-            return row.age;
+            return row.age + 'AÑOS';
           } else {
-            return row.patient.age;
+            return row.patient.age + 'AÑOS';
           }
         },
       },
