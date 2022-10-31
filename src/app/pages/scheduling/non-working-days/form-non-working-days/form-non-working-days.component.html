@@ -10,8 +10,9 @@
         </div>
         <div class="col-md-12">
           <label for="description" class="form-text text-muted font-weight-bold">Descripción:</label>
-          <input  nbInput fullWidth id="description" formControlName="description" description type="text"
-            status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="description" formControlName="description" description type="text"
+            status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
+            onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)"/>
         </div>
       </div>
     </nb-card-body>
