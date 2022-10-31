@@ -235,6 +235,7 @@ export class Actions5Component implements ViewCell {
       window.open(x.url, '_blank');
 
     }).catch(x => {
+      this.toastService.warning('', x);
       this.isSubmitted = false;
       this.loading = false;
     });
