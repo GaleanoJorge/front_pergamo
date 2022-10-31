@@ -41,7 +41,23 @@ export class ChRecordService {
         return Promise.resolve(servObj);
       })
       .catch(x => {
-        throw x.message;
+        throw x;
+      });
+  }
+
+  SaveExtCon(ch_record: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_record');
+    servObj.data = ch_record;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x;
       });
   }
 
