@@ -66,6 +66,7 @@ export class ManagementPlanComponent implements OnInit {
   public type_id;
   public valor: any = null;
   public close: any;
+  public showAnex: boolean = false;
 
 
 
@@ -126,10 +127,10 @@ export class ManagementPlanComponent implements OnInit {
         width: '25%',
         valuePrepareFunction(value, row) {
           if (row.type_of_attention_id != 20) {
-          return value?.name + ' - ' + row.procedure.manual_price.name;
-        }else {
-          return "SEGUIMIENTO"
-        }
+            return value?.name + ' - ' + row.procedure.manual_price.name;
+          } else {
+            return "SEGUIMIENTO"
+          }
         }
       },
       service_briefcase: {
@@ -264,6 +265,13 @@ export class ManagementPlanComponent implements OnInit {
     this.currentRole = this.own_user.roles.find(x => {
       return x.id == curr;
     });
+    if(this.route.snapshot.params.id){
+      if(this.currentRole.role_type_id == 1){
+        this.showAnex = true
+      }
+    } else {
+      this.showAnex = true;
+    }
     this.currentRoleId = this.currentRole.id;
 
     if (this.admissions) {
@@ -274,45 +282,45 @@ export class ManagementPlanComponent implements OnInit {
       this.admissions_id = this.route.snapshot.params.id;
       this.user_id = this.route.snapshot.params.user;
       this.settings = this.settings1;
-  }
-      await this.admissionS.GetCollection({ admissions_id: this.admissions_id }).then(x => {
-        this.admissions1 = x;
-      });
+    }
+    await this.admissionS.GetCollection({ admissions_id: this.admissions_id }).then(x => {
+      this.admissions1 = x;
+    });
 
 
 
 
-      this.user_id = this.route.snapshot.params.user;
-      await this.roleBS.GetCollection({ id: this.currentRoleId }).then(x => {
-        this.roles = x;
-      }).catch(x => { });
-      this.user_logged = this.authService.GetUser().id;
-      if (this.currentRole.role_type_id != 2 && this.title == null) {
-        this.admissions_id = this.route.snapshot.params.id;
-        this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
-        this.entity = "management_plan_by_patient/" + this.user_id + "/" + 0 + "?admission_id=" + this.admissions_id;
-      } else if (this.medical == 1) {
-        this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
-        this.entity = "management_plan_by_patient/" + this.patient + "/" + 0;
-      } else {
-        this.title = "Servicios a Ejecutar";
-        this.entity = "management_plan_by_patient/" + this.user_id + "/" + this.user_logged;
-      }
+    this.user_id = this.route.snapshot.params.user;
+    await this.roleBS.GetCollection({ id: this.currentRoleId }).then(x => {
+      this.roles = x;
+    }).catch(x => { });
+    this.user_logged = this.authService.GetUser().id;
+    if (this.currentRole.role_type_id != 2 && this.title == null) {
+      this.admissions_id = this.route.snapshot.params.id;
+      this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
+      this.entity = "management_plan_by_patient/" + this.user_id + "/" + 0 + "?admission_id=" + this.admissions_id;
+    } else if (this.medical == 1) {
+      this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
+      this.entity = "management_plan_by_patient/" + this.patient + "/" + 0;
+    } else {
+      this.title = "Servicios a Ejecutar";
+      this.entity = "management_plan_by_patient/" + this.user_id + "/" + this.user_logged;
+    }
 
 
 
-      this.routes = [
-        {
-          name: 'Pad',
-          route: '/pages/pad/list',
+    this.routes = [
+      {
+        name: 'Pad',
+        route: '/pages/pad/list',
 
-        },
-        {
-          name: 'Plan de manejo',
-          route: '/pages/pad/management-plan/' + this.admissions_id + '/' + this.user_id,
-        },
-      ];
-    
+      },
+      {
+        name: 'Plan de manejo',
+        route: '/pages/pad/management-plan/' + this.admissions_id + '/' + this.user_id,
+      },
+    ];
+
     await this.patienBS.GetUserById(this.user_id).then(x => {
       this.user = x;
     });
@@ -337,7 +345,7 @@ export class ManagementPlanComponent implements OnInit {
       context: {
         title: 'Crear plan de manejo',
         assigned: true,
-        admissions1:this.admissions1,
+        admissions1: this.admissions1,
         user: this.user,
         medical: this.medical,
         admissions_id: this.admissions_id,
@@ -352,7 +360,7 @@ export class ManagementPlanComponent implements OnInit {
         title: 'Asignar personal asistencial',
         data,
         user: this.user,
-        admissions1:this.admissions1,
+        admissions1: this.admissions1,
         medical: 0,
         assigned: false,
         admissions_id: this.admissions_id,
@@ -366,7 +374,7 @@ export class ManagementPlanComponent implements OnInit {
       context: {
         title: 'Editar plan de manejo',
         data,
-        admissions1:this.admissions1,
+        admissions1: this.admissions1,
         edit: 1,
         user: this.user,
         medical: 0,
