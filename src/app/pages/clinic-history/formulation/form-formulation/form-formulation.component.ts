@@ -175,34 +175,8 @@ export class FormFormulationComponent implements OnInit {
           this.isSubmitted = false;
           this.loading = false;
         });
-      if (this.show) {
-        await this.PharmacyProductRequestS.Save({
-          services_briefcase_id: this.service_briefcase_id,
-          request_amount: this.form.controls.outpatient_formulation.value,
-          observation: this.form.controls.observation.value,
-          admissions_id: this.admission.id,
-          status: 'PATIENT',
-          user_request_pad_id: this.own_user.id,
-        }).then((x) => {
-          this.toastService.success('', x.message);
-          this.messageEvent.emit(true);
-          this.form.setValue({
-            product_generic_id: '', request_amount: '', observation: '', status: '',
-            user_request_pad_id: ''
-          });
-          if (this.saved) {
-            this.saved();
-          }
-        })
-          .catch((x) => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
-      }
-    } else{
-      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
-    }
-    
+     
+    }     
 
   }
 
