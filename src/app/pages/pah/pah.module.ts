@@ -37,6 +37,7 @@ import { Actions4Component } from './instance-admission/actions.component';
 import {InterconsultationComponent} from './interconsultation/interconsultation.component';
 import {FormInterconsultationComponent} from './interconsultation/form-interconsultation/form-interconsultation.component';
 import { Actions5Component } from './interconsultation/actions.component';
+import { ActionsFormulationComponent } from './interconsultation/actions-formulation.component';
 
 
 
@@ -83,6 +84,7 @@ import { Actions5Component } from './interconsultation/actions.component';
     Actions5Component,
     InterconsultationComponent,
     FormInterconsultationComponent,
+    ActionsFormulationComponent,
   ],
   providers: [
     DateFormatPipe,

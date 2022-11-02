@@ -17,8 +17,13 @@ input[type=number] { -moz-appearance:textfield; }
   display: inline-block;
   margin-right: 5px;
 }
-.space {
+
+.mr-1 {
   margin-right: 5px;
+}
+.vi {
+  align-self: center;
+  font-weight: bold;
 }
 
 .file-select::before {

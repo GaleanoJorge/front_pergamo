@@ -22,6 +22,7 @@ import { Location } from '@angular/common';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { ChInterconsultationService } from '../../../business-controller/ch-interconsultation.service';
 import { count } from 'console';
+import { ActionsFormulationComponent } from './actions-formulation.component';
 
 @Component({
   selector: 'ngx-interconsultation',
@@ -47,9 +48,21 @@ export class InterconsultationComponent implements OnInit {
     /*04*/'Tipo de Registro',
     /*05*/'N° registro',
   ];
+  public headerFields2: any[] = [
+    /*00*/ 'Fecha',
+    /*01*/ 'Descripción',
+    /*02*/ 'Dosis',
+    /*03*/ 'Vía De Administración',
+    /*04*/ 'Frecuencia Horaria ',
+    /*05*/ 'Días De Tratamiento',
+    /*06*/ 'Cant. Solic ',
+    /*07*/ 'Observaciones',
+    /*08*/ 'Medicamento',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public routes = [];
   public data = [];
+  public dialog;
   public admissions_id;
   public saved: any = null;
   public user;
@@ -70,6 +83,7 @@ export class InterconsultationComponent implements OnInit {
   public showButtom: boolean = false;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @ViewChild('formulations', { read: TemplateRef }) formulations: TemplateRef<HTMLElement>;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -137,6 +151,83 @@ export class InterconsultationComponent implements OnInit {
     },
   };
 
+  public settings2 = {
+    pager: {
+      display: true,
+      perPage: 30,
+    },
+    columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'admissions_id': this.admissions_id,
+          };
+        },
+        renderComponent: ActionsFormulationComponent,
+      },
+
+      created_at: {
+        title: this.headerFields2[0],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+      },
+
+      product_generic_id: {
+        title: this.headerFields2[8],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return row.product_generic.description;
+          } else {
+            return 'No aplica'
+          }
+        },
+
+      },
+      dose: {
+        title: this.headerFields2[2],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value + ' ' + (row.product_generic.multidose_concentration ? row.product_generic.multidose_concentration.name : row.product_generic.measurement_units.code);
+        },
+      },
+      administration_route: {
+        title: this.headerFields2[3],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return value.name;
+        },
+
+      },
+      hourly_frequency: {
+        title: this.headerFields2[4],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          return 'CADA ' + value.value + ' ' + row.hourly_frequency.name;
+        },
+      },
+      treatment_days: {
+        title: this.headerFields2[5],
+        width: 'string',
+      },
+      outpatient_formulation: {
+        title: this.headerFields2[6],
+        width: 'string',
+      },
+      observation: {
+        title: this.headerFields2[7],
+        width: 'string',
+      },
+    },
+  };
+
   constructor(
     private route: ActivatedRoute,
     private chRecordS: ChRecordService,
@@ -180,8 +271,6 @@ export class InterconsultationComponent implements OnInit {
     this.currentRole = this.authService.GetUser().roles.find(x => {
       return x.id == curr;
     });
-
-
 
     await this.admissionsS
       .GetCollection({ admissions_id: this.admissions_id })
@@ -240,6 +329,14 @@ export class InterconsultationComponent implements OnInit {
 
   RefreshData() {
     this.table.refresh();
+  }
+
+  showFormulations(dialog: TemplateRef<any>) {
+    this.dialog = this.dialogService.open(dialog);
+  }
+
+  closeDialog() {
+    this.dialog.close();
   }
 
   NewChRecord() {
