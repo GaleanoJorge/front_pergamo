@@ -17,6 +17,7 @@ import { ChFormulationService } from '../../../business-controller/ch-formulatio
 export class FormulationComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() admission: any = null;
   @Input() record_id;
   @Input() user;
   linearMode = false;

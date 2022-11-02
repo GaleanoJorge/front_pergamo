@@ -107,7 +107,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     }).then(x => {
       this.redo = x[0]['assigned_management_plan'] ? x[0]['assigned_management_plan']['redo'] == 0 ? false : true: false;
       this.ch_record = x;
-      this.is_pad=x[0]['assigned_management_plan']['management_plan']['type_of_attention_id'];
+      this.is_pad= x[0]['assigned_management_plan'] ? x[0]['assigned_management_plan']['management_plan']['type_of_attention_id'] : x[0]['ch_interconsultation'] ? x[0]['ch_interconsultation']['type_of_attention_id'] ? x[0]['ch_interconsultation']['type_of_attention_id'] : 0 : 0;
       this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
@@ -115,7 +115,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
-      if(this.ch_record[0].assigned_management_plan.management_plan.management_procedure.length > 0){
+      if(this.ch_record[0].assigned_management_plan ? this.ch_record[0].assigned_management_plan.management_plan.management_procedure.length > 0 : false){
         this.show_labs = true;
       }
     });
