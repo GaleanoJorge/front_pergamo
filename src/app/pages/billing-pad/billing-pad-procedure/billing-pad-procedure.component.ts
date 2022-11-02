@@ -121,8 +121,8 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id) {
-            var a = +(new Date(row.location.entry_date).getFullYear() + '' + (new Date(row.location.entry_date).getMonth() < 10 ? '0' + new Date(row.location.entry_date).getMonth() : new Date(row.location.entry_date).getMonth()) + '' + (new Date(row.location.entry_date).getDate() < 10 ? '0' + new Date(row.location.entry_date).getDate() : new Date(row.location.entry_date).getDate()));
-            var b = +((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getFullYear() : new Date().getFullYear()) + '' + ((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth()) < 10 ? '0' + (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth()) : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth())) + '' + ((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate()) < 10 ? '0' + (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate()) : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate())));
+            var a = Math.floor(new Date(row.location.entry_date).getTime()/(1000*60*60*24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())/(1000*60*60*24));
             var diff = Math.abs(b - a) + 1;
             row.quantity = diff;
           }
@@ -149,8 +149,8 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id) {
-            var a = +(new Date(row.location.entry_date).getFullYear() + '' + (new Date(row.location.entry_date).getMonth() < 10 ? '0' + new Date(row.location.entry_date).getMonth() : new Date(row.location.entry_date).getMonth()) + '' + (new Date(row.location.entry_date).getDate() < 10 ? '0' + new Date(row.location.entry_date).getDate() : new Date(row.location.entry_date).getDate()));
-            var b = +((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getFullYear() : new Date().getFullYear()) + '' + ((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth()) < 10 ? '0' + (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth()) : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth())) + '' + ((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate()) < 10 ? '0' + (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate()) : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate())));
+            var a = Math.floor(new Date(row.location.entry_date).getTime()/(1000*60*60*24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())/(1000*60*60*24));
             var diff = Math.abs(b - a) + 1;
             row.quantity = diff;
           }
@@ -224,8 +224,8 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id) {
-            var a = +(new Date(row.location.entry_date).getFullYear() + '' + (new Date(row.location.entry_date).getMonth() < 10 ? '0' + new Date(row.location.entry_date).getMonth() : new Date(row.location.entry_date).getMonth()) + '' + (new Date(row.location.entry_date).getDate() < 10 ? '0' + new Date(row.location.entry_date).getDate() : new Date(row.location.entry_date).getDate()));
-            var b = +((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getFullYear() : new Date().getFullYear()) + '' + ((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth()) < 10 ? '0' + (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth()) : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth())) + '' + ((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate()) < 10 ? '0' + (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate()) : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate())));
+            var a = Math.floor(new Date(row.location.entry_date).getTime()/(1000*60*60*24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())/(1000*60*60*24));
             var diff = Math.abs(b - a) + 1;
             row.quantity = diff;
           }
@@ -252,8 +252,8 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id) {
-            var a = +(new Date(row.location.entry_date).getFullYear() + '' + (new Date(row.location.entry_date).getMonth() < 10 ? '0' + new Date(row.location.entry_date).getMonth() : new Date(row.location.entry_date).getMonth()) + '' + (new Date(row.location.entry_date).getDate() < 10 ? '0' + new Date(row.location.entry_date).getDate() : new Date(row.location.entry_date).getDate()));
-            var b = +((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getFullYear() : new Date().getFullYear()) + '' + ((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth()) < 10 ? '0' + (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth()) : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getMonth() : new Date().getMonth())) + '' + ((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate()) < 10 ? '0' + (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate()) : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getDate() : new Date().getDate())));
+            var a = Math.floor(new Date(row.location.entry_date).getTime()/(1000*60*60*24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())/(1000*60*60*24));
             var diff = Math.abs(b - a) + 1;
             row.quantity = diff;
           }

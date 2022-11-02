@@ -169,8 +169,8 @@ export class PahListComponent implements OnInit {
         title: this.headerFields[10],
         type: 'string',
         valuePrepareFunction(value, row) {
-          var a = +(new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getFullYear() + '' + (new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth() < 10 ? '0' + new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth() : new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth()) + '' + (new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate() < 10 ? '0' + new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate() : new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate()));
-          var b = +(new Date().getFullYear() + '' + (new Date().getMonth() < 10 ? '0' + new Date().getMonth() : new Date().getMonth()) + '' + (new Date().getDate() < 10 ? '0' + new Date().getDate() : new Date().getDate()));
+          var a =Math.floor(new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getTime()/(1000*60*60*24));
+          var b = Math.floor((new Date().getTime())/(1000*60*60*24));
           var diff = Math.abs(b - a) + 1;
 
           return diff + ' DÍAS';
@@ -285,8 +285,8 @@ export class PahListComponent implements OnInit {
         title: this.headerFields[10],
         type: 'string',
         valuePrepareFunction(value, row) {
-          var a = +(new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getFullYear() + '' + (new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth() < 10 ? '0' + new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth() : new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getMonth()) + '' + (new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate() < 10 ? '0' + new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate() : new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getDate()));
-          var b = +(new Date().getFullYear() + '' + (new Date().getMonth() < 10 ? '0' + new Date().getMonth() : new Date().getMonth()) + '' + (new Date().getDate() < 10 ? '0' + new Date().getDate() : new Date().getDate()));
+          var a =Math.floor(new Date(row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].entry_date).getTime()/(1000*60*60*24));
+          var b = Math.floor((new Date().getTime())/(1000*60*60*24));
           var diff = Math.abs(b - a) + 1;
 
           return diff + ' DÍAS';
