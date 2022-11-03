@@ -8,6 +8,7 @@ import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ActionsSendPatientComponent } from './actions.component';
+import { FormElementDeniedComponent } from './form-element-denied/form-element-denied.component';
 import { FormPharmacyRequestPatientComponent } from './form-pharmacy-request-patient/form-pharmacy-request-patient.component';
 
 @Component({
@@ -46,6 +47,9 @@ export class PharmacyRequestPatientComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditInv.bind(this),
+            //   'delete': this.DeletePharInventary.bind(this),
+            'returned': this.Returned.bind(this),
+
           };
         },
         renderComponent: ActionsSendPatientComponent,
@@ -180,6 +184,20 @@ export class PharmacyRequestPatientComponent implements OnInit {
       return Promise.resolve(x.message);
     }).catch(x => {
       throw x;
+    });
+  }
+
+
+
+
+  Returned(data) {
+    this.dialogFormService.open(FormElementDeniedComponent, {
+      context: {
+        title: 'ELIMINAR ELEMENTO',
+        data2: data,
+        status: 'RECHAZADO',
+        saved: this.RefreshData.bind(this),
+      },
     });
   }
 }
