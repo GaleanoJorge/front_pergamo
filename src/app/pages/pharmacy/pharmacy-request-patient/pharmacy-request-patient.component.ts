@@ -37,7 +37,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
 
     pager: {
       display: true,
-      perPage: 10,
+      perPage: 15,
     },
     columns: {
       actions: {
