@@ -49,6 +49,7 @@ export class PahListComponent implements OnInit {
     /*08*/  'Diagnóstico',
     /*09*/  'Procedimiento',
     /*10*/  'Días Est.',
+    /*11*/  'Nuevas Formulaciones',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
@@ -195,6 +196,13 @@ export class PahListComponent implements OnInit {
         type: 'string',
         valuePrepareFunction(value, row) {
           return row.admissions[row.admissions.length - 1].location[row.admissions[row.admissions.length - 1].location.length - 1].bed.name;
+        },
+      },
+      new_formulations: {
+        title: this.headerFields[11],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return value;
         },
       },
     },

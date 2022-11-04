@@ -1,0 +1,28 @@
+<ngx-base-list [messageError]="messageError">
+  <div content *ngIf="show">
+    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+    entity="assigned_management_plan/getByPah/{{campus_id}}/{{flat_id}}/{{pavilion_id}}/{{bed_id}}"
+          customData="assigned_management_plan" [messageToltip]="messageToltip">
+          <div title>
+            <!-- <div *ngIf="this.currentRole.role_type_id == 1 && this.patients"><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div> -->
+          </div>
+          <div actions>
+            <div class="actions">
+              <nb-select (selectedChange)="changeFlat($event)" placeholder="Filtrar por piso">
+                <nb-option  value="0">Todos los pisos</nb-option>
+                <nb-option *ngFor="let item of flat" [value]="item.id">{{item.name}}</nb-option>
+              </nb-select>
+              <nb-select (selectedChange)="changePavilion($event)" placeholder="Filtrar por pabellón">
+                <nb-option  value="0">Todos los pabellones</nb-option>
+                <nb-option *ngFor="let item of pavilion" [value]="item.id">{{item.name}}</nb-option>
+              </nb-select>
+              <nb-select (selectedChange)="changeBed($event)" placeholder="Filtrar por cama">
+                <nb-option  value="0">Todos las camas</nb-option>
+                <nb-option *ngFor="let item of bed" [value]="item.id">{{item.name}}</nb-option>
+              </nb-select>
+            </div>
+
+          </div>
+        </ngx-base-table>
+  </div>
+</ngx-base-list>

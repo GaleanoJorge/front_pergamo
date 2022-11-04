@@ -19,7 +19,7 @@ import { ManagementPlanService } from '../../../business-controller/management-p
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button nbTooltip="Programar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost
+    <button *ngIf="!this.value.data.management_plan_id" nbTooltip="Programar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost
       (click)="showProgramming(programming)">
       <nb-icon icon="calendar-outline"></nb-icon>
     </button>
@@ -148,6 +148,7 @@ export class ActionsFormulationComponent implements ViewCell {
       this.loading = true;
       this.managementPlanS.Save({
         isnewrequest: 0,//
+        ch_formulation_id: this.value.data.id,//
         hospital: true,//
         type_of_attention_id: 17,//
         frequency_id: null,
@@ -178,6 +179,9 @@ export class ActionsFormulationComponent implements ViewCell {
         this.toastService.success('', x.message);
         if (x['message_error']) {
           this.toastService.warning(x['message_error'], 'Error');
+        }
+        if (this.value.refresh) {
+          this.value.refresh();
         }
         this.closeDialog();
       }).catch(x => {

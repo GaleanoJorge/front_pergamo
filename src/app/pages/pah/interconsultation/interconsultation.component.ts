@@ -166,6 +166,7 @@ export class InterconsultationComponent implements OnInit {
           return {
             'data': row,
             'admissions_id': this.admissions_id,
+            'refresh': this.RefreshData.bind(this),
           };
         },
         renderComponent: ActionsFormulationComponent,
