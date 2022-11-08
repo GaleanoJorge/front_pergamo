@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" style="height: 98%;">
   <nb-card style="margin: 30px; max-width: 1400px; max-height: 900px; overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
@@ -101,6 +101,16 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
+        <div class="col-md-6" *ngIf="this.form.value.admission_route_id==1 || this.form.value.scope_of_attention_id == 2">
+          <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimientos del portafolio:</label>
+          <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth
+            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.services_briefcase.manual_price.procedure_id }}" *ngFor="let item of procedures"
+              [value]="item.manual_price.procedure.id">
+              {{ item.manual_price.homologous_id }} - {{ item.manual_price.name }}</nb-option>
+          </nb-select>
+        </div>
         <div class="col-12 col-sm-12 col-md-6">
           <label for="regime" class="form-text text-muted font-weight-bold">Régimen:</label>
           <nb-select [selected]="this.data.regime_id" formControlName="regime_id" id="regime_id" fullWidth
@@ -110,17 +120,24 @@
               {{ item.name }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-md-6" *ngIf="this.form.value.admission_route_id==1">
-          <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimientos del portafolio:</label>
-          <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth
-            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <div class="col-md-6" *ngIf="this.show_cats">
+          <label *ngIf="this.categories[0].payment_type == 1" for="category" class="form-text text-muted font-weight-bold">Cuota moderadora:</label>
+          <label *ngIf="this.categories[0].payment_type == 2" for="category" class="form-text text-muted font-weight-bold">Copago:</label>
+          <label *ngIf="this.categories[0].payment_type == 3
+          " for="category" class="form-text text-muted font-weight-bold">CUPS exento:</label>
+          <nb-select [selected]="this.data.category" formControlName="category" id="category" fullWidth
+            status="{{ isSubmitted && form.controls.category.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
-              [value]="item.manual_price.procedure.id">
-              {{ item.manual_price.procedure.name }} - {{ item.manual_price.name }}</nb-option>
+            <nb-option selected="{{ item.id == this.data.category }}" *ngFor="let item of categories" [value]="item.id">
+              {{ item.category }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="this.show_cats">
+          <label for="copay" class="form-text text-muted font-weight-bold">Valor:</label>
+          <input type="text" nbInput id="copay" formControlName="copay" copay
+            fullWidth>
+        </div>
+        <div class="col-md-6" *ngIf="this.form.value.scope_of_attention_id != 2">
           <label for="has_caregiver" class="form-text text-muted font-weight-bold">¿Tiene algún acompañante/responsable?
           </label>
           <nb-toggle formControlName="has_caregiver" has_caregiver (change)="showCaregiver()">
