@@ -5,7 +5,7 @@ import {ViewCell} from 'ng2-smart-table';
   template: `
     <div class="d-flex justify-content-center">
       <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
-        // <nb-icon icon="trash-2-outline"></nb-icon>
+        <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
     </div>
   `,
