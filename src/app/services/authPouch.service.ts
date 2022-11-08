@@ -8,6 +8,7 @@ import PouchDB from 'pouchdb-browser';
 export class DbPwaService {
   private user_db: any;
   public user:string;
+  public type:string;
 
   constructor() {
     this.user_db = new PouchDB('login_db');
@@ -28,19 +29,6 @@ export class DbPwaService {
 
   public update=(permission:any,user:any) =>{
 
-    // this.user_db.get(this.user, function (err, doc) {
-    //   if (err) { return console.log(err); }
-    //   this.user_db.put({
-    //     _id: this.user,
-    //     _rev: doc._rev,
-    //     // _doc_id_rev:doc._doc_id_rev,
-    //     permission: permission,
-    //   });
-      
-    
-    // })
-
-
     this.user_db.get(user, function(err, doc) {
       if (err) { return console.log(err); }
       let db = new PouchDB('login_db');
@@ -53,6 +41,16 @@ export class DbPwaService {
         }
         // handle response
       });
+    });
+  };
+
+
+  public saveSelects = (data:any,type:any) => {
+    this.type = type;
+    let db = new PouchDB(type);
+    db.put({
+      _id: this.type,
+      type:data,
     });
   };
 

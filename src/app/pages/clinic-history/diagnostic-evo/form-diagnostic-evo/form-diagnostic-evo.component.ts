@@ -5,6 +5,8 @@ import { ChDiagnosisTypeService } from '../../../../business-controller/ch-diagn
 import { ChDiagnosisClassService } from '../../../../business-controller/ch-diagnosis-class.service';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { ChDiagnosisService } from '../../../../business-controller/ch-diagnosis.service';
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
 
 
 @Component({
@@ -37,6 +39,7 @@ export class FormDiagnosticEvoComponent implements OnInit {
     private DiagnosisS: DiagnosisService,
     private diagnosisTypeS: ChDiagnosisTypeService,
     private diagnosisClassS: ChDiagnosisClassService,
+    private DbPounch: DbPwaService,
   ) {
   }
 
@@ -53,12 +56,40 @@ export class FormDiagnosticEvoComponent implements OnInit {
     // this.diagnosisS.GetCollection().then(x => {
     //   this.diagnosis = x;
     // });
+
+    if (!navigator.onLine) {
     this.diagnosisTypeS.GetCollection().then(x => {
       this.diagnosis_type = x;
+       this.DbPounch.saveSelects(this.diagnosis_type, 'diagnosis_type');
     });
     this.diagnosisClassS.GetCollection().then(x => {
       this.diagnosis_class = x;
+      this.DbPounch.saveSelects(this.diagnosis_class, 'diagnosis_class');
     });
+  } else {
+    if ('diagnosis_type'){
+      let dataTable = new PouchDB('diagnosis_type');
+      dataTable.get('diagnosis_type').then(x => {
+        this.diagnosis_type = x.type;
+        return Promise.resolve(true);
+      });
+    }
+    if ('diagnosis_class'){
+      let dataTable = new PouchDB('diagnosis_class');
+      dataTable.get('diagnosis_class').then(x => {
+        this.diagnosis_class = x.type;
+        return Promise.resolve(true);
+      });
+    }
+    if ('diag'){
+      let dataTable = new PouchDB('diag');
+      dataTable.get('diag').then(x => {
+        this.diagnosis = x.type;
+        return Promise.resolve(true);
+      });
+    }
+  }
+
 
     this.form = this.formBuilder.group({
       diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
@@ -72,6 +103,7 @@ export class FormDiagnosticEvoComponent implements OnInit {
 
   searchDiagnostic($event) {
     this.diagnosticConut++;
+
     if (this.diagnosticConut == 3) {
       this.diagnosticConut = 0;
       if ($event.length >= 3) {

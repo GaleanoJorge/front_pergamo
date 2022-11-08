@@ -8,6 +8,8 @@ import { ChRecordService } from '../../../../business-controller/ch_record.servi
 import { ChContingencyCodeService } from '../../../../business-controller/ch-contingency-code.service';
 import { ChTypeInabilityService } from '../../../../business-controller/ch-type-inability.service';
 import { ChTypeProcedureService } from '../../../../business-controller/ch-type-procedure.service';
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
 @Component({
   selector: 'ngx-form-ch-inability',
   templateUrl: './form-ch-inability.component.html',
@@ -31,8 +33,8 @@ export class FormChInabilityComponent implements OnInit {
   public ch_type_procedure_id: any[];
   public diagnosis_id;
   public diagnosis: any[];
-  public changes=false;
-  public changes1=false;
+  public changes = false;
+  public changes1 = false;
   public date;
 
 
@@ -46,11 +48,14 @@ export class FormChInabilityComponent implements OnInit {
     private ChContingencyCodeS: ChContingencyCodeService,
     private ChTypeInabilityS: ChTypeInabilityService,
     private ChTypeProcedureS: ChTypeProcedureService,
-  ) {}
+    private DbPounch: DbPwaService,
+  ) {
+
+  }
 
   async ngOnInit(): Promise<void> {
     this.record_id = this.route.snapshot.params.id;
-    
+
     if (!this.data || this.data.length == 0) {
       this.data = {
         ch_contingency_code_id: '',
@@ -64,20 +69,20 @@ export class FormChInabilityComponent implements OnInit {
         total_days: '',
       };
     }
-    
-   
+
+
 
     this.form = this.formBuilder.group({
       ch_contingency_code_id: [this.data[0] ? this.data[0].ch_contingency_code_id : this.data.ch_contingency_code_id, Validators.compose([Validators.required])],
       extension: [this.data[0] ? this.data[0].extension : this.data.extension,],
-      initial_date: [this.data[0] ? this.data[0].initial_date : this.data.initial_date,Validators.compose([Validators.required])],
-      final_date: [this.data[0] ? this.data[0].final_date : this.data.final_date,Validators.compose([Validators.required])],
+      initial_date: [this.data[0] ? this.data[0].initial_date : this.data.initial_date, Validators.compose([Validators.required])],
+      final_date: [this.data[0] ? this.data[0].final_date : this.data.final_date, Validators.compose([Validators.required])],
       diagnosis_id: [this.data[0] ? this.data[0].diagnosis_id : this.data.diagnosis_id,],
-      ch_type_inability_id: [this.data[0] ? this.data[0].ch_type_inability_id : this.data.ch_type_inability_id,Validators.compose([Validators.required])],
-      ch_type_procedure_id: [this.data[0] ? this.data[0].ch_type_procedure_id : this.data.ch_type_procedure_id,Validators.compose([Validators.required])],
-      observation: [this.data[0] ? this.data[0].observation : this.data.observation,Validators.compose([Validators.required])],
+      ch_type_inability_id: [this.data[0] ? this.data[0].ch_type_inability_id : this.data.ch_type_inability_id, Validators.compose([Validators.required])],
+      ch_type_procedure_id: [this.data[0] ? this.data[0].ch_type_procedure_id : this.data.ch_type_procedure_id, Validators.compose([Validators.required])],
+      observation: [this.data[0] ? this.data[0].observation : this.data.observation, Validators.compose([Validators.required])],
       total_days: [this.data[0] ? this.data[0].total_days : this.data.total_days,],
-      
+
 
     });
     this.chRecord.GetCollection(this.record_id).then((x) => {
@@ -87,15 +92,43 @@ export class FormChInabilityComponent implements OnInit {
     //   this.diagnosis= x;
     // });
 
-    this.ChContingencyCodeS.GetCollection().then((x) => {
-      this.ch_contingency_code_id = x;
-    });
-    this.ChTypeInabilityS.GetCollection().then((x) => {
-      this.ch_type_inability_id = x;
-    });
-    this.ChTypeProcedureS.GetCollection().then((x) => {
-      this.ch_type_procedure_id = x;
-    });
+    
+    if (!navigator.onLine) {
+      this.ChContingencyCodeS.GetCollection().then((x) => {
+        this.ch_contingency_code_id = x;
+        this.DbPounch.saveSelects(this.ch_contingency_code_id, 'ch_contingency_code_id');
+      });
+      this.ChTypeInabilityS.GetCollection().then((x) => {
+        this.ch_type_inability_id = x;
+        this.DbPounch.saveSelects(this.ch_type_inability_id, 'ch_type_inability_id');
+      });
+      this.ChTypeProcedureS.GetCollection().then((x) => {
+        this.ch_type_procedure_id = x;
+        this.DbPounch.saveSelects(this.ch_type_procedure_id, 'ch_type_procedure_id');
+      });
+
+    } else {
+      if ('ch_contingency_code_id') {
+      let dataTable = new PouchDB('ch_contingency_code_id');
+      dataTable.get('ch_contingency_code_id').then(x => {
+        this.ch_contingency_code_id = x.type;
+        return Promise.resolve(true);
+      });
+    } 
+     if ('ch_type_inability_id'){
+      let dataTable = new PouchDB('ch_type_inability_id');
+      dataTable.get('ch_type_inability_id').then(x => {
+        this.ch_type_inability_id = x.type;
+        return Promise.resolve(true);
+      });
+    } if ('ch_type_procedure_id') {
+      let dataTable = new PouchDB('ch_type_procedure_id');
+      dataTable.get('ch_type_procedure_id').then(x => {
+        this.ch_type_procedure_id = x.type;
+        return Promise.resolve(true);
+      });
+    }
+  }
 
     this.form.get('initial_date').valueChanges.subscribe(val => {
       this.calculateDays();
@@ -121,12 +154,14 @@ export class FormChInabilityComponent implements OnInit {
           search: $event,
         }).then(x => {
           this.diagnosis = x;
+          this.DbPounch.saveSelects(this.diagnosis, 'diagnosis');
         });
       } else {
         this.DiagnosisS.GetCollection({
           search: '',
         }).then(x => {
           this.diagnosis = x;
+          this.DbPounch.saveSelects(this.diagnosis, 'diagnosis');
         });
       }
     }
@@ -140,12 +175,12 @@ export class FormChInabilityComponent implements OnInit {
       var fechaInicio = date_start.split("-");
       var fechaFin = date_finish.split("-");
       var fechadesde = new Date(+fechaInicio[0], +fechaInicio[1], +fechaInicio[2]).getTime();
-      var fechahasta = new Date(+fechaFin[0], +fechaFin[1], +fechaFin[2]).getTime(); 
-      
-      var dias = ((fechahasta - fechadesde)/(1000 * 60 * 60 * 24))+1;
-  
-      this.form.patchValue({total_days: dias});
-      
+      var fechahasta = new Date(+fechaFin[0], +fechaFin[1], +fechaFin[2]).getTime();
+
+      var dias = ((fechahasta - fechadesde) / (1000 * 60 * 60 * 24)) + 1;
+
+      this.form.patchValue({ total_days: dias });
+
     }
   }
 
@@ -159,7 +194,7 @@ export class FormChInabilityComponent implements OnInit {
         await this.ChInabilityS.Update({
           id: this.data.id,
           ch_contingency_code_id: this.form.controls.ch_contingency_code_id.value,
-          extension: this.form.controls.extension.value ? 'Si': null,
+          extension: this.form.controls.extension.value ? 'Si' : null,
           initial_date: this.form.controls.initial_date.value,
           final_date: this.form.controls.final_date.value,
           diagnosis_id: this.diagnosis_id,
@@ -170,11 +205,11 @@ export class FormChInabilityComponent implements OnInit {
           type_record_id: 7,
           ch_record_id: this.record_id,
         }).then((x) => {
-            this.toastService.success('', x.message);
-            if (this.saved) {
-              this.saved();
-            }
-          })
+          this.toastService.success('', x.message);
+          if (this.saved) {
+            this.saved();
+          }
+        })
           .catch((x) => {
             this.isSubmitted = false;
             this.loading = false;
@@ -182,7 +217,7 @@ export class FormChInabilityComponent implements OnInit {
       } else {
         await this.ChInabilityS.Save({
           ch_contingency_code_id: this.form.controls.ch_contingency_code_id.value,
-          extension: this.form.controls.extension.value ? 'Si': null,
+          extension: this.form.controls.extension.value ? 'Si' : null,
           initial_date: this.form.controls.initial_date.value,
           final_date: this.form.controls.final_date.value,
           diagnosis_id: this.diagnosis_id,
@@ -192,7 +227,7 @@ export class FormChInabilityComponent implements OnInit {
           total_days: this.form.controls.total_days.value,
           type_record_id: 7,
           ch_record_id: this.record_id,
-        
+
         })
           .then((x) => {
             this.toastService.success('', x.message);
@@ -206,7 +241,7 @@ export class FormChInabilityComponent implements OnInit {
               ch_type_inability_id: '',
               ch_type_procedure_id: '',
               observation: '',
-              total_days:'',
+              total_days: '',
             });
             if (this.saved) {
               this.saved();
@@ -216,15 +251,15 @@ export class FormChInabilityComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
-          this.messageEvent.emit(true);
+        this.messageEvent.emit(true);
       }
     }
   }
 
-  returnCode(diagnosis_id){
+  returnCode(diagnosis_id) {
     var localName = this.diagnosis.find(item => item.id == diagnosis_id);
     var nombre_diagnosis
-    if(localName){
+    if (localName) {
       nombre_diagnosis = localName.name;
     } else {
       nombre_diagnosis = ''
@@ -243,23 +278,23 @@ export class FormChInabilityComponent implements OnInit {
       // this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
-  receiveMessage($event) {   
-    
-    if($event.isactive==false){
-      this.changes=false;
-      this.changes1=false;
+  receiveMessage($event) {
+
+    if ($event.isactive == false) {
+      this.changes = false;
+      this.changes1 = false;
     }
-    if($event.entity){
-    this.form.get($event.entity).setValue(this.form.get($event.entity).value+' '+$event.text);
+    if ($event.entity) {
+      this.form.get($event.entity).setValue(this.form.get($event.entity).value + ' ' + $event.text);
     }
   }
 
   changebuttom() {
-    this.changes=true;
+    this.changes = true;
   }
 
   changebuttom1() {
-    this.changes1=true;
+    this.changes1 = true;
   }
 
 

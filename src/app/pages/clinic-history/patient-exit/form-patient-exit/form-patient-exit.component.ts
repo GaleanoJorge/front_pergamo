@@ -10,8 +10,8 @@ import { AuthService } from '../../../../services/auth.service';
 import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { Location } from '@angular/common';
 import { AdmissionsService } from '../../../../business-controller/admissions.service';
-
-
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
 
 @Component({
   selector: 'ngx-form-patient-exit',
@@ -67,6 +67,7 @@ export class FormPatientExitComponent implements OnInit {
     private admissionS: AdmissionsService,
     private location: Location,
     private router: Router,
+    private DbPounch: DbPwaService,
 
   ) {
 
@@ -118,9 +119,28 @@ export class FormPatientExitComponent implements OnInit {
 
     this.onChanges();
 
-    this.ReasonExitS.GetCollection().then(y => {
-      this.reason_exit = y;
-    });
+    if (!navigator.onLine) {
+      this.ReasonExitS.GetCollection().then(y => {
+        this.reason_exit = y;
+        this.DbPounch.saveSelects(this.reason_exit, 'reason_exit');
+
+      });
+    } else {
+      if ('reason_exit') {
+        let dataTable = new PouchDB('reason_exit');
+        dataTable.get('reason_exit').then(x => {
+          this.reason_exit = x.type;
+          return Promise.resolve(true);
+        });
+      }
+      if ('diag') {
+        let dataTable = new PouchDB('diag');
+        dataTable.get('diag').then(x => {
+          this.diagnosis = x.type;
+          return Promise.resolve(true);
+        });
+      }
+    }
 
     // this.DiagnosisS.GetCollection().then(x => {
     //   this.diagnosis = x;
@@ -131,11 +151,8 @@ export class FormPatientExitComponent implements OnInit {
       has_input: true,
     }).then(x => {
       this.ch_diagnosis = x;
-      this.form.patchValue({ch_diagnosis_id: this.ch_diagnosis[0]['diagnosis']['name']})
+      this.form.patchValue({ ch_diagnosis_id: this.ch_diagnosis[0]['diagnosis']['name'] })
     });
-
-
-
 
   }
 
@@ -151,6 +168,7 @@ export class FormPatientExitComponent implements OnInit {
         }).then(x => {
           this.diagnosis = x;
         });
+
       } else {
         this.DiagnosisS.GetCollection({
           search: '',
@@ -265,10 +283,10 @@ export class FormPatientExitComponent implements OnInit {
           });
         this.messageEvent.emit(true);
       }
-    } else{
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
-    
+
   }
 
   onChanges() {

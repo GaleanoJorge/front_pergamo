@@ -11,6 +11,7 @@ import { SpeechEvent } from '../../../../models/speech-event';
 import { SpeechRecognizerService } from '../../../../business-controller/speech-recognizer.service';
 import { ActionContext } from '../../../../business-controller/action-context';
 import { SpeechNotification } from '../../../../models/speech-notification';
+import { DbPwaService } from '../../../../services/authPouch.service';
 
 
 
@@ -56,6 +57,7 @@ export class FormReasonConsultationComponent implements OnInit {
     private toastService: NbToastrService,
     private speechRecognizer: SpeechRecognizerService,
     private actionContext: ActionContext,
+    private DbPounch: DbPwaService,
 
 
   ) {
@@ -72,6 +74,7 @@ export class FormReasonConsultationComponent implements OnInit {
 
     this.chexternalcauseS.GetCollection({ status_id: 1 }).then(x => {
       this.ch_external_cause = x;
+      this.DbPounch.saveSelects(this.ch_external_cause,'ch_external_cause');
       this.findExternal();
     });
 

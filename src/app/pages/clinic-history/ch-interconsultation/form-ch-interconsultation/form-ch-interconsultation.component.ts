@@ -8,6 +8,9 @@ import { SpecialFieldService } from '../../../../business-controller/special-fie
 import { ChInterconsultationService } from '../../../../business-controller/ch-interconsultation.service';
 import { SpecialtyService } from '../../../../business-controller/specialty.service';
 import { FrequencyService } from '../../../../business-controller/frequency.service';
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
+
 
 @Component({
   selector: 'ngx-form-ch-interconsultation',
@@ -40,7 +43,8 @@ export class FormChInterconsultationComponent implements OnInit {
     private route: ActivatedRoute,
     private FrequencyS: FrequencyService,
     private SpecialtyS: SpecialtyService,
-    private ChInterconsultationS: ChInterconsultationService
+    private ChInterconsultationS: ChInterconsultationService,
+    private DbPounch: DbPwaService,
   ) {}
 
   ngOnInit(): void {
@@ -58,13 +62,32 @@ export class FormChInterconsultationComponent implements OnInit {
         observations: '',
       };
     };
-
+    
+    if (!navigator.onLine) {
     this.SpecialtyS.GetCollection().then(x => {
       this.specialty= x;
+      this.DbPounch.saveSelects(this.specialty, 'specialty');
     });
     this.FrequencyS.GetCollection().then(x => {
       this.frequency_id = x;
+      this.DbPounch.saveSelects(this.frequency_id, 'frequency_id');
     });
+  } else {
+    if ('specialty') {
+      let dataTable = new PouchDB('specialty');
+      dataTable.get('specialty').then(x => {
+        this.specialty = x.type;
+        return Promise.resolve(true);
+      });
+    } 
+    if ('frequency_id') {
+      let dataTable = new PouchDB('frequency_id');
+      dataTable.get('frequency_id').then(x => {
+        this.frequency_id = x.type;
+        return Promise.resolve(true);
+      });
+    } 
+  }
 
     this.form = this.formBuilder.group({
       specialty_id: [this.data[0] ? this.data[0].specialty_id : this.data.specialty_id,],

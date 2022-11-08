@@ -8,6 +8,9 @@ import { ProductService } from '../../../../business-controller/product.service'
 import { ChMedicalOrdersService } from '../../../../business-controller/ch-medical-orders.service';
 import { ProcedureService } from '../../../../business-controller/procedure.service';
 import { FrequencyService } from '../../../../business-controller/frequency.service';
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
+
 
 @Component({
   selector: 'ngx-form-ch-medical-orders',
@@ -40,6 +43,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
     private FrequencyS: FrequencyService,
     private ProductS: ProcedureService,
     private ChMedicalOrdersS: ChMedicalOrdersService,
+    private DbPounch: DbPwaService,
   ) { }
 
   ngOnInit(): void {
@@ -60,13 +64,32 @@ export class FormChMedicalOrdersComponent implements OnInit {
       };
     };
 
-    this.ProductS.GetCollection().then(x => {
-      this.procedure = x;
-    });
-    this.FrequencyS.GetCollection().then(x => {
-      this.frequency_id = x;
-    });
+    if (!navigator.onLine) {
+      this.ProductS.GetCollection().then(x => {
+        this.procedure = x;
+        this.DbPounch.saveSelects(this.procedure, 'procedure');
 
+      });
+      this.FrequencyS.GetCollection().then(x => {
+        this.frequency_id = x;
+        this.DbPounch.saveSelects(this.frequency_id, 'frequency_id');
+      });
+    } else {
+      if ('procedure') {
+        let dataTable = new PouchDB('procedure');
+        dataTable.get('procedure').then(x => {
+          this.procedure = x.type;
+          return Promise.resolve(true);
+        });
+      }
+      if ('frequency_id') {
+        let dataTable = new PouchDB('frequency_id');
+        dataTable.get('frequency_id').then(x => {
+          this.frequency_id = x.type;
+          return Promise.resolve(true);
+        });
+      }
+    }
     this.form = this.formBuilder.group({
       ambulatory_medical_order: [this.data.ambulatory_medical_order],
       procedure_id: [this.data.procedure_id],

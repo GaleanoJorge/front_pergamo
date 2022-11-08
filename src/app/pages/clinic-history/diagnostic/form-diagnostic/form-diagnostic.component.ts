@@ -5,6 +5,8 @@ import { ChDiagnosisTypeService } from '../../../../business-controller/ch-diagn
 import { ChDiagnosisClassService } from '../../../../business-controller/ch-diagnosis-class.service';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { ChDiagnosisService } from '../../../../business-controller/ch-diagnosis.service';
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
 
 
 @Component({
@@ -26,6 +28,7 @@ export class FormDiagnosticComponent implements OnInit {
   public showTable;
   public diagnosis_id;
   public diagnosis: any[];
+  public diag: any[];
   public diagnosis_type: any[];
   public diagnosis_class: any[];
 
@@ -37,6 +40,8 @@ export class FormDiagnosticComponent implements OnInit {
     private DiagnosisS: DiagnosisService,
     private diagnosisTypeS: ChDiagnosisTypeService,
     private diagnosisClassS: ChDiagnosisClassService,
+    private DbPounch: DbPwaService,
+
   ) {
   }
 
@@ -50,15 +55,50 @@ export class FormDiagnosticComponent implements OnInit {
       };
     };
 
-    // this.diagnosisS.GetCollection().then(x => {
-    //   this.diagnosis = x;
-    // });
+    if (!navigator.onLine) {
+
+    this.DiagnosisS.GetCollection({all:1}).then(x => {
+      this.diag = x;
+    this.DbPounch.saveSelects(this.diag, 'diag');
+    });
+    
     this.diagnosisTypeS.GetCollection().then(x => {
       this.diagnosis_type = x;
+      this.DbPounch.saveSelects(this.diagnosis_type, 'diagnosis_type');
+
     });
     this.diagnosisClassS.GetCollection().then(x => {
       this.diagnosis_class = x;
+      this.DbPounch.saveSelects(this.diagnosis_class, 'diagnosis_class');
+
     });
+  }else{
+    if ('diag'){
+      let dataTable = new PouchDB('diag');
+      dataTable.get('diag').then(x => {
+        this.diag = x.type;
+        return Promise.resolve(true);
+      });
+
+    }
+    if ('diagnosis_type'){
+      let dataTable = new PouchDB('diagnosis_type');
+      dataTable.get('diagnosis_type').then(x => {
+        this.diagnosis_type = x.type;
+        return Promise.resolve(true);
+      });
+
+    }
+    if ('diagnosis_class'){
+      let dataTable = new PouchDB('diagnosis_class');
+      dataTable.get('diagnosis_class').then(x => {
+        this.diagnosis_class = x.type;
+        return Promise.resolve(true);
+      });
+
+    }
+    
+  }
 
     this.form = this.formBuilder.group({
       diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
@@ -85,6 +125,7 @@ export class FormDiagnosticComponent implements OnInit {
           search: '',
         }).then(x => {
           this.diagnosis = x;
+
         });
       }
     }
@@ -130,6 +171,7 @@ export class FormDiagnosticComponent implements OnInit {
           if (this.saved) {
             this.saved();
           }
+          
         }).catch(x => {
             this.isSubmitted = false;
             this.loading = false;
@@ -153,4 +195,6 @@ export class FormDiagnosticComponent implements OnInit {
       this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
+
+  
 }
