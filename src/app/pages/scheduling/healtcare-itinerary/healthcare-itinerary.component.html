@@ -1,0 +1,323 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+
+    <!-- <div>
+      <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="all_patients?pagination=true"
+        customData='patients' [messageToltip]="messageToltip">
+        <div actions>
+          <div class="actions">
+            <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPatient()">Crear</button>
+          </div>
+        </div>
+      </ngx-base-table>
+    </div> -->
+
+    <nb-tabset fullWidth class="tabset" (changeTab)="tablock($event)">
+
+      <nb-tab tabTitle="AGENDAMIENTOS">
+        <div *ngIf="this.show == 1">
+          <form style="margin-bottom: 15px;" [formGroup]="form">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="campus_id" class="form-text text-muted font-weight-bold">Sede:</label>
+                <nb-select formControlName="campus_id" id="campus_id" fullWidth placeholder="Seleccione..."
+                  status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option>Seleccione...</nb-option>
+                  <nb-option *ngFor="let item of campus" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+              </div>
+
+              <div class="col-md-4">
+              </div>
+
+              <div class="col-md-4">
+              </div>
+
+              <div class="col-md-4">
+                <label for="status_id" class="form-text text-muted font-weight-bold">Estado:</label>
+                <nb-select formControlName="status_id" id="status_id" fullWidth placeholder="TODOS LOS REGISTROS"
+                  status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option>Seleccione...</nb-option>
+                  <nb-option value="1">LIBRES</nb-option>
+                  <nb-option value="2">RESERVADAS</nb-option>
+                  <nb-option value="3">CONFIRMADAS</nb-option>
+                  <nb-option value="4">FACTURADAS</nb-option>
+                </nb-select>
+              </div>
+
+              <div class="col-md-12">
+                <label for="start_date" class="form-text text-muted font-weight-bold">Desde:</label>
+                <input class="inputdate" [max]="today" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
+                  formControlName="start_date" start_date />
+              </div>
+              <div class="col-md-4">
+                <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta:</label>
+                <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth
+                  id="finish_date" formControlName="finish_date" finish_date />
+              </div>
+              <div class="col-md-6">
+                <label for="procedure_id" class="form-text text-muted font-weight-bold">Código Cups:</label>
+                <input fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
+                  status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  [nbAutocomplete]="autoControl" />
+
+                <nb-autocomplete #autoControl (selectedChange)="onSelectionChange($event, 1)">
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option *ngFor="let item of filteredProcedureOptions$ | async" [value]="item.name">
+                    {{ item.code }} - {{item.equivalent}} - {{item.name}}
+                  </nb-option>
+
+                </nb-autocomplete>
+              </div>
+              <div class="col-md-6">
+                <label for="assistance_id" class="form-text text-muted font-weight-bold">Assistencial:</label>
+                <input fullWidth formControlName="assistance_id" nbInput type="text"
+                  placeholder="Selecciona asistencial"
+                  status="{{ isSubmitted && form.controls.assistance_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  [nbAutocomplete]="profControl" />
+
+                <nb-autocomplete #profControl (selectedChange)="onSelectionChange($event, 2)">
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option *ngFor="let item of filteredAssistanceOptions$ | async" [value]="item.nombre_completo">
+                    {{ item.nombre_completo }} - {{item.assistance.user.identification}}
+                  </nb-option>
+
+                </nb-autocomplete>
+              </div>
+            </div>
+          </form>
+
+          <div *ngIf="eventSettings">
+            <ejs-schedule width='100%' height='700px' #scheduleObj [showHeaderBar]="true" [selectedDate]="schedulerDate"
+              (actionComplete)='onActionComplete($event)' [timeScale]="timeScale" (popupOpen)='onPopupOpen($event)'
+              (eventRendered)="onEventRendered($event)" [currentView]="currentView" [eventSettings]="eventSettings"
+              [rowAutoHeight]="rowAutoHeight" [showQuickInfo]="false" (cellDoubleClick)='onCellDoubleClick($event)'>
+
+              <e-views>
+                <e-view option="Day"></e-view>
+                <e-view option="Week"></e-view>
+                <e-view option="Month"></e-view>
+                <e-view option="Agenda"></e-view>
+                <e-view option="Month agenda"></e-view>
+              </e-views>
+
+              <!-- <e-views>
+                <e-view option="Day"></e-view>
+                <e-view option="Week"></e-view>
+                <e-view option="Month"></e-view>
+                <e-view option="Month"></e-view>
+                <e-view option="Agenda"></e-view>
+              </e-views> -->
+
+              <!-- <e-resources>
+                <e-resource field="crews" title="Crew" [dataSource]="crews" [allowMultiple]="true"  name="Crews" textField="name"
+                  idField="id">
+                </e-resource>
+              </e-resources> -->
+              <!-- <ejs-schedule #scheduleObj width='100%' height='550px' [selectedDate]="selectedDate"
+                [eventSettings]="eventSettings" [showQuickInfo]="showQuickInfo" (cellClick)="onCellClick($event)"
+                (eventClick)="onEventClick($event)">
+                <e-views>
+                  <e-view option="Week"></e-view>
+                  <e-view option="WorkWeek"></e-view>
+                  <e-view option="Month"></e-view>
+                  <e-view option="Day"></e-view>
+                </e-views>
+              </ejs-schedule> -->
+
+              <!-- <ng-template #editorTemplate let-data>
+                <div class="container-fluid">
+                  <nb-card>
+                    <nb-card-header>Agendar paciente</nb-card-header>
+                    <nb-card-body>
+                      <form [formGroup]="ResponseConciliationsForm" (ngSubmit)="saveGroup()">
+                        <div>
+                          <div class="col-md-12">
+                            <label for="justification_status" class="form-text text-muted font-weight-bold">Motivo de la
+                              glosa:</label>
+                            <nb-select fullWidth placeholder="Seleccione..." formControlName="justification_status">
+                              <nb-option value="">Seleccione...</nb-option>
+                              <nb-option value="0">JUSTIFICADA</nb-option>
+                              <nb-option value="1">INJUSTIFICADA</nb-option>
+                            </nb-select>
+                          </div>
+                          <div class="col-md-12">
+                            <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
+                            <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth id="response"
+                              formControlName="response" response
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                          </div>
+                          <div class="col-md-12">
+                            <label for="accepted_value" class="form-text text-muted font-weight-bold">Valor aceptado:</label>
+                            <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth id="accepted_value"
+                              formControlName="accepted_value" accepted_value
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.accepted_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                          </div>
+                          <div class="col-md-12">
+                            <label for="value_not_accepted" class="form-text text-muted font-weight-bold">Valor No aceptado:</label>
+                            <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth
+                              id="value_not_accepted" formControlName="value_not_accepted" value_not_accepted
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.value_not_accepted.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                          </div>
+                          <div class="col-md-12">
+                            <label for="objetion_code_response" class="form-text text-muted font-weight-bold">Descripción
+                              Respuesta:</label>
+                            <nb-select fullWidth placeholder="Seleccione..." formControlName="objetion_code_response_id">
+                              <nb-option value="">Seleccione...</nb-option>
+                              <nb-option *ngFor="let item of objetion_code_response" [value]="item.id">{{ item.code }} - {{ item.name
+                                }}
+                              </nb-option>
+                            </nb-select>
+                          </div>
+                          <div class="col-md-12">
+                            <label for="objetion_response" class="form-text text-muted font-weight-bold">Tipo de objeción:</label>
+                            <nb-select fullWidth placeholder="Seleccione..." formControlName="objetion_response_id">
+                              <nb-option value="">Seleccione...</nb-option>
+                              <nb-option *ngFor="let item of objetion_response" [value]="item.id">{{ item.name }}
+                              </nb-option>
+                            </nb-select>
+                          </div>
+                          <div class="col-md-12">
+                            <label for="file" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
+                            <input oninput="this.value = this.value.toUpperCase()" minlength="3" nbInput fullWidth id="file"
+                              formControlName="file" file
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.file.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                          </div>
+                         <div class="file-select-evicencias" id="src-file1">
+                            <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
+                              (change)="changeFile($event,2)" />
+                          </div> 
+                        </div>
+                      </form>
+                      <div class="div-send">
+                        <button type="button" class="e-event-cancel" nbButton status="success">Agregar</button>
+                      </div>
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </ng-template> -->
+
+              <style>
+                .schedule-cell-dimension.e-schedule .e-vertical-view .e-date-header-wrap table col,
+                .schedule-cell-dimension.e-schedule .e-vertical-view .e-content-wrap table col {
+                  width: 200px;
+                }
+
+                .schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td,
+                .schedule-cell-dimension.e-schedule .e-vertical-view .e-work-cells {
+                  height: 100px;
+                }
+
+                .schedule-cell-dimension.e-schedule .e-month-view .e-work-cells,
+                .schedule-cell-dimension.e-schedule .e-month-view .e-date-header-wrap table col {
+                  width: 200px;
+                }
+
+                .schedule-cell-dimension.e-schedule .e-month-view .e-work-cells {
+                  height: 200px;
+                }
+
+                .schedule-cell-dimension.e-schedule .e-timeline-month-view .e-content-wrap table col,
+                .schedule-cell-dimension.e-schedule .e-timeline-view .e-content-wrap table col {
+                  width: 100px;
+                }
+
+                .schedule-cell-dimension.e-schedule .e-timeline-view .e-work-cells,
+                .schedule-cell-dimension.e-schedule .e-timeline-month-view .e-work-cells {
+                  height: 600px;
+                }
+
+                .e-schedule .e-vertical-view .e-content-wrap .e-appointment,
+                .e-schedule .e-timeline-view .e-content-wrap .e-appointment {
+                  border-radius: 8px;
+                }
+
+                .e-schedule .e-vertical-view .e-content-wrap .e-appointment .e-appointment-details {
+                  padding: 0;
+                  height: 100%;
+                }
+
+                .e-schedule .template-wrap {
+                  height: 100%;
+                  white-space: normal;
+                }
+
+                .e-schedule .template-wrap .image {
+                  padding: 8px 0 4px;
+                }
+
+                .e-schedule .template-wrap .image img {
+                  height: 100%;
+                  width: 100%;
+                  padding: 10px 25%;
+                }
+
+                .e-schedule .template-wrap .subject {
+                  font-weight: 600;
+                  font-size: 15px;
+                  padding: 4px 4px 4px;
+                  height: 25px;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  overflow: hidden;
+                }
+
+                .e-schedule .template-wrap .time {
+                  height: 50px;
+                }
+
+                .e-schedule .template-wrap .time,
+                .e-schedule .template-wrap .description {
+                  font-size: 12px;
+                  padding: 4px 6px 4px;
+                  overflow: hidden;
+                }
+
+                .e-schedule .template-wrap .footer {
+                  position: absolute;
+                  bottom: 0;
+                  height: 50px;
+                  width: 100%;
+                }
+
+                .e-schedule .e-timeline-view .e-appointment .e-appointment-details {
+                  padding: 0;
+                  height: 100%;
+                  width: 100%;
+                }
+
+                .e-schedule .e-timeline-view .template-wrap {
+                  width: 100%;
+                }
+
+                .e-schedule .e-timeline-view .template-wrap .subject {
+                  font-size: 16px;
+                  height: 36px;
+                  text-align: center;
+                }
+              </style>
+
+            </ejs-schedule>
+          </div>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="FACTURACIÓN">
+        <div *ngIf="this.show == 2">
+          <ngx-scheduling-table>
+          </ngx-scheduling-table>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="ADMITIDOS">
+        <div *ngIf="this.show == 3">
+          <ngx-admissions-list>
+          </ngx-admissions-list>
+        </div>
+      </nb-tab>
+
+    </nb-tabset>
+
+
+  </div>
+</ngx-base-list>
