@@ -120,7 +120,7 @@ export class MedicalDiaryComponent implements OnInit {
     this.dialogFormService.open(CupsPackageComponent, {
       context: {
         title: 'Editar agenda',
-        data,
+        data: data,
         saved: this.RefreshData.bind(this),
       },
     });
