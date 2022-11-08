@@ -5,7 +5,7 @@ import { FormCopayCategoryComponent } from './form-copay_category/form-copay_cat
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActionsComponent } from '../../setting/sectional-council/actions.component';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, PercentPipe} from '@angular/common';
 import { StatusFieldComponent } from './status-field.component';
 import { CopayParametersService } from '../../../business-controller/copay-parameters.service';
 import { FormConfirmDisabledComponent } from './form-confirm-disabled/form-confirm-disabled.component';
@@ -22,7 +22,7 @@ export class CopayCategoryComponent implements OnInit {
   public subtitle: string = 'Gestión';
   public headerFields: any[] = [
     'ID',
-    'Tipo de contrato',
+    'Tipo',
     'Categoria',
     'Valor',
     'Estado',
@@ -53,11 +53,11 @@ export class CopayCategoryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      type_contract: {
+      payment_type: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          return value == 1 ? 'COUTA MODERADORA' : value == 2 ? 'COPAGO' : value == 3 ? 'EXENTO' : '--';
         },
       },
       category: {
@@ -68,7 +68,7 @@ export class CopayCategoryComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.currency.transform(value);
+          return row.payment_type == 2 ? this.percent.transform(value) : this.currency.transform(value);
         },
       },
       status_id: {
@@ -93,10 +93,12 @@ export class CopayCategoryComponent implements OnInit {
     },
   ];
 
+
   constructor(
     private NonWorkingDaysS: NonWorkingDaysService,
     private toastrService: NbToastrService,
     private currency: CurrencyPipe,
+    private percent: PercentPipe,
     private dialogFormService: NbDialogService,
     private CopayParametersS: CopayParametersService,
     private deleteConfirmService: NbDialogService
@@ -138,7 +140,7 @@ export class CopayCategoryComponent implements OnInit {
   }
 
   DeleteTypeProfessional(data) {
-    return this.NonWorkingDaysS.Delete(data.id)
+    return this.CopayParametersS.Delete(data.id)
       .then((x) => {
         this.table.refresh();
         return Promise.resolve(x.message);
