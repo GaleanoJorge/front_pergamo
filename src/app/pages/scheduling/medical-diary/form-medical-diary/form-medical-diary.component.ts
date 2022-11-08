@@ -293,7 +293,7 @@ export class FormMedicalDiaryComponent implements OnInit {
       this.procedure_id = null;
       this.toastService.warning(
         '',
-        'Debe seleccionar un item de la lista'
+        'Debe seleccionar un procedimiento de la lista'
       );
       this.form.controls.procedure_id.setErrors({ incorrect: true });
     }
