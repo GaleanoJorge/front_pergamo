@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, PercentPipe } from '@angular/common';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {
   NbAccordionModule,
@@ -40,6 +40,25 @@ import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 import { ActionsDaysComponent } from './non-working-days/actions.component';
 import { CupsCheckComponent } from './medical-diary/cups-package/cups-check.component';
 import { CupsPackageComponent } from './medical-diary/cups-package/cups-package.component';
+import { FormHealthcareItineraryComponent } from './healtcare-itinerary/form-healtcare-itinerary/form-healthcare-itinerary.component';
+import { HealthcareItineraryComponent } from './healtcare-itinerary/healthcare-itinerary.component';
+import { PatientTableComponent } from './healtcare-itinerary/patient-table/patient-table.component';
+import { PatientCheckComponent } from './healtcare-itinerary/patient-check.component';
+import { FormPatientComponent } from './healtcare-itinerary/form-patient/form-patient.component';
+import { FormHealthcareItineraryAgendantComponent } from './healtcare-itinerary/form-healtcare-itinerary-agendant/form-healtcare-itinerary-agendant.component';
+import { CopayCategoryComponent } from './copay_category/copay-category.component';
+import { FormCopayCategoryComponent } from './copay_category/form-copay_category/form-copay_category.component';
+import { StatusFieldComponent } from './copay_category/status-field.component';
+import { FormConfirmDisabledComponent } from './copay_category/form-confirm-disabled/form-confirm-disabled.component';
+import { SchedulingTableComponent } from './healtcare-itinerary/scheduling-table/scheduling-table.component';
+import { ActionsSchedulingComponent } from './healtcare-itinerary/scheduling-table/actions-scheduling.component';
+import { EditPatientComponent } from './edit-patient/edit-patient.component';
+import { AssistencialViewComponent } from './assistencial-view/assistencial-view.component';
+import { FormAssistencialViewComponent } from './assistencial-view/form-assistencial-view/form-assistencial-view.component';
+import { actionsSemaphore } from './assistencial-view/actionsSemaphore.component';
+import { ActionsAssistencialComponent } from './assistencial-view/actions-assistencial.component';
+import { ReasonCancelComponent } from './reason-cancel/reason-cancel.component';
+import { FormReasonCancelComponent } from './reason-cancel/form-reason-cancel/form-reason-cancel.component';
 
 
 
@@ -75,24 +94,50 @@ import { CupsPackageComponent } from './medical-diary/cups-package/cups-package.
     ScheduleModule,
   ],
   declarations: [
+
+    ReasonCancelComponent,
+    FormReasonCancelComponent,
+
+    AssistencialViewComponent,
+    FormAssistencialViewComponent,
+    actionsSemaphore,
+    ActionsAssistencialComponent,
+
+    EditPatientComponent,
+    ActionsSchedulingComponent,
+    SchedulingTableComponent,
+    StatusFieldComponent,
+    FormConfirmDisabledComponent,
+    CopayCategoryComponent,
+    FormCopayCategoryComponent,
+
+    FormHealthcareItineraryAgendantComponent,
+
+    PatientTableComponent,
+    PatientCheckComponent,
+
+    FormHealthcareItineraryComponent,
+    HealthcareItineraryComponent,
+    
     CupsPackageComponent,
     CupsCheckComponent,
-
+    
     TelemedicineListComponent,
     FormTelemedicineComponent,
-
+    
     ActionsDaysComponent,
     NonWorkingDaysComponent,
     FormNonWorkingDaysComponent,
-
+    
     MedicalDiaryComponent,
     ActionsMedicalDiaryComponent,
-
+    
     MedicalComponent,
     ActionsMedicalComponent,
-
+    
     FormMedicalDiaryComponent,
-
+    FormPatientComponent,
+    
     SchedulingComponent,
   ],
   exports: [
@@ -101,6 +146,7 @@ import { CupsPackageComponent } from './medical-diary/cups-package/cups-package.
   providers: [
     DateFormatPipe,
     CurrencyPipe,
+    PercentPipe
   ],
 })
 export class SchedulingModule {
