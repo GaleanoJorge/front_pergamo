@@ -63,23 +63,25 @@ export class FormulationComponent implements OnInit {
         valuePrepareFunction: (value) => {
           return this.datePipe.transform2(value);
         },
-	  },
+      },
 
-      product_id: {
+      product_generic_id: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if(value){
+          if (value) {
             return row.product_generic.description;
-
-          }else{
+          } else {
             return 'No aplica'
           }
         },
 
+      },
       dose: {
         title: this.headerFields[2],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          return value + ' ' + (row.product_generic.multidose_concentration ? row.product_generic.multidose_concentration.name : row.product_generic.measurement_units.code);
         },
       },
       administration_route: {
@@ -94,7 +96,7 @@ export class FormulationComponent implements OnInit {
         title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return 'CADA ' +value.value + '-' + row.hourly_frequency.name;
+          return 'CADA ' + value.value + ' ' + row.hourly_frequency.name;
         },
       },
       treatment_days: {

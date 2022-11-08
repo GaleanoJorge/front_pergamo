@@ -89,7 +89,6 @@ export class FormSystemExamComponent implements OnInit {
     });
 
     await this.SystemExamS.ByRecord(this.record_id, this.type_record_id).then(x => {
-      x;
       if (x.length > 0) {
         this.data = x
         this.disabled = true
