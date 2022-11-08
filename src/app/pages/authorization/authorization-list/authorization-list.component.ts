@@ -134,10 +134,6 @@ export class AuthorizationListComponent implements OnInit {
 
   public settings = {
     selectMode: 'multi',
-    pager: {
-      display: true,
-      perPage: 30,
-    },
     columns: {
       semaphore: {
         title: '',
