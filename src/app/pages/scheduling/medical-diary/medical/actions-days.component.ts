@@ -23,8 +23,11 @@ export class ActionsDaysComponent implements ViewCell {
         if (element.medical_diary_id==this.rowData.id)
         arrdta.push(element.days.name);
       });
-      if(arrdta.length!=0){
-        this.days = arrdta.join();
+      let result2 = arrdta.filter((item, index) => {
+        return arrdta.indexOf(item) === index;
+      })
+      if(result2.length!=0){
+        this.days = result2.join();
       }else{
         this.days = 'Sin días';
       }
