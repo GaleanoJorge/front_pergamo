@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="save()">
+<form [formGroup]="form">
   <nb-card style="width: 100%;height: 600px;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
@@ -165,7 +165,7 @@
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
       <button nbButton (click)="close()" type="button">Cancelar</button>
-      <button *ngIf="showUser!=false" nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+      <button *ngIf="showUser!=false" nbButton  (click)="save()" status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
       <button *ngIf="showUser==false" nbButton status="danger" class="ml-1" disabled="{{ loading }}">Solicitar personal
         a Recursos Humanos y guardar</button>
     </nb-card-footer>

@@ -192,6 +192,13 @@ export class AuthorizationListComponent implements OnInit {
         title: this.headerFields[11],
         type: 'string',
       },
+      'patient_type': {
+        title: 'Tipo de paciente',
+        type: 'string',
+        valuePrepareFunction(value, row) {
+            return row?.admissions.location.at(-1).scope_of_attention.name ? row?.admissions.location.at(-1).scope_of_attention.name : 'N/A' 
+        },
+      },
       services_briefcase: {
         title: this.headerFields[2],
         type: 'string',
