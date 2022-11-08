@@ -17,6 +17,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ProcedureService } from '../../../../business-controller/procedure.service';
+import { FlatService } from '../../../../business-controller/flat.service';
 
 @Component({
   selector: 'ngx-form-medical-diary',
@@ -39,11 +40,19 @@ export class FormMedicalDiaryComponent implements OnInit {
   public status_bed: any[];
   public days: any[] = [];
   public assistance_user: any[] = [];
+  public flats: any[] = [];
   public offices: any[] = [];
   public procedure: any[] = [];
   public procedure_id: any = null;
   public filteredControlOptions$: Observable<string[]>;
   public inputFormControl: FormControl;
+  public campus_id: number;
+  public pavilions: any[] = [];
+  public min: any = new Date();
+  public max: any;
+  public min_time: any;
+  public min_time_1: any;
+  public max_time: any;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -55,6 +64,7 @@ export class FormMedicalDiaryComponent implements OnInit {
     private userBS: UserBusinessService,
     private bedS: BedService,
     private AuthS: AuthService,
+    private flatS: FlatService,
     private procedureS: ProcedureService
   ) {}
 
@@ -64,21 +74,32 @@ export class FormMedicalDiaryComponent implements OnInit {
         days_id: [],
         office_id: '',
         procedure_id: '',
-        start_date: '',
-        finish_date: '',
-        start_time: '',
-        finish_time: '',
+        start_date: null,
+        finish_date: null,
+        start_time: null,
+        finish_time: null,
         interval: '',
         telemedicine: null,
         patients: null,
-        patient_quantity: ''
+        patient_quantity: null,
       };
     }
 
+    this.min = new Date();
+    this.min = this.min.toISOString().split('T')[0];
+
     this.form = this.formBuilder.group({
-      office_id: [this.data.office_id],
-      days_id: [[this.data.days_id]],
-      procedure_id: [[this.data.procedure_id]],
+      days_id: [[this.data.days_id], Validators.compose([Validators.required])],
+      flat_id: [this.data.flat_id, Validators.compose([Validators.required])],
+      pavilion_id: [
+        this.data.pavilion_id,
+        Validators.compose([Validators.required]),
+      ],
+      office_id: [
+        this.data.office_id,
+        Validators.compose([Validators.required]),
+      ],
+      procedure_id: [null, Validators.compose([Validators.required])],
       start_date: [
         this.data.start_date,
         Validators.compose([Validators.required]),
@@ -108,48 +129,173 @@ export class FormMedicalDiaryComponent implements OnInit {
       this.days = x;
     });
 
-    this.bedS
-      .GetOfficeBycampus({
-        status_bed_id: 1,
-        campus_id: +localStorage.getItem('campus'),
-      })
-      .then((x) => {
-        this.offices = x;
-      });
+    // this.campus_id = localStorage.getItem('campus');
+    this.flatS.GetFlatByCampus(+localStorage.getItem('campus')).then((x) => {
+      this.flats = x;
+    });
 
-    this.procedureS.GetCollection({ assistance_id: this.assistance_id }).then((x) => {
+    // this.bedS
+    //   .GetOfficeBycampus({
+    //     status_bed_id: 1,
+    //     campus_id: +localStorage.getItem('campus'),
+    //     assistance_id: this.assistance_id,
+    //   })
+    //   .then((x) => {
+    //     this.offices = x;
+    //   });
+
+    this.procedureS
+      .GetCollection({ assistance_id: this.assistance_id })
+      .then((x) => {
         this.procedure = x;
         this.filteredControlOptions$ = of(this.procedure);
-        this.onChanges();
+        this.onFilter();
       });
 
-    this.inputFormControl = new FormControl();
+    // this.inputFormControl = new FormControl();
+    this.onChanges();
   }
 
   private filter(value: string): string[] {
     const filterValue = value.toUpperCase();
-    return this.procedure.filter(optionValue =>
-      optionValue.code.includes(filterValue) || optionValue.equivalent.includes(filterValue) || optionValue.name.includes(filterValue)
+    return this.procedure.filter(
+      (optionValue) =>
+        optionValue.code.includes(filterValue) ||
+        optionValue.equivalent.includes(filterValue) ||
+        optionValue.name.includes(filterValue)
     );
   }
 
+  onFilter() {
+    this.filteredControlOptions$ = this.form
+      .get('procedure_id')
+      .valueChanges.pipe(
+        startWith(''),
+        map((filterString) => this.filter(filterString))
+      );
+  }
+
   onChanges() {
-    this.filteredControlOptions$ = this.inputFormControl.valueChanges.pipe(
-      startWith(''),
-      map((filterString) => this.filter(filterString))
-    );
+    this.form.get('patients').valueChanges.subscribe((val) => {
+      if (val) {
+        this.form.controls.patient_quantity.setValidators(
+          Validators.compose([Validators.required])
+        );
+      } else {
+        this.form.controls.patient_quantity.clearValidators();
+        this.form.controls.patient_quantity.setErrors(null);
+      }
+    });
+
+    this.form.get('start_date').valueChanges.subscribe((val) => {
+      if (val === '') {
+        this.min = new Date();
+        this.min = this.min.toISOString().split('T')[0];
+      } else {
+        // this.min = new Date(val);
+        // this.min = this.min.toISOString().split('T')[0];
+      }
+    });
+
+    this.form.get('finish_date').valueChanges.subscribe((val) => {
+      if (val != '') {
+        // this.pavilions = [];
+        this.max = new Date(val);
+        this.max = this.max.toISOString().split('T')[0];
+      } else {
+        // this.max = new Date(val);
+      }
+    });
+
+    this.form.get('start_time').valueChanges.subscribe((val) => {
+      if (val != '') {
+        this.min_time = val;
+      } else {
+        // this.min_time = new Date(this.min.toISOString().substring(0, 10) + val);
+      }
+    });
+
+    this.form.get('finish_time').valueChanges.subscribe((val) => {
+      if (val !== '') {
+        // this.pavilions = [];
+        this.min_time_1 = new Date(this.min+'T'+this.min_time).getTime();
+        this.max_time = new Date(this.min+'T'+val).getTime();
+        if(this.max_time <= this.min_time_1){
+          this.form.controls.finish_time.setErrors({'incorrect': true });
+        }else{
+          this.form.controls.finish_time.setErrors(null);
+        }
+      } else {
+        // this.max_time = new Date(this.min.toISOString().substring(0, 10) + val);
+        // if( this.max_time.getTime() > this.min_time.getTime()){
+        // }else {
+        //   this.form.controls.finish_hour.setErrors({incorrect: true});
+        //   this.toastService.warning('','Horas invalidas');
+        // }
+      }
+    });
+
+    this.form.get('flat_id').valueChanges.subscribe((val) => {
+      if (val === '') {
+        this.pavilions = [];
+      } else {
+        this.GetPavilion(val).then();
+      }
+      this.form.patchValue({
+        pavilion_id: '',
+      });
+    });
+
+    this.form.get('pavilion_id').valueChanges.subscribe((val) => {
+      if (val === '') {
+        this.offices = [];
+      } else {
+        this.GetOffice(val).then();
+      }
+      this.form.patchValue({
+        office_id: '',
+      });
+    });
+  }
+
+  GetPavilion(flat_id, job = false) {
+    if (!flat_id || flat_id === '') return Promise.resolve(false);
+
+    return this.PavilionS.GetPavilionByFlat(flat_id).then((x) => {
+      this.pavilions = x;
+
+      return Promise.resolve(true);
+    });
+  }
+
+  GetOffice(pavilion_id) {
+    if (!pavilion_id || pavilion_id === '') return Promise.resolve(false);
+    return this.bedS
+      .GetOfficeByPavilion({
+        status_bed_id: 1,
+        pavilion_id: pavilion_id,
+        assistance_id: this.assistance_id,
+      })
+      .then((x) => {
+        this.offices = x;
+
+        return Promise.resolve(true);
+      });
   }
 
   onSelectionChange($event) {
     // console.log($event)
-    var localidentify = this.procedure.find(item => item.name == $event);
+    var localidentify = this.procedure.find((item) => item.name == $event);
 
     if (localidentify) {
       this.procedure_id = localidentify.id;
     } else {
       this.procedure_id = null;
-      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
-      this.form.controls.procedure_id.setErrors({ 'incorrect': true });
+      this.toastService.warning(
+        '',
+        'Debe seleccionar un item de la lista'
+      );
+      this.form.controls.procedure_id.setErrors({ incorrect: true });
     }
   }
 
@@ -167,8 +313,9 @@ export class FormMedicalDiaryComponent implements OnInit {
         this.MedicalDiaryS.Update({
           id: this.data.id,
           assistance_id: this.assistance_id,
+          weekdays: this.form.controls.days_id.value,
           office_id: this.form.controls.office_id.value,
-          weekdays: JSON.stringify(this.form.controls.days_id.value),
+          procedure_id: this.procedure_id,
           start_date: this.form.controls.start_date.value,
           finish_date: this.form.controls.finish_date.value,
           start_time: this.form.controls.start_time.value,
@@ -191,8 +338,12 @@ export class FormMedicalDiaryComponent implements OnInit {
       } else {
         this.MedicalDiaryS.Save({
           assistance_id: this.assistance_id,
-          office_id: this.form.controls.office_id.value,
           weekdays: this.form.controls.days_id.value,
+          campus_id: +localStorage.getItem('campus'),
+          flat_id: this.form.controls.flat_id.value,
+          pavilion_id: this.form.controls.pavilion_id.value,
+          office_id: this.form.controls.office_id.value,
+          procedure_id: this.procedure_id,
           start_date: this.form.controls.start_date.value,
           finish_date: this.form.controls.finish_date.value,
           start_time: this.form.controls.start_time.value,
