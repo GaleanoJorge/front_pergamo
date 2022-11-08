@@ -942,7 +942,7 @@ export class AuthorizationListComponent implements OnInit {
       // };
       this.selectedOptions2.push(row);
     } else {
-      let i = this.selectedOptions2.find((item, index) => item == row);
+      let i = this.selectedOptions2.map((item, index) => item.id).indexOf(row.id);
       i !== -1 && this.selectedOptions2.splice(i, 1);
     }
     this.selectedOptions = this.selectedOptions2;
