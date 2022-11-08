@@ -19,8 +19,9 @@ export class CupsPackageComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<any>();
   @Input() parentData: any = [];
-  public messageError = null;
+  @Input() data: any;
 
+  public messageError = null;
   public form: FormGroup;
   public title = 'CUPS DEL USUARIO';
   public subtitle = '';
@@ -30,7 +31,6 @@ export class CupsPackageComponent implements OnInit {
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
   public emit: any[] = [];
-  public data: any = [];
   public dialog;
   public inscriptionstatus = 0;
   public selectedRows: any;
@@ -51,7 +51,7 @@ export class CupsPackageComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           if (!this.done) {
-            this.data.assistance.assistance_procedure.forEach(x => {
+            this.data.assistance.assistance_procedure?.forEach(x => {
               this.selectedOptions2.push(x.procedure_id);
             });
             this.selectedOptions = this.selectedOptions2;
