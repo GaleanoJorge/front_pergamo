@@ -4,11 +4,13 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-6">
-          <label for="type_contract_id" class="form-text text-muted font-weight-bold">Tipo de contrato:</label>
-          <nb-select id="type_contract_id" fullWidth formControlName="type_contract_id" type_contract_id
-            status="{{ isSubmitted && form.controls.type_contract_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <label for="type_contract_id" class="form-text text-muted font-weight-bold">Tipo:</label>
+          <nb-select id="payment_type" fullWidth formControlName="payment_type" payment_type
+            status="{{ isSubmitted && form.controls.payment_type.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option *ngFor="let item of type_contracts" [value]="item.id">{{ item.name }}</nb-option>
+            <nb-option value="1">CUOTA MODERADORA</nb-option>
+            <nb-option value="2">COPAGO</nb-option>
+            <nb-option value="3">EXENTO</nb-option>
           </nb-select>
         </div>
         <div class="col-md-6">
@@ -20,7 +22,7 @@
           <label for="value" class="form-text text-muted font-weight-bold">Valor:</label>
           <input nbInput fullWidth id="value" formControlName="value" value type="text"
             status="{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
-            onkeypress="return /^[0-9]*$/i.test(event.key)" (change)="Moneyformat($event)" />
+            onkeypress="return /^[0-9]*$/i.test(event.key)" (change)="Moneyformat($event.target.value)" />
         </div>
         <div class="col-md-12">
           <label for="status_id" class="form-text text-muted font-weight-bold">Estado:</label>
