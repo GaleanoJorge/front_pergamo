@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ChSwRiskFactorsService } from '../../../../../business-controller/ch-sw-risk-factors.service';
 
@@ -131,7 +131,7 @@ export class FormSwRiskFactorsComponent implements OnInit {
       check10: [
         this.data.check10,
       ],
-      observations: [this.data[0] ? this.data[0].observations : this.data.observations,],
+      observations: [this.data[0] ? this.data[0].observations : this.data.observations,Validators.compose([Validators.required])],
     });
   
   }
@@ -203,6 +203,8 @@ export class FormSwRiskFactorsComponent implements OnInit {
         });
       }
 
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 
