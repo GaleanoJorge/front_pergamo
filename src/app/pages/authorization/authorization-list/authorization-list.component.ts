@@ -554,7 +554,7 @@ export class AuthorizationListComponent implements OnInit {
 
   FilterAuth() {
     // this.disableCheck();
-    this.table.changeEntity(`authorization/byStatus/0?status_id=${this.filter.status_id}&eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&program_id=${this.filter.program_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}&type_of_attention_id=${this.filter.type_of_attention_id}&number_id=${this.filter.id_number}&pagination=false`, 'authorization');
+    this.table.changeEntity(`authorization/byStatus/0?pagination=false&status_id=${this.filter.status_id}&eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&program_id=${this.filter.program_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}&type_of_attention_id=${this.filter.type_of_attention_id}&number_id=${this.filter.id_number}`, 'authorization');
   }
 
   FilterStatus(status) {
