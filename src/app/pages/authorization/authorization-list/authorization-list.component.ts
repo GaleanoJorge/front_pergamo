@@ -58,6 +58,7 @@ export class AuthorizationListComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public entity: string = 'authorization/byStatus/0';
+  public entity2: string = 'authorization/byStatus/0?status_id=0';
   public data: any = [];
   public data_aux: any = [];
   public auth_status;
