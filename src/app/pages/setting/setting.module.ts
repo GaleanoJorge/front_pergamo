@@ -848,6 +848,7 @@ import { ProductDamagedComponent } from './product-damaged/product-damaged.compo
     ProcedurePackage2Component,
     FormUserComponent,
     FormLocationCapacityComponent,
+    ActionsComponent
   ],
   bootstrap: [],
 })
