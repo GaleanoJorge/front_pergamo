@@ -12,6 +12,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/confirm-dialog.component';
 import { FormTracingComponent } from '../tracing/form-tracing/form-tracing.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'ngx-tracing-list',
@@ -115,52 +116,25 @@ export class TracingListComponent implements OnInit {
   }
 
   close() {
-    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
-      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
+      this.deleteConfirmService.open(ConfirmDialogComponent, {
         context: {
           signature: true,
           title: 'Finalizar registro.',
           delete: this.finish.bind(this),
-          showImage: this.showImage.bind(this),
-          admission: this.admission,
-          redo: this.redo,
-          // save: this.saveSignature.bind(this),
           textConfirm: 'Finalizar registro'
         },
       });
-    } else {
-      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
     }
-  }
 
-  showImage(data) {
-    this.int++;
-    if (this.int == 1) {
-      this.signatureImage = null;
-    } else {
-      this.signatureImage = data;
 
-    }
-  }
-
-  async saveSignature() {
-    var formData = new FormData();
-    formData.append('firm_file', this.signatureImage);
-    console.log(this.signatureImage);
-  }
-
-  async finish(firm) {
-
-    if(this.admission.location[this.admission.location.length -1].admission_route_id != 1 ? !this.redo ? this.signatureImage!=null : true : true){
-     
-        
+  async finish() {
+ 
     var formData = new FormData();
     formData.append('id', this.record_id,);
     formData.append('status', 'CERRADO');
     formData.append('user', this.user);
     formData.append('role', this.currentRole);
     formData.append('user_id', this.own_user.id);
-    formData.append('firm_file', this.signatureImage);
 
     try {
 
@@ -169,24 +143,19 @@ export class TracingListComponent implements OnInit {
         response = await this.chRecord.UpdateCH(formData, this.record_id);
         this.location.back();
       this.toastService.success('', response.message);
-      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
       this.messageError = null;
       if (this.saved) {
         this.saved();
       }
-      return true;
+      // return true;
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;
       this.loading = false;
       throw new Error(response);
     }
-  }else{
-    this.toastService.danger('Debe diligenciar la firma');
-    return false;
   }
-  }
-
+  
 
   RefreshData() {
 
