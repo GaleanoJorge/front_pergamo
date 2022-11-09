@@ -51,7 +51,7 @@ export class FormBillingPadComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan != null) {
-            if (row.assigned_management_plan.execution_date != "0000-00-00") {
+            if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
               return this.datePipe.transform3(row.assigned_management_plan.execution_date);
             } else {
               return 'Sin ejecutar';
