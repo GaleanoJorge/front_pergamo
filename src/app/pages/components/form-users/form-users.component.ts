@@ -332,7 +332,7 @@ export class FormUsersComponent implements OnInit {
       ],
       identification: [
         this.GetData('identification'),
-        Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+        Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
       ],
       firstname: [
         this.GetData('firstname'),

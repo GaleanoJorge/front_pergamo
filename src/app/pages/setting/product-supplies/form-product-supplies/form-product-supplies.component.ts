@@ -64,9 +64,6 @@ export class FormProductSuppliesComponent implements OnInit {
         product_dose_id: '',
         dose: '',
         code_gmdn: '',
-        product_group_id: '',
-        product_category_id: '',
-        product_subcategory_id: '',
       };
     }
 
@@ -183,9 +180,6 @@ export class FormProductSuppliesComponent implements OnInit {
         });
       } else {
         this.ProductSuppliesS.Save({
-          product_group_id: this.form.controls.product_group_id.value,
-          product_category_id: this.form.controls.product_category_id.value,
-          product_subcategory_id: this.form.controls.product_subcategory_id.value,
           size: this.form.controls.size.value,
           measure: this.form.controls.measure.value,
           stature: this.form.controls.stature.value,

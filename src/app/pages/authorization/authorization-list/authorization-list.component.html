@@ -96,8 +96,8 @@
 
         </form>
 
-        <ngx-base-table *ngIf="auth_status && company" (propagar)="onUserRowSelect($event)" [title]="title"
-          [subtitle]="subtitle" [settings]="settings" entity="authorization/byStatus/0?status_id=0" customData="authorization"
+        <ngx-base-table pager="false" *ngIf="auth_status && company" (propagar)="onUserRowSelect($event)" [title]="title"
+          [subtitle]="subtitle"  [settings]="settings" [entity]="entity2" customData="authorization"
           [messageToltip]="messageToltip">
 
           <div actions>
@@ -122,6 +122,9 @@
             <div class="actions" style="margin-top: 5px;">
               <button nbButton status="danger" style="width: 100%;" (click)="packagingProcess()">Asignar
                 paquete</button>
+            </div>
+            <div class="actions" style="margin-top: 5px;">
+              <button nbButton status="danger" style="width: 100%;" (click)="SelectAll($event)">Seleccionar todas</button>
             </div>
             <!-- 
             <div class="actions" style=" margin-top: 5px;">
