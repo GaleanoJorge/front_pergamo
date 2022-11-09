@@ -138,7 +138,7 @@ export class AuthPackageComponent implements OnInit {
               admissions_id: this.admissions_id,
               quantity: this.form.controls.quantity.value,
               services_briefcase_id: this.service_briefcase_id,
-              auth_array: JSON.stringify(this.selectedOptions),
+              auth_array: JSON.stringify(this.selectedOptions.map(item => item.id)),
             }).then(x => {
               this.toastService.success('', x.message);
               if(this.dialog){
