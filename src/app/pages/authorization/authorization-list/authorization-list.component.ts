@@ -391,33 +391,15 @@ export class AuthorizationListComponent implements OnInit {
     };
 
     this.form = this.formBuilder.group({
-      status_id: [
-        this.data.status_id,
-      ],
-      company_id: [
-        this.data.company_id,
-      ],
-      start_date: [
-        this.data.start_date,
-      ],
-      finish_date: [
-        this.data.finish_date,
-      ],
-      briefcase_id: [
-        this.data.briefcase_id,
-      ],
-      contract_id: [
-        this.data.contract_id,
-      ],
-      type_of_attention_id: [
-        this.data.type_of_attention_id,
-      ],
-      program_id: [
-        this.data.program_id,
-      ],
-      id_number: [
-        this.data.id_number,
-      ],
+      status_id: [this.data.status_id],
+      company_id: [this.data.company_id],
+      start_date: [this.data.start_date],
+      finish_date: [this.data.finish_date],
+      briefcase_id: [this.data.briefcase_id],
+      contract_id: [this.data.contract_id],
+      type_of_attention_id: [this.data.type_of_attention_id],
+      program_id: [this.data.program_id],
+      id_number: [this.data.id_number],
     });
 
     this.formMassive = this.formBuilder.group({
@@ -669,8 +651,15 @@ export class AuthorizationListComponent implements OnInit {
     if (this.element.length > 0) {
       this.element[0].remove();
     }
+    
+    this.briefcase_id = null;
+    this.admissions_id = null;
+    this.selectedOptions = [];
+    this.selectedOptions2 = [];
+
     this.dialog.close();
     this.dialog = null;
+
     this.RefreshData();
   }
 
@@ -828,7 +817,6 @@ export class AuthorizationListComponent implements OnInit {
       this.filter.type_of_attention_id = val;
       this.FilterAuth();
     });
-
   }
 
   save() {
@@ -942,7 +930,9 @@ export class AuthorizationListComponent implements OnInit {
       // };
       this.selectedOptions2.push(row);
     } else {
-      let i = this.selectedOptions2.map((item, index) => item.id).indexOf(row.id);
+      let i = this.selectedOptions2
+        .map((item, index) => item.id)
+        .indexOf(row.id);
       i !== -1 && this.selectedOptions2.splice(i, 1);
     }
     this.selectedOptions = this.selectedOptions2;
