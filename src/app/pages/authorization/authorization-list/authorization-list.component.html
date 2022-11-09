@@ -96,7 +96,7 @@
 
         </form>
 
-        <ngx-base-table pager="false" *ngIf="auth_status && company" (propagar)="onUserRowSelect($event)" [title]="title"
+        <ngx-base-table *ngIf="auth_status && company" (propagar)="onUserRowSelect($event)" [title]="title"
           [subtitle]="subtitle"  [settings]="settings" [entity]="entity2" customData="authorization"
           [messageToltip]="messageToltip">
 
