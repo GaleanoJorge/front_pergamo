@@ -10,6 +10,7 @@ import { OxygenTypeService } from '../../../../business-controller/oxygen_type.s
 import { LitersPerMinuteService } from '../../../../business-controller/liters_per_minute.service';
 import { ParametersSignsService } from '../../../../business-controller/parameters-signs.service';
 import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
 
 
 @Component({
@@ -142,21 +143,52 @@ export class FormsignsComponent implements OnInit {
 
     }
 
-    this.chvitalHydrationS.GetCollection({ status_id: 1 }).then(x => {
-      this.vital_hydration = x;
-      this.DbPounch.saveSelects(this.vital_hydration, 'vital_hydration');
+    if (!navigator.onLine) {
 
+      this.chvitalHydrationS.GetCollection({ status_id: 1 }).then(x => {
+        this.vital_hydration = x;
+        this.DbPounch.saveSelects(this.vital_hydration, 'vital_hydration');
 
-    });
-    this.chvitalNeurologicalS.GetCollection({ status_id: 1 }).then(x => {
-      this.vital_neurological = x;
-      this.DbPounch.saveSelects(this.vital_neurological, 'vital_neurological');
-    });
-    this.chvitalTemperatureS.GetCollection({ status_id: 1 }).then(x => {
-      this.vital_temperature = x;
-      this.DbPounch.saveSelects(this.vital_temperature, 'vital_temperature');
+      });
 
-    });
+      this.chvitalNeurologicalS.GetCollection({ status_id: 1 }).then(x => {
+        this.vital_neurological = x;
+        this.DbPounch.saveSelects(this.vital_neurological, 'vital_neurological');
+
+      });
+
+      this.chvitalTemperatureS.GetCollection({ status_id: 1 }).then(x => {
+        this.vital_temperature = x;
+        this.DbPounch.saveSelects(this.vital_temperature, 'vital_temperature');
+      });
+
+    } else {
+      if ('vital_hydration') {
+        let dataTable = new PouchDB('vital_hydration');
+        dataTable.get('vital_hydration').then(x => {
+          this.vital_hydration = x.type;
+          return Promise.resolve(true);
+        });
+
+      }
+      if ('vital_neurological') {
+        let dataTable = new PouchDB('vital_neurological');
+        dataTable.get('vital_neurological').then(x => {
+          this.vital_neurological = x.type;
+          return Promise.resolve(true);
+        });
+
+      }
+      if ('vital_temperature') {
+        let dataTable = new PouchDB('vital_temperature');
+        dataTable.get('vital_temperature').then(x => {
+          this.vital_temperature = x.type;
+          return Promise.resolve(true);
+        });
+      }
+
+    }
+
 
     this.form = this.formBuilder.group({
       clock: [this.data[0] ? this.data[0].clock : this.data.clock, Validators.compose([Validators.required])],
@@ -517,22 +549,53 @@ export class FormsignsComponent implements OnInit {
 
     } else {
 
-      this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
-        this.vital_ventilated = x;
-        this.DbPounch.saveSelects(this.vital_ventilated, 'vital_ventilated');
-      });
-      this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
-        this.oxygen_type = x;
-        this.DbPounch.saveSelects(this.oxygen_type, 'oxygen_type');
-      });
-      this.LitersPerMinuteS.GetCollection({ status_id: 1 }).then(x => {
-        this.liters_per_minute = x;
-        this.DbPounch.saveSelects(this.liters_per_minute, 'liters_per_minute');
-      });
-      this.ParametersSignsS.GetCollection({ status_id: 1 }).then((x) => {
-        this.parameters_signs = x;
-        this.DbPounch.saveSelects(this.parameters_signs, 'parameters_signs');
-      });
+      if (!navigator.onLine) {
+        this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
+          this.vital_ventilated = x;
+          this.DbPounch.saveSelects(this.vital_ventilated, 'vital_ventilated');
+        });
+        this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
+          this.oxygen_type = x;
+          this.DbPounch.saveSelects(this.oxygen_type, 'oxygen_type');
+        });
+        this.LitersPerMinuteS.GetCollection({ status_id: 1 }).then(x => {
+          this.liters_per_minute = x;
+          this.DbPounch.saveSelects(this.liters_per_minute, 'liters_per_minute');
+        });
+        this.ParametersSignsS.GetCollection({ status_id: 1 }).then((x) => {
+          this.parameters_signs = x;
+          this.DbPounch.saveSelects(this.parameters_signs, 'parameters_signs');
+        });
+      } else {
+        if ('vital_ventilated') { 
+          let dataTable = new PouchDB('vital_ventilated');
+          dataTable.get('vital_ventilated').then(x => {
+            this.vital_ventilated = x.type;
+            return Promise.resolve(true);
+          });
+        }
+        if ('oxygen_type') { 
+          let dataTable = new PouchDB('oxygen_type');
+          dataTable.get('oxygen_type').then(x => {
+            this.oxygen_type = x.type;
+            return Promise.resolve(true);
+          });
+        }
+        if ('liters_per_minute') { 
+          let dataTable = new PouchDB('liters_per_minute');
+          dataTable.get('liters_per_minute').then(x => {
+            this.liters_per_minute = x.type;
+            return Promise.resolve(true);
+          });
+        }
+        if ('parameters_signs') { 
+          let dataTable = new PouchDB('parameters_signs');
+          dataTable.get('parameters_signs').then(x => {
+            this.parameters_signs = x.type;
+            return Promise.resolve(true);
+          });
+        }
+      }
 
       this.form.controls.ch_vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.oxygen_type_id.setValidators(Validators.compose([Validators.required]));
