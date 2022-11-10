@@ -32,7 +32,7 @@ export class ChNutritionListComponent implements OnInit {
   //public data = [];
   public user_id;
   public date_end: boolean = true;
-  public is_failed: boolean = true;
+  public is_failed: boolean = false;
   public cont = 0;
   public ambit;
   public program;
