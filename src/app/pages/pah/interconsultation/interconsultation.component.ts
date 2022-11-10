@@ -67,6 +67,7 @@ export class InterconsultationComponent implements OnInit {
   public admissions_id;
   public saved: any = null;
   public user;
+  public actual_location;
   public admissions;
   public available_roles;
   public own_user;
@@ -293,6 +294,7 @@ export class InterconsultationComponent implements OnInit {
       .GetCollection({ admissions_id: this.admissions_id })
       .then((x) => {
         this.admissions = x;
+        this.actual_location = this.admissions[0].location[this.admissions[0].location.length - 1];
       });
 
     await this.ChInterconsultationS

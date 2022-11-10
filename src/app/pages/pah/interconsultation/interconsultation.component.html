@@ -17,6 +17,9 @@
         <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability.name}} </p>
         <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES </p>
         <p class="parrafo" *ngIf="user"><b>SERVICIO:</b> {{service}}</p>
+        <p class="parrafo" *ngIf="user"><b>PISO:</b> {{this.actual_location.flat.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>PABELLÓN:</b> {{this.actual_location.pavilion.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>CAMA:</b> {{this.actual_location.bed.name}}</p>
         <div *ngIf="show_labs">
           <p class="parrafo" *ngIf="show_labs"><b>LABORATORIOS:</b>
           </p>

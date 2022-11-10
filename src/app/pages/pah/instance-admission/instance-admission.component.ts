@@ -49,6 +49,7 @@ export class InstanceAdmissionComponent implements OnInit {
   public arrayBuffer: any;
   public file: File;
   public admission_id;
+  public actual_location;
   public user_id;
   public user = null;
   public dialog;
@@ -208,6 +209,7 @@ export class InstanceAdmissionComponent implements OnInit {
       admissions_id: this.admission_id
     }).then(x => {
       this.user = x[0]['patients'];
+      this.actual_location = x[0]['location'][x[0]['location'].length - 1];
     });
 
     this.settings = this.settings1;

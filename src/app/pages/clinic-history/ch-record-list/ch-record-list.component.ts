@@ -37,6 +37,7 @@ export class ChRecordListComponent implements OnInit {
   public routes = [];
   public data = [];
   public admissions_id;
+  public actual_location;
   public saved: any = null;
   public user;
   public admissions;
@@ -141,6 +142,7 @@ export class ChRecordListComponent implements OnInit {
       .GetCollection({ admissions_id: this.admissions_id })
       .then((x) => {
         this.admissions = x;
+        this.actual_location = this.admissions[0].location[this.admissions[0].location.length - 1];
       });
 
     this.own_user = this.authService.GetUser();
