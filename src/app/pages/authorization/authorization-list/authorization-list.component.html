@@ -59,9 +59,9 @@
               <nb-select formControlName="status_id" id="status_id" fullWidth
                 placeholder="TODOS LOS REGISTROS"
                 status="{{ isSubmitted && form.controls.type_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                <nb-option >TODOS LOS REGISTROS</nb-option>
-                <nb-option value="P">CRONICOS</nb-option>
-                <nb-option value="2">AGUDOS</nb-option>
+                <nb-option value="0">TODOS LOS REGISTROS</nb-option>
+                <nb-option value="P">PROYECTADOS</nb-option>
+                <nb-option value="E">EJECUTADOS</nb-option>
                 <nb-option value="PAQ">PAQUETES</nb-option>
                 <nb-option *ngFor="let item of auth_statusM" [value]="item.id">{{item.name}}</nb-option>
               </nb-select>
