@@ -456,40 +456,7 @@ export class BillingPadProcedureComponent implements OnInit {
       if (element.quantity) {
         q = element.quantity;
       }
-      var add = {
-        id: element.id,
-        quantity: q,
-        location_id: element.location_id,
-        created_at: element.created_at,
-        ch_interconsultation: element.ch_interconsultation ? element.ch_interconsultation : null,
-        location: element.location_id ? {
-          entry_date: element.location.entry_date,
-          discharge_date: element.location.discharge_date,
-        } : null,
-        services_briefcase: {
-          value: (element.services_briefcase.value * q),
-          manual_price: {
-            homologous_id: element.services_briefcase.manual_price.homologous_id,
-            name: element.services_briefcase.manual_price.name,
-          },
-        },
-        supplies_com: element.supplies_com != undefined ? {
-          code_cum: element.supplies_com.code_cum,
-        } : null,
-        product_com: element.product_com != undefined ? {
-          code_cum: element.product_com.code_cum,
-        } : null,
-        fixed_add_id: element.fixed_add_id != undefined ? {
-          code_cum: element.fixed_add_id.observation,
-        } : null,
-        assigned_management_plan: element.assigned_management_plan != undefined ? {
-          execution_date: element.assigned_management_plan.execution_date,
-          user: {
-            firstname: element.assigned_management_plan.user.firstname,
-            lastname: element.assigned_management_plan.user.lastname,
-          },
-        } : null,
-      }
+      var add = element.id;
       this.selectedOptions.push(add);
     });
 

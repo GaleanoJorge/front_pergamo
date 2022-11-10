@@ -53,7 +53,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public input_done: boolean = false; // ya se registró algo en el ingreso
   public currentRole: any;
   public show: any;
-  public is_failed: any = true;
+  public is_failed: any = false;
   public signatureImage: string;
   public firm_file: string;
   public previousUrl: string;

@@ -19,10 +19,18 @@ import { ManagementPlanService } from '../../../business-controller/management-p
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button *ngIf="!this.value.data.management_plan_id" nbTooltip="Programar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost
+    <button *ngIf="!this.value.data.management_plan_id && (this.value.data.pharmacy_product_request.status != 'PATIENT')" nbTooltip="Programar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost
       (click)="showProgramming(programming)">
       <nb-icon icon="calendar-outline"></nb-icon>
     </button>
+
+    <div nbTooltip="{{this.tooltip}}" nbTooltipStatus="primary" class = "cuadro" 
+        [style]="this.semaphore == 0 ? 'background-color: #FF0000;' : 
+        this.semaphore == 1 ? 'background-color: #FFFF00;' : 
+        this.semaphore == 3 ? 'background-color: #FF7000;' : 
+        'background-color: #28B463' "
+        >
+    </div>
   </div>
 
   <ng-template #programming>
@@ -91,6 +99,8 @@ export class ActionsFormulationComponent implements ViewCell {
   public militat_minut: Array<any> = [];
   public militat_hour_id: string = '00';
   public militat_minut_id: string = '00';
+  public semaphore: any;
+  public tooltip: any;
 
   constructor(
     private dialogService: NbDialogService,
@@ -101,6 +111,25 @@ export class ActionsFormulationComponent implements ViewCell {
   }
 
   async ngOnInit() {
+    if (this.value.data.management_plan_id) {
+      this.semaphore = 2;
+      this.tooltip = 'AGENDADO';
+    } else if (this.value.data.pharmacy_product_request.many_pharmacy_request_shipping.length == 0) {
+      this.semaphore = 0;
+      this.tooltip = 'SIN DESPACHO';
+    } else {
+      var a = 0;
+      this.value.data.pharmacy_product_request.many_pharmacy_request_shipping.forEach(x => {
+        a += x.amount;
+      });
+      if (a < this.value.data.outpatient_formulation) {
+        this.semaphore = 1;
+        this.tooltip = 'DESPACHO PARCIAL';
+      } else {
+        this.semaphore = 3;
+        this.tooltip = 'SIN AGENDAR';
+      }
+    }
     for (var i = 0; i < 24; i++) {
       var n = i < 10 ? '0' + i : i + '';
       this.militat_hour.push({
@@ -124,7 +153,7 @@ export class ActionsFormulationComponent implements ViewCell {
     });
   }
 
-  
+
   ChangeHour($event, id) {
     if (id == 1) {
       this.militat_hour_id = $event;
@@ -174,7 +203,7 @@ export class ActionsFormulationComponent implements ViewCell {
         observation: this.value.data.observation,
         number_doses: this.value.data.outpatient_formulation,
         dosage_administer: this.value.data.dose,
-  
+
       }).then(x => {
         this.toastService.success('', x.message);
         if (x['message_error']) {

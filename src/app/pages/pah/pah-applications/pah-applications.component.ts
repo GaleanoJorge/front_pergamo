@@ -179,7 +179,7 @@ export class PahApplicationsComponent implements OnInit {
   ];
 
   constructor(
-
+    private formBuilder: FormBuilder,
     private FlatS: FlatService,
     private PavilionS: PavilionService,
     private BedS: BedService,
@@ -212,6 +212,23 @@ export class PahApplicationsComponent implements OnInit {
       this.flat = x;
       this.show = true;
     });
+
+    var a = new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + (+(new Date().getDate()) >= 10 ? new Date().getDate() : ('0'+new Date().getDate()));
+
+    this.form = this.formBuilder.group({
+      flat: ['', []],
+      pavilion: ['', []],
+      bed: ['', []],
+      start_date: [a, []],
+      finish_date: [a, []],
+    });
+
+    this.form.get('start_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
   }
 
   ConfirmAction(dialog: TemplateRef<any>) {
@@ -230,6 +247,10 @@ export class PahApplicationsComponent implements OnInit {
     this.flat_id = flat_id;
     this.pavilion_id = 0;
     this.bed_id = 0;
+    this.form.patchValue({
+      pavilion: '',
+      bed: '',
+    });
     this.changeEntity();
     if (flat_id != 0) {
       return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
@@ -241,6 +262,9 @@ export class PahApplicationsComponent implements OnInit {
   changePavilion(pavilion_id) {
     this.pavilion_id = pavilion_id;
     this.bed_id = 0;
+    this.form.patchValue({
+      bed: '',
+    });
     this.changeEntity();
     if (pavilion_id != 0) {
       return this.BedS.GetCollection({
@@ -262,6 +286,6 @@ export class PahApplicationsComponent implements OnInit {
   }
 
   changeEntity() {
-    this.table.changeEntity('assigned_management_plan/getByPah/' + this.campus_id + '/' + this.flat_id + '/' + this.pavilion_id + '/' + this.bed_id, 'assigned_management_plan')
+    this.table.changeEntity('assigned_management_plan/getByPah/' + this.campus_id + '/' + this.flat_id + '/' + this.pavilion_id + '/' + this.bed_id + '?start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 'assigned_management_plan')
   }
 }

@@ -58,6 +58,7 @@ export class InterconsultationComponent implements OnInit {
     /*06*/ 'Cant. Solic ',
     /*07*/ 'Observaciones',
     /*08*/ 'Medicamento',
+    /*09*/ 'Cant. Dispansada',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public routes = [];
@@ -166,7 +167,7 @@ export class InterconsultationComponent implements OnInit {
           return {
             'data': row,
             'admissions_id': this.admissions_id,
-            'refresh': this.RefreshData.bind(this),
+            'refresh': this.closeDialog.bind(this),
           };
         },
         renderComponent: ActionsFormulationComponent,
@@ -221,6 +222,21 @@ export class InterconsultationComponent implements OnInit {
       outpatient_formulation: {
         title: this.headerFields2[6],
         width: 'string',
+      },
+      given_amount: {
+        title: this.headerFields2[9],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (row.pharmacy_product_request.many_pharmacy_request_shipping.length == 0) {
+            return 0;
+          } else {
+            var a = 0;
+            row.pharmacy_product_request.many_pharmacy_request_shipping.forEach(x => {
+              a += x.amount;
+            });
+            return a;
+          }
+        },
       },
       observation: {
         title: this.headerFields2[7],
