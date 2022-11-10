@@ -38,6 +38,7 @@ import { ActionsSemaphoreComponent } from './actionsSemaphore.component';
 import { ProgramService } from '../../../business-controller/program.service';
 import { TypeOfAttentionService } from '../../../business-controller/type-of-attention.service';
 import { AuthCheckComponent } from './auth-check.component';
+import { ScopeOfAttentionService } from '../../../business-controller/scope-of-attention.service';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -90,6 +91,7 @@ export class AuthorizationListComponent implements OnInit {
   public company: any[] = [];
   public program: any[] = [];
   public type_of_attention: any[] = [];
+  public scope_of_attention: any[] = [];
   public contract: any[] = [];
   public briefcase: any[] = [];
   public admissions: any[] = [];
@@ -104,6 +106,7 @@ export class AuthorizationListComponent implements OnInit {
     program_id: null,
     type_of_attention_id: null,
     id_number: null,
+    scope_of_attention_id: null,
   };
   public parentData: any;
   public previewFile = null;
@@ -140,7 +143,8 @@ export class AuthorizationListComponent implements OnInit {
     private ContractS: ContractService,
     private briefcaseS: BriefcaseService,
     private ProgramS: ProgramService,
-    private typeOfAttention: TypeOfAttentionService
+    private typeOfAttention: TypeOfAttentionService,
+    private ScopeAtentionS: ScopeOfAttentionService,
   ) {}
 
   public settings = {
@@ -388,36 +392,20 @@ export class AuthorizationListComponent implements OnInit {
       program_id: '',
       type_of_attention_id: '',
       id_number: null,
+      scope_of_attention_id: null,
     };
 
     this.form = this.formBuilder.group({
-      status_id: [
-        this.data.status_id,
-      ],
-      company_id: [
-        this.data.company_id,
-      ],
-      start_date: [
-        this.data.start_date,
-      ],
-      finish_date: [
-        this.data.finish_date,
-      ],
-      briefcase_id: [
-        this.data.briefcase_id,
-      ],
-      contract_id: [
-        this.data.contract_id,
-      ],
-      type_of_attention_id: [
-        this.data.type_of_attention_id,
-      ],
-      program_id: [
-        this.data.program_id,
-      ],
-      id_number: [
-        this.data.id_number,
-      ],
+      status_id: [this.data.status_id],
+      company_id: [this.data.company_id],
+      start_date: [this.data.start_date],
+      finish_date: [this.data.finish_date],
+      briefcase_id: [this.data.briefcase_id],
+      contract_id: [this.data.contract_id],
+      type_of_attention_id: [this.data.type_of_attention_id],
+      program_id: [this.data.program_id],
+      id_number: [this.data.id_number],
+      scope_of_attention_id: [this.data.scope_of_attention_id],
     });
 
     this.formMassive = this.formBuilder.group({
@@ -450,6 +438,10 @@ export class AuthorizationListComponent implements OnInit {
 
     this.typeOfAttention.GetCollection().then((x) => {
       this.type_of_attention = x;
+    });
+
+    this.ScopeAtentionS.GetCollection().then((x) => {
+      this.scope_of_attention = x;
     });
 
     this.xlsForm = this.formBuilder.group({
@@ -593,7 +585,7 @@ export class AuthorizationListComponent implements OnInit {
   FilterAuth() {
     // this.disableCheck();
     this.table.changeEntity(
-      `authorization/byStatus/0?status_id=${this.filter.status_id}&eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&program_id=${this.filter.program_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}&type_of_attention_id=${this.filter.type_of_attention_id}&number_id=${this.filter.id_number}`,
+      `authorization/byStatus/0?status_id=${this.filter.status_id}&eps_id=${this.filter.eps_id}&contract_id=${this.filter.contract_id}&briefcase_id=${this.filter.briefcase_id}&program_id=${this.filter.program_id}&initial_date=${this.filter.initial_date}&final_date=${this.filter.final_date}&type_of_attention_id=${this.filter.type_of_attention_id}&number_id=${this.filter.id_number}&scope_of_attention_id=${this.filter.scope_of_attention_id}`,
       'authorization'
     );
   }
@@ -613,6 +605,7 @@ export class AuthorizationListComponent implements OnInit {
       briefcase_id: '',
       contract_id: '',
       type_of_attention_id: '',
+      scope_of_attention_id: null,
     });
     // document.getElementById('type_of').
   }
@@ -669,8 +662,15 @@ export class AuthorizationListComponent implements OnInit {
     if (this.element.length > 0) {
       this.element[0].remove();
     }
+    
+    this.briefcase_id = null;
+    this.admissions_id = null;
+    this.selectedOptions = [];
+    this.selectedOptions2 = [];
+
     this.dialog.close();
     this.dialog = null;
+
     this.RefreshData();
   }
 
@@ -829,6 +829,11 @@ export class AuthorizationListComponent implements OnInit {
       this.FilterAuth();
     });
 
+    this.form.get('scope_of_attention_id').valueChanges.subscribe((val) => {
+      this.filter.scope_of_attention_id = val;
+      this.FilterAuth();
+    });
+
   }
 
   save() {
@@ -942,7 +947,9 @@ export class AuthorizationListComponent implements OnInit {
       // };
       this.selectedOptions2.push(row);
     } else {
-      let i = this.selectedOptions2.map((item, index) => item.id).indexOf(row.id);
+      let i = this.selectedOptions2
+        .map((item, index) => item.id)
+        .indexOf(row.id);
       i !== -1 && this.selectedOptions2.splice(i, 1);
     }
     this.selectedOptions = this.selectedOptions2;
