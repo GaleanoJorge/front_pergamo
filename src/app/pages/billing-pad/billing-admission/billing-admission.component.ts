@@ -55,7 +55,7 @@ export class BillingAdmissionComponent implements OnInit {
             'data': row,
             'show': this.ShowBillingAdmission.bind(this),
             'resend': this.resend.bind(this),
-            'cancel': this.cancelBilling.bind(this),
+            'cancel': this.DeleteConfirmCompany.bind(this),
             // 'delete': this.DeleteConfirmBillingAdmission.bind(this),
           };
         },
@@ -201,6 +201,18 @@ export class BillingAdmissionComponent implements OnInit {
       this.toastrService.success('Archivo plano .Dat reenviado exitosamente', 'Exito');
     }).catch(x => {
       this.toastrService.danger('Error al enviar archivo: ' + x, 'Error');
+    });
+  }
+
+  DeleteConfirmCompany(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        title: 'Cancelar factura',
+        textConfirm: 'Cancelar',
+        name: data.billing_pad_prefix.name + data.consecutive,
+        data: data,
+        delete: this.cancelBilling.bind(this),
+      },
     });
   }
 
