@@ -172,14 +172,14 @@ export class BillingPgpComponent implements OnInit {
   }
 
   cancelBilling(data) {
-    this.BillingPadS.CancelBillingPgp({
+    return this.BillingPadS.CancelBillingPgp({
       id: data.id,
       user_id : this.authService.GetUser().id,
     }).then(x => {
       this.RefreshData();
-      this.toastrService.success('Factura cancelada exitosamente', 'Exito');
+      return Promise.resolve(x.message);
     }).catch(x => {
-      this.toastrService.danger('Error al cancelar la factura: ' + x, 'Error');
+      throw ('Error al cancelar la factura: ' + x);
     });
   }
 
