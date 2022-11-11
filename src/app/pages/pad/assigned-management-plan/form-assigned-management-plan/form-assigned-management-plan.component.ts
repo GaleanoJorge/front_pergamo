@@ -82,7 +82,9 @@ export class FormAssignedManagementPlanComponent implements OnInit {
             }
           }).catch(e => {
             // this.toastService.danger(e, 'Error');
-            this.assigned_user.push(this.data.user)
+            this.assigned_user = [
+              this.data.user,
+            ];
           });
         }
       }).catch(e => {
