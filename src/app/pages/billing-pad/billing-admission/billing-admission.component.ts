@@ -140,7 +140,7 @@ export class BillingAdmissionComponent implements OnInit {
   back() {
     this.location.back();
 
- }
+  }
 
   RefreshData() {
 
@@ -168,12 +168,13 @@ export class BillingAdmissionComponent implements OnInit {
       billing_type: 'FACTURA',
       billing_id: data.id,
       show: true,
-      admission_id: this.admission_id}).then(x => {
-        this.toastrService.success('Archivo generado con exito', 'Exito');
-        window.open(x['url'], '_blank');
-      }).catch(x => {
-        this.toastrService.danger('Error al generar archivo: ' + x, 'Error');
-      });
+      admission_id: this.admission_id
+    }).then(x => {
+      this.toastrService.success('Archivo generado con exito', 'Exito');
+      window.open(x['url'], '_blank');
+    }).catch(x => {
+      this.toastrService.danger('Error al generar archivo: ' + x, 'Error');
+    });
   }
 
   DeleteConfirmBillingAdmission(data) {
@@ -198,7 +199,7 @@ export class BillingAdmissionComponent implements OnInit {
   resend(data) {
     this.BillingPadS.GenerateFile(1, data.id).then(x => {
       this.toastrService.success('Archivo plano .Dat reenviado exitosamente', 'Exito');
-    }).catch(x=> {
+    }).catch(x => {
       this.toastrService.danger('Error al enviar archivo: ' + x, 'Error');
     });
   }
@@ -206,9 +207,12 @@ export class BillingAdmissionComponent implements OnInit {
   cancelBilling(data) {
     this.BillingPadS.CancelBillingNoPgp({
       id: data.id,
-      user_id : this.authService.GetUser().id,
+      user_id: this.authService.GetUser().id,
     }).then(x => {
       this.RefreshData();
+      this.toastrService.success('Factura cancelada exitosamente', 'Exito');
+    }).catch(x => {
+      this.toastrService.danger('Error al cancelar la factura: ' + x, 'Error');
     });
   }
 

@@ -165,6 +165,9 @@ export class BillingPgpComponent implements OnInit {
       user_id : this.authService.GetUser().id,
     }).then(x => {
       this.RefreshData();
+      this.toastrService.success('Factura cancelada exitosamente', 'Exito');
+    }).catch(x => {
+      this.toastrService.danger('Error al cancelar la factura: ' + x, 'Error');
     });
   }
 
