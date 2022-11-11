@@ -75,14 +75,18 @@ export class FormAssignedManagementPlanComponent implements OnInit {
         if (x) {
           this.GetMedical(this.roles, this.user.locality_id).then(x => {
             if (x) {
-              var validator = this.assigned_user.find(item => item.id == this.data.user.id);
-              if (!validator){
-                this.assigned_user.push(this.data.user)
+              if (this.data.user) {
+                var validator = this.assigned_user.find(item => item.id == this.data.user.id);
+                if (!validator){
+                  this.assigned_user.push(this.data.user)
+                }
               }
             }
           }).catch(e => {
             // this.toastService.danger(e, 'Error');
-            this.assigned_user.push(this.data.user)
+            this.assigned_user = [
+              this.data.user,
+            ];
           });
         }
       }).catch(e => {
