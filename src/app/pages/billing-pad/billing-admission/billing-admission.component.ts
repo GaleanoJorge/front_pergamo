@@ -55,7 +55,7 @@ export class BillingAdmissionComponent implements OnInit {
             'data': row,
             'show': this.ShowBillingAdmission.bind(this),
             'resend': this.resend.bind(this),
-            'cancel': this.cancelBilling.bind(this),
+            'cancel': this.DeleteConfirmCompany.bind(this),
             // 'delete': this.DeleteConfirmBillingAdmission.bind(this),
           };
         },
@@ -140,7 +140,7 @@ export class BillingAdmissionComponent implements OnInit {
   back() {
     this.location.back();
 
- }
+  }
 
   RefreshData() {
 
@@ -168,12 +168,13 @@ export class BillingAdmissionComponent implements OnInit {
       billing_type: 'FACTURA',
       billing_id: data.id,
       show: true,
-      admission_id: this.admission_id}).then(x => {
-        this.toastrService.success('Archivo generado con exito', 'Exito');
-        window.open(x['url'], '_blank');
-      }).catch(x => {
-        this.toastrService.danger('Error al generar archivo: ' + x, 'Error');
-      });
+      admission_id: this.admission_id
+    }).then(x => {
+      this.toastrService.success('Archivo generado con exito', 'Exito');
+      window.open(x['url'], '_blank');
+    }).catch(x => {
+      this.toastrService.danger('Error al generar archivo: ' + x, 'Error');
+    });
   }
 
   DeleteConfirmBillingAdmission(data) {
@@ -198,17 +199,32 @@ export class BillingAdmissionComponent implements OnInit {
   resend(data) {
     this.BillingPadS.GenerateFile(1, data.id).then(x => {
       this.toastrService.success('Archivo plano .Dat reenviado exitosamente', 'Exito');
-    }).catch(x=> {
+    }).catch(x => {
       this.toastrService.danger('Error al enviar archivo: ' + x, 'Error');
     });
   }
 
+  DeleteConfirmCompany(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        title: 'Cancelar factura',
+        textConfirm: 'Cancelar',
+        name: data.billing_pad_prefix.name + data.consecutive,
+        data: data,
+        delete: this.cancelBilling.bind(this),
+      },
+    });
+  }
+
   cancelBilling(data) {
-    this.BillingPadS.CancelBillingNoPgp({
+    return this.BillingPadS.CancelBillingNoPgp({
       id: data.id,
-      user_id : this.authService.GetUser().id,
+      user_id: this.authService.GetUser().id,
     }).then(x => {
       this.RefreshData();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw ('Error al cancelar la factura: ' + x);
     });
   }
 
