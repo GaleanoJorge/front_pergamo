@@ -11,7 +11,8 @@ import { PatientService } from '../../../business-controller/patient.service';
 import { ActionsSemaphore2Component } from '../management-plan/actions-semaphore.component';
 import { AuthService } from '../../../services/auth.service';
 import { Location } from '@angular/common';
-
+import PouchDB from 'pouchdb-browser';
+import { DbPwaService } from '../../../services/authPouch.service';
 
 @Component({
   selector: 'ngx-admissions-patient',
@@ -42,10 +43,11 @@ export class AdmissionsPatientPadComponent implements OnInit {
   public admission_route_id;
   public admission_id;
   public currentRole;
+  public settings={};
+  public admissions;
 
 
-
-  public settings = {
+  public settings1 = {
     columns: {
       semaphore: {
         type: 'custom',
@@ -55,6 +57,120 @@ export class AdmissionsPatientPadComponent implements OnInit {
             'data': row,
             'user': this.user,
             'currentRole': this.currentRole.role_type_id,
+          };
+        },
+        renderComponent: ActionsSemaphore2Component,
+      },
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'delete': this.DeleteConfirmAdmissions.bind(this),
+            'refresh': this.RefreshData.bind(this),
+            'user_id': this.patient_id,
+          };
+        },
+        renderComponent: ActionsPadComponent,
+      },
+      location: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          this.admission_id=value[value.length - 1].id;
+          this.admission_route_id=value[value.length - 1].admission_route_id;
+          this.ambit=value[value.length - 1].scope_of_attention.name;
+          this.program=value[value.length - 1].program.name;
+          if(value[value.length - 1].pavilion){
+          this.flat=value[value.length - 1].flat.name;
+          this.pavilion=value[value.length - 1].pavilion.name;
+          this.bed=value[value.length - 1].bed.name;
+          this.bed_id=value[value.length - 1].bed.id;
+          }else{
+            this.flat='';
+            this.pavilion='';
+            this.bed='';
+          }
+          return value[value.length - 1].admission_route.name;
+        },
+      },
+      scope_of_attention: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.ambit;
+        },
+      },
+      campus: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      company: {
+        title: this.headerFields[14],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value;
+        },
+      },
+      contract: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      briefcase: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      regime: {
+        title: this.headerFields[10],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      entry_date: {
+        title: this.headerFields[11],
+        type: 'date',
+      },      
+      medical_date: {
+        title: this.headerFields[13],
+        type: 'date',
+      },     
+      discharge_date: {
+        title: this.headerFields[12],
+        type: 'date',
+        valuePrepareFunction: (value, row) => {
+          if(value=='0000-00-00 00:00:00' && this.cont!=1){
+            this.date_end = false;
+            this.cont = + 1;
+          }else if(this.cont==0){
+            this.date_end = true;
+          }
+          return value;
+        },
+      },
+    },
+  };
+
+  public settings2 = {
+    columns: {
+      semaphore: {
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'user': this.user,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -199,13 +315,29 @@ export class AdmissionsPatientPadComponent implements OnInit {
       return x.id == curr;
     });
 
+    if(!!navigator.onLine){
+      this.settings=this.settings1;
     this.PatientBS.GetUserById(this.patient_id).then(x => {
       if(x){
         this.patient = x;
         this.title= 'Admisiones de paciente: '+ this.patient.firstname  + ' ' + this.patient.lastname ;
       }
-    });
-  }
+    });  }
+  else{
+
+    
+    this.settings=this.settings2;
+
+
+    let dataTable= new PouchDB('byPatient');
+    dataTable.get('byPatient', function(err,doc){
+      if(err){
+        console.log(err);
+      }
+    }).then((x)=>{
+      this.patient=x.data.id;
+    })
+  }}
 
   back() {
     this.location.back();

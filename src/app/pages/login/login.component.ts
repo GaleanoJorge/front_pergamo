@@ -154,7 +154,7 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    if(navigator.onLine){
+    if(!!navigator.onLine){
     this.isSubmitted = true;
   
     if (!this.loginForm.invalid) {

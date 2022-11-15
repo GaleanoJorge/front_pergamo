@@ -41,7 +41,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if(navigator.onLine){
+        if(!!navigator.onLine){
         const token: Auth = this.authService.GetToken();
         const mipres_token: AuthMiPres = this.authMipresService.GetToken();
 

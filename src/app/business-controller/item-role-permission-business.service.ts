@@ -20,7 +20,7 @@ export class ItemRolePermissionBusinessService {
 
   GetCollection(idRole?: number, user?): Promise<ItemRolePermission[]> {
     var servObj = new ServiceObject('item/role/permission/byRole', idRole);
-    if (navigator.onLine) {
+    if (!!navigator.onLine) {
       return this.webAPI
         .GetAction(servObj)
         .then((x) => {
@@ -154,9 +154,9 @@ export class ItemRolePermissionBusinessService {
               });
             }
           });
-          this.dbpouch.updateMenu(mainMenu, user);
           localStorage.setItem('mainMenu', JSON.stringify(mainMenu));
           localStorage.setItem('firstMenu', JSON.stringify(mainMenu[0]));
+         this.dbpouch.UpdateMenu(mainMenu,user)
 
           this.itemsRolePermission = <ItemRolePermission[]>(
             servObj.data.itemRolePermission

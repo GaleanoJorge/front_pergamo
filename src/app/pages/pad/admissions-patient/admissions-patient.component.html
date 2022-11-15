@@ -9,7 +9,10 @@
                     [settings]="settings"
                     entity="admissions/ByPacient/{{patient_id}}"
                     customData="admissions"
-                    [queryParams]="GetParams()">
+                    [queryParams]="GetParams()"
+                    idTable="byPatient"
+                    [source]="patient"
+                    >
       <div actions>
         <div class="actions">
           <button nbButton (click)="back()" >Volver</button>

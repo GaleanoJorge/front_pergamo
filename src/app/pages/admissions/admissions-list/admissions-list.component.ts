@@ -7,6 +7,7 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { AuthService } from '../../../services/auth.service';
+import { DbPwaService } from '../../../services/authPouch.service';
 
 
 @Component({
@@ -103,13 +104,18 @@ export class AdmissionsListComponent {
     public AdmissionsS: AdmissionsService,
     public userChangeS: UserChangeService,
     private authService: AuthService,
+    private dbPouch: DbPwaService,
   ) {
 
   }
   async ngOnInit() {
+    this.dbPouch.getData(this.own_user.id)
+   
     await this.userChangeS.GetCollection().then(x =>{
       this.all_changes = x;
+      // this.dbPouch.createPatient(this.title,this.all_changes);
     });
+  
     this.own_user = this.authService.GetUser();
     var curr = this.authService.GetRole();
     this.currentRole = this.own_user.roles.find(x => {
