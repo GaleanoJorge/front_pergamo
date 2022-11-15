@@ -47,6 +47,8 @@ export class FormConfirmPayComponent implements OnInit {
         id: this.data.id,
         file_payment: this.data.file_payment,
         gross_value_activities: this.data.gross_value_activities,
+        source_retention: this.data.source_retention,
+        ica_retention: this.data.ica_retention,
         net_value_activities: this.data.net_value_activities,
         user_id: this.data.user_id,
         status_bill_id: 3,
