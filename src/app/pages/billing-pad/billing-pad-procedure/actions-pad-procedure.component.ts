@@ -14,7 +14,7 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
         'background-color: #54bcc1' "
         >
     </div>
-        <button *ngIf="value.data.auth_package" nbTooltip="VER CONTENIDO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data, value.route)">
+        <button *ngIf="value.data.auth_package && !value.data.ch_interconsultation_id" nbTooltip="VER CONTENIDO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data, value.route)">
             <nb-icon icon="eye-outline"></nb-icon>
         </button>
     </div>
@@ -62,6 +62,25 @@ export class ActionsPadProcedureComponent implements ViewCell {
                 response = 3;
                 this.tooltip = 'Por facturar';
             }
+        } else if (data.ch_interconsultation != null) {
+            var a = data.ch_interconsultation.many_ch_record;
+            var b = a.find(item => item.created_at == data.created_at)
+            if (b && b.date_finish == "0000-00-00 00:00:00") {
+                response = 0;
+                this.tooltip = 'Sin ejecutar';
+            } else if (data.billing_pad_status == 'FACTURADA') {
+                response = 2;
+                this.tooltip = 'Facturado';
+            } else if (data.auth_status_id != 3) {
+                response = 1;
+                this.tooltip = 'Sin autorizar';
+            // } else if (data.assigned_management_plan.approved != 1) {
+            //     response = 4;
+            //     this.tooltip = 'Sin aprobar';
+            } else {
+                response = 3;
+                this.tooltip = 'Por facturar';
+            }
         } else {
             if (data.pendientes) {
                 if (data.billing_pad_status == 'FACTURADA') {
@@ -70,7 +89,7 @@ export class ActionsPadProcedureComponent implements ViewCell {
                 } else if (data.auth_status_id != 3) {
                     response = 1;
                     this.tooltip = 'Sin autorizar';
-                } else if (data.pendientes > 0) {
+                } else if (data.pendientes > 0 && !data.location_id) {
                     response = 4;
                     this.tooltip = 'Sin aprobar: ' + data.pendientes;
                 } else {

@@ -1,0 +1,71 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+
+
+
+    <ngx-base-table [title]="title" [subtitle]="subtitle" customData="ch_record" [settings]="settings"
+      entity="ch_record/byInterconsultation/{{admissions_id}}/{{ch_interconsultation_id}}?user_id={{own_user.id}}" [messageToltip]="messageToltip">
+      <div title *ngIf="user">
+        <p class="parrafo" ><b>CÉDULA:</b> {{user.identification}} </p>
+        <p class="parrafo"><b>NOMBRE:</b>  {{user.nombre_completo}}</p>
+        <p class="parrafo"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}} </p>
+        <p class="parrafo" ><b>EDAD:</b> {{user.age}} </p>
+        <p class="parrafo" ><b>GÉNERO:</b> {{user.gender.name}} </p>
+        <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions[0].contract.company.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions[0].contract.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions[0].briefcase.name}}</p>
+        <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability.name}} </p>
+        <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES </p>
+        <p class="parrafo" *ngIf="user"><b>SERVICIO:</b> {{service}}</p>
+        <p class="parrafo" *ngIf="user"><b>PISO:</b> {{this.actual_location.flat.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>PABELLÓN:</b> {{this.actual_location.pavilion.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>CAMA:</b> {{this.actual_location.bed.name}}</p>
+        <div *ngIf="show_labs">
+          <p class="parrafo" *ngIf="show_labs"><b>LABORATORIOS:</b>
+          </p>
+          <div *ngFor="let item of this.assigned[0].management_plan.management_procedure">
+            <p class="parrafo">
+              {{item.services_briefcase.manual_price.name}} </p>
+          </div>
+        </div>
+        
+      </div>
+
+      
+      <div actions>
+        <div class="actions">
+          <button *ngIf="user && currentRole.id == 8" nbButton status="warning" (click)="showFormulations(formulations)" >Formulaciones</button>
+          <button nbButton (click)="back()" >Volver</button>
+          <button *ngIf="showButtom==true"  nbButton status="danger" (click)="NewChRecord()">Crear</button>
+        </div>
+        
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
+
+
+<ng-template #formulations>
+  <nb-card style="width: 100%;height: 600px;overflow: auto;">
+    <nb-card-header>FORMULACIONES DE {{user.nombre_completo}}</nb-card-header>
+    <nb-card-body>
+      <ngx-base-list [messageError]="messageError">
+        <div content>
+          <ngx-base-table pager="false" [subtitle]="subtitle" [settings]="settings2"
+            entity="ch_formulation/getByAdmission/{{this.admissions_id}}"
+            customData="ch_formulation" [messageToltip]="messageToltip">
+            <div actions>
+            </div>
+          </ngx-base-table>
+
+        </div>
+      </ngx-base-list>
+    </nb-card-body>
+
+    <nb-card-footer class="d-flex justify-content-end">
+      <div class ="col-12 col-sm-12 col-md-2">
+        <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

@@ -42,6 +42,7 @@ export class ReferenceListComponent implements OnInit {
     /*16*/ 'AMBITO REFERIDO',
     /*17*/ 'ESPACIALIDAD REFERIDA',
     /*18*/ 'PROGRAMA REFERIDO',
+    /*19*/ 'NIVEL RÉGIMEN REFERIDO',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
@@ -120,9 +121,9 @@ export class ReferenceListComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.identification) {
-            return row.age;
+            return row.age + 'AÑOS';
           } else {
-            return row.patient.age;
+            return row.patient.age + 'AÑOS';
           }
         },
       },
@@ -198,6 +199,13 @@ export class ReferenceListComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
+        },
+      },
+      request_regime_level: {
+        title: this.headerFields[19],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return 'NIVEL ' + value.name;
         },
       },
       request_technological_medium: {
@@ -307,6 +315,9 @@ export class ReferenceListComponent implements OnInit {
     if (dat == null) {
       dat = {
         admission_route_id: data.acceptance_admission_route_id,
+        flat_id: data.acceptance_flat_id,
+        pavilion_id: data.acceptance_pavilion_id,
+        bed_id: data.acceptance_bed_id,
         program_id: data.acceptance_program_id,
         regime_id: data.acceptance_regime_id,
         eps: data.company_id,
@@ -330,6 +341,9 @@ export class ReferenceListComponent implements OnInit {
     if (dat == null) {
       dat = {
         admission_route_id: data.acceptance_admission_route_id,
+        flat_id: data.acceptance_flat_id,
+        pavilion_id: data.acceptance_pavilion_id,
+        bed_id: data.acceptance_bed_id,
         program_id: data.acceptance_program_id,
         regime_id: data.acceptance_regime_id,
         eps: data.company_id,
@@ -342,6 +356,7 @@ export class ReferenceListComponent implements OnInit {
       closeOnEsc: false,
       context: {
         title: 'Crear nuevo ingreso',
+        campus_id: data.acceptance_campus_id,
         user_id: data.patient_id ? data.patient_id : data.id,
         admission_data: dat,
         saved: this.RefreshData.bind(this),

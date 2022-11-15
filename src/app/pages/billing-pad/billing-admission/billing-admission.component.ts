@@ -30,7 +30,7 @@ export class BillingAdmissionComponent implements OnInit {
   public user: any;
   public admission_id;
   public done: boolean = false;
-  public create_new_billing: boolean = false;
+  public create_new_billing: boolean = true;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {

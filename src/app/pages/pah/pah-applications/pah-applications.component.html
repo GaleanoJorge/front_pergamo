@@ -1,0 +1,43 @@
+<ngx-base-list [messageError]="messageError">
+  <div content *ngIf="show">
+    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+      entity="assigned_management_plan/getByPah/{{campus_id}}/{{flat_id}}/{{pavilion_id}}/{{bed_id}}?start_date={{this.form.controls.start_date.value}}&finish_date={{this.form.controls.finish_date.value}}"
+      customData="assigned_management_plan" [messageToltip]="messageToltip">
+      <div title>
+        <!-- <div *ngIf="this.currentRole.role_type_id == 1 && this.patients"><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div> -->
+      </div>
+      <div actions>
+        <form [formGroup]="form">
+          <div class="actions">
+            <nb-select (selectedChange)="changeFlat($event)" formControlName="flat" placeholder="Filtrar por piso">
+              <nb-option value="0">Todos los pisos</nb-option>
+              <nb-option *ngFor="let item of flat" [value]="item.id">{{item.name}}</nb-option>
+            </nb-select>
+            <nb-select (selectedChange)="changePavilion($event)" formControlName="pavilion"
+              placeholder="Filtrar por pabellón">
+              <nb-option value="0">Todos los pabellones</nb-option>
+              <nb-option *ngFor="let item of pavilion" [value]="item.id">{{item.name}}</nb-option>
+            </nb-select>
+            <nb-select (selectedChange)="changeBed($event)" formControlName="bed" placeholder="Filtrar por cama">
+              <nb-option value="0">Todos las camas</nb-option>
+              <nb-option *ngFor="let item of bed" [value]="item.id">{{item.name}}</nb-option>
+            </nb-select>
+          </div>
+          <div class="actions">
+            <div class="col-md-6">
+              <label for="start_date" class="form-text text-muted font-weight-bold">Fecha de inicio:</label>
+              <input type="date" nbInput fullWidth id="start_date" formControlName="start_date" start_date
+                status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+            <div class="col-md-6">
+              <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha de final:</label>
+              <input type="date" nbInput fullWidth id="finish_date" formControlName="finish_date" finish_date
+                status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

@@ -21,6 +21,7 @@ export class FormFormulationComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() user: any = null;
+  @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -93,17 +94,17 @@ export class FormFormulationComponent implements OnInit {
   }
 
   async GetAuxData() {
-    await this.patienBS.GetUserById(this.user).then(async x => {
-      this.user2 = x;
-      await this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
-        if(x.length>0){
-        this.service_briefcase_id = x[0]['id'];
-        this.product_gen = this.readProductGen(x);
-        this.briefcase_products = this.readProductGen(x);
-        }
-        this.loading_screen = false;
-            });
-    });
+    // await this.patienBS.GetUserById(this.user).then(async x => {
+    //   this.user2 = x;
+    // });
+    await this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.admission.briefcase_id).then(x => {
+      if(x.length>0){
+      this.service_briefcase_id = x[0]['id'];
+      this.product_gen = this.readProductGen(x);
+      this.briefcase_products = this.readProductGen(x);
+      }
+      this.loading_screen = false;
+          });
 
     await this.AdministrationRouteS.GetCollection().then(x => {
       this.administration_route_id = x;
@@ -275,18 +276,18 @@ export class FormFormulationComponent implements OnInit {
       this.show = true;
       this.input = false;
       this.product_gen = null;
-      this.patienBS.GetUserById(this.user).then(x => {
-        this.user2 = x;
-      });
-      if (this.user2 != null) {
-        if (this.briefcase_products == null) {
-          this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
-            this.product_gen = this.readProductGen(x);
-            this.briefcase_products = this.readProductGen(x);
-          });
-        } else {
-          this.product_gen = this.briefcase_products;
-        }
+      // this.patienBS.GetUserById(this.user).then(x => {
+      //   this.user2 = x;
+      // });
+      // if (this.user2 != null) {
+      // }
+      if (this.briefcase_products == null) {
+        this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.admission.briefcase_id).then(x => {
+          this.product_gen = this.readProductGen(x);
+          this.briefcase_products = this.readProductGen(x);
+        });
+      } else {
+        this.product_gen = this.briefcase_products;
       }
     } else {
       this.input = true;

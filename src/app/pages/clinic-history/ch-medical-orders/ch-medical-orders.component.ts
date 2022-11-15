@@ -17,6 +17,7 @@ import { ChMedicalOrdersService } from '../../../business-controller/ch-medical-
 export class ChMedicalOrdersComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
+  @Input() admission: any = null;
   @Input() record_id: any;
   linearMode = false;
   public messageError = null;

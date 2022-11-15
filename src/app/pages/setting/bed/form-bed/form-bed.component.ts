@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BedService} from '../../../../business-controller/bed.service';
 import {StatusBedService} from '../../../../business-controller/status-bed.service';
 import {PavilionService} from '../../../../business-controller/pavilion.service';
+import { ProcedureService } from '../../../../business-controller/procedure.service';
 
 
 
@@ -29,7 +30,8 @@ export class FormBedComponent implements OnInit {
   public coverage:any[];
   public status_bed:any[];
   public pavilion:any[];
-
+  public procedure_id;
+  public procedure = null;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -37,6 +39,7 @@ export class FormBedComponent implements OnInit {
     // private statusBS: StatusBusinessService,
     private PavilionS: PavilionService,
     private BedS: BedService,
+    private ProcedureS: ProcedureService,
     private toastService: NbToastrService,
     private StatusBedS: StatusBedService,
   ) {
@@ -49,7 +52,8 @@ export class FormBedComponent implements OnInit {
         code: '',
         status_bed_id:'',
         pavilion_id: '',
-        bed_or_office:''
+        bed_or_office:'',
+        procedure_id: '',
       };
     }
 
@@ -63,6 +67,7 @@ export class FormBedComponent implements OnInit {
       code: [this.data.code, Validators.compose([Validators.required])],
       status_bed_id: [this.data.status_bed_id, Validators.compose([Validators.required])],
       pavilion_id: [this.data.pavilion_id, Validators.compose([Validators.required])],
+      procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
       bed_or_office: [this.data.bed_or_office, Validators.compose([Validators.required])],
     });
 
@@ -72,6 +77,16 @@ export class FormBedComponent implements OnInit {
 
     this.PavilionS.GetCollection().then(x => {
       this.pavilion=x;
+    });
+
+    this.ProcedureS.GetCollection().then(x => {
+      this.procedure = x;
+      if (this.data.id) {
+        var localidentify = this.procedure.find(item => item.id == this.data.procedure_id);
+        this.form.patchValue({
+          procedure_id: localidentify.name,
+        });
+      }
     });
   }
   
@@ -95,6 +110,7 @@ export class FormBedComponent implements OnInit {
           status_bed_id: this.form.controls.status_bed_id.value,
           bed_or_office: this.form.controls.bed_or_office.value,        
           pavilion_id: this.form.controls.pavilion_id.value,
+          procedure_id: this.procedure_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -112,6 +128,7 @@ export class FormBedComponent implements OnInit {
           status_bed_id: this.form.controls.status_bed_id.value,
           bed_or_office: this.form.controls.bed_or_office.value,
           pavilion_id: this.form.controls.pavilion_id.value,
+          procedure_id: this.procedure_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -124,6 +141,21 @@ export class FormBedComponent implements OnInit {
         });
       }
 
+    }
+  }
+
+  saveProcedure(e): void {
+    var localidentify = this.procedure.find(item => item.name == e);
+
+    if (localidentify) {
+      this.procedure_id = localidentify.id;
+      this.form.patchValue({
+        procedure_id: localidentify.name,
+      });
+    } else {
+      this.procedure_id = null;
+      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
+      this.form.controls.procedure_id.setErrors({ 'incorrect': true });
     }
   }
 

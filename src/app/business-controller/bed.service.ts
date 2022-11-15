@@ -31,15 +31,31 @@ export class BedService {
       });
   }
 
-  GetBedByPavilion(pavilion_id,ambit): Promise<Bed[]> {
-    let servObj = new ServiceObject(`bed/byPavilion/${pavilion_id}/${ambit}`);
-    return this.webAPI.GetAction(servObj)
+  GetBedByPavilion(pavilion_id,ambit, procedure = 0, params = {}): Promise<Bed[]> {
+    let servObj = new ServiceObject(`bed/byPavilion/${pavilion_id}/${ambit}/${procedure}`);
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
           throw new Error(servObj.message);
 
         this.bed = <Bed[]>servObj.data.bed;
+        return Promise.resolve(this.bed);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  getBedsByCampus(campus_id): Promise<Bed[]> {
+    let servObj = new ServiceObject(`bed/getBedsByCampus/${campus_id}`);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.bed = <Bed[]>servObj.data;
         return Promise.resolve(this.bed);
       })
       .catch(x => {

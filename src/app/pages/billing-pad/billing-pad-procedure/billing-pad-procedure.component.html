@@ -20,6 +20,7 @@
         </div>
           <div actions>
             <div class="actions">
+              <button nbButton class="mr-1" (click)="back()" >Volver</button>
               <button nbButton *ngIf="this.adm == null" class="mr-1" status="danger"
                 (click)="generatePdf()">PDF</button>
               <button nbButton *ngIf="this.adm == null" status="danger" class="mr-1"

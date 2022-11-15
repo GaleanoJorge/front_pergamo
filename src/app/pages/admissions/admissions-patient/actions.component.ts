@@ -10,6 +10,7 @@ import { ProgramService } from '../../../business-controller/program.service';
 import { ScopeOfAttentionService } from '../../../business-controller/scope-of-attention.service';
 import { AdmissionRouteService } from '../../../business-controller/admission-route.service';
 import { LocationService } from '../../../business-controller/location.service';
+import { ServicesBriefcaseService } from '../../../business-controller/services-briefcase.service';
 
 @Component({
   template: `
@@ -90,6 +91,16 @@ import { LocationService } from '../../../business-controller/location.service';
         </nb-select>
         </div>
         <div class="col-md-12">
+          <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimientos del portafolio:</label>
+            <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth
+              status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
+                [value]="item.id">
+                {{ item.manual_price.procedure.code }} - {{ item.manual_price.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-12">
           <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
           <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
           status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -150,6 +161,7 @@ export class Actions2Component implements ViewCell {
   public ambit;
   public data;
   public service;
+  public procedures: any[] = [];
 
 
   constructor(
@@ -164,6 +176,7 @@ export class Actions2Component implements ViewCell {
     private FlatS: FlatService,
     private AdmissionRouteS: AdmissionRouteService,
     private BedS: BedService,
+    private ServiceBriefcaseS: ServicesBriefcaseService,
   ) {
   }
   ngOnInit() {
@@ -188,6 +201,7 @@ export class Actions2Component implements ViewCell {
         program_id: '',
         flat_id: '',
         pavilion_id: '',
+        procedure_id: '',
         bed_id: '',
       };
     }
@@ -206,11 +220,13 @@ export class Actions2Component implements ViewCell {
       scope_of_attention_id: [this.data.scope_of_attention_id, Validators.compose([Validators.required])],
       program_id: [this.data.program_id, Validators.compose([Validators.required])],
       flat_id: [this.data.flat_id, Validators.compose([Validators.required])],
+      procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
       pavilion_id: [this.data.pavilion_id, Validators.compose([Validators.required])],
       bed_id: [this.data.bed_id, Validators.compose([Validators.required])],
     });
 
     this.onChanges();
+    this.Getprocedures(this.value.data.briefcase_id)
   }
 
 
@@ -275,6 +291,7 @@ export class Actions2Component implements ViewCell {
           admissions_id: this.value.data.id,
           admission_route_id: this.form.controls.admission_route_id.value,
           scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
+          procedure_id: this.form.controls.procedure_id.value,
           program_id: this.form.controls.program_id.value,
           flat_id: this.form.controls.flat_id.value,
           pavilion_id: this.form.controls.pavilion_id.value,
@@ -374,9 +391,22 @@ export class Actions2Component implements ViewCell {
   }
 
   GetBed(pavilion_id, ambit) {
-    if (!pavilion_id || pavilion_id === '') return Promise.resolve(false);
-    return this.BedS.GetBedByPavilion(pavilion_id, ambit).then(x => {
-      this.bed = x;
+    if ((!pavilion_id || pavilion_id === '') || (!this.form.controls.procedure_id.value || this.form.controls.procedure_id.value === '') || (!ambit || ambit === '')) return Promise.resolve(false);
+    return this.BedS.GetBedByPavilion(pavilion_id, ambit, this.procedures.find(item => item.id == this.form.controls.procedure_id.value).manual_price.procedure_id).then(x => {
+      if (x.length > 0) {
+        this.bed = x;
+      } else {
+        this.toastService.warning('', 'No se encontraron camas')
+      }
+
+      return Promise.resolve(true);
+    });
+  }
+
+  Getprocedures(briefcase_id) {
+    if (!briefcase_id || briefcase_id === '') return Promise.resolve(false);
+    return this.ServiceBriefcaseS.GetProcedureByBriefcase(briefcase_id).then(x => {
+      this.procedures = x;
 
       return Promise.resolve(true);
     });

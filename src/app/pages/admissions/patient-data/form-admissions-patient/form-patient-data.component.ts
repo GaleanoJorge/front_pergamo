@@ -26,6 +26,7 @@ export class FormPatientDataComponent implements OnInit {
   @Input() savedUser: any =true;
   @Input() showTable: any =null;
   @Input() user_id: any =null;
+  @Input() campus_id: any =null;
   
 
 
