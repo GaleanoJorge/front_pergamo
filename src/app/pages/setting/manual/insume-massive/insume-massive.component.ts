@@ -103,6 +103,13 @@ export class InsumeMassiveComponent implements OnInit {
           }
         }
       },
+      has_auth: {
+        title: 'Autorización',
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value? 'Aplica' : 'No aplica';
+        },
+      },
     },
   };
 
