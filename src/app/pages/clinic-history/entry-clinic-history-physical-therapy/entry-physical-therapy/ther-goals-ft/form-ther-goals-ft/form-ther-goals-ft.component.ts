@@ -26,43 +26,43 @@ export class FormTherGoalsFTComponent implements OnInit {
   public arrayObjectives = [
     {
       id: 1,
-      description: "Fortalecer musculatura respiratoria para mejorar niveles de oxigenación"
+      description: "Disminuir dolor por medio de estretegias terapeuticas"
     },
     {
       id: 2,
-      description: "Promover y vigilar decanulación traqueal"
+      description: "Fortalecer musculatura por medio de ejercicios terapeuticos"
     },
     {
       id: 3,
-      description: "Titulacion de flujo de oxigenoterapia en cumplimiento a metas de oximetrias"
+      description: "Disminuir retracciones musculares por medio de estiramientos y ejercicios terapeuticos"
     },
     {
       id: 4,
-      description: "Mejorar/mantener cualidades fisicas de musculatura respiratoria"
+      description: "Disminuir infalamacion "
     },
     {
       id: 5,
-      description: "Reeducacion de patron ventilatorio"
+      description: "Aumentar grados de movilidad articular de articulacion afectada "
     },
     {
       id: 6,
-      description: "Mantener/ reeducar cinetica diafragmatica y costal"
+      description: "Mantener grados de rango de movimiento"
     },
     {
       id: 7,
-      description: "Controlar la hiperventilacion y fatiga muscular"
+      description: "Optimizar fases de la marcha"
     },
     {
       id: 8,
-      description: "Entrenar uso de inhaloterapia / farmacoterapia de acuerdo a prescripción medica"
+      description: "Optimizar equilibrio estatico y dinamico"
     },
     {
       id: 9,
-      description: "Titular parametros ventilatorios en relación a dinamica ventilatoria"
+      description: "Reeducar proceso de postura e higiene postural"
     },
     {
       id: 10,
-      description: "Vigilar presencia de signos de dificultad respiratoria"
+      description: "Disminuir sindrome desacondicionamiento fisico"
     }
 
   ]

@@ -30,6 +30,13 @@
                 </ngx-table-valoration-ft>
     
               </nb-step>
+
+              <nb-step label='Antecedentes'>
+    
+                <ngx-back-list [user]="user" [has_input]="has_input" [record_id]="record_id" (messageEvent)="receiveMessage($event)" [type_record_id]="1">
+                </ngx-back-list>
+    
+              </nb-step>
     
     
               <nb-step label="Signos Vitales">
