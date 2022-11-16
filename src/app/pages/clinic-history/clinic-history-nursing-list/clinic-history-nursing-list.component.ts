@@ -236,22 +236,20 @@ export class ClinicHistoryNursingListComponent implements OnInit {
       try {
         
         let response;
-        var back = true;
-        response = await this.chRecord.UpdateCH(formData, this.record_id).then((x) => {
-          back = true;
-        }).catch(x => {
-          back = false;
-          this.toastService.danger('', x);});
-          if(back){
-            this.location.back();
-            this.toastService.success('', response.message);
-            if (this.saved) {
-              this.saved();
-            }
+        
+        response = await this.chRecord.UpdateCH(formData, this.record_id).then(x => {
+          this.location.back();
+          this.toastService.success('', x.message);
+          this.messageError = null;
+          if (this.saved) {
+            this.saved();
           }
-        //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
-        this.messageError = null;
-        return true;
+          return Promise.resolve(true);
+        }).catch(x => {
+          this.toastService.danger('', x);
+          return Promise.resolve(false);
+        });
+        return Promise.resolve(response);
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;

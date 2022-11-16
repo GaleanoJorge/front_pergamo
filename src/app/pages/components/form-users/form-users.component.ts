@@ -1152,7 +1152,8 @@ export class FormUsersComponent implements OnInit {
     } else {
       this.neighborhood_or_residence_id = null;
       this.toastService.warning('', 'Debe seleccionar un item de la lista');
-      this.form.controls.activities_id.setErrors({ 'incorrect': true });
+      this.form.controls.neighborhood_or_residence_id.setErrors({ 'incorrect': true });
+      this.form.controls.neighborhood_or_residence_id.setValidators(Validators.required)
     }
   }
   
