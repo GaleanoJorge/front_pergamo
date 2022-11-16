@@ -12,6 +12,8 @@ import { AuthService } from '../../../services/auth.service';
 import { filter, pairwise } from 'rxjs/operators';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/confirm-dialog.component';
+import { ManagementPlanService } from '../../../business-controller/management-plan.service';
+import { AssistanceSuppliesService } from '../../../business-controller/assistance-supplies.service';
 
 
 @Component({
@@ -58,6 +60,9 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public input_done;
   public ch_record;
   public show_labs: boolean = false;
+  public management;
+  public applicated: any;
+  public text: any = null;
 
 
   toggleLinearMode() {
@@ -76,6 +81,8 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     private location: Location,
     private authService: AuthService,
     public datePipe: DateFormatPipe,
+    private assistanceSuppliesS: AssistanceSuppliesService,
+    private ManagementS: ManagementPlanService,
 
   ) {
     this.routes = [
@@ -97,7 +104,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.record_id = this.route.snapshot.params.id==undefined?this.ch_record2:this.route.snapshot.params.id;
     this.currentRole = this.authService.GetRole();
     this.own_user = this.authService.GetUser();
@@ -118,6 +125,47 @@ export class ClinicHistoryNursingListComponent implements OnInit {
       if(this.ch_record[0].assigned_management_plan.management_plan.management_procedure.length > 0){
         this.show_labs = true;
       }
+    });
+    await this.ManagementS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.management = x;
+      if(this.management[0].type_of_attention_id == 17){
+        this.getAplications();
+      }
+    });
+  }
+
+  getAplications(){
+    this.assistanceSuppliesS
+    .GetApplications({
+      ch_record: this.record_id,
+      // pharmacy_product_request_id: this.data.id,
+    })
+    .then((x) => {
+      this.applicated = x;
+      var applicated = Number(this.applicated.assistance_supplies);
+      if(this.applicated.type == 2){
+
+        var args =
+          this.applicated.product.pharmacy_product_request.services_briefcase.manual_price.product.product_dose_id == 2
+            ? this.applicated.product.pharmacy_product_request.services_briefcase.manual_price.product
+                .multidose_concentration.name
+            : this.applicated.product.pharmacy_product_request.services_briefcase.manual_price.product
+                .measurement_units.name;
+
+        var rr = '';
+
+        if (args.includes('/')) {
+          var spl = args.split('/');
+          var num = spl[0];
+          var den = +spl[1];
+          rr = num;
+        } else {
+          rr = args;
+        }
+      } else {
+        args = 'Unidades'
+      }
+      this.text = applicated + ' ' + args;    
     });
   }
 
@@ -188,15 +236,21 @@ export class ClinicHistoryNursingListComponent implements OnInit {
       try {
         
         let response;
-        
-        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
-        this.location.back();
-        this.toastService.success('', response.message);
+        var back = true;
+        response = await this.chRecord.UpdateCH(formData, this.record_id).then((x) => {
+          back = true;
+        }).catch(x => {
+          back = false;
+          this.toastService.danger('', x);});
+          if(back){
+            this.location.back();
+            this.toastService.success('', response.message);
+            if (this.saved) {
+              this.saved();
+            }
+          }
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
         this.messageError = null;
-        if (this.saved) {
-          this.saved();
-        }
         return true;
       } catch (response) {
         this.messageError = response;
@@ -269,5 +323,11 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     }).catch(x => {
       throw x;
     });
+  }
+
+  reloadAplication($event){
+    if($event == true){
+      this.getAplications();
+    }
   }
 }
