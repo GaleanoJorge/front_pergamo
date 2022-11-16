@@ -30,6 +30,7 @@ import { Actions3Component } from './bed-management/actions.component';
 import { FormPatientDataComponent } from './patient-data/form-admissions-patient/form-patient-data.component';
 import { PatientDataComponent } from './patient-data/patient-data.component';
 import { ActionsComponentED } from './patient-data/actionsED.component';
+import { CurrencyPipe } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -64,7 +65,7 @@ import { ActionsComponentED } from './patient-data/actionsED.component';
     BedManagementComponent,
     FormAdmissionsPatientComponent,
     AdmissionsComponent,
-    AdmissionsListComponent,
+    // AdmissionsListComponent,
     FormPatientComponent,
     Actions2Component,
     Actions3Component,
@@ -73,8 +74,15 @@ import { ActionsComponentED } from './patient-data/actionsED.component';
   ],
   providers: [
     DateFormatPipe,
+    CurrencyPipe,
   ],
-  exports: [AdmissionsPatientComponent],
+  exports: [
+    AdmissionsPatientComponent,
+    AdmissionsListComponent,
+    // FormPatientComponent
+    PatientDataComponent,
+    FormAdmissionsPatientComponent
+  ],
 })
 export class AdmissionsModule {
 }

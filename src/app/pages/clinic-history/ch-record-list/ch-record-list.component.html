@@ -4,7 +4,7 @@
 
 
     <ngx-base-table [title]="title" [subtitle]="subtitle" customData="ch_record" [settings]="settings"
-      entity="ch_record/byadmission/{{admissions_id}}/{{assigned_management_plan}}" [messageToltip]="messageToltip">
+      [entity]="this.entity" [messageToltip]="messageToltip">
       <div title *ngIf="user">
         <p class="parrafo" ><b>CÉDULA:</b> {{user.identification}} </p>
         <p class="parrafo"><b>NOMBRE:</b>  {{user.nombre_completo}}</p>
@@ -27,6 +27,9 @@
               {{item.services_briefcase.manual_price.name}} </p>
           </div>
         </div>
+        <div *ngIf="external_consult_id">
+          <p class="parrafo" *ngIf="external_consult_id"><b>MOTIVO:</b> {{external_consult[0].services_briefcase.manual_price.name}}</p>
+        </div>
         
       </div>
 
@@ -43,3 +46,30 @@
     </ngx-base-table>
   </div>
 </ngx-base-list>
+
+<ng-template #masiveAuth>
+  <div class="container-fluid">
+    <form [formGroup]="form">
+      <nb-card style="max-width: 1400px;max-height: 1200px;overflow: auto;">
+        <nb-card-header>Seleccionar especialidad</nb-card-header>
+        <nb-card-body>
+          <div>
+            <div class="col-md-12">
+              <label for="speciality_id" class="form-text text-muted font-weight-bold">Especialidades del asistencial:</label>
+              <nb-select formControlName="speciality_id" id="speciality_id" fullWidth>
+                <nb-option value="">Seleccione...</nb-option>
+                <nb-option *ngFor="let item of assistance_special" [value]="item.specialty_id">{{item.specialty.name}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <div style="text-align:end;">
+            <button type="button" nbButton (click)="close()">Cancelar</button>
+            <button type="button" nbButton status="success" (click)="NewChRecord()">Guardar</button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </div>
+</ng-template>

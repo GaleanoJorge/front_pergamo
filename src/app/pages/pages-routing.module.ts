@@ -66,11 +66,6 @@ const routes: Routes = [{
         .then(m => m.PahModule),
     },
     {
-      path: 'telemedicine',
-      loadChildren: () => import('./telemedicine/telemedicine.module')
-        .then(m => m.TelemedicineModule),
-    },
-    {
       path: 'diets',
       loadChildren: () => import('./diets/diets.module')
         .then(m => m.DietsModule),
@@ -125,6 +120,11 @@ const routes: Routes = [{
       path: 'pharmacy',
       loadChildren: () => import('./pharmacy/pharmacy.module')
         .then(m => m.PharmacyModule),
+    },
+    {
+      path: 'scheduling',
+      loadChildren: () => import('./scheduling/scheduling.module')
+        .then(m => m.SchedulingModule),
     }
   ],
 }];

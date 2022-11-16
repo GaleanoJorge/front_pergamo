@@ -31,10 +31,10 @@ export class ServicesBriefcaseService {
       });
   }
 
-  GetProcedureByBriefcase(briefcase_id): Promise<ServicesBriefcase[]> {
+  GetProcedureByBriefcase(briefcase_id, params = {}): Promise<ServicesBriefcase[]> {
     let servObj = new ServiceObject('ServiceBriefcase/ServicesByBriefcase' , briefcase_id);
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
