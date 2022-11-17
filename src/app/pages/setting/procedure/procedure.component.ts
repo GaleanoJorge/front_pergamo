@@ -18,7 +18,7 @@ export class ProcedureComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Procedimiento C.U.P.S.';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento CUPS', 'Categoria del procedimiento CUPS', 'Pos', 'Rango de Edad ', 'Genero', 'Estado del procedimiento CUPS', 'Id de finalidad ', 'Tiempo'];
+  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento CUPS', 'Categoria del procedimiento CUPS', 'Pos', 'Rango de Edad ', 'Genero', 'Estado del procedimiento CUPS', 'Id de finalidad ', 'Tiempo', 'Tipo de pago'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]}, ${this.headerFields[8]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -58,6 +58,13 @@ export class ProcedureComponent implements OnInit {
       name: {
         title: this.headerFields[3],
         type: 'string',
+      },
+      payment_type: {
+        title: this.headerFields[11],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value == 1 ? 'COUTA MODERADORA' : value == 2 ? 'COPAGO' :  value == 3 ? 'EXENTO' : '--';
+        },
       },
     },
   };

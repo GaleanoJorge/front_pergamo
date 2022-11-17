@@ -33,6 +33,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
 import { DateFormatPipe } from './pipe/date-format.pipe';
 import { PagesModule } from './pages/pages.module';
+import { CurrencyPipe, PercentPipe } from '@angular/common';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { PagesModule } from './pages/pages.module';
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     NbButtonModule,
+    NbAutocompleteModule,
     NbInputModule,
     NbAlertModule,
     NbAutocompleteModule,
@@ -68,11 +70,14 @@ import { PagesModule } from './pages/pages.module';
   bootstrap: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
-    DateFormatPipe
+    DateFormatPipe,
+    CurrencyPipe,
+    PercentPipe
   ],
   exports: [
     PagesModule,
     DateFormatPipe,
+    CurrencyPipe,
     NbEvaIconsModule
   ],
 })

@@ -188,6 +188,8 @@ export class FormRentReliefComponent implements OnInit {
           file_payment: this.data.file_payment,
           observation: this.data.observation,
           gross_value_activities: this.data.gross_value_activities,
+          source_retention: this.source_retention.Retencion_por_aplicar,
+          ica_retention: this.source_retention.Rete_ica,
           net_value_activities: this.data.gross_value_activities - (this.source_retention.Retencion_por_aplicar + this.source_retention.Rete_ica),
           user_id: this.data.user_id,
           status_bill_id: 2,

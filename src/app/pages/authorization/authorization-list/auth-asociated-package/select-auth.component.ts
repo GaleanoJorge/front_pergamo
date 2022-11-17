@@ -2,7 +2,8 @@ import {Component, Input} from '@angular/core';
 import {ViewCell} from 'ng2-smart-table';
 
 @Component({
-  template: `
+  template: 
+  `
     <div class="d-flex justify-content-center">
         <nb-checkbox [disabled]="value.show" [checked]="value.valid" (checkedChange)="value.selection($event, value.data)" ></nb-checkbox>
     </div>

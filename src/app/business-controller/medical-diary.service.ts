@@ -95,6 +95,22 @@ export class MedicalDiaryService {
       });
   }
 
+  ChangeStatus(id, medical_diary_days: any): Promise<any> {
+    let servObj = new ServiceObject(`medical_diary/${id}/changeStatus`);
+    servObj.data = medical_diary_days;
+    return this.webAPI.PatchAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(<any>servObj);
+      }).catch(x => {
+        throw x.message;
+      });
+  }
+
   Update(medical_diary: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('medical_diary', medical_diary.id);
     servObj.data = medical_diary;

@@ -1,0 +1,102 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-6">
+          <p class="parrafo" *ngIf="patientData && !disabled"><b>{{this.title}}</b> {{patientData.nombre_completo}} </p>
+          <p class="parrafo" *ngIf="disabled"><b>{{this.title}}</b> {{this.data.data.patient.nombre_completo}} </p>
+          <p class="parrafo" *ngIf="patientData"><b>Con el profesional:</b> {{assistance.nombre_completo}}</p>
+        </div>
+        <div class="col-md-6">
+          <label *ngIf="this" for="state_id" class="form-text text-muted font-weight-bold">Cambiar de estado a:</label>
+          <nb-select formControlName="state_id" id="state_id" fullWidth [disabled]="this.disabled || onlyView"
+            status="{{ isSubmitted && form.controls.state_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of medical_status" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="star_hour" class="form-text text-muted font-weight-bold align">Hora de inicio</label>
+          <input type="datetime-local" nbInput id="star_hour" disabled="true" formControlName="star_hour" star_hour
+            fullWidth
+            status="{{ isSubmitted && form.controls.star_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">        </div>
+        <div class="col-md-6">
+          <label for="finish_hour" class="form-text text-muted font-weight-bold align">Hora de finalización</label>
+          <input type="datetime-local" nbInput id="finish_hour" disabled="true" formControlName="finish_hour"
+            finish_hour fullWidth
+            status="{{ isSubmitted && form.controls.finish_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        </div>
+        <div class="col-md-6">
+          <label for="eps_id" class="form-text text-muted font-weight-bold">EPS / Asegurador:</label>
+          <nb-select [selected]="this.data.eps_id" [disabled]="this.disabled || onlyView" formControlName="eps_id" id="eps_id" fullWidth
+            status="{{ isSubmitted && form.controls.eps_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.eps_id }}" *ngFor="let item of eps" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div *ngIf="!this.disabled" class="col-md-6">
+          <label for="contract" class="form-text text-muted font-weight-bold">Contrato:</label>
+          <nb-select [selected]="this.data.data.contract_id" [disabled]="this.disabled || onlyView" formControlName="contract_id" id="contract_id" fullWidth
+            status="{{ isSubmitted && form.controls.contract_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.data.contract_id }}" *ngFor="let item of contract"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div *ngIf="this.disabled" class="col-md-6">
+          <label for="contract" class="form-text text-muted font-weight-bold">Contrato:</label>
+          <input type="text" nbInput id="contract_id" disabled="true" formControlName="contract_id" contract_id
+            fullWidth
+            status="{{ isSubmitted && form.controls.contract_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        </div>
+        <div *ngIf="!this.disabled" class="col-md-6">
+          <label for="briefcase_id" class="form-text text-muted font-weight-bold">Portafolios de atención:</label>
+          <nb-select [selected]="this.data.data.briefcase_id" [disabled]="this.disabled || onlyView" formControlName="briefcase_id" id="briefcase_id" fullWidth
+            status="{{ isSubmitted && form.controls.briefcase_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.data.briefcase_id }}" *ngFor="let item of briefcase"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div *ngIf="this.disabled" class="col-md-6">
+          <label for="briefcase_id" class="form-text text-muted font-weight-bold">Portafolios de atención:</label>
+          <input type="text" nbInput id="briefcase_id" disabled="true" formControlName="briefcase_id" briefcase_id
+            fullWidth
+            status="{{ isSubmitted && form.controls.briefcase_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        </div>
+        <div *ngIf="!this.disabled" class="col-md-6">
+          <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimiento:</label>
+          <input fullWidth formControlName="procedure_id" [disabled]="this.disabled || onlyView" nbInput type="text" placeholder="Seleccionar CUPS"
+            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            [nbAutocomplete]="autoControl" />
+
+          <nb-autocomplete #autoControl (selectedChange)="onSelectionChange($event)">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.data.services_briefcase_id }}" *ngFor="let item of filteredControlOptions$ | async" [value]="item.manual_price.procedure.name">
+              {{ item.manual_price.own_code }} - {{item.manual_price.procedure.code}} -
+              {{item.manual_price.procedure.name}}
+            </nb-option>
+          </nb-autocomplete>
+        </div>
+        <div *ngIf="this.disabled" class="col-md-6">
+          <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimiento:</label>
+          <input type="text" nbInput id="procedure_id" disabled="true" formControlName="procedure_id" briefcase_id
+            fullWidth
+            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cerrar</button>
+      <button *ngIf="this.disabled || onlyView" nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

@@ -47,6 +47,42 @@ export class BedService {
       });
   }
 
+  GetOfficeBycampus(params = {}): Promise<Bed[]> {
+    let servObj = new ServiceObject(params ? 'office_by_campus?pagination=false' : 'office_by_campus');
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.bed = <Bed[]>servObj.data.bed;
+
+        return Promise.resolve(this.bed);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetOfficeByPavilion(params = {}): Promise<Bed[]> {
+    let servObj = new ServiceObject(params ? 'office_by_campus?pagination=false' : 'office_by_campus');
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.bed = <Bed[]>servObj.data.bed;
+
+        return Promise.resolve(this.bed);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   getBedsByCampus(campus_id): Promise<Bed[]> {
     let servObj = new ServiceObject(`bed/getBedsByCampus/${campus_id}`);
     return this.webAPI.GetAction(servObj)
