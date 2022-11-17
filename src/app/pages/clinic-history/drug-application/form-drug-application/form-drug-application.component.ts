@@ -15,6 +15,7 @@ import { AssistanceSuppliesService } from '../../../../business-controller/assis
 import { SuppliesStatusService } from '../../../../business-controller/supplies-status.service';
 import { AuthService } from '../../../../services/auth.service';
 import { RowHistoryFormat } from '@syncfusion/ej2/documenteditor';
+import { isFunction } from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'ngx-form-drug-application',
@@ -32,17 +33,18 @@ export class FormDrugApplicationComponent implements OnInit {
   public form: FormGroup;
   public isSubmitted: boolean = false;
   public saved: any = null;
+  public emit: any = null;
   // public close: any = null;
   public loading: boolean = false;
   public disabled: boolean = false;
   public label: string = '';
 
   public supplies_status: any[];
+  public applicated: any;
   public diagnosis_class: any[];
   public status_id;
   public user_id;
-
-
+  public text: string = '--';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,9 +54,8 @@ export class FormDrugApplicationComponent implements OnInit {
     private route: ActivatedRoute,
     private assistanceSuppliesS: AssistanceSuppliesService,
     private suppliesStatus: SuppliesStatusService,
-    private authS: AuthService,
-  ) {
-  }
+    private authS: AuthService
+  ) {}
 
   async ngOnInit() {
     if (!this.data) {
@@ -63,26 +64,73 @@ export class FormDrugApplicationComponent implements OnInit {
         observation: '',
       };
     } else {
-      if (this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-        this.label = this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.name.toUpperCase();
+      if (
+        this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock
+          .product
+      ) {
+        this.label =
+          this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.name.toUpperCase();
       } else {
-        this.label = this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.name.toUpperCase();
+        this.label =
+          this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.name.toUpperCase();
       }
     }
 
     this.form = this.formBuilder.group({
       clock: ['', Validators.compose([Validators.required])],
       observation: ['', Validators.compose([Validators.required])],
+      quantity: [''],
+      applicable: [''],
     });
+
+    // this.text = '0 ML';
 
     this.user_id = this.authS.GetUser().id;
 
-    this.suppliesStatus.GetCollection().then(x => {
+    this.suppliesStatus.GetCollection().then((x) => {
       this.supplies_status = x;
       if (this.supplies_status.length != 0) {
-        this.status_id = this.supplies_status.find(item => item.name == this.status);
+        this.status_id = this.supplies_status.find(
+          (item) => item.name == this.status
+        );
       }
     });
+
+    this.assistanceSuppliesS
+      .GetApplications({
+        ch_record: this.record_id,
+        pharmacy_product_request_id: this.data.id,
+      })
+      .then((x) => {
+        this.applicated = x;
+        var applicated = Number(this.applicated.assistance_supplies)
+        if(this.applicated.type == 2){
+
+          var args =
+            this.data.services_briefcase.manual_price.product.product_dose_id == 2
+              ? this.data.services_briefcase.manual_price.product
+                  .multidose_concentration.name
+              : this.data.services_briefcase.manual_price.product
+                  .measurement_units.name;
+  
+          var rr = '';
+  
+          if (args.includes('/')) {
+            var spl = args.split('/');
+            var num = spl[0];
+            var den = +spl[1];
+            rr = num;
+          } else {
+            rr = args;
+          }
+        } else {
+          args = 'Unidades'
+        }
+        this.applicated = applicated;
+        this.text = applicated + ' ' + args;
+        // this.text = applicated + 'Unidades';
+        
+      });
   }
 
   async save() {
@@ -90,35 +138,50 @@ export class FormDrugApplicationComponent implements OnInit {
       this.isSubmitted = true;
       this.loading = true;
       if (this.data.id) {
-        await this.assistanceSuppliesS.Update({
-          id: this.data.id,
-          clock: this.form.controls.clock.value,
-          observation: this.form.controls.observation.value,
-          supplies_status_id: this.status_id.id,
-          ch_record_id: this.record_id,
-          type_record_id: this.type_record_id,
-          user_incharge_id: this.user_id,
-          insume_comercial: this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com_id ? this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com_id : null,
-          product_comercial: this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_id ? this.data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_id : null,
-        }).then((x) => {
-          this.toastService.success('', x.message);
-          if (this.saved) {
-            this.saved();
-          }
-          // this.close();
-        }).catch(x => {
-          this.toastService.danger('', x);
-          this.isSubmitted = false;
-          this.loading = false;
-        });
-
+        await this.assistanceSuppliesS
+          .Update({
+            id: this.data.id,
+            clock: this.form.controls.clock.value,
+            observation: this.form.controls.observation.value,
+            supplies_status_id: this.status_id.id,
+            ch_record_id: this.record_id,
+            type_record_id: this.type_record_id,
+            user_incharge_id: this.user_id,
+            insume_comercial: this.data.pharmacy_request_shipping
+              .pharmacy_lot_stock.billing_stock.product_supplies_com_id
+              ? this.data.pharmacy_request_shipping.pharmacy_lot_stock
+                  .billing_stock.product_supplies_com_id
+              : null,
+            product_comercial: this.data.pharmacy_request_shipping
+              .pharmacy_lot_stock.billing_stock.product_id
+              ? this.data.pharmacy_request_shipping.pharmacy_lot_stock
+                  .billing_stock.product_id
+              : null,
+            quantity: this.form.controls.quantity.value,
+          })
+          .then((x) => {
+            this.toastService.success('', x.message);
+            if (this.saved) {
+              this.saved();
+            }
+            if (this.emit) {
+              this.emit();
+            }
+            // this.close();
+          })
+          .catch((x) => {
+            this.toastService.danger('', x);
+            this.isSubmitted = false;
+            this.loading = false;
+          });
       } else {
-        await this.assistanceSuppliesS.Save({
-          ch_record_id: this.record_id,
-          type_record_id: this.type_record_id,
-          clock: this.form.controls.clock.value,
-          observation: this.form.controls.observation.value,
-        })
+        await this.assistanceSuppliesS
+          .Save({
+            ch_record_id: this.record_id,
+            type_record_id: this.type_record_id,
+            clock: this.form.controls.clock.value,
+            observation: this.form.controls.observation.value,
+          })
           .then((x) => {
             this.toastService.success('', x);
             if (this.saved) {
@@ -132,7 +195,7 @@ export class FormDrugApplicationComponent implements OnInit {
           });
       }
     } else {
-      if(this.form.controls.observation.errors){
+      if (this.form.controls.observation.errors) {
         this.toastService.warning('', 'Debe diligenciar observaciones');
       } else {
         this.toastService.warning('', 'Debe diligenciar la hora de aplicación');
@@ -144,5 +207,16 @@ export class FormDrugApplicationComponent implements OnInit {
     this.dialogRef.close();
   }
 
-
+  // getConcentration(value: string) {
+  //   var rr = 0;
+  //   if (value.includes('/')) {
+  //     var spl = value.split('/');
+  //     var num = spl[0];
+  //     var den = +spl[1];
+  //     rr = num;
+  //   } else {
+  //     rr = value
+  //   }
+  //   return rr;
+  // }
 }
