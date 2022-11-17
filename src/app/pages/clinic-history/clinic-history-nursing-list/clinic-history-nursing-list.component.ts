@@ -166,6 +166,8 @@ export class ClinicHistoryNursingListComponent implements OnInit {
         args = 'Unidades'
       }
       this.text = applicated + ' ' + args;    
+    }).catch((x) => {
+      this.toastService.danger('', x);
     });
   }
 
