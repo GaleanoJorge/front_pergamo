@@ -349,36 +349,10 @@ export class BillingPadProcedureComponent implements OnInit {
       if (element.quantity) {
         q = element.quantity;
       }
-      var add = {
-        id: element.id,
-        quantity: q,
-        services_briefcase: {
-          value: (element.services_briefcase.value * q),
-          manual_price: {
-            own_code: element.services_briefcase.manual_price.own_code,
-            name: element.services_briefcase.manual_price.name,
-          },
-        },
-        supplies_com: element.supplies_com != undefined ? {
-          code_udi: element.supplies_com.code_cum,
-        } : null,
-        product_com: element.product_com != undefined ? {
-          code_cum: element.product_com.code_cum,
-        } : null,
-        fixed_add_id: element.fixed_add_id != undefined ? {
-          code_cum: element.fixed_add_id.observation,
-        } : null,
-        assigned_management_plan: element.assigned_management_plan != undefined ? {
-          execution_date: element.assigned_management_plan.execution_date,
-          user: {
-            firstname: element.assigned_management_plan.user.firstname,
-            lastname: element.assigned_management_plan.user.lastname,
-          },
-        } : null,
-      }
+      var add = element.id;
       this.selectedOptions.push(add);
     });
-    
+
   }
 
   goBack() {
