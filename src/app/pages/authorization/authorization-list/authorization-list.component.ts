@@ -259,6 +259,13 @@ export class AuthorizationListComponent implements OnInit {
           return value ? value : '--';
         },
       },
+      quantity: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return row.application_id? value ? value : 1 : '--';
+        },
+      },
       assigned_management_plan: {
         title: this.headerFields[13],
         type: 'string',
