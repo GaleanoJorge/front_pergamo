@@ -355,12 +355,12 @@ export class BillingPadProcedureComponent implements OnInit {
         services_briefcase: {
           value: (element.services_briefcase.value * q),
           manual_price: {
-            homologous_id: element.services_briefcase.manual_price.homologous_id,
+            own_code: element.services_briefcase.manual_price.own_code,
             name: element.services_briefcase.manual_price.name,
           },
         },
         supplies_com: element.supplies_com != undefined ? {
-          code_cum: element.supplies_com.code_cum,
+          code_udi: element.supplies_com.code_cum,
         } : null,
         product_com: element.product_com != undefined ? {
           code_cum: element.product_com.code_cum,
