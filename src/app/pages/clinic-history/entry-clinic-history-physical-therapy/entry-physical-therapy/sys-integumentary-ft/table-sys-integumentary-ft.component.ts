@@ -26,7 +26,7 @@ export class TableSysIntegumentaryComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = ['FEHCA',
-                                'COLABORACION',
+                                'COLORACIÓN',
                                 'INTEGRIDAD',
                                 'TEXTURA',
                                 'SUDORACION',

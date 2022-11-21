@@ -1,16 +1,5 @@
-import { Component, Input, TemplateRef } from '@angular/core';
-import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Component, Input } from '@angular/core';
 import { ViewCell } from 'ng2-smart-table';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../../../environments/environment';
-import { GlossResponseService } from '../../../business-controller/gloss-response.service';
-import { ObjetionCodeResponseService } from '../../../business-controller/objetion-code-response.service';
-import { ObjetionResponseService } from '../../../business-controller/objetion-response.service';
-import { CurrencyPipe } from '@angular/common';
-import { GlossRadicationService } from '../../../business-controller/gloss-radication.service';
-import { GlossService } from '../../../business-controller/gloss.service';
-import { date } from '@rxweb/reactive-form-validators';
 
 @Component({
   template: `

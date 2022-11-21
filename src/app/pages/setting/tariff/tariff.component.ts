@@ -12,6 +12,10 @@ import { FormTariffComponent } from './form-tariff/form-tariff.component';
 import { TariffService } from '../../../business-controller/tariff.service';
 import { CurrencyPipe } from '@angular/common';
 import { FormTariffConfirmDisabledComponent } from './form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { PadRiskService } from '../../../business-controller/pad-risk.service';
+import { ProgramService } from '../../../business-controller/program.service';
+import { TypeOfAttentionService } from '../../../business-controller/type-of-attention.service';
 
 @Component({
   selector: 'ngx-tariff',
@@ -30,7 +34,15 @@ export class TariffComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public pad_risk;
+  public program;
+  public type_of_attention;
+  public form: FormGroup;
 
+  public yes_not = [
+    { id: 2, name: 'Si' },
+    { id: 1, name: 'NO' },
+  ];
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -210,12 +222,40 @@ export class TariffComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private currency: CurrencyPipe,
     private dialogService: NbDialogService,
+    private PadRiskS: PadRiskService,
+    private ProgramS: ProgramService,
+    private TypeOfAttentionS: TypeOfAttentionService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
   ) {
   }
 
   ngOnInit(): void {
+    
+    this.PadRiskS.GetCollection().then(x => {
+      this.pad_risk = x;
+    });
+    this.ProgramS.GetCollection().then(x => {
+      this.program = x;
+    });
+    this.TypeOfAttentionS.GetCollection().then(x => {
+      this.type_of_attention = x;
+    });
+
+    this.form = this.formBuilder.group({
+      pad_risk_id: [''],
+      extra_dose: [''],
+      phone_consult: [''],
+      program_id: [''],
+      quantity: [''],
+      type_of_attention_id: [''],
+      has_car: [''],
+      failed: [''],
+      status_id: [''],
+    });
+
+    this.onChange();
   }
 
   RefreshData() {
@@ -278,5 +318,39 @@ export class TariffComponent implements OnInit {
     }).catch((x) => {
       // this.toastrService.danger(x.message);
     });
+  }
+
+  onChange() {
+    this.form.get('pad_risk_id').valueChanges.subscribe(val => {
+      this.changeEntity(val);
+    });
+    this.form.get('extra_dose').valueChanges.subscribe(val => {
+      this.changeEntity(val);
+    });
+    this.form.get('phone_consult').valueChanges.subscribe(val => {
+      this.changeEntity(val);
+    });
+    this.form.get('program_id').valueChanges.subscribe(val => {
+      this.changeEntity(val);
+    });
+    this.form.get('quantity').valueChanges.subscribe(val => {
+      this.changeEntity(val);
+    });
+    this.form.get('type_of_attention_id').valueChanges.subscribe(val => {
+      this.changeEntity(val);
+    });
+    this.form.get('has_car').valueChanges.subscribe(val => {
+      this.changeEntity(val);
+    });
+    this.form.get('failed').valueChanges.subscribe(val => {
+      this.changeEntity(val);
+    });
+    this.form.get('status_id').valueChanges.subscribe(val => {
+      this.changeEntity(val);
+    });
+  }
+
+  changeEntity(val) {
+    this.table.changeEntity('tariff?pad_risk_id=' + this.form.controls.pad_risk_id.value + '&extra_dose=' + this.form.controls.extra_dose.value + '&phone_consult=' + this.form.controls.phone_consult.value + '&program_id=' + this.form.controls.program_id.value + '&quantity=' + this.form.controls.quantity.value + '&type_of_attention_id=' + this.form.controls.type_of_attention_id.value + '&has_car=' + this.form.controls.has_car.value + '&failed=' + this.form.controls.failed.value + '&status_id=' + this.form.controls.status_id.value + '', 'tariff');
   }
 }

@@ -31,6 +31,24 @@ export class AssistanceSuppliesService {
       });
   }
 
+  GetApplications(params = {}): Promise<AssistanceSupplies[]> {
+    let servObj = new ServiceObject(params ? 'assistance_supplies_app?pagination=false' : 'assistance_supplies_app');
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.assistance_supplies = <AssistanceSupplies[]>servObj.data[0];
+
+        return Promise.resolve(this.assistance_supplies);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(assistance_supplies: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('assistance_supplies');
     servObj.data = assistance_supplies;
