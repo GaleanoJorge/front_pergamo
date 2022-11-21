@@ -1,42 +1,59 @@
-<!-- <ngx-base-list [messageError]="messageError" [routes]="routes">
-    <div content>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content *ngIf="dashboards_roles && dashboards_routes">
         <nb-tabset class="tabset">
             <nb-tab tabTitle="INICIO">
-               
-                        <nb-card-body class="cuadrito">
-                            <div style="width: 100%;"><div style="position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0;"><iframe frameborder="0" width="1280" height="720" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://view.genial.ly/627bdda873bea10011c0a09e" type="text/html" allowscriptaccess="always" allowfullscreen="true" scrolling="yes" allownetworking="all"></iframe> </div> </div>
-                        </nb-card-body>
-                 
+
+                <nb-card-body class="cuadrito">
+                    <div style="width: 100%;">
+                        <div style="position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0;"><iframe
+                                frameborder="0" width="1280" height="720"
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                src="https://view.genial.ly/627bdda873bea10011c0a09e" type="text/html"
+                                allowscriptaccess="always" allowfullscreen="true" scrolling="yes"
+                                allownetworking="all"></iframe> </div>
+                    </div>
+                </nb-card-body>
+
             </nb-tab>
-            <nb-tab *ngIf="currentRole.role_type_id == 1 && dashboards_routes && dashboards_roles && (dashboards.includes(1) || dashboards.includes(2))" tabTitle="GERENCIA">
+            <nb-tab
+                *ngIf="currentRole.role_type_id == 1 && dashboards_routes && dashboards_roles && (dashboards.includes(1) || dashboards.includes(2))"
+                tabTitle="GERENCIA">
                 <nb-tabset class="tabset">
                     <nb-tab *ngIf="dashboards.includes(1)" tabTitle="REPORTE FRT">
                         <nb-card-body>
-                            <iframe title="TABLERO DOC" width="100%" height="800px" [src]="getLink(1)" frameborder="0" allowFullScreen="true"></iframe>
+                            <iframe title="TABLERO DOC" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiMzk2Y2EzYTktNmNlMS00Yzk2LWE2N2UtMjZmYjNiODQzNWMwIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9&pageName=ReportSection4f160b5b90102c0c0395"
+                                frameborder="0" allowFullScreen="true"></iframe>
                         </nb-card-body>
                     </nb-tab>
                     <nb-tab *ngIf="dashboards.includes(2)" tabTitle="INICIO DE SESIÓN">
                         <nb-card-body>
-                            <iframe title="Login - Resumen" width="100%" height="800px" [src]="getLink(2)" frameborder="0" allowFullScreen="true"></iframe>
+                            <iframe title="Login - Resumen" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiMWJmZDc3ZTQtMzM5Ny00ZjYwLTlmYWEtMDdlZTc0MGZiMTM2IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
+                                frameborder="0" allowFullScreen="true"></iframe>
                         </nb-card-body>
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
-            <nb-tab *ngIf="currentRole.role_type_id == 1" tabTitle="FARMACIA">
+            <nb-tab *ngIf="currentRole.role_type_id == 1 && (dashboards.includes(10))" tabTitle="FARMACIA">
                 <nb-tabset class="tabset">
-                    <nb-tab tabTitle="REPORTE FARMACIA">
+                    <nb-tab *ngIf="dashboards.includes(10)" tabTitle="REPORTE FARMACIA">
                         <nb-card-body>
-                            <iframe title="Report Section" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiN2FjOGE4ZDctYjgxYi00NGM5LWJiY2YtOGVlYTk4NTk2YWZkIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9" frameborder="0" allowFullScreen="true"></iframe>
+                            <iframe title="Report Section" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiN2FjOGE4ZDctYjgxYi00NGM5LWJiY2YtOGVlYTk4NTk2YWZkIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
+                                frameborder="0" allowFullScreen="true"></iframe>
                         </nb-card-body>
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
-            <nb-tab *ngIf="currentRole.role_type_id == 1  && dashboards_routes && dashboards_roles && dashboards.includes(3)" tabTitle="GLOSAS">
+            <nb-tab
+                *ngIf="currentRole.role_type_id == 1  && dashboards_routes && dashboards_roles && dashboards.includes(3)"
+                tabTitle="GLOSAS">
                 <nb-tabset class="tabset">
                     <nb-tab *ngIf="dashboards.includes(3)" tabTitle="REPORTE GLOSAS">
                         <nb-card-body>
                             <iframe title="Analisis_Decr_Glosas - Inicio" width="100%" height="800px"
-                            [src]="getLink(3)"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiOWUzZmMzN2MtNjY4Yy00ODY1LTgwYzQtOGMwZWQwMjBjNWI3IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
                                 frameborder="0" allowFullScreen="true"></iframe>
                         </nb-card-body>
                     </nb-tab>
@@ -44,54 +61,81 @@
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
-            <nb-tab *ngIf="currentRole.role_type_id == 1  && dashboards_routes && dashboards_roles && dashboards.includes(4)" tabTitle="ADMINISTRATIVA">
+            <nb-tab
+                *ngIf="currentRole.role_type_id == 1  && dashboards_routes && dashboards_roles && dashboards.includes(4)"
+                tabTitle="ADMINISTRATIVA">
                 <nb-tabset class="tabset">
                     <nb-tab *ngIf="dashboards.includes(4)" tabTitle="REPORTE VEHICULOS">
                         <nb-card-body>
-                            <iframe title="Vehiculos" width="100%" height="800px" [src]="getLink(4)" frameborder="0" allowFullScreen="true"></iframe>
+                            <iframe title="Vehiculos" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiNjNhOGU4YjAtOTM1NS00NzJkLThhYjItNjdkN2IxNzFiNmM2IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9&pageName=ReportSection"
+                                frameborder="0" allowFullScreen="true"></iframe>
                         </nb-card-body>
                     </nb-tab>
                     <nb-tab tabTitle="INDICADORES">
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
-            <nb-tab *ngIf="currentRole.role_type_id == 1  && dashboards_routes && dashboards_roles && dashboards.includes(5)" tabTitle="JURIDICA">
+            <nb-tab
+                *ngIf="currentRole.role_type_id == 1  && dashboards_routes && dashboards_roles && dashboards.includes(5)"
+                tabTitle="JURIDICA">
                 <nb-tabset class="tabset">
                     <nb-tab *ngIf="dashboards.includes(5)" tabTitle="REPORTE">
                         <nb-card-body>
-                            <iframe title="Indicadores Juridica - Secretaria de Salud" width="100%" height="800px" [src]="getLink(5)" frameborder="0" allowFullScreen="true"></iframe>
-                          </nb-card-body>
+                            <iframe title="Indicadores Juridica - Secretaria de Salud" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiZDZlMjk0MDItZWYyMS00YjMyLWEwM2MtNzhiMThmYWNjMmEyIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
+                                frameborder="0" allowFullScreen="true"></iframe>
+                        </nb-card-body>
                     </nb-tab>
                     <nb-tab tabTitle="INDICADORES">
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
 
-            <nb-tab *ngIf="currentRole.role_type_id == 1  && dashboards_routes && dashboards_roles && (dashboards.includes(6) || dashboards.includes(7) || dashboards.includes(8))" tabTitle="CALIDAD">
+            <nb-tab
+                *ngIf="currentRole.role_type_id == 1  && dashboards_routes && dashboards_roles && (dashboards.includes(6) || dashboards.includes(7) || dashboards.includes(8))"
+                tabTitle="CALIDAD">
                 <nb-tabset class="tabset">
                     <nb-tab *ngIf="dashboards.includes(6)" tabTitle="REPORTE PBX">
                         <nb-card-body>
-                            <iframe title="PBX_HL - Nacional" width="100%" height="800px" [src]="getLink(6)" frameborder="0" allowFullScreen="true"></iframe>
-                          </nb-card-body>
+                            <iframe title="PBX_HL - Nacional" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiNjllN2U3NTktNTQ0MS00ZjFlLWI0ZGItYmQzZjJjNTlkNWI0IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
+                                frameborder="0" allowFullScreen="true"></iframe>
+                        </nb-card-body>
                     </nb-tab>
                     <nb-tab *ngIf="dashboards.includes(7)" tabTitle="REPORTE EPIDEMIOLOGICO">
                         <nb-card-body>
-                            <iframe title="Epid_2021 - General" width="100%" height="800px" [src]="getLink(7)" frameborder="0" allowFullScreen="true"></iframe>
-                          </nb-card-body>
+                            <iframe title="Epid_2021 - General" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiOTA0YWVkMjQtZGNjNi00OWZiLWFjMmQtNzk4MTg5NjkxNTUzIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
+                                frameborder="0" allowFullScreen="true"></iframe>
+                        </nb-card-body>
                     </nb-tab>
                     <nb-tab *ngIf="dashboards.includes(8)" tabTitle="REPORTE ADMISIONES">
                         <nb-card-body>
-                            <iframe title="ADMISIONES - ADMITIDOS" width="100%" height="800px" [src]="getLink(8)" frameborder="0" allowFullScreen="true"></iframe>
-                          </nb-card-body>
+                            <iframe title="ADMISIONES - ADMITIDOS" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiMzJiNWMyYWEtNzk4YS00Mzk5LTg4NWItNDFhMTJiYzIxZDg3IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
+                                frameborder="0" allowFullScreen="true"></iframe>
+                        </nb-card-body>
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
-            <nb-tab *ngIf="currentRole.role_type_id == 1  && dashboards_routes && dashboards_roles && dashboards.includes(9)" tabTitle="PAD">
+            <nb-tab
+                *ngIf="currentRole.role_type_id == 1  && dashboards_routes && dashboards_roles && (dashboards.includes(9) || dashboards.includes(11))"
+                tabTitle="PAD">
                 <nb-tabset class="tabset">
-                    <nb-tab *ngIf="dashboards.includes(9)" tabTitle="REPORTE">
+                    <nb-tab *ngIf="dashboards.includes(9)" tabTitle="PAD DRIVE">
                         <nb-card-body>
-                            <iframe title="PAD_drive" width="100%" height="800px" [src]="getLink(9)" frameborder="0" allowFullScreen="true"></iframe>
-                          </nb-card-body>
+                            <iframe title="PAD_drive" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiMWQ1NGQ4ZmItM2NkOC00OTZhLWJkN2EtYmZlZTU3ZDIyNmFkIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9&pageName=ReportSectionaafdcbbcba4a793ec492"
+                                frameborder="0" allowFullScreen="true"></iframe>
+                        </nb-card-body>
+                    </nb-tab>
+                    <nb-tab *ngIf="dashboards.includes(11)" tabTitle="PAD PERGAMO">
+                        <nb-card-body>
+                            <iframe title="PAD" width="100%" height="800px"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiMzI1MGNiNzAtYjZjMy00YmRiLTllYjYtYWU0MGE2OGM1MDg4IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9&pageName=ReportSection963bba83d812120a20b4"
+                                frameborder="0" allowFullScreen="true"></iframe>
+                        </nb-card-body>
                     </nb-tab>
                 </nb-tabset>
             </nb-tab>
@@ -101,9 +145,9 @@
             </nb-tab>
         </nb-tabset>
     </div>
-</ngx-base-list> -->
+</ngx-base-list>
 
-<ngx-base-list [messageError]="messageError" [routes]="routes">
+<!-- <ngx-base-list [messageError]="messageError" [routes]="routes">
     <div content>
         <nb-tabset class="tabset">
             <nb-tab tabTitle="INICIO">
@@ -176,17 +220,23 @@
                 <nb-tabset class="tabset">
                     <nb-tab tabTitle="REPORTE PBX">
                         <nb-card-body>
-                            <iframe title="PBX_HL - Nacional" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiNjllN2U3NTktNTQ0MS00ZjFlLWI0ZGItYmQzZjJjNTlkNWI0IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9" frameborder="0" allowFullScreen="true"></iframe>
+                            <iframe title="PBX_HL - Nacional" width="100%" height="800px" 
+                            src="https://app.powerbi.com/view?r=eyJrIjoiNjllN2U3NTktNTQ0MS00ZjFlLWI0ZGItYmQzZjJjNTlkNWI0IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
+                             frameborder="0" allowFullScreen="true"></iframe>
                           </nb-card-body>
                     </nb-tab>
                     <nb-tab tabTitle="REPORTE EPIDEMIOLOGICO">
                         <nb-card-body>
-                            <iframe title="Epid_2021 - General" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiOTA0YWVkMjQtZGNjNi00OWZiLWFjMmQtNzk4MTg5NjkxNTUzIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9" frameborder="0" allowFullScreen="true"></iframe>
+                            <iframe title="Epid_2021 - General" width="100%" height="800px" 
+                            src="https://app.powerbi.com/view?r=eyJrIjoiOTA0YWVkMjQtZGNjNi00OWZiLWFjMmQtNzk4MTg5NjkxNTUzIiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
+                             frameborder="0" allowFullScreen="true"></iframe>
                           </nb-card-body>
                     </nb-tab>
                     <nb-tab tabTitle="REPORTE ADMISIONES">
                         <nb-card-body>
-                            <iframe title="ADMISIONES - ADMITIDOS" width="100%" height="800px" src="https://app.powerbi.com/view?r=eyJrIjoiMzJiNWMyYWEtNzk4YS00Mzk5LTg4NWItNDFhMTJiYzIxZDg3IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9" frameborder="0" allowFullScreen="true"></iframe>
+                            <iframe title="ADMISIONES - ADMITIDOS" width="100%" height="800px" 
+                            src="https://app.powerbi.com/view?r=eyJrIjoiMzJiNWMyYWEtNzk4YS00Mzk5LTg4NWItNDFhMTJiYzIxZDg3IiwidCI6IjRlNmU0ZWQ1LTFhN2UtNGFmYi1iMzIwLTVkOTAzM2IwZGYxMyJ9"
+                             frameborder="0" allowFullScreen="true"></iframe>
                           </nb-card-body>
                     </nb-tab>
                 </nb-tabset>
@@ -211,4 +261,4 @@
             </nb-tab>
         </nb-tabset>
     </div>
-</ngx-base-list>
+</ngx-base-list> -->
