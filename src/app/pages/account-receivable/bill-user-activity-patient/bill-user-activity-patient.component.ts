@@ -109,7 +109,11 @@ export class BillUserActivityPatientComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.manual_price.name;
+          if (value) {
+            return value.manual_price.name;
+          } else {
+            return '-';
+          }
         },
       },
       assigned_management_plan: {

@@ -231,7 +231,7 @@ export class ChRecordListComponent implements OnInit {
           this.ConfirmActions();
         } else {
           this.assistance_special = null;
-          this.dialog.close();
+          this.dialog?.close();
           this.toastService.success('', x.message);
           this.RefreshData();
           if (this.saved) {
