@@ -54,12 +54,12 @@ export class FormAcuityMOTComponent implements OnInit {
 
     this.form = this.formBuilder.group({
 
-      follow_up: [this.data[0] ? this.data[0].follow_up : this.data.follow_up, Validators.compose([Validators.required])],
-      object_identify: [this.data[0] ? this.data[0].object_identify : this.data.object_identify, Validators.compose([Validators.required])],
-      figures: [this.data[0] ? this.data[0].figures : this.data.figures, Validators.compose([Validators.required])],
-      color_design: [this.data[0] ? this.data[0].color_design : this.data.color_design, Validators.compose([Validators.required])],
-      categorization: [this.data[0] ? this.data[0].categorization : this.data.categorization, Validators.compose([Validators.required])],
-      special_relation: [this.data[0] ? this.data[0].special_relation : this.data.special_relation, Validators.compose([Validators.required])],
+      follow_up: [this.data[0] ? this.data[0].follow_up : this.data.follow_up],
+      object_identify: [this.data[0] ? this.data[0].object_identify : this.data.object_identify],
+      figures: [this.data[0] ? this.data[0].figures : this.data.figures],
+      color_design: [this.data[0] ? this.data[0].color_design : this.data.color_design],
+      categorization: [this.data[0] ? this.data[0].categorization : this.data.categorization],
+      special_relation: [this.data[0] ? this.data[0].special_relation : this.data.special_relation],
 
     });
 
@@ -86,6 +86,21 @@ export class FormAcuityMOTComponent implements OnInit {
 
   async save() {
     this.isSubmitted = true;
+    var count = 0;
+    var e = Object.entries(this.form.value).map(entry => {
+      let obj_aux = {
+        key: entry[0],
+        value: String(entry[1])
+      }
+      if(obj_aux.value == ""){
+        count++
+      } 
+
+      return obj_aux;
+    });
+
+    if(e.length == count) this.form.setErrors({ 'incorrect': true });
+
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
@@ -139,8 +154,8 @@ export class FormAcuityMOTComponent implements OnInit {
         });
       }
 
-    }else{
-      this.toastService.danger('ingrese todos los campos solicitados');
+    }else {
+      this.toastService.warning('','Debe seleccionar al menos una opción');
     }
   }
 

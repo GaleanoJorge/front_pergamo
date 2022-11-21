@@ -57,29 +57,71 @@ export class TableAcuityMOTComponent implements OnInit {
       follow_up: {
         title: this.headerFields[1],
         width: 'string',
+          valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'No Aplica';
+          }
+        },
       },
 
       object_identify: {
         title: this.headerFields[2],
         width: 'string',
+          valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'No Aplica';
+          }
+        },
       },
 
       figures: {
         title: this.headerFields[3],
         width: 'string',
+          valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'No Aplica';
+          }
+        },
       },
       color_design: {
         title: this.headerFields[4],
         width: 'string',
+          valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'No Aplica';
+          }
+        },
       },
 
       categorization: {
         title: this.headerFields[5],
         width: 'string',
+          valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'No Aplica';
+          }
+        },
       },
       special_relation: {
         title: this.headerFields[6],
         width: 'string',
+          valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 'No Aplica';
+          }
+        },
       },
 
     },
