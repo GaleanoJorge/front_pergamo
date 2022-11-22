@@ -349,6 +349,7 @@ export class ReferenceListComponent implements OnInit {
   NewAdmissionRequest(data, dat = null) {
     if (dat == null) {
       dat = {
+        reference_id: data.id,
         admission_route_id: data.acceptance_admission_route_id,
         flat_id: data.acceptance_flat_id,
         pavilion_id: data.acceptance_pavilion_id,
