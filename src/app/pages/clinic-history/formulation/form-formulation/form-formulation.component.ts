@@ -99,9 +99,8 @@ export class FormFormulationComponent implements OnInit {
     // });
     await this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.admission.briefcase_id).then(x => {
       if(x.length>0){
-      this.service_briefcase_id = x[0]['id'];
-      this.product_gen = this.readProductGen(x);
-      this.briefcase_products = this.readProductGen(x);
+      this.product_gen = x;
+      this.briefcase_products = x;
       }
       this.loading_screen = false;
           });
@@ -186,9 +185,9 @@ export class FormFormulationComponent implements OnInit {
     var dose = this.form.controls.dose.value;
     var hourly_frequency_id = this.form.controls.hourly_frequency_id.value != '' ? this.hourly_frequency_id.find(item => item.id == this.form.controls.hourly_frequency_id.value).value : 1;
     var treatment_days = this.form.controls.treatment_days.value;
-    this.product = this.product_gen.find(item => item.id == this.product_id);
-    presentmedic = this.getConcentration(this.product.product_dose_id == 2 ? this.product.dose : this.product.drug_concentration.value);
-    if (this.product.product_dose_id == 2) {
+    this.product = this.product_gen.find(item => (this.show ? item.manual_price.product.id : item.id) == this.product_id);
+    presentmedic = this.getConcentration((this.show ? this.product.manual_price.product.product_dose_id == 2 : this.product.product_dose_id == 2) ? (this.show ? this.product.manual_price.product.dose : this.product.dose) : (this.show ? this.product.manual_price.product.drug_concentration.value : this.product.drug_concentration.value));
+    if ((this.show ? this.product.manual_price.product.product_dose_id == 2 : this.product.product_dose_id == 2)) {
       var elementos_x_aplicacion = dose / presentmedic;
     } else {
       var elementos_x_aplicacion = Math.ceil(dose / presentmedic);
@@ -246,12 +245,14 @@ export class FormFormulationComponent implements OnInit {
     // } else {
     //   this.product = this.product_gen.find(item => item.description == e);
     // }
-    this.product = this.product_gen.find(item => item.description == e);
+    this.product = this.product_gen.find(item => (!this.show ? item.description : item.manual_price.product.description) == e);
 
     if (this.product) {
-      this.product_id = this.product.id;
+      this.service_briefcase_id = this.show ? this.product.id : null;
+      this.product_id = this.show ? this.product.manual_price.product.id : this.product.id;
       this.form.controls.product_gen.setErrors(null);
     } else {
+      this.service_briefcase_id = null;
       this.product_id = null;
       this.toastService.warning('', 'Debe seleccionar un Medicamento de la lista');
       this.form.controls.product_gen.setErrors({ 'incorrect': true });
@@ -259,23 +260,25 @@ export class FormFormulationComponent implements OnInit {
     }
     this.onChangesFormulation(1, e)
   }
-  readProductGen(x) {
-    var r = [];
-    var i = 0;
-    x.forEach(element => {
-      r[i] = element['manual_price']['product'];
-      i++;
-    });
-    return r;
-  }
+  // readProductGen(x) {
+  //   var r = [];
+  //   var i = 0;
+  //   x.forEach(element => {
+  //     r[i] = element['manual_price']['product'];
+  //     i++;
+  //   });
+  //   return r;
+  // }
 
   eventSelections(input) {
     this.product_id = null
+    this.product = null;
+    this.product_gen = null;
+    this.service_briefcase_id = null;
     this.form.patchValue({ product_gen: '' });
     if (input == false) {
       this.show = true;
       this.input = false;
-      this.product_gen = null;
       // this.patienBS.GetUserById(this.user).then(x => {
       //   this.user2 = x;
       // });
@@ -283,8 +286,8 @@ export class FormFormulationComponent implements OnInit {
       // }
       if (this.briefcase_products == null) {
         this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.admission.briefcase_id).then(x => {
-          this.product_gen = this.readProductGen(x);
-          this.briefcase_products = this.readProductGen(x);
+          this.product_gen = x;
+          this.briefcase_products = x;
         });
       } else {
         this.product_gen = this.briefcase_products;
