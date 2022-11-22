@@ -80,7 +80,16 @@ export class ReferenceListComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          if (row.reference_status_id == 3) {
+            var c = (row.acceptance_date != null ? new Date(row.acceptance_date).getTime() :  new Date().getTime());
+            var d = new Date().getTime();
+        
+            var e =(d - c) / (60 * 60 * 1000);
+        
+            return e <= 6 ? value.name : 'TIEMPO DE ESPERA FINALIZADO';
+          } else {
+            return value.name;
+          }
         },
       },
       identification_type: {

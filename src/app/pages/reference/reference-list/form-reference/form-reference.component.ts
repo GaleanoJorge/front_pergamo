@@ -631,10 +631,10 @@ export class FormReferenceComponent implements OnInit {
     this.form.get('identification').valueChanges.subscribe(val => {
       if (val != null && val != '') {
         this.PatientS.GetPatientByIdentification(val).then(x => {
-          if (x && x['admissions'].length > 0) {
+          if (x) {
             this.form.patchValue({
               re_input: true,
-              intention: this.form.controls.intention.value == '' ? +x['rr'] + 1 : this.form.controls.intention.value,
+              intention: this.form.controls.intention.value == '' ? + x['rr'] + 1 : this.form.controls.intention.value,
             });
           } else {
             this.form.patchValue({
