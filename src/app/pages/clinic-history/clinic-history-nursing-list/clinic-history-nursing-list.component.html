@@ -11,7 +11,7 @@
         <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}} </p>
         <p class="parrafo" *ngIf="user"><b>EDAD:</b> {{user.age}} </p>
         <div *ngIf="management">
-          <div *ngIf="this.management[0].type_of_attention_id == 17">
+          <div *ngIf="this.management.lenght > 0 && this.management[0].type_of_attention_id == 17">
             <p class="parrafo"><b>TIPO DE ATENCIÓN:</b> {{management[0].type_of_attention.name}} </p>
             <hr width=400>
             <p class="parrafo" *ngIf="management[0].service_briefcase!=null"><b>MEDICAMENTO:</b>
