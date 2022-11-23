@@ -100,7 +100,7 @@ export class BedComponent implements OnInit {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return value ? value.name : '--';
         },
       },
       status_bed: {
