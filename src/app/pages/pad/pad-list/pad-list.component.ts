@@ -30,7 +30,7 @@ export class PadListComponent implements OnInit {
 
   public isSubmitted = false;
   public entity: string;
-  public semaphore: string;
+  public semaphore: string = null;
   public eps: string;
   public loading: boolean = false;
   public loading2: boolean = false;
@@ -204,6 +204,19 @@ export class PadListComponent implements OnInit {
 
 
   async ngOnInit() {
+    var b = new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + (+(new Date().getDate()) >= 10 ? new Date().getDate() : ('0'+new Date().getDate()));
+
+    this.form = this.formBuilder.group({
+      start_date: [b, []],
+      finish_date: [b, []],
+    });
+
+    this.form.get('start_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
     this.campus_id = +localStorage.getItem('campus');
@@ -212,10 +225,10 @@ export class PadListComponent implements OnInit {
       return x.id == curr;
     });
     if (this.currentRole.role_type_id == 2) {
-      this.entity = 'patient/byPAD/2/' + this.user_id + "?campus_id=" + this.campus_id;
+      this.entity = 'patient/byPAD/2/' + this.user_id + "?campus_id=" + this.campus_id + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '';
     }
     else {
-      this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id;
+      this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '';
     }
 
     // this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
@@ -353,5 +366,9 @@ export class PadListComponent implements OnInit {
   changeSemaphore($event: any) {
     this.semaphore= $event;
     this.table.changeEntity(`${this.entity}&semaphore=${$event}&eps=${(this.eps ? this.eps : null)}`, 'patients');
+  }
+
+  changeEntity() {
+    this.table.changeEntity(`${this.entity}&semaphore=${this.semaphore}&eps=${(this.eps ? this.eps : null)}` + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 'patients')
   }
 }
