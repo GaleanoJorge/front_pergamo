@@ -248,8 +248,12 @@ export class FormHealthcareItineraryAgendantComponent implements OnInit {
       services_briefcase_id: procedure_id,
       status_id: 1,
     }).then((x) => {
-      this.showcat = true;
-      this.categories = x;
+      if(x.length > 0){
+        this.showcat = true;
+        this.categories = x;
+      } else {
+        this.showcat = false;
+      }
     });
   }
 
