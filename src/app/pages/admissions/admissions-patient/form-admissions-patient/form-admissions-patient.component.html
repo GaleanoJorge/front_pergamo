@@ -146,7 +146,7 @@
         </div>
         <div class="col-md-6" *ngIf="this.show_auth_inputs">
           <label for="bed" class="form-text text-muted font-weight-bold">Archivo de autorización:</label>
-          <input accept="application/pdf" type="file" id="file" nbInput fullWidth
+          <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file" nbInput fullWidth
                 (change)="changeImage($event.target.files, 1)" />
         </div>
         <div class="col-md-6" *ngIf="this.form.value.scope_of_attention_id != 2">
