@@ -16,7 +16,7 @@ export class BedService {
   GetCollection(params = {}): Promise<Bed[]> {
     let servObj = new ServiceObject(params ? 'bed?pagination=false' : 'bed');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
