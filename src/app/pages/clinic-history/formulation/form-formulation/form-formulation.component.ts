@@ -11,6 +11,8 @@ import { PatientService } from '../../../../business-controller/patient.service'
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 import { AuthService } from '../../../../services/auth.service';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
+import { ProductSupplies } from '../../../../models/product-supplies';
+import { ProductSuppliesService } from '../../../../business-controller/product-supplies.service';
 
 @Component({
   selector: 'ngx-form-formulation',
@@ -40,6 +42,7 @@ export class FormFormulationComponent implements OnInit {
   public treatment_days;
   public outpatient_formulation;
   public product_gen: any[];
+  public product_supplies: any[];
   public all_peoducts: any[] = null;
   public briefcase_products: any[] = null;
   public product_id;
@@ -51,6 +54,7 @@ export class FormFormulationComponent implements OnInit {
   public all_changes: any[];
   public own_user: any = null;
   public loadAuxData;
+  public product_supplies_id;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,6 +69,7 @@ export class FormFormulationComponent implements OnInit {
     private PharmacyProductRequestS: PharmacyProductRequestService,
     public userChangeS: UserChangeService,
     private authService: AuthService,
+    private productSuppliesS: ProductSuppliesService,
   ) {
   }
 
@@ -73,6 +78,7 @@ export class FormFormulationComponent implements OnInit {
     if (!this.data) {
       this.data = {
         product_id: '',
+        required: '',
         medical_formula: 0,
         administration_route_id: '',
         hourly_frequency_id: '',
@@ -81,6 +87,8 @@ export class FormFormulationComponent implements OnInit {
         dose: '',
         observation: '',
         number_mipres: '',
+        product_supplies_id: '',
+        num_supplies: '',
       };
     };
 
@@ -94,9 +102,6 @@ export class FormFormulationComponent implements OnInit {
   }
 
   async GetAuxData() {
-    // await this.patienBS.GetUserById(this.user).then(async x => {
-    //   this.user2 = x;
-    // });
     await this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.admission.briefcase_id).then(x => {
       if(x.length>0){
       this.product_gen = x;
@@ -113,6 +118,10 @@ export class FormFormulationComponent implements OnInit {
       this.hourly_frequency_id = x;
     });
 
+    await this.productSuppliesS.GetCollection().then(x => {
+      this.product_supplies = x;
+    });
+
 
     await this.userChangeS.GetCollection().then(x => {
       this.all_changes = x;
@@ -125,18 +134,23 @@ export class FormFormulationComponent implements OnInit {
   async loadForm(force = true) {
     if (this.loadAuxData && force) return false;
     this.form = this.formBuilder.group({
+      required: [this.data.required, Validators.compose([Validators.required])],
       medical_formula: [this.data.medical_formula == 0 ? false : true],
       product_gen: [this.product_gen != null ? this.product_gen['description'] : null,],
       product_id: [this.data.product_id,],
-      dose: [this.data.dose, Validators.compose([Validators.required])],
-      administration_route_id: [this.data.administration_route_id, Validators.compose([Validators.required])],
-      hourly_frequency_id: [this.data.hourly_frequency_id, Validators.compose([Validators.required])],
-      treatment_days: [this.data.treatment_days, Validators.compose([Validators.required])],
+      dose: [this.data.dose,],
+      administration_route_id: [this.data.administration_route_id,],
+      hourly_frequency_id: [this.data.hourly_frequency_id, ],
+      treatment_days: [this.data.treatment_days,],
       outpatient_formulation: [this.data.outpatient_formulation],
       number_mipres: [this.data.number_mipres],
       observation: [this.data.observation],
+      product_supplies_id: [this.data.product_supplies_id],
+      num_supplies: [this.data.num_supplies],
     });
     this.show_all = true;
+
+    this.onChange();
   }
 
   async save() {
@@ -146,25 +160,41 @@ export class FormFormulationComponent implements OnInit {
       this.showTable = false;
 
       await this.ChFormulationS.Save({
+        required: this.form.controls.required.value,
         administration_route_id: this.form.controls.administration_route_id.value,
         dose: this.form.controls.dose.value,
         hourly_frequency_id: this.form.controls.hourly_frequency_id.value,
-        medical_formula: this.form.controls.medical_formula.value,
+        medical_formula: this.form.controls.required.value == 'medicine' ? this.form.controls.medical_formula.value : 1,
         number_mipres: this.form.controls.number_mipres.value,
         observation: this.form.controls.observation.value,
         outpatient_formulation: this.form.controls.outpatient_formulation.value,
-        product_generic_id: this.product_id,
+        product_generic_id: this.form.controls.required.value == 'medicine' ? this.product_id : null,
         treatment_days: this.form.controls.treatment_days.value,
         type_record_id: 5,
         ch_record_id: this.record_id,
-        services_briefcase_id: this.form.controls.medical_formula.value ? null : this.service_briefcase_id,
+        services_briefcase_id: this.form.controls.required.value == 'medicine' ? this.service_briefcase_id : null,
+        product_supplies_id: this.form.controls.required.value == 'supplies' ? this.product_supplies_id : null,
+        num_supplies: this.form.controls.num_supplies.value,
       })
         .then((x) => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({
-            product_generic_id: '', dose: '', administration_route_id: '', hourly_frequency_id: '', medical_formula: '',
-            treatment_days: '', outpatient_formulation: '', observation: '', number_mipres: ''
+          this.form.patchValue({
+            required:'',
+            administration_route_id:'',
+            dose:'',
+            hourly_frequency_id:'',
+            medical_formula:'',
+            number_mipres:'',
+            observation:'',
+            outpatient_formulation:'',
+            product_generic_id:'',
+            treatment_days:'',
+            type_record_id:'',
+            ch_record_id:'',
+            services_briefcase_id:'',
+            product_supplies_id:'',
+            num_supplies:'',
           });
           if (this.saved) {
             this.saved();
@@ -175,7 +205,10 @@ export class FormFormulationComponent implements OnInit {
           this.loading = false;
         });
      
-    }     
+    } else{
+
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");  
+    }   
 
   }
 
@@ -198,6 +231,62 @@ export class FormFormulationComponent implements OnInit {
     this.form.controls.outpatient_formulation.setValue(operate);
   }
 
+  async onChange() {
+
+    this.form.get('required').valueChanges.subscribe(val => {
+    if (val == 'medicine') {
+
+      this.form.controls.dose.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.administration_route_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.hourly_frequency_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.treatment_days.setValidators(Validators.compose([Validators.required]));
+
+      this.form.patchValue({ medical_formula:''});
+      this.form.patchValue({ product_gen:''});
+      this.form.patchValue({ product_id:''});
+      this.form.patchValue({ dose:''});
+      this.form.patchValue({ administration_route_id:''});
+      this.form.patchValue({ hourly_frequency_id:''});
+      this.form.patchValue({ treatment_days:''});
+      this.form.patchValue({ outpatient_formulation:''});
+      this.form.patchValue({ number_mipres:''});
+      this.form.patchValue({ observation:''});
+      
+      this.form.controls.product_supplies_id.clearValidators();
+      this.form.controls.product_supplies_id.setErrors(null);
+      this.form.controls.num_supplies.clearValidators();
+      this.form.controls.num_supplies.setErrors(null);
+
+    } else {
+      this.form.controls.product_supplies_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.num_supplies.setValidators(Validators.compose([Validators.required]));
+      this.form.patchValue({ product_supplies_id:''});
+      this.form.patchValue({ num_supplies:''});
+
+      this.form.controls.medical_formula.clearValidators();
+      this.form.controls.medical_formula.setErrors(null);
+      this.form.controls.product_gen.clearValidators();
+      this.form.controls.product_gen.setErrors(null);
+      this.form.controls.product_id.clearValidators();
+      this.form.controls.product_id.setErrors(null);
+      this.form.controls.dose.clearValidators();
+      this.form.controls.dose.setErrors(null);
+      this.form.controls.administration_route_id.clearValidators();
+      this.form.controls.administration_route_id.setErrors(null);
+      this.form.controls.hourly_frequency_id.clearValidators();
+      this.form.controls.hourly_frequency_id.setErrors(null);
+      this.form.controls.treatment_days.clearValidators();
+      this.form.controls.treatment_days.setErrors(null);
+      this.form.controls.outpatient_formulation.clearValidators();
+      this.form.controls.outpatient_formulation.setErrors(null);
+      this.form.controls.number_mipres.clearValidators();
+      this.form.controls.number_mipres.setErrors(null);
+      this.form.controls.observation.clearValidators();
+      this.form.controls.observation.setErrors(null);
+
+    };
+  });
+}
   getConcentration(value: string) {
     var rr = 0;
     if (value.includes('/')) {
@@ -269,6 +358,17 @@ export class FormFormulationComponent implements OnInit {
   //   });
   //   return r;
   // }
+
+  saveCodeR(e): void {
+    var localidentify = this.product_supplies.find(item => item.description == e);
+
+    if (localidentify) {
+      this.product_supplies_id = localidentify.id;
+    } else {
+      this.product_supplies_id = null;
+      this.toastService.warning('', 'Debe seleccionar una opción de la lista');
+    }
+  }
 
   eventSelections(input) {
     this.product_id = null

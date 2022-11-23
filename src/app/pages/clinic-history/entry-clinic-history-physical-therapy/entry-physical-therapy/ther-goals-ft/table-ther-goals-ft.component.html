@@ -21,7 +21,7 @@
     <ngx-base-list [messageError]="messageError" [routes]="routes">
       <div content>
         <ngx-base-table pager="false" [title]="title" customData="ch_e_ther_goals_f_t" [settings]="settings"
-          entity="ch_e_ther_goals_f_t/by_record/{{record_id}}/1?&has_input={{has_input}}">
+          entity="ch_e_ther_goals_f_t/by_record/{{record_id}}/{{this.type_record_id}}?&has_input={{has_input}}">
           <div actions>
             <div class="actions">
             </div>

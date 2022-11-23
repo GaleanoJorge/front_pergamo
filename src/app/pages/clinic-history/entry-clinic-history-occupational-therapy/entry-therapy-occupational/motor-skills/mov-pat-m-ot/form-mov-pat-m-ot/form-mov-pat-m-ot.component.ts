@@ -79,38 +79,38 @@ export class FormMovPatMOTComponent implements OnInit {
     this.form = this.formBuilder.group({
 
 
-      scroll_right: [this.data[0] ? this.data[0].scroll_right : this.data.scroll_right, Validators.compose([Validators.required])],
-      scroll_left: [this.data[0] ? this.data[0].scroll_left : this.data.scroll_left, Validators.compose([Validators.required])],
-      get_up_right: [this.data[0] ? this.data[0].get_up_right : this.data.get_up_right, Validators.compose([Validators.required])],
-      get_up_left: [this.data[0] ? this.data[0].get_up_left : this.data.get_up_left, Validators.compose([Validators.required])],
-      push_right: [this.data[0] ? this.data[0].push_right : this.data.push_right, Validators.compose([Validators.required])],
-      push_left: [this.data[0] ? this.data[0].push_left : this.data.push_left, Validators.compose([Validators.required])],
-      pull_right: [this.data[0] ? this.data[0].pull_right : this.data.pull_right, Validators.compose([Validators.required])],
-      pull_left: [this.data[0] ? this.data[0].pull_left : this.data.pull_left, Validators.compose([Validators.required])],
-      transport_right: [this.data[0] ? this.data[0].transport_right : this.data.transport_right, Validators.compose([Validators.required])],
-      transport_left: [this.data[0] ? this.data[0].transport_left : this.data.transport_left, Validators.compose([Validators.required])],
-      attain_right: [this.data[0] ? this.data[0].attain_right : this.data.attain_right, Validators.compose([Validators.required])],
-      attain_left: [this.data[0] ? this.data[0].attain_left : this.data.attain_left, Validators.compose([Validators.required])],
-      bipedal_posture_right: [this.data[0] ? this.data[0].bipedal_posture_right : this.data.bipedal_posture_right, Validators.compose([Validators.required])],
-      bipedal_posture_left: [this.data[0] ? this.data[0].bipedal_posture_left : this.data.bipedal_posture_left, Validators.compose([Validators.required])],
-      sitting_posture_right: [this.data[0] ? this.data[0].sitting_posture_right : this.data.sitting_posture_right, Validators.compose([Validators.required])],
-      sitting_posture_left: [this.data[0] ? this.data[0].sitting_posture_left : this.data.sitting_posture_left, Validators.compose([Validators.required])],
-      squat_posture_right: [this.data[0] ? this.data[0].squat_posture_right : this.data.squat_posture_right, Validators.compose([Validators.required])],
-      squat_posture_left: [this.data[0] ? this.data[0].squat_posture_left : this.data.squat_posture_left, Validators.compose([Validators.required])],
-      use_both_hands_right: [this.data[0] ? this.data[0].use_both_hands_right : this.data.use_both_hands_right, Validators.compose([Validators.required])],
-      use_both_hands_left: [this.data[0] ? this.data[0].use_both_hands_left : this.data.use_both_hands_left, Validators.compose([Validators.required])],
-      alternating_movements_right: [this.data[0] ? this.data[0].alternating_movements_right : this.data.alternating_movements_right, Validators.compose([Validators.required])],
-      alternating_movements_left: [this.data[0] ? this.data[0].alternating_movements_left : this.data.alternating_movements_left, Validators.compose([Validators.required])],
-      dissociated_movements_right: [this.data[0] ? this.data[0].dissociated_movements_right : this.data.dissociated_movements_right, Validators.compose([Validators.required])],
-      dissociated_movements_left: [this.data[0] ? this.data[0].dissociated_movements_left : this.data.dissociated_movements_left, Validators.compose([Validators.required])],
-      Simultaneous_movements_right: [this.data[0] ? this.data[0].Simultaneous_movements_right : this.data.Simultaneous_movements_right, Validators.compose([Validators.required])],
-      Simultaneous_movements_left: [this.data[0] ? this.data[0].Simultaneous_movements_left : this.data.Simultaneous_movements_left, Validators.compose([Validators.required])],
-      bimanual_coordination_right: [this.data[0] ? this.data[0].bimanual_coordination_right : this.data.bimanual_coordination_right, Validators.compose([Validators.required])],
-      bimanual_coordination_left: [this.data[0] ? this.data[0].bimanual_coordination_left : this.data.bimanual_coordination_left, Validators.compose([Validators.required])],
-      hand_eye_coordination_right: [this.data[0] ? this.data[0].hand_eye_coordination_right : this.data.hand_eye_coordination_right, Validators.compose([Validators.required])],
-      hand_eye_coordination_left: [this.data[0] ? this.data[0].hand_eye_coordination_left : this.data.hand_eye_coordination_left, Validators.compose([Validators.required])],
-      hand_foot_coordination_right: [this.data[0] ? this.data[0].hand_foot_coordination_right : this.data.hand_foot_coordination_right, Validators.compose([Validators.required])],
-      hand_foot_coordination_left: [this.data[0] ? this.data[0].hand_foot_coordination_left : this.data.hand_foot_coordination_left, Validators.compose([Validators.required])],
+      scroll_right: [this.data[0] ? this.data[0].scroll_right : this.data.scroll_right],
+      scroll_left: [this.data[0] ? this.data[0].scroll_left : this.data.scroll_left],
+      get_up_right: [this.data[0] ? this.data[0].get_up_right : this.data.get_up_right],
+      get_up_left: [this.data[0] ? this.data[0].get_up_left : this.data.get_up_left],
+      push_right: [this.data[0] ? this.data[0].push_right : this.data.push_right],
+      push_left: [this.data[0] ? this.data[0].push_left : this.data.push_left],
+      pull_right: [this.data[0] ? this.data[0].pull_right : this.data.pull_right],
+      pull_left: [this.data[0] ? this.data[0].pull_left : this.data.pull_left],
+      transport_right: [this.data[0] ? this.data[0].transport_right : this.data.transport_right],
+      transport_left: [this.data[0] ? this.data[0].transport_left : this.data.transport_left],
+      attain_right: [this.data[0] ? this.data[0].attain_right : this.data.attain_right],
+      attain_left: [this.data[0] ? this.data[0].attain_left : this.data.attain_left],
+      bipedal_posture_right: [this.data[0] ? this.data[0].bipedal_posture_right : this.data.bipedal_posture_right],
+      bipedal_posture_left: [this.data[0] ? this.data[0].bipedal_posture_left : this.data.bipedal_posture_left],
+      sitting_posture_right: [this.data[0] ? this.data[0].sitting_posture_right : this.data.sitting_posture_right],
+      sitting_posture_left: [this.data[0] ? this.data[0].sitting_posture_left : this.data.sitting_posture_left],
+      squat_posture_right: [this.data[0] ? this.data[0].squat_posture_right : this.data.squat_posture_right],
+      squat_posture_left: [this.data[0] ? this.data[0].squat_posture_left : this.data.squat_posture_left],
+      use_both_hands_right: [this.data[0] ? this.data[0].use_both_hands_right : this.data.use_both_hands_right],
+      use_both_hands_left: [this.data[0] ? this.data[0].use_both_hands_left : this.data.use_both_hands_left],
+      alternating_movements_right: [this.data[0] ? this.data[0].alternating_movements_right : this.data.alternating_movements_right],
+      alternating_movements_left: [this.data[0] ? this.data[0].alternating_movements_left : this.data.alternating_movements_left],
+      dissociated_movements_right: [this.data[0] ? this.data[0].dissociated_movements_right : this.data.dissociated_movements_right],
+      dissociated_movements_left: [this.data[0] ? this.data[0].dissociated_movements_left : this.data.dissociated_movements_left],
+      Simultaneous_movements_right: [this.data[0] ? this.data[0].Simultaneous_movements_right : this.data.Simultaneous_movements_right],
+      Simultaneous_movements_left: [this.data[0] ? this.data[0].Simultaneous_movements_left : this.data.Simultaneous_movements_left],
+      bimanual_coordination_right: [this.data[0] ? this.data[0].bimanual_coordination_right : this.data.bimanual_coordination_right],
+      bimanual_coordination_left: [this.data[0] ? this.data[0].bimanual_coordination_left : this.data.bimanual_coordination_left],
+      hand_eye_coordination_right: [this.data[0] ? this.data[0].hand_eye_coordination_right : this.data.hand_eye_coordination_right],
+      hand_eye_coordination_left: [this.data[0] ? this.data[0].hand_eye_coordination_left : this.data.hand_eye_coordination_left],
+      hand_foot_coordination_right: [this.data[0] ? this.data[0].hand_foot_coordination_right : this.data.hand_foot_coordination_right],
+      hand_foot_coordination_left: [this.data[0] ? this.data[0].hand_foot_coordination_left : this.data.hand_foot_coordination_left],
 
     });
 
@@ -118,6 +118,22 @@ export class FormMovPatMOTComponent implements OnInit {
 
   save() {
     this.isSubmitted = true;
+    var count = 0;
+    var e = Object.entries(this.form.value).map(entry => {
+      let obj_aux = {
+        key: entry[0],
+        value: String(entry[1])
+      }
+      if(obj_aux.value == ""){
+        count++
+      } 
+
+      return obj_aux;
+    });
+
+    if(e.length == count) this.form.setErrors({ 'incorrect': true });
+
+
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
@@ -233,8 +249,8 @@ export class FormMovPatMOTComponent implements OnInit {
         });
       }
 
-    }else{
-      this.toastService.danger('ingrese todos los campos solicitados');
+    }else {
+      this.toastService.warning('','Debe seleccionar al menos una opción');
     }
   }
 
