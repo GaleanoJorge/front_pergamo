@@ -2,20 +2,13 @@
   <div>
 
     <div class="col col-lg-12">
-      <label class="form-text text-muted font-weight-bold" id="ch_e_valoration_o_t"> </label>
-      <option *ngFor="let item of ch_e_valoration_o_t" [value]="item.name">{{ item.code }}</option>
+      <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNOSTICO MÉDICO:</label>
+      <input fullWidth nbInput list="codes" id="ch_diagnosis_id"
+        formControlName="ch_diagnosis_id" ch_diagnosis_id type="text" [value]="this.concatDiagnosis" disabled>
+      
     </div>
     <div class="col col-lg-12">
-      <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNOSTICO MEDICO:</label>
-      <input fullWidth nbInput list="codes1" (change)="saveCode($event.target.value)" id="ch_diagnosis_id"
-        formControlName="ch_diagnosis_id" ch_diagnosis_id type="text" required (ngModelChange)="this.searchDiagnostic($event)"
-        status="{{ isSubmitted && form.controls.ch_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-      <datalist id="codes1">
-        <option *ngFor="let item of diagnosisr" [value]="item.name">{{ item.code }} - {{item.name}} </option>
-      </datalist>
-    </div>
-    <div class="col col-lg-12">
-      <label for="patient_state" class="form-text text-muted font-weight-bold">MOTIVO DE CONSULTA:</label>
+      <label for="patient_state" class="form-text text-muted font-weight-bold">ESTADO DEL PACIENTE:</label>
       <textarea id="patient_state" nbInput fullWidth formControlName="patient_state" patient_state rows="3" cols="50" onpaste="return false"
         status="{{ isSubmitted && form.controls.patient_state.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
     </div>

@@ -11,4 +11,7 @@ export class ProductSupplies extends MainClass {
   description:string;
   product_dose_id:string;
   dose:string;
+  product_supplies_id: number;
+  required:string;
+  number_mipres:number;
 }
