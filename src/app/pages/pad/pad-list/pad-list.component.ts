@@ -204,7 +204,16 @@ export class PadListComponent implements OnInit {
 
 
   async ngOnInit() {
-    var b = new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + (+(new Date().getDate()) >= 10 ? new Date().getDate() : ('0'+new Date().getDate()));
+   
+    this.user = this.authService.GetUser();
+    this.user_id = this.user.id;
+    this.campus_id = +localStorage.getItem('campus');
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
+    
+    var b = this.currentRole.role_type_id == 2 ? new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + (+(new Date().getDate()) >= 10 ? new Date().getDate() : ('0'+new Date().getDate())) : '';
 
     this.form = this.formBuilder.group({
       start_date: [b, []],
@@ -217,13 +226,7 @@ export class PadListComponent implements OnInit {
     this.form.get('finish_date').valueChanges.subscribe(val => {
       this.changeEntity()
     });
-    this.user = this.authService.GetUser();
-    this.user_id = this.user.id;
-    this.campus_id = +localStorage.getItem('campus');
-    var curr = this.authService.GetRole();
-    this.currentRole = this.user.roles.find(x => {
-      return x.id == curr;
-    });
+
     if (this.currentRole.role_type_id == 2) {
       this.entity = 'patient/byPAD/2/' + this.user_id + "?campus_id=" + this.campus_id + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '';
     }
