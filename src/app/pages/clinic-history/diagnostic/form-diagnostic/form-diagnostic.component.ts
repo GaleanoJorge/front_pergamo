@@ -50,9 +50,15 @@ export class FormDiagnosticComponent implements OnInit {
       };
     };
 
-    // this.diagnosisS.GetCollection().then(x => {
-    //   this.diagnosis = x;
-    // });
+    this.chDiagnosisS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id,
+    }).then(x => {
+      if (x.length > 0) {
+        this.messageEvent.emit(true);
+      }
+    });
+
     this.diagnosisTypeS.GetCollection().then(x => {
       this.diagnosis_type = x;
     });
