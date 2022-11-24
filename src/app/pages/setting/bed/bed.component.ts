@@ -188,4 +188,8 @@ export class BedComponent implements OnInit {
     });
   }
 
+  FilterBed(e) {
+    this.table.changeEntity(`bed/?campus_id=${this.campus_id}&bed_or_office=${e}`, 'bed')
+  }
+
 }
