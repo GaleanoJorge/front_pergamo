@@ -45,7 +45,7 @@
                 </nb-select>
               </div>
 
-              <div class="col-md-12">
+              <div class="col-md-4 ">
                 <label for="start_date" class="form-text text-muted font-weight-bold">Desde:</label>
                 <input class="inputdate" [max]="today" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
                   formControlName="start_date" start_date />
@@ -196,106 +196,6 @@
                   </nb-card>
                 </div>
               </ng-template> -->
-
-              <style>
-                .schedule-cell-dimension.e-schedule .e-vertical-view .e-date-header-wrap table col,
-                .schedule-cell-dimension.e-schedule .e-vertical-view .e-content-wrap table col {
-                  width: 200px;
-                }
-
-                .schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td,
-                .schedule-cell-dimension.e-schedule .e-vertical-view .e-work-cells {
-                  height: 100px;
-                }
-
-                .schedule-cell-dimension.e-schedule .e-month-view .e-work-cells,
-                .schedule-cell-dimension.e-schedule .e-month-view .e-date-header-wrap table col {
-                  width: 200px;
-                }
-
-                .schedule-cell-dimension.e-schedule .e-month-view .e-work-cells {
-                  height: 200px;
-                }
-
-                .schedule-cell-dimension.e-schedule .e-timeline-month-view .e-content-wrap table col,
-                .schedule-cell-dimension.e-schedule .e-timeline-view .e-content-wrap table col {
-                  width: 100px;
-                }
-
-                .schedule-cell-dimension.e-schedule .e-timeline-view .e-work-cells,
-                .schedule-cell-dimension.e-schedule .e-timeline-month-view .e-work-cells {
-                  height: 600px;
-                }
-
-                .e-schedule .e-vertical-view .e-content-wrap .e-appointment,
-                .e-schedule .e-timeline-view .e-content-wrap .e-appointment {
-                  border-radius: 8px;
-                }
-
-                .e-schedule .e-vertical-view .e-content-wrap .e-appointment .e-appointment-details {
-                  padding: 0;
-                  height: 100%;
-                }
-
-                .e-schedule .template-wrap {
-                  height: 100%;
-                  white-space: normal;
-                }
-
-                .e-schedule .template-wrap .image {
-                  padding: 8px 0 4px;
-                }
-
-                .e-schedule .template-wrap .image img {
-                  height: 100%;
-                  width: 100%;
-                  padding: 10px 25%;
-                }
-
-                .e-schedule .template-wrap .subject {
-                  font-weight: 600;
-                  font-size: 15px;
-                  padding: 4px 4px 4px;
-                  height: 25px;
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
-                  overflow: hidden;
-                }
-
-                .e-schedule .template-wrap .time {
-                  height: 50px;
-                }
-
-                .e-schedule .template-wrap .time,
-                .e-schedule .template-wrap .description {
-                  font-size: 12px;
-                  padding: 4px 6px 4px;
-                  overflow: hidden;
-                }
-
-                .e-schedule .template-wrap .footer {
-                  position: absolute;
-                  bottom: 0;
-                  height: 50px;
-                  width: 100%;
-                }
-
-                .e-schedule .e-timeline-view .e-appointment .e-appointment-details {
-                  padding: 0;
-                  height: 100%;
-                  width: 100%;
-                }
-
-                .e-schedule .e-timeline-view .template-wrap {
-                  width: 100%;
-                }
-
-                .e-schedule .e-timeline-view .template-wrap .subject {
-                  font-size: 16px;
-                  height: 36px;
-                  text-align: center;
-                }
-              </style>
 
             </ejs-schedule>
           </div>

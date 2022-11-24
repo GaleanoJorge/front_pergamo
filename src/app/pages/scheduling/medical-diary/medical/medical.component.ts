@@ -30,6 +30,7 @@ import {
   TimeScaleModel,
   CellClickEventArgs,
   RenderCellEventArgs,
+  View,
 } from '@syncfusion/ej2-angular-schedule';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import {
@@ -85,6 +86,7 @@ export class MedicalComponent implements OnInit {
   public assistance_id;
   public user;
   public user_id;
+  public currentView: View = 'Week';
   public entity: any = null;
   public schedulerDate = new Date();
   public medical_diary: any[] = [];
@@ -246,6 +248,18 @@ export class MedicalComponent implements OnInit {
       this.user.nombre_completo;
   }
 
+  onEventRendered(args): void {
+    const categoryColor: string = args.data.CategoryColor as string;
+    if (!args.element || !categoryColor) {
+      return;
+    }
+    if (this.currentView === 'Agenda') {
+      (args.element.firstChild as HTMLElement).style.borderLeftColor = categoryColor;
+    } else {
+      args.element.style.backgroundColor = categoryColor;
+    }
+  }
+
   ViewScheduling() {
     this.click = true;
     this.eventSettings = undefined;
@@ -273,7 +287,15 @@ export class MedicalComponent implements OnInit {
                     : 'Cancelada',
                 StartTime: new Date(x.start_hour),
                 EndTime: new Date(x.finish_hour),
-                color: '#ad2756',
+                CategoryColor: x.medical_status_id == 1
+                ? '#37B24D'
+                : x.medical_status_id == 2
+                ? '#D8E926'
+                : x.medical_status_id == 3
+                ? '#09DBD4'
+                : x.medical_status_id == 4
+                ? '#F44C01'
+                : '#7309DB', 
                 IsReadonly: false,
                 data: x,
                 assistance_id: this.assistance_id,

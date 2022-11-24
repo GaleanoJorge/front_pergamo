@@ -25,7 +25,7 @@ export class CupsPackageComponent implements OnInit {
   public form: FormGroup;
   public title = 'CUPS DEL USUARIO';
   public subtitle = '';
-  public headerFields: any[] = ['ID', 'Nombre', 'Tipo', 'Estado'];
+  public headerFields: any[] = ['ID', 'Cod', 'Cups', 'Nombre del procedimiento CUPS'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];

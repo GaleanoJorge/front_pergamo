@@ -150,6 +150,7 @@ export class ChRecordListComponent implements OnInit {
     Number((this.admissions_id = this.route.snapshot.params.id));
 
     if (this.route.snapshot.queryParams.ext_con) {
+      this.type_of_attention=-2;
       this.external_consult_id = this.route.snapshot.params.id2;
       this.entity = `ch_record/byadmission/${this.admissions_id}/${this.external_consult_id}?ext_con=${this.route.snapshot.queryParams.ext_con}`;
       await this.MedicalDiaryDays.GetOne(this.external_consult_id)

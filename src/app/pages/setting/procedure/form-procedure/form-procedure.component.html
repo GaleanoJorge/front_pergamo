@@ -101,7 +101,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-4">
-          <label for="payment_type" class="form-text text-muted font-weight-bold">Finalidad del servicio C.U.P.S.:</label>
+          <label for="payment_type" class="form-text text-muted font-weight-bold">Tipo de recaudo:</label>
           <nb-select [selected]="this.data.payment_type" formControlName="payment_type" id="payment_type" fullWidth
             status="{{ isSubmitted && form.controls.payment_type.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>

@@ -32,6 +32,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   @Input() ambolatory: boolean = false;
   @Input() admission_id: null;
   @Input() stored: any = null;
+  @Input() ambit: any = null;
   @Input() campus_id: any = null;
   @Input() medical_diary: any = null;
   @Output() messageEvent = new EventEmitter<any>();
@@ -57,7 +58,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public categories: any[] = [];
   public procedures: any[] = [];
   public copay_value;
-  public ambit;
   public show_diagnostic: boolean = false;
   public show_inputs: boolean = false;
   public show_auth_inputs: boolean = false;
@@ -145,7 +145,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       pavilion_id: [
         { value: this.data.pavilion_id, disabled: this.ambolatory },
       ],
-      bed_id: [{ value: this.data.bed_id, disabled: this.ambolatory }],
+      bed_id: [{ value: this.ambolatory ? this.data.medical_diary.office_id : this.data.bed_id, disabled: this.ambolatory }],
       contract_id: [
         this.data.contract_id,
         Validators.compose([Validators.required]),
@@ -284,8 +284,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
             pavilion_id: this.form.controls.pavilion_id.value,
             bed_id: this.form.controls.bed_id.value,
             contract_id: this.form.controls.contract_id.value,
-            auth_number: this.form.controls.procedure_id.value,
-            file_auth: this.form.controls.procedure_id.value,
+            auth_number: this.form.controls.auth_number.value,
+            file_auth: this.form.value.file_auth,
             campus_id: this.campus_id,
             patient_id: this.user_id,
             ambulatory_data: this.ambolatory ? this.data.id : null,
@@ -506,7 +506,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         this.GetBed(val, this.ambit).then();
       }
       if (this.ambolatory) {
-        this.form.get('bed_id').setValue(this.data.medical_diary.office_id);
+        // this.form.get('bed_id').setValue(this.data.medical_diary.office_id);
         // this.form.patchValue({
         //   bed_id: this.data.medical_diary.office_id,
         // });
@@ -576,9 +576,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
         .get('category')
         .setValue(this.data.copay_id);
 
-        this.form
-        .get('copay')
-        .setValue(this.data.copay_value);
+        // this.form
+        // .get('copay')
+        // .setValue(this.data.copay_value);
       }
     });
 
@@ -591,8 +591,12 @@ export class FormAdmissionsPatientComponent implements OnInit {
       procedure_id: procedure_id,
       status_id: 1,
     }).then((x) => {
-      this.show_cats = true;
-      this.categories = x;
+      if(x.length > 0){
+        this.show_cats = true;
+        this.categories = x;
+      } else {
+        this.show_cats = false;
+      }
     });
 
     this.form.get('category').valueChanges.subscribe((val) => {
@@ -617,6 +621,10 @@ export class FormAdmissionsPatientComponent implements OnInit {
         }
       }
     });
+
+    this.form
+    .get('category')
+    .setValue(this.data.copay_id);
   }
 
   admissionRouteChanged(val) {
@@ -745,6 +753,22 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
 
   GetBed(pavilion_id, ambit) {
+    if(this.ambolatory){
+      return this.BedS.GetBedByPavilion(pavilion_id, ambit, proc, this.ambolatory ? { office: this.data.medical_diary.office_id, patient_id: this.user_id, } : {
+        patient_id: this.user_id,
+      }).then(x => {
+        if (x.length > 0) {
+          this.bed = x;
+          this.form.patchValue({
+            bed_id: this.data.medical_diary.office_id
+          });
+        } else {
+          this.toastService.warning('', 'No se encontraron camas')
+        }
+  
+        return Promise.resolve(true);
+      });
+    }
     if ((!pavilion_id || pavilion_id === '') || (!this.data.eps ? (!this.form.controls.procedure_id.value || this.form.controls.procedure_id.value === '') : false) || (!ambit || ambit === '')) return Promise.resolve(false);
     var proc =  this.data.eps ? 0 : this.procedures.find(item => item.id == this.form.controls.procedure_id.value).manual_price.procedure_id;
     return this.BedS.GetBedByPavilion(pavilion_id, ambit, proc, this.ambolatory ? { office: this.data.medical_diary.office_id, patient_id: this.user_id, } : {
@@ -814,7 +838,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       ) {
         // this.form
         //   .get('procedure_id')
-        //   .patchValue(this.data.services_briefcase.manual_price.procedure.id);
+        //   .patchValue(this.data.services_briefcase.id);
       }
       return Promise.resolve(true);
     });
@@ -828,7 +852,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     switch (option) {
       case 1:
         this.form.patchValue({
-          file_auth: files[0],
+          file_auth: file,
         });
         break;
     }

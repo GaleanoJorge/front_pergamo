@@ -43,7 +43,7 @@
             Cama</nb-option>
         </nb-select>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" *ngIf="this.form.controls.bed_or_office.value == 1">
           <label for="procedure" class="form-text text-muted font-weight-bold">TIPO DE ATENCIÓN:</label>
           <input fullWidth nbInput list="codes2" (change)="saveProcedure($event.target.value)" id="procedure_id"
             formControlName="procedure_id" procedure_id type="text" required
