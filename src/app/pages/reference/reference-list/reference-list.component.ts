@@ -121,7 +121,7 @@ export class ReferenceListComponent implements OnInit {
           if (row.identification) {
             return row.firstname + ' ' + row.lastname;
           } else {
-            return row.patient.firstname + ' ' + row.patient.lastname;
+            return row.patient.firstname ? row.patient.firstname : '' + ' ' + row.patient.lastname ? row.patient.lastname : '';
           }
         },
       },
@@ -130,9 +130,9 @@ export class ReferenceListComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.identification) {
-            return row.age + 'AÑOS';
+            return row.age + ' AÑOS';
           } else {
-            return row.patient.age + 'AÑOS';
+            return row.patient.age + ' AÑOS';
           }
         },
       },
