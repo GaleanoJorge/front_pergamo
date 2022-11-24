@@ -131,6 +131,16 @@ export class FormNursingPhysicalExamComponent implements OnInit {
     //   nursing_physical_exam: this.formBuilder.array([]),
 
     // });
+
+    this.PhysicalExamS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id
+    }).then(x => {
+      if (x.length > 0) {
+        this.disabled = true;
+        this.messageEvent.emit(true);
+      }
+    });
   }
 
   // disabledFormularies(Data){
@@ -155,18 +165,15 @@ export class FormNursingPhysicalExamComponent implements OnInit {
 
   async GetAuxData() {
     if (this.enfermery) {
-      await this.nursingTypePhysicalS.GetCollection({
-        ch_record_id: this.record_id,
-      type_record_id: this.record_id,
-      }).then((x) => {
+      await this.nursingTypePhysicalS.GetCollection().then((x) => {
         this.type_ch_physical_exam = x;
         this.loading = false;
-        if (x.length > 0) {
-          this.data = x
-          this.disabled = true;
-          this.messageEvent.emit(true);
-        }
+        // this.type_ch_physical_exam.forEach(element => {
+        //   this.addForms();
+
+        // });
       });
+      
     } else {
       this.type_ch_physical_exam = this.arrayMedical;
       this.loading = false;
