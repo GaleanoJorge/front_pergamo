@@ -116,7 +116,7 @@ export class FormUsersComponent implements OnInit {
   public specialitiesSelect = [];
   public selected: any[];
   public activities_id;
-  public neighborhood_or_residence_id;
+  public neighborhood_or_residence_id = '';
 
   public inabilitys: any[];
   public residences: any[];
@@ -929,6 +929,80 @@ export class FormUsersComponent implements OnInit {
       } else {
         this.form.controls.inability_id.clearValidators();
         this.form.controls.inability_id.setErrors(null);
+
+      }
+    });
+
+    this.form.get('is_street_dweller').valueChanges.subscribe(val => {
+      if (!val) {
+
+        this.form.get('phone').setValidators(Validators.required);
+        this.form.controls.phone.updateValueAndValidity();
+
+        this.form.get('residence_country_id').setValidators(Validators.required);
+        this.form.controls.residence_country_id.updateValueAndValidity();
+
+        this.form.get('residence_region_id').setValidators(Validators.required);
+        this.form.controls.residence_region_id.updateValueAndValidity();
+
+        this.form.get('residence_municipality_id').setValidators(Validators.required);
+        this.form.controls.residence_municipality_id.updateValueAndValidity();
+
+        this.form.get('locality_id').setValidators(Validators.required);
+        this.form.controls.locality_id.updateValueAndValidity();
+
+        this.form.get('neighborhood_or_residence_id').setValidators(Validators.required);
+        this.form.controls.neighborhood_or_residence_id.updateValueAndValidity();
+
+        this.form.get('residence_address').setValidators(Validators.required);
+        this.form.controls.residence_address.updateValueAndValidity();
+
+        this.form.get('street').setValidators(Validators.required);
+        this.form.controls.street.updateValueAndValidity();
+
+        this.form.get('num1').setValidators(Validators.required);
+        this.form.controls.num1.updateValueAndValidity();
+
+        this.form.get('num2').setValidators(Validators.required);
+        this.form.controls.num2.updateValueAndValidity();
+
+        this.form.get('residence_address_cardinality').setValidators(Validators.required);
+        this.form.controls.residence_address_cardinality.updateValueAndValidity();
+        //this.form.get('inability_id').updateValueAndValidity();
+      } else {
+
+        this.form.controls.phone.clearValidators();
+        this.form.controls.phone.setErrors(null);
+
+        this.form.controls.residence_country_id.clearValidators();
+        this.form.controls.residence_country_id.setErrors(null);
+
+        this.form.controls.residence_region_id.clearValidators();
+        this.form.controls.residence_region_id.setErrors(null);
+
+        this.form.controls.residence_municipality_id.clearValidators();
+        this.form.controls.residence_municipality_id.setErrors(null);
+
+        this.form.controls.locality_id.clearValidators();
+        this.form.controls.locality_id.setErrors(null);
+
+        this.form.controls.neighborhood_or_residence_id.clearValidators();
+        this.form.controls.neighborhood_or_residence_id.setErrors(null);
+
+        this.form.controls.residence_address.clearValidators();
+        this.form.controls.residence_address.setErrors(null);
+
+        this.form.controls.street.clearValidators();
+        this.form.controls.street.setErrors(null);
+
+        this.form.controls.num1.clearValidators();
+        this.form.controls.num1.setErrors(null);
+
+        this.form.controls.num2.clearValidators();
+        this.form.controls.num2.setErrors(null);
+
+        this.form.controls.residence_address_cardinality.clearValidators();
+        this.form.controls.residence_address_cardinality.setErrors(null);
 
       }
     });
