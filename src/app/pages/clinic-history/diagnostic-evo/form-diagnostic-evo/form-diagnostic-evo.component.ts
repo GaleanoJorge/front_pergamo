@@ -5,7 +5,8 @@ import { ChDiagnosisTypeService } from '../../../../business-controller/ch-diagn
 import { ChDiagnosisClassService } from '../../../../business-controller/ch-diagnosis-class.service';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { ChDiagnosisService } from '../../../../business-controller/ch-diagnosis.service';
-
+import { Observable, of } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-form-diagnostic-evo',
@@ -28,6 +29,8 @@ export class FormDiagnosticEvoComponent implements OnInit {
   public diagnosis: any[];
   public diagnosis_type: any[];
   public diagnosis_class: any[];
+  public filteredProductOptions$: Observable<string[]>;
+
 
 
   constructor(
@@ -58,6 +61,12 @@ export class FormDiagnosticEvoComponent implements OnInit {
     });
     this.diagnosisClassS.GetCollection().then(x => {
       this.diagnosis_class = x;
+    });
+
+    this.DiagnosisS.GetCollection().then(x => {
+      this.diagnosis = x;
+      this.filteredProductOptions$ = of(this.diagnosis);
+      this.onFilter();
     });
 
     this.form = this.formBuilder.group({
@@ -140,6 +149,23 @@ export class FormDiagnosticEvoComponent implements OnInit {
     }
     
   }
+
+  onFilter() {
+    this.filteredProductOptions$ = this.form
+      .get('diagnosis_id')
+      .valueChanges.pipe(
+        startWith(''),
+        map((filterString) => this.filter(filterString))
+      );
+    }
+
+    private filter(value: string): string[] {
+      const filterValue = value?.toUpperCase();
+      return this.diagnosis.filter((optionValue) =>
+        optionValue.description.includes(filterValue)
+      );
+      }
+
 
   saveCode(e): void {
     var localidentify = this.diagnosis.find(item => item.name == e);
