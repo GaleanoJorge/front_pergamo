@@ -69,6 +69,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public regime: any[];
   public route;
   public show_cats: boolean = false;
+  readonly MAX_VALUE_FILE_SIZE: Number = 1000000;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
