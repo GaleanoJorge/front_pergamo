@@ -99,6 +99,7 @@ export class DietsEvoComponent implements OnInit {
       this.RefreshData();
       if (this.type_record == 1) {
         this.messageEvent.emit(true);
+        this.has_input=true;
       }
     }
   }

@@ -131,6 +131,16 @@ export class FormNursingPhysicalExamComponent implements OnInit {
     //   nursing_physical_exam: this.formBuilder.array([]),
 
     // });
+
+    this.PhysicalExamS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id
+    }).then(x => {
+      if (x.length > 0 && this.type_record_id == 1) {
+        this.disabled = true;
+        this.messageEvent.emit(true);
+      }
+    });
   }
 
   // disabledFormularies(Data){
@@ -163,6 +173,7 @@ export class FormNursingPhysicalExamComponent implements OnInit {
 
         // });
       });
+      
     } else {
       this.type_ch_physical_exam = this.arrayMedical;
       this.loading = false;

@@ -75,6 +75,15 @@ export class FormDietsEvoComponent implements OnInit {
       };
     };
 
+    this.ChDietsEvoS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id,
+    }).then(x => {
+      if (x.length > 0) {
+        this.messageEvent.emit(true);
+      }
+    });
+
     this.EnterallyDietS.GetCollection().then(x => {
       this.enterally_diet_id = x;
     });

@@ -76,22 +76,37 @@ export class FormSystemExamComponent implements OnInit {
     ]);
     this.loadAuxData = false;
     this.loadForm();
+
+    
+    await this.SystemExamS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id
+    }).then((x) => {
+      this.loading = false;
+      if (x.length > 0) {
+        this.data = x
+        this.disabled = true;
+        this.messageEvent.emit(true);
+      }
+    });
   }
 
   async GetAuxData() {
-    await this.SystemExamS.GetCollection().then((x) => {
-      this.type_ch_system_exam = x;
-      this.loading = false;
-      // this.type_ch_physical_exam.forEach(element => {
-      //   this.addForms();
+      await this.SystemExamS.GetCollection().then((x) => {
+        this.type_ch_system_exam = x;
+        this.loading = false;
+        // this.type_ch_physical_exam.forEach(element => {
+        //   this.addForms();
+  
+        // });
+      });
 
-      // });
-    });
 
     await this.SystemExamS.ByRecord(this.record_id, this.type_record_id).then(x => {
       if (x.length > 0) {
         this.data = x
-        this.disabled = true
+        this.disabled = true;
+        this.messageEvent.emit(true);
       }
     });
 

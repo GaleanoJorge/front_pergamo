@@ -140,6 +140,15 @@ export class FormsignsComponent implements OnInit {
     
     }
 
+    this.chVitalSignsS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id,
+    }).then(x => {
+      if (x.length > 0) {
+        this.messageEvent.emit(true);
+      }
+    });
+
     this.chvitalHydrationS.GetCollection({ status_id: 1 }).then(x => {
       this.vital_hydration = x;
     });

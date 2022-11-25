@@ -457,6 +457,7 @@ export class SignsListComponent implements OnInit {
       this.RefreshData();
       if (this.type_record_id == 1) {
         this.messageEvent.emit(true);
+        this.has_input = true;
       }
     }
   }
