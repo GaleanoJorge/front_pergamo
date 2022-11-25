@@ -6,7 +6,7 @@
           <label for="diagnosis_id" class="font-weight-bold">DIAGNÓSTICO</label>
           <input fullWidth formControlName="diagnosis_id" nbInput type="text" placeholder="Seleccionar Diagnostico"
           status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
-          [nbAutocomplete]="autoControl" />
+          [nbAutocomplete]="autoControl" (ngModelChange)="this.searchDiagnostic($event)" />
 
         <nb-autocomplete #autoControl (selectedChange)="saveCode($event)">
           <nb-option value="">Seleccione...</nb-option>

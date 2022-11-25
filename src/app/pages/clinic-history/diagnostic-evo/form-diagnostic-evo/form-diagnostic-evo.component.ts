@@ -63,11 +63,6 @@ export class FormDiagnosticEvoComponent implements OnInit {
       this.diagnosis_class = x;
     });
 
-    this.DiagnosisS.GetCollection({all:1}).then(x => {
-      this.diagnosis = x;
-      this.filteredProductOptions$ = of(this.diagnosis);
-      this.onFilter();
-    });
 
     this.form = this.formBuilder.group({
       diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
@@ -88,12 +83,16 @@ export class FormDiagnosticEvoComponent implements OnInit {
           search: $event,
         }).then(x => {
           this.diagnosis = x;
+          this.filteredProductOptions$ = of(this.diagnosis);
+          this.onFilter();
         });
       } else {
         this.DiagnosisS.GetCollection({
           search: '',
         }).then(x => {
           this.diagnosis = x;
+          this.filteredProductOptions$ = of(this.diagnosis);
+          this.onFilter();
         });
       }
     }
