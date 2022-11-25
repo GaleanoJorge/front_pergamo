@@ -62,11 +62,6 @@ export class FormDiagnosticComponent implements OnInit {
       }
     });
 
-    this.DiagnosisS.GetCollection().then(x => {
-               this.diagnosis = x;
-               this.filteredProductOptions$ = of(this.diagnosis);
-               this.onFilter();
-             });
 
     this.diagnosisTypeS.GetCollection().then(x => {
       this.diagnosis_type = x;
@@ -85,25 +80,29 @@ export class FormDiagnosticComponent implements OnInit {
 
   public diagnosticConut = 0;
 
-  // searchDiagnostic($event) {
-  //   this.diagnosticConut++;
-  //   if (this.diagnosticConut == 3) {
-  //     this.diagnosticConut = 0;
-  //     if ($event.length >= 3) {
-  //       this.DiagnosisS.GetCollection({
-  //         search: $event,
-  //       }).then(x => {
-  //         this.diagnosis = x;
-  //       });
-  //     } else {
-  //       this.DiagnosisS.GetCollection({
-  //         search: '',
-  //       }).then(x => {
-  //         this.diagnosis = x;
-  //       });
-  //     }
-  //   }
-  // }
+  searchDiagnostic($event) {
+    this.diagnosticConut++;
+    if (this.diagnosticConut == 3) {
+      this.diagnosticConut = 0;
+      if ($event.length >= 3) {
+        this.DiagnosisS.GetCollection({
+          search: $event,
+        }).then(x => {
+          this.diagnosis = x;
+          this.filteredProductOptions$ = of(this.diagnosis);
+          this.onFilter();
+        });
+      } else {
+        this.DiagnosisS.GetCollection({
+          search: '',
+        }).then(x => {
+          this.diagnosis = x;
+          this.filteredProductOptions$ = of(this.diagnosis);
+          this.onFilter();
+        });
+      }
+    }
+  }
 
   async save() {
     this.isSubmitted = true;
@@ -169,7 +168,8 @@ export class FormDiagnosticComponent implements OnInit {
     private filter(value: string): string[] {
       const filterValue = value?.toUpperCase();
       return this.diagnosis.filter((optionValue) =>
-        optionValue.description.includes(filterValue)
+        optionValue.name.includes(filterValue) || 
+        optionValue.code.includes(filterValue)
       );
       }
 
@@ -180,7 +180,6 @@ export class FormDiagnosticComponent implements OnInit {
       this.diagnosis_id = localidentify.id;
     } else {
       this.diagnosis_id = null;
-      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
       this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }

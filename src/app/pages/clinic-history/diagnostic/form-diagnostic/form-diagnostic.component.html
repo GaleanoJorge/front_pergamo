@@ -7,8 +7,8 @@
 
 
           <input fullWidth formControlName="diagnosis_id" nbInput type="text" placeholder="Seleccionar Diagnostico"
-          status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
-          [nbAutocomplete]="autoControl" />
+          status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          [nbAutocomplete]="autoControl" (ngModelChange)="this.searchDiagnostic($event)" />
 
         <nb-autocomplete #autoControl (selectedChange)="saveCode($event)">
           <nb-option value="">Seleccione...</nb-option>
