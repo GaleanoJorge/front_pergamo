@@ -763,7 +763,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
             bed_id: this.data.medical_diary.office_id
           });
         } else {
-          this.toastService.warning('', 'No se encontraron camas')
+          this.toastService.warning('', 'No se encontraron camas disponibles para la localización y el procedimiento seleccionado')
         }
   
         return Promise.resolve(true);
@@ -777,7 +777,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       if (x.length > 0) {
         this.bed = x;
       } else {
-        this.toastService.warning('', 'No se encontraron camas')
+        this.toastService.warning('', 'No se encontraron camas disponibles para la localización y el procedimiento seleccionado')
       }
 
       return Promise.resolve(true);
