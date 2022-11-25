@@ -161,8 +161,9 @@ export class FormDiagnosticEvoComponent implements OnInit {
 
     private filter(value: string): string[] {
       const filterValue = value?.toUpperCase();
-      return this.diagnosis.filter((optionValue) =>
-        optionValue.description.includes(filterValue)
+      return this.diagnosis.filter((optionValue) => 
+        optionValue.name.includes(filterValue) || 
+        optionValue.code.includes(filterValue)
       );
       }
 
