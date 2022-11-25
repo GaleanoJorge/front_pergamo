@@ -16,7 +16,7 @@ export class NursingTypePhysicalService {
   GetCollection(params = {}): Promise<NursingTypePhysical[]> {
     let servObj = new ServiceObject(params ? 'nursing_type_physical?pagination=false' : 'nursing_type_physical');
 
-    return this.webAPI.GetAction(servObj, params)
+    return this.webAPI.GetAction(servObj,)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
