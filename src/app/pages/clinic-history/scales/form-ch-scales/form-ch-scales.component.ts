@@ -303,11 +303,11 @@ export class FormChScalesComponent implements OnInit {
     this.form = this.formBuilder.group({
 
       //Escala Norton Form
-      physical_value: [this.data.physical_value],
-      mind_value: [this.data.mind_value],
-      mobility_value: [this.data.mobility_value],
-      activity_value: [this.data.activity_value],
-      incontinence_value: [this.data.incontinence_value],
+      physical_value: [this.data.physical_value, , Validators.compose([Validators.required])],
+      mind_value: [this.data.mind_value, , Validators.compose([Validators.required])],
+      mobility_value: [this.data.mobility_value, , Validators.compose([Validators.required])],
+      activity_value: [this.data.activity_value, , Validators.compose([Validators.required])],
+      incontinence_value: [this.data.incontinence_value, , Validators.compose([Validators.required])],
       totalNorton: [this.data.totalNorton],
       risk_norton: [this.data.risk_norton],
 
@@ -1099,15 +1099,15 @@ export class FormChScalesComponent implements OnInit {
     if (escale_id == 1) {
       this.refresh1 = false;
       this.form.controls.physical_value.setValidators(Validators.compose([Validators.required]));
-      var physical = this.separateText(this.form.controls.physical_value.value);
+      var physical = this.form.controls.physical_value.value ? this.separateText(this.form.controls.physical_value.value):null;
       this.form.controls.mind_value.setValidators(Validators.compose([Validators.required]));
-      var mind = this.separateText(this.form.controls.mind_value.value);
+      var mind = this.form.controls.mind_value.value ? this.separateText(this.form.controls.mind_value.value):null;
       this.form.controls.mobility_value.setValidators(Validators.compose([Validators.required]));
-      var mobility = this.separateText(this.form.controls.mobility_value.value);
+      var mobility = this.form.controls.mobility_value.value ? this.separateText(this.form.controls.mobility_value.value):null;
       this.form.controls.activity_value.setValidators(Validators.compose([Validators.required]));
-      var activity = this.separateText(this.form.controls.activity_value.value);
+      var activity = this.form.controls.activity_value.value ? this.separateText(this.form.controls.activity_value.value):null;
       this.form.controls.incontinence_value.setValidators(Validators.compose([Validators.required]));
-      var incontinence = this.separateText(this.form.controls.incontinence_value.value);
+      var incontinence = this.form.controls.incontinence_value.value ? this.separateText(this.form.controls.incontinence_value.value):null;
       // this.form.controls.totalNorton.setValidators(Validators.compose([Validators.required]));
       // this.form.controls.risk_norton.setValidators(Validators.compose([Validators.required]));
       this.isSubmitted = true;

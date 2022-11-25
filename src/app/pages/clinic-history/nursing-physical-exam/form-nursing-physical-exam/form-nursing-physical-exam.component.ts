@@ -134,7 +134,7 @@ export class FormNursingPhysicalExamComponent implements OnInit {
 
     this.PhysicalExamS.GetCollection({
       ch_record_id: this.record_id,
-      type_record_id: this.record_id
+      type_record_id: this.type_record_id
     }).then(x => {
       if (x.length > 0 && this.type_record_id == 1) {
         this.disabled = true;
