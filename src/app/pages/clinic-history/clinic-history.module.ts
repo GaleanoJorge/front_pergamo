@@ -20,6 +20,7 @@ import {
   NbTooltipModule,
   NbDialogModule,
   NbCheckboxModule,
+  NbAutocompleteModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -443,6 +444,7 @@ import { FormTracingListComponent } from './tracing-list/form-tracing-list/form-
     NbSpinnerModule,
     NbToggleModule,
     NbCheckboxModule,
+    NbAutocompleteModule,
   ],
   declarations: [
 
