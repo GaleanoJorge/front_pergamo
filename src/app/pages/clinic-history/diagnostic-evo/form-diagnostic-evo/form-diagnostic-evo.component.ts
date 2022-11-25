@@ -26,7 +26,7 @@ export class FormDiagnosticEvoComponent implements OnInit {
   public disabled: boolean = false;
   public showTable;
   public diagnosis_id;
-  public diagnosis: any[];
+  public diagnosis: any[]= [];
   public diagnosis_type: any[];
   public diagnosis_class: any[];
   public filteredProductOptions$: Observable<string[]>;
@@ -63,7 +63,7 @@ export class FormDiagnosticEvoComponent implements OnInit {
       this.diagnosis_class = x;
     });
 
-    this.DiagnosisS.GetCollection().then(x => {
+    this.DiagnosisS.GetCollection({all:1}).then(x => {
       this.diagnosis = x;
       this.filteredProductOptions$ = of(this.diagnosis);
       this.onFilter();
