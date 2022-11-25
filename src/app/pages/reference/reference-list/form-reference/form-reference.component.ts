@@ -466,7 +466,7 @@ export class FormReferenceComponent implements OnInit {
         this.ReferenceS.Save({
           route: this.route,
           user_id: this.user.id,
-          patient_id: this.patient_id,
+          patient_id: this.gender_id_disabled ? this.patient_id : null,
           procedure_id: this.procedure_id,
           diagnosis_id: this.diagnosis_id,
           firstname: this.form.controls.firstname.value,
@@ -792,7 +792,7 @@ export class FormReferenceComponent implements OnInit {
       if (x.length > 0) {
         this.beds = x;
       } else {
-        this.toastService.warning('', 'No se encontraron camas')
+        this.toastService.warning('', 'No se encontraron camas disponibles para la localización y el procedimiento seleccionado')
       }
 
       return Promise.resolve(true);

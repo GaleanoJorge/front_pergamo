@@ -214,7 +214,7 @@ export class ReferenceListComponent implements OnInit {
         title: this.headerFields[19],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return 'NIVEL ' + value.name;
+          return 'NIVEL ' + value;
         },
       },
       request_technological_medium: {
