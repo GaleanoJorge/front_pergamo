@@ -115,8 +115,10 @@ export class FormBackGynecoComponent implements OnInit {
       ch_record_id: this.record_id,
       type_record_id: this.record_id,
     }).then(x => {
-      if (x.length > 0) {
+      if (x.length > 0 && this.type_record_id == 1) {
         this.messageEvent.emit(true);
+      }else {
+        this.messageEvent.emit(false);
       }
     });
 
