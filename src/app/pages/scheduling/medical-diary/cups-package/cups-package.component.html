@@ -3,10 +3,13 @@
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-          <div content>
-              <ngx-base-table [settings]="settings" entity="procedure/?pagination=true" customData='procedure'>
-              </ngx-base-table>
-          </div>
+        <div content>
+          <ngx-base-table  [title]="title"
+                          [settings]="settings" 
+                          entity="procedure/?pagination=true" 
+                          customData='procedure'>
+          </ngx-base-table>
+        </div>
       </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
