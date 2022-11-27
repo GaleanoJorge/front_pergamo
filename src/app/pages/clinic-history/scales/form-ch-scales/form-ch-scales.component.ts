@@ -303,11 +303,11 @@ export class FormChScalesComponent implements OnInit {
     this.form = this.formBuilder.group({
 
       //Escala Norton Form
-      physical_value: [this.data.physical_value, , Validators.compose([Validators.required])],
-      mind_value: [this.data.mind_value, , Validators.compose([Validators.required])],
-      mobility_value: [this.data.mobility_value, , Validators.compose([Validators.required])],
-      activity_value: [this.data.activity_value, , Validators.compose([Validators.required])],
-      incontinence_value: [this.data.incontinence_value, , Validators.compose([Validators.required])],
+      physical_value: [this.data.physical_value],
+      mind_value: [this.data.mind_value],
+      mobility_value: [this.data.mobility_value],
+      activity_value: [this.data.activity_value],
+      incontinence_value: [this.data.incontinence_value],
       totalNorton: [this.data.totalNorton],
       risk_norton: [this.data.risk_norton],
 
@@ -1108,6 +1108,8 @@ export class FormChScalesComponent implements OnInit {
       var activity = this.form.controls.activity_value.value ? this.separateText(this.form.controls.activity_value.value):null;
       this.form.controls.incontinence_value.setValidators(Validators.compose([Validators.required]));
       var incontinence = this.form.controls.incontinence_value.value ? this.separateText(this.form.controls.incontinence_value.value):null;
+
+      
       // this.form.controls.totalNorton.setValidators(Validators.compose([Validators.required]));
       // this.form.controls.risk_norton.setValidators(Validators.compose([Validators.required]));
       this.isSubmitted = true;
