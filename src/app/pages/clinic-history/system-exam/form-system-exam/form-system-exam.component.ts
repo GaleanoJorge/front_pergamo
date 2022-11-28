@@ -92,13 +92,21 @@ export class FormSystemExamComponent implements OnInit {
   }
 
   async GetAuxData() {
-      await this.SystemExamS.GetCollection().then((x) => {
+      await this.SystemExamS.GetCollection({
+        ch_record_id: this.record_id,
+      type_record_id: this.record_id
+      }).then((x) => {
         this.type_ch_system_exam = x;
         this.loading = false;
         // this.type_ch_physical_exam.forEach(element => {
         //   this.addForms();
   
         // });
+        if (x.length > 0) {
+          this.data = x
+          this.disabled = true;
+          this.messageEvent.emit(true);
+        }
       });
 
 
