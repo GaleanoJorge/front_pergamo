@@ -116,11 +116,11 @@ export class MedicalDiaryComponent implements OnInit {
     });
   }
 
-  assignCups(data){
+  assignCups(la_verga_de_mi_tia){
     this.dialogFormService.open(CupsPackageComponent, {
       context: {
-        title: 'Editar agenda',
-        data: data,
+        title: 'Añadir CUPS al asistencial',
+        data: la_verga_de_mi_tia,
         saved: this.RefreshData.bind(this),
       },
     });

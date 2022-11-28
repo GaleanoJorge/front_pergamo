@@ -88,6 +88,7 @@ export class FormBedComponent implements OnInit {
         });
       }
     });
+    this.onChanges();
   }
 
   onChanges(){
@@ -97,7 +98,7 @@ export class FormBedComponent implements OnInit {
         this.form.controls.procedure_id.setValidators(Validators.compose([Validators.required]));
       } else {
         this.form.controls.procedure_id.clearValidators();
-        this.form.controls.procedure_id.updateValueAndValidity();
+        this.form.controls.procedure_id.setErrors(null);
       }
     });
   }
