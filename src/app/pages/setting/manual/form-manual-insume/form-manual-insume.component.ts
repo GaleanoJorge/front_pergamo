@@ -66,6 +66,8 @@ export class FormManualInsumeComponent implements OnInit {
         price_type_id: '',
         product_id: '',
         description: '',
+        has_auth: null,
+        patient_id: ''
       };
     }
 
@@ -80,6 +82,8 @@ export class FormManualInsumeComponent implements OnInit {
       value: [this.data.value, Validators.compose([Validators.required])],
       price_type_id: [this.data.price_type_id, Validators.compose([Validators.required])],
       product_id: [this.data.procedure_id],
+      has_auth: [this.data.has_auth],
+      patient_id: [this.data.patient_id],
       description:[this.data.description]
     });
 
@@ -124,7 +128,7 @@ export class FormManualInsumeComponent implements OnInit {
     }
 
     else {
-      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.toastService.warning('', 'Debe seleccionar un paciente de la lista');
       this.form.controls.patient_id.setErrors({ 'incorrect': true });
     }
   }
@@ -150,6 +154,7 @@ export class FormManualInsumeComponent implements OnInit {
           supplies_id: this.supplies_id,
           manual_procedure_type_id: 2,
           description: this.form.controls.description.value,
+          has_auth: this.form.controls.has_auth.value,
           patient_id: this.patient_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -169,6 +174,7 @@ export class FormManualInsumeComponent implements OnInit {
           price_type_id: this.form.controls.price_type_id.value,
           supplies_id: this.supplies_id,
           manual_procedure_type_id: 2,
+          has_auth: this.form.controls.has_auth.value,
           description: this.form.controls.description.value,
           patient_id: this.patient_id,
         }).then(x => {

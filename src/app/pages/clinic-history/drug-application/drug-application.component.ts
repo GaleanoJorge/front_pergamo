@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter} from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
@@ -6,7 +6,6 @@ import { AuthService } from '../../../services/auth.service';
 import { ActionsAplicationsComponent } from './actions.component';
 import { NbDialogService } from '@nebular/theme';
 import { FormDrugApplicationComponent } from './form-drug-application/form-drug-application.component';
-import { FormDrugReturnedComponent } from '../../setting/assistance-stock/form-drug-returned/form-drug-returned.component';
 
 @Component({
   selector: 'ngx-drug-application',
@@ -19,15 +18,27 @@ export class DrugApplicationComponent implements OnInit {
   @Input() record_id;
   @Input() type_record_id;
   @Input() user;
+  @Output() messageEvent = new EventEmitter<any>();
+
   linearMode = false;
   public messageError = null;
   public title;
   public routes = [];
   public user_id;
   public entity;
-  public dialog
+  public dialog;
   public nameForm: String;
-  public headerFields: any[] = ['DESCRIPCIÓN', 'CONTRAINDICACIONES', 'INDICACIONES', 'REFRIGERACIÓN', 'DIAS DE TRATAMIENTO', 'CANT. SOLICITADA', 'OBSERVACIONES', 'PRODUCTO', 'DOSIS'];
+  public headerFields: any[] = [
+    'DESCRIPCIÓN',
+    'CONTRAINDICACIONES',
+    'INDICACIONES',
+    'REFRIGERACIÓN',
+    'DIAS DE TRATAMIENTO',
+    'CANT. SOLICITADA',
+    'OBSERVACIONES',
+    'PRODUCTO',
+    'DOSIS',
+  ];
   public saveEntry: any = 0;
   public isSubmitted: boolean = false;
   public form: FormGroup;
@@ -46,11 +57,11 @@ export class DrugApplicationComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'used': this.Aplication.bind(this),
-            'damaged': this.Damaged.bind(this),
+            data: row,
+            used: this.Aplication.bind(this),
+            damaged: this.Damaged.bind(this),
             // 'returned': this.Returned.bind(this),
-            'refresh': this.RefreshData.bind(this),
+            refresh: this.RefreshData.bind(this),
           };
         },
         renderComponent: ActionsAplicationsComponent,
@@ -59,30 +70,44 @@ export class DrugApplicationComponent implements OnInit {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.name;
+          if (
+            row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock
+              .product
+          ) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock
+              .billing_stock.product.name;
           } else {
-            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.name;
+            return row.pharmacy_request_shipping.pharmacy_lot_stock
+              .billing_stock.product_supplies_com.name;
           }
         },
       },
-      'description': {
+      description: {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.product_generic.description;
+          if (
+            row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock
+              .product
+          ) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock
+              .billing_stock.product.product_generic.description;
           } else {
-            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com.product_supplies.description;
+            return row.pharmacy_request_shipping.pharmacy_lot_stock
+              .billing_stock.product_supplies_com.product_supplies.description;
           }
         },
       },
-      'administration_route': {
+      administration_route: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.indications;
+          if (
+            row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock
+              .product
+          ) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock
+              .billing_stock.product.indications;
           } else {
             return '--';
           }
@@ -93,10 +118,14 @@ export class DrugApplicationComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.contraindications;
+          if (
+            row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock
+              .product
+          ) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock
+              .billing_stock.product.contraindications;
           } else {
-            return '--'
+            return '--';
           }
         },
       },
@@ -104,20 +133,78 @@ export class DrugApplicationComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.refrigeration == 1 ? 'REFRIGERAR' : 'NO REFRIGERAR';
+          if (
+            row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock
+              .product
+          ) {
+            return row.pharmacy_request_shipping.pharmacy_lot_stock
+              .billing_stock.product.refrigeration == 1
+              ? 'REFRIGERAR'
+              : 'NO REFRIGERAR';
           } else {
-            return '--'
+            return '--';
           }
         },
       },
       disponibles: {
         title: 'DISPONIBLES',
         type: 'string',
+        valuePrepareFunction(value, row) {
+          if (
+            row.services_briefcase.manual_price.product.product_dose_id == 2
+          ) {
+            var args =
+              row.services_briefcase.manual_price.product.product_dose_id == 2
+                ? row.services_briefcase.manual_price.product
+                    .multidose_concentration.name
+                : row.services_briefcase.manual_price.product.measurement_units
+                    .name;
+
+            var rr = '';
+
+            if (args.includes('/')) {
+              var spl = args.split('/');
+              var num = spl[0];
+              var den = +spl[1];
+              rr = num;
+            } else {
+              rr = args;
+            }
+
+            return value + ' ' + args;
+          }
+          return value;
+        },
       },
       Usadas: {
         title: 'APLICADAS',
         type: 'string',
+        valuePrepareFunction(value, row) {
+          if (
+            row.services_briefcase.manual_price.product.product_dose_id == 2
+          ) {
+            var args =
+              row.services_briefcase.manual_price.product.product_dose_id == 2
+                ? row.services_briefcase.manual_price.product
+                    .multidose_concentration.name
+                : row.services_briefcase.manual_price.product.measurement_units
+                    .name;
+
+            var rr = '';
+
+            if (args.includes('/')) {
+              var spl = args.split('/');
+              var num = spl[0];
+              var den = +spl[1];
+              rr = num;
+            } else {
+              rr = args;
+            }
+
+            return value + ' ' + args;
+          }
+          return value;
+        },
       },
       dañadas: {
         title: 'DAÑADAS',
@@ -133,15 +220,19 @@ export class DrugApplicationComponent implements OnInit {
   constructor(
     public userChangeS: UserChangeService,
     public AuthS: AuthService,
-    private dialogFormService: NbDialogService,
-
-  ) { }
+    private dialogFormService: NbDialogService
+  ) {}
 
   async ngOnInit() {
     this.user_id = this.AuthS.GetUser().id;
     if (this.user_id) {
-      this.entity = "pharmacy_product_request_for_use?" + 'patient=' + this.record_id + '&product=' + true;
-      this.title = 'MEDICAMENTOS DISPONIBLES PARA PACIENTE'
+      this.entity =
+        'pharmacy_product_request_for_use?' +
+        'patient=' +
+        this.record_id +
+        '&product=' +
+        true;
+      this.title = 'MEDICAMENTOS DISPONIBLES PARA PACIENTE';
     }
   }
 
@@ -155,6 +246,7 @@ export class DrugApplicationComponent implements OnInit {
         type_record_id: this.type_record_id,
         status: 'USADO',
         saved: this.RefreshData.bind(this),
+        emit: this.messageToParent.bind(this),
       },
     });
   }
@@ -192,7 +284,7 @@ export class DrugApplicationComponent implements OnInit {
   }
 
   RefreshData() {
-    this.close()
+    this.close();
     this.table.refresh();
   }
 
@@ -202,5 +294,21 @@ export class DrugApplicationComponent implements OnInit {
     }
   }
 
+  messageToParent(){
+    this.messageEvent.emit(true);
+    console.log('enviado')
+  }
 
+  numerador_measurement_units(val) {
+    var rr = '';
+    if (val.includes('/')) {
+      var spl = val.split('/');
+      var num = spl[0];
+      var den = +spl[1];
+      rr = num;
+    } else {
+      rr = val;
+    }
+    return rr;
+  }
 }

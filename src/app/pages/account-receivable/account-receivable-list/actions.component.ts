@@ -5,8 +5,14 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
     template: `
     <div class="d-flex justify-content-center">
-        <button
+        <!-- <button
             *ngIf="!value.group && ((value.data.edit_date == 1 && !value.data.file_payment && value.role_type == 2) && !(value.data.status_bill_id == 3 || value.data.status_bill_id == 4) || (value.data.status_bill_id == 5 && value.role_type == 2))"
+            nbTooltip="Adjuntar Planilla seguridad" nbTooltipPlacement="top" nbTooltipStatus="primary"
+             nbButton ghost (click)="value.edit(value.data)">
+            <nb-icon icon="paper-plane-outline"></nb-icon>
+        </button> -->
+        <button
+            *ngIf="!value.group && ((value.data.edit_date == 1 && !value.data.file_payment && value.role_type == 2))"
             nbTooltip="Adjuntar Planilla seguridad" nbTooltipPlacement="top" nbTooltipStatus="primary"
              nbButton ghost (click)="value.edit(value.data)">
             <nb-icon icon="paper-plane-outline"></nb-icon>

@@ -72,7 +72,7 @@ export class FormNursingPhysicalExamComponent implements OnInit {
     private PhysicalExamS: ChPhysicalExamService,
     private toastService: NbToastrService,
     private nursingTypePhysicalS: NursingTypePhysicalService
-  ) {}
+  ) { }
 
   //comentariado el funcionamiento de arrayform
   // form = this.formBuilder.group({
@@ -131,6 +131,19 @@ export class FormNursingPhysicalExamComponent implements OnInit {
     //   nursing_physical_exam: this.formBuilder.array([]),
 
     // });
+
+    this.PhysicalExamS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.type_record_id
+    }).then(x => {
+      if (x.length > 0 && this.type_record_id == 1) {
+        this.disabled = true;
+        this.messageEvent.emit(true);
+      } else {
+        this.disabled = false;
+        this.messageEvent.emit(false);
+      }
+    });
   }
 
   // disabledFormularies(Data){
@@ -163,36 +176,41 @@ export class FormNursingPhysicalExamComponent implements OnInit {
 
         // });
       });
+
     } else {
       this.type_ch_physical_exam = this.arrayMedical;
       this.loading = false;
     }
 
-    await this.PhysicalExamS.ByRecord(this.record_id, this.type_record_id).then(
-      (x) => {
-        x;
-        if (x.length > 0) {
-          this.data = x;
-          this.disabled = true;
-          this.form.controls.description1.disable();
-          this.form.controls.description1.updateValueAndValidity();
-          this.form.controls.description2.disable();
-          this.form.controls.description2.updateValueAndValidity();
-          this.form.controls.description3.disable();
-          this.form.controls.description3.updateValueAndValidity();
-          this.form.controls.description4.disable();
-          this.form.controls.description4.updateValueAndValidity();
-          this.form.controls.description5.disable();
-          this.form.controls.description5.updateValueAndValidity();
-          this.form.controls.description6.disable();
-          this.form.controls.description6.updateValueAndValidity();
-          this.form.controls.description7.disable();
-          this.form.controls.description7.updateValueAndValidity();
-        }
-      }
-    );
+    if (this.type_record_id == 1) {
 
-    return Promise.resolve(true);
+      await this.PhysicalExamS.ByRecord(this.record_id, this.type_record_id).then(
+        (x) => {
+          x;
+
+          if (x.length > 0) {
+            this.data = x;
+            this.disabled = true;
+            this.form.controls.description1.disable();
+            this.form.controls.description1.updateValueAndValidity();
+            this.form.controls.description2.disable();
+            this.form.controls.description2.updateValueAndValidity();
+            this.form.controls.description3.disable();
+            this.form.controls.description3.updateValueAndValidity();
+            this.form.controls.description4.disable();
+            this.form.controls.description4.updateValueAndValidity();
+            this.form.controls.description5.disable();
+            this.form.controls.description5.updateValueAndValidity();
+            this.form.controls.description6.disable();
+            this.form.controls.description6.updateValueAndValidity();
+            this.form.controls.description7.disable();
+            this.form.controls.description7.updateValueAndValidity();
+          }
+        }
+      );
+
+      return Promise.resolve(true);
+    }
   }
 
   async loadForm(force = true) {
@@ -299,10 +317,10 @@ export class FormNursingPhysicalExamComponent implements OnInit {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
         }).catch((x) => {
-            this.isSubmitted = false;
-            this.loading = false;
-            this.toastService.danger('Ya cuenta con observaciones');
-          });
+          this.isSubmitted = false;
+          this.loading = false;
+          this.toastService.danger('Ya cuenta con observaciones');
+        });
         this.disabled = true;
         this.loading = false;
         this.messageEvent.emit(true);

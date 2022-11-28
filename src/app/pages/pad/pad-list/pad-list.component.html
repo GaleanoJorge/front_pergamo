@@ -7,23 +7,39 @@
         <div *ngIf="this.currentRole.role_type_id == 1 && this.patients"><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div>
       </div>
       <div actions>
-        <div class="actions">
-          
-          <div *ngIf="this.currentRole.role_type_id == 1" style="margin-right: 10px; width: 250px">
-            <nb-select placeholder="Filtrar por estado" fullWidth (selectedChange)="changeSemaphore($event)">
-              <nb-option value="">Sin filtro</nb-option>
-              <nb-option *ngFor="let item of status_type" [value]="item.id">
-                <div class="cuadro" [style]="'background-color: ' + item.color + ';'" style="margin-right: 10px;">
-                </div>
-                {{ item.name }}
-              </nb-option>
+        <form [formGroup]="form">
+          <div class="actions">
+            
+            <div *ngIf="this.currentRole.role_type_id == 1" style="margin-right: 10px; width: 250px">
+              <nb-select placeholder="Filtrar por estado" fullWidth (selectedChange)="changeSemaphore($event)">
+                <nb-option value="">Sin filtro</nb-option>
+                <nb-option *ngFor="let item of status_type" [value]="item.id">
+                  <div class="cuadro" [style]="'background-color: ' + item.color + ';'" style="margin-right: 10px;">
+                  </div>
+                  {{ item.name }}
+                </nb-option>
+              </nb-select>
+            </div>
+            <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar EPS">
+              <nb-option >Todos los convenios</nb-option>
+              <nb-option *ngFor="let item of company" [value]="item.id">{{item.name}}</nb-option>
             </nb-select>
           </div>
-          <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
-            <nb-option >Todos los convenios</nb-option>
-            <nb-option *ngFor="let item of company" [value]="item.id">Convenio: {{item.name}}</nb-option>
-          </nb-select>
-        </div>
+
+          <div class="actions">
+            <div class="col-md-6">
+              <label for="start_date" class="form-text text-muted font-weight-bold">Fecha de inicio:</label>
+              <input type="date" nbInput fullWidth id="start_date" formControlName="start_date" start_date
+                status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+            <div class="col-md-6">
+              <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha de final:</label>
+              <input type="date" nbInput fullWidth id="finish_date" formControlName="finish_date" finish_date
+                status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+          </div>
+
+        </form>
         
       </div>
     </ngx-base-table>

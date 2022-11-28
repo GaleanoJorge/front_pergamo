@@ -30,6 +30,13 @@
                 </ngx-table-valoration-ft>
     
               </nb-step>
+
+              <nb-step label='Antecedentes'>
+    
+                <ngx-back-list [user]="user" [has_input]="has_input" [record_id]="record_id" (messageEvent)="receiveMessage($event)" [type_record_id]="1">
+                </ngx-back-list>
+    
+              </nb-step>
     
     
               <nb-step label="Signos Vitales">
@@ -190,8 +197,8 @@
           </nb-step>
 
           <nb-step label='Objetivos Terapeuticos'>
-            <ngx-table-nr-ther-goals-ft [type_record_id]="3" [record_id]="record_id" [data]="chthergoals">
-            </ngx-table-nr-ther-goals-ft>
+            <ngx-table-ther-goals-ft [type_record_id]="1" [record_id]="record_id" [has_input]="true" [data]="chthergoals">
+            </ngx-table-ther-goals-ft>
           </nb-step>
 
           <nb-step label='Intervencion'>

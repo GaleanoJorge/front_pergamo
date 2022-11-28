@@ -111,6 +111,17 @@ export class FormBackGynecoComponent implements OnInit {
       };
     }
 
+    this.ChGynecologistsS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id,
+    }).then(x => {
+      if (x.length > 0 && this.type_record_id == 1) {
+        this.messageEvent.emit(true);
+      }else {
+        this.messageEvent.emit(false);
+      }
+    });
+
     this.ChTypeGynecoS.GetCollection({ status_id: 1 }).then(x => {
       this.ch_type_gynecologists = x;
     });

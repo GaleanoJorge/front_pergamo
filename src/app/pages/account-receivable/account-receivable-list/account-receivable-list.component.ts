@@ -40,6 +40,7 @@ export class AccountReceivableListComponent implements OnInit {
   public user;
   public currentRole;
   public settings;
+  public campus_id;
   public done = false;
   public show_back = true;
   public form: FormGroup;
@@ -227,6 +228,7 @@ export class AccountReceivableListComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
+    this.campus_id = +localStorage.getItem('campus');
     var curr = this.authService.GetRole();
     this.currentRole = this.user.roles.find(x => {
       return x.id == curr;
@@ -246,7 +248,7 @@ export class AccountReceivableListComponent implements OnInit {
         this.title = 'Personal Asistencial';
         this.subtitle = '';
         this.settings = this.settings2;
-        this.entity = 'account_receivable/byUser/0';
+        this.entity = 'account_receivable/byUser/0?campus_id=' + this.campus_id;
       }
       // this.settings = this.settings2;
       // this.entity = 'account_receivable/byUser/0';
@@ -355,6 +357,6 @@ export class AccountReceivableListComponent implements OnInit {
   }
 
   changeEntity(val) {
-    this.table.changeEntity(this.entity + '?contract_type_id=' + val , 'account_receivable');
+    this.table.changeEntity(this.entity + '&contract_type_id=' + val , 'account_receivable');
   }
 }

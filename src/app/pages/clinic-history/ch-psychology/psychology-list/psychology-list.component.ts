@@ -168,15 +168,19 @@ export class PsychologyListComponent implements OnInit {
 
       let response;
     
-        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
+      response = await this.chRecord.UpdateCH(formData, this.record_id).then(x => {
         this.location.back();
-      this.toastService.success('', response.message);
-      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
-      this.messageError = null;
-      if (this.saved) {
-        this.saved();
-      }
-      return true;
+        this.toastService.success('', x.message);
+        this.messageError = null;
+        if (this.saved) {
+          this.saved();
+        }
+        return Promise.resolve(true);
+      }).catch(x => {
+        this.toastService.danger('', x);
+        return Promise.resolve(false);
+      });
+      return Promise.resolve(response);
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;

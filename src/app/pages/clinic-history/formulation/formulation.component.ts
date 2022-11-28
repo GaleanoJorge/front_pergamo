@@ -26,7 +26,7 @@ export class FormulationComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Fecha','Descripción','Dosis','Vía De Administración','Frecuencia Horaria ','Días De Tratamiento','Cant. Solic ','Observaciones'];
+  public headerFields: any[] = ['Fecha', 'Requerido', 'Medicamento / Insumo', 'Dosis', 'Vía De Administración', 'Frecuencia Horaria ', 'Días De Tratamiento', 'Cant. Solic ', 'Observaciones'];
   public saveEntry: any = 0;
   public isSubmitted: boolean = false;
   public form: FormGroup;
@@ -44,7 +44,7 @@ export class FormulationComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          
+
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
@@ -65,50 +65,95 @@ export class FormulationComponent implements OnInit {
         },
       },
 
-      product_generic_id: {
+      required: {
         title: this.headerFields[1],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value == "medicine") {
+            return 'Medicamento'
+
+          } else {
+            return 'Insumo'
+          }
+        },
+      },
+      product_generic: {
+        title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
             return row.product_generic.description;
+
+          } else if (row.product_supplies) {
+            return row.product_supplies.description;
+          } else {
+            return 'No aplica'
+          }
+        },
+      },
+      dose: {
+        title: this.headerFields[3],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'No aplica'
+          }
+        },
+      },
+      administration_route: {
+        title: this.headerFields[4],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.name;
+
           } else {
             return 'No aplica'
           }
         },
 
       },
-      dose: {
-        title: this.headerFields[2],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value + ' ' + (row.product_generic.multidose_concentration ? row.product_generic.multidose_concentration.name : row.product_generic.measurement_units.code);
-        },
-      },
-      administration_route: {
-        title: this.headerFields[3],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.name;
-        },
-
-      },
       hourly_frequency: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return 'CADA ' + value.value + ' ' + row.hourly_frequency.name;
+          if (value) {
+            return 'CADA ' + value.value + '-' + row.hourly_frequency.name;
+          } else {
+            return 'No aplica'
+          }
         },
       },
       treatment_days: {
-        title: this.headerFields[5],
-        width: 'string',
-      },
-      outpatient_formulation: {
         title: this.headerFields[6],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'No aplica'
+          }
+        },
+      },
+      outpatient_formulation: {
+        title: this.headerFields[7],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+
+          if (value) {
+            return row.outpatient_formulation;
+
+          } else if (row.num_supplies) {
+            return row.num_supplies
+          } else {
+            return 'No aplica'
+          }
+        },
       },
       observation: {
-        title: this.headerFields[7],
+        title: this.headerFields[8],
         width: 'string',
       },
     },
@@ -125,9 +170,9 @@ export class FormulationComponent implements OnInit {
     private toastService: NbToastrService,
     private deleteConfirmService: NbDialogService,
 
-    ) {}
+  ) { }
 
-  async ngOnInit() {}
+  async ngOnInit() { }
 
   Historic() {
     this.viewFormulationS.ViewAllFormulation(this.record_id).then(x => {
@@ -171,5 +216,5 @@ export class FormulationComponent implements OnInit {
     });
   }
 
- 
+
 }

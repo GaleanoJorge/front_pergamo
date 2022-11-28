@@ -82,15 +82,22 @@ export class FormBackgroundComponent implements OnInit {
   }
 
   async GetAuxData() {
-    await this.BackgroundS.GetCollection().then((x) => {
-      this.ch_type_background = x;
+    await this.BackgroundS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id
+    }).then((x) => {
       this.loading = false;
-      // this.type_ch_physical_exam.forEach(element => {
-      //   this.addForms();
-
-      // });
+      if (x.length > 0 && this.type_record_id == 1) {
+        this.data = x
+        this.disabled = true;
+        this.messageEvent.emit(true);
+      } else {
+        this.disabled = false;
+        this.messageEvent.emit(false);
+      }
     });
 
+    if (this.type_record_id == 1)
     await this.BackgroundS.ByRecord(this.record_id, this.type_record_id).then(x => {
       x;
       if (x.length > 0) {

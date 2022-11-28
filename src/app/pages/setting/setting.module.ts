@@ -12,7 +12,7 @@ import {
   NbRadioModule,
   NbTooltipModule,
   NbPopoverModule,
-  NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule,
+  NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule, NbAutocompleteModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
 import { ManualComponent } from './manual/manual.component';
@@ -430,6 +430,7 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     NbSpinnerModule,
     NbCheckboxModule,
     NbAccordionModule,
+    NbAutocompleteModule,
   ],
   declarations: [
 

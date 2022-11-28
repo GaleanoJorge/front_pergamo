@@ -516,11 +516,13 @@ export class BackgGynecoComponent implements OnInit {
   }
 
   receiveMessage($event) {
+    if (this.type_record_id == 1) {
+      this.messageEvent.emit($event);
+      this.has_input=true;
+    }
     if ($event == true) {
       this.RefreshData();
-      if (this.type_record_id == 1) {
-        this.messageEvent.emit(true);
-      }
+    
     }
   }
 }

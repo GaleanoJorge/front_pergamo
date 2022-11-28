@@ -1,7 +1,20 @@
 <form [formGroup]="form">
   <nb-card class="rounded_card">
-    <nb-card-header>{{ title }}</nb-card-header>
-    <nb-card-body>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-6" style="
+        text-align: center;
+        align-self: center;">{{ title }}</div>
+        <div class="col-md-6">
+          <div class="col-md-6">
+            <label fullWidth for="applicable" class="form-text text-muted font-weight-bold">Aplicaciones
+              disponibles: {{text}}</label>
+            <!-- <input type="text" nbInput id="applicable" formControlName="applicable" applicable readonly> -->
+          </div>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body *ngIf="this.applicated > 0">
 
       <label class="form-text text-muted font-weight-bold align"></label>
       <div class="row">
@@ -15,10 +28,15 @@
                   <input type="time" nbInput id="clock" formControlName="clock" clock fullWidth
                     status="{{ isSubmitted && form.controls.clock.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
                 </div>
+                <div class="col-md-6">
+                  <label for="quantity" class="form-text text-muted font-weight-bold align">CANTIDAD APLICADA</label>
+                  <input type="text" pattern="[0-9]+" nbInput id="quantity" formControlName="quantity" quantity fullWidth
+                    status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                </div>
                 <div class="col-md-12">
                   <label class="form-text text-muted font-weight-bold">OBSERVACIONES</label>
-                  <textarea id="observation" nbInput fullWidth formControlName="observation" observation
-                    rows="4" cols="50"
+                  <textarea id="observation" nbInput fullWidth formControlName="observation" observation rows="4"
+                    cols="50"
                     status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
                 </div>
 
@@ -40,7 +58,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="isSubmitted" type="button"
+        <button *ngIf="this.applicated > 0" nbButton status="danger" class="ml-1 btn-save" [disabled]="isSubmitted" type="button"
           (click)="save()">REGISTAR</button>
         <button nbButton status="basic" class="ml-1 btn-save" [disabled]="isSubmitted" type="button"
           (click)="close()">CANCELAR</button>
