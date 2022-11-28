@@ -20,9 +20,9 @@
                 </nb-option>
               </nb-select>
             </div>
-            <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
+            <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar EPS">
               <nb-option >Todos los convenios</nb-option>
-              <nb-option *ngFor="let item of company" [value]="item.id">Convenio: {{item.name}}</nb-option>
+              <nb-option *ngFor="let item of company" [value]="item.id">{{item.name}}</nb-option>
             </nb-select>
           </div>
 
