@@ -265,7 +265,7 @@ export class ManagementPlanComponent implements OnInit {
     this.currentRole = this.own_user.roles.find(x => {
       return x.id == curr;
     });
-    if(this.route.snapshot.params.id){
+    if(this.route.snapshot.queryParams.f_pd){
       if(this.currentRole.role_type_id == 1){
         this.showAnex = true
       }
