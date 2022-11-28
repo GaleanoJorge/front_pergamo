@@ -47,6 +47,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public record_id;
   public redo = false;
   public isSubmitted: boolean = false;
+  public show_failed: boolean = true;
   public saved: any = null;
   public loading: boolean = false;
   public has_input: any = null; // ya existe registro de ingreso
@@ -118,6 +119,9 @@ export class ClinicHistoryListComponent implements OnInit {
       this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
+      if (this.admission.location.at(-1).scope_of_attention_id == 1) {
+        this.show_failed = false;
+      }
     });
 
 

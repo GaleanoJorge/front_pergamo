@@ -2,12 +2,20 @@ import { ActivatedRoute } from '@angular/router';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
-import { Component,  EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { CupsCheckComponent } from './cups-check.component';
 import { UserPharmacyStockService } from '../../../../business-controller/user-pharmacy-stock.service';
 import { UserRoleBusinessService } from '../../../../business-controller/user-role-business.service';
 import { AssistanceProcedureService } from '../../../../business-controller/assistance-procedure.service';
-
+import { User } from '../../../../models/user';
 
 @Component({
   selector: 'ngx-cups-package',
@@ -19,13 +27,18 @@ export class CupsPackageComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<any>();
   @Input() parentData: any = [];
-  @Input() data: any;
+  @Input() data;
 
   public messageError = null;
   public form: FormGroup;
   public title = 'CUPS DEL USUARIO';
   public subtitle = '';
-  public headerFields: any[] = ['ID', 'Nombre', 'Tipo', 'Estado'];
+  public headerFields: any[] = [
+    'ID',
+    'Cod',
+    'Cups',
+    'Nombre del procedimiento CUPS',
+  ];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -39,7 +52,7 @@ export class CupsPackageComponent implements OnInit {
   public customData;
   public users;
   public saved: any = null;
-
+  
 
   public procedure_package_id: number;
   public done = false;
@@ -49,18 +62,20 @@ export class CupsPackageComponent implements OnInit {
       select: {
         title: '',
         type: 'custom',
-        valuePrepareFunction: (value, row) => {
+        valuePrepareFunction: (value, row, data) => {
           if (!this.done) {
-            this.data.assistance.assistance_procedure?.forEach(x => {
+            this.data.assistance_simple.assistance_procedure.forEach((x) => {
               this.selectedOptions2.push(x.procedure_id);
             });
             this.selectedOptions = this.selectedOptions2;
             this.done = true;
           }
           return {
-            'data': row,
-            'valid': (!this.selectedOptions2.includes(row.id)) ? false : true,
-            'selection': (event, row: any) => this.eventSelections(event, row),
+            data: row,
+            valid: !this.selectedOptions2.includes(row.id)
+              ? false
+              : true,
+            selection: (event, row: any) => this.eventSelections(event, row),
           };
         },
         renderComponent: CupsCheckComponent,
@@ -87,14 +102,11 @@ export class CupsPackageComponent implements OnInit {
   constructor(
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
-    private UserPharmacyStockS: UserPharmacyStockService,
     protected dialogRef: NbDialogRef<any>,
-    private userRoleS: UserRoleBusinessService,
     private AssistanceProcedureS: AssistanceProcedureService
-  ) {
-  }
+  ) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
   }
 
   eventSelections(event, row) {
@@ -118,20 +130,20 @@ export class CupsPackageComponent implements OnInit {
   saveGroup() {
     if (!this.selectedOptions.length) {
       this.toastS.danger(null, 'Debe seleccionar al menos un item');
-    }
-    else {
+    } else {
       this.AssistanceProcedureS.UpdateProcedures({
         assistance_id: this.data.assistance_id,
         procedure: JSON.stringify(this.selectedOptions),
-      }).then(x => {
-        this.toastS.success(x.message, 'Correcto');
-        // this.RefreshData();
-        this.close();
-        if (this.saved) {
-          this.saved();
-        }
-      }).catch(x => {
-      });
+      })
+        .then((x) => {
+          this.toastS.success(x.message, 'Correcto');
+          // this.RefreshData();
+          this.close();
+          if (this.saved) {
+            this.saved();
+          }
+        })
+        .catch((x) => {});
     }
   }
 }

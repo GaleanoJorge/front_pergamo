@@ -466,7 +466,7 @@ export class FormReferenceComponent implements OnInit {
         this.ReferenceS.Save({
           route: this.route,
           user_id: this.user.id,
-          patient_id: this.patient_id,
+          patient_id: this.gender_id_disabled ? this.patient_id : null,
           procedure_id: this.procedure_id,
           diagnosis_id: this.diagnosis_id,
           firstname: this.form.controls.firstname.value,
@@ -631,10 +631,10 @@ export class FormReferenceComponent implements OnInit {
     this.form.get('identification').valueChanges.subscribe(val => {
       if (val != null && val != '') {
         this.PatientS.GetPatientByIdentification(val).then(x => {
-          if (x && x['admissions'].length > 0) {
+          if (x) {
             this.form.patchValue({
               re_input: true,
-              intention: this.form.controls.intention.value == '' ? +x['rr'] + 1 : this.form.controls.intention.value,
+              intention: this.form.controls.intention.value == '' ? + x['rr'] + 1 : this.form.controls.intention.value,
             });
           } else {
             this.form.patchValue({
@@ -792,7 +792,7 @@ export class FormReferenceComponent implements OnInit {
       if (x.length > 0) {
         this.beds = x;
       } else {
-        this.toastService.warning('', 'No se encontraron camas')
+        this.toastService.warning('', 'No se encontraron camas disponibles para la localización y el procedimiento seleccionado')
       }
 
       return Promise.resolve(true);

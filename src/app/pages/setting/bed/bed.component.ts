@@ -100,7 +100,7 @@ export class BedComponent implements OnInit {
         title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          return value ? value.name : '--';
         },
       },
       status_bed: {
@@ -186,6 +186,10 @@ export class BedComponent implements OnInit {
     }).catch(x => {
       throw x;
     });
+  }
+
+  FilterBed(e) {
+    this.table.changeEntity(`bed/?campus_id=${this.campus_id}&bed_or_office=${e}`, 'bed')
   }
 
 }

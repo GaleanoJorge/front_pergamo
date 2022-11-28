@@ -33,6 +33,7 @@ export class ChNutritionListComponent implements OnInit {
   public user_id;
   public date_end: boolean = true;
   public is_failed: boolean = false;
+  public show_failed: boolean = true;
   public cont = 0;
   public ambit;
   public program;
@@ -110,6 +111,9 @@ export class ChNutritionListComponent implements OnInit {
       this.user = x[0]['admissions']['patients'];
       this.admission = x[0]['admissions'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
+      if (this.admission.location.at(-1).scope_of_attention_id == 1) {
+        this.show_failed = false;
+      }
     });
   }
 

@@ -396,7 +396,7 @@ export class Actions2Component implements ViewCell {
       if (x.length > 0) {
         this.bed = x;
       } else {
-        this.toastService.warning('', 'No se encontraron camas')
+        this.toastService.warning('', 'No se encontraron camas disponibles para la localización y el procedimiento seleccionado')
       }
 
       return Promise.resolve(true);

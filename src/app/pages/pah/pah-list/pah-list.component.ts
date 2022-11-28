@@ -20,6 +20,8 @@ import { UserAgreementService } from '../../../business-controller/user-agreemen
 import { threadId } from 'worker_threads';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { BedService } from '../../../business-controller/bed.service';
+import { FlatService } from '../../../business-controller/flat.service';
+import { PavilionService } from '../../../business-controller/pavilion.service';
 
 @Component({
   selector: 'ngx-pah-list',
@@ -62,6 +64,12 @@ export class PahListComponent implements OnInit {
   // public busy_bed;
   // public fix_bed;
   // public clean_bed;
+  public flat;
+  public pavilion;
+  public bed;
+  public flat_id;
+  public pavilion_id;
+  public bed_id;
   public user;
   public patients: any;
   public dialog;
@@ -338,7 +346,9 @@ export class PahListComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
     private PatientBS: PatientService,
-    // private BedS: BedService,
+    private FlatS: FlatService,
+    private PavilionS: PavilionService,
+    private BedS: BedService,
     private authService: AuthService,
     private dialogService: NbDialogService,
     private toastS: NbToastrService,
@@ -378,6 +388,28 @@ export class PahListComponent implements OnInit {
       this.entity = "patient/byPAH/2/0?campus_id=" + this.campus_id;
       this.entity2 = "patient/byPAH/2/0?campus_id=" + this.campus_id + "&role_id=" + this.currentRole.id;
     }
+
+    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
+      this.flat = x;
+      this.show = true;
+    });
+
+    var b = new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + (+(new Date().getDate()) >= 10 ? new Date().getDate() : ('0'+new Date().getDate()));
+
+    this.form = this.formBuilder.group({
+      flat: ['', []],
+      pavilion: ['', []],
+      bed: ['', []],
+      start_date: [b, []],
+      finish_date: [b, []],
+    });
+
+    this.form.get('start_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
 
     // this.BedS.getBedsByCampus(this.campus_id).then(x => {
     //   this.available_bed = x['available_bed'].length;
@@ -506,7 +538,8 @@ export class PahListComponent implements OnInit {
     else {
       this.entity = "patient/byPAH/2/0?campus=" + this.campus_id;
     }
-    this.table.changeEntity(`${this.entity}&eps=${e}`, 'patients')
+    this.eps_id = e;
+    this.changeEntity();
   }
 
 
@@ -523,5 +556,51 @@ export class PahListComponent implements OnInit {
 
   tablock(e) {
     
+  }
+
+  changeFlat(flat_id) {
+    this.flat_id = flat_id;
+    this.pavilion_id = 0;
+    this.bed_id = 0;
+    this.form.patchValue({
+      pavilion: '',
+      bed: '',
+    });
+    this.changeEntity();
+    if (flat_id != 0) {
+      return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+        this.pavilion = x;
+      });
+    }
+  }
+
+  changePavilion(pavilion_id) {
+    this.pavilion_id = pavilion_id;
+    this.bed_id = 0;
+    this.form.patchValue({
+      bed: '',
+    });
+    this.changeEntity();
+    if (pavilion_id != 0) {
+      return this.BedS.GetCollection({
+        bed_or_office: 1,
+        pavilion_id: pavilion_id,
+      }).then(x => {
+        if (x.length > 0) {
+          this.bed = x;
+        } else {
+          this.toastService.warning('', 'No se encontraron camas disponibles para la localización y el procedimiento seleccionado')
+        }
+      });
+    }
+  }
+
+  changeBed(bed_id) {
+    this.bed_id = bed_id;
+    this.changeEntity();
+  }
+
+  changeEntity() {
+    this.table.changeEntity(`${this.entity}&eps=${this.eps_id}&flat_id=${this.flat_id}&pavilion_id=${this.pavilion_id}&bed_id=${this.bed_id}`, 'patients')
   }
 }

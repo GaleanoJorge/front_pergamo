@@ -47,7 +47,19 @@ export class ActionsSemaphoreComponent implements ViewCell {
     }else if(!this.rowData.assigned_management_plan && this.rowData.product_com_id && !this.rowData.fixed_add){
       this.color = this.colors.morado;
       this.tooltip = "Insumo";
-    } else if(this.rowData.assigned_management_plan && !this.rowData.fixed_add){
+    }else if(this.rowData.medical_diary_days){
+      this.rowData.medical_diary_days.ch_record.forEach((x) => {
+        if (x.status == 'CERRADO') {
+          this.color = this.colors.verde;
+          this.tooltip = "Ejecutado";
+        }
+      });
+      if(this.tooltip != "Ejecutado"){
+        this.color = this.colors.rojo;
+        this.tooltip = "Sin ejecutar";
+      }
+    }
+     else if(this.rowData.assigned_management_plan && !this.rowData.fixed_add){
       if(this.rowData.assigned_management_plan.execution_date == '0000-00-00 00:00:00'){
         this.color = this.colors.rojo;
         this.tooltip = "Sin ejecutar";

@@ -128,7 +128,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     });
     await this.ManagementS.GetCollection({ ch_record_id: this.record_id }).then(x => {
       this.management = x;
-      if(this.management[0].type_of_attention_id == 17){
+      if(this.management.lenght > 0 && this.management[0].type_of_attention_id == 17){
         this.getAplications();
       }
     });

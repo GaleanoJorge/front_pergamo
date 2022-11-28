@@ -79,9 +79,9 @@
           <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth
             status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == this.data.services_briefcase.manual_price.procedure_id }}" *ngFor="let item of procedures"
-              [value]="item.manual_price.procedure.id">
-              {{ item.manual_price.homologous_id }} - {{ item.manual_price.name }}</nb-option>
+            <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
+              [value]="item.id">
+              {{ item.manual_price.own_code }} - {{ item.manual_price.name }}</nb-option>
           </nb-select>
         </div>
         <div class="col-12 col-sm-12 col-md-6">
@@ -146,7 +146,7 @@
         </div>
         <div class="col-md-6" *ngIf="this.show_auth_inputs">
           <label for="bed" class="form-text text-muted font-weight-bold">Archivo de autorización:</label>
-          <input accept="application/pdf" type="file" id="file" nbInput fullWidth
+          <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file" nbInput fullWidth
                 (change)="changeImage($event.target.files, 1)" />
         </div>
         <div class="col-md-6" *ngIf="this.form.value.scope_of_attention_id != 2">

@@ -80,7 +80,16 @@ export class ReferenceListComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name;
+          if (row.reference_status_id == 3) {
+            var c = (row.acceptance_date != null ? new Date(row.acceptance_date).getTime() :  new Date().getTime());
+            var d = new Date().getTime();
+        
+            var e =(d - c) / (60 * 60 * 1000);
+        
+            return e <= 6 ? value.name : 'TIEMPO DE ESPERA FINALIZADO';
+          } else {
+            return value.name;
+          }
         },
       },
       identification_type: {
@@ -112,7 +121,7 @@ export class ReferenceListComponent implements OnInit {
           if (row.identification) {
             return row.firstname + ' ' + row.lastname;
           } else {
-            return row.patient.firstname + ' ' + row.patient.lastname;
+            return row.patient.firstname ? row.patient.firstname : '' + ' ' + row.patient.lastname ? row.patient.lastname : '';
           }
         },
       },
@@ -121,9 +130,9 @@ export class ReferenceListComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.identification) {
-            return row.age + 'AÑOS';
+            return row.age + ' AÑOS';
           } else {
-            return row.patient.age + 'AÑOS';
+            return row.patient.age + ' AÑOS';
           }
         },
       },
@@ -205,7 +214,7 @@ export class ReferenceListComponent implements OnInit {
         title: this.headerFields[19],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return 'NIVEL ' + value.name;
+          return 'NIVEL ' + value;
         },
       },
       request_technological_medium: {
@@ -340,6 +349,7 @@ export class ReferenceListComponent implements OnInit {
   NewAdmissionRequest(data, dat = null) {
     if (dat == null) {
       dat = {
+        reference_id: data.id,
         admission_route_id: data.acceptance_admission_route_id,
         flat_id: data.acceptance_flat_id,
         pavilion_id: data.acceptance_pavilion_id,

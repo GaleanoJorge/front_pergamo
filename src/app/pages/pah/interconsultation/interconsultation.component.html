@@ -36,7 +36,7 @@
         <div class="actions">
           <button *ngIf="user && currentRole.id == 8" nbButton status="warning" (click)="showFormulations(formulations)" >Formulaciones</button>
           <button nbButton (click)="back()" >Volver</button>
-          <button *ngIf="showButtom==true"  nbButton status="danger" (click)="NewChRecord()">Crear</button>
+          <button *ngIf="currentRole.role_type_id == 2"  nbButton status="danger" (click)="NewChRecord()">Crear</button>
         </div>
         
       </div>

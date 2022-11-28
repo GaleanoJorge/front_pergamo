@@ -104,7 +104,7 @@ export class ProcedureComponent implements OnInit {
   EditProcedure(data) {
     this.dialogFormService.open(FormProcedureComponent, {
       context: {
-        title: 'Editar Crear procedimiento C.U.P.S.',
+        title: 'Editar procedimiento C.U.P.S.',
         data,
         saved: this.RefreshData.bind(this),
       },

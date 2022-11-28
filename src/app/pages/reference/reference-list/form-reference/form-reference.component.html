@@ -49,9 +49,9 @@
         </div>
 
         <div class="col-md-4">
-          <label for="age" class="form-text text-muted font-weight-bold">EDAD:</label>
-          <input type="number" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="age"
-            formControlName="age" age
+          <label for="" class="form-text text-muted font-weight-bold">EDAD:</label>
+          <input type="text" nbInput fullWidth id="age"
+            formControlName="age" age maxlength="3" size="3" onkeypress="return /[0-9\+\-\ ]/i.test(event.key)"
             status="{{ isSubmitted && form.controls.age.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
@@ -195,7 +195,7 @@
         </div>
 
         <div class="col-md-4" *ngIf="route == 1 && (this.form.controls.request_campus_id.value != '' && this.form.controls.request_admission_route_id.value == 1)">
-          <label for="request_admission_route" class="form-text text-muted font-weight-bold">CAMAS DISPONIBLES:</label>
+          <label for="request_admission_route" class="form-text text-muted font-weight-bold">CAMAS DISPONIBLES EN LA SEDE:</label>
           <label for="request_admission_route" class="form-text text-muted font-weight-bold">{{this.available_bed}} CAMAS</label>
         </div>
 
@@ -327,7 +327,7 @@
         </div>
 
         <div class="col-md-4" *ngIf="route == 2 && (this.form.controls.acceptance_campus_id.value != '' && this.form.controls.acceptance_admission_route_id.value == 1)">
-          <label for="request_admission_route" class="form-text text-muted font-weight-bold">CAMAS DISPONIBLES:</label>
+          <label for="request_admission_route" class="form-text text-muted font-weight-bold">CAMAS DISPONIBLES EN LA SEDE:</label>
           <label for="request_admission_route" class="form-text text-muted font-weight-bold">{{this.available_bed}} CAMAS</label>
         </div>
 

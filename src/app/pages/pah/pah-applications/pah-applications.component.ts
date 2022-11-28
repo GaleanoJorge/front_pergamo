@@ -48,7 +48,10 @@ export class PahApplicationsComponent implements OnInit {
     /*04*/  'Dosis',
     /*05*/  'Fecha Aplicación',
     /*06*/  'Hora Aplicación',
-    /*06*/  'Fecha Ejecución',
+    /*07*/  'Fecha Ejecución',
+    /*08*/  'Identificación',
+    /*09*/  'Nombre',
+    /*10*/  'Edad',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
@@ -112,6 +115,34 @@ export class PahApplicationsComponent implements OnInit {
         },
         renderComponent: ActionsPahApplicationsComponent,
       },
+      identification: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return row.management_plan.admissions.patients.identification_type.code + ' - ' + row.management_plan.admissions.patients.identification;
+        },
+      },
+      nombre_completo: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          var a = row.management_plan.admissions.patients.firstname ? row.management_plan.admissions.patients.firstname : '';
+          var b = row.management_plan.admissions.patients.middlefirstname ? row.management_plan.admissions.patients.middlefirstname : '';
+          var c = row.management_plan.admissions.patients.lastname ? row.management_plan.admissions.patients.lastname : '';
+          var d = row.management_plan.admissions.patients.middlelastname ? row.management_plan.admissions.patients.middlelastname : '';
+          return a + ' ' + b + ' ' + c + ' ' + d;
+        },
+      },
+      birthday: {
+        title: this.headerFields[10],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          var date = new Date(row.management_plan.admissions.patients.birthday.substring(0, 10));
+          var ageDifMs = Date.now() - date.getTime();
+          var ageDate = new Date(ageDifMs); // miliseconds from epoch
+          return Math.abs(ageDate.getUTCFullYear() - 1970) + " AÑOS";
+        },
+      },
       flat: {
         title: this.headerFields[0],
         type: 'string',
@@ -162,7 +193,7 @@ export class PahApplicationsComponent implements OnInit {
         },
       },
       execution_date: {
-        title: this.headerFields[6],
+        title: this.headerFields[7],
         type: 'string',
         valuePrepareFunction(value, row) {
           return value;
@@ -274,7 +305,7 @@ export class PahApplicationsComponent implements OnInit {
         if (x.length > 0) {
           this.bed = x;
         } else {
-          this.toastService.warning('', 'No se encontraron camas')
+          this.toastService.warning('', 'No se encontraron camas disponibles para la localización y el procedimiento seleccionado')
         }
       });
     }
