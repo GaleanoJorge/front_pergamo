@@ -51,7 +51,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="identification" class="form-text text-muted font-weight-bold">Número de documento:</label>
-            <input nbInput minlength="3" maxlength="16" type="text" fullWidth id="identification"
+            <input nbInput maxlength="16" type="text" fullWidth id="identification"
               formControlName="identification" identification
               status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
               onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" />
