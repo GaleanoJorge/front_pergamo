@@ -4,7 +4,8 @@ import { ActionsLocationCapacityComponent } from './actions-location-capacity.co
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseLocationPackageComponent } from './sigle-location-capacity/base-location-package/base-location-package.component';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { LocationCapacityService } from '../../../business-controller/location-capacity.service';
 
 @Component({
   selector: 'ngx-location-capacity',
@@ -21,6 +22,7 @@ export class LocationCapacityComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public campus_id;
   public user_id;
   public role;
   public role_id;
@@ -43,25 +45,18 @@ export class LocationCapacityComponent implements OnInit {
         },
         renderComponent: ActionsLocationCapacityComponent,
       },
-      identification_type: {
-        title: this.headerFields[5],
-        type: 'string',
-        valuePrepareFunction(value, row) {
-          return row.user.identification_type.code;
-        },
-      },
       identification: {
         title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction(value, row) {
-          return row.user.identification;
+          return row.user.identification_type.code + ' - ' + row.user.identification;
         },
       },
       user: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction(value) {
-          return value.firstname + ' ' + value.lastname;
+          return value.firstname + ' ' + value.middlefirstname + ' ' + value.lastname + ' ' + value.middlelastname;
         },
       },
       role_name: {
@@ -99,14 +94,17 @@ export class LocationCapacityComponent implements OnInit {
   ];
 
   constructor(
+    private LocationCapacityS: LocationCapacityService,
     private route: ActivatedRoute,
     private dialogFormService: NbDialogService,
     private roleBS: RoleBusinessService,
+    private toastService: NbToastrService,
   ) {
   }
 
   ngOnInit(): void {
     this.user_id= this.route.snapshot.params.user_id;
+    this.campus_id = localStorage.getItem('campus');
 
     this.roleBS.GetCollection({
       status_id: 1,
@@ -138,5 +136,13 @@ export class LocationCapacityComponent implements OnInit {
   changeRole($event) {
     this.role_id = $event;
     this.table.changeEntity('assistance/?pagination=true&status_id=1&role_id=' + this.role_id,'assistance');
+  }
+
+  renovateLocationCapacity() {
+    this.LocationCapacityS.renovateLocationCapacity(this.campus_id).then(x => {
+      this.toastService.success('', x.message);
+    }).catch(x => {
+      this.toastService.danger('', x);
+    });
   }
 }
