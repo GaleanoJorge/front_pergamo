@@ -11,14 +11,17 @@
                     [messageToltip]="messageToltip"
                     >
       <div actions>
-        <nb-select style="width: 300px;" placeholder="Filtrar por rol" fullWidth (selectedChange)="changeRole($event)">
-          <nb-option value="">Sin filtro</nb-option>
-          <nb-option *ngFor="let item of role" [value]="item.id">
-            <div class="cuadro" [style]="'background-color: ' + item.color + ';'" style="margin-right: 10px;">
-            </div>
-            {{ item.name }}
-          </nb-option>
-        </nb-select>
+        <div class="actions">
+          <button nbButton status="danger" (click)="renovateLocationCapacity()">Renovar capacidad intalada personal de planta</button>
+          <nb-select style="width: 300px;" placeholder="Filtrar por rol" fullWidth (selectedChange)="changeRole($event)">
+            <nb-option value="">Sin filtro</nb-option>
+            <nb-option *ngFor="let item of role" [value]="item.id">
+              <div class="cuadro" [style]="'background-color: ' + item.color + ';'" style="margin-right: 10px;">
+              </div>
+              {{ item.name }}
+            </nb-option>
+          </nb-select>
+        </div>
       </div>
     </ngx-base-table>
 

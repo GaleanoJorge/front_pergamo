@@ -53,6 +53,9 @@ export class PadListComponent implements OnInit {
   public selectedOptions: any[] = [];
   public company: any[] = [];
   public result: any = null;
+  public status_type_asis = [
+    { id: (4+1), color: "#7A39BB", name: "Por subsanar" },
+  ];
   public status_type = [
     { id: (0+1), color: "#28B463", name: "Cumplido" },
     { id: (1+1), color: "#54BCC1", name: "Admisión creada" },
@@ -238,7 +241,9 @@ export class PadListComponent implements OnInit {
     //   this.company = x;
     // });
 
-    this.CompanyS.GetCollection().then(x => {
+    this.CompanyS.GetCollection({
+      eps: true
+    }).then(x => {
       this.company = x;
     });
 
@@ -368,7 +373,7 @@ export class PadListComponent implements OnInit {
 
   changeSemaphore($event: any) {
     this.semaphore= $event;
-    this.table.changeEntity(`${this.entity}&semaphore=${$event}&eps=${(this.eps ? this.eps : null)}`, 'patients');
+    this.table.changeEntity(`${this.entity}&semaphore=${$event}&eps=${(this.eps ? this.eps : null)}` + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 'patients');
   }
 
   changeEntity() {
