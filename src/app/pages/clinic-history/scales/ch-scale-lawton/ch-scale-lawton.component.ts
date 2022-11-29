@@ -18,7 +18,7 @@ export class ChScaleLawtonComponent implements OnInit {
   public messageError = null;
   public title: string = 'Registros Escala Lawton';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha','Puntaje', 'Calificación'];
+  public headerFields: any[] = ['Fecha / Hora de Registro','Puntaje', 'Calificación'];
   public routes = [];
   public data = [];
   public ch_record_id;
@@ -32,7 +32,7 @@ export class ChScaleLawtonComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {
