@@ -287,8 +287,17 @@ export class ManagementPlanComponent implements OnInit {
       this.admissions1 = x;
     });
 
+    this.form = this.formBuilder.group({
+      start_date: ['', []],
+      finish_date: ['', []],
+    });
 
-
+    this.form.get('start_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
 
     this.user_id = this.route.snapshot.params.user;
     await this.roleBS.GetCollection({ id: this.currentRoleId }).then(x => {
@@ -433,6 +442,10 @@ export class ManagementPlanComponent implements OnInit {
     }).catch((x) => {
       // this.toastrService.danger(x.message);
     });
+  }
+
+  changeEntity() {
+    this.table.changeEntity(`${this.entity}` + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 'management_plan')
   }
 
 }

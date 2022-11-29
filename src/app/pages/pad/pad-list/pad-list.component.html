@@ -10,6 +10,17 @@
         <form [formGroup]="form">
           <div class="actions">
             
+            <div *ngIf="this.currentRole.role_type_id == 2" style="margin-right: 10px; width: 250px">
+              <nb-select placeholder="Filtrar por estado" fullWidth (selectedChange)="changeSemaphore($event)">
+                <nb-option value="">Sin filtro</nb-option>
+                <nb-option *ngFor="let item of status_type_asis" [value]="item.id">
+                  <div class="cuadro" [style]="'background-color: ' + item.color + ';'" style="margin-right: 10px;">
+                  </div>
+                  {{ item.name }}
+                </nb-option>
+              </nb-select>
+            </div>
+
             <div *ngIf="this.currentRole.role_type_id == 1" style="margin-right: 10px; width: 250px">
               <nb-select placeholder="Filtrar por estado" fullWidth (selectedChange)="changeSemaphore($event)">
                 <nb-option value="">Sin filtro</nb-option>
@@ -20,6 +31,7 @@
                 </nb-option>
               </nb-select>
             </div>
+
             <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar EPS">
               <nb-option >Todos los convenios</nb-option>
               <nb-option *ngFor="let item of company" [value]="item.id">{{item.name}}</nb-option>
