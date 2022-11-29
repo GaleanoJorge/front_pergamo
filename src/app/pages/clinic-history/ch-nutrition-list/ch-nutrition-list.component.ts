@@ -32,7 +32,7 @@ export class ChNutritionListComponent implements OnInit {
   //public data = [];
   public user_id;
   public date_end: boolean = true;
-  public is_failed: boolean = true;
+  public is_failed: boolean = false;
   public cont = 0;
   public ambit;
   public program;
@@ -164,15 +164,20 @@ export class ChNutritionListComponent implements OnInit {
 
       let response;
     
-        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
-        this.location.back();
-      this.toastService.success('', response.message);
-      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
-      this.messageError = null;
-      if (this.saved) {
-        this.saved();
-      }
-      return true;
+        response = await this.chRecord.UpdateCH(formData, this.record_id).then(x => {
+          this.location.back();
+          this.toastService.success('', x.message);
+          this.messageError = null;
+          if (this.saved) {
+            this.saved();
+          }
+          return Promise.resolve(true);
+        }).catch(x => {
+          this.toastService.danger('', x);
+          return Promise.resolve(false);
+        });
+        return Promise.resolve(response);
+      
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;

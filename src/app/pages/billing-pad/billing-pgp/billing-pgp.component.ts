@@ -44,7 +44,7 @@ export class BillingPgpComponent implements OnInit {
           return {
             'data': row,
             'show': this.ShowAdmissionsPgp.bind(this),
-            'cancel': this.cancelBilling.bind(this),
+            'cancel': this.DeleteConfirmCompany.bind(this),
             // 'delete': this.DeleteConfirmBillingPgp.bind(this),
           };
         },
@@ -159,12 +159,27 @@ export class BillingPgpComponent implements OnInit {
     // });
   }
 
+  DeleteConfirmCompany(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        title: 'Cancelar factura',
+        textConfirm: 'Cancelar',
+        name: data.billing_pad_prefix.name + data.consecutive,
+        data: data,
+        delete: this.cancelBilling.bind(this),
+      },
+    });
+  }
+
   cancelBilling(data) {
-    this.BillingPadS.CancelBillingPgp({
+    return this.BillingPadS.CancelBillingPgp({
       id: data.id,
       user_id : this.authService.GetUser().id,
     }).then(x => {
       this.RefreshData();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw ('Error al cancelar la factura: ' + x);
     });
   }
 

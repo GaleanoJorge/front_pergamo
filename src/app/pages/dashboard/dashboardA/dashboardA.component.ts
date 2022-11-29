@@ -101,6 +101,6 @@ export class DashboardAComponent {
         var a = this.dashboards_routes.find(x => {
             return x.id == id;
           }).link;
-        return this.dashboards_routes[0]['link'];
+        return a;
     }
 }

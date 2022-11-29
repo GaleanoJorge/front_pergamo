@@ -3,11 +3,17 @@
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-        <!-- <div class="col-md-12">
-          <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
-        </div> -->
+        <div class="col-md-12">
+          <div *ngIf="this.currentRole.role_type_id == 1 && this.procedence == 1" style="margin-right: 10px; width: 250px">
+            <nb-select formControlName="month" fullWidth
+            status="{{ isSubmitted && form.controls.month.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">SELECCIONE MES</nb-option>
+              <nb-option *ngFor="let item of months" [value]="item.id">
+                {{ item.name }}
+              </nb-option>
+            </nb-select>
+          </div>
+        </div>
       </div>
 
       <div class="col-md-12 col-lg-12" *ngIf="this.show">

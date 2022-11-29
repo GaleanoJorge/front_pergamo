@@ -4,12 +4,24 @@
       <div class="col-md-12">
         <div class="center">
           <label for="diagnosis_id" class="font-weight-bold">DIAGNÓSTICO</label>
-          <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO"  fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+          <input fullWidth formControlName="diagnosis_id" nbInput type="text" placeholder="Seleccionar Diagnostico"
+          status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+          [nbAutocomplete]="autoControl" (ngModelChange)="this.searchDiagnostic($event)" />
+
+        <nb-autocomplete #autoControl (selectedChange)="saveCode($event)">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of filteredProductOptions$ | async" [value]="item.name">
+            {{ item.code }} - {{item.name}}
+          </nb-option>
+
+        </nb-autocomplete>
+
+          <!-- <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO"  fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
             id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" required (ngModelChange)="this.searchDiagnostic($event)"
             status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">
             <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
-          </datalist>
+          </datalist> -->
         </div>
       </div>
     </div>

@@ -5,6 +5,8 @@ import { ChDiagnosisTypeService } from '../../../../business-controller/ch-diagn
 import { ChDiagnosisClassService } from '../../../../business-controller/ch-diagnosis-class.service';
 import { DiagnosisService } from '../../../../business-controller/diagnosis.service';
 import { ChDiagnosisService } from '../../../../business-controller/ch-diagnosis.service';
+import { Observable, of } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 
 @Component({
@@ -28,6 +30,7 @@ export class FormDiagnosticComponent implements OnInit {
   public diagnosis: any[];
   public diagnosis_type: any[];
   public diagnosis_class: any[];
+  public filteredProductOptions$: Observable<string[]>;
 
 
   constructor(
@@ -59,6 +62,7 @@ export class FormDiagnosticComponent implements OnInit {
       }
     });
 
+
     this.diagnosisTypeS.GetCollection().then(x => {
       this.diagnosis_type = x;
     });
@@ -85,12 +89,16 @@ export class FormDiagnosticComponent implements OnInit {
           search: $event,
         }).then(x => {
           this.diagnosis = x;
+          this.filteredProductOptions$ = of(this.diagnosis);
+          this.onFilter();
         });
       } else {
         this.DiagnosisS.GetCollection({
           search: '',
         }).then(x => {
           this.diagnosis = x;
+          this.filteredProductOptions$ = of(this.diagnosis);
+          this.onFilter();
         });
       }
     }
@@ -148,6 +156,23 @@ export class FormDiagnosticComponent implements OnInit {
     
   }
 
+  onFilter() {
+    this.filteredProductOptions$ = this.form
+      .get('diagnosis_id')
+      .valueChanges.pipe(
+        startWith(''),
+        map((filterString) => this.filter(filterString))
+      );
+    }
+
+    private filter(value: string): string[] {
+      const filterValue = value?.toUpperCase();
+      return this.diagnosis.filter((optionValue) =>
+        optionValue.name.includes(filterValue) || 
+        optionValue.code.includes(filterValue)
+      );
+      }
+
   saveCode(e): void {
     var localidentify = this.diagnosis.find(item => item.name == e);
 
@@ -155,7 +180,6 @@ export class FormDiagnosticComponent implements OnInit {
       this.diagnosis_id = localidentify.id;
     } else {
       this.diagnosis_id = null;
-      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
       this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }

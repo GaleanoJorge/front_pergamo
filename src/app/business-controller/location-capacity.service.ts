@@ -62,6 +62,22 @@ export class LocationCapacityService {
       });
   }
 
+  renovateLocationCapacity(campus_id: number, location_capacity: any = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('location_capacity/renovateLocationCapacity/' + campus_id);
+    servObj.data = location_capacity;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Update(location_capacity: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('location_capacity', location_capacity.id);
     servObj.data = location_capacity;
