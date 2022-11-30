@@ -63,7 +63,7 @@
 
                 <nb-autocomplete #autoControl (selectedChange)="onSelectionChange($event, 1)">
                   <nb-option value="">Seleccione...</nb-option>
-                  <nb-option *ngFor="let item of filteredProcedureOptions$ | async" [value]="item.name">
+                  <nb-option *ngFor="let item of filteredProcedureOptions$ | async" [value]="item.id + ' - ' + item.name">
                     {{ item.code }} - {{item.equivalent}} - {{item.name}}
                   </nb-option>
 

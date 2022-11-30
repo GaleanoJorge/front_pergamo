@@ -18,6 +18,18 @@ import { ViewCell } from 'ng2-smart-table';
       </button>
 
       <button
+        *ngIf="this.rowData.medical_status_id == 4"
+        nbTooltip="Recibo de caja"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="value.copayPDF(value.data)"
+      >
+        <nb-icon icon="file-text"></nb-icon>
+      </button>
+
+      <button
         *ngIf="this.rowData.medical_status_id == 3"
         nbTooltip="Facturar"
         nbTooltipPlacement="top"
@@ -77,4 +89,17 @@ export class ActionsSchedulingComponent implements ViewCell {
       this.show_cc == true;
     }
   }
+
+  // generatePdf() {
+  //   this.BillingPadS.GeneratePdf({
+  //     id: this.billing_id,
+  //     billing_type: 'PREFACTURA',
+  //     selected_procedures: JSON.stringify(this.selectedOptions)
+  //   }).then(x => {
+  //     this.toastS.success('Archivo generado con exito', 'Exito');
+  //     window.open(x['url'], '_blank');
+  //   }).catch(x => {
+  //     this.toastS.danger('Error al generar archivo: ' + x, 'Error');
+  //   });
+  // }
 }
