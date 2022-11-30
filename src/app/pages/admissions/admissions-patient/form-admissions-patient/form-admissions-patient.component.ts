@@ -291,7 +291,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
             patient_id: this.user_id,
             ambulatory_data: this.ambolatory ? this.data.id : null,
             copay_id: this.form.controls.category.value,
-            copay_value: this.ambolatory ? this.data.id : null,
+            copay_value: this.ambolatory ? this.form.value.copay : null,
           })
             .then((x) => {
               this.toastService.success('', x.message);
