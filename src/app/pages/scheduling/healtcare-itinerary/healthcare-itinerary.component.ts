@@ -247,7 +247,7 @@ export class HealthcareItineraryComponent implements OnInit {
     var localidentify;
 
     if (e == 1) {
-      localidentify = this.procedure.find((item) => item.name == $event);
+      localidentify = this.procedure.find((item) => item.id == $event[0]);
 
       if (localidentify) {
         this.procedure_id = localidentify;
@@ -255,6 +255,7 @@ export class HealthcareItineraryComponent implements OnInit {
       } else {
         this.procedure_id = null;
         this.assistance = [];
+        this.filteredAssistanceOptions$ = of(this.assistance);
         this.toastService.warning('', 'Debe seleccionar un item de la lista');
       }
     } else if (e == 2) {
@@ -347,13 +348,14 @@ export class HealthcareItineraryComponent implements OnInit {
       })
       .then((x) => {
         this.assistance = x;
+        this.filteredAssistanceOptions$ = of(this.assistance);
+        this.filteredAssistanceOptions$ = this.form
+          .get('assistance_id')
+          .valueChanges.pipe(
+            startWith(''),
+            map((filterString) => this.filter(filterString, 2))
+          );
         if (this.assistance.length > 0) {
-          this.filteredAssistanceOptions$ = this.form
-            .get('assistance_id')
-            .valueChanges.pipe(
-              startWith(''),
-              map((filterString) => this.filter(filterString, 2))
-            );
         } else {
           this.scheduleData = [];
           this.eventSettings = undefined;
