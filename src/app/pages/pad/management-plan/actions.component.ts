@@ -16,6 +16,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Actions4Component } from '../assigned-management-plan/actions.component';
+import { ManagementPlanService } from '../../../business-controller/management-plan.service';
 
 @Component({
   template: `
@@ -41,7 +42,7 @@ import { Actions4Component } from '../assigned-management-plan/actions.component
       <button *ngIf="value.currentRole.role_type_id == 1" nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
-      <button *ngIf="value.currentRole.id == 1" nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.update(value.data)">
+      <button *ngIf="value.currentRole.id == 1" nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(confirmAction)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
   </div>
@@ -69,6 +70,42 @@ import { Actions4Component } from '../assigned-management-plan/actions.component
     </nb-card-footer>
   </nb-card>
 </ng-template>
+
+<ng-template #confirmAction>
+  <div class="container-fluid" fullWidth>
+  <nb-card style="width: 100%">
+          <nb-card-header>Observación Plan de Manejo</nb-card-header>
+          <nb-card-body>
+              <form [formGroup]="forms" (ngSubmit)="saveNote()">
+              <div class="row">
+
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-8 col-lg-8">
+      <div class="form-group">      
+       <textarea id="note" nbInput fullWidth formControlName="note" note
+         onpaste="return false" cols="100" rows="10"> </textarea>
+     </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton (click)="closeDialog()" type="button" class="button ml-1">Cancelar</button>
+        <button nbButton status="danger" class="button" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>
+</nb-card-body>
+</nb-card>
+</div>
+</ng-template>
+
   `,
   styleUrls: ['./management-plan.component.scss'],
 })
@@ -85,6 +122,11 @@ export class ActionsComponent implements ViewCell {
   public user_id;
   public own_user;
   public ch_record;
+  public forms: FormGroup;
+  public isSubmitted: boolean = false;
+  loading: boolean = false;
+  public data;
+  public saved: any = null;
 
   constructor(
     private dialogFormService: NbDialogService,
@@ -92,6 +134,9 @@ export class ActionsComponent implements ViewCell {
     private chRecordS: ChRecordService,
     private router: Router,
     private toastService: NbToastrService,
+    private formBuilder: FormBuilder,
+    private dialogService: NbDialogService,
+    private managementPlanS: ManagementPlanService,
   ) {
   }
 
@@ -164,6 +209,15 @@ export class ActionsComponent implements ViewCell {
   async ngOnInit() {
     this.management_plan_id = this.value.data.id;
     this.own_user = this.authService.GetUser();
+
+  this.forms = this.formBuilder.group({
+    note: ['', Validators.compose([Validators.required])]
+    });
+    
+  }
+
+  ConfirmAction(dialog: TemplateRef<any>) {
+    this.dialog = this.dialogService.open(dialog);
   }
 
   ShowPreBilling(dialog: TemplateRef<any>, id) {
@@ -212,6 +266,54 @@ export class ActionsComponent implements ViewCell {
     //     saved: this.RefreshData.bind(this),
     //   },
     // });
+  }
+
+  saveNote() {
+    this.isSubmitted = true;
+    if (!this.forms.invalid) {
+      this.loading = true;
+
+      if (this.rowData.id) {
+        this.managementPlanS.ChangeStatus(this.rowData.id, {
+          id: this.rowData.id,
+          note: this.forms.controls.note.value,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.closeDialog();
+          this.value.refresh ;
+          this.forms.patchValue({
+            note: '',
+          });
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      } else {
+        this.managementPlanS.Save({
+          note: this.forms.controls.note.value,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.closeDialog();
+          this.value.refresh ;
+          this.forms.patchValue({
+            note: '',
+          });
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      }
+
+    }
+    else {
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+    }
   }
 
 }
