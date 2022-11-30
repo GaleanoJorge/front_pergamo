@@ -18,7 +18,7 @@ export class ChScaleCamComponent implements OnInit {
   public messageError = null;
   public title: string = 'Registros Escala CAM';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha','Resultado'];
+  public headerFields: any[] = ['Fecha / Hora de Registro','Resultado'];
   public routes = [];
   public data = [];
   public ch_record_id;
@@ -32,7 +32,7 @@ export class ChScaleCamComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       result: {
