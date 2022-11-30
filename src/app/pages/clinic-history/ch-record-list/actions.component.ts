@@ -68,7 +68,7 @@ import { DisclaimerService } from '../../../business-controller/disclaimer.servi
       <nb-icon icon="file-add"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='CERRADO' && (this.rowData.ch_type_id != 10)" nbTooltip="Generar Nota registradora" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(confirmAction)"> 
+    <button *ngIf="value.data.status=='CERRADO' && (this.rowData.ch_type_id != 10)" nbTooltip="Generar Nota Aclaratoria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(confirmAction)"> 
       <nb-icon icon="attach-outline"></nb-icon>
     </button>
 
