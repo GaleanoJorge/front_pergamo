@@ -64,6 +64,22 @@ export class MedicalDiaryDaysService {
       });
   }
 
+  GeneratePdf(params: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('medical_diary_days/generateCashReceiptPDF/'+params.id);
+    servObj.data = params;
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  } 
+
   ChangeStatus(id, medical_diary_days: any): Promise<any> {
     let servObj = new ServiceObject(`medical_diary_days/${id}/changeStatus`);
     servObj.data = medical_diary_days;
