@@ -247,7 +247,9 @@ export class HealthcareItineraryComponent implements OnInit {
     var localidentify;
 
     if (e == 1) {
-      localidentify = this.procedure.find((item) => item.id == $event[0]);
+      var id = $event == "" ? $event : 
+      Number($event.split('-').at(0));
+      localidentify = this.procedure.find((item) => item.id == id);
 
       if (localidentify) {
         this.procedure_id = localidentify;
