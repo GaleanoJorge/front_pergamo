@@ -99,6 +99,7 @@ export class SchedulingTableComponent implements OnInit {
             'confirmScheduling': this.confirmScheduling.bind(this),
             'check_in': this.checkIn.bind(this),
             'cancelScheduling': this.cancelScheduling.bind(this),
+            'copayPDF': this.generatePdf.bind(this)
           };
         },
         renderComponent: ActionsSchedulingComponent,
@@ -425,6 +426,16 @@ export class SchedulingTableComponent implements OnInit {
 
   // }
 
+  generatePdf(data) {
+    this.medicalDiaryDaysS.GeneratePdf({
+      id: data.id,
+    }).then(x => {
+      this.toastS.success('Archivo generado con exito', 'Exito');
+      window.open(x['url'], '_blank');
+    }).catch(x => {
+      this.toastS.danger('Error al generar archivo: ' + x, 'Error');
+    });
+  }
 
   editPatient(data){
     this.dialogService.open(EditPatientComponent, {
