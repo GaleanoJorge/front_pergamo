@@ -9,16 +9,16 @@
       <div actions>
         <form [formGroup]="form">
           <div class="actions">
-            <nb-select (selectedChange)="changeFlat($event)" formControlName="flat" placeholder="Filtrar por piso">
+            <nb-select (selectedChange)="changeFlat($event)" class="filtros" formControlName="flat" placeholder="Filtrar por piso">
               <nb-option value="0">Todos los pisos</nb-option>
               <nb-option *ngFor="let item of flat" [value]="item.id">{{item.name}}</nb-option>
             </nb-select>
-            <nb-select (selectedChange)="changePavilion($event)" formControlName="pavilion"
+            <nb-select (selectedChange)="changePavilion($event)" class="filtros" formControlName="pavilion"
               placeholder="Filtrar por pabellón">
               <nb-option value="0">Todos los pabellones</nb-option>
               <nb-option *ngFor="let item of pavilion" [value]="item.id">{{item.name}}</nb-option>
             </nb-select>
-            <nb-select (selectedChange)="changeBed($event)" formControlName="bed" placeholder="Filtrar por cama">
+            <nb-select (selectedChange)="changeBed($event)" class="filtros" formControlName="bed" placeholder="Filtrar por cama">
               <nb-option value="0">Todos las camas</nb-option>
               <nb-option *ngFor="let item of bed" [value]="item.id">{{item.name}}</nb-option>
             </nb-select>

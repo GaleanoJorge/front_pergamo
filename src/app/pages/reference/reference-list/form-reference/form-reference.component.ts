@@ -221,14 +221,14 @@ export class FormReferenceComponent implements OnInit {
       acceptance_specialty_id: [this.data.request_specialty_id, []],
       acceptance_program_id: [this.data.request_program_id, []],
       tutor_id: [this.data.tutor_id, []],
-      acceptance_observation: [this.data.acceptance_observation, []],
+      acceptance_observation: [this.data.request_observation, []],
       denied_technological_medium_id: [this.data.request_technological_medium_id, []],
       denied_admission_route_id: [this.data.request_admission_route_id, []],
       denied_specialty_id: [this.data.request_specialty_id, []],
       denied_type_id: [this.data.denied_type_id, []],
       denied_reason_id: [this.data.denied_reason_id, []],
       denied_program_id: [this.data.request_program_id, []],
-      denied_observation: [this.data.denied_observation, []],
+      denied_observation: [this.data.request_observation, []],
     });
 
     if (this.route == 1) {

@@ -55,6 +55,8 @@ export class FormBedComponent implements OnInit {
         bed_or_office:'',
         procedure_id: '',
       };
+    } else {
+      this.procedure_id = this.data.procedure_id;
     }
 
     // this.statusBS.GetCollection().then(x => {

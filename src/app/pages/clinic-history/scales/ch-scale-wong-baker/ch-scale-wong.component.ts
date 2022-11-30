@@ -18,7 +18,7 @@ export class ChScaleWongBakerComponent implements OnInit {
   public messageError = null;
   public title: string = 'Registros Escala Wong Baker';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha', 'Puntaje','Detalle'];
+  public headerFields: any[] = ['Fecha / Hora de Registro', 'Puntaje','Detalle'];
   public routes = [];
   public data = [];
   public ch_record_id;
@@ -32,7 +32,7 @@ export class ChScaleWongBakerComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       pain_value: {

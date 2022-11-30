@@ -18,7 +18,7 @@ export class ChScaleBarthelComponent implements OnInit {
   public messageError = null;
   public title: string = 'Registros Escala Barthel';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha', 'Puntaje', 'Clasificación'];
+  public headerFields: any[] = ['Fecha / Hora de Registro', 'Puntaje', 'Clasificación'];
   public routes = [];
   public data = [];
   public ch_record_id;
@@ -32,7 +32,7 @@ export class ChScaleBarthelComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
          score: {

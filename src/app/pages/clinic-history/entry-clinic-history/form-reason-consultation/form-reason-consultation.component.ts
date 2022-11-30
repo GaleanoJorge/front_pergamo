@@ -94,6 +94,7 @@ export class FormReasonConsultationComponent implements OnInit {
     }).then(x => {
       this.ch_reason_consultation = x[0];
       if (this.ch_reason_consultation != null) {
+        this.messageEvent.emit(true);
         this.botton_title = 'Actualizar';
       }
     });
