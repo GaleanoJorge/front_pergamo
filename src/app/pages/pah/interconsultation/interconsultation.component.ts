@@ -23,6 +23,7 @@ import { AdmissionsService } from '../../../business-controller/admissions.servi
 import { ChInterconsultationService } from '../../../business-controller/ch-interconsultation.service';
 import { count } from 'console';
 import { ActionsFormulationComponent } from './actions-formulation.component';
+import { AssistanceSpecialService } from '../../../business-controller/assistance-special.service';
 
 @Component({
   selector: 'ngx-interconsultation',
@@ -79,6 +80,8 @@ export class InterconsultationComponent implements OnInit {
   public ch_interconsultation_id;
   public type_of_attention;
   public assigned;
+  public specialty;
+  public specialty_id;
   public show_labs = false;
 
   public disabled: boolean = false;
@@ -258,6 +261,7 @@ export class InterconsultationComponent implements OnInit {
     private ChInterconsultationS: ChInterconsultationService,
     public datePipe: DateFormatPipe,
     private location: Location,
+    private AssistanceS: AssistanceSpecialService,
     // public assignedService: AssignedManagementPlanService
   ) {
     this.routes = [
@@ -340,6 +344,14 @@ export class InterconsultationComponent implements OnInit {
       //     }
       //   });
     }
+
+    if (this.currentRole.id == 14 || this.currentRole.id == 7) {
+      this.AssistanceS.GetCollection({
+        user_id: this.own_user.id,
+      }).then(x => {
+        this.specialty = x;
+      });
+    }
   }
 
   back() {
@@ -358,28 +370,45 @@ export class InterconsultationComponent implements OnInit {
     this.dialog.close();
   }
 
-  NewChRecord() {
-    this.chRecordS
-      .Save({
-        status: 'ACTIVO',
-        admissions_id: this.admissions_id,
-        ch_interconsultation_id: this.ch_interconsultation_id,
-        user_id: this.own_user.id,
-        type_of_attention_id: this.type_of_attention,
-        role: this.currentRole.id,
-      })
-      .then((x) => {
-        this.toastService.success('', x.message);
-        this.RefreshData();
-        if (this.saved) {
-          this.saved();
-        }
-      })
-      .catch((x) => {
-        this.toastService.danger(x, 'ERROR');
-        this.isSubmitted = false;
-        this.loading = false;
-      });
+  NewChRecord(dialog: TemplateRef<any> = null) {
+    if ((this.currentRole.id == 14 || this.currentRole.id == 7) && dialog) {
+      this.showFormulations(dialog)
+    } else if ((this.currentRole.id == 14 || this.currentRole.id == 7) && !this.specialty_id) {
+      this.toastService.danger('Seleccione especialidad', 'ERROR');
+    } else {
+      this.chRecordS
+        .Save({
+          status: 'ACTIVO',
+          admissions_id: this.admissions_id,
+          ch_interconsultation_id: this.ch_interconsultation_id,
+          user_id: this.own_user.id,
+          type_of_attention_id: this.type_of_attention,
+          role: this.currentRole.id,
+          specialty_id: this.specialty_id,
+        })
+        .then((x) => {
+          this.toastService.success('', x.message);
+          this.RefreshData();
+          if (this.saved) {
+            this.saved();
+          }
+          if (this.dialog) {
+            this.closeDialog();
+          }
+        })
+        .catch((x) => {
+          this.toastService.danger(x, 'ERROR');
+          this.isSubmitted = false;
+          this.loading = false;
+          if (this.dialog) {
+            this.closeDialog();
+          }
+        });
+    }
+  }
+
+  EspecialtyChange($event) {
+    this.specialty_id = $event;
   }
 
 }

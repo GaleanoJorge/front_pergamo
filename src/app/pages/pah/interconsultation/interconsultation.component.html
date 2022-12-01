@@ -4,13 +4,14 @@
 
 
     <ngx-base-table [title]="title" [subtitle]="subtitle" customData="ch_record" [settings]="settings"
-      entity="ch_record/byInterconsultation/{{admissions_id}}/{{ch_interconsultation_id}}?user_id={{own_user.id}}" [messageToltip]="messageToltip">
+      entity="ch_record/byInterconsultation/{{admissions_id}}/{{ch_interconsultation_id}}?user_id={{own_user.id}}"
+      [messageToltip]="messageToltip">
       <div title *ngIf="user">
-        <p class="parrafo" ><b>CÉDULA:</b> {{user.identification}} </p>
-        <p class="parrafo"><b>NOMBRE:</b>  {{user.nombre_completo}}</p>
+        <p class="parrafo"><b>CÉDULA:</b> {{user.identification}} </p>
+        <p class="parrafo"><b>NOMBRE:</b> {{user.nombre_completo}}</p>
         <p class="parrafo"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}} </p>
-        <p class="parrafo" ><b>EDAD:</b> {{user.age}} </p>
-        <p class="parrafo" ><b>GÉNERO:</b> {{user.gender.name}} </p>
+        <p class="parrafo"><b>EDAD:</b> {{user.age}} </p>
+        <p class="parrafo"><b>GÉNERO:</b> {{user.gender.name}} </p>
         <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions[0].contract.company.name}}</p>
         <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions[0].contract.name}}</p>
         <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions[0].briefcase.name}}</p>
@@ -28,17 +29,19 @@
               {{item.services_briefcase.manual_price.name}} </p>
           </div>
         </div>
-        
+
       </div>
 
-      
+
       <div actions>
         <div class="actions">
-          <button *ngIf="user && currentRole.id == 8" nbButton status="warning" (click)="showFormulations(formulations)" >Formulaciones</button>
-          <button nbButton (click)="back()" >Volver</button>
-          <button *ngIf="currentRole.role_type_id == 2"  nbButton status="danger" (click)="NewChRecord()">Crear</button>
+          <button *ngIf="user && currentRole.id == 8" nbButton status="warning"
+            (click)="showFormulations(formulations)">Formulaciones</button>
+          <button nbButton (click)="back()">Volver</button>
+          <button *ngIf="currentRole.role_type_id == 2" nbButton status="danger"
+            (click)="NewChRecord(select_specialty)">Crear</button>
         </div>
-        
+
       </div>
     </ngx-base-table>
   </div>
@@ -52,8 +55,8 @@
       <ngx-base-list [messageError]="messageError">
         <div content>
           <ngx-base-table pager="false" [subtitle]="subtitle" [settings]="settings2"
-            entity="ch_formulation/getByAdmission/{{this.admissions_id}}"
-            customData="ch_formulation" [messageToltip]="messageToltip">
+            entity="ch_formulation/getByAdmission/{{this.admissions_id}}" customData="ch_formulation"
+            [messageToltip]="messageToltip">
             <div actions>
             </div>
           </ngx-base-table>
@@ -63,9 +66,30 @@
     </nb-card-body>
 
     <nb-card-footer class="d-flex justify-content-end">
-      <div class ="col-12 col-sm-12 col-md-2">
+      <div class="col-12 col-sm-12 col-md-2">
         <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
       </div>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+<ng-template #select_specialty>
+  <nb-card style="width: 400px;height: auto;overflow: auto;">
+    <nb-card-header>SELECCIONE ESPECIALIDAD</nb-card-header>
+    <nb-card-body>
+
+
+        <nb-select (selectedChange)="EspecialtyChange($event)" style="width: 350px;">
+          <nb-option>Seleccione especialidad</nb-option>
+          <nb-option *ngFor="let item of specialty" [value]="item.specialty.id">{{item.specialty.name}}</nb-option>
+        </nb-select>
+
+
+    </nb-card-body>
+
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+      <button nbButton (click)="NewChRecord()" type="button" status="danger">Crear</button>
     </nb-card-footer>
   </nb-card>
 </ng-template>
