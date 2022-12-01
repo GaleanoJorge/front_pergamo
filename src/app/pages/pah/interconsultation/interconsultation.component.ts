@@ -372,6 +372,7 @@ export class InterconsultationComponent implements OnInit {
 
   NewChRecord(dialog: TemplateRef<any> = null) {
     if ((this.currentRole.id == 14 || this.currentRole.id == 7) && dialog) {
+      this.specialty_id = null;
       this.showFormulations(dialog)
     } else if ((this.currentRole.id == 14 || this.currentRole.id == 7) && !this.specialty_id) {
       this.toastService.danger('Seleccione especialidad', 'ERROR');
