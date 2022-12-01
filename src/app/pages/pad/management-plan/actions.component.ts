@@ -280,7 +280,7 @@ export class ActionsComponent implements ViewCell {
         }).then(x => {
           this.toastService.success('', x.message);
           this.closeDialog();
-          this.value.refresh ;
+          this.value.refresh();
           this.forms.patchValue({
             note: '',
           });
@@ -297,7 +297,7 @@ export class ActionsComponent implements ViewCell {
         }).then(x => {
           this.toastService.success('', x.message);
           this.closeDialog();
-          this.value.refresh ;
+          this.value.refresh();
           this.forms.patchValue({
             note: '',
           });
