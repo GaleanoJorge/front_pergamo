@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { Actions5Component } from './actions.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
@@ -25,6 +24,7 @@ import { count } from 'console';
 import { ActionsFormulationComponent } from './actions-formulation.component';
 import { AssistanceSpecialService } from '../../../business-controller/assistance-special.service';
 import { SuppliesView } from '../../pad/management-plan/supplies-view/supplies-view.component';
+import { Actions5Component } from '../../clinic-history/ch-record-list/actions.component';
 
 @Component({
   selector: 'ngx-interconsultation',
