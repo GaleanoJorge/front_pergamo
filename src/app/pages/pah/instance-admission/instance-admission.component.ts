@@ -42,6 +42,7 @@ export class InstanceAdmissionComponent implements OnInit {
     /*01*/ 'Evoluciones',
     /*02*/ 'Cantidad Ordenada',
     /*03*/ 'Especialidad',
+    /*04*/ 'Frecuencia',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
@@ -111,6 +112,17 @@ export class InstanceAdmissionComponent implements OnInit {
         valuePrepareFunction: (value) => {
           if (value != null) {
             return value;
+          } else {
+            return 'N.A.';
+          }
+        },
+      },
+      frequency: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value != null) {
+            return value.name;
           } else {
             return 'N.A.';
           }
