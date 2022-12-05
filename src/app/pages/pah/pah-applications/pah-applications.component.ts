@@ -108,7 +108,7 @@ export class PahApplicationsComponent implements OnInit {
             'route': 1,
             'data': row,
             'user': this.user,
-            'currentRole': this.currentRole.role_type_id,
+            'currentRole': this.currentRole,
             'management': this.patients,
             'refresh': this.RefreshData.bind(this),
           };

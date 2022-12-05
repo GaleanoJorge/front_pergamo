@@ -103,6 +103,9 @@ export class InterconsultationComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          if (this.type_of_attention != -1 && row.status == 'ACTIVO') {
+            this.showButtom = false;
+          }
           return {
             data: row,
             assigned: this.ch_interconsultation_id,
@@ -323,7 +326,7 @@ export class InterconsultationComponent implements OnInit {
               }
             });
           } else {
-            this.showButtom = this.currentRole.id == 3 || this.currentRole.id == 8 ? true : false;
+            this.showButtom = this.currentRole.id == 3 || this.currentRole.id == 8 || this.currentRole.id == 9 || this.currentRole.id == 14 ? true : false;
           }
         }
         if ((this.ch_interconsultation.amount != null && this.ch_interconsultation.amount != 0) && (this.ch_interconsultation.amount <= this.ch_interconsultation.many_ch_record.length)) {
@@ -348,8 +351,12 @@ export class InterconsultationComponent implements OnInit {
     if (this.currentRole.id == 14 || this.currentRole.id == 7) {
       this.AssistanceS.GetCollection({
         user_id: this.own_user.id,
+        specialty_id: this.type_of_attention == -1 ? 137 : 0,
       }).then(x => {
         this.specialty = x;
+        if (x.length == 0) {
+          this.showButtom = false;
+        }
       });
     }
   }
@@ -371,12 +378,13 @@ export class InterconsultationComponent implements OnInit {
   }
 
   NewChRecord(dialog: TemplateRef<any> = null) {
-    if ((this.currentRole.id == 14 || this.currentRole.id == 7) && dialog) {
-      this.specialty_id = null;
-      this.showFormulations(dialog)
-    } else if ((this.currentRole.id == 14 || this.currentRole.id == 7) && !this.specialty_id) {
-      this.toastService.danger('Seleccione especialidad', 'ERROR');
-    } else {
+    // if (((this.currentRole.id == 14 || this.currentRole.id == 7) && dialog) && this.type_of_attention != -1) {
+    //   this.specialty_id = null;
+    //   this.showFormulations(dialog)
+    // } else if (((this.currentRole.id == 14 || this.currentRole.id == 7) && !this.specialty_id) && this.type_of_attention != -1) {
+    //   this.toastService.danger('Seleccione especialidad', 'ERROR');
+    // } else {
+    // }
       this.chRecordS
         .Save({
           status: 'ACTIVO',
@@ -405,7 +413,6 @@ export class InterconsultationComponent implements OnInit {
             this.closeDialog();
           }
         });
-    }
   }
 
   EspecialtyChange($event) {
