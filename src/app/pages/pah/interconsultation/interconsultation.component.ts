@@ -24,6 +24,7 @@ import { ChInterconsultationService } from '../../../business-controller/ch-inte
 import { count } from 'console';
 import { ActionsFormulationComponent } from './actions-formulation.component';
 import { AssistanceSpecialService } from '../../../business-controller/assistance-special.service';
+import { SuppliesView } from '../../pad/management-plan/supplies-view/supplies-view.component';
 
 @Component({
   selector: 'ngx-interconsultation',
@@ -257,6 +258,7 @@ export class InterconsultationComponent implements OnInit {
     private chRecordS: ChRecordService,
     private toastService: NbToastrService,
     private patientBS: PatientService,
+    private dialogFormService: NbDialogService,
     private userBS: UserBusinessService,
     private dialogService: NbDialogService,
     private authService: AuthService,
@@ -417,6 +419,17 @@ export class InterconsultationComponent implements OnInit {
 
   EspecialtyChange($event) {
     this.specialty_id = $event;
+  }
+
+  suppliesView() {
+    this.dialogFormService.open(SuppliesView, {
+      context: {
+        user: this.user,
+        own_user: this.own_user,
+        title: 'Suministros del paciente',
+        admissions_id: this.admissions_id,
+      },
+    });
   }
 
 }

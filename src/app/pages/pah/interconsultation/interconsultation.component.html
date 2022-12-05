@@ -42,6 +42,10 @@
             (click)="NewChRecord(select_specialty)">Crear</button>
         </div>
 
+        <div *ngIf=" this.currentRole.role_type_id == 1" class="actions" style="margin-top: 5px;">
+          <button nbButton status="info" (click)="suppliesView()">Suministros</button>
+        </div>
+
       </div>
     </ngx-base-table>
   </div>
