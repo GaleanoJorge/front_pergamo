@@ -307,69 +307,84 @@
     </div>
 
     <div class="row justify-content-md mt-3" *ngIf="this.form.controls.has_oxigen.value">
-    
 
-      <div class="col-md-3">
-        <div class="center">
-          <fieldset class="field_set">
-            <legend class="prue1">TIPO DE OXIGENO</legend>
-            <nb-select [selected]="this.data.oxygen_type_id" formControlName="oxygen_type_id" id="oxygen_type_id"
-              status="{{ isSubmitted && form.controls.oxygen_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.oxygen_type_id }}" *ngFor="let item of oxygen_type"
-                [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
-          </fieldset>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="center">
+            <fieldset class="field_set">
+              <legend class="prue1">TIPO DE OXIGENO</legend>
+              <nb-select [selected]="this.data.oxygen_type_id" formControlName="oxygen_type_id" id="oxygen_type_id"
+                status="{{ isSubmitted && form.controls.oxygen_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option value="">SELECCIONE...</nb-option>
+                <nb-option selected="{{ item.id == this.data.oxygen_type_id }}" *ngFor="let item of oxygen_type"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="center">
+            <fieldset class="field_set">
+              <legend class="prue1">LITROS POR MINUTOS</legend>
+              <nb-select [selected]="this.data.liters_per_minute_id" formControlName="liters_per_minute_id"
+                id="liters_per_minute_id"
+                status="{{ isSubmitted && form.controls.liters_per_minute_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option value="">SELECCIONE...</nb-option>
+                <nb-option selected="{{ item.id == this.data.liters_per_minute_id }}"
+                  *ngFor="let item of liters_per_minute" [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </fieldset>
+          </div>
+        </div>
+        <div class="col-md-3 ">
+          <div class="center">
+            <fieldset class="field_set">
+              <legend class="prue1">MODO VENTILATORIO</legend>
+              <nb-select [selected]="this.data.ch_vital_ventilated_id" formControlName="ch_vital_ventilated_id"
+                id="ch_vital_ventilated_id"
+                status="{{ isSubmitted && form.controls.ch_vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option value="">SELECCIONE...</nb-option>
+                <nb-option selected="{{ item.id == this.data.ch_vital_ventilated_id }}"
+                  *ngFor="let item of vital_ventilated" [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="col-md-3" *ngIf="this.form.controls.ch_vital_ventilated_id.value !='10'">
+          <div class="center">
+            <fieldset class="field_set">
+              <legend class="prue1">PARAMETROS</legend>
+              <nb-select [selected]="this.data.parameters_signs_id" formControlName="parameters_signs_id"
+                id="parameters_signs_id"
+                status="{{ isSubmitted && form.controls.parameters_signs_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option value="">SELECCIONE...</nb-option>
+                <nb-option selected="{{ item.id == this.data.parameters_signs_id }}"
+                  *ngFor="let item of parameters_signs" [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </fieldset>
+          </div>
         </div>
       </div>
 
-      <div class="col-md-3">
-        <div class="center">
-          <fieldset class="field_set">
-            <legend class="prue1">LITROS POR MINUTOS</legend>
-            <nb-select [selected]="this.data.liters_per_minute_id" formControlName="liters_per_minute_id"
-              id="liters_per_minute_id"
-              status="{{ isSubmitted && form.controls.liters_per_minute_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.liters_per_minute_id }}"
-                *ngFor="let item of liters_per_minute" [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
-          </fieldset>
+      <div class="row col col-lg-12 center mt-3">
+        <div class="col col-lg-6 center" *ngIf="this.form.controls.ch_vital_ventilated_id.value =='6'">
+          <label class="form-text text-muted font-weight-bold">OBSERVACIÓN MODO VENTILATORIO</label>
+          <textarea id="observations_vital_ventilated" formControlName="observations_vital_ventilated"
+            observations_vital_ventilated onpaste="return false" rows="3" cols="30" nbInput fullWidth> </textarea>
         </div>
-      </div>
-      <div class="col-md-3 ">
-        <div class="center">
-          <fieldset class="field_set">
-            <legend class="prue1">MODO VENTILATORIO</legend>
-            <nb-select [selected]="this.data.ch_vital_ventilated_id" formControlName="ch_vital_ventilated_id"
-              id="ch_vital_ventilated_id"
-              status="{{ isSubmitted && form.controls.ch_vital_ventilated_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.ch_vital_ventilated_id }}" *ngFor="let item of vital_ventilated"
-                [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
-          </fieldset>
+        <div class="col col-lg-6 center" *ngIf="this.form.controls.parameters_signs_id.value">
+          <label class="form-text text-muted font-weight-bold">OBSERVACIÓN PARAMETROS</label>
+          <textarea id="observations_parameters_signs" formControlName="observations_parameters_signs"
+            observations_parameters_signs onpaste="return false" rows="3" cols="30" nbInput fullWidth> </textarea>
         </div>
       </div>
 
-      <div class="col-md-3"  *ngIf="this.form.controls.ch_vital_ventilated_id.value !='9'">
-        <div class="center">
-          <fieldset class="field_set">
-            <legend class="prue1">PARAMETROS</legend>
-            <nb-select [selected]="this.data.parameters_signs_id" formControlName="parameters_signs_id"
-              id="parameters_signs_id"
-              status="{{ isSubmitted && form.controls.parameters_signs_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-option value="">SELECCIONE...</nb-option>
-              <nb-option selected="{{ item.id == this.data.parameters_signs_id }}" *ngFor="let item of parameters_signs"
-                [value]="item.id">
-                {{ item.name }}</nb-option>
-            </nb-select>
-          </fieldset>
-        </div>
-      </div>
     </div>
 
 

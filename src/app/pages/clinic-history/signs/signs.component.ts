@@ -43,7 +43,7 @@ export class SignsListComponent implements OnInit {
 
     'Cefálico', 'Abdominal', 'Toracico', 
 
-    'Tiene oxigeno', 'Modo Ventilatorio', 'Tipo de Oxigeno','Lts por Mints.', 'Parametros', ];
+    'Tiene oxigeno', 'Modo Ventilatorio', 'Obs. Modo Ventilatorio', 'Tipo de Oxigeno','Lts por Mints.', 'Parametros', 'Obs. Parametros' ];
 
   public routes = [];
   public loading: boolean = false;
@@ -373,18 +373,18 @@ export class SignsListComponent implements OnInit {
           }
         }
       },
-      oxygen_type: {
+      observations_vital_ventilated: {
         title: this.headerFields[35],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value.name;
+            return value;
           } else {
             return 'NO APLICA'
           }
         }
       },
-      liters_per_minute: {
+      oxygen_type: {
         title: this.headerFields[36],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -395,12 +395,34 @@ export class SignsListComponent implements OnInit {
           }
         }
       },
-      parameters_signs: {
+      liters_per_minute: {
         title: this.headerFields[37],
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
             return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      parameters_signs: {
+        title: this.headerFields[38],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'NO APLICA'
+          }
+        }
+      },
+      observations_parameters_signs: {
+        title: this.headerFields[39],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
           } else {
             return 'NO APLICA'
           }
