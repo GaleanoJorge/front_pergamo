@@ -305,6 +305,7 @@ export class Actions3Component implements ViewCell {
           flat_id: this.form2.controls.flat_id.value,
           pavilion_id: this.form2.controls.pavilion_id.value,
           bed_id: this.form2.controls.bed_id.value,
+          procedure_id: this.form2.controls.procedure_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.value.refresh();
