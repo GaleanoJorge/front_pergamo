@@ -28,7 +28,7 @@ export class TableSensibilityFTComponent implements OnInit {
   public headerFields: any[] = ['FECHA',
                                 'PROFUNDA',
                                 'SUPREFICIAL',
-                                'CORNICAL',
+                                'CORTICAL',
                                 'OBSERVACION',];
 
   public form: FormGroup;

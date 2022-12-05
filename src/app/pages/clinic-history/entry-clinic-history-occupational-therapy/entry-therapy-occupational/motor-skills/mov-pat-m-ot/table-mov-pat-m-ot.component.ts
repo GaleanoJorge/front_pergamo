@@ -82,373 +82,149 @@ export class TableMovPatMOTComponent implements OnInit {
       scroll_right: {
         title: this.headerFields[1],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       scroll_left: {
         title: this.headerFields[2],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       get_up_right: {
         title: this.headerFields[3],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       get_up_left: {
         title: this.headerFields[4],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       push_right: {
         title: this.headerFields[5],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       push_left: {
         title: this.headerFields[6],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       pull_right: {
         title: this.headerFields[7],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       pull_left: {
         title: this.headerFields[8],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       transport_right: {
         title: this.headerFields[9],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       transport_left: {
         title: this.headerFields[10],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       attain_right: {
         title: this.headerFields[11],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       attain_left: {
         title: this.headerFields[12],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       bipedal_posture_right: {
         title: this.headerFields[13],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       bipedal_posture_left: {
         title: this.headerFields[14],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       sitting_posture_right: {
         title: this.headerFields[15],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       sitting_posture_left: {
         title: this.headerFields[16],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       squat_posture_right: {
         title: this.headerFields[17],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       squat_posture_left: {
         title: this.headerFields[18],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       use_both_hands_right: {
         title: this.headerFields[19],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       use_both_hands_left: {
         title: this.headerFields[20],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       alternating_movements_right: {
         title: this.headerFields[21],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       alternating_movements_left: {
         title: this.headerFields[22],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       dissociated_movements_right: {
         title: this.headerFields[23],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       dissociated_movements_left: {
         title: this.headerFields[24],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       Simultaneous_movements_right: {
         title: this.headerFields[25],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       Simultaneous_movements_left: {
         title: this.headerFields[26],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       bimanual_coordination_right: {
         title: this.headerFields[27],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       bimanual_coordination_left: {
         title: this.headerFields[28],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       hand_eye_coordination_right: {
         title: this.headerFields[29],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       hand_eye_coordination_left: {
         title: this.headerFields[30],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       hand_foot_coordination_right: {
         title: this.headerFields[31],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
 
       hand_foot_coordination_left: {
         title: this.headerFields[32],
         width: 'string',
-        valuePrepareFunction: (value) => {
-          if (value) {
-            return value;
-          } else {
-            return 'No Aplica';
-          }
-        },
       },
       
 

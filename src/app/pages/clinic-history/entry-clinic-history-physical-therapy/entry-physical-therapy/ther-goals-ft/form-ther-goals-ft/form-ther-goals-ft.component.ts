@@ -38,7 +38,7 @@ export class FormTherGoalsFTComponent implements OnInit {
     },
     {
       id: 4,
-      description: "Disminuir infalamacion "
+      description: "Disminuir inflamación "
     },
     {
       id: 5,
