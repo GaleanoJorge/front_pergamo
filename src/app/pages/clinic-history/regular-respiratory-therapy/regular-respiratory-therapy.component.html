@@ -30,6 +30,14 @@
             <ngx-sessions-therapy [record_id]="record_id" [type_record_id]="type_record_id"></ngx-sessions-therapy>
           </nb-step>
 
+          <nb-step [stepControl]="nameForm" label="Intervention">
+            <ngx-ps-intervention [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-intervention>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Recomendaciones">
+            <ngx-recommendations-evo [record_id]="record_id" [type_record]="type_record_id"></ngx-recommendations-evo>
+          </nb-step>
+
           <nb-step [hidden]="true">
 
             <div class="step-container">
