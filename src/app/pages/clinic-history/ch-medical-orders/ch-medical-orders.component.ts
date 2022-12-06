@@ -85,7 +85,11 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'No Aplica';
+          }
         },
       },
       amount: {
@@ -96,7 +100,11 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'No Aplica';
+          }
         },
       },
       observations: {
