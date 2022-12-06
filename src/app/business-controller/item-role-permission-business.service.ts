@@ -20,7 +20,8 @@ export class ItemRolePermissionBusinessService {
 
   GetCollection(idRole?: number, user?): Promise<ItemRolePermission[]> {
     var servObj = new ServiceObject('item/role/permission/byRole', idRole);
-    if (!!navigator.onLine) {
+
+    if (navigator.onLine) {
       return this.webAPI
         .GetAction(servObj)
         .then((x) => {
@@ -28,16 +29,13 @@ export class ItemRolePermissionBusinessService {
           if (!servObj.status) throw new Error(servObj.message);
 
           /*Armando los permisos*/
-          this.dbpouch.update(servObj.data.itemRolePermission, user);
           localStorage.setItem(
             'permissions',
             JSON.stringify(servObj.data.itemRolePermission)
           );
 
           /*Armando el menu*/
-
           this.permission = servObj.data.itemRolePermission;
-
           const mainMenu = [];
           this.permission.forEach((element) => {
             if (
@@ -76,6 +74,7 @@ export class ItemRolePermissionBusinessService {
               });
             }
           });
+
           mainMenu.forEach((elementC) => {
             if (elementC.children.length != 0) {
               elementC.children.forEach((elementD) => {
@@ -136,7 +135,7 @@ export class ItemRolePermissionBusinessService {
               });
             }
           });
-          console.log(mainMenu);
+
           mainMenu.forEach((element) => {
             if (element.children && element.children.length === 0) {
               delete element.children;
@@ -156,7 +155,11 @@ export class ItemRolePermissionBusinessService {
           });
           localStorage.setItem('mainMenu', JSON.stringify(mainMenu));
           localStorage.setItem('firstMenu', JSON.stringify(mainMenu[0]));
-         this.dbpouch.UpdateMenu(mainMenu,user)
+          this.dbpouch.UpdateMenu(
+            mainMenu,
+            servObj.data.itemRolePermission,
+            user
+          );
 
           this.itemsRolePermission = <ItemRolePermission[]>(
             servObj.data.itemRolePermission

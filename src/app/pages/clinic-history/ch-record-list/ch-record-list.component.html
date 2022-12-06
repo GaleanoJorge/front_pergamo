@@ -1,41 +1,66 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
-
-
-
-    <ngx-base-table [title]="title" [subtitle]="subtitle" customData="ch_record" [settings]="settings"
-      entity="ch_record/byadmission/{{admissions_id}}/{{assigned_management_plan}}" [messageToltip]="messageToltip">
-      <div title *ngIf="user">
-        <p class="parrafo" ><b>CÉDULA:</b> {{user.identification}} </p>
-        <p class="parrafo"><b>NOMBRE:</b>  {{user.nombre_completo}}</p>
-        <p class="parrafo"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}} </p>
-        <p class="parrafo" ><b>EDAD:</b> {{user.age}} </p>
-        <p class="parrafo" ><b>GÉNERO:</b> {{user.gender.name}} </p>
-        <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions[0].contract.company.name}}</p>
-        <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions[0].contract.name}}</p>
-        <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions[0].briefcase.name}}</p>
-        <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability.name}} </p>
-        <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES </p>
+    <ngx-base-table *ngIf="entity || ch_record_list && id_table "
+      [title]="title"
+      [subtitle]="subtitle"
+      customData="ch_record"
+      [settings]="settings"
+      [entity]="entity"
+      [messageToltip]="messageToltip"
+      [idTable]="id_table"
+      [source]="ch_record_list"
+    >
+      <div title *ngIf="user && navigation">
+        <p class="parrafo"><b>CÉDULA:</b> {{ user.identification }}</p>
+        <p class="parrafo"><b>NOMBRE:</b> {{ user.nombre_completo }}</p>
+        <p class="parrafo">
+          <b>FECHA DE NACIMIENTO:</b>
+          {{ this.datePipe.transform3(user.birthday) }}
+        </p>
+        <p class="parrafo"><b>EDAD:</b> {{ user.age }}</p>
+        <p class="parrafo"><b>GÉNERO:</b> {{ user.gender.name }}</p>
+        <p class="parrafo" *ngIf="user">
+          <b>ASEGURADOR:</b> {{ user.admissions[0].contract.company.name }}
+        </p>
+        <p class="parrafo" *ngIf="user">
+          <b>CONTRATO:</b> {{ user.admissions[0].contract.name }}
+        </p>
+        <p class="parrafo" *ngIf="user">
+          <b>PORTAFOLIO:</b> {{ user.admissions[0].briefcase.name }}
+        </p>
+        <p class="parrafo" *ngIf="user.inability">
+          <b>DISCAPACIDAD:</b> {{ user.inability.name }}
+        </p>
+        <p class="parrafo" *ngIf="!user.inability">
+          <b>DISCAPACIDAD:</b> SIN DISCAPACIDADES
+        </p>
         <div *ngIf="show_labs">
-          <p class="parrafo" *ngIf="show_labs"><b>LABORATORIOS:</b>
-          </p>
-          <div *ngFor="let item of this.assigned[0].management_plan.management_procedure">
+          <p class="parrafo" *ngIf="show_labs"><b>LABORATORIOS:</b></p>
+          <div
+            *ngFor="
+              let item of this.assigned[0].management_plan.management_procedure
+            "
+          >
             <p class="parrafo">
-              {{item.services_briefcase.manual_price.name}} </p>
+              {{ item.services_briefcase.manual_price.name }}
+            </p>
           </div>
         </div>
-        
       </div>
 
-      
       <div actions>
         <div class="actions">
-          <button nbButton (click)="back()" >Volver</button>
-          <button *ngIf="showButtom==true"  nbButton status="danger" (click)="NewChRecord()">Crear</button>
+          <button nbButton (click)="back()">Volver</button>
+          <button
+            *ngIf="showButtom == true"
+            nbButton
+            status="danger"
+            (click)="NewChRecord()"
+          >
+            Crear
+          </button>
         </div>
-        <div class="actions" >
-        </div>
-        
+        <div class="actions"></div>
       </div>
     </ngx-base-table>
   </div>

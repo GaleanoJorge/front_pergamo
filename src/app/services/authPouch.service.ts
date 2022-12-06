@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { id } from '@swimlane/ngx-charts';
 import { itemSelection } from '@syncfusion/ej2/maps';
 import PouchDB from 'pouchdb-browser';
 
@@ -13,58 +14,63 @@ export class DbPwaService {
   public id: string;
   public userTable: string;
   public idForm: string;
+  public docUpdate: any;
 
+  //Constructor de Archivo PounchDB
   constructor() {
     this.user_db = new PouchDB('login_db');
   }
 
-  //ALMACENAR USUARIO
-
-  public saveUser = (userAll: any, user: string, pass, campus: any, token) => {
-    this.user = user;
-    this.user_db.put({
+  //Almacenar datos de Usuario en Base login_db
+  public saveUser = (
+    metadataUser: any,
+    user: string,
+    password: any,
+    location: any
+  ) => {
+    let doc = {
       _id: user,
       user: user,
-      userAll: userAll,
-      pass: pass,
-      campus: campus,
-      token: token,
-      permission: [],
-      menu:[],
+      metadataUser: metadataUser,
+      password: password,
+      location: location,
+      menu: {},
+    };
+
+    /* Se verifica que el usuario ya este registrado en la base de datos:
+    Sí esta registrado se retorna un mensaje de error, por el contrario se almacena en la base de datos */
+    this.user_db.put(doc, (err, response) => {
+      if (err) {
+        return console.log(
+          'El usuario no ha sido almacenado, es probable que ya exista en la base de datos'
+        );
+      } else {
+        console.log('Usuario almacenado correctamente');
+      }
     });
   };
 
-  public update = (permission: any, user: string) => {
+  public UpdateMenu = (menu: any, permission: any, user: string) => {
     this.user_db.get(user, function (err, doc) {
+      if (err) {
+        return console.log(err);
+      }
       let db = new PouchDB('login_db');
-      (doc.permission = permission),
-        db.put(doc, function (err, response) {
-          if (err) {
-            return console.log(err);
-          } else {
-            console.log(response);
-          }
-          // handle response
-        });
-    });
-  };
-
-  public UpdateMenu= (menu: any, user: string) =>{
-    this.user_db.get(user, function (err, doc) {
-      let db = new PouchDB('login_db');
-      (doc.menu = menu),
+      console.log('Estos son los permisos', menu);
+      doc.menu = menu;
+      doc.permission = permission;
       db.put(doc, function (err, response) {
-          if (err) {
-            return console.log(err);
-          } else {
-            return console.log(response);
-          }
-          //handle response
-        });
+        if (err) {
+          return console.log('Error al actualizar informacion del usuario');
+        } else {
+          console.log(response);
+        }
+        // handle response
+      });
     });
-  }
+  };
 
-  //OBTENER USUARIO
+  //Obtener Usuario
   public getUser = (user) => {
     this.user_db.get(user, function (err, doc) {
       return doc.user;
@@ -73,7 +79,7 @@ export class DbPwaService {
 
   async returnCampus(user) {
     this.user_db.get(user, function (err, doc) {
-      return Promise.resolve(doc.campus);
+      return Promise.resolve(doc.campus); //No retorna valor
     });
   }
 
@@ -83,20 +89,40 @@ export class DbPwaService {
     });
   }
 
-  //Guardar informacion de las tablas en pouchDB
-
+  //Guardar Informacion de las tablas en PouchDB
   public saveData = (id: any, data: any) => {
     this.id = id;
-    id = new PouchDB(id);
-    id.put({
-      _id: this.id,
-      data: data,
+    var id2 = new PouchDB(id);
+    id2.get(this.id, function (err, doc) {
+      if (err) {
+        id2.put(
+          {
+            _id: id,
+            data: data,
+          },
+          function (err, response) {
+            if (err) {
+              return console.log(err);
+            }
+            // handle response
+          }
+        );
+      } else {
+        doc.data = data;
+        id2.put(doc, function (err, response) {
+          if (err) {
+            return console.log('Error al actualizar informacion');
+          } else {
+            console.log(response);
+          }
+          // handle response
+        });
+      }
     });
   };
 
-
   public Updatedata(id: any, data: any) {
-    data=data;
+    data = data;
     this.id = id;
     id = new PouchDB(id);
     id.get(this.id, function (err, doc) {
@@ -105,8 +131,7 @@ export class DbPwaService {
     });
   }
 
-  //obtener datos para las tablas en pouchDB
-
+  //Obtener datos para las tablas en PouchDB
   public getData = (id: any) => {
     this.id = id;
     id = new PouchDB(id);
@@ -115,8 +140,7 @@ export class DbPwaService {
     });
   };
 
-  //Guardar informacion del plan de manejo en pouchDB
-
+  //Guardar Informacion del Plan de Manejo en PouchDB
   public savePlan(id: any, data: any, userTable: string) {
     this.userTable = userTable;
     this.id = id;
@@ -141,20 +165,19 @@ export class DbPwaService {
     id = new PouchDB(id);
     id.get(this.userTable, function (err, doc) {
       doc._deleted = true;
-      this.savePlan(this.id, data, this.userTable);
+      this.savePlan(this.id, this.data, this.userTable);
     });
   }
 
-  //Obtener informacion del plan de manejo de pouchDB
-
-  public getPlan=(id: any, userTable: string)=> {
+  //Obtener Informacion del Plan de Manejo de PouchDB
+  public getPlan = (id: any, userTable: string) => {
     this.userTable = userTable;
     this.id = id;
     id = new PouchDB(id);
     id.get(this.userTable, function (err, doc) {
       return Promise.resolve([doc]);
     });
-  }
+  };
 
   public createPatient(id: any, data: any) {
     this.idForm = id;
@@ -196,7 +219,7 @@ export class DbPwaService {
   }
 }
 
-// sincronizar pouchdb con base de datos
+//Sincronizar PouchDB con Base de Datos
 // this.user_db.getData().then((items:any)=>{
 //   itemSelection.forEach(({doc})=>this.servicio(doc))
 // })

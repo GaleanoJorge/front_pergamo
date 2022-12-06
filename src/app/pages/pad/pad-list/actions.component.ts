@@ -18,51 +18,85 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 
 @Component({
   template: `
-  <div class="d-flex justify-content-center">
-      <a *ngIf="value.currentRole != 2" nbTooltip="Admisiones" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
-          ghost [routerLink]="'/pages/pad/admissions-patient-pad/' + value.data.id+'/'+value.data.admissions[0].id">
-          <nb-icon icon="menu-outline"></nb-icon>
+    <div class="d-flex justify-content-center">
+      <a
+        *ngIf="value.navigation && value.currentRole != 2"
+        nbTooltip="Admisiones"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        [routerLink]="
+          '/pages/pad/admissions-patient-pad/' +
+          value.data.id +
+          '/' +
+          value.data.admissions[0].id
+        "
+      >
+        <nb-icon icon="menu-outline"></nb-icon>
       </a>
-      <button *ngIf="value.currentRole == 2" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top"
-          nbTooltipStatus="primary" nbButton ghost (click)="closeDialog()"
-          [routerLink]="'/pages/pad/management-plan/' + value.data.admissions[0].id+'/'+value.data.id">
-          <nb-icon icon="menu-outline"></nb-icon>
+      <button
+        *ngIf="!value.navigation || value.currentRole == 2"
+        nbTooltip="Ejecución plan de manejo"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="closeDialog()"
+        [routerLink]="
+          '/pages/pad/management-plan/' +
+          value.data.admissions[0].id +
+          '/' +
+          value.data.id
+        "
+      >
+        <nb-icon icon="menu-outline"></nb-icon>
       </button>
-      <button *ngIf="value.currentRole == 2" nbTooltip="Próximos servicios" nbTooltipPlacement="top" nbTooltipStatus="primary"
-          nbButton ghost (click)="ShowPreBilling(AssignedTable, value.data.id)">
-          <nb-icon icon="eye-outline"></nb-icon>
+      <button
+        *ngIf="value.currentRole == 2"
+        nbTooltip="Próximos servicios"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="ShowPreBilling(AssignedTable, value.data.id)"
+      >
+        <nb-icon icon="eye-outline"></nb-icon>
       </button>
-  </div>
+    </div>
 
-  <ng-template #AssignedTable>
-  <nb-card style="width: 100%;height: 100%;overflow: auto;">
-    <nb-card-header>
-      Próximos servicios
-    </nb-card-header>
-    <nb-card-body>
-      <ngx-base-list [messageError]="messageError">
-        <div content>
-          <ngx-base-table
-          subtitle="Servicios" 
-          [settings]="this.settings_table" 
-          entity="assigned_management_plan/getByUserPatient/{{this.user_id}}/{{patient_id}}?management_plan_id={{this.management_plan_id}}" 
-          customData="assigned_management_plan">
-    </ngx-base-table>
-        </div>
-      </ngx-base-list>
-    </nb-card-body>
+    <ng-template #AssignedTable>
+      <nb-card style="width: 100%;height: 100%;overflow: auto;">
+        <nb-card-header> Próximos servicios </nb-card-header>
+        <nb-card-body>
+          <ngx-base-list [messageError]="messageError">
+            <div content>
+              <ngx-base-table
+                subtitle="Servicios"
+                [settings]="this.settings_table"
+                entity="assigned_management_plan/getByUserPatient/{{
+                  this.user_id
+                }}/{{ patient_id }}?management_plan_id={{
+                  this.management_plan_id
+                }}"
+                customData="assigned_management_plan"
+              >
+              </ngx-base-table>
+            </div>
+          </ngx-base-list>
+        </nb-card-body>
 
-    <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
-    </nb-card-footer>
-  </nb-card>
-</ng-template>
+        <nb-card-footer class="d-flex justify-content-end">
+          <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
   `,
   styleUrls: ['./pad-list.component.scss'],
 })
 export class Actions2Component implements ViewCell {
-  @Input() value: any;    // This hold the cell value
-  @Input() rowData: any;  // This holds the entire row object
+  @Input() value: any; // This hold the cell value
+  @Input() rowData: any; // This holds the entire row object
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   public management_id;
@@ -78,9 +112,8 @@ export class Actions2Component implements ViewCell {
     private authService: AuthService,
     private chRecordS: ChRecordService,
     private router: Router,
-    private toastService: NbToastrService,
-  ) {
-  }
+    private toastService: NbToastrService
+  ) {}
 
   public settings_table = {
     pager: {
@@ -94,13 +127,13 @@ export class Actions2Component implements ViewCell {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'user': this.own_user,
-            'refresh': this.RefreshData.bind(this),
-            'openEF':this.NewChRecord.bind(this),
-            'currentRole': this.value.currentRole,
-            'edit': this.EditAssigned.bind(this),
-            'closeDialog': this.closeDialog.bind(this),
+            data: row,
+            user: this.own_user,
+            refresh: this.RefreshData.bind(this),
+            openEF: this.NewChRecord.bind(this),
+            // currentRole: this.value.currentRole,
+            edit: this.EditAssigned.bind(this),
+            closeDialog: this.closeDialog.bind(this),
           };
         },
         renderComponent: Actions4Component,
@@ -139,10 +172,12 @@ export class Actions2Component implements ViewCell {
         type: 'string',
       },
       start_hour: {
-        title: 'Hora de aplicación',
+        title: 'Hora de Aplicación',
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.management_plan.type_of_attention_id != 17 ? 'N.A.' : value;
+          return row.management_plan.type_of_attention_id != 17
+            ? 'N.A.'
+            : value;
         },
       },
     },
@@ -169,25 +204,31 @@ export class Actions2Component implements ViewCell {
   }
 
   async NewChRecord(data) {
-    await this.chRecordS.Save({
-      status: 'ACTIVO',
-      admissions_id: data.management_plan.admissions_id,
-      assigned_management_plan: data.id,
-      user_id: data.user_id,
-      type_of_attention_id: data.management_plan.type_of_attention_id,
-    }).then(x => {
-      this.ch_record=x.data.ch_record.id;
-      // this.openCHEF(data,this.ch_record)
-      this.closeDialog();
-      this.router.navigateByUrl('/pages/clinic-history/clinic-history-nursing-list/' + this.ch_record + '/'+ data.id);
-      this.toastService.success('', x.message);
-      this.RefreshData();
-      
-    }).catch(x => {
-      // this.isSubmitted = false;
-      // this.loading = false;
-    });
-
+    await this.chRecordS
+      .Save({
+        status: 'ACTIVO',
+        admissions_id: data.management_plan.admissions_id,
+        assigned_management_plan: data.id,
+        user_id: data.user_id,
+        type_of_attention_id: data.management_plan.type_of_attention_id,
+      })
+      .then((x) => {
+        this.ch_record = x.data.ch_record.id;
+        // this.openCHEF(data,this.ch_record)
+        this.closeDialog();
+        this.router.navigateByUrl(
+          '/pages/clinic-history/clinic-history-nursing-list/' +
+            this.ch_record +
+            '/' +
+            data.id
+        );
+        this.toastService.success('', x.message);
+        this.RefreshData();
+      })
+      .catch((x) => {
+        // this.isSubmitted = false;
+        // this.loading = false;
+      });
   }
 
   EditAssigned(data) {
@@ -201,5 +242,4 @@ export class Actions2Component implements ViewCell {
     //   },
     // });
   }
-
 }

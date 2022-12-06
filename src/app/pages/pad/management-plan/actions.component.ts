@@ -19,59 +19,130 @@ import { Actions4Component } from '../assigned-management-plan/actions.component
 
 @Component({
   template: `
-  <div class="d-flex justify-content-center" *ngIf="this.value.data">
-      <a *ngIf="value.data.id && value.user.id" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top"
-          nbTooltipStatus="primary" nbButton ghost
-          [routerLink]="'/pages/pad/assigned-management-plan/' + value.data.id+'/'+value.user.id">
-          <nb-icon icon="menu-outline"></nb-icon>
+    <div
+      class="d-flex justify-content-center"
+      *ngIf="value.navigation && this.value.data"
+    >
+      <a
+        *ngIf="value.data.id && value.user.id"
+        nbTooltip="Ejecución plan de manejo"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        [routerLink]="
+          '/pages/pad/assigned-management-plan/' +
+          value.data.id +
+          '/' +
+          value.user.id
+        "
+      >
+        <nb-icon icon="menu-outline"></nb-icon>
       </a>
-      <a *ngIf="value.data.admissions.id && value.user.id" nbTooltip="Consentimientos Informados" nbTooltipPlacement="top"
-          nbTooltipStatus="primary" nbButton ghost
-          [routerLink]="'/pages/pad/consents-informed/' + value.data.admissions.id+'/'+value.user.id">
-          <nb-icon icon="file-text-outline"></nb-icon>
+      <a
+        *ngIf="value.data.admissions.id && value.user.id"
+        nbTooltip="Consentimientos Informados"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        [routerLink]="
+          '/pages/pad/consents-informed/' +
+          value.data.admissions.id +
+          '/' +
+          value.user.id
+        "
+      >
+        <nb-icon icon="file-text-outline"></nb-icon>
       </a>
-      <a *ngIf="value.data.assigned_user_id==null" nbTooltip="Asignación de personal" nbTooltipPlacement="top"
-          nbTooltipStatus="primary" nbButton ghost (click)="value.assignedUser(value.data)">
-          <nb-icon icon="person-add-outline"></nb-icon>
+      <a
+        *ngIf="value.data.assigned_user_id == null"
+        nbTooltip="Asignación de personal"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="value.assignedUser(value.data)"
+      >
+        <nb-icon icon="person-add-outline"></nb-icon>
       </a>
-      <button *ngIf="value.currentRole == 2" nbTooltip="Próximos servicios" nbTooltipPlacement="top" nbTooltipStatus="primary"
-          nbButton ghost (click)="ShowPreBilling(AssignedTable, value.data.admissions.patient_id)">
-          <nb-icon icon="eye-outline"></nb-icon>
+      <button
+        *ngIf="value.currentRole == 2"
+        nbTooltip="Próximos servicios"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="
+          ShowPreBilling(AssignedTable, value.data.admissions.patient_id)
+        "
+      >
+        <nb-icon icon="eye-outline"></nb-icon>
       </button>
-      <button *ngIf="value.currentRole == 1" nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
+      <button
+        *ngIf="value.currentRole == 1"
+        nbTooltip="Editar"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="value.edit(value.data)"
+      >
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
-  </div>
+    </div>
 
-  <ng-template #AssignedTable>
-  <nb-card style="width: 100%;height: 100%;overflow: auto;">
-    <nb-card-header>
-      Próximos servicios
-    </nb-card-header>
-    <nb-card-body>
-      <ngx-base-list [messageError]="messageError">
-        <div content>
-          <ngx-base-table
-          subtitle="Servicios" 
-          [settings]="this.settings_table" 
-          entity="assigned_management_plan/getByUserPatient/{{this.user_id}}/{{patient_id}}?management_plan_id={{this.management_plan_id}}" 
-          customData="assigned_management_plan">
-    </ngx-base-table>
-        </div>
-      </ngx-base-list>
-    </nb-card-body>
+    <div class="d-flex justify-content-center" *ngIf="!value.navigation">
+      <a
+        *ngIf="value.data.id && value.user_id"
+        nbTooltip="Ejecución plan de manejo"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        [routerLink]="
+          '/pages/pad/assigned-management-plan/' +
+          value.data.id +
+          '/' +
+          value.user_id
+        "
+      >
+        <nb-icon icon="menu-outline"></nb-icon>
+      </a>
+    </div>
 
-    <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
-    </nb-card-footer>
-  </nb-card>
-</ng-template>
+    <ng-template #AssignedTable>
+      <nb-card style="width: 100%;height: 100%;overflow: auto;">
+        <nb-card-header> Próximos servicios </nb-card-header>
+        <nb-card-body>
+          <ngx-base-list [messageError]="messageError">
+            <div content>
+              <ngx-base-table
+                subtitle="Servicios"
+                [settings]="this.settings_table"
+                entity="assigned_management_plan/getByUserPatient/{{
+                  this.user_id
+                }}/{{ patient_id }}?management_plan_id={{
+                  this.management_plan_id
+                }}"
+                customData="assigned_management_plan"
+              >
+              </ngx-base-table>
+            </div>
+          </ngx-base-list>
+        </nb-card-body>
+
+        <nb-card-footer class="d-flex justify-content-end">
+          <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
   `,
   styleUrls: ['./management-plan.component.scss'],
 })
 export class ActionsComponent implements ViewCell {
-  @Input() value: any;    // This hold the cell value
-  @Input() rowData: any;  // This holds the entire row object
+  @Input() value: any; // This hold the cell value
+  @Input() rowData: any; // This holds the entire row object
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public today;
   public show;
@@ -88,9 +159,8 @@ export class ActionsComponent implements ViewCell {
     private authService: AuthService,
     private chRecordS: ChRecordService,
     private router: Router,
-    private toastService: NbToastrService,
-  ) {
-  }
+    private toastService: NbToastrService
+  ) {}
 
   public settings_table = {
     pager: {
@@ -104,13 +174,13 @@ export class ActionsComponent implements ViewCell {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'user': this.own_user,
-            'refresh': this.RefreshData.bind(this),
-            'openEF':this.NewChRecord.bind(this),
-            'currentRole': this.value.currentRole,
-            'edit': this.EditAssigned.bind(this),
-            'closeDialog': this.closeDialog.bind(this),
+            data: row,
+            user: this.own_user,
+            refresh: this.RefreshData.bind(this),
+            openEF: this.NewChRecord.bind(this),
+            // currentRole: this.value.currentRole,
+            edit: this.EditAssigned.bind(this),
+            closeDialog: this.closeDialog.bind(this),
           };
         },
         renderComponent: Actions4Component,
@@ -149,16 +219,19 @@ export class ActionsComponent implements ViewCell {
         type: 'string',
       },
       start_hour: {
-        title: 'Hora de aplicación',
+        title: 'Hora de Aplicación',
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.management_plan.type_of_attention_id != 17 ? 'N.A.' : value;
+          return row.management_plan.type_of_attention_id != 17
+            ? 'N.A.'
+            : value;
         },
       },
     },
   };
 
   async ngOnInit() {
+    this.value;
     this.management_plan_id = this.value.data.id;
     this.own_user = this.authService.GetUser();
   }
@@ -178,25 +251,31 @@ export class ActionsComponent implements ViewCell {
   }
 
   async NewChRecord(data) {
-    await this.chRecordS.Save({
-      status: 'ACTIVO',
-      admissions_id: data.management_plan.admissions_id,
-      assigned_management_plan: data.id,
-      user_id: data.user_id,
-      type_of_attention_id: data.management_plan.type_of_attention_id,
-    }).then(x => {
-      this.ch_record=x.data.ch_record.id;
-      // this.openCHEF(data,this.ch_record)
-      this.closeDialog();
-      this.router.navigateByUrl('/pages/clinic-history/clinic-history-nursing-list/' + this.ch_record + '/'+ data.id);
-      this.toastService.success('', x.message);
-      this.RefreshData();
-      
-    }).catch(x => {
-      // this.isSubmitted = false;
-      // this.loading = false;
-    });
-
+    await this.chRecordS
+      .Save({
+        status: 'ACTIVO',
+        admissions_id: data.management_plan.admissions_id,
+        assigned_management_plan: data.id,
+        user_id: data.user_id,
+        type_of_attention_id: data.management_plan.type_of_attention_id,
+      })
+      .then((x) => {
+        this.ch_record = x.data.ch_record.id;
+        // this.openCHEF(data,this.ch_record)
+        this.closeDialog();
+        this.router.navigateByUrl(
+          '/pages/clinic-history/clinic-history-nursing-list/' +
+            this.ch_record +
+            '/' +
+            data.id
+        );
+        this.toastService.success('', x.message);
+        this.RefreshData();
+      })
+      .catch((x) => {
+        // this.isSubmitted = false;
+        // this.loading = false;
+      });
   }
 
   EditAssigned(data) {
@@ -210,5 +289,4 @@ export class ActionsComponent implements ViewCell {
     //   },
     // });
   }
-
 }

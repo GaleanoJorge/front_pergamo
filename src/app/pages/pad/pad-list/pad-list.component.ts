@@ -35,13 +35,13 @@ export class PadListComponent implements OnInit {
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Programa de atención domiciliaria';
+  public title: string = 'Programa de Atención Domiciliaria';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = [
-    'Tipo de documento',
-    'Número de documento',
-    'Nombre completo',
-    'Tipo de atención',
+    'Tipo de Documento',
+    'Número de Documento',
+    'Nombre Completo',
+    'Tipo de Atención',
     'Ciudad',
     'Barrio',
     'Dirección',
@@ -52,7 +52,8 @@ export class PadListComponent implements OnInit {
     'Total Ejecutado',
     'Teléfono',
   ];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[1]}, ${this.headerFields[2]}, 
+  ${this.headerFields[4]}, ${this.headerFields[7]}, ${this.headerFields[8]}`;
   public icon: string = 'nb-star';
   public data = [];
   public arrayBuffer: any;
@@ -68,12 +69,12 @@ export class PadListComponent implements OnInit {
   public result: any = null;
   public status_type = [
     { id: 0 + 1, color: '#28B463', name: 'Cumplido' },
-    { id: 1 + 1, color: '#54BCC1', name: 'Admisión creada' },
-    { id: 2 + 1, color: '#FF0000', name: 'Sin agendar' },
-    { id: 6 + 1, color: '#0000FF', name: 'Proyección creada' },
-    { id: 3 + 1, color: '#FFFF00', name: 'Sin asignar profesional' },
-    { id: 4 + 1, color: '#7A39BB', name: 'Por subsanar' },
-    { id: 5 + 1, color: '#FF7000', name: 'Pendiente por ejecutar' },
+    { id: 1 + 1, color: '#54BCC1', name: 'Admisión Creada' },
+    { id: 2 + 1, color: '#FF0000', name: 'Sin Agendar' },
+    { id: 6 + 1, color: '#0000FF', name: 'Proyección Creada' },
+    { id: 3 + 1, color: '#FFFF00', name: 'Sin Asignar Profesional' },
+    { id: 4 + 1, color: '#7A39BB', name: 'Por Subsanar' },
+    { id: 5 + 1, color: '#FF7000', name: 'Pendiente por Ejecutar' },
   ];
   public eps_id = null;
   public campus_id;
@@ -82,16 +83,17 @@ export class PadListComponent implements OnInit {
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
-  public settings={}
+  public settings = {};
   public settings1 = {
     pager: {
       display: true,
       perPage: 30,
     },
-    
+
+    //Generando Tabla de Registro del PAD
     columns: {
       semaphore: {
-        title: '',
+        title: 'Estado',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -99,6 +101,7 @@ export class PadListComponent implements OnInit {
             data: row,
             user: this.user,
             currentRole: this.currentRole.role_type_id,
+            navigation: this.navigation,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -116,6 +119,7 @@ export class PadListComponent implements OnInit {
             delete: this.DeleteConfirmGloss.bind(this),
             refresh: this.RefreshData.bind(this),
             currentRole: this.currentRole.role_type_id,
+            navigation: this.navigation,
           };
         },
         renderComponent: Actions2Component,
@@ -191,7 +195,7 @@ export class PadListComponent implements OnInit {
       display: true,
       perPage: 30,
     },
-    
+
     columns: {
       semaphore: {
         title: '',
@@ -201,6 +205,7 @@ export class PadListComponent implements OnInit {
           return {
             data: row,
             user: this.user,
+            navigation: this.navigation,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -217,6 +222,7 @@ export class PadListComponent implements OnInit {
             edit: this.EditGloss.bind(this),
             delete: this.DeleteConfirmGloss.bind(this),
             refresh: this.RefreshData.bind(this),
+            navigation: this.navigation,
           };
         },
         renderComponent: Actions2Component,
@@ -306,7 +312,7 @@ export class PadListComponent implements OnInit {
     public roleBS: RoleBusinessService,
     private CompanyS: CompanyService,
     private userAgService: UserAgreementService,
-    private dbPouch: DbPwaService,
+    private dbPouch: DbPwaService
   ) {}
   public form: FormGroup;
   public ResponseGlossForm: FormGroup;
@@ -315,10 +321,9 @@ export class PadListComponent implements OnInit {
   public objetion_code_response: any[] = null;
   public objetion_response: any[] = null;
   public saved: any = null;
-
+  public navigation: boolean;
 
   async ngOnInit() {
-
     // var x = document.getElementById('conectionOn');
     // var y = document.getElementById('conectionOff');
 
@@ -328,58 +333,52 @@ export class PadListComponent implements OnInit {
     // } else {
     //   x.style.display = 'none';
     //   y.style.display = 'block';
-      
+
     // }
-    
-    
-    if(!!navigator.onLine){
-
-    this.settings=this.settings1;
-
-    this.user = this.authService.GetUser();
-    this.user_id = this.user.id;
-    this.campus_id = +localStorage.getItem('campus');
-    var curr = this.authService.GetRole();
-    this.currentRole = this.user.roles.find((x) => {
-      return x.id == curr;
-    });
-    if (this.currentRole.role_type_id == 2) {
-      this.entity =
-        'patient/byPAD/2/' + this.user_id + '?campus_id=' + this.campus_id;
-    } else {
-      this.entity = 'patient/byPAD/2/0?campus_id=' + this.campus_id;
-    }
-
-    // this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
-    //   this.company = x;
-    // });
-
-    this.CompanyS.GetCollection().then((x) => {
-      this.company = x;
-    });
-
-    var a = this.currentRole.role_type_id == 2 ? this.user_id : '0';
-    this.PatientBS.PatientByPad(a, {
-      campus_id: this.campus_id,
-    }).then((x) => {
-      this.patients = x;
-
-    });
-  }
-  else{
-
-    this.settings=this.settings2;
-
-    let dataTable= new PouchDB('pad');
-    dataTable.get('pad', function(err,doc){
-      if(err){
-        console.log(err);
+    this.navigation = navigator.onLine;
+    if (navigator.onLine) {
+      this.settings = this.settings1;
+      this.user = this.authService.GetUser();
+      this.user_id = this.user.id;
+      this.campus_id = localStorage.getItem('campus');
+      var curr = this.authService.GetRole();
+      this.currentRole = this.user.roles.find((x) => {
+        return x.id == curr;
+      });
+      this.dbPouch.saveData('currentRole', this.currentRole);
+      if (this.currentRole.role_type_id == 2) {
+        this.entity =
+          'patient/byPAD/2/' + this.user_id + '?campus_id =' + this.campus_id;
+      } else {
+        this.entity = 'patient/byPAD/2/0?campus_id=' + this.campus_id;
       }
-    }).then((x)=>{
-      this.patients=x.data;
-      
-    })
-  }
+
+      // this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
+      //   this.company = x;
+      // });
+
+      this.CompanyS.GetCollection().then((x) => {
+        this.company = x;
+      });
+      var a = this.currentRole.role_type_id == 2 ? this.user_id : '0';
+      this.PatientBS.PatientByPad(a, {
+        campus_id: this.campus_id,
+      }).then((x) => {
+        this.patients = x;
+      });
+    } else {
+      this.settings = this.settings2;
+      let dataTable = new PouchDB('pad');
+      dataTable
+        .get('pad', function (err, doc) {
+          if (err) {
+            console.log(err);
+          }
+        })
+        .then((x) => {
+          this.patients = x.data;
+        });
+    }
   }
 
   ConfirmAction(dialog: TemplateRef<any>) {
@@ -394,7 +393,7 @@ export class PadListComponent implements OnInit {
   NewGloss() {
     this.dialogFormService.open(FormPadComponent, {
       context: {
-        title: 'Crear nueva glosa',
+        title: 'Crear Nueva Glosa',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -403,7 +402,7 @@ export class PadListComponent implements OnInit {
   EditGloss(data) {
     this.dialogFormService.open(FormPadComponent, {
       context: {
-        title: 'Editar glosa',
+        title: 'Editar Glosa',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -427,7 +426,7 @@ export class PadListComponent implements OnInit {
     if (!this.ResponseGlossForm.invalid) {
       if (!this.selectedOptions.length) {
         this.dialog = this.dialog.close();
-        this.toastS.danger(null, 'Debe seleccionar un registro');
+        this.toastS.danger(null, 'Debe Seleccionar un Registro');
       } else {
         this.loading = true;
         this.dialog.close();

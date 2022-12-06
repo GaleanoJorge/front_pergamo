@@ -51,23 +51,20 @@ export class BaseTableComponent implements OnInit, OnDestroy {
       .subscribe((model) => {
         this.source.setSearch(model);
       });
-      
-      if(!!navigator.onLine){
-        if (!this.source && !this.entity) {
-          throw Error('Debe configurarse una entidad o un data source');
-        }
-    
-        /*Iniciando el source*/
-        if (!this.source && this.entity) {
-          this.initSource();
-        }
 
+    if (navigator.onLine) {
+      if (!this.source && !this.entity) {
+        throw Error('Debe configurarse una entidad o un data source');
       }
-      else{
+
+      /*Iniciando el source*/
+      if (!this.source && this.entity) {
         this.initSource();
       }
+    } else {
+      this.initSource();
+    }
 
-   
     this.configSettigs();
   }
 
@@ -140,7 +137,7 @@ export class BaseTableComponent implements OnInit, OnDestroy {
   }
 
   initSource() {
-    if (!!navigator.onLine) {
+    if (navigator.onLine) {
       // el navegador está conectado a la red
 
       this.source = new ServerDataSourceCustom(
@@ -162,32 +159,14 @@ export class BaseTableComponent implements OnInit, OnDestroy {
       });
       this.source.onChangedSource.subscribe((e) => {
         if (this.idTable && !this.userId) {
-          this.dbPouch.saveData(this.idTable, this.source.data);
-          this.dbPouch.Updatedata(this.idTable, this.source.data);
-        } else if (this.idTable && this.userId) {
-          this.dbPouch.savePlan(
-            this.idTable,
-            this.source.data,
-            this.idTable + this.userId
-          );
-          this.dbPouch.UpdatePlan(
-            this.idTable,
-            this.source.data,
-            this.idTable + this.userId
-          );
+          this.dbPouch.saveData(this.idTable, e.elements);
+        } else {
+          this.dbPouch.saveData(this.idTable + '_' + this.userId, e.elements);
         }
         setTimeout(() => {
           this.loading = false;
         });
       });
-    } else {
-      if (this.idTable && !this.userId) {
-
-       this.dbPouch.getData(this.idTable);
-
-      } else if (this.idTable && this.userId) {
-        this.dbPouch.getPlan(this.idTable, this.idTable+this.userId);
-      }
     }
   }
 

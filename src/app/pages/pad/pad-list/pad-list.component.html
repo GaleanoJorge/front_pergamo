@@ -1,43 +1,57 @@
 <ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
-
-    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity" idTable="pad" customData="patients"
-      [messageToltip]="messageToltip" [source]="patients"> 
-      <div title >
-        <div><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div>
+    <ngx-base-table
+      [title]="title"
+      [subtitle]="subtitle"
+      [settings]="settings"
+      [entity]="entity"
+      idTable="pad"
+      customData="patients"
+      [messageToltip]="messageToltip"
+      [source]="patients"
+    >
+      <div title>
+        <div>
+          <b *ngIf="this.patients"
+            >TOTAL PACIENTES:
+            {{
+              this.patients.patients
+                ? this.patients.patients.length
+                : this.patients.length
+            }}</b
+          >
+        </div>
       </div>
       <div actions>
         <div class="actions">
-          
-          <div  style="margin-right: 10px; width: 250px">
-            <nb-select placeholder="Filtrar por estado" fullWidth (selectedChange)="changeSemaphore($event)">
-              <nb-option value="">Sin filtro</nb-option>
+          <div style="margin-right: 5px; width: 250px">
+            <nb-select
+              placeholder="Filtrar por Estado"
+              fullWidth
+              (selectedChange)="changeSemaphore($event)"
+            >
+              <nb-option value="">Sin Filtro</nb-option>
               <nb-option *ngFor="let item of status_type" [value]="item.id">
-                <div class="cuadro" [style]="'background-color: ' + item.color + ';'" style="margin-right: 10px;">
-                </div>
+                <div
+                  class="cuadro"
+                  [style]="'background-color: ' + item.color + ';'"
+                  style="margin-right: 10px"
+                ></div>
                 {{ item.name }}
-              </nb-option> 
+              </nb-option>
             </nb-select>
           </div>
-          <nb-select  (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
-            <nb-option >Todos los convenios</nb-option>
-            <nb-option *ngFor="let item of company" [value]="item.id">Convenio: {{item.name}}</nb-option>
+          <nb-select
+            (selectedChange)="FilterAgreement($event)"
+            placeholder="Filtrar por Convenio"
+          >
+            <nb-option>Todos los Convenios</nb-option>
+            <nb-option *ngFor="let item of company" [value]="item.id">{{
+              item.name
+            }}</nb-option>
           </nb-select>
         </div>
-        
       </div>
     </ngx-base-table>
-
-
-
-    <!-- <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity" idTable="pad"
-      [messageToltip]="messageToltip" [source]="patients" id="conectionOff">
-
-      <div><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div>
-
-    </ngx-base-table> -->
-
-
-
   </div>
 </ngx-base-list>

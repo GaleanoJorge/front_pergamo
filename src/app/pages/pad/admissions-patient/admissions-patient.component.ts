@@ -1,9 +1,15 @@
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
-import {Component, OnInit,Input,TemplateRef,ViewChild} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { ActionsPadComponent } from './actions.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Patient } from '../../../models/patient';
@@ -24,14 +30,32 @@ export class AdmissionsPatientPadComponent implements OnInit {
   public messageError = null;
   public title;
   public subtitle = 'Por usuario';
-  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ruta','Tipo de atención','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Portafolio','Regimen','Fecha Ingreso','Fecha Egreso','Salida Medica', 'EPS', 'Total Agendado', 'Total Ejecutado'];
+  public headerFields: any[] = [
+    'Consecutivo de Ingreso',
+    'Ruta',
+    'Tipo de Atención',
+    'Programa',
+    'Sede',
+    'Piso',
+    'Pabellón',
+    'Cama/Consultorio',
+    'Contrato',
+    'Portafolio',
+    'Regimen',
+    'Fecha Ingreso',
+    'Fecha Egreso',
+    'Salida Médica',
+    'EPS',
+    'Total Agendado',
+    'Total Ejecutado',
+  ];
   public routes = [];
   public course;
-  public data= [];
+  public data = [];
   public user_id;
   public patient_id;
-  public date_end:boolean = true;
-  public cont=0;
+  public date_end: boolean = true;
+  public cont = 0;
   public user;
   public ambit;
   public program;
@@ -43,9 +67,8 @@ export class AdmissionsPatientPadComponent implements OnInit {
   public admission_route_id;
   public admission_id;
   public currentRole;
-  public settings={};
+  public settings = {};
   public admissions;
-
 
   public settings1 = {
     columns: {
@@ -54,9 +77,9 @@ export class AdmissionsPatientPadComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'user': this.user,
-            'currentRole': this.currentRole.role_type_id,
+            data: row,
+            user: this.user,
+            currentRole: this.currentRole.role_type_id,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -67,10 +90,10 @@ export class AdmissionsPatientPadComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'delete': this.DeleteConfirmAdmissions.bind(this),
-            'refresh': this.RefreshData.bind(this),
-            'user_id': this.patient_id,
+            data: row,
+            delete: this.DeleteConfirmAdmissions.bind(this),
+            refresh: this.RefreshData.bind(this),
+            user_id: this.patient_id,
           };
         },
         renderComponent: ActionsPadComponent,
@@ -79,19 +102,19 @@ export class AdmissionsPatientPadComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          this.admission_id=value[value.length - 1].id;
-          this.admission_route_id=value[value.length - 1].admission_route_id;
-          this.ambit=value[value.length - 1].scope_of_attention.name;
-          this.program=value[value.length - 1].program.name;
-          if(value[value.length - 1].pavilion){
-          this.flat=value[value.length - 1].flat.name;
-          this.pavilion=value[value.length - 1].pavilion.name;
-          this.bed=value[value.length - 1].bed.name;
-          this.bed_id=value[value.length - 1].bed.id;
-          }else{
-            this.flat='';
-            this.pavilion='';
-            this.bed='';
+          this.admission_id = value[value.length - 1].id;
+          this.admission_route_id = value[value.length - 1].admission_route_id;
+          this.ambit = value[value.length - 1].scope_of_attention.name;
+          this.program = value[value.length - 1].program.name;
+          if (value[value.length - 1].pavilion) {
+            this.flat = value[value.length - 1].flat.name;
+            this.pavilion = value[value.length - 1].pavilion.name;
+            this.bed = value[value.length - 1].bed.name;
+            this.bed_id = value[value.length - 1].bed.id;
+          } else {
+            this.flat = '';
+            this.pavilion = '';
+            this.bed = '';
           }
           return value[value.length - 1].admission_route.name;
         },
@@ -141,19 +164,19 @@ export class AdmissionsPatientPadComponent implements OnInit {
       entry_date: {
         title: this.headerFields[11],
         type: 'date',
-      },      
+      },
       medical_date: {
         title: this.headerFields[13],
         type: 'date',
-      },     
+      },
       discharge_date: {
         title: this.headerFields[12],
         type: 'date',
         valuePrepareFunction: (value, row) => {
-          if(value=='0000-00-00 00:00:00' && this.cont!=1){
+          if (value == '0000-00-00 00:00:00' && this.cont != 1) {
             this.date_end = false;
-            this.cont = + 1;
-          }else if(this.cont==0){
+            this.cont = +1;
+          } else if (this.cont == 0) {
             this.date_end = true;
           }
           return value;
@@ -169,8 +192,8 @@ export class AdmissionsPatientPadComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'user': this.user,
+            data: row,
+            user: this.user,
           };
         },
         renderComponent: ActionsSemaphore2Component,
@@ -181,10 +204,10 @@ export class AdmissionsPatientPadComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'delete': this.DeleteConfirmAdmissions.bind(this),
-            'refresh': this.RefreshData.bind(this),
-            'user_id': this.patient_id,
+            data: row,
+            delete: this.DeleteConfirmAdmissions.bind(this),
+            refresh: this.RefreshData.bind(this),
+            user_id: this.patient_id,
           };
         },
         renderComponent: ActionsPadComponent,
@@ -193,19 +216,19 @@ export class AdmissionsPatientPadComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          this.admission_id=value[value.length - 1].id;
-          this.admission_route_id=value[value.length - 1].admission_route_id;
-          this.ambit=value[value.length - 1].scope_of_attention.name;
-          this.program=value[value.length - 1].program.name;
-          if(value[value.length - 1].pavilion){
-          this.flat=value[value.length - 1].flat.name;
-          this.pavilion=value[value.length - 1].pavilion.name;
-          this.bed=value[value.length - 1].bed.name;
-          this.bed_id=value[value.length - 1].bed.id;
-          }else{
-            this.flat='';
-            this.pavilion='';
-            this.bed='';
+          this.admission_id = value[value.length - 1].id;
+          this.admission_route_id = value[value.length - 1].admission_route_id;
+          this.ambit = value[value.length - 1].scope_of_attention.name;
+          this.program = value[value.length - 1].program.name;
+          if (value[value.length - 1].pavilion) {
+            this.flat = value[value.length - 1].flat.name;
+            this.pavilion = value[value.length - 1].pavilion.name;
+            this.bed = value[value.length - 1].bed.name;
+            this.bed_id = value[value.length - 1].bed.id;
+          } else {
+            this.flat = '';
+            this.pavilion = '';
+            this.bed = '';
           }
           return value[value.length - 1].admission_route.name;
         },
@@ -255,19 +278,19 @@ export class AdmissionsPatientPadComponent implements OnInit {
       entry_date: {
         title: this.headerFields[11],
         type: 'date',
-      },      
+      },
       medical_date: {
         title: this.headerFields[13],
         type: 'date',
-      },     
+      },
       discharge_date: {
         title: this.headerFields[12],
         type: 'date',
         valuePrepareFunction: (value, row) => {
-          if(value=='0000-00-00 00:00:00' && this.cont!=1){
+          if (value == '0000-00-00 00:00:00' && this.cont != 1) {
             this.date_end = false;
-            this.cont = + 1;
-          }else if(this.cont==0){
+            this.cont = +1;
+          } else if (this.cont == 0) {
             this.date_end = true;
           }
           return value;
@@ -285,19 +308,18 @@ export class AdmissionsPatientPadComponent implements OnInit {
     private UserBS: UserBusinessService,
     private PatientBS: PatientService,
     private deleteConfirmService: NbDialogService,
-    private location: Location,
+    private location: Location
   ) {
     this.routes = [
       {
         name: 'Pacientes',
-        route:'/pages/pad/list',
+        route: '/pages/pad/list',
       },
       {
-        name: 'Admisiones del paciente',
+        name: 'Admisiones del Paciente',
         route: '../../admissions-patient/' + this.route.snapshot.params.user_id,
       },
     ];
-    
   }
 
   GetParams() {
@@ -306,47 +328,47 @@ export class AdmissionsPatientPadComponent implements OnInit {
     };
   }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.user = this.authService.GetUser();
-    this.patient_id= this.route.snapshot.params.patient_id;
-    this.user_id= this.route.snapshot.params.user_id;
+    this.patient_id = this.route.snapshot.params.patient_id;
+    this.user_id = this.route.snapshot.params.user_id;
     var curr = this.authService.GetRole();
-    this.currentRole = this.user.roles.find(x => {
+    this.currentRole = this.user.roles.find((x) => {
       return x.id == curr;
     });
-
-    if(!!navigator.onLine){
-      this.settings=this.settings1;
-    this.PatientBS.GetUserById(this.patient_id).then(x => {
-      if(x){
-        this.patient = x;
-        this.title= 'Admisiones de paciente: '+ this.patient.firstname  + ' ' + this.patient.lastname ;
-      }
-    });  }
-  else{
-
-    
-    this.settings=this.settings2;
-
-
-    let dataTable= new PouchDB('byPatient');
-    dataTable.get('byPatient', function(err,doc){
-      if(err){
-        console.log(err);
-      }
-    }).then((x)=>{
-      this.patient=x.data.id;
-    })
-  }}
+    //
+    if (navigator.onLine) {
+      this.settings = this.settings1;
+      this.PatientBS.GetUserById(this.patient_id).then((x) => {
+        if (x) {
+          this.patient = x;
+          this.title =
+            'Admisiones de Paciente: ' +
+            this.patient.firstname +
+            ' ' +
+            this.patient.lastname;
+        }
+      });
+    } else {
+      this.settings = this.settings2;
+      let dataTable = new PouchDB('byPatient');
+      dataTable
+        .get('byPatient', function (err, doc) {
+          if (err) {
+            console.log(err);
+          }
+        })
+        .then((x) => {
+          this.patient = x.data.id;
+        });
+    }
+  }
 
   back() {
     this.location.back();
-
- }
-
+  }
 
   RefreshData() {
-
     this.table.refresh();
   }
 
@@ -396,11 +418,14 @@ export class AdmissionsPatientPadComponent implements OnInit {
   }
 
   DeleteAdmissions(data) {
-    return this.admissionsS.Delete(data.id).then(x => {
-      this.table.refresh();
-      return Promise.resolve(x.message);
-    }).catch(x => {
-      throw x;
-    });
+    return this.admissionsS
+      .Delete(data.id)
+      .then((x) => {
+        this.table.refresh();
+        return Promise.resolve(x.message);
+      })
+      .catch((x) => {
+        throw x;
+      });
   }
 }

@@ -10,6 +10,7 @@ import { PatientService } from '../../../business-controller/patient.service';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { Location } from '@angular/common';
+import PouchDB from 'pouchdb-browser';
 import { AssignedManagementPlanService } from '../../../business-controller/assigned-management-plan.service';
 
 @Component({
@@ -28,9 +29,9 @@ export class ChRecordListComponent implements OnInit {
   public title = 'Registo Historia Clinica';
   public subtitle: string = '';
   public headerFields: any[] = [
-    'Fecha de registro',
+    'Fecha de Registro',
     'Personal Asistencial',
-    'Fecha de atención',
+    'Fecha de Atención',
     'Estado',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
@@ -47,6 +48,9 @@ export class ChRecordListComponent implements OnInit {
   public type_of_attention;
   public assigned;
   public show_labs = false;
+  public ch_record_list = null;
+  public navigation: boolean;
+  public id_table;
 
   public disabled: boolean = false;
   public showButtom: boolean = true;
@@ -75,6 +79,7 @@ export class ChRecordListComponent implements OnInit {
             assigned: this.assigned_management_plan,
             user: this.user,
             refresh: this.RefreshData.bind(this),
+            navigation: this.navigation,
           };
         },
         renderComponent: Actions5Component,
@@ -136,33 +141,51 @@ export class ChRecordListComponent implements OnInit {
     this.admissions_id = this.route.snapshot.params.id;
     this.assigned_management_plan = this.route.snapshot.params.id2;
     this.type_of_attention = this.route.snapshot.params.id3;
+    this.navigation = navigator.onLine;
+    this.id_table= "ch_record_list_"+this.admissions_id;
+    if (navigator.onLine) {
+      await this.admissionsS
+        .GetCollection({ admissions_id: this.admissions_id })
+        .then((x) => {
+          this.admissions = x;
+        });
 
-    await this.admissionsS
-      .GetCollection({ admissions_id: this.admissions_id })
-      .then((x) => {
-        this.admissions = x;
-      });
+      this.own_user = this.authService.GetUser();
 
-    this.own_user = this.authService.GetUser();
+      await this.patientBS
+        .GetUserById(this.admissions[0].patient_id)
+        .then((x) => {
+          this.user = x;
+        });
 
-    await this.patientBS
-      .GetUserById(this.admissions[0].patient_id)
-      .then((x) => {
-        this.user = x;
-      });
-
-      if(this.type_of_attention == 16){
+      if (this.type_of_attention == 16) {
         await this.assignedService
           .GetCollection({
             assigned_management_plan_id: this.assigned_management_plan,
           })
           .then((x) => {
             this.assigned = x;
-            if (this.assigned[0].management_plan.management_procedure.length > 0) {
+            if (
+              this.assigned[0].management_plan.management_procedure.length > 0
+            ) {
               this.show_labs = true;
             }
           });
       }
+      this.entity="ch_record/byadmission/"+this.admissions_id +"/"+this.assigned_management_plan;
+    } else {
+      var entry = 'ch_record_list_'+this.admissions_id;
+      let dataTable = new PouchDB(entry);
+      await dataTable
+        .get(entry, function (err, doc) {
+          if (err) {
+            console.log(err);
+          }
+        })
+        .then((x) => {
+          this.ch_record_list = x.data;
+        });
+    }
   }
 
   back() {

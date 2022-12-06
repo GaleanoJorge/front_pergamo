@@ -15,7 +15,6 @@ import { User } from '../../models/user';
 import { DbPwaService } from '../../services/authPouch.service';
 import PouchDB from 'pouchdb-browser';
 
-
 @Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
   public isSubmitted2 = false;
   public resetPasswordForm = false;
   public messageError: string = null;
-  public campus:any[]=[];
+  public campus: any[] = [];
   public campus2: any;
   public environmentInt: boolean;
   public app_version: string;
@@ -38,7 +37,6 @@ export class LoginComponent implements OnInit {
   private type_login = environment.login_sso;
   public showPassword = false;
   public user_db;
-
 
   public register: boolean = false;
 
@@ -53,16 +51,12 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private itemBS: ItemRolePermissionBusinessService,
     private http: HttpClient,
-    private dbPwaService: DbPwaService,
-    
-  ) {    this.user_db = new PouchDB('login_db'); }
+    private dbPwaService: DbPwaService
+  ) {
+    this.user_db = new PouchDB('login_db');
+  }
 
   ngOnInit(): void {
-
- 
-
-   
-
     if (this.type_login == 'true') {
       this.sso = true;
       let path;
@@ -154,73 +148,65 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    if(!!navigator.onLine){
-    this.isSubmitted = true;
-  
-    if (!this.loginForm.invalid) {
-      this.authService
-        .Login(
-          this.loginForm.controls.username.value,
-          this.loginForm.controls.password.value
-        )
-        .then((x) => {
-          this.userBS
-            .GetUser()
-            .then(async (x) => {
-              if (x && x.roles.length > 0) {
-               
-                this.authService.SaveUser(x);
-                this.campus = await this.userCampusBS.GetCollection(
-                  this.authService.GetUser().id,
-                  { status_id: 1 }
-                );
-
-                this.dbPwaService.saveUser(x,this.loginForm.controls.username.value, this.loginForm.controls.password.value,this.campus,"a",);
-
-
-                await this.itemBS.GetCollection(this.authService.GetRole(),this.loginForm.controls.username.value);
-
-              } else {
-                this.messageError = 'No tiene ningún rol asociado';
-              }
-            })
-            .catch((x) => {
-              this.messageError = null;
-            });
-        })
-        .catch((x) => {
-          this.messageError = null;
-        });
-    }
-  }
-  
-  else{
-    let user= this.loginForm.controls.username.value;
-    let pass= this.loginForm.controls.password.value;
-
-//  this.campus2=this.dbPwaService.returnCampus(user);
-
-//  console.log(this.campus2);
-
-    this.user_db.get(user).then(x =>  {
-      if(x.user==user && x.pass==pass){
-   
-        this.campus=x.campus;
-        this.authService.SaveUser(x.userAll);
-        localStorage.setItem(
-          'permissions',
-          JSON.stringify(x.permission)
-        );
-        return Promise.resolve(true);
-       
+    if (navigator.onLine) {
+      this.isSubmitted = true;
+      if (!this.loginForm.invalid) {
+        this.authService
+          .Login(
+            this.loginForm.controls.username.value,
+            this.loginForm.controls.password.value
+          )
+          .then((x) => {
+            this.userBS
+              .GetUser()
+              .then(async (x) => {
+                if (x && x.roles.length > 0) {
+                  this.authService.SaveUser(x);
+                  this.campus = await this.userCampusBS.GetCollection(
+                    this.authService.GetUser().id,
+                    { status_id: 1 }
+                  );
+                  this.dbPwaService.saveUser(
+                    x,
+                    this.loginForm.controls.username.value,
+                    this.loginForm.controls.password.value,
+                    this.campus
+                  );
+                  await this.itemBS.GetCollection(
+                    this.authService.GetRole(),
+                    this.loginForm.controls.username.value
+                  );
+                } else {
+                  this.messageError = 'No Existe un Rol Asociado';
+                }
+              })
+              .catch((x) => {
+                this.messageError = null;
+              });
+          })
+          .catch((x) => {
+            this.messageError = '';
+          });
       }
+    } else {
+      let user = this.loginForm.controls.username.value;
+      let pass = this.loginForm.controls.password.value;
+
+      //  this.campus2=this.dbPwaService.returnCampus(user);
+
+      //  console.log(this.campus2);
+
+      this.user_db.get(user).then((x) => {
+        if (x.user == user && x.password == pass) {
+          this.campus = x.location;
+          this.authService.SaveUser(x.metadataUser);
+          localStorage.setItem('permissions', JSON.stringify(x.permission));
+          return Promise.resolve(true);
+        }
       });
 
-      await this.itemBS.GetCollection(this.authService.GetRole(),user);
-     
-  
-  }
-  
+      await this.itemBS.GetCollection(this.authService.GetRole(), user);
+    }
   }
 
   async chargeCampus() {

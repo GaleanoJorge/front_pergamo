@@ -20,6 +20,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { ClinicHistoryNursingListComponent } from '../../clinic-history/clinic-history-nursing-list/clinic-history-nursing-list.component';
 import { Location } from '@angular/common';
+import PouchDB from 'pouchdb-browser';
 
 @Component({
   selector: 'ngx-assigned-management-plan',
@@ -27,7 +28,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./assigned-management-plan.component.scss'],
 })
 export class AssignedManagementPlanComponent implements OnInit {
-
   public isSubmitted = false;
   public entity: string;
   public loading: boolean = false;
@@ -36,7 +36,12 @@ export class AssignedManagementPlanComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Ejecución Plan de manejo';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de inicio', 'Fecha Final', 'Fecha de ejecución', 'Personal asistencial'];
+  public headerFields: any[] = [
+    'Fecha de inicio',
+    'Fecha Final',
+    'Fecha de ejecución',
+    'Personal asistencial',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -51,10 +56,9 @@ export class AssignedManagementPlanComponent implements OnInit {
   public own_user;
   public selectedOptions: any[] = [];
   public result: any = null;
+  public assigned_management_plan = null;
 
   public dynamicQueryParameter;
-
-
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -69,9 +73,9 @@ export class AssignedManagementPlanComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'getDate': this.statusSemaphor.bind(this),
-
+            data: row,
+            getDate: this.statusSemaphor.bind(this),
+            navigation: this.navigation,
           };
         },
         renderComponent: ActionsSemaphoreComponent,
@@ -82,12 +86,13 @@ export class AssignedManagementPlanComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'user': this.own_user,
-            'refresh': this.RefreshData.bind(this),
-            'openEF':this.NewChRecord.bind(this),
-            'currentRole': this.currentRole.role_type_id,
-            'edit': this.EditAssigned.bind(this),
+            data: row,
+            user: this.own_user,
+            refresh: this.RefreshData.bind(this),
+            openEF: this.NewChRecord.bind(this),
+            currentRole: this.currentRole.role_type_id,
+            edit: this.EditAssigned.bind(this),
+            navigation: this.navigation,
           };
         },
         renderComponent: Actions4Component,
@@ -122,8 +127,8 @@ export class AssignedManagementPlanComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'getDate': this.statusSemaphor.bind(this),
+            data: row,
+            getDate: this.statusSemaphor.bind(this),
           };
         },
         renderComponent: ActionsSemaphoreComponent,
@@ -134,12 +139,13 @@ export class AssignedManagementPlanComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'user': this.own_user,
-            'refresh': this.RefreshData.bind(this),
-            'currentRole': this.currentRole.role_type_id,
-            'openEF':this.NewChRecord.bind(this),
-            'edit': this.EditAssigned.bind(this),
+            data: row,
+            user: this.own_user,
+            refresh: this.RefreshData.bind(this),
+            currentRole: this.currentRole.role_type_id,
+            openEF: this.NewChRecord.bind(this),
+            edit: this.EditAssigned.bind(this),
+            navigation: this.navigation,
           };
         },
         renderComponent: Actions4Component,
@@ -149,7 +155,7 @@ export class AssignedManagementPlanComponent implements OnInit {
         type: 'string',
       },
       start_hour: {
-        title: 'Hora de aplicación',
+        title: 'Hora de Aplicación',
         type: 'string',
       },
       finish_date: {
@@ -178,8 +184,8 @@ export class AssignedManagementPlanComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'getDate': this.statusSemaphor.bind(this),
+            data: row,
+            getDate: this.statusSemaphor.bind(this),
           };
         },
         renderComponent: ActionsSemaphoreComponent,
@@ -190,12 +196,13 @@ export class AssignedManagementPlanComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
-            'data': row,
-            'user': this.own_user,
-            'refresh': this.RefreshData.bind(this),
-            'currentRole': this.currentRole.role_type_id,
-            'openEF':this.NewChRecord.bind(this),
-            'edit': this.EditAssigned.bind(this),
+            data: row,
+            user: this.own_user,
+            refresh: this.RefreshData.bind(this),
+            currentRole: this.currentRole.role_type_id,
+            openEF: this.NewChRecord.bind(this),
+            edit: this.EditAssigned.bind(this),
+            navigation: this.navigation,
           };
         },
         renderComponent: Actions4Component,
@@ -243,7 +250,6 @@ export class AssignedManagementPlanComponent implements OnInit {
   ];
 
   constructor(
-
     private formBuilder: FormBuilder,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -260,10 +266,8 @@ export class AssignedManagementPlanComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private chRecordS: ChRecordService,
-    private location: Location,
-
-  ) {
-  }
+    private location: Location
+  ) {}
   public form: FormGroup;
   public ResponseManagementPlanForm: FormGroup;
   public RadicationManagementPlanForm: FormGroup;
@@ -276,61 +280,93 @@ export class AssignedManagementPlanComponent implements OnInit {
   public semaphore;
   public ch_record;
   public show_labs = false;
-
-
-
-
-
+  public navigation: boolean;
 
   async ngOnInit() {
-    this.management_id = this.route.snapshot.params.management_id;
-    this.own_user = this.authService.GetUser();
-    await this.ManagementS.GetCollection({ management_id: this.management_id }).then(x => {
-      this.management = x;
-      if(this.management[0].management_procedure.length > 0){
-        this.show_labs = true;
+    this.navigation = navigator.onLine;
+    if (navigator.onLine) {
+      this.management_id = this.route.snapshot.params.management_id;
+      this.own_user = this.authService.GetUser();
+      await this.ManagementS.GetCollection({
+        management_id: this.management_id,
+      }).then((x) => {
+        this.management = x;
+        if (this.management[0].management_procedure.length > 0) {
+          this.show_labs = true;
+        }
+      });
+      if (this.management[0].type_of_attention_id == 17) {
+        this.settings = this.settings2;
+      } else if (this.management[0].type_of_attention_id == 12) {
+        this.settings = this.settings3;
+      } else {
+        this.settings = this.settings1;
       }
-    });
-    if (this.management[0].type_of_attention_id == 17) {
-      this.settings = this.settings2;
-    } else if (this.management[0].type_of_attention_id == 12) {
-      this.settings = this.settings3;
+      this.user = this.authService.GetUser();
+      var curr = this.authService.GetRole();
+      this.currentRole = this.own_user.roles.find((x) => {
+        return x.id == curr;
+      });
+      if (this.currentRole.role_type_id == 2) {
+        this.user_logged = this.authService.GetUser().id;
+        // this.user_logged=0;
+      } else {
+        this.user_logged = 0;
+      }
+
+      this.user_id = this.route.snapshot.params.user;
+
+      await this.patientBS.GetUserById(this.user_id).then((x) => {
+        this.user = x;
+        this.entity =
+          'assigned_management_plan/' +
+          this.management_id +
+          '/' +
+          this.user_logged +
+          '?patient=' +
+          this.user.admissions[0].id;
+      });
     } else {
-      this.settings = this.settings1;
+      let dataTableCurrent = new PouchDB('currentRole');
+      await dataTableCurrent
+        .get('currentRole', function (err, doc) {
+          if (err) {
+            console.log(err);
+          }
+        })
+        .then((x) => {
+          this.currentRole = x.data;
+        });
+      this.user_id = this.route.snapshot.params.user;
+      this.settings = this.settings2;
+
+      this.title = 'Plan de manejo paciente ';
+
+      // var entry = 'assigned_management_plan' + '_' + this.user_id;
+      var entry = 'assigned_management_plan';
+      let dataTable = new PouchDB(entry);
+      dataTable
+        .get(entry, function (err, doc) {
+          if (err) {
+            console.log(err);
+          }
+        })
+        .then((x) => {
+          this.assigned_management_plan = x.data;
+        });
     }
-    this.user = this.authService.GetUser();
-    var curr = this.authService.GetRole();
-    this.currentRole = this.own_user.roles.find(x => {
-      return x.id == curr;
-    });
-    if(this.currentRole.role_type_id==2){
-       this.user_logged= this.authService.GetUser().id;
-      // this.user_logged=0;
-
-    }else{
-      this.user_logged=0;
-    }
-
-    this.user_id = this.route.snapshot.params.user;
-
-    await this.patientBS.GetUserById(this.user_id).then(x => {
-      this.user = x;
-      this.entity = "assigned_management_plan/" + this.management_id + "/" + this.user_logged + "?patient=" + this.user.admissions[0].id;
-    });
   }
   back() {
     this.location.back();
-  };
+  }
 
   statusSemaphor(data) {
     var today = new Date().getTime();
-    var finish = new Date(data.finish_date+" 24:00").getTime();
+    var finish = new Date(data.finish_date + ' 24:00').getTime();
     var start = new Date(data.start_date).getTime();
     var execution = new Date(data.execution_date).getTime();
 
-
-
-    if(data.allow_redo == 1) {
+    if (data.allow_redo == 1) {
       this.semaphore = 5;
     } else if (today < start) {
       this.semaphore = 1;
@@ -341,15 +377,12 @@ export class AssignedManagementPlanComponent implements OnInit {
     } else if (execution != NaN) {
       this.semaphore = 3;
     }
-    return this.semaphore
+    return this.semaphore;
   }
-
-
 
   ConfirmAction(dialog: TemplateRef<any>) {
     this.dialog = this.dialogService.open(dialog);
   }
-
 
   EditAssigned(data) {
     this.dialogFormService.open(FormAssignedManagementPlanComponent, {
@@ -363,34 +396,41 @@ export class AssignedManagementPlanComponent implements OnInit {
     });
   }
   async NewChRecord(data) {
-    await this.chRecordS.Save({
-      status: 'ACTIVO',
-      admissions_id: data.management_plan.admissions_id,
-      assigned_management_plan: data.id,
-      user_id: data.user_id,
-      type_of_attention_id: data.management_plan.type_of_attention_id,
-    }).then(x => {
-      this.ch_record=x.data.ch_record.id;
-      // this.openCHEF(data,this.ch_record)
-      this.router.navigateByUrl('/pages/clinic-history/clinic-history-nursing-list/' + this.ch_record + '/'+ data.id);
-      this.toastService.success('', x.message);
-      this.RefreshData();
-      if (this.saved) {
-        this.saved();
-      }
-    }).catch(x => {
-      this.isSubmitted = false;
-      this.loading = false;
-    });
-
+    await this.chRecordS
+      .Save({
+        status: 'ACTIVO',
+        admissions_id: data.management_plan.admissions_id,
+        assigned_management_plan: data.id,
+        user_id: data.user_id,
+        type_of_attention_id: data.management_plan.type_of_attention_id,
+      })
+      .then((x) => {
+        this.ch_record = x.data.ch_record.id;
+        // this.openCHEF(data,this.ch_record)
+        this.router.navigateByUrl(
+          '/pages/clinic-history/clinic-history-nursing-list/' +
+            this.ch_record +
+            '/' +
+            data.id
+        );
+        this.toastService.success('', x.message);
+        this.RefreshData();
+        if (this.saved) {
+          this.saved();
+        }
+      })
+      .catch((x) => {
+        this.isSubmitted = false;
+        this.loading = false;
+      });
   }
 
-  openCHEF(data,ch_record?) {
+  openCHEF(data, ch_record?) {
     this.dialogFormService.open(ClinicHistoryNursingListComponent, {
       context: {
         // title: 'Editar agendamiento',
         data,
-        ch_record2:ch_record,
+        ch_record2: ch_record,
         user: this.user,
         saved: this.RefreshData.bind(this),
       },
@@ -400,5 +440,4 @@ export class AssignedManagementPlanComponent implements OnInit {
   RefreshData() {
     this.table.refresh();
   }
-
 }
