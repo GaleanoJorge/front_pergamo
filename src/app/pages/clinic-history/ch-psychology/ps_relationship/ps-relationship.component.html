@@ -1,0 +1,16 @@
+
+
+<div *ngIf="has_input == false || type_record_id != 1">
+
+  <ngx-form-ps-relationship (messageEvent)="receiveMessage($event)" [record_id]="record_id" [has_input]="has_input"  [type_record_id]="type_record_id">
+  </ngx-form-ps-relationship>
+
+</div>
+<div class="center">
+  <label class="form-text text-muted font-weight-bold align center">Registros Funciones de Relación</label>
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <ngx-base-table pager="false" class="table" [title]="title" [subtitle]="subtitle" customData="ch_ps_relationship"
+        [settings]="settings" entity="ch_ps_relationship/by_record/{{record_id}}/1?&has_input={{has_input}}">
+      </ngx-base-table>
+    </div>

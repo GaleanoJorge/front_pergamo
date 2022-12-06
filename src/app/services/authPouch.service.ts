@@ -9,8 +9,10 @@ import PouchDB from 'pouchdb-browser';
 export class DbPwaService {
   private user_db: any;
   public saveFormInfo: any;
+  public user:string;
+  public type:string;
 
-  public user: string;
+
   public id: string;
   public userTable: string;
   public idForm: string;
@@ -71,6 +73,19 @@ export class DbPwaService {
   };
 
   //Obtener Usuario
+
+  public saveSelects = (data:any,type:any) => {
+    this.type = type;
+    let db = new PouchDB(type);
+    db.put({
+      _id: this.type,
+      type:data,
+    });
+  };
+
+
+ 
+
   public getUser = (user) => {
     this.user_db.get(user, function (err, doc) {
       return doc.user;

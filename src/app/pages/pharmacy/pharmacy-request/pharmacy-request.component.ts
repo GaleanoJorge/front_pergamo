@@ -3,6 +3,7 @@ import { NbDialogService } from '@nebular/theme';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 import { UserPharmacyStockService } from '../../../business-controller/user-pharmacy-stock.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -21,7 +22,7 @@ export class PharmacyRequestComponent implements OnInit {
 
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'NOMBRE-SEDE', 'PRODUCTO', 'CANTIDAD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'NOMBRE-SEDE', 'PRODUCTO', 'CANTIDAD',  'FECHA DE SOLICITUD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -75,6 +76,13 @@ export class PharmacyRequestComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
       },
+      created_at: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
+      },
     },
   };
 
@@ -85,6 +93,7 @@ export class PharmacyRequestComponent implements OnInit {
     private invS: PharmacyLotStockService,
     private authService: AuthService,
     private permisoPharmaS: UserPharmacyStockService,
+    public datePipe: DateFormatPipe,
 
   ) {
   }

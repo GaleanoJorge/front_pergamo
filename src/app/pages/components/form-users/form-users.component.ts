@@ -798,11 +798,11 @@ export class FormUsersComponent implements OnInit {
           } else {
             if (this.routeBack)
               await this.router.navigateByUrl(this.routeBack);
-            this.messageEvent.emit(true);
+            this.messageEvent.emit(x.data.patients ? x.data.patients : true);
           }
         } else {
           await this.router.navigateByUrl(this.routeBack);
-          this.messageEvent.emit(true);
+          this.messageEvent.emit(x.data.patients ? x.data.patients : true);
           //await this.router.navigateByUrl('/public/register/' + this.route.snapshot.params.role + '/success');
           // console.log('/public/register/' + this.route.snapshot.params.role + '/success');
         }

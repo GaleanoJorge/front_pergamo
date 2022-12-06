@@ -9,6 +9,8 @@ import { ChVitalTemperatureService } from '../../../../business-controller/ch-vi
 import { OxygenTypeService } from '../../../../business-controller/oxygen_type.service';
 import { LitersPerMinuteService } from '../../../../business-controller/liters_per_minute.service';
 import { ParametersSignsService } from '../../../../business-controller/parameters-signs.service';
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
 
 
 @Component({
@@ -60,6 +62,7 @@ export class FormsignsComponent implements OnInit {
     private OxygenTypeS: OxygenTypeService,
     private LitersPerMinuteS: LitersPerMinuteService,
     private ParametersSignsS: ParametersSignsService,
+    private DbPounch: DbPwaService,
 
   ) {
   }
@@ -137,25 +140,62 @@ export class FormsignsComponent implements OnInit {
         pupilas: '',
         has_oxigen: this.admissions ? this.admissions.location[0].program_id == 7 ? true : false : false,
       };
-    
+
     }
 
-    this.chvitalHydrationS.GetCollection({ status_id: 1 }).then(x => {
-      this.vital_hydration = x;
-    });
-    this.chvitalNeurologicalS.GetCollection({ status_id: 1 }).then(x => {
-      this.vital_neurological = x;
-    });
-    this.chvitalTemperatureS.GetCollection({ status_id: 1 }).then(x => {
-      this.vital_temperature = x;
-    });
+    if (!navigator.onLine) {
+
+      this.chvitalHydrationS.GetCollection({ status_id: 1 }).then(x => {
+        this.vital_hydration = x;
+        this.DbPounch.saveSelects(this.vital_hydration, 'vital_hydration');
+
+      });
+
+      this.chvitalNeurologicalS.GetCollection({ status_id: 1 }).then(x => {
+        this.vital_neurological = x;
+        this.DbPounch.saveSelects(this.vital_neurological, 'vital_neurological');
+
+      });
+
+      this.chvitalTemperatureS.GetCollection({ status_id: 1 }).then(x => {
+        this.vital_temperature = x;
+        this.DbPounch.saveSelects(this.vital_temperature, 'vital_temperature');
+      });
+
+    } else {
+      if ('vital_hydration') {
+        let dataTable = new PouchDB('vital_hydration');
+        dataTable.get('vital_hydration').then(x => {
+          this.vital_hydration = x.type;
+          return Promise.resolve(true);
+        });
+
+      }
+      if ('vital_neurological') {
+        let dataTable = new PouchDB('vital_neurological');
+        dataTable.get('vital_neurological').then(x => {
+          this.vital_neurological = x.type;
+          return Promise.resolve(true);
+        });
+
+      }
+      if ('vital_temperature') {
+        let dataTable = new PouchDB('vital_temperature');
+        dataTable.get('vital_temperature').then(x => {
+          this.vital_temperature = x.type;
+          return Promise.resolve(true);
+        });
+      }
+
+    }
+
 
     this.form = this.formBuilder.group({
       clock: [this.data[0] ? this.data[0].clock : this.data.clock, Validators.compose([Validators.required])],
       cardiac_frequency: [this.data[0] ? this.data[0].cardiac_frequency : this.data.cardiac_frequency, Validators.compose([Validators.required])],
       respiratory_frequency: [this.data[0] ? this.data[0].respiratory_frequency : this.data.respiratory_frequency, Validators.compose([Validators.required])],
-      temperature: [this.data[0] ? this.data[0].temperature : this.data.temperature,Validators.compose([Validators.required])],
-      oxigen_saturation: [this.data[0] ? this.data[0].oxigen_saturation : this.data.oxigen_saturation,Validators.compose([Validators.required])],
+      temperature: [this.data[0] ? this.data[0].temperature : this.data.temperature, Validators.compose([Validators.required])],
+      oxigen_saturation: [this.data[0] ? this.data[0].oxigen_saturation : this.data.oxigen_saturation, Validators.compose([Validators.required])],
       intracranial_pressure: [this.data[0] ? this.data[0].intracranial_pressure : this.data.intracranial_pressure],
       cerebral_perfusion_pressure: [this.data[0] ? this.data[0].cerebral_perfusion_pressure : this.data.cerebral_perfusion_pressure],
       intra_abdominal: [this.data[0] ? this.data[0].intra_abdominal : this.data.intra_abdominal],
@@ -166,7 +206,7 @@ export class FormsignsComponent implements OnInit {
       observations_glucometry: [this.data[0] ? this.data[0].observations_glucometry : this.data.observations_glucometry],
       venous_pressure: [this.data[0] ? this.data[0].venous_pressure : this.data.venous_pressure],
       size: [this.data[0] ? this.data[0].size : this.data.size, Validators.compose([Validators.required])],
-      weight: [this.data[0] ? this.data[0].weight : this.data.weight,Validators.compose([Validators.required])],
+      weight: [this.data[0] ? this.data[0].weight : this.data.weight, Validators.compose([Validators.required])],
       glucometry: [this.data[0] ? this.data[0].glucometry : this.data.glucometry],
       body_mass_index: [this.data[0] ? this.data[0].body_mass_index : this.data.body_mass_index],
       pulmonary_systolic: [this.data[0] ? this.data[0].pulmonary_systolic : this.data.pulmonary_systolic],
@@ -191,16 +231,16 @@ export class FormsignsComponent implements OnInit {
       ],
     });
 
-    if(this.data.has_oxigen == true){
+    if (this.data.has_oxigen == true) {
       this.form.controls.has_oxigen.disable();
-    } else{
+    } else {
       this.form.controls.has_oxigen.enable();
     }
-    
+
     this.har_ox((this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : (this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 0 ? false : (this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen));
 
     this.onChange();
-  
+
 
     if (this.data.cardiac_frequency != '') {
       this.form.controls.clock.disable();
@@ -385,47 +425,49 @@ export class FormsignsComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({ clock:'',
-            cardiac_frequency:'',
-            respiratory_frequency:'',
-            temperature:'',
-            oxigen_saturation:'',
-            intracranial_pressure:'',
-            cerebral_perfusion_pressure:'',
-            intra_abdominal:'',
-            pressure_systolic:'',
-            pressure_diastolic:'',
-            pressure_half:'',
-            pulse:'',
-            venous_pressure:'',
-            size:'',
-            weight:'',
-            glucometry:'',
-            body_mass_index:'',
-            pulmonary_systolic:'',
-            pulmonary_diastolic:'',
-            pulmonary_half:'',
-            head_circunference:'',
-            abdominal_perimeter:'',
-            chest_perimeter:'',
-            right_reaction:'',
-            pupil_size_right:'',
-            pupil:'',
-            observations_glucometry:'',
-            left_reaction:'',
-            pupil_size_left:'',
-            ch_vital_hydration_id:'',
-            ch_vital_ventilated_id:'',
-            ch_vital_temperature_id:'',
-            ch_vital_neurological_id:'',
-            oxygen_type_id:'',
-            liters_per_minute_id:'',
-            parameters_signs_id:'',
-            has_oxigen: false,});
+          this.form.patchValue({
+            clock: '',
+            cardiac_frequency: '',
+            respiratory_frequency: '',
+            temperature: '',
+            oxigen_saturation: '',
+            intracranial_pressure: '',
+            cerebral_perfusion_pressure: '',
+            intra_abdominal: '',
+            pressure_systolic: '',
+            pressure_diastolic: '',
+            pressure_half: '',
+            pulse: '',
+            venous_pressure: '',
+            size: '',
+            weight: '',
+            glucometry: '',
+            body_mass_index: '',
+            pulmonary_systolic: '',
+            pulmonary_diastolic: '',
+            pulmonary_half: '',
+            head_circunference: '',
+            abdominal_perimeter: '',
+            chest_perimeter: '',
+            right_reaction: '',
+            pupil_size_right: '',
+            pupil: '',
+            observations_glucometry: '',
+            left_reaction: '',
+            pupil_size_left: '',
+            ch_vital_hydration_id: '',
+            ch_vital_ventilated_id: '',
+            ch_vital_temperature_id: '',
+            ch_vital_neurological_id: '',
+            oxygen_type_id: '',
+            liters_per_minute_id: '',
+            parameters_signs_id: '',
+            has_oxigen: false,
+          });
           if (this.saved) {
             this.saved();
           }
-          
+
         }).catch(x => {
           if (this.form.controls.has_caregiver.value == true) {
             this.isSubmitted = true;
@@ -438,10 +480,10 @@ export class FormsignsComponent implements OnInit {
         });
       }
 
-    } else{
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
-  
+
   }
   onChanges(event, id) {
     if (
@@ -452,7 +494,7 @@ export class FormsignsComponent implements OnInit {
     ) {
       var sys = this.form.controls.pressure_systolic.value;
       var dias = this.form.controls.pressure_diastolic.value;
-      this.form.controls.pressure_half.setValue((sys + 2 * dias)/ 3);
+      this.form.controls.pressure_half.setValue((sys + 2 * dias) / 3);
     } else {
       this.form.controls.pressure_half.setValue('');
     }
@@ -460,8 +502,8 @@ export class FormsignsComponent implements OnInit {
   onChangesIMC(event, id) {
 
     if (this.form.controls.weight.value != '' && this.form.controls.size.value != '') {
-      this.geteratedIMC = (this.form.controls.weight.value / 
-      ((this.form.controls.size.value / 100) * (this.form.controls.size.value / 100))).toFixed(2);
+      this.geteratedIMC = (this.form.controls.weight.value /
+        ((this.form.controls.size.value / 100) * (this.form.controls.size.value / 100))).toFixed(2);
     } else {
       this.geteratedIMC = null;
     }
@@ -472,80 +514,115 @@ export class FormsignsComponent implements OnInit {
 
     this.form.get('has_oxigen').valueChanges.subscribe(val => {
       this.har_ox(val);
-  });
+    });
 
     this.form.get('ch_vital_ventilated_id').valueChanges.subscribe(val => {
-    if (val == 9) {
+      if (val == 9) {
 
+        this.form.controls.parameters_signs_id.clearValidators();
+
+        this.form.controls.parameters_signs_id.setErrors(null);
+
+      } else if (val != 9 && val != '') {
+        this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
+        this.form.patchValue({ parameters_signs_id: '' });
+
+      };
+    });
+  }
+
+  har_ox(val: boolean) {
+    if (val === false) {
+      this.vital_ventilated = [];
+      this.oxygen_type = [];
+      this.liters_per_minute = [];
+
+      this.form.controls.ch_vital_ventilated_id.clearValidators();
+      this.form.controls.oxygen_type_id.clearValidators();
+      this.form.controls.liters_per_minute_id.clearValidators();
       this.form.controls.parameters_signs_id.clearValidators();
 
+      this.form.controls.ch_vital_ventilated_id.setErrors(null);
+      this.form.controls.oxygen_type_id.setErrors(null);
+      this.form.controls.liters_per_minute_id.setErrors(null);
       this.form.controls.parameters_signs_id.setErrors(null);
 
-    } else if (val != 9 && val != '') {
-      this.form.controls.parameters_signs_id.setValidators(Validators.compose([Validators.required]));
-      this.form.patchValue({ parameters_signs_id:''});
+    } else {
 
-    };
-  });
-}
-
-har_ox(val: boolean) {
-  if (val === false) {
-    this.vital_ventilated = [];
-    this.oxygen_type = [];
-    this.liters_per_minute = [];
-
-    this.form.controls.ch_vital_ventilated_id.clearValidators();
-    this.form.controls.oxygen_type_id.clearValidators();
-    this.form.controls.liters_per_minute_id.clearValidators();
-    this.form.controls.parameters_signs_id.clearValidators();
-
-    this.form.controls.ch_vital_ventilated_id.setErrors(null);
-    this.form.controls.oxygen_type_id.setErrors(null);
-    this.form.controls.liters_per_minute_id.setErrors(null);
-    this.form.controls.parameters_signs_id.setErrors(null);
-
-  } else {
-
-    this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
-      this.vital_ventilated = x;
-    });
-    this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
-      this.oxygen_type = x;
-    });
-    this.LitersPerMinuteS.GetCollection({ status_id: 1 }).then(x => {
-      this.liters_per_minute = x;
-    });
-    this.ParametersSignsS.GetCollection({ status_id: 1 }).then((x) => {
-      this.parameters_signs = x;
-    });
-
-    this.form.controls.ch_vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
-    this.form.controls.oxygen_type_id.setValidators(Validators.compose([Validators.required]));
-    this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
-
-  }
-}
-fetchSelectedItems($event) {
-  var i = 0;
-
-  if ($event.item) {
-    this.checkboxesDataList.forEach((item) => {
-      if (item.label == $event.item) {
-        this.checkboxesDataList[i].isChecked = !$event.value;
+      if (!navigator.onLine) {
+        this.chvitalVentilatedS.GetCollection({ status_id: 1 }).then(x => {
+          this.vital_ventilated = x;
+          this.DbPounch.saveSelects(this.vital_ventilated, 'vital_ventilated');
+        });
+        this.OxygenTypeS.GetCollection({ status_id: 1 }).then(x => {
+          this.oxygen_type = x;
+          this.DbPounch.saveSelects(this.oxygen_type, 'oxygen_type');
+        });
+        this.LitersPerMinuteS.GetCollection({ status_id: 1 }).then(x => {
+          this.liters_per_minute = x;
+          this.DbPounch.saveSelects(this.liters_per_minute, 'liters_per_minute');
+        });
+        this.ParametersSignsS.GetCollection({ status_id: 1 }).then((x) => {
+          this.parameters_signs = x;
+          this.DbPounch.saveSelects(this.parameters_signs, 'parameters_signs');
+        });
+      } else {
+        if ('vital_ventilated') { 
+          let dataTable = new PouchDB('vital_ventilated');
+          dataTable.get('vital_ventilated').then(x => {
+            this.vital_ventilated = x.type;
+            return Promise.resolve(true);
+          });
+        }
+        if ('oxygen_type') { 
+          let dataTable = new PouchDB('oxygen_type');
+          dataTable.get('oxygen_type').then(x => {
+            this.oxygen_type = x.type;
+            return Promise.resolve(true);
+          });
+        }
+        if ('liters_per_minute') { 
+          let dataTable = new PouchDB('liters_per_minute');
+          dataTable.get('liters_per_minute').then(x => {
+            this.liters_per_minute = x.type;
+            return Promise.resolve(true);
+          });
+        }
+        if ('parameters_signs') { 
+          let dataTable = new PouchDB('parameters_signs');
+          dataTable.get('parameters_signs').then(x => {
+            this.parameters_signs = x.type;
+            return Promise.resolve(true);
+          });
+        }
       }
-      i++;
-    })
 
-  }
-}
-fetchCheckedIDs($event) {
-  this.checkedIDs = []
-  this.checkboxesDataList.forEach((value, index) => {
-    if (value.isChecked) {
-      this.checkedIDs.push(value.id);
+      this.form.controls.ch_vital_ventilated_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.oxygen_type_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.liters_per_minute_id.setValidators(Validators.compose([Validators.required]));
+
     }
-  });
-}
+  }
+  fetchSelectedItems($event) {
+    var i = 0;
+
+    if ($event.item) {
+      this.checkboxesDataList.forEach((item) => {
+        if (item.label == $event.item) {
+          this.checkboxesDataList[i].isChecked = !$event.value;
+        }
+        i++;
+      })
+
+    }
+  }
+  fetchCheckedIDs($event) {
+    this.checkedIDs = []
+    this.checkboxesDataList.forEach((value, index) => {
+      if (value.isChecked) {
+        this.checkedIDs.push(value.id);
+      }
+    });
+  }
 
 }

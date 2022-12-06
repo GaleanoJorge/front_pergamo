@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -121,7 +121,7 @@ export class FormAssessmentTherapyComponent implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -142,11 +142,10 @@ export class FormAssessmentTherapyComponent implements OnInit {
     }
       
   }
-
-  // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
-  inputMessage($event) {
-    this.input_done = true;
-  }
   
-
+  inputMessage($event) {
+    if ($event == true) {
+      this.messageEvent.emit($event);
+    }
+  }
 }

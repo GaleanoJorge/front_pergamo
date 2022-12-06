@@ -249,3 +249,13 @@ input[type=number] { -moz-appearance:textfield; }
     border-radius: 0 !important;
     background-color: #f7f9fc !important;
   }
+  .input-group{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  @media screen and (max-width: 480px) {
+.login-container{
+  width: 90% !important;
+}
+  }

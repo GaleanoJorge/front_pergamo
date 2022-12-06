@@ -3,6 +3,11 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { ActionsFormulationComponent } from './actions.component';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { ChFormulationService } from '../../../business-controller/ch-formulation.service';
 
 @Component({
   selector: 'ngx-formulation',
@@ -34,6 +39,22 @@ export class FormulationComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'assigned': this.assigned_management_plan,
+            'user': this.users,
+            'delete': this.DeleteConfirmFormulation.bind(this),
+            'refresh': this.RefreshData.bind(this),
+          };
+        },
+        renderComponent: ActionsFormulationComponent,
+      },
 
       created_at: {
         title: this.headerFields[0],
@@ -47,7 +68,12 @@ export class FormulationComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return row.product_generic.description;
+          if(value){
+            return row.product_generic.description;
+
+          }else{
+            return 'No aplica'
+          }
         },
 
       dose: {
@@ -84,13 +110,34 @@ export class FormulationComponent implements OnInit {
       },
     },
   };
+  showButtom: boolean;
+  assigned_management_plan: any;
+  users: any;
 
   constructor(
     public userChangeS: UserChangeService,
-    public datePipe: DateFormatPipe
+    public datePipe: DateFormatPipe,
+    private viewFormulationS: ChRecordService,
+    private formulationS: ChFormulationService,
+    private toastService: NbToastrService,
+    private deleteConfirmService: NbDialogService,
+
     ) {}
 
   async ngOnInit() {}
+
+  Historic() {
+    this.viewFormulationS.ViewAllFormulation(this.record_id).then(x => {
+
+      //this.loadingDownload = false;
+      this.toastService.success('', x.message);
+      window.open(x.url, '_blank');
+
+    }).catch(x => {
+      this.isSubmitted = false;
+      this.loading = false;
+    });
+  }
 
   RefreshData() {
     this.table.refresh();
@@ -100,6 +147,25 @@ export class FormulationComponent implements OnInit {
     if ($event == true) {
       this.RefreshData();
     }
+  }
+
+  DeleteConfirmFormulation(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        name: data.name,
+        data: data,
+        delete: this.DeleteFormulation.bind(this),
+      },
+    });
+  }
+
+  DeleteFormulation(data) {
+    return this.formulationS.Delete(data.id).then(x => {
+      this.table.refresh();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
   }
 
  

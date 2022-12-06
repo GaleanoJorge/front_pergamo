@@ -168,7 +168,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
@@ -199,6 +199,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
   inputMessage($event) {
     this.input_done = true;
+     this.messageEvent.emit($event);
   }
 }
 

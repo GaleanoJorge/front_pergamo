@@ -40,7 +40,7 @@ import { DbPwaService } from '../../../services/authPouch.service';
 export class ManagementPlanComponent implements OnInit {
   @Input() admissions: any = null;
   @Input() medical: number = 0;
-  @Input() patient: boolean = false;
+  @Input() patient;
   @Input() title: string = null;
   public isSubmitted = false;
   public entity: string;
@@ -81,6 +81,9 @@ export class ManagementPlanComponent implements OnInit {
   public type_id;
   public valor: any = null;
   public management_plan = null;
+  public close: any;
+
+
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -121,7 +124,7 @@ export class ManagementPlanComponent implements OnInit {
             assignedUser: this.AssignedUser.bind(this),
             delete: this.DeleteConfirmManagementPlan.bind(this),
             refresh: this.RefreshData.bind(this),
-            // currentRole: this.currentRole.role_type_id,
+            currentRole: this.currentRole.role_type_id,
             navigation: this.navigation,
           };
         },
@@ -145,8 +148,12 @@ export class ManagementPlanComponent implements OnInit {
         type: 'string',
         width: '25%',
         valuePrepareFunction(value, row) {
+          if (row.type_of_attention_id != 20) {
           return value?.name + ' - ' + row.procedure.manual_price.name;
-        },
+        }else {
+          return "SEGUIMIENTO"
+        }
+        }
       },
       service_briefcase: {
         title: this.headerFields[7],
@@ -550,6 +557,16 @@ export class ManagementPlanComponent implements OnInit {
     });
   }
 
+  UpdateConfirmManagementPlan(data) {
+    this.close = this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        name: data.name,
+        data: data,
+        delete: this.ChangeState.bind(this),
+      },
+    });
+  }
+
   DeleteManagementPlan(data) {
     return this.managementPlanS
       .Delete(data.id)
@@ -561,4 +578,15 @@ export class ManagementPlanComponent implements OnInit {
         throw x;
       });
   }
+
+  ChangeState(data) {
+    this.managementPlanS.ChangeStatus(data.id).then((x) => {
+      this.toastService.warning('', x.message);
+      this.close.close();
+      this.RefreshData();
+    }).catch((x) => {
+      // this.toastrService.danger(x.message);
+    });
+  }
+
 }

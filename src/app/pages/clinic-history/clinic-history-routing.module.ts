@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BackListComponent } from './background/back-list.component'; 
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
+import { PsychologyListComponent } from './ch-psychology/psychology-list/psychology-list.component';
 import { ChRecordListComponent } from './ch-record-list/ch-record-list.component';
 import { SocialWorkListComponent } from './ch-social-work/social-work-list/social-work-list.component';
 import { ClinicHistoryLanguageListComponent } from './clinic-history-language-list/clinic-history-language-list.component';
@@ -13,6 +14,7 @@ import { ClinicHistoryPhysicTherapy } from './entry-clinic-history-physical-ther
 import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
 import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/respiratory-therapy-list.component';
 import { FormChScalesComponent } from './scales/form-ch-scales/form-ch-scales.component';
+import { TracingListComponent } from './tracing-list/tracing-list.component';
 
 
 const routes: Routes = [{
@@ -68,6 +70,14 @@ const routes: Routes = [{
     {
       path: 'ch-social-work/social-work-list/:id1/:id2',
       component: SocialWorkListComponent,
+    },
+    {
+      path: 'ch-psychology/psychology-list/:id1/:id2',
+      component: PsychologyListComponent,
+    }, 
+    {
+      path: 'tracing-list/tracing-list/:id1/:id2',
+      component: TracingListComponent,
     }
     
   ],

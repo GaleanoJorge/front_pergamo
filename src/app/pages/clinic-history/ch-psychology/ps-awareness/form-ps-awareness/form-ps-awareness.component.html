@@ -1,0 +1,120 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Estado de conciencia</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Alerta o Vigil</label>
+        <textarea id="watch" nbInput fullWidth formControlName="watch" watch onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.watch.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Hipervigilante</label>
+        <textarea id="hypervigilant" nbInput fullWidth formControlName="hypervigilant" hypervigilant
+          onpaste="return false" onpaste="return false"
+          status="{{ isSubmitted && form.controls.hypervigilant.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Obnubilación o somnolencia</label>
+        <textarea id="obtundation" nbInput fullWidth formControlName="obtundation" obtundation onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.obtundation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">En confusión mental</label>
+        <textarea id="confusion" nbInput fullWidth formControlName="confusion" confusion onpaste="return false"
+          status="{{ isSubmitted && form.controls.confusion.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">En delirium</label>
+        <textarea id="delirium" nbInput fullWidth formControlName="delirium" delirium onpaste="return false"
+          status="{{ isSubmitted && form.controls.delirium.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">En estado oniroide</label>
+        <textarea id="oneiroid" nbInput fullWidth formControlName="oneiroid" oneiroid onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.oneiroid.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">En estado crepuscular (automatismo o fugas
+          ictales)</label>
+        <textarea id="twilight" nbInput fullWidth formControlName="twilight" twilight onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.twilight.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Estupor o sopor</label>
+        <textarea id="stupor" nbInput fullWidth formControlName="stupor" stupor onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.stupor.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">En coma superficial</label>
+        <textarea id="shallow" nbInput fullWidth formControlName="shallow" shallow onpaste="return false"
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.shallow.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">En coma profundo</label>
+        <textarea id="deep" nbInput fullWidth formControlName="deep" deep onpaste="return false" onpaste="return false"
+          status="{{ isSubmitted && form.controls.deep.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold">APARIENCIA, PORTE</label>
+        <nb-select id="appearance" formControlName="appearance" fullWidth
+         status="{{ isSubmitted && form.controls.appearance.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adaptativo">Adaptativo</nb-option>
+          <nb-option value="No Adaptativo">No Adaptativo</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="attitude" class="form-text text-muted font-weight-bold">Actitud</label>
+        <nb-select multiple formControlName="attitude" id="attitude" fullWidth
+          status="{{ isSubmitted && form.controls.attitude.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option *ngFor="let item of attitude" [value]="item.name">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="div-send">
+          <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        </div>
+      </div>
+    </div>
+
+</form>

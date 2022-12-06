@@ -19,6 +19,7 @@ export class FormChSwHygieneHousingComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -94,7 +95,7 @@ export class FormChSwHygieneHousingComponent implements OnInit {
           obs_sanitary: this.form.controls.obs_sanitary.value,
           trash: this.form.controls.trash.value,
           obs_trash: this.form.controls.obs_trash.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -120,7 +121,7 @@ export class FormChSwHygieneHousingComponent implements OnInit {
           obs_sanitary: this.form.controls.obs_sanitary.value,
           trash: this.form.controls.trash.value,
           obs_trash: this.form.controls.obs_trash.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

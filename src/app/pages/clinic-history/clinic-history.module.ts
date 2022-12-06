@@ -368,6 +368,51 @@ import { TableGastrointestinalComponent } from './ch-nutrition-list/ch-nutrition
 import { TableFoodHistoryComponent } from './ch-nutrition-list/ch-nutrition-input/food-history/table-food-history.component';
 import { FormParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/parenteral-nutrition/form-parenteral-nutrition/form-parenteral-nutrition.component';
 import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrition-input/parenteral-nutrition/table-parenteral-nutrition.component';
+import { FormRNinterventionTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-intervention-ot/formr-n-intervention-ot/form-r-n-intervention-ot.component';
+import { TableRNInterventionOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-intervention-ot/table-r-n-intervention-ot.component';
+import { FormNRinterventionFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-intervention-ft/form-nr-intervention-ft/form-nr-intervention-ft.component';
+import { TableNRinterventionFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-intervention-ft/table-nr-intervention-ft.component';
+import { FormNRMaterialsFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-metarials-ft/form-nr-metarials-ft/nr-metarials-ft.component';
+import { TableNRMaterialsFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-metarials-ft/table-nr-metarials-ft.component';
+import { FormPsychologyComponent } from './ch-psychology/psychology-list/form-psychology/form-psychology.component';
+import { EntryPsychologyComponent } from './ch-psychology/entry-psychology/entry-psychology.component';
+import { PsychologyListComponent } from './ch-psychology/psychology-list/psychology-list.component';
+import { FormPsAssessmentComponent } from './ch-psychology/ps-assessment/form-ps-assessment/form-ps-assessment.component';
+import { PsAssessmentComponent } from './ch-psychology/ps-assessment/ps-assessment.component';
+import { PsRelationshipComponent } from './ch-psychology/ps_relationship/ps-relationship.component';
+import { FormPsRelationshipComponent } from './ch-psychology/ps_relationship/form-ps-relationship/form-ps-relationship.component';
+import { FormPsIntellectiveComponent } from './ch-psychology/ps_intellective/form-ps-intellective/form-ps-intellective.component';
+import { PsIntellectiveComponent } from './ch-psychology/ps_intellective/ps-intellective.component';
+import { FormPsThoughtComponent } from './ch-psychology/ps-thought/form-ps-thought/form-ps-thought.component';
+import { PsThoughtComponent } from './ch-psychology/ps-thought/ps-thought.component';
+import { PsMentalExamComponent } from './ch-psychology/ps-mental-exam/ps-mental-exam.component';
+import { FormPsLanguageComponent } from './ch-psychology/ps-language/form-ps-language/form-ps-language.component';
+import { PsLanguageComponent } from './ch-psychology/ps-language/ps-language.component';
+import { FormPsSphereComponent } from './ch-psychology/ps-sphere/form-ps-sphere/form-ps-sphere.component';
+import { FormPsSynthesisComponent } from './ch-psychology/ps-synthesis/form-ps-synthesis/form-ps-synthesis.component';
+import { FormPsMultiaxialComponent } from './ch-psychology/ps-multiaxial/from-ps-multiaxial/form-ps-multiaxial.component';
+import { FormPsInterventionComponent } from './ch-psychology/ps-intervention/form-ps-intervention/form-ps-intervention.component';
+import { FormPsOperationalizationComponent } from './ch-psychology/ps-operationalization/form-ps-operationalization/form-ps-operationalization.component';
+import { RegularPsychologyComponent } from './ch-psychology/regular-psychology/regular-psychology.component';
+import { FormPsAwarenessComponent } from './ch-psychology/ps-awareness/form-ps-awareness/form-ps-awareness.component';
+import { FormPsObjectivesComponent } from './ch-psychology/ps-objectives/form-ps-objectives/form-ps-objectives.component';
+import { PsSphereComponent } from './ch-psychology/ps-sphere/ps-sphere.component';
+import { PsSynthesisComponent } from './ch-psychology/ps-synthesis/ps-synthesis.component';
+import { PsMultiaxialComponent } from './ch-psychology/ps-multiaxial/ps-multiaxial.component';
+import { PsInterventionComponent } from './ch-psychology/ps-intervention/ps-intervention.component';
+import { PsOperationalizationComponent } from './ch-psychology/ps-operationalization/ps-operationalization.component';
+import { PsAwarenessComponent } from './ch-psychology/ps-awareness/ps-awareness.component';
+import { PsObjectivesComponent } from './ch-psychology/ps-objectives/ps-objectives.component';
+import { ActionsFormulationComponent } from './formulation/actions.component';
+import { ActionsMedicalOrderComponent } from './ch-medical-orders/actions.component';
+import { ActionsInabilityComponent } from './ch-inability/actions.component';
+import { ActionsCertificateComponent } from './ch-medical-certificate/actions.component';
+import { ActionsInterconsultationComponent } from './ch-interconsultation/actions.component';
+import { ChSwEducationComponent } from './ch-social-work/ch-sw-education/ch-sw-education.component';
+import { FormTracingComponent } from './tracing/form-tracing/form-tracing.component';
+import { TracingComponent } from './tracing/tracing.component';
+import { TracingListComponent } from './tracing-list/tracing-list.component';
+import { FormTracingListComponent } from './tracing-list/form-tracing-list/form-tracing-list.component';
 
 
 @NgModule({
@@ -507,6 +552,8 @@ import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrit
     RNMaterialsOTComponent,
     ForRNmWeeklyOTComponent,
     RNWeeklyOtComponent,
+    FormRNinterventionTComponent,
+    TableRNInterventionOTComponent,
     ConfirmDialogCHComponent,
 
     //ht fisica
@@ -556,7 +603,10 @@ import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrit
     TableNRWeeklyFTComponent,
     FormNRDiagnosisFTComponent,
     TableNRDiagnosisFTComponent,
-
+    FormNRinterventionFTComponent,
+    TableNRinterventionFTComponent,
+    FormNRMaterialsFTComponent,
+    TableNRMaterialsFTComponent,
     
 
     ConfirmDialogCHComponent,
@@ -594,6 +644,7 @@ import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrit
     SwArmedConflictComponent,
     FormSwSupportNetworkComponent,
     FormChSwEducationComponent,
+    ChSwEducationComponent,
     SwSupportNetworkComponent,
     RegularSocialWorkComponent,
     SwHousingComponent,
@@ -657,7 +708,11 @@ import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrit
     FormSystemExamComponent,
     SystemExamComponent,
     Actions7Component,
-
+    ActionsFormulationComponent,
+    ActionsMedicalOrderComponent,
+    ActionsInabilityComponent,
+    ActionsCertificateComponent,
+    ActionsInterconsultationComponent,
 
 
     FormBackgroundComponent,
@@ -808,6 +863,45 @@ import { TableParenteralNutritionComponent } from './ch-nutrition-list/ch-nutrit
     Actions31Component,
     FormChNursingNoteComponent,
     ChNursingNoteComponent,
+
+
+    FormPsychologyComponent,
+    PsychologyListComponent,
+    EntryPsychologyComponent,
+    FormPsAssessmentComponent,
+    PsAssessmentComponent,
+    PhysicalExamComponent,
+    PsMentalExamComponent,
+    FormPsRelationshipComponent,
+    PsRelationshipComponent,
+    FormPsIntellectiveComponent,
+    PsIntellectiveComponent,
+    FormPsThoughtComponent,
+    PsThoughtComponent,
+    FormPsLanguageComponent,
+    PsLanguageComponent,
+    FormPsSphereComponent,
+    PsSphereComponent,
+    FormPsSynthesisComponent,
+    PsSynthesisComponent,
+    FormPsMultiaxialComponent,
+    PsMultiaxialComponent,
+    FormPsInterventionComponent,
+    PsInterventionComponent,
+    FormPsOperationalizationComponent,
+    PsOperationalizationComponent,
+
+    RegularPsychologyComponent,
+    FormPsAwarenessComponent,
+    PsAwarenessComponent,
+    FormPsObjectivesComponent,
+    PsObjectivesComponent,
+
+    FormTracingComponent,
+    TracingComponent,
+    TracingListComponent,
+    FormTracingListComponent,
+   
 
 
   ],

@@ -11,6 +11,9 @@ import { PatientService } from '../../../../business-controller/patient.service'
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 import { AuthService } from '../../../../services/auth.service';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
+
 
 @Component({
   selector: 'ngx-form-formulation',
@@ -64,6 +67,7 @@ export class FormFormulationComponent implements OnInit {
     private PharmacyProductRequestS: PharmacyProductRequestService,
     public userChangeS: UserChangeService,
     private authService: AuthService,
+    private DbPounch: DbPwaService,
   ) {
   }
 
@@ -96,27 +100,47 @@ export class FormFormulationComponent implements OnInit {
     await this.patienBS.GetUserById(this.user).then(async x => {
       this.user2 = x;
       await this.servicesBriefcaseS.GetByBriefcase({ type: '2' }, this.user2.admissions[this.user2.admissions.length - 1].briefcase_id).then(x => {
-        if(x.length>0){
-        this.service_briefcase_id = x[0]['id'];
-        this.product_gen = this.readProductGen(x);
-        this.briefcase_products = this.readProductGen(x);
+        if (x.length > 0) {
+          this.service_briefcase_id = x[0]['id'];
+          this.product_gen = this.readProductGen(x);
+          this.briefcase_products = this.readProductGen(x);
         }
         this.loading_screen = false;
-            });
+      });
     });
-
-    await this.AdministrationRouteS.GetCollection().then(x => {
-      this.administration_route_id = x;
-    });
-
-    await this.HourlyFrequencyS.GetCollection().then(x => {
-      this.hourly_frequency_id = x;
-    });
-
 
     await this.userChangeS.GetCollection().then(x => {
       this.all_changes = x;
     });
+
+    if (!navigator.onLine) {
+      await this.AdministrationRouteS.GetCollection().then(x => {
+        this.administration_route_id = x;
+        this.DbPounch.saveSelects(this.administration_route_id, 'administration_route_id');
+      });
+
+      await this.HourlyFrequencyS.GetCollection().then(x => {
+        this.hourly_frequency_id = x;
+        this.DbPounch.saveSelects(this.hourly_frequency_id, 'hourly_frequency_id');
+      });
+
+    } else {
+      if ('administration_route_id') {
+        let dataTable = new PouchDB('administration_route_id');
+        dataTable.get('administration_route_id').then(x => {
+          this.administration_route_id = x.type;
+          return Promise.resolve(true);
+        });
+      }
+      if ('hourly_frequency_id') {
+        let dataTable = new PouchDB('hourly_frequency_id');
+        dataTable.get('hourly_frequency_id').then(x => {
+          this.hourly_frequency_id = x.type;
+          return Promise.resolve(true);
+        });
+      }
+    }
+
     this.own_user = this.authService.GetUser();
 
     return Promise.resolve(true);
@@ -198,10 +222,10 @@ export class FormFormulationComponent implements OnInit {
             this.loading = false;
           });
       }
-    } else{
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
-    
+
 
   }
 
@@ -318,10 +342,30 @@ export class FormFormulationComponent implements OnInit {
       this.input = true;
       this.show = false;
       if (this.all_peoducts == null) {
-        this.ProductGS.GetCollection().then(x => {
-          this.product_gen = x;
-          this.all_peoducts = x;
-        });
+        if (!navigator.onLine) {
+          this.ProductGS.GetCollection().then(x => {
+            this.product_gen = x;
+            this.all_peoducts = x;
+            this.DbPounch.saveSelects(this.product_gen, 'product_gen');
+            this.DbPounch.saveSelects(this.all_peoducts, 'all_peoducts');
+          });
+        } else {
+          if ('product_gen') {
+            let dataTable = new PouchDB('product_gen');
+            dataTable.get('product_gen').then(x => {
+              this.product_gen = x.type;
+              return Promise.resolve(true);
+            });
+          }
+          if ('all_peoducts') {
+            let dataTable = new PouchDB('all_peoducts');
+            dataTable.get('all_peoducts').then(x => {
+              this.all_peoducts = x.type;
+              return Promise.resolve(true);
+            });
+          }
+        }
+
       } else {
         this.product_gen = this.all_peoducts;
       }

@@ -87,8 +87,6 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         check8_strengthen_2: false,
         check9_favor: false,
         check10_functionality: false,
-
-        occupational_con:  '',
       };
     }
 
@@ -123,7 +121,6 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
       check10_functionality: [
         this.data.check10_functionality,
       ],
-      occupational_con: [this.data.occupational_con, Validators.compose([Validators.required])],
     });
 
   }
@@ -136,7 +133,6 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
       if (this.data.id) {
           this.ChEMSAssessmentOTService.Update({
           id: this.data.id,
-          occupational_con: this.form.controls.occupational_con.value,
           check1_hold: this.form.controls.check1_hold.value ? this.arrayObjectives[0].description : null,
           check2_improve: this.form.controls.check2_improve.value ? this.arrayObjectives[1].description : null,
           check3_structure: this.form.controls.check3_structure.value ? this.arrayObjectives[2].description : null,
@@ -154,7 +150,7 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
-          this.form.patchValue({occupational_con:'',  check1_hold:'', check2_improve:'', check3_structure:'', check4_promote:'',
+          this.form.patchValue({check1_hold:'', check2_improve:'', check3_structure:'', check4_promote:'',
           check5_strengthen:'',  check6_promote_2:'',  check7_develop:'',  check8_strengthen_2:'',  check9_favor:'',  check10_functionality:''});
           if (this.saved) {
             this.saved();
@@ -166,7 +162,6 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         });
       } else {
           this.ChEMSAssessmentOTService.Save({
-          occupational_con: this.form.controls.occupational_con.value,
           check1_hold: this.form.controls.check1_hold.value ? this.arrayObjectives[0].description : null,
           check2_improve: this.form.controls.check2_improve.value ? this.arrayObjectives[1].description : null,
           check3_structure: this.form.controls.check3_structure.value ? this.arrayObjectives[2].description : null,
@@ -182,7 +177,7 @@ export class FormRNTherapeuticObjOTComponent implements OnInit {
         }).then(x => {
           this.messageEvent.emit(true);
           this.toastService.success('', x.message);
-          this.form.patchValue({occupational_con:'',  check1_hold:'', check2_improve:'', check3_structure:'', check4_promote:'',
+          this.form.patchValue({check1_hold:'', check2_improve:'', check3_structure:'', check4_promote:'',
           check5_strengthen:'',  check6_promote_2:'',  check7_develop:'',  check8_strengthen_2:'',  check9_favor:'',  check10_functionality:''});
           if (this.saved) {
             this.messageEvent.emit(true);

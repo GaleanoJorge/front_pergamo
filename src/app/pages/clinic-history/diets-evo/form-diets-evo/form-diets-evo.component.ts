@@ -5,6 +5,9 @@ import { ChDietsEvoService } from '../../../../business-controller/ch-diets-evo.
 import { DietComponentService } from '../../../../business-controller/diet-componet.service';
 import { DietConsistencyService } from '../../../../business-controller/diet-consistency.service';
 import { EnterallyDietService } from '../../../../business-controller/enterally-diet.service';
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
+
 
 
 @Component({
@@ -61,6 +64,7 @@ export class FormDietsEvoComponent implements OnInit {
     private ChDietsEvoS: ChDietsEvoService,
     private EnterallyDietS: EnterallyDietService,
     private DietConsistencyS: DietConsistencyService,
+    private DbPounch: DbPwaService,
     
   ) {
   }
@@ -75,13 +79,22 @@ export class FormDietsEvoComponent implements OnInit {
       };
     };
 
+    if (!navigator.onLine) {
     this.EnterallyDietS.GetCollection().then(x => {
       this.enterally_diet_id = x;
+      this.DbPounch.saveSelects(this.enterally_diet_id, 'enterally_diet_id');
     });
+  }else{
+    let dataTable = new PouchDB('enterally_diet_id');
+      dataTable.get('enterally_diet_id').then(x => {
+        this.enterally_diet_id = x.type;
+        return Promise.resolve(true);
+      });
+  }
    
     this.form = this.formBuilder.group({
       enterally_diet_id: [this.data.enterally_diet_id ],
-      diet_consistency: [this.data.diet_consistency,Validators.compose([Validators.required])],
+      diet_consistency: [this.data.diet_consistency],
       observation: [this.data.observation, Validators.compose([Validators.required])],
     });
   }
@@ -114,7 +127,7 @@ export class FormDietsEvoComponent implements OnInit {
       } else {
         await this.ChDietsEvoS.Save({
           enterally_diet_id: this.form.controls.enterally_diet_id.value,
-          diet_consistency:  JSON.stringify(this.form.controls.diet_consistency.value),
+          diet_consistency:  this.form.controls.diet_consistency.value.length>0? JSON.stringify(this.form.controls.diet_consistency.value):null,
           observation: this.form.controls.observation.value,
           type_record_id: this.type_record,
           ch_record_id: this.record_id,

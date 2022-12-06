@@ -19,6 +19,7 @@ export class FormChSwIncomeComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -81,7 +82,7 @@ export class FormChSwIncomeComponent implements OnInit {
           familiar_help: this.form.controls.familiar_help.value,
           none: this.form.controls.none.value,
           total: this.incomeTotal,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -102,7 +103,7 @@ export class FormChSwIncomeComponent implements OnInit {
           familiar_help: this.form.controls.familiar_help.value,
           none: this.form.controls.none.value,
           total: this.incomeTotal,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -128,7 +129,7 @@ export class FormChSwIncomeComponent implements OnInit {
       this.form.controls.donations.value != '' || this.form.controls.rent.value != '' ||
       this.form.controls.familiar_help.value != '') {
       this.incomeTotal = (this.form.controls.salary.value + this.form.controls.pension.value + this.form.controls.donations.value +
-        this.form.controls.rent.value + this.form.controls.familiar_help.value + this.form.controls.familiar_help.value )
+        this.form.controls.rent.value + this.form.controls.familiar_help.value )
     } else {
       this.incomeTotal = null;
     }

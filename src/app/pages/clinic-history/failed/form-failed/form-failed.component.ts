@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChFailedService } from '../../../../business-controller/ch-failed.service';
 import { ChReasonService } from '../../../../business-controller/ch-reason.service';
 import { ActivatedRoute } from '@angular/router';
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
+
 @Component({
   selector: 'ngx-form-failed',
   templateUrl: './form-failed.component.html',
@@ -33,7 +36,8 @@ export class FormFailedComponent implements OnInit {
     private toastService: NbToastrService,
     private ChFailedS: ChFailedService,
     private ChReasonS: ChReasonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private DbPounch: DbPwaService,
   ) { }
 
   ngOnInit(): void {
@@ -46,9 +50,20 @@ export class FormFailedComponent implements OnInit {
       };
     }
 
-    this.ChReasonS.GetCollection().then((x) => {
-      this.ch_reason_id = x;
-    });
+    if (!navigator.onLine) {
+      this.ChReasonS.GetCollection().then((x) => {
+        this.ch_reason_id = x;
+        this.DbPounch.saveSelects(this.ch_reason_id, 'ch_reason_id');
+      });
+    } else {
+      if ('ch_reason_id') {
+        let dataTable = new PouchDB('ch_reason_id');
+        dataTable.get('ch_reason_id').then(x => {
+          this.ch_reason_id = x.type;
+          return Promise.resolve(true);
+        });
+    }
+  }
 
     this.form = this.formBuilder.group({
       descriptions: [this.data.descriptions, Validators.compose([Validators.required]),],

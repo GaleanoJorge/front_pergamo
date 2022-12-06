@@ -42,6 +42,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public chreasonconsultation: any[];
   public chrnvaloration: any[];
   public rntherapeutic: any[];
+  public chintervention: any[];
   public chrnmaterials: any[];
   public physical: any[];
   public chvitsigns: any[];
@@ -82,6 +83,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
     private ChEValorationOTService: ChEValorationOTService,
     private ChEPastOTService: ChEPastOTService,
     private ChEDailyActivitiesOTService: ChEDailyActivitiesOTService,
+    
     private ChRNValorationOTS: ChRNValorationOTService,
     private ChRNTherapeuticObjOTS: ChRNTherapeuticObjOTService,
     private ChRNMaterialsOTService: ChRNMaterialsOTService,
@@ -221,7 +223,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id);
+        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
         this.location.back();
         this.toastService.success('', response.message);
         //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');

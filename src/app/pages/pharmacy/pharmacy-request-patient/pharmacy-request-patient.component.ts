@@ -3,6 +3,7 @@ import { NbDialogService } from '@nebular/theme';
 import { PharmacyLotStockService } from '../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyProductRequestService } from '../../../business-controller/pharmacy-product-request.service';
 import { UserPharmacyStockService } from '../../../business-controller/user-pharmacy-stock.service';
+import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -21,7 +22,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
 
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'SOLICITANTE','NOMBRE PACIENTE', 'DOCUMENTO PACIENTE' ,'PRODUCTO', 'CANTIDAD'];
+  public headerFields: any[] = ['CONSECUTIVO', 'SOLICITANTE', 'NOMBRE PACIENTE', 'DOCUMENTO PACIENTE', 'PRODUCTO', 'CANTIDAD', 'FECHA DE SOLICITUD'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]},${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -66,7 +67,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.patients.firstname + ' ' + value.patients.lastname;
+          return value.patients.nombre_completo;
         },
       },
       identification: {
@@ -80,9 +81,9 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(value != null){
+          if (value != null) {
             return value.manual_price.name;
-          }else{
+          } else {
             return row.product_supplies.description;
           }
         },
@@ -90,6 +91,14 @@ export class PharmacyRequestPatientComponent implements OnInit {
       request_amount: {
         title: this.headerFields[5],
         type: 'string',
+      },
+
+      created_at: {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform2(value);
+        },
       },
     },
   };
@@ -100,6 +109,8 @@ export class PharmacyRequestPatientComponent implements OnInit {
     private invS: PharmacyLotStockService,
     private authService: AuthService,
     private permisoPharmaS: UserPharmacyStockService,
+    public datePipe: DateFormatPipe,
+
   ) {
   }
 
@@ -107,7 +118,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
     this.user = this.authService.GetUser();
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       this.my_pharmacy_id = x[0].id;
-      this.entity = 'pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + x[0].id ;
+      this.entity = 'pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + x[0].id;
       this.title = 'SOLICITUDES DE MEDICAMENTOS A:  ' + x[0]['name'];
 
     });
@@ -119,16 +130,16 @@ export class PharmacyRequestPatientComponent implements OnInit {
 
 
 
-ChangePharmacy(pharmacy) {
-  if(pharmacy==0){
-    this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
+  ChangePharmacy(pharmacy) {
+    if (pharmacy == 0) {
+      this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
 
-  }else{
+    } else {
 
-    this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+      this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+    }
+    // this.RefreshData();
   }
-  // this.RefreshData();
-}
 
   RefreshData() {
     this.table.refresh();

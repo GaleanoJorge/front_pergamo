@@ -3,6 +3,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { FormGroup } from '@angular/forms';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { ActionsInterconsultationComponent } from './actions.component';
 
 @Component({
   selector: 'ngx-ch-interconsultation',
@@ -40,6 +41,21 @@ export class ChInterconsultationComponent implements OnInit {
       perPage: 10,
     },
     columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'assigned': this.assigned_management_plan,
+            'user': this.users,
+            'refresh': this.RefreshData.bind(this),
+          };
+        },
+        renderComponent: ActionsInterconsultationComponent,
+      },
       created_at: {
         title: this.headerFields[0],
         type: 'string',
@@ -75,6 +91,11 @@ export class ChInterconsultationComponent implements OnInit {
     },
   };
 
+  showButtom: boolean;
+  assigned_management_plan: any;
+  users: any;
+
+  
   constructor(
     public userChangeS: UserChangeService,
     public datePipe: DateFormatPipe) {}

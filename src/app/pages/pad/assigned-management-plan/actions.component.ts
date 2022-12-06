@@ -120,6 +120,8 @@ export class Actions4Component implements ViewCell {
   public first_date_temp;
   public final_date_temp;
   public enddate;
+  public startdate;
+  public now;
   public showBotton: boolean = false;
 
   constructor(
@@ -129,41 +131,35 @@ export class Actions4Component implements ViewCell {
   ) {}
 
   async ngOnInit() {
-    this.value;
+    var isIOS = this.iOS();
     this.today = new Date();
-    this.today2 = new Date();
-    this.date = this.value.data.start_date + ' ' + this.value.data.start_hour;
-    this.first_date_temp =
-      this.today.getFullYear() +
-      '-' +
-      (this.today.getMonth() + 1) +
-      '-' +
-      this.today.getDate() +
-      ' ' +
-      this.value.data.start_hour;
-    this.final_date_temp =
-      this.today.getFullYear() +
-      '-' +
-      (this.today.getMonth() + 1) +
-      '-' +
-      this.today.getDate() +
-      ' ' +
-      this.value.data.finish_hour;
-    // console.log(this.rowData);
-    // console.log(this.value);
+   
+    if (isIOS) {
+     
+      this.today = this.datePipe.transform2(this.today);
+      this.today = this.today.replace(/-/g, "/");
+      this.start = this.value.data.start_date.replace(/-/g, "/");
+      this.finish = this.value.data.finish_date.replace(/-/g, "/");
+    } else {
+      this.today = new Date;
+      this.today2 = new Date;
+      this.date = this.value.data.start_date + ' ' + this.value.data.start_hour;
+      this.first_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.start_hour;
+      this.final_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.finish_hour;
+      // console.log(this.rowData);
+      // console.log(this.value);
+
+
+
+    }
+
+
 
     if (this.value.data.management_plan.type_of_attention_id == 12) {
       var firstdate = new Date(new Date(this.first_date_temp));
       var enddate = new Date(new Date(this.final_date_temp));
       if (firstdate > enddate) {
-        this.final_date_temp =
-          this.today.getFullYear() +
-          '-' +
-          (this.today.getMonth() + 1) +
-          '-' +
-          (this.today.getDate() + 1) +
-          ' ' +
-          this.value.data.finish_hour;
+        this.final_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + (this.today.getDate() + 1) + ' ' + this.value.data.finish_hour;
         enddate = new Date(new Date(this.final_date_temp));
       }
       this.hournow = this.today2;
@@ -172,20 +168,35 @@ export class Actions4Component implements ViewCell {
       this.start = new Date(this.value.data.start_date);
       this.finish = new Date(this.value.data.finish_date);
     } else {
-      var firstdate = new Date(
-        new Date(this.date).setHours(new Date(this.date).getHours() + 3)
-      );
-      var enddate = new Date(
-        new Date(this.date).setHours(new Date(this.date).getHours() - 3)
-      );
-      this.hournow = this.today2.getTime();
-      this.firsthour = firstdate.getTime();
-      this.endhour = enddate.getTime();
-      this.start = this.value.data.start_date.split('-');
-      this.finish = this.value.data.finish_date.split('-');
-      let day = this.today.getDate();
-      let month = this.today.getMonth() + 1;
-      let year = this.today.getFullYear();
+      if (isIOS) {
+        this.today2 = new Date;
+        this.date = this.value.data.start_date + ' ' + this.value.data.start_hour;
+        this.first_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.start_hour;
+        this.final_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.finish_hour;
+        var firstdate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() + 3));
+        var enddate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() - 3));
+      this.hournow = this.datePipe.transform2(this.today2);
+      this.firsthour = this.datePipe.transform2(firstdate);
+      this.endhour = this.datePipe.transform2(enddate);
+
+
+        this.now= this.hournow.replace(/-/g, "/");
+        this.startdate=this.firsthour.replace(/-/g, "/");
+        this.enddate=this.endhour.replace(/-/g, "/");
+
+      } else {
+        var firstdate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() + 3));
+        var enddate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() - 3));
+        this.hournow = this.today2.getTime();
+        this.firsthour = firstdate.getTime();
+        this.endhour = enddate.getTime();
+        this.start = this.value.data.start_date.split('-');
+        this.finish = this.value.data.finish_date.split('-');
+        let day = this.today.getDate();
+        let month = this.today.getMonth() + 1;
+        let year = this.today.getFullYear();
+      }
+   
     }
 
     var a = this.firsthour < this.hournow;
@@ -194,6 +205,14 @@ export class Actions4Component implements ViewCell {
     var d = this.finish >= this.today2;
 
     this.today = this.datePipe.transform2(this.today);
+
+    if (isIOS) {
+      this.today = this.today;
+    } else {
+      this.today = this.datePipe.transform2(this.today);
+    }
+
+
   }
 
   viewHC() {
@@ -232,6 +251,20 @@ export class Actions4Component implements ViewCell {
     if (this.value.closeDialog) {
       this.value.closeDialog();
     }
-    this.value.openEF(data);
+    this.value.openEF(data)
   }
+
+  iOS() {
+    return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ].includes(navigator.platform)
+      // iPad on iOS 13 detection
+      || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+  }
+
 }

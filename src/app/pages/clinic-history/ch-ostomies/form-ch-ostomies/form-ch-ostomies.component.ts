@@ -5,7 +5,8 @@ import { ChRecordService } from '../../../../business-controller/ch_record.servi
 import { ActivatedRoute } from '@angular/router';
 import { OstomyService } from '../../../../business-controller/ostomy.service';
 import { ChOstomiesService } from '../../../../business-controller/ch-ostomies.service';
-
+import { DbPwaService } from '../../../../services/authPouch.service';
+import PouchDB from 'pouchdb-browser';
 @Component({
   selector: 'ngx-form-ch-ostomies',
   templateUrl: './form-ch-ostomies.component.html',
@@ -37,7 +38,8 @@ export class FormChOstomiesComponent implements OnInit {
     private chRecord: ChRecordService,
     private ChOstomiesS: ChOstomiesService,
    
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private DbPounch: DbPwaService,
 
   ) {}
 
@@ -47,6 +49,7 @@ export class FormChOstomiesComponent implements OnInit {
 
     this.chRecord.GetCollection(this.record_id).then((x) => {
       this.admissions_id = x;
+
     });
     if (!this.data || this.data.length == 0) {
       this.data = {
@@ -65,9 +68,23 @@ export class FormChOstomiesComponent implements OnInit {
     ],
      
     });    
+
+    if (!navigator.onLine) {
     this.OstomyS.GetCollection().then(x => {
       this.ostomy_id = x;
+      this.DbPounch.saveSelects(this.ostomy_id, 'ostomy_id');
+
     });
+    } else{
+      if ('ostomy_id'){
+        let dataTable = new PouchDB('ostomy_id');
+        dataTable.get('ostomy_id').then(x => {
+          this.ostomy_id = x.type;
+          return Promise.resolve(true);
+        });
+  
+      }
+    }
 
   }
 

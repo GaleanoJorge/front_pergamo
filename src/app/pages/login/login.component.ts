@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     if (this.type_login == 'true') {
       this.sso = true;
       let path;
