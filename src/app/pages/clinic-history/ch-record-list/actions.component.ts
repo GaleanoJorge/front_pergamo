@@ -18,49 +18,49 @@ import { DisclaimerService } from '../../../business-controller/disclaimer.servi
   template: `
   <div class="d-flex justify-content-center">
 
-    <button *ngIf="value.data.status=='ACTIVO' && 
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && 
       (this.rowData.ch_type_id == 1)" 
       nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" 
       nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && 
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && 
       (this.rowData.ch_type_id == 2)"
       nbTooltip="Historia Clinica de enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" 
       nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-nursing-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 6)" nbTooltip="Historia Clinica Terapia Ocupacional" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/entry-clinic-history-occupational-therapy/' + value.data.id + '/'+ value.assigned" >
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 6)" nbTooltip="Historia Clinica Terapia Ocupacional" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/entry-clinic-history-occupational-therapy/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && 
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && 
     (this.rowData.ch_type_id == 3)" nbTooltip="Historia Clinica de Nutrición" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 4)" nbTooltip="Historia Clinica de Terapia de Lenguaje" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-language-list/' + value.data.id + '/'+ value.assigned" >
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 4)" nbTooltip="Historia Clinica de Terapia de Lenguaje" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-language-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 5)" nbTooltip="Historia Clinica de Terapia de Respiratoria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/respiratory-therapy-list/' + value.data.id + '/'+ value.assigned" >
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 5)" nbTooltip="Historia Clinica de Terapia de Respiratoria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/respiratory-therapy-list/' + value.data.id + '/'+ value.assigned" >
     <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
-  <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 7)" nbTooltip="Historia Clinica de Terapia Física" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-physical-therapy-list/' + value.data.id + '/'+ value.assigned" >    <nb-icon icon="file-add-outline"></nb-icon>
+  <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 7)" nbTooltip="Historia Clinica de Terapia Física" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-physical-therapy-list/' + value.data.id + '/'+ value.assigned" >    <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
-  <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 8)" nbTooltip="Historia Clinica de Trabajo Social" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-social-work/social-work-list/' + value.data.id + '/'+ value.assigned" >
+  <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 8)" nbTooltip="Historia Clinica de Trabajo Social" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-social-work/social-work-list/' + value.data.id + '/'+ value.assigned" >
     <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
-  <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 9)" nbTooltip="Historia Clinica de Psicologia" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-psychology/psychology-list/' + value.data.id + '/'+ value.assigned" >
+  <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 9)" nbTooltip="Historia Clinica de Psicologia" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-psychology/psychology-list/' + value.data.id + '/'+ value.assigned" >
     <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
-  <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 10)" nbTooltip="Seguimiento" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/tracing-list/tracing-list/' + value.data.id + '/'+ value.assigned" >
+  <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 10)" nbTooltip="Seguimiento" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/tracing-list/tracing-list/' + value.data.id + '/'+ value.assigned" >
     <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
@@ -68,7 +68,7 @@ import { DisclaimerService } from '../../../business-controller/disclaimer.servi
       <nb-icon icon="file-add"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='CERRADO' && (this.rowData.ch_type_id != 10)" nbTooltip="Generar Nota registradora" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(confirmAction)"> 
+    <button *ngIf="value.data.status=='CERRADO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id != 10)" nbTooltip="Generar Nota aclaratoria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(confirmAction)"> 
       <nb-icon icon="attach-outline"></nb-icon>
     </button>
 
@@ -137,6 +137,7 @@ export class Actions5Component implements ViewCell {
   public data;
   public service;
   public role_user;
+  public own_user;
   tracingS: any;
 
 
@@ -162,7 +163,7 @@ export class Actions5Component implements ViewCell {
 
     // console.log(this.value);
     // console.log(this.rowData);
-
+    this.own_user = this.authService.GetUser();
     console.log(this.value.data.status);
     if (this.value.data.medical_date == '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {
       this.medical = false;

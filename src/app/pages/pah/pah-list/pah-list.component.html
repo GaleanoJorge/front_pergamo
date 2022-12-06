@@ -17,7 +17,7 @@
               <div class="actions">
                 <nb-select (selectedChange)="FilterAgreement($event)" class="filtros" placeholder="Filtrar por convenio">
                   <nb-option>Todos los convenios</nb-option>
-                  <nb-option *ngFor="let item of company" [value]="item.id">CONVENIO: {{item.name}}</nb-option>
+                  <nb-option *ngFor="let item of company" [value]="item.id">{{item.name}}</nb-option>
                 </nb-select>
                 <nb-select (selectedChange)="changeFlat($event)" class="filtros" formControlName="flat" placeholder="Filtrar por piso">
                   <nb-option value="0">Todos los pisos</nb-option>
@@ -59,8 +59,8 @@
           <div actions>
             <div class="actions">
               <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
-                <nb-option>Todos los convenios</nb-option>
-                <nb-option *ngFor="let item of company" [value]="item.id">CONVENIO: {{item.name}}</nb-option>
+                <nb-option>Todas las empresas</nb-option>
+                <nb-option *ngFor="let item of company" [value]="item.id">{{item.name}}</nb-option>
               </nb-select>
             </div>
 

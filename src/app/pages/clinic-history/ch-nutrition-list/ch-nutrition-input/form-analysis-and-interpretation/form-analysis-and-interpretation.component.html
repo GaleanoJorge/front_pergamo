@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <nb-card>
     <nb-card-body>
-      <fieldset *ngIf="has_input == false || type_record_id != 1" class="field_set">
+      <fieldset *ngIf="has_input == false" class="field_set">
         <legend class="prue1 center">Análisis e Interpretación</legend>
         <div class="row">
 
@@ -16,7 +16,7 @@
       </fieldset>
       <div class="row">
 
-        <div class="col-12 col-sm-12 col-md-12">
+        <div class="col-12 col-sm-12 col-md-12 mt-3">
           <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
             entity="ch_nutrition_interpretation/getAllInterpretetations/{{this.data.id}}?pagination=true" customData='ch_nutrition_interpretation' [messageToltip]="messageToltip">
           </ngx-base-table>
@@ -24,7 +24,7 @@
 
       </div>
     </nb-card-body>
-    <nb-card-footer *ngIf="has_input == false || type_record_id != 1" class="d-flex justify-content-end">
+    <nb-card-footer *ngIf="has_input == false" class="d-flex justify-content-end">
       <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">{{this.botton_title}}</button>
     </nb-card-footer>
   </nb-card>

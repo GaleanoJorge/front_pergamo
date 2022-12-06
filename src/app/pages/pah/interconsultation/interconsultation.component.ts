@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { SectionalCouncilService } from '../../../business-controller/sectional-council.service';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component.js';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { Actions5Component } from './actions.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
@@ -23,6 +22,9 @@ import { AdmissionsService } from '../../../business-controller/admissions.servi
 import { ChInterconsultationService } from '../../../business-controller/ch-interconsultation.service';
 import { count } from 'console';
 import { ActionsFormulationComponent } from './actions-formulation.component';
+import { AssistanceSpecialService } from '../../../business-controller/assistance-special.service';
+import { SuppliesView } from '../../pad/management-plan/supplies-view/supplies-view.component';
+import { Actions5Component } from '../../clinic-history/ch-record-list/actions.component';
 
 @Component({
   selector: 'ngx-interconsultation',
@@ -79,6 +81,8 @@ export class InterconsultationComponent implements OnInit {
   public ch_interconsultation_id;
   public type_of_attention;
   public assigned;
+  public specialty;
+  public specialty_id;
   public show_labs = false;
 
   public disabled: boolean = false;
@@ -100,6 +104,9 @@ export class InterconsultationComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
+          if (this.type_of_attention != -1 && row.status == 'ACTIVO') {
+            this.showButtom = false;
+          }
           return {
             data: row,
             assigned: this.ch_interconsultation_id,
@@ -251,6 +258,7 @@ export class InterconsultationComponent implements OnInit {
     private chRecordS: ChRecordService,
     private toastService: NbToastrService,
     private patientBS: PatientService,
+    private dialogFormService: NbDialogService,
     private userBS: UserBusinessService,
     private dialogService: NbDialogService,
     private authService: AuthService,
@@ -258,6 +266,7 @@ export class InterconsultationComponent implements OnInit {
     private ChInterconsultationS: ChInterconsultationService,
     public datePipe: DateFormatPipe,
     private location: Location,
+    private AssistanceS: AssistanceSpecialService,
     // public assignedService: AssignedManagementPlanService
   ) {
     this.routes = [
@@ -319,7 +328,7 @@ export class InterconsultationComponent implements OnInit {
               }
             });
           } else {
-            this.showButtom = this.currentRole.id == 3 || this.currentRole.id == 8 ? true : false;
+            this.showButtom = this.currentRole.id == 3 || this.currentRole.id == 8 || this.currentRole.id == 9 || this.currentRole.id == 14 ? true : false;
           }
         }
         if ((this.ch_interconsultation.amount != null && this.ch_interconsultation.amount != 0) && (this.ch_interconsultation.amount <= this.ch_interconsultation.many_ch_record.length)) {
@@ -340,6 +349,18 @@ export class InterconsultationComponent implements OnInit {
       //     }
       //   });
     }
+
+    if (this.currentRole.id == 14 || this.currentRole.id == 7) {
+      this.AssistanceS.GetCollection({
+        user_id: this.own_user.id,
+        specialty_id: this.type_of_attention == -1 ? 137 : 0,
+      }).then(x => {
+        this.specialty = x;
+        if (x.length == 0) {
+          this.showButtom = false;
+        }
+      });
+    }
   }
 
   back() {
@@ -358,28 +379,57 @@ export class InterconsultationComponent implements OnInit {
     this.dialog.close();
   }
 
-  NewChRecord() {
-    this.chRecordS
-      .Save({
-        status: 'ACTIVO',
+  NewChRecord(dialog: TemplateRef<any> = null) {
+    // if (((this.currentRole.id == 14 || this.currentRole.id == 7) && dialog) && this.type_of_attention != -1) {
+    //   this.specialty_id = null;
+    //   this.showFormulations(dialog)
+    // } else if (((this.currentRole.id == 14 || this.currentRole.id == 7) && !this.specialty_id) && this.type_of_attention != -1) {
+    //   this.toastService.danger('Seleccione especialidad', 'ERROR');
+    // } else {
+    // }
+      this.chRecordS
+        .Save({
+          status: 'ACTIVO',
+          admissions_id: this.admissions_id,
+          ch_interconsultation_id: this.ch_interconsultation_id,
+          user_id: this.own_user.id,
+          type_of_attention_id: this.type_of_attention,
+          role: this.currentRole.id,
+          specialty_id: this.specialty_id,
+        })
+        .then((x) => {
+          this.toastService.success('', x.message);
+          this.RefreshData();
+          if (this.saved) {
+            this.saved();
+          }
+          if (this.dialog) {
+            this.closeDialog();
+          }
+        })
+        .catch((x) => {
+          this.toastService.danger(x, 'ERROR');
+          this.isSubmitted = false;
+          this.loading = false;
+          if (this.dialog) {
+            this.closeDialog();
+          }
+        });
+  }
+
+  EspecialtyChange($event) {
+    this.specialty_id = $event;
+  }
+
+  suppliesView() {
+    this.dialogFormService.open(SuppliesView, {
+      context: {
+        user: this.user,
+        own_user: this.own_user,
+        title: 'Suministros del paciente',
         admissions_id: this.admissions_id,
-        ch_interconsultation_id: this.ch_interconsultation_id,
-        user_id: this.own_user.id,
-        type_of_attention_id: this.type_of_attention,
-        role: this.currentRole.id,
-      })
-      .then((x) => {
-        this.toastService.success('', x.message);
-        this.RefreshData();
-        if (this.saved) {
-          this.saved();
-        }
-      })
-      .catch((x) => {
-        this.toastService.danger(x, 'ERROR');
-        this.isSubmitted = false;
-        this.loading = false;
-      });
+      },
+    });
   }
 
 }

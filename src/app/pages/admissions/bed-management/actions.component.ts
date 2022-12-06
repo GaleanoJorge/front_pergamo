@@ -1,12 +1,13 @@
-import { Component, Input,TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { ViewCell } from 'ng2-smart-table';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { BedService } from '../../../business-controller/bed.service';
-import {PavilionService} from '../../../business-controller/pavilion.service';
-import {FlatService} from '../../../business-controller/flat.service';
-import {LocationService} from '../../../business-controller/location.service';
+import { PavilionService } from '../../../business-controller/pavilion.service';
+import { FlatService } from '../../../business-controller/flat.service';
+import { LocationService } from '../../../business-controller/location.service';
+import { ServicesBriefcaseService } from '../../../business-controller/services-briefcase.service';
 
 
 
@@ -48,47 +49,65 @@ import {LocationService} from '../../../business-controller/location.service';
   </nb-card>
 </form>
 </ng-template>
+
 <ng-template #templateRef2>
-<form [formGroup]="form2" (ngSubmit)="save2()">
-  <nb-card size="small" style="max-width: 500px;height: auto;">
-    <nb-card-header>Traslado de cama</nb-card-header>
-    <nb-card-body>
-      <div class="row">
-      <div class="col-md-12">
-      <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
-      <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
-      status="{{ isSubmitted && form2.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-      <nb-option value="">Seleccione...</nb-option>
-      <nb-option selected="{{ item.id == this.data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
-        {{ item.name }}</nb-option>
-    </nb-select>
-    </div>
-    <div class="col-md-12">
-      <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
-      <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
-      status="{{ isSubmitted && form2.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-      <nb-option value="">Seleccione...</nb-option>
-      <nb-option selected="{{ item.id == this.data.pavilion_id }}" *ngFor="let item of pavilion" [value]="item.id">
-        {{ item.name }}</nb-option>
-    </nb-select>
-    </div>
-    <div class="col-md-12">
-      <label for="bed" class="form-text text-muted font-weight-bold">Cama:</label>
-      <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
-      status="{{ isSubmitted && form2.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-      <nb-option value="">Seleccione...</nb-option>
-      <nb-option selected="{{ item.id == this.data.bed_id }}" *ngFor="let item of bed" [value]="item.id">
-        {{ item.name }}</nb-option>
-    </nb-select>
-    </div>
-    </div>
-    </nb-card-body>
-    <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton (click)="close()" type="button">Cancelar</button>
-      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
-    </nb-card-footer>
-  </nb-card>
-</form>
+  <form [formGroup]="form2" (ngSubmit)="save2()">
+    <nb-card size="small" style="max-width: 500px;height: auto;">
+      <nb-card-header>Traslado de cama</nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-md-12">
+            <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
+            <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
+              status="{{ isSubmitted && form2.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == this.data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col-md-12">
+            <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
+            <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
+              status="{{ isSubmitted && form2.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == this.data.pavilion_id }}" *ngFor="let item of pavilion"
+                [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+
+
+          <div class="col-md-12">
+            <label for="procedure" class="form-text text-muted font-weight-bold">Procedimiento:</label>
+            <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth
+              status="{{ isSubmitted && form2.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
+                [value]="item.id">
+                {{ item.manual_price.own_code }} - {{ item.manual_price.name }}</nb-option>
+            </nb-select>
+          </div>
+
+
+          <div class="col-md-12">
+            <label for="bed" class="form-text text-muted font-weight-bold">Cama:</label>
+            <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
+              status="{{ isSubmitted && form2.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == this.data.bed_id }}" *ngFor="let item of bed" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+
+
+        </div>
+      </nb-card-body>
+      <nb-card-footer class="d-flex justify-content-end">
+        <button nbButton (click)="close()" type="button">Cancelar</button>
+        <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
 </ng-template>
   `,
 })
@@ -106,9 +125,10 @@ export class Actions3Component implements ViewCell {
   public data;
   public data2;
   public campus_id;
-  public flat:any[];
-  public pavilion:any[];
-  public bed:any[];
+  public flat: any[];
+  public pavilion: any[];
+  public bed: any[];
+  public procedures: any[];
 
   constructor(
     private toastService: NbToastrService,
@@ -116,19 +136,20 @@ export class Actions3Component implements ViewCell {
     private dialogService: NbDialogService,
     private AdmissionsS: AdmissionsService,
     private BedS: BedService,
+    private ServiceBriefcaseS: ServicesBriefcaseService,
     private PavilionS: PavilionService,
     private FlatS: FlatService,
     private LocationS: LocationService,
   ) {
   }
-  ngOnInit(){
+  ngOnInit() {
 
-    if(this.value.data.status_bed_id==1 || this.value.data.status_bed_id==3 || this.value.data.status_bed_id==4 || this.value.data.status_bed_id==5){
-      this.state=true;
-      this.traslate=false;
-    }else{
-      this.state=false;
-      this.traslate=true;
+    if (this.value.data.status_bed_id == 1 || this.value.data.status_bed_id == 3 || this.value.data.status_bed_id == 4 || this.value.data.status_bed_id == 5) {
+      this.state = true;
+      this.traslate = false;
+    } else {
+      this.state = false;
+      this.traslate = true;
     }
 
     if (!this.data) {
@@ -144,15 +165,25 @@ export class Actions3Component implements ViewCell {
       };
     }
 
-    this.form = this.formBuilder.group({      
-      status_bed_id: [ Validators.compose([Validators.required])],
+    this.form = this.formBuilder.group({
+      status_bed_id: [Validators.compose([Validators.required])],
     });
 
-    this.form2 = this.formBuilder.group({      
-      flat_id: [ Validators.compose([Validators.required])],
-      pavilion_id: [ Validators.compose([Validators.required])],
-      bed_id: [ Validators.compose([Validators.required])],
+    this.form2 = this.formBuilder.group({
+      flat_id: ['', Validators.compose([Validators.required])],
+      pavilion_id: ['', Validators.compose([Validators.required])],
+      bed_id: ['', Validators.compose([Validators.required])],
+      procedure_id: ['', Validators.compose([Validators.required])],
     });
+
+    if (this.traslate) {
+      this.ServiceBriefcaseS.GetProcedureByBriefcase(this.value.data.location.at(-1).admissions.briefcase_id, {}).then((x) => {
+        this.procedures = x;
+        this.form2.patchValue({
+          procedure_id: this.value.data.location.at(-1).procedure_id,
+        });
+      });
+    }
 
     this.campus_id = localStorage.getItem('campus');
     this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
@@ -180,7 +211,18 @@ export class Actions3Component implements ViewCell {
       if (val === '') {
         this.bed = [];
       } else {
-        this.GetBed(val,1).then();
+        this.GetBed(val, 1).then();
+      }
+      this.form2.patchValue({
+        bed_id: '',
+      });
+    });
+
+    this.form2.get('procedure_id').valueChanges.subscribe(val => {
+      if (val === '') {
+        this.bed = [];
+      } else {
+        this.GetBed(this.form2.controls.pavilion_id.value, 1).then();
       }
       this.form2.patchValue({
         bed_id: '',
@@ -193,16 +235,20 @@ export class Actions3Component implements ViewCell {
 
     return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
 
-        this.pavilion = x;
+      this.pavilion = x;
 
       return Promise.resolve(true);
     });
   }
 
   GetBed(pavilion_id, ambit) {
-    if (!pavilion_id || pavilion_id === '') return Promise.resolve(false);
-    return this.BedS.GetBedByPavilion(pavilion_id,ambit).then(x => {
-        this.bed = x;
+    if (this.traslate && ((!pavilion_id || pavilion_id === '') || (this.form2.controls.procedure_id.value === ''))) return Promise.resolve(false);
+    var proc = this.procedures.find(item => item.id == this.form2.controls.procedure_id.value).manual_price.procedure_id;
+    return this.BedS.GetBedByPavilion(pavilion_id, ambit, proc).then(x => {
+      this.bed = x;
+      if (x.length == 0) {
+        this.toastService.warning('', 'No se encontraron camas disponibles para la localización y el procedimiento seleccionado')
+      }
 
       return Promise.resolve(true);
     });
@@ -226,7 +272,8 @@ export class Actions3Component implements ViewCell {
         this.BedS.Update({
           id: this.value.data.id,
           status_bed_id: this.form.controls.status_bed_id.value,
-          update:true
+          update: true,
+          procedure_id: this.form2.controls.procedure_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.value.refresh();
@@ -243,14 +290,14 @@ export class Actions3Component implements ViewCell {
   }
 
   save2() {
-    var location=this.value.data.location[this.value.data.location.length - 1];
+    var location = this.value.data.location[this.value.data.location.length - 1];
     this.isSubmitted = true;
     if (!this.form2.invalid) {
       this.loading = true;
 
       if (location.admissions_id) {
         this.LocationS.ChangeService({
-          id:location.admissions_id,
+          id: location.admissions_id,
           admissions_id: location.admissions_id,
           admission_route_id: location.admission_route_id,
           scope_of_attention_id: location.scope_of_attention_id,
@@ -258,6 +305,7 @@ export class Actions3Component implements ViewCell {
           flat_id: this.form2.controls.flat_id.value,
           pavilion_id: this.form2.controls.pavilion_id.value,
           bed_id: this.form2.controls.bed_id.value,
+          procedure_id: this.form2.controls.procedure_id.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.value.refresh();

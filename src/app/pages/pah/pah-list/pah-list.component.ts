@@ -422,7 +422,9 @@ export class PahListComponent implements OnInit {
     //   this.company = x;
     // });
 
-    this.CompanyS.GetCollection().then(x => {
+    this.CompanyS.GetCollection({
+      eps: true,
+    }).then(x => {
       this.company = x;
     });
 
