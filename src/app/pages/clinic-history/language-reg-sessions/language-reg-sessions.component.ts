@@ -46,7 +46,7 @@ export class LanguageRegSessionsComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
       },
 
