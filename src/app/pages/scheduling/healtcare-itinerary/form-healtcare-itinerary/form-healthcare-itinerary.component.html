@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-6">
           <p class="parrafo" *ngIf="patientData && !disabled"><b>{{this.title}}</b> {{patientData.nombre_completo}} </p>
-          <p class="parrafo" *ngIf="disabled"><b>{{this.title}}</b> {{this.data.data.patient.nombre_completo}} </p>
+          <p class="parrafo" *ngIf="disabled"><b>{{this.title}}</b> {{this.data.patient.nombre_completo}} </p>
           <p class="parrafo" *ngIf="patientData"><b>Con el profesional:</b> {{assistance.nombre_completo}}</p>
         </div>
         <div class="col-md-6">
@@ -42,10 +42,10 @@
         </div>
         <div *ngIf="!this.disabled" class="col-md-6">
           <label for="contract" class="form-text text-muted font-weight-bold">Contrato:</label>
-          <nb-select [selected]="this.data.data.contract_id" [disabled]="this.disabled || onlyView" formControlName="contract_id" id="contract_id" fullWidth
+          <nb-select [selected]="this.data.contract_id" [disabled]="this.disabled || onlyView" formControlName="contract_id" id="contract_id" fullWidth
             status="{{ isSubmitted && form.controls.contract_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == this.data.data.contract_id }}" *ngFor="let item of contract"
+            <nb-option selected="{{ item.id == this.data.contract_id }}" *ngFor="let item of contract"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
@@ -58,10 +58,10 @@
         </div>
         <div *ngIf="!this.disabled" class="col-md-6">
           <label for="briefcase_id" class="form-text text-muted font-weight-bold">Portafolios de atención:</label>
-          <nb-select [selected]="this.data.data.briefcase_id" [disabled]="this.disabled || onlyView" formControlName="briefcase_id" id="briefcase_id" fullWidth
+          <nb-select [selected]="this.data.briefcase_id" [disabled]="this.disabled || onlyView" formControlName="briefcase_id" id="briefcase_id" fullWidth
             status="{{ isSubmitted && form.controls.briefcase_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == this.data.data.briefcase_id }}" *ngFor="let item of briefcase"
+            <nb-option selected="{{ item.id == this.data.briefcase_id }}" *ngFor="let item of briefcase"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
@@ -80,7 +80,7 @@
 
           <nb-autocomplete #autoControl (selectedChange)="onSelectionChange($event)">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == this.data.data.services_briefcase_id }}" *ngFor="let item of filteredControlOptions$ | async" [value]="item.manual_price.procedure.name">
+            <nb-option selected="{{ item.id == this.data.services_briefcase_id }}" *ngFor="let item of filteredControlOptions$ | async" [value]="item.manual_price.procedure.name">
               {{ item.manual_price.own_code }} - {{item.manual_price.procedure.code}} -
               {{item.manual_price.procedure.name}}
             </nb-option>

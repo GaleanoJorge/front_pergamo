@@ -3,7 +3,7 @@
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body style="width: 100%;height: 100%;overflow: auto;">
       <div class="row">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <label for="code" class="form-text text-muted font-weight-bold">Dias:</label>
           <nb-select [selected]="this.data.days_id" multiple formControlName="days_id" id="days_id" fullWidth
             status="{{ isSubmitted && form.controls.days_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
@@ -11,7 +11,7 @@
             <nb-option selected="{{ item.id == data.days_id }}" *ngFor="let item of days" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
         <div class="col-md-12">
           <label for="flat_id" class="form-text text-muted font-weight-bold">Piso:</label>
           <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
@@ -53,17 +53,24 @@
 
           </nb-autocomplete>
         </div>
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <label for="start_date" class="form-text text-muted font-weight-bold">Desde:</label>
-          <input class="inputdate" type="date" [min]="min" [max]="this.form.controls.finish_date.value" nbInput fullWidth id="start_date" formControlName="start_date"
+          <input class="inputdate" type="date" [min]="min" [max]="this.form.controls.finish_date.value" nbInput
+            fullWidth id="start_date" formControlName="start_date"
             status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
             start_date />
         </div>
         <div class="col-md-6">
           <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta:</label>
-          <input class="inputdate" type="date" nbInput fullWidth [min]="this.form.controls.start_date.value" id="finish_date" formControlName="finish_date"
+          <input class="inputdate" type="date" nbInput fullWidth [min]="this.form.controls.start_date.value"
+            id="finish_date" formControlName="finish_date"
             status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
             finish_date />
+        </div> -->
+        <div class="col-md-12">
+          <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha:</label>
+          <mbsc-datepicker [min]="min" (onChange)="onChange($event)" [controls]="['calendar']" [selectMultiple]="true" selectCounter="true">
+          </mbsc-datepicker> 
         </div>
         <div class="col-md-6">
           <label for="start_time" class="form-text text-muted font-weight-bold">Hora de inicio:</label>
@@ -72,7 +79,8 @@
         </div>
         <div class="col-md-6">
           <label for="finish_time" class="form-text text-muted font-weight-bold">Hora de fin:</label>
-          <input type="time" nbInput id="finish_time" formControlName="finish_time" [min]="this.form.controls.start_time.value" finish_time fullWidth
+          <input type="time" nbInput id="finish_time" formControlName="finish_time"
+            [min]="this.form.controls.start_time.value" finish_time fullWidth
             status="{{ isSubmitted && form.controls.finish_time.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         </div>
         <div class="col-md-6">
@@ -98,6 +106,9 @@
             status="{{ isSubmitted && form.controls.patient_quantity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         </div>
       </div>
+      <!-- <mbsc-datepicker [controls]="['calendar']" display="inline" select="preset-range" [firstSelectDay]="1" [selectSize]="14"></mbsc-datepicker> -->
+      <!-- <mbsc-datepicker (onChange)="onChange($event)" [(ngModel)]="calendar_array" [controls]="['calendar']" [selectMultiple]="true" selectCounter="true">
+      </mbsc-datepicker>  -->
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end">
       <button nbButton (click)="close()" type="button">Cancelar</button>

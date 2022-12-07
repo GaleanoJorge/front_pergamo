@@ -1,3 +1,4 @@
+import { MbscModule } from '@mobiscroll/angular';
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
@@ -38,7 +39,8 @@ import { CurrencyPipe, PercentPipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, DateFormatPipe],
-  imports: [
+  imports: [ 
+    MbscModule, 
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

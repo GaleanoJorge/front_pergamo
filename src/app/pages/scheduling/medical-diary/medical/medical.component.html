@@ -9,7 +9,7 @@
           <button nbButton status="danger" (click)="NewMedical()">Crear</button>
         </div>
         <div class="actions">
-          <button nbButton status="info" *ngIf="!this.click && this.done" (click)="ViewScheduling()" fullWidth >Ver agenda</button>
+          <button nbButton status="info" *ngIf="!this.click && this.done" (click)="ViewScheduling()" fullWidth >Ver agenda general</button>
           <button nbButton status="info" *ngIf="this.click && this.done" (click)="HideScheduling()" fullWidth >Ocultar agenda</button>
         </div>
       </div>
