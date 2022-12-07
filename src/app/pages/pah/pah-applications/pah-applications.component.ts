@@ -239,7 +239,9 @@ export class PahApplicationsComponent implements OnInit {
       return x.id == curr;
     });
 
-    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
+    this.FlatS.GetFlatByCampus(this.campus_id, {
+      bed_or_office: 1,
+    }).then(x => {
       this.flat = x;
       this.show = true;
     });
@@ -284,7 +286,9 @@ export class PahApplicationsComponent implements OnInit {
     });
     this.changeEntity();
     if (flat_id != 0) {
-      return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+      return this.PavilionS.GetPavilionByFlat(flat_id, {
+      bed_or_office: 1,
+    }).then(x => {
         this.pavilion = x;
       });
     }

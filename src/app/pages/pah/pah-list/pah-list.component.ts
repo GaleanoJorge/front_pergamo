@@ -389,7 +389,9 @@ export class PahListComponent implements OnInit {
       this.entity2 = "patient/byPAH/2/0?campus_id=" + this.campus_id + "&role_id=" + this.currentRole.id;
     }
 
-    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
+    this.FlatS.GetFlatByCampus(this.campus_id, {
+      bed_or_office: 1,
+    }).then(x => {
       this.flat = x;
       this.show = true;
     });
@@ -570,7 +572,9 @@ export class PahListComponent implements OnInit {
     });
     this.changeEntity();
     if (flat_id != 0) {
-      return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+      return this.PavilionS.GetPavilionByFlat(flat_id, {
+        bed_or_office: 1,
+      }).then(x => {
         this.pavilion = x;
       });
     }

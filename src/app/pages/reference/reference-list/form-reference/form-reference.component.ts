@@ -776,7 +776,9 @@ export class FormReferenceComponent implements OnInit {
   GetPavilion(flat_id, job = false) {
     if (!flat_id || flat_id === '') return Promise.resolve(false);
 
-    return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+    return this.PavilionS.GetPavilionByFlat(flat_id, {
+      bed_or_office: 1,
+    }).then(x => {
 
       this.pavilion = x;
 

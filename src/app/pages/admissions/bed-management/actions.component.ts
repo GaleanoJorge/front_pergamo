@@ -186,7 +186,9 @@ export class Actions3Component implements ViewCell {
     }
 
     this.campus_id = localStorage.getItem('campus');
-    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
+    this.FlatS.GetFlatByCampus(this.campus_id, {
+      bed_or_office: 1,
+    }).then(x => {
       this.flat = x;
     });
 
@@ -233,7 +235,9 @@ export class Actions3Component implements ViewCell {
   GetPavilion(flat_id, job = false) {
     if (!flat_id || flat_id === '') return Promise.resolve(false);
 
-    return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+    return this.PavilionS.GetPavilionByFlat(flat_id, {
+      bed_or_office: 1,
+    }).then(x => {
 
       this.pavilion = x;
 
