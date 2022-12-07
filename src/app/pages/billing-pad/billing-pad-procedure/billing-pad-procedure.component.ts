@@ -121,9 +121,9 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id) {
-            var a = Math.floor(new Date(row.location.entry_date).getTime()/(1000*60*60*24));
-            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())/(1000*60*60*24));
-            var diff = Math.abs(b - a) + 1;
+            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
+            var diff = Math.abs(b - a);
             row.quantity = diff;
           }
           if (row.quantity) {
@@ -149,9 +149,9 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id) {
-            var a = Math.floor(new Date(row.location.entry_date).getTime()/(1000*60*60*24));
-            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())/(1000*60*60*24));
-            var diff = Math.abs(b - a) + 1;
+            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
+            var diff = Math.abs(b - a);
             row.quantity = diff;
           }
           if (row.quantity) {
@@ -167,21 +167,21 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan != null) {
             if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
-              return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+              return this.datePipe.transform4(row.assigned_management_plan.execution_date);
             } else {
               return 'Sin ejecutar';
             }
           } else if (row.ch_interconsultation != null) {
             var a = row.ch_interconsultation.many_ch_record;
             var b = a.find(item => item.created_at == row.created_at)
-            if (b) {
+            if (b && !row.open_date) {
               if (b.date_finish == "0000-00-00 00:00:00") {
                 return 'Sin ejecutar';
               } else {
-                return this.datePipe.transform3(b.date_finish);
+                return this.datePipe.transform4(b.date_finish);
               }
             } else if (row.location != null) {
-              return this.datePipe.transform3(row.location.entry_date) + ' - ' + this.datePipe.transform3(row.location.discharge_date != "0000-00-00 00:00:00" ? row.location.discharge_date : new Date());
+              return this.datePipe.transform4(row.open_date) + ' - ' + this.datePipe.transform4(/*row.location.discharge_date != "0000-00-00 00:00:00" ? row.location.discharge_date :*/ row.close_date ? row.close_date : new Date());
             } else {
               return '';
             }
@@ -224,9 +224,9 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id) {
-            var a = Math.floor(new Date(row.location.entry_date).getTime()/(1000*60*60*24));
-            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())/(1000*60*60*24));
-            var diff = Math.abs(b - a) + 1;
+            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
+            var diff = Math.abs(b - a);
             row.quantity = diff;
           }
           if (row.quantity) {
@@ -252,9 +252,9 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id) {
-            var a = Math.floor(new Date(row.location.entry_date).getTime()/(1000*60*60*24));
-            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())/(1000*60*60*24));
-            var diff = Math.abs(b - a) + 1;
+            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
+            var diff = Math.abs(b - a);
             row.quantity = diff;
           }
           if (row.quantity) {
@@ -290,21 +290,21 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan != null) {
             if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
-              return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+              return this.datePipe.transform4(row.assigned_management_plan.execution_date);
             } else {
               return 'Sin ejecutar';
             }
           } else if (row.ch_interconsultation != null) {
             var a = row.ch_interconsultation.many_ch_record;
             var b = a.find(item => item.created_at == row.created_at)
-            if (b) {
+            if (b && !row.open_date) {
               if (b.date_finish == "0000-00-00 00:00:00") {
                 return 'Sin ejecutar';
               } else {
-                return this.datePipe.transform3(b.date_finish);
+                return this.datePipe.transform4(b.date_finish);
               }
             } else if (row.location != null) {
-              return this.datePipe.transform3(row.location.entry_date) + ' - ' + this.datePipe.transform3(row.location.discharge_date != "0000-00-00 00:00:00" ? row.location.discharge_date : new Date());
+              return this.datePipe.transform4(row.open_date) + ' - ' + this.datePipe.transform4(/*row.location.discharge_date != "0000-00-00 00:00:00" ? row.location.discharge_date :*/ row.close_date ? row.close_date : new Date());
             } else {
               return '';
             }
@@ -451,11 +451,13 @@ export class BillingPadProcedureComponent implements OnInit {
 
   eventSelections(row) {
     this.selectedOptions = [];
+    this.count_billing = 0;
     row.forEach(element => {
       var q = 1;
       if (element.quantity) {
         q = element.quantity;
       }
+      this.count_billing += q * element.services_briefcase.value;
       var add = element.id;
       this.selectedOptions.push(add);
     });
