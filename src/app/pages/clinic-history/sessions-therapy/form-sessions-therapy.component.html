@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="container">
-    <div class="row justify-content-md-center">
+    <div class="row col col-lg-12">
       <div class="col col-lg-3">
         <label class="form-text text-muted font-weight-bold">Sesiones Mensuales</label>
         <input type="number" onpaste="return false" id="month" nbInput fullWidth formControlName="month"
@@ -11,23 +11,33 @@
         <input type="number" onpaste="return false" id="week" nbInput fullWidth formControlName="week"
           status="{{ isSubmitted && form.controls.week.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
       </div>
-    </div>
-
-    <div class="row justify-content-md-center">
       <div class="col col-lg-6">
-        <label for="month" class="form-text text-muted font-weight-bold">Recomendaciones</label>
-        <textarea onpaste="return false" id="recommendations" nbInput fullWidth formControlName="recommendations"
-          current_illness rows="4" cols="50"
-          status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+        <label class="form-text text-muted font-weight-bold">Frecuencia</label>
+        <nb-select fullWidth [selected]="this.data.frequency_id" formControlName="frequency_id" id="frequency_id"
+          status="{{ isSubmitted && form.controls.frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">SELECCIONE...</nb-option>
+          <nb-option selected="{{ item.id == this.data.frequency_id }}" *ngFor="let item of frequency"
+            [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
       </div>
     </div>
 
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-12">
+          <label for="month" class="form-text text-muted font-weight-bold">Recomendaciones</label>
+          <textarea onpaste="return false" id="recommendations" nbInput fullWidth formControlName="recommendations"
+            current_illness rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+        </div>
+      </div>
+
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
     </div>
-  </div>
 
 </form>

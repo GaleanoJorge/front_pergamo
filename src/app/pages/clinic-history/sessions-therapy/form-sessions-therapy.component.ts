@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChRtSessionsService } from '../../../business-controller/ch_rt_sessions.service';
+import { FrequencyService } from '../../../business-controller/frequency.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class FormSessionsTherapyComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
+  public frequency:any[];
 
 
 
@@ -31,6 +33,7 @@ export class FormSessionsTherapyComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private RtSessionsS: ChRtSessionsService,
+    private frequencyS: FrequencyService,
 
   ) {
   }
@@ -40,14 +43,21 @@ export class FormSessionsTherapyComponent implements OnInit {
       this.data = {
         month: '',
         week: '',
-        recommendations: ''
+        recommendations: '',
+        frequency_id: '',
 
       };
+
+      this.frequencyS.GetCollection({ status_id: 1 }).then(x => {
+        this.frequency = x;
+      });
     }
+
     this.form = this.formBuilder.group({
       month: [this.data[0] ? this.data[0].month : this.data.month, Validators.compose([Validators.required])],
       week: [this.data[0] ? this.data[0].week : this.data.week, Validators.compose([Validators.required])],
-      recommendations: [this.data[0] ? this.data[0].recommendations : this.data.recommendations,]
+      recommendations: [this.data[0] ? this.data[0].recommendations : this.data.recommendations,],
+      frequency_id: [this.data[0] ? this.data[0].frequency_id : this.data.frequency_id, Validators.compose([Validators.required])]
 
     });
 
@@ -78,6 +88,7 @@ export class FormSessionsTherapyComponent implements OnInit {
           month: this.form.controls.month.value,
           week: this.form.controls.week.value,
           recommendations: this.form.controls.recommendations.value,
+          frequency_id: this.form.controls.frequency_id.value,
           type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
 
@@ -95,12 +106,13 @@ export class FormSessionsTherapyComponent implements OnInit {
           month: this.form.controls.month.value,
           week: this.form.controls.week.value,
           recommendations: this.form.controls.recommendations.value,
+          frequency_id: this.form.controls.frequency_id.value,
           type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.setValue({ month: '', week: '', recommendations: '' });
+          this.form.setValue({ month: '', week: '', recommendations: '', frequency_id:'' });
           if (this.saved) {
             this.saved();
           }

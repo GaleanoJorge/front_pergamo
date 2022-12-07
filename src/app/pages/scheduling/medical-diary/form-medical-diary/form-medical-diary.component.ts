@@ -18,6 +18,14 @@ import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ProcedureService } from '../../../../business-controller/procedure.service';
 import { FlatService } from '../../../../business-controller/flat.service';
+import { setOptions , localeEs } from '@mobiscroll/angular';
+import { itemHighlight } from '@syncfusion/ej2/maps';
+
+setOptions({
+  locale: localeEs,
+  theme: 'auto',
+  themeVariant: 'light'
+});
 
 @Component({
   selector: 'ngx-form-medical-diary',
@@ -31,12 +39,9 @@ export class FormMedicalDiaryComponent implements OnInit {
   @Input() assistance_id: any = null;
 
   public form: FormGroup;
-  public rips_typefile: any[];
-  // public status: Status[];
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public coverage: any[];
   public status_bed: any[];
   public days: any[] = [];
   public assistance_user: any[] = [];
@@ -53,6 +58,7 @@ export class FormMedicalDiaryComponent implements OnInit {
   public min_time: any;
   public min_time_1: any;
   public max_time: any;
+  public calendar_array: string[] = [];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -89,7 +95,7 @@ export class FormMedicalDiaryComponent implements OnInit {
     this.min = this.min.toISOString().split('T')[0];
 
     this.form = this.formBuilder.group({
-      days_id: [[this.data.days_id], Validators.compose([Validators.required])],
+      // days_id: [[this.data.days_id], Validators.compose([Validators.required])],
       flat_id: [this.data.flat_id, Validators.compose([Validators.required])],
       pavilion_id: [
         this.data.pavilion_id,
@@ -100,14 +106,14 @@ export class FormMedicalDiaryComponent implements OnInit {
         Validators.compose([Validators.required]),
       ],
       procedure_id: [null, Validators.compose([Validators.required])],
-      start_date: [
-        this.data.start_date,
-        Validators.compose([Validators.required]),
-      ],
-      finish_date: [
-        this.data.finish_date,
-        Validators.compose([Validators.required]),
-      ],
+      // start_date: [
+      //   this.data.start_date,
+      //   Validators.compose([Validators.required]),
+      // ],
+      // finish_date: [
+      //   this.data.finish_date,
+      //   Validators.compose([Validators.required]),
+      // ],
       start_time: [
         this.data.start_time,
         Validators.compose([Validators.required]),
@@ -123,11 +129,12 @@ export class FormMedicalDiaryComponent implements OnInit {
       telemedicine: [this.data.telemedicine],
       patients: [this.data.patient_quantity != null ? true : null],
       patient_quantity: [this.data.patient_quantity],
+      calendar_id: [''],
     });
 
-    this.DaysS.GetCollection().then((x) => {
-      this.days = x;
-    });
+    // this.DaysS.GetCollection().then((x) => {
+    //   this.days = x;
+    // });
 
     // this.campus_id = localStorage.getItem('campus');
     this.flatS.GetFlatByCampus(+localStorage.getItem('campus')).then((x) => {
@@ -166,6 +173,14 @@ export class FormMedicalDiaryComponent implements OnInit {
     );
   }
 
+  onChange(event: any): void { 
+    // console.log(event);
+    this.calendar_array = event.valueText.replaceAll('/','-').split(', ').sort();
+    this.calendar_array = event.value.sort().map((date) => {
+      return date.toISOString().split('T')[0];
+    });
+  }
+
   onFilter() {
     this.filteredControlOptions$ = this.form
       .get('procedure_id')
@@ -187,25 +202,25 @@ export class FormMedicalDiaryComponent implements OnInit {
       }
     });
 
-    this.form.get('start_date').valueChanges.subscribe((val) => {
-      if (val === '') {
-        this.min = new Date();
-        this.min = this.min.toISOString().split('T')[0];
-      } else {
-        // this.min = new Date(val);
-        // this.min = this.min.toISOString().split('T')[0];
-      }
-    });
+    // this.form.get('start_date').valueChanges.subscribe((val) => {
+    //   if (val === '') {
+    //     this.min = new Date();
+    //     this.min = this.min.toISOString().split('T')[0];
+    //   } else {
+    //     // this.min = new Date(val);
+    //     // this.min = this.min.toISOString().split('T')[0];
+    //   }
+    // });
 
-    this.form.get('finish_date').valueChanges.subscribe((val) => {
-      if (val != '') {
-        // this.pavilions = [];
-        this.max = new Date(val);
-        this.max = this.max.toISOString().split('T')[0];
-      } else {
-        // this.max = new Date(val);
-      }
-    });
+    // this.form.get('finish_date').valueChanges.subscribe((val) => {
+    //   if (val != '') {
+    //     // this.pavilions = [];
+    //     this.max = new Date(val);
+    //     this.max = this.max.toISOString().split('T')[0];
+    //   } else {
+    //     // this.max = new Date(val);
+    //   }
+    // });
 
     this.form.get('start_time').valueChanges.subscribe((val) => {
       if (val != '') {
@@ -306,23 +321,24 @@ export class FormMedicalDiaryComponent implements OnInit {
   save() {
     this.isSubmitted = true;
 
-    if (!this.form.invalid) {
+    if (!this.form.invalid && this.calendar_array.length > 0) {
       this.loading = true;
-
+      console.log(this.calendar_array);
       if (this.data.id) {
         this.MedicalDiaryS.Update({
           id: this.data.id,
           assistance_id: this.assistance_id,
-          weekdays: this.form.controls.days_id.value,
+          // weekdays: this.form.controls.days_id.value,
           office_id: this.form.controls.office_id.value,
           procedure_id: this.procedure_id,
-          start_date: this.form.controls.start_date.value,
-          finish_date: this.form.controls.finish_date.value,
+          // start_date: this.form.controls.start_date.value,
+          // finish_date: this.form.controls.finish_date.value,
           start_time: this.form.controls.start_time.value,
           finish_time: this.form.controls.finish_time.value,
           interval: this.form.controls.interval.value,
           telemedicine: this.form.controls.telemedicine.value,
           patient_quantity: this.form.controls.patient_quantity.value,
+          calendar_array: JSON.stringify(this.calendar_array),
         })
           .then((x) => {
             this.toastService.success('', x.message);
@@ -334,23 +350,25 @@ export class FormMedicalDiaryComponent implements OnInit {
           .catch((x) => {
             this.isSubmitted = false;
             this.loading = false;
+            this.toastService.warning('', x);
           });
       } else {
         this.MedicalDiaryS.Save({
           assistance_id: this.assistance_id,
-          weekdays: this.form.controls.days_id.value,
+          // weekdays: this.form.controls.days_id.value,
           campus_id: +localStorage.getItem('campus'),
           flat_id: this.form.controls.flat_id.value,
           pavilion_id: this.form.controls.pavilion_id.value,
           office_id: this.form.controls.office_id.value,
           procedure_id: this.procedure_id,
-          start_date: this.form.controls.start_date.value,
-          finish_date: this.form.controls.finish_date.value,
+          // start_date: this.form.controls.start_date.value,
+          // finish_date: this.form.controls.finish_date.value,
           start_time: this.form.controls.start_time.value,
           finish_time: this.form.controls.finish_time.value,
           interval: this.form.controls.interval.value,
           telemedicine: this.form.controls.telemedicine.value,
           patient_quantity: this.form.controls.patient_quantity.value,
+          calendar_array: JSON.stringify(this.calendar_array),
         })
           .then((x) => {
             this.toastService.success('', x.message);
@@ -362,6 +380,7 @@ export class FormMedicalDiaryComponent implements OnInit {
           .catch((x) => {
             this.isSubmitted = false;
             this.loading = false;
+            this.toastService.warning('', x);
           });
       }
     }

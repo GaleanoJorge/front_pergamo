@@ -48,6 +48,7 @@ import { MedicalDiaryService } from '../../../../business-controller/medical-dia
 import { FormHealthcareItineraryComponent } from '../../healtcare-itinerary/form-healtcare-itinerary/form-healthcare-itinerary.component';
 import { StatusFieldComponent } from '../../copay_category/status-field.component';
 import { FormConfirmDisabledComponent } from '../../copay_category/form-confirm-disabled/form-confirm-disabled.component';
+import { MedicalDiaryDaysService } from '../../../../business-controller/medical_diary_days.service';
 
 @Component({
   selector: 'ngx-medical',
@@ -78,7 +79,7 @@ export class MedicalComponent implements OnInit {
     'Horario',
     'Hora de salida',
     'Estado',
-    'Lugar'
+    'Lugar',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
@@ -89,7 +90,7 @@ export class MedicalComponent implements OnInit {
   public currentView: View = 'Week';
   public entity: any = null;
   public schedulerDate = new Date();
-  public medical_diary: any[] = [];
+  public medical_diary_days: any[] = [];
   public timeScale: TimeScaleModel = {
     enable: true,
     interval: 60,
@@ -97,7 +98,7 @@ export class MedicalComponent implements OnInit {
   };
 
   public done: boolean = false;
-  
+
   public scheduleData: Object[] = [];
   public ignore: boolean = true;
   public deleting: boolean = false;
@@ -118,7 +119,7 @@ export class MedicalComponent implements OnInit {
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
-          if(!this.done){
+          if (!this.done) {
             this.done = true;
             this.messageError = null;
           }
@@ -133,10 +134,16 @@ export class MedicalComponent implements OnInit {
         title: this.headerFields[9],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if(row.office){
-            return row.office.name + '- \n' + row.office.pavilion.name + '- \n' + row.office.pavilion.flat.name;
+          if (row.office) {
+            return (
+              row.office.name +
+              '- \n' +
+              row.office.pavilion.name +
+              '- \n' +
+              row.office.pavilion.flat.name
+            );
           } else {
-            return '--'
+            return '--';
           }
         },
       },
@@ -162,23 +169,27 @@ export class MedicalComponent implements OnInit {
       //     return value.name;
       //   },
       // },
-      days: {
+      medical_diary_days_grouped: {
         title: 'Dias de servicio',
-        type: 'custom',
+        type: 'string',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
-          return {
-            days: row.medical_diary_days,
-          };
+          let arrdta = row.medical_diary_days_grouped.map((element) => {
+            return element.days.name;
+          });
+          let result2 = arrdta.filter((item, index) => {
+            return arrdta.indexOf(item) === index;
+          });
+
+          return result2.length != 0 ? result2.join(', ') : 'Sin días';
         },
-        renderComponent: ActionsDaysComponent,
       },
       procedure: {
         title: 'Procedimiento',
         type: 'string',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
-          if(value){
+          if (value) {
             return value.name;
           } else {
             return '--';
@@ -198,6 +209,20 @@ export class MedicalComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.start_time + ' - ' + row.finish_time;
+        },
+      },
+      interval: {
+        title: 'Tiempo de consulta',
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value  + ' min';
+        },
+      },
+      patient_quantity: {
+        title: 'Cantidad de pacientes',
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value ? value : 1;
         },
       },
       status: {
@@ -232,6 +257,7 @@ export class MedicalComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private route: ActivatedRoute,
     private dialogFormService: NbDialogService,
+    private medicalDiaryDaysS: MedicalDiaryDaysService,
     private medicalDiaryS: MedicalDiaryService
   ) {}
 
@@ -254,7 +280,8 @@ export class MedicalComponent implements OnInit {
       return;
     }
     if (this.currentView === 'Agenda') {
-      (args.element.firstChild as HTMLElement).style.borderLeftColor = categoryColor;
+      (args.element.firstChild as HTMLElement).style.borderLeftColor =
+        categoryColor;
     } else {
       args.element.style.backgroundColor = categoryColor;
     }
@@ -265,47 +292,45 @@ export class MedicalComponent implements OnInit {
     this.eventSettings = undefined;
     this.scheduleData = [];
 
-    this.medicalDiaryS
-      .GetCollection({ assistance_id: this.assistance_id, status_id: 1})
+    this.medicalDiaryDaysS
+      .GetCollection({ assistance_id: this.assistance_id, status_id: 1 })
       .then((x) => {
-        this.medical_diary = x;
-        if (this.medical_diary.length > 0) {
+        this.medical_diary_days = x;
+        if (this.medical_diary_days.length > 0) {
           this.messageError = null;
-          this.medical_diary.forEach((x) => {
-            x.medical_diary_days.forEach((x) => {
-              var data = {
-                Id: x.id,
-                Subject:
-                  x.medical_status_id == 1
-                    ? 'Libre'
-                    : x.medical_status_id == 2
-                    ? 'Reservada por ' + x.patient.nombre_completo
-                    : x.medical_status_id == 3
-                    ? 'Confirmada por ' + x.patient.nombre_completo
-                    : x.medical_status_id == 4
-                    ? 'Facturada'
-                    : 'Cancelada',
-                StartTime: new Date(x.start_hour),
-                EndTime: new Date(x.finish_hour),
-                CategoryColor: x.medical_status_id == 1
-                ? '#37B24D'
-                : x.medical_status_id == 2
-                ? '#D8E926'
-                : x.medical_status_id == 3
-                ? '#09DBD4'
-                : x.medical_status_id == 4
-                ? '#F44C01'
-                : '#7309DB', 
-                IsReadonly: false,
-                data: x,
-                assistance_id: this.assistance_id,
-              };
-              this.scheduleData.push(data);
-              this.charge();
-            });
-          });
-          // var cells;
-          // buttons = document.querySelector('.e-footer-content')
+          // this.medical_diary_days.forEach((x) => {
+          //   var data = {
+          //     Id: x.id,
+          //     Subject:
+          //       x.medical_status_id == 1
+          //         ? 'Libre'
+          //         : x.medical_status_id == 2
+          //         ? 'Reservada por ' + x.patient.nombre_completo
+          //         : x.medical_status_id == 3
+          //         ? 'Confirmada por ' + x.patient.nombre_completo
+          //         : x.medical_status_id == 4
+          //         ? 'Facturada'
+          //         : 'Cancelada',
+          //     StartTime: x.start_hour,
+          //     EndTime: x.finish_hour,
+          //     CategoryColor:
+          //       x.medical_status_id == 1
+          //         ? '#37B24D'
+          //         : x.medical_status_id == 2
+          //         ? '#D8E926'
+          //         : x.medical_status_id == 3
+          //         ? '#09DBD4'
+          //         : x.medical_status_id == 4
+          //         ? '#F44C01'
+          //         : '#7309DB',
+          //     IsReadonly: false,
+          //     data: x,
+          //     assistance_id: this.assistance_id,
+          //   };
+          //   this.scheduleData.push(data);
+          // });
+            this.scheduleData = x;
+          this.charge();
         } else {
           this.eventSettings = undefined;
           this.messageError = 'Este perfil no cuenta con itinerario activo';
@@ -326,7 +351,6 @@ export class MedicalComponent implements OnInit {
     //   .querySelector('.td')
     //   .getElementsByClassName('e-work-cells');
     // // cells.forEach(element => {
-      
     // // });
     // this.Schedule.cssClass = 'healthcare-itinerary.component'
   }
@@ -427,7 +451,7 @@ export class MedicalComponent implements OnInit {
       args.cancel = true;
     }
   }
-  
+
   ConfirmDisabled(data) {
     this.dialogFormService.open(FormConfirmDisabledComponent, {
       context: {
@@ -439,16 +463,14 @@ export class MedicalComponent implements OnInit {
 
   ChangeState(data) {
     this.medicalDiaryS
-      .ChangeStatus(data.id, {status_id: data.diary_status_id == 1 ? 2 : 1})
+      .ChangeStatus(data.id, { status_id: data.diary_status_id == 1 ? 2 : 1 })
       .then((x) => {
         this.toastrService.success('', x.message);
         this.RefreshData();
       })
       .catch((x) => {
-        this.toastrService.danger('',x);
+        this.toastrService.danger('', x);
       });
-
-
   }
 
   DeleteConfirmManualPrice(data) {

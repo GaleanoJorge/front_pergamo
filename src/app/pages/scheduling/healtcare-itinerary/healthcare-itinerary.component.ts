@@ -67,7 +67,7 @@ import { MedicalStatusService } from '../../../business-controller/medical_statu
     WorkWeekService,
     MonthService,
     AgendaService,
-    MonthAgendaService
+    MonthAgendaService,
   ],
 })
 export class HealthcareItineraryComponent implements OnInit {
@@ -247,8 +247,7 @@ export class HealthcareItineraryComponent implements OnInit {
     var localidentify;
 
     if (e == 1) {
-      var id = $event == "" ? $event : 
-      Number($event.split('-').at(0));
+      var id = $event == '' ? $event : Number($event.split('-').at(0));
       localidentify = this.procedure.find((item) => item.id == id);
 
       if (localidentify) {
@@ -294,44 +293,48 @@ export class HealthcareItineraryComponent implements OnInit {
         init_date: this.form.value.start_date,
         finish_date: this.form.value.finish_date,
         medical_status_id: this.form.value.status_id,
+        procedure_id: this.procedure_id,
       })
       .then((x) => {
         this.medical_diary = x;
         this.messageError = null;
         if (this.medical_diary.length > 0) {
-          this.assistance_id = this.medical_diary[0].assistance_id;
+          // this.assistance_id = this.medical_diary[0].assistance_id;
           // var done = false;
-          this.medical_diary.forEach((x) => {
-            var data = {
-              Id: x.id,
-              Subject:
-                x.medical_status_id == 1
-                  ? 'Libre'
-                  : x.medical_status_id == 2
-                  ? 'Reservada por ' + x.patient.nombre_completo
-                  : x.medical_status_id == 3
-                  ? 'Confirmada por ' + x.patient.nombre_completo
-                  : x.medical_status_id == 4
-                  ? 'Facturada'
-                  : 'Cancelada',
-              StartTime: new Date(x.start_hour),
-              EndTime: new Date(x.finish_hour),
-              CategoryColor: x.medical_status_id == 1
-              ? '#37B24D'
-              : x.medical_status_id == 2
-              ? '#D8E926'
-              : x.medical_status_id == 3
-              ? '#09DBD4'
-              : x.medical_status_id == 4
-              ? '#F44C01'
-              : '#7309DB', 
-              IsReadonly: false,
-              data: x,
-              assistance_id: this.assistance_id,
-            };
-            this.scheduleData.push(data);
-            this.charge();
-          });
+          // this.medical_diary.forEach((x) => {
+          //   var data = {
+          //     Id: x.id,
+          //     Subject:
+          //       x.medical_status_id == 1
+          //         ? 'Libre'
+          //         : x.medical_status_id == 2
+          //         ? 'Reservada por ' + x.patient.nombre_completo
+          //         : x.medical_status_id == 3
+          //         ? 'Confirmada por ' + x.patient.nombre_completo
+          //         : x.medical_status_id == 4
+          //         ? 'Facturada'
+          //         : 'Cancelada',
+          //     StartTime: new Date(x.start_hour),
+          //     EndTime: new Date(x.finish_hour),
+          //     CategoryColor: x.medical_status_id == 1
+          //     ? '#37B24D'
+          //     : x.medical_status_id == 2
+          //     ? '#D8E926'
+          //     : x.medical_status_id == 3
+          //     ? '#09DBD4'
+          //     : x.medical_status_id == 4
+          //     ? '#F44C01'
+          //     : '#7309DB',
+          //     IsReadonly: false,
+          //     data: x,
+          //     assistance_id: assistance_id,
+          //   };
+          //   this.scheduleData.push(data);
+          // });
+
+          this.scheduleData = x;
+
+          this.charge();
         } else {
           this.messageError =
             'Usuario sin itinerario asignado para: ' + this.procedure_id.name;
@@ -383,7 +386,8 @@ export class HealthcareItineraryComponent implements OnInit {
       return;
     }
     if (this.currentView === 'Agenda') {
-      (args.element.firstChild as HTMLElement).style.borderLeftColor = categoryColor;
+      (args.element.firstChild as HTMLElement).style.borderLeftColor =
+        categoryColor;
     } else {
       args.element.style.backgroundColor = categoryColor;
     }

@@ -44,6 +44,17 @@ https://phoenixnap.com/kb/install-latest-node-js-and-nmp-on-ubuntu#:~:text=Insta
 
 ---
 
+## Libreria mobiscroll calendar
+
+-- user - password 
+   gi.desarrollador3@hlips.com.co - coordesa*2021
+# instalar CLI
+--  npm install -g @mobiscroll/cli --save 
+# configurar entorno de ejecución 
+-- mobiscroll config angular - You will be prompted to log in with your mobiscroll account
+# library link
+-- https://demo.mobiscroll.com/calendar/week-select
+
 ## License
 
 Copyright Health and life ips 2021

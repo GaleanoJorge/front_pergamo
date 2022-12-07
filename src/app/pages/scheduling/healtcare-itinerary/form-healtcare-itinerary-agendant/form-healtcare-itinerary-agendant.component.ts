@@ -131,24 +131,24 @@ export class FormHealthcareItineraryAgendantComponent implements OnInit {
       };
     }
 
-    if (this.data.data.medical_status_id == 1) {
+    if (this.data.medical_status_id == 1) {
       this.title = 'Agendamiento de:';
-    } else if (this.data.data.medical_status_id == 2) {
+    } else if (this.data.medical_status_id == 2) {
       this.title = 'Reservación para:';
       this.disabled = true;
-    } else if (this.data.data.medical_status_id == 3) {
+    } else if (this.data.medical_status_id == 3) {
       this.title = 'Confirmación para:';
       this.disabled = true;
     }
 
     this.form = this.formBuilder.group({
-      star_hour: [this.data.data.start_hour],
-      finish_hour: [this.data.data.finish_hour],
-      state_id: [this.data.data.medical_status_id == 1 ? 2 :this.data.data.medical_status_id , Validators.compose([Validators.required])],
-      eps_id: [this.data.data.eps_id],
-      contract_id: [this.data.data.contract ? this.data.data.contract.name : '' , Validators.compose([Validators.required])],
-      briefcase_id: [this.data.data.briefcase ? this.data.data.briefcase.name : '', Validators.compose([Validators.required])],
-      procedure_id: [{value : this.data.data.services_briefcase ? this.data.data.services_briefcase.manual_price.name : '', disabled: this.onlyView}, Validators.compose([Validators.required])],
+      star_hour: [this.data.start_hour],
+      finish_hour: [this.data.finish_hour],
+      state_id: [this.data.medical_status_id == 1 ? 2 :this.data.medical_status_id , Validators.compose([Validators.required])],
+      eps_id: [this.data.eps_id],
+      contract_id: [this.data.contract ? this.data.contract.name : '' , Validators.compose([Validators.required])],
+      briefcase_id: [this.data.briefcase ? this.data.briefcase.name : '', Validators.compose([Validators.required])],
+      procedure_id: [{value : this.data.services_briefcase ? this.data.services_briefcase.manual_price.name : '', disabled: this.onlyView}, Validators.compose([Validators.required])],
       category_id: [{value : '', disabled: this.onlyView}, Validators.compose([Validators.required])],
       value: [{value : '', disabled: this.onlyView}],
     });
