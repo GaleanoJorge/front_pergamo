@@ -28,6 +28,7 @@ export class ChInterconsultationComponent implements OnInit {
     /*04*/ 'Observaciones',
     /*05*/ 'Tipo de atención',
     /*06*/ 'Procedimiento',
+    /*07*/ 'Médico que ordena',
   ];
   
   public isSubmitted: boolean = false;
@@ -62,7 +63,7 @@ export class ChInterconsultationComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
       },
       type_of_attention: {
@@ -120,7 +121,17 @@ export class ChInterconsultationComponent implements OnInit {
         title: this.headerFields[4],
         width: 'string',
       },
-      
+      user: {
+        title: this.headerFields[7],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (row.ch_record) {
+            return row.ch_record.user.firstname + ' ' + row.ch_record.user.middlefirstname + ' ' + row.ch_record.user.lastname + ' ' + row.ch_record.user.middlelastname;
+          } else {
+            return 'N.A.';
+          }
+        },
+      },
      
     },
   };

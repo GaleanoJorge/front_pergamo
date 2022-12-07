@@ -43,6 +43,8 @@ export class InstanceAdmissionComponent implements OnInit {
     /*02*/ 'Cantidad Ordenada',
     /*03*/ 'Especialidad',
     /*04*/ 'Frecuencia',
+    /*05*/ 'Fecha de orden',
+    /*06*/ 'Médico que ordena',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
@@ -99,6 +101,13 @@ export class InstanceAdmissionComponent implements OnInit {
         },
         renderComponent: Actions4Component,
       },
+      created_at: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform4(value);
+        },
+      },
       services_briefcase: {
         title: this.headerFields[0],
         type: 'string',
@@ -151,6 +160,17 @@ export class InstanceAdmissionComponent implements OnInit {
             return value;
           } else {
             return 0;
+          }
+        },
+      },
+      user: {
+        title: this.headerFields[6],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (row.ch_record) {
+            return row.ch_record.user.firstname + ' ' + row.ch_record.user.middlefirstname + ' ' + row.ch_record.user.lastname + ' ' + row.ch_record.user.middlelastname;
+          } else {
+            return 'N.A.';
           }
         },
       },
