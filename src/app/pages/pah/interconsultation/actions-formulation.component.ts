@@ -113,7 +113,7 @@ export class ActionsFormulationComponent implements ViewCell {
   async ngOnInit() {
     if (this.value.data.management_plan_id) {
       this.semaphore = 2;
-      this.tooltip = 'AGENDADO';
+      this.tooltip = 'PROGRAMADO';
     } else if (this.value.data.pharmacy_product_request.many_pharmacy_request_shipping.length == 0) {
       this.semaphore = 0;
       this.tooltip = 'SIN DESPACHO';
@@ -127,7 +127,7 @@ export class ActionsFormulationComponent implements ViewCell {
         this.tooltip = 'DESPACHO PARCIAL';
       } else {
         this.semaphore = 3;
-        this.tooltip = 'SIN AGENDAR';
+        this.tooltip = 'SIN PROGRAMAR';
       }
     }
     for (var i = 0; i < 24; i++) {
