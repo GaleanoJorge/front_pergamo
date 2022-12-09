@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActionsPadProcedureComponent } from './actions-pad-procedure.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActivatedRoute } from '@angular/router';
@@ -353,6 +353,7 @@ export class BillingPadProcedureComponent implements OnInit {
   public routes = null;
 
   constructor(
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     public currency: CurrencyPipe,
     private dialogFormService: NbDialogService,
@@ -403,6 +404,18 @@ export class BillingPadProcedureComponent implements OnInit {
           ;
         this.show_info = true;
       }
+    });
+
+    this.form = this.formBuilder.group({
+      start_date: ['', []],
+      finish_date: ['', []],
+    });
+
+    this.form.get('start_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.changeEntity()
     });
   }
 
@@ -509,9 +522,12 @@ export class BillingPadProcedureComponent implements OnInit {
     });
   }
 
-
   back() {
     this.location.back();
+  }
+
+  changeEntity() {
+    this.table.changeEntity(this.entity + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 'billing_pad')
   }
 
 }
