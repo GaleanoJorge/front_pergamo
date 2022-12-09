@@ -168,7 +168,7 @@ export class InstanceAdmissionComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value, row) {
           if (row.ch_record) {
-            return row.ch_record.user.firstname + ' ' + row.ch_record.user.middlefirstname + ' ' + row.ch_record.user.lastname + ' ' + row.ch_record.user.middlelastname;
+            return row.ch_record.user.firstname ? row.ch_record.user.firstname : '' + ' ' + row.ch_record.user.middlefirstname ? row.ch_record.user.middlefirstname : '' + ' ' + row.ch_record.user.lastname ? row.ch_record.user.lastname : '' + ' ' + row.ch_record.user.middlelastname ? row.ch_record.user.middlelastname : '';
           } else {
             return 'N.A.';
           }
