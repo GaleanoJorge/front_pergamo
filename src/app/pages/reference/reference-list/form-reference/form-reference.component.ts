@@ -774,6 +774,12 @@ export class FormReferenceComponent implements OnInit {
   }
 
   GetPavilion(flat_id, job = false) {
+    this.pavilion = [];
+    this.beds = [];
+    this.form.patchValue({
+      acceptance_pavilion_id: '',
+      acceptance_bed_id: '',
+    });
     if (!flat_id || flat_id === '') return Promise.resolve(false);
 
     return this.PavilionS.GetPavilionByFlat(flat_id, {
@@ -787,6 +793,10 @@ export class FormReferenceComponent implements OnInit {
   }
 
   GetBed(pavilion_id, ambit) {
+    this.beds = [];
+    this.form.patchValue({
+      acceptance_bed_id: '',
+    });
     if ((!pavilion_id || pavilion_id === '') || (!this.form.controls.procedure_id.value || this.form.controls.procedure_id.value === '') || (!ambit || ambit === '')) return Promise.resolve(false);
     return this.BedS.GetBedByPavilion(pavilion_id, ambit, this.procedure_id, {
       identification: this.form.controls.identification.value,

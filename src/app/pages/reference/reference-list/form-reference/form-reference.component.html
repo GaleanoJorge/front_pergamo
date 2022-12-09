@@ -79,7 +79,7 @@
             status="{{ isSubmitted && form.controls.intention.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-12">
           <label for="diagnosis" class="form-text text-muted font-weight-bold">DIAGNÓSTICO:</label>
           <input fullWidth nbInput list="codes1" (change)="saveDiagnosis($event.target.value)"
             (ngModelChange)="this.searchDiagnostic($event)" id="diagnosis_id" formControlName="diagnosis_id"
@@ -124,7 +124,7 @@
           </nb-select>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-12">
           <label for="procedure" class="form-text text-muted font-weight-bold">TIPO DE ATENCIÓN:</label>
           <input fullWidth nbInput list="codes2" (change)="saveProcedure($event.target.value)" id="procedure_id"
             formControlName="procedure_id" procedure_id type="text" required
