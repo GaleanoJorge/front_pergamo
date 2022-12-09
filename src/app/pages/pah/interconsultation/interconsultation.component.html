@@ -42,7 +42,7 @@
             (click)="NewChRecord(select_specialty)">Crear</button>
         </div>
 
-        <div *ngIf=" this.currentRole.role_type_id == 1" class="actions" style="margin-top: 5px;">
+        <div *ngIf=" this.currentRole.role_type_id == 1 || this.currentRole.id == 8 || this.currentRole.id == 9" class="actions" style="margin-top: 5px;">
           <button nbButton status="info" (click)="suppliesView()">Suministros</button>
         </div>
 

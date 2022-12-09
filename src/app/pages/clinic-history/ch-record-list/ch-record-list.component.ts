@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
 import { AssignedManagementPlanService } from '../../../business-controller/assigned-management-plan.service';
 import { MedicalDiaryDaysService } from '../../../business-controller/medical_diary_days.service';
 import { required } from '@rxweb/reactive-form-validators';
+import { SuppliesView } from '../../pad/management-plan/supplies-view/supplies-view.component';
 
 @Component({
   selector: 'ngx-ch-record-list',
@@ -54,6 +55,7 @@ export class ChRecordListComponent implements OnInit {
   public assigned_management_plan;
   public type_of_attention;
   public assigned;
+  public currentRole;
   public show_labs = false;
   public form: FormGroup;
   
@@ -148,7 +150,10 @@ export class ChRecordListComponent implements OnInit {
 
   async ngOnInit() {
     Number((this.admissions_id = this.route.snapshot.params.id));
-
+    var curr = this.authService.GetRole();
+    this.currentRole = this.authService.GetUser().roles.find(x => {
+      return x.id == curr;
+    });
     if (this.route.snapshot.queryParams.ext_con) {
       this.type_of_attention=-2;
       this.external_consult_id = this.route.snapshot.params.id2;
@@ -249,5 +254,17 @@ export class ChRecordListComponent implements OnInit {
 
   ConfirmActions() {
     this.dialog = this.dialogFormService.open(this.masiveAuth);
+  }
+
+  suppliesView() {
+    this.dialogFormService.open(SuppliesView, {
+      context: {
+        user: this.user,
+        own_user: this.own_user,
+        title: 'Suministros del paciente',
+        admissions_id: this.admissions_id,
+        is_hospitalary: this.actual_location.flat ? true: false,
+      },
+    });
   }
 }
