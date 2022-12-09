@@ -566,6 +566,8 @@ export class PahListComponent implements OnInit {
     this.flat_id = flat_id;
     this.pavilion_id = 0;
     this.bed_id = 0;
+    this.pavilion = [];
+    this.bed = [];
     this.form.patchValue({
       pavilion: '',
       bed: '',
@@ -583,6 +585,7 @@ export class PahListComponent implements OnInit {
   changePavilion(pavilion_id) {
     this.pavilion_id = pavilion_id;
     this.bed_id = 0;
+    this.bed = [];
     this.form.patchValue({
       bed: '',
     });
