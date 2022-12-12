@@ -23,6 +23,7 @@ import { BedService } from '../../../business-controller/bed.service';
 import { FlatService } from '../../../business-controller/flat.service';
 import { PavilionService } from '../../../business-controller/pavilion.service';
 import { Row } from '@syncfusion/ej2/grids';
+import { FormAssignedManagementPlanComponent } from '../../pad/assigned-management-plan/form-assigned-management-plan/form-assigned-management-plan.component';
 
 @Component({
   selector: 'ngx-pah-applications',
@@ -111,6 +112,7 @@ export class PahApplicationsComponent implements OnInit {
             'currentRole': this.currentRole,
             'management': this.patients,
             'refresh': this.RefreshData.bind(this),
+            'edit': this.EditAssigned.bind(this),
           };
         },
         renderComponent: ActionsPahApplicationsComponent,
@@ -210,6 +212,7 @@ export class PahApplicationsComponent implements OnInit {
   ];
 
   constructor(
+    private dialogFormService: NbDialogService,
     private formBuilder: FormBuilder,
     private FlatS: FlatService,
     private PavilionS: PavilionService,
@@ -325,5 +328,18 @@ export class PahApplicationsComponent implements OnInit {
 
   changeEntity() {
     this.table.changeEntity('assigned_management_plan/getByPah/' + this.campus_id + '/' + this.flat_id + '/' + this.pavilion_id + '/' + this.bed_id + '?start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 'assigned_management_plan')
+  }
+
+  EditAssigned(data) {
+    this.dialogFormService.open(FormAssignedManagementPlanComponent, {
+      context: {
+        title: 'Editar agendamiento',
+        data,
+        phone_consult: 0,
+        user: this.user,
+        saved: this.RefreshData.bind(this),
+        is_hospitalary: true,
+      },
+    });
   }
 }
