@@ -9,6 +9,9 @@ import { RoleBusinessService } from '../../../business-controller/role-business.
 import { AuthService } from '../../../services/auth.service';
 import { FormUserComponent } from '../../setting/users/form-user/form-user.component';
 import { FormPatientDataComponent } from '../../admissions/patient-data/form-admissions-patient/form-patient-data.component';
+import { ReferenceStatusService } from '../../../business-controller/reference-status.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { json } from '@rxweb/reactive-form-validators';
 
 
 @Component({
@@ -49,6 +52,8 @@ export class ReferenceListComponent implements OnInit {
   public data = [];
   public roles = [];
   public user: any = null;
+  public reference_status: any = null;
+  public form: FormGroup;
   public human_talent_request_observation: any = [];
   public currentRole;
   public role2;
@@ -261,7 +266,8 @@ export class ReferenceListComponent implements OnInit {
     private currency: CurrencyPipe,
     public datePipe: DateFormatPipe,
     public roleBS: RoleBusinessService,
-    private deleteConfirmService: NbDialogService,
+    private formBuilder: FormBuilder,
+    private ReferenceStatusS: ReferenceStatusService,
     private authService: AuthService,
 
   ) {
@@ -273,11 +279,20 @@ export class ReferenceListComponent implements OnInit {
     this.currentRole = this.user.roles.find(x => {
       return x.id == curr;
     });
-    // this.ReferenceObservationS.GetCollection({
-    //   category: 1,
-    // }).then(x => {
-    //   this.human_talent_request_observation = x;
-    // });
+
+    this.ReferenceStatusS.GetCollection({
+      arr: JSON.stringify([1,2,3]),
+    }).then(x => {
+      this.reference_status = x;
+    });
+
+    this.form = this.formBuilder.group({
+      reference_status_id: ['', []],
+    });
+
+    this.form.get('reference_status_id').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
   }
 
   RefreshData() {
@@ -372,6 +387,10 @@ export class ReferenceListComponent implements OnInit {
         saved: this.RefreshData.bind(this),
       },
     });
+  }
+
+  changeEntity() {
+    this.table.changeEntity(`reference?role_id=${this.currentRole.id}&reference_status_id=${this.form.controls.reference_status_id.value}`, 'reference')
   }
 
 }
