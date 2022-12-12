@@ -21,6 +21,10 @@ import { ViewCell } from 'ng2-smart-table';
         <nb-icon icon="close-outline"></nb-icon>
     </button>
 
+    <button *ngIf="this.value.data.reference_status_id != 1" nbButton ghost [nbPopover]="templateRef" nbPopoverTrigger="hover">
+        <nb-icon icon="info-outline"></nb-icon>
+    </button>
+
     <button *ngIf="this.show && (this.value.data.reference_status_id == 3 && !this.value.data.admissions_id && this.value.data.patient_id)" nbTooltip="Admitir" nbTooltipPlacement="top" nbTooltipStatus="primary"
         (click)="value.admission(value.data)" nbButton ghost>
         <nb-icon icon="log-in-outline"></nb-icon>
@@ -31,6 +35,25 @@ import { ViewCell } from 'ng2-smart-table';
         <nb-icon icon="person-add-outline"></nb-icon>
     </button>
   </div>
+
+  <ng-template #templateRef>
+      <div class="p-3">
+          <p *ngIf="this.value.data.reference_status_id == 2"><strong>TIPO DE RECHAZO:</strong> {{ this.value.data.denied_type.name }}</p>
+          
+          <p *ngIf="this.value.data.reference_status_id == 2"><strong>RAZÓN DE RECHAZO:</strong> {{ this.value.data.denied_reason.name }}</p>
+          
+          <p *ngIf="this.value.data.reference_status_id == 2"><strong>OBSERVACIÓN:</strong> {{ this.value.data.denied_observation }}</p>
+          
+          <p *ngIf="this.value.data.reference_status_id == 2"><strong>RECHAZADO POR:</strong> {{ (this.value.data.denied_user.firstname ? this.value.data.denied_user.firstname : '') + ' ' + (this.value.data.denied_user.middlefirstname ? this.value.data.denied_user.middlefirstname : '') + ' ' + (this.value.data.denied_user.lastname ? this.value.data.denied_user.lastname : '') + ' ' + (this.value.data.denied_user.middlelastname ? this.value.data.denied_user.middlelastname : '') }}</p>
+          
+
+          <p *ngIf="this.value.data.reference_status_id == 3"><strong>OBSERVACIÓN:</strong> {{ this.value.data.acceptance_observation }}</p>
+
+          <p *ngIf="this.value.data.reference_status_id == 3"><strong>CONFIRMADO POR:</strong> {{ (this.value.data.acceptance_user.firstname ? this.value.data.acceptance_user.firstname : '') + ' ' + (this.value.data.acceptance_user.middlefirstname ? this.value.data.acceptance_user.middlefirstname : '') + ' ' + (this.value.data.acceptance_user.lastname ? this.value.data.acceptance_user.lastname : '') + ' ' + (this.value.data.acceptance_user.middlelastname ? this.value.data.acceptance_user.middlelastname : '') }}</p>
+
+          
+      </div>
+  </ng-template>
   `,
   styleUrls: ['./reference-list.component.scss'],
 })

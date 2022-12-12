@@ -19,7 +19,7 @@ import {
   NbCheckboxModule,
   NbRadioModule,
   NbTooltipModule,
-  NbDatepickerModule, NbSpinnerModule,
+  NbDatepickerModule, NbSpinnerModule, NbPopoverModule,
 } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { PagesModule } from '../pages.module';
@@ -49,6 +49,7 @@ import { ReferenceListComponent } from './reference-list/reference-list.componen
     NbAccordionModule,
     NbUserModule,
     NbSelectModule,
+    NbPopoverModule,
     ReferenceRoutingModule,
     NbAlertModule,
     NbDialogModule.forRoot(),
