@@ -177,6 +177,7 @@ export class FormFormulationComponent implements OnInit {
         services_briefcase_id: this.form.controls.required.value == 'medicine' ? this.service_briefcase_id : null,
         product_supplies_id: this.form.controls.required.value == 'supplies' ? this.product_supplies_id : null,
         num_supplies: this.form.controls.num_supplies.value,
+        pharmacy_product_request_id: false,
       })
         .then((x) => {
           this.toastService.success('', x.message);

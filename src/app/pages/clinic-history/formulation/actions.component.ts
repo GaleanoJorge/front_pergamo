@@ -12,6 +12,7 @@ import { AdmissionRouteService } from '../../../business-controller/admission-ro
 import { BedService } from '../../../business-controller/bed.service';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { AuthService } from '../../../services/auth.service';
+import { ChFormulationService } from '../../../business-controller/ch-formulation.service';
 
 @Component({
   template: `
@@ -21,10 +22,39 @@ import { AuthService } from '../../../services/auth.service';
       <nb-icon icon="file-add"></nb-icon>
     </button>
     <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
-          <nb-icon icon="trash-2-outline"></nb-icon>
-      </button>
+        <nb-icon icon="trash-2-outline"></nb-icon>
+    </button>
+    <button *ngIf="this.value.data.product_generic || this.value.data.product_supplies" nbTooltip="Duplicar Formulación" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="showFormulations(formulations)">
+        <nb-icon icon="copy-outline"></nb-icon>
+    </button>
 
   </div>
+
+  <ng-template #formulations>
+    <form [formGroup]="form" (ngSubmit)="duplicate()">
+      <nb-card style="width: 100%; max;height: 300px;overflow: auto;">
+        <nb-card-header>DUPLICAR FORMULACIÓN DE {{this.value.data.product_generic ?
+          this.value.data.product_generic.description :
+          this.value.data.product_supplies.description }}</nb-card-header>
+        <nb-card-body>
+          <div class="col-md-12">
+
+            <label for="send_formulation" class="form-text text-muted font-weight-bold">ENVIAR SOLICITUD A
+              FARMACIA</label>
+            <nb-toggle formControlName="send_formulation" is_disability>
+            </nb-toggle>
+
+          </div>
+
+        </nb-card-body>
+
+        <nb-card-footer class="d-flex justify-content-end">
+          <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+          <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </ng-template>
   `,
 })
 export class ActionsFormulationComponent implements ViewCell {
@@ -55,6 +85,7 @@ export class ActionsFormulationComponent implements ViewCell {
 
 
   constructor(
+    private ChFormulationS: ChFormulationService,
     private toastService: NbToastrService,
     private formBuilder: FormBuilder,
     private dialogService: NbDialogService,
@@ -71,56 +102,9 @@ export class ActionsFormulationComponent implements ViewCell {
   }
   ngOnInit() {
 
-    // console.log(this.value);
-    // console.log(this.rowData);
-
-    console.log(this.value.data.status);
-    if (this.value.data.medical_date == '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {
-      this.medical = false;
-      this.status = false;
-      this.service = true
-      console.log(this.rowData.id);
-    } else if (this.value.data.medical_date != '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {
-      this.status = true;
-      this.medical = true;
-    } else if (this.value.data.medical_date != '0000-00-00 00:00:00' && this.value.data.discharge_date != '0000-00-00 00:00:00') {
-      this.medical = false;
-      this.status = false;
-      this.service = false;
-    }
-
-    if (!this.data) {
-      this.data = {
-        admission_route_id: '',
-        scope_of_attention_id: '',
-        program_id: '',
-        flat_id: '',
-        pavilion_id: '',
-        bed_id: '',
-      };
-    }
-
-    this.campus_id = localStorage.getItem('campus');
-    this.AdmissionRouteS.GetCollection().then(x => {
-      this.admission_route = x;
-    });
-    this.FlatS.GetFlatByCampus(this.campus_id, {
-      bed_or_office: 1,
-    }).then(x => {
-      this.flat = x;
-    });
-
-
     this.form = this.formBuilder.group({
-      admission_route_id: [this.data.admission_route_id, Validators.compose([Validators.required])],
-      scope_of_attention_id: [this.data.scope_of_attention_id, Validators.compose([Validators.required])],
-      program_id: [this.data.program_id, Validators.compose([Validators.required])],
-      flat_id: [this.data.flat_id, Validators.compose([Validators.required])],
-      pavilion_id: [this.data.pavilion_id, Validators.compose([Validators.required])],
-      bed_id: [this.data.bed_id, Validators.compose([Validators.required])],
+      send_formulation: [false, Validators.compose([Validators.required])],
     });
-
-    this.onChanges();
   }
 
 
@@ -185,125 +169,47 @@ export class ActionsFormulationComponent implements ViewCell {
     });
   }
 
-  save() {
-
-    this.isSubmitted = true;
-
-    if (!this.form.invalid) {
-      this.loading = true;
-
-      if (this.value.data.id) {
-        this.LocationS.ChangeService({
-          id: this.value.data.id,
-          admissions_id: this.value.data.id,
-          admission_route_id: this.form.controls.admission_route_id.value,
-          scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
-          program_id: this.form.controls.program_id.value,
-          flat_id: this.form.controls.flat_id.value,
-          pavilion_id: this.form.controls.pavilion_id.value,
-          bed_id: this.form.controls.bed_id.value,
-        }).then(x => {
-          this.toastService.success('', x.message);
-          this.close();
-          if (this.saved) {
-            this.saved();
-          }
-        }).catch(x => {
-          this.isSubmitted = false;
-          this.loading = false;
-        });
-      }
-    }
+  showFormulations(dialog: TemplateRef<any>) {
+    this.dialog = this.dialogService.open(dialog);
   }
 
-  onChanges() {
-    this.form.get('admission_route_id').valueChanges.subscribe(val => {
-      console.log(val);
-      if (val === '') {
-        this.scope_of_attention = [];
-      } else {
-        this.GetScope(val).then();
-      }
-      this.form.patchValue({
-        scope_of_attention_id: '',
+  closeDialog() {
+    this.dialog.close();
+  }
+
+  duplicate() {
+
+    this.loading = true;
+
+    this.ChFormulationS.Save({
+      required: this.value.data.required,
+      administration_route_id: this.value.data.administration_route_id,
+      dose: this.value.data.dose,
+      hourly_frequency_id: this.value.data.hourly_frequency_id,
+      medical_formula: this.value.data.medical_formula,
+      number_mipres: this.value.data.number_mipres,
+      observation: this.value.data.observation,
+      outpatient_formulation: this.value.data.outpatient_formulation,
+      product_generic_id: this.value.data.product_generic_id,
+      treatment_days: this.value.data.treatment_days,
+      type_record_id: 5,
+      ch_record_id: this.value.data.ch_record_id,
+      services_briefcase_id: this.value.data.services_briefcase_id,
+      product_supplies_id: this.value.data.product_supplies_id,
+      num_supplies: this.value.data.num_supplies,
+      pharmacy_product_request_id: this.form.controls.send_formulation.value == false ? this.value.data.pharmacy_product_request_id : false,
+    })
+      .then((x) => {
+        this.loading = false;
+        this.toastService.success('', x.message);
+        this.closeDialog();
+        if (this.value.refresh) {
+          this.value.refresh();
+        }
+      })
+      .catch((x) => {
+        this.loading = false;
+        this.toastService.danger('', x);
       });
-    });
-
-    this.form.get('scope_of_attention_id').valueChanges.subscribe(val => {
-      if (val === '') {
-        this.program = [];
-      } else {
-        this.ambit = val;
-        this.GetProgram(val).then();
-      }
-      this.form.patchValue({
-        program_id: '',
-      });
-    });
-
-    this.form.get('flat_id').valueChanges.subscribe(val => {
-      console.log(val);
-      if (val === '') {
-        this.pavilion = [];
-      } else {
-        this.GetPavilion(val).then();
-      }
-      this.form.patchValue({
-        pavilion_id: '',
-      });
-    });
-
-    this.form.get('pavilion_id').valueChanges.subscribe(val => {
-      if (val === '') {
-        this.bed = [];
-      } else {
-        this.GetBed(val, this.ambit).then();
-      }
-      this.form.patchValue({
-        bed_id: '',
-      });
-    });
-  }
-
-  GetScope(admission_route_id, job = false) {
-    if (!admission_route_id || admission_route_id === '') return Promise.resolve(false);
-
-    return this.ScopeOfAttentionS.GetScopeByAdmission(admission_route_id).then(x => {
-
-      this.scope_of_attention = x;
-
-      return Promise.resolve(true);
-    });
-  }
-
-  GetProgram(scope_of_attention_id, job = false) {
-    if (!scope_of_attention_id || scope_of_attention_id === '') return Promise.resolve(false);
-    return this.ProgramS.GetProgramByScope(scope_of_attention_id).then(x => {
-      this.program = x;
-
-      return Promise.resolve(true);
-    });
-  }
-
-  GetPavilion(flat_id, job = false) {
-    if (!flat_id || flat_id === '') return Promise.resolve(false);
-
-    return this.PavilionS.GetPavilionByFlat(flat_id, {
-      bed_or_office: 1,
-    }).then(x => {
-
-      this.pavilion = x;
-
-      return Promise.resolve(true);
-    });
-  }
-
-  GetBed(pavilion_id, ambit) {
-    if (!pavilion_id || pavilion_id === '') return Promise.resolve(false);
-    return this.BedS.GetBedByPavilion(pavilion_id, ambit).then(x => {
-      this.bed = x;
-
-      return Promise.resolve(true);
-    });
   }
 }

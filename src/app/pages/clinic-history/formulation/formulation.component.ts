@@ -37,7 +37,7 @@ export class FormulationComponent implements OnInit {
   public settings = {
     pager: {
       display: true,
-      perPage: 30,
+      perPage: 5,
     },
     columns: {
       actions: {
