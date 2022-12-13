@@ -41,9 +41,9 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
   
   <div class="col-md-12" *ngIf="this.form.controls.revision.value =='SI'">
     <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
-    <textarea [disabled]="this.disabled" id="description"  nbInput fullWidth
-      formControlName="description" description onpaste="return false" rows="4" cols="50"
-      status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+    <textarea [disabled]="this.disabled" id="observation"  nbInput fullWidth
+      formControlName="observation" observation onpaste="return false" rows="4" cols="50"
+      status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
       {{this.value.data.observation}}</textarea>
   </div>
 </div>
@@ -142,7 +142,7 @@ export class Actions8Component implements ViewCell {
     this.BackgroundS.Update({
       id: this.value.data.id,
       revision: this.form.controls.revision.value,
-      observation: this.form.controls.description.value,
+      observation: this.form.controls.observation.value,
       ch_type_background_id: this.value.data.ch_type_background.id,
       type_record_id: this.value.data.type_record_id,
       ch_record_id: this.value.data.ch_record_id,
