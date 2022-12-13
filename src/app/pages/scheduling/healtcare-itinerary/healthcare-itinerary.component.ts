@@ -293,7 +293,7 @@ export class HealthcareItineraryComponent implements OnInit {
         init_date: this.form.value.start_date,
         finish_date: this.form.value.finish_date,
         medical_status_id: this.form.value.status_id,
-        procedure_id: this.procedure_id,
+        procedure_id: this.form.value.procedure_id,
       })
       .then((x) => {
         this.medical_diary = x;
