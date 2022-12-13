@@ -65,7 +65,7 @@
 
   <nb-tabset *ngIf="user" class="tabset" (changeTab)="tablock($event)">
 
-    <nb-tab tabTitle="INGRESO" *ngIf="is_pad != 17">
+    <nb-tab tabTitle="INGRESO" *ngIf="is_pad != 17 || ch_record[0]['admissions']['location'].at(-1).scope_of_attention_id == 1">
       <div *ngIf="this.show == 1">
         <ngx-entry-clinic-history-nursing [data]="null" [record_id]="this.record_id" [type_record_id]="1"
           [has_input]="this.has_input" [admission]="admission">
@@ -80,13 +80,13 @@
       </div>
     </nb-tab>
 
-    <nb-tab tabTitle="VALORACIÓN DE LA PIEL" *ngIf="is_pad != 17">
+    <nb-tab tabTitle="VALORACIÓN DE LA PIEL" *ngIf="is_pad != 17 || ch_record[0]['admissions']['location'].at(-1).scope_of_attention_id == 1">
       <div *ngIf="this.show == 3">
         <ngx-skin-valoration [record_id]="this.record_id" [type_record_id]="3"></ngx-skin-valoration>
       </div>
     </nb-tab>
 
-    <nb-tab tabTitle="ESCALAS" *ngIf="is_pad != 17">
+    <nb-tab tabTitle="ESCALAS" *ngIf="is_pad != 17 || ch_record[0]['admissions']['location'].at(-1).scope_of_attention_id == 1">
       <div *ngIf="this.show == 4">
 
         <ngx-form-ch-scales [enfermery]="true" [record_id]="this.record_id">

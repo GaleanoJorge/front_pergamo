@@ -21,6 +21,7 @@ export class FormAssignedManagementPlanComponent implements OnInit {
   @Input() data: any = null;
   @Input() user: any = null;
   @Input() medical: boolean = false;
+  @Input() is_hospitalary: boolean = false;
   @Input() phone_consult;
   @Input() assigned: boolean;
   @Input() admissions_id: any = null;
@@ -71,27 +72,29 @@ export class FormAssignedManagementPlanComponent implements OnInit {
         procedure_id: '',
       };
     } else {
-      this.getRoleByAttention(this.data.management_plan.type_of_attention_id).then(x => {
-        if (x) {
-          this.GetMedical(this.roles, this.user.locality_id).then(x => {
-            if (x) {
-              if (this.data.user) {
-                var validator = this.assigned_user.find(item => item.id == this.data.user.id);
-                if (!validator){
-                  this.assigned_user.push(this.data.user)
+      if (!this.is_hospitalary) {
+        this.getRoleByAttention(this.data.management_plan.type_of_attention_id).then(x => {
+          if (x) {
+            this.GetMedical(this.roles, this.user.locality_id).then(x => {
+              if (x) {
+                if (this.data.user) {
+                  var validator = this.assigned_user.find(item => item.id == this.data.user.id);
+                  if (!validator){
+                    this.assigned_user.push(this.data.user)
+                  }
                 }
               }
-            }
-          }).catch(e => {
-            // this.toastService.danger(e, 'Error');
-            this.assigned_user = [
-              this.data.user,
-            ];
-          });
-        }
-      }).catch(e => {
-        this.toastService.danger(e, 'Error');
-      });
+            }).catch(e => {
+              // this.toastService.danger(e, 'Error');
+              this.assigned_user = [
+                this.data.user,
+              ];
+            });
+          }
+        }).catch(e => {
+          this.toastService.danger(e, 'Error');
+        });
+      }
     }
 
     if (this.data.management_plan.type_of_attention_id == 17) {
@@ -199,7 +202,7 @@ export class FormAssignedManagementPlanComponent implements OnInit {
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
-      if (this.medical == false) {
+      if (this.medical == false && !this.is_hospitalary) {
         var selectes_assistance_id;
         if (this.medical == false) {
           var selectes_assistance_id;

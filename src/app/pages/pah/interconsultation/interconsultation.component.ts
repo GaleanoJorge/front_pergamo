@@ -428,6 +428,7 @@ export class InterconsultationComponent implements OnInit {
         own_user: this.own_user,
         title: 'Suministros del paciente',
         admissions_id: this.admissions_id,
+        is_hospitalary: true,
       },
     });
   }

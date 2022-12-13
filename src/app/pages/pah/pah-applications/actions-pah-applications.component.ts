@@ -27,6 +27,10 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
     <a *ngIf="(value.currentRole.id == 8 || value.currentRole.id == 9) && ( today >= start && today <= finish && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
       <nb-icon icon="folder-add-outline"></nb-icon>
     </a>
+
+    <button *ngIf="value.currentRole.id == 1 && value.data.execution_date == '0000-00-00 00:00:00'" nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
+      <nb-icon icon="edit-outline"></nb-icon>
+    </button>
   </div>
   `,
   styleUrls: ['./pah-applications.component.scss'],
