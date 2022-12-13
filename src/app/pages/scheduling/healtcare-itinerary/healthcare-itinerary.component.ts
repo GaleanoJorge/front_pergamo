@@ -96,6 +96,7 @@ export class HealthcareItineraryComponent implements OnInit {
   public eventSettings: EventSettingsModel;
   public done: boolean = false;
   public procedure_id;
+  public id;
   public procedure: any[] = [];
   public campus: Campus[] = [];
   public assistance: any[] = [];
@@ -249,7 +250,7 @@ export class HealthcareItineraryComponent implements OnInit {
     if (e == 1) {
       var id = $event == '' ? $event : Number($event.split('-').at(0));
       localidentify = this.procedure.find((item) => item.id == id);
-
+this.id=id;
       if (localidentify) {
         this.procedure_id = localidentify;
         this.getAssistance(this.procedure_id.id);
@@ -293,7 +294,7 @@ export class HealthcareItineraryComponent implements OnInit {
         init_date: this.form.value.start_date,
         finish_date: this.form.value.finish_date,
         medical_status_id: this.form.value.status_id,
-        procedure_id: this.procedure_id.id,
+        procedure_id: this.id,
       })
       .then((x) => {
         this.medical_diary = x;
