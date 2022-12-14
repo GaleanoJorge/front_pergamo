@@ -19,7 +19,7 @@ export class ChScaleJhDowntonComponent implements OnInit {
   public messageError = null;
   public title: string = 'Registros Escala Jh Downton';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha', 'Puntaje', 'Interpretación'];
+  public headerFields: any[] = ['Fecha / Hora de Registro', 'Puntaje', 'Interpretación'];
   public routes = [];
   public data = [];
   public ch_record_id;
@@ -33,7 +33,7 @@ export class ChScaleJhDowntonComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {

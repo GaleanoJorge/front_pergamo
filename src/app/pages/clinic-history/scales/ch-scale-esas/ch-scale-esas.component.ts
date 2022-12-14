@@ -18,7 +18,7 @@ export class ChScaleEsasComponent implements OnInit {
   public messageError = null;
   public title: string = 'Registros Escala ESAS';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha', 'Dolor', 'Cansancio', 'Náusea',  'Depresión', 
+  public headerFields: any[] = ['Fecha / Hora de Registro', 'Dolor', 'Cansancio', 'Náusea',  'Depresión', 
   'Ansiedad', 'Somnolencia', 'Apetito', 'Bienestar', 'Falta de Aire', 'Dificultad para Dormir', 'Observación',];
   public routes = [];
   public data = [];
@@ -33,7 +33,7 @@ export class ChScaleEsasComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       pain_value: {

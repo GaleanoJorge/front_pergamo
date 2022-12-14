@@ -12,9 +12,9 @@ import { ViewCell } from 'ng2-smart-table';
             <nb-icon icon="paper-plane-outline"></nb-icon>
         </button> -->
         <button
-            *ngIf="!value.group && ((value.data.edit_date == 1 && !value.data.file_payment && value.role_type == 2))"
+            *ngIf="!value.data.file_payment && value.role_type == 2"
             nbTooltip="Adjuntar Planilla seguridad" nbTooltipPlacement="top" nbTooltipStatus="primary"
-             nbButton ghost (click)="value.edit(value.data)">
+             nbButton ghost (click)="value.edit(value.data)">   
             <nb-icon icon="paper-plane-outline"></nb-icon>
         </button>
         <button

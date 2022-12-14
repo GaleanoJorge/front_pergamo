@@ -43,6 +43,15 @@ export class FormChApComponent implements OnInit {
       this.admissions_id = x;
     });
 
+    this.ChApS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id
+    }).then(x => {
+      if (x.length > 0) {
+        this.messageEvent.emit(true);
+      }
+    });
+
     if (!this.data) {
       this.data = {
         analisys: '',

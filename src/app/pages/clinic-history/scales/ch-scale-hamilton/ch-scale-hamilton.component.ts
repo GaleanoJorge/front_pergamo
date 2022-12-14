@@ -18,7 +18,7 @@ export class ChScaleHamiltonComponent implements OnInit {
   public messageError = null;
   public title: string = 'Registros Escala Hamilton';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha','Puntaje', 'Gravedad del cuadro'];
+  public headerFields: any[] = ['Fecha / Hora de Registro','Puntaje', 'Gravedad del cuadro'];
   public routes = [];
   public data = [];
   public ch_record_id;
@@ -32,7 +32,7 @@ export class ChScaleHamiltonComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {

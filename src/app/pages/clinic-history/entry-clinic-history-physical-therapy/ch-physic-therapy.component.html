@@ -12,221 +12,221 @@
       </div>
     </div>
 
-    <nb-tabset *ngIf="user" class="tabset">
-      <nb-tab tabTitle="INGRESO">
+    <nb-tabset *ngIf="user" class="tabset" (changeTab)="tablock($event)">
+      <nb-tab tabTitle="INGRESO 1">
+        <div *ngIf="this.show == 1">
+          <nb-stepper #stepper [linear]="linearMode">
+
+            <nb-step label='Valoracion Terapeutica Fisica'>
+
+              <ngx-table-valoration-ft (messageEvent)="inputMessage($event)" [has_input]="has_input"
+                [type_record_id]="1" *ngIf="chftvaloration" [data]="chftvaloration" [record_id]="record_id">
+              </ngx-table-valoration-ft>
+
+            </nb-step>
+
+            <nb-step label='Antecedentes'>
+
+              <ngx-back-list [user]="user" [has_input]="has_input" [record_id]="record_id"
+                (messageEvent)="receiveMessage($event)" [type_record_id]="1">
+              </ngx-back-list>
+
+            </nb-step>
 
 
-        <nb-accordion>
-          <nb-accordion-item>
-           <nb-accordion-item-header class="row justify-content-center" >PARTE #1</nb-accordion-item-header>
-           <nb-accordion-item-body>
-
-            <nb-stepper #stepper [linear]="linearMode">
-
-              <nb-step label='Valoracion Terapeutica Fisica'>
-    
-                <ngx-table-valoration-ft (messageEvent)="inputMessage($event)" [has_input]="has_input" [type_record_id]="1"
-                  *ngIf="chftvaloration" [data]="chftvaloration" [record_id]="record_id">
-                </ngx-table-valoration-ft>
-    
-              </nb-step>
-
-              <nb-step label='Antecedentes'>
-    
-                <ngx-back-list [user]="user" [has_input]="has_input" [record_id]="record_id" (messageEvent)="receiveMessage($event)" [type_record_id]="1">
-                </ngx-back-list>
-    
-              </nb-step>
-    
-    
-              <nb-step label="Signos Vitales">
-    
-    
-                <ngx-signs (messageEvent)="inputMessage($event)" [type_record_id]="1" [admissions]="admission" [has_input]="has_input" [record_id]="record_id">
-                </ngx-signs>
-    
-    
-              </nb-step>
-    
-              <nb-step label='Valoracion Terepeutica'>
-    
-                <ngx-table-valoration-ther-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chftvalorationTher"
-                  [data]="chftvalorationTher"></ngx-table-valoration-ther-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Dolor'>
-    
-                <ngx-table-pain-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chpain"></ngx-table-pain-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Sistema Tegumentario'>
-    
-                <ngx-table-sys-integumentary-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id" [data]="chsysintegumentary">
-                </ngx-table-sys-integumentary-ft>
-    
-              </nb-step>
-    
-              <br />
-    
-              <nb-step label='Sistema Musculoesqueletico'>
-    
-                <ngx-table-sys-musculoskeletal-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id"
-                  [data]="chsysmusculoskeletal"></ngx-table-sys-musculoskeletal-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Fuerza Muscular'>
-    
-                <ngx-table-muscular-strength-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chmuscularstrength">
-                </ngx-table-muscular-strength-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Sensibilidad'>
-    
-                <ngx-table-sensibility-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chsensibility">
-                </ngx-table-sensibility-ft>
-    
-              </nb-step>
-    
-            </nb-stepper>
-           
-      
-      
-           </nb-accordion-item-body>
-          </nb-accordion-item>
-         </nb-accordion>
-         <hr/>
+            <nb-step label="Signos Vitales">
 
 
-        <nb-accordion>
-          <nb-accordion-item>
-           <nb-accordion-item-header class="row justify-content-center" >PARTE #2</nb-accordion-item-header>
-           <nb-accordion-item-body>
+              <ngx-signs (messageEvent)="inputMessage($event)" [type_record_id]="1" [admissions]="admission"
+                [has_input]="has_input" [record_id]="record_id">
+              </ngx-signs>
 
-            <nb-stepper #stepper [linear]="linearMode">
 
-              <nb-step label='Tono Muscular'>
-    
-                <ngx-table-muscular-tone-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chmusculartone">
-                </ngx-table-muscular-tone-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Reflejos'>
-    
-                <ngx-table-reflection_f_t [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chreflection">
-                </ngx-table-reflection_f_t>
-    
-              </nb-step>
-    
-              <nb-step label='Flexibilidad'>
-    
-                <ngx-table-flexibility-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chflexibility">
-                </ngx-table-flexibility-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Equilibrio'>
-    
-                <ngx-table-balance-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chbalance">
-                </ngx-table-balance-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Postura (Observacion)'>
-    
-                <ngx-table-position-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chposition">
-                </ngx-table-position-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Marcha'>
-    
-                <ngx-table-march-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chmarch"></ngx-table-march-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Diagnostico CIF'>
-    
-                <ngx-table-diagnosis-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chdiagnosis">
-                </ngx-table-diagnosis-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Objetivos Terapeuticos'>
-    
-                <ngx-table-ther-goals-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chthergoals">
-                </ngx-table-ther-goals-ft>
-    
-              </nb-step>
-    
-              <nb-step label='Sesiones Semanales'>
-    
-                <ngx-table-weekly-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id" [data]="chweekly"></ngx-table-weekly-ft>
-    
-              </nb-step>
-    
-            </nb-stepper>
-           
-      
-      
-           </nb-accordion-item-body>
-          </nb-accordion-item>
-         </nb-accordion>
-         <hr/>
+            </nb-step>
 
+            <nb-step label='Valoracion Terepeutica'>
+
+              <ngx-table-valoration-ther-ft [type_record_id]="1" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input" [record_id]="record_id" [data]="chftvalorationTher" [data]="chftvalorationTher">
+              </ngx-table-valoration-ther-ft>
+
+            </nb-step>
+
+            <nb-step label='Dolor'>
+
+              <ngx-table-pain-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input"
+                [record_id]="record_id" [data]="chpain"></ngx-table-pain-ft>
+
+            </nb-step>
+
+            <nb-step label='Sistema Tegumentario'>
+
+              <ngx-table-sys-integumentary-ft [type_record_id]="1" [has_input]="has_input" [record_id]="record_id"
+                [data]="chsysintegumentary">
+              </ngx-table-sys-integumentary-ft>
+
+            </nb-step>
+
+            <br />
+
+            <nb-step label='Sistema Musculoesqueletico'>
+
+              <ngx-table-sys-musculoskeletal-ft [type_record_id]="1" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input" [record_id]="record_id" [data]="chsysmusculoskeletal">
+              </ngx-table-sys-musculoskeletal-ft>
+
+            </nb-step>
+
+            <nb-step label='Fuerza Muscular'>
+
+              <ngx-table-muscular-strength-ft [type_record_id]="1" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input" [record_id]="record_id" [data]="chmuscularstrength">
+              </ngx-table-muscular-strength-ft>
+
+            </nb-step>
+
+            <nb-step label='Sensibilidad'>
+
+              <ngx-table-sensibility-ft [type_record_id]="1" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input" [record_id]="record_id" [data]="chsensibility">
+              </ngx-table-sensibility-ft>
+
+            </nb-step>
+
+          </nb-stepper>
+        </div>
       </nb-tab>
 
+      <nb-tab tabTitle="INGRESO 2">
+        <div *ngIf="this.show == 2">
+          <nb-stepper #stepper [linear]="linearMode">
+
+            <nb-step label='Tono Muscular'>
+
+              <ngx-table-muscular-tone-ft [type_record_id]="1" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input" [record_id]="record_id" [data]="chmusculartone">
+              </ngx-table-muscular-tone-ft>
+
+            </nb-step>
+
+            <nb-step label='Reflejos'>
+
+              <ngx-table-reflection_f_t [type_record_id]="1" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input" [record_id]="record_id" [data]="chreflection">
+              </ngx-table-reflection_f_t>
+
+            </nb-step>
+
+            <nb-step label='Flexibilidad'>
+
+              <ngx-table-flexibility-ft [type_record_id]="1" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input" [record_id]="record_id" [data]="chflexibility">
+              </ngx-table-flexibility-ft>
+
+            </nb-step>
+
+            <nb-step label='Equilibrio'>
+
+              <ngx-table-balance-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input"
+                [record_id]="record_id" [data]="chbalance">
+              </ngx-table-balance-ft>
+
+            </nb-step>
+
+            <nb-step label='Postura (Observacion)'>
+
+              <ngx-table-position-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input"
+                [record_id]="record_id" [data]="chposition">
+              </ngx-table-position-ft>
+
+            </nb-step>
+
+            <nb-step label='Marcha'>
+
+              <ngx-table-march-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input"
+                [record_id]="record_id" [data]="chmarch"></ngx-table-march-ft>
+
+            </nb-step>
+
+            <nb-step label='Diagnostico CIF'>
+
+              <ngx-table-diagnosis-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input"
+                [record_id]="record_id" [data]="chdiagnosis">
+              </ngx-table-diagnosis-ft>
+
+            </nb-step>
+
+            <nb-step label='Objetivos Terapeuticos'>
+
+              <ngx-table-ther-goals-ft [type_record_id]="1" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input" [record_id]="record_id" [data]="chthergoals">
+              </ngx-table-ther-goals-ft>
+
+            </nb-step>
+
+            <nb-step label='Sesiones Semanales'>
+
+              <ngx-table-weekly-ft [type_record_id]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input"
+                [record_id]="record_id" [data]="chweekly"></ngx-table-weekly-ft>
+
+            </nb-step>
+
+          </nb-stepper>
+        </div>
+      </nb-tab>
 
       <nb-tab tabTitle="NOTA REGULAR">
+        <div *ngIf="this.show == 3">
 
-        <nb-stepper #stepper [linear]="linearMode">
+          <nb-stepper #stepper [linear]="linearMode">
 
-          <nb-step label='valoracion Terapia Fisica'>
-            <ngx-table-nr-valoration-ft [type_record_id]="3" [record_id]="record_id" [data]="chftvaloration">
-            </ngx-table-nr-valoration-ft>
-          </nb-step>
+            <nb-step label='valoracion Terapia Fisica'>
+              <ngx-table-nr-valoration-ft [type_record_id]="3" [record_id]="record_id" [data]="chftvaloration">
+              </ngx-table-nr-valoration-ft>
+            </nb-step>
 
-          <nb-step label="Signos Vitales">
+            <nb-step label="Signos Vitales">
 
-            <ngx-signs [type_record_id]="3" [record_id]="record_id" [admissions]="admission"></ngx-signs>
+              <ngx-signs [type_record_id]="3" [record_id]="record_id" [admissions]="admission"></ngx-signs>
 
-          </nb-step>
+            </nb-step>
 
-          <nb-step label='Objetivos Terapeuticos'>
-            <ngx-table-nr-ther-goals-ft [type_record_id]="3" [record_id]="record_id" [data]="chthergoals">
-            </ngx-table-nr-ther-goals-ft>
-          </nb-step>
+            <nb-step label='Objetivos Terapeuticos'>
+              <ngx-table-ther-goals-ft [type_record_id]="1" [record_id]="record_id" [has_input]="true"
+                [data]="chthergoals">
+              </ngx-table-ther-goals-ft>
+            </nb-step>
 
-          <nb-step label='Intervencion'>
-            <ngx-table-nr-intervention-ft [type_record_id]="3" [record_id]="record_id" >
-            </ngx-table-nr-intervention-ft>
-          </nb-step>
+            <nb-step label='Intervencion'>
+              <ngx-table-nr-intervention-ft [type_record_id]="3" [record_id]="record_id">
+              </ngx-table-nr-intervention-ft>
+            </nb-step>
 
-          <nb-step label='Materiales'>
-            <ngx-table-nr-metarials-ft [type_record_id]="3" [record_id]="record_id" >
-            </ngx-table-nr-metarials-ft>
-          </nb-step>
+            <nb-step label='Materiales'>
+              <ngx-table-nr-metarials-ft [type_record_id]="3" [record_id]="record_id">
+              </ngx-table-nr-metarials-ft>
+            </nb-step>
 
-          <nb-step label='Diagnostico CIF'>
-            <ngx-table-nr-diagnosis-ft [type_record_id]="3" [record_id]="record_id" [data]="chdiagnosis">
-            </ngx-table-nr-diagnosis-ft>
-          </nb-step>
+            <nb-step label='Diagnostico CIF'>
+              <ngx-table-nr-diagnosis-ft [type_record_id]="3" [record_id]="record_id" [data]="chdiagnosis">
+              </ngx-table-nr-diagnosis-ft>
+            </nb-step>
 
-          <nb-step label='Sesiones Mensuales'>
-            <ngx-table-nr-weekly-ft [type_record_id]="3" [record_id]="record_id" [data]="chweekly">
-            </ngx-table-nr-weekly-ft>
-          </nb-step>
+            <nb-step label='Sesiones Mensuales'>
+              <ngx-table-nr-weekly-ft [type_record_id]="3" [record_id]="record_id" [data]="chweekly">
+              </ngx-table-nr-weekly-ft>
+            </nb-step>
+
+            <nb-step label="Recomendaciones">
+              <ngx-recommendations-evo [record_id]="record_id" [type_record]="3"></ngx-recommendations-evo>
+            </nb-step>
 
 
-        </nb-stepper>
-
-
+          </nb-stepper>
+        </div>
       </nb-tab>
     </nb-tabset>
+
 
     <div style="text-align: center;">
       <a (click)="close()" nbButton>Finalizar registro</a>

@@ -18,7 +18,7 @@ export class ChHistoricScalesComponent implements OnInit {
 
   linearMode = true;
   public messageError = null;
-  public headerFields: any[] = ['Fecha', 'Total', 'Riesgo', 'Puntaje', 'Clasificación', 'Calificación',
+  public headerFields: any[] = ['Fecha / Hora de Registro', 'Total', 'Riesgo', 'Puntaje', 'Clasificación', 'Calificación',
     'Riesgo clínico', 'Respuesta clínica', 'Gravedad del cuadro', 'Resultado', 'Definición',
     'Grado', 'Descripción', 'Intervención y seguimiento', 'Detalle', 'Interpretación'];
 
@@ -41,7 +41,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {
@@ -61,7 +61,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {
@@ -77,7 +77,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       classification: {
@@ -97,7 +97,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {
@@ -118,7 +118,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFieldsPayette[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       classification: {
@@ -143,7 +143,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       qualification: {
@@ -168,7 +168,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {
@@ -189,7 +189,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       result: {
@@ -205,7 +205,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       level_title: {
@@ -225,7 +225,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       grade_title: {
@@ -246,7 +246,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       score_value: {
@@ -267,7 +267,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       grade_title: {
@@ -288,7 +288,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {
@@ -312,7 +312,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {
@@ -332,7 +332,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFieldsEsas[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       pain_value: {
@@ -389,7 +389,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       range_value: {
@@ -409,7 +409,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       pain_value: {
@@ -429,7 +429,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {
@@ -449,7 +449,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       score_value: {
@@ -470,7 +470,7 @@ export class ChHistoricScalesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {

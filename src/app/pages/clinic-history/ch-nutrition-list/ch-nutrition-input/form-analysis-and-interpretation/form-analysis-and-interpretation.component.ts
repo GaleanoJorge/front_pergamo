@@ -18,6 +18,7 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
   @Input() type_record_id: any = null;
   @Input() record_id: any = null;
   @Input() user_id: any = null;
+  @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
   
 
@@ -32,7 +33,6 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
   public loading: boolean = false;
   public botton_title: string = 'Guardar';
   public ch_nutrition_interpretation = null;
-  public has_input: any = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -127,5 +127,4 @@ export class FormAnalysisAndInterpretationComponent implements OnInit {
       }
     }
   }
-
 }

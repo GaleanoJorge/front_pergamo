@@ -63,10 +63,10 @@ export class ManagementPlanService {
       });
   }
 
-  ChangeStatus(id): Promise<any> {
+  ChangeStatus(id, params = {}): Promise<any> {
     let servObj = new ServiceObject(`management_plan/${id}/changeStatus`);
 
-    return this.webAPI.PatchAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
 

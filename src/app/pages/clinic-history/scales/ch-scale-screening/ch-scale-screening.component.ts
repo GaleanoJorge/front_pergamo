@@ -18,7 +18,7 @@ export class ChScaleScreeningComponent implements OnInit {
   public messageError = null;
   public title: string = 'Registros Mini Tamizaje Nutricional Adultos';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha','Puntaje', 'Riesgo'];
+  public headerFields: any[] = ['Fecha / Hora de Registro','Puntaje', 'Riesgo'];
   public routes = [];
   public data = [];
   public ch_record_id;
@@ -32,7 +32,7 @@ export class ChScaleScreeningComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {
