@@ -5,7 +5,7 @@
         <nb-tabset class="tabset" (changeTab)="tablock($event)">
           <nb-tab tabTitle="Aplicación">
             <div *ngIf = "this.show == 1">
-              <ngx-drug-application [record_id]="record_id" [type_record_id]="type_record_id"></ngx-drug-application>
+              <ngx-drug-application [record_id]="record_id" (messageEvent)="receiveMessage($event)" [type_record_id]="type_record_id"></ngx-drug-application>
             </div>
           </nb-tab>
           <!-- <nb-tab tabTitle="Pedidos">

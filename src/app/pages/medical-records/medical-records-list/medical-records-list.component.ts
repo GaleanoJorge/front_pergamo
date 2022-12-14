@@ -8,6 +8,8 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { PatientService } from '../../../business-controller/patient.service';
 import { ChTypeService } from '../../../business-controller/ch-type.service';
+import { ScopeOfAttentionService } from '../../../business-controller/scope-of-attention.service';
+import { AdmissionRouteService } from '../../../business-controller/admission-route.service';
 @Component({
   selector: 'ngx-medical-records-list',
   templateUrl: './medical-records-list.component.html',
@@ -63,6 +65,10 @@ export class MedicalRecordsListComponent implements OnInit {
   public briefcase: any[] = [];
   public admissions: any[] = [];
   public patient: any[] = [];
+  public admission_route: any[];
+  public ambit;
+  public route;
+  public scope_of_attention: any[];
   public filter =
     {
       eps_id: null,
@@ -95,7 +101,8 @@ export class MedicalRecordsListComponent implements OnInit {
     private chRecordS: ChRecordService,
     private patientS: PatientService,
     private chTypeS: ChTypeService,
-
+    private ScopeOfAttentionS: ScopeOfAttentionService,
+    private AdmissionRouteS: AdmissionRouteService,
 
     // private renderer2: Renderer2,
     // private elementR: ElementRef,
@@ -274,7 +281,9 @@ export class MedicalRecordsListComponent implements OnInit {
       ch_type: '',
       contract_id: '',
       admissions_id: '',
-      patient_id: ''
+      patient_id: '',
+      admission_route_id: '',
+      scope_of_attention_id: '',
     };
 
     this.form = this.formBuilder.group({
@@ -298,6 +307,12 @@ export class MedicalRecordsListComponent implements OnInit {
       ],
       patient_id: 
       [this.data.patient_id
+      ],
+      admission_route_id: 
+      [this.data.admission_route_id
+      ],
+      scope_of_attention_id: 
+      [this.data.scope_of_attention_id
       ],
     });
 
@@ -338,6 +353,13 @@ export class MedicalRecordsListComponent implements OnInit {
         Validators.compose([Validators.required])
       ],
     });
+
+    this.AdmissionRouteS.GetCollection().then(x => {
+      this.admission_route = x;
+    });
+
+    
+    this.onChanges();
   }
 
   onUserRowSelect(select: any[]) {
@@ -456,6 +478,8 @@ export class MedicalRecordsListComponent implements OnInit {
       finish_date:this.form.controls.finish_date.value,
       admissions: this.admissions,
       ch_type:this.form.controls.ch_type.value,
+      admission_route_id: this.form.controls.admission_route_id.value,
+      scope_of_attention_id: this.form.controls.scope_of_attention_id.value,
 
 
     }).then(x => {
@@ -502,6 +526,11 @@ export class MedicalRecordsListComponent implements OnInit {
   }
 
   onChanges() {
+
+    this.form.get('admission_route_id').valueChanges.subscribe(val => {
+      this.admissionRouteChanged(val);
+    });
+
     // this.form.get('company_id').valueChanges.subscribe(val => {
     //   this.filter.eps_id = val;
     //   if (val == '') {
@@ -559,7 +588,33 @@ export class MedicalRecordsListComponent implements OnInit {
 
   }
 
- 
+  admissionRouteChanged(val) {
+    // console.log(val);
+    this.route = val;
+    if (val === '') {
+      this.scope_of_attention = [];
+    } 
+    this.GetScope(val).then();
+    this.form.patchValue({
+      scope_of_attention_id: '',
+    });
+  }
+
+  async GetScope(admission_route_id, job = false) {
+    if (!admission_route_id || admission_route_id === '') return Promise.resolve(false);
+
+    return await this.ScopeOfAttentionS.GetScopeByAdmission(admission_route_id).then(x => {
+
+      if (admission_route_id == 1) {
+        this.scope_of_attention = x;
+        this.scope_of_attention.shift();
+      } else {
+        this.scope_of_attention = x;
+      }
+
+      return Promise.resolve(true);
+    });
+  }
 
 
   async changeImage(files, option) {

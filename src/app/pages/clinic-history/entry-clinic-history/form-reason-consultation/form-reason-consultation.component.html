@@ -7,8 +7,7 @@
         <div *ngIf="!has_input" class="row" style="align-items: center;">
           <div class="col-md-11">
             <textarea id="reason_consultation" nbInput (disabled)="this.has_input" fullWidth
-              formControlName="reason_consultation" reason_consultation onpaste="return false" minlength="20" rows="4"
-              cols="50"
+              formControlName="reason_consultation" reason_consultation onpaste="return false"
               status="{{ isSubmitted && form.controls.reason_consultation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
           <div class="col-md-1">
@@ -31,7 +30,7 @@
         <div *ngIf="!has_input" class="row" style="align-items: center;">
           <div class="col-md-11">
             <textarea id="current_illness" nbInput fullWidth formControlName="current_illness" current_illness
-              onpaste="return false" rows="4" cols="50" (disabled)="this.has_input"
+              onpaste="return false" (disabled)="this.has_input"
               status="{{ isSubmitted && form.controls.current_illness.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
           </div>
           <div class="col-md-1">
@@ -67,7 +66,7 @@
 
 
       <div class="div-send" *ngIf="!has_input">
-        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+        <button nbButton status="danger" class="ml-1 btn-save" disabled="{{ loading }}">{{this.botton_title}}</button>
       </div>
     </div>
   </div>

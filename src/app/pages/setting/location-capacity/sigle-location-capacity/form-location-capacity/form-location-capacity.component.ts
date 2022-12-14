@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocationCapacityService } from '../../../../../business-controller/location-capacity.service';
 import { WorkLocationPackageComponent } from '../../../../components/form-users/work-location-package/work-location-package.component';
 import { BaseLocationCapacityService } from '../../../../../business-controller/base-location-capacity.service';
+import { AuthService } from '../../../../../services/auth.service';
 
 
 @Component({
@@ -24,8 +25,24 @@ export class FormLocationCapacityComponent implements OnInit {
   public loading: boolean = true;
   public show: boolean = false;
   public parentData;
+  public user;
   public phone_consult = false;
   public phone_consult_amount = null;
+  public currentRole;
+  public months = [
+    { id: 1, name: "ENERO" },
+    { id: 2, name: "FREBRERO" },
+    { id: 3, name: "MARZO" },
+    { id: 4, name: "ABRIL" },
+    { id: 5, name: "MAYO" },
+    { id: 6, name: "JUNIO" },
+    { id: 7, name: "JULIO" },
+    { id: 8, name: "AGOSTO" },
+    { id: 9, name: "SEPTIEMBRE" },
+    { id: 10, name: "OCTUBRE" },
+    { id: 11, name: "NOVIEMBRE" },
+    { id: 12, name: "DICIEMBRE" },
+  ];;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -33,10 +50,16 @@ export class FormLocationCapacityComponent implements OnInit {
     private LocationCapacityS: LocationCapacityService,
     private toastService: NbToastrService,
     private BaseLocationCapacityS: BaseLocationCapacityService,
+    private authService: AuthService,
   ) {
   }
 
   async ngOnInit(): Promise<void> {
+    this.user = this.authService.GetUser();
+    var curr = this.authService.GetRole();
+    this.currentRole = this.user.roles.find(x => {
+      return x.id == curr;
+    });
     this.parentData = {
       selectedOptions: [],
       entity: 'residence/locationbyMunicipality',
@@ -50,8 +73,13 @@ export class FormLocationCapacityComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      // name: [this.data.name, Validators.compose([Validators.required])],
+      month: [''],
     });
+
+    if (this.procedence == 1) {
+      this.form.controls.month.setValidators([Validators.required]);
+        this.form.controls.month.updateValueAndValidity();
+    }
 
     await this.BaseLocationCapacityS.GetCollection({ assistance_id: this.data.id }).then(x => {
       this.loading = false;
@@ -110,6 +138,7 @@ export class FormLocationCapacityComponent implements OnInit {
           localities_id: JSON.stringify(this.parentData.selectedOptions),
           phone_consult: this.phone_consult_amount,
           procedence: this.procedence,
+          month: this.form.controls.month.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -122,6 +151,8 @@ export class FormLocationCapacityComponent implements OnInit {
         });
       }
 
+    } else {
+      this.toastService.danger('Debe seleccionar un mes', 'Error');
     }
   }
 

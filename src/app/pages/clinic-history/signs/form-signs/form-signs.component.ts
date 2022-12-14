@@ -138,6 +138,8 @@ export class FormsignsComponent implements OnInit {
         liters_per_minute_id: '',
         parameters_signs_id: '',
         pupilas: '',
+        observations_vital_ventilated: '',
+        observations_parameters_signs: '',
         has_oxigen: this.admissions ? this.admissions.location[0].program_id == 7 ? true : false : false,
       };
 
@@ -189,6 +191,24 @@ export class FormsignsComponent implements OnInit {
 
     }
 
+    this.chVitalSignsS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id,
+    }).then(x => {
+      if (x.length > 0) {
+        this.messageEvent.emit(true);
+      }
+    });
+
+    this.chvitalHydrationS.GetCollection({ status_id: 1 }).then(x => {
+      this.vital_hydration = x;
+    });
+    this.chvitalNeurologicalS.GetCollection({ status_id: 1 }).then(x => {
+      this.vital_neurological = x;
+    });
+    this.chvitalTemperatureS.GetCollection({ status_id: 1 }).then(x => {
+      this.vital_temperature = x;
+    });
 
     this.form = this.formBuilder.group({
       clock: [this.data[0] ? this.data[0].clock : this.data.clock, Validators.compose([Validators.required])],
@@ -227,8 +247,10 @@ export class FormsignsComponent implements OnInit {
       liters_per_minute_id: [this.data[0] ? this.data[0].liters_per_minute_id : this.data.liters_per_minute_id],
       parameters_signs_id: [this.data.parameters_signs_id],
       pupilas: [],
-      has_oxigen: [(this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false,
-      ],
+      has_oxigen: [(this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false,],
+      observations_vital_ventilated: [this.data[0] ? this.data[0].observations_vital_ventilated : this.data.observations_vital_ventilated],
+      observations_parameters_signs: [this.data[0] ? this.data[0].observations_parameters_signs : this.data.observations_parameters_signs],
+
     });
 
     if (this.data.has_oxigen == true) {
@@ -369,6 +391,8 @@ export class FormsignsComponent implements OnInit {
           liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
           parameters_signs_id: [this.data.parameters_signs_id],
           has_oxigen: this.form.controls.has_oxigen.value,
+          observations_vital_ventilated: this.form.controls.observations_vital_ventilated.value,
+          observations_parameters_signs: this.form.controls.observations_parameters_signs.value,
           type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -420,50 +444,52 @@ export class FormsignsComponent implements OnInit {
           liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
           parameters_signs_id: this.form.controls.parameters_signs_id.value,
           has_oxigen: this.form.controls.has_oxigen.value,
+          observations_vital_ventilated: this.form.controls.observations_vital_ventilated.value,
+          observations_parameters_signs: this.form.controls.observations_parameters_signs.value,
           type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({
-            clock: '',
-            cardiac_frequency: '',
-            respiratory_frequency: '',
-            temperature: '',
-            oxigen_saturation: '',
-            intracranial_pressure: '',
-            cerebral_perfusion_pressure: '',
-            intra_abdominal: '',
-            pressure_systolic: '',
-            pressure_diastolic: '',
-            pressure_half: '',
-            pulse: '',
-            venous_pressure: '',
-            size: '',
-            weight: '',
-            glucometry: '',
-            body_mass_index: '',
-            pulmonary_systolic: '',
-            pulmonary_diastolic: '',
-            pulmonary_half: '',
-            head_circunference: '',
-            abdominal_perimeter: '',
-            chest_perimeter: '',
-            right_reaction: '',
-            pupil_size_right: '',
-            pupil: '',
-            observations_glucometry: '',
-            left_reaction: '',
-            pupil_size_left: '',
-            ch_vital_hydration_id: '',
-            ch_vital_ventilated_id: '',
-            ch_vital_temperature_id: '',
-            ch_vital_neurological_id: '',
-            oxygen_type_id: '',
-            liters_per_minute_id: '',
-            parameters_signs_id: '',
+          this.form.patchValue({ clock:'',
+            cardiac_frequency:'',
+            respiratory_frequency:'',
+            temperature:'',
+            oxigen_saturation:'',
+            intracranial_pressure:'',
+            cerebral_perfusion_pressure:'',
+            intra_abdominal:'',
+            pressure_systolic:'',
+            pressure_diastolic:'',
+            pressure_half:'',
+            pulse:'',
+            venous_pressure:'',
+            size:'',
+            weight:'',
+            glucometry:'',
+            body_mass_index:'',
+            pulmonary_systolic:'',
+            pulmonary_diastolic:'',
+            pulmonary_half:'',
+            head_circunference:'',
+            abdominal_perimeter:'',
+            chest_perimeter:'',
+            right_reaction:'',
+            pupil_size_right:'',
+            pupil:'',
+            observations_glucometry:'',
+            left_reaction:'',
+            pupil_size_left:'',
+            ch_vital_hydration_id:'',
+            ch_vital_ventilated_id:'',
+            ch_vital_temperature_id:'',
+            ch_vital_neurological_id:'',
+            oxygen_type_id:'',
+            liters_per_minute_id:'',
+            parameters_signs_id:'',
             has_oxigen: false,
-          });
+            observations_vital_ventilated:'',
+            observations_parameters_signs:''});
           if (this.saved) {
             this.saved();
           }

@@ -3,13 +3,31 @@
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
+        
         <div class="col-12 col-sm-12 col-md-4">
-          <label class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
+          <!-- <label class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
           <input type="text" list="codes" class="data-list" (change)="saveCode($event)">
           <datalist id="codes">
-            <option *ngFor="let item of product_gen" [value]="item.description">{{item.name}}</option>
-          </datalist>
+            <option *ngFor="let item of product_gen" [value]="item.id">{{item.description}}</option>
+          </datalist> -->
+
+          <!-- acá cambia -->
+
+          <label for="product_id" class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
+          <input fullWidth formControlName="product_id" nbInput type="text" placeholder="Seleccionar CUPS"
+            status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            [nbAutocomplete]="autoControl" />
+
+          <nb-autocomplete #autoControl (selectedChange)="saveCode($event)">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of filteredProductOptions$ | async" [value]="item.description">
+              {{item.description}}
+            </nb-option>
+
+          </nb-autocomplete>
         </div>
+
+
         <div class="col-12 col-sm-12 col-md-4">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre producto generico:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name

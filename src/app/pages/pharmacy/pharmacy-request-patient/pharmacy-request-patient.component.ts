@@ -8,6 +8,7 @@ import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ActionsSendPatientComponent } from './actions.component';
+import { FormElementDeniedComponent } from './form-element-denied/form-element-denied.component';
 import { FormPharmacyRequestPatientComponent } from './form-pharmacy-request-patient/form-pharmacy-request-patient.component';
 
 @Component({
@@ -36,7 +37,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
 
     pager: {
       display: true,
-      perPage: 10,
+      perPage: 15,
     },
     columns: {
       actions: {
@@ -46,6 +47,9 @@ export class PharmacyRequestPatientComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditInv.bind(this),
+            //   'delete': this.DeletePharInventary.bind(this),
+            'returned': this.Returned.bind(this),
+
           };
         },
         renderComponent: ActionsSendPatientComponent,
@@ -97,7 +101,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[6],
         type: 'string',
         valuePrepareFunction: (value) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
       },
     },
@@ -157,6 +161,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
       context: {
         title: 'Enviar Medicamento',
         data: data,
+        user: this.user,
         my_pharmacy_id: this.my_pharmacy_id,
         saved: this.RefreshData.bind(this),
       },
@@ -179,6 +184,20 @@ export class PharmacyRequestPatientComponent implements OnInit {
       return Promise.resolve(x.message);
     }).catch(x => {
       throw x;
+    });
+  }
+
+
+
+
+  Returned(data) {
+    this.dialogFormService.open(FormElementDeniedComponent, {
+      context: {
+        title: 'ELIMINAR ELEMENTO',
+        data2: data,
+        status: 'RECHAZADO',
+        saved: this.RefreshData.bind(this),
+      },
     });
   }
 }

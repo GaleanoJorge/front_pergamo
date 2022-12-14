@@ -71,30 +71,30 @@ export class FormIntPatMOTComponent implements OnInit {
     this.form = this.formBuilder.group({
 
 
-      up_right: [this.data[0] ? this.data[0].up_right : this.data.up_right, Validators.compose([Validators.required])],
-      up_left: [this.data[0] ? this.data[0].up_left : this.data.up_left, Validators.compose([Validators.required])],
-      side_right: [this.data[0] ? this.data[0].side_right : this.data.side_right, Validators.compose([Validators.required])],
-      side_left: [this.data[0] ? this.data[0].side_left : this.data.side_left, Validators.compose([Validators.required])],
-      backend_right: [this.data[0] ? this.data[0].backend_right : this.data.backend_right, Validators.compose([Validators.required])],
-      backend_left: [this.data[0] ? this.data[0].backend_left : this.data.backend_left, Validators.compose([Validators.required])],
-      frontend_right: [this.data[0] ? this.data[0].frontend_right : this.data.frontend_right, Validators.compose([Validators.required])],
-      frontend_left: [this.data[0] ? this.data[0].frontend_left : this.data.frontend_left, Validators.compose([Validators.required])],
-      down_right: [this.data[0] ? this.data[0].down_right : this.data.down_right, Validators.compose([Validators.required])],
-      down_left: [this.data[0] ? this.data[0].down_left : this.data.down_left, Validators.compose([Validators.required])],
-      full_hand_right: [this.data[0] ? this.data[0].full_hand_right : this.data.full_hand_right, Validators.compose([Validators.required])],
-      full_hand_left: [this.data[0] ? this.data[0].full_hand_left : this.data.full_hand_left, Validators.compose([Validators.required])],
-      cylindric_right: [this.data[0] ? this.data[0].cylindric_right : this.data.cylindric_right, Validators.compose([Validators.required])],
-      cylindric_left: [this.data[0] ? this.data[0].cylindric_left : this.data.cylindric_left, Validators.compose([Validators.required])],
-      hooking_right: [this.data[0] ? this.data[0].hooking_right : this.data.hooking_right, Validators.compose([Validators.required])],
-      hooking_left: [this.data[0] ? this.data[0].hooking_left : this.data.hooking_left, Validators.compose([Validators.required])],
-      fine_clamp_right: [this.data[0] ? this.data[0].fine_clamp_right : this.data.fine_clamp_right, Validators.compose([Validators.required])],
-      fine_clamp_left: [this.data[0] ? this.data[0].fine_clamp_left : this.data.fine_clamp_left, Validators.compose([Validators.required])],
-      tripod_right: [this.data[0] ? this.data[0].tripod_right : this.data.tripod_right, Validators.compose([Validators.required])],
-      tripod_left: [this.data[0] ? this.data[0].tripod_left : this.data.tripod_left, Validators.compose([Validators.required])],
-      opposition_right: [this.data[0] ? this.data[0].opposition_right : this.data.opposition_right, Validators.compose([Validators.required])],
-      opposition_left: [this.data[0] ? this.data[0].opposition_left : this.data.opposition_left, Validators.compose([Validators.required])],
-      coil_right: [this.data[0] ? this.data[0].coil_right : this.data.coil_right, Validators.compose([Validators.required])],
-      coil_left: [this.data[0] ? this.data[0].coil_left : this.data.coil_left, Validators.compose([Validators.required])],
+      up_right: [this.data[0] ? this.data[0].up_right : this.data.up_right, ],
+      up_left: [this.data[0] ? this.data[0].up_left : this.data.up_left, ],
+      side_right: [this.data[0] ? this.data[0].side_right : this.data.side_right, ],
+      side_left: [this.data[0] ? this.data[0].side_left : this.data.side_left, ],
+      backend_right: [this.data[0] ? this.data[0].backend_right : this.data.backend_right, ],
+      backend_left: [this.data[0] ? this.data[0].backend_left : this.data.backend_left, ],
+      frontend_right: [this.data[0] ? this.data[0].frontend_right : this.data.frontend_right, ],
+      frontend_left: [this.data[0] ? this.data[0].frontend_left : this.data.frontend_left, ],
+      down_right: [this.data[0] ? this.data[0].down_right : this.data.down_right, ],
+      down_left: [this.data[0] ? this.data[0].down_left : this.data.down_left, ],
+      full_hand_right: [this.data[0] ? this.data[0].full_hand_right : this.data.full_hand_right, ],
+      full_hand_left: [this.data[0] ? this.data[0].full_hand_left : this.data.full_hand_left, ],
+      cylindric_right: [this.data[0] ? this.data[0].cylindric_right : this.data.cylindric_right, ],
+      cylindric_left: [this.data[0] ? this.data[0].cylindric_left : this.data.cylindric_left, ],
+      hooking_right: [this.data[0] ? this.data[0].hooking_right : this.data.hooking_right, ],
+      hooking_left: [this.data[0] ? this.data[0].hooking_left : this.data.hooking_left, ],
+      fine_clamp_right: [this.data[0] ? this.data[0].fine_clamp_right : this.data.fine_clamp_right, ],
+      fine_clamp_left: [this.data[0] ? this.data[0].fine_clamp_left : this.data.fine_clamp_left, ],
+      tripod_right: [this.data[0] ? this.data[0].tripod_right : this.data.tripod_right, ],
+      tripod_left: [this.data[0] ? this.data[0].tripod_left : this.data.tripod_left, ],
+      opposition_right: [this.data[0] ? this.data[0].opposition_right : this.data.opposition_right, ],
+      opposition_left: [this.data[0] ? this.data[0].opposition_left : this.data.opposition_left, ],
+      coil_right: [this.data[0] ? this.data[0].coil_right : this.data.coil_right, ],
+      coil_left: [this.data[0] ? this.data[0].coil_left : this.data.coil_left, ],
 
     });
 
@@ -102,6 +102,21 @@ export class FormIntPatMOTComponent implements OnInit {
 
   save() {
     this.isSubmitted = true;
+    var count = 0;
+    var e = Object.entries(this.form.value).map(entry => {
+      let obj_aux = {
+        key: entry[0],
+        value: String(entry[1])
+      }
+      if(obj_aux.value == ""){
+        count++
+      } 
+
+      return obj_aux;
+    });
+
+    if(e.length == count) this.form.setErrors({ 'incorrect': true });
+
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
@@ -153,30 +168,30 @@ export class FormIntPatMOTComponent implements OnInit {
         });
       } else {
           this.ChEMSIntPatOTService.Save({
-          up_right: this.form.controls.up_right.value,
-          up_left: this.form.controls.up_left.value,
-          side_right: this.form.controls.side_right.value,
-          side_left: this.form.controls.side_left.value,
-          backend_right: this.form.controls.backend_right.value,
-          backend_left: this.form.controls.backend_left.value,
-          frontend_right: this.form.controls.frontend_right.value,
-          frontend_left: this.form.controls.frontend_left.value,
-          down_right: this.form.controls.down_right.value,
-          down_left: this.form.controls.down_left.value,
-          full_hand_right: this.form.controls.full_hand_right.value,
-          full_hand_left: this.form.controls.full_hand_left.value,
-          cylindric_right: this.form.controls.cylindric_right.value,
-          cylindric_left: this.form.controls.cylindric_left.value,
-          hooking_right: this.form.controls.hooking_right.value,
-          hooking_left: this.form.controls.hooking_left.value,
-          fine_clamp_right: this.form.controls.fine_clamp_right.value,
-          fine_clamp_left: this.form.controls.fine_clamp_left.value,
-          tripod_right: this.form.controls.tripod_right.value,
-          tripod_left: this.form.controls.tripod_left.value,
-          opposition_right: this.form.controls.opposition_right.value,
-          opposition_left: this.form.controls.opposition_left.value,
-          coil_right: this.form.controls.coil_right.value,
-          coil_left: this.form.controls.coil_left.value,
+          up_right: this.form.controls.up_right.value ? this.form.controls.up_right.value : "FUNCIONAL",
+          up_left: this.form.controls.up_left.value ? this.form.controls.up_left.value : "FUNCIONAL",
+          side_right: this.form.controls.side_right.value ? this.form.controls.side_right.value : "FUNCIONAL",
+          side_left: this.form.controls.side_left.value ? this.form.controls.side_left.value : "FUNCIONAL",
+          backend_right: this.form.controls.backend_right.value ? this.form.controls.backend_right.value : "FUNCIONAL",
+          backend_left: this.form.controls.backend_left.value ? this.form.controls.backend_left.value : "FUNCIONAL",
+          frontend_right: this.form.controls.frontend_right.value ? this.form.controls.frontend_right.value : "FUNCIONAL",
+          frontend_left: this.form.controls.frontend_left.value ? this.form.controls.frontend_left.value : "FUNCIONAL",
+          down_right: this.form.controls.down_right.value ? this.form.controls.down_right.value : "FUNCIONAL",
+          down_left: this.form.controls.down_left.value ? this.form.controls.down_left.value : "FUNCIONAL",
+          full_hand_right: this.form.controls.full_hand_right.value ? this.form.controls.full_hand_right.value : "FUNCIONAL",
+          full_hand_left: this.form.controls.full_hand_left.value ? this.form.controls.full_hand_left.value : "FUNCIONAL",
+          cylindric_right: this.form.controls.cylindric_right.value ? this.form.controls.cylindric_right.value : "FUNCIONAL",
+          cylindric_left: this.form.controls.cylindric_left.value ? this.form.controls.cylindric_left.value : "FUNCIONAL",
+          hooking_right: this.form.controls.hooking_right.value ? this.form.controls.hooking_right.value : "FUNCIONAL",
+          hooking_left: this.form.controls.hooking_left.value ? this.form.controls.hooking_left.value : "FUNCIONAL",
+          fine_clamp_right: this.form.controls.fine_clamp_right.value ? this.form.controls.fine_clamp_right.value : "FUNCIONAL",
+          fine_clamp_left: this.form.controls.fine_clamp_left.value ? this.form.controls.fine_clamp_left.value : "FUNCIONAL",
+          tripod_right: this.form.controls.tripod_right.value ? this.form.controls.tripod_right.value : "FUNCIONAL",
+          tripod_left: this.form.controls.tripod_left.value ? this.form.controls.tripod_left.value : "FUNCIONAL",
+          opposition_right: this.form.controls.opposition_right.value ? this.form.controls.opposition_right.value : "FUNCIONAL",
+          opposition_left: this.form.controls.opposition_left.value ? this.form.controls.opposition_left.value : "FUNCIONAL",
+          coil_right: this.form.controls.coil_right.value ? this.form.controls.coil_right.value : "FUNCIONAL",
+          coil_left: this.form.controls.coil_left.value ? this.form.controls.coil_left.value : "FUNCIONAL",
 
           type_record_id: 1,
           ch_record_id: this.record_id,
@@ -197,8 +212,8 @@ export class FormIntPatMOTComponent implements OnInit {
         });
       }
 
-    }else{
-      this.toastService.danger('ingrese todos los campos solicitados');
+    } else {
+      this.toastService.warning('','Debe seleccionar al menos una opción');
     }
   }
 

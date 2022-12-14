@@ -35,22 +35,11 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
       >
         <nb-icon icon="menu-outline"></nb-icon>
       </a>
-      <button
-        *ngIf="!value.navigation || value.currentRole == 2"
-        nbTooltip="Ejecución plan de manejo"
-        nbTooltipPlacement="top"
-        nbTooltipStatus="primary"
-        nbButton
-        ghost
-        (click)="closeDialog()"
-        [routerLink]="
-          '/pages/pad/management-plan/' +
-          value.data.admissions[0].id +
-          '/' +
-          value.data.id
-        "
-      >
-        <nb-icon icon="menu-outline"></nb-icon>
+      <button *ngIf="value.currentRole == 2" nbTooltip="Ejecución plan de manejo" nbTooltipPlacement="top"
+          nbTooltipStatus="primary" nbButton ghost (click)="closeDialog()"
+          [routerLink]="'/pages/pad/management-plan/' + value.data.admissions[0].id+'/'+value.data.id"
+          [queryParams]="{f_pd: true}">
+          <nb-icon icon="menu-outline"></nb-icon>
       </button>
       <button
         *ngIf="value.currentRole == 2"

@@ -153,6 +153,7 @@ import { FixedMovementsComponent } from './fixed-movements/fixed-movements.compo
 import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
 import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
+import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
 
 const routes: Routes = [{
   path: '',
@@ -409,6 +410,11 @@ const routes: Routes = [{
     {
       path: 'measurement-units',
       component: MeasurementUnitsComponent,
+
+    },
+    {
+      path: 'supplies-measure',
+      component: SuppliesMeasureComponent,
 
     },
     {
@@ -861,9 +867,7 @@ const routes: Routes = [{
     {
       path: 'fixed-movements',
       component: FixedMovementsComponent,
-    }
-
-    ,
+    },
     {
       path: 'product-damaged',
       component: ProductDamagedComponent,

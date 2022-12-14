@@ -50,6 +50,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public nameForm: String;
   public movieForm: String;
   public show: any;
+  public redo = false;
   public signatureImage: string;
   public currentRole: any;
   public own_user;
@@ -98,6 +99,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.redo = x[0]['assigned_management_plan'] ? x[0]['assigned_management_plan']['redo'] == 0 ? false : true: false;
       this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
@@ -184,6 +186,8 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
           title: 'Finalizar registro.',
           delete: this.finish.bind(this),
           showImage: this.showImage.bind(this),
+          admission: this.admission,
+          redo: this.redo,
           // save: this.saveSignature.bind(this),
           textConfirm: 'Finalizar registro'
         },
@@ -210,7 +214,7 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   // }
 
   async finish(firm) {
-    if(this.signatureImage!=null){
+    if(this.admission.location[this.admission.location.length -1].admission_route_id != 1 ? !this.redo ? this.signatureImage!=null : true : true){
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
@@ -223,15 +227,19 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
         
         let response;
         
-        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
-        this.location.back();
-        this.toastService.success('', response.message);
-        //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
-        this.messageError = null;
-        if (this.saved) {
-          this.saved();
-        }
-        return true;
+        response = await this.chRecord.UpdateCH(formData, this.record_id).then(x => {
+          this.location.back();
+          this.toastService.success('', x.message);
+          this.messageError = null;
+          if (this.saved) {
+            this.saved();
+          }
+          return Promise.resolve(true);
+        }).catch(x => {
+          this.toastService.danger('', x);
+          return Promise.resolve(false);
+        });
+        return Promise.resolve(response);
       } catch (response) {
         this.messageError = response;
         this.isSubmitted = false;
@@ -262,12 +270,16 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
 
   tablock(e) {
     switch (e.tabTitle) {
-      case "INGRESO": {
+      case "INGRESO 1": {
         this.show = 1;
         break;
       }
-      case "NOTA REGULAR": {
+      case "INGRESO 2": {
         this.show = 2;
+        break;
+      }
+      case "NOTA REGULAR": {
+        this.show = 3;
         break;
       }
     }

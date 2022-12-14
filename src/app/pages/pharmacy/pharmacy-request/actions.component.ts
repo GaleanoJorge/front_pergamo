@@ -7,9 +7,9 @@ import {ViewCell} from 'ng2-smart-table';
       <button nbTooltip="DESPACHO" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data)">
         <nb-icon icon="arrowhead-up-outline"></nb-icon>
       </button>
-      <button nbTooltip="ELIMINAR" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
+     <!-- <button nbTooltip="ELIMINAR" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
-      </button>
+      </button> -->
     </div>
 
 

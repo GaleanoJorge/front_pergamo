@@ -87,6 +87,16 @@
                 status="{{ isSubmitted && form.controls.id_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
             </div>
 
+            <div class="col-md-4">
+              <label for="scope_of_attention_id" class="form-text text-muted font-weight-bold">Tipo de paciente:</label>
+              <nb-select formControlName="scope_of_attention_id" id="scope_of_attention_id" fullWidth
+                placeholder="TODOS LOS REGISTROS"
+                status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option >TODOS LOS REGISTROS</nb-option>
+                <nb-option *ngFor="let item of scope_of_attention" [value]="item.id">{{item.name}}</nb-option>
+              </nb-select>
+            </div>
+
           </div>
 
 <!-- 
@@ -97,7 +107,7 @@
         </form>
 
         <ngx-base-table *ngIf="auth_status && company" (propagar)="onUserRowSelect($event)" [title]="title"
-          [subtitle]="subtitle" [settings]="settings" entity="authorization/byStatus/0?status_id=0" customData="authorization"
+          [subtitle]="subtitle"  [settings]="settings" [entity]="entity2" customData="authorization"
           [messageToltip]="messageToltip">
 
           <div actions>
@@ -122,6 +132,9 @@
             <div class="actions" style="margin-top: 5px;">
               <button nbButton status="danger" style="width: 100%;" (click)="packagingProcess()">Asignar
                 paquete</button>
+            </div>
+            <div class="actions" style="margin-top: 5px;">
+              <button nbButton status="danger" style="width: 100%;" (click)="SelectAll($event)">Seleccionar todas</button>
             </div>
             <!-- 
             <div class="actions" style=" margin-top: 5px;">

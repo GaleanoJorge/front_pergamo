@@ -52,6 +52,19 @@ export class FormRecommendationsEvoComponent implements OnInit {
       };
     };
 
+    this.RecommendationsEvoS.GetCollection().then(x => {
+      this.recommendations_evo_id = x; //variable que trae toda la info de la tabla
+    });
+
+    this.ChRecommendationsEvoS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id,
+    }).then(x => {
+      if (x.length > 0) {
+        this.messageEvent.emit(true);
+      }
+    });
+    
 
     if (!navigator.onLine) {
       this.RecommendationsEvoS.GetCollection().then(x => {

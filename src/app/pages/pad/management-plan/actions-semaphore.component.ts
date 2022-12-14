@@ -79,7 +79,11 @@ export class ActionsSemaphore2Component implements ViewCell {
       this.tooltip = 'Proyección Creada';
     }
 
-    if (dat.por_ejecutar == 0) {
+
+    if (dat.ingreso == 4) {
+      this.color2 = this.colors.morado;
+      this.tooltip2 = 'Por subsanar';
+    } else if (dat.por_ejecutar == 0) {
       this.color2 = this.colors.verde;
       this.tooltip2 = 'Sin Pendientes';
     } else {

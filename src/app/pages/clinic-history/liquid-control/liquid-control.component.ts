@@ -1,14 +1,10 @@
-import { UserBusinessService } from '../../../business-controller/user-business.service';
-import { Component, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
 import { ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { VALUE } from '@syncfusion/ej2-angular-filemanager';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ChLiquidControlService } from '../../../business-controller/ch-liquid-control.service';
-import { nullSafeIsEquivalent, THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { time } from '@rxweb/reactive-form-validators';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 @Component({
@@ -59,7 +55,7 @@ export class LiquidControlComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
         },
       // actions: {

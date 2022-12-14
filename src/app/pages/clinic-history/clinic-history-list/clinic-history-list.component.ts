@@ -45,6 +45,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public bed_id;
   public pavilion;
   public record_id;
+  public redo = false;
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
@@ -52,7 +53,7 @@ export class ClinicHistoryListComponent implements OnInit {
   public input_done: boolean = false; // ya se registró algo en el ingreso
   public currentRole: any;
   public show: any;
-  public is_failed: any = true;
+  public is_failed: any = false;
   public signatureImage: string;
   public firm_file: string;
   public previousUrl: string;
@@ -109,6 +110,7 @@ export class ClinicHistoryListComponent implements OnInit {
     await this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.redo = x[0]['assigned_management_plan'] ? x[0]['assigned_management_plan']['redo'] == 0 ? false : true: false;
       this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
       if (this.has_input ==  true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
@@ -132,6 +134,8 @@ export class ClinicHistoryListComponent implements OnInit {
           delete: this.finish.bind(this),
           showImage: this.showImage.bind(this),
           changeImage: this.changeImage.bind(this),
+          admission: this.admission,
+          redo: this.redo,
           // save: this.saveSignature.bind(this),
           textConfirm:'Finalizar registro'
         },
@@ -149,7 +153,7 @@ export class ClinicHistoryListComponent implements OnInit {
   }
 
   async finish(firm) {
-if(this.signatureImage!=null){
+    if(this.admission.location[this.admission.location.length -1].admission_route_id != 1 ? !this.redo ? this.signatureImage!=null : true : true){
     var formData = new FormData();
     formData.append('id', this.record_id,);
     formData.append('status', 'CERRADO');
@@ -161,15 +165,19 @@ if(this.signatureImage!=null){
 
     try {
       let response;
-        response = await this.chRecord.UpdateCH(formData, this.record_id).catch(x => {this.toastService.danger('', x);});
+      response = await this.chRecord.UpdateCH(formData, this.record_id).then(x => {
         this.location.back();
-      this.toastService.success('', response.message);
-      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
-      this.messageError = null;
-      if (this.saved) {
-        this.saved();
-      }
-      return true;
+        this.toastService.success('', x.message);
+        this.messageError = null;
+        if (this.saved) {
+          this.saved();
+        }
+        return Promise.resolve(true);
+      }).catch(x => {
+        this.toastService.danger('', x);
+        return Promise.resolve(false);
+      });
+      return Promise.resolve(response);
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;

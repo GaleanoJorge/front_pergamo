@@ -45,7 +45,7 @@ export class BackgGynecoComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
       },
       pregnancy_status: {
@@ -516,11 +516,13 @@ export class BackgGynecoComponent implements OnInit {
   }
 
   receiveMessage($event) {
+    if (this.type_record_id == 1) {
+      this.messageEvent.emit($event);
+      this.has_input=true;
+    }
     if ($event == true) {
       this.RefreshData();
-      if (this.type_record_id == 1) {
-        this.messageEvent.emit(true);
-      }
+    
     }
   }
 }

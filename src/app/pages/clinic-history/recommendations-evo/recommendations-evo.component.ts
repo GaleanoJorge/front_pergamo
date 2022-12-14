@@ -49,7 +49,7 @@ export class RecommendationsEvoComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
 	  },
       patient_family_education: {
@@ -93,6 +93,7 @@ export class RecommendationsEvoComponent implements OnInit {
       this.RefreshData();
       if (this.type_record == 1) {
         this.messageEvent.emit(true);
+        this.has_input=true;
       }
     }
   }

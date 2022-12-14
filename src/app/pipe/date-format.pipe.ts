@@ -32,6 +32,10 @@ export class DateFormatPipe extends DatePipe implements PipeTransform {
     return super.transform(value, "dd-MM-yyyy");
   }
 
+  transform4(value: any, args?: any): any {
+    return super.transform(value, "yyyy-MM-dd, HH:mm:ss");
+  }
+
   convertoToAMPM(value: any, args?: any): any {
     return super.transform("1/1/1 " + value, "h:mm a");
   }

@@ -67,18 +67,29 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
         },
       ambulatory_medical_order: {
         title: this.headerFields[1],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
+          } else {
+            return 'No'
+          }
+        },
       },
       procedure: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'No Aplica';
+          }
         },
       },
       amount: {
@@ -89,7 +100,11 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'No Aplica';
+          }
         },
       },
       observations: {

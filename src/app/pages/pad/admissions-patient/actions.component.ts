@@ -14,7 +14,8 @@ import { LocationService } from '../../../business-controller/location.service';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-  <a nbTooltip="Plan de manejo"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/management-plan/' + value.data.id+'/'+value.user_id">
+  <a nbTooltip="Plan de manejo"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost 
+  [routerLink]="'/pages/pad/management-plan/' + value.data.id+'/'+value.user_id">
   <nb-icon icon="menu-outline"></nb-icon>
 </a>
 </div>

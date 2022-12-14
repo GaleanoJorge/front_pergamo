@@ -38,6 +38,7 @@ import { ActionsComponent } from './authorization-list/actions.component';
 import { ActionsDocumentComponent } from './authorization-list/actions2.component';
 import { ActionsSemaphoreComponent } from './authorization-list/actionsSemaphore.component';
 import { ActionsHistComponent } from './authorization-list/actionsHist.component';
+import { AuthCheckComponent } from './authorization-list/auth-check.component';
 
 
 
@@ -83,6 +84,7 @@ import { ActionsHistComponent } from './authorization-list/actionsHist.component
     AuthorizationComponent,
     AuthorizationListComponent,
     HistoricAuthorizationListComponent,
+    AuthCheckComponent //check para authorizaciones
   ],
   providers: [
     DateFormatPipe,

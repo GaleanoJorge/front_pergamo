@@ -20,7 +20,7 @@ export class ChScaleNortonComponent implements OnInit {
   public messageError = null;
   public title: string = 'Registros Escala Norton';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha','Total', 'Riesgo'];
+  public headerFields: any[] = ['Fecha / Hora de Registro','Total', 'Riesgo'];
   public routes = [];
   public data = [];
   public ch_record_id;
@@ -34,7 +34,7 @@ export class ChScaleNortonComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       total: {

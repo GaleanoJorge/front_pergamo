@@ -85,6 +85,14 @@ export class FormChOstomiesComponent implements OnInit {
   
       }
     }
+    this.ChOstomiesS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id
+    }).then(x => {
+      if (x.length > 0) {
+        this.messageEvent.emit(true);
+      }
+    });
 
   }
 

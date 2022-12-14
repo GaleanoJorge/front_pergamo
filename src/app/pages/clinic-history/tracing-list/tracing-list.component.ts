@@ -12,6 +12,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/confirm-dialog.component';
 import { FormTracingComponent } from '../tracing/form-tracing/form-tracing.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'ngx-tracing-list',
@@ -38,11 +39,13 @@ export class TracingListComponent implements OnInit {
   public flat;
   public user;
   public own_user;
+  public admission;
   public bed;
   public bed_id;
   public pavilion;
   public int = 0;
   public record_id;
+  public redo = false;
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
@@ -97,11 +100,13 @@ export class TracingListComponent implements OnInit {
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
+      this.redo = x[0]['assigned_management_plan'] ? x[0]['assigned_management_plan']['redo'] == 0 ? false : true: false;
       this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
       this.user = x[0]['admissions']['patients'];
+      this.admission = x[0]['admissions'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
   }
@@ -111,50 +116,25 @@ export class TracingListComponent implements OnInit {
   }
 
   close() {
-    if (this.input_done) { // validamos si se realizó ingreso para dejar terminal la HC, de lo contrario enviamos un mensaje de alerta 
-      this.deleteConfirmService.open(ConfirmDialogCHComponent, {
+      this.deleteConfirmService.open(ConfirmDialogComponent, {
         context: {
           signature: true,
           title: 'Finalizar registro.',
           delete: this.finish.bind(this),
-          showImage: this.showImage.bind(this),
-          // save: this.saveSignature.bind(this),
           textConfirm: 'Finalizar registro'
         },
       });
-    } else {
-      this.toastService.warning('Debe diligenciar el ingreso', 'AVISO')
     }
-  }
 
-  showImage(data) {
-    this.int++;
-    if (this.int == 1) {
-      this.signatureImage = null;
-    } else {
-      this.signatureImage = data;
 
-    }
-  }
-
-  async saveSignature() {
-    var formData = new FormData();
-    formData.append('firm_file', this.signatureImage);
-    console.log(this.signatureImage);
-  }
-
-  async finish(firm) {
-
-      if(this.signatureImage!=null){
-     
-        
+  async finish() {
+ 
     var formData = new FormData();
     formData.append('id', this.record_id,);
     formData.append('status', 'CERRADO');
     formData.append('user', this.user);
     formData.append('role', this.currentRole);
     formData.append('user_id', this.own_user.id);
-    formData.append('firm_file', this.signatureImage);
 
     try {
 
@@ -163,24 +143,19 @@ export class TracingListComponent implements OnInit {
         response = await this.chRecord.UpdateCH(formData, this.record_id);
         this.location.back();
       this.toastService.success('', response.message);
-      //this.router.navigateByUrl('/pages/clinic-history/ch-record-list/1/2/1');
       this.messageError = null;
       if (this.saved) {
         this.saved();
       }
-      return true;
+      // return true;
     } catch (response) {
       this.messageError = response;
       this.isSubmitted = false;
       this.loading = false;
       throw new Error(response);
     }
-  }else{
-    this.toastService.danger('Debe diligenciar la firma');
-    return false;
   }
-  }
-
+  
 
   RefreshData() {
 

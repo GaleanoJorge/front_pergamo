@@ -48,7 +48,8 @@ export class FormReasonConsultationComponent implements OnInit {
   public ch_external_cause: any[];
   public changes = false;
   public changes1 = false;
-
+  public botton_title: string = 'Guardar';
+  public ch_reason_consultation = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -90,6 +91,17 @@ export class FormReasonConsultationComponent implements OnInit {
       });
     }
 
+    this.reasonConsultationS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id,
+    }).then(x => {
+      this.ch_reason_consultation = x[0];
+      if (this.ch_reason_consultation != null) {
+        this.messageEvent.emit(true);
+        this.botton_title = 'Actualizar';
+      }
+    });
+
 
     this.form = this.formBuilder.group({
       reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation, Validators.compose([Validators.required])],
@@ -129,9 +141,9 @@ export class FormReasonConsultationComponent implements OnInit {
       this.loading = true;
       this.showTable = false;
 
-      if (this.data.id) {
+      if (this.ch_reason_consultation != null) {
         await this.reasonConsultationS.Update({
-          id: this.data.id,
+          id: this.ch_reason_consultation.id,
           reason_consultation: this.form.controls.reason_consultation.value,
           current_illness: this.form.controls.current_illness.value,
           ch_external_cause_id: this.form.controls.ch_external_cause_id.value,
@@ -141,6 +153,9 @@ export class FormReasonConsultationComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
+          this.loading = false;
+          this.ch_reason_consultation = x.data.ch_reason_consultation;
+          this.botton_title = 'Actualizar';
           if (this.saved) {
             this.saved();
           }
@@ -158,17 +173,15 @@ export class FormReasonConsultationComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
+          this.loading = false;
+          this.botton_title = 'Actualizar';
+          this.ch_reason_consultation = x.data.ch_reason_consultation;
           if (this.saved) {
             this.saved();
           }
         }).catch(x => {
-          if (this.form.controls.has_caregiver.value == true) {
-            this.isSubmitted = true;
-            this.loading = true;
-          } else {
-            this.isSubmitted = false;
-            this.loading = false;
-          }
+          this.loading = false;
+          this.toastService.danger(x, 'Error');
 
         });
       }

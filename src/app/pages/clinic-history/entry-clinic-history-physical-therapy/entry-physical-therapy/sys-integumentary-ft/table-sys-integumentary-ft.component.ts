@@ -26,7 +26,7 @@ export class TableSysIntegumentaryComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = ['FEHCA',
-                                'COLABORACION',
+                                'COLORACIÓN',
                                 'INTEGRIDAD',
                                 'TEXTURA',
                                 'SUDORACION',
@@ -53,7 +53,7 @@ export class TableSysIntegumentaryComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
         },
      
