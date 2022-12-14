@@ -403,6 +403,8 @@ import { FixedReturnPatientsComponent } from './fixed-return-patients/fixed-retu
 import { FormFixedDeniedComponent } from './fixed-assets-requests-patient/form-fixed-denied/form-fixed-denied.component';
 import { FormTariffConfirmDisabledComponent } from './tariff/form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
+import { ReportRipsComponent } from './report-rips/report-rips.component';
+import { FormReportRipsComponent } from './report-rips/form-report-rips/form-report-rips.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
 import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-measure/form-supplies-measure.component';
 
@@ -852,6 +854,8 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     FormFixedDeniedComponent,
     ProductDamagedComponent,
 
+    ReportRipsComponent,
+    FormReportRipsComponent,
     SuppliesMeasureComponent,
     FormSuppliesMeasureComponent
   ],

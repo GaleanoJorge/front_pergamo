@@ -153,6 +153,7 @@ import { FixedMovementsComponent } from './fixed-movements/fixed-movements.compo
 import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
 import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
+import { FormReportRipsComponent } from './report-rips/form-report-rips/form-report-rips.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
 
 const routes: Routes = [{
@@ -871,6 +872,10 @@ const routes: Routes = [{
     {
       path: 'product-damaged',
       component: ProductDamagedComponent,
+    },
+    {
+      path: 'report-rips',
+      component: FormReportRipsComponent,
     }
   ],
 }];
