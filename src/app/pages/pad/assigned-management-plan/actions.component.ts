@@ -116,6 +116,9 @@ export class Actions4Component implements ViewCell {
       var finish= this.value.data.finish_date+' '+ this.value.data.finish_hour;
       this.start = new Date(start).getTime();
       this.finish = new Date(finish).getTime();
+      console.log(this.start);
+      console.log(this.finish);
+      console.log(this.today2);
     } else {
       if (this.isIOS) {
         this.today2 = new Date;
