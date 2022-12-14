@@ -34,7 +34,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
   <nb-icon icon="folder-add-outline"></nb-icon>
 </a>
 
-    <a *ngIf="value.currentRole == 2 && (start <= today2 && finish >= today2 && this.value.data.start_hour <= hournow && this.value.data.finish_hour >= hournow && value.data.management_plan.type_of_attention_id==12)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
+    <a *ngIf="value.currentRole == 2 && (start <= today2 && finish >= today2 && firsthour <= hournow && endhour >= hournow && value.data.management_plan.type_of_attention_id==12)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
   <button *ngIf="value.data.ch_record.length > 0" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
@@ -108,9 +108,9 @@ export class Actions4Component implements ViewCell {
         this.final_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + (this.today.getDate() + 1) + ' ' + this.value.data.finish_hour;
         enddate = new Date(new Date(this.final_date_temp));
       }
-      this.hournow =  this.today.getHours() + ':' + this.today.getMinutes() + ':' + this.today.getSeconds();;
-      this.firsthour = firstdate;
-      this.endhour = enddate;
+      this.hournow =  this.today.getHours() + ':' + this.today.getMinutes() + ':' + this.today.getSeconds();
+      this.firsthour = this.first_date_temp.getHours() + ':' + this.first_date_temp.getMinutes() + ':' + this.first_date_temp.getSeconds();
+      this.endhour = this.final_date_temp.getHours() + ':' + this.final_date_temp.getMinutes() + ':' + this.final_date_temp.getSeconds();
       this.start = new Date(this.value.data.start_date);
       this.finish = new Date(this.value.data.finish_date);
     } else {
