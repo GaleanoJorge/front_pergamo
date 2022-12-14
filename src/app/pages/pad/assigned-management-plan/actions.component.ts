@@ -109,9 +109,6 @@ export class Actions4Component implements ViewCell {
         enddate = new Date(new Date(this.final_date_temp));
       }
       this.today2= new Date().getTime();
-      this.hournow =  this.today.getHours() + ':' + this.today.getMinutes() + ':' + this.today.getSeconds();
-      this.firsthour = this.first_date_temp.getHours() + ':' + this.first_date_temp.getMinutes() + ':' + this.first_date_temp.getSeconds();
-      this.endhour = this.final_date_temp.getHours() + ':' + this.final_date_temp.getMinutes() + ':' + this.final_date_temp.getSeconds();
       var start= this.value.data.start_date+' '+ this.value.data.start_hour;
       var finish= this.value.data.finish_date+' '+ this.value.data.finish_hour;
       this.start = new Date(start).getTime();
