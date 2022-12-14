@@ -1,0 +1,37 @@
+<form [formGroup]="form">
+  <div>
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <label class="form-text text-muted font-weight-bold center-text-center">GENERACIÓN DE RIPS</label>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="company_id" class="form-text text-muted font-weight-bold">Seleccionar eps:</label>
+        <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="company_id"
+          formControlName="company_id" company_id type="text" required
+          status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes" *ngIf="company">
+          <option *ngFor="let item of company" [value]="item.name">{{ item.name}} </option>
+        </datalist>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold align">Fecha inicial:</label>
+        <input nbInput type="date" fullWidth id="initial_report" formControlName="initial_report" initial_report
+          status="{{ isSubmitted && form.controls.initial_report.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold align">Fecha final:</label>
+        <input nbInput type="date" [max]="today" (change)="onDatechange1($event)" fullWidth id="final_report"
+          formControlName="final_report" final_report
+          status="{{ isSubmitted && form.controls.final_report.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+
+    <div class="div-send">
+      <label></label>
+      <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsXLSX()">DESCARGAR</button>
+    </div>
+  </div>
+</form>
