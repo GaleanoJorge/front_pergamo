@@ -164,8 +164,8 @@ export class AuthPackageComponent implements OnInit {
         this.package_id = null;
         this.service_briefcase_id = null;
       } else {
-        this.package_id = this.packages.find(item => item.id == val);
-        this.service_briefcase_id = val;
+        this.package_id = this.packages.find(item => item.manual_price_id == val);
+        this.service_briefcase_id = this.package_id.id;
       }
     });
   }

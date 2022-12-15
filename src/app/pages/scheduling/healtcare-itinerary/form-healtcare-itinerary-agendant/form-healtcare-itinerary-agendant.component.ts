@@ -352,7 +352,7 @@ export class FormHealthcareItineraryAgendantComponent implements OnInit {
       if (this.data.Id) {
         this.medicalDiaryDaysS
           .Update({
-            id: this.data.Id,
+            id: this.data.id,
             state_id: this.form.controls.state_id.value,
             eps_id: this.form.controls.eps_id.value,
             contract_id: this.form.controls.contract_id.value,

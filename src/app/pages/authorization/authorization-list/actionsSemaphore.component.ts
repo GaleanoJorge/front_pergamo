@@ -38,35 +38,38 @@ export class ActionsSemaphoreComponent implements ViewCell {
   ngOnInit() {
 
     // console.log('algo')
-    if(!this.rowData.assigned_management_plan && !this.rowData.product_com_id && !this.rowData.fixed_add){
+    if (!this.rowData.assigned_management_plan && !this.rowData.product_com_id && !this.rowData.fixed_add && (!this.rowData.location_id || !this.rowData.open_date)) {
       this.color = this.colors.amarillo;
       this.tooltip = "Paquete";
-    } else if(!this.rowData.assigned_management_plan && !this.rowData.product_com_id && this.rowData.fixed_add){
+    } else if (!this.rowData.assigned_management_plan && !this.rowData.product_com_id && this.rowData.fixed_add && (!this.rowData.location_id || !this.rowData.open_date)) {
       this.color = this.colors.pergamo;
       this.tooltip = "Activo Fijo";
-    }else if(!this.rowData.assigned_management_plan && this.rowData.product_com_id && !this.rowData.fixed_add){
+    } else if (!this.rowData.assigned_management_plan && this.rowData.product_com_id && !this.rowData.fixed_add && (!this.rowData.location_id || !this.rowData.open_date)) {
       this.color = this.colors.morado;
       this.tooltip = "Insumo";
-    }else if(this.rowData.medical_diary_days){
+    } else if (this.rowData.medical_diary_days && (!this.rowData.location_id || !this.rowData.open_date)) {
       this.rowData.medical_diary_days.ch_record.forEach((x) => {
         if (x.status == 'CERRADO') {
           this.color = this.colors.verde;
           this.tooltip = "Ejecutado";
         }
       });
-      if(this.tooltip != "Ejecutado"){
+      if (this.tooltip != "Ejecutado") {
         this.color = this.colors.rojo;
         this.tooltip = "Sin ejecutar";
       }
     }
-     else if(this.rowData.assigned_management_plan && !this.rowData.fixed_add){
-      if(this.rowData.assigned_management_plan.execution_date == '0000-00-00 00:00:00'){
+    else if (this.rowData.assigned_management_plan && !this.rowData.fixed_add && (!this.rowData.location_id || !this.rowData.open_date)) {
+      if (this.rowData.assigned_management_plan.execution_date == '0000-00-00 00:00:00') {
         this.color = this.colors.rojo;
         this.tooltip = "Sin ejecutar";
-      } else if(this.rowData.assigned_management_plan.execution_date != '0000-00-00 00:00:00') {
+      } else if (this.rowData.assigned_management_plan.execution_date != '0000-00-00 00:00:00') {
         this.color = this.colors.verde;
         this.tooltip = "Ejecutado";
       }
+    } else if (this.rowData.location_id && this.rowData.open_date) {
+      this.color = this.colors.verde;
+      this.tooltip = "Ejecutado";
     }
 
   }

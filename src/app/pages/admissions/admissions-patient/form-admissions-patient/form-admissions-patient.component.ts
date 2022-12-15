@@ -608,7 +608,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         if(localCat.payment_type == 2){
           
           var localproc = this.procedures.find(
-            (item) => item.manual_price.procedure.id == this.form.value.procedure_id
+            (item) => item.id == this.form.value.procedure_id
           );
           if(localproc){
             this.copay_value = localproc.value*localCat.value;
