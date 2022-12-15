@@ -18,6 +18,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
       <a
         *ngIf="
           !this.rowData.assigned_management_plan_id &&
+          (!this.rowData.location_id || !this.rowData.open_date) &&
           !this.rowData.fixed_add &&
           !this.rowData.medical_diary_days
         "
@@ -33,6 +34,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
       <button
         *ngIf="
           !this.rowData.assigned_management_plan_id &&
+          (!this.rowData.location_id || !this.rowData.open_date) &&
           !this.rowData.fixed_add &&
           !this.rowData.medical_diary_days
         "
@@ -48,6 +50,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
       <button
         *ngIf="
           !this.rowData.assigned_management_plan_id &&
+          (!this.rowData.location_id || !this.rowData.open_date) &&
           !this.rowData.fixed_add &&
           !this.rowData.medical_diary_days
         "
