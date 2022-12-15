@@ -57,7 +57,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public briefcase: any[] = [];
   public categories: any[] = [];
   public procedures: any[] = [];
-  public copay_value;
+  public copay_value = null;
   public show_diagnostic: boolean = false;
   public show_inputs: boolean = false;
   public show_auth_inputs: boolean = false;
@@ -293,7 +293,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
             patient_id: this.user_id,
             ambulatory_data: this.ambolatory ? this.data.id : null,
             copay_id: this.form.controls.category.value,
-            copay_value: this.ambolatory ? this.form.value.copay : null,
+            copay_value: this.copay_value,
           })
             .then((x) => {
               this.toastService.success('', x.message);
