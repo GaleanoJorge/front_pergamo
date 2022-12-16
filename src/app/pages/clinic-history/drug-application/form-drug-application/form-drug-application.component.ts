@@ -134,8 +134,8 @@ export class FormDrugApplicationComponent implements OnInit {
   }
 
   async save() {
+    this.isSubmitted = true;
     if (!this.form.invalid) {
-      this.isSubmitted = true;
       this.loading = true;
       if (this.data.id) {
         await this.assistanceSuppliesS
@@ -197,8 +197,10 @@ export class FormDrugApplicationComponent implements OnInit {
     } else {
       if (this.form.controls.observation.errors) {
         this.toastService.warning('', 'Debe diligenciar observaciones');
-      } else {
+      } else if (this.form.controls.clock.errors) {
         this.toastService.warning('', 'Debe diligenciar la hora de aplicación');
+      } else if (this.form.controls.quantity.errors) {
+        this.toastService.warning('', 'Debe diligenciar la cantidad a aplicar');
       }
     }
   }
