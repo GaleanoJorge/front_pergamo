@@ -34,7 +34,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
   <nb-icon icon="folder-add-outline"></nb-icon>
 </a>
 
-    <a *ngIf="value.currentRole == 2 && (start <= today2 && finish >= today2 && firsthour < hournow && endhour >= hournow && value.data.management_plan.type_of_attention_id==12)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
+    <a *ngIf="value.currentRole == 2 && (start <= today2 && finish >= today2 && value.data.management_plan.type_of_attention_id==12)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
   <button *ngIf="value.data.ch_record.length > 0" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
@@ -108,11 +108,14 @@ export class Actions4Component implements ViewCell {
         this.final_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + (this.today.getDate() + 1) + ' ' + this.value.data.finish_hour;
         enddate = new Date(new Date(this.final_date_temp));
       }
-      this.hournow = this.today2;
-      this.firsthour = firstdate;
-      this.endhour = enddate;
-      this.start = new Date(this.value.data.start_date);
-      this.finish = new Date(this.value.data.finish_date);
+      this.today2= new Date().getTime();
+      var start= this.value.data.start_date+' '+ this.value.data.start_hour;
+      var finish= this.value.data.finish_date+' '+ this.value.data.finish_hour;
+      this.start = new Date(start).getTime();
+      this.finish = new Date(finish).getTime();
+      console.log(this.start);
+      console.log(this.finish);
+      console.log(this.today2);
     } else {
       if (this.isIOS) {
         this.today2 = new Date;

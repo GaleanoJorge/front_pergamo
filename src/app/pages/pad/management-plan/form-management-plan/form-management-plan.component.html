@@ -161,7 +161,6 @@
             <nb-select [selected]="militat_hour_id" id="militat_hour_id" fullWidth
               (selectedChange)="ChangeHour($event, 1)"
               status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-option value="">Seleccione...</nb-option>
               <nb-option selected="{{ item.id == data.militat_hour_id }}" *ngFor="let item of militat_hour"
                 [value]="item.id">
                 {{ item.name }}</nb-option>
@@ -172,7 +171,6 @@
             <nb-select [selected]="militat_minut_id" id="militat_minut_id" fullWidth
               (selectedChange)="ChangeHour($event, 2)"
               status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-option value="">Seleccione...</nb-option>
               <nb-option selected="{{ item.id == data.militat_minut_id }}" *ngFor="let item of militat_minut"
                 [value]="item.id">
                 {{ item.name }}</nb-option>
