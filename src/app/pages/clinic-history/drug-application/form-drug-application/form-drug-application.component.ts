@@ -79,7 +79,7 @@ export class FormDrugApplicationComponent implements OnInit {
     this.form = this.formBuilder.group({
       clock: ['', Validators.compose([Validators.required])],
       observation: ['', Validators.compose([Validators.required])],
-      quantity: [''],
+      quantity: ['', Validators.compose([Validators.required])],
       applicable: [''],
     });
 
