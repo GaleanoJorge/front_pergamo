@@ -45,7 +45,7 @@
   <div class="row justify-content-md-center">
     <div class="col-md-6 col-lg-6">
       <div class="form-group">
-        <label for="perception" class="form-text text-muted font-weight-bold">Sensipercepción</label>
+        <label for="perception" class="form-text text-muted font-weight-bold">Sensopercepción</label>
         <nb-select multiple formControlName="perception" id="perception" fullWidth
           status="{{ isSubmitted && form.controls.perception.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option *ngFor="let item of perception" [value]="item.name">{{ item.name }}</nb-option>
@@ -54,7 +54,7 @@
     </div>
     <div class="col-md-6 col-lg-6">
      <div class="form-group">
-       <label class="form-text text-muted font-weight-bold text ">Observaciones de Sensipercepción</label>
+       <label class="form-text text-muted font-weight-bold text ">Observaciones de Sensopercepción</label>
        <textarea id="per_observations" nbInput fullWidth formControlName="per_observations" per_observations
          onpaste="return false"
          status="{{ isSubmitted && form.controls.per_observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>

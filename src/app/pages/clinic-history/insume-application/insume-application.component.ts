@@ -4,8 +4,9 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 import { FormGroup } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { ActionsInsumeComponent } from './actions.component';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormDrugApplicationComponent } from '../drug-application/form-drug-application/form-drug-application.component';
+import { AssistanceSuppliesService } from '../../../business-controller/assistance-supplies.service';
 
 @Component({
   selector: 'ngx-insume-application',
@@ -77,46 +78,12 @@ export class InsumeApplicationComponent implements OnInit {
           }
         },
       },
-      'administration_route': {
-        title: this.headerFields[2],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.indications;
-          } else {
-            return '--';
-          }
-        },
-      },
-
-      'pharmacy_product_request.pharmacy_request_shipping': {
-        title: this.headerFields[1],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.contraindications;
-          } else {
-            return '--'
-          }
-        },
-      },
-      'pharmacy_product_request.pharmacy_request_shipping.pharmacy_lot_stock': {
-        title: this.headerFields[3],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          if (row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product) {
-            return row.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product.refrigeration == 1 ? 'REFRIGERAR' : 'NO REFRIGERAR';
-          } else {
-            return '--'
-          }
-        },
-      },
       disponibles: {
         title: 'DISPONIBLES',
         width: 'string',
       },
       Usadas: {
-        title: 'APLICADAS',
+        title: 'USADOS',
         type: 'string',
       },
       dañadas: {
@@ -146,6 +113,8 @@ export class InsumeApplicationComponent implements OnInit {
     public userChangeS: UserChangeService,
     public AuthS: AuthService,
     private dialogFormService: NbDialogService,
+    private assistanceSuppliesS: AssistanceSuppliesService,
+    private toastService: NbToastrService,
 
   ) { }
 
@@ -158,16 +127,30 @@ export class InsumeApplicationComponent implements OnInit {
   }
 
   Aplication(data) {
-    console.log('usado');
-    this.dialog = this.dialogFormService.open(FormDrugApplicationComponent, {
-      context: {
-        title: 'REGISTRAR USO',
-        data: data,
-        record_id: this.record_id,
-        type_record_id: this.type_record_id,
-        status: 'USADO',
-        saved: this.RefreshData.bind(this),
-      },
+    // console.log('usado');
+    // this.dialog = this.dialogFormService.open(FormDrugApplicationComponent, {
+    //   context: {
+    //     title: 'REGISTRAR USO',
+    //     data: data,
+    //     record_id: this.record_id,
+    //     type_record_id: this.type_record_id,
+    //     status: 'USADO',
+    //     saved: this.RefreshData.bind(this),
+    //   },
+    // });
+    this.assistanceSuppliesS.Update({
+      id: data.id,
+      supplies_status_id: 2,
+      ch_record_id: this.record_id,
+      insume_comercial: data.pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_supplies_com_id,
+      observation: 'Se usa insumo'
+    }).then((x) => {
+      this.toastService.success('', x.message);
+      // this.close();
+      this.table.refresh();
+    })
+    .catch((x) => {
+      this.toastService.danger('', x);
     });
   }
 

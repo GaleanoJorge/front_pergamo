@@ -23,6 +23,8 @@ export class FormSwFamilyDynamicsComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
+  @Input() has_input: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -86,6 +88,7 @@ export class FormSwFamilyDynamicsComponent implements OnInit {
     this.familyS.GetCollection({record_id:this.record_id}).then(x => {
       this.authority = x;
     });
+    this.onChanges();
   
   }
     
@@ -103,7 +106,7 @@ export class FormSwFamilyDynamicsComponent implements OnInit {
           observations: this.form.controls.observations.value,
           decisions_id: this.form.controls.decisions_id.value,
           authority_id: this.form.controls.authority_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -124,7 +127,7 @@ export class FormSwFamilyDynamicsComponent implements OnInit {
           observations: this.form.controls.observations.value,
           decisions_id: this.form.controls.decisions_id.value,
           authority_id: this.form.controls.authority_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -153,5 +156,11 @@ export class FormSwFamilyDynamicsComponent implements OnInit {
       });
     });
    }
+
+  receiveMessage($event) {
+    if ($event == true) {
+      this.messageEvent.emit($event);
+    }
+  }
   
 }

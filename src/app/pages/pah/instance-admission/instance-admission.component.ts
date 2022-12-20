@@ -35,15 +35,24 @@ export class InstanceAdmissionComponent implements OnInit {
   public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
-  public title: string = 'Instancias de hospitalización';
+  public title: string = 'Interconsultas';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha de inicio', 'Fecha Final', 'Fecha de ejecución', 'Personal asistencial'];
+  public headerFields: any[] = [
+    /*00*/ 'Servicio',
+    /*01*/ 'Evoluciones',
+    /*02*/ 'Cantidad Ordenada',
+    /*03*/ 'Especialidad',
+    /*04*/ 'Frecuencia',
+    /*05*/ 'Fecha de orden',
+    /*06*/ 'Médico que ordena',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
   public arrayBuffer: any;
   public file: File;
   public admission_id;
+  public actual_location;
   public user_id;
   public user = null;
   public dialog;
@@ -77,37 +86,93 @@ export class InstanceAdmissionComponent implements OnInit {
       //   },
       //   renderComponent: ActionsSemaphoreComponent,
       // },
-      // actions: {
-      //   title: 'Acciones',
-      //   type: 'custom',
-      //   valuePrepareFunction: (value, row) => {
-      //     // DATA FROM HERE GOES TO renderComponent
-      //     return {
-      //       'data': row,
-      //       'user': this.own_user,
-      //       'refresh': this.RefreshData.bind(this),
-      //       'openEF':this.NewChRecord.bind(this),
-      //       'currentRole': this.currentRole.role_type_id,
-      //       'edit': this.EditAssigned.bind(this),
-      //     };
-      //   },
-      //   renderComponent: Actions4Component,
-      // },
-      start_date: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'user': this.own_user,
+            'admission_id': this.admission_id,
+            'refresh': this.RefreshData.bind(this),
+            'currentRole': this.currentRole.role_type_id,
+          };
+        },
+        renderComponent: Actions4Component,
+      },
+      created_at: {
+        title: this.headerFields[5],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return this.datePipe.transform4(value);
+        },
+      },
+      services_briefcase: {
         title: this.headerFields[0],
         type: 'string',
+        valuePrepareFunction: (value) => {
+          return value.manual_price.procedure.name;
+        },
       },
-      finish_date: {
-        title: this.headerFields[1],
-        type: 'string',
-      },
-      execution_date: {
-        title: this.headerFields[2],
-        type: 'string',
-      },
-      nombre_completo: {
+      specialty: {
         title: this.headerFields[3],
         type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value != null) {
+            return value;
+          } else {
+            return 'N.A.';
+          }
+        },
+      },
+      frequency: {
+        title: this.headerFields[4],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value != null) {
+            return value.name;
+          } else {
+            return 'N.A.';
+          }
+        },
+      },
+      amount: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value != null) {
+            if (value != 0) {
+              return value;
+            } else {
+              return 'A Pertinencia';
+            }
+          } else {
+            return 'N.A.';
+          }
+        },
+      },
+      evolutions: {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value) {
+            return value;
+          } else {
+            return 0;
+          }
+        },
+      },
+      user: {
+        title: this.headerFields[6],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (row.ch_record) {
+            return row.ch_record.user.firstname ? row.ch_record.user.firstname : '' + ' ' + row.ch_record.user.middlefirstname ? row.ch_record.user.middlefirstname : '' + ' ' + row.ch_record.user.lastname ? row.ch_record.user.lastname : '' + ' ' + row.ch_record.user.middlelastname ? row.ch_record.user.middlelastname : '';
+          } else {
+            return 'N.A.';
+          }
+        },
       },
     },
   };
@@ -167,17 +232,22 @@ export class InstanceAdmissionComponent implements OnInit {
   async ngOnInit() {
     this.admission_id = this.route.snapshot.params.admission_id;
     this.own_user = this.authService.GetUser();
+    var curr = this.authService.GetRole();
+    this.currentRole = this.authService.GetUser().roles.find(x => {
+      return x.id == curr;
+    });
 
     this.AdmissionsS.GetCollection({
       admissions_id: this.admission_id
     }).then(x => {
       this.user = x[0]['patients'];
+      this.actual_location = x[0]['location'][x[0]['location'].length - 1];
     });
 
-    this. settings = this. settings1;
+    this.settings = this.settings1;
 
-    this.entity = 'ch_medical_orders?admissions_id=' + this.admission_id;
-    
+    this.entity = 'ch_interconsultation?admissions_id=' + this.admission_id + '&ambulatory_medical_order=1&role_id=' + this.currentRole.id;
+
 
   }
   back() {

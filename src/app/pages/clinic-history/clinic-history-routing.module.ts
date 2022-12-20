@@ -46,6 +46,10 @@ const routes: Routes = [{
       component: ClinicHistoryPhysicTherapy,
     },
     {
+      path: 'ch-record-list/:id/:id2',
+      component: ChRecordListComponent,
+    },
+    {
   
       path: 'ch-record-list/:id/:id2/:id3',
       component: ChRecordListComponent,
@@ -73,7 +77,7 @@ const routes: Routes = [{
     {
       path: 'ch-psychology/psychology-list/:id1/:id2',
       component: PsychologyListComponent,
-    }
+    }, 
     
   ],
 }];

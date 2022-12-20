@@ -107,7 +107,11 @@ export class BillUserActivityComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.manual_price.name;
+          if (value) {
+            return value.manual_price.name;
+          } else {
+            return '-';
+          }
         },
       },
       'assigned_management_plan2': {
@@ -133,7 +137,11 @@ export class BillUserActivityComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.currency.transform(row.tariff.amount);
+          if (value) {
+            return this.currency.transform(row.tariff.amount);
+          } else {
+            return 'N.A.';
+          }
         },
       },
       status: {

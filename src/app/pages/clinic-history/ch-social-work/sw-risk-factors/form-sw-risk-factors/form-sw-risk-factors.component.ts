@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ChSwRiskFactorsService } from '../../../../../business-controller/ch-sw-risk-factors.service';
 
@@ -20,6 +20,7 @@ export class FormSwRiskFactorsComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -130,7 +131,7 @@ export class FormSwRiskFactorsComponent implements OnInit {
       check10: [
         this.data.check10,
       ],
-      observations: [this.data[0] ? this.data[0].observations : this.data.observations,],
+      observations: [this.data[0] ? this.data[0].observations : this.data.observations,Validators.compose([Validators.required])],
     });
   
   }
@@ -155,7 +156,7 @@ export class FormSwRiskFactorsComponent implements OnInit {
           interference: this.data.check9,
           spaces: this.data.check10,
           observations: this.form.controls.observations.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -180,7 +181,7 @@ export class FormSwRiskFactorsComponent implements OnInit {
           interference: this.form.controls.check9.value ? this.arrayRiskFactors[8].description : null,
           spaces: this.form.controls.check10.value ? this.arrayRiskFactors[9].description : null,
           observations: this.form.controls.observations.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -202,6 +203,8 @@ export class FormSwRiskFactorsComponent implements OnInit {
         });
       }
 
+    } else{
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
   }
 

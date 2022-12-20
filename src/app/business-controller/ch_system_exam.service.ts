@@ -37,7 +37,7 @@ export class ChSystemExamService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.ch_system_exam = <ChSystemExam[]>servObj.data.ch_background;
+        this.ch_system_exam = <ChSystemExam[]>servObj.data.ch_system_exam;
 
         return Promise.resolve(this.ch_system_exam);
       })

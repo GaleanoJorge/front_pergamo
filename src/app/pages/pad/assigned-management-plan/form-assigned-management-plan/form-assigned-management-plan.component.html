@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="width: 100%;height: 600px;overflow: auto;">
+  <nb-card style="min-width: 500px;width: 100%;height: 600px;overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
@@ -29,7 +29,7 @@
         </div>
 
 
-        <div class="assigned ? col-12 col-sm-12 col-md-4: col-12 col-sm-12 col-md-12" *ngIf="medical==false && this.type_auth == 1">
+        <div class="assigned ? col-12 col-sm-12 col-md-4: col-12 col-sm-12 col-md-12" *ngIf="medical==false && this.type_auth == 1 && !this.is_hospitalary">
           <label for="assigned_user_id" class="form-text text-muted font-weight-bold">Personal asistencial:</label>
           <nb-select [selected]="this.data.assigned_user_id" formControlName="assigned_user_id" id="assigned_user_id"
             fullWidth
@@ -37,7 +37,7 @@
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.assigned_user_id }}" *ngFor="let item of assigned_user"
               [value]="item.id">
-              {{ item.firstname }} {{item.lastname}}</nb-option>
+              {{ item.firstname }} {{ item.middlefirstname }} {{item.lastname}} {{item.middlelastname}} - {{ item.identification }}</nb-option>
           </nb-select>
         </div>
 

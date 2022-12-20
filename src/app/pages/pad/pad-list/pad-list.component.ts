@@ -30,6 +30,8 @@ export class PadListComponent implements OnInit {
 
   public isSubmitted = false;
   public entity: string;
+  public semaphore: string = null;
+  public eps: string;
   public loading: boolean = false;
   public loading2: boolean = false;
   public category_id: number = null;
@@ -51,6 +53,9 @@ export class PadListComponent implements OnInit {
   public selectedOptions: any[] = [];
   public company: any[] = [];
   public result: any = null;
+  public status_type_asis = [
+    { id: (4+1), color: "#7A39BB", name: "Por subsanar" },
+  ];
   public status_type = [
     { id: (0+1), color: "#28B463", name: "Cumplido" },
     { id: (1+1), color: "#54BCC1", name: "Admisión creada" },
@@ -202,6 +207,7 @@ export class PadListComponent implements OnInit {
 
 
   async ngOnInit() {
+   
     this.user = this.authService.GetUser();
     this.user_id = this.user.id;
     this.campus_id = +localStorage.getItem('campus');
@@ -209,18 +215,35 @@ export class PadListComponent implements OnInit {
     this.currentRole = this.user.roles.find(x => {
       return x.id == curr;
     });
+    
+    var b = this.currentRole.role_type_id == 2 ? new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + (+(new Date().getDate()) >= 10 ? new Date().getDate() : ('0'+new Date().getDate())) : '';
+
+    this.form = this.formBuilder.group({
+      start_date: [b, []],
+      finish_date: [b, []],
+    });
+
+    this.form.get('start_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
+
     if (this.currentRole.role_type_id == 2) {
-      this.entity = 'patient/byPAD/2/' + this.user_id + "?campus_id=" + this.campus_id;
+      this.entity = 'patient/byPAD/2/' + this.user_id + "?campus_id=" + this.campus_id + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '';
     }
     else {
-      this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id;
+      this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '';
     }
 
     // this.userAgService.GetCollection({user_id: this.user_id}).then(x => {
     //   this.company = x;
     // });
 
-    this.CompanyS.GetCollection().then(x => {
+    this.CompanyS.GetCollection({
+      eps: true
+    }).then(x => {
       this.company = x;
     });
 
@@ -331,12 +354,13 @@ export class PadListComponent implements OnInit {
 
   FilterAgreement(e) {
     if (this.currentRole.role_type_id == 2) {
-      this.entity = 'patient/byPAD/2/' + this.user_id + "?campus=" + this.campus_id;
+      this.entity = 'patient/byPAD/2/' + this.user_id + "?campus_id=" + this.campus_id;
     }
     else {
-      this.entity = "patient/byPAD/2/0?campus=" + this.campus_id;
+      this.entity = "patient/byPAD/2/0?campus_id=" + this.campus_id;
     }
-    this.table.changeEntity(`${this.entity}&eps=${e}`, 'patients')
+    this.eps = e;
+    this.table.changeEntity(`${this.entity}&semaphore=${this.semaphore}&eps=${e}`, 'patients')
   }
 
 
@@ -348,6 +372,11 @@ export class PadListComponent implements OnInit {
   });
 
   changeSemaphore($event: any) {
-    this.table.changeEntity(this.entity + '&semaphore=' + $event, 'patients');
+    this.semaphore= $event;
+    this.table.changeEntity(`${this.entity}&semaphore=${$event}&eps=${(this.eps ? this.eps : null)}` + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 'patients');
+  }
+
+  changeEntity() {
+    this.table.changeEntity(`${this.entity}&semaphore=${this.semaphore}&eps=${(this.eps ? this.eps : null)}` + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 'patients')
   }
 }

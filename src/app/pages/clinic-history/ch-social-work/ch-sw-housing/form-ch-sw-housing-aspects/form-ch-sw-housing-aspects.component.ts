@@ -22,6 +22,7 @@ export class FormChSwHousingAspectsComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -96,7 +97,7 @@ export class FormChSwHousingAspectsComponent implements OnInit {
           vehicle_access: this.form.controls.vehicle_access.value,
           ch_sw_housing_type_id: this.form.controls.ch_sw_housing_type_id.value,
           ch_sw_housing_id: this.form.controls.ch_sw_housing_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -116,7 +117,7 @@ export class FormChSwHousingAspectsComponent implements OnInit {
           vehicle_access: this.form.controls.vehicle_access.value,
           ch_sw_housing_type_id: this.form.controls.ch_sw_housing_type_id.value,
           ch_sw_housing_id: this.form.controls.ch_sw_housing_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

@@ -97,7 +97,7 @@ import { ServicesBriefcaseService } from '../../../business-controller/services-
               <nb-option value="">Seleccione...</nb-option>
               <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
                 [value]="item.id">
-                {{ item.manual_price.procedure.name }} - {{ item.manual_price.name }}</nb-option>
+                {{ item.manual_price.procedure.code }} - {{ item.manual_price.name }}</nb-option>
           </nb-select>
         </div>
         <div class="col-md-12">
@@ -210,7 +210,9 @@ export class Actions2Component implements ViewCell {
     this.AdmissionRouteS.GetCollection().then(x => {
       this.admission_route = x;
     });
-    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
+    this.FlatS.GetFlatByCampus(this.campus_id, {
+      bed_or_office: 1,
+    }).then(x => {
       this.flat = x;
     });
 
@@ -382,7 +384,9 @@ export class Actions2Component implements ViewCell {
   GetPavilion(flat_id, job = false) {
     if (!flat_id || flat_id === '') return Promise.resolve(false);
 
-    return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+    return this.PavilionS.GetPavilionByFlat(flat_id, {
+      bed_or_office: 1,
+    }).then(x => {
 
       this.pavilion = x;
 
@@ -396,7 +400,7 @@ export class Actions2Component implements ViewCell {
       if (x.length > 0) {
         this.bed = x;
       } else {
-        this.toastService.warning('', 'No se encontraron camas')
+        this.toastService.warning('', 'No se encontraron camas disponibles para la localización y el procedimiento seleccionado')
       }
 
       return Promise.resolve(true);

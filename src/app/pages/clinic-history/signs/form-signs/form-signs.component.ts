@@ -135,10 +135,21 @@ export class FormsignsComponent implements OnInit {
         liters_per_minute_id: '',
         parameters_signs_id: '',
         pupilas: '',
+        observations_vital_ventilated: '',
+        observations_parameters_signs: '',
         has_oxigen: this.admissions ? this.admissions.location[0].program_id == 7 ? true : false : false,
       };
     
     }
+
+    this.chVitalSignsS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.record_id,
+    }).then(x => {
+      if (x.length > 0) {
+        this.messageEvent.emit(true);
+      }
+    });
 
     this.chvitalHydrationS.GetCollection({ status_id: 1 }).then(x => {
       this.vital_hydration = x;
@@ -187,8 +198,10 @@ export class FormsignsComponent implements OnInit {
       liters_per_minute_id: [this.data[0] ? this.data[0].liters_per_minute_id : this.data.liters_per_minute_id],
       parameters_signs_id: [this.data.parameters_signs_id],
       pupilas: [],
-      has_oxigen: [(this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false,
-      ],
+      has_oxigen: [(this.data[0] ? this.data[0].has_oxigen : this.data.has_oxigen) == 1 ? true : false,],
+      observations_vital_ventilated: [this.data[0] ? this.data[0].observations_vital_ventilated : this.data.observations_vital_ventilated],
+      observations_parameters_signs: [this.data[0] ? this.data[0].observations_parameters_signs : this.data.observations_parameters_signs],
+
     });
 
     if(this.data.has_oxigen == true){
@@ -329,6 +342,8 @@ export class FormsignsComponent implements OnInit {
           liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
           parameters_signs_id: [this.data.parameters_signs_id],
           has_oxigen: this.form.controls.has_oxigen.value,
+          observations_vital_ventilated: this.form.controls.observations_vital_ventilated.value,
+          observations_parameters_signs: this.form.controls.observations_parameters_signs.value,
           type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -380,6 +395,8 @@ export class FormsignsComponent implements OnInit {
           liters_per_minute_id: this.form.controls.liters_per_minute_id.value,
           parameters_signs_id: this.form.controls.parameters_signs_id.value,
           has_oxigen: this.form.controls.has_oxigen.value,
+          observations_vital_ventilated: this.form.controls.observations_vital_ventilated.value,
+          observations_parameters_signs: this.form.controls.observations_parameters_signs.value,
           type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
@@ -421,7 +438,9 @@ export class FormsignsComponent implements OnInit {
             oxygen_type_id:'',
             liters_per_minute_id:'',
             parameters_signs_id:'',
-            has_oxigen: false,});
+            has_oxigen: false,
+            observations_vital_ventilated:'',
+            observations_parameters_signs:''});
           if (this.saved) {
             this.saved();
           }

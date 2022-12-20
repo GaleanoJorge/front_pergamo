@@ -18,7 +18,7 @@ export class ChScaleNewsComponent implements OnInit {
   public messageError = null;
   public title: string = 'Registros Escala News';
   public subtitle: string = '';
-  public headerFields: any[] = ['Fecha', 'Calificación', 'Riesgo Clínico', 'Respuesta clínica'];
+  public headerFields: any[] = ['Fecha / Hora de Registro', 'Calificación', 'Riesgo Clínico', 'Respuesta clínica'];
   public routes = [];
   public data = [];
   public ch_record_id;
@@ -32,7 +32,7 @@ export class ChScaleNewsComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform(value);
         },
       },
       qualification: {

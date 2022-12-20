@@ -24,40 +24,18 @@ import { ChTypeService } from '../../../business-controller/ch-type.service';
           <nb-icon icon="menu-outline"></nb-icon>
       </button> -->
 
-      <button nbTooltip="Instancias" nbTooltipPlacement="top"
+      <button *ngIf="this.value.route == 1" nbTooltip="Registros" nbTooltipPlacement="top"
+          nbTooltipStatus="primary" nbButton ghost
+          [routerLink]="'/pages/pah/interconsultation/' + admissions_id + '/' + ch_interconsultation_id + '/' + type_of_attention">
+          <nb-icon icon="menu-outline"></nb-icon>
+      </button>
+
+      <button *ngIf="this.value.route == 2" nbTooltip="Intersonsultas" nbTooltipPlacement="top"
           nbTooltipStatus="primary" nbButton ghost (click)="closeDialog()"
-          [routerLink]="'/pages/pah/instance-admission/' + value.data.id">
+          [routerLink]="'/pages/pah/instance-admission/' + value.data.admissions[value.data.admissions.length - 1].id">
           <nb-icon icon="menu-outline"></nb-icon>
       </button>
   </div>
-
-  <ng-template #AssignedTable>
-  <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card style="width: 100%;height: auto;overflow: auto;">
-    <nb-card-header>
-    Registro de Historia Clínica
-    </nb-card-header>
-    <nb-card-body>
-        <div class="col-12 col-sm-12 col-md-12">
-          <label for="ch_type" class="form-text text-muted font-weight-bold">ELEGIR TIPO DE HISTORIA CLÍNICA:</label>
-          <nb-select formControlName="ch_type_id"
-            id="ch_type_id" fullWidth
-            status="{{ isSubmitted && form.controls.ch_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option *ngFor="let item of ch_type"
-              [value]="item.id">
-              {{ item.name.toUpperCase() }}</nb-option>
-          </nb-select>
-        </div>
-    </nb-card-body>
-
-    <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
-      <button nbButton (click)="closeDialog()" type="button" status="danger">Crear</button>
-    </nb-card-footer>
-  </nb-card>
-  </form>
-</ng-template>
   `,
   styleUrls: ['./pah-list.component.scss'],
 })
@@ -70,6 +48,8 @@ export class Actions2Component implements ViewCell {
   public management_id;
   public user_id;
   public admissions_id;
+  public ch_interconsultation_id;
+  public type_of_attention;
   public dialog;
   public management_plan_id = null;
   public own_user;
@@ -90,54 +70,18 @@ export class Actions2Component implements ViewCell {
   async ngOnInit() {
     this.user_id = this.value.user.id;
     this.own_user = this.authService.GetUser();
-
-    this.ChTypeS.GetCollection().then(x => {
-      this.ch_type = x;
+    var a = this.value.data.admissions[this.value.data.admissions.length - 1].ch_interconsultation;
+    var b;
+    var c;
+    a.forEach(element => {
+      if (element.ch_record_id == null) {
+        b = element.id;
+        c = element.type_of_attention_id != null ? element.type_of_attention_id : -1;
+      }
     });
-
-    this.form = this.formBuilder.group({
-      ch_type_id: ['', Validators.compose([Validators.required])],
-    });
-  }
-
-  ShowPreBilling(dialog: TemplateRef<any>, id) {
-    this.admissions_id = id;
-    this.dialog = this.dialogFormService.open(dialog);
-  }
-
-  closeDialog() {
-    if (this.dialog) {
-      this.dialog.close();
-    }
-  }
-
-  RefreshData() {
-    this.table.refresh();
-  }
-
-  async NewChRecord(data) {
-    await this.chRecordS.Save({
-      status: 'ACTIVO',
-      admissions_id: data.management_plan.admissions_id,
-      assigned_management_plan: data.id,
-      user_id: data.user_id,
-      ch_type_id: this.form.controls.ch_type_id.value,
-    }).then(x => {
-      this.ch_record = x.data.ch_record.id;
-      this.closeDialog();
-      this.router.navigateByUrl('/pages/clinic-history/clinic-history-nursing-list/' + this.ch_record + '/' + data.id);
-      this.toastService.success('', x.message);
-      this.RefreshData();
-
-    }).catch(x => {
-      // this.isSubmitted = false;
-      // this.loading = false;
-    });
-
-  }
-
-  save(){
-
+    this.admissions_id = this.value.data.admissions[this.value.data.admissions.length - 1].id;
+    this.ch_interconsultation_id = b;
+    this.type_of_attention = c;
   }
 
 }

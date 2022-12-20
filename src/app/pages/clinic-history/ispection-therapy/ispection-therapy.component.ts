@@ -45,7 +45,7 @@ export class IspectionTherapyComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
       },
       expansion: {

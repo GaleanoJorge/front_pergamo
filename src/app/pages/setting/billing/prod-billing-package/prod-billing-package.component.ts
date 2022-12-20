@@ -25,7 +25,7 @@ export class ProdBillingPackageComponent implements OnInit {
   public InscriptionForm: FormGroup;
   public title = 'Selección de medicamentos: ';
   public subtitle = 'medicamentos a comprar: ';
-  public headerFields: any[] = ['Medicamento', 'Descripción generico', 'Fabricante', 'Presentación', 'Cantidad ordenada', 'Valor por unidad', 'Iva'];
+  public headerFields: any[] = ['Medicamento','Empaque','Cantidad','Descripción generico', 'Fabricante', 'Presentación', 'Cantidad ordenada', 'Valor por unidad', 'Iva'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -80,29 +80,40 @@ export class ProdBillingPackageComponent implements OnInit {
           return value;
         },
       },
-      product_generic: {
+      packing: {
         title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      unit_packing: {
+        title: this.headerFields[2],
+        type: 'string',
+      },
+      product_generic: {
+        title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.description;
         },
       },
       factory: {
-        title: this.headerFields[2],
+        title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return value.name;
         },
       },
       presentation: {
-        title: this.headerFields[3],
+        title: this.headerFields[5],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.product_generic.product_presentation.name;
         },
       },
       amount: {
-        title: this.headerFields[4],
+        title: this.headerFields[6],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -121,7 +132,7 @@ export class ProdBillingPackageComponent implements OnInit {
         renderComponent: AmountBillingComponent,
       },
       amount_unit: {
-        title: this.headerFields[5],
+        title: this.headerFields[7],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;
@@ -142,7 +153,7 @@ export class ProdBillingPackageComponent implements OnInit {
 
 
       iva: {
-        title: this.headerFields[6],
+        title: this.headerFields[8],
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           var amo;

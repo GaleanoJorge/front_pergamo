@@ -15,6 +15,9 @@ import { FormLocationCapacityComponent } from '../../setting/location-capacity/s
 import { FormConfirmPayComponent } from './form-confirm-pay/form-confirm-pay.component';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ContractTypeService } from '../../../business-controller/contract-type.service';
+import { ActionsSemaphoreComponent } from './actions-semaphore.component';
 
 @Component({
   selector: 'ngx-account-receivable-list',
@@ -33,10 +36,14 @@ export class AccountReceivableListComponent implements OnInit {
   public data = [];
   public roles = [];
   public entity;
+  public contract_type;
   public user;
   public currentRole;
   public settings;
+  public campus_id;
   public done = false;
+  public show_back = true;
+  public form: FormGroup;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings1 = {
@@ -62,6 +69,17 @@ export class AccountReceivableListComponent implements OnInit {
           };
         },
         renderComponent: Actions2Component,
+      },
+      semaphore: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsSemaphoreComponent,
       },
       created_at: {
         title: this.headerFields[2],
@@ -144,6 +162,17 @@ export class AccountReceivableListComponent implements OnInit {
         },
         renderComponent: Actions2Component,
       },
+      semaphore: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsSemaphoreComponent,
+      },
       'user.identification_type': {
         title: this.headerFields[8],
         type: 'string',
@@ -189,15 +218,17 @@ export class AccountReceivableListComponent implements OnInit {
     private currency: CurrencyPipe,
     public datePipe: DateFormatPipe,
     public roleBS: RoleBusinessService,
-    private deleteConfirmService: NbDialogService,
+    private formBuilder: FormBuilder,
     private authService: AuthService,
     private route: ActivatedRoute,
     private location: Location,
+    private ContractTypeS: ContractTypeService,
   ) {
   }
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
+    this.campus_id = +localStorage.getItem('campus');
     var curr = this.authService.GetRole();
     this.currentRole = this.user.roles.find(x => {
       return x.id == curr;
@@ -213,17 +244,32 @@ export class AccountReceivableListComponent implements OnInit {
         this.entity = 'account_receivable/byUser/' + this.route.snapshot.params.id;
         this.settings = this.settings1;
       } else {
+        this.show_back = false;
         this.title = 'Personal Asistencial';
         this.subtitle = '';
         this.settings = this.settings2;
-        this.entity = 'account_receivable/byUser/0';
+        this.entity = 'account_receivable/byUser/0?campus_id=' + this.campus_id;
       }
       // this.settings = this.settings2;
       // this.entity = 'account_receivable/byUser/0';
 
     }
 
+    this.ContractTypeS.GetCollection().then(x => {
+      this.contract_type = x;
+    });
+
+
+    this.form = this.formBuilder.group({
+      contract_type_id: [''],
+    });
+
+    this.form.get('contract_type_id').valueChanges.subscribe(val => {
+      this.changeEntity(val);
+    });
+
   }
+
   back() {
     this.location.back();
 
@@ -308,5 +354,9 @@ export class AccountReceivableListComponent implements OnInit {
         saved: this.RefreshData.bind(this),
       },
     });
+  }
+
+  changeEntity(val) {
+    this.table.changeEntity(this.entity + '&contract_type_id=' + val , 'account_receivable');
   }
 }

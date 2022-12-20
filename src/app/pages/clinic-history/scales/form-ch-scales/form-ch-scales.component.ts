@@ -665,7 +665,7 @@ export class FormChScalesComponent implements OnInit {
       this.totalBarthel = this.num1 + this.num2 + this.num3 + this.num4 + this.num5 + this.num6 + this.num7 + this.num8 + this.num9 + this.num10;
 
       if (this.totalBarthel >= 0 && this.totalBarthel <= 20) {
-        this.classBarthel = 'Dependencia Leve';
+        this.classBarthel = 'Dependencia Total';
 
       } else if (this.totalBarthel >= 21 && this.totalBarthel <= 60) {
         this.classBarthel = 'Dependencia Severa';
@@ -1099,15 +1099,17 @@ export class FormChScalesComponent implements OnInit {
     if (escale_id == 1) {
       this.refresh1 = false;
       this.form.controls.physical_value.setValidators(Validators.compose([Validators.required]));
-      var physical = this.separateText(this.form.controls.physical_value.value);
+      var physical = this.form.controls.physical_value.value ? this.separateText(this.form.controls.physical_value.value):null;
       this.form.controls.mind_value.setValidators(Validators.compose([Validators.required]));
-      var mind = this.separateText(this.form.controls.mind_value.value);
+      var mind = this.form.controls.mind_value.value ? this.separateText(this.form.controls.mind_value.value):null;
       this.form.controls.mobility_value.setValidators(Validators.compose([Validators.required]));
-      var mobility = this.separateText(this.form.controls.mobility_value.value);
+      var mobility = this.form.controls.mobility_value.value ? this.separateText(this.form.controls.mobility_value.value):null;
       this.form.controls.activity_value.setValidators(Validators.compose([Validators.required]));
-      var activity = this.separateText(this.form.controls.activity_value.value);
+      var activity = this.form.controls.activity_value.value ? this.separateText(this.form.controls.activity_value.value):null;
       this.form.controls.incontinence_value.setValidators(Validators.compose([Validators.required]));
-      var incontinence = this.separateText(this.form.controls.incontinence_value.value);
+      var incontinence = this.form.controls.incontinence_value.value ? this.separateText(this.form.controls.incontinence_value.value):null;
+
+      
       // this.form.controls.totalNorton.setValidators(Validators.compose([Validators.required]));
       // this.form.controls.risk_norton.setValidators(Validators.compose([Validators.required]));
       this.isSubmitted = true;

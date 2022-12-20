@@ -1,17 +1,21 @@
-<ngx-base-list
-  [messageError]="messageError"
-  [routes]="routes">
+<ngx-base-list [messageError]="messageError" [routes]="routes">
   <div content>
 
-    <ngx-base-table [title]="title"
-                    [subtitle]="subtitle" [settings]="settings"
-                    entity="bed/?pagination=true"
-                    customData='bed'
-                    [messageToltip]="messageToltip"
-                    >
+    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+      entity="bed/?campus_id={{campus_id}}" customData='bed' [messageToltip]="messageToltip">
       <div actions>
         <div class="actions">
+
+          <nb-select (selectedChange)="FilterBed($event)" placeholder="Consultorio o cama">
+            <nb-option value="">Todos</nb-option>
+            <nb-option value="2">
+              Consultorio</nb-option>
+            <nb-option value="1">
+              Cama</nb-option>
+          </nb-select>
+
           <button nbButton status="danger" ngxCheckPerms="create" (click)="NewBed()">Crear</button>
+
         </div>
       </div>
     </ngx-base-table>

@@ -15,6 +15,7 @@ export class ChSwIncomeComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
 
 
   linearMode = true;
@@ -42,7 +43,7 @@ export class ChSwIncomeComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
       },
       none: {

@@ -18,13 +18,23 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button *ngIf="value.currentRole == 2 && ((today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17 && value.data.management_plan.type_of_attention_id!=12)||value.data.allow_redo == 1)" (click)="click()" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
+    <button *ngIf="!isIOS && value.currentRole == 2 && ((today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id!=17 && value.data.management_plan.type_of_attention_id!=12)||value.data.allow_redo == 1)" (click)="click()" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
     <nb-icon icon="folder-add-outline"></nb-icon>
     </button>
+
+    <button *ngIf="isIOS && value.currentRole == 2 && ((today >= start && today <= finish && value.data.management_plan.type_of_attention_id!=17 && value.data.management_plan.type_of_attention_id!=12)||value.data.allow_redo == 1)" (click)="click()" nbTooltip="Registro en Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id" >
+    <nb-icon icon="folder-add-outline"></nb-icon>
+    </button> 
+
     <a *ngIf="value.currentRole == 2 && (firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
-    <a *ngIf="value.currentRole == 2 && (start <= today2 && finish >= today2 && firsthour < hournow && endhour >= hournow && value.data.management_plan.type_of_attention_id==12)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
+
+  <a *ngIf="value.currentRole == 2 && ( today >= start && today <= finish && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
+  <nb-icon icon="folder-add-outline"></nb-icon>
+</a>
+
+    <a *ngIf="value.currentRole == 2 && (start <= today2 && finish >= today2 && value.data.management_plan.type_of_attention_id==12)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
   <button *ngIf="value.data.ch_record.length > 0" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()" >
@@ -53,7 +63,10 @@ export class Actions4Component implements ViewCell {
   public first_date_temp;
   public final_date_temp;
   public enddate;
+  public startdate;
+  public now;
   public showBotton: boolean = false;
+  public isIOS;
 
 
   constructor(
@@ -64,47 +77,88 @@ export class Actions4Component implements ViewCell {
   }
 
   async ngOnInit() {
+    this.isIOS = this.iOS();
+    this.today = new Date();
+   
+    if (this.isIOS) {
+     
+      this.today = this.datePipe.transform2(this.today);
+      this.today = this.today.replace(/-/g, "/");
+      this.start = this.value.data.start_date.replace(/-/g, "/");
+      this.finish = this.value.data.finish_date.replace(/-/g, "/");
+    } else {
+      this.today = new Date;
+      this.today2 = new Date;
+      this.date = this.value.data.start_date + ' ' + this.value.data.start_hour;
+      this.first_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.start_hour;
+      this.final_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.finish_hour;
+      // console.log(this.rowData);
+      // console.log(this.value);
 
-    this.today = new Date;
-    this.today2 = new Date;
-    this.date = this.value.data.start_date + ' ' + this.value.data.start_hour;
-    this.first_date_temp = this.today.getFullYear() + '-' +  (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.start_hour;
-    this.final_date_temp = this.today.getFullYear() + '-' +  (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.finish_hour;
-    // console.log(this.rowData);
-    // console.log(this.value);
 
 
-    if (this.value.data.management_plan.type_of_attention_id==12) {
+    }
+
+
+
+    if (this.value.data.management_plan.type_of_attention_id == 12) {
       var firstdate = new Date(new Date(this.first_date_temp));
       var enddate = new Date(new Date(this.final_date_temp));
       if (firstdate > enddate) {
-        this.final_date_temp = this.today.getFullYear() + '-' +  (this.today.getMonth() + 1) + '-' + (this.today.getDate() + 1) + ' ' + this.value.data.finish_hour;
+        this.final_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + (this.today.getDate() + 1) + ' ' + this.value.data.finish_hour;
         enddate = new Date(new Date(this.final_date_temp));
       }
-      this.hournow = this.today2;
-      this.firsthour = firstdate;
-      this.endhour = enddate;
-      this.start =  new Date(this.value.data.start_date);
-      this.finish =  new Date(this.value.data.finish_date);
+      this.today2= new Date().getTime();
+      var start= this.value.data.start_date+' '+ this.value.data.start_hour;
+      var finish= this.value.data.finish_date+' '+ this.value.data.finish_hour;
+      this.start = new Date(start).getTime();
+      this.finish = new Date(finish).getTime();
+      console.log(this.start);
+      console.log(this.finish);
+      console.log(this.today2);
     } else {
-      var firstdate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() + 3));
-      var enddate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() - 3));
-      this.hournow = this.today2.getTime();
-      this.firsthour = firstdate.getTime();
-      this.endhour = enddate.getTime();
-      this.start = this.value.data.start_date.split('-');
-      this.finish = this.value.data.finish_date.split('-');
-      let day = this.today.getDate();
-      let month = this.today.getMonth() + 1;
-      let year = this.today.getFullYear();
-    }
-    
-    var a = this.firsthour < this.hournow;
-    var b =  this.endhour >= this.hournow;
-    var c = this.start <= this.today2;
-    var d =  this.finish >= this.today2;
+      if (this.isIOS) {
+        this.today2 = new Date;
+        this.date = this.value.data.start_date + ' ' + this.value.data.start_hour;
+        this.first_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.start_hour;
+        this.final_date_temp = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate() + ' ' + this.value.data.finish_hour;
+        var firstdate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() + 3));
+        var enddate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() - 3));
+      this.hournow = this.datePipe.transform2(this.today2);
+      this.firsthour = this.datePipe.transform2(firstdate);
+      this.endhour = this.datePipe.transform2(enddate);
 
-    this.today = this.datePipe.transform2(this.today);
+
+        this.now= this.hournow.replace(/-/g, "/");
+        this.startdate=this.firsthour.replace(/-/g, "/");
+        this.enddate=this.endhour.replace(/-/g, "/");
+
+      } else {
+        var firstdate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() + 3));
+        var enddate = new Date(new Date(this.date).setHours(new Date(this.date).getHours() - 3));
+        this.hournow = this.today2.getTime();
+        this.firsthour = firstdate.getTime();
+        this.endhour = enddate.getTime();
+        this.start = this.value.data.start_date.split('-');
+        this.finish = this.value.data.finish_date.split('-');
+        let day = this.today.getDate();
+        let month = this.today.getMonth() + 1;
+        let year = this.today.getFullYear();
+      }
+   
+    }
+
+    var a = this.firsthour < this.hournow;
+    var b = this.endhour >= this.hournow;
+    var c = this.start <= this.today2;
+    var d = this.finish >= this.today2;
+
+    if (this.isIOS) {
+      this.today = this.today;
+    } else {
+      this.today = this.datePipe.transform2(this.today);
+    }
+
 
   }
 
@@ -144,6 +198,19 @@ export class Actions4Component implements ViewCell {
       this.value.closeDialog();
     }
     this.value.openEF(data)
-  } 
+  }
+
+  iOS() {
+    return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ].includes(navigator.platform)
+      // iPad on iOS 13 detection
+      || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+  }
 
 }

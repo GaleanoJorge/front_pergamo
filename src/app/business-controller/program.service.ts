@@ -47,6 +47,22 @@ export class ProgramService {
       });
   }
 
+  getProgramByAmbit(admission_route_id): Promise<Program[]> {
+    let servObj = new ServiceObject('program/byAmbit',admission_route_id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.program = <Program[]>servObj.data.program;
+        return Promise.resolve(this.program);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   GetProgramByGroup(product_group_id): Promise<Program[]> {
     let servObj = new ServiceObject('productCategory/byGroup',product_group_id);
     return this.webAPI.GetAction(servObj)

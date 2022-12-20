@@ -16,7 +16,7 @@ export class ProcedureService {
   GetCollection(params = {}): Promise<Procedure[]> {
     let servObj = new ServiceObject(params ? 'procedure?pagination=false' : 'procedure');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

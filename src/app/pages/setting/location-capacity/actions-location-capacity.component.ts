@@ -4,10 +4,10 @@ import {ViewCell} from 'ng2-smart-table';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <button nbTooltip="Capacidad Instalada" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'single-location-capacity/' + value.data.id">
+      <button nbTooltip="Editar capacidad Instalada" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'single-location-capacity/' + value.data.id">
         <nb-icon icon="clipboard-outline"></nb-icon>
       </button>
-      <button nbTooltip="Capacidad Instalada" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data)">
+      <button nbTooltip="Ver capacidad Instalada" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data)">
         <nb-icon icon="eye-outline"></nb-icon>
       </button>
     </div>

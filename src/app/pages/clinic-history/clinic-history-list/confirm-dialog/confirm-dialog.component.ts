@@ -13,8 +13,10 @@ export class ConfirmDialogCHComponent implements OnInit {
   @Input() body: string = 'Este proceso es irreversible, ¿estas seguro?';
   @Input() name: string | null = null;
   @Input() delete: any = null;
+  @Input() admission: any = null;
   @Input() changeImage;
   @Input() data: any = null;
+  @Input() redo: any = null;
   @Input() textConfirm = 'Eliminar';
   @Input() signature: boolean = false;
   // @Input() save: any = null;
@@ -62,7 +64,7 @@ export class ConfirmDialogCHComponent implements OnInit {
     this.loading = true;
     this.delete(this.firm_file).then((message) => {
       if(message!=false){
-        this.location.back();
+        // this.location.back();
       this.close();
 
       }else{

@@ -12,7 +12,7 @@ import {
   NbRadioModule,
   NbTooltipModule,
   NbPopoverModule,
-  NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule,
+  NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule, NbAutocompleteModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
 import { ManualComponent } from './manual/manual.component';
@@ -385,11 +385,6 @@ import { RoleCheckComponent } from './users/role-package/role-check.component';
 import { RolePackageComponent } from './users/role-package/role-package.component';
 import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
 import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
-import { MedicalDiaryComponent } from './medical-diary/medical-diary.component';
-import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/form-medical-diary.component';
-import { MedicalComponent } from './medical-diary/medical/medical.component';
-import { ActionsMedicalDiaryComponent } from './medical-diary/actions.component';
-import { ActionsMedicalComponent } from './medical-diary/medical/actions.component';
 import { FixedPatientsComponent } from './fixed-patients/fixed-patients.component';
 import { FixedMovementsComponent } from './fixed-movements/fixed-movements.component';
 import { FixedInventaryAddPatientsComponent } from './fixed-inventary-add-patients/fixed-inventary-add-patients.component';
@@ -403,6 +398,9 @@ import { FixedReturnPatientsComponent } from './fixed-return-patients/fixed-retu
 import { FormFixedDeniedComponent } from './fixed-assets-requests-patient/form-fixed-denied/form-fixed-denied.component';
 import { FormTariffConfirmDisabledComponent } from './tariff/form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
+import { ActionsBedComponent } from './bed/actions-bed.component';
+import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
+import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-measure/form-supplies-measure.component';
 
 @NgModule({
   imports: [
@@ -432,8 +430,10 @@ import { ProductDamagedComponent } from './product-damaged/product-damaged.compo
     NbSpinnerModule,
     NbCheckboxModule,
     NbAccordionModule,
+    NbAutocompleteModule,
   ],
   declarations: [
+
     RoleCheckComponent,
     RolePackageComponent,
     ActionsComponentInsume,
@@ -460,9 +460,6 @@ import { ProductDamagedComponent } from './product-damaged/product-damaged.compo
     PolicyTypeComponent,
     FormBedComponent,
     BedComponent,
-    MedicalComponent,
-    ActionsMedicalDiaryComponent,
-    ActionsMedicalComponent,
     RolesPermissionsComponent,
     FormObservationNoveltyComponent,
     ObservationNoveltyComponent,
@@ -485,6 +482,7 @@ import { ProductDamagedComponent } from './product-damaged/product-damaged.compo
     FlatComponent,
     FormFlatComponent,
     BedComponent,
+    ActionsBedComponent,
     FormBedComponent,
     AffiliateTypeComponent,
     FormAffiliateTypeComponent,
@@ -501,8 +499,6 @@ import { ProductDamagedComponent } from './product-damaged/product-damaged.compo
     ActionsProcedureComponent,
     FormCoverageComponent,
     FormFirmsComponent,
-    MedicalDiaryComponent,
-    FormMedicalDiaryComponent,
     ProcedurePackageComponent,
     ProcedurePackage2Component,
     FormInsuranceCarrierComponent,
@@ -847,7 +843,10 @@ import { ProductDamagedComponent } from './product-damaged/product-damaged.compo
     ActionsReturnPatiComponent,
     FixedReturnPatientsComponent,
     FormFixedDeniedComponent,
-    ProductDamagedComponent
+    ProductDamagedComponent,
+
+    SuppliesMeasureComponent,
+    FormSuppliesMeasureComponent
   ],
   providers: [
     DateFormatPipe,
@@ -857,6 +856,7 @@ import { ProductDamagedComponent } from './product-damaged/product-damaged.compo
     ProcedurePackage2Component,
     FormUserComponent,
     FormLocationCapacityComponent,
+    ActionsComponent
   ],
   bootstrap: [],
 })

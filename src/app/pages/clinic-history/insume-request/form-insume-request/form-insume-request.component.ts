@@ -88,11 +88,22 @@ export class FormInsumeRequestComponent implements OnInit {
       // console.log(val);
       if (val === '') {
       } else {
-        this.briefcase = this.product_supplies_id.find(item => item.id == val);
+        this.briefcase = this.product_supplies_id.find(item => item.manual_price.insume.description == val);
       }
 
     });
   }
+
+  saveCode(e): void {
+    var localidentify = this.product_supplies_id.find(item => item.manual_price.insume.description == e);
+
+    if (localidentify) {
+      this.briefcase = localidentify;
+    } else {
+      this.briefcase = null;
+    }
+  }
+
 
   async save() {
     this.isSubmitted = true;
@@ -123,7 +134,7 @@ export class FormInsumeRequestComponent implements OnInit {
         await this.pharmaProdS.Save({
           request_amount: this.form.controls.request_amount.value,
           status: 'PATIENT',
-          services_briefcase_id: this.form.controls.product_supplies_id.value,
+          services_briefcase_id: this.briefcase.id,
           own_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
           product_supplies_id: this.briefcase.manual_price.insume.id,
           admissions_id: this.admissions_id,

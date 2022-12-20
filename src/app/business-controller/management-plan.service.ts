@@ -63,6 +63,22 @@ export class ManagementPlanService {
       });
   }
 
+  ChangeStatus(id, params = {}): Promise<any> {
+    let servObj = new ServiceObject(`management_plan/${id}/changeStatus`);
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(<any>servObj);
+      }).catch(x => {
+        throw x.message;
+      });
+  }
+
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('management_plan', id);
     return this.webAPI.DeleteAction(servObj)

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActionsPadProcedureComponent } from './actions-pad-procedure.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActivatedRoute } from '@angular/router';
@@ -30,7 +30,18 @@ export class BillingPadProcedureComponent implements OnInit {
   public title: string = null;
   public subtitle: string = 'Gestión';
   public patient_name: string = '';
-  public headerFields: any[] = ['ACCIONES', 'PROCEDIMIENTO', 'VALOR', 'EPS', 'FECHA DE EJECUCIÓN', 'AUTORIZADO', 'FACTURA', 'VERIFICADO'];
+  public headerFields: any[] = [
+    /*00*/ 'ACCIONES',
+    /*01*/ 'PROCEDIMIENTO',
+    /*02*/ 'VALOR',
+    /*03*/ 'EPS',
+    /*04*/ 'FECHA DE EJECUCIÓN',
+    /*05*/ 'AUTORIZADO',
+    /*06*/ 'FACTURA',
+    /*07*/ 'VERIFICADO',
+    /*08*/ 'CANTIDAD',
+    /*09*/ 'VALOR UNITARIO',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -58,6 +69,7 @@ export class BillingPadProcedureComponent implements OnInit {
   public admission_id;
   public billing_id;
   public user_id;
+  public q;
   public settings;
   public entity: string = '';
 
@@ -103,20 +115,50 @@ export class BillingPadProcedureComponent implements OnInit {
           return row.services_briefcase.manual_price.name;
         },
       },
+      quantity: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          this.q = 1;
+          if (row.location_id && row.open_date) {
+            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
+            var diff = Math.abs(b - a) + (row.location.discharge_date == "0000-00-00 00:00:00" && !row.close_date ? 1 : 0);
+            row.quantity = diff;
+          }
+          if (row.quantity) {
+            this.q = row.quantity;
+          }
+          if (row.location_id || row.quantity) {
+            return this.q;
+          } else {
+            return 'N.A.';
+          }
+        }
+      },
+      unit_value: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.currency.transform(row.services_briefcase.value);
+        },
+      },
       value: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          var q = 1;
-          if (row.location_id) {
-            var diff = Math.abs(new Date().getDate() - new Date(row.created_at).getDate());
+          this.q = 1;
+          if (row.location_id && row.open_date) {
+            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
+            var diff = Math.abs(b - a) + (row.location.discharge_date == "0000-00-00 00:00:00" && !row.close_date ? 1 : 0);
             row.quantity = diff;
           }
           if (row.quantity) {
-            q = row.quantity;
+            this.q = row.quantity;
           }
-          this.total_billing += (row.services_briefcase.value * q);
-          return this.currency.transform((row.services_briefcase.value * q));
+          this.total_billing += (row.services_briefcase.value * this.q);
+          return this.currency.transform((row.services_briefcase.value * this.q));
         },
       },
       assigned_management_plan_id: {
@@ -125,9 +167,23 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan != null) {
             if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
-              return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+              return this.datePipe.transform4(row.assigned_management_plan.execution_date);
             } else {
               return 'Sin ejecutar';
+            }
+          } else if (row.ch_interconsultation != null) {
+            var a = row.ch_interconsultation.many_ch_record;
+            var b = a.find(item => item.created_at == row.created_at)
+            if (b && !row.open_date) {
+              if (b.date_finish == "0000-00-00 00:00:00") {
+                return 'Sin ejecutar';
+              } else {
+                return this.datePipe.transform4(b.date_finish);
+              }
+            } else if (row.location != null) {
+              return this.datePipe.transform4(row.open_date) + ' - ' + this.datePipe.transform4(/*row.location.discharge_date != "0000-00-00 00:00:00" ? row.location.discharge_date :*/ row.close_date ? row.close_date : new Date());
+            } else {
+              return '';
             }
           } else {
             return '';
@@ -162,40 +218,70 @@ export class BillingPadProcedureComponent implements OnInit {
           return row.services_briefcase.manual_price.name;
         },
       },
+      quantity: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          this.q = 1;
+          if (row.location_id && row.open_date) {
+            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
+            var diff = Math.abs(b - a) + (row.location.discharge_date == "0000-00-00 00:00:00" && !row.close_date ? 1 : 0);
+            row.quantity = diff;
+          }
+          if (row.quantity) {
+            this.q = row.quantity;
+          }
+          if (row.location_id || row.quantity) {
+            return this.q;
+          } else {
+            return 'N.A.';
+          }
+        }
+      },
+      unit_value: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return this.currency.transform(row.services_briefcase.value);
+        },
+      },
       value: {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          var q = 1;
-          if (row.location_id) {
-            var diff = Math.abs(new Date().getDate() - new Date(row.created_at).getDate());
+          this.q = 1;
+          if (row.location_id && row.open_date) {
+            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
+            var diff = Math.abs(b - a) + (row.location.discharge_date == "0000-00-00 00:00:00" && !row.close_date ? 1 : 0);
             row.quantity = diff;
           }
           if (row.quantity) {
-            q = row.quantity;
+            this.q = row.quantity;
           }
-          this.total_pre_billing += (row.services_briefcase.value * q);
+          this.total_pre_billing += (row.services_briefcase.value * this.q);
           if (row.billing_pad_status == 'FACTURADA') {
-            this.total_already_billing += (row.services_briefcase.value * q);
+            this.total_already_billing += (row.services_briefcase.value * this.q);
           }
           if (row.assigned_management_plan != null) {
             if (row.auth_status_id != 3 || row.assigned_management_plan.approved == 0) {
-              this.total_pendding_auth += (row.services_briefcase.value * q);
+              this.total_pendding_auth += (row.services_briefcase.value * this.q);
             }
             if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3 &&
               row.assigned_management_plan.execution_date != "0000-00-00 00:00:00"
               && row.assigned_management_plan.approved == 1) {
-              this.total_pendding_billing += (row.services_briefcase.value * q);
+              this.total_pendding_billing += (row.services_briefcase.value * this.q);
             }
           } else {
             if (row.auth_status_id != 3) {
-              this.total_pendding_auth += (row.services_briefcase.value * q);
+              this.total_pendding_auth += (row.services_briefcase.value * this.q);
             }
             if (row.billing_pad_status != 'FACTURADA' && row.auth_status_id == 3) {
-              this.total_pendding_billing += (row.services_briefcase.value * q);
+              this.total_pendding_billing += (row.services_briefcase.value * this.q);
             }
           }
-          return this.currency.transform((row.services_briefcase.value * q));
+          return this.currency.transform((row.services_briefcase.value * this.q));
         },
       },
       assigned_management_plan_id: {
@@ -204,14 +290,27 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan != null) {
             if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
-              return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+              return this.datePipe.transform4(row.assigned_management_plan.execution_date);
             } else {
               return 'Sin ejecutar';
+            }
+          } else if (row.ch_interconsultation != null) {
+            var a = row.ch_interconsultation.many_ch_record;
+            var b = a.find(item => item.created_at == row.created_at)
+            if (b && !row.open_date) {
+              if (b.date_finish == "0000-00-00 00:00:00") {
+                return 'Sin ejecutar';
+              } else {
+                return this.datePipe.transform4(b.date_finish);
+              }
+            } else if (row.location != null) {
+              return this.datePipe.transform4(row.open_date) + ' - ' + this.datePipe.transform4(/*row.location.discharge_date != "0000-00-00 00:00:00" ? row.location.discharge_date :*/ row.close_date ? row.close_date : new Date());
+            } else {
+              return '';
             }
           } else {
             return '';
           }
-
         }
       },
       auth_status_id: {
@@ -254,6 +353,7 @@ export class BillingPadProcedureComponent implements OnInit {
   public routes = null;
 
   constructor(
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     public currency: CurrencyPipe,
     private dialogFormService: NbDialogService,
@@ -305,6 +405,18 @@ export class BillingPadProcedureComponent implements OnInit {
         this.show_info = true;
       }
     });
+
+    this.form = this.formBuilder.group({
+      start_date: ['', []],
+      finish_date: ['', []],
+    });
+
+    this.form.get('start_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.changeEntity()
+    });
   }
 
 
@@ -352,47 +464,17 @@ export class BillingPadProcedureComponent implements OnInit {
 
   eventSelections(row) {
     this.selectedOptions = [];
+    this.count_billing = 0;
     row.forEach(element => {
       var q = 1;
       if (element.quantity) {
         q = element.quantity;
       }
-      var add = {
-        id: element.id,
-        quantity: q,
-        location_id: element.location_id,
-        created_at: element.created_at,
-        location: element.location_id ? {
-          entry_date: element.location.entry_date,
-          discharge_date: element.location.discharge_date,
-        } : null,
-        services_briefcase: {
-          value: (element.services_briefcase.value * q),
-          manual_price: {
-            homologous_id: element.services_briefcase.manual_price.homologous_id,
-            name: element.services_briefcase.manual_price.name,
-          },
-        },
-        supplies_com: element.supplies_com != undefined ? {
-          code_cum: element.supplies_com.code_cum,
-        } : null,
-        product_com: element.product_com != undefined ? {
-          code_cum: element.product_com.code_cum,
-        } : null,
-        fixed_add_id: element.fixed_add_id != undefined ? {
-          code_cum: element.fixed_add_id.observation,
-        } : null,
-        assigned_management_plan: element.assigned_management_plan != undefined ? {
-          execution_date: element.assigned_management_plan.execution_date,
-          user: {
-            firstname: element.assigned_management_plan.user.firstname,
-            lastname: element.assigned_management_plan.user.lastname,
-          },
-        } : null,
-      }
+      this.count_billing += q * element.services_briefcase.value;
+      var add = element.id;
       this.selectedOptions.push(add);
     });
-    
+
   }
 
   goBack() {
@@ -440,7 +522,12 @@ export class BillingPadProcedureComponent implements OnInit {
     });
   }
 
+  back() {
+    this.location.back();
+  }
 
-
+  changeEntity() {
+    this.table.changeEntity(this.entity + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 'billing_pad')
+  }
 
 }

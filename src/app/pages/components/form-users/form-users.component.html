@@ -51,13 +51,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="identification" class="form-text text-muted font-weight-bold">Número de documento:</label>
-            <input nbInput minlength="6" maxlength="16" type="text" fullWidth id="identification"
+            <input nbInput maxlength="16" type="text" fullWidth id="identification"
               formControlName="identification" identification
               status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
               onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" />
             <ng-container *ngIf="form.controls.identification.errors && form.controls.identification.touched">
               <p class="caption status-danger" *ngIf="form.controls.identification.errors?.minlength">
-                El número de documento debe tener un mínimo de 6 caracteres
+                El número de documento debe tener un mínimo de 3 caracteres
               </p>
               <p class="caption status-danger" *ngIf="form.controls.identification.errors?.maxlenth">
                 El número de documento debe tener un máximo de 16 caracteres
@@ -411,7 +411,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="locality_id" class="form-text text-muted font-weight-bold">Comuna, Localidad o Vereda:</label>
-            <nb-select id="locality_id" fullWidth formControlName="locality_id" residence_municipality_id
+            <nb-select id="locality_id" fullWidth formControlName="locality_id" required residence_municipality_id
               status="{{ isSubmitted && form.controls.locality_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of localities" [value]="item.id">{{ item.name }}</nb-option>
@@ -423,7 +423,7 @@
           <div class="form-group">
             <label for="neighborhood_or_residence_id" class="form-text text-muted font-weight-bold">Barrio:</label>
             <input fullWidth nbInput list="codes2" (change)="save_neighborhood_or_residence($event.target.value)"
-              id="neighborhood_or_residence_id" formControlName="neighborhood_or_residence_id"
+              id="neighborhood_or_residence_id" formControlName="neighborhood_or_residence_id" placeholder="Seleccione"
               neighborhood_or_residence_id type="text" required
               status="{{ isSubmitted && form.controls.neighborhood_or_residence_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <datalist id="codes2">
@@ -533,7 +533,7 @@
               status="{{ isSubmitted && form.controls.medical_record.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
         </div>
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-4" *ngIf="this.role!=2 && !edit_own_info">
           <div class="form-group">
             <label for="contract_type" class="form-text text-muted font-weight-bold">Tipo de contrato:</label>
             <nb-select formControlName="contract_type_id" id="contract_type_id" fullWidth
@@ -559,14 +559,14 @@
             </nb-select>
           </div>
         </div> -->
-        <div class="col-md-3">
+        <div class="col-md-3" *ngIf="this.role!=2 && !edit_own_info">
           <div class="form-group">
             <nb-card-body>
               <nb-toggle formControlName="attends_external_consultation" name>Consulta externa</nb-toggle>
             </nb-card-body>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3"  *ngIf="this.role!=2 && !edit_own_info">
           <div class="form-group">
             <nb-card-body>
               <nb-toggle formControlName="serve_multiple_patients" name>Hospitalario</nb-toggle>
@@ -574,12 +574,12 @@
           </div>
         </div>
         <!-- pad -->
-        <div class="col-md-3">
+        <div class="col-md-3"  *ngIf="this.role!=2 && !edit_own_info">
           <div class="form-group">
             <nb-toggle formControlName="PAD_service" PAD_service>Servicio de PAD</nb-toggle>
           </div>
         </div>
-        <div class="col-md-3" *ngIf="form.controls.PAD_service.value">
+        <div class="col-md-3" *ngIf="form.controls.PAD_service.value && this.role!=2 && !edit_own_info">
           <div class="form-group">
             <nb-toggle formControlName="has_car" has_car>Cuenta con carro</nb-toggle>
           </div>
@@ -682,7 +682,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-4" *ngIf="this.role!=2">
+        <div class="col-md-4" *ngIf="this.role!=2 && !edit_own_info">
           <div class="form-group">
             <label for="status" class="form-text text-muted font-weight-bold">Estado:</label>
             <nb-select selected="" formControlName="status_id" id="status" fullWidth

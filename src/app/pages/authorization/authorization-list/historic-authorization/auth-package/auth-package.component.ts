@@ -138,7 +138,7 @@ export class AuthPackageComponent implements OnInit {
               admissions_id: this.admissions_id,
               quantity: this.form.controls.quantity.value,
               services_briefcase_id: this.service_briefcase_id,
-              auth_array: JSON.stringify(this.selectedOptions),
+              auth_array: JSON.stringify(this.selectedOptions.map(item => item.id)),
             }).then(x => {
               this.toastService.success('', x.message);
               if(this.dialog){
@@ -164,8 +164,8 @@ export class AuthPackageComponent implements OnInit {
         this.package_id = null;
         this.service_briefcase_id = null;
       } else {
-        this.package_id = this.packages.find(item => item.id == val);
-        this.service_briefcase_id = val;
+        this.package_id = this.packages.find(item => item.manual_price_id == val);
+        this.service_briefcase_id = this.package_id.id;
       }
     });
   }

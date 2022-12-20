@@ -67,10 +67,9 @@ export class FormChMedicalOrdersComponent implements OnInit {
       this.frequency_id = x;
     });
 
-    this.serviceS.GetProcedureByBriefcase(this.admission.briefcase_id).then(x => {
+    this.serviceS.GetProcedureByChRecordId(this.record_id).then(x => {
       this.procedure = x;
     });
-
     
     this.form = this.formBuilder.group({
       ambulatory_medical_order: [this.data.ambulatory_medical_order],
@@ -172,7 +171,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
 
   saveCode(e): void {
-    var localidentify = this.form.controls.ambulatory_medical_order.value ? this.procedure.find(item => item.name == e) : this.procedure.find(item => item.manual_price.procedure.name == e);
+    var localidentify = this.procedure.find(item => this.form.controls.ambulatory_medical_order.value==1? item.name : item.manual_price.procedure.name == e);
 
     if (localidentify) {
       this.procedure_id = localidentify.id;
@@ -181,7 +180,6 @@ export class FormChMedicalOrdersComponent implements OnInit {
     } else {
       this.procedure_id = null;
       this.form.controls.procedure_id.setErrors({ 'incorrect': true });
-      
       this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
     }
   }
@@ -207,7 +205,7 @@ onChange() {
      
 
     } else {
-      this.serviceS.GetProcedureByBriefcase(this.admission.briefcase_id).then(x => {
+      this.serviceS.GetProcedureByChRecordId(this.record_id).then(x => {
         this.procedure = x;
       });
    

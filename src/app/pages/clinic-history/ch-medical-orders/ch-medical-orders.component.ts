@@ -4,6 +4,10 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 import { FormGroup } from '@angular/forms';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ActionsMedicalOrderComponent } from './actions.component';
+import { ChRecordService } from '../../../business-controller/ch_record.service';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { ChMedicalOrdersService } from '../../../business-controller/ch-medical-orders.service';
 
 @Component({
   selector: 'ngx-ch-medical-orders',
@@ -54,6 +58,7 @@ export class ChMedicalOrdersComponent implements OnInit {
             'data': row,
             'assigned': this.assigned_management_plan,
             'user': this.users,
+            'delete': this.DeleteConfirmMedicalOrden.bind(this),
             'refresh': this.RefreshData.bind(this),
           };
         },
@@ -63,15 +68,15 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
         },
       ambulatory_medical_order: {
         title: this.headerFields[1],
         width: 'string',
-        valuePrepareFunction(value) {
-          if (value == 1) {
-            return 'Si';
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value;
           } else {
             return 'No'
           }
@@ -81,16 +86,8 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return (row.procedure != null ? row.procedure.name : row.services_briefcase != null ? row.services_briefcase.manual_price.procedure.name : "") 
-
-
-
-          // if (value == null) {
-          //   return 'No aplica';
-          // } else {
-          //   return value.name
-          // }
-        },
+          return (row.procedure != null ? row.procedure.name : row.services_briefcase != null ? row.services_briefcase.manual_price.procedure.name : "No Aplica") ;
+        }
       },
       amount: {
         title: this.headerFields[3],
@@ -100,7 +97,11 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return value.name;
+          if (value) {
+            return value.name;
+          } else {
+            return 'No Aplica';
+          }
         },
       },
       observations: {
@@ -118,12 +119,29 @@ export class ChMedicalOrdersComponent implements OnInit {
 
   constructor(
     public userChangeS: UserChangeService,
-    public datePipe: DateFormatPipe
+    public datePipe: DateFormatPipe,
+    private allOrdersS: ChRecordService,
+    private toastService: NbToastrService,
+    private medicalOrdersS: ChMedicalOrdersService,
+    private deleteConfirmService: NbDialogService,
     ) {}
 
   async ngOnInit() {
-
   }
+
+    Historic() {
+      this.allOrdersS.ViewAllMedicalOrder(this.record_id).then(x => {
+  
+        //this.loadingDownload = false;
+        this.toastService.success('', x.message);
+        window.open(x.url, '_blank');
+  
+      }).catch(x => {
+        this.isSubmitted = false;
+        this.loading = false;
+      });
+    }
+  
 
   RefreshData() {
     this.table.refresh();
@@ -133,5 +151,24 @@ export class ChMedicalOrdersComponent implements OnInit {
     if ($event == true) {
       this.RefreshData();
     }
+  }
+
+  DeleteConfirmMedicalOrden(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        name: data.name,
+        data: data,
+        delete: this.DeleteMedicalOrden.bind(this),
+      },
+    });
+  }
+
+  DeleteMedicalOrden(data) {
+    return this.medicalOrdersS.Delete(data.id).then(x => {
+      this.table.refresh();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
   }
 }

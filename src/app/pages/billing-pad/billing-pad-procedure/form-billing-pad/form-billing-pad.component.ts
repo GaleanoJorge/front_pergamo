@@ -51,10 +51,24 @@ export class FormBillingPadComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.assigned_management_plan != null) {
-            if (row.assigned_management_plan.execution_date != "0000-00-00") {
-              return this.datePipe.transform3(row.assigned_management_plan.execution_date);
+            if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
+              return this.datePipe.transform4(row.assigned_management_plan.execution_date);
             } else {
               return 'Sin ejecutar';
+            }
+          } else if (row.ch_interconsultation != null) {
+            var a = row.ch_interconsultation.many_ch_record;
+            var b = a.find(item => item.created_at == row.created_at)
+            if (b && !row.open_date) {
+              if (b.date_finish == "0000-00-00 00:00:00") {
+                return 'Sin ejecutar';
+              } else {
+                return this.datePipe.transform4(b.date_finish);
+              }
+            } else if (row.location != null) {
+              return this.datePipe.transform4(row.open_date) + ' - ' + this.datePipe.transform4(/*row.location.discharge_date != "0000-00-00 00:00:00" ? row.location.discharge_date :*/ row.close_date ? row.close_date : new Date());
+            } else {
+              return '';
             }
           } else {
             return '';

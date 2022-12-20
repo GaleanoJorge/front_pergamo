@@ -12,50 +12,55 @@ import { AdmissionRouteService } from '../../../business-controller/admission-ro
 import { LocationService } from '../../../business-controller/location.service';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { AuthService } from '../../../services/auth.service';
+import { DisclaimerService } from '../../../business-controller/disclaimer.service';
 
 @Component({
   template: `
   <div class="d-flex justify-content-center">
 
-    <button *ngIf="value.data.status=='ACTIVO' && 
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && 
       (this.rowData.ch_type_id == 1)" 
       nbTooltip="Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" 
       nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && 
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && 
       (this.rowData.ch_type_id == 2)"
       nbTooltip="Historia Clinica de enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" 
       nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-nursing-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 6)" nbTooltip="Historia Clinica Terapia Ocupacional" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/entry-clinic-history-occupational-therapy/' + value.data.id + '/'+ value.assigned" >
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 6)" nbTooltip="Historia Clinica Terapia Ocupacional" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/entry-clinic-history-occupational-therapy/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && 
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && 
     (this.rowData.ch_type_id == 3)" nbTooltip="Historia Clinica de Nutrición" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-nutrition-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 4)" nbTooltip="Historia Clinica de Terapia de Lenguaje" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-language-list/' + value.data.id + '/'+ value.assigned" >
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 4)" nbTooltip="Historia Clinica de Terapia de Lenguaje" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-language-list/' + value.data.id + '/'+ value.assigned" >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 5)" nbTooltip="Historia Clinica de Terapia de Respiratoria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/respiratory-therapy-list/' + value.data.id + '/'+ value.assigned" >
+    <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 5)" nbTooltip="Historia Clinica de Terapia de Respiratoria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/respiratory-therapy-list/' + value.data.id + '/'+ value.assigned" >
     <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
-  <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 7)" nbTooltip="Historia Clinica de Terapia Física" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-physical-therapy-list/' + value.data.id + '/'+ value.assigned" >    <nb-icon icon="file-add-outline"></nb-icon>
+  <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 7)" nbTooltip="Historia Clinica de Terapia Física" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/clinic-history-physical-therapy-list/' + value.data.id + '/'+ value.assigned" >    <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
-  <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 8)" nbTooltip="Historia Clinica de Trabajo Social" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-social-work/social-work-list/' + value.data.id + '/'+ value.assigned" >
+  <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 8)" nbTooltip="Historia Clinica de Trabajo Social" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-social-work/social-work-list/' + value.data.id + '/'+ value.assigned" >
     <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
-  <button *ngIf="value.data.status=='ACTIVO' && (this.rowData.ch_type_id == 9)" nbTooltip="Historia Clinica de Psicologia" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-psychology/psychology-list/' + value.data.id + '/'+ value.assigned" >
+  <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 9)" nbTooltip="Historia Clinica de Psicologia" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-psychology/psychology-list/' + value.data.id + '/'+ value.assigned" >
+    <nb-icon icon="file-add-outline"></nb-icon>
+  </button>
+
+  <button *ngIf="value.data.status=='ACTIVO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id == 10)" nbTooltip="Seguimiento" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/tracing-list/tracing-list/' + value.data.id + '/'+ value.assigned" >
     <nb-icon icon="file-add-outline"></nb-icon>
   </button>
 
@@ -63,18 +68,59 @@ import { AuthService } from '../../../services/auth.service';
       <nb-icon icon="file-add"></nb-icon>
     </button>
 
+    <button *ngIf="value.data.status=='CERRADO' && value.data.user_id == this.own_user.id && (this.rowData.ch_type_id != 10)" nbTooltip="Generar Nota aclaratoria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmAction(confirmAction)"> 
+      <nb-icon icon="attach-outline"></nb-icon>
+    </button>
+
   </div>
+
+  <ng-template #confirmAction>
+  <div class="container-fluid" fullWidth>
+  <nb-card style="width: 100%">
+          <nb-card-header>Nota Aclaratoria</nb-card-header>
+          <nb-card-body>
+              <form [formGroup]="forms" (ngSubmit)="saveNote()">
+              <div class="row">
+
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-8 col-lg-8">
+      <div class="form-group">      
+       <textarea id="observation" nbInput fullWidth formControlName="observation" observation
+         onpaste="return false" cols="100" rows="10"> </textarea>
+     </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton (click)="close()" type="button" class="button ml-1">Cancelar</button>
+        <button nbButton status="danger" class="button" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>
+</nb-card-body>
+</nb-card>
+</div>
+</ng-template>
+  
   `,
 })
 export class Actions5Component implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
-  
+
   public dialog;
   public status: boolean;
   public medical: boolean;
   loading: boolean = false;
   public form: FormGroup;
+  public forms: FormGroup;
   public rips_typefile: any[];
   // public status: Status[];
   public isSubmitted: boolean = false;
@@ -91,6 +137,9 @@ export class Actions5Component implements ViewCell {
   public data;
   public service;
   public role_user;
+  public own_user;
+  tracingS: any;
+
 
 
   constructor(
@@ -107,13 +156,14 @@ export class Actions5Component implements ViewCell {
     private BedS: BedService,
     private viewHCS: ChRecordService,
     private authService: AuthService,
+    private disclaimerS: DisclaimerService,
   ) {
   }
   ngOnInit() {
 
     // console.log(this.value);
     // console.log(this.rowData);
-
+    this.own_user = this.authService.GetUser();
     console.log(this.value.data.status);
     if (this.value.data.medical_date == '0000-00-00 00:00:00' && this.value.data.discharge_date == '0000-00-00 00:00:00') {
       this.medical = false;
@@ -138,13 +188,21 @@ export class Actions5Component implements ViewCell {
         pavilion_id: '',
         bed_id: '',
       };
+
+      this.forms = this.formBuilder.group({
+
+        observation: ['', Validators.compose([Validators.required])]
+
+      });
     }
 
     this.campus_id = localStorage.getItem('campus');
     this.AdmissionRouteS.GetCollection().then(x => {
       this.admission_route = x;
     });
-    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
+    this.FlatS.GetFlatByCampus(this.campus_id, {
+      bed_or_office: 1,
+    }).then(x => {
       this.flat = x;
     });
 
@@ -218,6 +276,7 @@ export class Actions5Component implements ViewCell {
       window.open(x.url, '_blank');
 
     }).catch(x => {
+      this.toastService.warning('', x);
       this.isSubmitted = false;
       this.loading = false;
     });
@@ -326,7 +385,9 @@ export class Actions5Component implements ViewCell {
   GetPavilion(flat_id, job = false) {
     if (!flat_id || flat_id === '') return Promise.resolve(false);
 
-    return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+    return this.PavilionS.GetPavilionByFlat(flat_id, {
+      bed_or_office: 1,
+    }).then(x => {
 
       this.pavilion = x;
 
@@ -341,5 +402,52 @@ export class Actions5Component implements ViewCell {
 
       return Promise.resolve(true);
     });
+  }
+
+  saveNote() {
+    this.isSubmitted = true;
+    if (!this.forms.invalid) {
+      this.loading = true;
+
+      if (this.data.id) {
+        this.disclaimerS.Update({
+          id: this.data.id,
+          observation: this.forms.controls.observation.value,
+          ch_record_id: this.value.data.id,
+          // ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.close();
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      } else {
+        this.disclaimerS.Save({
+          observation: this.forms.controls.observation.value,
+          ch_record_id: this.value.data.id,
+          // ch_record_id: this.record_id,
+        }).then(x => {
+          this.toastService.success('', x.message);
+          this.close();
+          this.forms.patchValue({
+            observation: '',
+          });
+          if (this.saved) {
+            this.saved();
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
+          this.loading = false;
+        });
+      }
+
+    }
+    else {
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+    }
   }
 }

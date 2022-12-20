@@ -6,7 +6,7 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
   template: `
   <div class="d-flex justify-content-center" >
-    <div class = "cuadro" 
+    <div class = "cuadro" nbTooltip="{{this.tooltip}}"
      [style]="this.semaphore == 0 ? 'background-color: #581845;' : 
      this.semaphore == 1 ? 'background-color: #44E431;' : 
      this.semaphore == 2 ? 'background-color: #FFC300;' : 
@@ -22,13 +22,20 @@ export class ActionsSemaphoreComponent implements ViewCell {
   @Input() rowData: any;  // This holds the entire row object
 
   public semaphore: any;
+  public tooltip: any;
 
   constructor(
   ) {
   }
 
   async ngOnInit() {
-    this.semaphore=this.value.getDate(this.value.data.received_date);
+    if (this.value.data.pendientes == "0") {
+      this.semaphore = 1;
+      this.tooltip = 'Sin Pendientes';
+    } else {
+      this.semaphore = 3;
+      this.tooltip = 'Pendientes: ' + this.value.data.pendientes;
+    }
   }
   
 }

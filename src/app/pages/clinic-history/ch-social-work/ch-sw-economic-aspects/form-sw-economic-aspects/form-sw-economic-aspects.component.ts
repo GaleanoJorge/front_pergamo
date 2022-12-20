@@ -20,6 +20,7 @@ export class FormChSwEconomicAspectsComponent implements OnInit {
   @Input() user_id: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -66,7 +67,7 @@ export class FormChSwEconomicAspectsComponent implements OnInit {
         this.economicS.Update({
           id: this.data.id,
           copay: this.form.controls.copay.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
@@ -81,7 +82,7 @@ export class FormChSwEconomicAspectsComponent implements OnInit {
       } else {
         this.economicS.Save({
           copay: this.form.controls.copay.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);

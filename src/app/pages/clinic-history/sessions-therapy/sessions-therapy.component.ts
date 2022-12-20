@@ -28,7 +28,7 @@ export class SessionsTherapyComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Fecha','Sesiones mensuales', 'Intensidad Semanal','Recomendaciones'];
+  public headerFields: any[] = ['Fecha','Sesiones mensuales', 'Intensidad Semanal','Frecuencia','Recomendaciones'];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -45,7 +45,7 @@ export class SessionsTherapyComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
       },
       
@@ -57,8 +57,19 @@ export class SessionsTherapyComponent implements OnInit {
         title: this.headerFields[2],
         width: 'string',
       },
-      recommendations: {
+      frequency: {
         title: this.headerFields[3],
+        width: 'string',
+        valuePrepareFunction(value, row) {
+          if (value) {
+            return value.name;
+          } else {
+            return 'No Aplica'
+          }
+        }
+      },
+      recommendations: {
+        title: this.headerFields[4],
         width: 'string',
       },
     },

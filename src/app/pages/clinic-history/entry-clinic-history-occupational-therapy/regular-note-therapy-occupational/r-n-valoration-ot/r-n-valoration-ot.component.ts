@@ -21,7 +21,7 @@ export class RNValorationOtComponent implements OnInit {
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Fecha','Observación', 'Nota'];
+  public headerFields: any[] = ['Fecha','Estado del paciente'];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -38,18 +38,11 @@ export class RNValorationOtComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value) => {
-          return this.datePipe.transform2(value);
+          return this.datePipe.transform4(value);
         },
         },
-      ch_diagnosis: {
-        title: this.headerFields[1],
-        width: 'string',
-        valuePrepareFunction(value, row) {
-          return value.name;
-        },
-      },
       patient_state: {
-        title: this.headerFields[2],
+        title: this.headerFields[1],
         width: 'string',
       },
     },

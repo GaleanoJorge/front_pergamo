@@ -14,7 +14,8 @@ import { LocationService } from '../../../business-controller/location.service';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-  <a nbTooltip="Plan de manejo"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/pad/management-plan/' + value.data.id+'/'+value.user_id">
+  <a nbTooltip="Plan de manejo"  nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost 
+  [routerLink]="'/pages/pad/management-plan/' + value.data.id+'/'+value.user_id">
   <nb-icon icon="menu-outline"></nb-icon>
 </a>
 </div>
@@ -89,7 +90,9 @@ export class ActionsPadComponent implements ViewCell {
     this.AdmissionRouteS.GetCollection().then(x => {
       this.admission_route = x;
     });
-    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
+    this.FlatS.GetFlatByCampus(this.campus_id, {
+      bed_or_office: 1,
+    }).then(x => {
       this.flat = x;
     });
 
@@ -258,7 +261,9 @@ export class ActionsPadComponent implements ViewCell {
   GetPavilion(flat_id, job = false) {
     if (!flat_id || flat_id === '') return Promise.resolve(false);
 
-    return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+    return this.PavilionS.GetPavilionByFlat(flat_id, {
+      bed_or_office: 1,
+    }).then(x => {
 
       this.pavilion = x;
 

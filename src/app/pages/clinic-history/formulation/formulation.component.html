@@ -1,4 +1,4 @@
-<ngx-form-formulation (messageEvent)="receiveMessage($event)" [user]="this.user">
+<ngx-form-formulation (messageEvent)="receiveMessage($event)" [user]="this.user" [admission]="admission">
 </ngx-form-formulation>
 <label class="form-text text-muted font-weight-bold align">FORMULACIONES</label>
 <ngx-base-list [messageError]="messageError" [routes]="routes">
@@ -7,6 +7,7 @@
       entity="ch_formulation/by_record/{{record_id}}/5">
       <div actions>
         <div class="actions">
+            <button nbButton status="danger" class="ml-1 btn-save" (click)="Historic()">Todos los registros</button>
         </div>
         <div class="actions" style="margin-top:1em;">
         </div>

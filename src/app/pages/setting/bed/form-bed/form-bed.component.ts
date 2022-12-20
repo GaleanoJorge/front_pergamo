@@ -55,6 +55,8 @@ export class FormBedComponent implements OnInit {
         bed_or_office:'',
         procedure_id: '',
       };
+    } else {
+      this.procedure_id = this.data.procedure_id;
     }
 
     // this.statusBS.GetCollection().then(x => {
@@ -67,7 +69,7 @@ export class FormBedComponent implements OnInit {
       code: [this.data.code, Validators.compose([Validators.required])],
       status_bed_id: [this.data.status_bed_id, Validators.compose([Validators.required])],
       pavilion_id: [this.data.pavilion_id, Validators.compose([Validators.required])],
-      procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
+      procedure_id: [this.data.procedure_id ],
       bed_or_office: [this.data.bed_or_office, Validators.compose([Validators.required])],
     });
 
@@ -86,6 +88,19 @@ export class FormBedComponent implements OnInit {
         this.form.patchValue({
           procedure_id: localidentify.name,
         });
+      }
+    });
+    this.onChanges();
+  }
+
+  onChanges(){
+
+    this.form.get('bed_or_office').valueChanges.subscribe((val) => {
+      if(val == 1 ){
+        this.form.controls.procedure_id.setValidators(Validators.compose([Validators.required]));
+      } else {
+        this.form.controls.procedure_id.clearValidators();
+        this.form.controls.procedure_id.setErrors(null);
       }
     });
   }
