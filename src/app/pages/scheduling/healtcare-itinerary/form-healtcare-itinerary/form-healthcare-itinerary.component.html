@@ -32,6 +32,11 @@
             status="{{ isSubmitted && form.controls.finish_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         </div>
         <div class="col-md-6">
+          <label for="telemedicine" class="form-text text-muted font-weight-bold">Consulta por teleconsulta:</label>
+          <nb-toggle formControlName="telemedicine" telemedicine>
+          </nb-toggle>
+        </div>
+        <div class="col-md-6">
           <label for="eps_id" class="form-text text-muted font-weight-bold">EPS / Asegurador:</label>
           <nb-select [selected]="this.data.eps_id" [disabled]="this.disabled || onlyView" formControlName="eps_id" id="eps_id" fullWidth
             status="{{ isSubmitted && form.controls.eps_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">

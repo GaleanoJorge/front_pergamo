@@ -199,6 +199,17 @@ export class SchedulingTableComponent implements OnInit {
           }
         },
       },
+      url_teams: {
+        title: 'URL Teleconsulta',
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(value){
+            return value;
+          } else {
+            return 'N/A'
+          }
+        },
+      },
       start_hour: {
         title: this.headerFields[7],
         type: 'string',

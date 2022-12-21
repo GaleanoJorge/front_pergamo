@@ -90,11 +90,11 @@
             status="{{ isSubmitted && form.controls.interval.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
             onkeypress="return /[0-9\+\-\ ]/i.test(event.key)">
         </div>
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <label for="telemedicine" class="form-text text-muted font-weight-bold">Consulta por teleconsulta:</label>
           <nb-toggle formControlName="telemedicine" telemedicine>
           </nb-toggle>
-        </div>
+        </div> -->
         <div class="col-md-6">
           <label for="patients" class="form-text text-muted font-weight-bold">Atención a multiples pacientes:</label>
           <nb-toggle formControlName="patients" patients>

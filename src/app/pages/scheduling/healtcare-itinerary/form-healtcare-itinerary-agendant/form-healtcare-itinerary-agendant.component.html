@@ -45,6 +45,11 @@
           <input type="datetime-local" nbInput id="finish_hour" disabled="true" formControlName="finish_hour"
             finish_hour fullWidth>
         </div>
+        <div class="col-md-6">
+          <label for="telemedicine" class="form-text text-muted font-weight-bold">Consulta por teleconsulta:</label>
+          <nb-toggle formControlName="telemedicine" telemedicine>
+          </nb-toggle>
+        </div>
       </div>
       <div class="row" *ngIf="this.patient_data || disabled">
         <div class="col-md-6">
