@@ -75,8 +75,8 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (value) {
-            return value;
+          if (value == 1) {
+            return 'Sí';
           } else {
             return 'No'
           }
