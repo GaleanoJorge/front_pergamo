@@ -24,6 +24,7 @@ import { EditPatientComponent } from '../../edit-patient/edit-patient.component'
 import { FormConfirmDisabledComponent } from '../../copay_category/form-confirm-disabled/form-confirm-disabled.component';
 import { MedicalDiaryDaysService } from '../../../../business-controller/medical_diary_days.service';
 import { FormAdmissionsPatientComponent } from '../../../admissions/admissions-patient/form-admissions-patient/form-admissions-patient.component';
+import { HealthcareItineraryComponent } from '../healthcare-itinerary.component';
 
 @Component({
   selector: 'ngx-scheduling-table',
@@ -99,7 +100,8 @@ export class SchedulingTableComponent implements OnInit {
             'confirmScheduling': this.confirmScheduling.bind(this),
             'check_in': this.checkIn.bind(this),
             'cancelScheduling': this.cancelScheduling.bind(this),
-            'copayPDF': this.generatePdf.bind(this)
+            'copayPDF': this.generatePdf.bind(this),
+            'refreshTable': this.RefreshData.bind(this),
           };
         },
         renderComponent: ActionsSchedulingComponent,
@@ -444,6 +446,12 @@ export class SchedulingTableComponent implements OnInit {
         saved: this.RefreshData.bind(this),
       },
     });
+  }
+
+  receiveMessage($event) {
+    if ($event == true) {
+      this.RefreshData();
+    }
   }
 
   RefreshData() {
