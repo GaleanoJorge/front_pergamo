@@ -3,15 +3,7 @@ import { ViewCell } from 'ng2-smart-table';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
-import { LocationService } from '../../../business-controller/location.service';
-import { ScopeOfAttentionService } from '../../../business-controller/scope-of-attention.service';
-import { ProgramService } from '../../../business-controller/program.service';
-import { PavilionService } from '../../../business-controller/pavilion.service';
-import { FlatService } from '../../../business-controller/flat.service';
-import { AdmissionRouteService } from '../../../business-controller/admission-route.service';
-import { BedService } from '../../../business-controller/bed.service';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
-import { AuthService } from '../../../services/auth.service';
 import { ChFormulationService } from '../../../business-controller/ch-formulation.service';
 
 @Component({
@@ -90,13 +82,6 @@ export class ActionsFormulationComponent implements ViewCell {
     private formBuilder: FormBuilder,
     private dialogService: NbDialogService,
     private AdmissionsS: AdmissionsService,
-    private LocationS: LocationService,
-    private ScopeOfAttentionS: ScopeOfAttentionService,
-    private ProgramS: ProgramService,
-    private PavilionS: PavilionService,
-    private FlatS: FlatService,
-    private AdmissionRouteS: AdmissionRouteService,
-    private BedS: BedService,
     private viewFormulationS: ChRecordService,
   ) {
   }
@@ -193,7 +178,7 @@ export class ActionsFormulationComponent implements ViewCell {
       product_generic_id: this.value.data.product_generic_id,
       treatment_days: this.value.data.treatment_days,
       type_record_id: 5,
-      ch_record_id: this.value.data.ch_record_id,
+      ch_record_id: this.value.ch_record_id,
       services_briefcase_id: this.value.data.services_briefcase_id,
       product_supplies_id: this.value.data.product_supplies_id,
       num_supplies: this.value.data.num_supplies,

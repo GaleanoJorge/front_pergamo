@@ -134,13 +134,19 @@ export class InterconsultationComponent implements OnInit {
           return value?.firstname + ' ' + value.lastname;
         },
       },
-      date_attention: {
+      created_at: {
         title: this.headerFields[0],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          return this.datePipe.transform4(value);
+        },
       },
-      date_finish: {
+      updated_at: {
         title: this.headerFields[2],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          return this.datePipe.transform4(value);
+        },
       },
       consecutive: {
         title: this.headerFields[5],

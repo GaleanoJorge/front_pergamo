@@ -253,7 +253,7 @@ export class ClinicHistoryListComponent implements OnInit {
         this.show = 4;
         break;
       }
-      case "ORDEN MEDICAS": {
+      case "ORDENES MEDICAS": {
         this.show = 5;
         break;
       }

@@ -133,9 +133,9 @@ export class FormChMedicalOrdersComponent implements OnInit {
       } else {
         await this.ChMedicalOrdersS
           .Save({
-            ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? 'Sí' : null,
-            procedure_id: this.form.controls.ambulatory_medical_order.value ? this.procedure_id : null,
-            services_briefcase_id: this.form.controls.ambulatory_medical_order.value ? null : this.procedure_id,
+            ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? true : false,
+            procedure_id: this.form.controls.ambulatory_medical_order.value == true ? this.procedure_id : null,
+            services_briefcase_id: this.form.controls.ambulatory_medical_order.value == false ? this.procedure_id : null,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
@@ -189,9 +189,13 @@ onChange() {
 
   this.form.get('ambulatory_medical_order').valueChanges.subscribe(val => {
     this.procedure_id = null;
+    this.procedure = null;
     this.form.patchValue({
       procedure_id: '',
-    });
+      amount: '',
+      frequency_id: '',
+      observations: '' });
+
       this.form.controls.procedure_id.setErrors({ 'incorrect': true });
     if (val == 1) {
 
