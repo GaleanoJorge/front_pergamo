@@ -11,7 +11,6 @@ import { PatientService } from '../../../../business-controller/patient.service'
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
 import { AuthService } from '../../../../services/auth.service';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
-import { ProductSupplies } from '../../../../models/product-supplies';
 import { ProductSuppliesService } from '../../../../business-controller/product-supplies.service';
 
 @Component({
@@ -204,6 +203,7 @@ export class FormFormulationComponent implements OnInit {
           }
         })
         .catch((x) => {
+          this.toastService.danger('Error', x);
           this.isSubmitted = false;
           this.loading = false;
         });
@@ -223,15 +223,15 @@ export class FormFormulationComponent implements OnInit {
     var treatment_days = this.form.controls.treatment_days.value;
     this.product = this.product_gen.find(item => (this.show ? item.manual_price.product.id : item.id) == this.product_id);
     presentmedic = this.getConcentration((this.show ? this.product.manual_price.product.product_dose_id == 2 : this.product.product_dose_id == 2) ? (this.show ? this.product.manual_price.product.dose : this.product.dose) : (this.show ? this.product.manual_price.product.drug_concentration.value : this.product.drug_concentration.value));
-    if (this.admission.location.at(-1).scope_of_attention_id == 1) {
+    // if (this.admission.location.at(-1).scope_of_attention_id == 1) {
+    //   var elementos_x_aplicacion = dose / presentmedic;
+    // } else {
+    if ((this.show ? this.product.manual_price.product.product_dose_id == 2 : this.product.product_dose_id == 2)) {
       var elementos_x_aplicacion = dose / presentmedic;
     } else {
-      if ((this.show ? this.product.manual_price.product.product_dose_id == 2 : this.product.product_dose_id == 2)) {
-        var elementos_x_aplicacion = dose / presentmedic;
-      } else {
-        var elementos_x_aplicacion = Math.ceil(dose / presentmedic);
-      }
+      var elementos_x_aplicacion = Math.ceil(dose / presentmedic);
     }
+    // }
 
 
     var operate = Math.ceil(elementos_x_aplicacion * (24 / hourly_frequency_id) * treatment_days);

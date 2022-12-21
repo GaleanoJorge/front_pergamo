@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { NonWorkingDaysService } from '../../../business-controller/non-working-days.service';
 import { NbToastrService, NbDialogService, NbDialogRef } from '@nebular/theme';
 import { FormHealthcareItineraryComponent } from './form-healtcare-itinerary/form-healthcare-itinerary.component';
@@ -71,6 +71,11 @@ import { MedicalStatusService } from '../../../business-controller/medical_statu
   ],
 })
 export class HealthcareItineraryComponent implements OnInit {
+  @Input() isRescheduling = false;
+  @Input() medical_diary_id;
+  @Input() medical_diary_day_id;
+  @Output() messageEvent = new EventEmitter<any>();;
+
   public isSubmitted = false;
   public messageError: string = null;
   public title: string = 'Listado de pacientes';
@@ -110,6 +115,9 @@ export class HealthcareItineraryComponent implements OnInit {
   public min_day = null;
   public rowAutoHeight: boolean = true;
   public datafi;
+  //It's only loaded when is rescheduling
+  public procedureIdValue;
+
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @ViewChild('schedule') schedule: ScheduleComponent;
@@ -175,7 +183,7 @@ export class HealthcareItineraryComponent implements OnInit {
     private medicalStatusS: MedicalStatusService,
     private medicalDiaryDaysS: MedicalDiaryDaysService,
     private assistanceProcedureS: AssistanceProcedureService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (!this.data) {
@@ -185,13 +193,14 @@ export class HealthcareItineraryComponent implements OnInit {
         start_date: null,
         finish_date: null,
         status_id: null,
+        campus_id: null
       };
     }
 
     this.form = this.formBuilder.group({
       procedure_id: [this.data.office_id],
       assistance_id: [this.data.assistance_id],
-      campus_id: [this.data.start_date],
+      campus_id: [this.data.campus_id],
       start_date: [this.data.start_date],
       finish_date: [this.data.finish_date],
       status_id: [this.data.status_id],
@@ -206,6 +215,10 @@ export class HealthcareItineraryComponent implements OnInit {
     this.campusS.GetCollection({}).then((x) => {
       this.campus = x;
     });
+
+    if (this.isRescheduling) {
+      this.loadProcedureName();
+    }
 
     this.onChanges();
   }
@@ -241,16 +254,22 @@ export class HealthcareItineraryComponent implements OnInit {
     this.form.get('start_date').valueChanges.subscribe((val) => {
       this.min_day = val;
     });
+    this.form.get('campus_id').valueChanges.subscribe((val) => {
+      let procedureName = this.form.controls.procedure_id.value;
+      if (procedureName) {
+        let id = this.form.controls.procedure_id.value.split('-')[0];
+        this.getAssistance(id);
+      }
+    })
   }
 
   onSelectionChange($event, e) {
-    // console.log($event)
     var localidentify;
 
     if (e == 1) {
       var id = $event == '' ? $event : Number($event.split('-').at(0));
       localidentify = this.procedure.find((item) => item.id == id);
-this.id=id;
+      this.id = id;
       if (localidentify) {
         this.procedure_id = localidentify;
         this.getAssistance(this.procedure_id.id);
@@ -281,6 +300,17 @@ this.id=id;
     }
   }
 
+  loadProcedureName() {
+    this.procedureS.GetByMedicalDiary(this.medical_diary_id).then(
+      (procedure) => {
+        this.procedureIdValue = procedure.id;
+        this.form.patchValue({ procedure_id: procedure.id + " - " + procedure.name });
+        this.procedure_id = procedure;
+        this.id = procedure.id;
+      }
+    ).catch((procedure) => { });
+  }
+
   getSchedule(assistance_id) {
     // this.user = this.AuthS.GetUser();
     // this.scheduleObj.locale = 'es';
@@ -293,7 +323,7 @@ this.id=id;
         campus_id: this.form.value.campus_id,
         init_date: this.form.value.start_date,
         finish_date: this.form.value.finish_date,
-        medical_status_id: this.form.value.status_id,
+        medical_status_id: this.isRescheduling ? 1 : this.form.value.status_id,
         procedure_id: this.id,
       })
       .then((x) => {
@@ -347,9 +377,9 @@ this.id=id;
     this.assistanceProcedureS
       .GetCollection({
         procedure_id: procedure_id,
-        campus_id: this.form.value.campus_id,
-        init_date: this.form.value.start_date,
-        finish_date: this.form.value.finish_date,
+        campus_id: this.form.controls.campus_id.value,
+        init_date: this.form.controls.start_date.value,
+        finish_date: this.form.controls.finish_date.value,
         medical_status_id: 1,
       })
       .then((x) => {
@@ -399,6 +429,16 @@ this.id=id;
     // You can use your custom dialog
   }
 
+  public executeReschedule(data){
+    return this.medicalDiaryDaysS.Transfer(data).then(x => {
+      this.messageEvent.emit(true);
+      return Promise.resolve(x.message);
+    })
+    .catch(x => {
+      throw x;
+    });
+  }
+
   public onPopupOpen(args: PopupOpenEventArgs): void {
     // console.log(args);
     // var resultArray = Object.keys(args.data).map(function (personNamedIndex) {
@@ -409,15 +449,28 @@ this.id=id;
 
     if (args.type == 'Editor') {
       args.cancel = true;
-      this.dialogFormService.open(FormHealthcareItineraryAgendantComponent, {
-        context: {
-          data: args.data,
-          assistance: this.user,
-          onlyView: false,
-          cups_selected_id: this.procedure_id.id,
-          saved: this.RefreshData.bind(this),
-        },
-      });
+
+      if (!this.isRescheduling) {
+        this.dialogFormService.open(FormHealthcareItineraryAgendantComponent, {
+          context: {
+            data: args.data,
+            assistance: this.user,
+            onlyView: false,
+            cups_selected_id: this.procedure_id.id,
+            saved: this.RefreshData.bind(this),
+          },
+        });
+      }else{
+        this.dialogFormService.open(ConfirmDialogComponent, {
+          context: {
+            title: 'Confirmar traslado',
+            body: '¿ESTÁ SEGURO QUE DESEA TRASLADAR ESTA CONSULTA?',
+            textConfirm: 'TRASLADAR',
+            data: {oldId:this.medical_diary_day_id, newId:args.data["id"]},
+            delete: this.executeReschedule.bind(this)
+          },
+        });
+      }
     } else if (args.type == 'EventContainer') {
     } else {
       args.cancel = true;

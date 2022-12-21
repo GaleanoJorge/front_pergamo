@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
+import { Component, Input, TemplateRef } from '@angular/core';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ViewCell } from 'ng2-smart-table';
 
 @Component({
@@ -42,6 +42,18 @@ import { ViewCell } from 'ng2-smart-table';
       </button>
 
       <button
+        *ngIf="this.rowData.medical_status_id == 3"
+        nbTooltip="Trasladar"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="reschedule(re_scheduling)"
+      >
+        <nb-icon icon="calendar-outline"></nb-icon>
+      </button>
+
+      <button
         *ngIf="this.rowData.medical_status_id == 2 || this.rowData.medical_status_id == 3"
         nbTooltip="Cancelar cita"
         nbTooltipPlacement="top"
@@ -65,6 +77,24 @@ import { ViewCell } from 'ng2-smart-table';
         <nb-icon icon="alert-triangle-outline"></nb-icon>
       </button>
     </div>
+
+
+
+    <ng-template #re_scheduling>
+      <nb-card style="width: 100%;height: 800px;overflow: auto;">
+        <nb-card-header>
+        </nb-card-header>
+        <nb-card-body>
+          <ngx-healthcare-itinerary [isRescheduling]="true" (messageEvent)="receiveMessage($event)" [medical_diary_id]="rowData.medical_diary_id" [medical_diary_day_id]="rowData.id"></ngx-healthcare-itinerary>
+        </nb-card-body>
+
+        <nb-card-footer class="d-flex justify-content-end">
+          <div class ="col-12 col-sm-12 col-md-2">
+            <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
   `,
 })
 export class ActionsSchedulingComponent implements ViewCell {
@@ -74,8 +104,12 @@ export class ActionsSchedulingComponent implements ViewCell {
   public complete: boolean = false;
   public show_cc: boolean = false;
   public route: string = '';
+  public dialog;
 
-  constructor(private toastService: NbToastrService) {}
+  constructor(
+    private toastService: NbToastrService,
+    private dialogFormService: NbDialogService,
+    ) { }
 
   ngOnInit() {
     if (this.rowData.patient) {
@@ -88,6 +122,21 @@ export class ActionsSchedulingComponent implements ViewCell {
     if (this.rowData.medical_status_id == 2) {
       this.show_cc == true;
     }
+  }
+
+  reschedule(dialog: TemplateRef<any>) {
+    this.dialog = this.dialogFormService.open(dialog);
+  }
+
+  receiveMessage($event) {
+    if ($event == true) {
+      this.value.refreshTable();
+      this.closeDialog();
+    }
+  }
+
+  closeDialog() {
+    this.dialog.close();
   }
 
   // generatePdf() {

@@ -32,7 +32,8 @@ import { Actions5Component } from '../../clinic-history/ch-record-list/actions.c
   styleUrls: ['./interconsultation.component.scss'],
 })
 export class InterconsultationComponent implements OnInit {
-
+  @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @ViewChild('formulations', { read: TemplateRef }) formulations: TemplateRef<HTMLElement>;
   linearMode = true;
   public isSubmitted = false;
   public entity: string;
@@ -87,9 +88,7 @@ export class InterconsultationComponent implements OnInit {
 
   public disabled: boolean = false;
   public showButtom: boolean = false;
-
-  @ViewChild(BaseTableComponent) table: BaseTableComponent;
-  @ViewChild('formulations', { read: TemplateRef }) formulations: TemplateRef<HTMLElement>;
+  static datePipe2: any;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -134,13 +133,19 @@ export class InterconsultationComponent implements OnInit {
           return value?.firstname + ' ' + value.lastname;
         },
       },
-      date_attention: {
+      created_at: {
         title: this.headerFields[0],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          return InterconsultationComponent.datePipe2.transform4(row.created_at);
+        },
       },
-      date_finish: {
+      updated_at: {
         title: this.headerFields[2],
         width: 'string',
+        valuePrepareFunction(value, row) {
+          return InterconsultationComponent.datePipe2.transform4(row.updated_at);
+        },
       },
       consecutive: {
         title: this.headerFields[5],
@@ -184,8 +189,8 @@ export class InterconsultationComponent implements OnInit {
       created_at: {
         title: this.headerFields2[0],
         type: 'string',
-        valuePrepareFunction: (value) => {
-          return this.datePipe.transform2(value);
+        valuePrepareFunction(value) {
+          return InterconsultationComponent.datePipe2.transform4(value);
         },
       },
 
@@ -254,6 +259,7 @@ export class InterconsultationComponent implements OnInit {
   };
 
   constructor(
+    public datePipe: DateFormatPipe,
     private route: ActivatedRoute,
     private chRecordS: ChRecordService,
     private toastService: NbToastrService,
@@ -264,7 +270,6 @@ export class InterconsultationComponent implements OnInit {
     private authService: AuthService,
     private admissionsS: AdmissionsService,
     private ChInterconsultationS: ChInterconsultationService,
-    public datePipe: DateFormatPipe,
     private location: Location,
     private AssistanceS: AssistanceSpecialService,
     // public assignedService: AssignedManagementPlanService
@@ -288,6 +293,7 @@ export class InterconsultationComponent implements OnInit {
   }
 
   async ngOnInit() {
+    InterconsultationComponent.datePipe2 = this.datePipe;
     this.admissions_id = this.route.snapshot.params.id;
     this.ch_interconsultation_id = this.route.snapshot.params.id2;
     this.type_of_attention = this.route.snapshot.params.id3;

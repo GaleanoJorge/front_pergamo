@@ -35,7 +35,7 @@
 
               <div class="col-md-4">
                 <label for="status_id" class="form-text text-muted font-weight-bold">Estado:</label>
-                <nb-select formControlName="status_id" id="status_id" fullWidth placeholder="TODOS LOS REGISTROS"
+                <nb-select [disabled]="isRescheduling" formControlName="status_id" id="status_id" fullWidth placeholder="{{!isRescheduling ? 'TODOS LOS REGISTROS':'LIBRES'}}"
                   status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option>Seleccione...</nb-option>
                   <nb-option value="1">LIBRES</nb-option>
@@ -55,11 +55,11 @@
                 <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth
                   id="finish_date" formControlName="finish_date" finish_date />
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6" *ngIf="!isRescheduling">
                 <label for="procedure_id" class="form-text text-muted font-weight-bold">Código Cups:</label>
-                <input fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
+                <input [readonly]="isRescheduling" [disabled]="isRescheduling" fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
                   status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
-                  [nbAutocomplete]="autoControl" />
+                  [nbAutocomplete]="!isRescheduling ? autoControl:false" />
 
                 <nb-autocomplete #autoControl (selectedChange)="onSelectionChange($event, 1)">
                   <nb-option value="">Seleccione...</nb-option>
@@ -68,6 +68,12 @@
                   </nb-option>
 
                 </nb-autocomplete>
+              </div>
+              <div class="col-md-6" *ngIf="isRescheduling">
+                <label for="procedure_id" class="form-text text-muted font-weight-bold">Código Cups:</label>
+                <input [readonly]="isRescheduling" [disabled]="isRescheduling" fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
+                  status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+ />
               </div>
               <div class="col-md-6">
                 <label for="assistance_id" class="form-text text-muted font-weight-bold">Assistencial:</label>
@@ -202,14 +208,14 @@
         </div>
       </nb-tab>
 
-      <nb-tab tabTitle="FACTURACIÓN">
+      <nb-tab tabTitle="FACTURACIÓN" *ngIf="!isRescheduling">
         <div *ngIf="this.show == 2">
           <ngx-scheduling-table>
           </ngx-scheduling-table>
         </div>
       </nb-tab>
 
-      <nb-tab tabTitle="ADMITIDOS">
+      <nb-tab tabTitle="ADMITIDOS" *ngIf="!isRescheduling">
         <div *ngIf="this.show == 3">
           <ngx-admissions-list>
           </ngx-admissions-list>

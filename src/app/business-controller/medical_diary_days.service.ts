@@ -126,4 +126,23 @@ export class MedicalDiaryDaysService {
         throw x.message;
       });
   }
+
+  Transfer(transferData): Promise<ServiceObject> {
+    let servObj = new ServiceObject('medical_diary_days/transfer');
+    servObj.data = transferData;
+    console.log(servObj.data);
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+
 }
