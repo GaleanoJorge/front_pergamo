@@ -58,6 +58,7 @@ export class ChRecordListComponent implements OnInit {
   public currentRole;
   public show_labs = false;
   public form: FormGroup;
+  static datePipe2: any;
   
   public disabled: boolean = false;
   public showButtom: boolean = true;
@@ -96,7 +97,7 @@ export class ChRecordListComponent implements OnInit {
         title: this.headerFields[0],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return this.datePipe.transform4(value);
+          return ChRecordListComponent.datePipe2.transform4(value);
         },
       },
       user: {
@@ -110,7 +111,7 @@ export class ChRecordListComponent implements OnInit {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          return this.datePipe.transform4(value);
+          return ChRecordListComponent.datePipe2.transform4(value);
         },
       },
       status: {
@@ -155,6 +156,7 @@ export class ChRecordListComponent implements OnInit {
   }
 
   async ngOnInit() {
+    ChRecordListComponent.datePipe2 = this.datePipe;
     Number((this.admissions_id = this.route.snapshot.params.id));
     var curr = this.authService.GetRole();
     this.currentRole = this.authService.GetUser().roles.find(x => {
