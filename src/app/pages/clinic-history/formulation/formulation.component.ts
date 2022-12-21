@@ -8,6 +8,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ChFormulationService } from '../../../business-controller/ch-formulation.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-formulation',
@@ -49,6 +50,7 @@ export class FormulationComponent implements OnInit {
           return {
             'data': row,
             'assigned': this.assigned_management_plan,
+            'ch_record_id': this.route.snapshot.params.id,
             'user': this.users,
             'delete': this.DeleteConfirmFormulation.bind(this),
             'refresh': this.RefreshData.bind(this),
@@ -168,6 +170,7 @@ export class FormulationComponent implements OnInit {
     private viewFormulationS: ChRecordService,
     private formulationS: ChFormulationService,
     private toastService: NbToastrService,
+    private route: ActivatedRoute,
     private deleteConfirmService: NbDialogService,
 
   ) { }
