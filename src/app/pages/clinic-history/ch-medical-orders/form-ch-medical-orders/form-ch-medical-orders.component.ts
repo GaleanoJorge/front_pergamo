@@ -8,6 +8,7 @@ import { ProductService } from '../../../../business-controller/product.service'
 import { ChMedicalOrdersService } from '../../../../business-controller/ch-medical-orders.service';
 import { ProcedureService } from '../../../../business-controller/procedure.service';
 import { FrequencyService } from '../../../../business-controller/frequency.service';
+import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
 
 @Component({
   selector: 'ngx-form-ch-medical-orders',
@@ -38,7 +39,9 @@ export class FormChMedicalOrdersComponent implements OnInit {
     private chRecord: ChRecordService,
     private route: ActivatedRoute,
     private FrequencyS: FrequencyService,
-    private ProductS: ProcedureService,
+    private ProductS: ProcedureService,    
+    private procedureS: ProcedureService,
+    private serviceS: ServicesBriefcaseService,
     private ChMedicalOrdersS: ChMedicalOrdersService,
   ) { }
 
@@ -51,18 +54,19 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
     if (!this.data) {
       this.data = {
-        ambulatory_medical_order: '',
+        ambulatory_medical_order: 0,
         procedure_id: '',
+        services_briefcase_id: '',
         amount: '',
         frequency_id: '',
         observations: '',
 
       };
     };
-
-    this.ProductS.GetCollection().then(x => {
+    this.serviceS.GetProcedureByChRecordId(this.record_id).then(x => {
       this.procedure = x;
     });
+
     this.FrequencyS.GetCollection().then(x => {
       this.frequency_id = x;
     });
@@ -75,6 +79,8 @@ export class FormChMedicalOrdersComponent implements OnInit {
       observations: [this.data.observations],
 
     });
+
+    this.onChange();
   }
 
   clearForm() {
@@ -99,6 +105,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
             id: this.data.id,
             ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? 'Sí' : null,
             procedure_id: this.procedure_id,
+            services_briefcase_id: this.procedure_id,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
@@ -125,8 +132,9 @@ export class FormChMedicalOrdersComponent implements OnInit {
       } else {
         await this.ChMedicalOrdersS
           .Save({
-            ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? 'Sí' : null,
-            procedure_id: this.procedure_id,
+            ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? true : false,
+            procedure_id: this.form.controls.ambulatory_medical_order.value == true ? this.procedure_id : null,
+            services_briefcase_id: this.form.controls.ambulatory_medical_order.value == false ? this.procedure_id : null,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
@@ -161,16 +169,49 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
 
   saveCode(e): void {
-    var localidentify = this.procedure.find(item => item.name == e);
-
+    var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name) == e);
+    
     if (localidentify) {
       this.procedure_id = localidentify.id;
       this.form.controls.procedure_id.setErrors(null);
 
     } else {
       this.procedure_id = null;
-      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
       this.form.controls.procedure_id.setErrors({ 'incorrect': true });
+      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
     }
   }
+
+  onChange() {
+
+    this.form.get('ambulatory_medical_order').valueChanges.subscribe(val => {
+      this.procedure_id = null;
+      this.procedure = null;
+      this.form.patchValue({
+        procedure_id: '',
+        amount: '',
+        frequency_id: '',
+        observations: '' });
+  
+        this.form.controls.procedure_id.setErrors({ 'incorrect': true });
+      if (val == 1) {
+  
+        this.procedureS.GetCollection().then(x => {
+          this.procedure = x;
+        });  
+       
+  
+      } else {
+        this.serviceS.GetProcedureByChRecordId(this.record_id).then(x => {
+          this.procedure = x;
+        });
+     
+  
+      };
+    });
+  
+
+
+  }
+  
 }

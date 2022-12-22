@@ -8,6 +8,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ChMedicalOrdersService } from '../../../business-controller/ch-medical-orders.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-ch-medical-orders',
@@ -57,6 +58,7 @@ export class ChMedicalOrdersComponent implements OnInit {
             'data': row,
             'assigned': this.assigned_management_plan,
             'user': this.users,
+            'record_id': this.record_id,
             'delete': this.DeleteConfirmMedicalOrden.bind(this),
             'refresh': this.RefreshData.bind(this),
           };
@@ -74,8 +76,8 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (value) {
-            return value;
+          if (value == 1) {
+            return 'Sí';
           } else {
             return 'No'
           }
@@ -85,12 +87,8 @@ export class ChMedicalOrdersComponent implements OnInit {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (value) {
-            return value.name;
-          } else {
-            return 'No Aplica';
-          }
-        },
+          return (row.procedure != null ? row.procedure.name : row.services_briefcase != null ? row.services_briefcase.manual_price.procedure.name : "No Aplica") ;
+        }
       },
       amount: {
         title: this.headerFields[3],
@@ -127,9 +125,11 @@ export class ChMedicalOrdersComponent implements OnInit {
     private toastService: NbToastrService,
     private medicalOrdersS: ChMedicalOrdersService,
     private deleteConfirmService: NbDialogService,
+    private route: ActivatedRoute,
     ) {}
 
   async ngOnInit() {
+    this.record_id = this.route.snapshot.params.id;
   }
 
     Historic() {
