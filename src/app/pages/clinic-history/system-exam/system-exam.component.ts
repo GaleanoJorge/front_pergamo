@@ -7,6 +7,7 @@ import { ChReasonConsultationService } from '../../../business-controller/ch-rea
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Actions7Component } from './actions.component';
 
 
 @Component({
@@ -18,17 +19,17 @@ export class SystemExamComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() data: any = null;
   @Input() record_id: any;
-  @Input() type_record_id:any;
+  @Input() type_record_id: any;
   @Input() has_input: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
-  
+
   linearMode = false;
   public messageError = null;
   public title;
   public routes = [];
   public user_id;
   public nameForm: String;
-  public headerFields: any[] = ['Fecha','Lista', 'Revisión', 'Observación'];
+  public headerFields: any[] = ['Fecha', 'Lista', 'Revisión', 'Observación'];
 
   public form: FormGroup;
   public all_changes: any[];
@@ -36,6 +37,9 @@ export class SystemExamComponent implements OnInit {
   public block: any = false;
   public count: number = 0;
   public loading: boolean = false;
+  public user;
+  public dialog;
+
 
   public settings = {
     pager: {
@@ -43,7 +47,21 @@ export class SystemExamComponent implements OnInit {
       perPage: 30,
     },
     columns: {
- 
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'user': this.user,
+            'refresh': this.RefreshData.bind(this),
+            'closeDialog': this.closeDialog.bind(this),
+          };
+        },
+        renderComponent: Actions7Component,
+      },
+
       created_at: {
         title: this.headerFields[0],
         type: 'string',
@@ -51,7 +69,7 @@ export class SystemExamComponent implements OnInit {
           return this.datePipe.transform4(value);
         },
       },
-      
+
       type_ch_system_exam: {
         title: this.headerFields[1],
         width: 'string',
@@ -66,16 +84,16 @@ export class SystemExamComponent implements OnInit {
       observation: {
         title: this.headerFields[3],
         width: 'string',
-          valuePrepareFunction(value, row) {
-            // this.count = this.count+1;
-            if (value) {
-              return value;
-            } else {
-              return 'NO APLICA'
-            }
+        valuePrepareFunction(value, row) {
+          // this.count = this.count+1;
+          if (value) {
+            return value;
+          } else {
+            return 'NO APLICA'
+          }
         },
       },
-      },
+    },
   };
 
   constructor(
@@ -87,18 +105,22 @@ export class SystemExamComponent implements OnInit {
   async ngOnInit() {
   }
 
-  ngOnchange(changes: SimpleChanges){
-    if(changes.count){
-      this.block =true;
-    }
+  closeDialog() {
+    this.dialog.close();
   }
 
   RefreshData() {
     this.table.refresh();
   }
 
+  ngOnchange(changes: SimpleChanges) {
+    if (changes.count) {
+      this.block = true;
+    }
+  }
+
   receiveMessage($event) {
-    if($event==true){
+    if ($event == true) {
       this.RefreshData();
       this.messageEvent.emit(true);
     }

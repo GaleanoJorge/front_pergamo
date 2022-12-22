@@ -414,6 +414,7 @@ import { FormTracingComponent } from './tracing/form-tracing/form-tracing.compon
 import { TracingComponent } from './tracing/tracing.component';
 import { TracingListComponent } from './tracing-list/tracing-list.component';
 import { FormTracingListComponent } from './tracing-list/form-tracing-list/form-tracing-list.component';
+import { ActionsPExamComponent } from './nursing-physical-exam/actions.component';
 
 
 @NgModule({
@@ -903,6 +904,8 @@ import { FormTracingListComponent } from './tracing-list/form-tracing-list/form-
     TracingComponent,
     TracingListComponent,
     FormTracingListComponent,
+
+    ActionsPExamComponent,
    
 
 

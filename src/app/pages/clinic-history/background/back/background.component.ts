@@ -4,6 +4,8 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
 import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
+import { Actions8Component } from './actions.component';
+import { ChBackgroundService } from '../../../../business-controller/ch_background.service';
 
 
 
@@ -27,8 +29,12 @@ export class BackgroundComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = ['Fecha','Lista', 'Revisión', 'Observación'];
+  public user;
+  public dialog;
+
 
   public form: FormGroup;
+
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
@@ -39,7 +45,20 @@ export class BackgroundComponent implements OnInit {
       perPage: 30,
     },
     columns: {
-
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'user': this.user,
+            'refresh': this.RefreshData.bind(this),
+            'closeDialog': this.closeDialog.bind(this),
+          };
+        },
+        renderComponent: Actions8Component,
+      },
       created_at: {
         title: this.headerFields[0],
         type: 'string',
@@ -82,6 +101,10 @@ export class BackgroundComponent implements OnInit {
   }
 
   async ngOnInit() {
+  }
+
+  closeDialog() {
+    this.dialog.close();
   }
 
   RefreshData() {

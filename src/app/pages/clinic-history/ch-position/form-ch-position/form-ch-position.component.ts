@@ -37,6 +37,7 @@ export class FormChPositionComponent implements OnInit {
   public diagnosis: any[];
   public ostomy_id: any[] = [];
   public patient_positions: any[] = [];
+  public botton_title: string = 'Guardar';
 
   public loadAuxData = true;
 
@@ -99,9 +100,10 @@ export class FormChPositionComponent implements OnInit {
         x;
         if (x.length > 0) {
           this.data = x
-          this.disabled = true
-          this.isSubmitted = true
-          this.form.controls.observation.disable();
+          // this.disabled = true
+          this.isSubmitted = false;
+          this.botton_title = 'Actualizar';
+          // this.form.controls.observation.disable();
         }
         this.loading = false;
       });
@@ -131,7 +133,7 @@ export class FormChPositionComponent implements OnInit {
 
 
   async save() {
-    this.isSubmitted = true;
+    // this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
@@ -145,6 +147,7 @@ export class FormChPositionComponent implements OnInit {
           ch_record_id: this.record_id,
 
         }).then(x => {
+          this.isSubmitted = false;
           this.toastService.success('', x.message);
           if (this.saved) {
             this.saved();
@@ -160,12 +163,15 @@ export class FormChPositionComponent implements OnInit {
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
+          this.data.id = x.data.ch_position.id;
+          this.isSubmitted = false;
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
           if (this.type_record == 1) {
-            this.form.controls.observation.disable();
-            this.isSubmitted = true;
-            this.disabled = true
+            // this.form.controls.observation.disable();
+            this.isSubmitted = false; 
+            // this.disabled = true
+            this.botton_title = 'Actualizar';
           } else {
             this.form.patchValue({
               patient_position_id: '',
@@ -182,5 +188,5 @@ export class FormChPositionComponent implements OnInit {
 
     }
   }
-
+ 
 }
