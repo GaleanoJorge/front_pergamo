@@ -36,9 +36,8 @@ import { DateFormatPipe } from './pipe/date-format.pipe';
 import { PagesModule } from './pages/pages.module';
 import { CurrencyPipe, PercentPipe } from '@angular/common';
 
-
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DateFormatPipe],
+  declarations: [AppComponent, LoginComponent, DateFormatPipe,],
   imports: [ 
     MbscModule, 
     BrowserModule,
@@ -80,7 +79,7 @@ import { CurrencyPipe, PercentPipe } from '@angular/common';
     PagesModule,
     DateFormatPipe,
     CurrencyPipe,
-    NbEvaIconsModule
+    NbEvaIconsModule,
   ],
 })
 export class AppModule {

@@ -174,10 +174,10 @@ export class FormMedicalDiaryComponent implements OnInit {
   }
 
   onChange(event: any): void { 
-    // console.log(event);
-    this.calendar_array = event.valueText.replaceAll('/','-').split(', ').sort();
-    this.calendar_array = event.value.sort().map((date) => {
-      return date.toISOString().split('T')[0];
+    //this.calendar_array = event.valueText.replaceAll('/','-').split(', ').sort();
+    this.calendar_array = event.map((date) => {return date.replaceAll('/','-')});
+    this.calendar_array = event.map((date) => {
+      return date.split('-').reverse().join('-');
     });
   }
 
@@ -188,6 +188,10 @@ export class FormMedicalDiaryComponent implements OnInit {
         startWith(''),
         map((filterString) => this.filter(filterString))
       );
+  }
+
+  receiveMessage($event){
+    this.onChange($event);
   }
 
   onChanges() {
