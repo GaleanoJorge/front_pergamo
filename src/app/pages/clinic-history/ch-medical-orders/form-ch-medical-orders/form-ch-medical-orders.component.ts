@@ -135,7 +135,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
           .Save({
             ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? true : false,
             procedure_id: this.form.controls.ambulatory_medical_order.value == true ? this.procedure_id : null,
-            services_briefcase_id: this.form.controls.ambulatory_medical_order.value == false ? this.procedure_id : null,
+            services_briefcase_id: this.form.controls.ambulatory_medical_order.value != true ? this.procedure_id : null,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
@@ -171,7 +171,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
 
   saveCode(e): void {
-    var localidentify = this.procedure.find(item => this.form.controls.ambulatory_medical_order.value==1? item.name : item.manual_price.procedure.name == e);
+    var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name) == e);
 
     if (localidentify) {
       this.procedure_id = localidentify.id;

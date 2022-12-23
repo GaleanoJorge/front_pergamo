@@ -135,8 +135,8 @@ export class FormChInterconsultationComponent implements OnInit {
           .Save({
             type_of_attention_id: this.form.controls.type_of_attention_id.value,
             ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? 'Sí' : null,
-            procedure_id: this.form.controls.ambulatory_medical_order.value ? this.procedure_id : null,
-            services_briefcase_id: this.form.controls.ambulatory_medical_order.value ? null : this.procedure_id,
+            procedure_id: this.form.controls.ambulatory_medical_order.value == true  ? this.procedure_id : null,
+            services_briefcase_id: this.form.controls.ambulatory_medical_order.value == true  ? null : this.procedure_id,
             specialty_id: this.specialty_id,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
@@ -186,7 +186,7 @@ export class FormChInterconsultationComponent implements OnInit {
   }
 
   saveCodeProcedure(e): void {
-    var localidentify = this.procedure.find(item => this.form.controls.ambulatory_medical_order.value==1? item.name : item.manual_price.procedure.name == e);
+    var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name) == e);
 
     if (localidentify) {
       this.procedure_id = localidentify.id;
