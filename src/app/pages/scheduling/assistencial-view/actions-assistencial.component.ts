@@ -27,6 +27,9 @@ import { ViewCell } from 'ng2-smart-table';
       >
       <nb-icon icon="file-add-outline"></nb-icon>
     </button>
+    <a *ngIf="value.data.url_teams" nbTooltip="TeleConsulta" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost href='{{value.data.url_teams}}' target="_blank">
+    <nb-icon icon="video-outline"></nb-icon>
+</a>
     </div>
   `,
 })

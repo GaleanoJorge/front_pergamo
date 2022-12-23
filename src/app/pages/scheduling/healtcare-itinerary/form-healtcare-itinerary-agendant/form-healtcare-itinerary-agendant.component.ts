@@ -146,6 +146,7 @@ export class FormHealthcareItineraryAgendantComponent implements OnInit {
       finish_hour: [this.data.finish_hour],
       state_id: [this.data.medical_status_id == 1 ? 2 :this.data.medical_status_id , Validators.compose([Validators.required])],
       eps_id: [this.data.eps_id],
+      telemedicine: [this.data.telemedicine],
       contract_id: [this.data.contract ? this.data.contract.name : '' , Validators.compose([Validators.required])],
       briefcase_id: [this.data.briefcase ? this.data.briefcase.name : '', Validators.compose([Validators.required])],
       procedure_id: [{value : this.data.services_briefcase ? this.data.services_briefcase.manual_price.name : '', disabled: this.onlyView}, Validators.compose([Validators.required])],
@@ -359,6 +360,7 @@ export class FormHealthcareItineraryAgendantComponent implements OnInit {
             briefcase_id: this.form.controls.briefcase_id.value,
             service_briefcase_id: this.procedure_id,
             patient_id: this.patient_data.id,
+            is_telemedicine: this.form.controls.telemedicine.value,
             copay_id: this.form.controls.category_id.value,
             copay_value: this.copay_value,
           })
