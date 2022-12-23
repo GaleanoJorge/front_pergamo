@@ -60,6 +60,7 @@ import { AgreementPackageComponent } from './components/form-users/agreement-pac
 import { AdmissionsListComponent } from './admissions/admissions-list/admissions-list.component';
 import { DateFormatPipe } from '../pipe/date-format.pipe';
 import { CurrencyPipe } from '@angular/common';
+import { MulticalendarComponent } from './components/multicalendar/multicalendar.component';
 //import { ReferenceComponent } from './reference/reference.component';
 
 
@@ -123,6 +124,7 @@ import { CurrencyPipe } from '@angular/common';
     AmountWorkLocationComponent,
     SelectWorkLocationComponent,
     WorkLocationPackageComponent,
+    MulticalendarComponent,
     BillingPadComponent,
    // ReferenceComponent,
     SelectUsersCampusComponent,
@@ -145,6 +147,7 @@ import { CurrencyPipe } from '@angular/common';
     SelectWorkLocationComponent,
     SelectUsersCampusComponent,
     WorkLocationPackageComponent,
+    MulticalendarComponent,
     UsersCampusComponent,
     WebSpeachComponent,
     InsumeRequestComponent,

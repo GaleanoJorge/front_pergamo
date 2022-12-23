@@ -69,8 +69,9 @@
         </div> -->
         <div class="col-md-12">
           <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha:</label>
-          <mbsc-datepicker [min]="min" (onChange)="onChange($event)" [controls]="['calendar']" [selectMultiple]="true" selectCounter="true">
-          </mbsc-datepicker> 
+          <ngx-multicalendar (messageEmit)="receiveMessage($event)"></ngx-multicalendar>
+          <!-- <mbsc-datepicker [min]="min" (onChange)="onChange($event)" [controls]="['calendar']" [selectMultiple]="true" selectCounter="true">
+          </mbsc-datepicker>  -->
         </div>
         <div class="col-md-6">
           <label for="start_time" class="form-text text-muted font-weight-bold">Hora de inicio:</label>
