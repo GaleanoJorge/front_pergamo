@@ -59,9 +59,6 @@ import { actionsSemaphore } from './assistencial-view/actionsSemaphore.component
 import { ActionsAssistencialComponent } from './assistencial-view/actions-assistencial.component';
 import { ReasonCancelComponent } from './reason-cancel/reason-cancel.component';
 import { FormReasonCancelComponent } from './reason-cancel/form-reason-cancel/form-reason-cancel.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { MbscModule } from '@mobiscroll/angular';
 
 
 
@@ -95,7 +92,6 @@ import { MbscModule } from '@mobiscroll/angular';
     NbDatepickerModule,
     NbSpinnerModule,
     ScheduleModule,
-    MbscModule,
   ],
   declarations: [
 
