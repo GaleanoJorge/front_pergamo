@@ -1813,7 +1813,8 @@
             <div class="row justify-content-md-center">
               <div class="col col-lg-4 ">
                 <label class="form-text font-weight-bold">Clasificación:</label>
-                <nb-select class="form-text" id="level_value" formControlName="level_value" placeholder="Seleccione...">
+                <nb-select class="form-text" id="level_value" formControlName="level_value" placeholder="Seleccione..." 
+                status="{{ isSubmitted && form.controls.level_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="0/Nivel 0 Nonambulation">Nivel 0 - Nonambulation</nb-option>
                   <nb-option value="1/Nivel 1 Deambulación funcional">Nivel 1 - Deambulación funcional</nb-option>
                   <nb-option value="2/Nivel 2 Hogar deambulación">Nivel 2 - Hogar deambulación</nb-option>
@@ -1866,7 +1867,7 @@
               <div class="col col-lg-4">
                 <label class="form-text text-muted font-weight-bold">Clasificación:</label>
                 <nb-select class="form-text" id="grade_value" formControlName="grade_value" grade_value
-                  placeholder="Seleccione...">
+                  placeholder="Seleccione..." status="{{ isSubmitted && form.controls.grade_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="0/Nivel 0">Nivel 0</nb-option>
                   <nb-option value="1/Nivel 1">Nivel 1</nb-option>
                   <nb-option value="2/Nivel 2">Nivel 2</nb-option>
@@ -2003,7 +2004,7 @@
               <div class="col col-lg-4">
                 <label class="form-text text-muted font-weight-bold">Grado</label>
                 <nb-select class="form-text" id="grade_value" formControlName="gradeEcog_value" grade_value
-                  placeholder="Seleccione...">
+                  placeholder="Seleccione..." status="{{ isSubmitted && form.controls.gradeEcog_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                   <nb-option value="0/Grado 0">Grado 0</nb-option>
                   <nb-option value="1/Grado 1">Grado 1</nb-option>
                   <nb-option value="2/Grado 2">Grado 2</nb-option>

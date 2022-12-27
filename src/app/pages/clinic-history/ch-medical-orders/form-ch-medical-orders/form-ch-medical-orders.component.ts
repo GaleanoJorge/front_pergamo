@@ -39,6 +39,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
     private chRecord: ChRecordService,
     private route: ActivatedRoute,
     private FrequencyS: FrequencyService,
+    private ProductS: ProcedureService,
     private procedureS: ProcedureService,
     private serviceS: ServicesBriefcaseService,
     private ChMedicalOrdersS: ChMedicalOrdersService,
@@ -62,6 +63,9 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
       };
     };
+    this.serviceS.GetProcedureByChRecordId(this.record_id).then(x => {
+      this.procedure = x;
+    });
 
     this.FrequencyS.GetCollection().then(x => {
       this.frequency_id = x;
@@ -70,16 +74,16 @@ export class FormChMedicalOrdersComponent implements OnInit {
     this.serviceS.GetProcedureByChRecordId(this.record_id).then(x => {
       this.procedure = x;
     });
-    
+
     this.form = this.formBuilder.group({
       ambulatory_medical_order: [this.data.ambulatory_medical_order],
       procedure_id: [this.data.procedure_id],
       amount: [this.data.amount],
       frequency_id: [this.data.frequency_id],
       observations: [this.data.observations],
-      
+
     });
-    
+
     this.onChange();
   }
 
@@ -121,7 +125,8 @@ export class FormChMedicalOrdersComponent implements OnInit {
               procedure_id: '',
               amount: '',
               frequency_id: '',
-              observations: '' });
+              observations: ''
+            });
             if (this.saved) {
               this.saved();
             }
@@ -152,7 +157,8 @@ export class FormChMedicalOrdersComponent implements OnInit {
               procedure_id: '',
               amount: '',
               frequency_id: '',
-              observations: '' });
+              observations: ''
+            });
             if (this.saved) {
               this.saved();
             }
@@ -171,7 +177,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
 
   saveCode(e): void {
-    var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name) == e);
+    var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value == true ? item.name : item.manual_price.procedure.name) == e);
 
     if (localidentify) {
       this.procedure_id = localidentify.id;
@@ -185,34 +191,35 @@ export class FormChMedicalOrdersComponent implements OnInit {
   }
 
 
-onChange() {
+  onChange() {
 
-  this.form.get('ambulatory_medical_order').valueChanges.subscribe(val => {
-    this.procedure_id = null;
-    this.procedure = null;
-    this.form.patchValue({
-      procedure_id: '',
-      amount: '',
-      frequency_id: '',
-      observations: '' });
+    this.form.get('ambulatory_medical_order').valueChanges.subscribe(val => {
+      this.procedure_id = null;
+      this.procedure = null;
+      this.form.patchValue({
+        procedure_id: '',
+        amount: '',
+        frequency_id: '',
+        observations: ''
+      });
 
       this.form.controls.procedure_id.setErrors({ 'incorrect': true });
-    if (val == 1) {
+      if (val == 1) {
 
-      this.procedureS.GetCollection().then(x => {
-        this.procedure = x;
-      });  
-     
+        this.procedureS.GetCollection().then(x => {
+          this.procedure = x;
+        });
 
-    } else {
-      this.serviceS.GetProcedureByChRecordId(this.record_id).then(x => {
-        this.procedure = x;
-      });
-   
 
-    };
-  });
+      } else {
+        this.serviceS.GetProcedureByChRecordId(this.record_id).then(x => {
+          this.procedure = x;
+        });
 
-}
+
+      };
+    });
+
+  }
 }
 

@@ -11,7 +11,7 @@ import { ScopeOfAttentionService } from '../../../business-controller/scope-of-a
 import { AdmissionRouteService } from '../../../business-controller/admission-route.service';
 import { LocationService } from '../../../business-controller/location.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { ChSystemExamService } from '../../../business-controller/ch_system_exam.service';
+import { ChPhysicalExamService } from '../../../business-controller/ch_physical_exam.service';
 
 @Component({
   template: `
@@ -25,9 +25,9 @@ import { ChSystemExamService } from '../../../business-controller/ch_system_exam
 <ng-template #confirmAction>
   <div class="container-fluid" fullWidth>
     <nb-card style="width: 100%">
-    <nb-card-header>Edición Examen por sistemas: {{this.value.data.type_ch_system_exam.name}}</nb-card-header>
+    <nb-card-header>Edición Examen Físico: {{this.value.data.type_ch_physical_exam.name}}</nb-card-header>
     <nb-card-body>
-    <form [formGroup]="form" (ngSubmit)="EditSystem()">
+    <form [formGroup]="form" (ngSubmit)="EditPhysical()">
   <div class="row">
 
 
@@ -40,11 +40,11 @@ import { ChSystemExamService } from '../../../business-controller/ch_system_exam
   </div>
   
   <div class="col-md-12">
-    <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
-    <textarea [disabled]="this.disabled" id="observation"  nbInput fullWidth
-      formControlName="observation" observation onpaste="return false" rows="4" cols="50"
-      status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> 
-      {{this.value.data.observation}}</textarea>
+    <label class="form-text text-muted font-weight-bold text ">DESCRIPCIÓN:</label>
+    <textarea [disabled]="this.disabled" id="description"  nbInput fullWidth
+      formControlName="description" description onpaste="return false" rows="4" cols="50"
+      status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> 
+      {{this.value.data.description}}</textarea>
   </div>
 </div>
 
@@ -65,7 +65,7 @@ import { ChSystemExamService } from '../../../business-controller/ch_system_exam
 
   `,
 })
-export class Actions7Component implements ViewCell {
+export class ActionsPExamComponent implements ViewCell {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() value: any;    // This hold the cell value
   public dialog;
@@ -103,23 +103,22 @@ export class Actions7Component implements ViewCell {
     private FlatS: FlatService,
     private AdmissionRouteS: AdmissionRouteService,
     private BedS: BedService,
-    private SystemExamS: ChSystemExamService,
-
+    private PhysicalExamS: ChPhysicalExamService,
   ) {
   }
   ngOnInit() {
     if (!this.data) {
       this.data = {
         revision: '',
-        observation: '',
+        description: '',
       };
     }
 
     this.form = this.formBuilder.group({
       revision: [this.value.data.revision, Validators.compose([Validators.required])],
-      observation: [this.value.data.observation, Validators.compose([Validators.required])],
-      
+      description: [this.value.data.description, Validators.compose([Validators.required])],
     });
+
   }
 
 
@@ -130,20 +129,22 @@ export class Actions7Component implements ViewCell {
   close() {
     this.dialog.close();
   }
+
   closeDialog() {
     this.dialog.close();
   }
+
   RefreshData() {
     this.table.refresh();
   }
 
-  EditSystem() {
+  EditPhysical() {
     this.isSubmitted = true;
-    this.SystemExamS.Update({
+    this.PhysicalExamS.Update({
       id: this.value.data.id,
       revision: this.form.controls.revision.value,
-      observation: this.form.controls.observation.value,
-      type_ch_system_exam_id: this.value.data.type_ch_system_exam.id,
+      description: this.form.controls.description.value,
+      type_ch_physical_exam_id: this.value.data.type_ch_physical_exam.id,
       type_record_id: this.value.data.type_record_id,
       ch_record_id: this.value.data.ch_record_id,
     })
@@ -153,7 +154,7 @@ export class Actions7Component implements ViewCell {
         this.value.refresh();
         this.form.patchValue({
           observation: '',
-          revision: ''
+          description: ''
         });
         if (this.saved) {
           this.saved();
@@ -164,6 +165,4 @@ export class Actions7Component implements ViewCell {
         this.loading = false;
       });
   }
-
-
 }
