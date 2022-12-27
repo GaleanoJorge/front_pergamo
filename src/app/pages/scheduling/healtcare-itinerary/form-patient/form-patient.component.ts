@@ -269,7 +269,7 @@ export class FormPatientComponent implements OnInit {
       ],
       gender_id: [
         this.GetData('gender_id'),
-        // Validators.compose([Validators.required]),
+        Validators.compose([Validators.required]),
       ],
       is_disability: [
         ((this.GetData('is_disability') === '' || this.GetData('is_disability') === null/**  || !this.GetData('is_disability')*/) ? false : true),
