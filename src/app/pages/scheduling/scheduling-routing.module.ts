@@ -9,6 +9,7 @@ import { NonWorkingDaysComponent } from './non-working-days/non-working-days.com
 import { ReasonCancelComponent } from './reason-cancel/reason-cancel.component';
 import { SchedulingComponent } from './scheduling.component';
 import { TelemedicineListComponent } from './telemedicine/telemedicine-list/telemedicine-list.component';
+import { TransferScheduleComponent } from './transfer-schedule/transfer-schedule.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: 'reason-cancel',
         component: ReasonCancelComponent,
+      },
+      {
+        path: 'schedule-transfer',
+        component: TransferScheduleComponent,
       },
     ],
   },

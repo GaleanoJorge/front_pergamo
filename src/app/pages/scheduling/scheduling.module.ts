@@ -62,6 +62,8 @@ import { FormReasonCancelComponent } from './reason-cancel/form-reason-cancel/fo
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { MbscModule } from '@mobiscroll/angular';
+import { FormTransferScheduleComponent } from './transfer-schedule/form-transfer-schedule/form-transfer-schedule.component';
+import { TransferScheduleComponent } from './transfer-schedule/transfer-schedule.component';
 
 
 
@@ -143,6 +145,9 @@ import { MbscModule } from '@mobiscroll/angular';
     FormPatientComponent,
     
     SchedulingComponent,
+
+    TransferScheduleComponent,
+    FormTransferScheduleComponent
   ],
   exports: [
 
