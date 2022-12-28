@@ -97,7 +97,6 @@ import { TransferScheduleComponent } from './transfer-schedule/transfer-schedule
     NbDatepickerModule,
     NbSpinnerModule,
     ScheduleModule,
-    MbscModule,
   ],
   declarations: [
 

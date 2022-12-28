@@ -8,6 +8,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ChMedicalOrdersService } from '../../../business-controller/ch-medical-orders.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-ch-medical-orders',
@@ -58,6 +59,7 @@ export class ChMedicalOrdersComponent implements OnInit {
             'data': row,
             'assigned': this.assigned_management_plan,
             'user': this.users,
+            'record_id': this.record_id,
             'delete': this.DeleteConfirmMedicalOrden.bind(this),
             'refresh': this.RefreshData.bind(this),
           };
@@ -124,9 +126,11 @@ export class ChMedicalOrdersComponent implements OnInit {
     private toastService: NbToastrService,
     private medicalOrdersS: ChMedicalOrdersService,
     private deleteConfirmService: NbDialogService,
+    private route: ActivatedRoute,
     ) {}
 
   async ngOnInit() {
+    this.record_id = this.route.snapshot.params.id;
   }
 
     Historic() {
