@@ -198,7 +198,7 @@ export class HealthcareItineraryComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      procedure_id: [this.data.office_id],
+      procedure_id: [this.data.procedure_id],
       assistance_id: [this.data.assistance_id],
       campus_id: [this.data.campus_id],
       start_date: [this.data.start_date],

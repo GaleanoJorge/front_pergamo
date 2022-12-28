@@ -130,7 +130,6 @@ export class MedicalDiaryDaysService {
   Transfer(transferData): Promise<ServiceObject> {
     let servObj = new ServiceObject('medical_diary_days/transfer');
     servObj.data = transferData;
-    console.log(servObj.data);
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -138,6 +137,24 @@ export class MedicalDiaryDaysService {
           throw new Error(servObj.message);
 
         return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetByUserAndProcedure(filterData={}): Promise<MedicalDiaryDays[]> {
+    let servObj = new ServiceObject('get_medical_diary_days_by_user_and_procedure');
+    servObj.data = filterData;
+    return this.webAPI.GetAction(servObj, filterData)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        let medicalDiaryDays = <MedicalDiaryDays[]>servObj.data.medical_diary_days;
+
+        return Promise.resolve(medicalDiaryDays);
       })
       .catch(x => {
         throw x.message;
