@@ -10,7 +10,7 @@ import {
     NbStepperModule,
     NbTabsetModule,
     NbUserModule,
-    NbInputModule, NbSelectModule, NbRadioModule, NbIconModule, NbSpinnerModule, NbPopoverModule, NbToggleModule,NbTooltipModule
+    NbInputModule, NbSelectModule, NbRadioModule, NbIconModule, NbSpinnerModule, NbPopoverModule, NbToggleModule,NbTooltipModule, NbAutocompleteModule
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -55,7 +55,8 @@ import { CurrencyPipe } from '@angular/common';
       NbRadioModule,
       NbIconModule,
       NbSpinnerModule,
-      NbToggleModule, 
+      NbToggleModule,
+      NbAutocompleteModule
   ],
   declarations: [
     ActionsComponentED,

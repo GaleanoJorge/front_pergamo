@@ -19,6 +19,7 @@ import { CopayCategoryComponent } from '../../../scheduling/copay_category/copay
 import { CopayParametersService } from '../../../../business-controller/copay-parameters.service';
 import { CurrencyPipe } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ServicesBriefcase } from '../../../../models/services-briefcase';
 
 @Component({
   selector: 'ngx-form-admissions-patient',
@@ -56,7 +57,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public diagnosis: any[] = [];
   public briefcase: any[] = [];
   public categories: any[] = [];
-  public procedures: any[] = [];
   public copay_value = null;
   public show_diagnostic: boolean = false;
   public show_inputs: boolean = false;
@@ -69,6 +69,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public regime: any[];
   public route;
   public show_cats: boolean = false;
+  public procedure: any;
+  public filteredProcedureOptions$: any[] = [];
+  public filteredProcedureOptionsApplied: any[] = [];
   readonly MAX_VALUE_FILE_SIZE: Number = 1000000;
 
   constructor(
@@ -222,6 +225,23 @@ export class FormAdmissionsPatientComponent implements OnInit {
       this.form.get('eps').setValue(this.data.eps_id);
       this.ShowDiagnostic(1);
     }
+
+    this.form.controls.procedure_id.valueChanges.subscribe(value => {
+      this.filterProcedures(value);
+    })
+
+  }
+
+  private filterProcedures(value) {
+
+    this.filteredProcedureOptionsApplied = this.filteredProcedureOptions$.filter((procedure) => (procedure.manual_price.own_code + ' - ' + procedure.manual_price.name).includes(value.toUpperCase()));
+
+  }
+
+  onSelectionChange($event) {
+    this.procedure = this.filteredProcedureOptions$.find(
+      (item) => item.manual_price.name == this.form.value.procedure_id.split(' - ')[1]
+    );
   }
 
   close() {
@@ -245,7 +265,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           contract_id: this.form.controls.contract_id.value,
           briefcase_id: this.form.controls.briefcase_id.value,
           regime_id: this.form.controls.regime_id.value,
-          procedure_id: this.form.controls.procedure_id.value,
+          procedure_id: this.procedure.id,
           auth_number: this.form.controls.procedure_id.value,
           file_auth: this.form.controls.procedure_id.value,
           campus_id: this.campus_id,
@@ -277,7 +297,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
             admission_id: this.admission_id,
             briefcase_id: this.form.controls.briefcase_id.value,
             diagnosis_id: this.diagnosis_id,
-            procedure_id: this.form.controls.procedure_id.value,
+            procedure_id: this.procedure.id,
             admission_route_id: this.form.controls.admission_route_id.value,
             scope_of_attention_id:
               this.form.controls.scope_of_attention_id.value,
@@ -446,6 +466,10 @@ export class FormAdmissionsPatientComponent implements OnInit {
     }
   }
 
+  getCompleteName(item){
+    return item.manual_price.own_code + " - " + item.manual_price.name;
+  }
+
   showCaregiver() {
     if (this.form.controls.has_caregiver.value == true) {
       this.toastService.warning(
@@ -548,7 +572,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
     this.form.get('briefcase_id').valueChanges.subscribe((val) => {
       if (val === '') {
-        this.procedures = [];
+        this.filteredProcedureOptionsApplied = [];
       } else if (this.form.value.admission_route_id == 1) {
         this.Getprocedures(val).then();
       } else {
@@ -607,8 +631,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
         var localCat  = this.categories.find(item => item.id == val);
         if(localCat.payment_type == 2){
           
-          var localproc = this.procedures.find(
-            (item) => item.id == this.form.value.procedure_id
+          var localproc = this.filteredProcedureOptions$.find(
+            (item) => item.manual_price.name == this.form.value.procedure_id.split(' - ')[1]
           );
           if(localproc){
             this.copay_value = localproc.value*localCat.value;
@@ -775,7 +799,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       });
     }
     if ((!pavilion_id || pavilion_id === '') || (!this.data.eps ? (!this.form.controls.procedure_id.value || this.form.controls.procedure_id.value === '') : false) || (!ambit || ambit === '')) return Promise.resolve(false);
-    var proc =  this.data.eps ? 0 : this.procedures.find(item => item.id == this.form.controls.procedure_id.value).manual_price.procedure_id;
+    var proc =  this.data.eps ? 0 : this.filteredProcedureOptions$.find(item => item.manual_price.name == this.form.controls.procedure_id.value.split(" - ")[1]).manual_price.procedure_id;
     return this.BedS.GetBedByPavilion(pavilion_id, ambit, proc, this.ambolatory ? { office: this.data.medical_diary.office_id, patient_id: this.user_id, } : {
       patient_id: this.user_id,
     }).then(x => {
@@ -835,7 +859,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
         ? this.data.services_briefcase.manual_price.procedure_id
         : null,
     }).then((x) => {
-      this.procedures = x;
+      this.filteredProcedureOptions$ = x;
+      this.filteredProcedureOptionsApplied = this.filteredProcedureOptions$;
       if (
         briefcase_id ==
           (this.data.briefcase_id == '' ? null : this.data.briefcase_id) &&

@@ -76,13 +76,16 @@
         </div>
         <div class="col-md-6" *ngIf="this.form.value.admission_route_id==1 || this.form.value.scope_of_attention_id == 2">
           <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimientos del portafolio:</label>
-          <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth
-            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <input fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Selecciona procedimiento"
+            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            [nbAutocomplete]="profControl" />
+
+          <nb-autocomplete #profControl (selectedChange)="onSelectionChange($event)">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
-              [value]="item.id">
-              {{ item.manual_price.own_code }} - {{ item.manual_price.name }}</nb-option>
-          </nb-select>
+            <nb-option *ngFor="let item of filteredProcedureOptionsApplied" [value]="this.getCompleteName(item)">
+              {{ item.manual_price.own_code }} - {{ item.manual_price.name }}
+            </nb-option>
+          </nb-autocomplete> 
         </div>
         <div class="col-12 col-sm-12 col-md-6">
           <label for="regime" class="form-text text-muted font-weight-bold">Régimen:</label>
