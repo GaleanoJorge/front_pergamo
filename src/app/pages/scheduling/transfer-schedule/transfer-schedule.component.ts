@@ -96,7 +96,6 @@ export class TransferScheduleComponent implements OnInit {
   ngOnInit(): void {
 
     this.today = new Date();
-    this.today.to
     this.max_day = new Date(this.today.getFullYear() + 2, this.today.getMonth(), this.today.getDate());
     this.today = this.datePipe.transform(this.today, "yyyy-MM-dd");
     this.max_day = this.datePipe.transform(this.max_day, "yyyy-MM-dd");

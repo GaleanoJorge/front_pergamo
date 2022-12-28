@@ -54,6 +54,7 @@ import { CampusService } from '../../../business-controller/campus.service';
 import { Campus } from '../../../models/campus';
 import { MedicalDiaryDaysService } from '../../../business-controller/medical_diary_days.service';
 import { MedicalStatusService } from '../../../business-controller/medical_status.service';
+import { DatePipe } from '@angular/common';
 
 // import { ActionsDaysComponent } from './actions.component';
 
@@ -113,9 +114,10 @@ export class HealthcareItineraryComponent implements OnInit {
   public selectedOptions2: any[] = [];
   public patient_data: any;
   public today = null;
-  public min_day = null;
+  public max_day = null;
   public rowAutoHeight: boolean = true;
   public datafi;
+  public isManualEditing = false;
   //It's only loaded when is rescheduling
   public procedureIdValue;
 
@@ -184,10 +186,17 @@ export class HealthcareItineraryComponent implements OnInit {
     private campusS: CampusService,
     private medicalStatusS: MedicalStatusService,
     private medicalDiaryDaysS: MedicalDiaryDaysService,
-    private assistanceProcedureS: AssistanceProcedureService
+    private assistanceProcedureS: AssistanceProcedureService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
+
+    this.today = new Date();
+    this.max_day = new Date(this.today.getFullYear() + 2, this.today.getMonth(), this.today.getDate());
+    this.today = this.datePipe.transform(this.today, "yyyy-MM-dd");
+    this.max_day = this.datePipe.transform(this.max_day, "yyyy-MM-dd");
+
     if (!this.data) {
       this.data = {
         procedure_id: null,
@@ -222,6 +231,19 @@ export class HealthcareItineraryComponent implements OnInit {
       this.loadProcedureName();
     }
 
+    this.form.controls.procedure_id.valueChanges.subscribe(x => {
+      this.isManualEditing = true;
+      this.form.controls.assistance_id.setValue('');
+    })
+
+    this.form.controls.start_date.valueChanges.subscribe(x => {
+      this.onSelectionChange(null, 2);
+    })
+
+    this.form.controls.finish_date.valueChanges.subscribe(x => {
+      this.onSelectionChange(null, 2);
+    })
+
     this.onChanges();
   }
 
@@ -253,10 +275,9 @@ export class HealthcareItineraryComponent implements OnInit {
   }
 
   onChanges() {
-    this.form.get('start_date').valueChanges.subscribe((val) => {
-      this.min_day = val;
-    });
     this.form.get('campus_id').valueChanges.subscribe((val) => {
+      this.isManualEditing = true;
+      this.form.controls.assistance_id.setValue('');
       let procedureName = this.form.controls.procedure_id.value;
       if (procedureName) {
         let id = this.form.controls.procedure_id.value.split('-')[0];
@@ -282,9 +303,39 @@ export class HealthcareItineraryComponent implements OnInit {
         this.toastService.warning('', 'Debe seleccionar un item de la lista');
       }
     } else if (e == 2) {
+
+      let startDateInDate = new Date(this.form.controls.start_date.value);
+      let finishDateInDate = new Date(this.form.controls.finish_date.value);
+      let minDateInDate = new Date(this.today);
+      let maxDateInDate = new Date(this.max_day);
+
+      if (this.form.controls.start_date.value != null) {
+        if (startDateInDate < minDateInDate) {
+          this.toastService.warning('', "La fecha de inicio no puede ser anterior a la de hoy.");
+          return;
+        }
+        else if (startDateInDate > maxDateInDate) {
+          this.toastService.warning('', "La fecha de inicio no puede ser superior a 2 años desde hoy.");
+          return;
+        }
+      }
+      if (this.form.controls.finish_date.value != null) {
+        if (finishDateInDate < minDateInDate) {
+          this.toastService.warning('', "La fecha final no puede ser anterior a la de hoy.");
+          return;
+        } else if (finishDateInDate > maxDateInDate) {
+          this.toastService.warning('', "La fecha final no puede ser superior a 2 años desde hoy.");
+          return;
+        }
+      }
+
       localidentify = this.assistance.find(
         (item) => item.nombre_completo == $event
       );
+
+      if($event == null){
+        localidentify = this.user;
+      }
 
       if (localidentify) {
         this.assistance_id = localidentify.assistance_id;
@@ -294,10 +345,13 @@ export class HealthcareItineraryComponent implements OnInit {
         this.assistance_id = null;
         this.scheduleData = [];
         this.eventSettings = undefined;
-        this.toastService.warning(
-          '',
-          'Debe seleccionar un asistencial de la lista'
-        );
+        if (!this.isManualEditing) {
+          this.toastService.warning(
+            '',
+            'Debe seleccionar un asistencial de la lista'
+          );
+        }
+        this.isManualEditing = false;
       }
     }
   }
@@ -309,6 +363,7 @@ export class HealthcareItineraryComponent implements OnInit {
         this.form.patchValue({ procedure_id: procedure.id + " - " + procedure.name });
         this.procedure_id = procedure;
         this.id = procedure.id;
+        this.getAssistance(this.id);
       }
     ).catch((procedure) => { });
   }
@@ -322,9 +377,9 @@ export class HealthcareItineraryComponent implements OnInit {
     this.medicalDiaryDaysS
       .GetCollection({
         assistance_id: assistance_id,
-        campus_id: this.form.value.campus_id,
-        init_date: this.form.value.start_date,
-        finish_date: this.form.value.finish_date,
+        campus_id: this.form.controls.campus_id.value,
+        init_date: this.form.controls.start_date.value,
+        finish_date: this.form.controls.finish_date.value,
         medical_status_id: this.isRescheduling ? 1 : this.form.value.status_id,
         procedure_id: this.id,
       })
@@ -431,14 +486,14 @@ export class HealthcareItineraryComponent implements OnInit {
     // You can use your custom dialog
   }
 
-  public executeReschedule(data){
+  public executeReschedule(data) {
     return this.medicalDiaryDaysS.Transfer(data).then(x => {
       this.messageEvent.emit(true);
       return Promise.resolve(x.message);
     })
-    .catch(x => {
-      throw x;
-    });
+      .catch(x => {
+        throw x;
+      });
   }
 
   public onPopupOpen(args: PopupOpenEventArgs): void {
@@ -462,13 +517,13 @@ export class HealthcareItineraryComponent implements OnInit {
             saved: this.RefreshData.bind(this),
           },
         });
-      }else{
+      } else {
         this.dialogFormService.open(ConfirmDialogComponent, {
           context: {
             title: 'Confirmar traslado',
             body: '¿ESTÁ SEGURO QUE DESEA TRASLADAR ESTA CONSULTA?',
             textConfirm: 'TRASLADAR',
-            data: {oldId:this.medical_diary_day_id, newId:args.data["id"]},
+            data: { oldId: this.medical_diary_day_id, newId: args.data["id"] },
             delete: this.executeReschedule.bind(this)
           },
         });
