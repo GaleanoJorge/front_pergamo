@@ -28,6 +28,7 @@ import { Procedure } from '../../../models/procedure';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormTransferScheduleComponent } from './form-transfer-schedule/form-transfer-schedule.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'ngx-transfer-schedule',
@@ -47,7 +48,7 @@ export class TransferScheduleComponent implements OnInit {
   public title = 'Transferir agenda';
   public loading = true;
   public today = null;
-  public min_day = null;
+  public max_day = null;
   public isSubmitted = false;
   public assistance: any[] = [];
   public assistance_id: number;
@@ -88,10 +89,17 @@ export class TransferScheduleComponent implements OnInit {
     private formBuilder: FormBuilder,
     private assistanceS: AssistanceService,
     private procedureS: ProcedureService,
-    private dialogFormService: NbDialogService,) {
+    private dialogFormService: NbDialogService,
+    private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
+
+    this.today = new Date();
+    this.today.to
+    this.max_day = new Date(this.today.getFullYear() + 2, this.today.getMonth(), this.today.getDate());
+    this.today = this.datePipe.transform(this.today, "yyyy-MM-dd");
+    this.max_day = this.datePipe.transform(this.max_day, "yyyy-MM-dd");
     if (!this.data) {
       this.data = {
         procedure_id: null,
@@ -203,34 +211,57 @@ export class TransferScheduleComponent implements OnInit {
 
   submit($event) {
 
+    let startDateInDate = new Date(this.form.controls.start_date.value);
+    let finishDateInDate = new Date(this.form.controls.finish_date.value);
+    let minDateInDate = new Date(this.today);
+    let maxDateInDate = new Date(this.max_day);
 
     this.isSubmitted = true;
     if (!this.form.invalid) {
-      this.loading = true;
-      let nameSource = $event.submitter.name;
-      switch (nameSource) {
-        case "calendarButton":
-          this.loadSchedule();
-          break;
-        case "scheduleButton":
-          this.dialogFormService.open(FormTransferScheduleComponent, {
-            context: {
-              title: 'Transferir agenda',
-              userOrigin: this.user,
-              procedure: this.procedure,
-              startDate: this.form.controls.start_date.value,
-              finishDate: this.form.controls.finish_date.value,
-              startHour: this.form.controls.start_hour.value,
-              finishHour: this.form.controls.finish_hour.value
-            }
-          })
-          break;
-      }
-      this.loading = false;
-    } else {
-      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
-    }
 
+      if (!this.form.invalid) {
+        if (startDateInDate < minDateInDate) {
+          this.toastService.warning('', "La fecha de inicio no puede ser anterior a la de hoy.");
+          return;
+        }
+        else if (startDateInDate > maxDateInDate) {
+          this.toastService.warning('', "La fecha de inicio no puede ser superior a 2 años desde hoy.");
+          return;
+        }
+        else if (finishDateInDate < minDateInDate) {
+          this.toastService.warning('', "La fecha final no puede ser anterior a la de hoy.");
+          return;
+        } else if (finishDateInDate > maxDateInDate) {
+          this.toastService.warning('', "La fecha final no puede ser superior a 2 años desde hoy.");
+          return;
+        }
+
+        this.loading = true;
+        let nameSource = $event.submitter.name;
+        switch (nameSource) {
+          case "calendarButton":
+            this.loadSchedule();
+            break;
+          case "scheduleButton":
+            this.dialogFormService.open(FormTransferScheduleComponent, {
+              context: {
+                title: 'Transferir agenda',
+                userOrigin: this.user,
+                procedure: this.procedure,
+                startDate: this.form.controls.start_date.value,
+                finishDate: this.form.controls.finish_date.value,
+                startHour: this.form.controls.start_hour.value,
+                finishHour: this.form.controls.finish_hour.value
+              }
+            })
+            break;
+        }
+        this.loading = false;
+      } else {
+        this.toastService.warning('', "Debe diligenciar los campos obligatorios");
+      }
+
+    }
   }
 
   onActionComplete(args: ActionEventArgs): void {

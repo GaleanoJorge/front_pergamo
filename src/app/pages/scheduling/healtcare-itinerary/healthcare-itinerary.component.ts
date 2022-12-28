@@ -75,6 +75,7 @@ export class HealthcareItineraryComponent implements OnInit {
   @Input() medical_diary_id;
   @Input() medical_diary_day_id;
   @Output() messageEvent = new EventEmitter<any>();;
+  @Input() campus_id;
 
   public isSubmitted = false;
   public messageError: string = null;
@@ -117,6 +118,7 @@ export class HealthcareItineraryComponent implements OnInit {
   public datafi;
   //It's only loaded when is rescheduling
   public procedureIdValue;
+
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -193,7 +195,7 @@ export class HealthcareItineraryComponent implements OnInit {
         start_date: null,
         finish_date: null,
         status_id: null,
-        campus_id: null
+        campus_id: this.campus_id
       };
     }
 

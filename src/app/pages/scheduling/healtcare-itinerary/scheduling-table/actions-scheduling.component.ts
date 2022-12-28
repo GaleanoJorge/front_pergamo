@@ -85,7 +85,7 @@ import { ViewCell } from 'ng2-smart-table';
         <nb-card-header>
         </nb-card-header>
         <nb-card-body>
-          <ngx-healthcare-itinerary [isRescheduling]="true" (messageEvent)="receiveMessage($event)" [medical_diary_id]="rowData.medical_diary_id" [medical_diary_day_id]="rowData.id"></ngx-healthcare-itinerary>
+          <ngx-healthcare-itinerary [isRescheduling]="true" (messageEvent)="receiveMessage($event)" [medical_diary_id]="rowData.medical_diary_id" [medical_diary_day_id]="rowData.id" [campus_id]="rowData.medical_diary.campus_id"></ngx-healthcare-itinerary>
         </nb-card-body>
 
         <nb-card-footer class="d-flex justify-content-end">
