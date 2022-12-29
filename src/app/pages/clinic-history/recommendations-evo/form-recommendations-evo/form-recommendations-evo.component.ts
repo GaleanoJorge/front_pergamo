@@ -15,6 +15,9 @@ export class FormRecommendationsEvoComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any;
+  @Input() medicine: boolean = false;
+  @Input() enfermeryreco: boolean = false;
+  @Input() nutrition: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -23,9 +26,10 @@ export class FormRecommendationsEvoComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public showTable;
-  public recommendations_evo_id : any[];;
-  public ch_evo_soap_id : any[];
- 
+  public recommendations_evo_id: any[];;
+  public ch_evo_soap_id: any[];
+  public recommendations: any[];
+
 
 
   constructor(
@@ -33,24 +37,36 @@ export class FormRecommendationsEvoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ChRecommendationsEvoS: ChRecommendationsEvoService,
     private RecommendationsEvoS: RecommendationsEvoService,
-    
-    
+
+
   ) {
   }
 
   async ngOnInit(): Promise<void> {
     if (!this.data || this.data.length == 0) {
       this.data = {
-        patient_family_education:'',
+        patient_family_education: '',
         recommendations_evo_id: '',
         description: '',
-        observation:'',
-        
+        observation: '',
+
       };
     };
 
     this.RecommendationsEvoS.GetCollection().then(x => {
-      this.recommendations_evo_id = x; //variable que trae toda la info de la tabla
+      this.recommendations_evo_id = x;
+      if (this.medicine == true) {
+        this.recommendations = this.recommendations_evo_id.filter((item) => item.code == 1)
+      } else if (this.enfermeryreco == true) {
+        this.recommendations = this.recommendations_evo_id.filter((item) => item.code == 2)
+      } 
+      else if (this.nutrition == true) {
+        this.recommendations = this.recommendations_evo_id.filter((item) => item.code == 3)
+      } else { 
+        this.recommendations = this.recommendations_evo_id.filter((item) => item.code == 1)
+      }
+      
+
     });
 
     this.ChRecommendationsEvoS.GetCollection({
@@ -61,16 +77,16 @@ export class FormRecommendationsEvoComponent implements OnInit {
         this.messageEvent.emit(true);
       }
     });
-    
 
-   
+
+
     this.form = this.formBuilder.group({
       patient_family_education: [this.data.patient_family_education],
       recommendations_evo_id: [this.data.recommendations_evo_id,],
       description: [this.data.description],
       observation: [this.data.observation,],
-   
- 
+
+
     });
   }
 
@@ -86,13 +102,13 @@ export class FormRecommendationsEvoComponent implements OnInit {
           patient_family_education: this.form.controls.patient_family_education.value,
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
           observations: this.form.controls.observation.value,
-      
+
           type_record_id: this.type_record,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({ patient_family_education:'', recommendations_evo_id: '', observation:'', });
+          this.form.patchValue({ patient_family_education: '', recommendations_evo_id: '', observation: '', });
           if (this.saved) {
             this.saved();
           }
@@ -102,7 +118,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
         });
       } else {
         await this.ChRecommendationsEvoS.Save({
-          id: this.data.id, 
+          id: this.data.id,
           patient_family_education: this.form.controls.patient_family_education.value,
           recommendations_evo_id: this.form.controls.recommendations_evo_id.value,
           observations: this.form.controls.observation.value,
@@ -111,7 +127,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
-          this.form.patchValue({ patient_family_education:'', recommendations_evo_id: '', observation:'', });
+          this.form.patchValue({ patient_family_education: '', recommendations_evo_id: '', observation: '', });
           if (this.saved) {
             this.saved();
           }
@@ -127,15 +143,15 @@ export class FormRecommendationsEvoComponent implements OnInit {
         this.messageEvent.emit(true);
 
       }
-    } else{
+    } else {
       this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
 
-    }
-  
+  }
+
 
   onDescriptionChange(event) {
-    this.recommendations_evo_id.forEach(x => {
+    this.recommendations.forEach(x => {
       if (x.id == event) {
         this.form.controls.observation.setValue(x.description);
       }
