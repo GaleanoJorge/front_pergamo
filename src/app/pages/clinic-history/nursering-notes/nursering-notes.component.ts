@@ -21,6 +21,7 @@ export class NurseringNotesComponent implements OnInit {
   @Input() admission: any = null;
   @Input() is_pad: boolean = false;
   @Input() type_record_id: any = null;
+  @Input() enfermeryreco: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   timeLeft: number = 2;
