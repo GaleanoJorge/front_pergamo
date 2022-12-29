@@ -61,7 +61,6 @@ import { ReasonCancelComponent } from './reason-cancel/reason-cancel.component';
 import { FormReasonCancelComponent } from './reason-cancel/form-reason-cancel/form-reason-cancel.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { MbscModule } from '@mobiscroll/angular';
 import { FormTransferScheduleComponent } from './transfer-schedule/form-transfer-schedule/form-transfer-schedule.component';
 import { TransferScheduleComponent } from './transfer-schedule/transfer-schedule.component';
 

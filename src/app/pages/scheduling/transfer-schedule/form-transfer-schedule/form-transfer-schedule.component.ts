@@ -18,7 +18,6 @@ import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ProcedureService } from '../../../../business-controller/procedure.service';
 import { FlatService } from '../../../../business-controller/flat.service';
-import { setOptions, localeEs } from '@mobiscroll/angular';
 import { itemHighlight } from '@syncfusion/ej2/maps';
 import { User } from '../../../../models/user';
 import { Campus } from '../../../../models/campus';
