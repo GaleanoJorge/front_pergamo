@@ -352,7 +352,7 @@ export class FormUsersComponent implements OnInit {
         Validators.compose([]),
       ],
       birthday: [
-        this.GetData('birthday'),
+        this.datePipe.transform2(this.GetData('birthday')),
         Validators.compose([Validators.required]),
       ],
       gender_id: [

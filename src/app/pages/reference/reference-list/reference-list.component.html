@@ -10,9 +10,19 @@
                     [messageToltip]="messageToltip"
                     >
       <div actions>
-        <div class="actions">
-          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewReference()">Crear Referencia</button>
-        </div>
+        
+        <form [formGroup]="form">
+          <div class="actions">
+            
+            <nb-select class="filtros" formControlName="reference_status_id" placeholder="Filtrar por estado">
+              <nb-option value="0">Todos los estados</nb-option>
+              <nb-option *ngFor="let item of reference_status" [value]="item.id">{{item.name}}</nb-option>
+            </nb-select>
+            
+            <button nbButton status="danger" ngxCheckPerms="create" (click)="NewReference()">Crear Referencia</button>
+
+          </div>
+        </form>
       </div>
     </ngx-base-table>
 

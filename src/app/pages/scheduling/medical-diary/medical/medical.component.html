@@ -1,0 +1,26 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title" [subtitle]="subtitle" customData="medical_diary" [settings]="settings"
+      entity="medical_diary?assistance_id={{assistance_id}}" [messageToltip]="messageToltip">
+      <div actions>
+        <div class="actions">
+          <a nbButton routerLink="/pages/scheduling/medical-diary">Volver</a>
+          <button nbButton status="danger" (click)="NewMedical()">Crear</button>
+        </div>
+        <div class="actions">
+          <button nbButton status="info" *ngIf="!this.click && this.done" (click)="ViewScheduling()" fullWidth >Ver agenda general</button>
+          <button nbButton status="info" *ngIf="this.click && this.done" (click)="HideScheduling()" fullWidth >Ocultar agenda</button>
+        </div>
+      </div>
+    </ngx-base-table> 
+    <div *ngIf="eventSettings && click" >
+      <ejs-schedule #Schedule width='100%' height='550px' #scheduleObj [showHeaderBar]="true" [selectedDate]="schedulerDate"
+        (actionComplete)='onActionComplete($event)' [timeScale]="timeScale" (popupOpen)='onPopupOpen($event)'
+        (eventRendered)="onEventRendered($event)" [eventSettings]="eventSettings" (renderCell)="renderCell($event)" 
+        (cellDoubleClick)='onCellDoubleClick($event)'>
+  
+      </ejs-schedule>
+    </div>
+  </div>
+</ngx-base-list>

@@ -385,11 +385,6 @@ import { RoleCheckComponent } from './users/role-package/role-check.component';
 import { RolePackageComponent } from './users/role-package/role-package.component';
 import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
 import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
-import { MedicalDiaryComponent } from './medical-diary/medical-diary.component';
-import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/form-medical-diary.component';
-import { MedicalComponent } from './medical-diary/medical/medical.component';
-import { ActionsMedicalDiaryComponent } from './medical-diary/actions.component';
-import { ActionsMedicalComponent } from './medical-diary/medical/actions.component';
 import { FixedPatientsComponent } from './fixed-patients/fixed-patients.component';
 import { FixedMovementsComponent } from './fixed-movements/fixed-movements.component';
 import { FixedInventaryAddPatientsComponent } from './fixed-inventary-add-patients/fixed-inventary-add-patients.component';
@@ -403,6 +398,7 @@ import { FixedReturnPatientsComponent } from './fixed-return-patients/fixed-retu
 import { FormFixedDeniedComponent } from './fixed-assets-requests-patient/form-fixed-denied/form-fixed-denied.component';
 import { FormTariffConfirmDisabledComponent } from './tariff/form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
+import { ActionsBedComponent } from './bed/actions-bed.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
 import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-measure/form-supplies-measure.component';
 
@@ -437,6 +433,7 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     NbAutocompleteModule,
   ],
   declarations: [
+
     RoleCheckComponent,
     RolePackageComponent,
     ActionsComponentInsume,
@@ -463,9 +460,6 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     PolicyTypeComponent,
     FormBedComponent,
     BedComponent,
-    MedicalComponent,
-    ActionsMedicalDiaryComponent,
-    ActionsMedicalComponent,
     RolesPermissionsComponent,
     FormObservationNoveltyComponent,
     ObservationNoveltyComponent,
@@ -488,6 +482,7 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     FlatComponent,
     FormFlatComponent,
     BedComponent,
+    ActionsBedComponent,
     FormBedComponent,
     AffiliateTypeComponent,
     FormAffiliateTypeComponent,
@@ -504,8 +499,6 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     ActionsProcedureComponent,
     FormCoverageComponent,
     FormFirmsComponent,
-    MedicalDiaryComponent,
-    FormMedicalDiaryComponent,
     ProcedurePackageComponent,
     ProcedurePackage2Component,
     FormInsuranceCarrierComponent,
@@ -863,6 +856,7 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     ProcedurePackage2Component,
     FormUserComponent,
     FormLocationCapacityComponent,
+    ActionsComponent
   ],
   bootstrap: [],
 })

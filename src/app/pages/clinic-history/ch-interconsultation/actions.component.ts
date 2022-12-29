@@ -100,7 +100,9 @@ export class ActionsInterconsultationComponent implements ViewCell {
     this.AdmissionRouteS.GetCollection().then(x => {
       this.admission_route = x;
     });
-    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
+    this.FlatS.GetFlatByCampus(this.campus_id, {
+      bed_or_office: 1,
+    }).then(x => {
       this.flat = x;
     });
 
@@ -282,7 +284,9 @@ export class ActionsInterconsultationComponent implements ViewCell {
   GetPavilion(flat_id, job = false) {
     if (!flat_id || flat_id === '') return Promise.resolve(false);
 
-    return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+    return this.PavilionS.GetPavilionByFlat(flat_id, {
+      bed_or_office: 1,
+    }).then(x => {
 
       this.pavilion = x;
 

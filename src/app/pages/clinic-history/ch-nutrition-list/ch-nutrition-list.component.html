@@ -34,7 +34,7 @@
         </div>
       </nb-tab>
 
-      <nb-tab tabTitle="FALLIDA">
+      <nb-tab *ngIf="this.show_failed" tabTitle="FALLIDA">
         <div *ngIf="this.show == 9">
           <ngx-failed (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-failed>
         </div>

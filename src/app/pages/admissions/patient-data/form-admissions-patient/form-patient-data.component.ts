@@ -26,6 +26,7 @@ export class FormPatientDataComponent implements OnInit {
   @Input() savedUser: any =true;
   @Input() showTable: any =null;
   @Input() user_id: any =null;
+  @Input() campus_id: any =null;
   
 
 
@@ -266,6 +267,7 @@ export class FormPatientDataComponent implements OnInit {
       } else {
         this.PatientDataS.Save({
           admissions_id: this.admission_id,
+          reference_id: this.data.reference_id ? this.data.reference_id : null,
           patient_data_type: this.form.controls.patient_data_type.value,
           identification_type_id: this.form.controls.identification_type_id.value,
           identification: this.form.controls.identification.value,

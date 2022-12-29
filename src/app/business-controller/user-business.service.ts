@@ -250,6 +250,22 @@ v
       });
   }
 
+  UserByExternalConsultation(params = {}): Promise<User[]> {
+    var servObj = new ServiceObject("user/ExternalConsultant");
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Delete(id: any): Promise<ServiceObject> {
     var servObj = new ServiceObject("user", id);
     return this.webAPI.DeleteAction(servObj)

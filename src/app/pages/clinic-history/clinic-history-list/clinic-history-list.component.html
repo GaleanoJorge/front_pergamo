@@ -35,9 +35,9 @@
           <ngx-formulation [record_id]="record_id" [user]="user_id" [admission]="admission"></ngx-formulation>
         </div>
       </nb-tab>
-      <nb-tab tabTitle="ORDEN MEDICAS">
+      <nb-tab tabTitle="ORDENES MEDICAS">
         <div *ngIf="this.show == 5">
-          <ngx-orders-medical  [record_id]="record_id"></ngx-orders-medical>
+          <ngx-orders-medical  [record_id]="record_id" [admission]="admission"></ngx-orders-medical>
         </div>
       </nb-tab>
 
@@ -53,7 +53,7 @@
         </div>
       </nb-tab>
 
-      <nb-tab tabTitle="FALLIDA">
+      <nb-tab *ngIf="this.show_failed" tabTitle="FALLIDA">
         <div *ngIf="this.show == 8">
           <ngx-failed (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-failed>
         </div>

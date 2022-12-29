@@ -1,0 +1,12 @@
+<form>
+  <div content>
+    <div class="row">
+      <ngx-base-list [messageError]="messageError">
+        <div>
+          <ngx-base-table [settings]="settings" entity="all_patients?pagination=true" customData='patients'>
+          </ngx-base-table>
+        </div>
+      </ngx-base-list>
+    </div>
+  </div>
+</form>

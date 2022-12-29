@@ -4,10 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChEvoSoapService } from '../../../../business-controller/ch-evo-soap.service';
 import { ChRecordService } from '../../../../business-controller/ch_record.service';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../../../../business-controller/product.service';
 import { ChMedicalOrdersService } from '../../../../business-controller/ch-medical-orders.service';
-import { ProcedureService } from '../../../../business-controller/procedure.service';
 import { FrequencyService } from '../../../../business-controller/frequency.service';
+import { ProcedureService } from '../../../../business-controller/procedure.service';
 import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
 
 @Component({
@@ -18,6 +17,7 @@ import { ServicesBriefcaseService } from '../../../../business-controller/servic
 export class FormChMedicalOrdersComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -39,7 +39,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
     private chRecord: ChRecordService,
     private route: ActivatedRoute,
     private FrequencyS: FrequencyService,
-    private ProductS: ProcedureService,    
+    private ProductS: ProcedureService,
     private procedureS: ProcedureService,
     private serviceS: ServicesBriefcaseService,
     private ChMedicalOrdersS: ChMedicalOrdersService,
@@ -69,6 +69,10 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
     this.FrequencyS.GetCollection().then(x => {
       this.frequency_id = x;
+    });
+
+    this.serviceS.GetProcedureByChRecordId(this.record_id).then(x => {
+      this.procedure = x;
     });
 
     this.form = this.formBuilder.group({
@@ -111,6 +115,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
             observations: this.form.controls.observations.value,
             type_record_id: 6,
             ch_record_id: this.record_id,
+            admissions_id: this.admission.id,
           })
           .then((x) => {
             this.clearForm();
@@ -120,7 +125,8 @@ export class FormChMedicalOrdersComponent implements OnInit {
               procedure_id: '',
               amount: '',
               frequency_id: '',
-              observations: '' });
+              observations: ''
+            });
             if (this.saved) {
               this.saved();
             }
@@ -134,12 +140,13 @@ export class FormChMedicalOrdersComponent implements OnInit {
           .Save({
             ambulatory_medical_order: this.form.controls.ambulatory_medical_order.value ? true : false,
             procedure_id: this.form.controls.ambulatory_medical_order.value == true ? this.procedure_id : null,
-            services_briefcase_id: this.form.controls.ambulatory_medical_order.value == false ? this.procedure_id : null,
+            services_briefcase_id: this.form.controls.ambulatory_medical_order.value != true ? this.procedure_id : null,
             amount: this.form.controls.amount.value,
             frequency_id: this.form.controls.frequency_id.value,
             observations: this.form.controls.observations.value,
             type_record_id: 6,
             ch_record_id: this.record_id,
+            admissions_id: this.admission.id,
           })
           .then((x) => {
             this.clearForm();
@@ -150,7 +157,8 @@ export class FormChMedicalOrdersComponent implements OnInit {
               procedure_id: '',
               amount: '',
               frequency_id: '',
-              observations: '' });
+              observations: ''
+            });
             if (this.saved) {
               this.saved();
             }
@@ -169,8 +177,8 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
 
   saveCode(e): void {
-    var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name) == e);
-    
+    var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value == true ? item.name : item.manual_price.procedure.name) == e);
+
     if (localidentify) {
       this.procedure_id = localidentify.id;
       this.form.controls.procedure_id.setErrors(null);
@@ -182,6 +190,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
     }
   }
 
+
   onChange() {
 
     this.form.get('ambulatory_medical_order').valueChanges.subscribe(val => {
@@ -191,27 +200,26 @@ export class FormChMedicalOrdersComponent implements OnInit {
         procedure_id: '',
         amount: '',
         frequency_id: '',
-        observations: '' });
-  
-        this.form.controls.procedure_id.setErrors({ 'incorrect': true });
+        observations: ''
+      });
+
+      this.form.controls.procedure_id.setErrors({ 'incorrect': true });
       if (val == 1) {
-  
+
         this.procedureS.GetCollection().then(x => {
           this.procedure = x;
-        });  
-       
-  
+        });
+
+
       } else {
         this.serviceS.GetProcedureByChRecordId(this.record_id).then(x => {
           this.procedure = x;
         });
-     
-  
+
+
       };
     });
-  
-
 
   }
-  
 }
+

@@ -57,6 +57,10 @@ import { FormAssistanceStockComponent } from './setting/assistance-stock/form-as
 import { FormAssistanceReturnComponent } from './setting/assistance-stock/form-assistance-return/form-assistance-return.component';
 import { AgreementCheckComponent } from './components/form-users/agreement-package/agreement-check.component';
 import { AgreementPackageComponent } from './components/form-users/agreement-package/agreement-package.component';
+import { AdmissionsListComponent } from './admissions/admissions-list/admissions-list.component';
+import { DateFormatPipe } from '../pipe/date-format.pipe';
+import { CurrencyPipe } from '@angular/common';
+import { MulticalendarComponent } from './components/multicalendar/multicalendar.component';
 //import { ReferenceComponent } from './reference/reference.component';
 
 
@@ -94,6 +98,7 @@ import { AgreementPackageComponent } from './components/form-users/agreement-pac
     NbRadioModule,
   ],
   declarations: [
+    AdmissionsListComponent,
     AgreementPackageComponent,
     AgreementCheckComponent,
     AssistanceStockComponent,
@@ -119,6 +124,7 @@ import { AgreementPackageComponent } from './components/form-users/agreement-pac
     AmountWorkLocationComponent,
     SelectWorkLocationComponent,
     WorkLocationPackageComponent,
+    MulticalendarComponent,
     BillingPadComponent,
    // ReferenceComponent,
     SelectUsersCampusComponent,
@@ -126,7 +132,9 @@ import { AgreementPackageComponent } from './components/form-users/agreement-pac
     WebSpeachComponent,
     
   ],
+
   exports: [
+    AdmissionsListComponent,
     BreadcrumbComponent,
     GraphicsComponent,
     MapComponent,
@@ -139,6 +147,7 @@ import { AgreementPackageComponent } from './components/form-users/agreement-pac
     SelectWorkLocationComponent,
     SelectUsersCampusComponent,
     WorkLocationPackageComponent,
+    MulticalendarComponent,
     UsersCampusComponent,
     WebSpeachComponent,
     InsumeRequestComponent,
@@ -147,7 +156,10 @@ import { AgreementPackageComponent } from './components/form-users/agreement-pac
     FormAssistanceStockComponent,
     FormAssistanceReturnComponent,
   ],
-  providers: [PermissionsGuard],
+  providers: [
+    DateFormatPipe,
+    CurrencyPipe,
+    PermissionsGuard],
 })
 export class PagesModule {
 }

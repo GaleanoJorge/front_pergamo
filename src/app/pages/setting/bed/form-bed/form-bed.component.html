@@ -4,18 +4,18 @@
     <nb-card-body>
       <div class="row">
         <div class="col-md-12">
-          <label for="code" class="form-text text-muted font-weight-bold">Código:</label>
+          <label for="code" class="form-text text-muted font-weight-bold">CÓDIGO:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="code" formControlName="code" code
             status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-md-12">
-          <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+          <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
           <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
             status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
             />
         </div>
         <div class="col-md-12">
-          <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
+          <label for="pavilion" class="form-text text-muted font-weight-bold">PABELLÓN:</label>
           <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
           status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -24,7 +24,7 @@
         </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="status_bed" class="form-text text-muted font-weight-bold">Estado de la Cama:</label>
+          <label for="status_bed" class="form-text text-muted font-weight-bold">ESTADO DE LA CAMA:</label>
           <nb-select [selected]="this.data.status_bed_id" formControlName="status_bed_id" id="status_bed_id" fullWidth
           status="{{ isSubmitted && form.controls.status_bed_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -33,7 +33,7 @@
         </nb-select>
         </div>
         <div class="col-md-12">
-          <label for="bed_or_office" class="form-text text-muted font-weight-bold">Consultorio o Cama:</label>
+          <label for="bed_or_office" class="form-text text-muted font-weight-bold">CONSULTORIO O CAMA:</label>
           <nb-select [selected]="this.data.bed_or_office" formControlName="bed_or_office" id="bed_or_office" fullWidth
           status="{{ isSubmitted && form.controls.bed_or_office.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
@@ -42,6 +42,15 @@
           <nb-option  value="1">
             Cama</nb-option>
         </nb-select>
+        </div>
+        <div class="col-md-12" *ngIf="this.form.controls.bed_or_office.value == 1">
+          <label for="procedure" class="form-text text-muted font-weight-bold">TIPO DE ATENCIÓN:</label>
+          <input fullWidth nbInput list="codes2" (change)="saveProcedure($event.target.value)" id="procedure_id"
+            formControlName="procedure_id" procedure_id type="text" required
+            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="codes2">
+            <option *ngFor="let item of procedure" [value]="item.name">{{ item.name }}</option>
+          </datalist>
         </div>
     </div>
     </nb-card-body>

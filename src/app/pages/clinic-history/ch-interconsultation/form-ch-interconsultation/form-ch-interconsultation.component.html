@@ -9,7 +9,24 @@
             <legend class="prue1">INTERCONSULTAS</legend>
 
             <div class="row justify-content-md-center">
-              <div class="col col-lg-4">
+              <div class="col col-lg-12">
+                <nb-checkbox formControlName="ambulatory_medical_order" revision id="ambulatory_medical_order"
+                  class="d-flex text" name="ambulatory_medical_order">¿Orden Medica Ambulatoria?</nb-checkbox>
+              </div>
+
+              <div *ngIf="this.form.controls.ambulatory_medical_order.value==0" class="col col-lg-12">
+                <label for="type_of_attention" class="form-text text-muted font-weight-bold">Tipo de Atención:</label>
+                <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id"
+                  id="type_of_attention_id" fullWidth
+                  status="{{ isSubmitted && form.controls.type_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option selected="{{ item.id == data.type_of_attention_id }}" *ngFor="let item of type_of_attention"
+                    [value]="item.id">
+                    {{ item.name }}</nb-option>
+                </nb-select>
+              </div>
+
+              <div *ngIf="this.form.controls.ambulatory_medical_order.value==0 && this.form.controls.type_of_attention_id.value==2" class="col col-lg-12">
                 <label for="specialty_id" class="form-text text-muted font-weight-bold">Especialidad</label>
 
                 <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes"
@@ -18,6 +35,18 @@
                   status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                 <datalist id="codes">
                   <option *ngFor="let item of specialty" [value]="item.name">{{ item.id }} - {{item.name}} </option>
+                </datalist>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-text text-muted font-weight-bold">Procedimiento</label>
+
+                <input fullWidth nbInput list="codes1" (change)="saveCodeProcedure($event.target.value)" id="procedure_id"
+                  formControlName="procedure_id" procedure_id type="text" required
+                  status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <datalist id="codes1" *ngIf="procedure">
+                  <option *ngFor="let item of procedure" [value]="this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name">{{ this.form.controls.ambulatory_medical_order.value==true? item.code : item.manual_price.procedure.code }} -
+                    {{this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name}} </option>
                 </datalist>
               </div>
 
