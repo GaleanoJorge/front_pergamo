@@ -29,12 +29,6 @@ import { AssistanceService } from '../../../../business-controller/assistance.se
 import { Bed } from '../../../../models/bed';
 import { Procedure } from '../../../../models/procedure';
 
-setOptions({
-  locale: localeEs,
-  theme: 'auto',
-  themeVariant: 'light'
-});
-
 @Component({
   selector: 'ngx-form-transfer-schedule',
   templateUrl: './form-transfer-schedule.component.html',
