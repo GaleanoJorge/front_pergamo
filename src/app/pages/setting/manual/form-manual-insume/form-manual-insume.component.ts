@@ -81,7 +81,7 @@ export class FormManualInsumeComponent implements OnInit {
       manual_id: [this.data.manual_id],
       value: [this.data.value, Validators.compose([Validators.required])],
       price_type_id: [this.data.price_type_id, Validators.compose([Validators.required])],
-      product_id: [this.data.procedure_id],
+      product_id: [this.data.procedure_id, Validators.compose([Validators.required])],
       has_auth: [this.data.has_auth],
       patient_id: [this.data.patient_id],
       description:[this.data.description]
@@ -102,6 +102,32 @@ export class FormManualInsumeComponent implements OnInit {
       this.showSelect = true;
     } else {
       this.showSelect = false;
+    }
+  }
+
+  checkProduct($event, value) {
+    if ($event.relatedTarget != null && $event.relatedTarget.className.includes("productAutocompleteOption")) {
+      return;
+    }
+    if (this.form.controls.product_id.value == null || this.form.controls.product_id.value == '') {
+      return;
+    }
+    var filter = this.product_supplies.find((productOne) => productOne.description == value);
+    if (!filter) {
+      this.form.controls.product_id.setValue('');
+    }
+  }
+
+  checkPatient($event, value) {
+    if ($event.relatedTarget != null && $event.relatedTarget.className.includes("patientDatalistOption")) {
+      return;
+    }
+    if (this.form.controls.patient_id.value == null || this.form.controls.patient_id.value == '') {
+      return;
+    }
+    var filter = this.product_supplies.find((patientOne) => patientOne.identification == value);
+    if (!filter) {
+      this.form.controls.patient_id.setValue('');
     }
   }
 
