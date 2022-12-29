@@ -360,11 +360,11 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
 
   tablock(e) {
     switch (e.tabTitle) {
-      case "INGRESO 1": {
+      case "INGRESO PARTE 1": {
         this.show = 1;
         break;
       }
-      case "INGRESO 2": {
+      case "INGRESO PARTE 2": {
         this.show = 2;
         break;
       }
