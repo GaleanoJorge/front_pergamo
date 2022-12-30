@@ -16,6 +16,7 @@ export class ChNutritionInputComponent implements OnInit {
   @Input() record_id: any = null;
   @Input() user_id: any = null;
   @Input() has_input: boolean = false;
+  @Input() nutrition: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
 

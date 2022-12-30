@@ -20,6 +20,7 @@ export class EvolutionListComponent implements OnInit {
   @Input() data: any = null;
   @Input() admission: any = null;
   @Input() type_record_id: any = null;
+  @Input() medicine: boolean = true;
   @Input() user: any = null;
 
  
@@ -28,7 +29,7 @@ export class EvolutionListComponent implements OnInit {
 
   //@Input() vital: any;
   linearMode = false;
-  public messageError = null;
+  public messageError = null; 
   public title;
   public routes = [];
   public user_id;

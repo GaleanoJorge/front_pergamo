@@ -26,7 +26,6 @@ import { User } from '../../../models/user';
 import { ProcedureService } from '../../../business-controller/procedure.service';
 import { Procedure } from '../../../models/procedure';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormTransferScheduleComponent } from './form-transfer-schedule/form-transfer-schedule.component';
 import { DatePipe } from '@angular/common';
 
@@ -299,11 +298,6 @@ export class TransferScheduleComponent implements OnInit {
   }
 
   public onPopupOpen(args: PopupOpenEventArgs): void {
-  }
-
-  datesSelected: NgbDateStruct[] = [];
-  change(value: NgbDateStruct[]) {
-    this.datesSelected = value;
   }
 
   private loadSchedule() {
