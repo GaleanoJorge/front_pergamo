@@ -18,12 +18,11 @@
             status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
             [nbAutocomplete]="autoControl" />
 
-          <nb-autocomplete #autoControl>
+          <nb-autocomplete #autoControl (selectedChange)="this.fillGenericName($event)">
             <nb-option class="productAutocompleteOption" value="">Seleccione...</nb-option>
             <nb-option class="productAutocompleteOption" *ngFor="let item of filteredProductOptions$ | async" [value]="item.description">
               {{item.description}}
             </nb-option>
-
           </nb-autocomplete>
         </div>
 
@@ -40,7 +39,8 @@
           </div>
           <div class="col-12 col-sm-12 col-md-4">
             <label class="form-text text-muted font-weight-bold">Tipo de precio:</label>
-            <nb-select placeholder="Asignar un tipo de precio" formControlName="price_type_id">
+            <nb-select placeholder="Asignar un tipo de precio" formControlName="price_type_id"
+            status="{{ isSubmitted && form.controls.price_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" >
               <nb-option *ngFor="let item of price_type" [value]="item.id">{{ item.name }}</nb-option>
             </nb-select>
           </div>

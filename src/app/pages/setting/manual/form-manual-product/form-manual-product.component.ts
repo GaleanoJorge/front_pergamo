@@ -120,6 +120,10 @@ export class FormManualProductComponent implements OnInit {
       );
   }
 
+  fillGenericName($event){
+    this.form.controls.name.setValue($event);
+  }
+
   checkProduct($event, value) {
     if ($event.relatedTarget != null && $event.relatedTarget.className.includes("productAutocompleteOption")) {
       return;
@@ -140,7 +144,7 @@ export class FormManualProductComponent implements OnInit {
     if (this.form.controls.patient_id.value == null || this.form.controls.patient_id.value == '') {
       return;
     }
-    var filter = this.product_gen.find((patientOne) => patientOne.identification == value);
+    var filter = this.patient.find((patientOne) => patientOne.identification == value);
     if (!filter) {
       this.form.controls.patient_id.setValue('');
     }
