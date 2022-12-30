@@ -9,14 +9,49 @@ import { Procedure } from '../models/procedure';
 })
 export class ProcedureService {
   public procedure: Procedure[] = [];
+  public procedureObject: Procedure;
 
   constructor(private webAPI: WebAPIService) {
+  }
+
+  GetByMedicalDiary(medical_diary_id): Promise<Procedure> {
+    let servObj = new ServiceObject('procedure/get_procedure_bymedicaldiary',medical_diary_id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.procedureObject = <Procedure>servObj.data.procedure;
+
+        return Promise.resolve(this.procedureObject);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetByUser(userId): Promise<Procedure[]> {
+    let servObj = new ServiceObject('get_procedure_by_user', userId);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        let users = <Procedure[]>servObj.data.procedures;
+
+        return Promise.resolve(users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
   }
 
   GetCollection(params = {}): Promise<Procedure[]> {
     let servObj = new ServiceObject(params ? 'procedure?pagination=false' : 'procedure');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

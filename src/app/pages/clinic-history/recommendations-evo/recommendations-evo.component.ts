@@ -5,6 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { ChEvoSoapService } from '../../../business-controller/ch-evo-soap.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { Actions15Component } from './actions.component';
 @Component({
   selector: 'ngx-recommendations-evo',
   templateUrl: './recommendations-evo.component.html',
@@ -17,6 +18,9 @@ export class RecommendationsEvoComponent implements OnInit {
   @Input() type_record: any;
   @Input() type_record_id:any;
   @Input() has_input: boolean = false;
+  @Input() medicine: boolean = false;
+  @Input() enfermeryreco: boolean = false;
+  @Input() nutrition: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
   
   linearMode = false;
@@ -45,6 +49,20 @@ export class RecommendationsEvoComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          return {
+            data: row,
+            isNutrition: this.nutrition, 
+            // assigned: this.assigned_management_plan,
+            // user: this.user,
+            refresh: this.RefreshData.bind(this),
+          };
+        },
+        renderComponent: Actions15Component,
+      },
       created_at: {
         title: this.headerFields[0],
         type: 'string',
@@ -55,14 +73,22 @@ export class RecommendationsEvoComponent implements OnInit {
       patient_family_education: {
         title: this.headerFields[1],
         width: 'string',
-      },
-
+        valuePrepareFunction(value, row) {
+          if(value != null){
+            return value;
+            }else{
+              return 'No'
+            }
+          
+        },
+      
+    },
       recommendations_evo: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
           if(value){
-            return value.name ; 
+            return value.name;
             }else{
               return 'NO APLICA'
             }
@@ -72,6 +98,11 @@ export class RecommendationsEvoComponent implements OnInit {
       observations: {
         title: this.headerFields[3],
         width: 'string',
+        valuePrepareFunction: (value) => {
+          return value.substr(0, 137)
+        },
+
+        
       },
 
     },
@@ -82,7 +113,9 @@ export class RecommendationsEvoComponent implements OnInit {
     public datePipe: DateFormatPipe
   ) {}
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    console.log("Holis")
+  }
 
   RefreshData() {
     this.table.refresh();

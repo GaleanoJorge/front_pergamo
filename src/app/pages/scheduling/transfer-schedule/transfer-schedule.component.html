@@ -1,0 +1,94 @@
+<nb-card class="vh-100 text-center" [nbSpinner]="loading">
+  <nb-card-header style="text-align:left">Transferencia de agenda</nb-card-header>
+  <nb-card-body class="justify-content-center">
+
+    <form style="margin-bottom: 15px; padding-left:15%" [formGroup]="form" (ngSubmit)="submit($event)">
+      <div class="row">
+        <div class="col-md-5">
+          <label for="assistance_id" class="form-text text-muted font-weight-bold">Asistencial:</label>
+          <input  (focusout)="checkAssistance($event, this.form.controls.assistance_id.value)" fullWidth formControlName="assistance_id" nbInput type="text" placeholder="Selecciona asistencial"
+            status="{{ isSubmitted && form.controls.assistance_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            [nbAutocomplete]="profControl" />
+
+          <nb-autocomplete #profControl (selectedChange)="onSelectionChange($event, 'assistance')">
+            <nb-option class="assistanceAutocompleteOption" value="">Seleccione...</nb-option>
+            <nb-option class="assistanceAutocompleteOption" *ngFor="let user of filteredAssistanceOptionsApplied" [value]="this.getCompleteName(user)">
+              {{this.getCompleteName(user)}} - {{user.identification}}
+            </nb-option>
+
+          </nb-autocomplete>
+        </div>
+        <div class="col-md-5">
+          <label for="procedure_id" class="form-text text-muted font-weight-bold">Código Cups:</label>
+          <input (focusout)="checkProcedure($event, this.form.controls.procedure_id.value)"  fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
+            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            [nbAutocomplete]="autoControl" />
+
+          <nb-autocomplete #autoControl (selectedChange)="onSelectionChange($event, 'procedure')">
+            <nb-option class="procedureAutocompleteOption" value="">Seleccione...</nb-option>
+            <nb-option class="procedureAutocompleteOption" *ngFor="let procedure of filteredProcedureOptionsApplied"
+              [value]="(procedure.id + ' - ' + procedure.name)">
+              {{ procedure.code }} - {{procedure.equivalent}} - {{procedure.name}}
+            </nb-option>
+
+          </nb-autocomplete>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5 ">
+          <label for="start_date" class="form-text text-muted font-weight-bold">Desde:</label>
+          <input class="inputdate" [min]="this.today" [max]="this.max_day" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
+            formControlName="start_date" start_date status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
+            pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$"/>
+        </div>
+        <div class="col-md-5">
+          <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta:</label>
+          <input class="inputdate" [min]="this.today" [max]="this.max_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date"
+            formControlName="finish_date" finish_date status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <label for="start_hour" class="form-text text-muted font-weight-bold">Hora de inicio:</label>
+          <input type="time" nbInput fullWidth id="start_hour" formControlName="start_hour" start_hour
+            status="{{ isSubmitted && form.controls.start_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-md-5">
+          <label for="finish_hour" class="form-text text-muted font-weight-bold">Hora final:</label>
+          <input type="time" nbInput fullWidth id="finish_hour" formControlName="finish_hour" finish_hour
+            status="{{ isSubmitted && form.controls.finish_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+      </div>
+      <div class="row" style="margin-top: 15px">
+        <div class="col-md-5">
+          <button type="submit" name="calendarButton" nbButton>Mostrar calendario</button>
+        </div>
+        <div class="col-md-5">
+          <button type="submit" name="scheduleButton" nbButton>Transferir agendas</button>
+        </div>
+      </div>
+
+
+    </form>
+
+    <div *ngIf="eventSettings">
+      <ejs-schedule width='100%' height='700px' #scheduleObj [showHeaderBar]="true" [selectedDate]="schedulerDate"
+        (actionComplete)='onActionComplete($event)' [timeScale]="timeScale"
+        (eventRendered)="onEventRendered($event)" [currentView]="currentView" [eventSettings]="eventSettings"
+        [rowAutoHeight]="rowAutoHeight" [showQuickInfo]="false" (cellDoubleClick)='onCellDoubleClick($event)'>
+
+        <e-views>
+          <e-view option="Day"></e-view>
+          <e-view option="Week"></e-view>
+          <e-view option="Month"></e-view>
+          <e-view option="Agenda"></e-view>
+          <e-view option="Month agenda"></e-view>
+        </e-views>
+
+      </ejs-schedule>
+    </div>
+
+  </nb-card-body>
+</nb-card>

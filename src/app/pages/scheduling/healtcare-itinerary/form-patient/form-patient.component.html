@@ -1,0 +1,209 @@
+<nb-card style="margin:10px; width:97%; height: 98%; overflow: auto" >
+  <nb-card-header>{{this.title}}</nb-card-header>
+  <nb-card-body [nbSpinner]="loading">
+    <form [formGroup]="form" >
+      <div class="row">
+        <div class="col-12">
+          <p class="text-muted title-users">Datos básicos</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="identification_type_id" class="form-text text-muted font-weight-bold">
+              Tipo de identificación:
+            </label>
+            <nb-select formControlName="identification_type_id" id="identification_type_id" fullWidth
+              status="{{ isSubmitted && form.controls.identification_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ data ? (item.id == data.identification_type_id) : false }}"
+                *ngFor="let item of identification_types" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="identification" class="form-text text-muted font-weight-bold">Número de documento:</label>
+            <input nbInput minlength="6" maxlength="16" type="text" fullWidth id="identification"
+              formControlName="identification" identification
+              status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" />
+            <ng-container *ngIf="form.controls.identification.errors && form.controls.identification.touched">
+              <p class="caption status-danger" *ngIf="form.controls.identification.errors?.minlength">
+                El número de documento debe tener un mínimo de 6 caracteres
+              </p>
+              <p class="caption status-danger" *ngIf="form.controls.identification.errors?.maxlenth">
+                El número de documento debe tener un máximo de 16 caracteres
+              </p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="firstname" class="form-text text-muted font-weight-bold">Primer nombre:</label>
+            <input oninput="this.value = this.value.toUpperCase().trim()" minlength="3" maxlength="20" nbInput fullWidth
+              id="firstname" formControlName="firstname" firstname
+              status="{{ isSubmitted && form.controls.firstname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="middlefirstname" class="form-text text-muted font-weight-bold">Segundo nombre:</label>
+            <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="20" nbInput fullWidth
+              id="middlefirstname" formControlName="middlefirstname" middlefirstname
+              status="{{ isSubmitted && form.controls.middlefirstname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="lastname" class="form-text text-muted font-weight-bold">Primer apellido:</label>
+            <input oninput="this.value = this.value.toUpperCase().trim()" minlength="3" maxlength="20" nbInput fullWidth
+              id="lastname" formControlName="lastname" lastname
+              status="{{ isSubmitted && form.controls.lastname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="middlelastname" class="form-text text-muted font-weight-bold">Segundo apellido:</label>
+            <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="20" nbInput fullWidth
+              id="middlelastname" formControlName="middlelastname" middlelastname
+              status="{{ isSubmitted && form.controls.middlelastname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="gender_id" class="form-text text-muted font-weight-bold">Género:</label>
+            <nb-radio-group formControlName="gender_id" gender_id id="gender_id" class="d-flex"
+              status="{{ isSubmitted && form.controls.gender_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio *ngFor="let item of genders" [value]="item.id">{{ item.name }}</nb-radio>
+            </nb-radio-group>
+          </div>
+        </div>
+        <div class="col-md-4" *ngIf="form.controls.gender_id.value == 4">
+          <div class="form-group">
+            <label for="gender_type" class="form-text text-muted font-weight-bold">Cuál?:</label>
+            <input nbInput fullWidth id="gender_type" formControlName="gender_type" gender_type
+              status="{{ isSubmitted && form.controls.gender_type.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+          </div>
+        </div>
+
+        <div class="col-md-6" style="position: relative;">
+          <div class="form-group">
+            <label for="select_RH_id" class="form-text text-muted font-weight-bold">Seleccione RH:</label>
+            <nb-select id="select_RH_id" fullWidth formControlName="select_RH_id" select_RH_id
+              status="{{ isSubmitted && form.controls.select_RH_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of select_RH" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="phone" class="form-text text-muted font-weight-bold">Celular:</label>
+            <input oninput="this.value = this.value.slice(0,15)" nbInput min="10" max="15" type="number" fullWidth
+              id="phone" formControlName="phone" phone
+              status="{{ isSubmitted && form.controls.phone.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" />
+            <ng-container *ngIf="form.controls.phone.errors && form.controls.phone.touched">
+              <p class="caption status-danger" *ngIf="form.controls.phone.errors?.minlength">
+                El celular debe tener un mínimo de 10 caracteres
+              </p>
+              <p class="caption status-danger" *ngIf="form.controls.phone.errors?.maxlength">
+                El celular debe tener un máximo de 20 caracteres
+              </p>
+            </ng-container>
+          </div>
+        </div>
+  
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="landline" class="form-text text-muted font-weight-bold">Teléfono Fijo:</label>
+            <input oninput="this.value = this.value.slice(0,15)" nbInput type="number" min="8" max="15" fullWidth
+              id="landline" formControlName="landline" landline
+              status="{{ isSubmitted && form.controls.landline.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" />
+            <ng-container *ngIf="form.controls.landline.errors && form.controls.landline.touched">
+              <p class="caption status-danger" *ngIf="form.controls.landline.errors?.minlength">
+                El teléfono fijo debe tener un mínimo de 10 caracteres
+              </p>
+              <p class="caption status-danger" *ngIf="form.controls.landline.errors?.maxlength">
+                El teléfono fijo debe tener un máximo de 20 caracteres
+              </p>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="birthday" class="form-text text-muted font-weight-bold">Fecha de nacimiento:</label>
+            <input type="date" nbInput fullWidth id="birthday" formControlName="birthday" birthday
+              (change)="ageCalculator($event.target.value)"
+              status="{{ isSubmitted && form.controls.birthday.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              [max]="today" />
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="form-text text-muted font-weight-bold">Edad:</label>
+            <input type="text" nbInput [value]="age" fullWidth disabled />
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+      <div class="row">
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="is_disability" class="form-text text-muted font-weight-bold">¿En condición de discapacidad?
+            </label>
+            <nb-toggle formControlName="is_disability" is_disability>
+            </nb-toggle>
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="form.controls.is_disability.value">
+          <div class="form-group">
+            <label for="inability" class="form-text text-muted font-weight-bold">Cuál?: </label>
+            <nb-select formControlName="inability_id" id="inability_id" fullWidth
+              status="{{ isSubmitted && form.controls.inability_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of inabilitys" [value]="item.code">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <!-- <div class="col-md-3" *ngIf="this.role==2">
+          <div class="form-group">
+            <label for="is_street_dweller" class="form-text text-muted font-weight-bold">¿Es habitante de calle?
+            </label>
+            <nb-toggle formControlName="is_street_dweller" is_street_dweller>
+            </nb-toggle>
+          </div>
+        </div> -->
+      </div>
+    </form>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" type="button" class="ml-1" disabled="{{ loading }}" (click)="SaveStudent()">Guardar</button>
+    </nb-card-footer>
+  </nb-card>

@@ -1,0 +1,75 @@
+<ngx-base-list [messageError]="messageError">
+  <div content *ngIf="show">
+    <nb-tabset class="tabset" (changeTab)="tablock($event)">
+      <nb-tab tabTitle="INTERNACIONES">
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+          customData="patients" [messageToltip]="messageToltip">
+          <div title>
+            <div *ngIf="this.currentRole.role_type_id == 1 && this.patients"><b>TOTAL PACIENTES:
+                {{this.patients.patients.length}}</b></div>
+            <!-- <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS DISPONIBLES: {{this.available_bed}}</div>
+        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS OCUPADAS: {{this.busy_bed}}</div>
+        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS EN MANTENIMIENTO: {{this.fix_bed}}</div>
+        <div *ngIf="this.currentRole.role_type_id == 1 && this.patients">CAMAS EN DESINFECCIÓN: {{this.clean_bed}}</div> -->
+          </div>
+          <div actions>
+            <form [formGroup]="form">
+              <div class="actions">
+                <nb-select (selectedChange)="FilterAgreement($event)" class="filtros" placeholder="Filtrar por convenio">
+                  <nb-option>Todos los convenios</nb-option>
+                  <nb-option *ngFor="let item of company" [value]="item.id">{{item.name}}</nb-option>
+                </nb-select>
+                <nb-select (selectedChange)="changeFlat($event)" class="filtros" formControlName="flat" placeholder="Filtrar por piso">
+                  <nb-option value="0">Todos los pisos</nb-option>
+                  <nb-option *ngFor="let item of flat" [value]="item.id">{{item.name}}</nb-option>
+                </nb-select>
+                <nb-select (selectedChange)="changePavilion($event)" class="filtros" formControlName="pavilion"
+                  placeholder="Filtrar por pabellón">
+                  <nb-option value="0">Todos los pabellones</nb-option>
+                  <nb-option *ngFor="let item of pavilion" [value]="item.id">{{item.name}}</nb-option>
+                </nb-select>
+                <nb-select (selectedChange)="changeBed($event)" class="filtros" formControlName="bed" placeholder="Filtrar por cama">
+                  <nb-option value="0">Todos las camas</nb-option>
+                  <nb-option *ngFor="let item of bed" [value]="item.id">{{item.name}}</nb-option>
+                </nb-select>
+              </div>
+              <!-- <div class="actions">
+                <div class="col-md-6">
+                  <label for="start_date" class="form-text text-muted font-weight-bold">Fecha de inicio:</label>
+                  <input type="date" nbInput fullWidth id="start_date" formControlName="start_date" start_date
+                    status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                </div>
+                <div class="col-md-6">
+                  <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha de final:</label>
+                  <input type="date" nbInput fullWidth id="finish_date" formControlName="finish_date" finish_date
+                    status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                </div>
+              </div> -->
+            </form>
+
+          </div>
+        </ngx-base-table>
+      </nb-tab>
+      <nb-tab tabTitle="INTERCONSULTAS">
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings1" [entity]="entity2"
+          customData="patients" [messageToltip]="messageToltip">
+          <div title>
+            <!-- <div *ngIf="this.currentRole.role_type_id == 1 && this.patients"><b>TOTAL PACIENTES: {{this.patients.patients.length}}</b></div> -->
+          </div>
+          <div actions>
+            <div class="actions">
+              <nb-select (selectedChange)="FilterAgreement($event)" placeholder="Filtrar por convenio">
+                <nb-option>Todas las empresas</nb-option>
+                <nb-option *ngFor="let item of company" [value]="item.id">{{item.name}}</nb-option>
+              </nb-select>
+            </div>
+
+          </div>
+        </ngx-base-table>
+      </nb-tab>
+      <nb-tab tabTitle="PROGRAMACIÓN APLICACIONES">
+        <ngx-pah-applications></ngx-pah-applications>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</ngx-base-list>

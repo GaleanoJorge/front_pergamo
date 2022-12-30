@@ -31,9 +31,9 @@ export class FlatService {
       });
   }
 
-  GetFlatByCampus(campus_id): Promise<Flat[]> {
+  GetFlatByCampus(campus_id, params = {}): Promise<Flat[]> {
     let servObj = new ServiceObject('flat/byCampus',campus_id);
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

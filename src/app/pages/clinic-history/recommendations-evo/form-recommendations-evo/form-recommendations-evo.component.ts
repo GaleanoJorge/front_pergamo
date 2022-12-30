@@ -17,6 +17,9 @@ export class FormRecommendationsEvoComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any = null;
   @Input() type_record: any;
+  @Input() medicine: boolean = false;
+  @Input() enfermeryreco: boolean = false;
+  @Input() nutrition: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -27,6 +30,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
   public showTable;
   public recommendations_evo_id: any[];;
   public ch_evo_soap_id: any[];
+  public recommendations: any[];
 
 
 
@@ -53,7 +57,19 @@ export class FormRecommendationsEvoComponent implements OnInit {
     };
 
     this.RecommendationsEvoS.GetCollection().then(x => {
-      this.recommendations_evo_id = x; //variable que trae toda la info de la tabla
+      this.recommendations_evo_id = x;
+      if (this.medicine == true) {
+        this.recommendations = this.recommendations_evo_id.filter((item) => item.code == 1)
+      } else if (this.enfermeryreco == true) {
+        this.recommendations = this.recommendations_evo_id.filter((item) => item.code == 2)
+      } 
+      else if (this.nutrition == true) {
+        this.recommendations = this.recommendations_evo_id.filter((item) => item.code == 3)
+      } else { 
+        this.recommendations = this.recommendations_evo_id.filter((item) => item.code == 1)
+      }
+      
+
     });
 
     this.ChRecommendationsEvoS.GetCollection({
@@ -64,7 +80,6 @@ export class FormRecommendationsEvoComponent implements OnInit {
         this.messageEvent.emit(true);
       }
     });
-    
 
     if (!navigator.onLine) {
       this.RecommendationsEvoS.GetCollection().then(x => {
@@ -78,6 +93,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
         return Promise.resolve(true);
       });
     }
+
 
     this.form = this.formBuilder.group({
       patient_family_education: [this.data.patient_family_education],
@@ -150,7 +166,7 @@ export class FormRecommendationsEvoComponent implements OnInit {
 
 
   onDescriptionChange(event) {
-    this.recommendations_evo_id.forEach(x => {
+    this.recommendations.forEach(x => {
       if (x.id == event) {
         this.form.controls.observation.setValue(x.description);
       }

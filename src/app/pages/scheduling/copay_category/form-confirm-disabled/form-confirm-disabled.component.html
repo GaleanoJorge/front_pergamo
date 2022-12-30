@@ -1,0 +1,75 @@
+<nb-card>
+  <nb-card-header>
+    <span class="h5">{{ title }}</span>
+  </nb-card-header>
+  <nb-card-body>
+    <div *ngIf="this.CancelScheduling">
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="star_hour" class="form-text text-muted font-weight-bold align">Hora de inicio</label>
+            <input type="datetime-local" nbInput id="star_hour" formControlName="star_hour" star_hour fullWidth>
+          </div>
+          <div class="col-md-6">
+            <label for="finish_hour" class="form-text text-muted font-weight-bold align">Hora de finalización</label>
+            <input type="datetime-local" nbInput id="finish_hour" formControlName="finish_hour" finish_hour fullWidth>
+          </div>
+          <div class="col-md-12">
+            <label for="assistance" class="form-text text-muted font-weight-bold">Profesional:</label>
+            <input type="text" nbInput id="assistance" formControlName="assistance" assistance fullWidth>
+          </div>
+          <div class="col-md-12">
+            <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimiento:</label>
+            <input type="text" nbInput id="procedure_id" formControlName="procedure_id" procedure_id fullWidth>
+          </div>
+          <div class="col-md-12">
+            <label for="status_id" class="form-text text-muted font-weight-bold">Estado:</label>
+            <nb-select id="status_id" fullWidth selected="this.data.status_id" formControlName="status_id" status_id
+              status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of status" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col-md-12">
+            <label for="reason_cancel_id" class="form-text text-muted font-weight-bold">Motivo de cancelación:</label>
+            <nb-select id="reason_cancel_id" fullWidth selected="this.data.reason_cancel_id" formControlName="reason_cancel_id" reason_cancel_id
+              status="{{ isSubmitted && form.controls.reason_cancel_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of reason_cancel" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+          <div *ngIf="this.form.controls.reason_cancel_id.value == 3" class="col-md-12">
+            <label for="cancel_description" class="form-text text-muted font-weight-bold">Observación:</label>
+            <input type="text" nbInput id="cancel_description" formControlName="cancel_description" cancel_description fullWidth
+            status="{{ isSubmitted && form.controls.cancel_description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- <div *ngIf="this.desable">
+        <div class="row">
+          <div class="col-md-12">
+            <label for="status_id" class="form-text text-muted font-weight-bold">Estado:</label>
+            <nb-select id="status_id" fullWidth selected="this.data.status_id" formControlName="status_id" status_id
+              status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of status" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div> -->
+    {{ body }}
+  </nb-card-body>
+
+  <nb-card-footer class="d-flex justify-content-end">
+    <button nbButton ghost type="button" (click)="close()">Cerrar</button>
+    <button *ngIf="this.desable" nbButton status="danger" class="ml-1" type="button" (click)="DeleteAction()"
+      [disabled]="loading">{{textConfirm }}</button>
+    <button *ngIf="this.CancelScheduling" nbButton status="danger" class="ml-1" type="button" (click)="cancelSchedule()"
+      [disabled]="loading">{{textConfirm }}</button>
+    <button *ngIf="this.desable_cancel" nbButton status="danger" class="ml-1" type="button" (click)="toggleActivity()"
+      [disabled]="loading">{{textConfirm }}</button>
+      <button *ngIf="this.desable_agend" nbButton status="danger" class="ml-1" type="button" (click)="toggleScheduling()"
+      [disabled]="loading">{{textConfirm }}</button>
+  </nb-card-footer>
+</nb-card>

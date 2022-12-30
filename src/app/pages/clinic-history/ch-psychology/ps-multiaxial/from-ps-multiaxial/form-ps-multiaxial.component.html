@@ -9,48 +9,48 @@
     <div class="col-md-6">
       <div class="form-group">
         <label class="form-text font-weight-bold">Eje I</label>
-        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
-          id="axis_one" formControlName="axis_one" axis_one type="text" required
-          (ngModelChange)="this.searchDiagnostic($event)"
-          status="{{ isSubmitted && form.controls.axis_one.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-        <datalist id="codes">
-          <option *ngFor="let item of diagnosis_dms" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes1" (change)="saveCode($event.target.value,1)"
+          id="axis_one_id" formControlName="axis_one_id" axis_one_id type="text" required
+          (ngModelChange)="this.searchDiagnostic($event,1)"
+          status="{{ isSubmitted && form.controls.axis_one_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes1">
+          <option *ngFor="let item of dms_one" [value]="item.name">{{ item.code }} - {{item.name}} </option>
         </datalist>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label class="form-text font-weight-bold">Eje II</label>
-        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
-          id="axis_two" formControlName="axis_two" axis_two type="text" required
-          (ngModelChange)="this.searchDiagnostic($event)"
-          status="{{ isSubmitted && form.controls.axis_two.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-        <datalist id="codes">
-          <option *ngFor="let item of diagnosis_dms" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes2" (change)="saveCode($event.target.value,2)"
+          id="axis_two_id" formControlName="axis_two_id" axis_two_id type="text" required
+          (ngModelChange)="this.searchDiagnostic($event,2)"
+          status="{{ isSubmitted && form.controls.axis_two_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes2">
+          <option *ngFor="let item of dms_two" [value]="item.name">{{ item.code }} - {{item.name}} </option>
         </datalist>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label class="form-text font-weight-bold">Eje III</label>
-        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
-          id="axis_three" formControlName="axis_three" axis_three type="text" required
-          (ngModelChange)="this.searchDiagnostic($event)"
-          status="{{ isSubmitted && form.controls.axis_three.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-        <datalist id="codes">
-          <option *ngFor="let item of diagnosis_dms" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes3" (change)="saveCode($event.target.value,3)"
+          id="axis_three_id" formControlName="axis_three_id" axis_three_id type="text" required
+          (ngModelChange)="this.searchDiagnostic($event,3)"
+          status="{{ isSubmitted && form.controls.axis_three_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes3">
+          <option *ngFor="let item of dms_three" [value]="item.name">{{ item.code }} - {{item.name}} </option>
         </datalist>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label class="form-text font-weight-bold">Eje IV</label>
-        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
-          id="axis_four" formControlName="axis_four" axis_four type="text" required
-          (ngModelChange)="this.searchDiagnostic($event)"
-          status="{{ isSubmitted && form.controls.axis_four.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-        <datalist id="codes">
-          <option *ngFor="let item of diagnosis_dms" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+        <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes4" (change)="saveCode($event.target.value,4)"
+          id="axis_four_id" formControlName="axis_four_id" axis_four_id type="text" required
+          (ngModelChange)="this.searchDiagnostic($event,4)"
+          status="{{ isSubmitted && form.controls.axis_four_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes4">
+          <option *ngFor="let item of dms_four" [value]="item.name">{{ item.code }} - {{item.name}} </option>
         </datalist>
       </div>
     </div>

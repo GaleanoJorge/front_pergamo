@@ -36,10 +36,11 @@ import { PagesModule } from './pages/pages.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+import { CurrencyPipe, PercentPipe } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DateFormatPipe],
-  imports: [
+  declarations: [AppComponent, LoginComponent, DateFormatPipe,],
+  imports: [ 
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -51,6 +52,7 @@ import { environment } from '../environments/environment';
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     NbButtonModule,
+    NbAutocompleteModule,
     NbInputModule,
     NbAlertModule,
     NbAutocompleteModule,
@@ -71,12 +73,15 @@ import { environment } from '../environments/environment';
   bootstrap: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
-    DateFormatPipe
+    DateFormatPipe,
+    CurrencyPipe,
+    PercentPipe
   ],
   exports: [
     PagesModule,
     DateFormatPipe,
-    NbEvaIconsModule
+    CurrencyPipe,
+    NbEvaIconsModule,
   ],
 })
 export class AppModule {

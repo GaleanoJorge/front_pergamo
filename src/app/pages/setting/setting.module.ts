@@ -12,7 +12,18 @@ import {
   NbRadioModule,
   NbTooltipModule,
   NbPopoverModule,
-  NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule, NbAutocompleteModule,
+  NbTabsetModule,
+  NbUserModule,
+  NbInputModule,
+  NbSelectModule,
+  NbAlertModule,
+  NbDialogModule,
+  NbIconModule,
+  NbToggleModule,
+  NbLayoutModule,
+  NbSpinnerModule,
+  NbCheckboxModule,
+  NbAutocompleteModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
 import { ManualComponent } from './manual/manual.component';
@@ -385,11 +396,6 @@ import { RoleCheckComponent } from './users/role-package/role-check.component';
 import { RolePackageComponent } from './users/role-package/role-package.component';
 import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
 import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
-import { MedicalDiaryComponent } from './medical-diary/medical-diary.component';
-import { FormMedicalDiaryComponent } from './medical-diary/form-medical-diary/form-medical-diary.component';
-import { MedicalComponent } from './medical-diary/medical/medical.component';
-import { ActionsMedicalDiaryComponent } from './medical-diary/actions.component';
-import { ActionsMedicalComponent } from './medical-diary/medical/actions.component';
 import { FixedPatientsComponent } from './fixed-patients/fixed-patients.component';
 import { FixedMovementsComponent } from './fixed-movements/fixed-movements.component';
 import { FixedInventaryAddPatientsComponent } from './fixed-inventary-add-patients/fixed-inventary-add-patients.component';
@@ -411,6 +417,7 @@ import { ReportBillingComponent } from './report-billing/report-billing.componen
 import { FormReportGlossComponent } from './report-gloss/form-report-gloss/form-report-gloss.component';
 import { ReportGlossComponent } from './report-gloss/report-gloss.component';
 import { FormReportPharmacyComponent } from './report-pharmacy/form-report-pharmacy/form-report-pharmacy.component';
+import { ActionsBedComponent } from './bed/actions-bed.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
 import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-measure/form-supplies-measure.component';
 
@@ -471,9 +478,6 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     PolicyTypeComponent,
     FormBedComponent,
     BedComponent,
-    MedicalComponent,
-    ActionsMedicalDiaryComponent,
-    ActionsMedicalComponent,
     RolesPermissionsComponent,
     FormObservationNoveltyComponent,
     ObservationNoveltyComponent,
@@ -496,6 +500,7 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     FlatComponent,
     FormFlatComponent,
     BedComponent,
+    ActionsBedComponent,
     FormBedComponent,
     AffiliateTypeComponent,
     FormAffiliateTypeComponent,
@@ -512,8 +517,6 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     ActionsProcedureComponent,
     FormCoverageComponent,
     FormFirmsComponent,
-    MedicalDiaryComponent,
-    FormMedicalDiaryComponent,
     ProcedurePackageComponent,
     ProcedurePackage2Component,
     FormInsuranceCarrierComponent,
@@ -807,10 +810,8 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     ProdSuppliesPackageComponent,
     SelectProductSuppliesComponent,
 
-
     BillingRequestPharmacyMostComponent,
     tcRentabilityComponent,
-
 
     tcRentabilityComponent,
 
@@ -820,7 +821,6 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     FormBillingPadConsecutiveComponent,
     FixedFormNomProductComponent,
     FixedNomProductComponent,
-
 
     AssetsRequestsPatientPackageComponent,
     AssetsSelectRequestsPatientComponent,
@@ -869,18 +869,15 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     ReportGlossComponent,
     FormReportGlossComponent,
     SuppliesMeasureComponent,
-    FormSuppliesMeasureComponent
+    FormSuppliesMeasureComponent,
   ],
-  providers: [
-    DateFormatPipe,
-    CurrencyPipe
-  ],
+  providers: [DateFormatPipe, CurrencyPipe],
   exports: [
     ProcedurePackage2Component,
     FormUserComponent,
     FormLocationCapacityComponent,
+    ActionsComponent,
   ],
   bootstrap: [],
 })
-export class SettingModule {
-}
+export class SettingModule {}

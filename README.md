@@ -43,7 +43,6 @@ Herramienta gestión de health and life ips.
 https://phoenixnap.com/kb/install-latest-node-js-and-nmp-on-ubuntu#:~:text=Install%20a%20Specific%20Version,-Nvm%20is%20a&text=To%20install%20a%20particular%20version,the%20number%20of%20the%20version.&text=This%20will%20list%20all%20installed,the%20default%20and%20stable%20versions.
 
 ---
-
 ## License
 
 Copyright Health and life ips 2021

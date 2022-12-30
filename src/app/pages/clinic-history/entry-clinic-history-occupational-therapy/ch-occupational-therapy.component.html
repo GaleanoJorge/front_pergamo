@@ -13,7 +13,7 @@
     </div>
 
     <nb-tabset *ngIf="user" class="tabset" (changeTab)="tablock($event)">
-      <nb-tab tabTitle="INGRESO 1">
+      <nb-tab tabTitle="INGRESO PARTE 1">
         <div *ngIf="this.show == 1">
           <nb-stepper #stepper [linear]="linearMode">
 
@@ -67,7 +67,7 @@
         </div>
       </nb-tab>
 
-      <nb-tab tabTitle="INGRESO 2">
+      <nb-tab tabTitle="INGRESO PARTE 2">
         <div *ngIf="this.show == 2">
           <nb-stepper #stepper [linear]="linearMode">
 

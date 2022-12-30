@@ -53,7 +53,7 @@ export class PsMultiaxialComponent implements OnInit {
       width: 'string',
       valuePrepareFunction(value, row) {
         if (value) {
-          return value;
+          return value.name;
         } else {
           return 'NO APLICA'
         }
@@ -64,7 +64,7 @@ export class PsMultiaxialComponent implements OnInit {
       width: 'string',
       valuePrepareFunction(value, row) {
         if (value) {
-          return value;
+          return value.name;
         } else {
           return 'NO APLICA'
         }
@@ -75,7 +75,7 @@ export class PsMultiaxialComponent implements OnInit {
       width: 'string',
       valuePrepareFunction(value, row) {
         if (value) {
-          return value;
+          return value.name;
         } else {
           return 'NO APLICA'
         }
@@ -86,7 +86,7 @@ export class PsMultiaxialComponent implements OnInit {
       width: 'string',
       valuePrepareFunction(value, row) {
         if (value) {
-          return value
+          return value.name;
         } else {
           return 'NO APLICA'
         }

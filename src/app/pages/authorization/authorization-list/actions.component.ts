@@ -14,26 +14,72 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 
 @Component({
   template: `
-  <div class="d-flex justify-content-center">
-    <a *ngIf="!this.rowData.assigned_management_plan_id && !this.rowData.fixed_add" nbTooltip="editar paquete" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.edit(value.data, packagingTemplate)">
+    <div class="d-flex justify-content-center">
+      <a
+        *ngIf="
+          !this.rowData.assigned_management_plan_id &&
+          (!this.rowData.location_id || !this.rowData.open_date) &&
+          !this.rowData.fixed_add &&
+          !this.rowData.medical_diary_days
+        "
+        nbTooltip="editar paquete"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="value.edit(value.data, packagingTemplate)"
+      >
         <nb-icon icon="edit-2-outline"></nb-icon>
-    </a>
-    <button *ngIf="!this.rowData.assigned_management_plan_id && !this.rowData.fixed_add"  nbTooltip="Ver contenido de paquete" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.view(value.data)">
+      </a>
+      <button
+        *ngIf="
+          !this.rowData.assigned_management_plan_id &&
+          (!this.rowData.location_id || !this.rowData.open_date) &&
+          !this.rowData.fixed_add &&
+          !this.rowData.medical_diary_days
+        "
+        nbTooltip="Ver contenido de paquete"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="value.view(value.data)"
+      >
         <nb-icon icon="eye-outline"></nb-icon>
-    </button>
-    <button *ngIf="!this.rowData.assigned_management_plan_id && !this.rowData.fixed_add"  nbTooltip="eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
+      </button>
+      <button
+        *ngIf="
+          !this.rowData.assigned_management_plan_id &&
+          (!this.rowData.location_id || !this.rowData.open_date) &&
+          !this.rowData.fixed_add &&
+          !this.rowData.medical_diary_days
+        "
+        nbTooltip="eliminar"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="value.delete(value.data)"
+      >
         <nb-icon icon="trash-2-outline"></nb-icon>
-    </button>
-    <button *ngIf="this.show" nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewHC()">
+      </button>
+      <button
+        *ngIf="this.show"
+        nbTooltip="Ver Registro Historia Clinica"
+        nbTooltipPlacement="top"
+        nbTooltipStatus="primary"
+        nbButton
+        ghost
+        (click)="viewHC()"
+      >
         <nb-icon icon="file-add"></nb-icon>
-    </button>
-  </div>
-
+      </button>
+    </div>
   `,
 })
 export class ActionsComponent implements ViewCell {
-  @Input() value: any;    // This hold the cell value
-  @Input() rowData: any;  // This holds the entire row object
+  @Input() value: any; // This hold the cell value
+  @Input() rowData: any; // This holds the entire row object
 
   public show: boolean = false;
   public id: number = null;
@@ -43,27 +89,26 @@ export class ActionsComponent implements ViewCell {
     private toastService: NbToastrService
   ) {}
   ngOnInit() {
-    if(this.rowData.assigned_management_plan){
+    if (this.rowData.assigned_management_plan) {
       if (this.rowData.assigned_management_plan.ch_record.length > 0) {
-        this.rowData.assigned_management_plan.ch_record.forEach(x => {
-          if(x.status == "CERRADO"){
+        this.rowData.assigned_management_plan.ch_record.forEach((x) => {
+          if (x.status == 'CERRADO') {
             this.show = true;
             this.id = x.id;
           }
         });
-        // if(this.rowData.assigned_management_plan.ch_record.at(-1).status == "CERRADO") {
-        //   this.show = true;
-        //   this.id = this.rowData.assigned_management_plan.ch_record.at(-1).id;
-        // } else if(this.rowData.assigned_management_plan.ch_record.at(-2).status == "CERRADO") {
-        //   this.show = true;
-        //   this.id = this.rowData.assigned_management_plan.ch_record.at(-2).id;
-        // }
       }
+    } else if (this.rowData.medical_diary_days) {
+      this.rowData.medical_diary_days.ch_record.forEach((x) => {
+        if (x.status == 'CERRADO') {
+          this.show = true;
+          this.id = x.id;
+        }
+      });
     }
   }
 
   viewHC() {
-
     this.viewHCS
       .ViewHC(this.id)
       .then((x) => {

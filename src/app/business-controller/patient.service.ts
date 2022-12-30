@@ -33,6 +33,23 @@ export class PatientService {
       });
   }
 
+  GetPatientByIdentification(identification: number): Promise<Patient[]> {
+    // console.log(identification);
+    var servObj = new ServiceObject("patient/GetPatientByIdentification", identification);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.patients = <Patient[]>servObj.data.patients;
+        return Promise.resolve(this.patients);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   GetByAdmission(identification: {}): Promise<Patient[]> {
     // console.log(identification);
     var servObj = new ServiceObject("user/byAdmission/2");
@@ -84,6 +101,22 @@ export class PatientService {
 
   PatientByPad(id: any, params = {}): Promise<Patient[]> {
     var servObj = new ServiceObject("patient/byPAD/2", id);
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.patients = <Patient[]>servObj.data;
+        return Promise.resolve(this.patients);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  PatientByPah(id: any, params = {}): Promise<Patient[]> {
+    var servObj = new ServiceObject("patient/byPAH/2", id);
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;

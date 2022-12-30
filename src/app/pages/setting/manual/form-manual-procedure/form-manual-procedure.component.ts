@@ -135,7 +135,7 @@ export class FormManualProcedureComponent implements OnInit {
       manual_id: [this.data.manual_id],
       value: [this.data.value, Validators.compose([Validators.required])],
       price_type_id: [this.data.price_type_id, Validators.compose([Validators.required])],
-      procedure_id: [this.data.procedure_id],
+      procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
       patient_id: [this.data.patient_id],
       manual_procedure_type_id: [this.data.manual_procedure_type_id, Validators.compose([Validators.required])],
       description: [this.data.description],
