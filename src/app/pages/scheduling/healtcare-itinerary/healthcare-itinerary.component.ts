@@ -709,6 +709,7 @@ export class HealthcareItineraryComponent implements OnInit {
         break;
       }
       case 'FACTURACIÓN': {
+        this.form.controls.assistance_id.setValue("");
         this.show = 2;
         break;
       }
