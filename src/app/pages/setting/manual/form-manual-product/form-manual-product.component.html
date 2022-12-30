@@ -14,13 +14,13 @@
           <!-- acá cambia -->
 
           <label for="product_id" class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
-          <input fullWidth formControlName="product_id" nbInput type="text" placeholder="Seleccionar CUPS"
+          <input (focusout)="checkProduct($event, this.form.controls.product_id.value)" fullWidth formControlName="product_id" nbInput type="text" placeholder="Seleccionar CUPS"
             status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
             [nbAutocomplete]="autoControl" />
 
-          <nb-autocomplete #autoControl (selectedChange)="saveCode($event)">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option *ngFor="let item of filteredProductOptions$ | async" [value]="item.description">
+          <nb-autocomplete #autoControl>
+            <nb-option class="productAutocompleteOption" value="">Seleccione...</nb-option>
+            <nb-option class="productAutocompleteOption" *ngFor="let item of filteredProductOptions$ | async" [value]="item.description">
               {{item.description}}
             </nb-option>
 
@@ -35,7 +35,7 @@
         </div>
           <div class="col-12 col-sm-12 col-md-4">
             <label for="value" class="form-text text-muted font-weight-bold">Precio:</label>
-            <input nbInput fullWidth id="value" formControlName="value" value
+            <input type="number" nbInput fullWidth id="value" formControlName="value" value
               status="{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
           </div>
           <div class="col-12 col-sm-12 col-md-4">
@@ -53,9 +53,9 @@
           </div>
           <div class="col-12 col-sm-12 col-md-4">
             <label class="form-text text-muted font-weight-bold">Paciente:</label>
-            <input type="text" list="codes2" class="data-list" (change)="saveCode2($event)" formControlName="patient_id">
+            <input (focusout)="checkPatient($event, this.form.controls.patient_id.value)" type="text" list="codes2" class="data-list" (focusout)="saveCode2($event)" formControlName="patient_id">
             <datalist id="codes2">
-              <option *ngFor="let item of patient" [value]="item.identification">{{item.identification}}-{{item.nombre_completo}}</option>
+              <option class="patientDatalistOption" *ngFor="let item of patient" [value]="item.identification">{{item.identification}}-{{item.nombre_completo}}</option>
             </datalist>
           </div>
 

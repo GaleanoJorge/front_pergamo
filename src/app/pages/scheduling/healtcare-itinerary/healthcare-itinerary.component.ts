@@ -117,7 +117,7 @@ export class HealthcareItineraryComponent implements OnInit {
   public max_day = null;
   public rowAutoHeight: boolean = true;
   public datafi;
-  public isManualEditing = false;
+  public isChangingDate = false;
   //It's only loaded when is rescheduling
   public procedureIdValue;
 
@@ -232,16 +232,20 @@ export class HealthcareItineraryComponent implements OnInit {
     }
 
     this.form.controls.procedure_id.valueChanges.subscribe(x => {
-      this.isManualEditing = true;
-      this.form.controls.assistance_id.setValue('');
+      let assistanceInput = document.getElementById("assistance_input") as HTMLInputElement;
+      assistanceInput.value = "";
     })
 
     this.form.controls.start_date.valueChanges.subscribe(x => {
+      this.isChangingDate = true;
       this.onSelectionChange(null, 2);
+      this.isChangingDate = false;
     })
 
     this.form.controls.finish_date.valueChanges.subscribe(x => {
+      this.isChangingDate = true;
       this.onSelectionChange(null, 2);
+      this.isChangingDate = false;
     })
 
     this.onChanges();
@@ -276,8 +280,6 @@ export class HealthcareItineraryComponent implements OnInit {
 
   onChanges() {
     this.form.get('campus_id').valueChanges.subscribe((val) => {
-      this.isManualEditing = true;
-      this.form.controls.assistance_id.setValue('');
       let procedureName = this.form.controls.procedure_id.value;
       if (procedureName) {
         let id = this.form.controls.procedure_id.value.split('-')[0];
@@ -286,10 +288,39 @@ export class HealthcareItineraryComponent implements OnInit {
     })
   }
 
+  checkProcedure($event, value) {
+    if ($event.relatedTarget != null && $event.relatedTarget.className.includes("procedureAutocompleteOption")) {
+      return;
+    }
+    if (this.form.controls.procedure_id.value == null || this.form.controls.procedure_id.value == '') {
+      return;
+    }
+    var filter = this.procedure.find((procedureOne) => (procedureOne.id + ' - ' + procedureOne.name) == value);
+    if (!filter) {
+      this.form.controls.procedure_id.setValue('');
+    }
+  }
+
+  checkAssistance($event, value) {
+    if ($event.relatedTarget != null && $event.relatedTarget.className.includes("assistanceAutocompleteOption")) {
+      return;
+    }
+    if (this.form.controls.assistance_id.value == null || this.form.controls.assistance_id.value == '') {
+      return;
+    }
+    var filter = this.assistance.find((assistanceOne) => assistanceOne.nombre_completo == value);
+    if (!filter) {
+      this.form.controls.assistance_id.setValue('');
+    }
+  }
+
   onSelectionChange($event, e) {
+
     var localidentify;
 
+
     if (e == 1) {
+
       var id = $event == '' ? $event : Number($event.split('-').at(0));
       localidentify = this.procedure.find((item) => item.id == id);
       this.id = id;
@@ -297,6 +328,8 @@ export class HealthcareItineraryComponent implements OnInit {
         this.procedure_id = localidentify;
         this.getAssistance(this.procedure_id.id);
       } else {
+        let inputProcedure = document.getElementById("inputProcedure") as HTMLInputElement;
+        inputProcedure.value = "";
         this.procedure_id = null;
         this.assistance = [];
         this.filteredAssistanceOptions$ = of(this.assistance);
@@ -333,7 +366,7 @@ export class HealthcareItineraryComponent implements OnInit {
         (item) => item.nombre_completo == $event
       );
 
-      if($event == null){
+      if ($event == null) {
         localidentify = this.user;
       }
 
@@ -345,13 +378,9 @@ export class HealthcareItineraryComponent implements OnInit {
         this.assistance_id = null;
         this.scheduleData = [];
         this.eventSettings = undefined;
-        if (!this.isManualEditing) {
-          this.toastService.warning(
-            '',
-            'Debe seleccionar un asistencial de la lista'
-          );
+        if (!this.isChangingDate) {
+          this.toastService.warning('', 'Debe seleccionar un item de la lista');
         }
-        this.isManualEditing = false;
       }
     }
   }
