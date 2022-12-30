@@ -109,7 +109,7 @@ export class AdmissionsListComponent {
 
   }
   async ngOnInit() {
-    this.dbPouch.getData(this.own_user.id)
+    // this.dbPouch.getData(this.own_user.id)
    
     await this.userChangeS.GetCollection().then(x =>{
       this.all_changes = x;

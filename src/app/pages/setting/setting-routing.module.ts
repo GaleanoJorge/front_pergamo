@@ -155,6 +155,9 @@ import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.compo
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
 import { FormReportRipsComponent } from './report-rips/form-report-rips/form-report-rips.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
+import { FormReportPharmacyComponent } from './report-pharmacy/form-report-pharmacy/form-report-pharmacy.component';
+import { FormReportBillingComponent } from './report-billing/form-report-billing/form-report-billing.component';
+import { FormReportGlossComponent } from './report-gloss/form-report-gloss/form-report-gloss.component';
 
 const routes: Routes = [{
   path: '',
@@ -876,6 +879,18 @@ const routes: Routes = [{
     {
       path: 'report-rips',
       component: FormReportRipsComponent,
+    },
+    {
+      path: 'report-pharmacy',
+      component: FormReportPharmacyComponent,
+    },
+    {
+      path: 'report-billing',
+      component: FormReportBillingComponent,
+    },
+    {
+      path: 'report-gloss',
+      component: FormReportGlossComponent,
     }
   ],
 }];

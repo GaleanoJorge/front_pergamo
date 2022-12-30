@@ -5,6 +5,8 @@ import { CompanyService } from '../../../../business-controller/company.service'
 import { ReportRipsService } from '../../../../business-controller/report-rips.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
 
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
 @Component({
   selector: 'ngx-form-report-rips',
   templateUrl: './form-report-rips.component.html',
@@ -15,6 +17,7 @@ export class FormReportRipsComponent implements OnInit {
   @Input() title: string;
   @Output() messageEvent = new EventEmitter<any>();
   @Input() data: any = null;
+  @Input() saved: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -38,6 +41,7 @@ export class FormReportRipsComponent implements OnInit {
   async ngOnInit() {
     this.today = new Date();
     this.today = this.today.toISOString().split('T')[0];
+    // this.today = this.today.toISOString().replace(/T.*/,'').split('-').reverse().join('-');
     if (!this.data) {
       this.data = {
         initial_report: '',
@@ -67,27 +71,28 @@ export class FormReportRipsComponent implements OnInit {
       this.company_id = localidentify.id;
     } else {
       this.company_id = null;
-      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
+      this.toastService.warning('', 'Debe seleccionar una EPS de la lista');
     }
   }
+  
   exportAsXLSX(): void {
     if (!this.form.invalid) {
       this.excelService.GetExportRips(this.company_id, {
         initial_report: this.form.controls.initial_report.value,
         final_report: this.form.controls.final_report.value,
       }).then(x => {
-        if (x['h1'].length > 0) {
-          this.excelService.exportAsExcelFile(x['h1'], 'h1');
-          this.excelService.exportAsExcelFile(x['h2'], 'h2');
-          this.excelService.exportAsExcelFile(x['h3'], 'h3');
-          this.excelService.exportAsExcelFile(x['h4'], 'h4');
-          this.excelService.exportAsExcelFile(x['h5'], 'h5');
-          this.excelService.exportAsExcelFile(x['h6'], 'h6');
-          this.excelService.exportAsExcelFile(x['h7'], 'h7');
-          this.excelService.exportAsExcelFile(x['h8'], 'h8');
-        } else {
-          this.toastService.warning('', 'No se encontraron datos');
-        }
+        // if (x['h1'].length > 0) {
+          this.excelService.exportAsExcelFile(x['h1'], "reporte_rips_de_[" + this.form.controls.initial_report.value + "]_a_[" + this.form.controls.final_report.value + "]");
+          // this.excelService.exportAsExcelFile(x['h2'], 'h2');
+          // this.excelService.exportAsExcelFile(x['h3'], 'h3');
+          // this.excelService.exportAsExcelFile(x['h4'], 'h4');
+          // this.excelService.exportAsExcelFile(x['h5'], 'h5');
+          // this.excelService.exportAsExcelFile(x['h6'], 'h6');
+          // this.excelService.exportAsExcelFile(x['h7'], 'h7');
+          // this.excelService.exportAsExcelFile(x['h8'], 'h8');
+        // } else {
+        //   this.toastService.warning('', 'No se encontraron datos');
+        // }
       });
     }
   }

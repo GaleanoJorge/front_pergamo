@@ -98,11 +98,32 @@ import { ManagementPlanService } from '../../../business-controller/management-p
       </a>
     </div>
 
-    <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
-    </nb-card-footer>
-  </nb-card>
-</ng-template>
+    <ng-template #AssignedTable>
+      <nb-card style="width: 100%;height: 100%;overflow: auto;">
+        <nb-card-header> Próximos servicios </nb-card-header>
+        <nb-card-body>
+          <ngx-base-list [messageError]="messageError">
+            <div content>
+              <ngx-base-table
+                subtitle="Servicios"
+                [settings]="this.settings_table"
+                entity="assigned_management_plan/getByUserPatient/{{
+                  this.user_id
+                }}/{{ patient_id }}?management_plan_id={{
+                  this.management_plan_id
+                }}"
+                customData="assigned_management_plan"
+              >
+              </ngx-base-table>
+            </div>
+          </ngx-base-list>
+        </nb-card-body>
+
+        <nb-card-footer class="d-flex justify-content-end">
+          <button nbButton (click)="closeDialog()" type="button">Cerrar</button>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
 
 <ng-template #confirmAction>
   <div class="container-fluid" fullWidth>

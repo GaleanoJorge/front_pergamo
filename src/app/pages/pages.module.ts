@@ -13,7 +13,11 @@ import {
   NbDatepickerModule,
   NbSpinnerModule,
   NbBadgeModule,
-  NbIconModule, NbContextMenuModule, NbAutocompleteModule, NbTooltipModule, NbFormFieldModule,
+  NbIconModule,
+  NbContextMenuModule,
+  NbAutocompleteModule,
+  NbTooltipModule,
+  NbFormFieldModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
@@ -35,8 +39,8 @@ import { BaseFormComponent } from './components/base-form/base-form.component';
 import { FormUsersComponent } from './components/form-users/form-users.component';
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
 import { CategoriesDialogComponent } from './components/form-users/categories-dialog.component';
-import {CheckPermsDirective} from '../directives/check-perms.directive';
-import {PermissionsGuard} from '../guards/permissions.guard';
+import { CheckPermsDirective } from '../directives/check-perms.directive';
+import { PermissionsGuard } from '../guards/permissions.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SpecialitiesDialogComponent } from './components/form-users/especialities-dialog.component';
 import { SignaturePadModule } from '@ng-plus/signature-pad';
@@ -58,9 +62,6 @@ import { FormAssistanceReturnComponent } from './setting/assistance-stock/form-a
 import { AgreementCheckComponent } from './components/form-users/agreement-package/agreement-check.component';
 import { AgreementPackageComponent } from './components/form-users/agreement-package/agreement-package.component';
 //import { ReferenceComponent } from './reference/reference.component';
-
-
-
 
 @NgModule({
   imports: [
@@ -120,11 +121,10 @@ import { AgreementPackageComponent } from './components/form-users/agreement-pac
     SelectWorkLocationComponent,
     WorkLocationPackageComponent,
     BillingPadComponent,
-   // ReferenceComponent,
+    // ReferenceComponent,
     SelectUsersCampusComponent,
     UsersCampusComponent,
     WebSpeachComponent,
-    
   ],
   exports: [
     BreadcrumbComponent,
@@ -149,5 +149,4 @@ import { AgreementPackageComponent } from './components/form-users/agreement-pac
   ],
   providers: [PermissionsGuard],
 })
-export class PagesModule {
-}
+export class PagesModule {}
