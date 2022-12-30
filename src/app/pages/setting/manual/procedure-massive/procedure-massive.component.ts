@@ -232,7 +232,7 @@ export class ProcedureMassiveComponent implements OnInit {
   EditManualPrice(data) {
     this.dialogFormService.open(FormManualProcedureComponent, {
       context: {
-        title: 'Editar Medicamentos o insumos',
+        title: 'Editar Procedimientos',
         data: data,
         manual_id:this.manual_id,
         saved: this.RefreshData.bind(this),
@@ -243,7 +243,7 @@ export class ProcedureMassiveComponent implements OnInit {
   NewProduct() {
     this.dialogFormService.open(FormProductComponent, {
       context: {
-        title: 'Crear Medicamentos o insumos',
+        title: 'Crear Procedimientos',
         saved: this.RefreshData.bind(this),
       },
     });

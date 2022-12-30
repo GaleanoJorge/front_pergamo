@@ -125,7 +125,7 @@ export class FormManualInsumeComponent implements OnInit {
     if (this.form.controls.patient_id.value == null || this.form.controls.patient_id.value == '') {
       return;
     }
-    var filter = this.product_supplies.find((patientOne) => patientOne.identification == value);
+    var filter = this.patient.find((patientOne) => patientOne.identification == value);
     if (!filter) {
       this.form.controls.patient_id.setValue('');
     }

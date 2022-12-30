@@ -37,9 +37,9 @@
           <nb-select [selected]="this.data.bed_or_office" formControlName="bed_or_office" id="bed_or_office" fullWidth
           status="{{ isSubmitted && form.controls.bed_or_office.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <nb-option value="">Seleccione...</nb-option>
-          <nb-option value="2">
+          <nb-option [value]="2">
             Consultorio</nb-option>
-          <nb-option  value="1">
+          <nb-option [value]="1">
             Cama</nb-option>
         </nb-select>
         </div>

@@ -312,7 +312,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
             admission_id: this.admission_id,
             briefcase_id: this.form.controls.briefcase_id.value,
             diagnosis_id: this.diagnosis_id,
-            procedure_id: this.procedure.id,
+            procedure_id: null,
             admission_route_id: this.form.controls.admission_route_id.value,
             scope_of_attention_id:
               this.form.controls.scope_of_attention_id.value,
