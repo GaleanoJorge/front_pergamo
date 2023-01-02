@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="save()" style="width: 97%;height: 90%;">
-  <nb-card style="width: 100%;height: 600px;overflow: auto;">
+  <nb-card style="width: 100%;height: 600px;overflow: auto; margin-left: 1.5%">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body style="height: fit-content;overflow: auto;">
       <div class="row">
@@ -22,9 +22,10 @@
         </div>
         <div *ngIf="showSelect" class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold">Seleccione cups:</label>
-          <input type="text" list="codes" class="data-list" (change)="saveCode($event)">
+          <input (focusout)="checkCups($event, this.form.controls.cups_id.value)" nbInput type="text" list="codes" class="data-list" (change)="saveCode($event)" formControlName="cups_id" cups_id
+          status="{{ isSubmitted && form.controls.cups_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" >
           <datalist id="codes">
-            <option *ngFor="let item of procedure_cups" [value]="item.code">{{item.code}}-{{item.name}}</option>
+            <option class="cupsAutocompleteOption" *ngFor="let item of procedure_cups" [value]="item.code">{{item.code}}-{{item.name}}</option>
           </datalist>
         </div>
         <div class="col-12 col-sm-12 col-md-4">

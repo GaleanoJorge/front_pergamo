@@ -333,7 +333,7 @@ export class HealthcareItineraryComponent implements OnInit {
         this.procedure_id = null;
         this.assistance = [];
         this.filteredAssistanceOptions$ = of(this.assistance);
-        this.toastService.warning('', 'Debe seleccionar un item de la lista');
+        //this.toastService.warning('', 'Debe seleccionar un item de la lista');
       }
     } else if (e == 2) {
 
@@ -379,7 +379,7 @@ export class HealthcareItineraryComponent implements OnInit {
         this.scheduleData = [];
         this.eventSettings = undefined;
         if (!this.isChangingDate) {
-          this.toastService.warning('', 'Debe seleccionar un item de la lista');
+          //this.toastService.warning('', 'Debe seleccionar un item de la lista');
         }
       }
     }
