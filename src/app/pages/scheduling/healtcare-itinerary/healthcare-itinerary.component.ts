@@ -55,6 +55,7 @@ import { Campus } from '../../../models/campus';
 import { MedicalDiaryDaysService } from '../../../business-controller/medical_diary_days.service';
 import { MedicalStatusService } from '../../../business-controller/medical_status.service';
 import { DatePipe } from '@angular/common';
+import { User } from '../../../models/user';
 
 // import { ActionsDaysComponent } from './actions.component';
 
@@ -107,8 +108,8 @@ export class HealthcareItineraryComponent implements OnInit {
   public procedure: any[] = [];
   public campus: Campus[] = [];
   public assistance: any[] = [];
-  public filteredProcedureOptions$: Observable<string[]>;
-  public filteredAssistanceOptions$: Observable<string[]>;
+  public filteredProcedureOptions$: Observable<any[]>;
+  public filteredAssistanceOptions$: Observable<any[]>;
   public user_id;
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
@@ -234,6 +235,12 @@ export class HealthcareItineraryComponent implements OnInit {
     this.form.controls.procedure_id.valueChanges.subscribe(x => {
       let assistanceInput = document.getElementById("assistance_input") as HTMLInputElement;
       assistanceInput.value = "";
+      this.filteredAssistanceOptions$ = of([]);
+      let procedure = this.procedure.find(procedure => (procedure.id + " - " + procedure.name) == x)
+      if (procedure == null) return;
+      this.id = procedure.id;
+      this.procedure_id = procedure;
+      this.getAssistance(procedure.id);
     })
 
     this.form.controls.start_date.valueChanges.subscribe(x => {
@@ -246,6 +253,16 @@ export class HealthcareItineraryComponent implements OnInit {
       this.isChangingDate = true;
       this.onSelectionChange(null, 2);
       this.isChangingDate = false;
+    })
+
+    this.form.controls.assistance_id.valueChanges.subscribe(x => {
+      this.filteredAssistanceOptions$.subscribe(users => {
+        let user = users.find(user => user.nombre_completo == x)
+        if (user == null) return;
+        this.assistance_id = user.assistance_id;
+        this.user = user;
+        this.getSchedule(this.assistance_id);
+      })
     })
 
     this.onChanges();

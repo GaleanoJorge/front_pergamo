@@ -121,11 +121,20 @@ export class TransferScheduleComponent implements OnInit {
     });
 
     this.form.controls.assistance_id.valueChanges.subscribe(val => {
+      let procedureInput = document.getElementById("procedure_input") as HTMLInputElement;
+      procedureInput.value = "";
+      this.filteredProcedureOptionsApplied = [];
+      this.form.controls.procedure_id.setErrors({'incorrect': true});
       this.filterAssistances(val);
+      this.user = this.users.find(user => this.getCompleteName(user) == val);
+      if (this.user == null) return;
+      this.loadProcedures(this.user.id);
     })
 
     this.form.controls.procedure_id.valueChanges.subscribe(val => {
       this.filterProcedures(val);
+      this.procedure = this.procedures.find(procedure => (procedure.id + ' - ' + procedure.name) == val);
+      if (this.procedure == null) return;
     })
 
     this.loadAssistances();

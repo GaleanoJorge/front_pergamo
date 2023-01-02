@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-5">
           <label for="procedure_id" class="form-text text-muted font-weight-bold">Código Cups:</label>
-          <input (focusout)="checkProcedure($event, this.form.controls.procedure_id.value)"  fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
+          <input id="procedure_input" (focusout)="checkProcedure($event, this.form.controls.procedure_id.value)"  fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
             status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
             [nbAutocomplete]="autoControl" />
 
