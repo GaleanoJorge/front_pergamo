@@ -106,6 +106,8 @@ export class FormRentReliefComponent implements OnInit {
       this.SourceRetentionS.GetByAccountReceivableId(this.data.id).then(x => {
         this.source_retention = x;
         this.applySourceRetention();
+      }).catch(x => {
+        this.toastService.warning('', x);
       });
     }
 
