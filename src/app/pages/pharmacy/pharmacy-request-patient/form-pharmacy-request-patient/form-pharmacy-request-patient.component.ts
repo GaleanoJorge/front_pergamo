@@ -49,21 +49,21 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    if (this.data.product_generic_id == null) {
-      this.title = 'INSUMO COMERCIAL:';
-      this.parentData = {
-        selectedOptions: [],
-        entity: 'pharmacy_lot_stock?product_supplies_id=' + this.data.product_supplies_id + '&pharmacy_stock_id=' + this.my_pharmacy_id,
-        customData: 'pharmacy_lot_stock',
-      };
-    } else if (this.data.product_supplies_id == null && this.data.services_briefcase_id == null) {
+    if (this.data.product_generic_id != null) {
       this.title = 'MEDICAMENTO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
         entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.product_generic_id + '&pharmacy_stock_id=' + this.my_pharmacy_id,
         customData: 'pharmacy_lot_stock',
       };
-    } else if(this.data.product_generic_id == null || this.data.product_supplies_id == null) {
+    } else if (this.data.product_supplies_id != null) {
+      this.title = 'INSUMO COMERCIAL:';
+      this.parentData = {
+        selectedOptions: [],
+        entity: 'pharmacy_lot_stock?product_supplies_id=' + this.data.product_supplies_id + '&pharmacy_stock_id=' + this.my_pharmacy_id,
+        customData: 'pharmacy_lot_stock',
+      };
+    } else if(this.data.product_generic_id == null && this.data.product_supplies_id == null) {
       this.title = 'MEDICAMENTO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
