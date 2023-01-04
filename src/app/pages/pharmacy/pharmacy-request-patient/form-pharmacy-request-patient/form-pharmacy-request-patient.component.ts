@@ -63,7 +63,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
         entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.product_generic_id + '&pharmacy_stock_id=' + this.my_pharmacy_id,
         customData: 'pharmacy_lot_stock',
       };
-    } else {
+    } else if(this.data.product_generic_id == null || this.data.product_supplies_id == null) {
       this.title = 'MEDICAMENTO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
