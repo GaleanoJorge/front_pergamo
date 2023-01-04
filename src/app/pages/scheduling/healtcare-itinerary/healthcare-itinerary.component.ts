@@ -118,7 +118,6 @@ export class HealthcareItineraryComponent implements OnInit {
   public max_day = null;
   public rowAutoHeight: boolean = true;
   public datafi;
-  public isChangingDate = false;
   //It's only loaded when is rescheduling
   public procedureIdValue;
 
@@ -244,15 +243,11 @@ export class HealthcareItineraryComponent implements OnInit {
     })
 
     this.form.controls.start_date.valueChanges.subscribe(x => {
-      this.isChangingDate = true;
       this.onSelectionChange(null, 2);
-      this.isChangingDate = false;
     })
 
     this.form.controls.finish_date.valueChanges.subscribe(x => {
-      this.isChangingDate = true;
       this.onSelectionChange(null, 2);
-      this.isChangingDate = false;
     })
 
     this.form.controls.assistance_id.valueChanges.subscribe(x => {
@@ -275,6 +270,37 @@ export class HealthcareItineraryComponent implements OnInit {
         startWith(''),
         map((filterString) => this.filter(filterString, 1))
       );
+  }
+
+  validateStartDate(){
+    let startDateInDate = new Date(this.form.controls.start_date.value);
+    let minDateInDate = new Date(this.today);
+    let maxDateInDate = new Date(this.max_day);
+    if (this.form.controls.start_date.value != null) {
+      if (startDateInDate < minDateInDate) {
+        this.toastService.warning('', "La fecha de inicio no puede ser anterior a la de hoy.");
+        return;
+      }
+      else if (startDateInDate > maxDateInDate) {
+        this.toastService.warning('', "La fecha de inicio no puede ser superior a 2 años desde hoy.");
+        return;
+      }
+    }
+  }
+
+  validateFinishDate(){
+    let finishDateInDate = new Date(this.form.controls.finish_date.value);
+    let minDateInDate = new Date(this.today);
+    let maxDateInDate = new Date(this.max_day);
+    if (this.form.controls.finish_date.value != null) {
+      if (finishDateInDate < minDateInDate) {
+        this.toastService.warning('', "La fecha final no puede ser anterior a la de hoy.");
+        return;
+      } else if (finishDateInDate > maxDateInDate) {
+        this.toastService.warning('', "La fecha final no puede ser superior a 2 años desde hoy.");
+        return;
+      }
+    }
   }
 
   private filter(value: string, type): string[] {
@@ -354,31 +380,6 @@ export class HealthcareItineraryComponent implements OnInit {
       }
     } else if (e == 2) {
 
-      let startDateInDate = new Date(this.form.controls.start_date.value);
-      let finishDateInDate = new Date(this.form.controls.finish_date.value);
-      let minDateInDate = new Date(this.today);
-      let maxDateInDate = new Date(this.max_day);
-
-      if (this.form.controls.start_date.value != null) {
-        if (startDateInDate < minDateInDate) {
-          this.toastService.warning('', "La fecha de inicio no puede ser anterior a la de hoy.");
-          return;
-        }
-        else if (startDateInDate > maxDateInDate) {
-          this.toastService.warning('', "La fecha de inicio no puede ser superior a 2 años desde hoy.");
-          return;
-        }
-      }
-      if (this.form.controls.finish_date.value != null) {
-        if (finishDateInDate < minDateInDate) {
-          this.toastService.warning('', "La fecha final no puede ser anterior a la de hoy.");
-          return;
-        } else if (finishDateInDate > maxDateInDate) {
-          this.toastService.warning('', "La fecha final no puede ser superior a 2 años desde hoy.");
-          return;
-        }
-      }
-
       localidentify = this.assistance.find(
         (item) => item.nombre_completo == $event
       );
@@ -395,9 +396,6 @@ export class HealthcareItineraryComponent implements OnInit {
         this.assistance_id = null;
         this.scheduleData = [];
         this.eventSettings = undefined;
-        if (!this.isChangingDate) {
-          //this.toastService.warning('', 'Debe seleccionar un item de la lista');
-        }
       }
     }
   }
