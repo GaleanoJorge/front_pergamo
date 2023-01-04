@@ -58,6 +58,7 @@ export class TransferScheduleComponent implements OnInit {
   public procedure_id;
   public medical_diary: any[] = [];
   public messageError: string = null;
+  public existItinerary: boolean = false;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @ViewChild('schedule') schedule: ScheduleComponent;
@@ -322,7 +323,7 @@ export class TransferScheduleComponent implements OnInit {
       this.medical_diary = x;
       this.messageError = null;
       if (this.medical_diary.length > 0) {
-
+        this.existItinerary = true;
         this.scheduleData = x;
 
         this.chargeCalendar();
@@ -330,6 +331,7 @@ export class TransferScheduleComponent implements OnInit {
         this.messageError =
           'Usuario sin itinerario para el procedimiento seleccionado en las fechas delimitadas';
         this.toastService.warning('', this.messageError);
+        this.existItinerary = false;
       }
     });
 

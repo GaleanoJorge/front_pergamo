@@ -141,7 +141,8 @@ export class FormTransferScheduleComponent implements OnInit {
     this.assistanceS.GetExternalAssistanceUsersTransfer({
       userId: this.userOrigin.id,
       startDate: this.startDate + ' ' + this.startHour,
-      finishDate: this.finishDate + ' ' + this.finishHour
+      finishDate: this.finishDate + ' ' + this.finishHour,
+      procedure_id: this.procedure.id
     })
     .then((users) => {
       this.users = users;
