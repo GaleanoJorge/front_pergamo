@@ -49,7 +49,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    if (this.data.services_briefcase_id == null && this.data.product_generic_id == null) {
+    if (this.data.product_generic_id == null) {
       this.title = 'INSUMO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
