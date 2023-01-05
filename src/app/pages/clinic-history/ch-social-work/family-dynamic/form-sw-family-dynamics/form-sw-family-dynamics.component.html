@@ -53,7 +53,7 @@
           fullWidth
           status="{{ isSubmitted && form.controls.authority_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
           placeholder="Seleccione...">
-          <nb-option selected="{{ item.id == data.authority_id }}" *ngFor="let item of authority" [value]="item.id">
+          <nb-option selected="{{ item.id == data.authority_id }}" *ngFor="let item of decisions" [value]="item.id">
             {{ item.relationship.name }} - {{ item.firstname }} {{ item.middlefirstname }} {{ item.lastname }} {{
             item.middlelastname }}</nb-option>
         </nb-select>
