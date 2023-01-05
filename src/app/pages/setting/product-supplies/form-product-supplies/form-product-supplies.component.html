@@ -9,7 +9,7 @@
         <div class="col-12 col-sm-12 col-md-4">
           <label for="product_group" class="form-text text-muted font-weight-bold">Grupo del insumo:</label>
           <nb-select (selectedChange)="onChange($event)" formControlName="product_group_id" id="product_group_id"
-            fullWidth
+            fullWidth product_group_id
             status="{{ isSubmitted && form.controls.product_group_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.product_group_id }}" *ngFor="let item of product_group"
@@ -21,7 +21,7 @@
         <div class="col-12 col-sm-12 col-md-4">
           <label for="product_category" class="form-text text-muted font-weight-bold">Categoria del riesgo:</label>
           <nb-select [selected]="this.data.product_category_id" formControlName="product_category_id"
-            id="product_category_id" fullWidth
+            id="product_category_id" fullWidth product_category_id
             status="{{ isSubmitted && form.controls.product_category_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.product_category_id }}" *ngFor="let item of product_category"
@@ -34,7 +34,7 @@
           <label for="product_subcategory" class="form-text text-muted font-weight-bold">Subcategoria del
             insumo:</label>
           <nb-select (selectedChange)="selectsubcategory($event)" formControlName="product_subcategory_id"
-            id="product_subcategory_id" fullWidth
+            id="product_subcategory_id" fullWidth product_subcategory
             status="{{ isSubmitted && form.controls.product_subcategory_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.product_subcategory_id }}" *ngFor="let item of product_subcategory"
@@ -108,14 +108,12 @@
         <div class="col-12 col-sm-12 col-md-4">
           <label for="minimum_stock" class="form-text text-muted font-weight-bold">Stock minimo:</label>
           <input nbInput fullWidth type="number" min="0" pattern="^[0-9]+" id="minimum_stock"
-            formControlName="minimum_stock" minimum_stock
-            status="{{ isSubmitted && form.controls.minimum_stock.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            formControlName="minimum_stock" minimum_stock/>
         </div>
         <div class="col-12 col-sm-12 col-md-4">
           <label for="maximum_stock" class="form-text text-muted font-weight-bold">Stock maximo:</label>
           <input nbInput fullWidth type="number" min="0" pattern="^[0-9]+" id="maximum_stock"
-            formControlName="maximum_stock" maximum_stock
-            status="{{ isSubmitted && form.controls.maximum_stock.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            formControlName="maximum_stock" maximum_stock />
         </div>
       </div>
 
