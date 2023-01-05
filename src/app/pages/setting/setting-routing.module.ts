@@ -154,6 +154,7 @@ import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-asse
 import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
+import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adjustment.component';
 
 const routes: Routes = [{
   path: '',
@@ -871,6 +872,11 @@ const routes: Routes = [{
     {
       path: 'product-damaged',
       component: ProductDamagedComponent,
+    }
+    ,
+    {
+      path: 'pharmacy-adjustment',
+      component: PharmacyAdjustmentComponent,
     }
   ],
 }];

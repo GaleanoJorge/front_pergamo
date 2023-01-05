@@ -1,0 +1,17 @@
+<ngx-base-list
+  [messageError]="messageError">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="pharmacy_adjustment/?pagination=true"
+                    customData='pharmacy_adjustment'>
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewFactory()">Crear</button>
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

@@ -405,6 +405,8 @@ import { FormTariffConfirmDisabledComponent } from './tariff/form-tariff-confirm
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
 import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-measure/form-supplies-measure.component';
+import { FormPharmacyAdjustmentComponent } from './pharmacy-adjustment/form-pharmacy-adjustment/form-pharmacy-adjustment.component';
+import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adjustment.component';
 
 @NgModule({
   imports: [
@@ -723,6 +725,8 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     PharmacyStockComponent,
     FormPharmacyStockComponent,
 
+    PharmacyAdjustmentComponent,
+    FormPharmacyAdjustmentComponent,
     PharmacyUpdateMaxMinComponent,
     FormPharmacyUpdateMaxMinComponent,
 
