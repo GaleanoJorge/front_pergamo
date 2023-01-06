@@ -87,6 +87,10 @@ export class MulticalendarComponent implements OnInit {
 
         if (rowIterator !== 0 || cellIterated >= firstDay) {
           cell.id = (month + 1).toString() + '/' + date.toString() + '/' + year.toString();
+          let cellDate = new Date(year, month, date);
+          if(cellDate < new Date(new Date().setHours(0, 0, 0, 0))){
+            cell.style.backgroundColor = "lightgray";
+          }
           let dateListFormat = year.toString() + '/' + (((month + 1).toString().length == 1) ? '0' + (month + 1).toString() : (month + 1).toString()) + '/' + ((date.toString().length == 1) ? '0' + date.toString() : date.toString())
           if (this.selectedDates.includes(dateListFormat)) {
             cell.classList.add("highlight");
@@ -133,7 +137,7 @@ export class MulticalendarComponent implements OnInit {
           if (this.classList.length == 0) {
             this.setAttribute('class', i + "class");
           }
-          if (!this.innerHTML.includes("Reset") && !this.innerHTML.includes("Done") && !this.getAttribute("class").includes("highlight")) {
+          if (!this.innerHTML.includes("Reset") && !this.innerHTML.includes("Done") && !this.getAttribute("class").includes("highlight") && this.style.backgroundColor != "lightgray") {
             if (!multicalendarObject.selectedDates.includes(dateContent)) {
               multicalendarObject.selectedDates.push(dateContent);
               multicalendarObject.messageEmit.emit(multicalendarObject.selectedDates);
@@ -150,7 +154,7 @@ export class MulticalendarComponent implements OnInit {
             this.style.backgroundColor = "";
             this.classList.remove("highlight");
           } else {
-            if (!this.innerHTML.toLowerCase().includes("reset") && !this.innerHTML.toLowerCase().includes("done")) {
+            if (!this.innerHTML.toLowerCase().includes("reset") && !this.innerHTML.toLowerCase().includes("done") && this.style.backgroundColor != "lightgray") {
               this.style.backgroundColor = "lightblue";
               this.classList.add("highlight");
             }
@@ -184,16 +188,22 @@ export class MulticalendarComponent implements OnInit {
 
   next() {
     this.currentYear = this.currentMonth === 11 ? this.currentYear + 1 : this.currentYear;
-    this.currentMonth = (this.currentMonth + 1) % 12;
-    if (this.currentYear > this.maxYear) return;
+    if (this.currentYear > this.maxYear){
+      this.currentYear = this.maxYear;
+      return;
+    }
+    this.currentMonth = (this.currentMonth + 1) % 12; 
     this.loadControl(this.currentMonth, this.currentYear);
     (document.getElementById("month") as HTMLSelectElement).value = this.currentMonth.toString();
     (document.getElementById("year") as HTMLSelectElement).value = this.currentYear.toString();
   }
   previous() {
     this.currentYear = this.currentMonth === 0 ? this.currentYear - 1 : this.currentYear;
+    if (this.currentYear < this.minYear){
+      this.currentYear = this.minYear;
+      return;
+    }
     this.currentMonth = this.currentMonth === 0 ? 11 : this.currentMonth - 1;
-    if (this.currentYear < this.minYear) return;
     this.loadControl(this.currentMonth, this.currentYear);
   }
   change() {
