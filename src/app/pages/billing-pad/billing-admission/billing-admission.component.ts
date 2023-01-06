@@ -31,6 +31,7 @@ export class BillingAdmissionComponent implements OnInit {
   public admission_id;
   public done: boolean = false;
   public create_new_billing: boolean = true;
+  public role_permisos = [];
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -53,6 +54,7 @@ export class BillingAdmissionComponent implements OnInit {
           }
           return {
             'data': row,
+            'role_permisos': this.role_permisos,
             'show': this.ShowBillingAdmission.bind(this),
             'resend': this.resend.bind(this),
             'cancel': this.DeleteConfirmCompany.bind(this),
@@ -130,6 +132,13 @@ export class BillingAdmissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var permisos = JSON.parse(localStorage.getItem('permissions'));
+    permisos.forEach(x => {
+      if (x.item_id == 189) {
+        this.role_permisos.push(x.permission_id);
+      }
+    });
+
     this.admission_id = this.route.snapshot.params.id;
     this.AdmissionsS.GetCollection({ admissions_id: this.admission_id }).then(x => {
       this.user = x[0]['patients'];
