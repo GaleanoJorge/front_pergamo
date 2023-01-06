@@ -31,7 +31,6 @@ export class FormPharmacyLotComponent implements OnInit {
   public today = null;
 
   constructor(
-    protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private pharmalotS: PharmacyLotService,
     private pharmalotStockS: PharmacyLotStockService,
@@ -71,9 +70,6 @@ export class FormPharmacyLotComponent implements OnInit {
       receipt_date: [this.data.receipt_date, Validators.compose([Validators.required])],
     });
     this.onchangeForm(1);
-  }
-  close() {
-    this.dialogRef.close();
   }
   receiveMessage($event) {
     this.selectedOptions = $event.selected;
@@ -128,7 +124,6 @@ export class FormPharmacyLotComponent implements OnInit {
             pharmacy_stock_id: this.pharmacy_stock_id,
           }).then(x => {
             this.toastService.success('', x.message);
-            this.close();
             var id = x.data.pharmacy_lot.id;
             var contador = 0;
             var err = 0;
@@ -168,7 +163,6 @@ export class FormPharmacyLotComponent implements OnInit {
             pharmacy_stock_id: this.pharmacy_stock_id,
           }).then(x => {
             this.toastService.success('', x.message);
-            this.close();
             var id = x.data.pharmacy_lot.id;
             var contador = 0;
             var err = 0;

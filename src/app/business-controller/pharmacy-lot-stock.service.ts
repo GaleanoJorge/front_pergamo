@@ -78,6 +78,21 @@ export class PharmacyLotStockService {
         throw x.message;
       });
   }
+  updateInvAdjustment(pharmacy_lot_stock: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('pharmacy_lot_stock/updateInvAdjustment', pharmacy_lot_stock.id);
+    servObj.data = pharmacy_lot_stock;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('pharmacy_lot_stock', id);
