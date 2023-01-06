@@ -76,6 +76,8 @@ export class FormChHairValorationComponent implements OnInit {
     this.loadAuxData = false;
     this.loadForm();
 
+    this.onChange();
+
   }
 
   async GetAuxData() {
@@ -163,7 +165,25 @@ export class FormChHairValorationComponent implements OnInit {
         this.messageEvent.emit(true);
       }
 
+    } else {
+      this.toastService.warning('', "Debe diligenciar los campos obligatorios");
     }
+  }
+
+  onChange() {
+
+    this.form.get('hair_revision').valueChanges.subscribe(val => {
+      if (val != "CON ALTERACIÓN") {
+
+        this.form.controls.observation.clearValidators();
+        this.form.controls.observation.setErrors(null);
+
+      } else {
+        this.form.controls.observation.setValidators(Validators.compose([Validators.required]));
+        this.form.patchValue({ observation: '' });
+
+      };
+    });
   }
 
 }

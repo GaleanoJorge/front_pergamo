@@ -39,12 +39,20 @@ export class FormPsMultiaxialComponent implements OnInit {
   public intelligence: any[] = [];
   public diagnosis_id;
   public diagnosis_dms: any[];
+  public dms_one: any[];
+  public dms_two: any[];
+  public dms_three: any[];
+  public dms_four: any[];
+  public one_diagnosis_id: any[];
+  public two_diagnosis_id: any[];
+  public three_diagnosis_id: any[];
+  public four_diagnosis_id: any[];
 
   constructor(
     private formBuilder: FormBuilder,
-    private toastService: NbToastrService,    
-    private multiaxialS: ChPsMultiaxialService,    
-    private dmsS: DiagnosisDmsService,    
+    private toastService: NbToastrService,
+    private multiaxialS: ChPsMultiaxialService,
+    private dmsS: DiagnosisDmsService,
 
   ) {
   }
@@ -53,33 +61,33 @@ export class FormPsMultiaxialComponent implements OnInit {
     if (!this.data || this.data.length == 0) {
       this.data = {
 
-       axis_one: '',
-       axis_two: '',
-       axis_three: '',
-       axis_four: '',
-       eeag: ''
+        axis_one_id: '',
+        axis_two_id: '',
+        axis_three_id: '',
+        axis_four_id: '',
+        eeag: ''
 
       };
     }
 
     this.form = this.formBuilder.group({
 
-      axis_one: [this.data[0] ? this.data[0].axis_one : this.data.axis_one, Validators.compose([Validators.required])],
-      axis_two: [this.data[0] ? this.data[0].axis_two : this.data.axis_two, Validators.compose([Validators.required])],
-      axis_three: [this.data[0] ? this.data[0].axis_three : this.data.axis_three, Validators.compose([Validators.required])],
-      axis_four: [this.data[0] ? this.data[0].axis_four : this.data.axis_four, Validators.compose([Validators.required])],
+      axis_one_id: [this.data[0] ? this.data[0].axis_one : this.data.axis_one_id, Validators.compose([Validators.required])],
+      axis_two_id: [this.data[0] ? this.data[0].axis_two : this.data.axis_two_id, Validators.compose([Validators.required])],
+      axis_three_id: [this.data[0] ? this.data[0].axis_three : this.data.axis_three_id, Validators.compose([Validators.required])],
+      axis_four_id: [this.data[0] ? this.data[0].axis_four : this.data.axis_four_id, Validators.compose([Validators.required])],
       eeag: [this.data[0] ? this.data[0].eeag : this.data.eeag, Validators.compose([Validators.required])],
-     
+
 
     });
 
-  
+
 
   }
 
   public diagnosticConut = 0;
 
-  searchDiagnostic($event) {
+  searchDiagnostic($event, type) {
     this.diagnosticConut++;
     if (this.diagnosticConut == 3) {
       this.diagnosticConut = 0;
@@ -87,13 +95,29 @@ export class FormPsMultiaxialComponent implements OnInit {
         this.dmsS.GetCollection({
           search: $event,
         }).then(x => {
-          this.diagnosis_dms = x;
+          if (type == 1) {
+            this.dms_one = x;
+          } else if (type == 2) {
+            this.dms_two = x;
+          } else if (type == 3) {
+            this.dms_three = x;
+          } else {
+            this.dms_four = x;
+          }
         });
       } else {
         this.dmsS.GetCollection({
           search: '',
         }).then(x => {
-          this.diagnosis_dms = x;
+          if (type == 1) {
+            this.dms_one = x;
+          } else if (type == 2) {
+            this.dms_two = x;
+          } else if (type == 3) {
+            this.dms_three = x;
+          } else {
+            this.dms_four = x;
+          }
         });
       }
     }
@@ -108,10 +132,10 @@ export class FormPsMultiaxialComponent implements OnInit {
       if (this.data.id) {
         this.multiaxialS.Update({
           id: this.data.id,
-          axis_one: this.form.controls.axis_one.value,
-          axis_two: this.form.controls.axis_two.value,
-          axis_three: this.form.controls.axis_three.value,
-          axis_four: this.form.controls.axis_four.value,
+          axis_one_id: this.one_diagnosis_id,
+          axis_two_id: this.two_diagnosis_id,
+          axis_three_id: this.three_diagnosis_id,
+          axis_four_id: this.four_diagnosis_id,
           eeag: this.form.controls.eeag.value,
           type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
@@ -127,10 +151,10 @@ export class FormPsMultiaxialComponent implements OnInit {
         });
       } else {
         this.multiaxialS.Save({
-          axis_one: this.form.controls.axis_one.value,
-          axis_two: this.form.controls.axis_two.value,
-          axis_three: this.form.controls.axis_three.value,
-          axis_four: this.form.controls.axis_four.value,
+          axis_one_id: this.one_diagnosis_id,
+          axis_two_id: this.two_diagnosis_id,
+          axis_three_id: this.three_diagnosis_id,
+          axis_four_id: this.four_diagnosis_id,
           eeag: this.form.controls.eeag.value,
           type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
@@ -138,12 +162,12 @@ export class FormPsMultiaxialComponent implements OnInit {
           this.toastService.success('', x.message);
           this.messageEvent.emit(true);
           this.form.patchValue({
-            axis_one:'',
-            axis_two:'',
-            axis_three:'',
-            axis_four:'',
-            eeag:'',
-           });
+            axis_one_id: '',
+            axis_two_id: '',
+            axis_three_id: '',
+            axis_four_id: '',
+            eeag: '',
+          });
           if (this.saved) {
             this.saved();
           }
@@ -158,19 +182,46 @@ export class FormPsMultiaxialComponent implements OnInit {
     }
   }
 
-  saveCode(e): void {
-    var localidentify = this.diagnosis_dms.find(item => item.name == e);
+  saveCode(e, valid): void {
+    if (valid == 1) {
+      var localidentify = this.dms_one.find(item => item.name == e);
+    } else if (valid == 2) {
+      var localidentify = this.dms_two.find(item => item.name == e);
+    } else if (valid == 3) {
+      var localidentify = this.dms_three.find(item => item.name == e);
+    } else  {
+      var localidentify = this.dms_four.find(item => item.name == e);
+    }
 
     if (localidentify) {
-      this.diagnosis_id = localidentify.id;
+      if (valid == 1) {
+        this.one_diagnosis_id = localidentify.id;
+      } else if (valid == 2) {
+        this.two_diagnosis_id = localidentify.id;
+      } else if (valid == 3) {
+        this.three_diagnosis_id = localidentify.id;
+      } else {
+        this.four_diagnosis_id = localidentify.id;
+      }
     } else {
-      this.diagnosis_id = null;
-      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
-      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
+
+      if (valid == 1) {
+        this.one_diagnosis_id = null;
+        this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+        this.form.controls.axis_one_id.setErrors({ 'incorrect': true });
+      } else if (valid == 2) {
+        this.two_diagnosis_id = null;
+        this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+        this.form.controls.axis_two_id.setErrors({ 'incorrect': true });
+      } else if (valid == 3) {
+        this.three_diagnosis_id = null;
+        this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+        this.form.controls.axis_three_id.setErrors({ 'incorrect': true });
+      } else {
+        this.four_diagnosis_id = null;
+        this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+        this.form.controls.axis_four_id.setErrors({ 'incorrect': true });
+      }
     }
   }
-
-
-
-
 }

@@ -10,6 +10,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { SelectAuthComponent } from './select-auth.component'; 
 import { BaseTableComponent } from '../../../components/base-table/base-table.component';
 import { AuthPackageService } from '../../../../business-controller/auth-package.service';
+import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class AuthAsociatedPackageComponent implements OnInit {
     'Fecha de creación',
     'Tipo de atención',
     'Fecha de ejecución',
+    'Cantidad',
   ];
   public routes = [];
   public row;
@@ -121,12 +123,51 @@ export class AuthAsociatedPackageComponent implements OnInit {
           return value ? value : '--'
         },
       },
+      quantity: {
+        title: this.headerFields[14],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          var q = 1;
+          if (row.location_id && row.open_date) {
+            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
+            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
+            var diff = Math.abs(b - a) + (row.location.discharge_date == "0000-00-00 00:00:00" && !row.close_date ? 1 : 0);
+            row.quantity = diff;
+          }
+          if (row.quantity) {
+            q = row.quantity;
+          }
+          if (row.location_id || row.quantity) {
+            return q;
+          } else {
+            return '--';
+          }
+        }
+      },
       assigned_management_plan: {
         title: this.headerFields[13],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(value){
-            return value.execution_date != "0000-00-00" ? value.execution_date : '--';
+          if (row.assigned_management_plan != null) {
+            if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
+              return this.datePipe.transform4(row.assigned_management_plan.execution_date);
+            } else {
+              return 'Sin ejecutar';
+            }
+          } else if (row.ch_interconsultation != null) {
+            var a = row.ch_interconsultation.many_ch_record;
+            var b = a.find(item => item.created_at == row.created_at)
+            if (b && !row.open_date) {
+              if (b.date_finish == "0000-00-00 00:00:00") {
+                return 'Sin ejecutar';
+              } else {
+                return this.datePipe.transform4(b.date_finish);
+              }
+            } else if (row.location != null) {
+              return this.datePipe.transform4(row.open_date) + ' - ' + this.datePipe.transform4(/*row.location.discharge_date != "0000-00-00 00:00:00" ? row.location.discharge_date :*/ row.close_date ? row.close_date : new Date());
+            } else {
+              return '--';
+            }
           } else {
             return '--';
           }
@@ -193,6 +234,7 @@ export class AuthAsociatedPackageComponent implements OnInit {
   };
 
   constructor(
+    public datePipe: DateFormatPipe,
     private route: ActivatedRoute,
     private router: Router,
     private procedurePackageS: ProcedurePackageService,

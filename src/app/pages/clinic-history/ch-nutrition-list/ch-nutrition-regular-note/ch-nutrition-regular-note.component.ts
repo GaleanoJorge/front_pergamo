@@ -15,6 +15,8 @@ export class ChNutritionRegularNoneComponent implements OnInit {
   @Input() data: any = null;
   @Input() user_id: any = null;
   @Input() record_id: any = null;
+  @Input() nutrition: boolean = false;
+
 
   linearMode = false;
   public form: FormGroup;

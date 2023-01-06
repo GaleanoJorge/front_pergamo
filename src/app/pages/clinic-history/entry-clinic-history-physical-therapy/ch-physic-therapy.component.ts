@@ -326,7 +326,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
           }
           return Promise.resolve(true);
         }).catch(x => {
-          this.toastService.danger('', x);
+          this.showToast(10000, x);
           return Promise.resolve(false);
         });
         return Promise.resolve(response);
@@ -341,6 +341,13 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
       return false;
     }
 
+  }
+
+  showToast(duration, m) {
+    this.toastService.warning(
+        '',
+        m,
+        { duration });
   }
 
   RefreshData() {
@@ -360,11 +367,11 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
 
   tablock(e) {
     switch (e.tabTitle) {
-      case "INGRESO 1": {
+      case "INGRESO PARTE 1": {
         this.show = 1;
         break;
       }
-      case "INGRESO 2": {
+      case "INGRESO PARTE 2": {
         this.show = 2;
         break;
       }

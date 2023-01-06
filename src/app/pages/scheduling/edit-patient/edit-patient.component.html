@@ -1,0 +1,16 @@
+<nb-card class="vh-100 text-center" [nbSpinner]="loading" *ngIf="loading">
+  <nb-card-body class="d-flex justify-content-center align-items-center">Cargando información</nb-card-body>
+</nb-card>
+<div style="height: 100%;">
+  <nb-card style="height: 100%;margin: 10px;max-height:-webkit-fill-available;">
+    <nb-card-body>
+      <ngx-form-users (messageEvent)="receiveMessage($event)"
+        [role]="role"
+        #form
+        *ngIf="!loading"
+        [data]="data"
+        [isStudent]="true">
+      </ngx-form-users>
+    </nb-card-body>
+  </nb-card>
+</div>

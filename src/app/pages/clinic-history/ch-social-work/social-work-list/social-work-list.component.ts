@@ -105,6 +105,7 @@ export class SocialWorkListComponent implements OnInit {
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
+      this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.admission = x[0]['admissions'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
@@ -174,7 +175,7 @@ export class SocialWorkListComponent implements OnInit {
         }
         return Promise.resolve(true);
       }).catch(x => {
-        this.toastService.danger('', x);
+        this.showToast(10000, x);
         return Promise.resolve(false);
       });
       return Promise.resolve(response);
@@ -190,6 +191,12 @@ export class SocialWorkListComponent implements OnInit {
   }
   }
 
+  showToast(duration, m) {
+    this.toastService.warning(
+        '',
+        m,
+        { duration });
+  }
 
   RefreshData() {
 

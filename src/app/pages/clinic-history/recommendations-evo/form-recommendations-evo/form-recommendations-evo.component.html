@@ -26,7 +26,7 @@
               status="{{ isSubmitted && form.controls.recommendations_evo_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">SELECCIONE...</nb-option>
               <nb-option selected="{{ item.id == this.data.recommendations_evo_id }}"
-                *ngFor="let item of recommendations_evo_id" [value]="item.id">
+                *ngFor="let item of recommendations" [value]="item.id">
                 {{ item.name }}</nb-option>
             </nb-select>
           </div>

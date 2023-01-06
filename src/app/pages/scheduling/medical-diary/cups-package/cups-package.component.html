@@ -1,0 +1,20 @@
+<form>
+  <nb-card style="margin: 10px;max-width: 1000px;max-height: 1000px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div content>
+          <ngx-base-table  [title]="title"
+                          [settings]="settings" 
+                          entity="procedure/?pagination=true" 
+                          customData='procedure'>
+          </ngx-base-table>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" (click)="saveGroup()">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

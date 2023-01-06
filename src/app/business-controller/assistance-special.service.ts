@@ -15,9 +15,9 @@ export class AssistanceSpecialService {
   }
 
   GetCollection(params = {}): Promise<AssistanceSpecial[]> {
-    let servObj = new ServiceObject(params ? 'assistance-special?pagination=false' : 'assistance-special');
+    let servObj = new ServiceObject(params ? 'assistance_special?pagination=false' : 'assistance_special');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

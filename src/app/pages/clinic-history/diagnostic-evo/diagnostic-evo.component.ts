@@ -4,6 +4,10 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { FormGroup } from '@angular/forms';
 import { UserChangeService } from '../../../business-controller/user-change.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { Actions13Component } from './actions.component';
+import { NbDialogService } from '@nebular/theme';
+import { ChDiagnosisService } from '../../../business-controller/ch-diagnosis.service';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'ngx-diagnostic-evo',
@@ -37,6 +41,22 @@ export class DiagnosticEvoComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'assigned': this.ch_diagnosis,
+            'user': this.users,
+            'delete': this.DeleteConfirmDiagnosisEvo.bind(this),
+            'refresh': this.RefreshData.bind(this),
+          };
+        },
+        renderComponent: Actions13Component,
+      },
       created_at: {
         title: this.headerFields[0],
         type: 'string',
@@ -72,10 +92,14 @@ export class DiagnosticEvoComponent implements OnInit {
     },
   };
 
+  ch_diagnosis: any;
+  users: any;
 
   constructor(
     public userChangeS: UserChangeService,
-    public datePipe: DateFormatPipe
+    public datePipe: DateFormatPipe,
+    private deleteConfirmService: NbDialogService,
+    private chDiagnosisS: ChDiagnosisService,
   ) {
 
   }
@@ -92,6 +116,25 @@ export class DiagnosticEvoComponent implements OnInit {
     if ($event == true) {
       this.RefreshData();
     }
+  }
+
+  DeleteConfirmDiagnosisEvo(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        name: data.name,
+        data: data,
+        delete: this.DeleteChDiagnosisEvo.bind(this),
+      },
+    });
+  }
+
+  DeleteChDiagnosisEvo(data) {
+    return this.chDiagnosisS.Delete(data.id).then(x => {
+      this.table.refresh();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
   }
 
 }

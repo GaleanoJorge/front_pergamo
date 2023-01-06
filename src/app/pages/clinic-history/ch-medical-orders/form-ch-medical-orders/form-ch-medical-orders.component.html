@@ -24,8 +24,12 @@
                 formControlName="procedure_id" procedure_id type="text" required
                 status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <datalist id="codes" *ngIf="procedure">
-                <option *ngFor="let item of procedure" [value]="item.name">{{ item.code }} -
-                  {{item.name}} </option>
+                <option *ngFor="let item of procedure" [value]="this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name">{{ this.form.controls.ambulatory_medical_order.value==true? item.code : item.manual_price.procedure.code }} -
+                  {{this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name}} </option>
+              </datalist>
+              <datalist id="codes" *ngIf="procedure && this.form.controls.ambulatory_medical_order.value != true">
+                <option *ngFor="let item of procedure" [value]="item.manual_price.procedure.name">{{ item.manual_price.procedure.code }} -
+                  {{item.manual_price.procedure.name}} </option>
               </datalist>
 
 

@@ -20,7 +20,7 @@ import { AuthService } from '../../../services/auth.service';
     <button nbTooltip="Orden médica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewMedicalOrder()" >
       <nb-icon icon="file-add"></nb-icon>
     </button>
-    <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
+    <button *ngIf = "this.rowData.ch_record_id == this.value.record_id" nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
       <nb-icon icon="trash-2-outline"></nb-icon>
     </button>
 
@@ -104,7 +104,9 @@ export class ActionsMedicalOrderComponent implements ViewCell {
     this.AdmissionRouteS.GetCollection().then(x => {
       this.admission_route = x;
     });
-    this.FlatS.GetFlatByCampus(this.campus_id).then(x => {
+    this.FlatS.GetFlatByCampus(this.campus_id, {
+      bed_or_office: 1,
+    }).then(x => {
       this.flat = x;
     });
 
@@ -286,7 +288,9 @@ export class ActionsMedicalOrderComponent implements ViewCell {
   GetPavilion(flat_id, job = false) {
     if (!flat_id || flat_id === '') return Promise.resolve(false);
 
-    return this.PavilionS.GetPavilionByFlat(flat_id).then(x => {
+    return this.PavilionS.GetPavilionByFlat(flat_id, {
+      bed_or_office: 1,
+    }).then(x => {
 
       this.pavilion = x;
 

@@ -38,8 +38,8 @@ export class PsychologyListComponent implements OnInit {
   public program;
   public flat;
   public user;
-  public own_user;
   public admission;
+  public own_user;
   public bed;
   public bed_id;
   public pavilion;
@@ -105,6 +105,7 @@ export class PsychologyListComponent implements OnInit {
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
       }
+      this.admission = x[0]['admissions'];
       this.user = x[0]['admissions']['patients'];
       this.admission = x[0]['admissions'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
@@ -176,7 +177,7 @@ export class PsychologyListComponent implements OnInit {
         }
         return Promise.resolve(true);
       }).catch(x => {
-        this.toastService.danger('', x);
+        this.showToast(10000, x);
         return Promise.resolve(false);
       });
       return Promise.resolve(response);
@@ -192,6 +193,12 @@ export class PsychologyListComponent implements OnInit {
   }
   }
 
+  showToast(duration, m) {
+    this.toastService.warning(
+        '',
+        m,
+        { duration });
+  }
 
   RefreshData() {
 
