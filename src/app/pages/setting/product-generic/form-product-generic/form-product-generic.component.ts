@@ -90,6 +90,8 @@ export class FormProductGenericComponent implements OnInit {
         maximum_stock: '',
         product_dose_id: '',
         dose: '',
+        prod_ambulatory: false,
+        prod_domiciliary: false,
       };
     }
 
@@ -111,6 +113,8 @@ export class FormProductGenericComponent implements OnInit {
       product_dose_id: [this.data.product_dose_id],
       dose: [this.data.dose],
       multidose_concentration_id: [this.data.multidose_concentration_id],
+      prod_ambulatory: [this.data.prod_ambulatory],
+      prod_domiciliary: [this.data.prod_domiciliary],
     });
 
     this.form.controls.description.disable();
@@ -216,6 +220,8 @@ export class FormProductGenericComponent implements OnInit {
           product_dose_id: this.form.controls.product_dose_id.value,
           dose: this.form.controls.dose.value,
           multidose_concentration_id: this.form.controls.multidose_concentration_id.value,
+          prod_domiciliary: this.form.controls.prod_domiciliary.value,
+          prod_ambulatory: this.form.controls.prod_ambulatory.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -242,6 +248,8 @@ export class FormProductGenericComponent implements OnInit {
           product_dose_id: this.form.controls.product_dose_id.value,
           dose: this.form.controls.dose.value,
           multidose_concentration_id: this.form.controls.multidose_concentration_id.value,
+          prod_domiciliary: this.form.controls.prod_domiciliary.value,
+          prod_ambulatory: this.form.controls.prod_ambulatory.value,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

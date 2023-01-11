@@ -162,7 +162,8 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="multidose_concentration_id" class="form-text text-muted font-weight-bold">Medida:</label>
-          <nb-select (selectedChange)="selectmulticoncen($event)" formControlName="multidose_concentration_id" id="multidose_concentration_id" fullWidth>
+          <nb-select (selectedChange)="selectmulticoncen($event)" formControlName="multidose_concentration_id"
+            id="multidose_concentration_id" fullWidth>
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.multidose_concentration_id }}"
               *ngFor="let item of multidose_concentration" [value]="item.id">
@@ -183,6 +184,20 @@
           <input nbInput fullWidth type="number" min="0" pattern="^[0-9]+" id="maximum_stock"
             formControlName="maximum_stock" maximum_stock
             status="{{ isSubmitted && form.controls.maximum_stock.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-md-6">
+          <label for="prod_domiciliary" class="form-text text-muted font-weight-bold">Hospitalario/domiciliario
+          </label>
+          <nb-toggle disabled="!this.data.prod_domiciliary" formControlName="prod_domiciliary" prod_domiciliary>
+          </nb-toggle>
+        </div>
+
+        <div class="col-md-6">
+          <label for="prod_ambulatory" class="form-text text-muted font-weight-bold">Ambulatorio
+          </label>
+          <nb-toggle disabled="!this.data.prod_ambulatory" formControlName="prod_ambulatory" prod_ambulatory>
+          </nb-toggle>
         </div>
       </div>
 

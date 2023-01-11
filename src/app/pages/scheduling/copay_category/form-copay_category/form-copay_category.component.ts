@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NonWorkingDaysService } from '../../../../business-controller/non-working-days.service';
 import { TypeContractService } from '../../../../business-controller/type-contract.service';
 import { CopayParametersService } from '../../../../business-controller/copay-parameters.service';
-import { CurrencyPipe, PercentPipe  } from '@angular/common';
+import { CurrencyPipe, PercentPipe } from '@angular/common';
 import { StatusBusinessService } from '../../../../business-controller/status-business.service';
 import { disable } from '@rxweb/reactive-form-validators';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
@@ -39,7 +39,7 @@ export class FormCopayCategoryComponent implements OnInit {
     private currency: CurrencyPipe,
     private percent: PercentPipe,
     private CopayParametersS: CopayParametersService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (!this.data) {
@@ -116,25 +116,56 @@ export class FormCopayCategoryComponent implements OnInit {
     // });
   }
 
-  Moneyformat(e) {
-    console.log(e);
-    var num = Number(e);
-    if (num != NaN) {
-      this.value = this.form.controls.payment_type.value == 2 ? num/100 : num;
-      this.form.patchValue({
-          value: this.form.controls.payment_type.value == 2 ?  this.percent.transform(this.value) : this.currency.transform(num),
-      });
+  validateCharacter(keyChar) {
+    if (this.form.controls.payment_type.value == 2) {
+      if (isNaN(keyChar) && keyChar != '.') {
+        return false;
+      }
+      if (keyChar == '.' && this.form.controls.value.value.includes(".")) {
+        return false;
+      }
+      if (this.form.controls.value.value.length == 1 && this.form.controls.value.value[0] == '0' && keyChar != ".") {
+        return false;
+      }
+      let lengthValue = this.form.controls.value.value.length;
+      if(this.form.controls.value.value.includes(".") && this.form.controls.value.value[lengthValue-1] == '0' && keyChar == "0"){
+        return false;
+      }
     } else {
-      this.value = undefined;
-      this.form.controls.value.setErrors({ incorrect: true });
+      if (isNaN(keyChar)){
+        return false;
+      }
+      if (this.form.controls.value.value.length == 1 && this.form.controls.value.value[0] == '0') {
+        return false;
+      }
     }
-    return this.value;
+  }
+
+  addPercentSign() {
+    if (this.form.controls.payment_type.value == 2 && !this.form.controls.value.value.includes("%") && this.form.controls.value.value != "") {
+      let valueInput = document.getElementById("value") as HTMLInputElement;
+      valueInput.value = this.form.controls.value.value + "%";
+    }
+  }
+
+  removePercentSign(){
+    let currentValue = this.form.controls.value.value;
+    currentValue = currentValue.replace("%","");
+    this.form.controls.value.setValue(currentValue);
   }
 
   close() {
     this.dialogRef.close();
   }
   save() {
+    if(this.form.controls.payment_type.value == 2){
+      let currentValue = this.form.controls.value.value;
+      currentValue = currentValue.replace("%","");
+      this.value = currentValue/100;
+    }else{
+      this.value = this.form.controls.value.value;
+    }
+    
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;

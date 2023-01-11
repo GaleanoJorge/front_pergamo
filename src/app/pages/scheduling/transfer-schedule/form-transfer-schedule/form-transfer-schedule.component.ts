@@ -54,8 +54,8 @@ export class FormTransferScheduleComponent implements OnInit {
   public pavilions: any[] = [];
   public calendar_array: string[] = [];
 
-  public users: User[];
-  public filteredAssistances: User[];
+  public users: User[] = [];
+  public filteredAssistances: User[] = [];
 
   public campus: Campus[];
   public flats: Flat[];
@@ -122,6 +122,19 @@ export class FormTransferScheduleComponent implements OnInit {
 
     return this.users.filter((user) => (this.getCompleteName(user) + ' - ' + user.identification).includes(val.toUpperCase()));
 
+  }
+
+  checkAssistance($event, value) {
+    if ($event.relatedTarget != null && $event.relatedTarget.className.includes("assistanceAutocompleteOption")) {
+      return;
+    }
+    if (this.form.controls.user_id.value == null || this.form.controls.user_id.value == '') {
+      return;
+    }
+    var filter = this.users.find((assistanceOne) => this.getCompleteName(assistanceOne) == value);
+    if (!filter) {
+      this.form.controls.user_id.setValue('');
+    }
   }
 
   private loadAssistances() {

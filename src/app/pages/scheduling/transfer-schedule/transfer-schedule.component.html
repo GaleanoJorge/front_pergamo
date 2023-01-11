@@ -6,13 +6,13 @@
       <div class="row">
         <div class="col-md-5">
           <label for="assistance_id" class="form-text text-muted font-weight-bold">Asistencial:</label>
-          <input fullWidth formControlName="assistance_id" nbInput type="text" placeholder="Selecciona asistencial"
+          <input  (focusout)="checkAssistance($event, this.form.controls.assistance_id.value)" fullWidth formControlName="assistance_id" nbInput type="text" placeholder="Selecciona asistencial"
             status="{{ isSubmitted && form.controls.assistance_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
             [nbAutocomplete]="profControl" />
 
           <nb-autocomplete #profControl (selectedChange)="onSelectionChange($event, 'assistance')">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option *ngFor="let user of filteredAssistanceOptionsApplied" [value]="this.getCompleteName(user)">
+            <nb-option class="assistanceAutocompleteOption" value="">Seleccione...</nb-option>
+            <nb-option class="assistanceAutocompleteOption" *ngFor="let user of filteredAssistanceOptionsApplied" [value]="this.getCompleteName(user)">
               {{this.getCompleteName(user)}} - {{user.identification}}
             </nb-option>
 
@@ -20,13 +20,13 @@
         </div>
         <div class="col-md-5">
           <label for="procedure_id" class="form-text text-muted font-weight-bold">Código Cups:</label>
-          <input fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
+          <input (focusout)="checkProcedure($event, this.form.controls.procedure_id.value)"  fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
             status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
             [nbAutocomplete]="autoControl" />
 
           <nb-autocomplete #autoControl (selectedChange)="onSelectionChange($event, 'procedure')">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option *ngFor="let procedure of filteredProcedureOptionsApplied"
+            <nb-option class="procedureAutocompleteOption" value="">Seleccione...</nb-option>
+            <nb-option class="procedureAutocompleteOption" *ngFor="let procedure of filteredProcedureOptionsApplied"
               [value]="(procedure.id + ' - ' + procedure.name)">
               {{ procedure.code }} - {{procedure.equivalent}} - {{procedure.name}}
             </nb-option>

@@ -5,9 +5,10 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-4">
           <label class="form-text text-muted font-weight-bold">Seleccione insumo generico:</label>
-          <input type="text" list="codes" class="data-list" (change)="saveCode($event)">
+          <input (focusout)="checkProduct($event, this.form.controls.product_id.value)" nbInput type="text" list="codes" class="data-list" (change)="saveCode($event)" formControlName="product_id" product_id
+          status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes">
-            <option *ngFor="let item of product_supplies" [value]="item.description">{{item.name}}</option>
+            <option class="productAutocompleteOption" *ngFor="let item of product_supplies" [value]="item.description">{{item.name}}</option>
           </datalist>
         </div>
         <div class="col-12 col-sm-12 col-md-4">
@@ -39,9 +40,9 @@
           </div>
           <div class="col-12 col-sm-12 col-md-4">
             <label class="form-text text-muted font-weight-bold">Paciente:</label>
-            <input type="text" list="codes2" class="data-list" (change)="saveCode2($event)" formControlName="patient_id">
+            <input (focusout)="checkPatient($event, this.form.controls.patient_id.value)" type="text" list="codes2" class="data-list" (change)="saveCode2($event)" formControlName="patient_id">
             <datalist id="codes2">
-              <option *ngFor="let item of patient" [value]="item.identification">{{item.identification}}-{{item.nombre_completo}}</option>
+              <option class="patientDatalistOption"  *ngFor="let item of patient" [value]="item.identification">{{item.identification}}-{{item.nombre_completo}}</option>
             </datalist>
           </div>
       </div>

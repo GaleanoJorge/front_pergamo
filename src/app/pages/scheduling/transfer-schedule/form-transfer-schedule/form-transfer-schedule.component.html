@@ -5,13 +5,13 @@
       <div class="row" *ngIf="isLoaded">
         <div class="col-md-12">
           <label for="code" class="form-text text-muted font-weight-bold">Asistencial:</label>
-          <input fullWidth formControlName="user_id" nbInput type="text" placeholder="Seleccione..."
+          <input (focusout)="checkAssistance($event, this.form.controls.user_id.value)" fullWidth formControlName="user_id" nbInput type="text" placeholder="Seleccione..."
             status="{{ isSubmitted && form.controls.user_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
             [nbAutocomplete]="autoControl" />
 
           <nb-autocomplete #autoControl (selectedChange)="onSelectionChange($event)">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option *ngFor="let user of filteredAssistances" [value]="this.getCompleteName(user)">
+            <nb-option class="assistanceAutocompleteOption" value="">Seleccione...</nb-option>
+            <nb-option class="assistanceAutocompleteOption" *ngFor="let user of filteredAssistances" [value]="this.getCompleteName(user)">
               {{this.getCompleteName(user)}} - {{user.identification}}
             </nb-option>
 

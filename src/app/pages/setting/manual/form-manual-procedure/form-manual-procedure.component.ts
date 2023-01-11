@@ -135,9 +135,9 @@ export class FormManualProcedureComponent implements OnInit {
       manual_id: [this.data.manual_id],
       value: [this.data.value, Validators.compose([Validators.required])],
       price_type_id: [this.data.price_type_id, Validators.compose([Validators.required])],
-      procedure_id: [this.data.procedure_id],
       patient_id: [this.data.patient_id],
       manual_procedure_type_id: [this.data.manual_procedure_type_id, Validators.compose([Validators.required])],
+      cups_id: [this.data.cups_id, Validators.compose([Validators.required])],
       description: [this.data.description],
     });
 
@@ -179,6 +179,19 @@ export class FormManualProcedureComponent implements OnInit {
     this.PriceTypeS.GetCollection().then(x => {
       this.price_type = x;
     });
+  }
+
+  checkCups($event, value) {
+    if ($event.relatedTarget != null && $event.relatedTarget.className.includes("cupsAutocompleteOption")) {
+      return;
+    }
+    if (this.form.controls.cups_id.value == null || this.form.controls.cups_id.value == '') {
+      return;
+    }
+    var filter = this.procedure_cups.find((procedureOne) => procedureOne.code == value);
+    if (!filter) {
+      this.form.controls.cups_id.setValue('');
+    }
   }
 
   receiveMessage($event, e) {

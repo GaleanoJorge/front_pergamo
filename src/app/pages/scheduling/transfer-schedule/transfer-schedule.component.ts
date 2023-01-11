@@ -73,15 +73,15 @@ export class TransferScheduleComponent implements OnInit {
   };
 
   public user: User;
-  private users: User[];
+  private users: User[] = [];
 
   public procedure: Procedure;
-  private procedures: Procedure[];
+  private procedures: Procedure[] = [];
 
-  public filteredProcedureOptions$: Procedure[];
-  public filteredProcedureOptionsApplied: Procedure[];
-  public filteredAssistanceOptions$: User[];
-  public filteredAssistanceOptionsApplied: User[]
+  public filteredProcedureOptions$: Procedure[] = [];
+  public filteredProcedureOptionsApplied: Procedure[] = [];
+  public filteredAssistanceOptions$: User[] = [];
+  public filteredAssistanceOptionsApplied: User[] = [];
 
   constructor(private toastService: NbToastrService,
     private medicalDiaryDaysS: MedicalDiaryDaysService,
@@ -131,15 +131,47 @@ export class TransferScheduleComponent implements OnInit {
     this.loadAssistances();
   }
 
+  checkProcedure($event, value) {
+    if ($event.relatedTarget != null && $event.relatedTarget.className.includes("procedureAutocompleteOption")) {
+      return;
+    }
+    if (this.form.controls.procedure_id.value == null || this.form.controls.procedure_id.value == '') {
+      return;
+    }
+    var filter = this.procedures.find((procedureOne) => (procedureOne.id + ' - ' + procedureOne.name) == value);
+    if (!filter) {
+      this.form.controls.procedure_id.setValue('');
+    }
+  }
+
+  checkAssistance($event, value) {
+    if ($event.relatedTarget != null && $event.relatedTarget.className.includes("assistanceAutocompleteOption")) {
+      return;
+    }
+    if (this.form.controls.assistance_id.value == null || this.form.controls.assistance_id.value == '') {
+      return;
+    }
+    var filter = this.users.find((assistanceOne) => this.getCompleteName(assistanceOne) == value);
+    if (!filter) {
+      this.form.controls.assistance_id.setValue('');
+    }
+  }
+
   onSelectionChange($event, identifier) {
 
     switch (identifier) {
       case 'assistance':
         this.user = this.users.find((user) => this.getCompleteName(user) == $event);
+        if(this.user == null){
+          return;
+        }
         this.loadProcedures(this.user.id);
         break;
       case 'procedure':
         this.procedure = this.procedures.find((procedure) => (procedure.id + ' - ' + procedure.name) == $event);
+        if(this.procedure == null){
+          return;
+        }
         break;
     }
 

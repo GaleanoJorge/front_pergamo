@@ -29,7 +29,7 @@ import { ChFormulationService } from '../../../business-controller/ch-formulatio
           this.value.data.product_generic.description :
           this.value.data.product_supplies.description }}</nb-card-header>
         <nb-card-body>
-          <div class="col-md-12">
+          <div *ngIf="this.value.data.medical_formula == 0" class="col-md-12">
 
             <label for="send_formulation" class="form-text text-muted font-weight-bold">ENVIAR SOLICITUD A
               FARMACIA</label>

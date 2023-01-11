@@ -137,7 +137,7 @@ export class FormFormulationComponent implements OnInit {
     this.form = this.formBuilder.group({
       required: [this.data.required, Validators.compose([Validators.required])],
       medical_formula: [this.data.medical_formula == 0 ? false : true],
-      product_gen: [this.product_gen != null ? this.product_gen['description'] : null,],
+      product_gen: [this.product_gen != null ? this.product_gen['description'] : null, Validators.compose([Validators.required])],
       product_id: [this.data.product_id,],
       dose: [this.data.dose,],
       administration_route_id: [this.data.administration_route_id,],
@@ -346,12 +346,20 @@ export class FormFormulationComponent implements OnInit {
     if (this.product) {
       this.service_briefcase_id = this.show ? this.product.id : null;
       this.product_id = this.show ? this.product.manual_price.product.id : this.product.id;
-      this.form.controls.product_gen.setErrors(null);
+      if (identificator == 1) {
+        this.form.controls.product_gen.setErrors(null);
+      } else {
+        this.form.controls.product_id.setErrors(null);
+      }
     } else {
       this.service_briefcase_id = null;
       this.product_id = null;
       this.toastService.warning('', 'Debe seleccionar un Medicamento de la lista');
-      this.form.controls.product_gen.setErrors({ 'incorrect': true });
+      if (identificator == 1) {
+        this.form.controls.product_gen.setErrors({ 'incorrect': true });
+      } else {
+        this.form.controls.product_id.setErrors({ 'incorrect': true });
+      }
 
     }
     this.valor = this.getConcentration((this.show ? this.product.manual_price.product.product_dose_id == 2 : this.product.product_dose_id == 2) ? (this.show ? this.product.manual_price.product.dose : this.product.dose) : (this.show ? this.product.manual_price.product.drug_concentration.value : this.product.drug_concentration.value));
@@ -389,6 +397,10 @@ export class FormFormulationComponent implements OnInit {
     if (input == false) {
       this.show = true;
       this.input = false;
+      this.form.controls.product_gen.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.product_gen.updateValueAndValidity();
+      this.form.controls.product_id.clearValidators();
+      this.form.controls.product_id.setErrors(null);
       // this.patienBS.GetUserById(this.user).then(x => {
       //   this.user2 = x;
       // });
@@ -405,6 +417,10 @@ export class FormFormulationComponent implements OnInit {
     } else {
       this.input = true;
       this.show = false;
+      this.form.controls.product_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.product_id.updateValueAndValidity();
+      this.form.controls.product_gen.clearValidators();
+      this.form.controls.product_gen.setErrors(null);
       if (this.all_peoducts == null) {
         this.ProductGS.GetCollection().then(x => {
           this.product_gen = x;
