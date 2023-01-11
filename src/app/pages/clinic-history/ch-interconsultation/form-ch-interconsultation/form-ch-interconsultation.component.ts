@@ -88,7 +88,7 @@ export class FormChInterconsultationComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       ambulatory_medical_order: [this.data.ambulatory_medical_order],
-      type_of_attention_id: [this.data.type_of_attention_id, Validators.compose([Validators.required])],
+      type_of_attention_id: [this.data.type_of_attention_id,Validators.compose([Validators.required])],
       specialty_id: [this.data[0] ? this.data[0].specialty_id : this.data.specialty_id],
       procedure_id: [this.data.procedure_id, Validators.compose([Validators.required])],
       amount: [this.data.amount],
@@ -147,7 +147,15 @@ export class FormChInterconsultationComponent implements OnInit {
           .then((x) => {
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
-            // this.form.setValue({ specialty_id: '', amount: '', frequency_id: '', observations: '' });
+            this.form.patchValue({ 
+              type_of_attention_id: '',
+              ambulatory_medical_order: '',
+              procedure_id: '',
+              services_briefcase_id: '',
+              amount: '',
+              frequency_id: '',
+              observations: ''
+             });
             if (this.saved) {
               this.saved();
             }
@@ -216,11 +224,18 @@ export class FormChInterconsultationComponent implements OnInit {
         type_of_attention_id: '',
         specialty_id: '',
         procedure_id: '',
+        amount:'',
+        frequency_id:'',
+        observations: ''
       });
       if (val == 1) {
 
-        this.form.controls.type_of_attention_id.setValidators(null);
-        this.form.controls.specialty_id.setValidators(null);
+        this.form.controls.type_of_attention_id.clearValidators();
+        this.form.controls.specialty_id.clearValidators();
+        
+        this.form.controls.type_of_attention_id.setErrors(null);
+        this.form.controls.specialty_id.setErrors(null);
+
         this.procedureS.GetCollection().then(x => {
           this.procedure = x;
         });

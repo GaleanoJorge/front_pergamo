@@ -111,4 +111,21 @@ export class PharmacyLotStockService {
         throw x.message;
       });
   }
+
+  ViewInventory(type: any={}): any {
+    let servObj = new ServiceObject('viewInventory');
+    return this.webAPI.GetAction(servObj,type)
+    .then(x => {
+      servObj = <ServiceObject>x;
+      if (!servObj.status)
+        throw new Error(servObj.message);
+
+      return Promise.resolve(servObj);
+    })
+    .catch(x => {
+      throw x.message;
+    });
+  }
+
+  
 }

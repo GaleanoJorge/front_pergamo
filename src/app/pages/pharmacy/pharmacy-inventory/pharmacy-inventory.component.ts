@@ -189,5 +189,16 @@ export class PharmacyInventoryComponent implements OnInit {
     });
   }
 
+  Inventory() {
+    this.invS.ViewInventory({type:1}).then(x => {
+
+      //this.loadingDownload = false;
+      this.toastService.success('', x.message);
+      window.open(x.url, '_blank');
+
+    }).catch(x => {
+      this.isSubmitted = false;
+    });
+  }
 
 }
