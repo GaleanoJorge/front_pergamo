@@ -31,7 +31,7 @@ export class BedService {
       });
   }
 
-  GetBedByPavilion(pavilion_id,ambit, procedure = 0, params = {}): Promise<Bed[]> {
+  GetBedByPavilion(pavilion_id, ambit, procedure = 0, params = {}): Promise<Bed[]> {
     let servObj = new ServiceObject(`bed/byPavilion/${pavilion_id}/${ambit}/${procedure}`);
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
@@ -145,4 +145,22 @@ export class BedService {
         throw x.message;
       });
   }
+
+  getAvailableConsultories(data = {}): Promise<Bed[]> {
+    let servObj = new ServiceObject('get_available_consultories');
+    return this.webAPI.GetAction(servObj, data)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        let beds = <Bed[]>servObj.data.beds;
+
+        return Promise.resolve(beds);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
 }

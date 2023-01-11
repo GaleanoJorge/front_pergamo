@@ -68,7 +68,7 @@ export class CopayCategoryComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.payment_type == 2 ? (value*100)+"%" : this.currency.transform(value);
+          return row.payment_type == 2 ? (value*100).toFixed(2)+"%" : this.currency.transform(value);
         },
       },
       status_id: {

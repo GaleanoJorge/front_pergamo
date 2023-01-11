@@ -184,7 +184,10 @@ export class FormAdmissionsPatientComponent implements OnInit {
       .then((x) => {
         this.eps = x;
       });
-    // this.DiagnosisS.GetCollection().then(x => {
+
+    // this.DiagnosisS.GetCollection({
+    //   all:1
+    // }).then(x => {
     //   this.diagnosis = x;
     //   this.loading = false;
     // });
@@ -242,7 +245,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.procedure = this.filteredProcedureOptions$.find(
       (item) => item.manual_price.name == this.form.value.procedure_id.split(' - ')[1]
     );
-    if(this.procedure == null){
+    if (this.procedure == null) {
       return;
     }
     let idProcedure = this.procedure.id;
@@ -312,7 +315,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
             admission_id: this.admission_id,
             briefcase_id: this.form.controls.briefcase_id.value,
             diagnosis_id: this.diagnosis_id,
-            procedure_id: null,
+            procedure_id: (this.form.controls.admission_route_id.value == 1) ? this.procedure.id : null,
             admission_route_id: this.form.controls.admission_route_id.value,
             scope_of_attention_id:
               this.form.controls.scope_of_attention_id.value,
@@ -374,26 +377,16 @@ export class FormAdmissionsPatientComponent implements OnInit {
     }
   }
 
-  public diagnosticConut = 0;
-
   searchDiagnostic($event) {
-    this.diagnosticConut++;
-    if (this.diagnosticConut == 3) {
-      this.diagnosticConut = 0;
-      if ($event.length >= 3) {
-        this.DiagnosisS.GetCollection({
-          search: $event,
-        }).then((x) => {
-          this.diagnosis = x;
-        });
-      } else {
-        this.DiagnosisS.GetCollection({
-          search: '',
-        }).then((x) => {
-          this.diagnosis = x;
-        });
-      }
+
+    if ($event.length >= 3) {
+      this.DiagnosisS.GetCollection({
+        search: $event,
+      }).then((x) => {
+        this.diagnosis = x;
+      });
     }
+
   }
   // async save() {
 
@@ -563,7 +556,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       if (val === '') {
         this.briefcase = [];
       } else {
-        this.GetBriefcase(val).then();
+        this.GetBriefcase(val);
         // if (this.ambolatory) {
         //   this.GetCategories(val).then();
         // }
@@ -585,28 +578,30 @@ export class FormAdmissionsPatientComponent implements OnInit {
       }
     });
 
-    this.form.get('briefcase_id').valueChanges.subscribe((val) => {
+    this.form.controls.briefcase_id.valueChanges.subscribe((val) => {
       if (val === '') {
         this.filteredProcedureOptionsApplied = [];
       } else if (this.form.value.admission_route_id == 1) {
-        this.Getprocedures(val).then();
+        this.Getprocedures(val);
       } else {
-        this.Getprocedures(val).then();
+        this.Getprocedures(val);
       }
-      if (
-        val == (this.data.briefcase_id == '' ? null : this.data.briefcase_id)
-      ) {
-        // this.form
-        //   .get('procedure_id')
-        //   .patchValue(this.data.services_briefcase.manual_price.procedure_id);
-        // this.form.patchValue({
-        //   procedures: this.data.medical_diary.procedure_id,
-        // });
-      } else {
-        this.form.patchValue({
-          procedures: '',
-        });
-      }
+      // if (
+      //   val == (this.data.briefcase_id == '' ? null : this.data.briefcase_id)
+      // ) {
+      //   this.Getprocedures(val);
+      //   this.form
+      //   .get('procedure_id')
+      //   .patchValue(this.getCompleteName(this.data.services_briefcase));
+      //   this.onSelectionChange(null);
+      //   this.form.patchValue({
+      //     procedures: this.data.medical_diary.procedure_id,
+      //   });
+      // } else {
+      //   this.form.patchValue({
+      //     procedures: '',
+      //   });
+      // }
     });
 
   }
@@ -812,9 +807,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
     });
   }
 
-  async GetBriefcase(contract_id) {
+  GetBriefcase(contract_id) {
     if (!contract_id || contract_id === '') return Promise.resolve(false);
-    return await this.BriefcaseS.GetBriefcaseByContract(contract_id).then(
+    this.BriefcaseS.GetBriefcaseByContract(contract_id).then(
       (x) => {
         this.briefcase = x;
         if (
@@ -853,7 +848,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
   Getprocedures(briefcase_id) {
     if (!briefcase_id || briefcase_id === '') return Promise.resolve(false);
-    return this.ServiceBriefcaseS.GetProcedureByBriefcase(briefcase_id, {
+    this.ServiceBriefcaseS.GetProcedureByBriefcase(briefcase_id, {
       cups_selected_id: this.ambolatory
         ? this.data.services_briefcase.manual_price.procedure_id
         : null,
@@ -869,6 +864,18 @@ export class FormAdmissionsPatientComponent implements OnInit {
         //   .get('procedure_id')
         //   .patchValue(this.data.services_briefcase.id);
       }
+
+//
+      this.form
+        .get('procedure_id')
+        .patchValue(this.getCompleteName(this.data.services_briefcase));
+      this.form.patchValue({
+        procedures: this.data.medical_diary.procedure_id,
+      });
+
+      this.onSelectionChange(null);
+//
+
       return Promise.resolve(true);
     });
   }

@@ -132,12 +132,21 @@ export class FormCopayCategoryComponent implements OnInit {
         return false;
       }
     } else {
-      if (isNaN(keyChar)){
+      if (isNaN(keyChar) && keyChar != '.') {
+        return false;
+      }
+      if (keyChar == '.' && this.form.controls.value.value.includes(".")) {
+        return false;
+      }
+      if (this.form.controls.value.value.length == 1 && this.form.controls.value.value[0] == '0' && keyChar != ".") {
+        return false;
+      }
+      /*if (isNaN(keyChar)){
         return false;
       }
       if (this.form.controls.value.value.length == 1 && this.form.controls.value.value[0] == '0') {
         return false;
-      }
+      }*/
     }
   }
 
