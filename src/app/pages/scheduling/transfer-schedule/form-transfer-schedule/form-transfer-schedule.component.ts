@@ -44,6 +44,7 @@ export class FormTransferScheduleComponent implements OnInit {
   public finishDate: string;
   public startHour: string;
   public finishHour: string;
+  public scheduleData;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -103,7 +104,7 @@ export class FormTransferScheduleComponent implements OnInit {
     })
 
     this.form.controls.pavilion_id.valueChanges.subscribe((pavilionId) => {
-      this.loadOffice(pavilionId);
+      this.loadOffice(pavilionId, this.convertDates(this.scheduleData));
       this.form.controls.office_id.setValue('');
     })
 
@@ -141,7 +142,8 @@ export class FormTransferScheduleComponent implements OnInit {
     this.assistanceS.GetExternalAssistanceUsersTransfer({
       userId: this.userOrigin.id,
       startDate: this.startDate + ' ' + this.startHour,
-      finishDate: this.finishDate + ' ' + this.finishHour
+      finishDate: this.finishDate + ' ' + this.finishHour,
+      procedure_id: this.procedure.id
     })
     .then((users) => {
       this.users = users;
@@ -174,18 +176,22 @@ export class FormTransferScheduleComponent implements OnInit {
     });
   }
 
-  private loadOffice(pavilion_id) {
+  private loadOffice(pavilion_id, dateRanges) {
     if (!pavilion_id || pavilion_id === '') return Promise.resolve(false);
     return this.bedS
-      .GetOfficeByPavilion({
-        status_bed_id: 1,
-        pavilion_id: pavilion_id,
+      .getAvailableConsultories({
+        pavilionId: pavilion_id,
+        dateRanges: JSON.stringify(dateRanges)
       })
       .then((x) => {
         this.offices = x;
 
         return Promise.resolve(true);
       });
+  }
+
+  private convertDates(dates){
+    return dates.map(date => { return {"startDate": date.start_hour, "finishDate": date.finish_hour}});
   }
 
   onSelectionChange($event) {

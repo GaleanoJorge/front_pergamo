@@ -82,7 +82,7 @@ export class FormFailedComponent implements OnInit {
 
       var formData = new FormData();
       var data = this.form.controls;
-      formData.append('file_evidence', this.form.value.file_evidence);
+      formData.append('file_evidence', this.form.controls.file_evidence.value);
       formData.append('descriptions', data.descriptions.value);
       formData.append('ch_reason_id', data.ch_reason_id.value);
       formData.append('type_record_id', '9');

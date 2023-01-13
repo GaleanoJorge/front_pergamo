@@ -99,6 +99,9 @@ export class RecommendationsEvoComponent implements OnInit {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction: (value) => {
+          if(value == null){
+            return "";
+          }
           return value.substr(0, 137)
         },
 

@@ -47,6 +47,22 @@ export class FlatService {
       });
   }
 
+  GetFlatByBed(bed_id, params = {}): Promise<Flat> {
+    let servObj = new ServiceObject('get_flat_by_bed',bed_id);
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        let flat = <Flat>servObj.data.flat;
+        return Promise.resolve(flat);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(flat: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('flat');
     servObj.data = flat;
