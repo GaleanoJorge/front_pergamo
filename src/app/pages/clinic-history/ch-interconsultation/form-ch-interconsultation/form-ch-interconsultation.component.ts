@@ -165,10 +165,14 @@ export class FormChInterconsultationComponent implements OnInit {
 
   }
   returnCode(specialty_id) {
-    var localName = this.specialty.find(item => item.id == specialty_id);
     var nombre_specialty
-    if (localName) {
-      nombre_specialty = localName.name;
+    if (this.specialty) {
+      var localName = this.specialty.find(item => item.id == specialty_id);
+      if (localName) {
+        nombre_specialty = localName.name;
+      } else {
+        nombre_specialty = ''
+      }
     } else {
       nombre_specialty = ''
     }
@@ -176,22 +180,32 @@ export class FormChInterconsultationComponent implements OnInit {
   }
 
   saveCode(e): void {
-    var localidentify = this.specialty.find(item => item.name == e);
-
-    if (localidentify) {
-      this.specialty_id = localidentify.id;
+    if (this.specialty) {
+      var localidentify = this.specialty.find(item => item.name == e);
+  
+      if (localidentify) {
+        this.specialty_id = localidentify.id;
+      } else {
+        this.specialty_id = null;
+      }
     } else {
       this.specialty_id = null;
     }
   }
 
   saveCodeProcedure(e): void {
-    var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name) == e);
-
-    if (localidentify) {
-      this.procedure_id = localidentify.id;
-      this.form.controls.procedure_id.setErrors(null);
-
+    if (this.procedure) {
+      var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name) == e);
+  
+      if (localidentify) {
+        this.procedure_id = localidentify.id;
+        this.form.controls.procedure_id.setErrors(null);
+  
+      } else {
+        this.procedure_id = null;
+        this.form.controls.procedure_id.setErrors({ 'incorrect': true });
+        this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
+      }
     } else {
       this.procedure_id = null;
       this.form.controls.procedure_id.setErrors({ 'incorrect': true });

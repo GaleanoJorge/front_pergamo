@@ -129,13 +129,24 @@ export class FormLanguageAssessmentComponent implements OnInit {
   }
 
   saveCode(e, valid): void {
-    var localidentify = this.diagnosis.find(item => item.name == e);
-
-    if (localidentify) {
-      if (valid==1){
-        this.diagnosis_medical = localidentify.id;
+    if (this.diagnosis) {
+      var localidentify = this.diagnosis.find(item => item.name == e);
+  
+      if (localidentify) {
+        if (valid==1){
+          this.diagnosis_medical = localidentify.id;
+        } else {
+          this.therapeutyc_diagnosis = localidentify.id;
+        }
       } else {
-        this.therapeutyc_diagnosis = localidentify.id;
+        if (valid==1){
+          this.diagnosis_medical = null;
+          this.form.controls.medical_diagnostic_id.setErrors({'incorrect': true});
+        } else {
+          this.therapeutyc_diagnosis = null;
+          this.form.controls.therapeutic_diagnosis_id.setErrors({'incorrect': true});
+        }
+        this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
       }
     } else {
       if (valid==1){

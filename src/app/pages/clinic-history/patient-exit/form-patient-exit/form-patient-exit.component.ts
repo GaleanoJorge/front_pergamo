@@ -343,10 +343,11 @@ export class FormPatientExitComponent implements OnInit {
   }
 
   saveCode(e, valid): void {
-    if (valid != 4) {
-      var localidentify = this.diagnosis.find(item => item.name == e);
-    } else {
-      var localidentify = this.ch_diagnosis.find(item => item.diagnosis.name == e);
+    var localidentify
+    if (valid != 4 && this.diagnosis) {
+      localidentify = this.diagnosis.find(item => item.name == e);
+    } else if (valid != 4 && this.ch_diagnosis) {
+      localidentify = this.ch_diagnosis.find(item => item.diagnosis.name == e);
     }
 
     if (localidentify) {
