@@ -513,11 +513,15 @@ export class FormSkinValorationComponent implements OnInit {
   }
 
   returnDiagnosis(diagnosis_id): string {
-    var localIdentify = this.diagnosis.find(item => item.id == diagnosis_id);
-    var diagnosis_name
-    if (localIdentify) {
-      diagnosis_name = localIdentify.name;
-      this.diagnosis_id = localIdentify.id;
+    if (this.diagnosis) {
+      var localIdentify = this.diagnosis.find(item => item.id == diagnosis_id);
+      var diagnosis_name
+      if (localIdentify) {
+        diagnosis_name = localIdentify.name;
+        this.diagnosis_id = localIdentify.id;
+      } else {
+        diagnosis_name = null;
+      }
     } else {
       diagnosis_name = null;
     }
@@ -799,10 +803,16 @@ export class FormSkinValorationComponent implements OnInit {
   }
 
   saveCode(e): void {
-    var localidentify = this.diagnosis.find(item => item.name == e);
-
-    if (localidentify) {
-      this.diagnosis_id = localidentify.id;
+    if (this.diagnosis) {
+      var localidentify = this.diagnosis.find(item => item.name == e);
+  
+      if (localidentify) {
+        this.diagnosis_id = localidentify.id;
+      } else {
+        this.diagnosis_id = null;
+        this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+        this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
+      }
     } else {
       this.diagnosis_id = null;
       this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');

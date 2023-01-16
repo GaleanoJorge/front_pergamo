@@ -209,12 +209,16 @@ export class ActionsComponent implements ViewCell, OnInit {
   }
 
   saveCode(e): void {
-    var localidentify = this.right_user.find(item => item.identification == e.target.value);
-
-    if (localidentify) {
-      this.user_id = localidentify.id;
-      this.wrong_user_id = this.user_id;
-      this.UserChangeForm.controls.right_user_id.setValue(this.value.data.id);
+    if (this.right_user) {
+      var localidentify = this.right_user.find(item => item.identification == e.target.value);
+  
+      if (localidentify) {
+        this.user_id = localidentify.id;
+        this.wrong_user_id = this.user_id;
+        this.UserChangeForm.controls.right_user_id.setValue(this.value.data.id);
+      } else {
+        this.user_id = null;
+      }
     } else {
       this.user_id = null;
     }

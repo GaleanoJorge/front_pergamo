@@ -47,13 +47,13 @@
 
               <div class="col-md-4 ">
                 <label for="start_date" class="form-text text-muted font-weight-bold">Desde:</label>
-                <input class="inputdate" [min]="this.today" [max]="this.max_day" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
+                <input class="inputdate" (focusout)="validateStartDate()" [min]="this.today" [max]="this.max_day" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
                   formControlName="start_date" start_date
                   pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$" />
               </div>
               <div class="col-md-4">
                 <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta:</label>
-                <input class="inputdate" [min]="this.today" [max]="this.max_day" type="date" nbInput fieldSize="medium" fullWidth
+                <input class="inputdate" (focusout)="validateFinishDate()" [min]="this.today" [max]="this.max_day" type="date" nbInput fieldSize="medium" fullWidth
                   id="finish_date" formControlName="finish_date" finish_date
                   pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$" />
               </div>

@@ -58,6 +58,7 @@ export class TransferScheduleComponent implements OnInit {
   public procedure_id;
   public medical_diary: any[] = [];
   public messageError: string = null;
+  public existItinerary: boolean = false;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @ViewChild('schedule') schedule: ScheduleComponent;
@@ -121,11 +122,20 @@ export class TransferScheduleComponent implements OnInit {
     });
 
     this.form.controls.assistance_id.valueChanges.subscribe(val => {
+      let procedureInput = document.getElementById("procedure_input") as HTMLInputElement;
+      procedureInput.value = "";
+      this.filteredProcedureOptionsApplied = [];
+      this.form.controls.procedure_id.setErrors({ 'incorrect': true });
       this.filterAssistances(val);
+      this.user = this.users.find(user => this.getCompleteName(user) == val);
+      if (this.user == null) return;
+      this.loadProcedures(this.user.id);
     })
 
     this.form.controls.procedure_id.valueChanges.subscribe(val => {
       this.filterProcedures(val);
+      this.procedure = this.procedures.find(procedure => (procedure.id + ' - ' + procedure.name) == val);
+      if (this.procedure == null) return;
     })
 
     this.loadAssistances();
@@ -162,14 +172,14 @@ export class TransferScheduleComponent implements OnInit {
     switch (identifier) {
       case 'assistance':
         this.user = this.users.find((user) => this.getCompleteName(user) == $event);
-        if(this.user == null){
+        if (this.user == null) {
           return;
         }
         this.loadProcedures(this.user.id);
         break;
       case 'procedure':
         this.procedure = this.procedures.find((procedure) => (procedure.id + ' - ' + procedure.name) == $event);
-        if(this.procedure == null){
+        if (this.procedure == null) {
           return;
         }
         break;
@@ -273,6 +283,13 @@ export class TransferScheduleComponent implements OnInit {
             this.loadSchedule();
             break;
           case "scheduleButton":
+            if (this.scheduleData.length == 0) {
+              this.messageError =
+                'Usuario sin itinerario para el procedimiento seleccionado en las fechas delimitadas';
+              this.toastService.warning('', this.messageError);
+              this.loading = false;
+              return;
+            }
             this.dialogFormService.open(FormTransferScheduleComponent, {
               context: {
                 title: 'Transferir agenda',
@@ -281,7 +298,8 @@ export class TransferScheduleComponent implements OnInit {
                 startDate: this.form.controls.start_date.value,
                 finishDate: this.form.controls.finish_date.value,
                 startHour: this.form.controls.start_hour.value,
-                finishHour: this.form.controls.finish_hour.value
+                finishHour: this.form.controls.finish_hour.value,
+                scheduleData: this.scheduleData
               }
             })
             break;
@@ -313,7 +331,7 @@ export class TransferScheduleComponent implements OnInit {
       this.medical_diary = x;
       this.messageError = null;
       if (this.medical_diary.length > 0) {
-
+        this.existItinerary = true;
         this.scheduleData = x;
 
         this.chargeCalendar();
@@ -321,6 +339,7 @@ export class TransferScheduleComponent implements OnInit {
         this.messageError =
           'Usuario sin itinerario para el procedimiento seleccionado en las fechas delimitadas';
         this.toastService.warning('', this.messageError);
+        this.existItinerary = false;
       }
     });
 

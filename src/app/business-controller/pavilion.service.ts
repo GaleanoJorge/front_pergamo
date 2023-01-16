@@ -47,6 +47,22 @@ export class PavilionService {
       });
   }
 
+  GetPavilionByBed(bed_id, params = {}): Promise<Pavilion> {
+    let servObj = new ServiceObject('get_pavilion_by_bed',bed_id);
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        let pavilion = <Pavilion>servObj.data.pavilion;
+        return Promise.resolve(pavilion);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(pavilion: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('pavilion');
     servObj.data = pavilion;
