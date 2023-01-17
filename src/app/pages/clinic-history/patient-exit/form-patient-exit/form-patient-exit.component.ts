@@ -276,7 +276,6 @@ export class FormPatientExitComponent implements OnInit {
       if (val == 1) {
         this.show = true;
         this.show2 = false;
-        this.form.get('ch_diagnosis_id').setValidators(Validators.required);
         this.form.get('exit_diagnosis_id').setValidators(Validators.required);
         this.form.get('relations_diagnosis_id').setValidators(Validators.required);
         this.form.get('reason_exit_id').setValidators(Validators.required);
