@@ -183,14 +183,15 @@ export class FormPsMultiaxialComponent implements OnInit {
   }
 
   saveCode(e, valid): void {
-    if (valid == 1) {
-      var localidentify = this.dms_one.find(item => item.name == e);
-    } else if (valid == 2) {
-      var localidentify = this.dms_two.find(item => item.name == e);
-    } else if (valid == 3) {
-      var localidentify = this.dms_three.find(item => item.name == e);
-    } else  {
-      var localidentify = this.dms_four.find(item => item.name == e);
+    var localidentify = null;
+    if (valid == 1 && this.dms_one) {
+      localidentify = this.dms_one.find(item => item.name == e);
+    } else if (valid == 2 && this.dms_two) {
+      localidentify = this.dms_two.find(item => item.name == e);
+    } else if (valid == 3 && this.dms_three) {
+      localidentify = this.dms_three.find(item => item.name == e);
+    } else if (valid == 4 && this.dms_four) {
+      localidentify = this.dms_four.find(item => item.name == e);
     }
 
     if (localidentify) {
@@ -200,7 +201,7 @@ export class FormPsMultiaxialComponent implements OnInit {
         this.two_diagnosis_id = localidentify.id;
       } else if (valid == 3) {
         this.three_diagnosis_id = localidentify.id;
-      } else {
+      } else if (valid == 4) {
         this.four_diagnosis_id = localidentify.id;
       }
     } else {
@@ -217,7 +218,7 @@ export class FormPsMultiaxialComponent implements OnInit {
         this.three_diagnosis_id = null;
         this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
         this.form.controls.axis_three_id.setErrors({ 'incorrect': true });
-      } else {
+      } else if (valid == 4) {
         this.four_diagnosis_id = null;
         this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
         this.form.controls.axis_four_id.setErrors({ 'incorrect': true });

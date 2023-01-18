@@ -242,6 +242,8 @@ export class FormManualProcedureComponent implements OnInit {
       this.showSelect3 = false;
 
       this.showSelect = false;
+      this.form.controls.cups_id.setValidators(null);
+      this.form.controls.cups_id.setErrors(null);
       this.form.controls.own_code.enable();
       this.form.controls.name.enable();
       this.form.controls.own_code.setValue('');
